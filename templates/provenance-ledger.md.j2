@@ -1,0 +1,59 @@
+# Provenance Ledger — {{ display_name }}
+
+**Subagent slug:** `{{ slug }}`
+**Profile version:** {{ agent_version }}
+**Generated:** {{ generated_at }}
+
+---
+
+## Source Registry
+
+| ID | Title | Author | Year | Authority | Rights | Volatility | Review cadence |
+|----|-------|--------|------|-----------|--------|------------|----------------|
+{% for source in sources %}
+| {{ source.source_id }} | {{ source.title }} | {{ source.author or "—" }} | {{ source.year or "—" }} | {{ source.authority or "—" }} | {{ source.rights_status }} | {{ source.volatility or "—" }} | {{ source.review_cadence or "—" }} |
+{% endfor %}
+
+---
+
+## Distillation Log
+
+| Field | Source IDs | QIDs | Notes |
+|-------|-----------|------|-------|
+{% for entry in distillation_log %}
+| `{{ entry.field }}` | {{ entry.source_ids | join(", ") }} | {{ entry.qids | join(", ") }} | {{ entry.notes or "—" }} |
+{% endfor %}
+
+---
+
+## Generated Artifacts
+
+| Artifact | Type | Path | Notes |
+|----------|------|------|-------|
+| profile.yaml | canonical profile | `subagents/{{ slug }}/profile.yaml` | |
+{% for skill in skills %}
+| {{ skill }} | skill | `subagents/{{ slug }}/skills/{{ skill }}/SKILL.md` | |
+{% endfor %}
+{% for ref in references %}
+| {{ ref }} | reference | `subagents/{{ slug }}/references/{{ ref }}.md` | |
+{% endfor %}
+
+---
+
+## Version History
+
+| Version | Date | Changes | Sources involved |
+|---------|------|---------|-----------------|
+| 0.1.0 | {{ generated_at[:10] }} | Initial generation | {% for s in sources %}{{ s.source_id }}{% if not loop.last %}, {% endif %}{% endfor %} |
+
+---
+
+## Open Questions
+
+_None at time of generation._
+
+---
+
+## Conflict Log
+
+_No conflicts recorded at time of generation._

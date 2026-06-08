@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "conversion-report-v1",
+  "title": "Conversion Report v1",
+  "type": "object",
+  "required": ["schema_version", "source_id", "conversion_status", "converter_used"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "conversion-report-v1"},
+    "source_id": {"type": "string"},
+    "conversion_status": {"type": "string"},
+    "converter_used": {"type": ["string", "null"]},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "errors": {"type": "array", "items": {"type": "string"}},
+    "human_review_required": {"type": "boolean"},
+    "human_review_reasons": {"type": "array", "items": {"type": "string"}},
+    "stats": {
+      "type": "object",
+      "properties": {
+        "page_count": {"type": ["integer", "null"]},
+        "word_count": {"type": ["integer", "null"]},
+        "heading_count": {"type": ["integer", "null"]},
+        "table_count": {"type": ["integer", "null"]},
+        "figure_count": {"type": ["integer", "null"]},
+        "code_block_count": {"type": ["integer", "null"]},
+        "asset_count": {"type": ["integer", "null"]}
+      }
+    }
+  },
+  "additionalProperties": false
+}

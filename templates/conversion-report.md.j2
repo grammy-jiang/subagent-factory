@@ -1,0 +1,59 @@
+# Conversion Report — {{ source_id }}
+
+**Source:** {{ original_filename }}
+**Status:** {{ conversion_status }}
+**Converter:** {{ converter_used or "none" }}
+**Generated:** {{ generated_at }}
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | {{ stats.page_count or "—" }} |
+| Words | {{ stats.word_count or "—" }} |
+| Headings | {{ stats.heading_count or "—" }} |
+| Tables | {{ stats.table_count or "—" }} |
+| Figures | {{ stats.figure_count or "—" }} |
+| Code blocks | {{ stats.code_block_count or "—" }} |
+| Assets extracted | {{ stats.asset_count or "—" }} |
+
+---
+
+## Warnings
+
+{% if warnings %}
+{% for w in warnings %}
+- ⚠️ {{ w }}
+{% endfor %}
+{% else %}
+_No warnings._
+{% endif %}
+
+---
+
+## Errors
+
+{% if errors %}
+{% for e in errors %}
+- ❌ {{ e }}
+{% endfor %}
+{% else %}
+_No errors._
+{% endif %}
+
+---
+
+## Human Review Required
+
+{% if human_review_required %}
+**YES** — this source requires human review before proceeding.
+
+Reasons:
+{% for reason in human_review_reasons %}
+- {{ reason }}
+{% endfor %}
+{% else %}
+No human review required.
+{% endif %}
