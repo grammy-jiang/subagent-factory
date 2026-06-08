@@ -16,3 +16,15 @@ htmlcov/
 .ruff_cache/
 inputs/
 .llm-sca/
+
+# Generated subagent output packages — factory OUTPUT, not factory source.
+# Includes verbatim distillation-only source packs. Keep the dir scaffolding only.
+subagents/*/
+!subagents/README.md
+
+# Installed Claude Code adapters are generated artifacts (keep only the README).
+.claude/agents/generated/*.md
+!.claude/agents/generated/README.md
+
+# Transient agent/audit work products
+.agent/
