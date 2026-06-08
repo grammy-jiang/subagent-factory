@@ -36,7 +36,21 @@ From the opening content, identify the rights status:
 - "All rights reserved" or similar copyright with no open license → `distillation-only`
 - Open license (MIT, Apache, CC-BY, public domain, Creative Commons open) → `open`
 - Internal/confidential/proprietary notice → `proprietary/restricted`
-- No copyright notice found → `unknown`
+- Authored work (named author/publisher, ISBN, blog/book/cheat-sheet PDF) with
+  **no explicit license notice** → `distillation-only`. Absence of a notice does
+  not mean public domain: an authored work is copyrighted by default, so the safe
+  floor is distillation-only (distillation allowed, no verbatim quotation). Record
+  the "no explicit notice" observation in the provenance ledger Source-pack note.
+- Genuinely indeterminate provenance (no author, no publisher, no license — cannot
+  tell what the source even is) → `unknown`.
+
+> **`unknown` is a blocking state, not a value to pass through.** Per
+> `.claude/rules/rights-and-quotation-policy.md`, `unknown` blocks distillation
+> until resolved. Do NOT run `ingest --rights unknown`. Resolve it first: for an
+> authored work, resolve to `distillation-only` (the conservative floor above);
+> only stop the run if the source is so unattributable that even distillation
+> cannot be justified. This is why Step 5's default is `distillation-only`, never
+> `unknown`.
 
 Record this as `<detected_rights>` for use in Step 5.
 
