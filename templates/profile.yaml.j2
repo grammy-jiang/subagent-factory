@@ -22,7 +22,6 @@ inputs:
 {% for inp in inputs_required %}
     - {{ inp }}
 {% endfor %}
-  optional: []
 
 outputs:
   primary_format: {{ primary_format }}
@@ -79,5 +78,3 @@ sources:
     sha256: {{ source.sha256 }}
 {% endfor %}
 
-generated_at: {{ generated_at }}
-generator_version: "0.1.0"
