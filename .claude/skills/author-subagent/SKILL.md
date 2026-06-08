@@ -221,8 +221,19 @@ python -m tools.subagent_factory.cli selfcheck <slug>
 
 This runs the 18-check profile self-check and writes `subagents/<slug>/tests/test-results.md`.
 
-- **Verdict FAIL** (exit 1): STOP. Report the failing checks. Delegate fixes back to
-  `profile-deriver` (re-run Step 7), then re-run this gate. Do NOT proceed to export.
+- **Verdict FAIL** (exit 1): STOP. Report the failing checks, then route by failure type:
+  - **Syntactic failure** — `profile-parse` (invalid YAML) or another pure
+    format error with an obvious, semantics-preserving fix (e.g. a free-text
+    scalar needs a `>-` block scalar so an embedded colon-space stops breaking
+    the parse): the main thread MAY apply the minimal fix directly with `Edit`.
+    This does not change any derived decision, so it is not a supersession. A
+    cold `profile-deriver` re-spawn would re-derive the whole profile
+    non-deterministically — overkill for a quoting fix.
+  - **Semantic failure** — missing modes, no source evidence, absent required
+    field, body bloat, etc.: delegate fixes back to `profile-deriver` (re-run
+    Step 7). Do not hand-write profile content in the main thread.
+  - After either repair, **re-run this gate**. Do NOT proceed to export until it
+    returns WARNING/PASS.
 - **Verdict WARNING/PASS** (exit 0): continue to Step 8.
 
 For judgement-heavy review (mode evidence, conflict resolution), optionally delegate to

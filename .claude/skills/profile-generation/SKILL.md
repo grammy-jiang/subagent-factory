@@ -71,6 +71,12 @@ Move violations to skills or references.
 
 Use `templates/profile.yaml.j2`. Write to `subagents/<slug>/profile.yaml`.
 
+**YAML-safety rule:** emit every free-text scalar as a folded block scalar
+(`>-`). A plain scalar containing a colon-space (`": "`) — e.g.
+`- Domain model under review: a diagram` — is parsed as a mapping and breaks the
+file. The template encodes this; preserve it when hand-authoring. Constrained
+tokens (slug, version, booleans, kebab names) stay inline.
+
 ### 4. Write provenance-ledger.md
 
 For every profile field, add a distillation log row:
@@ -95,9 +101,13 @@ Use `templates/golden-tests.yaml.j2`. Write to `subagents/<slug>/tests/golden-te
 
 ### 8. Run Phase 8 self-check
 
-Verify profile against all 18 checks in Phase 8.
-Report PASS / WARNING / FAIL.
-Do not export adapter until PASS.
+Check #0 is **profile.yaml parses as valid YAML** — verify this first; the
+content checks are meaningless on an unparseable file. Then verify the profile
+against the remaining Phase 8 checks. Report PASS / WARNING / FAIL.
+
+The authoritative verdict comes from the deterministic
+`python -m tools.subagent_factory.cli selfcheck <slug>`, not from a hand
+self-assessment. Do not export adapter until that gate returns PASS/WARNING.
 
 ---
 
