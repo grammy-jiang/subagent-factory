@@ -146,3 +146,37 @@ def test_too_few_golden_tests_fails(tmp_path):
 def test_no_negative_routing_test_fails(tmp_path):
     pkg = _write_package(tmp_path, golden=3, negative=0)
     assert _finding(profile_self_check(pkg), 18)["level"] == "FAIL"
+
+
+def test_body_size_pass_has_plain_message_without_breakdown(tmp_path):
+    # A within-budget profile keeps the compact "~N words" message and must NOT
+    # carry the heaviest-sections breakdown (that is for over-budget profiles only).
+    pkg = _write_package(tmp_path)
+    finding = _finding(profile_self_check(pkg), 14)
+    assert finding["level"] == "PASS"
+    assert "heaviest" not in finding["message"]
+    assert "words" in finding["message"]
+
+
+def test_body_size_warning_names_heaviest_sections(tmp_path):
+    # Push role just over the 800-word warn budget (but under the 1000 fail limit).
+    p = _valid_profile()
+    p["role"] = p["role"] + (" extra word" * 400)
+    pkg = _write_package(tmp_path, profile=p)
+    finding = _finding(profile_self_check(pkg), 14)
+    assert finding["level"] == "WARNING"
+    # The breakdown must point the author at the actual culprit section.
+    assert "heaviest" in finding["message"]
+    assert "role" in finding["message"]
+    assert "over the 800-word budget" in finding["message"]
+
+
+def test_body_size_fail_includes_breakdown(tmp_path):
+    # Way over the 1000-word fail limit still reports the heaviest-section breakdown.
+    p = _valid_profile()
+    p["role"] = p["role"] + (" extra word" * 700)
+    pkg = _write_package(tmp_path, profile=p)
+    finding = _finding(profile_self_check(pkg), 14)
+    assert finding["level"] == "FAIL"
+    assert "heaviest" in finding["message"]
+    assert "role" in finding["message"]

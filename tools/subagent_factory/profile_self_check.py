@@ -183,14 +183,24 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
             f"{len(forbidden)} rules; source traceability delegated to profile-reviewer")
 
     # 13. No multi-step workflow in profile body
-    body_fields = (
-        [str(profile.get("role", ""))]
-        + when_to_use + when_not_to_use + inputs_required
-        + [primary_format, minimum_useful_output]
-        + [f"{m.get('trigger', '')} {m.get('output', '')}" for m in modes]
-        + quality_bar + forbidden + _as_list(profile.get("handoff_rules"))
-        + [str(sot.get("precedence", ""))]
-    )
+    # Body fields grouped by section so check 14 can point at the heaviest
+    # contributors when the profile is over the word budget. The flattened list
+    # is identical to the previous anonymous construction, so check 13 below is
+    # byte-for-byte unchanged.
+    body_groups = {
+        "role": [str(profile.get("role", ""))],
+        "when_to_use": when_to_use,
+        "when_not_to_use": when_not_to_use,
+        "inputs.required": inputs_required,
+        "outputs.primary_format": [primary_format],
+        "minimum_useful_output": [minimum_useful_output],
+        "modes": [f"{m.get('trigger', '')} {m.get('output', '')}" for m in modes],
+        "quality_bar": quality_bar,
+        "forbidden_behaviours": forbidden,
+        "handoff_rules": _as_list(profile.get("handoff_rules")),
+        "precedence": [str(sot.get("precedence", ""))],
+    }
+    body_fields = [t for group in body_groups.values() for t in group]
     if any(_STEP_RE.search(t) for t in body_fields):
         add(13, "WARNING", "no-procedure-in-body",
             "possible multi-step workflow in profile body; extract to a skill")
@@ -199,12 +209,24 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
 
     # 14. Profile body under 800 words
     word_count = sum(len(str(t).split()) for t in body_fields)
-    if word_count > _BODY_FAIL_WORDS:
-        add(14, "FAIL", "body-size", f"profile body ~{word_count} words (> {_BODY_FAIL_WORDS})")
-    elif word_count > _BODY_WARN_WORDS:
-        add(14, "WARNING", "body-size", f"profile body ~{word_count} words (> {_BODY_WARN_WORDS})")
-    else:
+    if word_count <= _BODY_WARN_WORDS:
         add(14, "PASS", "body-size", f"~{word_count} words")
+    else:
+        # Over budget: name the heaviest sections so trimming is targeted, not
+        # guesswork. (Closing this WARNING is otherwise pure trial-and-error.)
+        level = "FAIL" if word_count > _BODY_FAIL_WORDS else "WARNING"
+        limit = _BODY_FAIL_WORDS if level == "FAIL" else _BODY_WARN_WORDS
+        section_words = {
+            name: sum(len(str(t).split()) for t in group)
+            for name, group in body_groups.items()
+        }
+        top = sorted(section_words.items(), key=lambda kv: kv[1], reverse=True)[:3]
+        breakdown = ", ".join(f"{name} {n}w" for name, n in top if n)
+        over = word_count - _BODY_WARN_WORDS
+        add(14, level, "body-size",
+            f"profile body ~{word_count} words (> {limit}); "
+            f"{over} over the {_BODY_WARN_WORDS}-word budget; "
+            f"heaviest: {breakdown}")
 
     # 15. No platform-specific paths or tool names in core
     core_text = " ".join(str(t) for t in body_fields).lower()
