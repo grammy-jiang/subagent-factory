@@ -7,7 +7,6 @@ from pathlib import Path
 import jsonschema
 import yaml
 
-
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "source-pack-manifest-v1.schema.json"
 
 

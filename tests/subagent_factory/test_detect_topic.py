@@ -4,14 +4,12 @@ import tempfile
 from pathlib import Path
 
 from tools.subagent_factory.detect_topic import (
+    _extract_body_excerpt,
+    _extract_headings,
+    _file_hint,
     extract_content_sample,
     format_sample_for_inference,
-    _file_hint,
-    _extract_headings,
-    _extract_toc,
-    _extract_body_excerpt,
 )
-
 
 MD_WITH_FRONTMATTER = """\
 ---

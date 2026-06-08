@@ -2,20 +2,20 @@
 
 import hashlib
 import shutil
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
 from slugify import slugify
 
-from tools.subagent_factory.detect_file_type import detect_file_type
 from tools.subagent_factory.convert_document import convert_document
-from tools.subagent_factory.inject_anchors import inject_anchors
+from tools.subagent_factory.detect_file_type import detect_file_type
 from tools.subagent_factory.extract_assets import extract_assets
-from tools.subagent_factory.generate_metadata import generate_metadata
-from tools.subagent_factory.generate_manifest import generate_manifest
-from tools.subagent_factory.generate_conversion_report import generate_conversion_report
 from tools.subagent_factory.fetch_url import fetch_url
+from tools.subagent_factory.generate_conversion_report import generate_conversion_report
+from tools.subagent_factory.generate_manifest import generate_manifest
+from tools.subagent_factory.generate_metadata import generate_metadata
+from tools.subagent_factory.inject_anchors import inject_anchors
 
 
 def ingest_source(
@@ -88,7 +88,7 @@ def ingest_source(
 
     if source_id is None:
         stem = slugify(source_file.stem, max_length=20) or "source"
-        ts = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
+        ts = datetime.now(UTC).strftime("%Y%m%d%H%M%S")
         source_id = f"{stem}-{ts}"
 
     result["source_id"] = source_id
@@ -187,6 +187,8 @@ def _derive_status(conversion_result: dict) -> str:
         return "needs-human-review"
     if not conversion_result.get("markdown_text", "").strip():
         return "failed"
+    if conversion_result.get("low_quality"):
+        return "needs-human-review"
     return "ok"
 
 

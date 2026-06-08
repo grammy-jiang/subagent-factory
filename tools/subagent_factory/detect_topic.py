@@ -18,14 +18,10 @@ The skill reads this sample and answers:
 """
 
 import re
-import zipfile
 from pathlib import Path
 
-import yaml
-
-from tools.subagent_factory.detect_file_type import detect_file_type
 from tools.subagent_factory.convert_document import convert_document
-
+from tools.subagent_factory.detect_file_type import detect_file_type
 
 SAMPLE_WORDS = 1500
 MAX_HEADINGS = 60

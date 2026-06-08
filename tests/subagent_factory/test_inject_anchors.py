@@ -6,7 +6,6 @@ from pathlib import Path
 
 from tools.subagent_factory.inject_anchors import inject_anchors
 
-
 MD_CONTENT = """# Introduction
 
 Some text here.
@@ -42,8 +41,8 @@ def test_anchors_generated():
     assert result["anchor_count"] > 0
 
     jsonl_text = Path(out_jsonl).read_text()
-    lines = [l for l in jsonl_text.strip().splitlines() if l]
-    anchors = [json.loads(l) for l in lines]
+    lines = [ln for ln in jsonl_text.strip().splitlines() if ln]
+    anchors = [json.loads(ln) for ln in lines]
 
     types = {a["anchor_type"] for a in anchors}
     assert "heading" in types

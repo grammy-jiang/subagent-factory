@@ -6,13 +6,13 @@ from pathlib import Path
 import yaml
 
 from tools.subagent_factory.find_related_subagents import (
-    find_related_subagents,
-    extract_domain_keywords,
-    _jaccard,
-    _tokenize,
     _build_profile_corpus,
+    _jaccard,
+    _overlap_coefficient,
+    _tokenize,
+    extract_domain_keywords,
+    find_related_subagents,
 )
-
 
 # ── unit ───────────────────────────────────────────────────────────────────
 
@@ -149,6 +149,45 @@ def test_recommendation_thresholds():
         assert len(results) > 0
         top = results[0]
         # With heavy overlap, should recommend update
+        assert top["recommendation"] in ("update", "consider-update")
+
+
+def test_overlap_coefficient_covers_small_query_in_large_corpus():
+    query = {"concurrency", "threads", "locks"}
+    corpus = query | {f"filler{i}" for i in range(200)}
+    # Query is fully covered → overlap 1.0, while Jaccard collapses to ~0.015.
+    assert _overlap_coefficient(query, corpus) == 1.0
+    assert _jaccard(query, corpus) < 0.1
+
+
+def test_small_query_large_corpus_reaches_update_threshold():
+    # Regression: with Jaccard this scored ~0.05 and was filtered out, so the
+    # Phase 7 update path was unreachable. Overlap coefficient must surface it.
+    with tempfile.TemporaryDirectory() as tmp:
+        slug_dir = Path(tmp) / "java-concurrency-reviewer"
+        slug_dir.mkdir()
+        filler = [f"unrelated filler clause number {i} alpha beta gamma delta" for i in range(40)]
+        profile = {
+            "slug": "java-concurrency-reviewer",
+            "display_name": "Java Concurrency Reviewer",
+            "role": "Reviews Java concurrent code for safety liveness and performance "
+                    "using synchronization locks monitor atomicity visibility threads deadlock",
+            "when_to_use": ["synchronized code needs a deadlock and race audit"],
+            "knowledge_partition": {"always_on": filler},
+            "sources": [{"title": "Concurrent Programming in Java"}],
+        }
+        (slug_dir / "profile.yaml").write_text(yaml.dump(profile))
+
+        results = find_related_subagents(
+            "Java concurrency reviewer",
+            domain_keywords=["concurrency", "threads", "synchronization", "locks",
+                             "deadlock", "safety", "liveness", "monitor", "atomicity", "visibility"],
+            subagents_dir=tmp,
+        )
+        assert len(results) == 1
+        top = results[0]
+        assert top["slug"] == "java-concurrency-reviewer"
+        assert top["similarity"] >= 0.55
         assert top["recommendation"] in ("update", "consider-update")
 
 

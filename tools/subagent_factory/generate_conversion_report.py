@@ -1,10 +1,9 @@
 """Generate conversion report Markdown from conversion result."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
-
 
 _TEMPLATES_DIR = Path(__file__).parent.parent.parent / "templates"
 
@@ -44,10 +43,12 @@ def generate_conversion_report(
         "human_review_required": human_review_required,
         "human_review_reasons": human_review_reasons,
         "stats": stats,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
     }
 
-    env = Environment(loader=FileSystemLoader(str(_TEMPLATES_DIR)), autoescape=False)
+    # Renders Markdown (not HTML) from trusted in-repo data;
+    # HTML autoescape would corrupt Markdown punctuation in the output.
+    env = Environment(loader=FileSystemLoader(str(_TEMPLATES_DIR)), autoescape=False)  # nosec B701
     tmpl = env.get_template("conversion-report.md.j2")
     rendered = tmpl.render(**report)
     Path(output_path).write_text(rendered, encoding="utf-8")

@@ -8,7 +8,6 @@ from urllib.parse import urlparse
 
 import requests
 
-
 TIMEOUT = 30
 MAX_SIZE = 50 * 1024 * 1024  # 50 MB
 USER_AGENT = "subagent-factory/0.1.0 (research-tool)"

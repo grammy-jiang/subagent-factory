@@ -1,12 +1,11 @@
 """Export a generated subagent package to a Claude Code runtime adapter."""
 
 import shutil
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
 from jinja2 import Environment, FileSystemLoader
-
 
 _TEMPLATES_DIR = Path(__file__).parent.parent.parent / "templates"
 _REPO_ROOT = Path(__file__).parent.parent.parent
@@ -47,7 +46,9 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
 
     ctx = _build_template_context(profile)
 
-    env = Environment(loader=FileSystemLoader(str(_TEMPLATES_DIR)), autoescape=False)
+    # Renders a Markdown adapter (not HTML) from trusted profile data;
+    # HTML autoescape would corrupt Markdown punctuation in the output.
+    env = Environment(loader=FileSystemLoader(str(_TEMPLATES_DIR)), autoescape=False)  # nosec B701
     tmpl = env.get_template("claude-agent-adapter.md.j2")
     rendered = tmpl.render(**ctx)
 
@@ -161,14 +162,12 @@ def _build_template_context(profile: dict) -> dict:
         "knowledge_references": kp.get("references", []),
         "agent_version": profile.get("agent_version", "0.1.0"),
         "generator_version": GENERATOR_VERSION,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "sources": sources,
     }
 
 
 def _determine_tools(profile: dict) -> list[str]:
-    kp = profile.get("knowledge_partition", {})
-    mcp = kp.get("mcp", [])
     # Read-only roles default to Read, Grep, Glob
     base = ["Read", "Grep", "Glob"]
     modes = [m.get("name", "") for m in profile.get("outputs", {}).get("modes", [])]

@@ -6,16 +6,21 @@ Query is built from TWO sources:
   domain_keywords — key domain terms extracted from content sample headings/body
                    (e.g. ["complexity", "abstraction", "modules", "interfaces"])
 
-Both are tokenized and combined into one query set before Jaccard comparison.
-Each existing subagent's profile is compared against the full query: display_name,
-role, when_to_use, forbidden_behaviours, source titles, knowledge_partition always_on.
+Both are tokenized and combined into one query set, then scored by overlap
+coefficient (query coverage) against each profile's corpus. Each existing
+subagent's profile is compared against the full query: display_name, role,
+when_to_use, forbidden_behaviours, source titles, knowledge_partition always_on.
+
+Overlap coefficient — not Jaccard — is used deliberately: the query (~15 tokens)
+is tiny next to a profile corpus (hundreds of tokens), so symmetric Jaccard
+(|A∩B|/|A∪B|) collapses toward zero even for a strong topical match and can never
+reach the 0.55/0.80 routing thresholds.
 """
 
 import re
 from pathlib import Path
 
 import yaml
-
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
 
@@ -60,7 +65,7 @@ def find_related_subagents(
         slug = profile.get("slug") or profile_path.parent.name
         corpus_tokens, corpus_text = _build_profile_corpus(profile)
 
-        sim = _jaccard(query_tokens, corpus_tokens)
+        sim = _overlap_coefficient(query_tokens, corpus_tokens)
         matched = sorted(query_tokens & corpus_tokens)
 
         rec = "create-new"
@@ -139,6 +144,18 @@ def _jaccard(a: set, b: set) -> float:
     intersection = len(a & b)
     union = len(a | b)
     return intersection / union if union > 0 else 0.0
+
+
+def _overlap_coefficient(a: set, b: set) -> float:
+    """Szymkiewicz-Simpson overlap: |A∩B| / min(|A|, |B|).
+
+    Fraction of the smaller set (the query) covered by the larger (the profile
+    corpus). Used instead of Jaccard so a small query can still score high
+    against a large profile when the topic genuinely matches.
+    """
+    if not a or not b:
+        return 0.0
+    return len(a & b) / min(len(a), len(b))
 
 
 _STOP_WORDS = {

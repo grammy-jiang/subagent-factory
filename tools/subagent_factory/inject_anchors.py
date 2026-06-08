@@ -28,7 +28,6 @@ def inject_anchors(
         line_num = line_idx + 1
 
         heading_match = re.match(r"^(#{1,6})\s+(.+)$", line)
-        table_start = re.match(r"^\|.+\|$", line) and line_idx > 0 and not re.match(r"^\|.+\|$", lines[line_idx - 1] if line_idx > 0 else "")
         figure_match = re.match(r"^!\[([^\]]*)\]", line)
         code_fence = re.match(r"^```(\w*)", line)
 

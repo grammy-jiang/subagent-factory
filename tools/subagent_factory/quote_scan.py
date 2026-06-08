@@ -23,7 +23,6 @@ from pathlib import Path
 
 import yaml
 
-
 MIN_WORDS_FOR_CONCERN = 40
 
 # Match "quoted text" only in markdown prose lines (not YAML string syntax)

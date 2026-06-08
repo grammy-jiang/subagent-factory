@@ -3,8 +3,6 @@
 import tempfile
 from pathlib import Path
 
-import pytest
-
 from tools.subagent_factory.detect_file_type import detect_file_type
 
 

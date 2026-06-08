@@ -1,15 +1,19 @@
-"""Convert DOCX to Markdown. Primary: Pandoc. Fallback: MarkItDown."""
+"""Convert DOCX to Markdown. Primary: Pandoc. Fallback: MarkItDown (self-healed)."""
 
 import re
 import subprocess
 from pathlib import Path
+
+from tools.subagent_factory.conversion_quality import assess_quality
+from tools.subagent_factory.self_heal import ensure_package
 
 
 def convert_docx(source_path: str | Path, output_path: str | Path) -> dict:
     """
     Convert DOCX to Markdown.
 
-    Returns dict: markdown_text, converter_used, warnings, errors, stats
+    Returns dict: markdown_text, converter_used, warnings, errors,
+                  low_quality, quality, stats
     """
     src = Path(source_path)
     result = {
@@ -17,31 +21,37 @@ def convert_docx(source_path: str | Path, output_path: str | Path) -> dict:
         "converter_used": None,
         "warnings": [],
         "errors": [],
+        "low_quality": False,
+        "quality": {},
         "stats": {},
     }
 
     text, used, warns, errs = _try_pandoc(src)
-    if text:
-        result["converter_used"] = used
-        result["warnings"] = warns
-        result["errors"] = errs
-        result["markdown_text"] = text
-        result["stats"] = _compute_stats(text)
-        Path(output_path).write_text(text, encoding="utf-8")
-        return result
+    if not text:
+        text2, used2, warns2, errs2 = _try_markitdown(src)
+        if text2:
+            text, used = text2, used2
+            warns = warns2 + ["Pandoc unavailable or failed; used MarkItDown fallback"]
+            errs = errs2
+        else:
+            result["errors"] = errs + errs2
+            result["errors"].append("All DOCX converters failed")
+            result["converter_used"] = "none"
+            return result
 
-    text, used, warns, errs = _try_markitdown(src)
-    if text:
-        result["converter_used"] = used
-        result["warnings"] = warns + ["Pandoc unavailable or failed; used MarkItDown fallback"]
-        result["errors"] = errs
-        result["markdown_text"] = text
-        result["stats"] = _compute_stats(text)
-        Path(output_path).write_text(text, encoding="utf-8")
-        return result
+    return _finalize(result, text, used, warns, errs, output_path)
 
-    result["errors"].append("All DOCX converters failed")
-    result["converter_used"] = "none"
+
+def _finalize(result, text, used, warns, errs, output_path):
+    result["converter_used"] = used
+    result["errors"] = errs
+    result["markdown_text"] = text
+    quality = assess_quality(text)
+    result["quality"] = quality
+    result["low_quality"] = quality["low_quality"]
+    result["warnings"] = warns + [f"Low conversion quality: {r}" for r in quality["reasons"]]
+    result["stats"] = _compute_stats(text)
+    Path(output_path).write_text(text, encoding="utf-8")
     return result
 
 
@@ -63,14 +73,13 @@ def _try_pandoc(src: Path):
 
 
 def _try_markitdown(src: Path):
+    md_mod = ensure_package("markitdown", purpose="DOCX conversion")
+    if md_mod is None:
+        return None, None, [], ["markitdown not installed and could not be auto-installed"]
     try:
-        from markitdown import MarkItDown
-
-        md = MarkItDown()
+        md = md_mod.MarkItDown()
         result = md.convert(str(src))
         return result.text_content, "markitdown", [], []
-    except ImportError:
-        return None, None, [], ["markitdown not installed"]
     except Exception as e:
         return None, None, [], [f"markitdown error: {e}"]
 

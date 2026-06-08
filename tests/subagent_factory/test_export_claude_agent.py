@@ -8,11 +8,10 @@ with a literal " | ", and the whole string was clipped mid-trigger
 """
 
 from tools.subagent_factory.export_claude_agent import (
+    _TRAILING_CONNECTORS,
     _clean_clause,
     _compose_description,
-    _TRAILING_CONNECTORS,
 )
-
 
 # A profile whose role and triggers are all longer than their clause budgets,
 # mirroring the real software-design-reviewer profile that exposed the bug.

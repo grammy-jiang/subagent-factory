@@ -1,7 +1,7 @@
 """Run golden tests and negative routing tests for a generated subagent."""
 
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
@@ -67,7 +67,7 @@ def write_test_results(subagent_dir: str | Path, self_check_result: dict | None 
     out_path = tests_dir / "test-results.md"
 
     tests = run_tests(base)
-    ts = datetime.now(timezone.utc).isoformat()
+    ts = datetime.now(UTC).isoformat()
 
     lines = [
         f"# Test Results — {base.name}",
