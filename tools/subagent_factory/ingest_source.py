@@ -86,6 +86,11 @@ def ingest_source(
 
     file_type = detect_file_type(source_file)
 
+    # Markdown cache: inputs/markdown-cache/<sha256>.md
+    # Avoids re-converting the same PDF across multiple subagent packages / rounds.
+    cache_dir = subagent_path.parent.parent / "inputs" / "markdown-cache"
+    cache_md = cache_dir / f"{sha256}.md"
+
     if source_id is None:
         stem = slugify(source_file.stem, max_length=20) or "source"
         ts = datetime.now(UTC).strftime("%Y%m%d%H%M%S")
@@ -110,9 +115,22 @@ def ingest_source(
     shutil.copy2(source_file, original_dest)
     result["original_path"] = str(original_dest)
 
-    # Convert to Markdown
+    # Convert to Markdown (or restore from cache)
     md_path = markdown_dir / f"{source_id}.md"
-    conversion_result = convert_document(original_dest, md_path)
+    if cache_md.exists():
+        shutil.copy2(cache_md, md_path)
+        cached_size = cache_md.stat().st_size
+        conversion_result = {
+            "file_type": file_type,
+            "markdown_text": " " if cached_size > 0 else "",
+            "converter_used": "cache",
+            "warnings": [],
+            "errors": [],
+            "stats": {"cached_bytes": cached_size},
+            "from_cache": True,
+        }
+    else:
+        conversion_result = convert_document(original_dest, md_path)
     conversion_result["conversion_status"] = _derive_status(conversion_result)
     result["conversion_result"] = conversion_result
 
@@ -126,6 +144,11 @@ def ingest_source(
     anchor_result = inject_anchors(md_path, anchored_md, anchors_path, source_id)
     result["anchor_count"] = anchor_result["anchor_count"]
     result["markdown_path"] = str(anchored_md)
+
+    # Populate markdown cache on fresh conversion
+    if not conversion_result.get("from_cache") and conversion_result["conversion_status"] == "ok":
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(anchored_md, cache_md)
 
     # Generate metadata
     meta_path = metadata_dir / f"{source_id}.metadata.json"
@@ -185,7 +208,11 @@ def _derive_status(conversion_result: dict) -> str:
         return "failed"
     if conversion_result.get("is_scanned"):
         return "needs-human-review"
-    if not conversion_result.get("markdown_text", "").strip():
+    # Cache hits skip text check — file content verified by non-zero cached_bytes.
+    if not conversion_result.get("from_cache"):
+        if not conversion_result.get("markdown_text", "").strip():
+            return "failed"
+    elif conversion_result.get("stats", {}).get("cached_bytes", 0) == 0:
         return "failed"
     if conversion_result.get("low_quality"):
         return "needs-human-review"
