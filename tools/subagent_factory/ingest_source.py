@@ -5,6 +5,7 @@ import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
+import yaml
 from slugify import slugify
 
 from tools.subagent_factory.detect_file_type import detect_file_type
@@ -47,6 +48,7 @@ def ingest_source(
         "anchor_count": 0,
         "asset_count": 0,
         "needs_auth": False,
+        "already_ingested": False,
         "error": None,
     }
 
@@ -70,6 +72,17 @@ def ingest_source(
         if not source_file.exists():
             result["error"] = f"Source file not found: {source_file}"
             return result
+
+    # sha256 dedup: skip if same content already ingested
+    sha256 = _sha256_file(source_file)
+    manifest_path = subagent_path / "source-pack.manifest.yaml"
+    if manifest_path.exists():
+        existing_manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8")) or {}
+        for existing_source in existing_manifest.get("sources", []):
+            if existing_source.get("sha256") == sha256:
+                result["source_id"] = existing_source["source_id"]
+                result["already_ingested"] = True
+                return result
 
     file_type = detect_file_type(source_file)
 
@@ -155,6 +168,14 @@ def ingest_source(
     generate_manifest(subagent_path, subagent_slug, [manifest_source])
 
     return result
+
+
+def _sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
 
 def _derive_status(conversion_result: dict) -> str:

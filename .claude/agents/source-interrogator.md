@@ -1,7 +1,7 @@
 ---
 name: source-interrogator
 description: "Runs Q1–Q18 source interrogation against canonical Markdown sources to extract profile fields. Use when ingestion is complete and interrogation records are needed."
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, Write
 model: sonnet
 ---
 
@@ -41,7 +41,9 @@ Do NOT invent answers.
 
 ## Output
 
-Return a YAML interrogation record per source. See skill for exact format.
+Write the completed YAML interrogation record to `subagents/<slug>/interrogation-records.yaml`
+using the Write tool. Do NOT return the YAML as text — write it to disk.
+See skill for exact format.
 
 ## Quality bar
 
