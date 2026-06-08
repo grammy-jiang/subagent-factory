@@ -123,3 +123,92 @@ microservice pattern catalogue, not a prose book.
 - Package stays `status: draft` until both are authored. Recorded evidence gap: the
   one-page map names patterns but gives no per-pattern prose, so per-pattern mechanics
   are out of scope for v0 and must not be fabricated.
+
+### Run 2 — employee-payment-scheme-advisor — 2026-06-09
+
+**Source**
+- `awesome-book-collection/System Design/Payment Systems and Performance Improvement_
+  Participation in Payment System Design (1989) - Bowey, Angela_ Thorpe, Richard.pdf`
+- Actually a 4-page Emerald journal article (*Employee Relations*, Vol. 11 Iss. 1,
+  pp. 17–20, DOI 10.1108/EUM0000000001014), **not** software/financial system design.
+  Detected rights: **distillation-only** (copyrighted journal, subscription access,
+  `permissions@emeraldinsight.com`).
+
+**Role-inference trap (handled correctly)**
+- The file sits under `System Design/` but the content is a management / employee-relations
+  piece on the **participative design and implementation of employee incentive payment
+  (reward) schemes for performance improvement**. Role inferred from the article text
+  (extract-sample + full ingested markdown), not from the folder/filename. Slug deliberately
+  uses `employee-payment-scheme` to disambiguate from fintech/software payment systems; the
+  first `when_not_to_use` exclusion and a `forbidden_behaviour` encode that boundary, and a
+  negative-routing golden test (NR-001) locks it in.
+- Content was genuinely sufficient for a coherent expert role (~2000 words of recoverable
+  body: the participation-over-structure thesis, two named failure modes, the
+  participation→productivity→pay relationship, the cross-level participative-group method,
+  and the negotiation-boundary rule). Did **not** force a bad package and did **not** stop.
+
+**Create/update decision**
+- `search` similarity max **0.13** (`software-design-reviewer`), far below the 0.55 ask /
+  0.80 update thresholds. Unambiguous **CREATE NEW**.
+
+**Pipeline outcome**
+- `conversion_status=ok` (converter: **markitdown** fallback; Docling unavailable). **Not**
+  scanned — no `needs-ocr`. `page_count=5`, `word_count=4748`.
+- Phase 8 deterministic `selfcheck`: **PASS** (after trimming the body from 843→797 words to
+  clear the 800-word budget — see friction #1 below).
+- `cli validate`: **VALIDATION PASSED** (every check OK, including quote-scan = no verbatim
+  quotation from the distillation-only source, and adapter-sync).
+- `make verify`: **OK** — ruff clean, bandit clean, detect-secrets clean, pytest
+  **120 passed** (117 prior + 3 net new self-check tests).
+- Stubs scaffolded: 4 skills + 2 references (all `STATUS: STUB`).
+
+**Workflow review (friction points hit this run)**
+1. **The 800-word body budget is a per-run tax with no targeting help** (the chosen factory
+   fix — see below). `selfcheck` reported only the *total* body word count, so closing the
+   `body-size` WARNING was pure trial-and-error: it took ~6 edit/re-run cycles to trim
+   843→797 words while blind-guessing which fields were heaviest. Over a 165-book campaign,
+   rich sources will routinely exceed 800; this friction recurs every time.
+2. **Two-column journal PDF interleaves at the line level** under the markitdown fallback
+   (Docling unavailable). Individual sentences came out column-interleaved and the two
+   figures were unreadable; the thesis, failure modes, and method were still unambiguous
+   from context. Recorded as an evidence gap, not a blocker. (Same class of converter-fidelity
+   friction noted in Run 1; fixing it means enabling Docling via `bootstrap`, an environment
+   change, not a surgical source fix — out of scope this run.)
+3. **Stale cached CLI help in the context index** showed only 5 commands; the live CLI has 10
+   (`bootstrap`, `doctor`, `score`, `selfcheck`, `stubs` were missing from the cache). A
+   context-mode caching artifact, not a factory bug — verified against the live `--help`.
+4. Cosmetic: every CLI call still prints `RequestsDependencyWarning` (urllib3/chardet version
+   mismatch); environmental, not factory source.
+
+**Factory change made**
+- **What:** `tools/subagent_factory/profile_self_check.py` — when check 14 (`body-size`)
+  exceeds the warn/fail budget, the finding message now names the **3 heaviest profile
+  sections with their word counts** (e.g. `heaviest: when_to_use 153w, modes 146w,
+  quality_bar 132w`) and how many words it is over the 800-word budget. Refactored the body
+  fields into a labelled `body_groups` dict; the flattened `body_fields` list (and therefore
+  check 13) is byte-for-byte unchanged. **Purely additive to the WARNING/FAIL message** — the
+  PASS path, all thresholds, and all verdicts are untouched.
+- **Why:** turns closing the most common authoring WARNING from blind trial-and-error into a
+  targeted edit. Directly addresses friction #1, which every content-rich run in this campaign
+  will hit.
+- **Files:** `tools/subagent_factory/profile_self_check.py`,
+  `tests/subagent_factory/test_profile_self_check.py` (+3 tests: PASS keeps the compact
+  message with no breakdown; over-WARN and over-FAIL both surface the heaviest-section
+  breakdown).
+- **Non-breaking proof:** all 6 existing packages re-checked — verdicts unchanged. The 4 that
+  PASSed still PASS with identical compact messages; the 2 already-WARNING kafka packages
+  (911w, 860w) now show the new breakdown but keep their WARNING verdict.
+- **Commit:** `ae7bbcc`
+
+**Human-review / unauthored stubs left as `status: draft`**
+- `subagents/employee-payment-scheme-advisor/skills/participative-scheme-design-programme/SKILL.md`
+- `subagents/employee-payment-scheme-advisor/skills/participative-working-groups/SKILL.md`
+- `subagents/employee-payment-scheme-advisor/skills/scheme-subversion-and-decay-diagnosis/SKILL.md`
+- `subagents/employee-payment-scheme-advisor/skills/pilot-and-extension/SKILL.md`
+- `subagents/employee-payment-scheme-advisor/references/research-base.md`
+- `subagents/employee-payment-scheme-advisor/references/cited-literature.md`
+- All `STATUS: STUB`; package stays `status: draft` until authored. Evidence gaps recorded in
+  the provenance ledger: the source is a condensed 4-page account of a larger research
+  programme, so deep procedural detail and the two figures are summarised, not fully
+  specified — must not be fabricated.
+- **No needs-ocr block this run.**
