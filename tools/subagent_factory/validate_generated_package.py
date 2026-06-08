@@ -10,8 +10,9 @@ Checks:
   - profile.yaml exists
   - provenance-ledger.md exists
   - adapter exists (canonical)
-  - installed adapter matches canonical
-  - tests exist
+  - installed adapter exists and matches canonical (FAIL on mismatch)
+  - tests exist (golden-tests.yaml + test-results.md)
+  - Phase 8 profile self-check gate passes
   - restricted quote scan passes
 """
 
@@ -22,6 +23,7 @@ from tools.subagent_factory.validate_metadata import validate_metadata
 from tools.subagent_factory.validate_manifest import validate_manifest
 from tools.subagent_factory.validate_anchor_index import validate_anchor_index
 from tools.subagent_factory.quote_scan import quote_scan
+from tools.subagent_factory.profile_self_check import profile_self_check
 
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
@@ -131,27 +133,42 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
     installed_path = _REPO_ROOT / ".claude" / "agents" / "generated" / f"{slug}.md"
     if installed_path.exists():
         ok("adapter-installed", "Installed adapter present")
-        # Compare content
+        # Compare content — installed adapter must match canonical (v0 requirement)
         if adapter_path.exists():
             canonical = adapter_path.read_text()
             installed = installed_path.read_text()
             if canonical != installed:
-                warn("adapter-sync", "Installed adapter differs from canonical — re-export needed")
+                fail("adapter-sync", "Installed adapter differs from canonical — re-export needed")
+            else:
+                ok("adapter-sync", "Installed adapter matches canonical")
     else:
-        warn("adapter-installed", f"Installed adapter not found at {installed_path}")
+        fail("adapter-installed", f"Installed adapter not found at {installed_path}")
 
-    # 8. Tests
+    # 8. Tests — golden tests and a test-results record are required (v0 §17)
     tests_dir = base / "tests"
-    if tests_dir.exists():
-        test_files = list(tests_dir.glob("*.yaml")) + list(tests_dir.glob("*.md"))
-        if test_files:
-            ok("tests", f"{len(test_files)} test file(s) found")
-        else:
-            warn("tests", "No test files found in tests/")
+    if not tests_dir.exists():
+        fail("tests", "tests/ directory missing")
     else:
-        warn("tests", "tests/ directory missing")
+        if (tests_dir / "golden-tests.yaml").exists():
+            ok("tests", "tests/golden-tests.yaml present")
+        else:
+            fail("tests", "tests/golden-tests.yaml missing")
+        if (tests_dir / "test-results.md").exists():
+            ok("test-results", "tests/test-results.md present")
+        else:
+            fail("test-results", "tests/test-results.md missing — run `cli selfcheck <slug>` first")
 
-    # 9. Quote scan
+    # 9. Phase 8 profile self-check gate — any FAIL blocks the package
+    if (base / "profile.yaml").exists():
+        gate = profile_self_check(base)
+        gate_fails = [f for f in gate["findings"] if f["level"] == "FAIL"]
+        if gate_fails:
+            for gf in gate_fails:
+                fail("phase8", f"check {gf['num']} {gf['check']}: {gf['message']}")
+        else:
+            ok("phase8", f"Phase 8 self-check {gate['verdict']}")
+
+    # 10. Quote scan
     quote_findings = quote_scan(base)
     if quote_findings:
         for qf in quote_findings:

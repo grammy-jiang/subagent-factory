@@ -210,6 +210,26 @@ instructions into main context instead of delegating.
 
 ---
 
+## Step 7.5 — Phase 8 self-check gate
+
+Run the deterministic Phase 8 gate before generating any adapter. The process
+cycle is explicit: **do not generate adapters until the gate passes.**
+
+```bash
+python -m tools.subagent_factory.cli selfcheck <slug>
+```
+
+This runs the 18-check profile self-check and writes `subagents/<slug>/tests/test-results.md`.
+
+- **Verdict FAIL** (exit 1): STOP. Report the failing checks. Delegate fixes back to
+  `profile-deriver` (re-run Step 7), then re-run this gate. Do NOT proceed to export.
+- **Verdict WARNING/PASS** (exit 0): continue to Step 8.
+
+For judgement-heavy review (mode evidence, conflict resolution), optionally delegate to
+the `profile-reviewer` agent via `Agent(subagent_type="profile-reviewer")`.
+
+---
+
 ## Step 8 — Export adapter
 
 ```bash
@@ -236,6 +256,7 @@ Report:
 - Detected rights status
 - Sources ingested (or skipped as duplicates)
 - Adapter installed at `.claude/agents/generated/<slug>.md`
+- Phase 8 self-check verdict and `tests/test-results.md` path
 - Validation status
 - Any warnings or human-review items
 - **Skills not yet authored** (from `profile.yaml knowledge_partition.skills`):

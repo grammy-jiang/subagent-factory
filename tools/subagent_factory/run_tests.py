@@ -1,6 +1,7 @@
 """Run golden tests and negative routing tests for a generated subagent."""
 
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
@@ -50,6 +51,65 @@ def run_tests(subagent_dir: str | Path) -> dict:
 
     all_passed = total > 0 and passed == total
     return {"passed": all_passed, "total": total, "passed_count": passed, "results": results}
+
+
+def write_test_results(subagent_dir: str | Path, self_check_result: dict | None = None) -> Path:
+    """Write ``tests/test-results.md`` for a generated package.
+
+    Captures the Phase 8 self-check verdict (when supplied) and the golden /
+    negative-routing test inventory. This is the v0-required test-results
+    artifact (process cycle Phase 10). Live routing execution still requires a
+    Claude invocation; structural validation is recorded here.
+    """
+    base = Path(subagent_dir)
+    tests_dir = base / "tests"
+    tests_dir.mkdir(parents=True, exist_ok=True)
+    out_path = tests_dir / "test-results.md"
+
+    tests = run_tests(base)
+    ts = datetime.now(timezone.utc).isoformat()
+
+    lines = [
+        f"# Test Results — {base.name}",
+        "",
+        f"**Generated:** {ts}",
+        "",
+    ]
+
+    if self_check_result is not None:
+        lines += [
+            "## Phase 8 Profile Self-Check",
+            "",
+            f"**Verdict:** {self_check_result.get('verdict', 'UNKNOWN')}",
+            "",
+            "| # | Check | Level | Detail |",
+            "|---|-------|-------|--------|",
+        ]
+        for f in self_check_result.get("findings", []):
+            detail = str(f.get("message", "")).replace("|", "\\|")
+            lines.append(f"| {f.get('num', '')} | {f.get('check', '')} | {f.get('level', '')} | {detail} |")
+        lines.append("")
+
+    lines += [
+        "## Routing Tests (structural)",
+        "",
+        f"**Records validated:** {tests.get('passed_count', 0)}/{tests.get('total', 0)}",
+        "",
+        "| Test ID | Status | Description |",
+        "|---------|--------|-------------|",
+    ]
+    for r in tests.get("results", []):
+        desc = " ".join(str(r.get("description", "")).split()).replace("|", "\\|")
+        lines.append(f"| {r.get('test_id', '?')} | {r.get('status', '')} | {desc} |")
+    lines += [
+        "",
+        "> Live routing/permission execution requires a Claude invocation; the records "
+        "above are validated structurally (schema + inventory).",
+        "",
+    ]
+
+    out_path.write_text("\n".join(lines), encoding="utf-8")
+    return out_path
 
 
 def main():
