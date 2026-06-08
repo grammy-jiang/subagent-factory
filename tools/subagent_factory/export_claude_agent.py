@@ -68,29 +68,72 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
     return result
 
 
-def _truncate_at_word(text: str, max_chars: int) -> str:
-    if len(text) <= max_chars:
-        return text
-    truncated = text[:max_chars]
-    last_space = truncated.rfind(" ")
-    return truncated[:last_space] if last_space > 0 else truncated
+_TRAILING_CONNECTORS = {
+    "for", "to", "of", "and", "or", "the", "a", "an", "with", "in", "on",
+    "that", "whether", "its", "from", "by", "as", "before", "after", "into",
+}
+
+
+def _clean_clause(text: str, max_chars: int) -> str:
+    """Collapse text to a single well-formed clause.
+
+    Whitespace-collapsed, reduced to its first sentence, clipped at a clause or
+    word boundary (never mid-word), with trailing punctuation and any dangling
+    connector word removed. Never returns a fragment ending in a preposition.
+    """
+    text = " ".join(text.split())
+    text = text.split(". ")[0].rstrip(" .;,")
+    if len(text) > max_chars:
+        clipped = text[:max_chars]
+        for sep in ("; ", ", ", " "):
+            idx = clipped.rfind(sep)
+            if idx > max_chars * 0.5:
+                clipped = clipped[:idx]
+                break
+        words = clipped.rstrip(" .;,").split()
+        while words and words[-1].lower() in _TRAILING_CONNECTORS:
+            words.pop()
+        text = " ".join(words)
+    return text
+
+
+def _compose_description(profile: dict, max_chars: int = 320) -> str:
+    """Build a routing description: role + top triggers + top exclusion.
+
+    Assembles from already-clipped clauses joined with em dashes. If the full
+    form exceeds the budget, whole pieces are dropped (second trigger first,
+    then the exclusion) so the result is never a mid-clause truncation.
+    """
+    role = _clean_clause(profile.get("role", ""), 120)
+    triggers = [_clean_clause(t, 85) for t in profile.get("when_to_use", [])[:2]]
+    triggers = [t for t in triggers if t]
+    exclusions = [_clean_clause(e, 85) for e in profile.get("when_not_to_use", [])[:1]]
+    exclusion = next((e for e in exclusions if e), "")
+
+    def assemble(n_triggers: int, with_exclusion: bool) -> str:
+        parts = [role] if role else []
+        used = triggers[:n_triggers]
+        if used:
+            parts.append("Use when: " + "; ".join(used))
+        if with_exclusion and exclusion:
+            parts.append("Not for: " + exclusion)
+        return " — ".join(parts)
+
+    for n_triggers, with_exclusion in ((2, True), (1, True), (2, False), (1, False)):
+        candidate = assemble(n_triggers, with_exclusion)
+        if len(candidate) <= max_chars:
+            return candidate
+    # Last resort (budget smaller than role + one trigger): role alone,
+    # clause-clipped to the budget so the result is always well-formed.
+    return _clean_clause(role, max_chars)
 
 
 def _build_template_context(profile: dict) -> dict:
     modes = profile.get("outputs", {}).get("modes", [])
     tools = _determine_tools(profile)
 
-    # Build description: role (first sentence) + top 2 triggers + top 1 exclusion
-    role_first_sentence = profile.get("role", "").split(".")[0].strip()
-    role_short = _truncate_at_word(role_first_sentence, 80)
-    triggers = profile.get("when_to_use", [])[:2]
-    exclusions = profile.get("when_not_to_use", [])[:1]
-    desc_parts = [role_short]
-    if triggers:
-        desc_parts.append("Use when: " + "; ".join(triggers[:2]))
-    if exclusions:
-        desc_parts.append("Not when: " + exclusions[0])
-    description = _truncate_at_word(" | ".join(desc_parts), 300)
+    # Build description: role + top triggers + top exclusion (Phase 9 rule).
+    description = _compose_description(profile)
 
     kp = profile.get("knowledge_partition", {})
     sot = profile.get("source_of_truth_policy", {})
