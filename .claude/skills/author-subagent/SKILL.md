@@ -191,6 +191,19 @@ When invoking, use `Agent(subagent_type="profile-deriver")`. Include in the prom
 - Path to `subagents/<slug>/interrogation-records.yaml`
 - Package path `subagents/<slug>/`
 - For updates: path to existing `profile.yaml` for merge context
+- Explicit instruction to write ALL required outputs before returning:
+  `profile.yaml`, `provenance-ledger.md`, `CHANGELOG.md`, `README.md`,
+  and `tests/golden-tests.yaml` (minimum 3 tests, 1 negative routing)
+
+After the agent returns, verify the required files were written:
+
+```bash
+for f in profile.yaml provenance-ledger.md CHANGELOG.md README.md tests/golden-tests.yaml; do
+  test -f subagents/<slug>/$f && echo "OK: $f" || echo "MISSING: $f"
+done
+```
+
+For any MISSING file: the agent omitted it. Write or request the content before proceeding.
 
 **Do NOT** use `Skill("profile-deriver")` or `Skill("profile-generation")` — those load
 instructions into main context instead of delegating.
@@ -225,3 +238,8 @@ Report:
 - Adapter installed at `.claude/agents/generated/<slug>.md`
 - Validation status
 - Any warnings or human-review items
+- **Skills not yet authored** (from `profile.yaml knowledge_partition.skills`):
+  list each as a stub path `subagents/<slug>/skills/<skill-name>/SKILL.md`
+- **References not yet authored** (from `profile.yaml knowledge_partition.references`):
+  list each as a stub path `subagents/<slug>/references/<ref-name>.md`
+- Note: package remains `status: draft` until all skills and references are authored

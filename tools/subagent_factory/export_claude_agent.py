@@ -68,12 +68,21 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
     return result
 
 
+def _truncate_at_word(text: str, max_chars: int) -> str:
+    if len(text) <= max_chars:
+        return text
+    truncated = text[:max_chars]
+    last_space = truncated.rfind(" ")
+    return truncated[:last_space] if last_space > 0 else truncated
+
+
 def _build_template_context(profile: dict) -> dict:
     modes = profile.get("outputs", {}).get("modes", [])
     tools = _determine_tools(profile)
 
-    # Build description: role + top 2 triggers + top 1 exclusion
-    role_short = profile.get("role", "").split(".")[0][:80]
+    # Build description: role (first sentence) + top 2 triggers + top 1 exclusion
+    role_first_sentence = profile.get("role", "").split(".")[0].strip()
+    role_short = _truncate_at_word(role_first_sentence, 80)
     triggers = profile.get("when_to_use", [])[:2]
     exclusions = profile.get("when_not_to_use", [])[:1]
     desc_parts = [role_short]
@@ -81,7 +90,7 @@ def _build_template_context(profile: dict) -> dict:
         desc_parts.append("Use when: " + "; ".join(triggers[:2]))
     if exclusions:
         desc_parts.append("Not when: " + exclusions[0])
-    description = " | ".join(desc_parts)[:300]
+    description = _truncate_at_word(" | ".join(desc_parts), 300)
 
     kp = profile.get("knowledge_partition", {})
     sot = profile.get("source_of_truth_policy", {})
