@@ -94,6 +94,15 @@ def cmd_validate(slug):
         sys.exit(1)
 
 
+@main.command("detect-topic")
+@click.argument("source")
+def cmd_detect_topic(source):
+    """Auto-detect topic from a source file."""
+    from tools.subagent_factory.detect_topic import detect_topic
+    topic = detect_topic(source)
+    console.print(topic)
+
+
 @main.command("search")
 @click.argument("topic")
 def cmd_search(topic):

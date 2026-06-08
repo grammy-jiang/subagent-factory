@@ -17,6 +17,21 @@ For each source:
 - If it starts with `http://` or `https://` → URL source
 - Otherwise → local file, must exist under project
 
+### Auto-detect topic when --topic is not given
+
+If `--topic` was NOT provided, run topic detection on the FIRST source:
+
+```bash
+python -m tools.subagent_factory.detect_topic <first_source_path>
+```
+
+Use the returned string as the working topic for the rest of the workflow.
+
+Tell the user: `"Auto-detected topic: <detected_topic> — continuing with this. Say --topic <other> to override."`
+
+If detection returns a very generic result (e.g. just a version number or single word),
+ask the user: `"Could not confidently detect a topic from the source. What should the subagent be called?"`
+
 ---
 
 ## Step 2 — Search existing subagents
