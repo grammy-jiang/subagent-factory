@@ -212,3 +212,97 @@ microservice pattern catalogue, not a prose book.
   programme, so deep procedural detail and the two figures are summarised, not fully
   specified — must not be fabricated.
 - **No needs-ocr block this run.**
+
+### Run 3 — k6-load-test-scripting-advisor — 2026-06-09
+
+**Source PDF:** `Software Testing/load-testing/k6-guideline.pdf` — "Most commonly used
+terms in K6" by Anshita Bhasin. A single-author cheat sheet / glossary of ~24 numbered
+k6 load-testing terms (test lifecycle, VU, iterations, duration, stages, target,
+percentiles, checks, metrics, thresholds, status, error, error_code, scenarios, ramping,
+ramping-vus executor, requests). Not a methodology book — a reference of k6 script
+configuration vocabulary.
+
+- **Detected rights:** `distillation-only`. The PDF has **no license/copyright notice** —
+  only "Author: Anshita Bhasin" + a LinkedIn link. Classified conservatively as an authored
+  work (copyrighted by default), not `unknown` (see friction #1 / the factory fix). Quote
+  scan: clean (no verbatim quotation).
+- **Final slug:** `k6-load-test-scripting-advisor` (CREATE NEW).
+- **Create/update decision:** create-new. Step 3 search top similarity **0.28**
+  (`java-concurrency-reviewer`), then `kafka-benchmarking-advisor` **0.24**. The flagged
+  0.55–0.79 band vs `kafka-benchmarking-advisor` did **not** trigger (0.24, far below the
+  0.55 ask floor and 0.80 update threshold). No collision with any of the 7 existing slugs.
+- **Modes:** `advise`, `compare` (both with source evidence). `advise` — the whole doc
+  explains/recommends k6 options configuration. `compare` — the source explicitly contrasts
+  P90 vs P95, the four metric types (Counters/Gauges/Rates/Trends), and checks vs thresholds
+  ("the only difference in checks is that a failed test case does not halt execution"). No
+  review/validate/produce/extract/patch-suggest — the glossary defines and contrasts concepts
+  but presents no procedure for auditing or gating an existing script (logged as an evidence gap).
+
+**Pipeline outcome**
+- Ingestion: `conversion_status=ok`, converter `markitdown` (Docling unavailable),
+  `page_count=16`, `word_count=1233`, `is_scanned=False` (pdftotext recovered 2195 words of
+  real text — the markitdown word-gluing is a spacing artifact, **not** OCR garbage),
+  `anchor_count=0` (the cheat sheet uses "(1) Term" labels, not Markdown headings; expected
+  for this format, not a blocker). No `needs-ocr` / `needs_auth` / `failed`.
+- Phase 8 deterministic `selfcheck`: **PASS** (body ~687 words, under the 800 budget on the
+  first pass; 5 triggers, 3 exclusions, 4 evidence-citing quality-bar checks, 3 golden + 1
+  negative).
+- `cli export` + `cli stubs`: adapter installed; 4 skill stubs + 1 reference stub written.
+- `cli validate`: **VALIDATION PASSED** (every check OK — adapter-sync matches canonical,
+  Phase 8 PASS, quote-scan clean).
+- `make verify`: **OK** — ruff clean, bandit clean, detect-secrets clean, pytest **120 passed**.
+
+**Workflow review (friction points hit this run)**
+1. **Rights-classification contradiction for unlicensed authored works** (the chosen factory
+   fix — see below). `SKILL.md:39` mapped "no copyright notice found → `unknown`", while
+   `rights-and-quotation-policy.md:12` defines `unknown` as **"block distillation until
+   resolved"**, and `SKILL.md:140` sets the Step 5 default to `distillation-only`. This source
+   (an authored cheat sheet with no license line) lands exactly in that contradiction: the
+   skill literally tells you to mark it `unknown` → which **blocks the pipeline**. The CLI does
+   not enforce the block (it just records the rights string), so the deterministic gates do
+   **not** catch this — it is purely a decision trap that the agent must resolve by improvising.
+   Over a 165-book copyrighted collection (none of which ship explicit license notices) a literal
+   run would halt on the majority. Resolved this run by classifying conservatively as
+   `distillation-only`.
+2. **Rights not always detectable from `extract-sample`.** When a source carries no notice at
+   all (as here), there is nothing in the sample to detect — the decision is "absence of a
+   notice", which the skill did not previously give a rule for. Folded into fix #1.
+3. Cosmetic/environmental (not factory source, unchanged from prior runs): every CLI call
+   prints `RequestsDependencyWarning` (urllib3/chardet mismatch) on stderr; Docling is not
+   installed so markitdown is the converter (fidelity is adequate here — the content is plain
+   prose + small code blocks). `fitz`/PyMuPDF last-resort converter remains a no-op on this box.
+4. **No sub-agent spawner** (as in Runs 1–2): ran Steps 6 & 7 in-thread per the SKILL's
+   documented no-spawner branch (now explicit since `3f11980`). Wrote `interrogation-records.yaml`,
+   `profile.yaml`, `provenance-ledger.md`, `CHANGELOG.md`, `README.md`, `tests/golden-tests.yaml`
+   directly; the deterministic `selfcheck`/`validate` gates verified the output. No friction —
+   the branch is now clearly documented.
+
+**Factory change made**
+- **What:** Replaced the single ambiguous bullet `No copyright notice found → unknown` in
+  `author-subagent/SKILL.md` Step 2a with an explicit decision tree: an **authored work with no
+  explicit license** → `distillation-only` (copyrighted-by-default conservative floor; record
+  the "no notice" observation in the provenance ledger), and reserve `unknown` for genuinely
+  unattributable provenance. Added a blockquote stating that **`unknown` is a blocking state, not
+  a value to pass through** — never `ingest --rights unknown`; resolve to `distillation-only`
+  first (which is why Step 5's default is `distillation-only`, never `unknown`).
+- **Why:** Removes a real, repeatable contradiction between the skill and the rights policy that
+  would otherwise (per a literal reading) block distillation on most of the book collection. The
+  deterministic gates cannot catch it because the CLI does not enforce the block — so the fix has
+  to live in the decision documentation.
+- **Paths:** `.claude/skills/author-subagent/SKILL.md` (Step 2a). Documentation-only — no Python,
+  schema, or template touched, so the 7 existing packages and all 120 tests are unaffected
+  (`make verify` green).
+- **Commit:** `75976ae`
+
+**Human-review / unauthored stubs left as `status: draft`**
+- `subagents/k6-load-test-scripting-advisor/skills/k6-options-and-stages-configuration/SKILL.md`
+- `subagents/k6-load-test-scripting-advisor/skills/k6-thresholds-and-checks/SKILL.md`
+- `subagents/k6-load-test-scripting-advisor/skills/k6-scenarios-and-executors/SKILL.md`
+- `subagents/k6-load-test-scripting-advisor/skills/k6-metrics-interpretation/SKILL.md`
+- `subagents/k6-load-test-scripting-advisor/references/k6-terminology-glossary.md`
+- All `STATUS: STUB`; package stays `status: draft` until authored. Evidence gaps recorded in the
+  provenance ledger: no license notice (rights set conservatively); modes limited to advise +
+  compare; downstream owner inferred (the k6 script owner). Source is undated and defers to the
+  official k6 docs (k6.io) for the full metrics reference — option/metric names should be
+  re-verified against current k6 releases (annual cadence).
+- **No needs-ocr block this run.**
