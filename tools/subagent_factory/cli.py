@@ -21,8 +21,9 @@ def main():
 @click.option("--topic", help="Topic description for create/update decision")
 @click.option("--title", help="Override source title")
 @click.option("--author", help="Source author")
+@click.option("--year", type=int, help="Source publication year")
 @click.option("--rights", default="distillation-only", help="Rights status")
-def cmd_ingest(source, slug, topic, title, author, rights):
+def cmd_ingest(source, slug, topic, title, author, year, rights):
     """Ingest one or more source files into a subagent package."""
     from tools.subagent_factory.ingest_source import ingest_source
 
@@ -38,6 +39,7 @@ def cmd_ingest(source, slug, topic, title, author, rights):
             slug,
             title=title,
             author=author,
+            year=year,
             rights_status=rights,
         )
         if result.get("error"):

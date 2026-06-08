@@ -107,8 +107,12 @@ Confirm slug with user only if it looks ambiguous or too generic (e.g. "reviewer
 For each source:
 
 ```bash
-python -m tools.subagent_factory.cli ingest <source> --slug <slug>
+python -m tools.subagent_factory.cli ingest <source> --slug <slug> \
+  [--title "<title>"] [--author "<author>"] [--year <year>]
 ```
+
+Pass `--title`, `--author`, `--year` when known from the content sample (Step 2a).
+The `[Source title hint: ...]` line in the extract-sample output is the title.
 
 Handle errors:
 - `needs_auth=True` → stop: "This URL requires authentication. Provide a local downloaded copy."
@@ -119,19 +123,28 @@ Handle errors:
 
 ## Step 6 — Source interrogation
 
-Delegate to `source-interrogator` with:
-- Path(s) to `subagents/<slug>/sources/markdown/*.md`
+Invoke the `source-interrogator` subagent via `Agent(subagent_type="source-interrogator")`.
+Include in the prompt:
+- Paths to `subagents/<slug>/sources/markdown/*.md`
 - Inferred topic as context
-- Q1–Q18 from the source-interrogation skill
+- Package path `subagents/<slug>/`
+- Instruction to write the record to `subagents/<slug>/interrogation-records.yaml`
+
+**Do NOT** use `Skill("source-interrogation")` — that loads instructions into main context
+instead of delegating. The subagent handles Q1–Q18 internally.
 
 ---
 
 ## Step 7 — Profile derivation
 
-Delegate to `profile-deriver` with:
-- Interrogation records
+Invoke the `profile-deriver` subagent via `Agent(subagent_type="profile-deriver")`.
+Include in the prompt:
+- Path to `subagents/<slug>/interrogation-records.yaml`
 - Package path `subagents/<slug>/`
-- For updates: existing `profile.yaml` for merge context
+- For updates: path to existing `profile.yaml` for merge context
+
+**Do NOT** use `Skill("profile-deriver")` or `Skill("profile-generation")` — those load
+instructions into main context instead of delegating.
 
 ---
 
