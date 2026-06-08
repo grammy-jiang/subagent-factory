@@ -28,17 +28,9 @@ MIN_WORDS_FOR_CONCERN = 40
 
 # Match "quoted text" only in markdown prose lines (not YAML string syntax)
 INLINE_QUOTE_RE = re.compile(r'"([^"\n]{200,})"')
-BLOCKQUOTE_RE = re.compile(r"^> ", re.MULTILINE)
 
 # Directories that ARE the source material — never scan
 _SOURCE_DIRS = {"sources/original", "sources/markdown", "sources/snapshots"}
-
-# Files that contain synthesised data fields, not quotation
-_SKIP_FILENAMES = {
-    "source-pack.manifest.yaml",
-    "interrogation-records.yaml",
-    "profile.yaml",
-}
 
 
 def quote_scan(subagent_dir: str | Path) -> list[dict]:
@@ -52,15 +44,13 @@ def quote_scan(subagent_dir: str | Path) -> list[dict]:
     findings = []
 
     restricted_sources = _load_restricted_sources(base)
+    source_texts = _load_source_texts(base, restricted_sources)
 
-    # Scan markdown prose files
+    # Scan markdown prose files (not YAML — those contain synthesised fields)
     for md_file in base.rglob("*.md"):
         if _is_source_material(md_file, base):
             continue
-        _scan_markdown_prose(md_file, restricted_sources, findings)
-
-    # Scan only skill and reference markdown (not YAML data files)
-    # YAML files are NOT scanned — their string values are synthesised, not quoted
+        _scan_markdown_prose(md_file, source_texts, findings)
 
     return findings
 
@@ -95,7 +85,32 @@ def _load_restricted_sources(base: Path) -> set[str]:
     return restricted
 
 
-def _scan_markdown_prose(path: Path, restricted_sources: set, findings: list) -> None:
+def _load_source_texts(base: Path, restricted_sources: set) -> dict[str, str]:
+    """Load lowercased text of restricted sources for verbatim-match checking."""
+    texts = {}
+    markdown_dir = base / "sources" / "markdown"
+    if not markdown_dir.exists():
+        return texts
+    for source_id in restricted_sources:
+        md_path = markdown_dir / f"{source_id}.md"
+        if md_path.exists():
+            try:
+                texts[source_id] = md_path.read_text(encoding="utf-8").lower()
+            except Exception:
+                pass
+    return texts
+
+
+def _is_verbatim(text: str, source_texts: dict) -> bool:
+    """Return True only if the first 15 words of text appear in a source."""
+    words = text.lower().split()
+    if len(words) < MIN_WORDS_FOR_CONCERN:
+        return False
+    probe = " ".join(words[:15])
+    return any(probe in src for src in source_texts.values())
+
+
+def _scan_markdown_prose(path: Path, source_texts: dict, findings: list) -> None:
     """
     Scan markdown prose for long inline quoted strings and long block-quotes.
     Skip YAML frontmatter (between --- delimiters at top of file).
@@ -110,25 +125,26 @@ def _scan_markdown_prose(path: Path, restricted_sources: set, findings: list) ->
     lines = body.splitlines()
 
     for line_num, line in enumerate(lines, 1):
-        # Long inline quotes in prose
+        # Long inline quotes in prose — only flag if text actually appears in source
         for m in INLINE_QUOTE_RE.finditer(line):
             words = len(m.group(1).split())
-            if words >= MIN_WORDS_FOR_CONCERN:
+            if words >= MIN_WORDS_FOR_CONCERN and _is_verbatim(m.group(1), source_texts):
                 findings.append({
                     "file": str(path),
                     "line": line_num,
-                    "issue": f"Long inline quote ({words} words) in prose — verify not verbatim from source",
+                    "issue": f"Verbatim inline quote ({words} words) — verify rights",
                     "excerpt": m.group(1)[:120] + ("..." if len(m.group(1)) > 120 else ""),
                 })
 
-        # Block quotes (> lines) — only flag if long AND in a non-source file
+        # Block quotes — only flag if long AND text appears in source
         if line.startswith("> "):
-            block_words = len(line[2:].split())
-            if block_words >= MIN_WORDS_FOR_CONCERN:
+            content = line[2:]
+            block_words = len(content.split())
+            if block_words >= MIN_WORDS_FOR_CONCERN and _is_verbatim(content, source_texts):
                 findings.append({
                     "file": str(path),
                     "line": line_num,
-                    "issue": f"Long block-quote ({block_words} words) — verify not verbatim from source",
+                    "issue": f"Verbatim block-quote ({block_words} words) — verify rights",
                     "excerpt": line[:120],
                 })
 

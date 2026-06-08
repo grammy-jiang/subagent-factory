@@ -37,6 +37,12 @@ Do not invent information not found in the source.
 | Q15 | What must be retrieved through MCP or tools? | `knowledge_partition.mcp[]` |
 | Q16 | What is project-specific, must be caller-supplied? | `knowledge_partition.caller_supplied[]` |
 | Q17 | What is the source of truth for this domain? | `source_of_truth_policy` |
+
+> **Q16 note — `caller_supplied` vs `inputs.required`:**
+> `inputs.required` = artifacts the subagent cannot start without (code to review, document to process).
+> `caller_supplied` = per-project runtime context that varies per engagement (team naming conventions, existing error patterns, project-specific constraints).
+> If Q16 yields required artifacts, put them in `inputs.required` and set `caller_supplied: []`.
+> Document the decision in the provenance ledger Q16 row.
 | Q18 | What is volatile or likely to drift? | provenance ledger review schedule |
 
 ---
