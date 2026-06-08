@@ -15,6 +15,9 @@ SOURCE MATERIAL
 [Phase 2] Source Interrogation (Q1–Q18)
     │  output: interrogation record per source
     ▼
+[Phase 2.5] Importance Ranking
+    │  output: importance-scored unit shortlist
+    ▼
 [Phase 3] Artifact Decision Gate
     │  output: subagent / skill / reference / discard decision
     ▼
@@ -124,11 +127,79 @@ action verb AND a credible deliverable. No phantom modes.
 | Compare alternatives | `compare` |
 | Recommend / consult / guide | `advise` |
 
+**Purpose-review pattern:** When a source justifies critiquing goals, intent, or
+project framing — not only code or documents — record it as a `purpose-review`
+advisory pattern layered over `advise` / `validate` / `compare`. See the
+**Purpose Review Pattern** section for the full contract.
+
 **Output:** completed interrogation record per source (YAML answer template from
 *Portable Source-to-Profile Method*)
 
 **Human decision required when:** two plausible roles emerge from one source;
 Q3 yields fewer than 3 concrete triggers; Q6 yields no clear deliverable.
+
+---
+
+## Phase 2.5 — Importance Ranking
+
+**Goal:** Rank extracted candidate knowledge so that only the most authoritative,
+actionable, reusable, and risk-reducing material becomes part of the generated
+subagent package. Phase 2 interrogation finds *what* a source says; this phase
+decides *what is worth keeping*. Without it a profile can be structurally correct
+but intellectually weak.
+
+**Inputs:** interrogation record from Phase 2; source segmented into candidate units
+
+**Scoring dimensions (score each 1–5):**
+
+| Dimension | Description |
+|-----------|-------------|
+| Authority | Primary, official, classic, peer-reviewed, or domain-authoritative source? |
+| Actionability | Can it directly change the subagent's behaviour or output quality? |
+| Reusability | Will it be useful across many future review or advisory tasks? |
+| Risk impact | Does it prevent severe mistakes, unsafe advice, bad architecture, or invalid conclusions? |
+| Evidence strength | Supported by data, examples, experiments, case studies, or clear reasoning? |
+| Uniqueness | A distinctive insight from the source rather than generic background knowledge? |
+| Transferability | Can it be applied outside the narrow example used in the source? |
+| Stability | A durable principle rather than a version-specific detail likely to drift? |
+| Operational fit | Does it map cleanly into a profile rule, skill workflow, reference checklist, or test case? |
+
+**Score record (per candidate unit):**
+
+```yaml
+importance_score:
+  authority: 1-5
+  actionability: 1-5
+  reusability: 1-5
+  risk_impact: 1-5
+  evidence_strength: 1-5
+  uniqueness: 1-5
+  transferability: 1-5
+  stability: 1-5
+  operational_fit: 1-5
+```
+
+**Decision rule:**
+
+```text
+High-value extraction candidate:
+- total score >= 32 out of 45
+- or risk_impact >= 5 and actionability >= 4
+- or authority >= 5 and operational_fit >= 4
+
+Discard or provenance-only candidate:
+- total score < 20
+- and no strong actionability, risk, or uniqueness
+```
+
+This rubric does not replace the Phase 4 triage tree; it runs before triage and
+feeds it. Low-value units route to the provenance ledger only (or are dropped);
+high-value units proceed to Phase 4 for destination assignment.
+
+**Human decision required when:** a high-authority source scores low on operational
+fit (keep for reference vs discard); a unique insight has weak evidence strength.
+
+**Output:** importance-scored unit shortlist feeding Phase 3 and Phase 4
 
 ---
 
@@ -159,6 +230,11 @@ Q3 yields fewer than 3 concrete triggers; Q6 yields no clear deliverable.
 **Triage decision tree (apply in order):**
 
 ```
+0. Importance check
+   Score the unit with the Phase 2.5 importance-ranking rubric.
+   Low-score background material → provenance ledger only, unless needed
+   for traceability. High-value units continue through the tree below.
+
 1. Rights check
    Verbatim third-party text → paraphrase or exclude + log rights
 
@@ -434,6 +510,26 @@ Codex `.codex/agents/<slug>.toml`
 **Minimum coverage:** positive routing, negative routing, missing-input handling,
 one output schema check, one permission boundary check.
 
+### Claude Code Runtime Smoke Tests
+
+Structural validation (schemas, adapters, fixtures) proves the package is
+well-formed. It does not prove Claude Code behaves correctly with the generated
+agent: a syntactically valid adapter can still route badly or ignore its
+read-only contract. Run these runtime checks against the installed adapter:
+
+```text
+1. Claude Code can discover the generated adapter.
+2. The generated agent name does not collide with another agent.
+3. The generated description is specific enough to support routing.
+4. A positive prompt routes to the generated agent.
+5. A negative prompt does not route to the generated agent.
+6. The agent reads or references the canonical package when deeper context is needed.
+7. The agent respects read-only behaviour for review/validate/advise modes.
+8. The agent does not silently edit canonical artifacts unless patch mode is explicitly requested.
+9. The agent returns the expected minimum useful output.
+10. The agent cites or names evidence/provenance when making major claims.
+```
+
 **Output:** test results; PASS required before release
 
 ---
@@ -489,6 +585,59 @@ Version History rather than rewriting them.
 
 **Stale flag rule:** if a source is flagged stale, adapters generated from it must be
 marked `status: stale` and human-reviewed before next release.
+
+---
+
+## Purpose Review Pattern
+
+Use when the user asks a generated subagent to critique a goal, intention, project
+purpose, proposed direction, or strategic rationale. "Review my purpose" is more
+abstract than code or document review: it is intent validation, scope critique,
+and feasibility analysis. Model it explicitly so review/advisory subagents can
+challenge project framing instead of merely encouraging the user.
+
+A subagent in this pattern may assess whether a goal is clear; whether scope is
+realistic; whether assumptions are hidden or weak; whether the stated purpose
+matches the proposed implementation; whether the outcome is measurable; whether
+the effort is justified; and whether the user should proceed, narrow scope,
+gather evidence, or stop.
+
+**Mode contract:**
+
+```yaml
+purpose_review:
+  mode_family: advise / validate / compare
+  primary_output: purpose critique report
+  required_inputs:
+    - stated purpose or goal
+    - target user or stakeholder
+    - intended output or deliverable
+    - constraints
+    - success criteria, if available
+  checks:
+    - goal clarity
+    - scope realism
+    - hidden assumptions
+    - stakeholder fit
+    - evidence required before commitment
+    - risk/reward balance
+    - implementation feasibility
+    - alignment between purpose and proposed solution
+  minimum_useful_output:
+    - one-sentence verdict
+    - top 3 risks or weaknesses
+    - top 3 improvement suggestions
+    - one recommended next action
+  forbidden_behaviours:
+    - do not merely encourage the user
+    - do not accept vague goals without flagging ambiguity
+    - do not rewrite the purpose without explaining the reasoning
+    - do not invent stakeholder requirements
+```
+
+Realise this pattern in one of three ways: as the mode contract above embedded in
+a generated profile; as a reference file template (`references/purpose-review-pattern.md`);
+or as a built-in skill used by review/advisory subagents.
 
 ---
 
