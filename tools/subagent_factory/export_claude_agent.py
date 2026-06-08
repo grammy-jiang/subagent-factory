@@ -1,5 +1,6 @@
 """Export a generated subagent package to a Claude Code runtime adapter."""
 
+import re
 import shutil
 from datetime import UTC, datetime
 from pathlib import Path
@@ -103,15 +104,35 @@ def _drop_dangling_open_paren(text: str) -> str:
     return text[:cut].rstrip(" .;,-")
 
 
+def _neutralize_inner_dashes(text: str) -> str:
+    """Replace em/en dashes inside a clause with commas.
+
+    ``_compose_description`` joins its pieces with a literal em dash
+    (``" — "``), so that separator must be reserved as the structural
+    delimiter between the role, ``Use when:``, and ``Not for:`` sections. An
+    em or en dash used *within* a clause (a common appositive in technical
+    prose — e.g. ``a concurrency defect — a race``) renders identically to the
+    join, so a reader or router cannot tell the section boundary from clause
+    punctuation. Demoting the inner dash to a comma keeps the appositive
+    readable while leaving the join unambiguous. Hyphens in compound words
+    (``user/kernel``, ``copy-on-write``) are untouched.
+    """
+    # Collapse any spacing around an em/en dash, then emit a comma + space so
+    # the result reads as ``code, a race`` rather than ``code , a race``.
+    return re.sub(r"\s*[—–]\s*", ", ", text)
+
+
 def _clean_clause(text: str, max_chars: int) -> str:
     """Collapse text to a single well-formed clause.
 
-    Whitespace-collapsed, reduced to its first sentence, clipped at a clause or
-    word boundary (never mid-word), with trailing punctuation and any dangling
-    connector word removed. Never returns a fragment ending in a preposition or
-    an unbalanced opening parenthesis.
+    Whitespace-collapsed, inner em/en dashes demoted to commas (so the
+    structural em-dash join stays unambiguous), reduced to its first sentence,
+    clipped at a clause or word boundary (never mid-word), with trailing
+    punctuation and any dangling connector word removed. Never returns a
+    fragment ending in a preposition or an unbalanced opening parenthesis.
     """
     text = " ".join(text.split())
+    text = _neutralize_inner_dashes(text)
     text = text.split(". ")[0].rstrip(" .;,")
     if len(text) > max_chars:
         clipped = text[:max_chars]
