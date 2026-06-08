@@ -58,6 +58,38 @@ def cmd_ingest(source, slug, topic, title, author, year, rights):
             console.print("[yellow]WARN: Possible scanned PDF — OCR may be needed[/yellow]")
 
 
+@main.command("selfcheck")
+@click.argument("slug")
+def cmd_selfcheck(slug):
+    """Run the Phase 8 profile self-check gate and write tests/test-results.md."""
+    from tools.subagent_factory.profile_self_check import profile_self_check
+    from tools.subagent_factory.run_tests import write_test_results
+
+    repo_root = Path(__file__).parent.parent.parent
+    subagent_dir = repo_root / "subagents" / slug
+    result = profile_self_check(subagent_dir)
+
+    t = Table(title=f"Phase 8 Self-Check: {slug}")
+    t.add_column("#", justify="right")
+    t.add_column("Level", style="bold")
+    t.add_column("Check")
+    t.add_column("Message")
+    for f in result["findings"]:
+        color = {"FAIL": "red", "WARNING": "yellow", "PASS": "green", "INFO": "cyan"}.get(f["level"], "white")
+        t.add_row(str(f["num"]), f"[{color}]{f['level']}[/{color}]", f["check"], f["message"])
+    console.print(t)
+
+    results_path = write_test_results(subagent_dir, self_check_result=result)
+    console.print(f"[green]Test results written:[/green] {results_path}")
+
+    verdict = result["verdict"]
+    vcolor = {"FAIL": "red", "WARNING": "yellow", "PASS": "green"}.get(verdict, "white")
+    console.print(f"Phase 8 verdict: [{vcolor}]{verdict}[/{vcolor}]")
+    if verdict == "FAIL":
+        console.print("[red]Gate FAILED — do not export adapter until fixed.[/red]")
+        sys.exit(1)
+
+
 @main.command("export")
 @click.argument("slug")
 def cmd_export(slug):

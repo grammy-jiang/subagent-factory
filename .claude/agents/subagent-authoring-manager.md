@@ -45,9 +45,10 @@ Full workflow summary:
 5. Ingest all sources (`cli ingest ...`)
 6. Delegate interrogation to `source-interrogator`
 7. Delegate profile derivation to `profile-deriver`
-8. Export adapter (`cli export <slug>`)
-9. Validate package (`cli validate <slug>`)
-10. Report summary
+8. Run Phase 8 self-check gate (`cli selfcheck <slug>`) — STOP on FAIL, do not export
+9. Export adapter (`cli export <slug>`)
+10. Validate package (`cli validate <slug>`)
+11. Report summary
 
 ## Repository boundaries
 
