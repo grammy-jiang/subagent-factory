@@ -8,109 +8,134 @@
 
 ## Step 1 — Parse inputs
 
-Extract:
-- Source file paths and/or URLs from arguments
-- `--topic` value if provided (use as creation context)
-- `--update <slug>` if user wants to force update an existing subagent
+Extract from the user's prompt:
+- Source file paths and/or URLs
+- `--topic "<topic>"` if provided
+- `--update <slug>` if user explicitly names an existing subagent to update
+- `--slug <slug>` if user wants to set the slug manually
 
 For each source:
-- If it starts with `http://` or `https://` → URL source
-- Otherwise → local file, must exist under project
-
-### Infer topic from content when --topic is not given
-
-If `--topic` was NOT provided:
-
-1. Extract a content sample from the first source:
-
-```bash
-python -m tools.subagent_factory.cli extract-sample <first_source_path>
-```
-
-2. Read the sample output (headings, table of contents, opening text).
-
-3. Answer this question from the content — NOT from the title or filename:
-
-   > "What expert reviewer or advisor role would a subagent built from
-   > this material perform? Consider: what problems does the material
-   > teach you to solve? What would you be qualified to review, audit,
-   > design, or advise on after reading it?"
-
-   Express as a short phrase: `"<domain> <function>"`, e.g.:
-   - `"software design reviewer"`
-   - `"API security auditor"`
-   - `"distributed systems architect"`
-   - `"technical writing reviewer"`
-
-4. Propose to the user:
-   `"Inferred topic from content: '<inferred topic>' — proceeding with this. Use --topic <other> to override."`
-
-5. If the content sample is too sparse to infer confidently (< 10 headings and < 200 words), ask the user:
-   `"Could not confidently infer a topic from the content. What expert role should this subagent perform?"`
+- Starts with `http://` or `https://` → URL source
+- Otherwise → local file; must exist; check it is readable
 
 ---
 
-## Step 2 — Search existing subagents
+## Step 2 — Understand the content
 
-Run:
+### 2a. Extract content sample
+
+Run on the first source (and any additional sources):
 
 ```bash
-python -m tools.subagent_factory.cli search "<topic>"
+python -m tools.subagent_factory.cli extract-sample <source_path>
 ```
 
-Apply thresholds:
-- similarity >= 0.80 → ask user: "Update `<slug>` or create new?"
-- 0.55 <= similarity < 0.80 → show candidates, default create-new unless user says update
-- similarity < 0.55 → create new silently
+Read the output carefully: headings, table of contents, opening prose.
+
+### 2b. Infer expert role from content
+
+If `--topic` was NOT supplied, answer this question from the content sample:
+
+> "What expert reviewer, auditor, or advisor role would a subagent
+> built entirely from this material perform?
+> What problems does the material teach you to solve?
+> What would you be qualified to review, critique, design, or guide
+> after internalising this content?"
+
+Express as `<domain> <function>`, 2–4 words, e.g.:
+- `"software design reviewer"`
+- `"API security auditor"`
+- `"distributed systems architect"`
+- `"technical writing reviewer"`
+- `"agile delivery coach"`
+
+Do NOT just echo the title or filename.
+
+If `--topic` was supplied by the user, use that as-is.
+
+### 2c. Extract domain keywords
+
+From the content sample (headings + body), identify the 15–25 most
+significant domain terms — the vocabulary this field uses. These are
+used to improve similarity matching against existing subagents.
+
+Example for a software design book:
+`complexity, abstraction, modules, interfaces, encapsulation, cohesion,
+coupling, decomposition, dependencies, layering, information, hiding`
 
 ---
 
-## Step 3 — Determine slug
+## Step 3 — Search existing subagents
+
+Run with BOTH inferred topic AND domain keywords:
+
+```bash
+python -m tools.subagent_factory.cli search "<inferred_topic>" \
+  --keywords "<kw1>,<kw2>,<kw3>,..."
+```
+
+### Interpret results and decide
+
+| Similarity | Default action | What to do |
+|------------|---------------|-----------|
+| >= 0.80 | **Update existing** | Inform user: "Found close match `<slug>` (similarity X). Updating it with new source." Proceed to update unless user says "no, create new". |
+| 0.55–0.79 | **Ask user** | Show the candidate(s). Ask: "Found similar subagent `<slug>`. Update it or create new `<inferred-slug>`?" Wait for answer. |
+| < 0.55 | **Create new** | Inform user: "No close match found. Creating new subagent `<inferred-slug>`." Proceed. |
+
+**If `--update <slug>` was explicitly given:** skip search, go straight to update that slug.
+
+**If no subagents exist yet:** skip search, create new.
+
+---
+
+## Step 4 — Determine slug
 
 If creating new:
-- Derive slug from `--topic` using kebab-case, e.g. `api-security-reviewer`
-- Confirm with user if ambiguous
+- Derive from inferred topic: kebab-case, function-last
+- Examples: `software-design-reviewer`, `api-security-auditor`
+- If user supplied `--slug`, use that
 
-If updating existing:
-- Use slug of matched subagent
+If updating:
+- Use the matched existing slug
+
+Confirm slug with user only if it looks ambiguous or too generic (e.g. "reviewer").
 
 ---
 
-## Step 4 — Ingest sources
+## Step 5 — Ingest sources
 
-For each source, run:
+For each source:
 
 ```bash
-python -m tools.subagent_factory.cli ingest <source_path_or_url> --slug <slug> --topic "<topic>"
+python -m tools.subagent_factory.cli ingest <source> --slug <slug>
 ```
 
 Handle errors:
-- `needs_auth=True` → tell user: "This URL requires authentication. Please provide a local downloaded copy."
-- `conversion_status=needs-ocr` → warn: "PDF appears to be scanned. OCR required. Marking for human review."
-- `conversion_status=failed` → halt and report error
+- `needs_auth=True` → stop: "This URL requires authentication. Provide a local downloaded copy."
+- `conversion_status=needs-ocr` → warn: "PDF appears scanned. OCR needed. Marked for human review. Continuing."
+- `conversion_status=failed` → halt and report.
 
 ---
 
-## Step 5 — Source interrogation
+## Step 6 — Source interrogation
 
-Delegate to the `source-interrogator` subagent with:
-- Path to `subagents/<slug>/sources/markdown/*.md`
-- The `--topic` value
-- The Phase 2 Q1–Q18 question set
-
----
-
-## Step 6 — Profile derivation
-
-Delegate to the `profile-deriver` subagent with:
-- Interrogation records from Step 5
-- `subagents/<slug>/` package path
+Delegate to `source-interrogator` with:
+- Path(s) to `subagents/<slug>/sources/markdown/*.md`
+- Inferred topic as context
+- Q1–Q18 from the source-interrogation skill
 
 ---
 
-## Step 7 — Export adapter
+## Step 7 — Profile derivation
 
-Run:
+Delegate to `profile-deriver` with:
+- Interrogation records
+- Package path `subagents/<slug>/`
+- For updates: existing `profile.yaml` for merge context
+
+---
+
+## Step 8 — Export adapter
 
 ```bash
 python -m tools.subagent_factory.cli export <slug>
@@ -118,23 +143,22 @@ python -m tools.subagent_factory.cli export <slug>
 
 ---
 
-## Step 8 — Validate package
-
-Run:
+## Step 9 — Validate
 
 ```bash
 python -m tools.subagent_factory.cli validate <slug>
 ```
 
-Report results. Stop on FAIL.
+Stop on FAIL. Report all findings.
 
 ---
 
-## Step 9 — Summary
+## Step 10 — Summary
 
 Report:
-- Subagent slug and package path
+- Action taken: created `<slug>` / updated `<slug>`
+- Inferred topic (and whether user confirmed or overrode)
 - Sources ingested
-- Adapter installed at
+- Adapter installed at `.claude/agents/generated/<slug>.md`
 - Validation status
 - Any warnings or human-review items
