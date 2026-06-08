@@ -1,4 +1,4 @@
-"""Convert PDF to Markdown. Primary: Docling. Fallback: MarkItDown (self-healed)."""
+"""Convert PDF to Markdown. Chain: Docling → MarkItDown (self-heals) → PyMuPDF."""
 
 import re
 from pathlib import Path
@@ -6,7 +6,8 @@ from pathlib import Path
 from tools.subagent_factory.conversion_quality import assess_quality
 from tools.subagent_factory.self_heal import ensure_package
 
-SCANNED_THRESHOLD = 0.15  # chars-per-page below this suggests scanned
+SCANNED_THRESHOLD = 0.15  # chars-per-page (×1000) below this suggests scanned
+_MIN_WORDS_BORN_DIGITAL = 30  # below this, with no page signal, suspect a failed scan
 
 
 def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:
@@ -29,29 +30,42 @@ def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:
         "stats": {},
     }
 
-    # Try Docling first (not auto-installed — heavy ML deps; use `bootstrap
-    # --extra convert-full` to enable). Fall back to MarkItDown, which self-heals.
-    text, used, warns, errs = _try_docling(src)
-    if not text:
-        text2, used2, warns2, errs2 = _try_markitdown(src)
-        if text2:
-            text, used = text2, used2
-            warns = warns2 + ["Docling unavailable or failed; used MarkItDown fallback"]
-            errs = errs2
-        else:
-            result["errors"] = errs + errs2
-            result["errors"].append("All PDF converters failed")
-            result["converter_used"] = "none"
-            return result
+    # Ordered converter chain. Docling (best layout/table fidelity) is the
+    # intended primary but is not auto-installed (heavy ML deps). MarkItDown
+    # self-heals; PyMuPDF is a pure-extraction last resort. Docling and PyMuPDF
+    # are soft deps — enable Docling with `bootstrap --extra convert-full`.
+    text: str | None = None
+    used: str | None = None
+    warns: list[str] = []
+    attempt_errors: list[str] = []
+    for name, fn in (("docling", _try_docling), ("markitdown", _try_markitdown), ("pymupdf", _try_pymupdf)):
+        t, u, w, e = fn(src)
+        if t:
+            text, used, warns = t, u, w
+            if name != "docling":
+                warns = list(warns) + [
+                    f"Docling unavailable or failed; used {u} fallback. Enable Docling "
+                    "for best layout/table fidelity: `bootstrap --extra convert-full`."
+                ]
+            break
+        attempt_errors += e
+    else:
+        result["errors"] = attempt_errors + ["All PDF converters failed"]
+        result["converter_used"] = "none"
+        return result
 
     result["converter_used"] = used
     result["markdown_text"] = text
-    result["is_scanned"] = _detect_scanned(text)
+    page_count = _pdf_page_count(src)
+    result["page_count"] = page_count
+    result["is_scanned"] = _detect_scanned(text, page_count)
     quality = assess_quality(text)
     result["quality"] = quality
     result["low_quality"] = quality["low_quality"]
     result["warnings"] = warns + [f"Low conversion quality: {r}" for r in quality["reasons"]]
-    result["stats"] = _compute_stats(text)
+    stats = _compute_stats(text)
+    stats["page_count"] = page_count
+    result["stats"] = stats
     Path(output_path).write_text(text, encoding="utf-8")
     return result
 
@@ -82,13 +96,55 @@ def _try_markitdown(src: Path):
         return None, None, [], [f"markitdown error: {e}"]
 
 
-def _detect_scanned(text: str) -> bool:
-    if not text:
+def _try_pymupdf(src: Path):
+    """Last-resort plain-text extraction (PyMuPDF / fitz). Optional soft dep."""
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        return None, None, [], ["pymupdf not installed"]
+    try:
+        with fitz.open(str(src)) as doc:
+            text = "\n\n".join(page.get_text() for page in doc)
+        return text, "pymupdf", [], []
+    except Exception as e:
+        return None, None, [], [f"pymupdf error: {e}"]
+
+
+def _pdf_page_count(src: Path) -> int | None:
+    """Real page count straight from the PDF page tree (converter-agnostic).
+
+    Uses pdfminer when available — a soft dependency that MarkItDown's PDF path
+    already pulls in, so it is present exactly on the fallback path that needs it.
+    Returns None when pdfminer is absent or the PDF cannot be parsed.
+    """
+    try:
+        from pdfminer.pdfpage import PDFPage
+    except ImportError:
+        return None
+    try:
+        with open(src, "rb") as fh:
+            return sum(1 for _ in PDFPage.get_pages(fh)) or None
+    except Exception:
+        return None
+
+
+def _detect_scanned(text: str, page_count: int | None = None) -> bool:
+    """Detect a scanned/image-only PDF independent of which converter ran.
+
+    Density signal, in priority order:
+      1. real page count from the PDF (works for any converter),
+      2. Docling's ``<!-- page N -->`` markers if no count is available,
+      3. no page signal at all → flag only near-empty extraction as a suspected scan.
+    """
+    if not text or not text.strip():
         return True
-    page_markers = len(re.findall(r"<!-- page \d+", text, re.IGNORECASE))
-    if page_markers == 0:
-        return False
-    chars_per_page = len(text) / max(page_markers, 1)
+    pages = page_count
+    if not pages:
+        markers = len(re.findall(r"<!-- page \d+", text, re.IGNORECASE))
+        pages = markers or None
+    if not pages:
+        return len(text.split()) < _MIN_WORDS_BORN_DIGITAL
+    chars_per_page = len(text) / pages
     return chars_per_page < SCANNED_THRESHOLD * 1000
 
 
