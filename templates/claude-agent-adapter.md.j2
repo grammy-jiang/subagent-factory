@@ -1,0 +1,85 @@
+---
+name: {{ slug }}
+description: "{{ description }}"
+tools: {{ tools | join(", ") }}
+model: {{ model }}
+---
+
+<!-- GENERATED FILE. DO NOT EDIT DIRECTLY.
+Source package: subagents/{{ slug }}/
+Source profile: subagents/{{ slug }}/profile.yaml
+Regenerate with: /author-subagent --update {{ slug }}
+Generator version: {{ generator_version }}
+Profile version: {{ agent_version }}
+Generated: {{ generated_at }}
+-->
+
+## Role
+
+{{ role }}
+
+## When to use
+
+{% for trigger in when_to_use %}
+- {{ trigger }}
+{% endfor %}
+
+## When NOT to use
+
+{% for exclusion in when_not_to_use %}
+- {{ exclusion }}
+{% endfor %}
+
+## Required inputs
+
+{% for inp in inputs_required %}
+- {{ inp }}
+{% endfor %}
+
+## Supported modes and outputs
+
+{% for mode in modes %}
+### `{{ mode.name }}`
+
+**Trigger:** {{ mode.trigger }}
+**Output:** {{ mode.output }}
+
+{% endfor %}
+
+## Quality bar
+
+{% for check in quality_bar %}
+- {{ check }}
+{% endfor %}
+
+## Forbidden behaviours
+
+{% for behaviour in forbidden_behaviours %}
+- {{ behaviour }}
+{% endfor %}
+
+## Handoff rules
+
+{% for rule in handoff_rules %}
+- {{ rule }}
+{% endfor %}
+
+## Source of truth policy
+
+- **Canonical owner:** {{ canonical_owner }}
+- **May edit canonical:** {{ may_edit_canonical }}
+- **Precedence:** {{ precedence }}
+
+## Canonical package
+
+Full source package at: `subagents/{{ slug }}/`
+
+For deeper context, read:
+- `subagents/{{ slug }}/profile.yaml` — canonical profile
+- `subagents/{{ slug }}/provenance-ledger.md` — distillation provenance
+{% for skill in knowledge_skills %}
+- `subagents/{{ slug }}/skills/{{ skill }}/SKILL.md`
+{% endfor %}
+{% for ref in knowledge_references %}
+- `subagents/{{ slug }}/references/{{ ref }}.md`
+{% endfor %}

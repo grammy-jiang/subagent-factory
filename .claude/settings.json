@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m tools.subagent_factory.*)",
+      "Bash(python -m pytest tests/*)",
+      "Bash(pandoc:*)",
+      "Bash(docling:*)",
+      "Bash(markitdown:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /:*)",
+      "Bash(curl * --cookie*)",
+      "Bash(curl * --cookie-jar*)"
+    ]
+  }
+}

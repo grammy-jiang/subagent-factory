@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-anchor-index-v1",
+  "title": "Source Anchor Index v1 (JSONL line schema)",
+  "type": "object",
+  "required": ["schema_version", "anchor_id", "source_id", "anchor_type", "text", "line_number"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "source_anchor_v1"},
+    "anchor_id": {"type": "string"},
+    "source_id": {"type": "string"},
+    "anchor_type": {
+      "type": "string",
+      "enum": ["heading", "table", "figure", "code_block", "footnote", "page"]
+    },
+    "level": {"type": ["integer", "null"]},
+    "text": {"type": "string"},
+    "line_number": {"type": "integer"},
+    "page_number": {"type": ["integer", "null"]}
+  },
+  "additionalProperties": false
+}

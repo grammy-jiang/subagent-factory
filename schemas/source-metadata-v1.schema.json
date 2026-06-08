@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-metadata-v1",
+  "title": "Source Metadata v1",
+  "type": "object",
+  "required": ["schema_version", "source_id", "title", "file_type", "sha256", "conversion_status"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "source-metadata-v1"},
+    "source_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$"},
+    "title": {"type": "string", "minLength": 1},
+    "author": {"type": ["string", "null"]},
+    "year": {"type": ["integer", "null"]},
+    "source_type": {
+      "type": "string",
+      "enum": ["pdf", "epub", "docx", "markdown", "html", "url-html", "url-pdf", "url-epub", "unknown"]
+    },
+    "file_type": {"type": "string"},
+    "original_filename": {"type": "string"},
+    "original_url": {"type": ["string", "null"]},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "file_size_bytes": {"type": "integer"},
+    "authority": {
+      "type": "string",
+      "enum": ["primary", "secondary", "experiential"]
+    },
+    "rights_status": {"type": "string"},
+    "volatility": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "review_cadence": {"type": "string"},
+    "conversion_status": {
+      "type": "string",
+      "enum": ["ok", "needs-human-review", "needs-ocr", "needs-auth", "failed", "no-converter"]
+    },
+    "converter_used": {"type": ["string", "null"]},
+    "converter_warnings": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "page_count": {"type": ["integer", "null"]},
+    "word_count": {"type": ["integer", "null"]},
+    "anchor_count": {"type": ["integer", "null"]},
+    "asset_count": {"type": ["integer", "null"]},
+    "ingested_at": {"type": "string", "format": "date-time"},
+    "notes": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}

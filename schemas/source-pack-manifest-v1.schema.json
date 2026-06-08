@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-pack-manifest-v1",
+  "title": "Source Pack Manifest v1",
+  "type": "object",
+  "required": ["schema_version", "subagent_slug", "sources"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "source-pack-manifest-v1"},
+    "subagent_slug": {"type": "string"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "original_filename", "sha256", "conversion_status"],
+        "properties": {
+          "source_id": {"type": "string"},
+          "original_filename": {"type": "string"},
+          "sha256": {"type": "string"},
+          "conversion_status": {"type": "string"},
+          "metadata_path": {"type": "string"},
+          "markdown_path": {"type": "string"},
+          "anchors_path": {"type": ["string", "null"]},
+          "assets_path": {"type": ["string", "null"]}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

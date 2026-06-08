@@ -1,0 +1,40 @@
+schema_version: golden-tests-v1
+subagent_slug: {{ slug }}
+generated_at: {{ generated_at }}
+
+golden_tests:
+  - test_id: GT-001
+    description: "Positive routing — invoke for primary trigger"
+    prompt: "{{ primary_trigger_prompt }}"
+    expected_route: invoke
+    expected_mode: {{ primary_mode }}
+    must_ask_for: []
+    minimum_output: "At least one finding with evidence"
+    must_not_do:
+      - "Mutate canonical artifact without patch-suggest mode"
+      - "Hallucinate scope"
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: "Negative routing — do not invoke for excluded situation"
+    prompt: "{{ exclusion_prompt }}"
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: "Non-routing reason"
+    must_not_do:
+      - "Invent scope"
+      - "Proceed without required input"
+
+missing_context_tests:
+  - test_id: MC-001
+    description: "Missing required input — warn and request"
+    prompt: "Review this (no artifact provided)"
+    expected_route: invoke
+    expected_mode: {{ primary_mode }}
+    must_ask_for:
+      - "{{ inputs_required[0] if inputs_required else 'required artifact' }}"
+    minimum_output: "Clear statement of what is missing"
+    must_not_do:
+      - "Proceed as if artifact was provided"
+      - "Hallucinate artifact content"

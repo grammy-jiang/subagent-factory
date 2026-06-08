@@ -1,0 +1,16 @@
+schema_version: source-pack-manifest-v1
+subagent_slug: {{ subagent_slug }}
+created_at: {{ created_at }}
+updated_at: {{ updated_at }}
+
+sources:
+{% for source in sources %}
+  - source_id: {{ source.source_id }}
+    original_filename: {{ source.original_filename }}
+    sha256: {{ source.sha256 }}
+    conversion_status: {{ source.conversion_status }}
+    metadata_path: sources/metadata/{{ source.source_id }}.metadata.json
+    markdown_path: sources/markdown/{{ source.source_id }}.md
+    anchors_path: sources/anchors/{{ source.source_id }}.anchors.jsonl
+    assets_path: sources/assets/{{ source.source_id }}/
+{% endfor %}

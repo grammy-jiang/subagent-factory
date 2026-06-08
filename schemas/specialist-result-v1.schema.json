@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "specialist-result-v1",
+  "title": "Specialist Result v1",
+  "type": "object",
+  "required": ["schema_version", "subagent_slug", "mode", "status"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "specialist-result-v1"},
+    "subagent_slug": {"type": "string"},
+    "mode": {"type": "string"},
+    "status": {
+      "type": "string",
+      "enum": ["ok", "warning", "blocked", "missing-context"]
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "message"],
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": ["info", "warning", "error", "fail"]
+          },
+          "message": {"type": "string"},
+          "location": {"type": ["string", "null"]},
+          "evidence": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "summary": {"type": ["string", "null"]},
+    "handoff": {"type": ["string", "null"]},
+    "missing_inputs": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}
