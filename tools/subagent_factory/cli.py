@@ -48,6 +48,10 @@ def cmd_ingest(source, slug, topic, title, author, year, rights):
                 console.print("[yellow]This URL requires authentication. Provide a local downloaded copy.[/yellow]")
             sys.exit(1)
 
+        if result.get("already_ingested"):
+            console.print(f"[yellow]SKIP:[/yellow] source already ingested as source_id={result['source_id']} (sha256 match)")
+            continue
+
         console.print(f"[green]OK:[/green] source_id={result['source_id']}")
         console.print(f"  anchors={result['anchor_count']}  assets={result['asset_count']}")
         if result["conversion_result"].get("is_scanned"):
