@@ -17,20 +17,36 @@ For each source:
 - If it starts with `http://` or `https://` → URL source
 - Otherwise → local file, must exist under project
 
-### Auto-detect topic when --topic is not given
+### Infer topic from content when --topic is not given
 
-If `--topic` was NOT provided, run topic detection on the FIRST source:
+If `--topic` was NOT provided:
+
+1. Extract a content sample from the first source:
 
 ```bash
-python -m tools.subagent_factory.detect_topic <first_source_path>
+python -m tools.subagent_factory.cli extract-sample <first_source_path>
 ```
 
-Use the returned string as the working topic for the rest of the workflow.
+2. Read the sample output (headings, table of contents, opening text).
 
-Tell the user: `"Auto-detected topic: <detected_topic> — continuing with this. Say --topic <other> to override."`
+3. Answer this question from the content — NOT from the title or filename:
 
-If detection returns a very generic result (e.g. just a version number or single word),
-ask the user: `"Could not confidently detect a topic from the source. What should the subagent be called?"`
+   > "What expert reviewer or advisor role would a subagent built from
+   > this material perform? Consider: what problems does the material
+   > teach you to solve? What would you be qualified to review, audit,
+   > design, or advise on after reading it?"
+
+   Express as a short phrase: `"<domain> <function>"`, e.g.:
+   - `"software design reviewer"`
+   - `"API security auditor"`
+   - `"distributed systems architect"`
+   - `"technical writing reviewer"`
+
+4. Propose to the user:
+   `"Inferred topic from content: '<inferred topic>' — proceeding with this. Use --topic <other> to override."`
+
+5. If the content sample is too sparse to infer confidently (< 10 headings and < 200 words), ask the user:
+   `"Could not confidently infer a topic from the content. What expert role should this subagent perform?"`
 
 ---
 
