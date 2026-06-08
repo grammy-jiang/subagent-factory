@@ -75,12 +75,41 @@ _TRAILING_CONNECTORS = {
 }
 
 
+def _drop_dangling_open_paren(text: str) -> str:
+    """Cut a clause back to before any unmatched opening parenthesis.
+
+    Clipping at a clause/word boundary can land inside a parenthetical
+    (``... into services (decompose``), leaving a dangling ``(`` with no close.
+    An unbalanced paren reads as a broken, mid-clause fragment in the router
+    description. When opens exceed closes, truncate at the last unmatched ``(``
+    and re-trim trailing punctuation so the result is always paren-balanced.
+    """
+    if text.count("(") <= text.count(")"):
+        return text
+    depth = 0
+    cut = None
+    for i, ch in enumerate(text):
+        if ch == "(":
+            if depth == 0:
+                cut = i  # position of an opening paren at top level
+            depth += 1
+        elif ch == ")":
+            if depth > 0:
+                depth -= 1
+                if depth == 0:
+                    cut = None  # this group closed; not the dangling one
+    if cut is None:
+        return text
+    return text[:cut].rstrip(" .;,-")
+
+
 def _clean_clause(text: str, max_chars: int) -> str:
     """Collapse text to a single well-formed clause.
 
     Whitespace-collapsed, reduced to its first sentence, clipped at a clause or
     word boundary (never mid-word), with trailing punctuation and any dangling
-    connector word removed. Never returns a fragment ending in a preposition.
+    connector word removed. Never returns a fragment ending in a preposition or
+    an unbalanced opening parenthesis.
     """
     text = " ".join(text.split())
     text = text.split(". ")[0].rstrip(" .;,")
@@ -95,7 +124,12 @@ def _clean_clause(text: str, max_chars: int) -> str:
         while words and words[-1].lower() in _TRAILING_CONNECTORS:
             words.pop()
         text = " ".join(words)
-    return text
+    text = _drop_dangling_open_paren(text)
+    # Removing the paren fragment can re-expose a trailing connector word.
+    words = text.split()
+    while words and words[-1].lower() in _TRAILING_CONNECTORS:
+        words.pop()
+    return " ".join(words)
 
 
 def _compose_description(profile: dict, max_chars: int = 320) -> str:
