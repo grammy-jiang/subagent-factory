@@ -2,7 +2,7 @@
 
 import hashlib
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 
@@ -49,7 +49,7 @@ def generate_metadata(
         "word_count": stats.get("word_count"),
         "anchor_count": overrides.get("anchor_count"),
         "asset_count": overrides.get("asset_count"),
-        "ingested_at": datetime.now(timezone.utc).isoformat(),
+        "ingested_at": datetime.now(UTC).isoformat(),
         "notes": overrides.get("notes"),
     }
 

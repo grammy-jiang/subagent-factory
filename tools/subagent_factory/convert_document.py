@@ -2,11 +2,11 @@
 
 from pathlib import Path
 
-from tools.subagent_factory.detect_file_type import detect_file_type
-from tools.subagent_factory.convert_pdf import convert_pdf
-from tools.subagent_factory.convert_epub import convert_epub
 from tools.subagent_factory.convert_docx import convert_docx
+from tools.subagent_factory.convert_epub import convert_epub
 from tools.subagent_factory.convert_html import convert_html
+from tools.subagent_factory.convert_pdf import convert_pdf
+from tools.subagent_factory.detect_file_type import detect_file_type
 from tools.subagent_factory.normalize_markdown import normalize_markdown
 
 

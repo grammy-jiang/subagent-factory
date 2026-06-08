@@ -238,6 +238,21 @@ python -m tools.subagent_factory.cli export <slug>
 
 ---
 
+## Step 8.5 — Scaffold skill/reference stubs
+
+Create the stub files for every entry in the profile's
+`knowledge_partition.skills` and `knowledge_partition.references` so the package
+matches the expected layout. Idempotent — existing files are left untouched.
+
+```bash
+python -m tools.subagent_factory.cli stubs <slug>
+```
+
+This writes `subagents/<slug>/skills/<name>/SKILL.md` and
+`subagents/<slug>/references/<name>.md`, each marked `STATUS: STUB` until authored.
+
+---
+
 ## Step 9 — Validate
 
 ```bash

@@ -1,6 +1,6 @@
 """Generate or update source-pack manifest YAML."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
@@ -20,7 +20,7 @@ def generate_manifest(
     subagent_path = Path(subagent_dir)
     manifest_path = subagent_path / "source-pack.manifest.yaml"
 
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(UTC).isoformat()
 
     existing = {}
     if manifest_path.exists():

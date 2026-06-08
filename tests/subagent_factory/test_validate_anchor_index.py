@@ -2,10 +2,8 @@
 
 import json
 import tempfile
-from pathlib import Path
 
 from tools.subagent_factory.validate_anchor_index import validate_anchor_index
-
 
 VALID_ANCHOR = {
     "schema_version": "source_anchor_v1",

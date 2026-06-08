@@ -19,12 +19,11 @@ Checks:
 import sys
 from pathlib import Path
 
-from tools.subagent_factory.validate_metadata import validate_metadata
-from tools.subagent_factory.validate_manifest import validate_manifest
-from tools.subagent_factory.validate_anchor_index import validate_anchor_index
-from tools.subagent_factory.quote_scan import quote_scan
 from tools.subagent_factory.profile_self_check import profile_self_check
-
+from tools.subagent_factory.quote_scan import quote_scan
+from tools.subagent_factory.validate_anchor_index import validate_anchor_index
+from tools.subagent_factory.validate_manifest import validate_manifest
+from tools.subagent_factory.validate_metadata import validate_metadata
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
 

@@ -6,7 +6,6 @@ from pathlib import Path
 
 import jsonschema
 
-
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "source-anchor-index-v1.schema.json"
 
 

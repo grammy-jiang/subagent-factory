@@ -2,9 +2,7 @@
 
 import base64
 import re
-import urllib.parse
 from pathlib import Path
-
 
 DATA_URI_RE = re.compile(
     r"!\[([^\]]*)\]\(data:([^;]+);base64,([^)]+)\)",
