@@ -153,6 +153,18 @@ Track whether any source was newly ingested (not skipped). If ALL sources were s
 
 ## Step 6 — Source interrogation
 
+> **No-spawner branch (read first).** If you have no `Agent`/`Task` tool — e.g. you are
+> yourself a spawned subagent, and nested delegation is not available in this Claude Code
+> harness — do NOT try to spawn anything and do NOT treat it as an error. Perform this
+> step **in-thread**: follow `.claude/agents/source-interrogator.md` (or
+> `Skill("source-interrogation")`) yourself and write
+> `subagents/<slug>/interrogation-records.yaml` directly with the Write tool, then
+> continue. Loading the worker instructions into your own (disposable) context is correct
+> here — the warning against `Skill(...)` below applies only to the main thread, where it
+> would pollute context that must stay clean for delegation. The deterministic `selfcheck`
+> (Step 7.5) and `validate` (Step 9) gates are the authority on correctness; they do not
+> care whether the file came from a sub-agent or from in-thread work.
+
 Invoke the `source-interrogator` subagent via `Agent(subagent_type="source-interrogator")`.
 Include in the prompt:
 - Paths to `subagents/<slug>/sources/markdown/*.md`
@@ -178,6 +190,14 @@ in the main thread using the Write tool.
 ---
 
 ## Step 7 — Profile derivation
+
+> **No-spawner branch (read first).** If you have no `Agent`/`Task` tool (you are a
+> spawned subagent), perform this step **in-thread**: follow
+> `.claude/agents/profile-deriver.md` (or `Skill("profile-generation")`) yourself and
+> write every required output directly with the Write tool — `profile.yaml`,
+> `provenance-ledger.md`, `CHANGELOG.md`, `README.md`, and `tests/golden-tests.yaml`
+> (minimum 3 tests, 1 negative routing) — then run the Step 7.5 gate. The
+> `Skill(...)`/main-thread warning below applies only when you CAN delegate.
 
 Check if profile.yaml already exists and whether new sources were added:
 
