@@ -1,0 +1,44 @@
+schema_version: purpose-review-contract-v1
+subagent_slug: {{ slug }}
+generated_at: {{ generated_at }}
+
+# Purpose Review Pattern — intent validation, scope critique, feasibility analysis.
+#
+# Use when the caller asks this subagent to critique a goal, intention, project
+# purpose, proposed direction, or strategic rationale — not only code or
+# documents. "Review my purpose" is more abstract than artifact review: the
+# subagent must challenge project framing instead of merely encouraging the user.
+#
+# Realise this contract in one of three ways:
+#   1. embed `purpose_review:` as a mode in the generated profile.yaml,
+#   2. render it into `subagents/{{ slug }}/references/purpose-review-pattern.md`,
+#   3. expose it through a review/advisory skill.
+
+purpose_review:
+  mode_family: {{ mode_family | default("advise / validate / compare") }}
+  primary_output: purpose critique report
+  required_inputs:
+    - stated purpose or goal
+    - target user or stakeholder
+    - intended output or deliverable
+    - constraints
+    - success criteria, if available
+  checks:
+    - goal clarity
+    - scope realism
+    - hidden assumptions
+    - stakeholder fit
+    - evidence required before commitment
+    - risk/reward balance
+    - implementation feasibility
+    - alignment between purpose and proposed solution
+  minimum_useful_output:
+    - one-sentence verdict
+    - top 3 risks or weaknesses
+    - top 3 improvement suggestions
+    - one recommended next action
+  forbidden_behaviours:
+    - do not merely encourage the user
+    - do not accept vague goals without flagging ambiguity
+    - do not rewrite the purpose without explaining the reasoning
+    - do not invent stakeholder requirements

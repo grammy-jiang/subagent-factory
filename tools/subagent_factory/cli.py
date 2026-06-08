@@ -142,6 +142,40 @@ def cmd_validate(slug):
         sys.exit(1)
 
 
+@main.command("score")
+@click.argument("units_file")
+@click.option("--worksheet", "worksheet_out", help="Write the Markdown shortlist to this path.")
+def cmd_score(units_file, worksheet_out):
+    """Phase 2.5 importance ranking — score candidate units before triage."""
+    from tools.subagent_factory.score_extracted_units import format_worksheet, score_units_file
+
+    result = score_units_file(units_file)
+    s = result["summary"]
+
+    t = Table(title=f"Importance ranking: {units_file}")
+    t.add_column("Unit ID")
+    t.add_column("Total /45", justify="right")
+    t.add_column("Verdict", style="bold")
+    t.add_column("Reason")
+    vcolor = {"keep": "green", "review": "yellow", "discard": "blue", "invalid": "red"}
+    for r in result["units"]:
+        detail = "; ".join(r["reasons"] or r["errors"])
+        c = vcolor.get(r["verdict"], "white")
+        t.add_row(r["id"], str(r["total"]), f"[{c}]{r['verdict']}[/{c}]", detail)
+    console.print(t)
+    console.print(
+        f"keep={s['keep']}  review={s['review']}  discard={s['discard']}  invalid={s['invalid']}"
+    )
+
+    if worksheet_out:
+        Path(worksheet_out).write_text(format_worksheet(result), encoding="utf-8")
+        console.print(f"[green]Worksheet written:[/green] {worksheet_out}")
+
+    if not result["valid"]:
+        console.print("[red]INVALID — fix malformed unit scores before triage.[/red]")
+        sys.exit(1)
+
+
 @main.command("extract-sample")
 @click.argument("source")
 def cmd_extract_sample(source):
