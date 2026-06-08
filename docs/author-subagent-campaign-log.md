@@ -416,7 +416,7 @@ keyword extraction, mode evidence, and importance ranking on multi-section conte
 - **Paths:** `tools/subagent_factory/export_claude_agent.py` (the `_neutralize_inner_dashes` helper
   + `_clean_clause` call + `import re`); `tests/subagent_factory/test_export_claude_agent.py`
   (5 new tests). No schema, template, or other package touched.
-- **Commit:** `283c2e0`.
+- **Commit:** `fe7084d` (factory fix; this log backfill follows in the next commit).
 
 **Human-review / stubs / needs-ocr**
 - Skills not yet authored (`STATUS: STUB`): `kernel-concurrency-review`,
