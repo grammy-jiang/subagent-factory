@@ -106,3 +106,41 @@ evidence_gaps:
 ```
 
 Flag `evidence_gaps` for any question the source could not answer. Do not invent.
+
+---
+
+## Phase 2.5 — Importance ranking (before triage)
+
+After interrogation, segment the source into candidate units and score each on
+the 9 importance dimensions (1–5): `authority`, `actionability`, `reusability`,
+`risk_impact`, `evidence_strength`, `uniqueness`, `transferability`, `stability`,
+`operational_fit`. Record them as a YAML file:
+
+```yaml
+schema_version: importance-scores-v1
+candidate_units:
+  - id: U1
+    source_id: <source_id>
+    summary: "one-line description of the unit"
+    scores: { authority: 5, actionability: 4, reusability: 4, risk_impact: 5,
+              evidence_strength: 4, uniqueness: 3, transferability: 4,
+              stability: 4, operational_fit: 4 }
+```
+
+Apply the deterministic decision rule with the factory script:
+
+```bash
+python -m tools.subagent_factory.score_extracted_units <units.yaml>
+```
+
+`keep` units proceed to Phase 4 triage; `discard` units route to the provenance
+ledger only; `review` units need a human decision. Do not let low-value
+background material into the profile just because it is structurally valid.
+
+## Purpose-review detection
+
+If the source justifies critiquing goals, intent, or project framing — not only
+code or documents — record a `purpose-review` advisory pattern layered over
+`advise` / `validate` / `compare`. Realise it from
+`templates/purpose-review-contract.yaml.j2` (embed as a profile mode or emit
+`references/purpose-review-pattern.md`).

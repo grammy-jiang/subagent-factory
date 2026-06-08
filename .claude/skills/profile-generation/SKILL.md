@@ -15,6 +15,18 @@ interrogation records. Phase 5 of the authoring cycle.
 
 ## Steps
 
+### 0. Apply importance ranking (Phase 2.5 gate)
+
+Before deriving any field, confirm the candidate units were scored and filtered:
+
+```bash
+python -m tools.subagent_factory.score_extracted_units <units.yaml>
+```
+
+Derive profile content only from `keep` units. Route `discard` units to the
+provenance ledger only. Resolve `review` units with a human decision before use.
+Exit non-zero means malformed scores — fix before continuing.
+
 ### 1. Resolve profile fields
 
 Apply derivation rules from Phase 5:
@@ -36,6 +48,11 @@ Apply derivation rules from Phase 5:
 | `minimum_useful_output` | Q11 |
 | `source_of_truth_policy` | Q8+Q17 |
 | `knowledge_partition.*` | Q12–Q16 |
+
+If the source justified a `purpose-review` pattern (see source-interrogation),
+embed the `purpose_review` mode from `templates/purpose-review-contract.yaml.j2`,
+or emit it as `subagents/<slug>/references/purpose-review-pattern.md` and list it
+in `knowledge_partition.references[]`.
 
 ### 2. Check profile bloat limits
 
