@@ -12,6 +12,7 @@ from tools.subagent_factory.export_claude_agent import (
     _clean_clause,
     _compose_description,
     _drop_dangling_open_paren,
+    _neutralize_inner_dashes,
 )
 
 # A profile whose role and triggers are all longer than their clause budgets,
@@ -165,3 +166,61 @@ def test_description_has_balanced_parentheses():
     assert desc.count("(") == desc.count(")")
     assert "(decompose" not in desc
     assert desc.split()[-1].lower() not in _TRAILING_CONNECTORS
+
+
+# A profile whose role and triggers use em/en dashes as appositive punctuation,
+# mirroring the real xv6-kernel-internals-reviewer profile that exposed the
+# defect: a content em dash inside a clipped trigger collides with the literal
+# " — " section join, so the router cannot tell the boundary from punctuation.
+EMDASH_PROFILE = {
+    "role": (
+        "An expert who explains and critiques the internals of a small "
+        "Unix-like teaching operating-system kernel."
+    ),
+    "when_to_use": [
+        "An engineer suspects a concurrency defect in kernel-style code — a "
+        "race, a lock acquired out of order that risks deadlock, a missing "
+        "memory barrier, or a lost wakeup — and wants it located.",
+        "A reader studying the file system needs its layered design – buffer "
+        "cache, logging layer, inodes – explained.",
+    ],
+    "when_not_to_use": [
+        "Operating a production OS — kernel build flags, package management — "
+        "rather than understanding the teaching kernel.",
+    ],
+}
+
+
+def test_neutralize_inner_dashes_demotes_em_and_en_dashes_to_commas():
+    assert _neutralize_inner_dashes("code — a race") == "code, a race"
+    assert _neutralize_inner_dashes("design – buffer cache") == "design, buffer cache"
+    # Tight (un-spaced) dashes are normalized too.
+    assert _neutralize_inner_dashes("a—b") == "a, b"
+
+
+def test_neutralize_inner_dashes_leaves_hyphens_and_slashes_untouched():
+    for s in ("user/kernel boundary", "copy-on-write fork", "Unix-like kernel"):
+        assert _neutralize_inner_dashes(s) == s
+
+
+def test_clean_clause_demotes_inner_em_dash():
+    # The clipped clause must not carry an em dash that would later be confused
+    # with the structural " — " join in the composed description.
+    out = _clean_clause(
+        "An engineer suspects a concurrency defect in kernel-style code — a race", 200
+    )
+    assert "—" not in out
+    assert "code, a race" in out
+
+
+def test_description_em_dash_only_marks_section_boundaries():
+    # Every em dash in the final description must be a structural section join
+    # (" — Use when:" / " — Not for:"), never leftover content punctuation.
+    desc = _compose_description(EMDASH_PROFILE)
+    import re as _re
+
+    total_em = desc.count("—")
+    structural = len(_re.findall(r" — (?:Use when:|Not for:)", desc))
+    assert total_em == structural, f"content em dash leaked into description: {desc!r}"
+    # En dashes must not survive in the clauses either.
+    assert "–" not in desc

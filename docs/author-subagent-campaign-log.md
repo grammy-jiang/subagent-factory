@@ -306,3 +306,125 @@ configuration vocabulary.
   official k6 docs (k6.io) for the full metrics reference — option/metric names should be
   re-verified against current k6 releases (annual cadence).
 - **No needs-ocr block this run.**
+
+---
+
+### Run 4 — xv6-kernel-internals-reviewer — 2026-06-09
+
+**Source PDF:** `Operating Systems/a simple, Unix-like teaching operating system.pdf` — the
+**xv6 book** (Russ Cox, Frans Kaashoek, Robert Morris, October 27, 2019 edition), a commentary
+on the xv6 RISC-V teaching kernel. 104 pages, 30,768 words across OS interfaces, organization,
+page tables, traps/device drivers, locking, scheduling, and the layered file system. The
+longest, densest source in the campaign so far — chosen deliberately to stress body-budget,
+keyword extraction, mode evidence, and importance ranking on multi-section content.
+
+- **Detected rights:** `distillation-only`. Full-text scan found **no license/copyright notice**
+  anywhere (the only `BSD/Linux` hits are prose comparing other OSes, never a grant of rights).
+  Authored work, named authors → Step 2a conservative floor `distillation-only` (not `unknown`;
+  it is fully attributable, so it does not block). Quote scan: clean.
+- **Final slug:** `xv6-kernel-internals-reviewer` (CREATE NEW).
+- **Create/update decision:** create-new. Step 3 search top similarity **0.43**
+  (`java-concurrency-reviewer` — shared vocab: concurrency, deadlock, interrupt, cache, context),
+  then `kafka-client-performance-advisor` 0.13. 0.43 is below the 0.55 ask floor and far below the
+  0.80 update threshold; the domains are distinct (RISC-V kernel internals vs the Java memory
+  model). No collision with any of the 8 existing slugs.
+- **Modes:** `advise`, `review`, `compare` (all with source evidence). `advise` — the book's
+  pervasive explain-the-mechanism mode. `review` — it repeatedly critiques designs against
+  invariants (inconsistent lock order → deadlock; exec ELF-address risk; lost-wakeup races),
+  which is genuine review evidence (a richer source than the prior cheat-sheets, so the first
+  campaign package to justify `review`). `compare` — the per-chapter "Real world" sections
+  contrast xv6 with BSD/Linux/FreeBSD msleep/UFS-FFS-ext. `produce/validate/extract/patch-suggest`
+  withheld — no deliverable evidence (logged in the mode decision log).
+
+**Pipeline outcome**
+- Ingestion: `conversion_status=ok`, converter `markitdown` (Docling/PyMuPDF unavailable),
+  `page_count=104`, `word_count=30768`, `is_scanned=False` (real text layer; avg word length 6.6
+  — the run-together words are a markitdown spacing artifact, not OCR garbage), `anchor_count=0`
+  (markitdown emitted no ATX headings; chapter titles survive as plain text — expected for this
+  converter, not a blocker).
+- **Phase 2.5 importance ranking** (`tests/importance-scores.yaml`): 8 subsystem units scored and
+  run through `cli score`. 7 `keep` (concurrency 43, isolation 40, file system 40, scheduling 37,
+  page tables 36, traps 35, real-world comparisons 34), 1 `discard` — the open-ended chapter
+  **exercises** unit (18) correctly routed to the ledger only, kept out of the profile. The
+  deterministic gate behaved exactly as designed on a dense source.
+- Phase 8 deterministic `selfcheck`: **WARNING → PASS** (exit 0, export permitted). First pass
+  flagged body-size at **931 words** (> 800 budget) and named the heaviest sections
+  (`when_to_use 190w, quality_bar 187w, modes 112w` — the `ae7bbcc` improvement). Iteratively
+  trimmed to ~801 words with all evidence grounding intact; the gate stayed WARNING (see friction
+  #1). All other checks PASS (5 triggers, 3 exclusions, 5 evidence-citing quality-bar checks,
+  3 golden + 1 negative, platform-neutral, provenance present).
+- `cli export` + `cli stubs`: adapter installed; 3 skill stubs + 2 reference stubs written.
+- `cli validate`: **VALIDATION PASSED** (adapter-sync matches canonical, Phase 8 WARNING,
+  quote-scan clean).
+- `make verify`: **OK** — ruff clean, bandit clean (only pre-existing `nosec` infos),
+  detect-secrets clean, pytest **124 passed** (was 120 + 4 net new export tests... 5 added).
+
+**Workflow review (friction points hit this run)**
+1. **Adapter `description` em-dash collision** (the chosen factory fix — see below). The
+   xv6 role and triggers use em dashes as appositive punctuation (ubiquitous in technical prose:
+   `a concurrency defect in kernel-style code — a race`). `_compose_description` joins its
+   sections with a literal `" — "`, so a content em dash inside a *clipped* clause renders
+   identically to the structural `— Use when:` / `— Not for:` delimiter — the router/reader
+   cannot tell a section boundary from clause punctuation. The shipped pre-fix description read
+   `...kernel-style code — a race — Not for:...` (two semantically different `—`, rendered the
+   same). An audit of all 9 installed adapters showed only xv6 actually tripped it
+   (`content_emdash=1`); the 8 prior packages had `0` purely because their triggers either lacked
+   em dashes or were clipped before one. This is the **same bug class** as the already-shipped
+   `c26ecc8` dangling-paren fix — clipping produces a malformed router description — and it only
+   surfaces on a source dense enough to use em dashes. Genuinely real, repeatable, latent.
+2. **Body-budget pressure is hard to drive to a hard target by hand.** The dense 3-mode profile
+   started 131 words over budget. The selfcheck names the heaviest sections (good), but the
+   word count is computed on the *post-YAML-load, whitespace-split* token stream, so the `>-`
+   folded-scalar line re-wrapping makes single-word edits non-monotonic — removing a word
+   sometimes leaves the reported count flat. Trimming from 931→~801 took several passes. **This
+   is a WARNING, not a FAIL** (gate exits 0 at any value ≤1000), so it is a passable, non-blocking
+   state — the profile is legitimately dense because it covers a 104-page systems book in three
+   modes. Logged as a finding; did not chase the final 1-word boundary. (Candidate future
+   improvement, not done this run: a `selfcheck --trim-hint` that prints the N longest individual
+   body items, or raising the WARN floor for multi-mode profiles — both are judgement calls, so
+   left for a dedicated change rather than bundled here.)
+3. **`review` mode inference on a teaching/commentary source.** Unlike the prior cheat-sheets,
+   this book *critiques* designs (it warns where code is "tricky"/"risky" and names the invariant
+   at stake), which is legitimate `review` evidence. The mode-evidence rule held up — both verb
+   (critique) and deliverable (a design critique of existing kernel code) are present in source.
+4. Cosmetic/environmental (unchanged from prior runs): every CLI call prints
+   `RequestsDependencyWarning` (urllib3/chardet) on stderr; Docling and PyMuPDF are not installed,
+   so markitdown is the converter (fidelity adequate — prose + small code blocks); `anchor_count=0`
+   is the expected markitdown heading-loss artifact for this PDF.
+5. **No sub-agent spawner** (as in Runs 1–3): ran Steps 6 & 7 in-thread per the documented
+   no-spawner branch. Wrote `interrogation-records.yaml`, `profile.yaml`, `provenance-ledger.md`,
+   `CHANGELOG.md`, `README.md`, `tests/golden-tests.yaml` (+ `importance-scores.yaml`) directly;
+   the deterministic `selfcheck`/`validate` gates verified the output. No friction.
+
+**Factory change made**
+- **What:** Added `_neutralize_inner_dashes()` to `export_claude_agent.py` and call it from
+  `_clean_clause()`: every em/en dash *inside* a description clause is demoted to a comma before
+  clipping, so the only em dashes that can appear in the composed description are the structural
+  `" — "` section joins. Hyphens and slashes in compound words (`user/kernel`, `copy-on-write`,
+  `Unix-like`) are untouched. Added `import re`. Added 5 regression tests to
+  `test_export_claude_agent.py` (a new `EMDASH_PROFILE` mirroring the real xv6 case): the unit
+  demotes em/en dashes and leaves hyphens alone; `_clean_clause` carries no leftover em dash; the
+  composed description's em-dash count equals its structural-delimiter count (no content dash
+  leaks); no en dashes survive.
+- **Why:** Removes a real, repeatable malformation in the routing description that the selfcheck
+  and validate gates do **not** catch (neither inspects the rendered adapter `description` string
+  for separator ambiguity). It is the same defect family as `c26ecc8` and is triggered by exactly
+  the kind of dense technical source this campaign processes. Verified strictly non-regressive:
+  all 8 existing adapters keep `content_emdash=0`; the only behavioural change is that a freed-up
+  character budget can now *include* a previously-dropped trigger (e.g. software-design-reviewer
+  gains its second trigger), which is an improvement, never a loss.
+- **Paths:** `tools/subagent_factory/export_claude_agent.py` (the `_neutralize_inner_dashes` helper
+  + `_clean_clause` call + `import re`); `tests/subagent_factory/test_export_claude_agent.py`
+  (5 new tests). No schema, template, or other package touched.
+- **Commit:** `283c2e0`.
+
+**Human-review / stubs / needs-ocr**
+- Skills not yet authored (`STATUS: STUB`): `kernel-concurrency-review`,
+  `address-space-and-trap-walkthrough`, `filesystem-crash-recovery-review`.
+- References not yet authored (`STATUS: STUB`): `xv6-subsystem-map`, `real-world-os-comparisons`.
+- Package stays `status: draft` until skills/references are authored. Evidence gaps in the
+  provenance ledger: rights set conservatively (no license notice); `produce/validate/extract/
+  patch-suggest` withheld for lack of deliverable evidence; downstream owner inferred (the
+  code/coursework owner); source-file/line and RISC-V register references are edition-bound
+  (re-review on a new xv6 edition; annual cadence).
+- **No needs-ocr block this run** (real text layer; `is_scanned=False`).
