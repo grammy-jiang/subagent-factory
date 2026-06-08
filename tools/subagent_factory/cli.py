@@ -105,19 +105,22 @@ def cmd_extract_sample(source):
 
 @main.command("search")
 @click.argument("topic")
-def cmd_search(topic):
-    """Search existing subagents by topic."""
+@click.option("--keywords", default="", help="Comma-separated domain keywords from content")
+def cmd_search(topic, keywords):
+    """Search existing subagents by topic + content keywords."""
     from tools.subagent_factory.find_related_subagents import find_related_subagents
 
-    candidates = find_related_subagents(topic)
+    kw_list = [k.strip() for k in keywords.split(",") if k.strip()] if keywords else []
+    candidates = find_related_subagents(topic, domain_keywords=kw_list)
     if not candidates:
-        console.print("No related subagents found.")
+        console.print("No related subagents found — create new.")
         return
 
     t = Table(title=f"Related subagents for: {topic}")
     t.add_column("Slug")
     t.add_column("Similarity")
     t.add_column("Recommendation")
+    t.add_column("Matched terms")
     t.add_column("Role excerpt")
     for c in candidates:
         rec_color = {"update": "green", "consider-update": "yellow", "create-new": "blue"}.get(c["recommendation"], "white")
@@ -125,7 +128,8 @@ def cmd_search(topic):
             c["slug"],
             f"{c['similarity']:.2f}",
             f"[{rec_color}]{c['recommendation']}[/{rec_color}]",
-            c["role"][:80],
+            ", ".join(c.get("matched_terms", [])[:6]),
+            c["role"][:60],
         )
     console.print(t)
 
