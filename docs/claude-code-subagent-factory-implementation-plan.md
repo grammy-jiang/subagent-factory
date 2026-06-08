@@ -48,6 +48,44 @@ subagents/<slug>/ = canonical generated subagent package
 
 # 2. Confirmed Design Decisions
 
+## 2.0 v0 Scope Control
+
+v0 must prove one reliable end-to-end path before expanding. The target path is:
+
+```text
+PDF/ePUB → canonical Markdown → generated package → Claude Code adapter → validation
+```
+
+The main risk is no longer insufficient scope; it is implementation complexity.
+Prove the smallest useful path first, then expand iteratively. Do not build a
+large multi-agent system before the smallest end-to-end path works.
+
+**In scope for v0:**
+
+```text
+- local PDF and local ePUB ingestion (first-class)
+- local Markdown and DOCX ingestion (only if they do not delay the PDF/ePUB path)
+- public HTML/PDF/ePUB URL snapshot (no authentication)
+- canonical Markdown conversion + anchors + metadata + manifest
+- importance scoring before triage
+- profile.yaml + provenance-ledger.md generation
+- Claude Code adapter export + install + package validation
+- at least one runtime smoke test inside Claude Code
+```
+
+**Deferred to post-v0:**
+
+```text
+- Copilot adapter
+- Codex adapter
+- OCR-heavy / scanned-PDF processing
+- browser-authenticated source ingestion
+- advanced MCP-backed retrieval
+- fully automated multi-source merge
+- advanced semantic similarity search
+- large-scale regression matrix across many document types
+```
+
 ## 2.1 Repository-local only
 
 The utility works only in this repository.
@@ -203,6 +241,7 @@ Do not implement browser credential reuse in v0.
 │       ├── generate_metadata.py
 │       ├── generate_manifest.py
 │       ├── generate_conversion_report.py
+│       ├── score_extracted_units.py
 │       ├── validate_metadata.py
 │       ├── validate_manifest.py
 │       ├── validate_anchor_index.py
@@ -225,6 +264,7 @@ Do not implement browser credential reuse in v0.
 │   ├── conversion-report.md.j2
 │   ├── claude-agent-adapter.md.j2
 │   ├── golden-tests.yaml.j2
+│   ├── purpose-review-contract.yaml.j2
 │   └── changelog.md.j2
 ├── subagents/
 │   └── README.md
@@ -551,6 +591,7 @@ tools/subagent_factory/extract_assets.py
 tools/subagent_factory/generate_metadata.py
 tools/subagent_factory/generate_manifest.py
 tools/subagent_factory/generate_conversion_report.py
+tools/subagent_factory/score_extracted_units.py
 ```
 
 ## 8.2 Validation and export scripts
@@ -579,6 +620,7 @@ tools/subagent_factory/run_tests.py
 | `inject_anchors.py` | Generate `source_anchor_v1` anchors |
 | `find_related_subagents.py` | Search existing subagents |
 | `export_claude_agent.py` | Generate Claude Code runtime adapter |
+| `score_extracted_units.py` | Score extracted source units with the importance-ranking rubric before triage and profile generation |
 | `quote_scan.py` | Detect prohibited quotation from restricted sources |
 
 ---
@@ -912,6 +954,11 @@ Acceptance criteria:
 
 ## Milestone 1 — Source Ingestion v0
 
+Local PDF and local ePUB are the first-class targets. Markdown and DOCX may follow
+in the same milestone only if they do not delay the PDF/ePUB path. Public-URL
+snapshot support is HTML-only at this stage; authenticated sources are out of scope
+(see §2.0).
+
 Deliverables:
 
 ```text
@@ -1016,6 +1063,8 @@ Deliverables:
 - manager subagent
 - source-interrogation skill
 - profile-generation skill
+- score_extracted_units.py (importance scoring before triage)
+- purpose-review pattern template/reference (templates/purpose-review-contract.yaml.j2 or references/purpose-review-pattern.md)
 ```
 
 Acceptance criteria:
@@ -1043,6 +1092,30 @@ Acceptance criteria:
 - validation passes for a generated package
 - adapter validation passes
 - restricted quote scan runs
+```
+
+## Milestone 8 — Claude Code Runtime Smoke Test
+
+Structural validation proves the package is well-formed but not that Claude Code
+behaves correctly with the generated agent. This milestone adds runtime checks.
+
+Deliverables:
+
+```text
+- generated adapter discovery check
+- positive routing prompt
+- negative routing prompt
+- read-only behaviour check
+- minimum useful output check
+```
+
+Acceptance criteria:
+
+```text
+- Claude Code can see the generated adapter
+- a matching prompt can invoke the generated agent
+- an excluded prompt does not route to the generated agent
+- review/validate/advise modes do not modify canonical artifacts
 ```
 
 ---
@@ -1148,6 +1221,10 @@ And validation passes:
 ```bash
 python -m tools.subagent_factory.validate_generated_package subagents/example-reviewer
 ```
+
+And passes at least one Claude Code runtime smoke test (Milestone 8): the installed
+adapter is discoverable, a matching prompt routes to it, an excluded prompt does
+not, and review/validate/advise modes leave canonical artifacts unmodified.
 
 ---
 
