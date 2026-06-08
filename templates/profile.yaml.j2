@@ -1,64 +1,84 @@
+{# YAML-safety contract:
+   Free-text scalar fields (prose that may contain a colon-space ": ", a leading
+   "-", or other YAML indicators) are emitted as folded block scalars (">-").
+   A block scalar treats its content literally, so an embedded colon cannot be
+   misread as a mapping key and break the document. Constrained tokens — slug,
+   agent_version, booleans, kebab-case skill/reference names — stay inline.
+   Hand-authoring this file instead of rendering it: follow the same rule. #}
 schema_version: portable-profile-v1
 slug: {{ slug }}
-display_name: {{ display_name }}
+display_name: >-
+  {{ display_name }}
 agent_version: "0.1.0"
 status: draft
 
-role: >
+role: >-
   {{ role }}
 
 when_to_use:
 {% for trigger in when_to_use %}
-  - {{ trigger }}
+  - >-
+    {{ trigger }}
 {% endfor %}
 
 when_not_to_use:
 {% for exclusion in when_not_to_use %}
-  - {{ exclusion }}
+  - >-
+    {{ exclusion }}
 {% endfor %}
 
 inputs:
   required:
 {% for inp in inputs_required %}
-    - {{ inp }}
+    - >-
+      {{ inp }}
 {% endfor %}
 
 outputs:
-  primary_format: {{ primary_format }}
+  primary_format: >-
+    {{ primary_format }}
   modes:
 {% for mode in modes %}
     - name: {{ mode.name }}
-      trigger: {{ mode.trigger }}
-      output: {{ mode.output }}
+      trigger: >-
+        {{ mode.trigger }}
+      output: >-
+        {{ mode.output }}
 {% endfor %}
 
 quality_bar:
 {% for check in quality_bar %}
-  - {{ check }}
+  - >-
+    {{ check }}
 {% endfor %}
 
-minimum_useful_output: >
+minimum_useful_output: >-
   {{ minimum_useful_output }}
 
 forbidden_behaviours:
 {% for behaviour in forbidden_behaviours %}
-  - {{ behaviour }}
+  - >-
+    {{ behaviour }}
 {% endfor %}
 
 handoff_rules:
 {% for rule in handoff_rules %}
-  - {{ rule }}
+  - >-
+    {{ rule }}
 {% endfor %}
 
 source_of_truth_policy:
-  canonical_owner: {{ canonical_owner }}
+  canonical_owner: >-
+    {{ canonical_owner }}
   may_edit_canonical: {{ may_edit_canonical | lower }}
-  precedence: {{ precedence }}
+  precedence: >-
+    {{ precedence }}
 
 knowledge_partition:
   always_on:
 {% for item in knowledge_always_on %}
-    - {{ item }}
+    - >-
+      {{ item }}
 {% endfor %}
   skills:
 {% for skill in knowledge_skills %}
@@ -74,7 +94,7 @@ knowledge_partition:
 sources:
 {% for source in sources %}
   - source_id: {{ source.source_id }}
-    title: {{ source.title }}
-    sha256: {{ source.sha256 }}
+    title: >-
+      {{ source.title }}
+    sha256: "{{ source.sha256 }}"
 {% endfor %}
-
