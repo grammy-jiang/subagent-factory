@@ -94,13 +94,13 @@ def cmd_validate(slug):
         sys.exit(1)
 
 
-@main.command("detect-topic")
+@main.command("extract-sample")
 @click.argument("source")
-def cmd_detect_topic(source):
-    """Auto-detect topic from a source file."""
-    from tools.subagent_factory.detect_topic import detect_topic
-    topic = detect_topic(source)
-    console.print(topic)
+def cmd_extract_sample(source):
+    """Extract content sample for expert-role inference."""
+    from tools.subagent_factory.detect_topic import extract_content_sample, format_sample_for_inference
+    sample = extract_content_sample(source)
+    print(format_sample_for_inference(sample))
 
 
 @main.command("search")

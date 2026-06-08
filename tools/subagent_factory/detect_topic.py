@@ -1,14 +1,20 @@
 """
-Extract a human-readable topic string from a source file when --topic is not supplied.
+Extract a content sample from a source file for expert-role inference.
 
-Priority order per file type:
-  Markdown  → front matter title → first H1 → cleaned filename
-  PDF       → Docling/PyMuPDF document title metadata → first H1 in converted text → filename
-  ePUB      → OPF dc:title → filename
-  DOCX      → core.xml dc:title → filename
-  HTML      → <title> tag → first <h1> → filename
-  URL       → same as HTML after snapshot
-  fallback  → clean up filename stem
+The TOPIC of a source is not its title — it is the expert role that a
+subagent built from this material would perform. That requires semantic
+reasoning over content, which Claude does in the skill after receiving
+the sample produced here.
+
+This script's job: extract a compact, representative text sample:
+  - All headings (H1–H3) to reveal structure
+  - First ~1500 words of body text to reveal domain and intent
+  - Table of contents entries when present
+
+The skill reads this sample and answers:
+  "What expert reviewer or advisor role would someone trained on this
+   material become? (e.g. 'software design reviewer', 'API security
+   auditor', 'distributed systems architect')"
 """
 
 import re
@@ -18,138 +24,155 @@ from pathlib import Path
 import yaml
 
 from tools.subagent_factory.detect_file_type import detect_file_type
+from tools.subagent_factory.convert_document import convert_document
 
 
-def detect_topic(source_path: str | Path) -> str:
-    """Return best-guess topic string for a source file."""
+SAMPLE_WORDS = 1500
+MAX_HEADINGS = 60
+
+
+def extract_content_sample(source_path: str | Path) -> dict:
+    """
+    Extract a content sample for expert-role inference.
+
+    Returns dict:
+      headings      list[str]   — all H1–H3 heading texts, in order
+      body_excerpt  str         — first ~1500 words of body text
+      toc_entries   list[str]   — table of contents entries if found
+      file_hint     str         — raw title/filename (lowest-priority hint only)
+    """
     p = Path(source_path)
     if not p.exists():
-        return _from_filename(p)
+        return _empty_sample(p)
 
     file_type = detect_file_type(p)
 
-    extractors = {
-        "markdown": _topic_markdown,
-        "pdf":      _topic_pdf,
-        "epub":     _topic_epub,
-        "docx":     _topic_docx,
-        "html":     _topic_html,
+    # For non-Markdown files, convert to Markdown first (in temp location)
+    if file_type == "markdown":
+        text = p.read_text(encoding="utf-8", errors="replace")
+        text = _strip_front_matter(text)
+    else:
+        import tempfile
+        with tempfile.NamedTemporaryFile(suffix=".md", delete=False) as tmp:
+            tmp_path = tmp.name
+        result = convert_document(p, tmp_path)
+        text = result.get("markdown_text", "")
+        if not text:
+            text = Path(tmp_path).read_text(encoding="utf-8", errors="replace") if Path(tmp_path).exists() else ""
+
+    headings = _extract_headings(text)
+    toc = _extract_toc(text)
+    body = _extract_body_excerpt(text)
+    file_hint = _file_hint(p)
+
+    return {
+        "headings": headings[:MAX_HEADINGS],
+        "body_excerpt": body,
+        "toc_entries": toc,
+        "file_hint": file_hint,
     }
 
-    topic = extractors.get(file_type, lambda _: None)(p)
-    return topic or _from_filename(p)
+
+def format_sample_for_inference(sample: dict) -> str:
+    """
+    Format a content sample as text Claude can read to infer expert role.
+    """
+    parts = []
+
+    if sample.get("file_hint"):
+        parts.append(f"[Source title hint: {sample['file_hint']}]")
+
+    if sample.get("toc_entries"):
+        parts.append("## Table of Contents\n" + "\n".join(sample["toc_entries"][:30]))
+
+    if sample.get("headings"):
+        parts.append("## Headings (structure)\n" + "\n".join(
+            f"- {h}" for h in sample["headings"]
+        ))
+
+    if sample.get("body_excerpt"):
+        parts.append("## Opening content\n" + sample["body_excerpt"])
+
+    return "\n\n".join(parts)
 
 
-# ── per-type extractors ────────────────────────────────────────────────────
+# ── extractors ─────────────────────────────────────────────────────────────
 
-def _topic_markdown(p: Path) -> str | None:
-    try:
-        text = p.read_text(encoding="utf-8", errors="replace")
-        # front matter title
-        if text.startswith("---"):
-            end = text.find("\n---", 3)
-            if end != -1:
-                fm = yaml.safe_load(text[3:end]) or {}
-                title = fm.get("title") or fm.get("name")
-                if title:
-                    return str(title).strip()
-        # first H1
-        m = re.search(r"^# (.+)$", text, re.MULTILINE)
+def _strip_front_matter(text: str) -> str:
+    if text.startswith("---"):
+        end = text.find("\n---", 3)
+        if end != -1:
+            return text[end + 4:].lstrip("\n")
+    return text
+
+
+def _extract_headings(text: str) -> list[str]:
+    headings = []
+    for line in text.splitlines():
+        m = re.match(r"^(#{1,3})\s+(.+)$", line)
         if m:
-            return m.group(1).strip()
-    except Exception:
-        pass
-    return None
+            headings.append(m.group(2).strip())
+    return headings
 
 
-def _topic_pdf(p: Path) -> str | None:
-    # Try Docling metadata
-    try:
-        from docling.document_converter import DocumentConverter
-        conv = DocumentConverter()
-        doc = conv.convert(str(p))
-        title = getattr(doc.document, "title", None)
-        if title:
-            return str(title).strip()
-        # fall through to first heading in converted text
-        text = doc.document.export_to_markdown()
-        m = re.search(r"^# (.+)$", text, re.MULTILINE)
-        if m:
-            return m.group(1).strip()
-    except Exception:
-        pass
-    # Try PyMuPDF
-    try:
-        import fitz  # PyMuPDF
-        doc = fitz.open(str(p))
-        meta = doc.metadata or {}
-        title = meta.get("title", "").strip()
-        if title:
-            return title
-    except Exception:
-        pass
-    return None
+def _extract_toc(text: str) -> list[str]:
+    """Find a TOC block — lines that look like numbered or bulleted chapter listings."""
+    toc_entries = []
+    in_toc = False
+    toc_re = re.compile(r"^(\d+[\.\)]|[-*])\s+.{5,80}$")
+
+    for line in text.splitlines():
+        low = line.lower().strip()
+        if low in ("table of contents", "contents", "## table of contents", "# contents"):
+            in_toc = True
+            continue
+        if in_toc:
+            if toc_re.match(line.strip()):
+                toc_entries.append(line.strip())
+                if len(toc_entries) >= 40:
+                    break
+            elif line.strip() == "" and len(toc_entries) > 5:
+                # blank line after some entries likely ends the TOC
+                break
+    return toc_entries
 
 
-def _topic_epub(p: Path) -> str | None:
-    try:
-        with zipfile.ZipFile(p, "r") as zf:
-            # Find OPF file
-            container = zf.read("META-INF/container.xml").decode("utf-8", errors="replace")
-            m = re.search(r'full-path="([^"]+\.opf)"', container)
-            if not m:
-                return None
-            opf_path = m.group(1)
-            opf = zf.read(opf_path).decode("utf-8", errors="replace")
-            title_m = re.search(r"<dc:title[^>]*>([^<]+)</dc:title>", opf)
-            if title_m:
-                return title_m.group(1).strip()
-    except Exception:
-        pass
-    return None
+def _extract_body_excerpt(text: str) -> str:
+    """
+    Skip headings and blank lines, return first SAMPLE_WORDS words of body prose.
+    """
+    lines = []
+    word_count = 0
+    for line in text.splitlines():
+        if re.match(r"^#{1,6}\s", line):
+            continue
+        if not line.strip():
+            continue
+        lines.append(line)
+        word_count += len(line.split())
+        if word_count >= SAMPLE_WORDS:
+            break
+    return "\n".join(lines)
 
 
-def _topic_docx(p: Path) -> str | None:
-    try:
-        with zipfile.ZipFile(p, "r") as zf:
-            if "docProps/core.xml" in zf.namelist():
-                core = zf.read("docProps/core.xml").decode("utf-8", errors="replace")
-                m = re.search(r"<dc:title>([^<]+)</dc:title>", core)
-                if m:
-                    return m.group(1).strip()
-    except Exception:
-        pass
-    return None
-
-
-def _topic_html(p: Path) -> str | None:
-    try:
-        text = p.read_text(encoding="utf-8", errors="replace")
-        m = re.search(r"<title[^>]*>([^<]+)</title>", text, re.IGNORECASE)
-        if m:
-            title = re.sub(r"\s+", " ", m.group(1)).strip()
-            if title:
-                return title
-        m = re.search(r"<h1[^>]*>([^<]+)</h1>", text, re.IGNORECASE)
-        if m:
-            return re.sub(r"\s+", " ", m.group(1)).strip()
-    except Exception:
-        pass
-    return None
-
-
-# ── fallback ───────────────────────────────────────────────────────────────
-
-def _from_filename(p: Path) -> str:
-    stem = p.stem
-    stem = re.sub(r"[_\-]+", " ", stem)
+def _file_hint(p: Path) -> str:
+    stem = re.sub(r"[_\-]+", " ", p.stem)
     stem = re.sub(r"\bv\d+(\.\d+)*\b", "", stem, flags=re.IGNORECASE)
-    stem = re.sub(r"\s+", " ", stem).strip()
-    return stem.title()
+    return re.sub(r"\s+", " ", stem).strip().title()
 
 
-# ── CLI ────────────────────────────────────────────────────────────────────
+def _empty_sample(p: Path) -> dict:
+    return {
+        "headings": [],
+        "body_excerpt": "",
+        "toc_entries": [],
+        "file_hint": _file_hint(p),
+    }
+
+
+# ── CLI ─────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     import sys
-    print(detect_topic(sys.argv[1]))
+    sample = extract_content_sample(sys.argv[1])
+    print(format_sample_for_inference(sample))
