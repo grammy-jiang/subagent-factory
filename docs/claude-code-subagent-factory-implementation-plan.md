@@ -261,22 +261,27 @@ subagents/<slug>/
 │   └── reports/
 │       ├── <source_id>.conversion-report.md
 │       └── human-review-queue.md
-├── skills/
+├── skills/                       # optional — present only when the source yields procedures
 │   └── <generated-skill>/
 │       └── SKILL.md
-├── references/
-│   ├── quality-rubric.md
-│   ├── glossary.md
-│   └── examples.md
+├── references/                   # optional — authored when the source warrants it
+│   └── *.md                      #   (rubrics, glossaries, examples, taxonomies); names vary
 ├── adapters/
 │   └── claude-code/
 │       └── <slug>.md
 └── tests/
-    ├── golden-tests.yaml
-    ├── negative-routing-tests.yaml
-    ├── schema-tests.yaml
-    └── test-results.md
+    ├── golden-tests.yaml         # required — holds golden_tests: and negative_routing_tests:
+    │                             #   keyed sections (Phase 8 counts keys, not files)
+    └── test-results.md           # required — self-check / test-run record
 ```
+
+**Test-file and references contract.** The package validator and the Phase 8 self-check
+operate on *keyed sections*, not filenames: `golden-tests.yaml` carries both `golden_tests:`
+and `negative_routing_tests:`, and schema validation is performed directly by the validator
+against the metadata / manifest / anchor schemas. Separate `negative-routing-tests.yaml`
+and `schema-tests.yaml` files are therefore not emitted. `references/` is situational —
+authored only when a source yields rubrics, glossaries, examples, or taxonomies — so its
+file names vary by domain and the directory may be absent.
 
 ---
 
