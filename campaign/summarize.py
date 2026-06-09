@@ -105,7 +105,6 @@ def update_queue(status: str, slug: str) -> None:
 
 def main() -> int:
     res = read_result(LOG)
-    raw = LOG.read_text(encoding="utf-8", errors="replace") if LOG.exists() else ""
     block = parse_block(res["result"])
 
     advanced = bool(HEAD_AFTER) and HEAD_AFTER != HEAD_BEFORE
@@ -115,15 +114,23 @@ def main() -> int:
         slug = ""
     finding = block.get("finding", "") or ""
     bstatus = (block.get("status", "") or "").lower()
-    usage_limit = block.get("usage_limit", "no").lower() == "yes" or bool(_LIMIT_RE.search(raw))
+    agent_limit = block.get("usage_limit", "no").lower() == "yes"
 
-    # Gate decision (deterministic).
-    if usage_limit:
+    # Gate decision (deterministic). A completed-and-committed round wins
+    # outright. A real usage/rate limit ABORTS `claude -p` with a non-zero exit,
+    # so gate usage-limit on rc!=0 + a limit signal in the FINAL result only —
+    # never on a transcript scan (which matches incidental mentions, e.g. the
+    # agent reading a doc that says "stop on usage limit") and never on the
+    # agent's own (over-cautious) self-report when the round actually finished.
+    ok_round = bstatus == "ok" and VERIFY == "green" and advanced
+    hard_limit = RC != 0 and (bool(res["is_error"]) or bool(_LIMIT_RE.search(res["result"])))
+
+    if ok_round:
+        gate = "ok"
+    elif hard_limit:
         gate = "usage-limit"
     elif bstatus == "blocked":
         gate = "blocked"
-    elif bstatus == "ok" and VERIFY == "green" and advanced:
-        gate = "ok"
     elif res["is_error"] or RC != 0 or not block:
         gate = "error"
     else:
@@ -146,7 +153,8 @@ def main() -> int:
         f"- fix_commit: {block.get('fix_commit', 'none')}   (commits: {commits or 'none'})\n"
         f"- head: {HEAD_BEFORE[:9]} -> {HEAD_AFTER[:9]} ({'advanced' if advanced else 'no change'})\n"
         f"- finding: {finding}\n"
-        f"- usage_limit: {'yes' if usage_limit else 'no'}   (exit rc={RC})\n"
+        f"- usage_limit: {'yes' if gate == 'usage-limit' else 'no'}"
+        f"   (agent_said={'yes' if agent_limit else 'no'}, rc={RC})\n"
         f"- gate: {gate}\n"
         f"- log: {LOG.name}\n",
         encoding="utf-8",
