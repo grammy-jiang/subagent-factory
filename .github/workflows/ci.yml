@@ -89,15 +89,23 @@ jobs:
     name: Tests (py${{ matrix.python-version }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # 3.14 is the newest Python; some heavy deps may not ship wheels for it yet,
+    # so it runs as a non-blocking signal (experimental) until proven stable —
+    # then promote it to blocking by deleting the include entry below.
+    continue-on-error: ${{ matrix.experimental || false }}
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.11", "3.12", "3.13"]
+        include:
+          - python-version: "3.14"
+            experimental: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
           cache: pip
           cache-dependency-path: pyproject.toml
       - run: python -m pip install -e ".[dev,convert]"
