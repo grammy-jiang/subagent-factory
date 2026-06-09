@@ -25,8 +25,9 @@ def test_optout_blocks_install(monkeypatch):
     sh._install_attempted.clear()
     called = []
     monkeypatch.setattr(sh, "_pip_install", lambda spec: called.append(spec) or True)
-    monkeypatch.setattr(sh.importlib, "import_module",
-                        lambda n: (_ for _ in ()).throw(ImportError()))
+    monkeypatch.setattr(
+        sh.importlib, "import_module", lambda n: (_ for _ in ()).throw(ImportError())
+    )
     assert sh.ensure_package("markitdown") is None
     assert called == []
 
@@ -58,8 +59,9 @@ def test_missing_allowlisted_package_installs_then_imports(monkeypatch):
 def test_failed_install_returns_none(monkeypatch):
     monkeypatch.delenv("SUBAGENT_FACTORY_NO_AUTOINSTALL", raising=False)
     sh._install_attempted.clear()
-    monkeypatch.setattr(sh.importlib, "import_module",
-                        lambda n: (_ for _ in ()).throw(ImportError()))
+    monkeypatch.setattr(
+        sh.importlib, "import_module", lambda n: (_ for _ in ()).throw(ImportError())
+    )
     monkeypatch.setattr(sh, "_pip_install", lambda spec: False)
     assert sh.ensure_package("markitdown") is None
 
@@ -68,8 +70,9 @@ def test_install_attempted_once_per_process(monkeypatch):
     monkeypatch.delenv("SUBAGENT_FACTORY_NO_AUTOINSTALL", raising=False)
     sh._install_attempted.clear()
     calls = []
-    monkeypatch.setattr(sh.importlib, "import_module",
-                        lambda n: (_ for _ in ()).throw(ImportError()))
+    monkeypatch.setattr(
+        sh.importlib, "import_module", lambda n: (_ for _ in ()).throw(ImportError())
+    )
     monkeypatch.setattr(sh, "_pip_install", lambda spec: calls.append(spec) or False)
     sh.ensure_package("markitdown")
     sh.ensure_package("markitdown")

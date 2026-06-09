@@ -6,7 +6,9 @@ from pathlib import Path
 import yaml
 
 
-def normalize_markdown(source_path: str | Path, output_path: str | Path, metadata: dict | None = None) -> dict:
+def normalize_markdown(
+    source_path: str | Path, output_path: str | Path, metadata: dict | None = None
+) -> dict:
     """
     Read Markdown, normalize it, write to output_path.
 
@@ -19,10 +21,9 @@ def normalize_markdown(source_path: str | Path, output_path: str | Path, metadat
     front_matter, body = _split_front_matter(text)
 
     if metadata:
-        front_matter.update({
-            k: v for k, v in metadata.items()
-            if v is not None and k not in front_matter
-        })
+        front_matter.update(
+            {k: v for k, v in metadata.items() if v is not None and k not in front_matter}
+        )
 
     body = _normalize_headings(body)
     body = _normalize_whitespace(body)
@@ -30,7 +31,9 @@ def normalize_markdown(source_path: str | Path, output_path: str | Path, metadat
 
     fm_block = ""
     if front_matter:
-        fm_block = "---\n" + yaml.dump(front_matter, allow_unicode=True, sort_keys=False) + "---\n\n"
+        fm_block = (
+            "---\n" + yaml.dump(front_matter, allow_unicode=True, sort_keys=False) + "---\n\n"
+        )
 
     normalized = fm_block + body
     Path(output_path).write_text(normalized, encoding="utf-8")
@@ -50,7 +53,7 @@ def _split_front_matter(text: str) -> tuple[dict, str]:
     if end == -1:
         return {}, text
     fm_raw = text[3:end].strip()
-    body = text[end + 4:].lstrip("\n")
+    body = text[end + 4 :].lstrip("\n")
     try:
         fm = yaml.safe_load(fm_raw) or {}
     except yaml.YAMLError:

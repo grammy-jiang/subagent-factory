@@ -16,6 +16,7 @@ from tools.subagent_factory.find_related_subagents import (
 
 # ── unit ───────────────────────────────────────────────────────────────────
 
+
 def test_jaccard_identical():
     a = {"api", "security", "reviewer"}
     assert _jaccard(a, a) == 1.0
@@ -57,6 +58,7 @@ def test_build_profile_corpus_uses_all_fields():
 
 # ── domain keyword extraction ─────────────────────────────────────────────
 
+
 def test_extract_domain_keywords_returns_terms():
     sample = {
         "headings": [
@@ -67,8 +69,8 @@ def test_extract_domain_keywords_returns_terms():
             "Abstractions",
         ],
         "body_excerpt": "Complexity is anything that makes software hard to understand "
-                        "or modify. Abstraction hides implementation details. "
-                        "Modules should expose simple interfaces.",
+        "or modify. Abstraction hides implementation details. "
+        "Modules should expose simple interfaces.",
         "toc_entries": [],
         "file_hint": "A Philosophy Of Software Design",
     }
@@ -81,6 +83,7 @@ def test_extract_domain_keywords_returns_terms():
 
 
 # ── integration: search ───────────────────────────────────────────────────
+
 
 def test_no_subagents_returns_empty():
     with tempfile.TemporaryDirectory() as tmp:
@@ -108,13 +111,18 @@ def test_finds_match_with_keywords():
         (slug_dir / "profile.yaml").write_text(yaml.dump(profile))
 
         # Topic alone (low lexical overlap with profile prose)
-        results_topic_only = find_related_subagents(
-            "software design reviewer", subagents_dir=tmp
-        )
+        results_topic_only = find_related_subagents("software design reviewer", subagents_dir=tmp)
         # Topic + domain keywords (richer overlap)
         results_with_keywords = find_related_subagents(
             "software design reviewer",
-            domain_keywords=["complexity", "abstraction", "modules", "interfaces", "information", "hiding"],
+            domain_keywords=[
+                "complexity",
+                "abstraction",
+                "modules",
+                "interfaces",
+                "information",
+                "hiding",
+            ],
             subagents_dir=tmp,
         )
 
@@ -171,7 +179,7 @@ def test_small_query_large_corpus_reaches_update_threshold():
             "slug": "java-concurrency-reviewer",
             "display_name": "Java Concurrency Reviewer",
             "role": "Reviews Java concurrent code for safety liveness and performance "
-                    "using synchronization locks monitor atomicity visibility threads deadlock",
+            "using synchronization locks monitor atomicity visibility threads deadlock",
             "when_to_use": ["synchronized code needs a deadlock and race audit"],
             "knowledge_partition": {"always_on": filler},
             "sources": [{"title": "Concurrent Programming in Java"}],
@@ -180,8 +188,18 @@ def test_small_query_large_corpus_reaches_update_threshold():
 
         results = find_related_subagents(
             "Java concurrency reviewer",
-            domain_keywords=["concurrency", "threads", "synchronization", "locks",
-                             "deadlock", "safety", "liveness", "monitor", "atomicity", "visibility"],
+            domain_keywords=[
+                "concurrency",
+                "threads",
+                "synchronization",
+                "locks",
+                "deadlock",
+                "safety",
+                "liveness",
+                "monitor",
+                "atomicity",
+                "visibility",
+            ],
             subagents_dir=tmp,
         )
         assert len(results) == 1

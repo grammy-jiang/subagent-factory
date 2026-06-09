@@ -26,9 +26,7 @@ def _build_package(tmp_path, source_text: str, rights: str = "distillation-only"
     (base / "sources" / "metadata").mkdir(parents=True)
 
     source_id = "src-1"
-    (base / "sources" / "markdown" / f"{source_id}.md").write_text(
-        source_text, encoding="utf-8"
-    )
+    (base / "sources" / "markdown" / f"{source_id}.md").write_text(source_text, encoding="utf-8")
 
     meta = {
         "schema_version": "source-metadata-v1",

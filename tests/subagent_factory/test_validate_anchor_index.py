@@ -18,7 +18,9 @@ VALID_ANCHOR = {
 
 
 def test_valid_anchors():
-    with tempfile.NamedTemporaryFile(suffix=".jsonl", mode="w", delete=False, encoding="utf-8") as f:
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
         f.write(json.dumps(VALID_ANCHOR) + "\n")
         path = f.name
     errors = validate_anchor_index(path)
@@ -28,7 +30,9 @@ def test_valid_anchors():
 def test_missing_required_field():
     bad = dict(VALID_ANCHOR)
     del bad["anchor_id"]
-    with tempfile.NamedTemporaryFile(suffix=".jsonl", mode="w", delete=False, encoding="utf-8") as f:
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
         f.write(json.dumps(bad) + "\n")
         path = f.name
     errors = validate_anchor_index(path)
@@ -38,7 +42,9 @@ def test_missing_required_field():
 def test_invalid_anchor_type():
     bad = dict(VALID_ANCHOR)
     bad["anchor_type"] = "paragraph"
-    with tempfile.NamedTemporaryFile(suffix=".jsonl", mode="w", delete=False, encoding="utf-8") as f:
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
         f.write(json.dumps(bad) + "\n")
         path = f.name
     errors = validate_anchor_index(path)
@@ -46,7 +52,9 @@ def test_invalid_anchor_type():
 
 
 def test_empty_file_is_valid():
-    with tempfile.NamedTemporaryFile(suffix=".jsonl", mode="w", delete=False, encoding="utf-8") as f:
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
         path = f.name
     errors = validate_anchor_index(path)
     assert errors == []

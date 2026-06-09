@@ -47,7 +47,7 @@ def find_related_subagents(
 
     # Build query token set from topic + domain keywords
     query_tokens = _tokenize(topic)
-    for kw in (domain_keywords or []):
+    for kw in domain_keywords or []:
         query_tokens |= _tokenize(kw)
 
     if not query_tokens:
@@ -74,15 +74,17 @@ def find_related_subagents(
         elif sim >= 0.55:
             rec = "consider-update"
 
-        candidates.append({
-            "slug": slug,
-            "profile_path": str(profile_path),
-            "display_name": profile.get("display_name", slug),
-            "role": profile.get("role", "")[:120],
-            "similarity": round(sim, 3),
-            "recommendation": rec,
-            "matched_terms": matched[:15],
-        })
+        candidates.append(
+            {
+                "slug": slug,
+                "profile_path": str(profile_path),
+                "display_name": profile.get("display_name", slug),
+                "role": profile.get("role", "")[:120],
+                "similarity": round(sim, 3),
+                "recommendation": rec,
+                "matched_terms": matched[:15],
+            }
+        )
 
     candidates.sort(key=lambda x: x["similarity"], reverse=True)
     return [c for c in candidates if c["similarity"] >= 0.10]
@@ -159,12 +161,76 @@ def _overlap_coefficient(a: set, b: set) -> float:
 
 
 _STOP_WORDS = {
-    "a", "an", "the", "and", "or", "of", "in", "to", "for", "is", "are",
-    "be", "that", "this", "it", "its", "with", "from", "by", "as", "on",
-    "at", "not", "but", "if", "was", "has", "have", "had", "will", "would",
-    "can", "could", "should", "may", "might", "must", "than", "then",
-    "when", "which", "who", "what", "how", "all", "any", "both", "each",
-    "more", "also", "into", "about", "after", "before", "between", "such",
-    "these", "those", "there", "their", "them", "they", "been", "being",
-    "chapter", "section", "figure", "table", "page", "see", "note", "example",
+    "a",
+    "an",
+    "the",
+    "and",
+    "or",
+    "of",
+    "in",
+    "to",
+    "for",
+    "is",
+    "are",
+    "be",
+    "that",
+    "this",
+    "it",
+    "its",
+    "with",
+    "from",
+    "by",
+    "as",
+    "on",
+    "at",
+    "not",
+    "but",
+    "if",
+    "was",
+    "has",
+    "have",
+    "had",
+    "will",
+    "would",
+    "can",
+    "could",
+    "should",
+    "may",
+    "might",
+    "must",
+    "than",
+    "then",
+    "when",
+    "which",
+    "who",
+    "what",
+    "how",
+    "all",
+    "any",
+    "both",
+    "each",
+    "more",
+    "also",
+    "into",
+    "about",
+    "after",
+    "before",
+    "between",
+    "such",
+    "these",
+    "those",
+    "there",
+    "their",
+    "them",
+    "they",
+    "been",
+    "being",
+    "chapter",
+    "section",
+    "figure",
+    "table",
+    "page",
+    "see",
+    "note",
+    "example",
 }

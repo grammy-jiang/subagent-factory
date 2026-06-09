@@ -41,13 +41,15 @@ def run_tests(subagent_dir: str | Path) -> dict:
                 status = "SCHEMA-OK"
                 message = "Test record valid (live execution requires Claude invocation)"
                 passed += 1
-                results.append({
-                    "test_id": test_id,
-                    "description": description,
-                    "status": status,
-                    "message": message,
-                    "file": test_file.name,
-                })
+                results.append(
+                    {
+                        "test_id": test_id,
+                        "description": description,
+                        "status": status,
+                        "message": message,
+                        "file": test_file.name,
+                    }
+                )
 
     all_passed = total > 0 and passed == total
     return {"passed": all_passed, "total": total, "passed_count": passed, "results": results}
@@ -87,7 +89,9 @@ def write_test_results(subagent_dir: str | Path, self_check_result: dict | None 
         ]
         for f in self_check_result.get("findings", []):
             detail = str(f.get("message", "")).replace("|", "\\|")
-            lines.append(f"| {f.get('num', '')} | {f.get('check', '')} | {f.get('level', '')} | {detail} |")
+            lines.append(
+                f"| {f.get('num', '')} | {f.get('check', '')} | {f.get('level', '')} | {detail} |"
+            )
         lines.append("")
 
     lines += [

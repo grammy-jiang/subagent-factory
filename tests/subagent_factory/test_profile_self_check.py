@@ -13,7 +13,7 @@ def _valid_profile() -> dict:
         "agent_version": "0.1.0",
         "status": "draft",
         "role": "An expert reviewer who evaluates designs for complexity and guides "
-                "structural improvements grounded in named principles.",
+        "structural improvements grounded in named principles.",
         "when_to_use": [
             "A module interface is submitted for a depth review before merging.",
             "A team needs a diagnosis of where information is leaking between modules.",
@@ -23,16 +23,20 @@ def _valid_profile() -> dict:
             "The request is solely a bug fix with no design-structure question.",
             "The task is technology or framework selection.",
         ],
-        "inputs": {"required": [
-            "The actual code or interface definition being reviewed.",
-            "Enough context about the module purpose to judge interface depth.",
-        ]},
+        "inputs": {
+            "required": [
+                "The actual code or interface definition being reviewed.",
+                "Enough context about the module purpose to judge interface depth.",
+            ]
+        },
         "outputs": {
             "primary_format": "annotated design critique with named findings",
             "modes": [
-                {"name": "review",
-                 "trigger": "an existing artifact is submitted for evaluation",
-                 "output": "named red flags with concrete recommendations"},
+                {
+                    "name": "review",
+                    "trigger": "an existing artifact is submitted for evaluation",
+                    "output": "named red flags with concrete recommendations",
+                },
             ],
         },
         "quality_bar": [
@@ -51,7 +55,11 @@ def _valid_profile() -> dict:
             "precedence": "The canonical source is the cited design book.",
         },
         "knowledge_partition": {
-            "always_on": [], "skills": [], "references": [], "mcp": [], "caller_supplied": [],
+            "always_on": [],
+            "skills": [],
+            "references": [],
+            "mcp": [],
+            "caller_supplied": [],
         },
         "sources": [{"source_id": "s1", "title": "A Book", "sha256": "abc"}],
     }
@@ -61,7 +69,9 @@ def _golden_doc(golden: int = 3, negative: int = 1) -> dict:
     return {
         "schema_version": "golden-tests-v1",
         "golden_tests": [{"test_id": f"GT-{i:03d}", "description": "x"} for i in range(golden)],
-        "negative_routing_tests": [{"test_id": f"NR-{i:03d}", "description": "x"} for i in range(negative)],
+        "negative_routing_tests": [
+            {"test_id": f"NR-{i:03d}", "description": "x"} for i in range(negative)
+        ],
     }
 
 
@@ -70,10 +80,14 @@ def _write_package(tmp_path, profile=None, golden=3, negative=1, ledger=True):
     pkg.mkdir(parents=True)
     (pkg / "profile.yaml").write_text(yaml.safe_dump(profile or _valid_profile()), encoding="utf-8")
     if ledger:
-        (pkg / "provenance-ledger.md").write_text("# Provenance Ledger\n\n" + ("detail. " * 60), encoding="utf-8")
+        (pkg / "provenance-ledger.md").write_text(
+            "# Provenance Ledger\n\n" + ("detail. " * 60), encoding="utf-8"
+        )
     tests_dir = pkg / "tests"
     tests_dir.mkdir()
-    (tests_dir / "golden-tests.yaml").write_text(yaml.safe_dump(_golden_doc(golden, negative)), encoding="utf-8")
+    (tests_dir / "golden-tests.yaml").write_text(
+        yaml.safe_dump(_golden_doc(golden, negative)), encoding="utf-8"
+    )
     return pkg
 
 

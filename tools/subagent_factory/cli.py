@@ -16,6 +16,7 @@ def main():
     # Opt-in (SUBAGENT_FACTORY_USE_VENV=1): re-exec inside the managed .venv.
     # No-op by default; converters self-heal their deps in-process instead.
     from tools.subagent_factory.self_heal import ensure_environment
+
     ensure_environment()
 
 
@@ -49,21 +50,29 @@ def cmd_ingest(source, slug, topic, title, author, year, rights):
         if result.get("error"):
             console.print(f"[red]ERROR:[/red] {result['error']}")
             if result.get("needs_auth"):
-                console.print("[yellow]This URL requires authentication. Provide a local downloaded copy.[/yellow]")
+                console.print(
+                    "[yellow]This URL requires authentication. Provide a local downloaded copy.[/yellow]"
+                )
             sys.exit(1)
 
         if result.get("already_ingested"):
-            console.print(f"[yellow]SKIP:[/yellow] source already ingested as source_id={result['source_id']} (sha256 match)")
+            console.print(
+                f"[yellow]SKIP:[/yellow] source already ingested as source_id={result['source_id']} (sha256 match)"
+            )
             continue
 
         console.print(f"[green]OK:[/green] source_id={result['source_id']}")
         cr = result["conversion_result"]
-        console.print(f"  anchors={result['anchor_count']}  assets={result['asset_count']}  converter={cr.get('converter_used')}")
+        console.print(
+            f"  anchors={result['anchor_count']}  assets={result['asset_count']}  converter={cr.get('converter_used')}"
+        )
         if cr.get("is_scanned"):
             console.print("[yellow]WARN: Possible scanned PDF — OCR may be needed[/yellow]")
         status = cr.get("conversion_status")
         if status and status != "ok":
-            console.print(f"[yellow]WARN: conversion_status={status} — flagged for human review[/yellow]")
+            console.print(
+                f"[yellow]WARN: conversion_status={status} — flagged for human review[/yellow]"
+            )
             for reason in cr.get("quality", {}).get("reasons", []):
                 console.print(f"  [yellow]- {reason}[/yellow]")
 
@@ -85,7 +94,9 @@ def cmd_selfcheck(slug):
     t.add_column("Check")
     t.add_column("Message")
     for f in result["findings"]:
-        color = {"FAIL": "red", "WARNING": "yellow", "PASS": "green", "INFO": "cyan"}.get(f["level"], "white")
+        color = {"FAIL": "red", "WARNING": "yellow", "PASS": "green", "INFO": "cyan"}.get(
+            f["level"], "white"
+        )
         t.add_row(str(f["num"]), f"[{color}]{f['level']}[/{color}]", f["check"], f["message"])
     console.print(t)
 
@@ -184,6 +195,7 @@ def cmd_extract_sample(source):
         extract_content_sample,
         format_sample_for_inference,
     )
+
     sample = extract_content_sample(source)
     print(format_sample_for_inference(sample))
 
@@ -208,7 +220,9 @@ def cmd_search(topic, keywords):
     t.add_column("Matched terms")
     t.add_column("Role excerpt")
     for c in candidates:
-        rec_color = {"update": "green", "consider-update": "yellow", "create-new": "blue"}.get(c["recommendation"], "white")
+        rec_color = {"update": "green", "consider-update": "yellow", "create-new": "blue"}.get(
+            c["recommendation"], "white"
+        )
         t.add_row(
             c["slug"],
             f"{c['similarity']:.2f}",
@@ -251,21 +265,38 @@ def cmd_doctor():
     t.add_column("Status")
     t.add_column("Note")
     for name, ok in report["python_packages"].items():
-        t.add_row("python", name, "[green]ok[/green]" if ok else "[red]missing[/red]",
-                  "" if ok else "auto-installs on demand")
+        t.add_row(
+            "python",
+            name,
+            "[green]ok[/green]" if ok else "[red]missing[/red]",
+            "" if ok else "auto-installs on demand",
+        )
     for name, info in report["system_tools"].items():
         ok = info["present"]
-        t.add_row("system", name, "[green]ok[/green]" if ok else "[yellow]missing[/yellow]",
-                  "" if ok else info["hint"])
+        t.add_row(
+            "system",
+            name,
+            "[green]ok[/green]" if ok else "[yellow]missing[/yellow]",
+            "" if ok else info["hint"],
+        )
     console.print(t)
     venv = report.get("venv")
-    console.print(f"Managed venv: {venv}" if venv else "Managed venv: not created (run `bootstrap --venv`)")
+    console.print(
+        f"Managed venv: {venv}" if venv else "Managed venv: not created (run `bootstrap --venv`)"
+    )
 
 
 @main.command("bootstrap")
-@click.option("--venv/--no-venv", default=False,
-              help="Create a project .venv and install the convert extra into it.")
-@click.option("--extra", default="convert", help="Optional-dependency extra to install (convert|convert-full).")
+@click.option(
+    "--venv/--no-venv",
+    default=False,
+    help="Create a project .venv and install the convert extra into it.",
+)
+@click.option(
+    "--extra",
+    default="convert",
+    help="Optional-dependency extra to install (convert|convert-full).",
+)
 def cmd_bootstrap(venv, extra):
     """Set up converter dependencies so ingestion works out of the box."""
     from tools.subagent_factory.self_heal import bootstrap_environment, ensure_converter_stack
@@ -276,7 +307,9 @@ def cmd_bootstrap(venv, extra):
         if status.get("error"):
             console.print(f"[red]ERROR:[/red] {status['error']}")
             sys.exit(1)
-        console.print(f"[green]venv ready:[/green] {status['venv']} (created={status['created']}, installed={status['installed']})")
+        console.print(
+            f"[green]venv ready:[/green] {status['venv']} (created={status['created']}, installed={status['installed']})"
+        )
         console.print("Run with SUBAGENT_FACTORY_USE_VENV=1 to use it automatically.")
     else:
         console.print("[bold]Ensuring converter stack in current interpreter...[/bold]")
@@ -284,10 +317,14 @@ def cmd_bootstrap(venv, extra):
         if report["missing"]:
             console.print(f"[red]Still missing:[/red] {', '.join(report['missing'])}")
             sys.exit(1)
-        console.print(f"[green]Converter stack ready[/green] (healed: {', '.join(report['healed']) or 'none needed'})")
+        console.print(
+            f"[green]Converter stack ready[/green] (healed: {', '.join(report['healed']) or 'none needed'})"
+        )
         for tool, info in report["system_tools"].items():
             if not info["present"]:
-                console.print(f"[yellow]Optional system tool '{tool}' missing:[/yellow] {info['hint']}")
+                console.print(
+                    f"[yellow]Optional system tool '{tool}' missing:[/yellow] {info['hint']}"
+                )
 
 
 if __name__ == "__main__":

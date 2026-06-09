@@ -49,12 +49,17 @@ def extract_content_sample(source_path: str | Path) -> dict:
         text = _strip_front_matter(text)
     else:
         import tempfile
+
         with tempfile.NamedTemporaryFile(suffix=".md", delete=False) as tmp:
             tmp_path = tmp.name
         result = convert_document(p, tmp_path)
         text = result.get("markdown_text", "")
         if not text:
-            text = Path(tmp_path).read_text(encoding="utf-8", errors="replace") if Path(tmp_path).exists() else ""
+            text = (
+                Path(tmp_path).read_text(encoding="utf-8", errors="replace")
+                if Path(tmp_path).exists()
+                else ""
+            )
 
     headings = _extract_headings(text)
     toc = _extract_toc(text)
@@ -82,9 +87,7 @@ def format_sample_for_inference(sample: dict) -> str:
         parts.append("## Table of Contents\n" + "\n".join(sample["toc_entries"][:30]))
 
     if sample.get("headings"):
-        parts.append("## Headings (structure)\n" + "\n".join(
-            f"- {h}" for h in sample["headings"]
-        ))
+        parts.append("## Headings (structure)\n" + "\n".join(f"- {h}" for h in sample["headings"]))
 
     if sample.get("body_excerpt"):
         parts.append("## Opening content\n" + sample["body_excerpt"])
@@ -94,11 +97,12 @@ def format_sample_for_inference(sample: dict) -> str:
 
 # ── extractors ─────────────────────────────────────────────────────────────
 
+
 def _strip_front_matter(text: str) -> str:
     if text.startswith("---"):
         end = text.find("\n---", 3)
         if end != -1:
-            return text[end + 4:].lstrip("\n")
+            return text[end + 4 :].lstrip("\n")
     return text
 
 
@@ -170,5 +174,6 @@ def _empty_sample(p: Path) -> dict:
 
 if __name__ == "__main__":
     import sys
+
     sample = extract_content_sample(sys.argv[1])
     print(format_sample_for_inference(sample))

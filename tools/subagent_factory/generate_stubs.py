@@ -55,9 +55,13 @@ def generate_stubs(subagent_dir: str | Path) -> dict:
     subagent_path = Path(subagent_dir)
     profile_path = subagent_path / "profile.yaml"
     result = {
-        "skills_created": 0, "references_created": 0,
-        "skills_existing": 0, "references_existing": 0,
-        "skill_paths": [], "reference_paths": [], "error": None,
+        "skills_created": 0,
+        "references_created": 0,
+        "skills_existing": 0,
+        "references_existing": 0,
+        "skill_paths": [],
+        "reference_paths": [],
+        "error": None,
     }
     if not profile_path.exists():
         result["error"] = f"profile.yaml not found at {profile_path}"

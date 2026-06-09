@@ -14,7 +14,9 @@ def _write_profile(tmp_path, skills, references):
 
 
 def test_stub_slug_shortens_long_entry():
-    slug = _stub_slug("Applying the guarded-suspension pattern: structure of the while-condition-wait loop")
+    slug = _stub_slug(
+        "Applying the guarded-suspension pattern: structure of the while-condition-wait loop"
+    )
     assert slug.startswith("applying-the-guarded-suspension")
     assert " " not in slug and len(slug) <= 48
 
@@ -22,10 +24,11 @@ def test_stub_slug_shortens_long_entry():
 def test_generates_skill_and_reference_stubs(tmp_path):
     _write_profile(
         tmp_path,
-        skills=["Detecting deadlock and applying resource ordering.",
-                "Structuring a BoundedBuffer with offer/poll variants."],
-        references=["Lea's concurrency pattern taxonomy table.",
-                    "Thread API quick reference."],
+        skills=[
+            "Detecting deadlock and applying resource ordering.",
+            "Structuring a BoundedBuffer with offer/poll variants.",
+        ],
+        references=["Lea's concurrency pattern taxonomy table.", "Thread API quick reference."],
     )
     r = generate_stubs(tmp_path)
     assert r["skills_created"] == 2
@@ -48,7 +51,9 @@ def test_idempotent_does_not_overwrite(tmp_path):
 
 def test_collision_disambiguation(tmp_path):
     # Two entries whose heads slugify identically must not collide.
-    _write_profile(tmp_path, skills=["Naming things.", "Naming things differently later."], references=[])
+    _write_profile(
+        tmp_path, skills=["Naming things.", "Naming things differently later."], references=[]
+    )
     r = generate_stubs(tmp_path)
     assert r["skills_created"] == 2
     assert len(set(r["skill_paths"])) == 2

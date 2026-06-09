@@ -40,8 +40,15 @@ _STEP_RE = re.compile(r"(?:^|\s)(?:step\s*\d|\d\.\s|\bfirst\b.+?\bthen\b)", re.I
 
 # Wording that signals a quality-bar check demands evidence/citation.
 _EVIDENCE_WORDS = (
-    "evidence", "cite", "citation", "source", "principle", "reference",
-    "named", "specific", "traceable",
+    "evidence",
+    "cite",
+    "citation",
+    "source",
+    "principle",
+    "reference",
+    "named",
+    "specific",
+    "traceable",
 )
 
 _BODY_WARN_WORDS = 800
@@ -89,22 +96,29 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
     if not _SLUG_RE.match(slug):
         add(1, "FAIL", "slug-kebab", f"slug '{slug}' is not kebab-case")
     elif "-" not in slug:
-        add(1, "WARNING", "slug-role-based",
-            f"slug '{slug}' is a single word; role slugs are usually <domain>-<function>")
+        add(
+            1,
+            "WARNING",
+            "slug-role-based",
+            f"slug '{slug}' is a single word; role slugs are usually <domain>-<function>",
+        )
     else:
         add(1, "PASS", "slug", f"slug '{slug}' is kebab-case and role-based")
 
     # 2. when_to_use has 3–6 concrete triggers
     if not 3 <= len(when_to_use) <= 6:
-        add(2, "FAIL", "when-to-use",
-            f"when_to_use has {len(when_to_use)} triggers; require 3–6")
+        add(2, "FAIL", "when-to-use", f"when_to_use has {len(when_to_use)} triggers; require 3–6")
     else:
         add(2, "PASS", "when-to-use", f"{len(when_to_use)} triggers")
 
     # 3. when_not_to_use has 2+ explicit exclusions
     if len(when_not_to_use) < 2:
-        add(3, "FAIL", "when-not-to-use",
-            f"when_not_to_use has {len(when_not_to_use)} exclusions; require 2+")
+        add(
+            3,
+            "FAIL",
+            "when-not-to-use",
+            f"when_not_to_use has {len(when_not_to_use)} exclusions; require 2+",
+        )
     else:
         add(3, "PASS", "when-not-to-use", f"{len(when_not_to_use)} exclusions")
 
@@ -112,13 +126,23 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
     if not modes:
         add(4, "FAIL", "modes-present", "no modes defined in outputs.modes")
     else:
-        missing_trigger = [m.get("name", "?") for m in modes if not str(m.get("trigger", "")).strip()]
+        missing_trigger = [
+            m.get("name", "?") for m in modes if not str(m.get("trigger", "")).strip()
+        ]
         if missing_trigger:
-            add(4, "WARNING", "modes-evidence",
-                f"modes missing a trigger (evidence proxy): {', '.join(missing_trigger)}")
+            add(
+                4,
+                "WARNING",
+                "modes-evidence",
+                f"modes missing a trigger (evidence proxy): {', '.join(missing_trigger)}",
+            )
         else:
-            add(4, "INFO", "modes-evidence",
-                "mode source-evidence traceability delegated to profile-reviewer")
+            add(
+                4,
+                "INFO",
+                "modes-evidence",
+                "mode source-evidence traceability delegated to profile-reviewer",
+            )
 
     # 5. inputs.required explicit
     if not inputs_required:
@@ -136,8 +160,12 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
     if modes:
         missing_output = [m.get("name", "?") for m in modes if not str(m.get("output", "")).strip()]
         if missing_output:
-            add(7, "FAIL", "mode-output",
-                f"modes missing an output contract: {', '.join(missing_output)}")
+            add(
+                7,
+                "FAIL",
+                "mode-output",
+                f"modes missing an output contract: {', '.join(missing_output)}",
+            )
         else:
             add(7, "PASS", "mode-output", "every mode states its output")
 
@@ -154,11 +182,18 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
         add(9, "PASS", "canonical-owner", canonical_owner[:60])
 
     # 10. may_edit_canonical is false for specialist roles
-    if may_edit_canonical in (None, "",):
+    if may_edit_canonical in (
+        None,
+        "",
+    ):
         add(10, "FAIL", "may-edit-canonical", "source_of_truth_policy.may_edit_canonical is unset")
     elif _truthy(may_edit_canonical):
-        add(10, "FAIL", "may-edit-canonical",
-            "may_edit_canonical is true; specialist roles must be false")
+        add(
+            10,
+            "FAIL",
+            "may-edit-canonical",
+            "may_edit_canonical is true; specialist roles must be false",
+        )
     else:
         add(10, "PASS", "may-edit-canonical", "false")
 
@@ -168,10 +203,19 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
     else:
         qb_text = " ".join(str(q) for q in quality_bar).lower()
         if not any(w in qb_text for w in _EVIDENCE_WORDS):
-            add(11, "WARNING", "quality-bar-evidence",
-                "no quality_bar check references evidence/source/principle")
+            add(
+                11,
+                "WARNING",
+                "quality-bar-evidence",
+                "no quality_bar check references evidence/source/principle",
+            )
         elif len(quality_bar) < 3:
-            add(11, "WARNING", "quality-bar", f"only {len(quality_bar)} quality_bar checks (expect 3–5)")
+            add(
+                11,
+                "WARNING",
+                "quality-bar",
+                f"only {len(quality_bar)} quality_bar checks (expect 3–5)",
+            )
         else:
             add(11, "PASS", "quality-bar", f"{len(quality_bar)} evidence-citing checks")
 
@@ -179,8 +223,12 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
     if not forbidden:
         add(12, "FAIL", "forbidden-behaviours", "forbidden_behaviours is empty")
     else:
-        add(12, "INFO", "forbidden-behaviours",
-            f"{len(forbidden)} rules; source traceability delegated to profile-reviewer")
+        add(
+            12,
+            "INFO",
+            "forbidden-behaviours",
+            f"{len(forbidden)} rules; source traceability delegated to profile-reviewer",
+        )
 
     # 13. No multi-step workflow in profile body
     # Body fields grouped by section so check 14 can point at the heaviest
@@ -202,8 +250,12 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
     }
     body_fields = [t for group in body_groups.values() for t in group]
     if any(_STEP_RE.search(t) for t in body_fields):
-        add(13, "WARNING", "no-procedure-in-body",
-            "possible multi-step workflow in profile body; extract to a skill")
+        add(
+            13,
+            "WARNING",
+            "no-procedure-in-body",
+            "possible multi-step workflow in profile body; extract to a skill",
+        )
     else:
         add(13, "PASS", "no-procedure-in-body", "no ordered procedure detected in body")
 
@@ -217,16 +269,19 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
         level = "FAIL" if word_count > _BODY_FAIL_WORDS else "WARNING"
         limit = _BODY_FAIL_WORDS if level == "FAIL" else _BODY_WARN_WORDS
         section_words = {
-            name: sum(len(str(t).split()) for t in group)
-            for name, group in body_groups.items()
+            name: sum(len(str(t).split()) for t in group) for name, group in body_groups.items()
         }
         top = sorted(section_words.items(), key=lambda kv: kv[1], reverse=True)[:3]
         breakdown = ", ".join(f"{name} {n}w" for name, n in top if n)
         over = word_count - _BODY_WARN_WORDS
-        add(14, level, "body-size",
+        add(
+            14,
+            level,
+            "body-size",
             f"profile body ~{word_count} words (> {limit}); "
             f"{over} over the {_BODY_WARN_WORDS}-word budget; "
-            f"heaviest: {breakdown}")
+            f"heaviest: {breakdown}",
+        )
 
     # 15. No platform-specific paths or tool names in core
     core_text = " ".join(str(t) for t in body_fields).lower()
@@ -241,20 +296,33 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
     if not ledger.exists():
         add(16, "FAIL", "provenance-ledger", "provenance-ledger.md missing")
     elif ledger.stat().st_size < 200:
-        add(16, "WARNING", "provenance-ledger", "provenance-ledger.md is very small; may be incomplete")
+        add(
+            16,
+            "WARNING",
+            "provenance-ledger",
+            "provenance-ledger.md is very small; may be incomplete",
+        )
     else:
         add(16, "PASS", "provenance-ledger", "present")
 
     # 17. No unresolved conflict (delegated — requires merge log)
-    add(17, "INFO", "no-unresolved-conflict",
-        "conflict resolution review delegated to profile-reviewer / Phase 7 merge log")
+    add(
+        17,
+        "INFO",
+        "no-unresolved-conflict",
+        "conflict resolution review delegated to profile-reviewer / Phase 7 merge log",
+    )
 
     # 18. At least 3 golden tests including 1 negative routing test
     golden, negative = _count_tests(base)
     if golden < 3 or negative < 1:
-        add(18, "FAIL", "golden-tests",
+        add(
+            18,
+            "FAIL",
+            "golden-tests",
             f"found {golden} golden test(s) and {negative} negative routing test(s); "
-            f"require 3+ golden and 1+ negative")
+            f"require 3+ golden and 1+ negative",
+        )
     else:
         add(18, "PASS", "golden-tests", f"{golden} golden, {negative} negative routing")
 
