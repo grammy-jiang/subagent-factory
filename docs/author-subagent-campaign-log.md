@@ -28,7 +28,7 @@ handled by a **fresh subagent** (Claude Opus 4.8, max effort) that:
 | 2 | 226 KB | System Design/Payment Systems … (1989) | pending |
 | 3 | 411 KB | Software Testing/load-testing/k6-guideline.pdf | pending |
 | 4 | 498 KB | Operating Systems/a simple, Unix-like teaching operating system.pdf | pending |
-| 5 | 526 KB | Soft Skills/negotiating/Never Split the Difference (summary) | pending |
+| 5 | 526 KB | Soft Skills/negotiating/Never Split the Difference (summary) | done (Run 5) → `negotiation-tactics-advisor` |
 | 6 | 606 KB | Soft Skills/Strengths Finder 2.0 | pending |
 | 7 | 643 KB | programming/clean-code/Code Simplicity | pending |
 
@@ -427,4 +427,126 @@ keyword extraction, mode evidence, and importance ranking on multi-section conte
   patch-suggest` withheld for lack of deliverable evidence; downstream owner inferred (the
   code/coursework owner); source-file/line and RISC-V register references are edition-bound
   (re-review on a new xv6 edition; annual cadence).
+- **No needs-ocr block this run** (real text layer; `is_scanned=False`).
+
+### Run 5 — negotiation-tactics-advisor — 2026-06-09
+
+**Source PDF:** `Soft Skills/negotiating/EssentialInsight Summaries - Summary_ Never Split the
+Difference_ ... by Chris Voss (2021, EssentialInsight Summaries) - libgen.li.pdf` — a
+**third-party summary** (by EssentialInsight Summaries) of Chris Voss's book *Never Split the
+Difference: Negotiating As If Your Life Depended On It* (with Tahl Raz, 2016). 58 pages, 13,810
+words across 10 chapters mapping one-to-one onto the FBI tactical-empathy toolkit: tactical
+empathy / active listening, mirroring + the three voices, emotion labelling + the accusation
+audit, "Beware Yes — Master No", getting to "That's Right" (BCSM), bending reality
+(fairness, loss aversion, deadlines, odd numbers), calibrated What/How questions + the illusion
+of control + 7-38-55, guaranteeing execution, the Ackerman bargaining model + negotiator styles,
+and finding "Black Swans" + the three types of leverage. The first **non-technical, soft-skill,
+derivative-summary** source in the campaign — chosen to stress role/keyword inference on prose,
+mode evidence on advisory (not reference) material, and the rights/quote-scan path on a
+summary-of-a-copyrighted-book.
+
+- **Detected rights:** `distillation-only`. The summary's front matter carries an explicit
+  copyright with **no** open license — "© Copyright 2021 by Essential Insight Summaries. All
+  rights reserved." — and itself states it "does not utilize any text from the original work" and
+  has no affiliation with Voss. Per the Step 2a tree this is fully attributable (named publisher,
+  year, explicit ©), so it does **not** block as `unknown`; the conservative floor applies on
+  **two layers** — no verbatim reproduction of (a) this summary's wording or (b) the underlying
+  Voss book. Quote-scan: **clean** (and re-confirmed clean under the hardened scanner, see below).
+- **Final slug:** `negotiation-tactics-advisor` (CREATE NEW). Chosen deliberately so the **full
+  original book** (also in the collection) can later UPDATE this same slug at similarity >= 0.80,
+  rather than minting a near-duplicate.
+- **Create/update decision:** create-new. Step 3 search top similarity **0.11**
+  (`kafka-benchmarking-advisor`, then `employee-payment-scheme-advisor` 0.11 — both matched only
+  on the generic tokens `advisor`/`negotiation`/`bargaining`/`leverage`/`questions`). 0.11 is far
+  below the 0.55 ask floor and the 0.80 update threshold; domain is entirely distinct.
+- **Modes:** `advise` (the source is pervasively prescriptive — advises/recommends/suggests a
+  technique per stage), `review` (it repeatedly critiques what negotiators do wrong: chasing a
+  counterfeit "Yes", leaking/​fearing a deadline, appearing needy), `compare` (it contrasts
+  "No" vs "Yes", positive/negative/normative leverage, and the three negotiator styles).
+  `produce`/`validate`/`extract`/`patch-suggest` withheld — no first-class deliverable evidence
+  (logged as an evidence gap). This is the first campaign package where mode evidence came from
+  **advisory prose**, not a code/reference manual, and it held up cleanly.
+
+**Pipeline outcome**
+- Ingestion: `conversion_status=ok`, converter `markitdown` (Docling/PyMuPDF unavailable),
+  `page_count=58`, `word_count=13810`, `is_scanned=False` (real text layer), `anchor_count=0`
+  (markitdown emitted no ATX headings; the 10 chapter titles survive as plain text — expected for
+  this converter, not a blocker). Authority defaulted to `secondary` — correct for a third-party
+  summary. No `needs-ocr` / `needs_auth` / `failed`.
+- **Phase 2.5 importance ranking** (`tests/importance-scores.yaml`): 11 candidate units scored
+  through `cli score`. 10 `keep` (the 10 chapter tactic units, totals 33–43/45), 1 `discard` —
+  the front-matter/copyright/About-the-Author/publisher boilerplate (14/45) routed to the ledger
+  only. Gate behaved exactly as designed on prose.
+- Phase 8 deterministic `selfcheck`: **WARNING → PASS**. First pass flagged body-size at **803
+  words** (> 800 budget) and named the heaviest sections (`when_to_use 145w, modes 143w,
+  quality_bar 125w` — the `ae7bbcc` improvement); trimmed one trigger clause to land at **~800**
+  with all technique citations and evidence grounding intact. All other checks PASS (5 triggers,
+  3 exclusions, 4 evidence-citing quality-bar checks, 3 golden + 1 negative, platform-neutral).
+- `cli export` + `cli stubs`: adapter installed (rendered `description` well-formed — 2 structural
+  em-dashes only, balanced parens, no dangling clause — `c26ecc8`/`fe7084d` holding); 4 skill
+  stubs + 2 reference stubs written.
+- `cli validate`: **VALIDATION PASSED** (every check OK — adapter-sync matches canonical, Phase 8
+  PASS, quote-scan clean).
+- `make verify`: **OK** — ruff clean, bandit clean (only pre-existing `nosec` infos),
+  detect-secrets clean, pytest **130 passed** (124 prior + 6 new quote-scan tests).
+
+**Workflow review (friction points hit this run)**
+1. **`quote_scan` could miss a real 40-word verbatim quote of short words** (the chosen factory
+   fix — see below). The rights policy contract is word-based ("Any finding of 40+ consecutive
+   source words in output requires manual review"), but the inline-quote pre-filter regex required
+   `>= 200` characters. A 40-word quote of short words is ~190 chars, so it slipped through
+   entirely — the precise false-negative most likely on **this** kind of source: a negotiation book
+   full of short, scripted, highly-quotable phrases ("That's right," "How am I supposed to do
+   that?"). Verified empirically: a 46-word/190-char verbatim string was *not* matched by the old
+   regex. Highest-value, genuinely-correct fix; strictly widens detection (more conservative on
+   rights, never less).
+2. **Body-budget WARNING needed manual trim iterations on content-rich prose.** A faithful,
+   technique-citing profile naturally lands just over the 800-word budget (this run started at
+   860w, settled at ~800 after several passes). The `ae7bbcc` section-naming makes the trim
+   *targeted*, but there is no deterministic "body word count" surfaced short of running the full
+   `selfcheck`, and an in-thread word count (whitespace split) disagreed with the gate's Python
+   `str.split()` by ~3 words, costing one extra round-trip. Logged as an ergonomics gap; **not**
+   fixed this run (the existing gate is correct; a `body-words` preview would be the future fix).
+3. **Role inference on prose is fine but tempting to over-anchor on the filename.** The filename
+   screams "Never Split the Difference / Chris Voss"; the correct role is the *function* the
+   material teaches (a tactical-negotiation advisor/coach), not the book title. Inferred from
+   content per Step 2b; no tooling change needed — noted so future prose runs resist the trap.
+4. **Two-layer rights on a summary-of-a-book.** The conservative floor must cover both the summary
+   text and the underlying book; the summary's own "uses no original text" disclaimer is helpful
+   but not load-bearing for our policy. Recorded explicitly in the provenance ledger Source-pack
+   note so a future updater (the full book) inherits the reasoning.
+
+**Factory change made**
+- **What:** Aligned `quote_scan`'s inline-quote pre-filter regex with its word-based policy.
+  Replaced the hard-coded `INLINE_QUOTE_RE = re.compile(r'"([^"\n]{200,})"')` with a floor
+  **derived from the constant**: `_MIN_QUOTE_CHARS = 2 * MIN_WORDS_FOR_CONCERN - 1` (= 79 — the
+  fewest chars a 40-word string can occupy: N single-char words + N-1 single spaces), and built
+  the pattern from it. The authoritative `>= MIN_WORDS_FOR_CONCERN` word count and source-match in
+  `_is_verbatim`/`_scan_markdown_prose` are unchanged, so the regex stays a cheap pre-filter while
+  no longer under-shooting the policy. Added a comment tying regex and policy together so they
+  cannot drift again.
+- **Why:** Closes a real rights false-negative that the gates would otherwise pass silently,
+  triggered by exactly the short-phrase prose this campaign now processes. Strictly non-regressive:
+  the change only *lowers* the pre-filter floor (admits more candidates), so it can only ever flag
+  **more**, never fewer — more conservative on rights. All 9 existing packages still validate;
+  this run's own quote-scan stays clean.
+- **Paths:** `tools/subagent_factory/quote_scan.py` (`_MIN_QUOTE_CHARS` + derived `INLINE_QUOTE_RE`
+  + explanatory comment); `tests/subagent_factory/test_quote_scan.py` (**new file, 6 tests**:
+  floor-derivation, the 40-word short-word quote is now flagged, 39-word quote is not, a 50-word
+  *novel* quote is not, source material is never scanned, and `open`-rights sources are not loaded
+  for matching). No schema, template, or other package touched.
+- **Commit:** `<filled in by the commit that carries this entry>`.
+
+**Human-review / stubs / needs-ocr**
+- Skills not yet authored (`STATUS: STUB`): `labeling-and-accusation-audit`,
+  `calibrated-questions-and-illusion-of-control`, `ackerman-bargaining-and-anchoring`,
+  `black-swan-and-leverage-discovery`.
+- References not yet authored (`STATUS: STUB`): `tactical-empathy-toolkit`,
+  `negotiator-styles-and-voices`.
+- Package stays `status: draft` until skills/references are authored. Evidence gaps in the
+  provenance ledger: rights `distillation-only` with a two-layer no-verbatim rule;
+  `produce/validate/extract/patch-suggest` withheld for lack of deliverable evidence; the distilled
+  phrasings/chapter framing are bound to this summary edition. **Supersession:** when the full
+  original book is ingested it should UPDATE this slug (expected similarity >= 0.80) and become the
+  canonical source — do not silently overwrite these summary-derived decisions.
 - **No needs-ocr block this run** (real text layer; `is_scanned=False`).

@@ -25,8 +25,22 @@ import yaml
 
 MIN_WORDS_FOR_CONCERN = 40
 
-# Match "quoted text" only in markdown prose lines (not YAML string syntax)
-INLINE_QUOTE_RE = re.compile(r'"([^"\n]{200,})"')
+# The rights policy contract (.claude/rules/rights-and-quotation-policy.md) is
+# word-based: "Any finding of 40+ consecutive source words in output requires
+# manual review." The inline-quote regex below is only a cheap pre-filter — the
+# authoritative word count (>= MIN_WORDS_FOR_CONCERN) and source-match are applied
+# afterwards in _scan_markdown_prose / _is_verbatim. Its character floor must
+# therefore admit the *shortest possible* MIN_WORDS_FOR_CONCERN-word string, or a
+# real 40-word verbatim quote of short words slips through undetected. The shortest
+# such string is N single-character words joined by N-1 single spaces = 2*N - 1
+# chars. A higher fixed floor (the previous hard-coded 200) silently raised the
+# effective threshold to ~46+ short words — a false negative on prose sources made
+# of short, highly-quotable phrases (negotiation scripts, dialogue, aphorisms).
+# Deriving the floor from the constant keeps regex and policy from drifting apart.
+_MIN_QUOTE_CHARS = 2 * MIN_WORDS_FOR_CONCERN - 1
+
+# Match "quoted text" only in markdown prose lines (not YAML string syntax).
+INLINE_QUOTE_RE = re.compile(r'"([^"\n]{' + str(_MIN_QUOTE_CHARS) + r',})"')
 
 # Directories that ARE the source material — never scan
 _SOURCE_DIRS = {"sources/original", "sources/markdown", "sources/snapshots"}
