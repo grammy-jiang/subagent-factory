@@ -18,6 +18,12 @@ from tools.subagent_factory.generate_manifest import generate_manifest
 from tools.subagent_factory.generate_metadata import generate_metadata
 from tools.subagent_factory.inject_anchors import inject_anchors
 
+# Canonical rights classifications (see .claude/rules/rights-and-quotation-policy.md).
+VALID_RIGHTS_STATUSES = ("open", "distillation-only", "proprietary/restricted", "unknown")
+# `unknown` is a blocking state: it must be resolved to a concrete status before a
+# source may enter distillation. Per policy, never ingest with rights_status=unknown.
+INGESTIBLE_RIGHTS_STATUSES = ("open", "distillation-only", "proprietary/restricted")
+
 
 def ingest_source(
     source_input: str,
@@ -52,6 +58,24 @@ def ingest_source(
         "already_ingested": False,
         "error": None,
     }
+
+    # Fail fast on an invalid or non-ingestible rights classification. A typo here
+    # silently corrupts the rights gate that governs all downstream quotation, so
+    # reject it before any conversion work happens.
+    rights_status = metadata_overrides.get("rights_status", "distillation-only")
+    if rights_status not in VALID_RIGHTS_STATUSES:
+        result["error"] = (
+            f"Invalid rights_status {rights_status!r}. "
+            f"Must be one of: {', '.join(VALID_RIGHTS_STATUSES)}."
+        )
+        return result
+    if rights_status not in INGESTIBLE_RIGHTS_STATUSES:
+        result["error"] = (
+            "rights_status 'unknown' blocks distillation and must be resolved to a "
+            "concrete status before ingestion (see rights-and-quotation-policy.md). "
+            "For an authored work, the conservative floor is 'distillation-only'."
+        )
+        return result
 
     # Handle URL
     is_url = source_input.startswith("http://") or source_input.startswith("https://")
