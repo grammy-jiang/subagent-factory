@@ -24,7 +24,7 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
     subagent_path = Path(subagent_dir)
     profile_path = subagent_path / "profile.yaml"
 
-    result = {
+    result: dict[str, str | None] = {
         "slug": None,
         "adapter_path": None,
         "installed_path": None,

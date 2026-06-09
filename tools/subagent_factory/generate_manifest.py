@@ -2,6 +2,7 @@
 
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 import yaml
 
@@ -22,7 +23,7 @@ def generate_manifest(
 
     now = datetime.now(UTC).isoformat()
 
-    existing = {}
+    existing: dict[str, Any] = {}
     if manifest_path.exists():
         with open(manifest_path) as f:
             existing = yaml.safe_load(f) or {}

@@ -16,7 +16,7 @@ def normalize_markdown(
     """
     src = Path(source_path)
     text = src.read_text(encoding="utf-8", errors="replace")
-    warnings = []
+    warnings: list[str] = []
 
     front_matter, body = _split_front_matter(text)
 

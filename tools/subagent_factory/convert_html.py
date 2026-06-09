@@ -3,6 +3,7 @@
 import re
 import subprocess
 from pathlib import Path
+from typing import Any
 
 from tools.subagent_factory.conversion_quality import assess_quality
 from tools.subagent_factory.self_heal import ensure_package
@@ -17,7 +18,7 @@ def convert_html(source_path: str | Path, output_path: str | Path) -> dict:
     """
     src = Path(source_path)
     html = src.read_text(encoding="utf-8", errors="replace")
-    result = {
+    result: dict[str, Any] = {
         "markdown_text": "",
         "converter_used": None,
         "warnings": [],

@@ -54,7 +54,7 @@ def quote_scan(subagent_dir: str | Path) -> list[dict]:
     Empty list = no concerns.
     """
     base = Path(subagent_dir)
-    findings = []
+    findings: list[dict] = []
 
     restricted_sources = _load_restricted_sources(base)
     source_texts = _load_source_texts(base, restricted_sources)
@@ -77,7 +77,7 @@ def _is_source_material(path: Path, base: Path) -> bool:
 
 
 def _load_restricted_sources(base: Path) -> set[str]:
-    restricted = set()
+    restricted: set[str] = set()
     manifest_path = base / "source-pack.manifest.yaml"
     if not manifest_path.exists():
         return restricted
@@ -100,7 +100,7 @@ def _load_restricted_sources(base: Path) -> set[str]:
 
 def _load_source_texts(base: Path, restricted_sources: set) -> dict[str, str]:
     """Load lowercased text of restricted sources for verbatim-match checking."""
-    texts = {}
+    texts: dict[str, str] = {}
     markdown_dir = base / "sources" / "markdown"
     if not markdown_dir.exists():
         return texts

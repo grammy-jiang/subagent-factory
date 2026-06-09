@@ -131,7 +131,7 @@ def score_unit(unit: dict) -> dict:
 def score_units(units: list[dict]) -> dict:
     """Score a list of candidate units and bucket them by verdict."""
     scored = [score_unit(u) for u in units]
-    buckets = {"keep": [], "review": [], "discard": [], "invalid": []}
+    buckets: dict[str, list[str]] = {"keep": [], "review": [], "discard": [], "invalid": []}
     for r in scored:
         buckets[r["verdict"]].append(r["id"])
     return {
