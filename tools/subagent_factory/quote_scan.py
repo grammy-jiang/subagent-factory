@@ -98,8 +98,21 @@ def _load_restricted_sources(base: Path) -> set[str]:
     return restricted
 
 
+def _normalize_ws(text: str) -> str:
+    """Lowercase and collapse every run of whitespace to a single space.
+
+    The verbatim probe in ``_is_verbatim`` is built with ``str.split()`` + single-
+    space ``join``, so it is whitespace-normalized. The source side must be
+    normalized the same way or the substring match fails on the most common
+    PDF-conversion artifacts — line-wrap newlines and the double spaces markitdown
+    emits between words (e.g. ``"Based  on  Gallup's  40-year  study"``). Without
+    this, a real 40-word verbatim lift slips past the rights gate undetected.
+    """
+    return re.sub(r"\s+", " ", text.lower())
+
+
 def _load_source_texts(base: Path, restricted_sources: set) -> dict[str, str]:
-    """Load lowercased text of restricted sources for verbatim-match checking."""
+    """Load whitespace-normalized text of restricted sources for match checking."""
     texts: dict[str, str] = {}
     markdown_dir = base / "sources" / "markdown"
     if not markdown_dir.exists():
@@ -108,7 +121,7 @@ def _load_source_texts(base: Path, restricted_sources: set) -> dict[str, str]:
         md_path = markdown_dir / f"{source_id}.md"
         if md_path.exists():
             try:
-                texts[source_id] = md_path.read_text(encoding="utf-8").lower()
+                texts[source_id] = _normalize_ws(md_path.read_text(encoding="utf-8"))
             except Exception:
                 pass
     return texts
