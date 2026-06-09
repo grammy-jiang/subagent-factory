@@ -75,3 +75,24 @@ ignore = ["E501"]
 # B110/B112: benign defensive try/except in best-effort parsing loops.
 # (B701 jinja autoescape and B606 execve are justified inline with `# nosec`.)
 skips = ["B404", "B603", "B607", "B105", "B110", "B112"]
+
+[tool.mypy]
+python_version = "3.11"
+# Pragmatic baseline for a mixed-typing codebase: type-check what is annotated
+# without forcing annotations onto every legacy function. Promote to stricter
+# flags incrementally once the tree stays clean.
+
+[[tool.mypy.overrides]]
+# Optional / untyped third-party libraries with no published stubs. Several are
+# soft deps imported behind try/except or via the self-heal loader, so their
+# presence varies by environment; do not fail typing on a missing stub.
+module = [
+    "docling.*",
+    "fitz",
+    "markitdown.*",
+    "magic",
+    "pdfminer.*",
+    "jsonschema",
+    "requests",
+]
+ignore_missing_imports = true

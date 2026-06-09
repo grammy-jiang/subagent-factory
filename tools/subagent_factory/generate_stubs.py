@@ -12,6 +12,7 @@ each marked TODO until authored.
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import yaml
 from slugify import slugify
@@ -54,7 +55,7 @@ def generate_stubs(subagent_dir: str | Path) -> dict:
     """
     subagent_path = Path(subagent_dir)
     profile_path = subagent_path / "profile.yaml"
-    result = {
+    result: dict[str, Any] = {
         "skills_created": 0,
         "references_created": 0,
         "skills_existing": 0,

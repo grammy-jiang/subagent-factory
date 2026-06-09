@@ -2,6 +2,7 @@
 
 import re
 from pathlib import Path
+from typing import Any
 
 from tools.subagent_factory.conversion_quality import assess_quality
 from tools.subagent_factory.self_heal import ensure_package
@@ -18,7 +19,7 @@ def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:
                   is_scanned, low_quality, quality, page_count, stats
     """
     src = Path(source_path)
-    result = {
+    result: dict[str, Any] = {
         "markdown_text": "",
         "converter_used": None,
         "warnings": [],

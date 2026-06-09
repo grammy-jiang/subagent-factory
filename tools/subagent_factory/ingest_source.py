@@ -4,6 +4,7 @@ import hashlib
 import shutil
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 import yaml
 from slugify import slugify
@@ -39,7 +40,7 @@ def ingest_source(
     Returns result dict.
     """
     subagent_path = Path(subagent_dir)
-    result = {
+    result: dict[str, Any] = {
         "source_id": None,
         "original_path": None,
         "markdown_path": None,
@@ -120,7 +121,7 @@ def ingest_source(
     if cache_md.exists():
         shutil.copy2(cache_md, md_path)
         cached_size = cache_md.stat().st_size
-        conversion_result = {
+        conversion_result: dict[str, Any] = {
             "file_type": file_type,
             "markdown_text": " " if cached_size > 0 else "",
             "converter_used": "cache",
