@@ -28,3 +28,10 @@ subagents/*/
 
 # Transient agent/audit work products
 .agent/
+
+# Campaign driver: commit the utility (run.sh, *.py, prompt.tmpl, README) but
+# never the artifacts it generates.
+campaign/pdf-queue.tsv
+campaign/pdf-inventory.md
+campaign/runs.md
+campaign/logs/
