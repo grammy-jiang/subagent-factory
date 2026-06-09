@@ -150,6 +150,29 @@ def _scan_markdown_prose(path: Path, source_texts: dict, findings: list) -> None
     body = _strip_front_matter(text)
     lines = body.splitlines()
 
+    # Consecutive ``>`` lines form ONE logical block quote. Markdown wraps a long
+    # quoted passage across many short lines, so a single 40+-word verbatim lift
+    # routinely lands as several sub-40-word ``> `` lines — a per-line check never
+    # sums them and the rights gate misses the whole passage. Coalesce the run and
+    # test the joined content; the finding is attributed to the block's first line.
+    block_lines: list[str] = []
+    block_start = 0
+
+    def _flush_block() -> None:
+        if not block_lines:
+            return
+        content = " ".join(block_lines).strip()
+        block_words = len(content.split())
+        if block_words >= MIN_WORDS_FOR_CONCERN and _is_verbatim(content, source_texts):
+            findings.append(
+                {
+                    "file": str(path),
+                    "line": block_start,
+                    "issue": f"Verbatim block-quote ({block_words} words) — verify rights",
+                    "excerpt": ("> " + content)[:120],
+                }
+            )
+
     for line_num, line in enumerate(lines, 1):
         # Long inline quotes in prose — only flag if text actually appears in source
         for m in INLINE_QUOTE_RE.finditer(line):
@@ -164,19 +187,16 @@ def _scan_markdown_prose(path: Path, source_texts: dict, findings: list) -> None
                     }
                 )
 
-        # Block quotes — only flag if long AND text appears in source
-        if line.startswith("> "):
-            content = line[2:]
-            block_words = len(content.split())
-            if block_words >= MIN_WORDS_FOR_CONCERN and _is_verbatim(content, source_texts):
-                findings.append(
-                    {
-                        "file": str(path),
-                        "line": line_num,
-                        "issue": f"Verbatim block-quote ({block_words} words) — verify rights",
-                        "excerpt": line[:120],
-                    }
-                )
+        # Block quotes — accumulate the run, then test the joined passage on flush.
+        if line.startswith(">"):
+            if not block_lines:
+                block_start = line_num
+            block_lines.append(line[1:].lstrip())
+        else:
+            _flush_block()
+            block_lines = []
+
+    _flush_block()
 
 
 def _strip_front_matter(text: str) -> str:

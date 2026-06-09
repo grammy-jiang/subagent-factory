@@ -129,6 +129,47 @@ def test_verbatim_quote_flagged_despite_source_whitespace(tmp_path):
     assert any("Verbatim inline quote" in f["issue"] for f in findings)
 
 
+def test_multiline_block_quote_is_coalesced_and_flagged(tmp_path):
+    # Markdown wraps a long quoted passage across several `> ` lines. Each line is
+    # under the 40-word threshold, but together they reproduce a 40+-word verbatim
+    # passage. A per-line check never sums them; the run must be coalesced so the
+    # whole lift is caught. Regression for the per-line block-quote false negative.
+    quote = _short_word_quote(MIN_WORDS_FOR_CONCERN + 4)
+    words = quote.split()
+    third = len(words) // 3
+    line_a = " ".join(words[:third])
+    line_b = " ".join(words[third : 2 * third])
+    line_c = " ".join(words[2 * third :])
+    assert all(len(seg.split()) < MIN_WORDS_FOR_CONCERN for seg in (line_a, line_b, line_c)), (
+        "test premise: no single block-quote line reaches the threshold"
+    )
+
+    base, _ = _build_package(tmp_path, source_text=f"intro {quote} outro")
+    (base / "references").mkdir()
+    (base / "references" / "leak.md").write_text(
+        f"As the book puts it:\n\n> {line_a}\n> {line_b}\n> {line_c}\n\nend.\n",
+        encoding="utf-8",
+    )
+
+    findings = quote_scan(base)
+    assert findings, "multi-line verbatim block quote must be flagged"
+    assert any("Verbatim block-quote" in f["issue"] for f in findings)
+
+
+def test_short_block_quote_run_not_flagged(tmp_path):
+    # A coalesced block-quote run that stays under 40 words must not be flagged.
+    quote = _short_word_quote(MIN_WORDS_FOR_CONCERN - 5)
+    words = quote.split()
+    half = len(words) // 2
+    base, _ = _build_package(tmp_path, source_text=f"intro {quote} outro")
+    (base / "references").mkdir()
+    (base / "references" / "ok.md").write_text(
+        f"> {' '.join(words[:half])}\n> {' '.join(words[half:])}\n",
+        encoding="utf-8",
+    )
+    assert quote_scan(base) == []
+
+
 def test_open_rights_source_not_loaded_for_matching(tmp_path):
     # Only restricted/distillation-only sources are loaded for verbatim matching;
     # an `open`-licensed source's text is quotable, so a long quote is not flagged.
