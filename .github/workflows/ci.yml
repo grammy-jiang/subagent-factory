@@ -114,5 +114,9 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: pyproject.toml
+      # Upgrade pip first: the runner's bundled pip is often a patch behind and
+      # gets self-flagged by pip-audit (e.g. PYSEC-2026-196), which is noise —
+      # it is the build tool, not a project dependency.
+      - run: python -m pip install --upgrade pip
       - run: python -m pip install -e ".[dev,convert,lint]"
       - run: make audit
