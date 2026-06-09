@@ -59,7 +59,9 @@ def _try_pandoc(src: Path):
     try:
         proc = subprocess.run(
             ["pandoc", "--from=epub", "--to=markdown", "--wrap=none", str(src)],
-            capture_output=True, text=True, timeout=120,
+            capture_output=True,
+            text=True,
+            timeout=120,
         )
         if proc.returncode == 0 and proc.stdout.strip():
             return proc.stdout, "pandoc", [], []

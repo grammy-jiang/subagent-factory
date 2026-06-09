@@ -162,7 +162,11 @@ def ensure_converter_stack(*, quiet: bool = False) -> dict:
 
 def doctor() -> dict:
     """Report converter dependency health without installing anything."""
-    report: dict = {"python_packages": {}, "system_tools": {}, "venv": str(_VENV_DIR) if _VENV_DIR.exists() else None}
+    report: dict = {
+        "python_packages": {},
+        "system_tools": {},
+        "venv": str(_VENV_DIR) if _VENV_DIR.exists() else None,
+    }
     for name in ("markitdown", "readability", "markdownify", "bs4", "yaml", "jinja2", "fitz"):
         try:
             importlib.import_module(name)
@@ -189,8 +193,11 @@ def bootstrap_environment(extra: str = "convert") -> dict:
     result = {"venv": str(_VENV_DIR), "created": False, "installed": False, "error": None}
     use_uv = bool(shutil.which("uv"))
     if not _VENV_DIR.exists():
-        cmd = (["uv", "venv", str(_VENV_DIR)] if use_uv
-               else [sys.executable, "-m", "venv", str(_VENV_DIR)])
+        cmd = (
+            ["uv", "venv", str(_VENV_DIR)]
+            if use_uv
+            else [sys.executable, "-m", "venv", str(_VENV_DIR)]
+        )
         _log(f"creating venv: {' '.join(cmd)}")
         proc = subprocess.run(cmd, capture_output=True, text=True)
         if proc.returncode != 0:

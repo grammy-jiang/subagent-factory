@@ -38,7 +38,11 @@ def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:
     used: str | None = None
     warns: list[str] = []
     attempt_errors: list[str] = []
-    for name, fn in (("docling", _try_docling), ("markitdown", _try_markitdown), ("pymupdf", _try_pymupdf)):
+    for name, fn in (
+        ("docling", _try_docling),
+        ("markitdown", _try_markitdown),
+        ("pymupdf", _try_pymupdf),
+    ):
         t, u, w, e = fn(src)
         if t:
             text, used, warns = t, u, w

@@ -71,8 +71,26 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
 
 
 _TRAILING_CONNECTORS = {
-    "for", "to", "of", "and", "or", "the", "a", "an", "with", "in", "on",
-    "that", "whether", "its", "from", "by", "as", "before", "after", "into",
+    "for",
+    "to",
+    "of",
+    "and",
+    "or",
+    "the",
+    "a",
+    "an",
+    "with",
+    "in",
+    "on",
+    "that",
+    "whether",
+    "its",
+    "from",
+    "by",
+    "as",
+    "before",
+    "after",
+    "into",
 }
 
 

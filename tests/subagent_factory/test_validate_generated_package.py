@@ -11,7 +11,7 @@ def _valid_profile() -> dict:
         "slug": "demo-design-reviewer",
         "display_name": "Demo Design Reviewer",
         "role": "An expert reviewer who evaluates designs for complexity and guides "
-                "structural improvements grounded in named principles.",
+        "structural improvements grounded in named principles.",
         "when_to_use": [
             "A module interface is submitted for a depth review before merging.",
             "A team needs a diagnosis of where information is leaking between modules.",
@@ -24,8 +24,13 @@ def _valid_profile() -> dict:
         "inputs": {"required": ["The actual code or interface definition being reviewed."]},
         "outputs": {
             "primary_format": "annotated design critique",
-            "modes": [{"name": "review", "trigger": "an artifact is submitted",
-                       "output": "named red flags with recommendations"}],
+            "modes": [
+                {
+                    "name": "review",
+                    "trigger": "an artifact is submitted",
+                    "output": "named red flags with recommendations",
+                }
+            ],
         },
         "quality_bar": [
             "Every finding cites a named design principle from the source.",
@@ -40,7 +45,13 @@ def _valid_profile() -> dict:
             "may_edit_canonical": False,
             "precedence": "The canonical source is the cited design book.",
         },
-        "knowledge_partition": {"always_on": [], "skills": [], "references": [], "mcp": [], "caller_supplied": []},
+        "knowledge_partition": {
+            "always_on": [],
+            "skills": [],
+            "references": [],
+            "mcp": [],
+            "caller_supplied": [],
+        },
         "sources": [{"source_id": "s1", "title": "A Book", "sha256": "abc"}],
     }
 
@@ -53,9 +64,13 @@ def _build(tmp_path, monkeypatch, installed="match", with_test_results=True, wit
     pkg.mkdir(parents=True)
 
     (pkg / "profile.yaml").write_text(yaml.safe_dump(_valid_profile()), encoding="utf-8")
-    (pkg / "provenance-ledger.md").write_text("# Provenance Ledger\n\n" + ("detail. " * 60), encoding="utf-8")
+    (pkg / "provenance-ledger.md").write_text(
+        "# Provenance Ledger\n\n" + ("detail. " * 60), encoding="utf-8"
+    )
     (pkg / "source-pack.manifest.yaml").write_text(
-        yaml.safe_dump({"schema_version": "source-pack-manifest-v1", "subagent_slug": slug, "sources": []}),
+        yaml.safe_dump(
+            {"schema_version": "source-pack-manifest-v1", "subagent_slug": slug, "sources": []}
+        ),
         encoding="utf-8",
     )
     (pkg / "CHANGELOG.md").write_text("# Changelog\n", encoding="utf-8")
@@ -76,10 +91,12 @@ def _build(tmp_path, monkeypatch, installed="match", with_test_results=True, wit
         tests_dir = pkg / "tests"
         tests_dir.mkdir()
         (tests_dir / "golden-tests.yaml").write_text(
-            yaml.safe_dump({
-                "golden_tests": [{"test_id": f"GT-{i:03d}"} for i in range(3)],
-                "negative_routing_tests": [{"test_id": "NR-001"}],
-            }),
+            yaml.safe_dump(
+                {
+                    "golden_tests": [{"test_id": f"GT-{i:03d}"} for i in range(3)],
+                    "negative_routing_tests": [{"test_id": "NR-001"}],
+                }
+            ),
             encoding="utf-8",
         )
         if with_test_results:

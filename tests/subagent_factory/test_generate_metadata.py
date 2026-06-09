@@ -23,7 +23,9 @@ def test_metadata_generated():
         "stats": {"word_count": 3, "heading_count": 1},
     }
 
-    meta = generate_metadata(src, "test-src-001", "markdown", conversion_result, out, title="Test Source")
+    meta = generate_metadata(
+        src, "test-src-001", "markdown", conversion_result, out, title="Test Source"
+    )
 
     assert meta["schema_version"] == "source-metadata-v1"
     assert meta["source_id"] == "test-src-001"
@@ -43,6 +45,18 @@ def test_sha256_stable():
     with tempfile.NamedTemporaryFile(suffix=".json", mode="w", delete=False, encoding="utf-8") as f:
         out = f.name
 
-    m1 = generate_metadata(src, "s1", "markdown", {"conversion_status": "ok", "warnings": [], "errors": [], "stats": {}}, out)
-    m2 = generate_metadata(src, "s1", "markdown", {"conversion_status": "ok", "warnings": [], "errors": [], "stats": {}}, out)
+    m1 = generate_metadata(
+        src,
+        "s1",
+        "markdown",
+        {"conversion_status": "ok", "warnings": [], "errors": [], "stats": {}},
+        out,
+    )
+    m2 = generate_metadata(
+        src,
+        "s1",
+        "markdown",
+        {"conversion_status": "ok", "warnings": [], "errors": [], "stats": {}},
+        out,
+    )
     assert m1["sha256"] == m2["sha256"]

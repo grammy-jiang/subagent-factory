@@ -56,7 +56,11 @@ def _try_readability_markdownify(html: str):
     readability = ensure_package("readability", purpose="HTML conversion")
     markdownify_mod = ensure_package("markdownify", purpose="HTML conversion")
     if readability is None or markdownify_mod is None:
-        missing = [n for n, m in (("readability-lxml", readability), ("markdownify", markdownify_mod)) if m is None]
+        missing = [
+            n
+            for n, m in (("readability-lxml", readability), ("markdownify", markdownify_mod))
+            if m is None
+        ]
         return None, None, [], [f"HTML pipeline unavailable: missing {', '.join(missing)}"]
     try:
         doc = readability.Document(html)
@@ -74,7 +78,9 @@ def _try_pandoc(src: Path):
     try:
         proc = subprocess.run(
             ["pandoc", "--from=html", "--to=markdown", "--wrap=none", str(src)],
-            capture_output=True, text=True, timeout=60,
+            capture_output=True,
+            text=True,
+            timeout=60,
         )
         if proc.returncode == 0 and proc.stdout.strip():
             return proc.stdout, "pandoc", [], []

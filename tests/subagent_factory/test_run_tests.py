@@ -10,10 +10,12 @@ def _make_pkg(tmp_path):
     tests_dir = pkg / "tests"
     tests_dir.mkdir(parents=True)
     (tests_dir / "golden-tests.yaml").write_text(
-        yaml.safe_dump({
-            "golden_tests": [{"test_id": "GT-001", "description": "positive route"}],
-            "negative_routing_tests": [{"test_id": "NR-001", "description": "no route"}],
-        }),
+        yaml.safe_dump(
+            {
+                "golden_tests": [{"test_id": "GT-001", "description": "positive route"}],
+                "negative_routing_tests": [{"test_id": "NR-001", "description": "no route"}],
+            }
+        ),
         encoding="utf-8",
     )
     return pkg

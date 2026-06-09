@@ -7,7 +7,9 @@ from pathlib import Path
 import jsonschema
 import yaml
 
-_SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "source-pack-manifest-v1.schema.json"
+_SCHEMA_PATH = (
+    Path(__file__).parent.parent.parent / "schemas" / "source-pack-manifest-v1.schema.json"
+)
 
 
 def validate_manifest(manifest_path: str | Path) -> list[str]:

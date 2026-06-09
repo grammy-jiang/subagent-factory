@@ -13,8 +13,14 @@ MAX_SIZE = 50 * 1024 * 1024  # 50 MB
 USER_AGENT = "subagent-factory/0.1.0 (research-tool)"
 
 AUTH_PATTERNS = [
-    r"login", r"sign[_-]?in", r"auth", r"oauth", r"sso",
-    r"accounts\.", r"id\.", r"passport",
+    r"login",
+    r"sign[_-]?in",
+    r"auth",
+    r"oauth",
+    r"sso",
+    r"accounts\.",
+    r"id\.",
+    r"passport",
 ]
 AUTH_RE = re.compile("|".join(AUTH_PATTERNS), re.IGNORECASE)
 

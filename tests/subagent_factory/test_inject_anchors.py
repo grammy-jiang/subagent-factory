@@ -34,7 +34,9 @@ def test_anchors_generated():
     with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
         out_md = f.name
 
-    with tempfile.NamedTemporaryFile(suffix=".jsonl", mode="w", delete=False, encoding="utf-8") as f:
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
         out_jsonl = f.name
 
     result = inject_anchors(src, out_md, out_jsonl, "test-source")
@@ -61,7 +63,9 @@ def test_anchor_comments_injected():
     with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
         out_md = f.name
 
-    with tempfile.NamedTemporaryFile(suffix=".jsonl", mode="w", delete=False, encoding="utf-8") as f:
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
         out_jsonl = f.name
 
     inject_anchors(src, out_md, out_jsonl, "test-source")

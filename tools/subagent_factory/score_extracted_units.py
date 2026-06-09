@@ -113,7 +113,11 @@ def score_unit(unit: dict) -> dict:
     if keep:
         verdict = "keep"
     else:
-        strong = s["actionability"] >= _STRONG or s["risk_impact"] >= _STRONG or s["uniqueness"] >= _STRONG
+        strong = (
+            s["actionability"] >= _STRONG
+            or s["risk_impact"] >= _STRONG
+            or s["uniqueness"] >= _STRONG
+        )
         if total < 20 and not strong:
             verdict = "discard"
             reasons.append(f"total {total} < 20 and no strong actionability/risk/uniqueness")

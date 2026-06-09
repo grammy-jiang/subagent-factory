@@ -142,31 +142,35 @@ def _scan_markdown_prose(path: Path, source_texts: dict, findings: list) -> None
         for m in INLINE_QUOTE_RE.finditer(line):
             words = len(m.group(1).split())
             if words >= MIN_WORDS_FOR_CONCERN and _is_verbatim(m.group(1), source_texts):
-                findings.append({
-                    "file": str(path),
-                    "line": line_num,
-                    "issue": f"Verbatim inline quote ({words} words) — verify rights",
-                    "excerpt": m.group(1)[:120] + ("..." if len(m.group(1)) > 120 else ""),
-                })
+                findings.append(
+                    {
+                        "file": str(path),
+                        "line": line_num,
+                        "issue": f"Verbatim inline quote ({words} words) — verify rights",
+                        "excerpt": m.group(1)[:120] + ("..." if len(m.group(1)) > 120 else ""),
+                    }
+                )
 
         # Block quotes — only flag if long AND text appears in source
         if line.startswith("> "):
             content = line[2:]
             block_words = len(content.split())
             if block_words >= MIN_WORDS_FOR_CONCERN and _is_verbatim(content, source_texts):
-                findings.append({
-                    "file": str(path),
-                    "line": line_num,
-                    "issue": f"Verbatim block-quote ({block_words} words) — verify rights",
-                    "excerpt": line[:120],
-                })
+                findings.append(
+                    {
+                        "file": str(path),
+                        "line": line_num,
+                        "issue": f"Verbatim block-quote ({block_words} words) — verify rights",
+                        "excerpt": line[:120],
+                    }
+                )
 
 
 def _strip_front_matter(text: str) -> str:
     if text.startswith("---"):
         end = text.find("\n---", 3)
         if end != -1:
-            return text[end + 4:]
+            return text[end + 4 :]
     return text
 
 
