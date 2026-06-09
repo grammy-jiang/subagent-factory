@@ -12,12 +12,16 @@ Checks:
   - adapter exists (canonical)
   - installed adapter exists and matches canonical (FAIL on mismatch)
   - tests exist (golden-tests.yaml + test-results.md)
+  - profile.yaml sources[] trace back to ingested source metadata
   - Phase 8 profile self-check gate passes
   - restricted quote scan passes
 """
 
+import json
 import sys
 from pathlib import Path
+
+import yaml
 
 from tools.subagent_factory.profile_self_check import profile_self_check
 from tools.subagent_factory.quote_scan import quote_scan
@@ -90,6 +94,49 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
                     fail("metadata", f"{mf.name}: {e}")
             else:
                 ok("metadata", f"{mf.name} valid")
+
+    # 3b. Profile sources trace back to ingested source metadata.
+    # profile.yaml's sources[] (source_id + sha256) are the provenance backbone
+    # required by rights-and-quotation-policy. A derivation that copies a stale
+    # sha256, points at a source that was never ingested, or leaves the hash
+    # blank silently breaks traceability — none of the other checks notice.
+    # The cross-check only runs when source metadata is present (the unit-test
+    # fixtures omit it); absence is already reported by the required-dirs check.
+    profile_path = base / "profile.yaml"
+    if profile_path.exists() and meta_dir.exists():
+        meta_sha = {}
+        for mf in meta_dir.glob("*.metadata.json"):
+            try:
+                m = json.loads(mf.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                continue
+            if m.get("source_id"):
+                meta_sha[m["source_id"]] = str(m.get("sha256") or "")
+        try:
+            profile = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
+        except yaml.YAMLError:
+            profile = {}
+        profile_sources = profile.get("sources") or []
+        if meta_sha and profile_sources:
+            for src in profile_sources:
+                sid = str(src.get("source_id") or "")
+                sha = str(src.get("sha256") or "")
+                if sid not in meta_sha:
+                    fail(
+                        "source-provenance",
+                        f"profile source_id '{sid}' has no ingested metadata "
+                        f"(known: {', '.join(sorted(meta_sha)) or 'none'})",
+                    )
+                elif not sha:
+                    warn("source-provenance", f"profile source '{sid}' has an empty sha256")
+                elif sha != meta_sha[sid]:
+                    fail(
+                        "source-provenance",
+                        f"profile source '{sid}' sha256 does not match ingested "
+                        f"metadata (profile={sha[:12]}…, metadata={meta_sha[sid][:12]}…)",
+                    )
+                else:
+                    ok("source-provenance", f"source '{sid}' traces to ingested metadata")
 
     # 4. Manifest validation
     manifest_path = base / "source-pack.manifest.yaml"

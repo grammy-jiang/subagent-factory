@@ -1,8 +1,18 @@
 """Tests for the hardened package validation gating (GAP 4)."""
 
+import json
+
 import yaml
 
 import tools.subagent_factory.validate_generated_package as vgp
+
+
+def _write_metadata(pkg, source_id="s1", sha256="abc"):
+    meta_dir = pkg / "sources" / "metadata"
+    meta_dir.mkdir(parents=True, exist_ok=True)
+    (meta_dir / f"{source_id}.metadata.json").write_text(
+        json.dumps({"source_id": source_id, "sha256": sha256}), encoding="utf-8"
+    )
 
 
 def _valid_profile() -> dict:
@@ -140,6 +150,46 @@ def test_missing_tests_dir_fails(tmp_path, monkeypatch):
     result = vgp.validate_generated_package(pkg)
     assert "tests" in _fail_checks(result)
     assert result["passed"] is False
+
+
+def test_source_provenance_match_ok(tmp_path, monkeypatch):
+    # profile sha256 "abc" matches the ingested metadata → traceable.
+    # (The minimal metadata fixture fails the separate schema check, so this
+    # isolates the source-provenance finding rather than overall pass.)
+    pkg, _ = _build(tmp_path, monkeypatch)
+    _write_metadata(pkg, source_id="s1", sha256="abc")
+    result = vgp.validate_generated_package(pkg)
+    assert "source-provenance" not in _fail_checks(result)
+    assert any(f["check"] == "source-provenance" and f["level"] == "OK" for f in result["findings"])
+
+
+def test_source_provenance_sha_mismatch_fails(tmp_path, monkeypatch):
+    pkg, _ = _build(tmp_path, monkeypatch)
+    _write_metadata(pkg, source_id="s1", sha256="deadbeef")
+    result = vgp.validate_generated_package(pkg)
+    assert "source-provenance" in _fail_checks(result)
+    assert result["passed"] is False
+
+
+def test_source_provenance_unknown_source_id_fails(tmp_path, monkeypatch):
+    pkg, _ = _build(tmp_path, monkeypatch)
+    _write_metadata(pkg, source_id="other-source", sha256="abc")
+    result = vgp.validate_generated_package(pkg)
+    assert "source-provenance" in _fail_checks(result)
+    assert result["passed"] is False
+
+
+def test_source_provenance_empty_sha_warns_not_fails(tmp_path, monkeypatch):
+    profile = _valid_profile()
+    profile["sources"] = [{"source_id": "s1", "title": "A Book", "sha256": ""}]
+    pkg, _ = _build(tmp_path, monkeypatch)
+    (pkg / "profile.yaml").write_text(yaml.safe_dump(profile), encoding="utf-8")
+    _write_metadata(pkg, source_id="s1", sha256="abc")
+    result = vgp.validate_generated_package(pkg)
+    assert "source-provenance" not in _fail_checks(result)
+    assert any(
+        f["check"] == "source-provenance" and f["level"] == "WARN" for f in result["findings"]
+    )
 
 
 def test_phase8_fail_propagates_to_validation(tmp_path, monkeypatch):
