@@ -4,6 +4,11 @@ import json
 import re
 from pathlib import Path
 
+# Matches a previously injected anchor comment line, e.g. ``<!-- anchor:src-h0000 -->``.
+# Page markers (``<!-- page 3 -->``) use a different prefix and are intentionally
+# preserved — they are source content, not injected anchors.
+_INJECTED_ANCHOR_RE = re.compile(r"^<!--\s*anchor:\S+\s*-->\s*$")
+
 
 def inject_anchors(
     markdown_path: str | Path,
@@ -14,11 +19,17 @@ def inject_anchors(
     """
     Read Markdown, inject HTML anchor comments, write JSONL index.
 
+    Idempotent: any anchor comments left by a prior injection are stripped before
+    re-anchoring. The markdown cache stores post-anchor Markdown, so a cache reuse
+    feeds an already-anchored file back through this function with a new source_id;
+    without stripping, each reuse would stack a second (stale-source_id) anchor above
+    every heading and inflate line numbers.
+
     Returns dict: anchor_count, anchors list
     """
     src = Path(markdown_path)
     text = src.read_text(encoding="utf-8")
-    lines = text.splitlines()
+    lines = [ln for ln in text.splitlines() if not _INJECTED_ANCHOR_RE.match(ln)]
 
     anchors = []
     output_lines = []
