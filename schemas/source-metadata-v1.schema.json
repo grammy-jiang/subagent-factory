@@ -23,7 +23,10 @@
       "type": "string",
       "enum": ["primary", "secondary", "experiential"]
     },
-    "rights_status": {"type": "string"},
+    "rights_status": {
+      "type": "string",
+      "enum": ["open", "distillation-only", "proprietary/restricted", "unknown"]
+    },
     "volatility": {
       "type": "string",
       "enum": ["low", "medium", "high"]
