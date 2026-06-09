@@ -535,7 +535,7 @@ summary-of-a-copyrighted-book.
   floor-derivation, the 40-word short-word quote is now flagged, 39-word quote is not, a 50-word
   *novel* quote is not, source material is never scanned, and `open`-rights sources are not loaded
   for matching). No schema, template, or other package touched.
-- **Commit:** `<filled in by the commit that carries this entry>`.
+- **Commit:** `c729c09` (factory fix + this campaign-log entry, single commit).
 
 **Human-review / stubs / needs-ocr**
 - Skills not yet authored (`STATUS: STUB`): `labeling-and-accusation-audit`,
