@@ -1,0 +1,22 @@
+version: 2
+updates:
+  # Keep GitHub Actions pinned-by-tag references current (security patches for
+  # checkout/setup-python, etc.). Cheap mitigation for not SHA-pinning actions.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
+
+  # Keep Python dependencies current so CVEs are fixed by upgrade PRs rather
+  # than lingering as a permanently-red (informational) pip-audit signal.
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: deps
+    groups:
+      python-deps:
+        patterns: ["*"]

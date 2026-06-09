@@ -1,6 +1,6 @@
 PY ?= python
 
-.PHONY: install lint format-check typecheck security audit test verify bootstrap clean
+.PHONY: install lint format-check typecheck security secrets audit test verify bootstrap clean
 
 install:  ## Install package with dev, convert, and lint extras
 	$(PY) -m pip install -e ".[dev,convert,lint]"
@@ -11,8 +11,8 @@ lint:  ## Ruff lint
 format-check:  ## Ruff format check (non-mutating)
 	ruff format --check tools tests
 
-typecheck:  ## Mypy (non-blocking on legacy untyped code)
-	-mypy tools/subagent_factory
+typecheck:  ## Mypy static type check (gating)
+	mypy tools/subagent_factory
 
 security:  ## Bandit SAST over factory code
 	bandit -q -c pyproject.toml -r tools/subagent_factory
@@ -26,7 +26,7 @@ audit:  ## pip-audit the installed environment
 test:  ## Run the test suite
 	$(PY) -m pytest -q
 
-verify: lint security secrets test  ## Full gate: lint + SAST + secrets + tests (must pass to ship)
+verify: lint format-check typecheck security secrets test  ## Full gate: lint + format + types + SAST + secrets + tests (must pass to ship)
 	@echo "verify: OK"
 
 bootstrap:  ## Ensure converter dependencies are available
