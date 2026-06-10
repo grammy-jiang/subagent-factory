@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "claims-v1",
+  "title": "Atomic Claim v1",
+  "description": "One atomic, typed, source-anchored claim. analysis/claims.jsonl holds one such object per line. Enums are empirically grounded — see docs/Research/argument-mining-claim-extraction/.",
+  "type": "object",
+  "required": ["claim_id", "source_id", "statement", "component_class", "claim_type"],
+  "properties": {
+    "schema_version": {"const": "claims-v1"},
+    "claim_id": {"type": "string"},
+    "source_id": {"type": "string"},
+    "source_anchors": {"type": "array", "items": {"type": "string"}},
+    "support_granularity": {"enum": ["section", "page", "heading"]},
+    "statement": {"type": "string", "minLength": 1},
+    "component_class": {"enum": ["major_claim", "claim", "premise", "non_argumentative"]},
+    "claim_type": {"enum": ["fact", "value", "policy", "causal"]},
+    "premise_type": {
+      "enum": ["common_ground", "testimony", "hypothetical_instance", "statistics", "real_example", "other", null]
+    },
+    "evidence_type": {"enum": ["explanation", "case", "research", "expert", "other", null]},
+    "stance": {"enum": ["support", "contest", "no_relation", null]},
+    "az_zone": {
+      "enum": ["AIM", "OWN_CONC", "NOV_ADV", "SUPPORT", "GAP_WEAK", "ANTISUPP", "OWN_MTHD", "RELWRK", "BKG", "CTR", "OUTSIDER", null]
+    },
+    "condition": {"type": ["string", "null"]},
+    "exception": {"type": ["string", "null"]},
+    "certainty": {"enum": ["asserted", "hedged", "speculative"]},
+    "confidence_initial": {"enum": ["high", "medium", "low", null]}
+  },
+  "additionalProperties": false
+}
