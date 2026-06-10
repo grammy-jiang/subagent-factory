@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "faithfulness-report-v1",
+  "title": "Faithfulness Report v1",
+  "description": "Per-rule claim-strength findings comparing generated profile rules against source evidence. v0 compares against raw source text; v1 (Step 3) against evidence records.",
+  "type": "object",
+  "required": ["schema_version", "subagent_slug", "findings"],
+  "properties": {
+    "schema_version": {"const": "faithfulness-report-v1"},
+    "subagent_slug": {"type": "string"},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule_ref", "verdict", "action"],
+        "properties": {
+          "rule_ref": {"type": "string", "description": "Path into profile.yaml, e.g. quality_bar[2]"},
+          "triplet": {
+            "type": "object",
+            "properties": {
+              "head": {"type": "string"},
+              "relation": {"type": "string"},
+              "tail": {"type": "string"}
+            },
+            "additionalProperties": false
+          },
+          "verdict": {
+            "enum": ["EXACT_SUPPORT", "WITHIN_SCOPE", "SCOPE_BROADENED", "HEDGING_REMOVED", "CONTRADICTED"]
+          },
+          "distortion": {
+            "type": "array",
+            "items": {"enum": ["scope_broadened", "hedge_removed", "specificity_inflated", "none"]}
+          },
+          "source_anchors": {"type": "array", "items": {"type": "string"}},
+          "support_granularity": {"enum": ["section", "page", "heading"]},
+          "severity": {"enum": ["high", "medium", "low"]},
+          "action": {"enum": ["downgrade", "remove", "add_condition", "accept_with_note"]},
+          "note": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

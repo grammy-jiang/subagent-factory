@@ -26,8 +26,8 @@ subagent_workflow_quality_enhancement_plan.md      (original 12 enhancements)
 
 | Step | Doc | Depth | Status | Depends on | Research input |
 |------|-----|-------|--------|------------|----------------|
-| 0 | `step-0-plumbing.md` | full | spec ready | — | — |
-| 1 | `step-1-safety-faithfulness.md` | full | spec ready | 0 | prompt-injection + factual-consistency |
+| 0 | `step-0-plumbing.md` | full | **implemented (merged)** | — | — |
+| 1 | `step-1-safety-faithfulness.md` | full | **implemented** | 0 | prompt-injection + factual-consistency |
 | 2 | `step-2-claims.md` | full | spec ready | 0 | argument-mining |
 | 3 | `step-3-evidence-faithfulness-v1.md` | full | spec ready | 0,2 | factual-consistency + argument-mining |
 | 4 | `step-4-principle-promotion.md` | medium | outline | 2,3 | (argument-mining, light) |
