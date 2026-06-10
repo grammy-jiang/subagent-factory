@@ -30,7 +30,7 @@ subagent_workflow_quality_enhancement_plan.md      (original 12 enhancements)
 | 1 | `step-1-safety-faithfulness.md` | full | **implemented** | 0 | prompt-injection + factual-consistency |
 | 2 | `step-2-claims.md` | full | **implemented** | 0 | argument-mining |
 | 3 | `step-3-evidence-faithfulness-v1.md` | full | **implemented** | 0,2 | factual-consistency + argument-mining |
-| 4 | `step-4-principle-promotion.md` | medium | outline | 2,3 | (argument-mining, light) |
+| 4 | `step-4-principle-promotion.md` | full | **implemented** | 2,3 | (argument-mining, light) |
 | 5 | `step-5-principle-tests.md` | medium | outline | 4 | — |
 | 6 | `step-6-patch-safety.md` | medium | outline | (5) | (prompt-injection, light) |
 | 7 | `step-7-multisource.md` | stub | deferred | 4 | (argument-mining AM relations, future) |

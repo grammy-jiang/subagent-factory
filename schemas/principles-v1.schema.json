@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "principles-v1",
+  "title": "Principles v1",
+  "description": "Operational principles promoted from high-value, evidence-backed claims. Lives at principles/principles.yaml.",
+  "type": "object",
+  "required": ["schema_version", "principles"],
+  "properties": {
+    "schema_version": {"const": "principles-v1"},
+    "principles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["principle_id", "statement", "derived_from_claims", "confidence"],
+        "properties": {
+          "principle_id": {"type": "string"},
+          "statement": {"type": "string", "minLength": 1},
+          "derived_from_claims": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "confidence": {"enum": ["high", "medium", "low"]},
+          "applies_when": {"type": "array", "items": {"type": "string"}},
+          "does_not_apply_when": {"type": "array", "items": {"type": "string"}},
+          "operational_mapping": {
+            "type": "object",
+            "properties": {
+              "profile_rule": {"type": "boolean"},
+              "skill": {"type": ["string", "null"]},
+              "reference": {"type": ["string", "null"]},
+              "test_cases": {"type": "array", "items": {"type": "string"}}
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
