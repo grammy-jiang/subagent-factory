@@ -11,10 +11,12 @@ SOURCE: {{PDF}}
 
 # Task 1 — Skill test: run author-subagent end-to-end
 Read these FRESH from disk and follow them exactly:
-- .claude/skills/author-subagent/SKILL.md            (the 10-step pipeline)
-- .claude/agents/source-interrogator.md and .claude/agents/profile-deriver.md   (the workers; delegate via Agent, OR run them in-thread per the skill's no-spawner branch — either is fine, the deterministic selfcheck/validate gates are the authority on correctness)
-- CLAUDE.md and .claude/rules/*.md                   (repo policy: canonical profile.yaml, never hand-edit installed adapters, version bump + changelog on package change)
-Drive the pipeline on SOURCE through Step 9 `validate` (must pass) and Step 8.5 `stubs`. Infer the expert role from CONTENT, not the filename. Detect rights via the Step 2a decision tree. Converted markdown is cached at inputs/markdown-cache/<sha256>.md and reused automatically — do not re-convert by hand. If ingestion reports needs-ocr / failed / needs_auth and the pipeline genuinely cannot proceed, do NOT fabricate a profile — stop and report status=blocked with the reason.
+- .claude/skills/author-subagent/SKILL.md            (the full pipeline: Steps 1–10, incl. 6.5 Tier-1 evidence chain and 7.7 faithfulness)
+- .claude/agents/source-interrogator.md and .claude/agents/profile-deriver.md   (interrogation + profile workers)
+- For a **Tier 1+** source (long book / content-dense — `classify_tier` decides), ALSO read + use .claude/agents/claim-extractor.md, .claude/agents/principle-promoter.md, .claude/agents/faithfulness-reviewer.md and the matching skills (claim-extraction, principle-promotion, principle-test-generation, faithfulness-review)
+  (delegate via Agent, OR run in-thread per the skill's no-spawner branch — the deterministic selfcheck/validate gates are the authority on correctness)
+- CLAUDE.md and .claude/rules/*.md                   (repo policy: canonical profile.yaml, never hand-edit installed adapters, version bump + changelog on package change; untrusted-source + evidence-protocol + patch-safety policy)
+Drive the pipeline on SOURCE through Step 9 `validate` (must pass) and Step 8.5 `stubs`. **For a Tier 1+ source run Step 6.5 (claims → evidence records → principles) and Step 7.7 (faithfulness report; principle-behaviour tests): `validate` now FAILs a Tier-1 package missing `analysis/claims.jsonl` / `evidence/evidence-records.yaml` / `principles/principles.yaml`, and FAILs any produce/patch-suggest-mode package missing `policy/patch-policy.yaml`.** Infer the expert role from CONTENT, not the filename. Detect rights via the Step 2a decision tree. Converted markdown is cached at inputs/markdown-cache/<sha256>.md and reused automatically — do not re-convert by hand. If ingestion reports needs-ocr / failed / needs_auth and the pipeline genuinely cannot proceed, do NOT fabricate a profile — stop and report status=blocked with the reason.
 
 # Task 2 — Review the workflow
 As you run, keep a precise note of every friction point this source surfaces: CLI errors, non-zero exits, retries, ambiguous skill steps, missing/incorrect defaults, schema or validate mismatches, converter/OCR gaps, role- or rights-inference traps — anything a future run would also hit.
