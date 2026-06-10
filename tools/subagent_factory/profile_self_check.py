@@ -314,14 +314,14 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
     )
 
     # 18. At least 3 golden tests including 1 negative routing test
-    golden, negative = _count_tests(base)
+    golden, negative, misplaced_hint = _count_tests(base)
     if golden < 3 or negative < 1:
         add(
             18,
             "FAIL",
             "golden-tests",
             f"found {golden} golden test(s) and {negative} negative routing test(s); "
-            f"require 3+ golden and 1+ negative",
+            f"require 3+ golden and 1+ negative" + misplaced_hint,
         )
     else:
         add(18, "PASS", "golden-tests", f"{golden} golden, {negative} negative routing")
@@ -346,20 +346,55 @@ def _truthy(value) -> bool:
     return str(value).strip().lower() in ("true", "yes", "1")
 
 
-def _count_tests(base: Path) -> tuple[int, int]:
+# Top-level keys under which the gate recognizes test collections.
+_RECOGNIZED_TEST_KEYS = ("golden_tests", "negative_routing_tests", "missing_context_tests")
+
+
+def _looks_like_test_list(value) -> bool:
+    """True when value is a list whose items look like test definitions."""
+    return isinstance(value, list) and any(
+        isinstance(item, dict) and "test_id" in item for item in value
+    )
+
+
+def _count_tests(base: Path) -> tuple[int, int, str]:
+    """Count golden + negative routing tests, and diagnose misplaced ones.
+
+    Returns ``(golden, negative, hint)``. ``hint`` is empty unless a tests file
+    parks test definitions under an unrecognized top-level key (e.g. a ``tests:``
+    list with per-item ``mode``/``routing_type`` — a common derivation defect).
+    Without the hint such a file is silently counted as zero tests and the gate
+    FAILs with a confusing "found 0" message rather than pointing at the schema.
+    """
     tests_dir = base / "tests"
     golden = 0
     negative = 0
+    misplaced: list[str] = []
     if not tests_dir.exists():
-        return 0, 0
-    for tf in tests_dir.glob("*.yaml"):
+        return 0, 0, ""
+    for tf in sorted(tests_dir.glob("*.yaml")):
         try:
             data = yaml.safe_load(tf.read_text(encoding="utf-8")) or {}
         except Exception:
             continue
+        if not isinstance(data, dict):
+            continue
         golden += len(data.get("golden_tests", []) or [])
         negative += len(data.get("negative_routing_tests", []) or [])
-    return golden, negative
+        for key, value in data.items():
+            if key in _RECOGNIZED_TEST_KEYS:
+                continue
+            if _looks_like_test_list(value):
+                misplaced.append(f"{tf.name}: {len(value)} test(s) under unrecognized key '{key}'")
+    hint = ""
+    if misplaced:
+        hint = (
+            "; misplaced test definitions — "
+            + "; ".join(misplaced)
+            + ". Expected top-level keys golden_tests / negative_routing_tests / "
+            "missing_context_tests (see templates/golden-tests.yaml.j2)"
+        )
+    return golden, negative, hint
 
 
 def main():

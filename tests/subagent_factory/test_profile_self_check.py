@@ -162,6 +162,39 @@ def test_no_negative_routing_test_fails(tmp_path):
     assert _finding(profile_self_check(pkg), 18)["level"] == "FAIL"
 
 
+def test_misplaced_test_schema_is_diagnosed(tmp_path):
+    # A golden-tests file that parks its tests under a `tests:` list (instead of
+    # the canonical golden_tests/negative_routing_tests keys) must FAIL check 18
+    # with a diagnostic that names the unrecognized key and points at the
+    # template — not a bare "found 0" that hides the schema mismatch.
+    pkg = _write_package(tmp_path)
+    (pkg / "tests" / "golden-tests.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "schema_version": "golden-tests-v1",
+                "tests": [
+                    {"test_id": "GT001", "mode": "advise", "routing_type": "positive"},
+                    {"test_id": "GT002", "mode": "validate", "routing_type": "negative"},
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    finding = _finding(profile_self_check(pkg), 18)
+    assert finding["level"] == "FAIL"
+    assert "unrecognized key 'tests'" in finding["message"]
+    assert "golden_tests" in finding["message"]
+    assert "templates/golden-tests.yaml.j2" in finding["message"]
+
+
+def test_canonical_test_schema_has_no_misplaced_hint(tmp_path):
+    # A well-formed package must not trigger the misplaced-schema diagnostic.
+    pkg = _write_package(tmp_path)
+    finding = _finding(profile_self_check(pkg), 18)
+    assert finding["level"] == "PASS"
+    assert "misplaced" not in finding["message"]
+
+
 def test_body_size_pass_has_plain_message_without_breakdown(tmp_path):
     # A within-budget profile keeps the compact "~N words" message and must NOT
     # carry the heaviest-sections breakdown (that is for over-budget profiles only).
