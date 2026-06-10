@@ -36,6 +36,7 @@ from tools.subagent_factory.validate_evidence_records import validate_evidence_r
 from tools.subagent_factory.validate_faithfulness_report import validate_faithfulness_report
 from tools.subagent_factory.validate_manifest import validate_manifest
 from tools.subagent_factory.validate_metadata import validate_metadata
+from tools.subagent_factory.validate_principle_test_coverage import validate_principle_test_coverage
 from tools.subagent_factory.validate_principles import validate_principles
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
@@ -54,6 +55,8 @@ _TIER_ARTIFACTS: list = [
     ("evidence/evidence-records.yaml", 1, validate_evidence_records),
     # Step 4: principles — required at Tier 1+ (validated whenever present).
     ("principles/principles.yaml", 1, validate_principles),
+    # Step 5: principle→behaviour coverage — present-gated (keyed on principles.yaml).
+    ("principles/principles.yaml", 99, validate_principle_test_coverage),
 ]
 
 
