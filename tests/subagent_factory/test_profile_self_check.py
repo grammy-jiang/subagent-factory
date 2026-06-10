@@ -126,6 +126,30 @@ def test_when_not_to_use_too_few_fails(tmp_path):
     assert _finding(profile_self_check(pkg), 3)["level"] == "FAIL"
 
 
+def test_quality_bar_grounded_in_principle_ids_passes(tmp_path):
+    # A Tier-1 profile grounds quality_bar in promoted principle IDs ([P-001])
+    # rather than the literal evidence vocabulary. Check 11 must accept that.
+    p = _valid_profile()
+    p["quality_bar"] = [
+        "[P-001] Module depth is verified before any approval is given.",
+        "[P-002] Cross-module leakage is ruled out for every finding.",
+        "[P-003] Trade-offs are stated explicitly before a recommendation.",
+    ]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 11)
+    assert finding["level"] == "PASS"
+
+
+def test_quality_bar_without_evidence_or_ids_warns(tmp_path):
+    p = _valid_profile()
+    p["quality_bar"] = [
+        "Findings should look reasonable.",
+        "Recommendations ought to feel actionable.",
+        "Reviews are returned promptly.",
+    ]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 11)
+    assert finding["level"] == "WARNING"
+
+
 def test_may_edit_canonical_true_fails(tmp_path):
     p = _valid_profile()
     p["source_of_truth_policy"]["may_edit_canonical"] = True
