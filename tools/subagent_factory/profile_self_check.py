@@ -51,6 +51,13 @@ _EVIDENCE_WORDS = (
     "traceable",
 )
 
+# A Tier-1 profile grounds quality_bar in promoted principles by citing their
+# IDs (``[P-006]``, ``P-009/P-010``) rather than the literal word "principle";
+# claim (``CL-016``) and evidence-record (``EV-005``) IDs are also valid
+# groundings. Recognise these so a correctly-grounded Tier-1 profile is not
+# flagged for "no evidence reference".
+_ID_CITATION_RE = re.compile(r"\b(?:P|CL|EV)-\d", re.IGNORECASE)
+
 _BODY_WARN_WORDS = 800
 _BODY_FAIL_WORDS = 1000
 
@@ -202,7 +209,7 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
         add(11, "FAIL", "quality-bar", "quality_bar is empty")
     else:
         qb_text = " ".join(str(q) for q in quality_bar).lower()
-        if not any(w in qb_text for w in _EVIDENCE_WORDS):
+        if not any(w in qb_text for w in _EVIDENCE_WORDS) and not _ID_CITATION_RE.search(qb_text):
             add(
                 11,
                 "WARNING",
