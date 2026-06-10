@@ -30,12 +30,16 @@ skill: turn long-form source text into atomic, typed, traceable claims.
 
 ## Output contract
 
-A schema-valid, referentially-correct `analysis/claims.jsonl`: unique `claim_id`s, `source_id`
-in the manifest, `source_anchors` in the anchor index, `premise_type` only on premises. Then
-score with `score_extracted_units` → `analysis/claim-importance-scores.yaml`.
+- A schema-valid, referentially-correct `analysis/claims.jsonl` (unique `claim_id`s, `source_id`
+  in the manifest, `source_anchors` in the anchor index, `premise_type` only on premises),
+  scored via `score_extracted_units` → `analysis/claim-importance-scores.yaml`.
+- `evidence/evidence-records.yaml` (`evidence-records-v1`): ≥1 record per high-value claim,
+  binding it to source (`evidence_type`, `evidence_strength`, `support_level`; `quote_allowed`
+  false for rights-restricted sources). Must pass `validate_evidence_records`. (Authored with
+  claims since both come from the same source analysis.)
 
 ## Boundaries
 
-- Read-only on sources; you write only `analysis/`. You never edit `profile.yaml` or sources.
+- Read-only on sources; you write only `analysis/` and `evidence/`. You never edit `profile.yaml` or sources.
 - `condition`/`exception` is surface-cue heuristic (no validated model); mark, don't over-claim.
 - Prefer false-negatives on `causal` claim_type until in-domain validation exists.
