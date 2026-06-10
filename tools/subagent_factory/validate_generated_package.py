@@ -32,6 +32,7 @@ from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
 from tools.subagent_factory.quote_scan import quote_scan
 from tools.subagent_factory.validate_anchor_index import validate_anchor_index
 from tools.subagent_factory.validate_claims import validate_claims
+from tools.subagent_factory.validate_evidence_records import validate_evidence_records
 from tools.subagent_factory.validate_faithfulness_report import validate_faithfulness_report
 from tools.subagent_factory.validate_manifest import validate_manifest
 from tools.subagent_factory.validate_metadata import validate_metadata
@@ -48,6 +49,8 @@ _TIER_ARTIFACTS: list = [
     ("reports/faithfulness-report.yaml", 99, validate_faithfulness_report),
     # Step 2: atomic claims — required at Tier 1+ (validated whenever present).
     ("analysis/claims.jsonl", 1, validate_claims),
+    # Step 3: evidence records — required at Tier 1+ (validated whenever present).
+    ("evidence/evidence-records.yaml", 1, validate_evidence_records),
 ]
 
 

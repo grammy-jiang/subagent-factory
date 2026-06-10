@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "evidence-records-v1",
+  "title": "Evidence Records v1",
+  "description": "Binds each high-value claim to source-grounded evidence. The machine layer beside the narrative provenance-ledger.md. Lives at evidence/evidence-records.yaml.",
+  "type": "object",
+  "required": ["schema_version", "evidence_records"],
+  "properties": {
+    "schema_version": {"const": "evidence-records-v1"},
+    "evidence_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["evidence_id", "claim_id", "source_ids"],
+        "properties": {
+          "evidence_id": {"type": "string"},
+          "claim_id": {"type": "string"},
+          "source_ids": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "source_anchors": {"type": "array", "items": {"type": "string"}},
+          "support_granularity": {"enum": ["section", "page", "heading"]},
+          "evidence_type": {"enum": ["explanation", "case", "research", "expert", "other"]},
+          "evidence_strength": {"enum": ["strong", "moderate", "weak"]},
+          "support_level": {"enum": ["entailed", "partially_supported", "not_supported"]},
+          "confidence": {"enum": ["high", "medium", "low"]},
+          "quote_allowed": {"type": "boolean"},
+          "limitations": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
