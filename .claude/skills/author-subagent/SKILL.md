@@ -203,6 +203,46 @@ in the main thread using the Write tool.
 
 ---
 
+## Step 6.5 — Tier classification + Tier-1 evidence chain
+
+Classify the package tier (drives which evidence artifacts are required):
+
+```bash
+python -m tools.subagent_factory.classify_tier subagents/<slug>
+```
+
+- **Tier 0** (single short source): skip to Step 7. The safety gate (injection scan,
+  adapter-policy, faithfulness-v0) still runs at Step 7.7 / Step 9.
+- **Tier 1+** (long book / content-dense / multi-source): run the evidence chain so the profile
+  is built from atomic, evidence-backed claims rather than a flat summary.
+
+### 6.5a — Claims + evidence (Tier 1+)
+
+Invoke `claim-extractor` via `Agent(subagent_type="claim-extractor")` (no-spawner branch: run
+`Skill("claim-extraction")` in-thread and write the files yourself). It must write:
+- `analysis/claims.jsonl` (`claims-v1`),
+- `evidence/evidence-records.yaml` (`evidence-records-v1`) — ≥1 record per high-value claim,
+- `analysis/claim-importance-scores.yaml` (score with `cli score`).
+
+```bash
+python -m tools.subagent_factory.validate_claims subagents/<slug>/analysis/claims.jsonl
+python -m tools.subagent_factory.validate_evidence_records subagents/<slug>/evidence/evidence-records.yaml
+```
+
+### 6.5b — Principles (Tier 1+)
+
+Invoke `principle-promoter` via `Agent(subagent_type="principle-promoter")` (no-spawner:
+`Skill("principle-promotion")` in-thread) → `principles/principles.yaml` (`principles-v1`),
+only evidence-backed claims, mapped to profile rules / skills / tests.
+
+```bash
+python -m tools.subagent_factory.validate_principles subagents/<slug>/principles/principles.yaml
+```
+
+Profile derivation (Step 7) then grounds its rules in these principles.
+
+---
+
 ## Step 7 — Profile derivation
 
 > **No-spawner branch (read first).** If you have no `Agent`/`Task` tool (you are a
@@ -228,6 +268,11 @@ When invoking, use `Agent(subagent_type="profile-deriver")`. Include in the prom
 - Explicit instruction to write ALL required outputs before returning:
   `profile.yaml`, `provenance-ledger.md`, `CHANGELOG.md`, `README.md`,
   and `tests/golden-tests.yaml` (minimum 3 tests, 1 negative routing)
+- **If the profile assigns a `produce` or `patch-suggest` mode**, also write
+  `policy/patch-policy.yaml` (`patch-policy-v1`, default `patch_suggest_only`) — the validate
+  gate FAILs a patch-capable package without it.
+- **Tier 1+**: ground `quality_bar` / `forbidden_behaviours` / modes in
+  `principles/principles.yaml` (Step 6.5) and set `tier: <n>` in the profile.
 
 After the agent returns, verify the required files were written:
 
@@ -272,6 +317,25 @@ This runs the 18-check profile self-check and writes `subagents/<slug>/tests/tes
 
 For judgement-heavy review (mode evidence, conflict resolution), optionally delegate to
 the `profile-reviewer` agent via `Agent(subagent_type="profile-reviewer")`.
+
+---
+
+## Step 7.7 — Faithfulness + behaviour tests
+
+**Faithfulness (all tiers).** Check every generated profile rule against the source for
+over-claim (a rule stronger than its evidence). Invoke `faithfulness-reviewer` via
+`Agent(subagent_type="faithfulness-reviewer")` (no-spawner: `Skill("faithfulness-review")`
+in-thread) → `reports/faithfulness-report.yaml` (`faithfulness-report-v1`). v0 compares rules
+vs source text; Tier 1+ compares vs `evidence/evidence-records.yaml`. Resolve any
+`CONTRADICTED`/`unsupported` finding (downgrade/remove the rule) before release.
+
+```bash
+python -m tools.subagent_factory.validate_faithfulness_report subagents/<slug>/reports/faithfulness-report.yaml
+```
+
+**Behaviour tests (Tier 1+).** Generate tests so every high-confidence principle is exercised:
+`Skill("principle-test-generation")` → `tests/principle-behaviour-tests.yaml`. Coverage is
+enforced by the validate gate (Step 9).
 
 ---
 

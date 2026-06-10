@@ -42,9 +42,12 @@ by `validate_claims.py`.
 
 ## Output
 
-`analysis/claims.jsonl` (one `claims-v1` object per line). Then score the claims with
-`score_extracted_units` (same 9 dims) → `analysis/claim-importance-scores.yaml`. The file must
-pass `python -m tools.subagent_factory.validate_claims`.
+- `analysis/claims.jsonl` (one `claims-v1` object per line), scored with `score_extracted_units`
+  (same 9 dims) → `analysis/claim-importance-scores.yaml`. Must pass `validate_claims`.
+- `evidence/evidence-records.yaml` (`evidence-records-v1`): ≥1 record per high-value claim
+  binding it to source (type / strength / `support_level`; `quote_allowed` false for restricted
+  sources). Must pass `validate_evidence_records`. This is the Step-3 evidence layer, authored
+  together with claims since both come from the same source analysis.
 
 ## Caveats
 

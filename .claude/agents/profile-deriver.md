@@ -51,7 +51,12 @@ Follow the `profile-generation` skill:
 4. Write `provenance-ledger.md` with full distillation log
 5. Write `CHANGELOG.md`, `README.md`
 6. Generate `tests/golden-tests.yaml` (minimum 3 tests including 1 negative routing)
-7. Run Phase 8 self-check internally before handing off
+7. **If you assign a `produce` or `patch-suggest` mode**, write `policy/patch-policy.yaml`
+   (`patch-policy-v1`, `default_mode: patch_suggest_only`) — the validate gate FAILs a
+   patch-capable package that lacks it.
+8. **Tier 1+**: ground `quality_bar`, `forbidden_behaviours`, and modes in
+   `principles/principles.yaml` when present, and set `tier: <n>` in the profile.
+9. Run Phase 8 self-check internally before handing off
 
 ## Phase 8 self-check (run before reporting done)
 

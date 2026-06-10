@@ -44,11 +44,15 @@ Full workflow summary:
 4. Confirm slug with user
 5. Ingest all sources (`cli ingest ...`)
 6. Delegate interrogation to `source-interrogator`
-7. Delegate profile derivation to `profile-deriver`
-8. Run Phase 8 self-check gate (`cli selfcheck <slug>`) — STOP on FAIL, do not export
-9. Export adapter (`cli export <slug>`)
-10. Validate package (`cli validate <slug>`)
-11. Report summary
+7. Classify tier (`classify_tier`). **Tier 1+:** delegate the evidence chain —
+   `claim-extractor` (claims + evidence records + scores), then `principle-promoter` (principles)
+8. Delegate profile derivation to `profile-deriver` (also writes `policy/patch-policy.yaml` when
+   it assigns a produce/patch-suggest mode; Tier-1 rules grounded in principles)
+9. Phase 8 self-check gate (`cli selfcheck <slug>`) — STOP on FAIL, do not export
+10. Faithfulness review (`faithfulness-reviewer`, all tiers) + principle-behaviour tests (Tier 1+)
+11. Export adapter (`cli export <slug>`)
+12. Validate package (`cli validate <slug>`)
+13. Report summary
 
 ## Repository boundaries
 
