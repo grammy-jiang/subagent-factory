@@ -3,8 +3,10 @@
 
 Walks the book collection, sorts PDFs by size (a length/complexity proxy), and
 marks each as ``done`` when its sha256 already appears in a generated package
-(``subagents/*/source-pack.manifest.yaml``) — so already-authored sources are
-skipped. Idempotent: terminal statuses (done/blocked/error/review) recorded by
+(``subagents/*/source-pack.manifest.yaml``) **and that package validates** — so
+already-authored sources are skipped, while a package left incomplete by an
+interrupted run (e.g. usage-limit) stays ``pending`` for a repair round.
+Idempotent: terminal statuses (done/blocked/error/review) recorded by
 run.sh in a prior queue are preserved, and unchanged files reuse their cached
 sha256 instead of being re-hashed.
 
@@ -34,6 +36,11 @@ SUBAGENTS = REPO / "subagents"
 DEFAULT_COLLECTION = Path("/home/grammy-jiang/projects/awesome-book-collection")
 TERMINAL = {"done", "blocked", "error", "review"}
 HEADER = ["idx", "size_bytes", "status", "slug", "sha256", "relpath"]
+
+# Make the factory's deterministic validators importable (campaign/ sits outside the
+# tools package) so `_package_valid` can confirm a sha-matched package is complete.
+if str(REPO) not in sys.path:
+    sys.path.insert(0, str(REPO))
 
 
 def sha256_file(path: Path) -> str:
@@ -73,6 +80,27 @@ def load_prior() -> dict[str, dict[str, str]]:
     return prior
 
 
+def _package_valid(slug: str) -> bool:
+    """True only if the generated package actually passes validation.
+
+    A sha match alone is insufficient: a run interrupted (e.g. usage-limit) after
+    ingesting the source but before finishing leaves a package whose sha is already
+    in the manifest yet whose package is incomplete/invalid. Such a PDF must stay
+    pending so a later round repairs it — not be silently marked done.
+    """
+    pkg = SUBAGENTS / slug
+    if not pkg.exists():
+        return False
+    try:
+        from tools.subagent_factory.validate_generated_package import (
+            validate_generated_package,
+        )
+
+        return bool(validate_generated_package(pkg).get("passed"))
+    except Exception:
+        return False
+
+
 def build(collection: Path) -> list[dict[str, Any]]:
     shas = manifest_shas()
     prior = load_prior()
@@ -88,7 +116,11 @@ def build(collection: Path) -> list[dict[str, Any]]:
             sha = sha256_file(p)
         slug, status = "", "pending"
         if sha in shas:
-            slug, status = shas[sha], "done"
+            # A sha in a manifest means the source was ingested — but an interrupted
+            # run (e.g. usage-limit) can leave the package incomplete. Mark done only
+            # if it actually validates; otherwise keep it pending for a repair round.
+            slug = shas[sha]
+            status = "done" if _package_valid(slug) else "pending"
         elif pr and pr.get("status") in TERMINAL:
             slug, status = pr.get("slug", ""), pr["status"]
         rows.append({"size": size, "status": status, "slug": slug, "sha256": sha, "relpath": rel})
