@@ -16,12 +16,15 @@ Target files: adapter body prose, skill SKILL.md files, reference files, provena
 ledger prose sections. NOT YAML key-value data.
 """
 
-import json
 import re
 import sys
 from pathlib import Path
 
-import yaml
+from tools.subagent_factory.source_text import (
+    contains_span,
+    load_restricted_source_ids,
+    load_source_texts,
+)
 
 MIN_WORDS_FOR_CONCERN = 40
 
@@ -56,8 +59,8 @@ def quote_scan(subagent_dir: str | Path) -> list[dict]:
     base = Path(subagent_dir)
     findings: list[dict] = []
 
-    restricted_sources = _load_restricted_sources(base)
-    source_texts = _load_source_texts(base, restricted_sources)
+    restricted_sources = load_restricted_source_ids(base)
+    source_texts = load_source_texts(base, restricted_sources)
 
     # Scan markdown prose files (not YAML — those contain synthesised fields)
     for md_file in base.rglob("*.md"):
@@ -76,64 +79,13 @@ def _is_source_material(path: Path, base: Path) -> bool:
     return False
 
 
-def _load_restricted_sources(base: Path) -> set[str]:
-    restricted: set[str] = set()
-    manifest_path = base / "source-pack.manifest.yaml"
-    if not manifest_path.exists():
-        return restricted
-    try:
-        with open(manifest_path) as f:
-            manifest = yaml.safe_load(f) or {}
-        for source in manifest.get("sources", []):
-            meta_path = base / source.get("metadata_path", "")
-            if not meta_path.exists():
-                continue
-            with open(meta_path) as f:
-                meta = json.load(f)
-            rights = meta.get("rights_status", "")
-            if "restricted" in rights.lower() or "distillation-only" in rights.lower():
-                restricted.add(source.get("source_id"))
-    except Exception:
-        pass
-    return restricted
-
-
-def _normalize_ws(text: str) -> str:
-    """Lowercase and collapse every run of whitespace to a single space.
-
-    The verbatim probe in ``_is_verbatim`` is built with ``str.split()`` + single-
-    space ``join``, so it is whitespace-normalized. The source side must be
-    normalized the same way or the substring match fails on the most common
-    PDF-conversion artifacts — line-wrap newlines and the double spaces markitdown
-    emits between words (e.g. ``"Based  on  Gallup's  40-year  study"``). Without
-    this, a real 40-word verbatim lift slips past the rights gate undetected.
-    """
-    return re.sub(r"\s+", " ", text.lower())
-
-
-def _load_source_texts(base: Path, restricted_sources: set) -> dict[str, str]:
-    """Load whitespace-normalized text of restricted sources for match checking."""
-    texts: dict[str, str] = {}
-    markdown_dir = base / "sources" / "markdown"
-    if not markdown_dir.exists():
-        return texts
-    for source_id in restricted_sources:
-        md_path = markdown_dir / f"{source_id}.md"
-        if md_path.exists():
-            try:
-                texts[source_id] = _normalize_ws(md_path.read_text(encoding="utf-8"))
-            except Exception:
-                pass
-    return texts
-
-
 def _is_verbatim(text: str, source_texts: dict) -> bool:
     """Return True only if the first 15 words of text appear in a source."""
     words = text.lower().split()
     if len(words) < MIN_WORDS_FOR_CONCERN:
         return False
     probe = " ".join(words[:15])
-    return any(probe in src for src in source_texts.values())
+    return contains_span(probe, source_texts)
 
 
 def _scan_markdown_prose(path: Path, source_texts: dict, findings: list) -> None:

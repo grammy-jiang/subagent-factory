@@ -31,6 +31,33 @@ from tools.subagent_factory.validate_metadata import validate_metadata
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
 
+# Tier-gated artifact registry. Enhancement Steps 1+ append
+# ``(rel_path, min_tier, validate_fn)`` where ``validate_fn(path) -> list[str]`` of
+# error messages. Empty today: Step 0 installs the mechanism only, so the loop in
+# ``validate_generated_package`` is a no-op and package behaviour is unchanged.
+_TIER_ARTIFACTS: list = []
+
+
+def _tier(base: Path) -> int:
+    """Read the package tier from profile.yaml (default 0).
+
+    Absent ``tier:`` ⇒ Tier 0, so existing packages require no new artifacts. The
+    gate validates any tier artifact that is *present* regardless of tier, but only
+    *requires* an artifact when the package's tier mandates it.
+    """
+    profile_path = base / "profile.yaml"
+    if not profile_path.exists():
+        return 0
+    try:
+        prof = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError:
+        return 0
+    try:
+        return int(prof.get("tier", 0) or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
 REQUIRED_FILES = [
     "profile.yaml",
     "provenance-ledger.md",
@@ -221,6 +248,21 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
             warn("quote-scan", f"{qf['file']}:{qf['line']}: {qf['issue']}")
     else:
         ok("quote-scan", "No potential verbatim quotation found")
+
+    # Tier-gated artifacts: validate any that are present; require those the tier
+    # mandates. Registry is empty until Step 1+, so this is currently a no-op.
+    tier = _tier(base)
+    for rel, min_tier, vfn in _TIER_ARTIFACTS:
+        p = base / rel
+        if p.exists():
+            errs = vfn(p)
+            if errs:
+                for e in errs:
+                    fail("tier-artifact", f"{rel}: {e}")
+            else:
+                ok("tier-artifact", f"{rel} valid")
+        elif tier >= min_tier:
+            fail("tier-artifact", f"tier {tier} requires {rel} (missing)")
 
     failed = [f for f in findings if f["level"] == "FAIL"]
     passed = len(failed) == 0
