@@ -36,6 +36,7 @@ from tools.subagent_factory.validate_evidence_records import validate_evidence_r
 from tools.subagent_factory.validate_faithfulness_report import validate_faithfulness_report
 from tools.subagent_factory.validate_manifest import validate_manifest
 from tools.subagent_factory.validate_metadata import validate_metadata
+from tools.subagent_factory.validate_patch_policy import validate_patch_policy
 from tools.subagent_factory.validate_principle_test_coverage import validate_principle_test_coverage
 from tools.subagent_factory.validate_principles import validate_principles
 
@@ -290,6 +291,29 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
             fail("adapter-policy", f"{x['file']}: {x['issue']}")
         else:
             warn("adapter-policy", f"{x['file']}: {x['issue']}")
+
+    # 13. Patch-safety policy — required when the profile grants a patch/produce mode.
+    patch_policy = base / "policy" / "patch-policy.yaml"
+    has_patch_mode = False
+    if (base / "profile.yaml").exists():
+        try:
+            _prof = yaml.safe_load((base / "profile.yaml").read_text(encoding="utf-8")) or {}
+        except yaml.YAMLError:
+            _prof = {}
+        modes = [m.get("name") for m in (_prof.get("outputs", {}) or {}).get("modes", []) or []]
+        has_patch_mode = any(m in ("produce", "patch-suggest") for m in modes)
+    if patch_policy.exists():
+        pp_errs = validate_patch_policy(patch_policy)
+        if pp_errs:
+            for e in pp_errs:
+                fail("patch-policy", f"policy/patch-policy.yaml: {e}")
+        else:
+            ok("patch-policy", "patch-policy.yaml valid")
+    elif has_patch_mode:
+        fail(
+            "patch-policy",
+            "profile grants a patch/produce mode but policy/patch-policy.yaml is missing",
+        )
 
     # Tier-gated artifacts: validate any that are present; require those the tier mandates.
     tier = _tier(base)

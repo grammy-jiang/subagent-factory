@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "patch-policy-v1",
+  "title": "Patch Policy v1",
+  "description": "Patch-safety contract for a subagent that may modify files. Required when the profile grants a produce/patch-suggest mode. Lives at policy/patch-policy.yaml.",
+  "type": "object",
+  "required": ["schema_version", "default_mode", "direct_patch_allowed_when", "must_not"],
+  "properties": {
+    "schema_version": {"const": "patch-policy-v1"},
+    "default_mode": {"enum": ["patch_suggest_only", "direct_patch", "read_only"]},
+    "direct_patch_allowed_when": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "must_not": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+  },
+  "additionalProperties": false
+}
