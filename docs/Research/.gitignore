@@ -1,0 +1,12 @@
+# Research run artifacts: keep the human-readable outputs + provenance, exclude
+# heavy/transient run state. Patterns are relative to docs/Research/.
+#
+# Ignore everything one level under each topic folder...
+*/*
+# ...but keep the report, the summary, and the exact prompt used.
+!*/*-research-report.md
+!*/SUMMARY.md
+!*/PROMPT.md
+
+# (The launcher scripts run_research.sh / watch.sh and this .gitignore live at the
+#  docs/Research/ root — depth 0 — so `*/*` never matches them; they stay tracked.)
