@@ -123,6 +123,39 @@ def inject_anchors(
                 }
             )
 
+    # Paragraph fallback: a structureless conversion (e.g. markitdown flattening a PDF to
+    # one wall of text with no ``#`` headings, code fences, figures, or page markers) yields
+    # zero anchors, leaving the Tier-1 evidence chain nothing to ground to — claims, evidence
+    # records, and faithfulness checks all reference ``source_anchors`` that must exist in this
+    # index, and ``validate_claims`` silently skips its referential check when the index is
+    # empty. Anchor each paragraph (a word-bearing line opening a block) so flat sources still
+    # carry real, referenceable spans. Only fires when no structural/page anchor was found, so
+    # structured sources are unaffected. Idempotent: prior anchor comments are stripped above.
+    if not anchors:
+        output_lines = []
+        prev_blank = True
+        for line_idx, line in enumerate(lines):
+            stripped = line.strip()
+            is_blank = not stripped
+            if prev_blank and not is_blank and len(re.findall(r"[A-Za-z]", stripped)) >= 3:
+                anchor_id = f"{source_id}-t{anchor_counter:04d}"
+                anchor_counter += 1
+                anchors.append(
+                    {
+                        "schema_version": "source_anchor_v1",
+                        "anchor_id": anchor_id,
+                        "source_id": source_id,
+                        "anchor_type": "paragraph",
+                        "level": None,
+                        "text": stripped[:120],
+                        "line_number": line_idx + 1,
+                        "page_number": None,
+                    }
+                )
+                output_lines.append(f"<!-- anchor:{anchor_id} -->")
+            output_lines.append(line)
+            prev_blank = is_blank
+
     out_text = "\n".join(output_lines) + "\n"
     Path(output_md_path).write_text(out_text, encoding="utf-8")
 

@@ -41,7 +41,7 @@ def test_missing_required_field():
 
 def test_invalid_anchor_type():
     bad = dict(VALID_ANCHOR)
-    bad["anchor_type"] = "paragraph"
+    bad["anchor_type"] = "sidebar"  # not in the enum
     with tempfile.NamedTemporaryFile(
         suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
     ) as f:
