@@ -1,0 +1,51 @@
+---
+name: faithfulness-review
+description: "Check every generated profile rule against the source for being stronger than its evidence (over-claim), and write a faithfulness report. v0 compares rules vs raw source text; v1 vs evidence records."
+---
+
+## Purpose
+
+Catch the main LLM failure mode in distillation: a generated rule that is **stronger, broader,
+or more certain than the source supports**. Produce `reports/faithfulness-report.yaml`
+validated by `validate_faithfulness_report.py`.
+
+## Input
+
+- `profile.yaml` — the rules to check: `quality_bar[]`, `forbidden_behaviours[]`,
+  `outputs.modes[].trigger`, and any imperative rule text.
+- `sources/markdown/<id>.md` — the source text (load via `source_text.load_source_texts`).
+- `sources/anchors/<id>.anchors.jsonl` — real anchor IDs for `source_anchors`.
+- (v1, after Step 3) `evidence/evidence-records.yaml` — compare rules against evidence records
+  instead of raw text for sharper claim-strength findings.
+
+## Procedure
+
+For each profile rule:
+
+1. Locate the supporting passage(s) in the source (section/page granularity is acceptable;
+   record real anchor IDs and `support_granularity`).
+2. Compare the rule's **claim strength** to the source on the five-level ordering:
+   - `EXACT_SUPPORT` — rule matches the source.
+   - `WITHIN_SCOPE` — valid inference from the source.
+   - `SCOPE_BROADENED` — more general/universal than the source warrants (WiCE Partially-Supported).
+   - `HEDGING_REMOVED` — source hedges (`may`, `often`, `in this context`); rule asserts absolutely (Janus Framing).
+   - `CONTRADICTED` — rule opposes the source.
+   Also tag `distortion`: `scope_broadened` / `hedge_removed` / `specificity_inflated` (Janus
+   Specificity = numeric-precision inflation) / `none`.
+3. Choose an `action`: `downgrade` (weaken to match), `remove`, `add_condition`, or
+   `accept_with_note`. **A `CONTRADICTED` finding may never be `accept_with_note`.**
+4. Compare at **sentence/claim granularity**, never document-level. Check against **exact
+   source spans** (anchors), not a vague recollection. Do **not** use model confidence as a
+   faithfulness signal.
+
+## Output
+
+Write `reports/faithfulness-report.yaml` per `schemas/faithfulness-report-v1.schema.json`:
+fields `rule_ref`, optional `triplet`, `verdict`, `distortion`, `source_anchors`,
+`support_granularity`, `severity`, `action`, `note`.
+
+## Caveat
+
+Over-claim detection is original engineering composed from WiCE / Janus / RefChecker — there is
+no validated off-the-shelf model. Be conservative: when unsure whether a rule exceeds its
+evidence, flag `SCOPE_BROADENED`/`HEDGING_REMOVED` for review rather than passing it.

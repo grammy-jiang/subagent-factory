@@ -15,6 +15,9 @@ Checks:
   - profile.yaml sources[] trace back to ingested source metadata
   - Phase 8 profile self-check gate passes
   - restricted quote scan passes
+  - prompt-injection scan over ingested source (advisory WARN)
+  - adapter-policy scan (tool-grant / escalation FAIL; body injection WARN)
+  - tier-gated artifacts (e.g. faithfulness report) validated when present
 """
 
 import json
@@ -23,19 +26,26 @@ from pathlib import Path
 
 import yaml
 
+from tools.subagent_factory.adapter_policy_scan import adapter_policy_scan
 from tools.subagent_factory.profile_self_check import profile_self_check
+from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
 from tools.subagent_factory.quote_scan import quote_scan
 from tools.subagent_factory.validate_anchor_index import validate_anchor_index
+from tools.subagent_factory.validate_faithfulness_report import validate_faithfulness_report
 from tools.subagent_factory.validate_manifest import validate_manifest
 from tools.subagent_factory.validate_metadata import validate_metadata
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
 
-# Tier-gated artifact registry. Enhancement Steps 1+ append
-# ``(rel_path, min_tier, validate_fn)`` where ``validate_fn(path) -> list[str]`` of
-# error messages. Empty today: Step 0 installs the mechanism only, so the loop in
-# ``validate_generated_package`` is a no-op and package behaviour is unchanged.
-_TIER_ARTIFACTS: list = []
+# Tier-gated artifact registry: ``(rel_path, min_tier, validate_fn)`` where
+# ``validate_fn(path) -> list[str]``. The gate validates any entry that is *present*,
+# and *requires* it only when the package tier ≥ ``min_tier``. A ``min_tier`` of 99
+# means "validate when present, never required yet".
+_TIER_ARTIFACTS: list = [
+    # Step 1: faithfulness report — present-gated only (promote to min_tier 0 when
+    # faithfulness-v0 becomes mandatory at Tier 0).
+    ("reports/faithfulness-report.yaml", 99, validate_faithfulness_report),
+]
 
 
 def _tier(base: Path) -> int:
@@ -249,8 +259,27 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
     else:
         ok("quote-scan", "No potential verbatim quotation found")
 
-    # Tier-gated artifacts: validate any that are present; require those the tier
-    # mandates. Registry is empty until Step 1+, so this is currently a no-op.
+    # 11. Prompt-injection scan over ingested source. Advisory triage — WARN, never
+    # block: detectors are adaptively breakable and the ~225:1 base rate makes hard
+    # blocking flood legit content; the source-safety-reviewer agent triages flags.
+    injection = prompt_injection_scan(base)
+    if injection:
+        for x in injection:
+            warn(
+                "injection-scan",
+                f"{x['file']}:{x['line']} [{x['family']}/{x['vector']}/{x['severity']}] {x['excerpt']}",
+            )
+    else:
+        ok("injection-scan", "no injection payloads detected in source")
+
+    # 12. Adapter-policy scan: tool-grant widening / escalation = FAIL; body injection = WARN.
+    for x in adapter_policy_scan(base):
+        if x["level"] == "FAIL":
+            fail("adapter-policy", f"{x['file']}: {x['issue']}")
+        else:
+            warn("adapter-policy", f"{x['file']}: {x['issue']}")
+
+    # Tier-gated artifacts: validate any that are present; require those the tier mandates.
     tier = _tier(base)
     for rel, min_tier, vfn in _TIER_ARTIFACTS:
         p = base / rel
