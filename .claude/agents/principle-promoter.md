@@ -1,7 +1,7 @@
 ---
 name: principle-promoter
 description: "Promotes high-value, evidence-backed claims into operational principles (principles-v1), mapping each to profile rules / skills / tests. Use for Tier 1+ packages after claims + evidence records exist."
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, Write
 model: sonnet
 ---
 

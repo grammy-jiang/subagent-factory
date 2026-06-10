@@ -1,7 +1,7 @@
 ---
 name: faithfulness-reviewer
 description: "Independent reviewer that checks generated profile rules against the source for over-claim (a rule stronger than its evidence) and writes reports/faithfulness-report.yaml. Use before adapter export/release."
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, Write
 model: sonnet
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: claim-extractor
 description: "Extracts atomic, typed, source-anchored claims from ingested sources into analysis/claims.jsonl (claims-v1), via two-stage detection + JSON decomposition. Use for Tier 1+ packages before importance ranking and principle promotion."
-tools: Read, Grep, Glob
+tools: Read, Grep, Glob, Write
 model: sonnet
 ---
 
