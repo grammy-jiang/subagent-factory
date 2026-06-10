@@ -31,6 +31,7 @@ from tools.subagent_factory.profile_self_check import profile_self_check
 from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
 from tools.subagent_factory.quote_scan import quote_scan
 from tools.subagent_factory.validate_anchor_index import validate_anchor_index
+from tools.subagent_factory.validate_claims import validate_claims
 from tools.subagent_factory.validate_faithfulness_report import validate_faithfulness_report
 from tools.subagent_factory.validate_manifest import validate_manifest
 from tools.subagent_factory.validate_metadata import validate_metadata
@@ -45,6 +46,8 @@ _TIER_ARTIFACTS: list = [
     # Step 1: faithfulness report — present-gated only (promote to min_tier 0 when
     # faithfulness-v0 becomes mandatory at Tier 0).
     ("reports/faithfulness-report.yaml", 99, validate_faithfulness_report),
+    # Step 2: atomic claims — required at Tier 1+ (validated whenever present).
+    ("analysis/claims.jsonl", 1, validate_claims),
 ]
 
 
