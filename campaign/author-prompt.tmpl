@@ -16,14 +16,22 @@ Run the `author-skills` workflow against this package:
    `subagents/{{SLUG}}/references/<slug>.md` (marked `status: stub`).
 
 2. For **each** stub, author its body **grounded in this package's own material**:
-   - **Tier 1+:** find the principle(s) for that slug. Principles live in
-     `subagents/{{SLUG}}/principles/principles.yaml`. Map principle→skill via
-     `operational_mapping.skill` when set; when those are `null` (all principles are
-     `profile_rule`), match **by topic**. Follow each principle's
-     `derived_from_claims` → `subagents/{{SLUG}}/analysis/claims.jsonl` →
-     `subagents/{{SLUG}}/evidence/evidence-records.yaml` → the source markdown under
+   - **Tier 1+ (a `principles/principles.yaml` exists):** find the principle(s) for
+     that slug. Map principle→skill via `operational_mapping.skill` when set; when
+     those are `null` (all principles are `profile_rule`), match **by topic**. Follow
+     each principle's `derived_from_claims` → `subagents/{{SLUG}}/analysis/claims.jsonl`
+     → `subagents/{{SLUG}}/evidence/evidence-records.yaml` → the source markdown under
      `subagents/{{SLUG}}/sources/markdown/`. Also read the profile `always_on` rules
-     that cite the same principle IDs.
+     that cite the same principle IDs. Set `provenance.principles` and
+     `provenance.claims` to the REAL IDs the body derives from.
+   - **Tier 0 (NO `principles/principles.yaml`):** there is no claim/evidence layer.
+     Ground each body in the profile's `always_on` rules and the `when_to_use` entry
+     for that topic, plus the source markdown under `subagents/{{SLUG}}/sources/markdown/`
+     (read the relevant sections). Leave `provenance.principles: []` and
+     `provenance.claims: []` (Tier 0 is not drift-tracked); include `source_anchors`
+     if you can identify them. The body will be thinner than a Tier-1 one, but it must
+     still be a real, source-faithful procedure (skill) or table/checklist (reference)
+     — NOT a paraphrase of the profile text.
    - Author the body from THAT material only. **Derive, do not invent.**
    - **Skill body** (≤ 500 lines): sections `## Purpose`, `## When to use`,
      `## Procedure`, `## Inputs`, `## Output`, `## References`, `## Provenance`.
