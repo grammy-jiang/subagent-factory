@@ -27,6 +27,7 @@ from pathlib import Path
 import yaml
 
 from tools.subagent_factory.adapter_policy_scan import adapter_policy_scan
+from tools.subagent_factory.classify_tier import classify_tier
 from tools.subagent_factory.profile_self_check import profile_self_check
 from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
 from tools.subagent_factory.quote_scan import quote_scan
@@ -317,6 +318,27 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
 
     # Tier-gated artifacts: validate any that are present; require those the tier mandates.
     tier = _tier(base)
+
+    # Tier-consistency: the *declared* tier governs which evidence artifacts are
+    # required, but classify_tier is the deterministic authority on how content-dense
+    # the package actually is (source word count / source count). A package that
+    # under-declares its tier — or omits the field, as every pre-evidence-chain package
+    # does — silently escapes the Tier-1+ evidence-chain requirement above. Surface that
+    # drift. WARN, not FAIL: legacy packages predate the chain and must keep validating
+    # (see classify_tier docstring), and the deterministic signal is advisory guidance for
+    # the authoring run, which re-runs Step 6.5 and sets the real tier.
+    computed_tier = classify_tier(base)
+    if computed_tier > tier:
+        warn(
+            "tier-consistency",
+            f"profile declares tier {tier} but classify_tier computes tier {computed_tier} "
+            f"from source size/count; this package likely needs the Tier-{computed_tier} "
+            f"evidence chain (claims/evidence/principles). Run Step 6.5 and set "
+            f"'tier: {computed_tier}' in profile.yaml.",
+        )
+    else:
+        ok("tier-consistency", f"declared tier {tier} ≥ computed tier {computed_tier}")
+
     for rel, min_tier, vfn in _TIER_ARTIFACTS:
         p = base / rel
         if p.exists():

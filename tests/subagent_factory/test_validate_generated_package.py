@@ -192,6 +192,51 @@ def test_source_provenance_empty_sha_warns_not_fails(tmp_path, monkeypatch):
     )
 
 
+def _warn_checks(result):
+    return {f["check"] for f in result["findings"] if f["level"] == "WARN"}
+
+
+def test_tier_underdeclaration_warns_not_fails(tmp_path, monkeypatch):
+    # Profile omits `tier:` (reads as Tier 0) but the manifest carries 2 sources, so
+    # classify_tier computes Tier 2. The package under-declares its tier and would
+    # silently dodge the evidence chain — validate must WARN, but still pass.
+    pkg, slug = _build(tmp_path, monkeypatch)
+    (pkg / "source-pack.manifest.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "schema_version": "source-pack-manifest-v1",
+                "subagent_slug": slug,
+                "sources": [{"source_id": "s1"}, {"source_id": "s2"}],
+            }
+        ),
+        encoding="utf-8",
+    )
+    result = vgp.validate_generated_package(pkg)
+    assert "tier-consistency" in _warn_checks(result)
+    assert "tier-consistency" not in _fail_checks(result)
+
+
+def test_tier_consistency_ok_when_declared_matches(tmp_path, monkeypatch):
+    # Profile declares tier 2 and the manifest has 2 sources → no drift, OK finding.
+    pkg, slug = _build(tmp_path, monkeypatch)
+    profile = _valid_profile()
+    profile["tier"] = 2
+    (pkg / "profile.yaml").write_text(yaml.safe_dump(profile), encoding="utf-8")
+    (pkg / "source-pack.manifest.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "schema_version": "source-pack-manifest-v1",
+                "subagent_slug": slug,
+                "sources": [{"source_id": "s1"}, {"source_id": "s2"}],
+            }
+        ),
+        encoding="utf-8",
+    )
+    result = vgp.validate_generated_package(pkg)
+    assert "tier-consistency" not in _warn_checks(result)
+    assert any(f["check"] == "tier-consistency" and f["level"] == "OK" for f in result["findings"])
+
+
 def test_phase8_fail_propagates_to_validation(tmp_path, monkeypatch):
     pkg, _ = _build(tmp_path, monkeypatch)
     # Corrupt the profile so the Phase 8 gate fails (only 1 trigger).
