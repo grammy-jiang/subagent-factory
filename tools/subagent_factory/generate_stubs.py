@@ -25,9 +25,46 @@ def _stub_slug(text: str) -> str:
     return slug or "item"
 
 
-def _skill_stub(title: str, source_line: str) -> str:
+def planned_slugs(profile: dict) -> tuple[list[tuple[str, str]], list[tuple[str, str]]]:
+    """Map ``knowledge_partition`` entries to their on-disk slugs (no I/O, no writes).
+
+    Returns ``(skills, references)`` where each is a list of ``(entry, slug)`` pairs in
+    declaration order, with the same kebab slug + collision-disambiguation rule the stub
+    generator uses to choose ``skills/<slug>/SKILL.md`` / ``references/<slug>.md`` paths.
+    This is the single source of truth for the entry→file mapping so the authoring
+    validator (Step 8) and ``generate_stubs`` cannot drift apart.
+    """
+    kp = (profile or {}).get("knowledge_partition", {}) or {}
+
+    def _resolve(entries: Any) -> list[tuple[str, str]]:
+        out: list[tuple[str, str]] = []
+        seen: set[str] = set()
+        for entry in entries or []:
+            if not isinstance(entry, str) or not entry.strip():
+                continue
+            slug = _stub_slug(entry)
+            base, n = slug, 2
+            while slug in seen:
+                slug = f"{base}-{n}"
+                n += 1
+            seen.add(slug)
+            out.append((entry, slug))
+        return out
+
+    return _resolve(kp.get("skills")), _resolve(kp.get("references"))
+
+
+def _frontmatter(name: str, kind: str) -> str:
+    """`authored-doc-v1` stub frontmatter: status stub + empty provenance."""
     return (
-        f"---\nname: {_stub_slug(title)}\nstatus: stub\n---\n\n"
+        f"---\nname: {name}\nkind: {kind}\nstatus: stub\n"
+        f"provenance:\n  principles: []\n  claims: []\n  source_anchors: []\n---\n\n"
+    )
+
+
+def _skill_stub(slug: str, title: str, source_line: str) -> str:
+    return (
+        f"{_frontmatter(slug, 'skill')}"
         f"# {title.strip()[:80]}\n\n"
         f"> **STATUS: STUB — not yet authored.** Generated from "
         f"`profile.yaml knowledge_partition.skills`.\n\n"
@@ -37,8 +74,9 @@ def _skill_stub(title: str, source_line: str) -> str:
     )
 
 
-def _reference_stub(title: str, source_line: str) -> str:
+def _reference_stub(slug: str, title: str, source_line: str) -> str:
     return (
+        f"{_frontmatter(slug, 'reference')}"
         f"# {title.strip()[:80]}\n\n"
         f"> **STATUS: STUB — not yet authored.** Generated from "
         f"`profile.yaml knowledge_partition.references`.\n\n"
@@ -69,19 +107,9 @@ def generate_stubs(subagent_dir: str | Path) -> dict:
         return result
 
     profile = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
-    kp = profile.get("knowledge_partition", {}) or {}
+    skill_plan, ref_plan = planned_slugs(profile)
 
-    seen_skill: set[str] = set()
-    for entry in kp.get("skills", []) or []:
-        if not isinstance(entry, str) or not entry.strip():
-            continue
-        slug = _stub_slug(entry)
-        # disambiguate collisions
-        base, n = slug, 2
-        while slug in seen_skill:
-            slug = f"{base}-{n}"
-            n += 1
-        seen_skill.add(slug)
+    for entry, slug in skill_plan:
         skill_dir = subagent_path / "skills" / slug
         skill_file = skill_dir / "SKILL.md"
         result["skill_paths"].append(str(skill_file))
@@ -89,27 +117,18 @@ def generate_stubs(subagent_dir: str | Path) -> dict:
             result["skills_existing"] += 1
             continue
         skill_dir.mkdir(parents=True, exist_ok=True)
-        skill_file.write_text(_skill_stub(slug.replace("-", " "), entry), encoding="utf-8")
+        skill_file.write_text(_skill_stub(slug, slug.replace("-", " "), entry), encoding="utf-8")
         result["skills_created"] += 1
 
-    seen_ref: set[str] = set()
     refs_dir = subagent_path / "references"
-    for entry in kp.get("references", []) or []:
-        if not isinstance(entry, str) or not entry.strip():
-            continue
-        slug = _stub_slug(entry)
-        base, n = slug, 2
-        while slug in seen_ref:
-            slug = f"{base}-{n}"
-            n += 1
-        seen_ref.add(slug)
+    for entry, slug in ref_plan:
         ref_file = refs_dir / f"{slug}.md"
         result["reference_paths"].append(str(ref_file))
         if ref_file.exists():
             result["references_existing"] += 1
             continue
         refs_dir.mkdir(parents=True, exist_ok=True)
-        ref_file.write_text(_reference_stub(slug.replace("-", " "), entry), encoding="utf-8")
+        ref_file.write_text(_reference_stub(slug, slug.replace("-", " "), entry), encoding="utf-8")
         result["references_created"] += 1
 
     return result
