@@ -52,9 +52,10 @@ _REPO_ROOT = Path(__file__).parent.parent.parent
 # and *requires* it only when the package tier ≥ ``min_tier``. A ``min_tier`` of 99
 # means "validate when present, never required yet".
 _TIER_ARTIFACTS: list = [
-    # Step 1: faithfulness report — present-gated only (promote to min_tier 0 when
-    # faithfulness-v0 becomes mandatory at Tier 0).
-    ("reports/faithfulness-report.yaml", 99, validate_faithfulness_report),
+    # Step 1: faithfulness report — REQUIRED at all tiers. No subagent ships without a
+    # faithfulness pass against its source (evidence-protocol: "no over-claimed subagent
+    # released"). Promoted from min_tier 99 once every package carried a valid report.
+    ("reports/faithfulness-report.yaml", 0, validate_faithfulness_report),
     # Step 2: atomic claims — required at Tier 1+ (validated whenever present).
     ("analysis/claims.jsonl", 1, validate_claims),
     # Step 3: evidence records — required at Tier 1+ (validated whenever present).

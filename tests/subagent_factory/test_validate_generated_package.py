@@ -66,7 +66,14 @@ def _valid_profile() -> dict:
     }
 
 
-def _build(tmp_path, monkeypatch, installed="match", with_test_results=True, with_tests=True):
+def _build(
+    tmp_path,
+    monkeypatch,
+    installed="match",
+    with_test_results=True,
+    with_tests=True,
+    with_faithfulness=True,
+):
     repo = tmp_path / "repo"
     monkeypatch.setattr(vgp, "_REPO_ROOT", repo)
     slug = "demo-design-reviewer"
@@ -84,6 +91,30 @@ def _build(tmp_path, monkeypatch, installed="match", with_test_results=True, wit
         encoding="utf-8",
     )
     (pkg / "CHANGELOG.md").write_text("# Changelog\n", encoding="utf-8")
+
+    if with_faithfulness:
+        reports_dir = pkg / "reports"
+        reports_dir.mkdir()
+        (reports_dir / "faithfulness-report.yaml").write_text(
+            yaml.safe_dump(
+                {
+                    "schema_version": "faithfulness-report-v1",
+                    "subagent_slug": slug,
+                    "findings": [
+                        {
+                            "rule_ref": "quality_bar[0]",
+                            "verdict": "EXACT_SUPPORT",
+                            "distortion": ["none"],
+                            "support_granularity": "section",
+                            "severity": "low",
+                            "action": "accept_with_note",
+                            "note": "matches source",
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
 
     adapter_dir = pkg / "adapters" / "claude-code"
     adapter_dir.mkdir(parents=True)
@@ -143,6 +174,14 @@ def test_missing_test_results_fails(tmp_path, monkeypatch):
     result = vgp.validate_generated_package(pkg)
     assert "test-results" in _fail_checks(result)
     assert result["passed"] is False
+
+
+def test_missing_faithfulness_report_fails(tmp_path, monkeypatch):
+    # Faithfulness is required at all tiers (gate promoted from min_tier 99 -> 0).
+    pkg, _ = _build(tmp_path, monkeypatch, with_faithfulness=False)
+    result = vgp.validate_generated_package(pkg)
+    assert not result["passed"]
+    assert "tier-artifact" in _fail_checks(result)
 
 
 def test_missing_tests_dir_fails(tmp_path, monkeypatch):
