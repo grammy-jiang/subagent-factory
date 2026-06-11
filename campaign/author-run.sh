@@ -16,6 +16,7 @@ LOGS="$CAMP/logs"
 TMPL="$CAMP/author-prompt.tmpl"
 MODEL="${MODEL:-claude-opus-4-8}"
 RUN_TIMEOUT="${RUN_TIMEOUT:-3000}"
+LABEL="${LABEL:-author}"   # run-name prefix; set distinct per instance for parallel runs
 COUNT=1
 TIER_MIN=1
 ONLY=""
@@ -50,8 +51,8 @@ processed=0
 while [ "$processed" -lt "$COUNT" ]; do
   SLUG="$(next_target)"
   [ -z "$SLUG" ] && { echo "[author] no eligible draft packages left."; break; }
-  n=$(ls "$LOGS"/author-*.summary.md 2>/dev/null | wc -l)
-  run="$(printf 'author-%03d' "$(( n + 1 ))")"
+  n=$(ls "$LOGS/$LABEL"-*.summary.md 2>/dev/null | wc -l)
+  run="$(printf '%s-%03d' "$LABEL" "$(( n + 1 ))")"
   log="$LOGS/$run.log.jsonl"
   summ="$LOGS/$run.summary.md"
 
