@@ -34,6 +34,13 @@ For each profile rule:
    Specificity = numeric-precision inflation) / `none`.
 3. Choose an `action`: `downgrade` (weaken to match), `remove`, `add_condition`, or
    `accept_with_note`. **A `CONTRADICTED` finding may never be `accept_with_note`.**
+   **Source-of-truth precedence exception:** before flagging a rule for `downgrade`/`remove`,
+   check the profile's `source_of_truth_policy.precedence`. When a rule diverges from the
+   *ingested* source but matches a source the precedence policy names as canonical (e.g. an
+   official docs site that supersedes a summary/cheat-sheet for version-specific facts), the
+   rule is **correct** and the ingested source is the one in error. Record the divergence
+   verdict honestly, but set `action: accept_with_note` with a note citing the precedence rule —
+   do not downgrade a rule to match a source the package itself treats as non-authoritative.
 4. Compare at **sentence/claim granularity**, never document-level. Check against **exact
    source spans** (anchors), not a vague recollection. Do **not** use model confidence as a
    faithfulness signal.
