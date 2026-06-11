@@ -368,6 +368,58 @@ This writes `subagents/<slug>/skills/<name>/SKILL.md` and
 
 ---
 
+## Step 8.7 — Author skill/reference bodies (opt-in → `status: ready`)
+
+**This step is opt-in.** A default run stops at `status: draft` with stubs (Step 10 reports
+them). Run this step only when the user asks to author the bodies / promote to ready — e.g.
+the invocation says "author skills", "fill the stubs", "promote to ready", or passes
+`--author-skills` / `--ready`. Authoring costs one LLM pass per stub, so it is a deliberate,
+release-time action, not part of every ingest.
+
+> **No-spawner branch (read first).** If you have no `Agent`/`Task` tool, run
+> `Skill("author-skills")` in-thread: author each stub body yourself and write each file
+> directly with the Write tool. The validate gate (Step 9) is the authority on correctness.
+
+For each stub from Step 8.5 (use the slug `cli stubs` chose — i.e.
+`tools.subagent_factory.generate_stubs.planned_slugs`):
+
+1. **Gather grounding.**
+   - **Tier 1+:** the principle(s) for this slug, their `derived_from_claims` →
+     `evidence/evidence-records.yaml` → `source_anchors` → source markdown
+     (`source_text`). **Join caveat:** principles map to skills via
+     `operational_mapping.skill`; when that field is `null` (principles are all
+     `profile_rule`), match principle → skill **by topic** instead. Also read the
+     profile `always_on` rules that cite the same principle IDs.
+   - **Tier 0:** profile `always_on` + `when_to_use` + the source markdown directly.
+2. **Author each body** via the `skill-author` agent
+   (`Agent(subagent_type="skill-author")`), one stub per invocation — its `Write` is
+   locked to the single target file. Skill bodies: `## Purpose` / `## When to use` /
+   `## Procedure` / `## Inputs` / `## Output` / `## References` / `## Provenance`,
+   ≤ 500 lines. Reference bodies: the table/taxonomy/checklist + `## Provenance`.
+   Frontmatter is `authored-doc-v1` with `status: ready` and real `provenance` IDs.
+   Respect rights (`distillation-only` ⇒ no verbatim) and never exceed evidence strength.
+3. **Gate the bodies:**
+
+   ```bash
+   python -m tools.subagent_factory.validate_skill_authoring subagents/<slug>
+   python -m tools.subagent_factory.quote_scan subagents/<slug>
+   ```
+
+   Both must be clean. Re-run faithfulness (Step 7.7) over the authored bodies if the
+   domain is over-claim-prone.
+4. **Promote only when every stub is authored and clean:** set profile `status: ready`,
+   bump `agent_version`, add a CHANGELOG entry, then re-export the adapter:
+
+   ```bash
+   python -m tools.subagent_factory.cli export <slug>
+   ```
+
+If any body cannot be grounded (insufficient principle/claim/evidence), leave it a stub and
+keep the package `draft` — do not pad to force a promotion. A `status: ready` package with any
+remaining stub FAILs Step 9 (the status gate).
+
+---
+
 ## Step 9 — Validate
 
 ```bash
@@ -389,8 +441,17 @@ Report:
 - Phase 8 self-check verdict and `tests/test-results.md` path
 - Validation status
 - Any warnings or human-review items
+- Package `status` (`draft` or `ready`) and `agent_version`
+
+**If Step 8.7 ran (authored → ready):**
+- Skills authored: count + paths `subagents/<slug>/skills/<skill-name>/SKILL.md`
+- References authored: count + paths `subagents/<slug>/references/<ref-name>.md`
+- `validate_skill_authoring` + quote-scan results; note `status: ready` and the version bump
+
+**If Step 8.7 was skipped (default → draft):**
 - **Skills not yet authored** (from `profile.yaml knowledge_partition.skills`):
   list each as a stub path `subagents/<slug>/skills/<skill-name>/SKILL.md`
 - **References not yet authored** (from `profile.yaml knowledge_partition.references`):
   list each as a stub path `subagents/<slug>/references/<ref-name>.md`
-- Note: package remains `status: draft` until all skills and references are authored
+- Note: package remains `status: draft`; to author the bodies and promote to `ready`,
+  re-run with `--author-skills` (Step 8.7) or run `Skill("author-skills") <slug>`
