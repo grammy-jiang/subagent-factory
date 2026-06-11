@@ -34,7 +34,7 @@ subagent_workflow_quality_enhancement_plan.md      (original 12 enhancements)
 | 5 | `step-5-principle-tests.md` | full | **implemented** | 4 | — |
 | 6 | `step-6-patch-safety.md` | full | **implemented** | 5 | (prompt-injection, light) |
 | 7 | `step-7-multisource.md` | stub | deferred | 4 | (argument-mining AM relations, future) |
-| 8 | `step-8-skill-authoring.md` | full | **spec — not started** | 0,2–5 | (factual-consistency guards the bodies) |
+| 8 | `step-8-skill-authoring.md` | full | **implemented** | 0,2–5 | (factual-consistency guards the bodies) |
 
 Depth: **full** = implementation-ready; **medium** = goal + file sketch + dependencies;
 **stub** = goal + defer trigger only.

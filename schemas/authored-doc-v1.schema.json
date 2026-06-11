@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "authored-doc-v1",
+  "title": "Authored Doc Frontmatter v1",
+  "description": "YAML frontmatter contract for authored skill (skills/<name>/SKILL.md) and reference (references/<name>.md) docs. Markdown bodies cannot be fully schema-validated, so this schemas the frontmatter; structural body checks and the faithfulness/quote-scan guards cover the rest. Step 8.",
+  "type": "object",
+  "required": ["name", "kind", "status"],
+  "properties": {
+    "name": {"type": "string", "minLength": 1},
+    "kind": {"enum": ["skill", "reference"]},
+    "status": {"enum": ["stub", "ready", "stale"]},
+    "provenance": {
+      "type": "object",
+      "description": "What the authored body is derived from. Empty arrays are valid (Tier 0 bodies have no principle/claim layer).",
+      "properties": {
+        "principles": {"type": "array", "items": {"type": "string"}},
+        "claims": {"type": "array", "items": {"type": "string"}},
+        "source_anchors": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

@@ -18,6 +18,7 @@ Checks:
   - prompt-injection scan over ingested source (advisory WARN)
   - adapter-policy scan (tool-grant / escalation FAIL; body injection WARN)
   - tier-gated artifacts (e.g. faithfulness report) validated when present
+  - skill/reference body authoring (status-gated: FAIL only when status: ready)
 """
 
 import json
@@ -40,6 +41,7 @@ from tools.subagent_factory.validate_metadata import validate_metadata
 from tools.subagent_factory.validate_patch_policy import validate_patch_policy
 from tools.subagent_factory.validate_principle_test_coverage import validate_principle_test_coverage
 from tools.subagent_factory.validate_principles import validate_principles
+from tools.subagent_factory.validate_skill_authoring import validate_skill_authoring
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
 
@@ -350,6 +352,17 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
                 ok("tier-artifact", f"{rel} valid")
         elif tier >= min_tier:
             fail("tier-artifact", f"tier {tier} requires {rel} (missing)")
+
+    # Step 8: skill/reference body authoring — status-gated. FAIL only when the profile
+    # declares status: ready with an unauthored or invalid skill/reference; otherwise WARN
+    # (authored N/M). Draft packages (all 15 current ones) only ever WARN here.
+    for level, msg in validate_skill_authoring(base):
+        if level == "FAIL":
+            fail("skill-authoring", msg)
+        elif level == "WARN":
+            warn("skill-authoring", msg)
+        else:
+            ok("skill-authoring", msg)
 
     failed = [f for f in findings if f["level"] == "FAIL"]
     passed = len(failed) == 0
