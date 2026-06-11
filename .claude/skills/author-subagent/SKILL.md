@@ -156,6 +156,12 @@ Pass `--rights <detected_rights>` from Step 2a (default: `distillation-only`).
 Handle outputs:
 - `SKIP: source already ingested as source_id=<id> (sha256 match)` → source unchanged;
   note the existing `<id>` for Step 7 check.
+- `WARNING: DUPLICATE-SOURCE: identical content (sha256) already ingested under slug '<other>'`
+  → the byte-identical source is already authored under a different slug (the embedding-based
+  Step 3 search is sha256-blind and can miss this when similarity < 0.80). This is the stronger
+  signal: prefer **updating** the named `<other>` package over authoring a redundant new one.
+  Only proceed with a new slug if you can state a genuinely distinct expert role for this lens;
+  record that justification in the provenance ledger.
 - `needs_auth=True` → stop: "This URL requires authentication. Provide a local downloaded copy."
 - `conversion_status=needs-ocr` → warn: "PDF appears scanned. OCR needed. Marked for human review. Continuing."
 - `conversion_status=failed` → halt and report.
