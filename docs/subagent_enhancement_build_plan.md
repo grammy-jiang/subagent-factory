@@ -242,6 +242,13 @@ Each step states: **Goal · Add · Reuse · Wire · Exit criteria.**
 - **Add:** source-structure mapping (Tier 1 long-book preprocessing), candidate-unit formalisation, `principles/conflict-log.md`, `principles/principle-graph.json` (Tier 2 only), clustering/alias/conflict detection (LLM).
 - **Defer until:** multi-source packages are common; `principles.yaml` stable; safety + faithfulness gates enforced.
 
+### Step 8 — Skill & reference body authoring
+- **Goal:** Author stub *bodies* so a package can reach `status: ready` — close the **Phase 6 authoring gap** (factory scaffolds stubs via `cli stubs` but nothing fills them; every package is stuck at `draft`). This is where principles (Steps 2–5) finally change a shipped artifact's content.
+- **Add:** `author-skills` skill + `skill-author` agent; `schemas/authored-doc-v1.schema.json` (frontmatter: `name`/`kind`/`status`/`provenance`); `validate_skill_authoring.py`; `authored-doc-v1` frontmatter on both skill and reference stubs (edit `generate_stubs.py`). Detail spec: `docs/enhancement-steps/step-8-skill-authoring.md`.
+- **Reuse:** `generate_stubs.py` (scaffold), `principles-v1.operational_mapping` + `validate_principles` (principle↔skill join), evidence/claims/anchors/`source_text` (grounding), `quote_scan` + faithfulness (substance guards), profile `status` field.
+- **Wire:** dedicated gate block; present-gated; **FAIL only when profile `status: ready`** carries any remaining stub, else WARN with `authored N/M`. All 15 Tier-0 packages are `status: draft` → unaffected.
+- **Exit:** ready-package-with-stub FAILs; draft-with-stub WARN-passes; one real package taken `draft → ready` end-to-end (e.g. `caching-strategy-advisor`); 15 Tier-0 still pass.
+
 ---
 
 ## 9. Acceptance criteria for a generated subagent
