@@ -1,0 +1,43 @@
+You are running headless in the subagent-factory repo. Run the **faithfulness-review** skill on
+ONE generated package and write its report. Follow `.claude/skills/faithfulness-review/SKILL.md`.
+
+PACKAGE: subagents/{{SLUG}}/
+
+What to do:
+1. Read `subagents/{{SLUG}}/profile.yaml`. Determine its tier.
+   - Tier 0 → faithfulness-v0: compare each profile rule against the raw SOURCE text.
+   - Tier 1+ → faithfulness-v1: compare rules against `subagents/{{SLUG}}/evidence/evidence-records.yaml`
+     (and source) for sharper claim-strength findings.
+2. Check EVERY profile rule: each `quality_bar[]` item, each `forbidden_behaviours[]` item, each
+   `outputs.modes[].trigger` and `.output`, `when_to_use[]` / `when_not_to_use[]`,
+   `minimum_useful_output`, and the imperative `knowledge_partition.always_on[]` rules.
+3. Source: `subagents/{{SLUG}}/sources/markdown/*.md` (load fully). Anchors:
+   `subagents/{{SLUG}}/sources/anchors/*.anchors.jsonl` (use real anchor IDs).
+4. For each rule: locate the supporting passage; classify claim strength on the 5-level scale
+   (EXACT_SUPPORT / WITHIN_SCOPE / SCOPE_BROADENED / HEDGING_REMOVED / CONTRADICTED); tag
+   `distortion`; choose `action` (downgrade / remove / add_condition / accept_with_note).
+5. **Source-of-truth precedence:** before flagging a rule for downgrade/remove, check
+   `profile.yaml source_of_truth_policy.precedence`. A rule that diverges from the *ingested*
+   source but matches a source the precedence policy names canonical (e.g. official docs over a
+   summary/cheat-sheet) is CORRECT — record the verdict but set `action: accept_with_note` with a
+   note citing the precedence rule; do not downgrade it to match a non-authoritative source.
+6. A CONTRADICTED finding may NEVER be accept_with_note — resolve it (downgrade/remove/flag).
+
+Write `subagents/{{SLUG}}/reports/faithfulness-report.yaml` per
+`schemas/faithfulness-report-v1.schema.json`. It MUST pass:
+  python -m tools.subagent_factory.validate_faithfulness_report subagents/{{SLUG}}/reports/faithfulness-report.yaml
+
+Be conservative: when unsure whether a rule exceeds its evidence, flag SCOPE_BROADENED /
+HEDGING_REMOVED for review rather than passing it. Edit ONLY `subagents/{{SLUG}}/reports/`. Do
+NOT rewrite the profile, factory code, or other packages. `make verify` must stay green.
+
+End with EXACTLY:
+===FAITH_SUMMARY===
+slug: {{SLUG}}
+rules_checked: <n>
+verdicts: <e.g. EXACT=.. WITHIN=.. BROADENED=.. HEDGE=.. CONTRA=..>
+contradicted_unresolved: <n>
+validate_report: <pass|fail>
+finding: <one line on the worst finding, or "no over-claim">
+usage_limit: <yes|no>
+===END===
