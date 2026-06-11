@@ -259,6 +259,27 @@ def cmd_stubs(slug):
         console.print(f"  {p}")
 
 
+@main.command("stale")
+@click.argument("slug")
+@click.option(
+    "--stamp", is_flag=True, help="Write authored_from_digest into every ready doc (baseline)."
+)
+@click.option("--mark", is_flag=True, help="Flip drifted ready docs to status: stale.")
+def cmd_stale(slug, stamp, mark):
+    """Detect (or stamp/mark) stale authored skill/reference bodies — Step 9 maintenance."""
+    from tools.subagent_factory.detect_stale import detect_stale
+
+    repo_root = Path(__file__).parent.parent.parent
+    findings = detect_stale(repo_root / "subagents" / slug, stamp=stamp, mark=mark)
+    if not findings:
+        console.print("[dim]no authored docs to check[/dim]")
+        return
+    palette = {"STALE": "red", "WARN": "yellow", "INFO": "cyan", "OK": "green"}
+    for level, artifact, reason in findings:
+        colour = palette.get(level, "white")
+        console.print(f"[{colour}]{level:5s}[/{colour}] {artifact}: {reason}")
+
+
 @main.command("doctor")
 def cmd_doctor():
     """Report converter dependency health (no installs)."""

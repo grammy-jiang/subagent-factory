@@ -15,7 +15,11 @@
       "properties": {
         "principles": {"type": "array", "items": {"type": "string"}},
         "claims": {"type": "array", "items": {"type": "string"}},
-        "source_anchors": {"type": "array", "items": {"type": "string"}}
+        "source_anchors": {"type": "array", "items": {"type": "string"}},
+        "authored_from_digest": {
+          "type": "string",
+          "description": "sha256 over the current statements of the cited principles + claims at authoring time. Step 9 recomputes it to detect grounding drift (stale)."
+        }
       },
       "additionalProperties": false
     }

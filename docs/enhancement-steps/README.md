@@ -35,7 +35,7 @@ subagent_workflow_quality_enhancement_plan.md      (original 12 enhancements)
 | 6 | `step-6-patch-safety.md` | full | **implemented** | 5 | (prompt-injection, light) |
 | 7 | `step-7-multisource.md` | stub | deferred | 4 | (argument-mining AM relations, future) |
 | 8 | `step-8-skill-authoring.md` | full | **implemented** | 0,2–5 | (factual-consistency guards the bodies) |
-| 9 | `step-9-stale-maintenance.md` | full | **spec — in progress** | 8 | — |
+| 9 | `step-9-stale-maintenance.md` | full | **implemented** | 8 | — |
 
 Depth: **full** = implementation-ready; **medium** = goal + file sketch + dependencies;
 **stub** = goal + defer trigger only.
