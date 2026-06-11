@@ -23,7 +23,9 @@ it authors each stub **body** grounded in that package's own principles / eviden
 
 ## Procedure
 
-For each stub (use the same slug `generate_stubs` chose — see `planned_slugs`):
+For each stub **or `status: stale` doc** (use the same slug `generate_stubs` chose — see
+`planned_slugs`; a stale doc is one Step 9 flagged because its grounding drifted, re-author it
+exactly like a stub):
 
 1. **Gather grounding.** Tier 1+: collect the principle(s) mapped to this slug, their evidence
    records, and the cited source anchors. Tier 0: collect the relevant `always_on` rules + source.
@@ -42,7 +44,15 @@ For each stub (use the same slug `generate_stubs` chose — see `planned_slugs`)
 
 When **all** skills and references are authored:
 
-6. Run `python -m tools.subagent_factory.validate_skill_authoring subagents/<slug>` (no FAIL),
+6. **Stamp the drift baseline** so Step 9 can detect future staleness:
+
+   ```bash
+   python -m tools.subagent_factory.cli stale <slug> --stamp
+   ```
+
+   This writes `provenance.authored_from_digest` (a sha256 over each body's cited principle +
+   claim statements) into every `ready` doc. Deterministic; run it as the final authoring step.
+7. Run `python -m tools.subagent_factory.validate_skill_authoring subagents/<slug>` (no FAIL),
    `quote_scan`, and faithfulness. Only then set profile `status: ready`, bump `agent_version`,
    add a CHANGELOG entry, and re-export the adapter (`cli export <slug>`).
 

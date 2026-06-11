@@ -19,6 +19,7 @@ Checks:
   - adapter-policy scan (tool-grant / escalation FAIL; body injection WARN)
   - tier-gated artifacts (e.g. faithfulness report) validated when present
   - skill/reference body authoring (status-gated: FAIL only when status: ready)
+  - stale maintenance (authored bodies whose grounding drifted; advisory WARN)
 """
 
 import json
@@ -29,6 +30,7 @@ import yaml
 
 from tools.subagent_factory.adapter_policy_scan import adapter_policy_scan
 from tools.subagent_factory.classify_tier import classify_tier
+from tools.subagent_factory.detect_stale import detect_stale
 from tools.subagent_factory.profile_self_check import profile_self_check
 from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
 from tools.subagent_factory.quote_scan import quote_scan
@@ -363,6 +365,15 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
             warn("skill-authoring", msg)
         else:
             ok("skill-authoring", msg)
+
+    # Step 9: stale maintenance — authored bodies whose grounding (cited principles/claims) has
+    # drifted since authoring. Advisory only: a stale flag is human-reviewed/re-authored before
+    # the next release, never a hard release block. STALE/WARN → warn; INFO/OK → ok.
+    for level, artifact, reason in detect_stale(base):
+        if level in ("STALE", "WARN"):
+            warn("stale-maintenance", f"{artifact}: {reason}")
+        else:
+            ok("stale-maintenance", f"{artifact}: {reason}")
 
     failed = [f for f in findings if f["level"] == "FAIL"]
     passed = len(failed) == 0

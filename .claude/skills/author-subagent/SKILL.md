@@ -398,15 +398,17 @@ For each stub from Step 8.5 (use the slug `cli stubs` chose — i.e.
    ≤ 500 lines. Reference bodies: the table/taxonomy/checklist + `## Provenance`.
    Frontmatter is `authored-doc-v1` with `status: ready` and real `provenance` IDs.
    Respect rights (`distillation-only` ⇒ no verbatim) and never exceed evidence strength.
-3. **Gate the bodies:**
+3. **Stamp the drift baseline, then gate the bodies:**
 
    ```bash
+   python -m tools.subagent_factory.cli stale <slug> --stamp   # write authored_from_digest
    python -m tools.subagent_factory.validate_skill_authoring subagents/<slug>
    python -m tools.subagent_factory.quote_scan subagents/<slug>
    ```
 
-   Both must be clean. Re-run faithfulness (Step 7.7) over the authored bodies if the
-   domain is over-claim-prone.
+   The stamp records each body's grounding digest so Step 9 maintenance can later detect drift.
+   Validate + quote-scan must be clean. Re-run faithfulness (Step 7.7) over the authored bodies
+   if the domain is over-claim-prone.
 4. **Promote only when every stub is authored and clean:** set profile `status: ready`,
    bump `agent_version`, add a CHANGELOG entry, then re-export the adapter:
 

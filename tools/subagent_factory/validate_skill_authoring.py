@@ -114,17 +114,20 @@ class _IdSets:
 
 
 def _doc_state(path: Path, kind: str, ids: _IdSets, schema) -> tuple[str, list[str]]:
-    """Classify one doc as ``missing`` | ``stub`` | ``authored`` and validate if authored.
+    """Classify one doc as ``missing`` | ``stub`` | ``authored`` | ``stale`` and validate the
+    authored ones.
 
-    A file counts as ``authored`` only when its frontmatter declares ``status: ready``.
-    Anything else (no frontmatter, ``status: stub``, residual stub marker) is ``stub``.
-    Errors are returned only for authored files (structural + referential).
+    A file counts as authored content when its frontmatter declares ``status: ready`` (state
+    ``authored``) or ``status: stale`` (state ``stale`` — authored but flagged for re-authoring
+    by Step 9). Anything else (no frontmatter, ``status: stub``) is ``stub``. The same structural
+    + referential checks run on authored and stale docs; errors are returned only for those.
     """
     if not path.exists():
         return "missing", []
     text = path.read_text(encoding="utf-8")
     fm = _parse_frontmatter(text)
-    if not fm or str(fm.get("status", "")).lower() != "ready":
+    status = str(fm.get("status", "")).lower() if fm else ""
+    if not fm or status not in ("ready", "stale"):
         return "stub", []
 
     errors: list[str] = []
@@ -153,7 +156,7 @@ def _doc_state(path: Path, kind: str, ids: _IdSets, schema) -> tuple[str, list[s
         n_lines = text.count("\n") + 1
         if n_lines > _MAX_SKILL_LINES:
             errors.append(f"skill body is {n_lines} lines (> {_MAX_SKILL_LINES} limit)")
-    return "authored", errors
+    return ("stale" if status == "stale" else "authored"), errors
 
 
 def _check_kind(
@@ -166,13 +169,24 @@ def _check_kind(
     schema,
 ) -> list[tuple[str, str]]:
     out: list[tuple[str, str]] = []
-    authored = stubs = missing = 0
+    authored = stubs = missing = stale = 0
     for _entry, slug in plan:
         state, errors = _doc_state(subdir_for(slug), kind, ids, schema)
-        if errors:  # an authored-but-invalid file always FAILs (even in a draft package)
+        if errors:  # an authored/stale file with invalid content always FAILs (even in draft)
             out.extend(("FAIL", f"{kind} '{slug}': {e}") for e in errors)
         if state == "authored" and not errors:
             authored += 1
+        elif state == "stale":
+            stale += 1
+            # Authored but flagged for re-authoring (Step 9). Surface, never FAIL — a stale doc
+            # is human-reviewed/re-authored before next release, not a hard release block.
+            if not errors:
+                out.append(
+                    (
+                        "WARN",
+                        f"{kind} '{slug}' is marked stale; re-author (author-skills) to refresh",
+                    )
+                )
         elif state == "missing":
             missing += 1
             if ready:
@@ -193,8 +207,8 @@ def _check_kind(
         out.append(
             (
                 "WARN",
-                f"{kind}s authored {authored}/{total} ({stubs} stub, {missing} missing); "
-                f"run `author-skills {base.name}` then set profile status: ready",
+                f"{kind}s authored {authored}/{total} ({stubs} stub, {missing} missing, "
+                f"{stale} stale); run `author-skills {base.name}` then set profile status: ready",
             )
         )
     elif authored == total:

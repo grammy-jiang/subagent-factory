@@ -16,6 +16,7 @@ platform behavior, or requirements change. Phase 12 of the authoring cycle.
 | Conflict re-opened by new evidence | multi-source merge |
 | Profile body became bloated | profile-generation → Phase 8 |
 | Rights status changed | Phase 1 — stop distillation if rights withdrawn |
+| Authored skill/reference body drifted from its grounding | Step 9 stale check → author-skills re-author |
 
 ---
 
@@ -41,8 +42,25 @@ platform behavior, or requirements change. Phase 12 of the authoring cycle.
 
 ---
 
+## Steps for stale authored bodies (Step 9)
+
+When a source is re-ingested or principles are re-derived, skill/reference bodies authored from
+the old grounding go stale. Detect and refresh them:
+
+```bash
+python -m tools.subagent_factory.cli stale <slug>          # report drift (STALE/WARN/INFO)
+python -m tools.subagent_factory.cli stale <slug> --mark   # flip drifted ready docs → stale
+```
+
+Then re-run `author-skills <slug>` (it re-authors `stale` docs like stubs and re-stamps the
+baseline) and re-export. The `validate` gate surfaces stale bodies as an advisory WARN; they do
+not hard-block release but should be refreshed before the next one.
+
+---
+
 ## Stale source policy
 
 If a source is marked stale in the provenance ledger:
 - Adapters generated from it are marked `status: stale`
 - Human review required before next release
+- Run `cli stale <slug>` to find authored bodies whose grounding the change invalidated
