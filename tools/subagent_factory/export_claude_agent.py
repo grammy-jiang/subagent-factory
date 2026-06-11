@@ -84,6 +84,11 @@ _TRAILING_CONNECTORS = {
     "on",
     "that",
     "whether",
+    "which",
+    "where",
+    "what",
+    "whose",
+    "whom",
     "its",
     "from",
     "by",
@@ -159,6 +164,12 @@ def _clean_clause(text: str, max_chars: int) -> str:
             if idx > max_chars * 0.5:
                 clipped = clipped[:idx]
                 break
+        # A truncated clause that still carries an inline ``label: list`` has a
+        # necessarily incomplete list tail (the end was already lost), e.g.
+        # ``caching strategy: pattern`` from ``…strategy: pattern selection, …``.
+        # Drop back to before the colon so the description never ends mid-list.
+        if ": " in clipped:
+            clipped = clipped[: clipped.rfind(": ")]
         words = clipped.rstrip(" .;,").split()
         while words and words[-1].lower() in _TRAILING_CONNECTORS:
             words.pop()
