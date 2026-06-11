@@ -62,8 +62,11 @@ _TIER_ARTIFACTS: list = [
     ("evidence/evidence-records.yaml", 1, validate_evidence_records),
     # Step 4: principles — required at Tier 1+ (validated whenever present).
     ("principles/principles.yaml", 1, validate_principles),
-    # Step 5: principle→behaviour coverage — present-gated (keyed on principles.yaml).
-    ("principles/principles.yaml", 99, validate_principle_test_coverage),
+    # Step 5: principle→behaviour coverage — required at Tier 1+. Coverage already runs
+    # present-gated whenever principles.yaml exists (and Tier 1+ requires it via the
+    # validate_principles entry above), so this is self-documenting + belt-and-suspenders:
+    # a Tier-1 package without principle-behaviour test coverage cannot validate.
+    ("principles/principles.yaml", 1, validate_principle_test_coverage),
 ]
 
 
