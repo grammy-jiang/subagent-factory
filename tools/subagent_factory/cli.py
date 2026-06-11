@@ -280,6 +280,49 @@ def cmd_stale(slug, stamp, mark):
         console.print(f"[{colour}]{level:5s}[/{colour}] {artifact}: {reason}")
 
 
+@main.command("catalog")
+@click.option("--ready-only", is_flag=True, help="Only ready packages.")
+@click.option("--md", is_flag=True, help="Emit Markdown to stdout (default: terminal table).")
+def cmd_catalog(ready_only, md):
+    """List generated subagents — local discovery/testing aid (writes no file)."""
+    from tools.subagent_factory.catalog import build_catalog, format_markdown
+
+    cat = build_catalog(ready_only=ready_only)
+    if not cat:
+        console.print("[yellow]No generated packages found under subagents/.[/yellow]")
+        return
+    if md:
+        print(format_markdown(cat))
+        return
+    t = Table(title=f"Generated Subagents ({len(cat)})  ·  local, gitignored output")
+    t.add_column("Expert")
+    t.add_column("T", justify="right")
+    t.add_column("Status")
+    t.add_column("Modes")
+    t.add_column("Sk/Rf", justify="right")
+    t.add_column("Adapter")
+    t.add_column("Source")
+    for e in cat:
+        adapter = "[green]ok[/green]" if e["adapter_installed"] else "[red]missing[/red]"
+        scolor = {"ready": "green", "draft": "yellow"}.get(e["status"], "white")
+        t.add_row(
+            e["slug"],
+            str(e["tier"]),
+            f"[{scolor}]{e['status']}[/{scolor}]",
+            ", ".join(e["modes"]),
+            f"{e['skills']}/{e['references']}",
+            adapter,
+            e["source"],
+        )
+    console.print(t)
+    console.print(
+        '\nTest any expert: spawn [bold]Agent(subagent_type="<slug>")[/bold], or just prompt '
+        "Claude Code with a matching task (it routes via the installed adapter's description).\n"
+        "Packages + adapters are gitignored — nothing here is committed. "
+        "Run [bold]cli catalog --md[/bold] for a copy-pasteable list."
+    )
+
+
 @main.command("doctor")
 def cmd_doctor():
     """Report converter dependency health (no installs)."""
