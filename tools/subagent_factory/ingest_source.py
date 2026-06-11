@@ -56,6 +56,7 @@ def ingest_source(
         "asset_count": 0,
         "needs_auth": False,
         "already_ingested": False,
+        "duplicate_source_slugs": [],
         "error": None,
     }
 
@@ -108,6 +109,17 @@ def ingest_source(
                 result["source_id"] = existing_source["source_id"]
                 result["already_ingested"] = True
                 return result
+
+    # Cross-package duplicate detection. The per-slug dedup above only sees THIS
+    # package's manifest; the embedding-based `search` is sha256-blind. An identical
+    # source already authored under a *different* slug is therefore invisible, and an
+    # already-distilled book can be silently re-authored as a redundant package.
+    # Surface the match so the caller can confirm a genuinely distinct role (or update
+    # the existing package) before proceeding. This warns, never blocks — distinct
+    # subagents may legitimately share one source (see untrusted-source-policy WARN/triage).
+    result["duplicate_source_slugs"] = find_cross_package_duplicates(
+        subagent_path.parent, sha256, subagent_slug
+    )
 
     file_type = detect_file_type(source_file)
 
@@ -224,6 +236,37 @@ def _sha256_file(path: Path) -> str:
         for chunk in iter(lambda: f.read(65536), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def find_cross_package_duplicates(
+    packages_root: Path, sha256: str, current_slug: str
+) -> list[dict[str, str]]:
+    """Find sources in OTHER packages that share this sha256.
+
+    Scans every ``<packages_root>/<slug>/source-pack.manifest.yaml`` except the
+    current slug's, returning one ``{"slug", "source_id"}`` entry per match. Used
+    to warn when an identical source has already been ingested under a different
+    slug — a duplicate the per-slug dedup and the embedding-based search both miss.
+    """
+    matches: list[dict[str, str]] = []
+    if not packages_root.is_dir():
+        return matches
+    for manifest_path in sorted(packages_root.glob("*/source-pack.manifest.yaml")):
+        if manifest_path.parent.name == current_slug:
+            continue
+        try:
+            data = yaml.safe_load(manifest_path.read_text(encoding="utf-8")) or {}
+        except (OSError, yaml.YAMLError):
+            continue
+        for src in data.get("sources", []):
+            if src.get("sha256") == sha256:
+                matches.append(
+                    {
+                        "slug": str(data.get("subagent_slug") or manifest_path.parent.name),
+                        "source_id": str(src.get("source_id", "?")),
+                    }
+                )
+    return matches
 
 
 def _derive_status(conversion_result: dict) -> str:

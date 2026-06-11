@@ -62,6 +62,12 @@ def cmd_ingest(source, slug, topic, title, author, year, rights):
             continue
 
         console.print(f"[green]OK:[/green] source_id={result['source_id']}")
+        for dup in result.get("duplicate_source_slugs", []):
+            console.print(
+                f"[yellow]WARNING: DUPLICATE-SOURCE:[/yellow] identical content (sha256) already "
+                f"ingested under slug '{dup['slug']}' (source_id={dup['source_id']}). "
+                "Confirm a genuinely distinct role before authoring, or update that package instead."
+            )
         cr = result["conversion_result"]
         console.print(
             f"  anchors={result['anchor_count']}  assets={result['asset_count']}  converter={cr.get('converter_used')}"
