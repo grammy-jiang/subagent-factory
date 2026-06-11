@@ -95,6 +95,25 @@ def test_clean_clause_drops_dangling_connector():
     assert out.split()[-1].lower() not in _TRAILING_CONNECTORS
 
 
+def test_clean_clause_drops_truncated_colon_list():
+    # A truncated "label: list" must drop back to before the colon, not end
+    # mid-enumeration (e.g. "...strategy: pattern" from "...: pattern, eviction, …").
+    text = (
+        "Senior caching architect who guides engineering teams and technical decision-makers "
+        "on caching strategy: pattern selection, eviction and TTL policy, consistency, scaling"
+    )
+    out = _clean_clause(text, 120)
+    assert out.endswith("caching strategy")
+    assert ":" not in out
+
+
+def test_clean_clause_drops_dangling_relative_pronoun():
+    text = "Latency is rising and the team must decide whether and where to cache and which pattern fits"
+    out = _clean_clause(text, 85)
+    assert out.split()[-1].lower() not in _TRAILING_CONNECTORS
+    assert not out.endswith("which")
+
+
 def test_clean_clause_takes_first_sentence_only():
     out = _clean_clause("First sentence here. Second sentence follows.", 200)
     assert out == "First sentence here"
