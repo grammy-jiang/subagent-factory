@@ -222,10 +222,30 @@ python -m tools.subagent_factory.classify_tier subagents/<slug>
 - **Tier 1+** (long book / content-dense / multi-source): run the evidence chain so the profile
   is built from atomic, evidence-backed claims rather than a flat summary.
 
+### 6.5-pre — Source structure mapping (Tier 1+, before claims) — Step 10
+
+For each content-dense source, build a structure-first map **before** extracting claims, so
+extraction reads the book's hierarchy + candidate units instead of flat-chunking (research:
+flat fixed-window chunking is the wrong baseline). Invoke `source-structure-mapper` via
+`Agent(subagent_type="source-structure-mapper")` (no-spawner: run `Skill("source-structure-mapping")`
+in-thread and write the file yourself). It writes `sources/maps/<source_id>.source-map.yaml`
+(`source-map-v1`: a `part→chapter→section→passage` tree + provenance-anchored atomic candidate
+units), validated by:
+
+```bash
+python -m tools.subagent_factory.validate_source_map subagents/<slug>/sources/maps/<source_id>.source-map.yaml
+```
+
+Then **6.5a consumes the map's `candidate_units`** as the extraction targets (claims reference
+`unit_id` and inherit its `source_anchors`) rather than flat-reading the source. If the source is
+short/structureless and mapping adds no value, skip mapping and extract directly.
+
 ### 6.5a — Claims + evidence (Tier 1+)
 
 Invoke `claim-extractor` via `Agent(subagent_type="claim-extractor")` (no-spawner branch: run
-`Skill("claim-extraction")` in-thread and write the files yourself). It must write:
+`Skill("claim-extraction")` in-thread and write the files yourself). When a source map exists
+(6.5-pre), extract from its `candidate_units` (structure-aware); otherwise read the source. It
+must write:
 - `analysis/claims.jsonl` (`claims-v1`),
 - `evidence/evidence-records.yaml` (`evidence-records-v1`) — ≥1 record per high-value claim,
 - `analysis/claim-importance-scores.yaml` (score with `cli score`).
