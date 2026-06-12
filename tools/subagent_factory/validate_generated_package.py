@@ -44,7 +44,7 @@ from tools.subagent_factory.validate_patch_policy import validate_patch_policy
 from tools.subagent_factory.validate_principle_test_coverage import validate_principle_test_coverage
 from tools.subagent_factory.validate_principles import validate_principles
 from tools.subagent_factory.validate_skill_authoring import validate_skill_authoring
-from tools.subagent_factory.validate_source_map import validate_source_map
+from tools.subagent_factory.validate_source_map import coverage_findings, validate_source_map
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
 
@@ -390,6 +390,9 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
                 fail("source-map", f"sources/maps/{mp.name}: {e}")
         else:
             ok("source-map", f"sources/maps/{mp.name} valid")
+        # Coverage (Step 10 G3, deterministic section-coverage proxy) — advisory WARN.
+        for cov in coverage_findings(mp):
+            warn("source-map-coverage", f"sources/maps/{mp.name}: {cov}")
 
     failed = [f for f in findings if f["level"] == "FAIL"]
     passed = len(failed) == 0

@@ -113,6 +113,67 @@ def validate_source_map(map_path: str | Path) -> list[str]:
     return errors
 
 
+_BACKGROUND_ROLES = {
+    "background",
+    "intro",
+    "introduction",
+    "overview",
+    "motivation",
+    "why",
+    "summary",
+    "preface",
+    "conclusion",
+}
+
+
+def coverage_findings(map_path: str | Path) -> list[str]:
+    """WARN-level section-coverage signals (Step 10 G3 — the deterministic part).
+
+    A substantive section node (``level: section``, ``role_class`` not background-ish) is "covered"
+    if it, or any descendant, has ≥1 candidate unit. Reports uncovered substantive sections + the
+    coverage ratio. This is the deterministic section-coverage proxy; the full claim-recall metric
+    (FActScore/Claimify reference + KPA match) is the source-structure-mapping skill's LLM
+    self-check, not enforced here. Advisory (the gate emits these as WARN, never FAIL).
+    """
+    path = Path(map_path)
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError:
+        return []
+    nodes = data.get("nodes") or []
+    units = data.get("candidate_units") or []
+    children: dict[str | None, list[str]] = {}
+    for n in nodes:
+        children.setdefault(n.get("parent_id"), []).append(n["node_id"])
+    covered = {u.get("node_id") for u in units if u.get("node_id")}
+
+    def has_unit(nid: str) -> bool:
+        stack = [nid]
+        while stack:
+            c = stack.pop()
+            if c in covered:
+                return True
+            stack.extend(children.get(c, []))
+        return False
+
+    sections = [
+        n
+        for n in nodes
+        if n.get("level") == "section"
+        and str(n.get("role_class", "")).lower() not in _BACKGROUND_ROLES
+    ]
+    if not sections:
+        return []
+    uncovered = [n["node_id"] for n in sections if not has_unit(n["node_id"])]
+    if not uncovered:
+        return []
+    ratio = 1 - len(uncovered) / len(sections)
+    return [
+        f"section coverage {ratio:.0%}: {len(uncovered)}/{len(sections)} substantive sections "
+        f"have no candidate unit ({', '.join(uncovered[:8])}{'…' if len(uncovered) > 8 else ''})"
+    ]
+
+
 def main() -> None:
     if len(sys.argv) < 2:
         print("Usage: python -m tools.subagent_factory.validate_source_map <source-map.yaml>")
@@ -120,6 +181,8 @@ def main() -> None:
     errs = validate_source_map(sys.argv[1])
     for e in errs:
         print(f"ERROR: {e}")
+    for w in coverage_findings(sys.argv[1]):
+        print(f"WARN: {w}")
     sys.exit(0 if not errs else 1)
 
 
