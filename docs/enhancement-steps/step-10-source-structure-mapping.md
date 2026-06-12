@@ -131,3 +131,39 @@ available training data; evaluate all boundaries with **Pk + WindowDiff** [2411.
   cross-segment BERT v1 → Longformer-coherence target), so this is an implementation choice, not an unknown.
 - Tree-build on raw expository books is thinly validated (G2) — alignment fallback + fixed-window safety net.
 - Cost: an extra LLM preprocessing pass per Tier-1 source — offset by the "halve compute" finding (read fewer, higher-salience nodes) + tiering.
+
+## Empirical A/B validation (exit criterion #4)
+
+Subject: `api-security-reviewer` source (a heading-less book PDF, ~23k words).
+
+**Anchor-quality prerequisite (found first, fixed before the A/B was valid).** An anchor-position
+coverage A/B is only meaningful if `source_anchors` point at real prose. Two early subjects were
+degenerate: `java-concurrency` had an empty anchor index (0 anchors); `api-security` had 117 anchors
+that were **100% PDF noise** — `inject_anchors`' paragraph fallback anchored the opener of each
+blank-delimited block, but book PDFs convert with no `#` headings and blank lines only at page
+boundaries, so every "opener" was a page running head (`DeepDiveintoOAuth 43`) and the body prose
+stayed unanchored. Fix (commit on `fix/inject-anchors-pdf-noise-fallback`): skip conversion noise +
+sub-chunk an unbroken prose run at sentence boundaries → **117 junk anchors → 218 real-prose anchors**,
+even across all deciles. Only then do both arms cite real spans and the metric measures reading
+strategy, not conversion noise.
+
+**Result (both arms on the same 218-anchor clean index):**
+
+| metric | flat (linear) | structure-mapped | note |
+|---|---|---|---|
+| claims / units | 121 claims | 93 units | comparable volume |
+| distinct prose anchors touched | 105 | **144** (+37%) | mapped grounds more spans |
+| document deciles touched | 10/10 | 10/10 | both cover the whole book (coarse) |
+| substantive sections covered | 58/61 (95%) | **61/61 (100%)** | mapped recall edge |
+| medium gaps (≥4 anchors uncovered) | 9 | **3** | mapped is more even |
+
+The 3 sections flat missed are all `role=example` — *Two Real-World Successes (LEGO, Carson City)*,
+*OpenID Connect for IoT*, *Example Code Executions*: narrow 3-anchor case-study blocks the linear
+reader deprioritized in favour of surrounding principle prose. Structure-first caught them by
+enumerating per section.
+
+**Verdict.** On a clean index the structure-first edge is **modest but real** (recall + evenness),
+not a blowout — flat linear extraction is a strong baseline (95% sections, all deciles). The
+load-bearing finding is upstream: **anchor quality (PDF parsing) is the binding constraint**; below a
+clean-anchor floor neither arm's provenance is trustworthy and the coverage gate measures pages, not
+sections. §20 Document-AI/PDF parsing remains the highest-leverage follow-on.
