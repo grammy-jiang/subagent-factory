@@ -1,11 +1,15 @@
 # Step 10 — Source Structure Mapping (Tier-1 preprocessor)
 
 > Master: extends `docs/subagent_enhancement_build_plan.md` (post-roadmap; realises the deferred
-> Phase 2A/2B "Source Structure Mapping + Candidate Unit Extraction"). Depth: **medium** — design
-> is settled; promote to **full** after research rounds 2–3 close gaps G1 (segmentation) and G3
-> (claim-recall metric).
-> Research: `docs/Research/long-document-structure-mapping/long-document-structure-mapping-research-report.md`
-> (18 papers, verdict HAS_GAPS — "sufficient to design the preprocessor end-to-end").
+> Phase 2A/2B "Source Structure Mapping + Candidate Unit Extraction"). Depth: **full** — the
+> research completed (3 rounds, 37 papers) and **closed both HIGH gaps**: G1 (segmentation method)
+> and G3 (claim-recall coverage metric). Only G2/G4 (MEDIUM) + G5 (LOW) remain — acceptable.
+> Research: `docs/Research/long-document-structure-mapping/` (report + SUMMARY.md).
+>
+> **Deterministic half already built** (commit 68e0ae1): `schemas/source-map-v1.schema.json` +
+> `tools/subagent_factory/validate_source_map.py` (schema + tree integrity + anchor referential) +
+> present-gated gate block + 7 tests. What remains to implement: the LLM mapper (skill+agent), the
+> Stage-2 segmenter choice, and the claim-recall coverage gate (now specified below).
 
 ## Goal
 
@@ -64,10 +68,15 @@ candidate_units:
 ## `validate_source_map.py` (structural + referential + coverage)
 - schema valid; `level` enum; `parent_id` resolves within the file (no cycles; single-root forest).
 - every `source_anchors` entry ∈ the package anchor index (real IDs — master §1.2).
-- **coverage gate** (research Rec 6, dual harness adapted): candidate units cover ≥ a threshold of
-  the source's claimable sections (per-section, not whole-book — research E3: LongSumEval ceilings
-  on full books). Flag low coverage for re-mapping. (Until G3 closes, recall uses a
-  summarization-QA proxy, not a true claim-recall metric — *logged limitation*.)
+- **coverage gate — claim-recall (G3 RESOLVED).** Build a reference claim/principle set per section
+  via FActScore-style atomic-fact decomposition + a high-precision, ambiguity-aware extractor
+  (Claimify) [2305.14251, 2502.10855]; `recall = fraction of reference claims matched by ≥1
+  candidate unit`, matched with KPA key-point↔claim matching + an exhaustiveness metric
+  [2005.01619, 2404.11793, 2501.03545]. **Aggregate hierarchically (per part→chapter→section), not
+  one flat pool** — beats the LongSumEval ~60% whole-book ceiling [2306.03853, 2604.25130]. A
+  check-worthiness filter [2212.08514] selects which source claims count as reference (vs trivia).
+  Flag low per-section recall for re-segmentation/re-enumeration. (The reference-set build + match
+  are LLM steps; the deterministic gate counts the matches + applies the threshold.)
 
 ## Reuse
 - `classify_tier` (gate it Tier 1+), `inject_anchors` index (span anchors), `source_text` (read).
@@ -88,13 +97,27 @@ candidate_units:
 - Validate: BooookScore precision + LongSumEval recall, per-section [2310.00785, 2604.25130] (High).
 - Fallback: fixed-window only when parsing fails [2505.06862] (High).
 
-## Open gaps (why medium, not full)
-| Gap | Sev | Plan |
-|-----|-----|------|
-| **G1** — no standalone topic/linear segmenter (TextTiling/C99/neural) in corpus; boundaries gate unit recall | HIGH | **Research round 2** (seg methods). Until then: summarization-embedded segmentation primitives. |
-| **G3** — no claim/principle-level **recall** metric (only summ-QA/keyphrase proxies) | HIGH | **Research round 3** (claim/keypoint coverage eval). Until then: QA-coverage proxy in the coverage gate. |
-| G2/G4/G5 | MED/LOW | opportunistic later rounds, else accept scoped |
-| E1–E3 (code/schema/validator-scaling) | MED | resolved inline: minimal stage impls validated on the 131k-word concurrency book; node schema above; per-section QA + stratified judging |
+## Stage-2 segmenter (G1 RESOLVED — research round 2)
+The topic/linear segmentation that bounds candidate units (pipeline stage 3) — three tiers by
+available training data; evaluate all boundaries with **Pk + WindowDiff** [2411.16613]:
+- **Target (best):** supervised long-context coherence segmenter — Longformer + enhanced
+  coherence, SOTA on WIKI-727K and ~8% Pk degradation out-of-domain (the robustness needed for
+  arbitrary technical books) [2310.11772].
+- **v1 default (cheap, ship first):** cross-segment BERT — a binary boundary classifier over the
+  local left/right token context of each candidate break; trivial to implement, composes with the
+  structural tree [2004.14535] (supervised framing + WIKI-727K benchmark [1803.09337]).
+- **Zero-training fallback:** unsupervised embedding-adjacency segmentation (new block on
+  adjacent-sentence embedding dissimilarity) when no in-domain data [2106.12978, 2106.06719].
+
+## Remaining gaps (none HIGH — acceptable)
+| Gap | Sev | Status |
+|-----|-----|--------|
+| ~~G1 segmentation~~ | ~~HIGH~~ | **CLOSED** (round 2) — see Stage-2 above |
+| ~~G3 claim-recall metric~~ | ~~HIGH~~ | **CLOSED** (round 3) — see coverage gate above |
+| G2 — TOC/heading extraction on *expository* 200+pg books (only narrative-validated) | MED | accept scoped; alignment + fixed-window fallback |
+| G4 — expository-book discourse structure under-represented | MED | accept scoped |
+| G5 — cross-reference / prerequisite-graph across a book | LOW | future |
+| E1–E3 (code/schema/validator-scaling) | MED (eng) | resolved inline: minimal stage impls validated on the 131k-word concurrency book; node schema built; per-section aggregation |
 
 ## Exit criteria (when promoted to full + built)
 1. `validate_source_map` passes a good map; fails tree/anchor/coverage violations.
@@ -104,6 +127,7 @@ candidate_units:
 5. All Tier-0 packages unaffected (Tier-1+ only).
 
 ## Risks
-- Segmentation quality is the recall ceiling and rests on embedded primitives until G1 closes (research-flagged).
+- Segmentation quality is the recall ceiling; the Stage-2 segmenter is now specified (G1 closed —
+  cross-segment BERT v1 → Longformer-coherence target), so this is an implementation choice, not an unknown.
 - Tree-build on raw expository books is thinly validated (G2) — alignment fallback + fixed-window safety net.
 - Cost: an extra LLM preprocessing pass per Tier-1 source — offset by the "halve compute" finding (read fewer, higher-salience nodes) + tiering.
