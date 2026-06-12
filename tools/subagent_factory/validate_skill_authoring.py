@@ -72,6 +72,15 @@ def _claim_ids(base: Path) -> set[str]:
     return ids
 
 
+def _evidence_ids(base: Path) -> set[str]:
+    data = _load_yaml(base / "evidence" / "evidence-records.yaml")
+    return {
+        str(e.get("evidence_id"))
+        for e in (data.get("evidence_records") or [])
+        if e.get("evidence_id")
+    }
+
+
 def _anchor_ids(base: Path) -> set[str]:
     ids: set[str] = set()
     anchors_dir = base / "sources" / "anchors"
@@ -110,6 +119,7 @@ class _IdSets:
     def __init__(self, base: Path):
         self.principles = _principle_ids(base)
         self.claims = _claim_ids(base)
+        self.evidence = _evidence_ids(base)
         self.anchors = _anchor_ids(base)
 
 
@@ -140,6 +150,7 @@ def _doc_state(path: Path, kind: str, ids: _IdSets, schema) -> tuple[str, list[s
         for field, universe in (
             ("principles", ids.principles),
             ("claims", ids.claims),
+            ("evidence", ids.evidence),
             ("source_anchors", ids.anchors),
         ):
             for ref in prov.get(field) or []:

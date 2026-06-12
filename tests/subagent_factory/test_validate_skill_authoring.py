@@ -12,8 +12,13 @@ STUB_SKILL = (
 )
 
 
-def _authored_skill(principles=(), claims=(), anchors=()) -> str:
-    prov = {"principles": list(principles), "claims": list(claims), "source_anchors": list(anchors)}
+def _authored_skill(principles=(), claims=(), anchors=(), evidence=()) -> str:
+    prov = {
+        "principles": list(principles),
+        "claims": list(claims),
+        "evidence": list(evidence),
+        "source_anchors": list(anchors),
+    }
     fm = yaml.safe_dump(
         {"name": "alpha-skill", "kind": "skill", "status": "ready", "provenance": prov}
     )
@@ -24,7 +29,9 @@ def _authored_skill(principles=(), claims=(), anchors=()) -> str:
     )
 
 
-def _pkg(tmp_path, status="draft", skills=None, refs=None, files=None, principles=None):
+def _pkg(
+    tmp_path, status="draft", skills=None, refs=None, files=None, principles=None, evidence=None
+):
     """Build a package dir. ``skills``/``refs`` are slug lists (== knowledge_partition entries);
     ``files`` maps a relative path under base to file content (the authored/stub bodies)."""
     base = tmp_path / "pkg"
@@ -34,6 +41,19 @@ def _pkg(tmp_path, status="draft", skills=None, refs=None, files=None, principle
         "knowledge_partition": {"skills": list(skills or []), "references": list(refs or [])},
     }
     (base / "profile.yaml").write_text(yaml.safe_dump(profile), encoding="utf-8")
+    if evidence is not None:
+        (base / "evidence").mkdir(parents=True, exist_ok=True)
+        (base / "evidence" / "evidence-records.yaml").write_text(
+            yaml.safe_dump(
+                {
+                    "schema_version": "evidence-records-v1",
+                    "evidence_records": [
+                        {"evidence_id": e, "claim_id": "c1", "source_ids": ["s1"]} for e in evidence
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
     if principles is not None:
         (base / "principles").mkdir(parents=True, exist_ok=True)
         (base / "principles" / "principles.yaml").write_text(
@@ -142,6 +162,32 @@ def test_authored_resolving_provenance_passes(tmp_path):
         principles=["P-001"],
     )
     assert "FAIL" not in _levels(validate_skill_authoring(base))
+
+
+def test_authored_evidence_provenance_resolves_passes(tmp_path):
+    # evidence is a valid provenance field (claim -> evidence -> principle chain); resolving ids pass.
+    base = _pkg(
+        tmp_path,
+        status="ready",
+        skills=["alpha-skill"],
+        files={"skills/alpha-skill/SKILL.md": _authored_skill(evidence=["e001", "e002"])},
+        evidence=["e001", "e002", "e003"],
+    )
+    assert "FAIL" not in _levels(validate_skill_authoring(base))
+
+
+def test_authored_dangling_evidence_id_fails(tmp_path):
+    base = _pkg(
+        tmp_path,
+        status="ready",
+        skills=["alpha-skill"],
+        files={"skills/alpha-skill/SKILL.md": _authored_skill(evidence=["e999"])},
+        evidence=["e001"],
+    )
+    findings = validate_skill_authoring(base)
+    assert any(
+        lvl == "FAIL" and "evidence" in msg and "does not resolve" in msg for lvl, msg in findings
+    )
 
 
 def test_authored_skill_missing_procedure_fails(tmp_path):
