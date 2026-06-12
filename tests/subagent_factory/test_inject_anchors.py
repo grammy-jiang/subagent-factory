@@ -1,10 +1,12 @@
 """Tests for inject_anchors."""
 
 import json
+import re
 import tempfile
+import textwrap
 from pathlib import Path
 
-from tools.subagent_factory.inject_anchors import inject_anchors
+from tools.subagent_factory.inject_anchors import _is_pdf_noise, inject_anchors
 
 MD_CONTENT = """# Introduction
 
@@ -98,6 +100,64 @@ def test_paragraph_fallback_for_structureless_source():
     assert {a["anchor_type"] for a in anchors} == {"paragraph"}
     assert all(a["anchor_id"].startswith("flat-source-t") for a in anchors)
     assert "<!-- anchor:flat-source-t0000 -->" in Path(out_md).read_text()
+
+
+def test_is_pdf_noise_classifies_conversion_artifacts():
+    """The noise predicate flags running heads / page numbers / TOC rows, spares real prose."""
+    noise = [
+        "DeepDiveintoOAuthandOpenIDConnect 43",  # running head + page number
+        "57",  # bare page number
+        "| 5. Deep | Dive | into | OAuth |",  # pipe TOC / table row
+        "CONTENTS",  # short all-caps label
+        "}",  # punctuation only
+        "IntroducingAPISecurityConcepts",  # single concatenated heading token
+    ]
+    prose = [
+        "Identity is at the forefront of API security and you must verify the caller.",
+        "Base API security on proven, peer-reviewed standards with market adoption.",
+        "We build with the assumption that even private APIs become exposed.",
+        "Use TLS 1.3 for transport so the data stream stays confidential.",  # digits in prose
+    ]
+    assert all(_is_pdf_noise(n) for n in noise)
+    assert not any(_is_pdf_noise(p) for p in prose)
+
+
+def test_paragraph_fallback_skips_noise_and_subchunks_page_wall():
+    """Heading-less book PDF: blanks only at page breaks, prose hard-wrapped, running heads.
+
+    The naive "anchor each blank-delimited block opener" tags one running-head per page and
+    leaves the body unanchored. The fallback must instead skip noise and anchor real prose,
+    sub-chunking a long unbroken run so several anchors land per page.
+    """
+    sentence = "This sentence states an operational rule about secure API design. "
+    wrapped_prose = "\n".join(textwrap.wrap(sentence * 12, 60))  # ~780 chars > _MAX_SPAN_CHARS
+    pages = []
+    for p in range(1, 4):
+        pages.append(f"SecuringTheAPIStronghold {p}")  # running head + page number -> noise
+        pages.append(wrapped_prose)  # body prose (no inter-paragraph blanks)
+        pages.append(str(p))  # trailing bare page number -> noise
+    md = "\n\n".join(pages) + "\n"  # blank lines ONLY at these page boundaries
+
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
+        f.write(md)
+        src = f.name
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
+        out_md = f.name
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
+        out_jsonl = f.name
+
+    inject_anchors(src, out_md, out_jsonl, "book")
+    anchors = [json.loads(ln) for ln in Path(out_jsonl).read_text().strip().splitlines() if ln]
+
+    # Every anchor is a paragraph anchor landing on real prose, never a running head / number.
+    assert anchors
+    assert {a["anchor_type"] for a in anchors} == {"paragraph"}
+    assert all("SecuringTheAPIStronghold" not in a["text"] for a in anchors)
+    assert all(not re.fullmatch(r"\d+", a["text"]) for a in anchors)
+    # Sub-chunking: 3 pages of >600-char prose yield more than one anchor per page.
+    assert len(anchors) > 3
 
 
 def test_paragraph_fallback_is_idempotent():
