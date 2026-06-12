@@ -4,7 +4,7 @@ import json
 
 import yaml
 
-from tools.subagent_factory.validate_source_map import validate_source_map
+from tools.subagent_factory.validate_source_map import coverage_findings, validate_source_map
 
 _GOOD = {
     "schema_version": "source-map-v1",
@@ -75,6 +75,49 @@ def test_unit_dangling_node(tmp_path):
         "candidate_units": [{"unit_id": "u1", "node_id": "ghost", "statement": "x"}],
     }
     assert any("not in nodes" in e for e in validate_source_map(_pkg(tmp_path, bad)))
+
+
+def test_coverage_clean_when_section_has_unit(tmp_path):
+    # _GOOD: section n2 has unit u1 → no coverage warning.
+    assert coverage_findings(_pkg(tmp_path, _GOOD)) == []
+
+
+def test_coverage_flags_uncovered_substantive_section(tmp_path):
+    m = {
+        "schema_version": "source-map-v1",
+        "source_id": "s1",
+        "nodes": [
+            {"node_id": "n1", "parent_id": None, "level": "section", "role_class": "method"},
+        ],
+        "candidate_units": [],
+    }
+    out = coverage_findings(_pkg(tmp_path, m))
+    assert any("no candidate unit" in w for w in out)
+
+
+def test_coverage_ignores_background_sections(tmp_path):
+    m = {
+        "schema_version": "source-map-v1",
+        "source_id": "s1",
+        "nodes": [
+            {"node_id": "n1", "parent_id": None, "level": "section", "role_class": "background"},
+        ],
+        "candidate_units": [],
+    }
+    assert coverage_findings(_pkg(tmp_path, m)) == []
+
+
+def test_coverage_covered_via_descendant(tmp_path):
+    m = {
+        "schema_version": "source-map-v1",
+        "source_id": "s1",
+        "nodes": [
+            {"node_id": "n1", "parent_id": None, "level": "section", "role_class": "method"},
+            {"node_id": "n2", "parent_id": "n1", "level": "passage"},
+        ],
+        "candidate_units": [{"unit_id": "u1", "node_id": "n2", "statement": "x"}],
+    }
+    assert coverage_findings(_pkg(tmp_path, m)) == []
 
 
 def test_duplicate_node_id(tmp_path):
