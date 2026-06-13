@@ -3,7 +3,6 @@
 import hashlib
 import importlib.util
 import shutil
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -37,6 +36,18 @@ def _preferred_pdf_converter() -> str:
         if importlib.util.find_spec(name) is not None:
             return tag
     return "none"
+
+
+def _content_source_id(source_file: Path, sha256: str) -> str:
+    """Deterministic, content-addressed source id: ``<slugified-stem>-<sha8>``.
+
+    Stable across re-ingests of identical content, so a re-author reuses the same id and overwrites
+    artifacts in place — rather than minting a fresh (formerly timestamped) id that orphans the
+    prior profile / faithfulness / source-map references whenever a run is interrupted partway.
+    The sha prefix is collision-safe (identical prefix ⇒ identical content).
+    """
+    stem = slugify(source_file.stem, max_length=20) or "source"
+    return f"{stem}-{sha256[:8]}"
 
 
 def ingest_source(
@@ -149,9 +160,7 @@ def ingest_source(
     cache_md = cache_dir / f"{sha256}.{conv_tag}.md"
 
     if source_id is None:
-        stem = slugify(source_file.stem, max_length=20) or "source"
-        ts = datetime.now(UTC).strftime("%Y%m%d%H%M%S")
-        source_id = f"{stem}-{ts}"
+        source_id = _content_source_id(source_file, sha256)
 
     result["source_id"] = source_id
 
