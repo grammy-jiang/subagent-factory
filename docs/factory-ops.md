@@ -74,7 +74,12 @@ Structural `validate` proves the package is consistent; it does not prove the ge
 good advice on a real task. To measure that — and the **eval-driven multi-source grounding** recipe
 that turns a grounding leak into a stronger, more faithful subagent — see
 [`output-quality-eval.md`](output-quality-eval.md). Harness: `examples/review-with-subagents.sh`
-(read-only, headless).
+(read-only, headless). Deterministic grounding-leak scorer:
+
+```bash
+python -m tools.subagent_factory.cli grounding-check <slug> <review.md> <reviewed-doc.md>
+#   coverage + cross-source borrows (names the source to add for multi-source grounding)
+```
 
 ## Validate before release
 
