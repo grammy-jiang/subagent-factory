@@ -1,6 +1,7 @@
 """Main source ingestion entry point — Phase 1.5 of the authoring cycle."""
 
 import hashlib
+import importlib.util
 import shutil
 from datetime import UTC, datetime
 from pathlib import Path
@@ -23,6 +24,19 @@ VALID_RIGHTS_STATUSES = ("open", "distillation-only", "proprietary/restricted", 
 # `unknown` is a blocking state: it must be resolved to a concrete status before a
 # source may enter distillation. Per policy, never ingest with rights_status=unknown.
 INGESTIBLE_RIGHTS_STATUSES = ("open", "distillation-only", "proprietary/restricted")
+
+
+def _preferred_pdf_converter() -> str:
+    """Name of the highest-fidelity PDF converter currently importable (the cache discriminator).
+
+    Mirrors ``convert_pdf``'s chain order: Docling > MarkItDown > PyMuPDF. Uses ``find_spec`` so
+    checking availability never imports Docling's heavy ML stack. Returns ``"none"`` when no PDF
+    converter is installed (the convert step then fails loudly downstream).
+    """
+    for name, tag in (("docling", "docling"), ("markitdown", "markitdown"), ("fitz", "pymupdf")):
+        if importlib.util.find_spec(name) is not None:
+            return tag
+    return "none"
 
 
 def ingest_source(
@@ -123,10 +137,16 @@ def ingest_source(
 
     file_type = detect_file_type(source_file)
 
-    # Markdown cache: inputs/markdown-cache/<sha256>.md
-    # Avoids re-converting the same PDF across multiple subagent packages / rounds.
+    # Markdown cache: inputs/markdown-cache/<sha256>.<converter>.md
+    # Avoids re-converting the same source across packages / rounds. The key is converter-keyed:
+    # a PDF's entry is tagged with the *preferred available* PDF converter (docling > markitdown >
+    # pymupdf), so installing Docling on top of a MarkItDown-cached corpus misses the old
+    # `<sha>.markitdown.md` and forces a fresh, higher-fidelity Docling convert — no manual cache
+    # purge. Non-PDF types key on the stable file_type. (Legacy bare `<sha>.md` entries are simply
+    # never hit and ignored.)
     cache_dir = subagent_path.parent.parent / "inputs" / "markdown-cache"
-    cache_md = cache_dir / f"{sha256}.md"
+    conv_tag = _preferred_pdf_converter() if file_type == "pdf" else file_type
+    cache_md = cache_dir / f"{sha256}.{conv_tag}.md"
 
     if source_id is None:
         stem = slugify(source_file.stem, max_length=20) or "source"
