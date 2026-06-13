@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "principle-graph-v1",
+  "title": "Principle Graph v1",
+  "description": "Cross-source relationships between a multi-source subagent's principles (Step 7 Phase C). Lives at principles/principle-graph.json. Nodes are the principles in principles.yaml (implicit); edges are typed relations between them. Single-source packages have no graph file. Relation vocabulary draws on the argument-mining stance set + the knowledge-fusion synthesis plan; extend as the knowledge-fusion research finalises it.",
+  "type": "object",
+  "required": ["schema_version", "subagent_slug", "edges"],
+  "properties": {
+    "schema_version": {"const": "principle-graph-v1"},
+    "subagent_slug": {"type": "string"},
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "target", "relation"],
+        "properties": {
+          "source": {"type": "string"},
+          "target": {"type": "string"},
+          "relation": {
+            "enum": ["alias", "refines", "specializes", "supports", "conflicts"]
+          },
+          "resolution": {
+            "type": ["string", "null"],
+            "description": "For a 'conflicts' edge: how it is reconciled (which source wins / scoped applicability). Absent/empty => unresolved, surfaced to conflict-log.md."
+          },
+          "provenance": {
+            "type": "object",
+            "description": "Why the edge exists: cluster_id it came from, method (seed|llm), confidence.",
+            "properties": {
+              "cluster_id": {"type": ["string", "null"]},
+              "method": {"enum": ["seed", "llm-confirmed"]},
+              "confidence": {"enum": ["high", "medium", "low"]}
+            },
+            "additionalProperties": false
+          },
+          "note": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
