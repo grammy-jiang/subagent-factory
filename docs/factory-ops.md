@@ -68,10 +68,27 @@ provenance):
 python -m tools.subagent_factory.remap_faithfulness_anchors subagents/<slug>/reports/faithfulness-report.yaml
 ```
 
-This fixes only the **faithfulness** report. When a package's `claims.jsonl` / `evidence-records.yaml`
-/ skill `provenance` *also* reference slugs with no line info against a heading-less source, there is
-nothing deterministic to map to — that package needs **re-authoring** (re-run distillation against the
-restored anchor index), not a patch.
+This fixes only the **faithfulness** report.
+
+**Skill / reference provenance with bare source-ids (Tier-0 packages).** A Tier-0 package can ship
+skills/references whose `provenance.source_anchors` is the *whole source id* (no claim→anchor chain to
+rebuild from). Because a skill/reference is a *broad* artifact, "which spans does it draw on" is
+answerable by **content overlap** — and that is appropriate for a coarse "draws-on" provenance (it is
+not the atomic-claim *support* judgement). `reground_skill_anchors` replaces each bare source-id with
+the top content-matched real anchors of that source (requiring a real shared-token signal, never
+guessing):
+
+```bash
+python -m tools.subagent_factory.reground_skill_anchors subagents/<slug>   # skills + references
+```
+
+**When a deterministic patch is NOT enough.** If the failing anchors are on **atomic claims**
+(`claims.jsonl`) / **evidence** referencing slugs with no line info against a heading-less source,
+there is nothing safe to map to — a claim's anchor asserts *support*, and lexical overlap can point at
+a span that merely shares words. That package needs **re-authoring** (re-run distillation against the
+restored anchor index), not a patch. (Worked example: the 4 bulk-re-export failures split exactly this
+way — advertising/startup-ceo fixed by `remap`, kafka by `reground` (skills+references), negotiation
+left for re-author because all 64 claims are concept slugs.)
 
 ## Evaluate extraction (claim recall)
 
