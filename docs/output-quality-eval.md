@@ -75,3 +75,14 @@ Small N (a few docs, mostly one run each). Magnitude of any leak is doc- and run
 stability with 2–3 runs across different docs before investing in a re-author. Rubric scoring of
 "good advice" is judgement-based (human or LLM-judge) — it is not a deterministic gate, unlike the
 structural validators.
+
+**Known method flaws (from the agent-benchmarking research — see
+`enhancement-steps/agent-benchmarking-findings.md`).** The *grounding* half of the eval is sound
+(deterministic). The *advice-quality* half as run so far is biased and should be hardened before its
+verdicts are stated as measured: (1) it was self-judged by a base model of the candidates →
+self-preference bias — use a 3-judge ensemble of non-candidate models; (2) the 1-source-vs-2-source
+A/B did not control cost/compute parity or include a strong simple baseline → the richer variant can
+win merely for spending more; (3) no independent gold set → circular evaluation inflates scores;
+(4) no uncertainty on the verdict → accept a ranking only when conformal/bootstrap intervals don't
+overlap. The grounding-leak → multi-source-grounding finding is unaffected (it rests on the
+deterministic `grounding_check`, not on the judge).
