@@ -196,6 +196,27 @@ def cmd_corpus_health(as_json):
     console.print("summary: " + "  ".join(f"{k}={v}" for k, v in sorted(fc.items())))
 
 
+@main.command("repair-faithfulness")
+@click.argument("slug")
+def cmd_repair_faithfulness(slug):
+    """Strip invalid source_anchors from a faithfulness report (quarantine to a sidecar)."""
+    from tools.subagent_factory.repair_faithfulness_report import repair_faithfulness_report
+
+    repo_root = Path(__file__).parent.parent.parent
+    rp = repo_root / "subagents" / slug / "reports" / "faithfulness-report.yaml"
+    if not rp.exists():
+        console.print(f"[yellow]No faithfulness report at {rp}[/yellow]")
+        return
+    res = repair_faithfulness_report(rp)
+    if res["changed"]:
+        console.print(
+            f"[green]Repaired:[/green] dropped {res['n_dropped']} invalid anchor ref(s) "
+            "→ reports/faithfulness-repair.yaml"
+        )
+    else:
+        console.print("[green]Clean:[/green] no invalid anchor refs")
+
+
 @main.command("score")
 @click.argument("units_file")
 @click.option("--worksheet", "worksheet_out", help="Write the Markdown shortlist to this path.")
