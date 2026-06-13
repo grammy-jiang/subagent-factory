@@ -245,6 +245,79 @@ def cmd_grounding_check(slug, review, doc):
         )
 
 
+@main.command("replay-score")
+@click.argument("slug")
+@click.option("--runner", default="examples/replay-runner.sh", help="Runner script (live model).")
+def cmd_replay_score(slug, runner):
+    """Replay the package's behaviour-tests against its adapter and score them (LIVE model calls).
+
+    A1/A2 execution path: runs each tests/*.yaml prompt through the adapter (as system prompt) via
+    RUNNER and scores the output with the deterministic grader. Burns model calls — use deliberately.
+    """
+    from tools.subagent_factory.behaviour_replay import (
+        load_behaviour_tests,
+        replay_suite,
+        shell_runner,
+    )
+
+    repo_root = Path(__file__).parent.parent.parent
+    base = repo_root / "subagents" / slug
+    adapter = base / "adapters" / "claude-code" / f"{slug}.md"
+    if not adapter.exists():
+        console.print(f"[red]adapter not found:[/red] {adapter}")
+        sys.exit(1)
+    tests = load_behaviour_tests(base)
+    if not tests:
+        console.print(f"[yellow]no behaviour-tests under[/yellow] {base / 'tests'}")
+        sys.exit(1)
+    r = replay_suite(adapter.read_text(encoding="utf-8"), tests, shell_runner(runner))
+    console.print(f"replay mean score [bold]{r['mean_score']:.2f}[/bold] over {r['n_tests']} tests")
+    for tid, g in sorted(r["per_test"].items()):
+        console.print(f"  {tid}: {g['score']:.2f}" + (f"  [red]{g['error']}[/red]" if "error" in g else ""))
+
+
+@main.command("replay-gate")
+@click.argument("slug")
+@click.argument("before_adapter")
+@click.argument("after_adapter")
+@click.option("--runner", default="examples/replay-runner.sh", help="Runner script (live model).")
+def cmd_replay_gate(slug, before_adapter, after_adapter, runner):
+    """A2 assess-before-merge: FAIL if the after-adapter regresses any behaviour-test (LIVE).
+
+    SLUG selects the behaviour-tests; BEFORE_ADAPTER and AFTER_ADAPTER are two adapter .md files
+    (e.g. the installed version vs a re-exported candidate). Exit 1 when the gate fails.
+    """
+    from tools.subagent_factory.behaviour_replay import (
+        load_behaviour_tests,
+        replay_gate,
+        shell_runner,
+    )
+
+    repo_root = Path(__file__).parent.parent.parent
+    tests = load_behaviour_tests(repo_root / "subagents" / slug)
+    if not tests:
+        console.print(f"[yellow]no behaviour-tests for[/yellow] {slug}")
+        sys.exit(1)
+    before = Path(before_adapter).read_text(encoding="utf-8")
+    after = Path(after_adapter).read_text(encoding="utf-8")
+    r = replay_gate(before, after, tests, shell_runner(runner))
+    color = "green" if r["gate"] == "pass" else "red"
+    console.print(
+        f"replay-gate [{color}]{r['gate'].upper()}[/{color}] "
+        f"(before {r['before_mean']:.2f} → after {r['after_mean']:.2f}, "
+        f"net {r['net_delta']:+.2f})"
+    )
+    for reg in r["regressions"]:
+        console.print(
+            f"  [red]regress[/red] {reg['test_id']}: {reg['before']:.2f} → {reg['after']:.2f}"
+        )
+    for imp in r["improvements"]:
+        console.print(
+            f"  [green]improve[/green] {imp['test_id']}: {imp['before']:.2f} → {imp['after']:.2f}"
+        )
+    sys.exit(1 if r["gate"] == "fail" else 0)
+
+
 @main.command("score")
 @click.argument("units_file")
 @click.option("--worksheet", "worksheet_out", help="Write the Markdown shortlist to this path.")
