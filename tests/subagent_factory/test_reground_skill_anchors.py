@@ -16,12 +16,24 @@ def _build(tmp_path):
     (base / "skills" / "batching").mkdir(parents=True)
     (base / "references").mkdir(parents=True)
     anchors = [
-        {"anchor_id": f"{_SID}-t0001", "source_id": _SID, "line_number": 1,
-         "text": "tune batch size and linger ms for producer throughput"},
-        {"anchor_id": f"{_SID}-t0002", "source_id": _SID, "line_number": 9,
-         "text": "completely unrelated avocado banana orchard content"},
-        {"anchor_id": f"{_SID}-t0003", "source_id": _SID, "line_number": 20,
-         "text": "batch size throughput producer compression tuning guide"},
+        {
+            "anchor_id": f"{_SID}-t0001",
+            "source_id": _SID,
+            "line_number": 1,
+            "text": "tune batch size and linger ms for producer throughput",
+        },
+        {
+            "anchor_id": f"{_SID}-t0002",
+            "source_id": _SID,
+            "line_number": 9,
+            "text": "completely unrelated avocado banana orchard content",
+        },
+        {
+            "anchor_id": f"{_SID}-t0003",
+            "source_id": _SID,
+            "line_number": 20,
+            "text": "batch size throughput producer compression tuning guide",
+        },
     ]
     (base / "sources" / "anchors" / f"{_SID}.anchors.jsonl").write_text(
         "\n".join(json.dumps(a) for a in anchors), encoding="utf-8"

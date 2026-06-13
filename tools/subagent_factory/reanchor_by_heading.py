@@ -75,7 +75,11 @@ def reanchor_by_heading(subagent_dir: str | Path, *, write: bool = True) -> dict
     all_anchor_ids = _all_anchor_ids(base)
 
     claims_path = base / "analysis" / "claims.jsonl"
-    claims = [json.loads(line) for line in claims_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    claims = [
+        json.loads(line)
+        for line in claims_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
 
     chosen_by_claim: dict[str, list[str]] = {}
     n_resolved = n_unresolved = 0

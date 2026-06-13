@@ -21,12 +21,24 @@ def _build(tmp_path):
     (base / "sources" / "anchors").mkdir(parents=True)
     (base / "sources" / "markdown").mkdir(parents=True)
     anchors = [
-        {"anchor_id": f"{_SID}-t0001", "source_id": _SID, "line_number": 1,
-         "text": "mirroring repeat last critical words"},
-        {"anchor_id": f"{_SID}-t0002", "source_id": _SID, "line_number": 3,
-         "text": "tactical empathy understand counterpart feelings"},
-        {"anchor_id": f"{_SID}-t0003", "source_id": _SID, "line_number": 5,
-         "text": "unrelated filler content here"},
+        {
+            "anchor_id": f"{_SID}-t0001",
+            "source_id": _SID,
+            "line_number": 1,
+            "text": "mirroring repeat last critical words",
+        },
+        {
+            "anchor_id": f"{_SID}-t0002",
+            "source_id": _SID,
+            "line_number": 3,
+            "text": "tactical empathy understand counterpart feelings",
+        },
+        {
+            "anchor_id": f"{_SID}-t0003",
+            "source_id": _SID,
+            "line_number": 5,
+            "text": "unrelated filler content here",
+        },
     ]
     (base / "sources" / "anchors" / f"{_SID}.anchors.jsonl").write_text(
         "\n".join(json.dumps(a) for a in anchors), encoding="utf-8"
@@ -36,20 +48,45 @@ def _build(tmp_path):
         encoding="utf-8",
     )
     claims = [
-        {"schema_version": "claims-v1", "claim_id": "CL001", "source_id": _SID,
-         "source_anchors": ["ch2-mirroring"], "statement": "Mirroring is repeating the last critical words",
-         "component_class": "major_claim", "claim_type": "fact"},
-        {"schema_version": "claims-v1", "claim_id": "CL002", "source_id": _SID,
-         "source_anchors": ["ch1-empathy"], "statement": "Tactical empathy means understanding the counterpart",
-         "component_class": "major_claim", "claim_type": "value"},
+        {
+            "schema_version": "claims-v1",
+            "claim_id": "CL001",
+            "source_id": _SID,
+            "source_anchors": ["ch2-mirroring"],
+            "statement": "Mirroring is repeating the last critical words",
+            "component_class": "major_claim",
+            "claim_type": "fact",
+        },
+        {
+            "schema_version": "claims-v1",
+            "claim_id": "CL002",
+            "source_id": _SID,
+            "source_anchors": ["ch1-empathy"],
+            "statement": "Tactical empathy means understanding the counterpart",
+            "component_class": "major_claim",
+            "claim_type": "value",
+        },
     ]
     (base / "analysis" / "claims.jsonl").write_text(
         "\n".join(json.dumps(c) for c in claims), encoding="utf-8"
     )
-    ev = {"schema_version": "evidence-records-v1", "evidence_records": [
-        {"evidence_id": "EV001", "claim_id": "CL001", "source_ids": [_SID], "source_anchors": ["ch2-mirroring"]},
-        {"evidence_id": "EV002", "claim_id": "CL002", "source_ids": [_SID], "source_anchors": ["ch1-empathy"]},
-    ]}
+    ev = {
+        "schema_version": "evidence-records-v1",
+        "evidence_records": [
+            {
+                "evidence_id": "EV001",
+                "claim_id": "CL001",
+                "source_ids": [_SID],
+                "source_anchors": ["ch2-mirroring"],
+            },
+            {
+                "evidence_id": "EV002",
+                "claim_id": "CL002",
+                "source_ids": [_SID],
+                "source_anchors": ["ch1-empathy"],
+            },
+        ],
+    }
     (base / "evidence" / "evidence-records.yaml").write_text(yaml.safe_dump(ev), encoding="utf-8")
     return base
 
@@ -99,7 +136,11 @@ def test_claims_written_with_real_anchors(tmp_path):
     reanchor_claims(base, _keyword_llm)
     lines = (base / "analysis" / "claims.jsonl").read_text().splitlines()
     recs = [json.loads(line) for line in lines if line.strip()]
-    assert all(a.endswith(tuple(f"-t000{i}" for i in range(1, 4))) or a == [] for r in recs for a in r["source_anchors"])
+    assert all(
+        a.endswith(tuple(f"-t000{i}" for i in range(1, 4))) or a == []
+        for r in recs
+        for a in r["source_anchors"]
+    )
     assert recs[0]["source_anchors"] == [f"{_SID}-t0001"]
 
 

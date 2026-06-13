@@ -39,7 +39,9 @@ def _load_source(base: Path, sid: str) -> tuple[list[tuple[str, set[str]]], dict
     af = base / "sources" / "anchors" / f"{sid}.anchors.jsonl"
     if not af.exists():
         return [], {}
-    recs = [json.loads(line) for line in af.read_text(encoding="utf-8").splitlines() if line.strip()]
+    recs = [
+        json.loads(line) for line in af.read_text(encoding="utf-8").splitlines() if line.strip()
+    ]
     recs = [r for r in recs if r.get("anchor_id") and r.get("line_number")]
     recs.sort(key=lambda r: r["line_number"])
     md = base / "sources" / "markdown" / f"{sid}.md"
@@ -95,7 +97,11 @@ def reanchor_claims(
     """Re-anchor every claim whose current anchors don't resolve; propagate to evidence. Summary out."""
     base = Path(subagent_dir)
     claims_path = base / "analysis" / "claims.jsonl"
-    claims = [json.loads(line) for line in claims_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    claims = [
+        json.loads(line)
+        for line in claims_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
 
     cache: dict[str, tuple[list[tuple[str, set[str]]], dict[str, str]]] = {}
 
@@ -114,7 +120,11 @@ def reanchor_claims(
         if current and all(a in allowed for a in current):
             continue  # already resolves — leave it
         cands = _candidates(c.get("statement", ""), ranked, top_k)
-        chosen = parse_reanchor(llm(build_reanchor_prompt(c["statement"], cands, window)), set(cands)) if cands else []
+        chosen = (
+            parse_reanchor(llm(build_reanchor_prompt(c["statement"], cands, window)), set(cands))
+            if cands
+            else []
+        )
         c["source_anchors"] = chosen
         chosen_by_claim[c["claim_id"]] = chosen
         n_fixed += bool(chosen)
@@ -131,8 +141,15 @@ def reanchor_claims(
                 cid = r.get("claim_id")
                 if cid in chosen_by_claim:
                     r["source_anchors"] = chosen_by_claim[cid]
-            ev_path.write_text(yaml.safe_dump(ev, sort_keys=False, allow_unicode=True), encoding="utf-8")
-    return {"n_claims": len(claims), "n_fixed": n_fixed, "n_empty": n_empty, "chosen": chosen_by_claim}
+            ev_path.write_text(
+                yaml.safe_dump(ev, sort_keys=False, allow_unicode=True), encoding="utf-8"
+            )
+    return {
+        "n_claims": len(claims),
+        "n_fixed": n_fixed,
+        "n_empty": n_empty,
+        "chosen": chosen_by_claim,
+    }
 
 
 def _claude_llm(prompt: str) -> str:
@@ -141,7 +158,9 @@ def _claude_llm(prompt: str) -> str:
     claude = str(Path.home() / ".local" / "bin" / "claude")
     return subprocess.run(
         [claude, "-p", "--model", "claude-opus-4-8", "--dangerously-skip-permissions", prompt],
-        text=True, capture_output=True, timeout=180,
+        text=True,
+        capture_output=True,
+        timeout=180,
     ).stdout
 
 

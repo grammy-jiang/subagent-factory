@@ -68,7 +68,9 @@ def _split_frontmatter(text: str) -> tuple[dict, str, str] | None:
     return (fm if isinstance(fm, dict) else {}), raw, body
 
 
-def _best_anchors(body_tokens: set[str], anchors: list[tuple[str, set[str]]], k: int, min_overlap: int) -> list[str]:
+def _best_anchors(
+    body_tokens: set[str], anchors: list[tuple[str, set[str]]], k: int, min_overlap: int
+) -> list[str]:
     scored = sorted(
         ((len(body_tokens & at), aid) for aid, at in anchors), key=lambda x: x[0], reverse=True
     )
@@ -105,7 +107,9 @@ def reground_skill_anchors(
             if ref in valid_ids:  # already a real anchor id
                 new.append(ref)
                 continue
-            sid = next((s for s in source_ids if ref == s or s.startswith(ref) or ref.startswith(s)), None)
+            sid = next(
+                (s for s in source_ids if ref == s or s.startswith(ref) or ref.startswith(s)), None
+            )
             if sid:
                 matched = _best_anchors(body_tokens, src_anchors[sid], top_k, min_overlap)
                 new.extend(matched)

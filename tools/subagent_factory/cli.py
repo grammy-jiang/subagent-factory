@@ -273,7 +273,9 @@ def cmd_replay_score(slug, runner):
     r = replay_suite(adapter.read_text(encoding="utf-8"), tests, shell_runner(runner))
     console.print(f"replay mean score [bold]{r['mean_score']:.2f}[/bold] over {r['n_tests']} tests")
     for tid, g in sorted(r["per_test"].items()):
-        console.print(f"  {tid}: {g['score']:.2f}" + (f"  [red]{g['error']}[/red]" if "error" in g else ""))
+        console.print(
+            f"  {tid}: {g['score']:.2f}" + (f"  [red]{g['error']}[/red]" if "error" in g else "")
+        )
 
 
 @main.command("replay-gate")
