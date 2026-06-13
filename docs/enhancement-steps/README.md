@@ -37,6 +37,7 @@ subagent_workflow_quality_enhancement_plan.md      (original 12 enhancements)
 | 8 | `step-8-skill-authoring.md` | full | **implemented** | 0,2–5 | (factual-consistency guards the bodies) |
 | 9 | `step-9-stale-maintenance.md` | full | **implemented** | 8 | — |
 | 10 | `step-10-source-structure-mapping.md` | full | **spec (research done; scaffolding built)** | 0,2 | long-document-structure-mapping |
+| 20 | `step-20-document-ai-pdf-parsing.md` | full | **implemented (merged)** | 0,1,2,10 | (Step-10 A/B finding) |
 
 Depth: **full** = implementation-ready; **medium** = goal + file sketch + dependencies;
 **stub** = goal + defer trigger only.
