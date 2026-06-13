@@ -68,6 +68,14 @@ python -m tools.subagent_factory.claim_recall <reference> <candidate> [threshold
 Reports recall / precision / f1 and the unmatched reference statements (the recall gaps). Lexical
 lower bound — use for relative arm comparison, not as absolute truth.
 
+## Evaluate output quality (does the expert give good advice?)
+
+Structural `validate` proves the package is consistent; it does not prove the generated expert gives
+good advice on a real task. To measure that — and the **eval-driven multi-source grounding** recipe
+that turns a grounding leak into a stronger, more faithful subagent — see
+[`output-quality-eval.md`](output-quality-eval.md). Harness: `examples/review-with-subagents.sh`
+(read-only, headless).
+
 ## Validate before release
 
 ```bash
