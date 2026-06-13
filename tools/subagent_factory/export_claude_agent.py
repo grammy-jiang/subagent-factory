@@ -244,6 +244,7 @@ def _build_template_context(profile: dict) -> dict:
         "precedence": sot.get("precedence", ""),
         "knowledge_skills": kp.get("skills", []),
         "knowledge_references": kp.get("references", []),
+        "examples": profile.get("examples", []),
         "agent_version": profile.get("agent_version", "0.1.0"),
         "generator_version": GENERATOR_VERSION,
         "generated_at": datetime.now(UTC).isoformat(),
