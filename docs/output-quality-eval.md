@@ -88,6 +88,36 @@ Adding *A Philosophy of Software Design* to the *Code Simplicity* subagent:
   for grounding + coverage, not for a proven advice-quality gain. It took four rounds (qualitative →
   n=6 → n=20 → cross-family) for the harness to surface this — exactly its purpose.
 
+## Finding (2026-06): the invariant layer changes behaviour; the coarse `must_not_do` grader inverts
+
+A/B of the **A3/A5 operating-invariant adapter layer** (with vs without the
+`## Operating invariants` section) on `software-design-simplicity-advisor` (22 invariants, 8
+behaviour-tests), scored by the deterministic `behaviour_replay` engine:
+
+| component | WITH | WITHOUT | Δ |
+|---|---|---|---|
+| overall score | 0.549 | 0.533 | +0.016 (tie) |
+| route (engage/decline) | 0.750 | 0.750 | 0 |
+| `minimum` (coverage) | 0.425 | 0.355 | **+0.070** |
+| `must_not_do` | 0.583 | 0.771 | **−0.188** |
+
+1. **The layer demonstrably changes behaviour.** WITH-invariant outputs cite the rule IDs
+   (`[PRC-009]`, `[PRC-016]`…) and *explicitly name and reject* the anti-patterns — e.g. GT-002
+   opens "**No. Reject.**" and condemns "'complexity now, fix later' = tactical programming
+   [PRC-016], debt rarely repaid." Coverage rises (+0.070).
+2. **But the coarse `must_not_do` grader is *invertible*.** That same condemnation lexically overlaps
+   the forbidden item "Endorse accruing complexity now to fix later" (overlap 0.67 → flagged a
+   violation). So the −0.188 is an **artifact**: the grader scores the *best* (rule-citing,
+   anti-pattern-rejecting) answers as *violators*, because a lexical detector cannot tell "does X"
+   from "names X to reject it." Verified on a captured output.
+3. **Verdict:** under blind coarse grading the invariant layer is ≈behaviour-neutral on the number
+   but **positive in substance** (rule-cited, scope cases NR-002/MC-001 up). A trustworthy adherence
+   verdict needs a **semantic (LLM) grader** injected via `behaviour_replay`'s `grader=` hook — the
+   coarse `must_not_do` component must not be read as adherence. This matches the multi-source
+   finding: a structure/faithfulness change the *blind* instrument scores as neutral, and here the
+   harness even exposed a flaw in its own instrument (the load-bearing reason to build the LLM
+   grader next).
+
 ## Caveats
 
 Small N (a few docs, mostly one run each). Magnitude of any leak is doc- and run-dependent; confirm
