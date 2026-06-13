@@ -369,15 +369,26 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         elif tier >= min_tier:
             fail("tier-artifact", f"tier {tier} requires {rel} (missing)")
 
-    # Step 7: multi-source synthesis expected on Tier-2+ packages built from >=2 sources. Advisory
-    # (WARN), not FAIL — packages authored before Step 7 lack the cluster/graph artifacts; surfacing
-    # the gap drives a re-synthesis without breaking them. When present, the tier loop above already
-    # validated them (min_tier 99 entries).
-    try:
-        _prof = yaml.safe_load((base / "profile.yaml").read_text(encoding="utf-8")) or {}
-    except (OSError, yaml.YAMLError):
-        _prof = {}
-    if tier >= 2 and len(_prof.get("sources") or []) >= 2:
+    # Step 7: multi-source synthesis expected on Tier-2+ packages whose distilled claims genuinely
+    # span >=2 sources. Keyed on distinct claim source_ids, NOT the manifest source count — a package
+    # can list 2 sources yet distill claims from only one, in which case there is nothing to fuse and
+    # flagging it would be a false positive. Advisory (WARN), not FAIL: pre-Step-7 packages lack the
+    # artifacts; surfacing the gap drives a re-synthesis without breaking them. When present, the tier
+    # loop above already validated them (min_tier 99 entries).
+    claim_sources: set[str] = set()
+    _cl_path = base / "analysis" / "claims.jsonl"
+    if _cl_path.exists():
+        for line in _cl_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                sid = json.loads(line).get("source_id")
+            except json.JSONDecodeError:
+                continue
+            if sid:
+                claim_sources.add(str(sid))
+    if tier >= 2 and len(claim_sources) >= 2:
         for art in ("principle-clusters.json", "principle-graph.json"):
             if (base / "principles" / art).exists():
                 ok("multisource-synthesis", f"{art} present")
