@@ -43,12 +43,24 @@ not synthesis. This is the test case.
 - `schemas/principle-graph-v1.schema.json` + `validate_principle_graph.py` (Phase C).
 - Both wired into `validate_generated_package` (validate-if-present, min_tier 99).
 
-## To build (LLM steps, now unblocked)
-- Phase A/C LLM-confirm: seed → `principle-clusters.json` + `principle-graph.json` (in progress on
-  the test package).
-- Phase B conflict triage + `conflict-log.md`.
-- Phase D: adapter dedup (surface canonical principles; flag unresolved conflicts) + promote the
-  cluster/graph gate entries from min_tier 99 → required at Tier-2-multi-source.
+## Built (all phases — proven on `software-design-simplicity-advisor`)
+- **Phase A/C LLM-confirm** → `principle-clusters.json` (4 clusters, llm-confirmed) +
+  `principle-graph.json` (24 edges: 7 alias, 3 refines, 2 specializes, 10 supports, 2 conflicts).
+  The 4 clusters fuse both books (present-justified generality, incremental design,
+  minimize-complexity-as-goal, single-home-for-knowledge).
+- **Phase B** `render_conflict_log.py` → `conflict-log.md`: the 2 conflicts kept multi-truth/scoped
+  — incl. the real *small-replaceable-pieces (Code Simplicity) vs deep-modules (APOSD)* tension.
+- **Phase D** advisory gate: a Tier-2 package with ≥2 sources WARNs if it lacks the synthesis
+  artifacts (non-breaking). Adapter dedup is already satisfied by 2-source authoring (quality_bar
+  fuses both canons; precedence policy states the multi-truth stance), so no separate dedup pass.
+
+## Follow-on (corpus, not machinery)
+3 pre-Step-7 Tier-2 multi-source packages are flagged by the gate for synthesis when budget allows:
+`microservice-patterns-advisor`, `negotiation-tactics-advisor`, `strengths-based-development-coach`
+(run the Phase A/C LLM-confirm + Phase B render on each). Optional hardening: promote the gate from
+WARN→FAIL once all multi-source packages carry synthesis; manual lit pull to close G1/G3 before
+relying on automated conflict *detection* in production (current B uses LLM adjudication + the
+multi-truth stance).
 
 ## Open caveats (carry forward)
 Both HIGH academic gaps are **environment-limited** (arXiv index recency-locked to ~2026, see
