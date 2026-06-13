@@ -38,6 +38,7 @@ from tools.subagent_factory.validate_adapter_quality import validate_adapter_qua
 from tools.subagent_factory.validate_anchor_index import validate_anchor_index
 from tools.subagent_factory.validate_claims import validate_claims
 from tools.subagent_factory.validate_evidence_records import validate_evidence_records
+from tools.subagent_factory.validate_examples import validate_examples
 from tools.subagent_factory.validate_faithfulness_report import validate_faithfulness_report
 from tools.subagent_factory.validate_manifest import validate_manifest
 from tools.subagent_factory.validate_metadata import validate_metadata
@@ -77,6 +78,11 @@ _TIER_ARTIFACTS: list = [
     # now so they are auto-validated the moment they exist.
     ("principles/principle-clusters.json", 99, validate_principle_clusters),
     ("principles/principle-graph.json", 99, validate_principle_graph),
+    # Phase 9 (instruction-induction A4): optional worked-example slot. Validate-if-present —
+    # profile.yaml always exists so this runs every time, but returns [] unless an `examples` block
+    # is present, so the example-less packages pass trivially. When examples ARE present, A4 bites:
+    # each must be well-formed and ≥1 must be kind=failure-recovery.
+    ("profile.yaml", 99, validate_examples),
 ]
 
 

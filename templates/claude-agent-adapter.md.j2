@@ -63,7 +63,17 @@ Generated: {{ generated_at }}
 {% for rule in handoff_rules %}
 - {{ rule }}
 {% endfor %}
+{% if examples %}
+## Worked examples
 
+{% for ex in examples %}
+### {{ ex.title }} (`{{ ex.kind }}`)
+
+**Scenario:** {{ ex.scenario }}
+
+**Ideal response:** {{ ex.ideal_response }}
+
+{% endfor %}{% endif %}
 ## Source of truth policy
 
 - **Canonical owner:** {{ canonical_owner }}
