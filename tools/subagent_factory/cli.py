@@ -159,6 +159,43 @@ def cmd_validate(slug):
         sys.exit(1)
 
 
+@main.command("corpus-health")
+@click.option("--json", "as_json", is_flag=True, help="Emit JSON instead of a table.")
+def cmd_corpus_health(as_json):
+    """Audit every generated package's structural health (converter, anchors, claims, flags)."""
+    import json as _json
+    from collections import Counter
+
+    from tools.subagent_factory.corpus_health import scan_corpus
+
+    repo_root = Path(__file__).parent.parent.parent
+    rows = scan_corpus(repo_root / "subagents")
+    if as_json:
+        click.echo(_json.dumps(rows, indent=2))
+        return
+
+    t = Table(title=f"Corpus health ({len(rows)} packages)")
+    for col in ("slug", "tier", "status", "conv", "anchors", "type", "claims", "dead", "health"):
+        t.add_column(col)
+    for r in rows:
+        bad = {"empty-anchors", "dead-refs"} & set(r["health"])
+        color = "green" if r["health"] == ["ok"] else "red" if bad else "yellow"
+        t.add_row(
+            r["slug"],
+            str(r["tier"]),
+            str(r["status"]),
+            r["converter"],
+            str(r["anchors"]),
+            r["anchor_type"],
+            str(r["claims"]),
+            str(r["dead_refs"]),
+            f"[{color}]{','.join(r['health'])}[/{color}]",
+        )
+    console.print(t)
+    fc = Counter(f for r in rows for f in r["health"])
+    console.print("summary: " + "  ".join(f"{k}={v}" for k, v in sorted(fc.items())))
+
+
 @main.command("score")
 @click.argument("units_file")
 @click.option("--worksheet", "worksheet_out", help="Write the Markdown shortlist to this path.")
