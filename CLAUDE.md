@@ -39,3 +39,14 @@ schemas/                    JSON schemas for all generated artifacts
 templates/                  Jinja2 templates
 inputs/                     drop source files here before running /author-subagent
 ```
+
+## Key docs (read when relevant)
+
+- `docs/factory-ops.md` — operational guide: corpus-health, Docling install + converter-keyed
+  cache, re-author a package, faithfulness repair, claim-recall, validate.
+- `docs/output-quality-eval.md` — how to evaluate whether a generated subagent gives *good advice*
+  (not just whether it validates), and the **eval-driven multi-source grounding** recipe: an
+  output-eval grounding leak names the missing source → add it via multi-source authoring → the
+  expert becomes more faithful *and* more capable (proven A/B). Read before assessing or improving
+  a subagent's quality.
+- `docs/enhancement-steps/` — per-step build specs (Steps 0–10, 20). `README.md` is the index.
