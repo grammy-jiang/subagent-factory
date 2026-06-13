@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "principle-clusters-v1",
+  "title": "Principle Clusters v1",
+  "description": "Cross-source clusters of co-expressed principles for Step 7 multi-source synthesis (Phase A). Lives at principles/principle-clusters.json. Each cluster groups principles from 2+ sources that express the same concept. The deterministic seeder proposes candidates (method: seed, no canonical_statement); the LLM confirms a cluster and sets canonical_statement (method: llm-confirmed). Single-source packages have no clusters file.",
+  "type": "object",
+  "required": ["schema_version", "subagent_slug", "clusters"],
+  "properties": {
+    "schema_version": {"const": "principle-clusters-v1"},
+    "subagent_slug": {"type": "string"},
+    "clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cluster_id", "member_principle_ids", "method"],
+        "properties": {
+          "cluster_id": {"type": "string"},
+          "member_principle_ids": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minItems": 2
+          },
+          "sources": {"type": "array", "items": {"type": "string"}},
+          "canonical_statement": {"type": ["string", "null"]},
+          "confidence": {"enum": ["high", "medium", "low"]},
+          "method": {"enum": ["seed", "llm-confirmed"]},
+          "shared_terms": {"type": "array", "items": {"type": "string"}},
+          "mean_overlap": {"type": "number"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
