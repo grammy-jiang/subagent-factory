@@ -63,11 +63,18 @@ The leak **names its own fix** — the borrowed vocabulary identifies the missin
 4. Re-run the same eval; confirm the formerly-leaked terms now resolve to the new principles, and
    that quality held or improved.
 
-**Proven A/B (software-simplicity → software-design-simplicity).** Adding *A Philosophy of Software
-Design* to the *Code Simplicity* subagent: the 6 leaked terms went from 0 → grounded in its
-principles, findings 8 → 10 (net-new deep interface/module analysis), tier 1 → 2 — more faithful
-**and** more capable. This also exercised the multi-source authoring path (claims split across both
-books, principles from both, validates).
+**A/B (software-simplicity → software-design-simplicity), two halves — state them separately.**
+Adding *A Philosophy of Software Design* to the *Code Simplicity* subagent:
+- **Grounding (measured, deterministic, solid):** the 6 leaked terms went from 0 → grounded in its
+  principles (`grounding_check`, judge-independent); findings 8 → 10; tier 1 → 2. Also exercised the
+  multi-source authoring path (claims split across both books, validates).
+- **Advice quality (rigorously re-judged — INCONCLUSIVE):** under `judge_ab` (6 position-swapped
+  passes) + `rank_versions`, the 2-source review won 4–2 but the Bradley-Terry CIs **overlap**
+  (`top2_separated: false`), so it is **not a statistically reliable win at n=6** — and the
+  2-source review is longer (220 vs 104 lines), so part of the lean may be length despite the
+  no-length-reward rubric. A conclusive verdict needs more passes (AC4) and ideally a non-Claude
+  judge. The earlier qualitative "more capable" read is therefore **downgraded to "leans better,
+  unconfirmed"** — exactly the correction the rigorous harness exists to make.
 
 ## Caveats
 
