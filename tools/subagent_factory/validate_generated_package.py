@@ -42,6 +42,8 @@ from tools.subagent_factory.validate_faithfulness_report import validate_faithfu
 from tools.subagent_factory.validate_manifest import validate_manifest
 from tools.subagent_factory.validate_metadata import validate_metadata
 from tools.subagent_factory.validate_patch_policy import validate_patch_policy
+from tools.subagent_factory.validate_principle_clusters import validate_principle_clusters
+from tools.subagent_factory.validate_principle_graph import validate_principle_graph
 from tools.subagent_factory.validate_principle_test_coverage import validate_principle_test_coverage
 from tools.subagent_factory.validate_principles import validate_principles
 from tools.subagent_factory.validate_skill_authoring import validate_skill_authoring
@@ -69,6 +71,12 @@ _TIER_ARTIFACTS: list = [
     # validate_principles entry above), so this is self-documenting + belt-and-suspenders:
     # a Tier-1 package without principle-behaviour test coverage cannot validate.
     ("principles/principles.yaml", 1, validate_principle_test_coverage),
+    # Step 7 (multi-source synthesis, Phase A/C): cross-source principle clusters + relationship
+    # graph. min_tier 99 = validate-if-present, never required yet — they appear only on Tier-2
+    # multi-source packages once the LLM-confirm step runs; the deterministic scaffolding is wired
+    # now so they are auto-validated the moment they exist.
+    ("principles/principle-clusters.json", 99, validate_principle_clusters),
+    ("principles/principle-graph.json", 99, validate_principle_graph),
 ]
 
 
