@@ -9,6 +9,10 @@ from tools.subagent_factory.self_heal import ensure_package
 
 SCANNED_THRESHOLD = 0.15  # chars-per-page (×1000) below this suggests scanned
 _MIN_WORDS_BORN_DIGITAL = 30  # below this, with no page signal, suspect a failed scan
+# A multi-page PDF with zero recovered headings is almost certainly a flattened (MarkItDown)
+# or scanned conversion: the heading hierarchy the anchor layer needs is gone, so anchoring
+# degrades to the paragraph fallback. Warn at convert time rather than discover it downstream.
+_MIN_PAGES_FOR_HEADINGS = 5
 
 
 def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:
@@ -71,22 +75,54 @@ def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:
     stats = _compute_stats(text)
     stats["page_count"] = page_count
     result["stats"] = stats
+    if page_count and page_count >= _MIN_PAGES_FOR_HEADINGS and stats["heading_count"] == 0:
+        result["warnings"].append(
+            f"0 headings recovered from a {page_count}-page PDF — flattened or scanned "
+            "conversion; structure anchoring degrades to the paragraph fallback. Enable Docling "
+            "(bootstrap --extra convert-full) for heading recovery."
+        )
     Path(output_path).write_text(text, encoding="utf-8")
     return result
 
 
 def _try_docling(src: Path):
+    """Docling PDF→Markdown with a born-digital fast path.
+
+    The default ``DocumentConverter`` runs OCR plus the table-structure ML model on every page.
+    On a born-digital book PDF (the factory's norm) OCR is dead weight and the table model
+    dominates CPU time, pushing a ~100-page convert into tens of minutes on CPU. Disabling both
+    keeps the heading hierarchy — the structure the anchor layer actually needs — while cutting
+    convert time roughly 20x (≈70s vs tens of minutes). Tables degrade to inline text, which is
+    acceptable for the text-dense advisory/reference sources this factory distils. A scanned PDF
+    then yields little/no text and falls through to the next converter; ``_detect_scanned`` and
+    the low-quality gate catch the residue.
+    """
     try:
-        from docling.document_converter import DocumentConverter
+        from docling.datamodel.base_models import InputFormat
+        from docling.datamodel.pipeline_options import PdfPipelineOptions
+        from docling.document_converter import DocumentConverter, PdfFormatOption
     except ImportError:
         return None, None, [], ["docling not installed"]
     try:
-        converter = DocumentConverter()
+        opts = PdfPipelineOptions()
+        opts.do_ocr = False
+        opts.do_table_structure = False
+        converter = DocumentConverter(
+            format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=opts)}
+        )
         doc = converter.convert(str(src))
         text = doc.document.export_to_markdown()
         return text, "docling", [], []
     except Exception as e:
-        return None, None, [], [f"docling error: {e}"]
+        # Any failure in the fast-path construction (e.g. a docling API change) must not strand
+        # the chain — fall back to a default converter before giving up on docling entirely.
+        try:
+            from docling.document_converter import DocumentConverter
+
+            doc = DocumentConverter().convert(str(src))
+            return doc.document.export_to_markdown(), "docling", [], []
+        except Exception as e2:
+            return None, None, [], [f"docling error: {e}; default-fallback: {e2}"]
 
 
 def _try_markitdown(src: Path):
