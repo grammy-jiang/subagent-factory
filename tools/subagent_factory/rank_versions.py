@@ -68,22 +68,18 @@ def rank_versions(pairs: list[dict], n_boot: int = 1000, seed: int = 0) -> dict:
         for v in versions:
             samples[v].append(bt.get(v, 0.0))
 
-    ranking = []
+    # typed (version, strength, ci_low, ci_high) tuples for the math; output dicts built last
+    rows: list[tuple[str, float, float, float]] = []
     for v in versions:
         arr = np.array(samples[v])
-        ranking.append(
-            {
-                "version": v,
-                "strength": round(base[v], 4),
-                "ci_low": round(float(np.percentile(arr, 5)), 4),
-                "ci_high": round(float(np.percentile(arr, 95)), 4),
-            }
-        )
-    ranking.sort(key=lambda r: -r["strength"])
+        rows.append((v, base[v], float(np.percentile(arr, 5)), float(np.percentile(arr, 95))))
+    rows.sort(key=lambda r: -r[1])
 
-    top2_separated = False
-    if len(ranking) >= 2:
-        top2_separated = ranking[0]["ci_low"] > ranking[1]["ci_high"]
+    top2_separated = len(rows) >= 2 and rows[0][2] > rows[1][3]
+    ranking = [
+        {"version": v, "strength": round(s, 4), "ci_low": round(lo, 4), "ci_high": round(hi, 4)}
+        for v, s, lo, hi in rows
+    ]
     return {
         "ranking": ranking,
         "n_outcomes": n,
