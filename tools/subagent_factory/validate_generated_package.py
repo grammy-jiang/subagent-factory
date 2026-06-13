@@ -369,6 +369,24 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         elif tier >= min_tier:
             fail("tier-artifact", f"tier {tier} requires {rel} (missing)")
 
+    # Step 7: multi-source synthesis expected on Tier-2+ packages built from >=2 sources. Advisory
+    # (WARN), not FAIL — packages authored before Step 7 lack the cluster/graph artifacts; surfacing
+    # the gap drives a re-synthesis without breaking them. When present, the tier loop above already
+    # validated them (min_tier 99 entries).
+    try:
+        _prof = yaml.safe_load((base / "profile.yaml").read_text(encoding="utf-8")) or {}
+    except (OSError, yaml.YAMLError):
+        _prof = {}
+    if tier >= 2 and len(_prof.get("sources") or []) >= 2:
+        for art in ("principle-clusters.json", "principle-graph.json"):
+            if (base / "principles" / art).exists():
+                ok("multisource-synthesis", f"{art} present")
+            else:
+                warn(
+                    "multisource-synthesis",
+                    f"Tier-2 multi-source package has no principles/{art} — run Step 7 synthesis",
+                )
+
     # Step 8: skill/reference body authoring — status-gated. FAIL only when the profile
     # declares status: ready with an unauthored or invalid skill/reference; otherwise WARN
     # (authored N/M). Draft packages (all 15 current ones) only ever WARN here.
