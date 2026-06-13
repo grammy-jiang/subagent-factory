@@ -86,3 +86,21 @@ def test_unresolved_contradiction(tmp_path):
     }
     rp = _pkg(tmp_path, rep, profile={"quality_bar": []})
     assert any("CONTRADICTED" in e for e in validate_faithfulness_report(rp))
+
+
+def test_freetext_anchor_flagged_as_invalid(tmp_path):
+    # The faithfulness step sometimes emits a section description instead of an anchor id; it must
+    # be flagged distinctly (free text), not as a merely-missing index entry.
+    rep = {
+        **_GOOD,
+        "findings": [
+            {
+                "rule_ref": "quality_bar",
+                "verdict": "WITHIN_SCOPE",
+                "action": "accept_with_note",
+                "source_anchors": ["whole book — explanatory commentary style"],
+            }
+        ],
+    }
+    rp = _pkg(tmp_path, rep, profile={"quality_bar": []}, anchors=["src-1-h0001"])
+    assert any("not a valid anchor id" in e for e in validate_faithfulness_report(rp))

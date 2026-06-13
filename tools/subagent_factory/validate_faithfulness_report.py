@@ -21,6 +21,11 @@ import yaml
 _SCHEMA_PATH = (
     Path(__file__).parent.parent.parent / "schemas" / "faithfulness-report-v1.schema.json"
 )
+# An anchor id ends in a type letter + digits (``-h0007``, ``-t0042``, ``-p0003``). The
+# faithfulness step occasionally emits a free-text section description ("ch4 Traps — RISC-V
+# registers") instead of a real id; this pattern separates that generation defect from a
+# merely-missing id so the error is self-explanatory.
+_ANCHOR_ID_RE = re.compile(r"-[a-z]\d{3,}$")
 
 
 def _profile_fields(base: Path) -> set[str]:
@@ -83,7 +88,12 @@ def validate_faithfulness_report(report_path: str | Path) -> list[str]:
                 f"findings[{i}].rule_ref '{rule_ref}' has no field '{top}' in profile.yaml"
             )
         for a in finding.get("source_anchors", []) or []:
-            if anchors and a not in anchors:
+            if not _ANCHOR_ID_RE.search(str(a)):
+                errors.append(
+                    f"findings[{i}].source_anchors entry '{str(a)[:60]}' is not a valid anchor id "
+                    "(looks like free text) — the faithfulness step must cite real anchor ids"
+                )
+            elif anchors and a not in anchors:
                 errors.append(
                     f"findings[{i}].source_anchors entry '{a}' is not in the anchor index"
                 )
