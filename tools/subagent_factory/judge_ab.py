@@ -13,8 +13,10 @@ from __future__ import annotations
 
 import json
 import re
+from collections import Counter
 from collections.abc import Callable
 from pathlib import Path
+from statistics import mean
 
 from tools.subagent_factory.rank_versions import rank_versions
 
@@ -74,5 +76,54 @@ def run_ab(
         "passes": passes,
         "outcomes": outcomes,
         "n_decided": len(outcomes),
+        "ranking": rank_versions(outcomes, seed=seed),
+    }
+
+
+def run_ab_ensemble(
+    ver_a: str,
+    text_a: str,
+    ver_b: str,
+    text_b: str,
+    judges: list[Callable[[str], str]],
+    passes: int = 6,
+    seed: int = 0,
+) -> dict:
+    """Ensemble variant (B3): poll several judges per pass, take the majority, self-audit agreement.
+
+    NOTE on independence: the research wants judges that are NOT base models of either candidate.
+    An all-same-family ensemble (e.g. all Claude) does NOT remove self-preference bias — it only
+    reduces variance and exposes instability. ``mean_judge_agreement`` is the self-audit: if the
+    judges disagree a lot (low agreement) the verdict is low-confidence regardless of what
+    ``rank_versions`` says. ``stable`` flags agreement >= 0.7.
+    """
+    outcomes: list[dict] = []
+    agreements: list[float] = []
+    for i in range(passes):
+        if i % 2 == 0:
+            (l1, t1, v1), (l2, t2, v2) = ("Review-1", text_a, ver_a), ("Review-2", text_b, ver_b)
+        else:
+            (l1, t1, v1), (l2, t2, v2) = ("Review-1", text_b, ver_b), ("Review-2", text_a, ver_a)
+        prompt = build_judge_prompt(l1, t1, l2, t2)
+        votes: list[str] = []
+        for j in judges:
+            w = parse_winner(j(prompt))
+            if w == "Review-1":
+                votes.append(v1)
+            elif w == "Review-2":
+                votes.append(v2)
+        if not votes:
+            continue
+        win, cnt = Counter(votes).most_common(1)[0]
+        agreements.append(cnt / len(votes))
+        outcomes.append({"winner": win, "loser": v2 if win == v1 else v1})
+    mean_agreement = round(mean(agreements), 3) if agreements else 0.0
+    return {
+        "passes": passes,
+        "n_judges": len(judges),
+        "outcomes": outcomes,
+        "n_decided": len(outcomes),
+        "mean_judge_agreement": mean_agreement,
+        "stable": mean_agreement >= 0.7,
         "ranking": rank_versions(outcomes, seed=seed),
     }
