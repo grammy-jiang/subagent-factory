@@ -31,12 +31,17 @@ gate).
 |---|---|---|---|
 | B1 | Bradley-Terry + bootstrap-CI version ranking | det | ✅ `rank_versions.py` |
 | B2 | Position-swapped pairwise judging | det core + LLM judge | ✅ `judge_ab.py` (injectable judge) |
-| B3 | **judge ensemble + self-audit** (mean inter-judge agreement, `stable` flag) | LLM | ✅ `judge_ab.run_ab_ensemble` — *mechanism only; true independence needs non-Claude judges* |
+| B3 | **judge ensemble + self-audit** (mean inter-judge agreement, `stable` flag) | LLM | ✅ `judge_ab.run_ab_ensemble` + **independent judge via `examples/codex-judge.sh` (codex / gpt-5.5)** — real cross-family ensemble, not just same-family variance |
 | B4 | **gold-set + IAA** (Cohen's κ, judge-vs-gold, trust flag) to break circular eval | det math | ✅ `gold_eval.py` — *harness done; gold DATA must be human-authored (not LLM)* |
 | B5 | **Cost/compute-parity accounting** (review length + disparity flag) | det | ✅ `eval_report.py` |
 | B6 | Wire the deterministic hedge (`grounding_check` + `claim_recall`) into the harness report | det | ✅ `eval_report.py` |
 
-**B status:** the harness is functional end-to-end (`eval_report` = judge[+ensemble] → rank → grounding + cost) and was used to reach the conclusive 1-vs-2-source verdict (advice EQUAL, grounding the only win). Two values are gated on resources, not code: a **non-Claude judge family** (B3 independence) and a **human gold set** (B4 data). A strong simple baseline (B5) is still optional — add a generic non-grounded reviewer to the pool when running a comparison that needs it.
+**B status:** harness functional end-to-end (`eval_report` = judge[+ensemble] → rank → grounding +
+cost), used to reach the conclusive 1-vs-2-source verdict (advice EQUAL, grounding the only win).
+**Independence now real:** `codex` (gpt-5.5) on this machine is wired as a non-Claude judge
+(`examples/codex-judge.sh`), so the ensemble can measure genuine cross-family agreement, not just
+same-family variance. Only **B4 gold DATA** stays human-gated (the κ harness is built). A strong
+simple baseline (B5) is optional — add a generic non-grounded reviewer to the pool when needed.
 
 ## C. knowledge-graph → Phase 7A (refine the principle graph)
 Research **done** (report in `docs/Research/knowledge-graph-ontology-construction/`). It **validates
