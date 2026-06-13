@@ -68,13 +68,18 @@ Adding *A Philosophy of Software Design* to the *Code Simplicity* subagent:
 - **Grounding (measured, deterministic, solid):** the 6 leaked terms went from 0 → grounded in its
   principles (`grounding_check`, judge-independent); findings 8 → 10; tier 1 → 2. Also exercised the
   multi-source authoring path (claims split across both books, validates).
-- **Advice quality (rigorously re-judged — INCONCLUSIVE):** under `judge_ab` (6 position-swapped
-  passes) + `rank_versions`, the 2-source review won 4–2 but the Bradley-Terry CIs **overlap**
-  (`top2_separated: false`), so it is **not a statistically reliable win at n=6** — and the
-  2-source review is longer (220 vs 104 lines), so part of the lean may be length despite the
-  no-length-reward rubric. A conclusive verdict needs more passes (AC4) and ideally a non-Claude
-  judge. The earlier qualitative "more capable" read is therefore **downgraded to "leans better,
-  unconfirmed"** — exactly the correction the rigorous harness exists to make.
+- **Advice quality (rigorously judged — STATISTICALLY EQUAL):** under `eval_report` (`judge_ab`
+  **20** position-swapped passes + `rank_versions`), the two versions split **10–10** with identical
+  Bradley-Terry strength 0.5, CI [0.3, 0.7] each (`separated: false`). The n=6 4–2 lean was noise;
+  at n=20 advice quality is **indistinguishable** — and the 2-source review is **2× longer** (221 vs
+  105 lines, parity flag 110%) yet no better, so the extra length/findings did **not** translate to
+  measurably better advice under a blind, length-neutral judge. The original qualitative "more
+  capable" read is **withdrawn**.
+- **Net:** multi-source synthesis's measured value is **grounding/faithfulness** (2-source: 4 vs 8
+  cross-source borrows — deterministic, judge-independent), **not** better advice. "Add a source"
+  is justified for grounding + coverage, not for advice quality per se. This counter-intuitive,
+  measured result is exactly what the harness exists to produce — and it took *three* rounds
+  (qualitative → n=6 → n=20) to land on the truth.
 
 ## Caveats
 
