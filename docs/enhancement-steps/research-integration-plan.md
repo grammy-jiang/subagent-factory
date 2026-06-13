@@ -31,10 +31,12 @@ gate).
 |---|---|---|---|
 | B1 | Bradley-Terry + bootstrap-CI version ranking | det | ✅ `rank_versions.py` |
 | B2 | Position-swapped pairwise judging | det core + LLM judge | ✅ `judge_ab.py` (injectable judge) |
-| B3 | **3-judge ensemble** (members not base models of a candidate) + within/inter-judge self-audit | LLM | todo — extend judge_ab |
-| B4 | **Independent gold/human set + IAA** (Krippendorff α) to break circular eval | data + det | todo |
-| B5 | **Cost/compute-parity accounting + strong simple baseline** in every comparison | det | todo — extend judge_ab/report |
-| B6 | Wire the deterministic hedge (`grounding_check` + `claim_recall`) into the harness report | det | tools exist; wire |
+| B3 | **judge ensemble + self-audit** (mean inter-judge agreement, `stable` flag) | LLM | ✅ `judge_ab.run_ab_ensemble` — *mechanism only; true independence needs non-Claude judges* |
+| B4 | **gold-set + IAA** (Cohen's κ, judge-vs-gold, trust flag) to break circular eval | det math | ✅ `gold_eval.py` — *harness done; gold DATA must be human-authored (not LLM)* |
+| B5 | **Cost/compute-parity accounting** (review length + disparity flag) | det | ✅ `eval_report.py` |
+| B6 | Wire the deterministic hedge (`grounding_check` + `claim_recall`) into the harness report | det | ✅ `eval_report.py` |
+
+**B status:** the harness is functional end-to-end (`eval_report` = judge[+ensemble] → rank → grounding + cost) and was used to reach the conclusive 1-vs-2-source verdict (advice EQUAL, grounding the only win). Two values are gated on resources, not code: a **non-Claude judge family** (B3 independence) and a **human gold set** (B4 data). A strong simple baseline (B5) is still optional — add a generic non-grounded reviewer to the pool when running a comparison that needs it.
 
 ## C. knowledge-graph → Phase 7A (refine the principle graph)
 Research **done** (report in `docs/Research/knowledge-graph-ontology-construction/`). It **validates
