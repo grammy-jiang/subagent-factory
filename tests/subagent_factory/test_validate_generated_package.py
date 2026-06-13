@@ -6,6 +6,16 @@ import yaml
 
 import tools.subagent_factory.validate_generated_package as vgp
 
+# A substantive adapter body that passes the adapter-quality gate (header + load-bearing
+# sections + length). Canonical and matching-installed adapters use this identical content.
+_ADAPTER_BODY = (
+    "<!-- GENERATED FILE. DO NOT EDIT DIRECTLY. -->\n\n# agent\n\n"
+    "## Role\n\nExpert reviewer with real substance.\n\n"
+    "## When to use\n\nWhen the user needs a review.\n\n"
+    "## Supported modes and outputs\n\n### `review`\n\nReviews.\n\n"
+    "## Quality bar\n\n- concrete\n- grounded\n- padding\n- padding\n- padding\n- padding\n"
+)
+
 
 def _write_metadata(pkg, source_id="s1", sha256="abc"):
     meta_dir = pkg / "sources" / "metadata"
@@ -118,12 +128,12 @@ def _build(
 
     adapter_dir = pkg / "adapters" / "claude-code"
     adapter_dir.mkdir(parents=True)
-    (adapter_dir / f"{slug}.md").write_text("ADAPTER-CONTENT", encoding="utf-8")
+    (adapter_dir / f"{slug}.md").write_text(_ADAPTER_BODY, encoding="utf-8")
 
     gen_dir = repo / ".claude" / "agents" / "generated"
     gen_dir.mkdir(parents=True)
     if installed == "match":
-        (gen_dir / f"{slug}.md").write_text("ADAPTER-CONTENT", encoding="utf-8")
+        (gen_dir / f"{slug}.md").write_text(_ADAPTER_BODY, encoding="utf-8")
     elif installed == "mismatch":
         (gen_dir / f"{slug}.md").write_text("STALE-DIFFERENT-CONTENT", encoding="utf-8")
     # installed == "absent": create nothing

@@ -34,6 +34,7 @@ from tools.subagent_factory.detect_stale import detect_stale
 from tools.subagent_factory.profile_self_check import profile_self_check
 from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
 from tools.subagent_factory.quote_scan import quote_scan
+from tools.subagent_factory.validate_adapter_quality import validate_adapter_quality
 from tools.subagent_factory.validate_anchor_index import validate_anchor_index
 from tools.subagent_factory.validate_claims import validate_claims
 from tools.subagent_factory.validate_evidence_records import validate_evidence_records
@@ -370,6 +371,17 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
             warn("skill-authoring", msg)
         else:
             ok("skill-authoring", msg)
+
+    # Adapter output-quality gate: the exported deliverable must be substantive (DO-NOT-EDIT
+    # header, no stub/placeholder tokens, load-bearing sections present + non-empty). Complements
+    # the existence + security (adapter-policy) checks above.
+    for level, msg in validate_adapter_quality(base):
+        if level == "FAIL":
+            fail("adapter-quality", msg)
+        elif level == "WARN":
+            warn("adapter-quality", msg)
+        else:
+            ok("adapter-quality", msg)
 
     # Step 9: stale maintenance — authored bodies whose grounding (cited principles/claims) has
     # drifted since authoring. Advisory only: a stale flag is human-reviewed/re-authored before
