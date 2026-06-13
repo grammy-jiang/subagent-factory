@@ -20,9 +20,14 @@ advice. This doc is the method for measuring that, plus the first finding it pro
    groundedness (no hallucination — every finding traceable to the doc), concreteness
    (issue→why→recommendation, anchored), coverage (caught the obvious issues), scope discipline
    (declined out-of-lane parts), actionability (prioritized, present-time).
-5. **Grounding check (the non-obvious axis):** grep the review's domain vocabulary against the
-   subagent's own `principles.yaml`. Vocab the review leans on that has **0 hits** in its principles
-   is *base-model knowledge wearing the persona*, not distilled source expertise.
+5. **Grounding check (the non-obvious axis) — automated:**
+   ```bash
+   python -m tools.subagent_factory.cli grounding-check <slug> <review.md> <reviewed-doc.md>
+   ```
+   It excludes vocabulary quoted from the reviewed doc, then scores the reviewer's own concept
+   bigrams against the subagent's grounded vocab (`principles.yaml` + `claims.jsonl`). Crucially it
+   flags **cross-source borrows** — concept terms grounded in *another* subagent's source — and
+   names the source(s) to add. That operationalises the recipe below: the borrow names its own fix.
 6. **Deterministic content complement:** `tools/subagent_factory/claim_recall.py` scores how many of
    one claim set another recalls (token-F1, no ML) — for comparing extraction arms on content.
 

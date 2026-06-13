@@ -217,6 +217,34 @@ def cmd_repair_faithfulness(slug):
         console.print("[green]Clean:[/green] no invalid anchor refs")
 
 
+@main.command("grounding-check")
+@click.argument("slug")
+@click.argument("review")
+@click.argument("doc", required=False)
+def cmd_grounding_check(slug, review, doc):
+    """Score a review's grounding vs the subagent's source; name cross-source borrows.
+
+    SLUG = subagent; REVIEW = its review output file; DOC (optional) = the reviewed document
+    (its quoted nouns are excluded). Cross-source borrows name the source to add (multi-source).
+    """
+    from tools.subagent_factory.grounding_check import grounding_check
+
+    repo_root = Path(__file__).parent.parent.parent
+    r = grounding_check(repo_root / "subagents" / slug, review, doc)
+    console.print(
+        f"grounding coverage [bold]{r['coverage']:.0%}[/bold] "
+        f"({r['n_grounded']}/{r['n_concept_terms']} concept bigrams grounded; "
+        f"{r['n_leak']} leak candidates; {r['n_doc_quoted_dropped']} doc-quoted dropped)"
+    )
+    for bg, n, sibs in r["cross_source_terms"]:
+        console.print(f"  [yellow]borrow[/yellow] x{n} {bg} <- {', '.join(sibs)}")
+    if r["suggested_sources"]:
+        console.print(
+            "suggested source(s) to add: "
+            + ", ".join(f"{s}(+{w})" for s, w in r["suggested_sources"])
+        )
+
+
 @main.command("score")
 @click.argument("units_file")
 @click.option("--worksheet", "worksheet_out", help="Write the Markdown shortlist to this path.")
