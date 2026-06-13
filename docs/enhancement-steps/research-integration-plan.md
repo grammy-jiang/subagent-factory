@@ -18,13 +18,25 @@ Highest output-quality leverage: it shapes the deliverable (the adapter). Lean o
 (`principle-behaviour-tests.yaml` is the replay harness; `validate_adapter_quality` is the examples
 gate).
 
-| # | change | det / LLM | leans on |
+| # | change | det / LLM | status |
 |---|---|---|---|
-| A1 | **Example selection by utility** — when authoring adapter examples, prefer ones that measurably change behaviour on the package's behaviour-tests, not embedding similarity | det: replay-score candidates; LLM: draft | principle-behaviour-tests, run_tests |
-| A2 | **Replay gate on generated rules/examples** — keep only those that don't regress behaviour-tests (SkillCAT assess-before-merge) | det | run_tests, validate gate |
+| A1 | **Example selection by utility** — when authoring adapter examples, prefer ones that measurably change behaviour on the package's behaviour-tests, not embedding similarity | det: replay-score candidates; LLM: draft | ✅ `behaviour_replay.rank_examples_by_utility` (+ `cli replay-score`) |
+| A2 | **Replay gate on generated rules/examples** — keep only those that don't regress behaviour-tests (SkillCAT assess-before-merge) | det | ✅ `behaviour_replay.replay_gate` (+ `cli replay-gate`, exit-1 on regression) |
 | A3 | **Compile must-hold principles → machine-checkable checks** (adapter enforced-invariant layer) | det check + LLM mine | export_claude_agent, a checks artifact |
 | A4 | **Require ≥1 failure-and-recovery example** per adapter (not only happy-path) | det gate | validate_adapter_quality (extend) |
 | A5 | **Split adapter into enforced-invariant + induced-guidance layers** | det structure + LLM author | export_claude_agent |
+
+**A1+A2 status:** built on one shared **replay engine** (`tools/subagent_factory/behaviour_replay.py`)
+— the execution counterpart to structural-only `run_tests`. It runs each `tests/*.yaml` prompt
+through an adapter (as system prompt) via an **injectable runner** (real: `examples/replay-runner.sh`
+→ `claude -p --append-system-prompt`; tests: a fake) and scores it with an **injectable grader**
+(default = coarse *deterministic* proxy: route engage/decline + `minimum_output` token-recall +
+`must_ask_for` + `must_not_do`; swap an LLM grader in for absolute scoring). A1 ranks candidate
+examples by measured marginal utility (not similarity); A2 is the SkillCAT assess-before-merge gate
+(FAIL on any per-test regression). Proven end-to-end on a real model (advertising-effectiveness
+GT-001 → score 0.72). The grader's value is *relative consistency* (deltas/regressions), documented
+as such. **Open follow-on:** wire an LLM grader option, and add an `examples` slot to the profile/
+adapter template so A1's selected examples actually land in the exported adapter.
 
 ## B. agent-benchmarking → Phase 10 (output-quality harness) = the **#1** build
 | # | change | det / LLM | status |
@@ -59,13 +71,17 @@ build:
 ---
 
 ## Prioritized roadmap (output-quality first)
-1. **A1 + A2** — example-by-utility + replay gate. Biggest direct adapter-quality lift; reuses the
-   behaviour-test harness; mostly deterministic.
-2. **B3 + B5 + B6** — finish the eval harness (#1): judge ensemble + cost-parity + deterministic
-   hedge wiring. Lets every future change be *measured*, not hand-judged.
-3. **A4 + A3 + A5** — recovery-example gate, compiled invariant checks, layered adapter.
-4. **B4** — independent gold set (data work; the rigorous-eval capstone).
+1. ✅ **A1 + A2** — example-by-utility + replay gate (`behaviour_replay.py`). Done: shared replay
+   engine, injectable runner/grader, CLI, 12 tests, live-proven.
+2. ✅ **B3 + B5 + B6** — eval harness (#1): judge ensemble (+ cross-family codex judge) + cost-parity
+   + deterministic hedge wiring. Every future change is now *measurable*, not hand-judged.
+3. **A4 + A3 + A5** — recovery-example gate, compiled invariant checks, layered adapter. **← next**
+4. **B4** — independent gold set (human data work; the rigorous-eval capstone).
 5. **C1 + C2** — graph refinement, after the kg report.
+
+**Follow-on for A1/A2 (small):** LLM-grader option for absolute scoring; an `examples` slot in the
+profile schema + adapter template so A1-selected examples land in the exported adapter (today the
+engine ranks/gates candidates but the template has no examples section to receive them).
 
 ## Cross-cutting constraints (from the research)
 - Every LLM step passes a deterministic gate before entering the adapter (factory discipline).
