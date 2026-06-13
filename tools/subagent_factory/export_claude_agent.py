@@ -46,6 +46,11 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
     result["slug"] = slug
 
     ctx = _build_template_context(profile)
+    # A3/A5: compile must-hold (high-confidence profile-rule) principles into a distinct enforced
+    # invariant layer, traceable to each principle_id. Empty when no principles / none must-hold.
+    from tools.subagent_factory.compile_invariants import compile_invariants, load_principles
+
+    ctx["invariants"] = compile_invariants(load_principles(subagent_path))
 
     # Renders a Markdown adapter (not HTML) from trusted profile data;
     # HTML autoescape would corrupt Markdown punctuation in the output.

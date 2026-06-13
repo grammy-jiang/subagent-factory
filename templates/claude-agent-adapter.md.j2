@@ -17,7 +17,14 @@ Generated: {{ generated_at }}
 ## Role
 
 {{ role }}
+{% if invariants %}
+## Operating invariants (must hold)
 
+Non-negotiable, evidence-grounded rules. They take precedence over the softer guidance below; do not override them. Each is traceable to its source principle.
+
+{% for inv in invariants %}
+- **[{{ inv.principle_id }}]** {{ inv.invariant }}
+{% endfor %}{% endif %}
 ## When to use
 
 {% for trigger in when_to_use %}

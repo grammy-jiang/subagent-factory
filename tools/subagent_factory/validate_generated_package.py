@@ -30,6 +30,7 @@ import yaml
 
 from tools.subagent_factory.adapter_policy_scan import adapter_policy_scan
 from tools.subagent_factory.classify_tier import classify_tier
+from tools.subagent_factory.compile_invariants import validate_invariant_coverage
 from tools.subagent_factory.detect_stale import detect_stale
 from tools.subagent_factory.profile_self_check import profile_self_check
 from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
@@ -78,6 +79,10 @@ _TIER_ARTIFACTS: list = [
     # now so they are auto-validated the moment they exist.
     ("principles/principle-clusters.json", 99, validate_principle_clusters),
     ("principles/principle-graph.json", 99, validate_principle_graph),
+    # Phase 9 (instruction-induction A3/A5): the adapter's must-hold invariant layer must cover
+    # every high-confidence profile-rule principle. Non-breaking: skips adapters with no invariant
+    # section (pre-feature) and only catches a STALE invariant section once one exists.
+    ("principles/principles.yaml", 99, validate_invariant_coverage),
     # Phase 9 (instruction-induction A4): optional worked-example slot. Validate-if-present —
     # profile.yaml always exists so this runs every time, but returns [] unless an `examples` block
     # is present, so the example-less packages pass trivially. When examples ARE present, A4 bites:

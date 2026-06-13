@@ -22,9 +22,9 @@ gate).
 |---|---|---|---|
 | A1 | **Example selection by utility** — when authoring adapter examples, prefer ones that measurably change behaviour on the package's behaviour-tests, not embedding similarity | det: replay-score candidates; LLM: draft | ✅ `behaviour_replay.rank_examples_by_utility` (+ `cli replay-score`) |
 | A2 | **Replay gate on generated rules/examples** — keep only those that don't regress behaviour-tests (SkillCAT assess-before-merge) | det | ✅ `behaviour_replay.replay_gate` (+ `cli replay-gate`, exit-1 on regression) |
-| A3 | **Compile must-hold principles → machine-checkable checks** (adapter enforced-invariant layer) | det check + LLM mine | export_claude_agent, a checks artifact |
+| A3 | **Compile must-hold principles → machine-checkable checks** (adapter enforced-invariant layer) | det check + LLM mine | ✅ `compile_invariants` (high-confidence profile-rule principles → PRP-tagged invariants) + `validate_invariant_coverage` gate |
 | A4 | **Require ≥1 failure-and-recovery example** per adapter (not only happy-path) | det gate | ✅ `validate_examples` + `examples` profile slot + adapter template section |
-| A5 | **Split adapter into enforced-invariant + induced-guidance layers** | det structure + LLM author | export_claude_agent |
+| A5 | **Split adapter into enforced-invariant + induced-guidance layers** | det structure + LLM author | ✅ `## Operating invariants (must hold)` adapter section (above the guidance), rendered from A3's compiled invariants |
 
 **A4 + examples-slot status:** added an optional `examples` block to `profile.yaml`
 (`{title, kind, scenario, ideal_response}`, `kind ∈ {happy-path, failure-recovery}`), rendered into a
@@ -83,13 +83,15 @@ build:
    engine, injectable runner/grader, CLI, 12 tests, live-proven.
 2. ✅ **B3 + B5 + B6** — eval harness (#1): judge ensemble (+ cross-family codex judge) + cost-parity
    + deterministic hedge wiring. Every future change is now *measurable*, not hand-judged.
-3. **A4** ✅ recovery-example gate + examples slot (done). **A3 + A5** — compiled invariant checks,
-   layered adapter **← next**.
-4. **B4** — independent gold set (human data work; the rigorous-eval capstone).
+3. ✅ **A4** recovery-example gate + examples slot. ✅ **A3 + A5** compiled must-hold invariant layer
+   (`compile_invariants` → `## Operating invariants` + non-breaking coverage gate).
+4. **B4** — independent gold set (human data work; the rigorous-eval capstone). **← next resource-gated**
 5. **C1 + C2** — graph refinement, after the kg report.
 
-**Follow-on for A1/A2 (small):** LLM-grader option for absolute scoring. ✅ The `examples` slot
-(profile + adapter template) is now built, so A1-selected examples have a real section to land in.
+**The whole A-track (A1–A5) is now built.** Remaining: B4 (human gold data) and C1/C2 (graph
+refinement, needs an embedding model). Follow-ons (small): LLM-grader option for the replay engine;
+an LLM wording-refinement pass over compiled invariants; **bulk re-export** of the 23 existing
+packages so they adopt the invariant + examples layers (each is non-breaking until re-exported).
 
 ## Cross-cutting constraints (from the research)
 - Every LLM step passes a deterministic gate before entering the adapter (factory discipline).
