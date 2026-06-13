@@ -33,7 +33,7 @@ subagent_workflow_quality_enhancement_plan.md      (original 12 enhancements)
 | 4 | `step-4-principle-promotion.md` | full | **implemented** | 2,3 | (argument-mining, light) |
 | 5 | `step-5-principle-tests.md` | full | **implemented** | 4 | — |
 | 6 | `step-6-patch-safety.md` | full | **implemented** | 5 | (prompt-injection, light) |
-| 7 | `step-7-multisource.md` | stub | deferred | 4 | (argument-mining AM relations, future) |
+| 7 | `step-7-multisource.md` | full | **building (scaffolding merged; LLM steps in progress)** | 4 | argument-mining + knowledge-fusion-conflict-detection |
 | 8 | `step-8-skill-authoring.md` | full | **implemented** | 0,2–5 | (factual-consistency guards the bodies) |
 | 9 | `step-9-stale-maintenance.md` | full | **implemented** | 8 | — |
 | 10 | `step-10-source-structure-mapping.md` | full | **spec (research done; scaffolding built)** | 0,2 | long-document-structure-mapping |
