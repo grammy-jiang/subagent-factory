@@ -131,6 +131,11 @@ def grade_output(test: dict, output: str) -> dict:
     - ``ask`` (0.1, only if ``must_ask_for``): asked a question that overlaps the required ask.
     - ``mustnot`` (0.1): heuristic — penalise outputs whose tokens strongly overlap a forbidden
       item. Deterministic "did NOT do X" detection is unreliable; this is a weak signal, low weight.
+      **Known inversion (measured):** an expert answer that *names and condemns* a forbidden pattern
+      ("reject 'complexity now, fix later'") lexically overlaps the forbidden phrase and is scored as
+      a violation — i.e. ``mustnot`` can move the *wrong way* for the *best* answers. Do not read
+      ``mustnot`` as an adherence verdict; a real one needs a **semantic (LLM) grader** (inject one
+      via ``grader=``). See ``docs/output-quality-eval.md`` (invariant-layer A/B finding).
 
     The number is a *proxy*: trust it for relative comparison (A1 deltas, A2 regressions), not as an
     absolute quality verdict. Returns the score plus its components for transparency.
