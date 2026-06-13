@@ -37,11 +37,17 @@ gate).
 | B6 | Wire the deterministic hedge (`grounding_check` + `claim_recall`) into the harness report | det | tools exist; wire |
 
 ## C. knowledge-graph → Phase 7A (refine the principle graph)
-Lowest urgency — the graph already exists (Step-7 Phase C). When the report lands:
-| # | change | det / LLM |
-|---|---|---|
-| C1 | Taxonomy/alias induction methods → improve `seed_principle_clusters` recall + relation typing | det seed + LLM |
-| C2 | Edge/relation vocabulary + provenance refinements to `principle-graph-v1` | det schema |
+Research **done** (report in `docs/Research/knowledge-graph-ontology-construction/`). It **validates
+the Step-7 graph design already shipped**: typed-triple multigraph, closed edge vocab
+`{refines, supports, specialises, alias}`, directed edges (never symmetric-score refines/
+specialises), and "LLM proposes / deterministic decides + provenance gate" — all match
+`principle-graph-v1` + the seed→LLM-confirm→validate flow. So C is low-urgency *refinement*, not new
+build:
+| # | refinement (from the report) | det / LLM | status |
+|---|---|---|---|
+| C1 | **3-stage dedup cascade** — add (b) distributional cosine + (c) graph-structural similarity to the current (a) lexical `seed_principle_clusters`; closes its known paraphrase-blindness | det + embeddings | todo (needs an embedding model) |
+| C2 | **PROV-O provenance** — `wasDerivedFrom`/`wasAttributedTo` on nodes/edges (current graph has cluster_id/method/confidence — a subset) | det schema | optional |
+| C3 | **Hearst dependency-path patterns** for `specialises` (is-a) induction, hybrid with distributional | det + LLM | optional |
 
 ---
 
