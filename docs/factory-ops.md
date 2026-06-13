@@ -82,13 +82,38 @@ guessing):
 python -m tools.subagent_factory.reground_skill_anchors subagents/<slug>   # skills + references
 ```
 
-**When a deterministic patch is NOT enough.** If the failing anchors are on **atomic claims**
-(`claims.jsonl`) / **evidence** referencing slugs with no line info against a heading-less source,
-there is nothing safe to map to — a claim's anchor asserts *support*, and lexical overlap can point at
-a span that merely shares words. That package needs **re-authoring** (re-run distillation against the
-restored anchor index), not a patch. (Worked example: the 4 bulk-re-export failures split exactly this
-way — advertising/startup-ceo fixed by `remap`, kafka by `reground` (skills+references), negotiation
-left for re-author because all 64 claims are concept slugs.)
+**Claim/evidence anchors that are concept slugs (`ch1-tactical-empathy`).** These name a *section*,
+not a span. Two cases:
+
+1. *Source has (or can recover) headings.* A slug is a slugified section title, so map it back to the
+   heading it names — faithful **recovery**, not a guess. If the package was converted by the old
+   markitdown path (no headings, tab/table-noise prose — check `sources/reports/*.conversion-report.md`),
+   first **re-convert with Docling in place** (keeps the source_id stable, so claims still resolve),
+   regenerate anchors, then `reanchor_by_heading` maps each slug to its source's best-matching heading
+   (≥1 shared concept token; no match ⇒ left empty, never forced):
+   ```bash
+   python - <<'PY'   # re-convert in place + regenerate anchors (Docling, local CPU, no model cost)
+   from pathlib import Path
+   from tools.subagent_factory.convert_pdf import convert_pdf
+   from tools.subagent_factory.inject_anchors import inject_anchors
+   b = Path("subagents/<slug>"); sid = "<source_id>"
+   md = b/f"sources/markdown/{sid}.md"
+   convert_pdf(b/f"sources/original/{sid}/original.pdf", md)
+   inject_anchors(md, md, b/f"sources/anchors/{sid}.anchors.jsonl", sid)
+   PY
+   python -m tools.subagent_factory.reanchor_by_heading subagents/<slug>   # slug -> heading; evidence inherits
+   ```
+   (Run any `python -` heredoc with **stdin** as above, not `python /tmp/x.py` — a stray `/tmp/struct.py`
+   shadows the stdlib and breaks the converters.)
+2. *A claim's concept has no heading* (a sub-point) — `reanchor_by_heading` leaves it empty (valid,
+   honest). To anchor it to a prose span, `reanchor_claims` (surgical LLM: content-narrow candidates →
+   LLM picks the supporting span) works **once the source is clean** — it cannot find a faithful span in
+   markitdown-corrupted prose.
+
+**Worked example — the 4 bulk-re-export failures, all fixed:** advertising + startup-ceo by `remap`
+(`:L<n>` line refs); kafka by `reground` (Tier-0 skills/references, bare source-ids); negotiation by
+**Docling re-convert + `reanchor_by_heading`** (markitdown→Docling recovered 166 headings, 55/64 claim
+slugs resolved to them, 9 headingless concepts left empty) — zero model cost.
 
 ## Evaluate extraction (claim recall)
 
