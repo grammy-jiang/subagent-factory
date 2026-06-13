@@ -42,11 +42,16 @@ inputs/                     drop source files here before running /author-subage
 
 ## Key docs (read when relevant)
 
+- `docs/state-of-the-factory.md` — **start here.** Orientation: what's built, the A/B/C tracks, the
+  repair toolset, the measured eval findings, what's open.
 - `docs/factory-ops.md` — operational guide: corpus-health, Docling install + converter-keyed
-  cache, re-author a package, faithfulness repair, claim-recall, validate.
+  cache, re-author a package, faithfulness/anchor repair (remap / reground / heading / surgical),
+  claim-recall, validate.
 - `docs/output-quality-eval.md` — how to evaluate whether a generated subagent gives *good advice*
   (not just whether it validates), and the **eval-driven multi-source grounding** recipe: an
-  output-eval grounding leak names the missing source → add it via multi-source authoring → the
-  expert becomes more faithful *and* more capable (proven A/B). Read before assessing or improving
-  a subagent's quality.
-- `docs/enhancement-steps/` — per-step build specs (Steps 0–10, 20). `README.md` is the index.
+  output-eval grounding leak names the missing source → add it via multi-source authoring. Measured
+  result: multi-source's robust win is **grounding/faithfulness** (deterministic, judge-independent);
+  an advice-quality gain is **not** proven (judge-family-dependent — the "more capable" read was
+  withdrawn at n=20). Read before assessing or improving a subagent's quality.
+- `docs/enhancement-steps/` — per-step build specs (Steps 0–10, 20). `README.md` is the index;
+  `research-integration-plan.md` is the A/B/C track status.
