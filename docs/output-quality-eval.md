@@ -75,11 +75,18 @@ Adding *A Philosophy of Software Design* to the *Code Simplicity* subagent:
   105 lines, parity flag 110%) yet no better, so the extra length/findings did **not** translate to
   measurably better advice under a blind, length-neutral judge. The original qualitative "more
   capable" read is **withdrawn**.
-- **Net:** multi-source synthesis's measured value is **grounding/faithfulness** (2-source: 4 vs 8
-  cross-source borrows — deterministic, judge-independent), **not** better advice. "Add a source"
-  is justified for grounding + coverage, not for advice quality per se. This counter-intuitive,
-  measured result is exactly what the harness exists to produce — and it took *three* rounds
-  (qualitative → n=6 → n=20) to land on the truth.
+- **Cross-family judge check (B3, Claude + Codex/gpt-5.5, 6 swapped passes):** the verdict is
+  **judge-family-dependent.** Claude split 3–3 (its own tie); **Codex went 6–0 for 2-source**;
+  cross-family agreement **3/6 = chance** (self-audit: unstable). Twist — Claude *built* both
+  subagents yet is the skeptic, while the *independent* Codex prefers the richer/2× longer 2-source
+  (likely a length/detail bias, matching the cost-parity flag). Pooled leans 2-source (0.75) but CIs
+  still overlap → no robust separation. The research's "judges of different families disagree" is now
+  demonstrated on our own data — a single-family verdict can't be trusted alone.
+- **Net:** multi-source synthesis's only **robust, judge-independent** win is **grounding/
+  faithfulness** (2-source: 4 vs 8 cross-source borrows). Advice quality is **unresolved and
+  judge-dependent** (Claude: tie; Codex: 2-source, possibly on length). "Add a source" is justified
+  for grounding + coverage, not for a proven advice-quality gain. It took four rounds (qualitative →
+  n=6 → n=20 → cross-family) for the harness to surface this — exactly its purpose.
 
 ## Caveats
 
