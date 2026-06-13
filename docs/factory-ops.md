@@ -56,6 +56,23 @@ python -m tools.subagent_factory.cli repair-faithfulness <slug>   # writes repor
 python -m tools.subagent_factory.cli validate <slug>
 ```
 
+**Stale line/slug anchors (older packages).** If the `source_anchors` are line references
+(`<source_id>:L148`, `kafka-best-practices L753-757`) rather than free text, `remap` *recovers*
+them instead of dropping: it regenerates an empty anchor index from the surviving markdown, then
+line-maps each reference to the anchor covering that line (routing by source hint; a finding's bare
+`L<n>` inherits the source its hinted siblings agree on). Refs with no line — conceptual section
+slugs (`ch6-never-split`) — are quarantined, **never** fuzzy-matched (that would fabricate
+provenance):
+
+```bash
+python -m tools.subagent_factory.remap_faithfulness_anchors subagents/<slug>/reports/faithfulness-report.yaml
+```
+
+This fixes only the **faithfulness** report. When a package's `claims.jsonl` / `evidence-records.yaml`
+/ skill `provenance` *also* reference slugs with no line info against a heading-less source, there is
+nothing deterministic to map to — that package needs **re-authoring** (re-run distillation against the
+restored anchor index), not a patch.
+
 ## Evaluate extraction (claim recall)
 
 Compare two claim sets on content (no ML) — e.g. structure-mapped units vs flat claims:
