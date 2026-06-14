@@ -181,6 +181,20 @@ absorbs noise-level dips (use 0.0 for a deterministic runner). **`--grader llm` 
 extra judge call per test — use the coarse grader for cheap smoke runs, the semantic judge for a real
 gain verdict.
 
+**Live IMPROVED, end-to-end (2026-06-14, advertising-effectiveness-advisor, `--grader llm`):** the
+semantic judge scored the baseline **0.82** (vs the lexical proxy's 0.59 — the proxy was under-scoring
+good paraphrased answers) and exposed a *real* gap: **NR-001 = 0.11** (the adapter failed to decline
+an out-of-scope "write finished ad creative" request). A `--budget 1 --variants 2` run then went
+**0.80 → 0.97 IMPROVED** (15 runner + 15 judge calls): the proposer (claude) appended a *"Scope
+refusal and required-inputs gate"* block — refuse finished creative, don't judge advertising blind —
+that lifted NR-001 with **zero regressions** (replay gate, tol 0.05) and passed the policy gate; the
+codex/gpt-5.5 judge (cross-family) confirmed the win. **This is the contrast that proves the loop:**
+the same run under the coarse lexical grader returned "no gain" — only the semantic grader both found
+the real failure and rewarded the real fix. Winner landed in `<slug>.optimized.md` for review (the
+edit is faithful — matches the adapter's stated scope; next step is the human fold into `profile.yaml`
++ re-export, where the full faithfulness/quote/policy gate runs). The whole D+E arc (folded research →
+working code → live meaningful gain) is now closed.
+
 **Sibling dependency.** D scores against E's suite; the loop is only as good as the tests. Build order:
 **E first (objective), then D (optimizer).** Both are single-turn for now (E's G2 multi-turn coverage
 gap is deferred). Foundational canon (APE/OPRO/DSPy/TextGrad/GEPA/MIPRO) was assembled by direct
