@@ -77,6 +77,14 @@ candidate_units:
   check-worthiness filter [2212.08514] selects which source claims count as reference (vs trivia).
   Flag low per-section recall for re-segmentation/re-enumeration. (The reference-set build + match
   are LLM steps; the deterministic gate counts the matches + applies the threshold.)
+  - **Deterministic claim-recall harness — BUILT (2026-06-14).** `validate_source_map.claim_recall_findings`
+    is the deterministic floor of this metric: a candidate unit is *recalled* if ≥1 extracted claim
+    shares one of its `source_anchors` (anchor-overlap join with `claims.jsonl`); WARN below a recall
+    threshold (default 0.25). Wired into the gate as `source-map-claim-recall` (advisory WARN, never
+    FAIL). Proven on real data (domain-driven-design 96% recall). The FActScore/Claimify/KPA
+    reference-set match above remains the richer LLM self-check; this is the cheap deterministic guard
+    that catches gross under-extraction with no model call. (Anchors matched exactly → read as a
+    *floor* on recall.)
 
 ## Reuse
 - `classify_tier` (gate it Tier 1+), `inject_anchors` index (span anchors), `source_text` (read).

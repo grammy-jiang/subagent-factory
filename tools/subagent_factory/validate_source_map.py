@@ -7,10 +7,11 @@ Referential (the teeth):
 - every node/unit ``source_anchors`` entry exists in the package anchor index;
 - every candidate unit's ``node_id`` exists in ``nodes``; ``unit_id`` unique.
 
-**Coverage is intentionally NOT enforced here yet.** A claim/principle-level recall metric is
-research gap G3 (open until research round 3); until then the coverage gate would be a guess, so
-the validator restricts itself to the *stable* checks (schema + tree integrity + anchor
-referential). Coverage lands when Step 10 is promoted to full.
+**`validate_source_map` FAILs only on structural/referential errors.** Two **WARN-level** advisory
+signals live alongside it (never FAIL): ``coverage_findings`` (deterministic *section* coverage) and
+``claim_recall_findings`` (deterministic *claim* recall — the G3 counterpart, anchor-overlap join
+between the map and ``claims.jsonl``). Both are the deterministic halves of Step-10 G3; the LLM
+self-check in the source-structure-mapping skill remains the richer (FActScore/Claimify-style) view.
 
 Signature is ``(path) -> list[str]`` for the gate. Base dir is ``<base>/sources/maps/<id>.source-map.yaml``.
 """
@@ -131,9 +132,9 @@ def coverage_findings(map_path: str | Path) -> list[str]:
 
     A substantive section node (``level: section``, ``role_class`` not background-ish) is "covered"
     if it, or any descendant, has ≥1 candidate unit. Reports uncovered substantive sections + the
-    coverage ratio. This is the deterministic section-coverage proxy; the full claim-recall metric
-    (FActScore/Claimify reference + KPA match) is the source-structure-mapping skill's LLM
-    self-check, not enforced here. Advisory (the gate emits these as WARN, never FAIL).
+    coverage ratio. This is the deterministic *section*-coverage proxy; ``claim_recall_findings`` is
+    its *claim*-recall counterpart. The richer FActScore/Claimify + KPA metric is the
+    source-structure-mapping skill's LLM self-check. Advisory (the gate emits these as WARN, never FAIL).
     """
     path = Path(map_path)
     try:
@@ -174,6 +175,60 @@ def coverage_findings(map_path: str | Path) -> list[str]:
     ]
 
 
+def _claim_anchor_set(base: Path) -> set[str]:
+    """All ``source_anchors`` referenced by any extracted claim (analysis/claims.jsonl)."""
+    cj = base / "analysis" / "claims.jsonl"
+    anchors: set[str] = set()
+    if not cj.exists():
+        return anchors
+    for line in cj.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            rec = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        for a in rec.get("source_anchors", []) or []:
+            anchors.add(str(a))
+    return anchors
+
+
+def claim_recall_findings(map_path: str | Path, threshold: float = 0.25) -> list[str]:
+    """WARN-level **claim-recall** signal (Step 10 G3 — the deterministic counterpart to section
+    coverage).
+
+    A source-map candidate unit is "recalled" if ≥1 extracted claim shares one of its
+    ``source_anchors`` (the deterministic anchor-overlap join between the map and ``claims.jsonl``).
+    Recall = recalled / total candidate units. WARN when recall falls below ``threshold`` — a signal
+    that claim extraction missed a lot of the mapped content. Advisory (never FAIL); skipped when
+    there are no claims (Tier-0 / pre-extraction) or no candidate units. NB: anchors are matched
+    exactly, so a claim anchored to a finer sub-span than its unit under-counts — read this as a
+    *floor* on recall, not an exact figure.
+    """
+    path = Path(map_path)
+    base = path.parents[2]  # <base>/sources/maps/<id>.source-map.yaml
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError:
+        return []
+    units = data.get("candidate_units") or []
+    claim_anchors = _claim_anchor_set(base)
+    if not units or not claim_anchors:
+        return []
+    recalled = [
+        u for u in units if any(str(a) in claim_anchors for a in (u.get("source_anchors") or []))
+    ]
+    ratio = len(recalled) / len(units)
+    if ratio >= threshold:
+        return []
+    missed = [str(u.get("unit_id")) for u in units if u not in recalled]
+    return [
+        f"claim recall {ratio:.0%}: only {len(recalled)}/{len(units)} mapped candidate units have an "
+        f"extracted claim ({', '.join(missed[:8])}{'…' if len(missed) > 8 else ''})"
+    ]
+
+
 def main() -> None:
     if len(sys.argv) < 2:
         print("Usage: python -m tools.subagent_factory.validate_source_map <source-map.yaml>")
@@ -181,7 +236,7 @@ def main() -> None:
     errs = validate_source_map(sys.argv[1])
     for e in errs:
         print(f"ERROR: {e}")
-    for w in coverage_findings(sys.argv[1]):
+    for w in coverage_findings(sys.argv[1]) + claim_recall_findings(sys.argv[1]):
         print(f"WARN: {w}")
     sys.exit(0 if not errs else 1)
 
