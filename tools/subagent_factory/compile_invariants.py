@@ -30,6 +30,17 @@ _SECTION_HEADING = "## Operating invariants (must hold)"
 _MAX_INVARIANT_CHARS = 160
 
 
+def strip_invariant_section(adapter_text: str) -> str:
+    """Remove the rendered ``## Operating invariants (must hold)`` block (up to the next ``## ``).
+
+    Used to A/B an adapter with vs without its invariant layer (the baseline-gating measurement).
+    """
+    import re
+
+    heading = re.escape(_SECTION_HEADING)
+    return re.sub(rf"\n{heading}.*?(?=\n## )", "\n", adapter_text, flags=re.S)
+
+
 def _to_invariant(statement: str, max_chars: int = _MAX_INVARIANT_CHARS) -> str:
     """Reduce a principle statement to its terse rule head (deterministic)."""
     s = " ".join(str(statement).split())

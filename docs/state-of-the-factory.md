@@ -72,8 +72,9 @@ declined to confirm an expected win:
 
 1. **B4 gold data** — human-label ~10–15 A/B comparisons → judge↔human κ (breaks circular eval).
    Harness built (`gold_eval.py`); needs human time, not model budget.
-2. **Gate the invariant layer on baseline strength** — given the n=3 inverse-baseline pattern, only
-   attach invariants when a package's replay baseline is weak (needs the per-package baseline first).
+2. ✅ **Baseline-gate the invariant layer** — `invariant_policy.recommend_invariants` measures the
+   no-invariant replay baseline and applies the rule (attach iff baseline < 0.80, the n=3 crossover);
+   `export_claude_agent` honours a profile `attach_invariants` flag. Apply per package when desired.
 3. **A validated embedder for C1** — the cluster seeder now takes an injectable `embedder` for
    embedding-cosine pairing (`seed_clusters(embedder=…)`, tested with a fake), but ships no built-in
    model: a quick mean-pooled MiniLM gave non-discriminating cosines, so the embedder is left
