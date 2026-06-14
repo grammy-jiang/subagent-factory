@@ -244,3 +244,20 @@ def test_shell_llm_drives_semantic_grader(tmp_path):
     grader = make_llm_grader(shell_llm(str(script)))
     g = grader(_INVOKE, "any answer")
     assert g["route"] == 1.0 and g["minimum"] == 1.0 and g["score"] == 1.0
+
+
+def test_llm_grader_samples_aggregate_median_majority():
+    # Three different verdicts → minimum = median, route = majority (damps judge variance).
+    replies = iter(
+        ['{"route":1,"minimum":0.2}', '{"route":1,"minimum":0.8}', '{"route":0,"minimum":0.5}']
+    )
+    g = make_llm_grader(lambda _p: next(replies), samples=3)(_INVOKE, "answer")
+    assert g["minimum"] == 0.5  # median(0.2, 0.8, 0.5)
+    assert g["route"] == 1.0  # majority of 1, 1, 0
+    assert g["n_samples"] == 3
+
+
+def test_llm_grader_samples_drop_unparseable():
+    replies = iter(["no json", '{"route":1,"minimum":1.0}', "garbage"])
+    g = make_llm_grader(lambda _p: next(replies), samples=3)(_INVOKE, "answer")
+    assert g["n_samples"] == 1 and g["minimum"] == 1.0

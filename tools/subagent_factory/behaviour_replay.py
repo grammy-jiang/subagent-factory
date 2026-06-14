@@ -33,6 +33,7 @@ import json
 import re
 from collections.abc import Callable
 from pathlib import Path
+from statistics import median
 
 import yaml
 
@@ -252,30 +253,43 @@ def _clamp01(v: object, default: float = 0.0) -> float:
         return default
 
 
-def make_llm_grader(llm: Callable[[str], str]) -> Grader:
+def make_llm_grader(llm: Callable[[str], str], samples: int = 1) -> Grader:
     """Build a semantic ``grader`` bound to an LLM judge (drop-in for ``grade_output``).
 
     Applicability is taken from the TEST, not the LLM: ``ask``/``mustnot`` are ``None`` (and carry no
     weight) unless the test has ``must_ask_for`` / ``must_not_do``. The score uses the same
     ``_combine_components`` weighting as the deterministic grader, so the two are comparable. On an
     unparseable reply the item scores 0 with an ``error`` (never crashes the suite).
+
+    ``samples`` > 1 calls the judge that many times per output and aggregates — **route by majority,
+    the 0..1 components by median** — to damp the high run-to-run variance of a single live judge
+    call (a measured failure mode: one cross-family judge scored equivalent output 1.0 then 0.07).
+    The aggregated grade reports ``n_samples``; samples that fail to parse are dropped, and only if
+    *all* fail does the item score 0.
     """
 
     def _grade(test: dict, output: str) -> dict:
-        g = parse_grade(llm(build_grade_prompt(test, output)))
-        if g is None:
+        prompt = build_grade_prompt(test, output)
+        grades = [g for g in (parse_grade(llm(prompt)) for _ in range(max(1, samples))) if g]
+        if not grades:
             return {"score": 0.0, "error": "unparseable grade"}
-        route = 1.0 if _clamp01(g.get("route")) >= 0.5 else 0.0
-        minimum = _clamp01(g.get("minimum"))
-        ask = _clamp01(g.get("ask")) if test["must_ask_for"] else None
-        mustnot = _clamp01(g.get("mustnot")) if test["must_not_do"] else None
+        route_mean = sum(1.0 if _clamp01(g.get("route")) >= 0.5 else 0.0 for g in grades) / len(
+            grades
+        )
+        route = 1.0 if route_mean >= 0.5 else 0.0
+        minimum = median(_clamp01(g.get("minimum")) for g in grades)
+        ask = median(_clamp01(g.get("ask")) for g in grades) if test["must_ask_for"] else None
+        mustnot = (
+            median(_clamp01(g.get("mustnot")) for g in grades) if test["must_not_do"] else None
+        )
         return {
             "score": _combine_components(route, minimum, ask, mustnot),
             "route": route,
             "minimum": round(minimum, 4),
             "ask": ask,
             "mustnot": mustnot,
-            "reason": str(g.get("reason", ""))[:200],
+            "reason": str(grades[-1].get("reason", ""))[:200],
+            "n_samples": len(grades),
         }
 
     return _grade

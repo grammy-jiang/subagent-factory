@@ -359,6 +359,14 @@ def cmd_replay_gate(slug, before_adapter, after_adapter, runner):
     "scoring Claude output carries a same-family self-preference.",
 )
 @click.option(
+    "--judge-samples",
+    default=1,
+    show_default=True,
+    help="Calls per judge verdict, aggregated (route=majority, components=median). >1 damps the "
+    "live judge's run-to-run variance — use 3+ for a trustworthy verdict (costs that many judge "
+    "calls per test).",
+)
+@click.option(
     "--dry-run", is_flag=True, help="Score the baseline + list failing tests; propose nothing."
 )
 def cmd_optimize_adapter(
@@ -373,6 +381,7 @@ def cmd_optimize_adapter(
     tol,
     grader_kind,
     judge,
+    judge_samples,
     dry_run,
 ):
     """Step 12: tune SLUG's adapter against its behaviour-tests (LIVE model calls).
@@ -409,9 +418,13 @@ def cmd_optimize_adapter(
         sys.exit(1)
     base_text = adapter.read_text(encoding="utf-8")
     run = shell_runner(runner)
-    grader_fn = grade_output if grader_kind == "coarse" else make_llm_grader(shell_llm(judge))
+    grader_fn = (
+        grade_output
+        if grader_kind == "coarse"
+        else make_llm_grader(shell_llm(judge), samples=judge_samples)
+    )
     if grader_kind == "llm":
-        console.print(f"[cyan]semantic grader:[/cyan] {judge}")
+        console.print(f"[cyan]semantic grader:[/cyan] {judge} (×{judge_samples})")
 
     if dry_run:
         r = replay_suite(base_text, tests, run, grader_fn)
