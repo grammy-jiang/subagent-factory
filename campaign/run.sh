@@ -57,7 +57,10 @@ while [ "$processed" -lt "$COUNT" ]; do
   if [ -n "$PDF_OVERRIDE" ]; then
     pdf_abs="$PDF_OVERRIDE"
     relpath="$(basename "$PDF_OVERRIDE")"
-    size="$(stat -c%s "$pdf_abs" 2>/dev/null || echo 0)"; sha="override"; idx="-"
+    size="$(stat -c%s "$pdf_abs" 2>/dev/null || echo 0)"; idx="-"
+    # real sha256 (matches build-queue.py) so summarize.py marks this PDF's queue row done if
+    # it is part of the collection — keeps the queue consistent after a targeted --pdf run.
+    sha="$(sha256sum "$pdf_abs" 2>/dev/null | cut -d' ' -f1)"
   else
     line="$(next_pending)"
     [ -z "$line" ] && { echo "[campaign] no pending PDFs left — campaign complete."; break; }
