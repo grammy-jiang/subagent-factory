@@ -72,19 +72,20 @@ specialises), and "LLM proposes / deterministic decides + provenance gate" — a
 build:
 | # | refinement (from the report) | det / LLM | status |
 |---|---|---|---|
-| C1 | **3-stage dedup cascade** — add (b) distributional cosine + (c) graph-structural similarity to the current (a) lexical `seed_principle_clusters`; closes its known paraphrase-blindness | det + embeddings | ⚠️ (b) built + **measured a negative result** (below). `seed_clusters(embedder=…, cos_threshold=…)` + validated `embed_minilm` (pinned MiniLM) + injectable hook + tests — but raw cosine **over-merges same-topic principles** on real packages, so it is not enabled by default. (c) graph-structural still todo |
+| C1 | **3-stage dedup cascade** — add (b) distributional cosine + (c) graph-structural similarity to the current (a) lexical `seed_principle_clusters`; closes its known paraphrase-blindness | det + embeddings | ✅ (a)+(b)+(c) done. `seed_clusters(embedder=…, cos_threshold=…, margin=…)` + validated `embed_minilm` + **C1(c) margin-above-baseline** discrimination (below) that fixes the C1(b) over-merge. (Hearst is-a is the separate C3.) |
 
-**C1 (b) finding — raw-cosine over-merges (measured 2026-06-14).** `embed_minilm` is validated
-(identical strings → cosine 1.0; distinct-topic paraphrase ~0.5 vs unrelated ~0.05). But applied to
-real principle clustering it does **not** deliver a clean win: on `software-design-simplicity` (2
-books, one topic) *every* principle pair sits at ~0.4–0.5 cosine, so the embedding signal cannot
-separate "same concept" (should cluster) from "same topic" (should not). Lowering `cos_threshold`
-just collapses the package into one over-merged blob (0.5 → a 6-principle component; 0.35 → all 19);
-at the conservative 0.6 default it adds **zero** pairs. The lexical seeder's 2 tight clusters are
-better. So C1(b) ships as an **opt-in, off-by-default** capability (validated embedder + injectable
-hook), and the real refinement is **discrimination beyond raw cosine** — rank/relative thresholds, or
-requiring a lexical anchor alongside high cosine — folded into C1(c)/a future pass. Same pattern as
-the multi-source and invariant-layer arcs: the measurement tempered an intuitively-appealing idea.
+**C1(b) → C1(c) (measured 2026-06-14).** `embed_minilm` is validated (identical → 1.0; distinct-topic
+paraphrase ~0.5 vs unrelated ~0.05). **C1(b) raw cosine over-merged:** on `software-design-simplicity`
+(2 books, one topic) every pair sits ~0.4–0.5, so an absolute threshold cannot separate "same
+concept" from "same topic" — lowering it collapsed the package into one blob (0.45 → 10-member;
+0.35 → all 19). **C1(c) fixes it with a structural signal from the similarity graph**: a pair merges
+only if its cosine *stands out* above each principle's **leave-one-out mean cosine to its cross-source
+peers** (`margin`), subtracting that same-topic floor. Measured on the same package: the 19-blob
+becomes **tight 2-member candidate pairs** at every threshold (0.45 → 1 pair, 0.35 → 2), never a blob.
+Leave-one-out keeps it correct on small principle sets (a principle with one cross-source peer has no
+floor to clear). Defaults: `cos_threshold=0.5`, `margin=0.15` (set `margin=0` for the old raw
+behaviour). So C1 is a genuine win — the third measured arc, but this time the structural refinement
+*resolved* the over-merge rather than just tempering it.
 | C2 | **PROV-O provenance** — `wasDerivedFrom`/`wasAttributedTo` on nodes/edges (current graph has cluster_id/method/confidence — a subset) | det schema | optional |
 | C3 | **Hearst dependency-path patterns** for `specialises` (is-a) induction, hybrid with distributional | det + LLM | optional |
 

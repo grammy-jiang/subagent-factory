@@ -39,10 +39,14 @@ import yaml
 from tools.subagent_factory.claim_recall import _content_tokens, claim_f1
 
 _DEFAULT_THRESHOLD = 0.15
-# Cosine ≥ this on the embedding signal pairs two cross-source principles even when their wording
-# does not overlap (paraphrase). 0.6 on L2-normalised MiniLM vectors is a conservative "same concept"
-# bar; lower over-merges. C1 is still a *candidate* generator — the LLM-confirm step is the decider.
-_DEFAULT_COS_THRESHOLD = 0.6
+# Absolute cosine floor for an embedding pair. On a single-topic package raw cosine over-merges (all
+# principles ~0.4–0.5), so the floor alone is NOT enough — see _DEFAULT_MARGIN.
+_DEFAULT_COS_THRESHOLD = 0.5
+# C1(c) structural discrimination: an embedding pair must also stand out this far ABOVE each
+# principle's MEAN cosine to its cross-source peers. Subtracting that "same-topic floor" is what
+# separates "same concept" (a standout pair) from "same topic" (the whole blob sits near its mean),
+# fixing the raw-cosine over-merge measured in C1(b). 0 disables the margin (pure absolute floor).
+_DEFAULT_MARGIN = 0.15
 
 Embedder = Callable[[list[str]], list[list[float]]]
 
@@ -131,15 +135,21 @@ def seed_clusters(
     *,
     embedder: Embedder | None = None,
     cos_threshold: float = _DEFAULT_COS_THRESHOLD,
+    margin: float = _DEFAULT_MARGIN,
 ) -> dict:
     """Seed candidate cross-source clusters by lexical token-F1, optionally + embedding cosine (C1).
 
-    Default (``embedder=None``) is the original lexical-only seeder. Pass ``embedder=embed_minilm``
-    to *also* pair cross-source principles whose statements are paraphrases (cosine ≥
-    ``cos_threshold``) but share too few words to clear ``threshold`` — closing the seeder's known
-    paraphrase-blindness. Output stays ``principle-clusters-v1`` (``method: seed``); embedding edges
-    simply add/enlarge candidate clusters for the LLM-confirm step. ``mean_overlap`` remains the
-    *lexical* overlap, so a low value on a populated cluster signals an embedding-driven merge.
+    Default (``embedder=None``) is the original lexical-only seeder. Pass ``embedder=embed_minilm`` to
+    *also* pair cross-source paraphrases that share too few words to clear ``threshold``.
+
+    **C1(c) structural discrimination (fixes the C1(b) over-merge):** an embedding pair is accepted
+    only when its cosine is both ≥ ``cos_threshold`` (absolute floor) AND ≥ each principle's mean
+    cross-source cosine + ``margin`` (it *stands out* from that principle's same-topic peers). On a
+    single-topic package every pair sits near the mean, so nothing merges; a genuine paraphrase pair
+    rises above the floor and merges. Set ``margin=0`` for the old raw-absolute behaviour.
+
+    Output stays ``principle-clusters-v1`` (``method: seed``); ``mean_overlap`` remains the *lexical*
+    overlap, so a low value on a populated cluster signals an embedding-driven merge.
     """
     base = Path(subagent_dir)
     claim_src = _claim_sources(base)
@@ -151,9 +161,35 @@ def seed_clusters(
     }
 
     emb: dict[str, list[float]] | None = None
+    cos: dict[tuple[str, str], float] = {}
+    peer_sum: dict[str, float] = {}
+    peer_n: dict[str, int] = {}
     if embedder is not None and pid_stmt:
         pids = list(pid_stmt)
         emb = dict(zip(pids, embedder([pid_stmt[p] for p in pids]), strict=False))
+        peer_sum = {p: 0.0 for p in pids}
+        peer_n = {p: 0 for p in pids}
+        for a, b in combinations(pids, 2):
+            if pid_sources[a].isdisjoint(pid_sources[b]):  # cross-source
+                c = _cosine(emb[a], emb[b])
+                cos[(a, b)] = c
+                peer_sum[a] += c
+                peer_sum[b] += c
+                peer_n[a] += 1
+                peer_n[b] += 1
+
+    def _baseline(p: str, exclude: float) -> float:
+        # leave-one-out mean of p's cross-source cosines, excluding the pair under test (so a
+        # principle with only this one peer has no "floor" to clear — avoids a degenerate small-set
+        # self-comparison). 0.0 when p has no other cross-source peer.
+        n = peer_n.get(p, 0)
+        return (peer_sum[p] - exclude) / (n - 1) if n > 1 else 0.0
+
+    def _embedding_pair(a: str, b: str) -> bool:
+        c = cos.get((a, b))
+        if c is None or c < cos_threshold:
+            return False
+        return c >= _baseline(a, c) + margin and c >= _baseline(b, c) + margin
 
     uf = _UF()
     pair_score: dict[tuple[str, str], float] = {}  # lexical overlap, drives mean_overlap
@@ -162,9 +198,7 @@ def seed_clusters(
         if not pid_sources[a].isdisjoint(pid_sources[b]):  # cross-source only
             continue
         s = claim_f1(pid_stmt[a], pid_stmt[b])
-        accept = s >= threshold
-        if not accept and emb is not None:
-            accept = _cosine(emb[a], emb[b]) >= cos_threshold
+        accept = s >= threshold or (emb is not None and _embedding_pair(a, b))
         if accept:
             uf.union(a, b)
             edges.append((a, b))
