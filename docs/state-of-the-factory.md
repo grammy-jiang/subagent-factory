@@ -75,11 +75,12 @@ declined to confirm an expected win:
 2. ✅ **Baseline-gate the invariant layer** — `invariant_policy.recommend_invariants` measures the
    no-invariant replay baseline and applies the rule (attach iff baseline < 0.80, the n=3 crossover);
    `export_claude_agent` honours a profile `attach_invariants` flag. Apply per package when desired.
-3. **A validated embedder for C1** — the cluster seeder now takes an injectable `embedder` for
-   embedding-cosine pairing (`seed_clusters(embedder=…)`, tested with a fake), but ships no built-in
-   model: a quick mean-pooled MiniLM gave non-discriminating cosines, so the embedder is left
-   environment-provided (e.g. a `sentence-transformers` model). C1 (b) logic done; wire a real,
-   validated embedder when needed. (c) graph-structural similarity still todo.
+3. **C1 embedding clustering — refine beyond raw cosine.** The seeder takes an injectable `embedder`
+   + a validated `embed_minilm` (pinned MiniLM; identical→1.0, paraphrase>unrelated), but a measured
+   negative result shows raw cosine **over-merges same-topic principles** (all ~0.4–0.5 on a
+   single-topic package), so it is **off by default** (`cos_threshold=0.6` adds nothing safely). The
+   real lift needs discrimination beyond raw cosine (rank/relative threshold, or cosine + a lexical
+   anchor) — fold into C1(c) graph-structural similarity. See `research-integration-plan.md`.
 
 ## Where to read next
 
