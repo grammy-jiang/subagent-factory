@@ -320,6 +320,98 @@ def cmd_replay_gate(slug, before_adapter, after_adapter, runner):
     sys.exit(1 if r["gate"] == "fail" else 0)
 
 
+@main.command("optimize-adapter")
+@click.argument("slug")
+@click.option("--runner", default="examples/replay-runner.sh", help="Runner script (live model).")
+@click.option(
+    "--proposer", default="examples/optimize-proposer.sh", help="Proposer script (live model)."
+)
+@click.option("--budget", default=3, show_default=True, help="Max optimization rounds.")
+@click.option("--variants", default=2, show_default=True, help="Variants proposed per round.")
+@click.option(
+    "--minibatch", default=0, show_default=True, help="Minibatch screen size (0 = full, no screen)."
+)
+@click.option("--pool", "pool_size", default=4, show_default=True, help="Beam pool size.")
+@click.option(
+    "--patience", default=2, show_default=True, help="Stop after N no-improvement rounds."
+)
+@click.option(
+    "--dry-run", is_flag=True, help="Score the baseline + list failing tests; propose nothing."
+)
+def cmd_optimize_adapter(
+    slug, runner, proposer, budget, variants, minibatch, pool_size, patience, dry_run
+):
+    """Step 12: tune SLUG's adapter against its behaviour-tests (LIVE model calls).
+
+    Runs the propose->score->keep loop: scores the current adapter, asks the proposer for additive
+    guidance variants, keeps a variant only if it improves with ZERO regressions (and passes the
+    text-level policy gate). Writes the winner to <slug>.optimized.md for REVIEW -- it never
+    overwrites the canonical adapter or profile (fold the winning edits into profile.yaml +
+    re-export). --dry-run scores the baseline only (still burns baseline model calls).
+    """
+    from tools.subagent_factory.behaviour_replay import (
+        load_behaviour_tests,
+        replay_suite,
+        shell_runner,
+    )
+    from tools.subagent_factory.optimize_adapter import (
+        make_policy_gate,
+        optimize_adapter,
+        shell_proposer,
+    )
+
+    repo_root = Path(__file__).parent.parent.parent
+    base = repo_root / "subagents" / slug
+    adapter = base / "adapters" / "claude-code" / f"{slug}.md"
+    if not adapter.exists():
+        console.print(f"[red]adapter not found:[/red] {adapter}")
+        sys.exit(1)
+    tests = load_behaviour_tests(base)
+    if not tests:
+        console.print(f"[yellow]no behaviour-tests under[/yellow] {base / 'tests'}")
+        sys.exit(1)
+    base_text = adapter.read_text(encoding="utf-8")
+    run = shell_runner(runner)
+
+    if dry_run:
+        r = replay_suite(base_text, tests, run)
+        console.print(f"baseline mean [bold]{r['mean_score']:.2f}[/bold] over {r['n_tests']} tests")
+        for tid, g in sorted(r["per_test"].items()):
+            mark = "[green]ok[/green]" if g["score"] >= 1.0 else "[yellow]below 1.0[/yellow]"
+            err = f"  [red]{g['error']}[/red]" if "error" in g else ""
+            console.print(f"  {tid}: {g['score']:.2f} {mark}{err}")
+        return
+
+    res = optimize_adapter(
+        base_text,
+        tests,
+        run,
+        shell_proposer(proposer, n_variants=variants),
+        budget=budget,
+        minibatch=(minibatch or None),
+        pool_size=pool_size,
+        patience=patience,
+        accept_gate=make_policy_gate(base_text),
+    )
+    color = "green" if res["improved"] else "yellow"
+    console.print(
+        f"optimize-adapter [{color}]{'IMPROVED' if res['improved'] else 'no gain'}[/{color}] "
+        f"baseline {res['baseline_mean']:.2f} → winner {res['winner_mean']:.2f} "
+        f"({res['rounds_used']} rounds, {res['eval_calls']} eval calls)"
+    )
+    if res["improved"]:
+        out = adapter.parent / f"{slug}.optimized.md"
+        out.write_text(res["winner_text"], encoding="utf-8")
+        console.print(f"[green]winner written for review:[/green] {out}")
+        console.print(
+            "[dim]review the diff, fold the winning edits into profile.yaml, then re-export.[/dim]"
+        )
+    else:
+        console.print(
+            "[dim]no variant beat the baseline without regressions; adapter unchanged.[/dim]"
+        )
+
+
 @main.command("score")
 @click.argument("units_file")
 @click.option("--worksheet", "worksheet_out", help="Write the Markdown shortlist to this path.")

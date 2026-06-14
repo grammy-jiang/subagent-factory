@@ -32,8 +32,9 @@ scoring or gating science.
 |---|---|---|
 | `tools/subagent_factory/optimize_adapter.py` | tool (driver) | The budgeted propose→score→keep loop; pure orchestration over existing primitives + a proposer callable + a pool. |
 | `.claude/skills/adapter-optimization/SKILL.md` | skill (LLM) | The variant-proposer meta-prompt: given failing tests + grader critique + scored history + the **faithfulness constraint**, emit candidate rule/example edits. |
-| `cli optimize-adapter` (new `@main.command`) | CLI | Run the loop for a slug with `--budget`, `--minibatch`, `--pool`, `--runner`, `--grader`. |
-| `tests/subagent_factory/test_optimize_adapter.py` | fixtures | Loop unit tests with a **fake** proposer + fake runner (deterministic, no live model). |
+| `cli optimize-adapter` (new `@main.command`) | CLI | **(D8, done)** Run the loop for a slug with `--budget`/`--variants`/`--minibatch`/`--pool`/`--patience`/`--runner`/`--proposer`/`--dry-run`. Writes the winner to `<slug>.optimized.md` for review; never overwrites canonical. |
+| `examples/optimize-proposer.sh` + `optimize_adapter.shell_proposer` / `make_policy_gate` | live wiring | **(D8, done)** Additive proposer (model emits `===VARIANT===`-delimited guidance blocks via `claude -p`) + a text-level pre-merge gate (no tool-grant widening / escalation tokens). |
+| `tests/subagent_factory/test_optimize_adapter.py` | fixtures | Loop unit tests with a **fake** proposer + fake runner (deterministic, no live model) + pure tests for the D8 prompt-build / variant-parse / policy-gate. |
 
 ## Reuse
 

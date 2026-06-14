@@ -156,3 +156,135 @@ def optimize_adapter(
         "n_tests": len(tests),
         "history": history,
     }
+
+
+# ── live wiring (D8): a shell-backed proposer + a text-level policy gate ─────────
+#
+# The live CLI uses these to run the loop against a real package with a real model. The proposer is
+# *additive* in v1: the model emits short guidance blocks to APPEND (cheap + safe — it cannot rewrite
+# or delete existing rules), and the driver scores base+block. Full-rewrite proposing is supported by
+# the driver (it takes full texts) but is deferred for the live path (token cost + truncation risk).
+
+_VARIANT_DELIM = "===VARIANT==="
+
+# Tokens that must never appear in proposer-added text (instruction-injection / authority widening).
+_ESCALATION_TOKENS = (
+    "ignore previous",
+    "ignore all previous",
+    "disregard",
+    "--dangerously-skip-permissions",
+    "allowed-tools:",
+    "bypass",
+    "override the system",
+)
+
+
+def build_propose_prompt(best_text: str, failing: list[dict], n_variants: int) -> str:
+    """Build the LLM proposer prompt: the failing tests + the additive, faithfulness-bound contract."""
+    lines = [
+        f"You improve a subagent by proposing {n_variants} ADDITIVE guidance blocks.",
+        "The current adapter is your system prompt. It is FAILING the behaviour-tests below.",
+        "Propose short blocks (a sharpened rule or a worked example) to APPEND to the adapter so it",
+        "passes them — WITHOUT regressing anything it already does.",
+        "",
+        "HARD RULES:",
+        "- Output ONLY the new blocks. Do not restate or rewrite the existing adapter.",
+        f"- Begin EACH block with a line containing exactly: {_VARIANT_DELIM}",
+        "- Make the blocks DIFFERENT from each other (vary the fix, not three near-identical edits).",
+        "- Never claim anything the adapter's source does not support (a faithfulness gate will",
+        "  reject an over-claim no matter its test score). Keep blocks human-readable.",
+        "- Do not add tool grants, permissions, or instructions to ignore/override anything.",
+        "",
+        "FAILING BEHAVIOUR-TESTS:",
+    ]
+    for f in failing[:6]:
+        t = f.get("test", {})
+        g = f.get("grade", {})
+        why = g.get("reason") or _why_failed(g)
+        lines += [
+            f"- [{t.get('test_id', '?')}] route={t.get('expected_route', 'invoke')} "
+            f"score={g.get('score', 0)}",
+            f"  prompt: {str(t.get('prompt', ''))[:240]}",
+            f"  required: {str(t.get('minimum_output', ''))[:240]}"
+            if t.get("minimum_output")
+            else "",
+            f"  weakness: {why}" if why else "",
+        ]
+    return "\n".join(line for line in lines if line != "")
+
+
+def _why_failed(grade: dict) -> str:
+    """Terse weakness summary from a deterministic grade's components."""
+    bits = []
+    if grade.get("route") == 0.0:
+        bits.append("wrong route (engaged/declined incorrectly)")
+    if isinstance(grade.get("minimum"), (int, float)) and grade["minimum"] < 0.5:
+        bits.append("missed required content")
+    if grade.get("ask") == 0.0:
+        bits.append("did not ask for missing context")
+    if isinstance(grade.get("mustnot"), (int, float)) and grade["mustnot"] < 1.0:
+        bits.append("did a forbidden thing")
+    return "; ".join(bits)
+
+
+def parse_variants(raw: str, best_text: str, max_variants: int | None = None) -> list[str]:
+    """Split a proposer reply into full candidate adapter texts (base + each additive block)."""
+    if _VARIANT_DELIM in raw:
+        chunks = raw.split(_VARIANT_DELIM)[1:]  # drop any preamble before the first delimiter
+    else:
+        chunks = [raw]
+    blocks = [c.strip() for c in chunks if c.strip()]
+    if max_variants is not None:
+        blocks = blocks[:max_variants]
+    base = best_text.rstrip()
+    return [base + "\n\n" + b for b in blocks]
+
+
+def shell_proposer(script: str, n_variants: int = 2, timeout: int = 300) -> Proposer:
+    """Build a live ``Proposer`` that shells to a script (e.g. ``examples/optimize-proposer.sh``).
+
+    The script receives the best adapter text in env ``ADAPTER_TEXT`` and the proposer prompt on
+    stdin, and prints ``===VARIANT===``-delimited additive blocks on stdout.
+    """
+    import os
+    import subprocess
+
+    def _propose(best_text: str, failing: list[dict], round_idx: int) -> list[str]:
+        prompt = build_propose_prompt(best_text, failing, n_variants)
+        env = {**os.environ, "ADAPTER_TEXT": best_text}
+        out = subprocess.run(
+            ["bash", script],
+            input=prompt,
+            text=True,
+            capture_output=True,
+            timeout=timeout,
+            env=env,
+        ).stdout
+        return parse_variants(out, best_text, max_variants=n_variants)
+
+    return _propose
+
+
+def make_policy_gate(base_text: str) -> AcceptGate:
+    """A text-level pre-merge gate: reject a candidate that widens tool grants or adds escalation text.
+
+    Lightweight v1 backstop for the live loop (the full faithfulness + quote + adapter-policy scan
+    runs when the human folds the winning edits into ``profile.yaml`` and re-exports). Assumes the
+    additive proposer, so it scans the text added beyond the baseline.
+    """
+    from tools.subagent_factory.adapter_policy_scan import _granted_tools
+
+    base = base_text.rstrip()
+    base_tools = _granted_tools(base_text)
+
+    def _gate(cand: str) -> list[str]:
+        violations: list[str] = []
+        if not _granted_tools(cand) <= base_tools:
+            violations.append("widens tool grants")
+        added = (cand[len(base) :] if cand.startswith(base) else cand).lower()
+        for tok in _ESCALATION_TOKENS:
+            if tok in added:
+                violations.append(f"escalation token in added text: {tok!r}")
+        return violations
+
+    return _gate
