@@ -60,20 +60,22 @@ declined to confirm an expected win:
 
 - **Multi-source synthesis** delivers grounding/faithfulness (deterministic, judge-independent) but
   **not** measurably better advice (judge-family-dependent; Claude tie, Codex leans longer).
-- **Invariant layer (A3/A5)** is **measurably positive** — re-graded by the semantic grader (codex,
-  cross-family) it lifts overall behaviour-test score +0.084 and `must_not_do` adherence +0.125 (the
-  coarse grader had *inverted* `must_not_do`, scoring "rejects X" as "does X"). **First A-track change
-  proven to improve behaviour**, not just structure.
-- **Semantic LLM grader** (`make_llm_grader`, `behaviour_replay`) is the validated instrument for
-  adherence/advice deltas; the coarse `must_not_do` is for relative regressions only.
+- **Invariant layer (A3/A5)** — benefit is **package-dependent** (n=3, 2 graders): big lift to a weak
+  adapter (mysql-at-scale 0.366→~0.9), mild mid-range (software-design +0.084), slight *regression* to
+  an already-strong one (DDD 0.880). Apply where a package's behaviour-test baseline is weak, not
+  blanket. (The two graders agree on direction → grader-robust; the semantic grader also fixed the
+  coarse `must_not_do` *inversion* that scored "rejects X" as "does X".)
+- **Semantic LLM grader** (`make_llm_grader`, `behaviour_replay`) is the validated, grader-robust
+  instrument for adherence/advice deltas; the coarse `must_not_do` is for relative regressions only.
 
 ## What's open (highest leverage first)
 
 1. **B4 gold data** — human-label ~10–15 A/B comparisons → judge↔human κ (breaks circular eval).
    Harness built (`gold_eval.py`); needs human time, not model budget.
-2. **Broaden the invariant-layer verdict** — the +0.084 is n=8/one package/one grader; repeat across
-   more packages + a 2nd grader before claiming it fleet-wide.
-3. **C1 embedding dedup** for the principle graph — needs an embedding model.
+2. **C1 embedding dedup** for the principle graph — augment the lexical cluster seeder with embedding
+   cosine (cached `all-MiniLM-L6-v2` is available); closes paraphrase-blindness.
+3. **Gate the invariant layer on baseline strength** — given the n=3 inverse-baseline pattern, only
+   attach invariants when a package's replay baseline is weak (needs the per-package baseline first).
 
 ## Where to read next
 
