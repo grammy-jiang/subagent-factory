@@ -16,14 +16,18 @@ distilled principles actually affect the subagent's output, and make coverage ch
 
 ## Procedure
 
-For each **high-confidence** principle, author ≥1 test that **references its `principle_id`**:
+For each **high-confidence** principle, author ≥1 test that **references its `principle_id`**.
+Give that test the deterministic `test_id` `PB-<principle_id>` so it matches the principle's
+`operational_mapping.test_cases` (see the principle-promotion convention) — this keeps both
+`validate_principles` and `validate_principle_test_coverage` green regardless of which file was
+authored first:
 ```yaml
 schema_version: principle-behaviour-tests-v1
 principle_behaviour_tests:
-  - test_id: PB-001
-    principle_id: P-001
+  - test_id: PB-P001          # PB-<principle_id>, matching operational_mapping.test_cases
+    principle_id: P001
     prompt: "<a task that should trigger the principle>"
-    expected_behaviour: ["<observable behaviour>", "cites P-001"]
+    expected_behaviour: ["<observable behaviour>", "cites P001"]
     must_not: ["<the failure mode the principle prevents>"]
 ```
 
