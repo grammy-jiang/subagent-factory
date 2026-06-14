@@ -129,13 +129,33 @@ doing it*. Re-ran the same A/B with **claude running the adapter, codex (gpt-5.5
 | route | 0.875 | 0.875 | 0 | 0 |
 
 The `must_not_do` artifact **reverses** (−0.188 → +0.125): once the grader can tell "rejects X" from
-"does X," the invariant layer is **measurably positive** (overall +0.084; MC-001 adherence WITH 1.0
-vs WITHOUT 0.0). **This is the first A-track change *proven* to improve behaviour** (multi-source
-stayed advice-neutral). The build→measure loop closed end-to-end: built the layer → coarse grader
-couldn't see it (and inverted) → built the semantic grader → layer validated. Caveats: n=8 tests, one
-package, single grader, one run — confirm breadth with more packages / a second grader before stating
-it fleet-wide. Takeaway: **the semantic grader (`grader=make_llm_grader(llm)`) is the instrument for
-adherence/advice deltas; the coarse `must_not_do` is for relative regressions only.**
+"does X," the invariant layer is **measurably positive on this package** (overall +0.084; MC-001
+adherence WITH 1.0 vs WITHOUT 0.0). The build→measure loop closed end-to-end: built the layer → coarse
+grader couldn't see it (and inverted) → built the semantic grader → layer validated. Takeaway: **the
+semantic grader (`grader=make_llm_grader(llm)`) is the instrument for adherence/advice deltas; the
+coarse `must_not_do` is for relative regressions only.**
+
+### Broadened (2026-06-14, n=3 packages, 2 graders): the benefit is package-dependent
+
+Re-ran the WITH/WITHOUT A/B on two more packages, capturing each output once and grading with **both
+codex and claude** (a second grader to test robustness):
+
+| package | baseline (WITHOUT score) | codex Δscore | claude Δscore |
+|---|---|---|---|
+| software-design-simplicity | 0.774 (mid) | +0.084 | — |
+| domain-driven-design | 0.880 (strong) | −0.066 | −0.231 |
+| mysql-at-scale-operations | 0.366 (weak) | +0.537 | +0.642 |
+
+- **Grader-robust:** codex and claude **agree on the sign** of the delta for both packages (DDD both
+  negative, mysql both large-positive). Magnitudes differ (claude is more extreme) but the *direction*
+  is not a single-grader artifact — the method holds.
+- **Package-dependent benefit, ≈ inverse of baseline strength (n=3 hypothesis):** the invariant layer
+  gives a *huge* lift to the weak adapter (mysql 0.366 → ~0.9), a mild lift mid-range
+  (software-design +0.084), and a *slight regression* to the already-strong DDD (0.880, near ceiling).
+  So the single-package "proven win" is **withdrawn**: the layer **helps some packages, especially
+  weak-baseline ones, and can mildly hurt an already-strong adapter** — apply it where a package's
+  behaviour-test baseline is weak, not blanket. (Same pattern of the harness tempering an
+  over-confident first read as the multi-source arc.)
 
 ## Caveats
 
