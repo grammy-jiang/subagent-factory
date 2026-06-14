@@ -139,6 +139,20 @@ def test_quality_bar_grounded_in_principle_ids_passes(tmp_path):
     assert finding["level"] == "PASS"
 
 
+def test_quality_bar_grounded_in_compact_principle_ids_passes(tmp_path):
+    # The factory's workers also emit IDs in the compact, non-hyphenated style
+    # ([P001] rather than [P-001]). Check 11 must accept that grounding too;
+    # otherwise a correctly-cited Tier-1 profile is falsely flagged.
+    p = _valid_profile()
+    p["quality_bar"] = [
+        "[P001] Module depth is verified before any approval is given.",
+        "[P002/P003] Cross-module leakage is ruled out for every finding.",
+        "[CL046] Trade-offs are stated explicitly before a recommendation.",
+    ]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 11)
+    assert finding["level"] == "PASS"
+
+
 def test_quality_bar_without_evidence_or_ids_warns(tmp_path):
     p = _valid_profile()
     p["quality_bar"] = [

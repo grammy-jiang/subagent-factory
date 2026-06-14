@@ -55,8 +55,11 @@ _EVIDENCE_WORDS = (
 # IDs (``[P-006]``, ``P-009/P-010``) rather than the literal word "principle";
 # claim (``CL-016``) and evidence-record (``EV-005``) IDs are also valid
 # groundings. Recognise these so a correctly-grounded Tier-1 profile is not
-# flagged for "no evidence reference".
-_ID_CITATION_RE = re.compile(r"\b(?:P|CL|EV)-\d", re.IGNORECASE)
+# flagged for "no evidence reference". The factory's own workers emit IDs in
+# both the hyphenated (``P-006``) and compact (``P001``) styles, so the hyphen
+# is optional here — otherwise a profile grounded in ``[P001]`` is falsely
+# flagged despite being correctly cited.
+_ID_CITATION_RE = re.compile(r"\b(?:P|CL|EV)-?\d", re.IGNORECASE)
 
 _BODY_WARN_WORDS = 800
 _BODY_FAIL_WORDS = 1000
