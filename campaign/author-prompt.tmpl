@@ -1,3 +1,7 @@
+ENVIRONMENT GOTCHA: a shell wrapper ANSI-colorises `cat`, so a scratch script written with
+`cat > /tmp/x.py <<'EOF'` is corrupted with escape codes and won't parse. Use the Write tool for
+throwaway scripts, or run inline with `python3 - <<'PY' … PY` (stdin) — never `cat >file <<EOF`.
+
 You are running headless inside the subagent-factory repository. Your job is to
 **author the skill and reference bodies** for ONE generated package and promote it
 from `status: draft` to `status: ready`, using the factory's own `author-skills`
