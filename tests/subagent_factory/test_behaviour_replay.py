@@ -11,6 +11,7 @@ from tools.subagent_factory.behaviour_replay import (
     rank_examples_by_utility,
     replay_gate,
     replay_suite,
+    shell_llm,
 )
 
 # A behaviour-test whose required content tokens are echoed by the fake "good" runner.
@@ -223,3 +224,23 @@ def test_load_behaviour_tests_flattens_sections(tmp_path):
     assert ids == {"GT-001", "NR-001", "MC-001"}  # the prompt-less record is skipped
     nr = next(t for t in tests if t["test_id"] == "NR-001")
     assert nr["expected_route"] == "do_not_invoke" and nr["section"] == "negative_routing_tests"
+
+
+def test_shell_llm_pipes_prompt(tmp_path):
+    # `cat` echoes stdin → the callable returns whatever prompt it was given.
+    script = tmp_path / "judge.sh"
+    script.write_text("#!/usr/bin/env bash\ncat\n", encoding="utf-8")
+    ask = shell_llm(str(script))
+    assert ask('{"route":1,"minimum":0.5}').strip() == '{"route":1,"minimum":0.5}'
+
+
+def test_shell_llm_drives_semantic_grader(tmp_path):
+    # A judge script that emits a fixed verdict → make_llm_grader parses it into a grade.
+    script = tmp_path / "judge.sh"
+    script.write_text(
+        '#!/usr/bin/env bash\ncat >/dev/null\necho \'{"route":1,"minimum":1.0}\'\n',
+        encoding="utf-8",
+    )
+    grader = make_llm_grader(shell_llm(str(script)))
+    g = grader(_INVOKE, "any answer")
+    assert g["route"] == 1.0 and g["minimum"] == 1.0 and g["score"] == 1.0
