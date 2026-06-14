@@ -37,6 +37,7 @@ from pathlib import Path
 import yaml
 
 from tools.subagent_factory.claim_recall import _content_tokens, claim_f1
+from tools.subagent_factory.prov import prov_record
 
 _DEFAULT_THRESHOLD = 0.15
 # Absolute cosine floor for an embedding pair. On a single-topic package raw cosine over-merges (all
@@ -228,6 +229,8 @@ def seed_clusters(
                 "method": "seed",
                 "shared_terms": sorted(shared)[:12],
                 "mean_overlap": round(sum(scores) / len(scores), 3) if scores else 0.0,
+                # C2: full PROV-O — this cluster was derived from its member principles + sources.
+                "provenance": prov_record("cluster-seed", sorted(members) + sources),
             }
         )
 

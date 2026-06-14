@@ -86,7 +86,7 @@ Leave-one-out keeps it correct on small principle sets (a principle with one cro
 floor to clear). Defaults: `cos_threshold=0.5`, `margin=0.15` (set `margin=0` for the old raw
 behaviour). So C1 is a genuine win — the third measured arc, but this time the structural refinement
 *resolved* the over-merge rather than just tempering it.
-| C2 | **PROV-O provenance** — `wasDerivedFrom`/`wasAttributedTo` on nodes/edges (current graph has cluster_id/method/confidence — a subset) | det schema | optional |
+| C2 | **PROV-O provenance** — `wasDerivedFrom`/`wasAttributedTo` on nodes/edges (current graph has cluster_id/method/confidence — a subset) | det schema | ✅ `prov.py` (`prov_record`) + `was_derived_from`/`was_attributed_to`/`was_generated_by` on graph-edge & cluster provenance; populated by `seed_principle_clusters` + `hearst_isa`. Clean win (pure schema enrichment, no measurement gamble). |
 | C3 | **Hearst dependency-path patterns** for `specializes` (is-a) induction, hybrid with distributional | det + LLM | ⚠️ built + **measured low-yield on factory data** (below). `hearst_isa.py`: spaCy-parse Hearst (+ flat-regex fallback) + nltk WordNet confirmation + `seed_specializes`; opt-in `nlp` extra. Correct on clean text; **noisy on real PDF domain source** → opt-in, not auto-wired. |
 
 **C3 finding (measured 2026-06-14).** Built the hybrid: spaCy snaps Hearst spans to noun-chunk

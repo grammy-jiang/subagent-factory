@@ -25,7 +25,17 @@
           "confidence": {"enum": ["high", "medium", "low"]},
           "method": {"enum": ["seed", "llm-confirmed"]},
           "shared_terms": {"type": "array", "items": {"type": "string"}},
-          "mean_overlap": {"type": "number"}
+          "mean_overlap": {"type": "number"},
+          "provenance": {
+            "type": "object",
+            "description": "PROV-O subset (C2) — prov:wasDerivedFrom / wasAttributedTo / wasGeneratedBy, in snake_case JSON. See tools/subagent_factory/prov.py.",
+            "properties": {
+              "was_derived_from": {"type": "array", "items": {"type": "string"}},
+              "was_attributed_to": {"type": "string"},
+              "was_generated_by": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
         },
         "additionalProperties": false
       }
