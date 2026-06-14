@@ -168,6 +168,16 @@ in added text); `--dry-run` scores the baseline + lists failing tests. The winne
 folds the winning edits into `profile.yaml` and re-exports, so the full faithfulness+quote+policy gate
 runs there). +5 pure unit tests (prompt-build, variant-parse, policy gate).
 
+**Live-proven (2026-06-14, advertising-effectiveness-advisor):** `--dry-run` scored the baseline live
+(0.59 / 5 tests, NR-001 weakest at 0.19) and a `--budget 1 --variants 2` run executed the full loop
+end-to-end (15 eval calls = 5 baseline + 2×5 candidates, proposer via `claude -p`), gate kept the
+baseline → "no gain". That surfaced a real live-usability bug — a **stochastic runner vs a
+zero-regression gate**: sampling noise reads as a regression. Fix shipped: **`--tol` (default 0.05)**
+absorbs noise-level dips (use 0.0 for a deterministic runner). The remaining honesty caveat is the
+*grader*: the CLI wires the **coarse lexical** grader, so the proposer optimizes token-overlap, not
+real quality — a **meaningful** live gain needs `--grader llm` (the semantic grader exists,
+`make_llm_grader`; wiring it to a judge script is the next D8 follow-on).
+
 **Sibling dependency.** D scores against E's suite; the loop is only as good as the tests. Build order:
 **E first (objective), then D (optimizer).** Both are single-turn for now (E's G2 multi-turn coverage
 gap is deferred). Foundational canon (APE/OPRO/DSPy/TextGrad/GEPA/MIPRO) was assembled by direct

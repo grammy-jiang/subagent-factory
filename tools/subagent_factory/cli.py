@@ -336,10 +336,17 @@ def cmd_replay_gate(slug, before_adapter, after_adapter, runner):
     "--patience", default=2, show_default=True, help="Stop after N no-improvement rounds."
 )
 @click.option(
+    "--tol",
+    default=0.05,
+    show_default=True,
+    help="Per-test regression tolerance — absorbs the live model's sampling noise so a "
+    "noise-level score dip is not counted as a regression. Use 0.0 for a deterministic runner.",
+)
+@click.option(
     "--dry-run", is_flag=True, help="Score the baseline + list failing tests; propose nothing."
 )
 def cmd_optimize_adapter(
-    slug, runner, proposer, budget, variants, minibatch, pool_size, patience, dry_run
+    slug, runner, proposer, budget, variants, minibatch, pool_size, patience, tol, dry_run
 ):
     """Step 12: tune SLUG's adapter against its behaviour-tests (LIVE model calls).
 
@@ -391,6 +398,7 @@ def cmd_optimize_adapter(
         minibatch=(minibatch or None),
         pool_size=pool_size,
         patience=patience,
+        tol=tol,
         accept_gate=make_policy_gate(base_text),
     )
     color = "green" if res["improved"] else "yellow"
