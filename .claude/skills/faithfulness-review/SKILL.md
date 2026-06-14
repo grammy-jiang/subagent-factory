@@ -51,6 +51,30 @@ Write `reports/faithfulness-report.yaml` per `schemas/faithfulness-report-v1.sch
 fields `rule_ref`, optional `triplet`, `verdict`, `distortion`, `source_anchors`,
 `support_granularity`, `severity`, `action`, `note`.
 
+### Schema constraints (the file is `additionalProperties: false` — get these exact)
+
+The validator (`validate_faithfulness_report.py`) is strict, so unknown keys and
+out-of-enum values **fail the gate**, not warn. Two mistakes are common on a first pass:
+
+- **No top-level keys beyond `schema_version`, `subagent_slug`, `findings`.** Do not add a
+  roll-up `summary:` block (counts/worst-verdict) — it is rejected as an unexpected property.
+  Put any narrative in a leading YAML comment instead.
+- **`support_granularity` is `section` | `page` | `heading` only** — there is no `document`
+  token. A finding grounded in a topic's absence across the whole source (a scope-boundary or
+  evidence-gap rule) still anchors at `section`; this is deliberate (compare at section
+  granularity, never document-level).
+
+Per-finding closed enums:
+
+| Field | Required | Allowed values |
+|-------|----------|----------------|
+| `rule_ref` | yes | a real field path in `profile.yaml` (e.g. `quality_bar[2]`, `outputs.modes[review].trigger`) |
+| `verdict` | yes | `EXACT_SUPPORT` `WITHIN_SCOPE` `SCOPE_BROADENED` `HEDGING_REMOVED` `CONTRADICTED` |
+| `action` | yes | `downgrade` `remove` `add_condition` `accept_with_note` |
+| `distortion` | no | list of `scope_broadened` `hedge_removed` `specificity_inflated` `none` |
+| `support_granularity` | no | `section` `page` `heading` |
+| `severity` | no | `high` `medium` `low` |
+
 ## Caveat
 
 Over-claim detection is original engineering composed from WiCE / Janus / RefChecker — there is

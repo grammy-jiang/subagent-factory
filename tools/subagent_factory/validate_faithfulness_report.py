@@ -2,7 +2,12 @@
 
 Structural: ``schemas/faithfulness-report-v1.schema.json``.
 Referential:
-- each ``rule_ref`` names a field that exists in ``profile.yaml``;
+- each ``rule_ref`` resolves to a rule that **actually exists** in ``profile.yaml`` —
+  not merely its top-level field, but the full path including list indices
+  (``quality_bar[2]``) and named modes (``outputs.modes[review].trigger`` or the
+  dotted ``outputs.modes.review.trigger`` form). An out-of-range index or an
+  unknown mode name is a coverage hole — the report claims to have checked a rule
+  that is not in the profile — so it fails the gate;
 - each ``source_anchors`` entry exists in the package anchor index;
 - no ``CONTRADICTED`` finding is silently accepted (``action: accept_with_note``).
 
@@ -28,15 +33,68 @@ _SCHEMA_PATH = (
 _ANCHOR_ID_RE = re.compile(r"-[a-z]\d{3,}$")
 
 
-def _profile_fields(base: Path) -> set[str]:
+def _load_profile(base: Path) -> dict | None:
     pp = base / "profile.yaml"
     if not pp.exists():
-        return set()
+        return None
     try:
-        prof = yaml.safe_load(pp.read_text(encoding="utf-8")) or {}
+        prof = yaml.safe_load(pp.read_text(encoding="utf-8"))
     except yaml.YAMLError:
-        return set()
-    return set(prof.keys()) if isinstance(prof, dict) else set()
+        return None
+    return prof if isinstance(prof, dict) and prof else None
+
+
+def _name_index(seq: list, key: str) -> dict | None:
+    """Return the element of a list of dicts whose ``name`` equals ``key`` (modes etc.)."""
+    for el in seq:
+        if isinstance(el, dict) and el.get("name") == key:
+            return el
+    return None
+
+
+def _resolve_rule_ref(profile: dict, ref: str) -> tuple[str, str]:
+    """Resolve a ``rule_ref`` path into ``profile``.
+
+    Returns ``(kind, reason)`` where ``kind`` is ``"ok"`` (resolved),
+    ``"top"`` (first segment is not a profile field — the legacy case), or
+    ``"miss"`` (a deeper segment fails: out-of-range index, unknown mode name,
+    list/dict shape mismatch). ``reason`` is a human-readable detail.
+
+    Supports list indices (``quality_bar[2]``) and named-element indexing in both
+    bracket (``outputs.modes[review]``) and dotted (``outputs.modes.review``) forms.
+    """
+    cur: object = profile
+    for i, seg in enumerate(ref.split(".")):
+        m = re.match(r"^([A-Za-z_]\w*)(\[([^\]]+)\])?$", seg)
+        if not m:
+            return "miss", f"segment '{seg}' is not a field path"
+        name, idx = m.group(1), m.group(3)
+        # Dotted name-index over a list of named dicts (``modes.review``).
+        if isinstance(cur, list) and idx is None:
+            el = _name_index(cur, name)
+            if el is None:
+                return "miss", f"no list element name='{name}'"
+            cur = el
+            continue
+        if not isinstance(cur, dict) or name not in cur:
+            return ("top" if i == 0 else "miss"), f"no field '{name}'"
+        cur = cur[name]
+        if idx is None:
+            continue
+        if idx.isdigit():
+            if not isinstance(cur, list):
+                return "miss", f"'{name}' is not a list"
+            if int(idx) >= len(cur):
+                return "miss", f"'{name}[{idx}]' out of range (length {len(cur)})"
+            cur = cur[int(idx)]
+        else:
+            if not isinstance(cur, list):
+                return "miss", f"'{name}[{idx}]' indexes a non-list"
+            el = _name_index(cur, idx)
+            if el is None:
+                return "miss", f"no element name='{idx}' in '{name}'"
+            cur = el
+    return "ok", ""
 
 
 def _anchor_ids(base: Path) -> set[str]:
@@ -78,15 +136,22 @@ def validate_faithfulness_report(report_path: str | Path) -> list[str]:
         return errors
 
     # Referential checks (only once structurally valid).
-    fields = _profile_fields(base)
+    profile = _load_profile(base)
     anchors = _anchor_ids(base)
     for i, finding in enumerate(data.get("findings", [])):
         rule_ref = str(finding.get("rule_ref", ""))
-        top = re.split(r"[.\[]", rule_ref, maxsplit=1)[0]
-        if fields and top and top not in fields:
-            errors.append(
-                f"findings[{i}].rule_ref '{rule_ref}' has no field '{top}' in profile.yaml"
-            )
+        if profile is not None and rule_ref:
+            kind, reason = _resolve_rule_ref(profile, rule_ref)
+            if kind == "top":
+                top = re.split(r"[.\[]", rule_ref, maxsplit=1)[0]
+                errors.append(
+                    f"findings[{i}].rule_ref '{rule_ref}' has no field '{top}' in profile.yaml"
+                )
+            elif kind != "ok":
+                errors.append(
+                    f"findings[{i}].rule_ref '{rule_ref}' does not resolve in profile.yaml "
+                    f"({reason}) — the report claims to check a rule that is not in the profile"
+                )
         for a in finding.get("source_anchors", []) or []:
             if not _ANCHOR_ID_RE.search(str(a)):
                 errors.append(
