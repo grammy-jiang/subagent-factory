@@ -33,7 +33,25 @@ For each promoted principle write a `principles-v1` entry:
 - `confidence` (high/medium/low),
 - `applies_when` / `does_not_apply_when` (from the claims' conditions/exceptions),
 - `operational_mapping`: `profile_rule` (bool), `skill` (∈ knowledge_partition.skills or null),
-  `reference` (∈ knowledge_partition.references or null), `test_cases` (⊆ test IDs in `tests/`).
+  `reference` (∈ knowledge_partition.references or null), `test_cases` (the behaviour-test IDs
+  that exercise this principle — see the convention below).
+
+### Test-ID convention (avoids an ordering trap)
+
+Behaviour tests are authored **after** principles (author-subagent Step 7.7), so at promotion
+time the IDs in `tests/` do not exist yet. `validate_principles` requires every `test_cases`
+entry to resolve to a real `test_id` in `tests/`, and its guard is silently skipped while
+`tests/` is still empty — so an invented ID passes at Step 6.5b but **FAILs the final Step 9
+validate** once the test generator picks different IDs. To keep both `validate_principles`
+(`test_cases ⊆ tests/`) and `validate_principle_test_coverage` satisfiable regardless of
+authoring order, use the deterministic convention:
+
+- set `test_cases: [PB-<principle_id>]` (e.g. principle `P03` → `[PB-P03]`), and have
+  `principle-test-generation` emit a behaviour test whose `test_id` is exactly `PB-<principle_id>`;
+- you may additionally list other **already-existing** test IDs that exercise the principle
+  (e.g. a golden-test `GT-00n`), but never invent an ID that no generated test will carry;
+- if this run is not also generating the behaviour tests, leave `test_cases` empty (it is an
+  optional field) rather than guessing.
 
 ## Output
 
