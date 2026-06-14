@@ -28,6 +28,20 @@ confidence alone, which have a confidently-wrong failure mode (#1, #2).
 | Step-12 optimize objective | the ask-gate behaviour becomes a first-class optimization target (it already is, via missing-context tests). |
 | adapter behaviour | a **three-action** Answer/Ask/Abstain rule with **uncertainty attribution** (data-uncertain → ask; model-uncertain → abstain/escalate) — #4. |
 
+## Status (2026-06-14)
+
+- **F4 answerable-twin generation — BUILT.** `gen_behaviour_tests` now pairs each `missing-context`
+  cell with an **answerable twin** (a golden test whose context IS sufficient, `twin_of` linking it
+  back), so the suite catches **over-asking**, not just silent-commit. Schema gained `twin_of`. Proven
+  on api-security (14 missing → 14 twins, coverage PASS).
+- **F3 two-axis grading — realized via existing graders.** The missing-context test rewards asking
+  (`must_ask_for`); the twin rewards answering (`minimum_output`) and forbids over-asking
+  (`must_not_do: "Ask for more information when the context is already sufficient"`). No new grader
+  needed — the two axes fall out of the existing `behaviour_replay` components.
+- **F1 / F2 / F5 (runtime calibrated risk gate + 3-action planner + two-stage escalation) — spec
+  only.** Deterministic missing-context detection for **black-box** models is an open ACADEMIC gap
+  (below); these land when there's a usable risk signal.
+
 ## New files (proposed)
 
 | Path | Kind | Purpose |

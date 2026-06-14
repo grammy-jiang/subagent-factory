@@ -14,7 +14,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | knowledge-graph / ontology construction | ✅ | C-track (below) | ✅ C1–C3 (`seed_principle_clusters`,`prov.py`,`hearst_isa` opt-in) |
 | **behaviour-test-generation** | ✅ PASS 1.0 (41 papers) | **E-track + `step-11-behaviour-test-generation.md`** | ✅ det core (`gen_behaviour_tests`, schema, coverage gate); LLM ideation = follow-on |
 | **prompt-optimization-eval** | ✅ PASS 1.0 (29 papers) | **D-track + `step-12-optimize-adapter.md`** | ✅ driver + proposer skill + live CLI (`cli optimize-adapter`) |
-| **calibration-abstention** | ✅ PASS 1.0 (31 papers) | **F-track + `step-13-ask-gate.md`** | spec folded; impl pending (answerable-twin + two-axis grading + two-stage gate) |
+| **calibration-abstention** | ✅ PASS 1.0 (31 papers) | **F-track + `step-13-ask-gate.md`** | ✅ F3+F4 built (answerable-twins + two-axis grading); F1/F2/F5 runtime gate spec (black-box gap) |
 
 ---
 
@@ -239,8 +239,8 @@ scores. Mostly **refinement of existing steps**, not a new pipeline.
 |---|---|---|---|
 | F1 | **Deterministic ask-gate core** — selective prediction = threshold τ on a calibrated risk score (act iff risk ≤ τ); not entropy/verbalized-confidence alone (confidently-wrong) | det | spec |
 | F2 | **Three-action Answer/Ask/Abstain + uncertainty attribution** (data→ask, model→abstain) | LLM planner | spec |
-| F3 | **Two-axis `must_ask_for` scoring** — reward ONE specific missing-variable question; penalize over-asking (nonmonotonic) | det grader ext | spec — **method now sourced** for the open E answerable-twin follow-on |
-| F4 | **Answerable-twin tests** — pair each missing-context cell with an answerable variant; twin must NOT trigger asking | det gen ext | spec |
+| F3 | **Two-axis `must_ask_for` scoring** — reward ONE specific missing-variable question; penalize over-asking (nonmonotonic) | det grader ext | ✅ **realized via existing graders** — MC test rewards asking, twin rewards answering + `must_not_do` forbids over-asking |
+| F4 | **Answerable-twin tests** — pair each missing-context cell with an answerable variant; twin must NOT trigger asking | det gen ext | ✅ `gen_behaviour_tests` twins + `twin_of` (schema); closes the open E follow-on |
 | F5 | **Two-stage gate** — cheap deterministic pre-filter on every request → escalate only flagged-uncertain to the LLM planner (Trust-or-Escalate); pre-generation, not output-refusal | det + LLM | spec |
 | F6 | **Judge-trust tie-in** — the SAME calibration math governs trusting an LLM-judge verdict: consensus ≠ human alignment; a single verdict needs a conformal/human-anchored guarantee | (analysis) | ✅ folded into the judge note below + B4 |
 
