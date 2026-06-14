@@ -5,6 +5,10 @@
 #
 # Usage: campaign/run.sh [-n N | --all] [--prompt-file F] [--collection DIR]
 #                        [--model M] [--timeout SECS] [--dry-run] [--yes]
+#                        [--pdf ABS_PATH]
+#
+# --pdf ABS_PATH: skip the queue and author this one specific PDF (a create-new /
+#   targeted test, vs the default smallest-pending queue selection). Runs exactly once.
 set -uo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -18,6 +22,7 @@ RUN_TIMEOUT="${RUN_TIMEOUT:-2400}"   # per-round wall-clock cap (seconds)
 COUNT=1
 DRYRUN=0
 ASSUME_YES=0
+PDF_OVERRIDE=""
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -27,12 +32,14 @@ while [ $# -gt 0 ]; do
     --collection) COLLECTION="$2"; shift 2;;
     --model) MODEL="$2"; shift 2;;
     --timeout) RUN_TIMEOUT="$2"; shift 2;;
+    --pdf) PDF_OVERRIDE="$2"; shift 2;;
     --dry-run) DRYRUN=1; shift;;
     --yes) ASSUME_YES=1; shift;;
     -h|--help) grep -E '^# ' "${BASH_SOURCE[0]}" | sed 's/^# //'; exit 0;;
     *) echo "unknown arg: $1" >&2; exit 2;;
   esac
 done
+[ -n "$PDF_OVERRIDE" ] && COUNT=1   # --pdf authors exactly one source
 
 mkdir -p "$LOGS"
 command -v claude >/dev/null 2>&1 || { echo "claude CLI not found on PATH" >&2; exit 3; }
@@ -47,11 +54,17 @@ refresh_queue
 
 processed=0
 while [ "$processed" -lt "$COUNT" ]; do
-  line="$(next_pending)"
-  [ -z "$line" ] && { echo "[campaign] no pending PDFs left — campaign complete."; break; }
-  IFS=$'\t' read -r idx size sha relpath <<<"$line"
-  relpath="${relpath%$'\r'}"   # defensive: strip any stray CR from the queue
-  pdf_abs="$COLLECTION/$relpath"
+  if [ -n "$PDF_OVERRIDE" ]; then
+    pdf_abs="$PDF_OVERRIDE"
+    relpath="$(basename "$PDF_OVERRIDE")"
+    size="$(stat -c%s "$pdf_abs" 2>/dev/null || echo 0)"; sha="override"; idx="-"
+  else
+    line="$(next_pending)"
+    [ -z "$line" ] && { echo "[campaign] no pending PDFs left — campaign complete."; break; }
+    IFS=$'\t' read -r idx size sha relpath <<<"$line"
+    relpath="${relpath%$'\r'}"   # defensive: strip any stray CR from the queue
+    pdf_abs="$COLLECTION/$relpath"
+  fi
   run="$(printf '%03d' "$(( $(ls "$LOGS"/*.summary.md 2>/dev/null | wc -l) + 1 ))")"
   log="$LOGS/run-$run.log.jsonl"
   summ="$LOGS/run-$run.summary.md"
@@ -98,6 +111,7 @@ sys.stdout.write(t)')"
   printf '%s' "$prompt" | timeout "$RUN_TIMEOUT" claude -p \
       --model "$MODEL" \
       --add-dir "$COLLECTION" \
+      --add-dir "$(dirname "$pdf_abs")" \
       --dangerously-skip-permissions \
       --output-format stream-json --verbose >"$log" 2>&1
   rc=$?
