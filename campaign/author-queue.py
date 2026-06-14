@@ -7,6 +7,7 @@ build leaving no adapter) are skipped: they need repair, not authoring. Ordered
 tier-desc then name (richest grounding first). Prints one slug per line.
 
 Usage: author-queue.py [TIER_MIN] [--only slug,slug,...]
+       (--only is explicit selection and bypasses TIER_MIN — a named Tier-0 draft still lists.)
 """
 
 from __future__ import annotations
@@ -55,7 +56,9 @@ def main() -> int:
             tier = int(prof.get("tier", 0) or 0)
         except (TypeError, ValueError):
             tier = 0
-        if tier < tier_min:
+        # --only is explicit selection: honour it regardless of tier_min (so a Tier-0 draft named
+        # by --only is not silently dropped). tier_min only filters the unfiltered "all" queue.
+        if not only and tier < tier_min:
             continue
         try:
             if not validate_generated_package(p.parent).get("passed"):
