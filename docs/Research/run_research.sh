@@ -28,6 +28,9 @@ MODEL="${MODEL:-opus}"                                 # worker model
 EFFORT="${EFFORT:-max}"                                # reasoning effort level
 RESEARCH_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"   # docs/Research
 TOPICS_FILTER="${TOPICS_FILTER:-}"                     # optional: run only this folder
+DETACH="${DETACH:-1}"                                  # 1=setsid detach; 0=foreground (let the
+                                                       #   caller, e.g. harness run_in_background,
+                                                       #   own + track the process — setsid wedges it)
 
 # ── Topic registry:  folder | topic | seed-keywords | downstream-use ─────────
 declare -a TOPICS=(
@@ -39,6 +42,7 @@ declare -a TOPICS=(
 "instruction-induction-agent-distillation|Instruction induction and agent distillation: converting distilled expert principles into crisp behavioural rules, decision policies, and few-shot worked examples for an LLM agent persona|instruction induction; instruction generation; agent distillation; principle to rule conversion; behavioural rule generation; few-shot exemplar selection; demonstration selection; in-context example construction; system-prompt and persona design; constitutional rules; policy distillation; skill and procedure induction; decision policy extraction|Feeds Phase 5/9: convert promoted principles into the adapter's behavioural rules + worked examples that make a generated expert ACT well, not merely describe knowledge. Output-quality goal: crisper rules, well-chosen few-shot examples, explicit decision policies. The adapter-quality gate already checks examples EXIST; this informs making them GOOD. Literature review, not a product build."
 "agent-benchmarking-output-evaluation|Benchmarking and runtime quality evaluation of LLM agents and expert assistants: LLM-as-judge methodology and biases, rubric-based evaluation, pairwise and Elo comparison, and reference-free quality scoring of free-form advisory/review output|LLM-as-a-judge; agent benchmarking; rubric-based evaluation; pairwise comparison; Elo and win-rate; judge bias and calibration; position bias; reference-free evaluation; meta-evaluation; inter-rater agreement; G-Eval; checklist evaluation; assistant evaluation harness|Feeds Phase 10: a rigorous output-quality evaluation harness for generated subagents. Formalise the ad-hoc eval (run subagent on a real doc, score vs rubric, deterministic grounding-check) into reliable LLM-as-judge rubrics, judge-bias mitigation, pairwise/Elo for comparing versions (1-source vs 2-source), and reference-free scoring. Literature review, not a product build."
 "knowledge-graph-ontology-construction|Knowledge graph and ontology construction from text for representing expert principles: concept/entity extraction, taxonomy and ontology induction, relationship and alias modelling, and a principle graph linking and deduplicating concepts|knowledge graph construction; ontology learning; ontology induction from text; taxonomy induction; concept extraction; relation extraction; entity alias and synonym detection; schema and ontology alignment; concept hierarchy; node and edge typing; provenance in knowledge graphs; principle graph|Feeds Phase 7A (graph half of Step 7): represent merged principles as a graph (nodes = principles/concepts, edges = refines/supports/specialises/alias with provenance) + induce a lightweight taxonomy and aliases. SCOPE: graph/ontology representation + alias/relationship induction; cross-document CONTRADICTION detection is the sibling knowledge-fusion spike's job, not re-covered. Literature review, not a product build."
+"prompt-optimization-eval|Automatic prompt and instruction optimization for LLM agents against an evaluation signal: optimizing system prompts, instructions, decision rules, and few-shot demonstrations to maximize a task/behaviour metric|prompt optimization; instruction optimization; DSPy; OPRO optimization by prompting; TextGrad textual gradients; GEPA reflective prompt evolution; APE automatic prompt engineering; few-shot demonstration selection; bootstrap few-shot; instruction search; LLM-as-optimizer; metric-guided prompt tuning; prompt program compilation; reflective self-improvement|Feeds a NEW optimize-adapter step: after build (Steps 1-9) and measure (the replay engine + semantic LLM grader + behaviour-tests, Phase 10), automatically optimize the generated adapter/skill prompts to MAXIMIZE the package's behaviour-test score — propose rule/example variants, score via replay+grader, keep the winner (the replay gate is the assess-before-merge primitive). DISTINCT from instruction-INDUCTION (already covered: mine rules from principles); this TUNES the adapter against an eval objective. Literature review of methods + how to apply (deterministic-gate vs LLM split, cost control), not a product build."
 )
 
 # ── Prompt builder ───────────────────────────────────────────────────────────
@@ -83,11 +87,20 @@ launch () {
   local dir="$RESEARCH_ROOT/$folder"
   mkdir -p "$dir"
   build_prompt "$topic" "$keywords" "$why" > "$dir/PROMPT.md"
-  # setsid + </dev/null fully detaches so runs survive the launching shell.
-  ( cd "$dir" && setsid "$CLAUDE_BIN" -p "$(cat "$dir/PROMPT.md")" \
-        --model "$MODEL" --effort "$EFFORT" --dangerously-skip-permissions --verbose \
-        </dev/null >"$dir/run.log" 2>&1 & echo $! >"$dir/run.pid" )
-  echo "launched ${folder}  pid=$(cat "$dir/run.pid")  log=${dir}/run.log"
+  if [ "$DETACH" = "1" ]; then
+    # setsid + </dev/null fully detaches so runs survive the launching shell.
+    ( cd "$dir" && setsid "$CLAUDE_BIN" -p "$(cat "$dir/PROMPT.md")" \
+          --model "$MODEL" --effort "$EFFORT" --dangerously-skip-permissions --verbose \
+          </dev/null >"$dir/run.log" 2>&1 & echo $! >"$dir/run.pid" )
+    echo "launched (detached) ${folder}  pid=$(cat "$dir/run.pid")  log=${dir}/run.log"
+  else
+    # Foreground: no setsid, no background — the caller owns the process (so the harness can
+    # track it and notify on completion). Blocks until this topic's run finishes.
+    echo "running (foreground) ${folder}  log=${dir}/run.log"
+    ( cd "$dir" && "$CLAUDE_BIN" -p "$(cat "$dir/PROMPT.md")" \
+          --model "$MODEL" --effort "$EFFORT" --dangerously-skip-permissions --verbose \
+          >"$dir/run.log" 2>&1 )
+  fi
 }
 
 main () {
