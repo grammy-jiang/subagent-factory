@@ -123,7 +123,7 @@ Step 5 (which stays the per-principle coverage *floor*).
 | E3 | **Hybrid generation** — LLM ideates inputs (injectable `ideator`), deterministic typed templates instantiate reproducible oracles | det + LLM | ✅ template-mode default + `ideator` hook |
 | E4 | **Negative-routing = in-scope/OOS hard-negatives** (`expected_route: do_not_invoke`, OOS-recall-first) | LLM gen + det check | ✅ section + oracle gate (LLM hard-negatives = follow-on) |
 | E5 | **Missing-context = slot-ablation + answerable twin** (`must_ask_for`; grade silent-commit vs over-ask) | LLM gen + det check | ✅ section + oracle gate (answerable-twin pairing = follow-on) |
-| E6 | **Coverage-guided keep-if-new + embedding dedup** (`embed_minilm`, rare-weighted, anti-collapse) | det | ✅ embedding dedup (injectable `embedder`); rare-weighting = follow-on |
+| E6 | **Coverage-guided keep-if-new + embedding dedup** (`embed_minilm`, rare-weighted, anti-collapse) | det | ✅ embedding dedup + **rare-weighted multi-candidate selection** (`n_candidates`/`_choose_prompt` + `cli --candidates`): ideate N per cell, keep the most novel (lowest max-cosine to the accepted set) |
 | E7 | **Coverage gate** in `validate_generated_package` — every high-conf principle has a golden test; present+tier-gated (min_tier 99, keyed on `tests/behaviour-tests.yaml`) | det gate | ✅ wired; non-breaking proven (Tier-0 + Tier-1) |
 
 **E-track status (built 2026-06-14).** The deterministic core is **implemented + gate-wired**:
@@ -138,9 +138,10 @@ contract bug: negative routing is `do_not_invoke`, not `decline`).
 **LLM ideator DONE (2026-06-14):** `gen_behaviour_tests.shell_ideator` + `examples/behaviour-test-
 ideator.sh` + `cli gen-behaviour-tests --ideator` wire an LLM to write realistic prompts and
 **hard-negative out-of-scope** requests (vs the template-mode restatement of `does_not_apply_when`);
-template-mode stays the free default, the ideator falls back to it on any failure. Remaining E
-follow-ons: **answerable-twin pairing** (pair each missing-context test with an answerable variant to
-grade silent-commit vs over-ask), and the **rare-weighted coverage keep-if-new loop** — both deferred.
+template-mode stays the free default, the ideator falls back to it on any failure. **Both former E
+follow-ons are now DONE:** answerable-twin pairing (Step-13 F4) and the **rare-weighted multi-candidate
+selection** (E6 — `n_candidates`/`_choose_prompt`: ideate N per cell, keep the most novel by lowest
+max-cosine to the accepted set).
 
 ## D. prompt-optimization-eval → Step 12 (tune the adapter against the E-track objective)
 Research **done** (`docs/Research/prompt-optimization-eval/`, 29 papers, PASS 1.0, IMPLEMENTATION_READY).

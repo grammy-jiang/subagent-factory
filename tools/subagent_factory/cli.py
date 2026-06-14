@@ -476,14 +476,21 @@ def cmd_optimize_adapter(
     "examples/behaviour-test-ideator.sh). Omit for template-mode (deterministic, no model calls).",
 )
 @click.option(
+    "--candidates",
+    default=1,
+    show_default=True,
+    help="Ideate this many prompts per cell and keep the most novel (rare-weighted; needs --ideator "
+    "+ an embedder to bite). >1 costs that many ideator calls per cell.",
+)
+@click.option(
     "--validate/--no-validate", default=True, help="Run the coverage validator after writing."
 )
-def cmd_gen_behaviour_tests(slug, ideator, validate):
+def cmd_gen_behaviour_tests(slug, ideator, candidates, validate):
     """Step 11: generate a behaviour-test suite (golden / negative-routing / missing-context).
 
     Reads the package's principles and writes tests/behaviour-tests.yaml. Template-mode by default
     (no model calls); --ideator wires an LLM to write realistic prompts and hard-negative
-    out-of-scope requests.
+    out-of-scope requests; --candidates N ideates N per cell and keeps the most novel.
     """
     from tools.subagent_factory.gen_behaviour_tests import (
         gen_behaviour_tests,
@@ -504,7 +511,7 @@ def cmd_gen_behaviour_tests(slug, ideator, validate):
         )
         sys.exit(1)
     ide = shell_ideator(ideator) if ideator else None
-    suite = gen_behaviour_tests(principles, slug, ideator=ide)
+    suite = gen_behaviour_tests(principles, slug, ideator=ide, n_candidates=candidates)
     out = write_suite(base, suite)
     n = sum(
         len(suite.get(s, []))
