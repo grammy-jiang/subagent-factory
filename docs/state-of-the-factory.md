@@ -35,7 +35,7 @@ Status + plan in `docs/enhancement-steps/research-integration-plan.md`.
 |---|---|---|
 | **A — instruction-induction** | shape the adapter: example-by-utility (A1), replay gate (A2), compiled must-hold invariant layer (A3+A5), failure-recovery example gate (A4) | ✅ **A1–A5 done** |
 | **B — agent-benchmarking** | measure output quality: Bradley-Terry + bootstrap CI ranking (B1), position-swapped judging (B2), cross-family judge ensemble + self-audit (B3, incl. codex/gpt-5.5), gold-set κ harness (B4), cost-parity (B5), deterministic hedge wiring (B6) | ✅ done **except B4 gold *data*** (human-gated) |
-| **C — knowledge-graph** | the Step-7 principle graph (clusters + typed-edge graph + conflict log) | ✅ shipped; C1 embedding-dedup / C2 PROV-O / C3 Hearst are optional refinements |
+| **C — knowledge-graph** | the Step-7 principle graph (clusters + typed-edge graph + conflict log) | ✅ shipped. C1 embedding-dedup ✅ (margin-above-baseline). C3 Hearst is-a ⚠️ built but low-yield on factory data (WordNet lacks domain jargon — opt-in, not auto-wired). C2 PROV-O optional. |
 
 ## Provenance-repair toolset (deterministic)
 

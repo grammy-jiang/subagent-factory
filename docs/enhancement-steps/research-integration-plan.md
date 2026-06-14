@@ -87,7 +87,20 @@ floor to clear). Defaults: `cos_threshold=0.5`, `margin=0.15` (set `margin=0` fo
 behaviour). So C1 is a genuine win — the third measured arc, but this time the structural refinement
 *resolved* the over-merge rather than just tempering it.
 | C2 | **PROV-O provenance** — `wasDerivedFrom`/`wasAttributedTo` on nodes/edges (current graph has cluster_id/method/confidence — a subset) | det schema | optional |
-| C3 | **Hearst dependency-path patterns** for `specialises` (is-a) induction, hybrid with distributional | det + LLM | optional |
+| C3 | **Hearst dependency-path patterns** for `specializes` (is-a) induction, hybrid with distributional | det + LLM | ⚠️ built + **measured low-yield on factory data** (below). `hearst_isa.py`: spaCy-parse Hearst (+ flat-regex fallback) + nltk WordNet confirmation + `seed_specializes`; opt-in `nlp` extra. Correct on clean text; **noisy on real PDF domain source** → opt-in, not auto-wired. |
+
+**C3 finding (measured 2026-06-14).** Built the hybrid: spaCy snaps Hearst spans to noun-chunk
+boundaries (clean heads), nltk WordNet *confirms* a pair (transitive hypernym ⇒ `confidence: high`),
+flat regex is the dependency-free fallback. **Correct on clean enumerative text** (unit-tested:
+"authentication methods such as OAuth, SAML" → the right is-a pairs). **But on real factory packages
+it is low-precision** — run on the api-security source book it produced spurious is-a from PDF noise
+("'security bers' is-a 'personal data'") and a common term ("security") exploded to 33 edges, while
+**WordNet confirmed none** (domain jargon — OAuth, mirroring, modules — is not in WordNet, so the
+hybrid's precision filter is inert). An over-common-term guard cuts 33 → 1, but the survivor is still
+noisy ("network tions"). So C3 ships as an **opt-in candidate generator, not auto-wired** into the
+graph; `require_wordnet=True` gives high precision at ≈0 recall on domain terms. Third measured arc —
+and unlike C1(c) it is **not resolved in-environment**: the real fix is a *domain* hypernym lexicon
+(or LLM is-a judging), not general-English WordNet. Honest negative result, capability shipped.
 
 ---
 
