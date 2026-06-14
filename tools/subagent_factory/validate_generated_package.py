@@ -37,6 +37,9 @@ from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
 from tools.subagent_factory.quote_scan import quote_scan
 from tools.subagent_factory.validate_adapter_quality import validate_adapter_quality
 from tools.subagent_factory.validate_anchor_index import validate_anchor_index
+from tools.subagent_factory.validate_behaviour_test_coverage import (
+    validate_behaviour_test_coverage,
+)
 from tools.subagent_factory.validate_claims import validate_claims
 from tools.subagent_factory.validate_evidence_records import validate_evidence_records
 from tools.subagent_factory.validate_examples import validate_examples
@@ -73,6 +76,11 @@ _TIER_ARTIFACTS: list = [
     # validate_principles entry above), so this is self-documenting + belt-and-suspenders:
     # a Tier-1 package without principle-behaviour test coverage cannot validate.
     ("principles/principles.yaml", 1, validate_principle_test_coverage),
+    # Step 11 (behaviour-test generation): a generated adversarial suite (golden / negative-routing /
+    # missing-context). min_tier 99 = validate-if-present, keyed on the distinct Step-11 filename so
+    # the hand-authored golden-tests.yaml packages are untouched; bites only once a package ships a
+    # generated behaviour-tests.yaml (schema + oracle-shape + per-principle golden coverage).
+    ("tests/behaviour-tests.yaml", 99, validate_behaviour_test_coverage),
     # Step 7 (multi-source synthesis, Phase A/C): cross-source principle clusters + relationship
     # graph. min_tier 99 = validate-if-present, never required yet — they appear only on Tier-2
     # multi-source packages once the LLM-confirm step runs; the deterministic scaffolding is wired
