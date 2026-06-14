@@ -48,6 +48,31 @@ Apply derivation rules from Phase 5:
 | `minimum_useful_output` | Q11 |
 | `source_of_truth_policy` | Q8+Q17 |
 | `knowledge_partition.*` | Q12–Q16 |
+| `examples[]` | **2 worked few-shot examples** (see below) — one `happy-path`, one `failure-recovery` |
+
+**`examples[]` (author these — they were a dormant slot until now).** Two grounded worked examples
+that show the agent's behaviour, derived from the interrogation you already have:
+
+- one **`happy-path`**: a core `when_to_use` task → the ideal in-role response (what a good answer
+  covers, anchored to `quality_bar`/`minimum_useful_output`);
+- one **`failure-recovery`**: a `when_not_to_use` / `forbidden_behaviours` request → the agent
+  declines, says why it is out of scope, and hands off per `handoff_rules`.
+
+Shape (each item):
+
+```yaml
+examples:
+  - title: <short label>
+    kind: happy-path          # or: failure-recovery
+    scenario: >-
+      <the situation the caller brings>
+    ideal_response: >-
+      <a sketch of the correct in-role response>
+```
+
+The validator requires **≥1 `failure-recovery`** whenever any example is present (A4), so always
+author both. Examples are **excluded from the body-word budget** (they are few-shot data, not rules)
+and render into the adapter's `## Worked examples` section on export.
 
 If the source justified a `purpose-review` pattern (see source-interrogation),
 embed the `purpose_review` mode from `templates/purpose-review-contract.yaml.j2`,
