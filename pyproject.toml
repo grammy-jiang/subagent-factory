@@ -54,6 +54,13 @@ ocr = [
     "pymupdf>=1.23",
     "python-magic>=0.4",
 ]
+# NLP extras for Step-7 C3 (Hearst is-a induction): spaCy parse-clean noun-phrase boundaries +
+# nltk WordNet hypernym confirmation. Optional — hearst_isa falls back to a flat-regex extractor
+# (no WordNet confidence) when absent, so CI does not install these.
+nlp = [
+    "spacy>=3.7",
+    "nltk>=3.8",
+]
 
 [project.scripts]
 subagent-factory = "tools.subagent_factory.cli:main"
@@ -103,5 +110,8 @@ module = [
     "requests",
     "torch",
     "transformers.*",
+    "spacy",
+    "nltk",
+    "nltk.*",
 ]
 ignore_missing_imports = true
