@@ -17,9 +17,10 @@ real package; treat output as a starting set for the LLM, never as the final clu
 **C1 (embedding cosine):** pass an ``embedder`` to *also* pair cross-source paraphrases token-F1
 misses (the common case — *why* multi-source synthesis is hard). It is still a candidate generator
 (the LLM-confirm step decides). The embedder is **injectable** (``Callable[[list[str]],
-list[list[float]]]``), mirroring how the eval harness injects its LLM judge: the deterministic pairing
-logic stays dependency-light and the embedding model is environment-provided (e.g. a
-``sentence-transformers`` model returning L2-normalised vectors). Unit tests use a fake embedder.
+list[list[float]]]``), mirroring how the eval harness injects its LLM judge — unit tests use a fake.
+``embed_minilm`` is the provided, **validated** reference (cached, pinned all-MiniLM-L6-v2; clear
+paraphrases ~0.5 vs unrelated ~0.0); the CLI ``--embeddings`` flag uses it. Library:
+``seed_clusters(subagent_dir, threshold=0.15, embedder=None, cos_threshold=0.6) -> dict``.
 
 Library: ``seed_clusters(subagent_dir, threshold=0.15) -> dict`` (principle-clusters-v1).
 CLI: ``python -m tools.subagent_factory.seed_principle_clusters <subagents/slug> [threshold]``.
@@ -51,6 +52,36 @@ def _cosine(a: list[float], b: list[float]) -> float:
     na = sum(x * x for x in a) ** 0.5
     nb = sum(y * y for y in b) ** 0.5
     return dot / (na * nb) if na and nb else 0.0
+
+
+_MINILM = "sentence-transformers/all-MiniLM-L6-v2"
+# Pinned commit (the locally-cached snapshot): reproducible + satisfies the unsafe-download check.
+# Public HF model revision, not a credential.
+_MINILM_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"  # pragma: allowlist secret
+
+
+def embed_minilm(statements: list[str]) -> list[list[float]]:
+    """Reference embedder for C1: cached all-MiniLM-L6-v2, mean-pooled + L2-normalised.
+
+    Validated (``docs/output-quality-eval.md``): identical strings → cosine 1.0; clear paraphrases
+    separate (~0.5) from unrelated (~0.0). It is *one* usable embedder, not the only one — the
+    ``seed_clusters`` ``embedder`` arg takes any ``Callable[[list[str]], list[list[float]]]``. Lazy
+    torch+transformers import + pinned, locally-cached model, so the seeder stays dependency-light
+    unless embeddings are requested.
+    """
+    import torch
+    from transformers import AutoModel, AutoTokenizer
+
+    tok = AutoTokenizer.from_pretrained(_MINILM, revision=_MINILM_REVISION)
+    model = AutoModel.from_pretrained(_MINILM, revision=_MINILM_REVISION)
+    model.eval()
+    enc = tok(list(statements), padding=True, truncation=True, max_length=256, return_tensors="pt")
+    with torch.no_grad():
+        out = model(**enc)
+    mask = enc["attention_mask"].unsqueeze(-1).float()
+    emb = (out.last_hidden_state * mask).sum(1) / mask.sum(1).clamp(min=1e-9)
+    emb = torch.nn.functional.normalize(emb, p=2, dim=1)
+    return emb.tolist()
 
 
 def _claim_sources(base: Path) -> dict[str, str]:
@@ -174,14 +205,16 @@ def seed_clusters(
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
+    args = [a for a in sys.argv[1:] if not a.startswith("-")]
+    use_embeddings = "--embeddings" in sys.argv
+    if not args:
         print(
             "Usage: python -m tools.subagent_factory.seed_principle_clusters "
-            "<subagents/slug> [threshold]   # embedding-cosine (C1) is a library-only injection"
+            "<subagents/slug> [threshold] [--embeddings]   # --embeddings: add C1 cosine via MiniLM"
         )
         sys.exit(1)
-    threshold = float(sys.argv[2]) if len(sys.argv) > 2 else _DEFAULT_THRESHOLD
-    result = seed_clusters(sys.argv[1], threshold)
+    threshold = float(args[1]) if len(args) > 1 else _DEFAULT_THRESHOLD
+    result = seed_clusters(args[0], threshold, embedder=embed_minilm if use_embeddings else None)
     n = len(result["clusters"])
     print(f"seeded {n} candidate cross-source cluster(s) (threshold {threshold}):")
     for c in result["clusters"]:
@@ -189,7 +222,7 @@ def main() -> None:
             f"  {c['cluster_id']}: {len(c['member_principle_ids'])} principles "
             f"across {c['sources']} (overlap {c['mean_overlap']}); shared: {c['shared_terms'][:6]}"
         )
-    out = Path(sys.argv[1]) / "principles" / "principle-clusters.seed.json"
+    out = Path(args[0]) / "principles" / "principle-clusters.seed.json"
     out.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(f"written: {out}")
 

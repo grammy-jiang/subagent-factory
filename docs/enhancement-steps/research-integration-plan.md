@@ -72,7 +72,19 @@ specialises), and "LLM proposes / deterministic decides + provenance gate" — a
 build:
 | # | refinement (from the report) | det / LLM | status |
 |---|---|---|---|
-| C1 | **3-stage dedup cascade** — add (b) distributional cosine + (c) graph-structural similarity to the current (a) lexical `seed_principle_clusters`; closes its known paraphrase-blindness | det + embeddings | ✅ (b) done: `seed_clusters(embedder=…, cos_threshold=…)` adds embedding-cosine pairing; **embedder injectable** (env-provided, like the eval-harness LLM judge), tested with a fake. (c) graph-structural still todo |
+| C1 | **3-stage dedup cascade** — add (b) distributional cosine + (c) graph-structural similarity to the current (a) lexical `seed_principle_clusters`; closes its known paraphrase-blindness | det + embeddings | ⚠️ (b) built + **measured a negative result** (below). `seed_clusters(embedder=…, cos_threshold=…)` + validated `embed_minilm` (pinned MiniLM) + injectable hook + tests — but raw cosine **over-merges same-topic principles** on real packages, so it is not enabled by default. (c) graph-structural still todo |
+
+**C1 (b) finding — raw-cosine over-merges (measured 2026-06-14).** `embed_minilm` is validated
+(identical strings → cosine 1.0; distinct-topic paraphrase ~0.5 vs unrelated ~0.05). But applied to
+real principle clustering it does **not** deliver a clean win: on `software-design-simplicity` (2
+books, one topic) *every* principle pair sits at ~0.4–0.5 cosine, so the embedding signal cannot
+separate "same concept" (should cluster) from "same topic" (should not). Lowering `cos_threshold`
+just collapses the package into one over-merged blob (0.5 → a 6-principle component; 0.35 → all 19);
+at the conservative 0.6 default it adds **zero** pairs. The lexical seeder's 2 tight clusters are
+better. So C1(b) ships as an **opt-in, off-by-default** capability (validated embedder + injectable
+hook), and the real refinement is **discrimination beyond raw cosine** — rank/relative thresholds, or
+requiring a lexical anchor alongside high cosine — folded into C1(c)/a future pass. Same pattern as
+the multi-source and invariant-layer arcs: the measurement tempered an intuitively-appealing idea.
 | C2 | **PROV-O provenance** — `wasDerivedFrom`/`wasAttributedTo` on nodes/edges (current graph has cluster_id/method/confidence — a subset) | det schema | optional |
 | C3 | **Hearst dependency-path patterns** for `specialises` (is-a) induction, hybrid with distributional | det + LLM | optional |
 
