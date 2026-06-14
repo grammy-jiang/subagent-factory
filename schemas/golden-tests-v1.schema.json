@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "golden-tests-v1",
+  "title": "Golden / behaviour tests v1",
+  "description": "Behaviour-test suite for a generated subagent (Step 5 golden tests + Step 11 generated suites). Lives at tests/golden-tests.yaml (authored) or tests/behaviour-tests.yaml (Step-11 generated). Three single-turn test sections — golden_tests (the expert does its job, expected_route invoke), negative_routing_tests (out-of-scope, expected_route do_not_invoke), missing_context_tests (underspecified, must_ask_for non-empty) — matching tools.subagent_factory.behaviour_replay._TEST_SECTIONS, so the suite is graded directly by behaviour_replay. principle_coverage links a test back to the principle ids it exercises.",
+  "type": "object",
+  "required": ["schema_version", "subagent_slug"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "golden-tests-v1"},
+    "subagent_slug": {"type": "string"},
+    "generated_at": {"type": "string"},
+    "profile_version": {"type": ["string", "number"]},
+    "source_id": {"type": "string"},
+    "tier": {"type": ["integer", "string"]},
+    "golden_tests": {"$ref": "#/$defs/testList"},
+    "negative_routing_tests": {"$ref": "#/$defs/testList"},
+    "missing_context_tests": {"$ref": "#/$defs/testList"}
+  },
+  "$defs": {
+    "testList": {"type": "array", "items": {"$ref": "#/$defs/test"}},
+    "test": {
+      "type": "object",
+      "required": ["test_id", "prompt"],
+      "additionalProperties": false,
+      "properties": {
+        "test_id": {"type": "string"},
+        "description": {"type": "string"},
+        "prompt": {"type": "string", "minLength": 1},
+        "expected_route": {"enum": ["invoke", "do_not_invoke"]},
+        "expected_mode": {"type": ["string", "null"]},
+        "must_ask_for": {"type": "array", "items": {"type": "string"}},
+        "minimum_output": {"type": "string"},
+        "must_do": {"type": "array", "items": {"type": "string"}},
+        "must_not_do": {"type": "array", "items": {"type": "string"}},
+        "principle_coverage": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

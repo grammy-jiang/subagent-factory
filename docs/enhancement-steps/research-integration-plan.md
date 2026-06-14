@@ -12,7 +12,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | instruction-induction / agent-distillation | ✅ | A-track (below) | ✅ A1–A5 (`behaviour_replay`, `compile_invariants`, examples slot) |
 | agent-benchmarking / LLM-as-judge | ✅ | B-track (below) | ✅ B1–B3,B5,B6 (`rank_versions`,`judge_ab`,`eval_report`); B4 gold = human-gated |
 | knowledge-graph / ontology construction | ✅ | C-track (below) | ✅ C1–C3 (`seed_principle_clusters`,`prov.py`,`hearst_isa` opt-in) |
-| **behaviour-test-generation** | ✅ PASS 1.0 (41 papers) | **E-track + `step-11-behaviour-test-generation.md`** | spec folded; impl pending |
+| **behaviour-test-generation** | ✅ PASS 1.0 (41 papers) | **E-track + `step-11-behaviour-test-generation.md`** | ✅ det core (`gen_behaviour_tests`, schema, coverage gate); LLM ideation = follow-on |
 | **prompt-optimization-eval** | ✅ PASS 1.0 (29 papers) | **D-track + `step-12-optimize-adapter.md`** | spec folded; primitives exist (A-track replay engine) |
 
 ---
@@ -109,20 +109,31 @@ and unlike C1(c) it is **not resolved in-environment**: the real fix is a *domai
 ## E. behaviour-test-generation → Step 11 (profile-spec → high-coverage adversarial test suite)
 Research **done** (`docs/Research/behaviour-test-generation/`, 41 papers, PASS 1.0). Full spec:
 `step-11-behaviour-test-generation.md`. Generates the *objective* the D-track optimizes against, so it
-lands first. The three test categories are **encodings of the existing `golden-tests-v1` field set** —
-golden ⇒ `expected_route: invoke`, negative-routing ⇒ `expected_route: decline`, missing-context ⇒
-`must_ask_for` non-empty — so generated tests are immediately runnable by `behaviour_replay`. Builds
-on Step 5 (which stays the per-principle coverage *floor*).
+lands first. The three test categories are **the existing `golden-tests-v1` top-level sections**
+(`_TEST_SECTIONS`) — golden_tests ⇒ `expected_route: invoke`, negative_routing_tests ⇒
+`expected_route: do_not_invoke`, missing_context_tests ⇒ `must_ask_for` non-empty — so generated tests
+are graded by `behaviour_replay` the moment they are written (round-trip test proves it). Builds on
+Step 5 (which stays the per-principle coverage *floor*).
 
 | # | change | det / LLM | status |
 |---|---|---|---|
-| E1 | **Capability × test-type matrix** — rows=principles, cols={golden, negative-routing, missing-context}; Cartesian-expand to emit `tests/*.yaml` | det scaffold + LLM ideate | spec |
-| E2 | **`golden-tests-v1` JSON schema + validator** — close the current schema-exempt gap; add `test_type`/`principle_ref` | det schema | spec |
-| E3 | **Hybrid generation** — LLM ideates inputs, deterministic typed templates instantiate reproducible oracles | det + LLM | spec |
-| E4 | **Negative-routing = in-scope/OOS hard-negatives** (`expected_route: decline`, OOS-recall-first) | LLM gen + det check | spec |
-| E5 | **Missing-context = slot-ablation + answerable twin** (`must_ask_for`; grade silent-commit vs over-ask) | LLM gen + det check | spec |
-| E6 | **Coverage-guided keep-if-new + embedding dedup** (`embed_minilm`, rare-weighted, anti-collapse) | det | spec |
-| E7 | **Coverage gate** in `validate_generated_package` — every principle exercised per required type; present+tier-gated | det gate | spec |
+| E1 | **Capability × test-type matrix** — rows=principles, cols={golden, negative-routing, missing-context}; Cartesian-expand to emit the three sections | det scaffold + LLM ideate | ✅ `gen_behaviour_tests` |
+| E2 | **`golden-tests-v1` JSON schema + validator** — close the schema-exempt gap; `principle_coverage` linkage | det schema | ✅ `schemas/golden-tests-v1.schema.json` + `validate_behaviour_test_coverage` (gate-wired) |
+| E3 | **Hybrid generation** — LLM ideates inputs (injectable `ideator`), deterministic typed templates instantiate reproducible oracles | det + LLM | ✅ template-mode default + `ideator` hook |
+| E4 | **Negative-routing = in-scope/OOS hard-negatives** (`expected_route: do_not_invoke`, OOS-recall-first) | LLM gen + det check | ✅ section + oracle gate (LLM hard-negatives = follow-on) |
+| E5 | **Missing-context = slot-ablation + answerable twin** (`must_ask_for`; grade silent-commit vs over-ask) | LLM gen + det check | ✅ section + oracle gate (answerable-twin pairing = follow-on) |
+| E6 | **Coverage-guided keep-if-new + embedding dedup** (`embed_minilm`, rare-weighted, anti-collapse) | det | ✅ embedding dedup (injectable `embedder`); rare-weighting = follow-on |
+| E7 | **Coverage gate** in `validate_generated_package` — every high-conf principle has a golden test; present+tier-gated (min_tier 99, keyed on `tests/behaviour-tests.yaml`) | det gate | ✅ wired; non-breaking proven (Tier-0 + Tier-1) |
+
+**E-track status (built 2026-06-14).** The deterministic core is **implemented + gate-wired**:
+`gen_behaviour_tests.py` (matrix → three sections → typed templates, injectable `ideator`/`embedder`),
+`schemas/golden-tests-v1.schema.json`, `validate_behaviour_test_coverage.py` (schema + oracle-shape +
+per-principle golden coverage), wired into `validate_generated_package` present+tier-gated. Proven
+end-to-end (api-security-reviewer: 14 principles → 42 tests, coverage PASS) and **non-breaking** (15
+Tier-0 packages + the Tier-1 package both still validate). 16 unit tests including a **round-trip
+through the real `behaviour_replay` engine** (proves the routes grade correctly — this caught a
+contract bug: negative routing is `do_not_invoke`, not `decline`). Follow-ons (LLM): hard-negative OOS
+*ideation*, answerable-twin pairing, rare-weighted coverage loop — the `ideator` hook is the seam.
 
 ## D. prompt-optimization-eval → Step 12 (tune the adapter against the E-track objective)
 Research **done** (`docs/Research/prompt-optimization-eval/`, 29 papers, PASS 1.0, IMPLEMENTATION_READY).

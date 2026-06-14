@@ -23,10 +23,10 @@ because the generated tests reuse the existing `golden-tests-v1` field set.
 
 | Path | Kind | Purpose |
 |---|---|---|
-| `schemas/golden-tests-v1.schema.json` | schema | **Close the unschematized gap** — `golden-tests.yaml` / generated suites are currently schema-exempt. Type the fields (`test_id`, `prompt`, `expected_route ∈ {invoke,decline}`, `expected_mode`, `must_ask_for[]`, `minimum_output`, `must_not_do[]`) + a new optional `test_type ∈ {golden, negative-routing, missing-context}` and `principle_ref`. |
+| `schemas/golden-tests-v1.schema.json` | schema | **Close the unschematized gap** — generated suites were schema-exempt. Type the three sections `behaviour_replay` reads (`golden_tests` / `negative_routing_tests` / `missing_context_tests`) and the per-test fields: `test_id`, `prompt`, `expected_route ∈ {invoke, do_not_invoke}`, `expected_mode`, `must_ask_for[]`, `minimum_output`, `must_not_do[]`, `principle_coverage[]`. (Authored `golden-tests.yaml` stays exempt — some legacy files drifted; the schema governs the *generated* `behaviour-tests.yaml`.) |
 | `.claude/skills/behaviour-test-generation/SKILL.md` | skill (LLM) | The generation procedure: build the matrix, ideate inputs per cell, apply metamorphic relations, instantiate typed templates, run the coverage loop. |
 | `tools/subagent_factory/gen_behaviour_tests.py` | tool (det + LLM-hook) | Deterministic scaffold: build the principle×type matrix, instantiate typed templates from LLM-ideated slots, dedup by embedding (reuse `embed_minilm`), emit schema-valid YAML. |
-| `tools/subagent_factory/validate_behaviour_test_coverage.py` | tool (validator) | Coverage gate: every principle exercised by ≥1 of each required test_type (tier-gated); schema-valid; oracle well-formedness (a `negative-routing` test must set `expected_route: decline`; a `missing-context` test must populate `must_ask_for`). |
+| `tools/subagent_factory/validate_behaviour_test_coverage.py` | tool (validator) | Coverage gate: every high-confidence principle exercised by ≥1 `golden_tests` entry (tier-gated); schema-valid; oracle well-formedness (a `negative_routing_tests` entry must set `expected_route: do_not_invoke`; a `missing_context_tests` entry must populate `must_ask_for`). |
 | `tests/subagent_factory/test_gen_behaviour_tests.py` | fixtures | Generator + validator unit tests. |
 
 ## Reuse (build on, do not duplicate)
@@ -36,11 +36,12 @@ because the generated tests reuse the existing `golden-tests-v1` field set.
   runnable** by the existing engine and by Step 12 — no new runtime.
 - **`embed_minilm`** (`seed_principle_clusters`) — reuse for the anti-collapse dedup (drop a candidate
   whose embedding is within cosine τ of an accepted one).
-- **`golden-tests-v1` field set** — the three categories are *encodings of existing fields*, not new
-  ones: golden ⇒ `expected_route: invoke` + `minimum_output`; negative-routing ⇒
-  `expected_route: decline` + `must_not_do`; missing-context ⇒ `expected_route: invoke` +
-  `must_ask_for` non-empty, paired with an answerable twin.
-- **`principles-v1`** — the matrix rows are the promoted principles; `principle_ref` links back.
+- **`golden-tests-v1` sections** — the three categories are the *existing top-level sections*
+  (`_TEST_SECTIONS`), not new fields: golden_tests ⇒ `expected_route: invoke` + `minimum_output`;
+  negative_routing_tests ⇒ `expected_route: do_not_invoke` + `must_not_do`; missing_context_tests ⇒
+  `must_ask_for` non-empty, paired with an answerable twin. So a generated suite is graded by
+  `behaviour_replay` the moment it is written (round-trip test proves it).
+- **`principles-v1`** — the matrix rows are the promoted principles; `principle_coverage[]` links back.
 
 ## LLM ↔ deterministic split
 
@@ -92,7 +93,7 @@ objective Step 12 optimizes against is **stable**.
 `validate_behaviour_test_coverage.py` registers in `validate_generated_package.py`, **present-gated +
 tier-gated**: WARN if absent; once a package ships a Step-11 suite, FAIL on (a) schema-invalid test,
 (b) a principle with no golden test, (c) an oracle-shape violation (negative-routing without
-`expected_route: decline`, missing-context without `must_ask_for`). Tier-0's 15 packages keep passing
+negative-routing without `expected_route: do_not_invoke`, missing-context without `must_ask_for`). Tier-0's 15 packages keep passing
 (they have no Step-11 suite → WARN only). Mirrors the A4/Step-5 present-gate discipline.
 
 ## Fixtures
