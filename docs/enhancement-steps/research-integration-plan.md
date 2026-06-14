@@ -192,8 +192,22 @@ codex/gpt-5.5 judge (cross-family) confirmed the win. **This is the contrast tha
 the same run under the coarse lexical grader returned "no gain" — only the semantic grader both found
 the real failure and rewarded the real fix. Winner landed in `<slug>.optimized.md` for review (the
 edit is faithful — matches the adapter's stated scope; next step is the human fold into `profile.yaml`
-+ re-export, where the full faithfulness/quote/policy gate runs). The whole D+E arc (folded research →
-working code → live meaningful gain) is now closed.
++ re-export, where the full faithfulness/quote/policy gate runs).
+
+**Round-trip closed + a measured-honesty arc (2026-06-14).** The winning block was folded into the
+canonical `profile.yaml` (two `forbidden_behaviours` made procedural; agent_version 0.2.0→0.3.0;
+CHANGELOG + provenance entries), re-exported, **validate PASS + quote-scan PASS**. Then the
+empirical re-measure bit back: a **single-sample** semantic re-measure of the new v0.3.0 adapter read
+**0.27** (NR-001 still 0.11) — a scary contradiction of the in-loop 0.97. Diagnosis via the
+**deterministic coarse grader** (no judge): it read **0.56**, ≈ the pre-fold 0.59 — so the *runner did
+not regress*; the fold was safe and the swing was **judge variance**. Confirmed: a single cross-family
+judge call is **high-variance** (it scored equivalent output 0.82 then 0.27). **Fix:**
+`make_llm_grader(llm, samples=K)` aggregates K judge calls (route=majority, components=median) +
+`cli optimize-adapter --judge-samples`. Re-measuring v0.3.0 with **`--judge-samples 3`** gave a clean
+**0.99** (NR-001 **0.11→1.00**) — the fold's gain is real and the round-trip is empirically confirmed.
+**Lesson (load-bearing for D8):** n=1 live grading is not trustworthy; use the coarse grader for cheap
+in-loop screening and **`--judge-samples ≥3` for any verdict**. The harness kept the result honest —
+the "win" only survived once the *measurement* was made reproducible.
 
 **Sibling dependency.** D scores against E's suite; the loop is only as good as the tests. Build order:
 **E first (objective), then D (optimizer).** Both are single-turn for now (E's G2 multi-turn coverage
