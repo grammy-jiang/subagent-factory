@@ -61,10 +61,28 @@ def _validate_schema(suite):
 
 def test_full_principle_emits_all_three_sections():
     suite = gen_behaviour_tests([_P_FULL], "demo")
-    assert len(suite["golden_tests"]) == 1
+    # golden_tests = the golden cell + the answerable twin paired with the missing-context cell.
+    assert len(suite["golden_tests"]) == 2
     assert len(suite["negative_routing_tests"]) == 1
     assert len(suite["missing_context_tests"]) == 1
     _validate_schema(suite)
+
+
+def test_answerable_twin_paired_with_missing_context():
+    suite = gen_behaviour_tests([_P_FULL], "demo")
+    mc = suite["missing_context_tests"][0]
+    twins = [t for t in suite["golden_tests"] if t.get("twin_of")]
+    assert len(twins) == 1
+    assert twins[0]["twin_of"] == mc["test_id"]
+    assert twins[0]["expected_route"] == "invoke"  # the twin should answer
+    assert twins[0]["must_not_do"]  # ... and explicitly not over-ask
+    assert not twins[0].get("must_ask_for")  # the twin must NOT require asking
+
+
+def test_no_twins_when_disabled():
+    suite = gen_behaviour_tests([_P_FULL], "demo", answerable_twins=False)
+    assert not any(t.get("twin_of") for t in suite["golden_tests"])
+    assert len(suite["golden_tests"]) == 1
 
 
 def test_routes_and_oracles_per_section():

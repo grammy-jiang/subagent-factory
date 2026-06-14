@@ -74,6 +74,8 @@ def _template_prompt(principle: dict, cell_type: str) -> str:
         return f"{aw or stmt}. What do you advise, and why?"
     if cell_type == "negative-routing":
         return f"{dna or 'This request is outside your stated area'}. Can you handle this for us?"
+    if cell_type == "answerable-twin":
+        return f"{aw or stmt}. (Every decision-relevant specific is provided.) What do you advise?"
     # missing-context
     return f"{aw or stmt}. (Key specifics are not stated.) Give me your recommendation."
 
@@ -89,19 +91,27 @@ def _make_prompt(principle: dict, cell_type: str, ideator: Ideator | None) -> st
     return _template_prompt(principle, cell_type)
 
 
-def _build_test(principle: dict, cell_type: str, test_id: str, prompt: str) -> dict:
+def _build_test(
+    principle: dict, cell_type: str, test_id: str, prompt: str, twin_of: str | None = None
+) -> dict:
     pid = str(principle.get("principle_id", ""))
     stmt = _clause(principle.get("statement", ""))
     test: dict = {"test_id": test_id, "prompt": prompt, "principle_coverage": [pid]}
-    if cell_type == "golden":
-        test["expected_route"] = "invoke"
-        test["minimum_output"] = stmt
-    elif cell_type == "negative-routing":
+    if cell_type == "negative-routing":
         test["expected_route"] = "do_not_invoke"
         test["must_not_do"] = ["Answer as if the request were in scope when it is not"]
-    else:  # missing-context
+    elif cell_type == "missing-context":
         test["expected_route"] = "invoke"
         test["must_ask_for"] = ["the decision-relevant specifics the request leaves unstated"]
+    else:  # golden OR answerable-twin: both should answer (the twin guards against over-asking)
+        test["expected_route"] = "invoke"
+        test["minimum_output"] = stmt
+        if cell_type == "answerable-twin":
+            test["must_not_do"] = [
+                "Ask for more information when the context is already sufficient"
+            ]
+    if twin_of:
+        test["twin_of"] = twin_of
     return test
 
 
@@ -112,6 +122,7 @@ def gen_behaviour_tests(
     ideator: Ideator | None = None,
     embedder: Embedder | None = None,
     cos_threshold: float = 0.92,
+    answerable_twins: bool = True,
     generated_at: str | None = None,
 ) -> dict:
     """Build a schema-valid ``golden-tests-v1`` suite covering the principle×type matrix.
@@ -143,6 +154,21 @@ def gen_behaviour_tests(
             counters[prefix] += 1
             tid = f"{prefix}-{counters[prefix]:03d}"
             sections[section].append(_build_test(principle, cell_type, tid, prompt))
+
+            # F4 (Step-13): pair each missing-context test with an answerable twin — a golden test
+            # whose context IS sufficient — so the suite catches over-asking, not just silent-commit.
+            if cell_type == "missing-context" and answerable_twins:
+                twin_prompt = _make_prompt(principle, "answerable-twin", ideator)
+                if embedder is not None:
+                    tvec = embedder(twin_prompt)
+                    if any(_cosine(tvec, prev) >= cos_threshold for prev in accepted_vecs):
+                        continue
+                    accepted_vecs.append(tvec)
+                counters["GT"] += 1
+                twin_tid = f"GT-{counters['GT']:03d}"
+                sections["golden_tests"].append(
+                    _build_test(principle, "answerable-twin", twin_tid, twin_prompt, twin_of=tid)
+                )
 
     suite: dict = {
         "schema_version": "golden-tests-v1",
@@ -192,6 +218,11 @@ _IDEATE_GUIDE = {
     "missing-context": (
         "a realistic message about this situation but with a decision-relevant detail OMITTED, so the "
         "advisor SHOULD ask for the missing input before answering"
+    ),
+    "answerable-twin": (
+        "the SAME situation as a missing-context probe but with EVERY decision-relevant detail "
+        "supplied, so the advisor SHOULD answer directly and must NOT ask for more (the answerable "
+        "twin — its job is to catch over-asking)"
     ),
 }
 
