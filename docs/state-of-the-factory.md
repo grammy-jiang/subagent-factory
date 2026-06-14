@@ -72,10 +72,13 @@ declined to confirm an expected win:
 
 1. **B4 gold data** — human-label ~10–15 A/B comparisons → judge↔human κ (breaks circular eval).
    Harness built (`gold_eval.py`); needs human time, not model budget.
-2. **C1 embedding dedup** for the principle graph — augment the lexical cluster seeder with embedding
-   cosine (cached `all-MiniLM-L6-v2` is available); closes paraphrase-blindness.
-3. **Gate the invariant layer on baseline strength** — given the n=3 inverse-baseline pattern, only
+2. **Gate the invariant layer on baseline strength** — given the n=3 inverse-baseline pattern, only
    attach invariants when a package's replay baseline is weak (needs the per-package baseline first).
+3. **A validated embedder for C1** — the cluster seeder now takes an injectable `embedder` for
+   embedding-cosine pairing (`seed_clusters(embedder=…)`, tested with a fake), but ships no built-in
+   model: a quick mean-pooled MiniLM gave non-discriminating cosines, so the embedder is left
+   environment-provided (e.g. a `sentence-transformers` model). C1 (b) logic done; wire a real,
+   validated embedder when needed. (c) graph-structural similarity still todo.
 
 ## Where to read next
 

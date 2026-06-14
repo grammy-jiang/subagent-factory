@@ -72,7 +72,7 @@ specialises), and "LLM proposes / deterministic decides + provenance gate" — a
 build:
 | # | refinement (from the report) | det / LLM | status |
 |---|---|---|---|
-| C1 | **3-stage dedup cascade** — add (b) distributional cosine + (c) graph-structural similarity to the current (a) lexical `seed_principle_clusters`; closes its known paraphrase-blindness | det + embeddings | todo (needs an embedding model) |
+| C1 | **3-stage dedup cascade** — add (b) distributional cosine + (c) graph-structural similarity to the current (a) lexical `seed_principle_clusters`; closes its known paraphrase-blindness | det + embeddings | ✅ (b) done: `seed_clusters(embedder=…, cos_threshold=…)` adds embedding-cosine pairing; **embedder injectable** (env-provided, like the eval-harness LLM judge), tested with a fake. (c) graph-structural still todo |
 | C2 | **PROV-O provenance** — `wasDerivedFrom`/`wasAttributedTo` on nodes/edges (current graph has cluster_id/method/confidence — a subset) | det schema | optional |
 | C3 | **Hearst dependency-path patterns** for `specialises` (is-a) induction, hybrid with distributional | det + LLM | optional |
 
