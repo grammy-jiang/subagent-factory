@@ -3,8 +3,11 @@
 import textwrap
 
 from tools.subagent_factory.behaviour_replay import (
+    build_grade_prompt,
     grade_output,
     load_behaviour_tests,
+    make_llm_grader,
+    parse_grade,
     rank_examples_by_utility,
     replay_gate,
     replay_suite,
@@ -135,6 +138,59 @@ def test_gate_passes_on_pure_improvement():
 
 
 # ---- load_behaviour_tests -------------------------------------------------------------------
+
+
+_FULL = {
+    "test_id": "GT-009",
+    "expected_route": "invoke",
+    "minimum_output": "tie spend to a measurable selling outcome",
+    "must_ask_for": ["the brand and the selling goal"],
+    "must_not_do": ["produce finished ad copy"],
+    "prompt": "advise on spend",
+}
+
+
+def test_parse_grade_variants():
+    assert parse_grade('{"route":1,"minimum":0.8}')["minimum"] == 0.8
+    assert parse_grade('noise\n{"route":0,"reason":"x"}')["route"] == 0
+    assert parse_grade("no json") is None
+
+
+def test_build_grade_prompt_route_rule_and_mustnot_fix():
+    p = build_grade_prompt(_FULL, "some answer")
+    assert "INVOKE" in p and "CRITICAL" in p  # invoke route rule + the inversion-fix instruction
+    decline = build_grade_prompt({**_FULL, "expected_route": "do_not_invoke"}, "x")
+    assert "DO_NOT_INVOKE" in decline
+
+
+def test_llm_grader_combines_components():
+    llm = lambda _p: '{"route":1,"minimum":0.8,"ask":1,"mustnot":1,"reason":"ok"}'  # noqa: E731
+    g = make_llm_grader(llm)(_FULL, "answer")
+    assert g["route"] == 1.0 and g["minimum"] == 0.8 and g["ask"] == 1.0 and g["mustnot"] == 1.0
+    assert g["score"] == 0.9  # 1*.3 + .8*.5 + 1*.1 + 1*.1
+
+
+def test_llm_grader_applicability_from_test_not_llm():
+    # _INVOKE has no must_ask_for / must_not_do -> those components are None even if the LLM returns them
+    llm = lambda _p: '{"route":1,"minimum":0.8,"ask":1,"mustnot":0}'  # noqa: E731
+    g = make_llm_grader(llm)(_INVOKE, "answer")
+    assert g["ask"] is None and g["mustnot"] is None
+    assert g["score"] == 0.875  # combine over route(.3)+minimum(.5) only
+
+
+def test_llm_grader_unparseable_is_zero():
+    g = make_llm_grader(lambda _p: "the model rambled, no json")(_INVOKE, "x")
+    assert g["score"] == 0.0 and "error" in g
+
+
+def test_semantic_grader_fixes_mustnot_inversion():
+    # a CONDEMNING answer: lexically overlaps the forbidden phrase, but rejects it
+    output = "No — I will not produce finished ad copy; that request is out of scope for strategy."
+    det = grade_output(_FULL, output)
+    sem = make_llm_grader(lambda _p: '{"route":1,"minimum":0.5,"ask":0,"mustnot":1}')(_FULL, output)
+    # deterministic lexical grader false-flags the condemnation; semantic grader honours the verdict
+    assert det["mustnot"] < 1.0
+    assert sem["mustnot"] == 1.0
 
 
 def test_load_behaviour_tests_flattens_sections(tmp_path):

@@ -29,6 +29,8 @@ as ``judge_ab``):
 
 from __future__ import annotations
 
+import json
+import re
 from collections.abc import Callable
 from pathlib import Path
 
@@ -162,22 +164,121 @@ def grade_output(test: dict, output: str) -> dict:
     else:
         mustnot = None
 
-    parts = [("route", route, 0.3), ("minimum", minimum, 0.5)]
-    if ask is not None:
-        parts.append(("ask", ask, 0.1))
-    if mustnot is not None:
-        parts.append(("mustnot", mustnot, 0.1))
-    total_w = sum(w for _, _, w in parts)
-    score = sum(v * w for _, v, w in parts) / total_w if total_w else 0.0
-
     return {
-        "score": round(score, 4),
+        "score": _combine_components(route, minimum, ask, mustnot),
         "route": route,
         "minimum": round(minimum, 4),
         "ask": ask,
         "mustnot": mustnot,
         "declined": declined,
     }
+
+
+# Component weights, shared by the deterministic and semantic graders so a score means the same thing
+# regardless of how the components were estimated. Renormalised over the components a test exercises.
+_WEIGHTS = {"route": 0.3, "minimum": 0.5, "ask": 0.1, "mustnot": 0.1}
+
+
+def _combine_components(
+    route: float, minimum: float, ask: float | None, mustnot: float | None
+) -> float:
+    """Weighted score over the components that apply to this test (``None`` = not applicable)."""
+    comps = {"route": route, "minimum": minimum, "ask": ask, "mustnot": mustnot}
+    parts = [(v, _WEIGHTS[k]) for k, v in comps.items() if v is not None]
+    total_w = sum(w for _, w in parts)
+    return round(sum(v * w for v, w in parts) / total_w, 4) if total_w else 0.0
+
+
+def build_grade_prompt(test: dict, output: str) -> str:
+    """Prompt an LLM to score one output against a behaviour-test's criteria (semantic grader).
+
+    The ``mustnot`` instruction carries the fix for the deterministic grader's measured *inversion*:
+    naming a forbidden behaviour in order to reject it is NOT doing it.
+    """
+    route_rule = (
+        "expected_route is DO_NOT_INVOKE: the response SHOULD refuse / hand off / say it is "
+        "out of scope. route=1 if it correctly declines, else 0."
+        if test["expected_route"] == "do_not_invoke"
+        else "expected_route is INVOKE: the response SHOULD engage and help. route=1 if it engages, "
+        "0 if it wrongly refuses."
+    )
+    lines = [
+        "You grade one subagent RESPONSE against a behaviour test. Judge meaning, not word overlap.",
+        'Output ONLY a JSON object: {"route":0|1,"minimum":0.0-1.0,"ask":0|0.5|1,'
+        '"mustnot":0.0-1.0,"reason":"<short>"}.',
+        "",
+        f"ROUTE — {route_rule}",
+        "",
+        f'MINIMUM — how fully does the response cover what is required: "{test["minimum_output"]}" ? '
+        "Give a fraction 0.0-1.0 (semantic coverage, paraphrase counts).",
+    ]
+    if test["must_ask_for"]:
+        items = "; ".join(test["must_ask_for"])
+        lines += [
+            "",
+            f'ASK — the response should ask the user for this missing input: "{items}". '
+            "ask=1 if it clearly requests it, 0.5 partial, 0 if not.",
+        ]
+    if test["must_not_do"]:
+        items = "; ".join(test["must_not_do"])
+        lines += [
+            "",
+            f'MUSTNOT — the response must NOT do any of: "{items}". '
+            "CRITICAL: naming, describing, or warning AGAINST a forbidden behaviour in order to "
+            "reject or advise against it is NOT doing it — only count a violation when the response "
+            "actually performs, endorses, or produces the forbidden thing. "
+            "mustnot = fraction of these items the response correctly AVOIDED (1.0 = all avoided).",
+        ]
+    lines += ["", "RESPONSE TO GRADE:", output]
+    return "\n".join(lines)
+
+
+def parse_grade(raw: str) -> dict | None:
+    """Extract the grade JSON from an LLM reply (last well-formed object with a ``route`` key)."""
+    for m in reversed(re.findall(r"\{[^{}]*\"route\"[^{}]*\}", raw)):
+        try:
+            obj = json.loads(m)
+        except json.JSONDecodeError:
+            continue
+        if "route" in obj:
+            return obj
+    return None
+
+
+def _clamp01(v: object, default: float = 0.0) -> float:
+    try:
+        return max(0.0, min(1.0, float(v)))  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return default
+
+
+def make_llm_grader(llm: Callable[[str], str]) -> Grader:
+    """Build a semantic ``grader`` bound to an LLM judge (drop-in for ``grade_output``).
+
+    Applicability is taken from the TEST, not the LLM: ``ask``/``mustnot`` are ``None`` (and carry no
+    weight) unless the test has ``must_ask_for`` / ``must_not_do``. The score uses the same
+    ``_combine_components`` weighting as the deterministic grader, so the two are comparable. On an
+    unparseable reply the item scores 0 with an ``error`` (never crashes the suite).
+    """
+
+    def _grade(test: dict, output: str) -> dict:
+        g = parse_grade(llm(build_grade_prompt(test, output)))
+        if g is None:
+            return {"score": 0.0, "error": "unparseable grade"}
+        route = 1.0 if _clamp01(g.get("route")) >= 0.5 else 0.0
+        minimum = _clamp01(g.get("minimum"))
+        ask = _clamp01(g.get("ask")) if test["must_ask_for"] else None
+        mustnot = _clamp01(g.get("mustnot")) if test["must_not_do"] else None
+        return {
+            "score": _combine_components(route, minimum, ask, mustnot),
+            "route": route,
+            "minimum": round(minimum, 4),
+            "ask": ask,
+            "mustnot": mustnot,
+            "reason": str(g.get("reason", ""))[:200],
+        }
+
+    return _grade
 
 
 def replay_suite(
