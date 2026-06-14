@@ -51,8 +51,34 @@ on a heading-less PDF: it skips conversion noise (running heads, page numbers, p
 sub-chunks the prose at sentence boundaries, so anchors land on body text, not page headers. Docling
 is strictly better (semantic heading anchors); the fallback is the floor.
 
+## Table-structure preservation (table-extraction research, H-track — SPEC, not yet built)
+
+Folds `docs/Research/table-extraction/` (validated PASS 1.0). **Finding: the factory already runs
+Docling but FLATTENS its tables to Markdown — losing recoverable facts.** Structure-preserving
+conversion measurably helps downstream QA (Docling + hierarchy-aware chunking **94.1%** vs **86.2%**
+flattened; **~33 pp** gap on table-dependent questions) [2604.04948]. Especially load-bearing for
+quantitative domains (finance, data — see [[financial-domain-readiness]]).
+
+**Spec (what to change in the converter output contract — design only, no code yet):**
+- **Keep Docling's TableFormer TSR output**; persist tables in a **span-preserving format**
+  (OTSL ≈5-token, losslessly HTML-convertible, ~50% shorter; or HTML for `rowspan`/`colspan`).
+  Markdown is a **human view only** — GitHub-Markdown cannot encode merged cells.
+  [2501.17887], [2203.01017], [2305.03393]
+- **Caption↔table/figure association** by spatial proximity + reading order (DeepFigures/Docling
+  Hungarian centre-distance; DocLayNet "one caption ↔ one Picture/Table"). [1804.02445], [2206.01062]
+- **Quality-gate** extracted tables with **GriTS/TEDS** (row/col-symmetric); route low-confidence
+  (scanned, borderless, dense-merged) to review. [2203.12555], [2312.04808]
+- **Route by table type**: line-based extraction is excellent on clean ruled tables, deep TSR for
+  image/borderless. [2409.05125]
+
+**Open gaps (carried):** caption↔table association lacks an accuracy benchmark (ACADEMIC); TSR
+generalization to non-scientific technical books is under-evaluated (ACADEMIC). **ENGINEERING-HIGH (the
+buildable item):** wire TableFormer's structured output into the converter contract so claim/principle
+extraction can read tabular facts. Ships behind a per-package quality gate.
+
 ## Status
 
 Implemented + merged. Docling installed CPU-only on the dev machine; it is the active PDF converter.
 Corpus migration in progress (re-author empty/flattened packages on Docling) — see
-`docs/factory-ops.md`.
+`docs/factory-ops.md`. **Table-structure preservation is spec'd above (H-track), not yet built** —
+tables currently flatten to Markdown.
