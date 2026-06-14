@@ -91,6 +91,48 @@ def _make_prompt(principle: dict, cell_type: str, ideator: Ideator | None) -> st
     return _template_prompt(principle, cell_type)
 
 
+def _choose_prompt(
+    principle: dict,
+    cell_type: str,
+    ideator: Ideator | None,
+    embedder: Embedder | None,
+    accepted_vecs: list,
+    n_candidates: int,
+    cos_threshold: float,
+) -> str | None:
+    """Pick one prompt for a cell, with optional multi-candidate **rare-weighted** selection.
+
+    Ideates up to ``n_candidates`` prompts (one model call each; template-mode returns one). With an
+    ``embedder``, drops any candidate within ``cos_threshold`` cosine of an already-accepted prompt
+    (anti-collapse) and, among the survivors, keeps the **most novel** — the one with the *lowest* max
+    cosine to the accepted set (diversity-preserving / rare-weighted keep-if-new, finding #6). Returns
+    ``None`` when every candidate is a near-duplicate (the cell is skipped). Mutates ``accepted_vecs``
+    with the chosen vector.
+    """
+    cands: list[str] = []
+    for _ in range(max(1, n_candidates)):
+        p = _make_prompt(principle, cell_type, ideator)
+        if p and p not in cands:
+            cands.append(p)
+    if not cands:
+        return None
+    if embedder is None:
+        return cands[0]
+    scored: list[tuple[float, str, Sequence[float]]] = []
+    for p in cands:
+        vec = embedder(p)
+        max_cos = max((_cosine(vec, a) for a in accepted_vecs), default=0.0)
+        if max_cos >= cos_threshold:
+            continue  # near-duplicate of something already in the suite
+        scored.append((max_cos, p, vec))
+    if not scored:
+        return None
+    scored.sort(key=lambda t: t[0])  # lowest max-cosine = most novel
+    _, chosen, chosen_vec = scored[0]
+    accepted_vecs.append(chosen_vec)
+    return chosen
+
+
 def _build_test(
     principle: dict, cell_type: str, test_id: str, prompt: str, twin_of: str | None = None
 ) -> dict:
@@ -122,6 +164,7 @@ def gen_behaviour_tests(
     ideator: Ideator | None = None,
     embedder: Embedder | None = None,
     cos_threshold: float = 0.92,
+    n_candidates: int = 1,
     answerable_twins: bool = True,
     generated_at: str | None = None,
 ) -> dict:
@@ -131,7 +174,9 @@ def gen_behaviour_tests(
     ``missing-context`` cells are added when the principle carries the source field that seeds them
     (``does_not_apply_when`` and ``applies_when`` respectively); a principle without them still gets
     its golden test. When ``embedder`` is given, a candidate whose prompt embedding is within
-    ``cos_threshold`` cosine of an already-accepted prompt is dropped (anti-collapse).
+    ``cos_threshold`` cosine of an already-accepted prompt is dropped (anti-collapse). With
+    ``n_candidates`` > 1 the ideator is sampled that many times per cell and the **most novel**
+    survivor is kept (rare-weighted diversity selection — see ``_choose_prompt``).
     """
     sections: dict[str, list[dict]] = {key: [] for key, _ in _CELLS.values()}
     counters: dict[str, int] = {prefix: 0 for _, prefix in _CELLS.values()}
@@ -145,12 +190,11 @@ def gen_behaviour_tests(
                 continue
             if cell_type == "missing-context" and not _first(principle.get("applies_when")):
                 continue
-            prompt = _make_prompt(principle, cell_type, ideator)
-            if embedder is not None:
-                vec = embedder(prompt)
-                if any(_cosine(vec, prev) >= cos_threshold for prev in accepted_vecs):
-                    continue
-                accepted_vecs.append(vec)
+            prompt = _choose_prompt(
+                principle, cell_type, ideator, embedder, accepted_vecs, n_candidates, cos_threshold
+            )
+            if prompt is None:  # every candidate was a near-duplicate
+                continue
             counters[prefix] += 1
             tid = f"{prefix}-{counters[prefix]:03d}"
             sections[section].append(_build_test(principle, cell_type, tid, prompt))
@@ -158,12 +202,17 @@ def gen_behaviour_tests(
             # F4 (Step-13): pair each missing-context test with an answerable twin — a golden test
             # whose context IS sufficient — so the suite catches over-asking, not just silent-commit.
             if cell_type == "missing-context" and answerable_twins:
-                twin_prompt = _make_prompt(principle, "answerable-twin", ideator)
-                if embedder is not None:
-                    tvec = embedder(twin_prompt)
-                    if any(_cosine(tvec, prev) >= cos_threshold for prev in accepted_vecs):
-                        continue
-                    accepted_vecs.append(tvec)
+                twin_prompt = _choose_prompt(
+                    principle,
+                    "answerable-twin",
+                    ideator,
+                    embedder,
+                    accepted_vecs,
+                    n_candidates,
+                    cos_threshold,
+                )
+                if twin_prompt is None:
+                    continue
                 counters["GT"] += 1
                 twin_tid = f"GT-{counters['GT']:03d}"
                 sections["golden_tests"].append(

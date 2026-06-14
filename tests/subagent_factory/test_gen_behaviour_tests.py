@@ -8,6 +8,7 @@ import yaml
 
 from tools.subagent_factory.behaviour_replay import load_behaviour_tests
 from tools.subagent_factory.gen_behaviour_tests import (
+    _choose_prompt,
     build_ideate_prompt,
     gen_behaviour_tests,
     load_principles,
@@ -83,6 +84,40 @@ def test_no_twins_when_disabled():
     suite = gen_behaviour_tests([_P_FULL], "demo", answerable_twins=False)
     assert not any(t.get("twin_of") for t in suite["golden_tests"])
     assert len(suite["golden_tests"]) == 1
+
+
+# ── multi-candidate generation + rare-weighting (#2 follow-on) ──────────────────
+
+
+def test_choose_prompt_rare_weighted_picks_most_novel():
+    accepted = [[1.0, 0.0]]
+    vecs = {"NEAR": [0.9, 0.44], "FAR": [0.5, 0.87]}  # NEAR cos≈0.9, FAR cos≈0.5 to accepted
+    seq = iter(["NEAR", "FAR"])
+    chosen = _choose_prompt(
+        _P_FULL, "golden", lambda p, c: next(seq), lambda t: vecs[t], accepted, 2, 0.95
+    )
+    assert chosen == "FAR"  # lowest max-cosine to the accepted set = most novel
+    assert len(accepted) == 2  # chosen vector appended
+
+
+def test_choose_prompt_all_duplicates_returns_none():
+    accepted = [[1.0, 0.0]]
+    chosen = _choose_prompt(
+        _P_FULL, "golden", lambda p, c: "X", lambda t: [1.0, 0.02], accepted, 2, 0.9
+    )
+    assert chosen is None  # the only candidate is a near-duplicate of an accepted prompt
+
+
+def test_multi_candidate_calls_ideator_n_times():
+    calls = []
+
+    def ideator(principle, cell_type):
+        calls.append(cell_type)
+        return f"{cell_type}-{len(calls)}"
+
+    # _P_STMT_ONLY → only the golden cell; n_candidates=3 → 3 ideator calls for it.
+    gen_behaviour_tests([_P_STMT_ONLY], "demo", ideator=ideator, n_candidates=3)
+    assert calls.count("golden") == 3
 
 
 def test_routes_and_oracles_per_section():
