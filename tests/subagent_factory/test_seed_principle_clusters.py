@@ -4,7 +4,7 @@ import json
 
 import yaml
 
-from tools.subagent_factory.seed_principle_clusters import seed_clusters
+from tools.subagent_factory.seed_principle_clusters import _cosine, seed_clusters
 
 _OVERLAP = "deep modules reduce complexity through information hiding"
 
@@ -100,3 +100,77 @@ def test_below_threshold_no_cluster(tmp_path):
         },
     ]
     assert seed_clusters(_pkg(tmp_path, principles, claims), 0.5)["clusters"] == []
+
+
+# ---- C1: embedding-cosine augmentation (fake embedder, CI-safe) ------------------------------
+
+# Two cross-source paraphrases that share NO content tokens (token-F1 = 0) but mean the same thing.
+_P1_STMT = "understand the counterpart perspective"
+_P2_STMT = "grasp how the other party feels"
+_P3_STMT = "prefer cats over dogs in gardens"
+# cosine(P1,P2) = 0.8 (above the 0.6 default, below a 0.99 bar); P3 orthogonal.
+_VECS = {_P1_STMT: [1.0, 0.0, 0.0], _P2_STMT: [0.8, 0.6, 0.0], _P3_STMT: [0.0, 0.0, 1.0]}
+
+
+def _fake_embedder(statements):
+    return [_VECS[s] for s in statements]
+
+
+def _paraphrase_pkg(tmp_path):
+    claims = [
+        {"claim_id": "c1", "source_id": "bookA", "statement": "x"},
+        {"claim_id": "c2", "source_id": "bookB", "statement": "y"},
+        {"claim_id": "c3", "source_id": "bookB", "statement": "z"},
+    ]
+    principles = [
+        {
+            "principle_id": "P1",
+            "statement": _P1_STMT,
+            "derived_from_claims": ["c1"],
+            "confidence": "high",
+        },
+        {
+            "principle_id": "P2",
+            "statement": _P2_STMT,
+            "derived_from_claims": ["c2"],
+            "confidence": "high",
+        },
+        {
+            "principle_id": "P3",
+            "statement": _P3_STMT,
+            "derived_from_claims": ["c3"],
+            "confidence": "high",
+        },
+    ]
+    return _pkg(tmp_path, principles, claims)
+
+
+def test_cosine_basic():
+    assert _cosine([1.0, 0.0], [1.0, 0.0]) == 1.0
+    assert _cosine([1.0, 0.0], [0.0, 1.0]) == 0.0
+    assert _cosine([0.0, 0.0], [1.0, 1.0]) == 0.0  # zero vector -> 0, no div error
+
+
+def test_lexical_only_misses_paraphrase(tmp_path):
+    # P1/P2 share no content tokens -> lexical seeder finds nothing
+    assert seed_clusters(_paraphrase_pkg(tmp_path), 0.15)["clusters"] == []
+
+
+def test_embedding_pairs_paraphrase_token_f1_misses(tmp_path):
+    r = seed_clusters(_paraphrase_pkg(tmp_path), 0.15, embedder=_fake_embedder)
+    assert len(r["clusters"]) == 1
+    c = r["clusters"][0]
+    assert set(c["member_principle_ids"]) == {"P1", "P2"}  # P3 (orthogonal) not merged
+    assert set(c["sources"]) == {"bookA", "bookB"}
+    assert c["method"] == "seed"  # schema unchanged
+    assert c["mean_overlap"] == 0.0  # joined by embedding, not lexical overlap
+
+
+def test_embedding_respects_cos_threshold(tmp_path):
+    # raise the bar above the paraphrase pair's 0.97 cosine -> no merge
+    assert (
+        seed_clusters(_paraphrase_pkg(tmp_path), 0.15, embedder=_fake_embedder, cos_threshold=0.99)[
+            "clusters"
+        ]
+        == []
+    )

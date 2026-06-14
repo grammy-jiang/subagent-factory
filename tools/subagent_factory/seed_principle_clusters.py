@@ -9,12 +9,17 @@ confirmation). Single-source packages produce no clusters.
 A principle's source set = the source_ids of the claims in its ``derived_from_claims``. Reuses the
 ``claim_recall`` token-F1 so the overlap metric matches the rest of the factory's tooling.
 
-This seed is intentionally a **weak candidate generator**: token-F1 is paraphrase-blind, so it only
-catches cross-source principles that share surface wording. Differently-worded equivalents (the
-common case — that is *why* multi-source synthesis is hard) are missed here and are the LLM-confirm
-step's job to add. Threshold is sensitive: too high → nothing; too low → one over-merged component.
-~0.15 surfaced clean 2-member candidates on the first real package; treat output as a starting set
-for the LLM, never as the final clustering.
+By default this is a **weak candidate generator**: token-F1 is paraphrase-blind, so lexical-only mode
+catches only cross-source principles that share surface wording. Threshold is sensitive: too high →
+nothing; too low → one over-merged component. ~0.15 surfaced clean 2-member candidates on the first
+real package; treat output as a starting set for the LLM, never as the final clustering.
+
+**C1 (embedding cosine):** pass an ``embedder`` to *also* pair cross-source paraphrases token-F1
+misses (the common case — *why* multi-source synthesis is hard). It is still a candidate generator
+(the LLM-confirm step decides). The embedder is **injectable** (``Callable[[list[str]],
+list[list[float]]]``), mirroring how the eval harness injects its LLM judge: the deterministic pairing
+logic stays dependency-light and the embedding model is environment-provided (e.g. a
+``sentence-transformers`` model returning L2-normalised vectors). Unit tests use a fake embedder.
 
 Library: ``seed_clusters(subagent_dir, threshold=0.15) -> dict`` (principle-clusters-v1).
 CLI: ``python -m tools.subagent_factory.seed_principle_clusters <subagents/slug> [threshold]``.
@@ -24,6 +29,7 @@ from __future__ import annotations
 
 import json
 import sys
+from collections.abc import Callable
 from itertools import combinations
 from pathlib import Path
 
@@ -32,6 +38,19 @@ import yaml
 from tools.subagent_factory.claim_recall import _content_tokens, claim_f1
 
 _DEFAULT_THRESHOLD = 0.15
+# Cosine ≥ this on the embedding signal pairs two cross-source principles even when their wording
+# does not overlap (paraphrase). 0.6 on L2-normalised MiniLM vectors is a conservative "same concept"
+# bar; lower over-merges. C1 is still a *candidate* generator — the LLM-confirm step is the decider.
+_DEFAULT_COS_THRESHOLD = 0.6
+
+Embedder = Callable[[list[str]], list[list[float]]]
+
+
+def _cosine(a: list[float], b: list[float]) -> float:
+    dot = sum(x * y for x, y in zip(a, b, strict=False))
+    na = sum(x * x for x in a) ** 0.5
+    nb = sum(y * y for y in b) ** 0.5
+    return dot / (na * nb) if na and nb else 0.0
 
 
 def _claim_sources(base: Path) -> dict[str, str]:
@@ -75,7 +94,22 @@ class _UF:
         self.p[self.find(a)] = self.find(b)
 
 
-def seed_clusters(subagent_dir: str | Path, threshold: float = _DEFAULT_THRESHOLD) -> dict:
+def seed_clusters(
+    subagent_dir: str | Path,
+    threshold: float = _DEFAULT_THRESHOLD,
+    *,
+    embedder: Embedder | None = None,
+    cos_threshold: float = _DEFAULT_COS_THRESHOLD,
+) -> dict:
+    """Seed candidate cross-source clusters by lexical token-F1, optionally + embedding cosine (C1).
+
+    Default (``embedder=None``) is the original lexical-only seeder. Pass ``embedder=embed_minilm``
+    to *also* pair cross-source principles whose statements are paraphrases (cosine ≥
+    ``cos_threshold``) but share too few words to clear ``threshold`` — closing the seeder's known
+    paraphrase-blindness. Output stays ``principle-clusters-v1`` (``method: seed``); embedding edges
+    simply add/enlarge candidate clusters for the LLM-confirm step. ``mean_overlap`` remains the
+    *lexical* overlap, so a low value on a populated cluster signals an embedding-driven merge.
+    """
     base = Path(subagent_dir)
     claim_src = _claim_sources(base)
     principles = _load_principles(base)
@@ -85,17 +119,28 @@ def seed_clusters(subagent_dir: str | Path, threshold: float = _DEFAULT_THRESHOL
         for p in principles
     }
 
+    emb: dict[str, list[float]] | None = None
+    if embedder is not None and pid_stmt:
+        pids = list(pid_stmt)
+        emb = dict(zip(pids, embedder([pid_stmt[p] for p in pids]), strict=False))
+
     uf = _UF()
-    pair_score: dict[tuple[str, str], float] = {}
+    pair_score: dict[tuple[str, str], float] = {}  # lexical overlap, drives mean_overlap
+    edges: list[tuple[str, str]] = []
     for a, b in combinations(pid_stmt, 2):
-        if pid_sources[a].isdisjoint(pid_sources[b]):  # cross-source only
-            s = claim_f1(pid_stmt[a], pid_stmt[b])
-            if s >= threshold:
-                uf.union(a, b)
-                pair_score[(a, b)] = s
+        if not pid_sources[a].isdisjoint(pid_sources[b]):  # cross-source only
+            continue
+        s = claim_f1(pid_stmt[a], pid_stmt[b])
+        accept = s >= threshold
+        if not accept and emb is not None:
+            accept = _cosine(emb[a], emb[b]) >= cos_threshold
+        if accept:
+            uf.union(a, b)
+            edges.append((a, b))
+            pair_score[(a, b)] = s  # lexical s (may be < threshold when joined only by embedding)
 
     groups: dict[str, list[str]] = {}
-    for pid in {x for pair in pair_score for x in pair}:
+    for pid in {x for e in edges for x in e}:
         groups.setdefault(uf.find(pid), []).append(pid)
 
     clusters = []
@@ -132,7 +177,7 @@ def main() -> None:
     if len(sys.argv) < 2:
         print(
             "Usage: python -m tools.subagent_factory.seed_principle_clusters "
-            "<subagents/slug> [threshold]"
+            "<subagents/slug> [threshold]   # embedding-cosine (C1) is a library-only injection"
         )
         sys.exit(1)
     threshold = float(sys.argv[2]) if len(sys.argv) > 2 else _DEFAULT_THRESHOLD
