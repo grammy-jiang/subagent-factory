@@ -110,13 +110,32 @@ behaviour-tests), scored by the deterministic `behaviour_replay` engine:
    violation). So the −0.188 is an **artifact**: the grader scores the *best* (rule-citing,
    anti-pattern-rejecting) answers as *violators*, because a lexical detector cannot tell "does X"
    from "names X to reject it." Verified on a captured output.
-3. **Verdict:** under blind coarse grading the invariant layer is ≈behaviour-neutral on the number
-   but **positive in substance** (rule-cited, scope cases NR-002/MC-001 up). A trustworthy adherence
-   verdict needs a **semantic (LLM) grader** injected via `behaviour_replay`'s `grader=` hook — the
-   coarse `must_not_do` component must not be read as adherence. This matches the multi-source
-   finding: a structure/faithfulness change the *blind* instrument scores as neutral, and here the
-   harness even exposed a flaw in its own instrument (the load-bearing reason to build the LLM
-   grader next).
+3. **Verdict (coarse grader):** ≈behaviour-neutral on the number but positive in substance — and the
+   instrument itself is flawed. Needs a semantic grader. *(Resolved below.)*
+
+### Resolution (2026-06-14): semantic grader confirms the invariant layer helps
+
+Built `make_llm_grader` (`behaviour_replay`) — an LLM scores route/coverage/ask/`must_not_do`
+semantically, with the explicit instruction that *naming a forbidden behaviour to reject it is not
+doing it*. Re-ran the same A/B with **claude running the adapter, codex (gpt-5.5) grading**
+(cross-family, no self-grading):
+
+| component | WITH | WITHOUT | Δ (semantic) | Δ (coarse, before) |
+|---|---|---|---|---|
+| overall score | 0.858 | 0.774 | **+0.084** | +0.016 (tie) |
+| `must_not_do` | 0.875 | 0.750 | **+0.125** | **−0.188 (inverted)** |
+| `minimum` | 0.850 | 0.725 | +0.125 | +0.070 |
+| `ask` | 0.500 | 0.000 | +0.500 (n=1, MC-001) | 0 |
+| route | 0.875 | 0.875 | 0 | 0 |
+
+The `must_not_do` artifact **reverses** (−0.188 → +0.125): once the grader can tell "rejects X" from
+"does X," the invariant layer is **measurably positive** (overall +0.084; MC-001 adherence WITH 1.0
+vs WITHOUT 0.0). **This is the first A-track change *proven* to improve behaviour** (multi-source
+stayed advice-neutral). The build→measure loop closed end-to-end: built the layer → coarse grader
+couldn't see it (and inverted) → built the semantic grader → layer validated. Caveats: n=8 tests, one
+package, single grader, one run — confirm breadth with more packages / a second grader before stating
+it fleet-wide. Takeaway: **the semantic grader (`grader=make_llm_grader(llm)`) is the instrument for
+adherence/advice deltas; the coarse `must_not_do` is for relative regressions only.**
 
 ## Caveats
 
