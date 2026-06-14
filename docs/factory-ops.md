@@ -140,6 +140,25 @@ python -m tools.subagent_factory.cli grounding-check <slug> <review.md> <reviewe
 #   coverage + cross-source borrows (names the source to add for multi-source grounding)
 ```
 
+## Baseline-gate the invariant layer
+
+The operating-invariant layer (A3/A5) helps a package whose behaviour-test baseline is **weak** and
+can mildly *hurt* an already-strong one (measured, package-dependent ≈ inverse to baseline — see
+`output-quality-eval.md`). To decide per package: replay it **without** invariants, then apply the
+rule (attach iff baseline < 0.80). Use a semantic grader for a trustworthy baseline:
+
+```python
+from tools.subagent_factory.invariant_policy import recommend_invariants
+from tools.subagent_factory.behaviour_replay import shell_runner, make_llm_grader
+# llm = a Callable[[str],str] judge, e.g. wrapping examples/codex-judge.sh
+rec = recommend_invariants("subagents/<slug>", shell_runner("examples/replay-runner.sh"),
+                           make_llm_grader(llm))
+# rec = {"attach": bool, "baseline": float, "threshold": 0.8, ...}
+```
+
+Then set `attach_invariants: <rec.attach>` in `subagents/<slug>/profile.yaml` and re-`export`.
+`export_claude_agent` honours the flag (default `true`); `attach_invariants: false` omits the layer.
+
 ## Validate before release
 
 ```bash
