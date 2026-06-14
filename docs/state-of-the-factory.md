@@ -60,16 +60,19 @@ declined to confirm an expected win:
 
 - **Multi-source synthesis** delivers grounding/faithfulness (deterministic, judge-independent) but
   **not** measurably better advice (judge-family-dependent; Claude tie, Codex leans longer).
-- **Invariant layer (A3/A5)** demonstrably changes behaviour (outputs cite rule IDs and reject named
-  anti-patterns) but the **coarse `must_not_do` grader inverts** (scores condemnation as violation) →
-  a real adherence verdict needs a **semantic LLM grader**.
+- **Invariant layer (A3/A5)** is **measurably positive** — re-graded by the semantic grader (codex,
+  cross-family) it lifts overall behaviour-test score +0.084 and `must_not_do` adherence +0.125 (the
+  coarse grader had *inverted* `must_not_do`, scoring "rejects X" as "does X"). **First A-track change
+  proven to improve behaviour**, not just structure.
+- **Semantic LLM grader** (`make_llm_grader`, `behaviour_replay`) is the validated instrument for
+  adherence/advice deltas; the coarse `must_not_do` is for relative regressions only.
 
 ## What's open (highest leverage first)
 
-1. **Semantic LLM grader** for `behaviour_replay` (inject via `grader=`). The instrument both eval
-   findings point to — needed before adherence/advice deltas can be stated as measured.
-2. **B4 gold data** — human-label ~10–15 A/B comparisons → judge↔human κ (breaks circular eval).
+1. **B4 gold data** — human-label ~10–15 A/B comparisons → judge↔human κ (breaks circular eval).
    Harness built (`gold_eval.py`); needs human time, not model budget.
+2. **Broaden the invariant-layer verdict** — the +0.084 is n=8/one package/one grader; repeat across
+   more packages + a 2nd grader before claiming it fleet-wide.
 3. **C1 embedding dedup** for the principle graph — needs an embedding model.
 
 ## Where to read next
