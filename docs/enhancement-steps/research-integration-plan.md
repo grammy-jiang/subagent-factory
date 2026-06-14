@@ -15,6 +15,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | **behaviour-test-generation** | ✅ PASS 1.0 (41 papers) | **E-track + `step-11-behaviour-test-generation.md`** | ✅ det core (`gen_behaviour_tests`, schema, coverage gate); LLM ideation = follow-on |
 | **prompt-optimization-eval** | ✅ PASS 1.0 (29 papers) | **D-track + `step-12-optimize-adapter.md`** | ✅ driver + proposer skill + live CLI (`cli optimize-adapter`) |
 | **calibration-abstention** | ✅ PASS 1.0 (31 papers) | **F-track + `step-13-ask-gate.md`** | ✅ F3+F4 built (answerable-twins + two-axis grading); F1/F2/F5 runtime gate spec (black-box gap) |
+| **rag-graphrag** (§20 #10) | ✅ PASS 1.0 (20+ papers) | **G-track + `step-14-runtime-retrieval.md`** | spec folded (post-v0 runtime layer); 3 inherent HIGH gaps → ships behind measurement |
 
 ---
 
@@ -254,6 +255,31 @@ reporting (sensitivity/specificity, Youden's J, conformal/soft Elo). It also mea
 *judge-eval-reliability* research run is now **largely redundant** (calibration covered it). Open
 ACADEMIC gaps (non-blocking): deterministic missing-context detection for **black-box** models, and
 **multi-turn** ask-gates.
+
+## G. rag-graphrag → Step 14 (runtime retrieval) — §20 #10, post-v0
+Research **done** (`docs/Research/rag-graphrag/`, 20+ papers, PASS 1.0). Full spec:
+`step-14-runtime-retrieval.md`. The long-open §20 topic #10 (RAG/GraphRAG), and the answer to the
+*distill-vs-retrieve* architecture question for `knowledge_partition`. **Post-v0 design capture** — a
+runtime knowledge layer for generated agents; nothing built yet, and 3 core questions are open in the
+literature.
+
+| # | finding → factory direction | det / LLM | status |
+|---|---|---|---|
+| G1 | **knowledge_partition = deterministic routing**, not either/or — distill stable/high-reuse/non-citable, retrieve volatile/long-tail/large/citable | det | spec |
+| G2 | **Default retrieval spine is deterministic** — hybrid dense(λ≈0.8)+BM25 → distilled cross-encoder reranker; LLM only builds the index | det | spec |
+| G3 | **Passage-grounded graph** — PPR traversal, **always return real source passages**, route global queries to a precomputed-summary path; graph aids retrieval, never replaces the corpus | det | spec |
+| G4 | **Selective retrieval gate** — uncertainty/complexity threshold + hard ≤3-iter cap (same shape as the Step-13 ask-gate) | det | spec |
+| G5 | **Generate-then-cite grounding**, scored on precision **AND** coverage with a deterministic verifier loop | det + LLM | spec |
+| G6 | **Distill at index time** (precompute summaries/community reports) to keep runtime cheap | det + LLM | spec |
+
+**Why it stays a spec (3 inherent gaps).** Unlike other topics, the literature does **not** contain
+the factory's exact case, so these are unclosable by more rounds (round-3 was rate-limited on Copilot,
+but the gaps are inherent): **no paper compares an agent's OWN distilled principle store vs runtime
+retrieval** (G1), **principle/argument-graph retrieval is unstudied** (G2), **graph-native per-claim
+citation is open** (G3). So any partition/retrieval policy ships **behind a per-package measurement**,
+not as a global default — the factory would be charting new ground. Distinct from Step 7
+(authoring-time graph build); this is *retrieval over that store at answer time*, and it pairs with the
+Step-13 ask-gate (the retrieval gate is the same selective-prediction shape).
 
 ---
 
