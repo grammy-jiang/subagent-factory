@@ -467,6 +467,60 @@ def cmd_optimize_adapter(
         )
 
 
+@main.command("gen-behaviour-tests")
+@click.argument("slug")
+@click.option(
+    "--ideator",
+    default=None,
+    help="Ideator script for natural / hard-negative prompts (LLM, e.g. "
+    "examples/behaviour-test-ideator.sh). Omit for template-mode (deterministic, no model calls).",
+)
+@click.option(
+    "--validate/--no-validate", default=True, help="Run the coverage validator after writing."
+)
+def cmd_gen_behaviour_tests(slug, ideator, validate):
+    """Step 11: generate a behaviour-test suite (golden / negative-routing / missing-context).
+
+    Reads the package's principles and writes tests/behaviour-tests.yaml. Template-mode by default
+    (no model calls); --ideator wires an LLM to write realistic prompts and hard-negative
+    out-of-scope requests.
+    """
+    from tools.subagent_factory.gen_behaviour_tests import (
+        gen_behaviour_tests,
+        load_principles,
+        shell_ideator,
+        write_suite,
+    )
+    from tools.subagent_factory.validate_behaviour_test_coverage import (
+        validate_behaviour_test_coverage,
+    )
+
+    repo_root = Path(__file__).parent.parent.parent
+    base = repo_root / "subagents" / slug
+    principles = load_principles(base)
+    if not principles:
+        console.print(
+            f"[yellow]no principles under[/yellow] {base / 'principles' / 'principles.yaml'}"
+        )
+        sys.exit(1)
+    ide = shell_ideator(ideator) if ideator else None
+    suite = gen_behaviour_tests(principles, slug, ideator=ide)
+    out = write_suite(base, suite)
+    n = sum(
+        len(suite.get(s, []))
+        for s in ("golden_tests", "negative_routing_tests", "missing_context_tests")
+    )
+    mode = f"ideator={ideator}" if ideator else "template-mode"
+    console.print(f"[green]wrote {n} behaviour tests[/green] ({mode}) → {out}")
+    if validate:
+        errs = validate_behaviour_test_coverage(out)
+        if errs:
+            for e in errs:
+                console.print(f"  [red]{e}[/red]")
+            sys.exit(1)
+        console.print("[green]coverage validator PASS[/green]")
+
+
 @main.command("score")
 @click.argument("units_file")
 @click.option("--worksheet", "worksheet_out", help="Write the Markdown shortlist to this path.")

@@ -173,6 +173,69 @@ def write_suite(base: str | Path, suite: dict) -> Path:
     return out
 
 
+# ── LLM ideator (E follow-on): natural / hard-negative prompts via a shell model call ─
+#
+# Template-mode (default) emits serviceable but templated prompts. An ``ideator`` upgrades each cell
+# to a realistic message — and crucially turns negative-routing cells into *hard negatives* (plausible
+# but out-of-scope) rather than a flat restatement of ``does_not_apply_when``. Same shell-callable
+# shape as ``behaviour_replay.shell_runner`` / ``optimize_adapter.shell_proposer``: deterministic core,
+# LLM behind an injectable hook. Falls back to the template on any failure (handled by ``_make_prompt``).
+
+_IDEATE_GUIDE = {
+    "golden": (
+        "a realistic message where this situation clearly holds and the advisor SHOULD engage and help"
+    ),
+    "negative-routing": (
+        "a realistic but OUT-OF-SCOPE request — a hard negative that looks plausible for this advisor "
+        "yet falls outside its remit, so the advisor SHOULD decline or hand off"
+    ),
+    "missing-context": (
+        "a realistic message about this situation but with a decision-relevant detail OMITTED, so the "
+        "advisor SHOULD ask for the missing input before answering"
+    ),
+}
+
+
+def build_ideate_prompt(principle: dict, cell_type: str) -> str:
+    """Prompt an LLM to write ONE realistic user message for a cell, grounded in the principle."""
+    stmt = _clause(principle.get("statement", ""))
+    aw = _clause(_first(principle.get("applies_when")))
+    dna = _clause(_first(principle.get("does_not_apply_when")))
+    situation = dna if cell_type == "negative-routing" else (aw or stmt)
+    return "\n".join(
+        [
+            "Write ONE realistic user message that tests an expert advisor. "
+            "Output ONLY the message — no preamble, no quotes, no explanation.",
+            f"The advisor's principle: {stmt}",
+            f"Situation to base it on: {situation}",
+            f"Write {_IDEATE_GUIDE.get(cell_type, _IDEATE_GUIDE['golden'])}.",
+            "Keep it 1-3 sentences, first person (the user's voice), concrete and specific.",
+        ]
+    )
+
+
+def shell_ideator(script: str | Path, timeout: int = 120) -> Ideator:
+    """Build a live ``Ideator`` that shells to a script (e.g. ``examples/behaviour-test-ideator.sh``).
+
+    The script receives the ideate prompt on stdin and prints ONE user message on stdout.
+    """
+    import subprocess
+
+    script = str(script)
+
+    def _ideate(principle: dict, cell_type: str) -> str:
+        prompt = build_ideate_prompt(principle, cell_type)
+        return subprocess.run(
+            ["bash", script],
+            input=prompt,
+            text=True,
+            capture_output=True,
+            timeout=timeout,
+        ).stdout.strip()
+
+    return _ideate
+
+
 def main() -> None:
     if len(sys.argv) < 2:
         print("Usage: python -m tools.subagent_factory.gen_behaviour_tests subagents/<slug>")

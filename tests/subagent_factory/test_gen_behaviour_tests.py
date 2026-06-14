@@ -8,8 +8,10 @@ import yaml
 
 from tools.subagent_factory.behaviour_replay import load_behaviour_tests
 from tools.subagent_factory.gen_behaviour_tests import (
+    build_ideate_prompt,
     gen_behaviour_tests,
     load_principles,
+    shell_ideator,
     write_suite,
 )
 from tools.subagent_factory.validate_behaviour_test_coverage import (
@@ -238,3 +240,25 @@ def test_schema_matches_engine_sections():
 
     schema_sections = {k for k in _SCHEMA["properties"] if k.endswith("_tests")}
     assert schema_sections == set(_TEST_SECTIONS)
+
+
+# ── LLM ideator (E follow-on) ──────────────────────────────────────────────────
+
+
+def test_build_ideate_prompt_per_cell():
+    p = build_ideate_prompt(_P_FULL, "negative-routing")
+    assert "Output ONLY" in p
+    assert _P_FULL["statement"].rstrip(".") in p
+    assert "out-of-scope" in p.lower() or "out of scope" in p.lower()
+
+
+def test_shell_ideator_feeds_generator(tmp_path):
+    # A script that ignores stdin and echoes a fixed message → that becomes the test prompt.
+    script = tmp_path / "ideator.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\ncat >/dev/null\necho 'A crafted realistic message.'\n",
+        encoding="utf-8",
+    )
+    suite = gen_behaviour_tests([_P_FULL], "demo", ideator=shell_ideator(str(script)))
+    assert suite["golden_tests"][0]["prompt"] == "A crafted realistic message."
+    assert suite["negative_routing_tests"][0]["prompt"] == "A crafted realistic message."

@@ -132,8 +132,14 @@ per-principle golden coverage), wired into `validate_generated_package` present+
 end-to-end (api-security-reviewer: 14 principles → 42 tests, coverage PASS) and **non-breaking** (15
 Tier-0 packages + the Tier-1 package both still validate). 16 unit tests including a **round-trip
 through the real `behaviour_replay` engine** (proves the routes grade correctly — this caught a
-contract bug: negative routing is `do_not_invoke`, not `decline`). Follow-ons (LLM): hard-negative OOS
-*ideation*, answerable-twin pairing, rare-weighted coverage loop — the `ideator` hook is the seam.
+contract bug: negative routing is `do_not_invoke`, not `decline`).
+
+**LLM ideator DONE (2026-06-14):** `gen_behaviour_tests.shell_ideator` + `examples/behaviour-test-
+ideator.sh` + `cli gen-behaviour-tests --ideator` wire an LLM to write realistic prompts and
+**hard-negative out-of-scope** requests (vs the template-mode restatement of `does_not_apply_when`);
+template-mode stays the free default, the ideator falls back to it on any failure. Remaining E
+follow-ons: **answerable-twin pairing** (pair each missing-context test with an answerable variant to
+grade silent-commit vs over-ask), and the **rare-weighted coverage keep-if-new loop** — both deferred.
 
 ## D. prompt-optimization-eval → Step 12 (tune the adapter against the E-track objective)
 Research **done** (`docs/Research/prompt-optimization-eval/`, 29 papers, PASS 1.0, IMPLEMENTATION_READY).
