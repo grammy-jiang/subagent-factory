@@ -16,6 +16,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | **prompt-optimization-eval** | ✅ PASS 1.0 (29 papers) | **D-track + `step-12-optimize-adapter.md`** | ✅ driver + proposer skill + live CLI (`cli optimize-adapter`) |
 | **calibration-abstention** | ✅ PASS 1.0 (31 papers) | **F-track + `step-13-ask-gate.md`** | ✅ F3+F4 built (answerable-twins + two-axis grading); F1/F2/F5 runtime gate spec (black-box gap) |
 | **rag-graphrag** (§20 #10) | ✅ PASS 1.0 (20+ papers) | **G-track + `step-14-runtime-retrieval.md`** | spec folded (post-v0 runtime layer); 3 inherent HIGH gaps → ships behind measurement |
+| **table-extraction** (§20 #2) | ✅ PASS 1.0 | **H-track + `step-20` table-preservation section** | spec folded; ENGINEERING-HIGH = wire TableFormer into the converter contract (factory flattens tables today) |
 
 ---
 
@@ -280,6 +281,27 @@ citation is open** (G3). So any partition/retrieval policy ships **behind a per-
 not as a global default — the factory would be charting new ground. Distinct from Step 7
 (authoring-time graph build); this is *retrieval over that store at answer time*, and it pairs with the
 Step-13 ask-gate (the retrieval gate is the same selective-prediction shape).
+
+## H. table-extraction → Step-20 (table-structure preservation) — §20 #2
+Research **done** (`docs/Research/table-extraction/`, PASS 1.0). Spec: the **table-structure
+preservation** section in `step-20-document-ai-pdf-parsing.md`. **The factory already runs Docling but
+flattens its tables to Markdown** — losing recoverable facts (structure-preserving conversion measures
+94.1% vs 86.2% downstream QA; ~33 pp on table-dependent questions). Most directly actionable research
+yet: the converter exists, it just discards table structure. Especially load-bearing for quantitative
+domains (finance — [[financial-domain-readiness]]).
+
+| # | finding → factory direction | det / LLM | status |
+|---|---|---|---|
+| H1 | **Keep TableFormer TSR output; persist span-preserving (OTSL/HTML), Markdown as human view only** | det | spec |
+| H2 | **Caption↔table/figure association** by spatial proximity + reading order | det | spec |
+| H3 | **Quality-gate** extracted tables (GriTS/TEDS); route low-confidence to review | det | spec |
+| H4 | **Route by table type** — line-based for clean ruled, deep TSR otherwise | det | spec |
+| H5 | **(ENGINEERING-HIGH, buildable)** wire TableFormer's structured output into the converter contract so claim extraction reads tabular facts | det | spec — build first |
+
+**Open gaps (carried, non-blocking):** caption↔table association lacks an accuracy benchmark
+(ACADEMIC); TSR generalization to non-scientific technical books under-evaluated (ACADEMIC). Ships
+behind a per-package table quality gate. This is the §20 #2 (Document AI) slice — the rest of #2 is
+already shipped as Step 20.
 
 ---
 

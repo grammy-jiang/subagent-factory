@@ -41,7 +41,7 @@ subagent_workflow_quality_enhancement_plan.md      (original 12 enhancements)
 | 12 | `step-12-optimize-adapter.md` | full | **implemented (driver + proposer skill + live CLI)** | 11 + A-track | prompt-optimization-eval |
 | 13 | `step-13-ask-gate.md` | full | **partial (F4 twins + F3 two-axis grading built; runtime gate spec)** | 11, 12 | calibration-abstention |
 | 14 | `step-14-runtime-retrieval.md` | full | **spec (post-v0 runtime layer; 3 inherent lit gaps)** | 7 | rag-graphrag (§20 #10) |
-| 20 | `step-20-document-ai-pdf-parsing.md` | full | **implemented (merged)** | 0,1,2,10 | (Step-10 A/B finding) |
+| 20 | `step-20-document-ai-pdf-parsing.md` | full | **implemented (merged); +table-preservation spec'd (H-track, not built)** | 0,1,2,10 | Step-10 A/B + table-extraction (§20 #2) |
 
 Depth: **full** = implementation-ready; **medium** = goal + file sketch + dependencies;
 **stub** = goal + defer trigger only.
