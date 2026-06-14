@@ -12,20 +12,33 @@
 # under ~/.cache (PDF + SQLite index) — that is by design.
 #
 # Usage:
-#   bash docs/Research/run_research.sh            # launch all 3 in background
-#   MODEL=opus bash docs/Research/run_research.sh # higher-quality (pricier) workers
-#   TOPICS_FILTER=prompt-injection-defense bash docs/Research/run_research.sh  # one topic
+#   bash docs/Research/run_research.sh            # launch all topics (detached) on Claude
+#   TOPICS_FILTER=<folder> bash docs/Research/run_research.sh           # one topic, Claude
+#   ENGINE=copilot TOPICS_FILTER=<folder> bash docs/Research/run_research.sh  # one topic, Copilot
+#
+# Parallel across both engines/budgets (run each via the harness's own backgrounding, DETACH=0):
+#   DETACH=0 ENGINE=claude  TOPICS_FILTER=topic-a bash docs/Research/run_research.sh   # Claude
+#   DETACH=0 ENGINE=copilot TOPICS_FILTER=topic-b bash docs/Research/run_research.sh   # Copilot
 #
 set -euo pipefail
 
 # ── Config (override via env) ────────────────────────────────────────────────
+# ENGINE selects the CLI that runs the (identical) research-pipeline skill. Both `claude` and
+# `copilot` have the skill + paper-screener/analyzer/synthesizer agents + research-pipeline MCP
+# installed (the shared `research-pipeline` pipx package symlinks skill_data/agent_data into both
+# ~/.claude and ~/.copilot), so the SAME prompt template drives either — only the launch flags differ.
+# Run two engines on two TOPICS in parallel to use both budgets (Claude spend + Copilot premium).
+ENGINE="${ENGINE:-claude}"                             # claude | copilot
 CLAUDE_BIN="${CLAUDE_BIN:-$HOME/.local/bin/claude}"   # real binary, NOT the shell alias
+COPILOT_BIN="${COPILOT_BIN:-$HOME/.local/bin/copilot}"
+COPILOT_MODEL="${COPILOT_MODEL:-claude-opus-4.8}"      # latest Opus on Copilot (probe-confirmed)
+COPILOT_EFFORT="${COPILOT_EFFORT:-high}"               # Copilot's max effort is "high" (no "max")
 SKILL_DIR="${SKILL_DIR:-$HOME/.claude/skills/research-pipeline}"
 CFG="${CFG:-$SKILL_DIR/config.toml}"
 RUNNER="$SKILL_DIR/runners/runner.py"
 PROFILE="${PROFILE:-deep}"
-MODEL="${MODEL:-opus}"                                 # worker model
-EFFORT="${EFFORT:-max}"                                # reasoning effort level
+MODEL="${MODEL:-opus}"                                 # claude worker model
+EFFORT="${EFFORT:-max}"                                # claude reasoning effort level
 RESEARCH_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"   # docs/Research
 TOPICS_FILTER="${TOPICS_FILTER:-}"                     # optional: run only this folder
 DETACH="${DETACH:-1}"                                  # 1=setsid detach; 0=foreground (let the
@@ -43,6 +56,7 @@ declare -a TOPICS=(
 "agent-benchmarking-output-evaluation|Benchmarking and runtime quality evaluation of LLM agents and expert assistants: LLM-as-judge methodology and biases, rubric-based evaluation, pairwise and Elo comparison, and reference-free quality scoring of free-form advisory/review output|LLM-as-a-judge; agent benchmarking; rubric-based evaluation; pairwise comparison; Elo and win-rate; judge bias and calibration; position bias; reference-free evaluation; meta-evaluation; inter-rater agreement; G-Eval; checklist evaluation; assistant evaluation harness|Feeds Phase 10: a rigorous output-quality evaluation harness for generated subagents. Formalise the ad-hoc eval (run subagent on a real doc, score vs rubric, deterministic grounding-check) into reliable LLM-as-judge rubrics, judge-bias mitigation, pairwise/Elo for comparing versions (1-source vs 2-source), and reference-free scoring. Literature review, not a product build."
 "knowledge-graph-ontology-construction|Knowledge graph and ontology construction from text for representing expert principles: concept/entity extraction, taxonomy and ontology induction, relationship and alias modelling, and a principle graph linking and deduplicating concepts|knowledge graph construction; ontology learning; ontology induction from text; taxonomy induction; concept extraction; relation extraction; entity alias and synonym detection; schema and ontology alignment; concept hierarchy; node and edge typing; provenance in knowledge graphs; principle graph|Feeds Phase 7A (graph half of Step 7): represent merged principles as a graph (nodes = principles/concepts, edges = refines/supports/specialises/alias with provenance) + induce a lightweight taxonomy and aliases. SCOPE: graph/ontology representation + alias/relationship induction; cross-document CONTRADICTION detection is the sibling knowledge-fusion spike's job, not re-covered. Literature review, not a product build."
 "prompt-optimization-eval|Automatic prompt and instruction optimization for LLM agents against an evaluation signal: optimizing system prompts, instructions, decision rules, and few-shot demonstrations to maximize a task/behaviour metric|prompt optimization; instruction optimization; DSPy; OPRO optimization by prompting; TextGrad textual gradients; GEPA reflective prompt evolution; APE automatic prompt engineering; few-shot demonstration selection; bootstrap few-shot; instruction search; LLM-as-optimizer; metric-guided prompt tuning; prompt program compilation; reflective self-improvement|Feeds a NEW optimize-adapter step: after build (Steps 1-9) and measure (the replay engine + semantic LLM grader + behaviour-tests, Phase 10), automatically optimize the generated adapter/skill prompts to MAXIMIZE the package's behaviour-test score — propose rule/example variants, score via replay+grader, keep the winner (the replay gate is the assess-before-merge primitive). DISTINCT from instruction-INDUCTION (already covered: mine rules from principles); this TUNES the adapter against an eval objective. Literature review of methods + how to apply (deterministic-gate vs LLM split, cost control), not a product build."
+"behaviour-test-generation|Automatic generation of behavioural test suites for evaluating LLM agents and expert assistants: golden, negative-routing, and edge-case test synthesis, checklist and rubric construction, coverage-guided and metamorphic test generation, and adversarial red-team prompts for a specialised persona|test case generation; LLM unit tests; checklist generation; behavioral testing; metamorphic testing; coverage-guided test synthesis; adversarial test generation; red-teaming prompts; negative and routing tests; edge case discovery; CheckList; specification-based test generation; evaluation suite construction|Feeds the behaviour-test step (golden / negative-routing / missing-context tests in tests/*.yaml) that the eval harness (replay engine + semantic grader) and the optimize-adapter step score against. Goal: generate HIGH-COVERAGE, adversarial, well-scoped behaviour tests from a profile/principles spec, so the eval objective is strong (the optimizer is only as good as its tests). DISTINCT from agent-benchmarking (judge methodology) and prompt-optimization (tuning against tests); this generates the TESTS. Literature review of methods + how to apply (deterministic gen vs LLM, coverage metrics), not a product build."
 )
 
 # ── Prompt builder ───────────────────────────────────────────────────────────
@@ -87,26 +101,36 @@ launch () {
   local dir="$RESEARCH_ROOT/$folder"
   mkdir -p "$dir"
   build_prompt "$topic" "$keywords" "$why" > "$dir/PROMPT.md"
+  local prompt; prompt="$(cat "$dir/PROMPT.md")"
+
+  # Build the per-engine command (same prompt; both CLIs carry the research-pipeline skill).
+  local -a cmd
+  if [ "$ENGINE" = "copilot" ]; then
+    cmd=( "$COPILOT_BIN" -p "$prompt" --model "$COPILOT_MODEL" --effort "$COPILOT_EFFORT" --allow-all )
+  else
+    cmd=( "$CLAUDE_BIN" -p "$prompt" --model "$MODEL" --effort "$EFFORT" --dangerously-skip-permissions --verbose )
+  fi
+
   if [ "$DETACH" = "1" ]; then
     # setsid + </dev/null fully detaches so runs survive the launching shell.
-    ( cd "$dir" && setsid "$CLAUDE_BIN" -p "$(cat "$dir/PROMPT.md")" \
-          --model "$MODEL" --effort "$EFFORT" --dangerously-skip-permissions --verbose \
-          </dev/null >"$dir/run.log" 2>&1 & echo $! >"$dir/run.pid" )
-    echo "launched (detached) ${folder}  pid=$(cat "$dir/run.pid")  log=${dir}/run.log"
+    ( cd "$dir" && setsid "${cmd[@]}" </dev/null >"$dir/run.log" 2>&1 & echo $! >"$dir/run.pid" )
+    echo "launched (detached, $ENGINE) ${folder}  pid=$(cat "$dir/run.pid")  log=${dir}/run.log"
   else
-    # Foreground: no setsid, no background — the caller owns the process (so the harness can
-    # track it and notify on completion). Blocks until this topic's run finishes.
-    echo "running (foreground) ${folder}  log=${dir}/run.log"
-    ( cd "$dir" && "$CLAUDE_BIN" -p "$(cat "$dir/PROMPT.md")" \
-          --model "$MODEL" --effort "$EFFORT" --dangerously-skip-permissions --verbose \
-          >"$dir/run.log" 2>&1 )
+    # Foreground: no setsid — the caller owns the process (so the harness can track it and notify
+    # on completion). Blocks until this topic's run finishes.
+    echo "running (foreground, $ENGINE) ${folder}  log=${dir}/run.log"
+    ( cd "$dir" && "${cmd[@]}" >"$dir/run.log" 2>&1 )
   fi
 }
 
 main () {
   echo "research root: $RESEARCH_ROOT"
-  echo "claude bin   : $CLAUDE_BIN"
-  echo "profile/model: $PROFILE / $MODEL (effort=$EFFORT)"
+  echo "engine       : $ENGINE"
+  if [ "$ENGINE" = "copilot" ]; then
+    echo "copilot      : $COPILOT_BIN  model=$COPILOT_MODEL effort=$COPILOT_EFFORT"
+  else
+    echo "claude       : $CLAUDE_BIN  model=$MODEL effort=$EFFORT (profile=$PROFILE)"
+  fi
   echo
   for entry in "${TOPICS[@]}"; do
     IFS='|' read -r folder topic keywords why <<< "$entry"
