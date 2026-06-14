@@ -397,3 +397,26 @@ def shell_runner(script: str | Path, timeout: int = 300) -> Runner:
         ).stdout
 
     return _run
+
+
+def shell_llm(script: str | Path, timeout: int = 300) -> Callable[[str], str]:
+    """Build an ``llm`` callable that shells to a judge script (e.g. ``examples/codex-judge.sh``).
+
+    The script receives the prompt on stdin and prints the model's raw reply on stdout. Wire a live
+    semantic grader with ``make_llm_grader(shell_llm(script))``; a cross-family judge (codex/gpt-5.5)
+    avoids the same-family self-preference a Claude judge would carry when scoring Claude output.
+    """
+    import subprocess
+
+    script = str(script)
+
+    def _ask(prompt: str) -> str:
+        return subprocess.run(
+            ["bash", script],
+            input=prompt,
+            text=True,
+            capture_output=True,
+            timeout=timeout,
+        ).stdout
+
+    return _ask

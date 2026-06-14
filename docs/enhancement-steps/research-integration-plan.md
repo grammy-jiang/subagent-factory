@@ -173,10 +173,13 @@ runs there). +5 pure unit tests (prompt-build, variant-parse, policy gate).
 end-to-end (15 eval calls = 5 baseline + 2×5 candidates, proposer via `claude -p`), gate kept the
 baseline → "no gain". That surfaced a real live-usability bug — a **stochastic runner vs a
 zero-regression gate**: sampling noise reads as a regression. Fix shipped: **`--tol` (default 0.05)**
-absorbs noise-level dips (use 0.0 for a deterministic runner). The remaining honesty caveat is the
-*grader*: the CLI wires the **coarse lexical** grader, so the proposer optimizes token-overlap, not
-real quality — a **meaningful** live gain needs `--grader llm` (the semantic grader exists,
-`make_llm_grader`; wiring it to a judge script is the next D8 follow-on).
+absorbs noise-level dips (use 0.0 for a deterministic runner). **`--grader llm` DONE (2026-06-14):**
+`cli optimize-adapter --grader llm` wires `make_llm_grader(shell_llm(--judge))` so the loop optimizes
+*meaning*, not token-overlap; default `--judge examples/codex-judge.sh` is **cross-family**
+(codex/gpt-5.5) because a Claude judge scoring Claude output carries a same-family self-preference
+(finding #9). `shell_llm` (a `(prompt)->reply` shell callable) added next to `shell_runner`. Costs one
+extra judge call per test — use the coarse grader for cheap smoke runs, the semantic judge for a real
+gain verdict.
 
 **Sibling dependency.** D scores against E's suite; the loop is only as good as the tests. Build order:
 **E first (objective), then D (optimizer).** Both are single-turn for now (E's G2 multi-turn coverage

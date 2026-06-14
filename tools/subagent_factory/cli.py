@@ -343,10 +343,37 @@ def cmd_replay_gate(slug, before_adapter, after_adapter, runner):
     "noise-level score dip is not counted as a regression. Use 0.0 for a deterministic runner.",
 )
 @click.option(
+    "--grader",
+    "grader_kind",
+    type=click.Choice(["coarse", "llm"]),
+    default="coarse",
+    show_default=True,
+    help="Scorer: 'coarse' = deterministic lexical proxy; 'llm' = semantic judge (judges meaning, "
+    "not token overlap — needed for a MEANINGFUL gain, costs an extra judge call per test).",
+)
+@click.option(
+    "--judge",
+    default="examples/codex-judge.sh",
+    show_default=True,
+    help="Judge script for --grader llm. Default is cross-family (codex/gpt-5.5): a Claude judge "
+    "scoring Claude output carries a same-family self-preference.",
+)
+@click.option(
     "--dry-run", is_flag=True, help="Score the baseline + list failing tests; propose nothing."
 )
 def cmd_optimize_adapter(
-    slug, runner, proposer, budget, variants, minibatch, pool_size, patience, tol, dry_run
+    slug,
+    runner,
+    proposer,
+    budget,
+    variants,
+    minibatch,
+    pool_size,
+    patience,
+    tol,
+    grader_kind,
+    judge,
+    dry_run,
 ):
     """Step 12: tune SLUG's adapter against its behaviour-tests (LIVE model calls).
 
@@ -357,8 +384,11 @@ def cmd_optimize_adapter(
     re-export). --dry-run scores the baseline only (still burns baseline model calls).
     """
     from tools.subagent_factory.behaviour_replay import (
+        grade_output,
         load_behaviour_tests,
+        make_llm_grader,
         replay_suite,
+        shell_llm,
         shell_runner,
     )
     from tools.subagent_factory.optimize_adapter import (
@@ -379,9 +409,12 @@ def cmd_optimize_adapter(
         sys.exit(1)
     base_text = adapter.read_text(encoding="utf-8")
     run = shell_runner(runner)
+    grader_fn = grade_output if grader_kind == "coarse" else make_llm_grader(shell_llm(judge))
+    if grader_kind == "llm":
+        console.print(f"[cyan]semantic grader:[/cyan] {judge}")
 
     if dry_run:
-        r = replay_suite(base_text, tests, run)
+        r = replay_suite(base_text, tests, run, grader_fn)
         console.print(f"baseline mean [bold]{r['mean_score']:.2f}[/bold] over {r['n_tests']} tests")
         for tid, g in sorted(r["per_test"].items()):
             mark = "[green]ok[/green]" if g["score"] >= 1.0 else "[yellow]below 1.0[/yellow]"
@@ -394,6 +427,7 @@ def cmd_optimize_adapter(
         tests,
         run,
         shell_proposer(proposer, n_variants=variants),
+        grader=grader_fn,
         budget=budget,
         minibatch=(minibatch or None),
         pool_size=pool_size,
