@@ -167,10 +167,55 @@ def test_embedding_pairs_paraphrase_token_f1_misses(tmp_path):
 
 
 def test_embedding_respects_cos_threshold(tmp_path):
-    # raise the bar above the paraphrase pair's 0.97 cosine -> no merge
+    # raise the absolute floor above the pair's 0.8 cosine -> no merge
     assert (
         seed_clusters(_paraphrase_pkg(tmp_path), 0.15, embedder=_fake_embedder, cos_threshold=0.99)[
             "clusters"
         ]
         == []
     )
+
+
+# ---- C1(c): margin-above-baseline structural discrimination (fixes the over-merge) -----------
+
+
+def _clusters_pkg(tmp_path, vecs, sources):
+    """Build a package from {statement: vector} + {statement: source}; statements share no tokens."""
+    claims, principles, embmap = [], [], {}
+    for i, (stmt, vec) in enumerate(vecs.items(), 1):
+        cid, pid = f"c{i}", f"P{i}"
+        claims.append({"claim_id": cid, "source_id": sources[stmt], "statement": "x"})
+        principles.append(
+            {
+                "principle_id": pid,
+                "statement": stmt,
+                "derived_from_claims": [cid],
+                "confidence": "high",
+            }
+        )
+        embmap[stmt] = vec
+    base = _pkg(tmp_path, principles, claims)
+    return base, (lambda stmts: [embmap[s] for s in stmts])
+
+
+def test_margin_rejects_same_topic_blob(tmp_path):
+    # X,Y,Z all pairwise cosine 0.5 across sources: each clears the 0.5 floor but none STANDS OUT
+    # above its peers' mean -> margin blocks the over-merge.
+    vecs = {
+        "alpha apple": [1.0, 0.0],
+        "bravo banana": [0.5, 0.866],
+        "charlie cherry": [0.5, -0.866],
+    }
+    src = {"alpha apple": "A", "bravo banana": "B", "charlie cherry": "B"}
+    base, emb = _clusters_pkg(tmp_path, vecs, src)
+    assert seed_clusters(base, 0.99, embedder=emb, cos_threshold=0.5)["clusters"] == []
+
+
+def test_margin_keeps_standout_pair(tmp_path):
+    # P~Q cosine 0.85 (a real paraphrase) well above P's other peer (R at 0.3) -> stands out -> merge
+    vecs = {"delta date": [1.0, 0.0], "echo fig": [0.85, 0.527], "foxtrot grape": [0.3, 0.954]}
+    src = {"delta date": "A", "echo fig": "B", "foxtrot grape": "B"}
+    base, emb = _clusters_pkg(tmp_path, vecs, src)
+    r = seed_clusters(base, 0.99, embedder=emb, cos_threshold=0.5)
+    assert len(r["clusters"]) == 1
+    assert set(r["clusters"][0]["member_principle_ids"]) == {"P1", "P2"}  # P/Q, not R
