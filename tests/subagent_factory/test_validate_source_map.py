@@ -4,7 +4,11 @@ import json
 
 import yaml
 
-from tools.subagent_factory.validate_source_map import coverage_findings, validate_source_map
+from tools.subagent_factory.validate_source_map import (
+    claim_recall_findings,
+    coverage_findings,
+    validate_source_map,
+)
 
 _GOOD = {
     "schema_version": "source-map-v1",
@@ -130,3 +134,50 @@ def test_duplicate_node_id(tmp_path):
         "candidate_units": [],
     }
     assert any("duplicate node_id" in e for e in validate_source_map(_pkg(tmp_path, bad)))
+
+
+# ── claim-recall (Step 10 G3 deterministic counterpart) ─────────────────────────
+
+
+def _write_claims(mp, anchors_per_claim):
+    base = mp.parents[2]
+    (base / "analysis").mkdir(parents=True, exist_ok=True)
+    (base / "analysis" / "claims.jsonl").write_text(
+        "\n".join(
+            json.dumps({"claim_id": f"c{i}", "source_anchors": a})
+            for i, a in enumerate(anchors_per_claim)
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
+def test_claim_recall_full_no_warn(tmp_path):
+    mp = _pkg(tmp_path, _GOOD)
+    _write_claims(mp, [["a2"]])  # covers u1's anchor
+    assert claim_recall_findings(mp) == []
+
+
+def test_claim_recall_low_warns(tmp_path):
+    data = {
+        **_GOOD,
+        "candidate_units": [
+            {"unit_id": f"u{i}", "node_id": "n2", "statement": "x", "source_anchors": [f"a{i}"]}
+            for i in range(5)
+        ],
+    }
+    mp = _pkg(tmp_path, data, anchors=tuple(f"a{i}" for i in range(5)))
+    _write_claims(mp, [["a0"]])  # 1/5 = 20% < 25% threshold
+    w = claim_recall_findings(mp)
+    assert w and "claim recall" in w[0]
+
+
+def test_claim_recall_no_claims_skips(tmp_path):
+    assert claim_recall_findings(_pkg(tmp_path, _GOOD)) == []  # no analysis/claims.jsonl
+
+
+def test_claim_recall_no_units_skips(tmp_path):
+    data = {**_GOOD, "candidate_units": []}
+    mp = _pkg(tmp_path, data)
+    _write_claims(mp, [["a2"]])
+    assert claim_recall_findings(mp) == []
