@@ -28,6 +28,8 @@ from pathlib import Path
 
 import yaml
 
+from tools.subagent_factory.prov import prov_record
+
 _FUNCTION = {
     "a",
     "an",
@@ -274,6 +276,8 @@ def seed_specializes(
                                 "cluster_id": None,
                                 "method": "seed",
                                 "confidence": conf,
+                                # C2 PROV-O: derived from the two principles + the is-a term pair.
+                                **prov_record("hearst-isa", [spec, gen, hypo, hyper]),
                             },
                             "note": f"Hearst is-a: '{hypo}' is-a '{hyper}'"
                             + ("; WordNet-confirmed" if conf == "high" else ""),

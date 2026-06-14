@@ -25,11 +25,24 @@
           },
           "provenance": {
             "type": "object",
-            "description": "Why the edge exists: cluster_id it came from, method (seed|llm), confidence.",
+            "description": "Why the edge exists. cluster_id/method/confidence plus an optional PROV-O subset (snake_case JSON form of prov:wasDerivedFrom / wasAttributedTo / wasGeneratedBy) for full traceability — see tools/subagent_factory/prov.py (C2).",
             "properties": {
               "cluster_id": {"type": ["string", "null"]},
               "method": {"enum": ["seed", "llm-confirmed"]},
-              "confidence": {"enum": ["high", "medium", "low"]}
+              "confidence": {"enum": ["high", "medium", "low"]},
+              "was_derived_from": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "prov:wasDerivedFrom — entity ids this edge derives from (cluster_id, principle/claim/source ids)."
+              },
+              "was_attributed_to": {
+                "type": "string",
+                "description": "prov:wasAttributedTo — the agent (tool module or 'llm') responsible."
+              },
+              "was_generated_by": {
+                "type": "string",
+                "description": "prov:wasGeneratedBy — the activity that produced the edge (e.g. cluster-seed, hearst-isa, llm-confirm)."
+              }
             },
             "additionalProperties": false
           },
