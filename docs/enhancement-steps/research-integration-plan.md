@@ -14,6 +14,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | knowledge-graph / ontology construction | ✅ | C-track (below) | ✅ C1–C3 (`seed_principle_clusters`,`prov.py`,`hearst_isa` opt-in) |
 | **behaviour-test-generation** | ✅ PASS 1.0 (41 papers) | **E-track + `step-11-behaviour-test-generation.md`** | ✅ det core (`gen_behaviour_tests`, schema, coverage gate); LLM ideation = follow-on |
 | **prompt-optimization-eval** | ✅ PASS 1.0 (29 papers) | **D-track + `step-12-optimize-adapter.md`** | ✅ driver + proposer skill + live CLI (`cli optimize-adapter`) |
+| **calibration-abstention** | ✅ PASS 1.0 (31 papers) | **F-track + `step-13-ask-gate.md`** | spec folded; impl pending (answerable-twin + two-axis grading + two-stage gate) |
 
 ---
 
@@ -213,13 +214,45 @@ judge call is **high-variance** (it scored equivalent output 0.82 then 0.27). **
 **0.99** (NR-001 **0.11→1.00**) — the fold's gain is real and the round-trip is empirically confirmed.
 **Lesson (load-bearing for D8):** n=1 live grading is not trustworthy; use the coarse grader for cheap
 in-loop screening and **`--judge-samples ≥3` for any verdict**. The harness kept the result honest —
-the "win" only survived once the *measurement* was made reproducible.
+the "win" only survived once the *measurement* was made reproducible. **Tempered by F6 (calibration
+research):** `--judge-samples` median is a *consensus*, and **consensus ≠ human alignment** — it cuts
+variance but does not prove the judge tracks humans. The trustworthy verdict still needs a
+**human-anchored** guarantee (**B4 gold**) and conformal/soft reliability reporting. A second k6
+optimize run (2026-06-14) underlined the *other* axis of variance: baseline stable (0.72/0.73 at
+samples-3) but the **per-run optimization yield is variable** — run 1 found a keeper (0.72→0.97), run 2
+found none (no variant beat baseline without regression at budget-1/variants-2). The capability is
+real; a single small run is not guaranteed to hit, so treat one "no gain" as a miss, not a ceiling.
 
 **Sibling dependency.** D scores against E's suite; the loop is only as good as the tests. Build order:
 **E first (objective), then D (optimizer).** Both are single-turn for now (E's G2 multi-turn coverage
 gap is deferred). Foundational canon (APE/OPRO/DSPy/TextGrad/GEPA/MIPRO) was assembled by direct
 arXiv-ID injection under the recency-lock ([[arxiv-index-recency-locked]]) — a discovery limit, not a
 literature gap.
+
+## F. calibration-abstention → Step 13 (the ask-gate)
+Research **done** (`docs/Research/calibration-abstention/`, 31 papers, PASS 1.0). Full spec:
+`step-13-ask-gate.md`. Gives the *method* for when an advisor answers vs asks vs abstains — the
+behaviour Step-11 `missing_context_tests` already probe and `behaviour_replay` `must_ask_for` already
+scores. Mostly **refinement of existing steps**, not a new pipeline.
+
+| # | change | det / LLM | status |
+|---|---|---|---|
+| F1 | **Deterministic ask-gate core** — selective prediction = threshold τ on a calibrated risk score (act iff risk ≤ τ); not entropy/verbalized-confidence alone (confidently-wrong) | det | spec |
+| F2 | **Three-action Answer/Ask/Abstain + uncertainty attribution** (data→ask, model→abstain) | LLM planner | spec |
+| F3 | **Two-axis `must_ask_for` scoring** — reward ONE specific missing-variable question; penalize over-asking (nonmonotonic) | det grader ext | spec — **method now sourced** for the open E answerable-twin follow-on |
+| F4 | **Answerable-twin tests** — pair each missing-context cell with an answerable variant; twin must NOT trigger asking | det gen ext | spec |
+| F5 | **Two-stage gate** — cheap deterministic pre-filter on every request → escalate only flagged-uncertain to the LLM planner (Trust-or-Escalate); pre-generation, not output-refusal | det + LLM | spec |
+| F6 | **Judge-trust tie-in** — the SAME calibration math governs trusting an LLM-judge verdict: consensus ≠ human alignment; a single verdict needs a conformal/human-anchored guarantee | (analysis) | ✅ folded into the judge note below + B4 |
+
+**F6 is the load-bearing cross-link.** calibration finding #6/#7 says inter-judge **consensus ≠ human
+alignment** and a single judge verdict is trustworthy only under a calibrated/conformal or
+**human-anchored** guarantee. So Step-12's `--judge-samples` median (a consensus) is **necessary but
+not sufficient** — it cuts variance, it does not prove the judge tracks humans. This **promotes B4
+(human gold) from "capstone" to "the missing anchor"** and points the eval at proper reliability
+reporting (sensitivity/specificity, Youden's J, conformal/soft Elo). It also means a separate
+*judge-eval-reliability* research run is now **largely redundant** (calibration covered it). Open
+ACADEMIC gaps (non-blocking): deterministic missing-context detection for **black-box** models, and
+**multi-turn** ask-gates.
 
 ---
 
@@ -232,10 +265,12 @@ literature gap.
    (`compile_invariants` → `## Operating invariants` + non-breaking coverage gate).
 4. ✅ **C1 + C2** — graph dedup cascade + PROV-O provenance (`seed_principle_clusters`, `prov.py`);
    ⚠️ **C3** Hearst is-a shipped opt-in (measured low-yield on domain source).
-5. ✅ **E (Step 11)** — behaviour-test generator (det core + schema + coverage gate). The *objective*.
+5. ✅ **E (Step 11)** — behaviour-test generator (det core + schema + coverage gate + LLM ideator). The *objective*.
 6. ✅ **D (Step 12)** — optimize-adapter driver + proposer skill + **live CLI (D8)**
-   (`cli optimize-adapter`, additive proposer, policy gate, winner→review file).
-7. **B4** — independent gold set (human data work; the rigorous-eval capstone). **← resource-gated**
+   (`cli optimize-adapter`, additive proposer, policy gate, winner→review file). Live-proven on 2 packages.
+7. ✅ **F (Step 13) research folded** — calibration-abstention → ask-gate spec + judge-trust cross-link (F6).
+8. **B4** — independent gold set (human data work). **Promoted to #1 priority by F6** (consensus ≠ human;
+   the missing anchor for trusting any LLM-judge verdict). **← the highest-value remaining work.**
 
 **A-track (A1–A5) + C-track (C1–C3) are built; B-track is built except B4 (human gold data).** The
 research is now *folded* for D + E (specs `step-12-optimize-adapter.md`, `step-11-behaviour-test-
