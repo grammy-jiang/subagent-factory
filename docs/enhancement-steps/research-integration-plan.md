@@ -13,7 +13,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | agent-benchmarking / LLM-as-judge | ✅ | B-track (below) | ✅ B1–B3,B5,B6 (`rank_versions`,`judge_ab`,`eval_report`); B4 gold = human-gated |
 | knowledge-graph / ontology construction | ✅ | C-track (below) | ✅ C1–C3 (`seed_principle_clusters`,`prov.py`,`hearst_isa` opt-in) |
 | **behaviour-test-generation** | ✅ PASS 1.0 (41 papers) | **E-track + `step-11-behaviour-test-generation.md`** | ✅ det core (`gen_behaviour_tests`, schema, coverage gate); LLM ideation = follow-on |
-| **prompt-optimization-eval** | ✅ PASS 1.0 (29 papers) | **D-track + `step-12-optimize-adapter.md`** | spec folded; primitives exist (A-track replay engine) |
+| **prompt-optimization-eval** | ✅ PASS 1.0 (29 papers) | **D-track + `step-12-optimize-adapter.md`** | ✅ driver (`optimize_adapter`) + proposer skill; live CLI = follow-on |
 
 ---
 
@@ -145,14 +145,23 @@ existing parts — low new-code, high leverage.
 
 | # | change | det / LLM | status |
 |---|---|---|---|
-| D1 | **`optimize_adapter.py` driver** — budgeted propose→score→keep loop over the existing primitives | det orchestration | spec |
-| D2 | **Variant proposer skill** — gets failing tests + grader critique + scored history + faithfulness constraint | LLM | spec |
-| D3 | **Hard pre-merge gate** — faithfulness + quote + adapter-policy scan **before** the replay gate (anti-reward-hacking) | det | spec |
-| D4 | **Behaviour-tests = merge gate; grader = ranking only** (never raw reward); finding-#9 judge guards | det gate + LLM rank | spec |
-| D5 | **Cost control** — minibatch-screen→full-confirm, N-variants/call, closed-form budget N×T×(1+\|D\|), early stop | det | spec |
-| D6 | **Diversity pool** — small beam/Pareto of per-test winners (+6–11% vs greedy at equal budget) | det | spec |
-| D7 | **Joint rule+example optimization** (MIPRO/DSPy blueprint) — edits induced guidance *and* worked examples; invariant layer frozen | det + LLM | spec |
-| D8 | **`cli optimize-adapter`** — produces a new profile version (bump+changelog+validate+re-export), optional eval row | det | spec |
+| D1 | **`optimize_adapter.py` driver** — budgeted propose→score→keep loop over the existing primitives | det orchestration | ✅ `optimize_adapter` |
+| D2 | **Variant proposer skill** — gets failing tests + grader critique + scored history + faithfulness constraint | LLM | ✅ `.claude/skills/adapter-optimization/` (injectable `Proposer`) |
+| D3 | **Hard pre-merge gate** — faithfulness + quote + adapter-policy scan **before** the replay gate (anti-reward-hacking) | det | ✅ injectable `AcceptGate` seam (rejects pre-scoring; default permissive — production injects the scans) |
+| D4 | **Behaviour-tests = merge gate; grader = ranking only** (never raw reward); finding-#9 judge guards | det gate + LLM rank | ✅ gate = assess-before-merge on replay scores; grader injectable |
+| D5 | **Cost control** — minibatch-screen→full-confirm, N-variants/call, early stop, `eval_calls` accounting | det | ✅ minibatch + budget + patience + eval_calls |
+| D6 | **Diversity pool** — small beam of per-test winners (+6–11% vs greedy at equal budget) | det | ✅ `pool_size` beam |
+| D7 | **Joint rule+example optimization** (MIPRO/DSPy blueprint) — edits induced guidance *and* worked examples; invariant layer frozen | det + LLM | ✅ proposer contract (skill); driver text-agnostic |
+| D8 | **`cli optimize-adapter`** — produces a new profile version (bump+changelog+validate+re-export), optional eval row | det | ⏳ follow-on (wire `shell_runner` + a proposer script, like `replay-score`) |
+
+**D-track status (built 2026-06-14).** The driver + proposer skill are **implemented**:
+`optimize_adapter.py` is the budgeted propose→score→keep loop over the A-track primitives — finding #1
+held exactly (the only new code is orchestration + an injectable `Proposer`/`AcceptGate`). 7 unit
+tests (fakes, no live model) prove: improving variant kept, regressing variant rejected
+(assess-before-merge), faithfulness pre-merge gate blocks **before** scoring (zero wasted eval calls),
+minibatch screen prefilters cheaply, early-stop on patience, no-candidates→baseline. Follow-on (D8):
+the live CLI — wire `shell_runner` + a proposer script (like `examples/replay-runner.sh`) so a real
+package can be optimized end-to-end and the winner re-exported as a new version.
 
 **Sibling dependency.** D scores against E's suite; the loop is only as good as the tests. Build order:
 **E first (objective), then D (optimizer).** Both are single-turn for now (E's G2 multi-turn coverage
@@ -171,9 +180,9 @@ literature gap.
    (`compile_invariants` → `## Operating invariants` + non-breaking coverage gate).
 4. ✅ **C1 + C2** — graph dedup cascade + PROV-O provenance (`seed_principle_clusters`, `prov.py`);
    ⚠️ **C3** Hearst is-a shipped opt-in (measured low-yield on domain source).
-5. **E (Step 11)** — behaviour-test generator: the *objective*. **← next build (folds the E-track).**
-6. **D (Step 12)** — optimize-adapter loop over the existing replay primitives. **After E** (D scores
-   against E's suite).
+5. ✅ **E (Step 11)** — behaviour-test generator (det core + schema + coverage gate). The *objective*.
+6. ✅ **D (Step 12)** — optimize-adapter driver + proposer skill over the replay primitives.
+   Follow-on: the live CLI (D8) wiring `shell_runner` + a proposer script.
 7. **B4** — independent gold set (human data work; the rigorous-eval capstone). **← resource-gated**
 
 **A-track (A1–A5) + C-track (C1–C3) are built; B-track is built except B4 (human gold data).** The
