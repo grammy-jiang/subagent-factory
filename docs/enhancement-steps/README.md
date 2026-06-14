@@ -37,6 +37,8 @@ subagent_workflow_quality_enhancement_plan.md      (original 12 enhancements)
 | 8 | `step-8-skill-authoring.md` | full | **implemented** | 0,2–5 | (factual-consistency guards the bodies) |
 | 9 | `step-9-stale-maintenance.md` | full | **implemented** | 8 | — |
 | 10 | `step-10-source-structure-mapping.md` | full | **spec (research done; scaffolding built)** | 0,2 | long-document-structure-mapping |
+| 11 | `step-11-behaviour-test-generation.md` | full | **spec (research folded; impl pending)** | 0,4,5 | behaviour-test-generation |
+| 12 | `step-12-optimize-adapter.md` | full | **spec (research folded; primitives exist A-track; impl pending)** | 11 + A-track | prompt-optimization-eval |
 | 20 | `step-20-document-ai-pdf-parsing.md` | full | **implemented (merged)** | 0,1,2,10 | (Step-10 A/B finding) |
 
 Depth: **full** = implementation-ready; **medium** = goal + file sketch + dependencies;
@@ -47,6 +49,15 @@ Depth: **full** = implementation-ready; **medium** = goal + file sketch + depend
 > are stuck at `status: draft`). Step 9 closes the **Phase 12 maintenance gap** (the `stale` status
 > exists but nothing detects drift or sets it). Both spec'd **full** because their upstream is
 > merged. See `step-8-skill-authoring.md`, `step-9-stale-maintenance.md`.
+
+> **Steps 11–12 are the measure→optimize loop** (Phase 10+). Step 11 generates a high-coverage
+> adversarial behaviour-test suite (golden / negative-routing / missing-context) from the
+> profile+principles — the *objective*. Step 12 then tunes the adapter to maximize that objective via
+> the existing replay engine + replay-gate (propose→score→keep-winner), with faithfulness as a hard
+> pre-merge gate. They fold `docs/Research/{behaviour-test-generation, prompt-optimization-eval}/`
+> (the **E** and **D** tracks in `research-integration-plan.md`). Spec'd **full** — upstream (Step 5
+> tests + the A-track replay primitives) is merged. See `step-11-behaviour-test-generation.md`,
+> `step-12-optimize-adapter.md`.
 
 ## Promotion rule (medium → full)
 

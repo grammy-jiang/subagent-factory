@@ -1,15 +1,19 @@
-# Research → factory integration plan (3 output-quality topics)
+# Research → factory integration plan (output-quality topics)
 
-How to turn the three output-quality research reports into factory changes. Each report is already
-captured as a findings doc; this is the **implementation roadmap** — what to build, the
-deterministic-vs-LLM split, priority, and current status.
+How to turn the output-quality research reports into factory changes. Each report is captured as a
+findings doc / step spec; this is the **implementation roadmap** — what to build, the
+deterministic-vs-LLM split, priority, and current status. Tracks **A–C** are the measure-and-shape
+layer (build the adapter well, judge it rigorously); tracks **D–E** are the measure→optimize loop
+(generate the test objective, then tune against it).
 
 ## Status snapshot
 | research | report | captured spec | implemented so far |
 |---|---|---|---|
-| instruction-induction / agent-distillation | ✅ | `instruction-induction-findings.md` | none yet (Phase 5/9 build) |
-| agent-benchmarking / LLM-as-judge | ✅ | `agent-benchmarking-findings.md` | `rank_versions.py`, `judge_ab.py` (Phase-10 core) |
-| knowledge-graph / ontology construction | ⏳ running | (pending) | target already built: Step-7 `principle-graph.json` |
+| instruction-induction / agent-distillation | ✅ | A-track (below) | ✅ A1–A5 (`behaviour_replay`, `compile_invariants`, examples slot) |
+| agent-benchmarking / LLM-as-judge | ✅ | B-track (below) | ✅ B1–B3,B5,B6 (`rank_versions`,`judge_ab`,`eval_report`); B4 gold = human-gated |
+| knowledge-graph / ontology construction | ✅ | C-track (below) | ✅ C1–C3 (`seed_principle_clusters`,`prov.py`,`hearst_isa` opt-in) |
+| **behaviour-test-generation** | ✅ PASS 1.0 (41 papers) | **E-track + `step-11-behaviour-test-generation.md`** | spec folded; impl pending |
+| **prompt-optimization-eval** | ✅ PASS 1.0 (29 papers) | **D-track + `step-12-optimize-adapter.md`** | spec folded; primitives exist (A-track replay engine) |
 
 ---
 
@@ -102,6 +106,49 @@ graph; `require_wordnet=True` gives high precision at ≈0 recall on domain term
 and unlike C1(c) it is **not resolved in-environment**: the real fix is a *domain* hypernym lexicon
 (or LLM is-a judging), not general-English WordNet. Honest negative result, capability shipped.
 
+## E. behaviour-test-generation → Step 11 (profile-spec → high-coverage adversarial test suite)
+Research **done** (`docs/Research/behaviour-test-generation/`, 41 papers, PASS 1.0). Full spec:
+`step-11-behaviour-test-generation.md`. Generates the *objective* the D-track optimizes against, so it
+lands first. The three test categories are **encodings of the existing `golden-tests-v1` field set** —
+golden ⇒ `expected_route: invoke`, negative-routing ⇒ `expected_route: decline`, missing-context ⇒
+`must_ask_for` non-empty — so generated tests are immediately runnable by `behaviour_replay`. Builds
+on Step 5 (which stays the per-principle coverage *floor*).
+
+| # | change | det / LLM | status |
+|---|---|---|---|
+| E1 | **Capability × test-type matrix** — rows=principles, cols={golden, negative-routing, missing-context}; Cartesian-expand to emit `tests/*.yaml` | det scaffold + LLM ideate | spec |
+| E2 | **`golden-tests-v1` JSON schema + validator** — close the current schema-exempt gap; add `test_type`/`principle_ref` | det schema | spec |
+| E3 | **Hybrid generation** — LLM ideates inputs, deterministic typed templates instantiate reproducible oracles | det + LLM | spec |
+| E4 | **Negative-routing = in-scope/OOS hard-negatives** (`expected_route: decline`, OOS-recall-first) | LLM gen + det check | spec |
+| E5 | **Missing-context = slot-ablation + answerable twin** (`must_ask_for`; grade silent-commit vs over-ask) | LLM gen + det check | spec |
+| E6 | **Coverage-guided keep-if-new + embedding dedup** (`embed_minilm`, rare-weighted, anti-collapse) | det | spec |
+| E7 | **Coverage gate** in `validate_generated_package` — every principle exercised per required type; present+tier-gated | det gate | spec |
+
+## D. prompt-optimization-eval → Step 12 (tune the adapter against the E-track objective)
+Research **done** (`docs/Research/prompt-optimization-eval/`, 29 papers, PASS 1.0, IMPLEMENTATION_READY).
+Full spec: `step-12-optimize-adapter.md`. **Key finding: not a novel mechanism** — it is the standard
+`propose → score → keep-winner` loop, and the A-track already shipped every primitive (`replay_suite`
+= scorer, `replay_gate` = assess-before-merge, `make_llm_grader` = critique/ranking,
+`rank_examples_by_utility` = example axis). So D = **a budgeted driver + an LLM variant proposer** over
+existing parts — low new-code, high leverage.
+
+| # | change | det / LLM | status |
+|---|---|---|---|
+| D1 | **`optimize_adapter.py` driver** — budgeted propose→score→keep loop over the existing primitives | det orchestration | spec |
+| D2 | **Variant proposer skill** — gets failing tests + grader critique + scored history + faithfulness constraint | LLM | spec |
+| D3 | **Hard pre-merge gate** — faithfulness + quote + adapter-policy scan **before** the replay gate (anti-reward-hacking) | det | spec |
+| D4 | **Behaviour-tests = merge gate; grader = ranking only** (never raw reward); finding-#9 judge guards | det gate + LLM rank | spec |
+| D5 | **Cost control** — minibatch-screen→full-confirm, N-variants/call, closed-form budget N×T×(1+\|D\|), early stop | det | spec |
+| D6 | **Diversity pool** — small beam/Pareto of per-test winners (+6–11% vs greedy at equal budget) | det | spec |
+| D7 | **Joint rule+example optimization** (MIPRO/DSPy blueprint) — edits induced guidance *and* worked examples; invariant layer frozen | det + LLM | spec |
+| D8 | **`cli optimize-adapter`** — produces a new profile version (bump+changelog+validate+re-export), optional eval row | det | spec |
+
+**Sibling dependency.** D scores against E's suite; the loop is only as good as the tests. Build order:
+**E first (objective), then D (optimizer).** Both are single-turn for now (E's G2 multi-turn coverage
+gap is deferred). Foundational canon (APE/OPRO/DSPy/TextGrad/GEPA/MIPRO) was assembled by direct
+arXiv-ID injection under the recency-lock ([[arxiv-index-recency-locked]]) — a discovery limit, not a
+literature gap.
+
 ---
 
 ## Prioritized roadmap (output-quality first)
@@ -111,13 +158,19 @@ and unlike C1(c) it is **not resolved in-environment**: the real fix is a *domai
    + deterministic hedge wiring. Every future change is now *measurable*, not hand-judged.
 3. ✅ **A4** recovery-example gate + examples slot. ✅ **A3 + A5** compiled must-hold invariant layer
    (`compile_invariants` → `## Operating invariants` + non-breaking coverage gate).
-4. **B4** — independent gold set (human data work; the rigorous-eval capstone). **← next resource-gated**
-5. **C1 + C2** — graph refinement, after the kg report.
+4. ✅ **C1 + C2** — graph dedup cascade + PROV-O provenance (`seed_principle_clusters`, `prov.py`);
+   ⚠️ **C3** Hearst is-a shipped opt-in (measured low-yield on domain source).
+5. **E (Step 11)** — behaviour-test generator: the *objective*. **← next build (folds the E-track).**
+6. **D (Step 12)** — optimize-adapter loop over the existing replay primitives. **After E** (D scores
+   against E's suite).
+7. **B4** — independent gold set (human data work; the rigorous-eval capstone). **← resource-gated**
 
-**The whole A-track (A1–A5) is now built.** Remaining: B4 (human gold data) and C1/C2 (graph
-refinement, needs an embedding model). Follow-ons (small): LLM-grader option for the replay engine;
-an LLM wording-refinement pass over compiled invariants; **bulk re-export** of the 23 existing
-packages so they adopt the invariant + examples layers (each is non-breaking until re-exported).
+**A-track (A1–A5) + C-track (C1–C3) are built; B-track is built except B4 (human gold data).** The
+research is now *folded* for D + E (specs `step-12-optimize-adapter.md`, `step-11-behaviour-test-
+generation.md`); next is **implementing E then D**. Follow-ons (small): LLM-grader option already
+exists (`make_llm_grader`); an LLM wording-refinement pass over compiled invariants; **bulk re-export**
+of the existing packages so they adopt the invariant + examples layers (non-breaking until
+re-exported).
 
 ## Cross-cutting constraints (from the research)
 - Every LLM step passes a deterministic gate before entering the adapter (factory discipline).
