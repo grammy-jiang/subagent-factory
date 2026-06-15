@@ -7,6 +7,7 @@ from typing import Any
 
 from tools.subagent_factory.conversion_quality import assess_quality
 from tools.subagent_factory.self_heal import ensure_package
+from tools.subagent_factory.table_quality import table_quality
 
 SCANNED_THRESHOLD = 0.15  # chars-per-page (×1000) below this suggests scanned
 _MIN_WORDS_BORN_DIGITAL = 30  # below this, with no page signal, suspect a failed scan
@@ -107,6 +108,36 @@ def _tables_enabled() -> bool:
 _PIPE_ROW_RE = re.compile(r"^\s*\|.*\|\s*$")
 
 
+def _export_table_html(table: object, doc: object | None = None) -> str:
+    """Render one Docling table to HTML, tolerating both the doc-arg and no-arg signatures."""
+    try:
+        return table.export_to_html(doc=doc)  # type: ignore[attr-defined]
+    except TypeError:
+        return table.export_to_html()  # type: ignore[attr-defined]
+
+
+def _table_warnings(tables: list, doc: object | None = None) -> list[str]:
+    """WARN lines for structurally degenerate extracted tables (Step-20 H3, flag-on path only).
+
+    Each table that fails the ``table_quality`` structural-degeneracy heuristic is reported so a
+    table-heavy convert can route it to human review. **Advisory only** — never blocks the convert,
+    never alters the Markdown. Any failure assessing a table is swallowed so quality scoring can
+    never break an otherwise-successful conversion.
+    """
+    warns: list[str] = []
+    for i, t in enumerate(tables):
+        try:
+            q = table_quality(_export_table_html(t, doc))
+        except Exception:
+            continue
+        if not q["ok"]:
+            warns.append(
+                f"Table {i}: low-confidence extraction ({'; '.join(q['reasons'])}) "
+                f"[rows={q['rows']} cells={q['cells']}] — review before grounding claims on it."
+            )
+    return warns
+
+
 def _tables_to_html(markdown: str, tables: list, doc: object | None = None) -> str:
     """Replace each Markdown pipe-table block with the corresponding table's HTML (Step-20 H, part 2).
 
@@ -129,11 +160,7 @@ def _tables_to_html(markdown: str, tables: list, doc: object | None = None) -> s
             while j < len(lines) and _PIPE_ROW_RE.match(lines[j]):
                 j += 1
             if (j - i) >= 2 and ti < len(tables):  # a real table block + a table to map it to
-                try:
-                    html = tables[ti].export_to_html(doc=doc)
-                except TypeError:
-                    html = tables[ti].export_to_html()
-                out.append(html.strip())
+                out.append(_export_table_html(tables[ti], doc).strip())
                 ti += 1
             else:
                 out.extend(lines[i:j])  # single stray pipe line, or no table left → leave as-is
@@ -179,11 +206,12 @@ def _try_docling(src: Path):
         )
         doc = converter.convert(str(src))
         text = doc.document.export_to_markdown()
+        warns: list[str] = []
         if _tables_enabled():
-            text = _tables_to_html(
-                text, getattr(doc.document, "tables", []) or [], doc=doc.document
-            )
-        return text, "docling", [], []
+            tbls = getattr(doc.document, "tables", []) or []
+            text = _tables_to_html(text, tbls, doc=doc.document)
+            warns = _table_warnings(tbls, doc=doc.document)
+        return text, "docling", warns, []
     except Exception as e:
         # Any failure in the fast-path construction (e.g. a docling API change) must not strand
         # the chain — fall back to a default converter before giving up on docling entirely.
@@ -192,11 +220,12 @@ def _try_docling(src: Path):
 
             doc = DocumentConverter().convert(str(src))
             text = doc.document.export_to_markdown()
+            warns = []
             if _tables_enabled():
-                text = _tables_to_html(
-                    text, getattr(doc.document, "tables", []) or [], doc=doc.document
-                )
-            return text, "docling", [], []
+                tbls = getattr(doc.document, "tables", []) or []
+                text = _tables_to_html(text, tbls, doc=doc.document)
+                warns = _table_warnings(tbls, doc=doc.document)
+            return text, "docling", warns, []
         except Exception as e2:
             return None, None, [], [f"docling error: {e}; default-fallback: {e2}"]
 

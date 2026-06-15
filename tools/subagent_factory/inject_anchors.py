@@ -48,11 +48,28 @@ def _is_pdf_noise(stripped: str) -> bool:
 
 
 _HTML_TAG_RE = re.compile(r"<[^>]+>")
+# A caption line: "Table 3: ...", "Figure 12 ...", "Tbl. 2", "Fig 4 —" (proximity + reading order).
+_CAPTION_RE = re.compile(r"^(table|figure|tbl|fig)\.?\s*\d+\b", re.IGNORECASE)
 
 
 def _strip_html(s: str) -> str:
     """Drop HTML tags, collapse whitespace — for a table anchor's grounding text."""
     return " ".join(_HTML_TAG_RE.sub(" ", s).split())
+
+
+def _table_caption(prior_lines: list[str]) -> str:
+    """The immediately-preceding content line if it's a Table/Figure caption (Step-20 H2).
+
+    Caption↔table association by proximity + reading order: scan back past blanks and injected
+    anchor comments to the nearest real line; return it only if it looks like a caption. Empty
+    otherwise. The forward case (caption *below* the table) is left to the follow-on.
+    """
+    for prev in reversed(prior_lines):
+        s = prev.strip()
+        if not s or s.startswith("<!-- anchor:"):
+            continue
+        return s if _CAPTION_RE.match(s) else ""
+    return ""
 
 
 def inject_anchors(
@@ -103,6 +120,7 @@ def inject_anchors(
                 in_table, current_table = False, None
             continue
         if re.search(r"<table\b", line, re.IGNORECASE):
+            caption = _table_caption(output_lines)  # H2: nearest preceding Table/Figure caption
             anchor_id = f"{source_id}-t{anchor_counter:04d}"
             anchor_counter += 1
             rec = {
@@ -111,7 +129,7 @@ def inject_anchors(
                 "source_id": source_id,
                 "anchor_type": "table",
                 "level": None,
-                "text": _strip_html(line)[:600],
+                "text": f"{caption} {_strip_html(line)}".strip()[:600],
                 "line_number": line_num,
                 "page_number": None,
             }

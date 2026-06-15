@@ -74,8 +74,22 @@ is strictly better (semantic heading anchors); the fallback is the floor.
 > (One of the 11 was the TOC rendered as a table — a harmless Docling quirk.)
 >
 > **So H composes (validated):** flag-on → Docling TSR → `<table>` HTML → `-t` anchors → claims cite
-> table facts. All flag-gated; default path byte-unchanged. **Core H done.** Remaining polish:
-> GriTS/TEDS quality gate (H3), caption↔table association (H2).
+> table facts. All flag-gated; default path byte-unchanged. **Core H done.**
+>
+> **Polish shipped (2026-06-15) — H2 + H3:**
+> - **H2 — caption↔table association:** when `inject_anchors` anchors a `<table>`, `_table_caption`
+>   scans back (past blanks / prior anchor comments) to the nearest content line and, if it matches
+>   `Table N` / `Figure N` / `Tbl N` / `Fig N`, seeds that caption into the `-t` anchor text — so a
+>   claim citing the table also carries its caption. Proximity + reading order, no spatial coords
+>   (we only have the linearized Markdown). Inert when there is no caption. 4 tests.
+> - **H3 — structural-degeneracy quality gate:** `table_quality.table_quality(html)` (pure stdlib
+>   `html.parser`) returns `{ok, rows, cells, empty, max_cols, reasons}`, flagging shapes that signal
+>   an extraction failure (no rows/cells, header-only, single column, ≥60% empty grid). **Not** TEDS/
+>   GriTS — those need a ground-truth grid the factory does not have at convert time; this is the
+>   buildable structural proxy. `convert_pdf._table_warnings` runs it on every flag-on table and
+>   surfaces a per-table WARN ("low-confidence extraction … review before grounding claims on it").
+>   **Advisory only** — never blocks the convert, never alters the Markdown; export errors are
+>   swallowed. 12 tests. **H is now complete (H1 core + H2 + H3).**
 
 Folds `docs/Research/table-extraction/` (validated PASS 1.0). **Finding: the factory already runs
 Docling but FLATTENS its tables to Markdown — losing recoverable facts.** Structure-preserving
@@ -104,5 +118,8 @@ extraction can read tabular facts. Ships behind a per-package quality gate.
 
 Implemented + merged. Docling installed CPU-only on the dev machine; it is the active PDF converter.
 Corpus migration in progress (re-author empty/flattened packages on Docling) — see
-`docs/factory-ops.md`. **Table-structure preservation is spec'd above (H-track), not yet built** —
-tables currently flatten to Markdown.
+`docs/factory-ops.md`. **Table-structure preservation (H-track) is complete** — H1 core (opt-in TSR
+→ `<table>` HTML → `-t` anchors), H2 (caption↔table association), H3 (structural-degeneracy quality
+gate) all shipped behind `SUBAGENT_FACTORY_DOCLING_TABLES`; default path byte-unchanged. Carried
+academic gaps (caption-accuracy benchmark, TSR generalization to non-scientific books) remain
+research-only, not buildable here.
