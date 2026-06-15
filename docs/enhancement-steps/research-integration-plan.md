@@ -17,6 +17,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | **calibration-abstention** | ✅ PASS 1.0 (31 papers) | **F-track + `step-13-ask-gate.md`** | ✅ F3+F4 built (answerable-twins + two-axis grading); F1/F2/F5 runtime gate spec (black-box gap) |
 | **rag-graphrag** (§20 #10) | ✅ PASS 1.0 (20+ papers) | **G-track + `step-14-runtime-retrieval.md`** | spec folded (post-v0 runtime layer); 3 inherent HIGH gaps → ships behind measurement |
 | **table-extraction** (§20 #2) | ✅ PASS 1.0 | **H-track + `step-20` table-preservation section** | spec folded; ENGINEERING-HIGH = wire TableFormer into the converter contract (factory flattens tables today) |
+| **automated-program-repair** (§20 #13) | ⚠️ round-1, **unvalidated** (Copilot rate-limited pre-validate) | **I-track + `step-6` patch-generation section** | spec folded **PROVISIONAL**; re-validate on re-run; ENGINEERING-HIGH = a `validate_patch` ladder |
 
 ---
 
@@ -302,6 +303,27 @@ domains (finance — [[financial-domain-readiness]]).
 (ACADEMIC); TSR generalization to non-scientific technical books under-evaluated (ACADEMIC). Ships
 behind a per-package table quality gate. This is the §20 #2 (Document AI) slice — the rest of #2 is
 already shipped as Step 20.
+
+## I. automated-program-repair → Step-6 (patch generation + validation) — §20 #13, PROVISIONAL
+Research **round-1, UNVALIDATED** (`docs/Research/automated-program-repair/`) — the Copilot run was
+**rate-limited before the validate-report step**; the report is substantively complete (17 sections,
+findings + 8 evidence-grounded recommendations) but not validate-stamped. Spec: the **patch generation
++ validation** section in `step-6-patch-safety.md`. Step 6 enforces patch *safety* (mode-gated); this
+adds *generation + validation* for the produce/patch-suggest modes + the patch-capable subagents (incl.
+the new `legacy-code-change-advisor`).
+
+| # | finding → factory direction | det / LLM | status |
+|---|---|---|---|
+| I1 | **Deterministic validation ladder** — compile/parse → scope → reproduction(fail→pass) → regression(pass→pass) → CI | det | spec (provisional) |
+| I2 | **Reference-free oracle rungs** — intent oracle, behavioral-fingerprint diff, sound symbolic-equivalence for small in-scope changes | det + LLM | spec |
+| I3 | **LLM never overrides the deterministic verdict** — it only ranks passing candidates + raises abstain/needs-human | det gate + LLM rank | spec |
+| I4 | **RED bug-reproduction test** — generate + protect (no-delete), reachability filter, flag fix↔test overfitting | det | spec |
+| I5 | **Bound the diff by construction** — minimal-edit, function scope, reject over-edits | det | spec |
+| I6 | **(ENGINEERING-HIGH)** a `validate_patch` ladder for produce/patch-suggest modes | det | spec — build target |
+
+**Caveat:** PROVISIONAL until re-validated — re-run on Copilot after the rate limit resets (~03:43 UTC)
+to finish round-1 + validate (and any round-2 gap-closure). Load-bearing principle matches the factory:
+**deterministic gate decides, LLM proposes + ranks.**
 
 ---
 

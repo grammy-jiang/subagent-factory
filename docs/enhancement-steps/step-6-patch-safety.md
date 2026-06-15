@@ -75,3 +75,35 @@ tier-gated registry.
 - The policy is a contract, not an enforcement runtime; the adapter-policy scan (Step 1) +
   `_determine_tools` are what actually bound tool authority. This step makes the contract
   explicit and required wherever patch authority is granted.
+
+## Patch generation + validation (automated-program-repair research, I-track — SPEC, PROVISIONAL)
+
+> Folds `docs/Research/automated-program-repair/` (§20 #13). **PROVISIONAL: round-1 report,
+> *unvalidated* — the Copilot run was rate-limited before the validate-report step; substance is
+> complete + evidence-grounded (17 sections, findings + recommendations). Re-validate on re-run.**
+> Step 6 enforces patch *safety* (mode-gated policy); this adds the *generation + validation* method
+> for the produce/patch-suggest modes + the patch-capable subagents (incl. the new
+> `legacy-code-change-advisor`).
+
+**Spec (design only — what a patch-capable subagent should do; no code yet):**
+1. **Deterministic validation ladder, in order:** compile/parse → scope/locality → reproduction
+   (fail→pass) → full regression (pass→pass) → CI. [2605.27238], [2604.27148]
+2. **Reference-free oracle rungs after tests pass:** intent oracle from the issue/PR text, behavioral
+   fingerprint diff, and (for small in-scope changes) a *sound* symbolic-equivalence / patch-impact
+   check. [2602.05270], [2604.16933], [2605.13885]
+3. **Never let an LLM/learned judge override a deterministic verdict** — LLM only *ranks*
+   deterministically-passing candidates + raises an abstain / "needs human" flag; judge scoped diffs.
+   [2603.11262], [2604.18309]
+4. **Generate + protect a RED (bug-reproduction) test** — anchor localization on it, forbid deletion,
+   apply a reachability filter, flag fix↔test mutual overfitting for review. [2601.19066], [2604.19224]
+5. **Bound the diff by construction** — minimal-edit generation, function/element scope, cheap locality
+   rejection of over-edits even when tests pass. [2604.03113]
+6. **Ground generation in execution evidence**; filter LLM artifacts deterministically. [2512.24635]
+7. **Scale validation depth to risk (mode-gated)** — human review for high-blast-radius / security /
+   weak-oracle changes; for vulnerabilities verify root-cause, not symptom. [2604.25363], [2605.04251]
+8. **Discount benchmark numbers** (memorization, weak oracles); add mutation-guided adequacy checks.
+   [2604.21579], [2602.10471]
+
+The load-bearing principle matches the factory's: **deterministic gate decides, LLM only proposes +
+ranks.** ENGINEERING-HIGH = a `validate_patch` ladder for the produce/patch-suggest modes. Open
+academic gaps carried from the report (re-confirm on re-validation).
