@@ -1,5 +1,6 @@
 """Convert PDF to Markdown. Chain: Docling → MarkItDown (self-heals) → PyMuPDF."""
 
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -85,6 +86,24 @@ def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:
     return result
 
 
+def _tables_enabled() -> bool:
+    """Whether to run Docling's table-structure model (Step-20 H, table-extraction research).
+
+    Opt-in via ``SUBAGENT_FACTORY_DOCLING_TABLES=1``. Default OFF preserves the fast born-digital
+    path (TableFormer dominates CPU). Turn it on for table-heavy sources (finance, data) where the
+    ~20x slowdown buys recoverable tabular facts — the measured ~33pp QA gap on table-dependent
+    questions. NB: this is increment 1 (run TSR → proper table grids); structure-preserving HTML/OTSL
+    export + anchoring table content so claims can cite it is the documented follow-on (the anchor
+    layer currently skips pipe-rows).
+    """
+    return os.environ.get("SUBAGENT_FACTORY_DOCLING_TABLES", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
+
+
 def _try_docling(src: Path):
     """Docling PDF→Markdown with a born-digital fast path.
 
@@ -96,6 +115,9 @@ def _try_docling(src: Path):
     acceptable for the text-dense advisory/reference sources this factory distils. A scanned PDF
     then yields little/no text and falls through to the next converter; ``_detect_scanned`` and
     the low-quality gate catch the residue.
+
+    Table-structure recognition is **opt-in** (``_tables_enabled``): off by default (the fast path
+    above), on for table-heavy sources via ``SUBAGENT_FACTORY_DOCLING_TABLES=1``.
     """
     try:
         from docling.datamodel.base_models import InputFormat
@@ -106,7 +128,7 @@ def _try_docling(src: Path):
     try:
         opts = PdfPipelineOptions()
         opts.do_ocr = False
-        opts.do_table_structure = False
+        opts.do_table_structure = _tables_enabled()
         converter = DocumentConverter(
             format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=opts)}
         )

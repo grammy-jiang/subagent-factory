@@ -295,7 +295,7 @@ domains (finance — [[financial-domain-readiness]]).
 
 | # | finding → factory direction | det / LLM | status |
 |---|---|---|---|
-| H1 | **Keep TableFormer TSR output; persist span-preserving (OTSL/HTML), Markdown as human view only** | det | spec |
+| H1 | **Keep TableFormer TSR output; persist span-preserving (OTSL/HTML), Markdown as human view only** | det | 🔨 increment 1: opt-in TSR flag (`SUBAGENT_FACTORY_DOCLING_TABLES`, default off, non-breaking) built; HTML/OTSL export + table anchoring = follow-on |
 | H2 | **Caption↔table/figure association** by spatial proximity + reading order | det | spec |
 | H3 | **Quality-gate** extracted tables (GriTS/TEDS); route low-confidence to review | det | spec |
 | H4 | **Route by table type** — line-based for clean ruled, deep TSR otherwise | det | spec |
