@@ -76,14 +76,14 @@ tier-gated registry.
   `_determine_tools` are what actually bound tool authority. This step makes the contract
   explicit and required wherever patch authority is granted.
 
-## Patch generation + validation (automated-program-repair research, I-track — SPEC, PROVISIONAL)
+## Patch generation + validation (automated-program-repair research, I-track — SPEC)
 
-> Folds `docs/Research/automated-program-repair/` (§20 #13). **PROVISIONAL: round-1 report,
-> *unvalidated* — the Copilot run was rate-limited before the validate-report step; substance is
-> complete + evidence-grounded (17 sections, findings + recommendations). Re-validate on re-run.**
-> Step 6 enforces patch *safety* (mode-gated policy); this adds the *generation + validation* method
-> for the produce/patch-suggest modes + the patch-capable subagents (incl. the new
-> `legacy-code-change-advisor`).
+> Folds `docs/Research/automated-program-repair/` (§20 #13, **41 papers, 3 rounds, validation PASS
+> 1.0, reviewer-accepted**). (The Copilot run hit the hourly rate limit *after* completing + validating
+> — an earlier "provisional/unvalidated" note was based on a stale `round_state.json`; the SUMMARY
+> confirms it validated.) Step 6 enforces patch *safety* (mode-gated policy); this adds the
+> *generation + validation* method for the produce/patch-suggest modes + the patch-capable subagents
+> (incl. the new `legacy-code-change-advisor`).
 
 **Spec (design only — what a patch-capable subagent should do; no code yet):**
 1. **Deterministic validation ladder, in order:** compile/parse → scope/locality → reproduction
