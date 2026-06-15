@@ -76,7 +76,7 @@ tier-gated registry.
   `_determine_tools` are what actually bound tool authority. This step makes the contract
   explicit and required wherever patch authority is granted.
 
-## Patch generation + validation (automated-program-repair research, I-track — SPEC)
+## Patch generation + validation (automated-program-repair research, I-track)
 
 > Folds `docs/Research/automated-program-repair/` (§20 #13, **41 papers, 3 rounds, validation PASS
 > 1.0, reviewer-accepted**). (The Copilot run hit the hourly rate limit *after* completing + validating
@@ -84,6 +84,38 @@ tier-gated registry.
 > confirms it validated.) Step 6 enforces patch *safety* (mode-gated policy); this adds the
 > *generation + validation* method for the produce/patch-suggest modes + the patch-capable subagents
 > (incl. the new `legacy-code-change-advisor`).
+
+### Built (2026-06-15) — `validate_patch` ladder (the ENGINEERING-HIGH item)
+
+`tools/subagent_factory/validate_patch.py` — the deterministic ladder a patch-capable subagent runs
+on a proposed unified diff before suggesting/applying it. Pure injectable core + thin `shell_runner`
+adapter (same idiom as `behaviour_replay`).
+
+- `parse_unified_diff(diff)` → per-file add/remove/hunk counts (git + plain diff, create/delete). **I1**
+- `check_scope(files, scope)` → enforce blast radius: `allow_paths` / `deny_paths` (never touch
+  canonical artifacts) + `max_files` / `max_hunks` / `max_changed_lines`; reject over-edits. **I5**
+- `validate_patch(diff, *, scope, runner, request)` → runs the rungs **parse → scope → reproduce →
+  regress → ci** in order, short-circuits at the first fail. Verdict: `fail` (a rung failed, with
+  `stopped_at`), `pass` (parse+scope+reproduce+regress all *ran* and passed; ci optional),
+  `needs_human` (nothing failed but a required rung was skipped — no scope bound or no runner, i.e.
+  verification incomplete). The reproduce rung is the RED test: **fail without the patch, pass with
+  it. I1 + I4.**
+- `select_patch(candidates, …, ranker)` → the deterministic gate keeps only `pass` candidates; the
+  (LLM) `ranker` only *orders* those, and a pick outside the passing set is ignored. **An LLM can
+  never resurrect a deterministically-failed patch. I3.**
+- `shell_runner(repo, patch_file, repro_cmd, regress_cmd, ci_cmd)` → real subprocess adapter; each
+  rung is hermetic (apply → run → revert), so a clean tree is restored after every rung. Commands
+  are `shlex`-split argv lists, never run through a shell.
+- CLI: `python -m tools.subagent_factory.validate_patch <patch> --scope s.json [--repro-cmd … ]`;
+  exit `0`=pass / `1`=fail / `2`=needs_human. 29 tests (parse, scope, verdict matrix, I3 select,
+  real-git `shell_runner`).
+
+**Carried (LLM / academic, not buildable as a pure gate):** I2 reference-free oracle rungs (intent
+oracle from the issue text, behavioral-fingerprint diff, sound symbolic-equivalence) — only the
+*structural* over-edit proxy (I5 scope) is built; I4's *generation* + RED-test protection
+(no-delete, reachability filter, fix↔test overfitting flag) and risk-scaled review depth (I7) sit on
+the live harness/profile, not this engine. Follow-on: let `patch-policy.yaml` carry the `scope`
+bound so `validate_patch` reads it per-package.
 
 **Spec (design only — what a patch-capable subagent should do; no code yet):**
 1. **Deterministic validation ladder, in order:** compile/parse → scope/locality → reproduction
