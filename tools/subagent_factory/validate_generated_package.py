@@ -32,6 +32,7 @@ from tools.subagent_factory.adapter_policy_scan import adapter_policy_scan
 from tools.subagent_factory.classify_tier import classify_tier
 from tools.subagent_factory.compile_invariants import validate_invariant_coverage
 from tools.subagent_factory.detect_stale import detect_stale
+from tools.subagent_factory.domain_policy import check_domain_policy
 from tools.subagent_factory.profile_self_check import profile_self_check
 from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
 from tools.subagent_factory.quote_scan import quote_scan
@@ -361,6 +362,26 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
             "patch-policy",
             "profile grants a patch/produce mode but policy/patch-policy.yaml is missing",
         )
+
+    # 14. Domain-adaptation policy (Step-15 J-track) — opt-in per regulated domain.
+    # Inert unless the profile declares a regulated `domain_risk_category` (finance/legal/medical):
+    # every technical / non-regulated package has no such field, so this returns [] and Tier-0
+    # packages are untouched. When set, the package must ship the graded no-advice boundary
+    # (no-advice forbidden behaviour + defer-to-professional handoff + standing disclaimer).
+    if (base / "profile.yaml").exists():
+        try:
+            _dprof = yaml.safe_load((base / "profile.yaml").read_text(encoding="utf-8")) or {}
+        except yaml.YAMLError:
+            _dprof = {}
+        dom_errs = check_domain_policy(_dprof)
+        if dom_errs:
+            for e in dom_errs:
+                fail("domain-policy", e)
+        elif _dprof.get("domain_risk_category"):
+            ok(
+                "domain-policy",
+                f"regulated domain '{_dprof['domain_risk_category']}' boundary present",
+            )
 
     # Tier-gated artifacts: validate any that are present; require those the tier mandates.
     tier = _tier(base)

@@ -26,6 +26,34 @@ model-inconsistent). So:
 - use **LLM source-interrogation only to populate `source_of_truth_policy` evidence norms** (not to
   enforce scope).
 
+## Built (2026-06-15) — `domain_policy` template + opt-in gate
+
+`tools/subagent_factory/domain_policy.py` — the deterministic per-domain scaffolding (the buildable
+half; evidence norms stay LLM). Pure data + pure functions, no schema change, no export change.
+
+- `domain_policy(domain)` for `finance` / `legal` / `medical` → `{domain_risk_category, professional,
+  forbidden_behaviours (GRADED no-advice lines), handoff_rules (defer-to-professional / τ default),
+  standing_disclaimer, source_precedence_hint}`. Each no-advice line is **safe-completion** — "explain
+  the general framework … then refer to a licensed professional" — not a binary refusal (J1, J2). The
+  handoff rule **triggers on an external uncertainty signal, not the model's own confidence** (J3, J4).
+  The disclaimer is the human-in-the-loop "decision support, not a replacement" posture (J7).
+- `merge_domain_policy(profile, domain)` folds the template into a profile dict (idempotent): extends
+  `forbidden_behaviours` + `handoff_rules` (the fields the adapter **already renders**, so the boundary
+  surfaces with no export change) and adds the disclaimer as a handoff rule.
+- `check_domain_policy(profile)` — **opt-in deterministic gate**, wired into
+  `validate_generated_package` (block #14). Inert for any profile with no `domain_risk_category` (every
+  technical/non-regulated package → Tier-0 untouched). For a regulated package it lenient-checks
+  (keyword-based, so rephrasing still passes) for a no-advice boundary, a defer-to-professional handoff,
+  and a non-empty disclaimer — and **FAILs** a regulated package that ships without them.
+- CLI: `python -m tools.subagent_factory.domain_policy <domain> [--merge profile.yaml]` (emit / preview;
+  never writes). 18 tests.
+
+**Authoring integration:** when the source-interrogator/profile-deriver classifies a source as a
+regulated domain, it sets `domain_risk_category` and merges `domain_policy(domain)`; the gate enforces
+the boundary at validation time regardless, so a forgotten boundary is caught deterministically (gate
+decides, not the LLM). **Carried (LLM/academic):** J5 evidence norms (LLM interrogation, ties Step-14);
+J6's LLM half; the open regulatory gaps below.
+
 ## Spec (findings → factory design; no code yet)
 
 | field / mechanism | design | finding |
