@@ -18,6 +18,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | **rag-graphrag** (§20 #10) | ✅ PASS 1.0 (20+ papers) | **G-track + `step-14-runtime-retrieval.md`** | spec folded (post-v0 runtime layer); 3 inherent HIGH gaps → ships behind measurement |
 | **table-extraction** (§20 #2) | ✅ PASS 1.0 | **H-track + `step-20` table-preservation section** | spec folded; ENGINEERING-HIGH = wire TableFormer into the converter contract (factory flattens tables today) |
 | **automated-program-repair** (§20 #13) | ⚠️ round-1, **unvalidated** (Copilot rate-limited pre-validate) | **I-track + `step-6` patch-generation section** | spec folded **PROVISIONAL**; re-validate on re-run; ENGINEERING-HIGH = a `validate_patch` ladder |
+| **domain-adaptation-regulated-advice** | ✅ PASS 1.0 (25 papers, 2 rounds) | **J-track + `step-15-domain-adaptation-policy.md`** | spec folded; answers Q1 (finance/legal/medical) — hybrid det-template + LLM-interrogation method |
 
 ---
 
@@ -324,6 +325,27 @@ the new `legacy-code-change-advisor`).
 **Caveat:** PROVISIONAL until re-validated — re-run on Copilot after the rate limit resets (~03:43 UTC)
 to finish round-1 + validate (and any round-2 gap-closure). Load-bearing principle matches the factory:
 **deterministic gate decides, LLM proposes + ranks.**
+
+## J. domain-adaptation-regulated-advice → Step-15 (domain-adaptation policy) — answers Q1
+Research **done** (`docs/Research/domain-adaptation-regulated-advice/`, 25 papers, PASS 1.0, 2 rounds).
+Full spec: `step-15-domain-adaptation-policy.md`. The concrete answer to **Q1** (can the factory author
+finance/stock — and legal/medical?). See memory `financial-domain-readiness`.
+
+| # | finding → factory design | det / LLM | status |
+|---|---|---|---|
+| J1 | **GRADED no-advice boundary** (safe-completion, not binary; per-domain-risk, reconfigurable) → `forbidden_behaviours` | det template | spec |
+| J2 | **Target the safety↔over-refusal frontier** — max-refusal blocks legitimate Qs | det | spec |
+| J3 | **Defer-to-professional = server-side τ uncertainty-abstention gate** → `handoff_rules` (same shape as Step-13 ask-gate) | det | spec |
+| J4 | **Don't trust model self-confidence** (worst-calibrated on law/medicine) — externally grounded τ | det | spec |
+| J5 | **Evidence norms = retrieval-from-authority + mandatory citations** → `source_of_truth_policy` (ties Step-14) | det + LLM | spec |
+| J6 | **METHOD (Q1 answer): hybrid** — deterministic per-domain template for `forbidden_behaviours`/disclaimers + LLM interrogation ONLY for evidence norms; prompt-only scope control is unstable | det + LLM | spec |
+| J7 | **Liability: human-in-loop "decision support, not replacement"** standing disclaimer/handoff default | det | spec |
+
+**Open gaps (not in arXiv → manual regulatory review, not a round):** personalized-vs-general advice
+*detection*, disclaimer legal efficacy / liability allocation, a finance/legal graded-scope benchmark.
+Generalizes finance → legal/medical (same graded-boundary + τ-deferral + authority-grounding shape).
+Ties: Step-13 (τ), Step-14 (authority retrieval), `evidence-protocol` per-domain override,
+`untrusted-source-policy` (the deferral signal is an attack surface).
 
 ---
 
