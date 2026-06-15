@@ -43,7 +43,20 @@ decides" rule.
   principle-promotion skill now sets confidence via GRADE. +4 tests.
 - **K3 inclusion gate — already satisfied** by `score_extracted_units` (Phase 2.5 importance ranking,
   numbered criteria → deterministic sum → keep/review/discard); the research confirms that design.
-- **Remaining (spec):** RoB stays advisory (K4); the dual-judge conflict label (K5) overlaps Step-7.
+- **K4 risk-of-bias = advisory weight, NOT a gate — BUILT.** `grade_confidence.rob_weight(domains)`
+  rolls RoB2-style per-domain signals up (any `high` → overall high; else any `some-concerns`; else
+  all-low → low; else unclear) and maps overall to **at most one capped `risk-of-bias` downgrade**,
+  fired only by a clear overall-`high`. `is_gate: False` is explicit. `grade_with_rob(...)` folds it
+  into a grade as advisory downgrades — RoB can only *lower* confidence, never drop a source (F4: RoB
+  automation is weak, so it must not gate). **No package-validator gate by design.** +8 tests.
+- **K5 conflict → verification label (reground, not average) — BUILT.**
+  `grade_confidence.conflict_label(judgments, *, winner, both_wrong)`: agree → `high`; one judge
+  vindicated by reground → `one_wins`/`medium`; all wrong or unresolved disagreement → `withhold`
+  (route to human). Never averages disagreeing judges (2-of-3 "accept" still withholds). Same
+  multi-truth rule as Step-7. +7 tests.
+- **K-track complete** (K1 = existing split; K2/K3 built/satisfied; K4/K5 built; K6 = `--judge-samples`
+  ensemble already shipped). The remaining items are LLM/authoring-time (supply the semantic RoB and
+  conflict signals these functions score), not deterministic code.
 
 ## LLM ↔ deterministic split
 
