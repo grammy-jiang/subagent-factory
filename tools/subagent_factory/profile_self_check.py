@@ -359,6 +359,15 @@ def _truthy(value) -> bool:
 # Top-level keys under which the gate recognizes test collections.
 _RECOGNIZED_TEST_KEYS = ("golden_tests", "negative_routing_tests", "missing_context_tests")
 
+# Sibling test artifacts that live in tests/ but carry their own schema (and their
+# own validator) — they are NOT golden-tests files and must not be diagnosed as
+# "misplaced" golden tests. A Tier-1 package legitimately ships
+# tests/principle-behaviour-tests.yaml (principle-behaviour-tests-v1) alongside
+# golden-tests.yaml; its `principle_behaviour_tests` list carries `test_id` items
+# and would otherwise trip the misplaced-key hint with actively wrong advice
+# ("move these into golden_tests"). Recognized by declared `schema_version`.
+_SIBLING_TEST_SCHEMAS = frozenset({"principle-behaviour-tests-v1"})
+
 
 def _looks_like_test_list(value) -> bool:
     """True when value is a list whose items look like test definitions."""
@@ -391,6 +400,11 @@ def _count_tests(base: Path) -> tuple[int, int, str]:
             continue
         golden += len(data.get("golden_tests", []) or [])
         negative += len(data.get("negative_routing_tests", []) or [])
+        # A sibling test artifact (e.g. principle-behaviour-tests.yaml) declares its
+        # own schema and is validated elsewhere — it carries no golden/negative tests
+        # and must not be reported as misplaced golden tests.
+        if data.get("schema_version") in _SIBLING_TEST_SCHEMAS:
+            continue
         for key, value in data.items():
             if key in _RECOGNIZED_TEST_KEYS:
                 continue
