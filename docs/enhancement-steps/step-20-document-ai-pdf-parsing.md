@@ -66,12 +66,16 @@ is strictly better (semantic heading anchors); the fallback is the floor.
 >   each pipe-table block in Docling's markdown with `TableItem.export_to_html()` (order-based,
 >   count-guarded), wired into `_try_docling` under the flag. **Byte-identical no-op when nothing is
 >   replaced / flag off.** 9 tests (helper + the part2→part3 composition: `_tables_to_html` output →
->   `inject_anchors` → `-t` anchor). A live Docling-TSR run on a real table-PDF validates the
->   real-output assumption (pipe-format + table order).
+>   `inject_anchors` → `-t` anchor).
 >
-> **So H composes:** flag-on → Docling TSR → `<table>` HTML → `-t` anchors → claims cite table facts.
-> All flag-gated; default path byte-unchanged. Remaining polish: GriTS/TEDS quality gate (H3),
-> caption↔table association (H2).
+> **Live-validated end-to-end (2026-06-15)** on a real Kafka benchmark PDF with Docling TSR on:
+> **11 tables → 11 `<table>` HTML (0 residual pipe-rows) → 11 `-t` anchors. PASS.** Confirms the
+> real-Docling assumption (export_to_markdown pipe-tables map, in order, to `doc.document.tables`).
+> (One of the 11 was the TOC rendered as a table — a harmless Docling quirk.)
+>
+> **So H composes (validated):** flag-on → Docling TSR → `<table>` HTML → `-t` anchors → claims cite
+> table facts. All flag-gated; default path byte-unchanged. **Core H done.** Remaining polish:
+> GriTS/TEDS quality gate (H3), caption↔table association (H2).
 
 Folds `docs/Research/table-extraction/` (validated PASS 1.0). **Finding: the factory already runs
 Docling but FLATTENS its tables to Markdown — losing recoverable facts.** Structure-preserving

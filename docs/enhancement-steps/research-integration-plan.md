@@ -295,7 +295,7 @@ domains (finance — [[financial-domain-readiness]]).
 
 | # | finding → factory direction | det / LLM | status |
 |---|---|---|---|
-| H1 | **Keep TableFormer TSR output; persist span-preserving (OTSL/HTML), Markdown as human view only** | det | ✅ parts 1 (opt-in TSR flag) + 2 (`_tables_to_html` pipe→`<table>` emit, count-guarded) + 3 (`inject_anchors` `<table>`→`-t` anchor) built — all flag-gated, default byte-unchanged; composes flag-on → HTML → `-t` → claim-citable. Polish left: H2 caption-assoc, H3 GriTS/TEDS gate |
+| H1 | **Keep TableFormer TSR output; persist span-preserving (OTSL/HTML), Markdown as human view only** | det | ✅ **done + live-validated** — parts 1 (opt-in flag) + 2 (`_tables_to_html`) + 3 (`inject_anchors` `-t`); real Kafka-benchmark PDF: 11 tables → 11 `<table>` → 11 `-t` anchors, PASS. Flag-gated, default byte-unchanged. Polish left: H2 caption-assoc, H3 GriTS/TEDS gate |
 | H2 | **Caption↔table/figure association** by spatial proximity + reading order | det | spec |
 | H3 | **Quality-gate** extracted tables (GriTS/TEDS); route low-confidence to review | det | spec |
 | H4 | **Route by table type** — line-based for clean ruled, deep TSR otherwise | det | spec |
