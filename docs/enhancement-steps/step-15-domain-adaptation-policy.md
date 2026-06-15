@@ -48,11 +48,17 @@ half; evidence norms stay LLM). Pure data + pure functions, no schema change, no
 - CLI: `python -m tools.subagent_factory.domain_policy <domain> [--merge profile.yaml]` (emit / preview;
   never writes). 18 tests.
 
-**Authoring integration:** when the source-interrogator/profile-deriver classifies a source as a
-regulated domain, it sets `domain_risk_category` and merges `domain_policy(domain)`; the gate enforces
-the boundary at validation time regardless, so a forgotten boundary is caught deterministically (gate
-decides, not the LLM). **Carried (LLM/academic):** J5 evidence norms (LLM interrogation, ties Step-14);
-J6's LLM half; the open regulatory gaps below.
+**Authoring integration — WIRED (2026-06-15).** The flow now fires the boundary on its own:
+- `source-interrogation` SKILL — a **regulated-domain flag** (after Q18): finance/legal/medical is
+  recorded explicitly as the dominant influence on Q4/Q8/Q10.
+- `profile-generation` SKILL **§1.5** + `profile-deriver` agent **step 7.5** — when the domain is
+  regulated, set `domain_risk_category` and fold `domain_policy(<domain>)`'s lines **verbatim** into
+  `forbidden_behaviours` / `handoff_rules` / `standing_disclaimer` (don't hand-author scope).
+- The gate (block #14) enforces it at validation time regardless, so a forgotten boundary is caught
+  deterministically (gate decides, not the LLM).
+
+**Carried (LLM/academic):** J5 evidence norms (LLM interrogation, ties Step-14); the open regulatory
+gaps below.
 
 ## Spec (findings → factory design; no code yet)
 

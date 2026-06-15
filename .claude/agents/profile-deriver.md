@@ -54,6 +54,13 @@ Follow the `profile-generation` skill:
 7. **If you assign a `produce` or `patch-suggest` mode**, write `policy/patch-policy.yaml`
    (`patch-policy-v1`, `default_mode: patch_suggest_only`) — the validate gate FAILs a
    patch-capable package that lacks it.
+7.5. **If the source domain is regulated (finance, legal, medical)** — set
+   `domain_risk_category: <domain>` and fold in the deterministic no-advice boundary from
+   `tools/subagent_factory/domain_policy.py` (`domain_policy(<domain>)`): copy its graded
+   `forbidden_behaviours`, defer-to-professional `handoff_rules`, and `standing_disclaimer`
+   **verbatim** into the profile (don't hand-author scope). See profile-generation skill §1.5. The
+   validate gate (block #14) FAILs a regulated package missing the boundary. Leave the field unset for
+   technical/non-regulated packages.
 8. **Tier 1+**: ground `quality_bar`, `forbidden_behaviours`, and modes in
    `principles/principles.yaml` when present, and set `tier: <n>` in the profile.
 9. Run Phase 8 self-check internally before handing off
