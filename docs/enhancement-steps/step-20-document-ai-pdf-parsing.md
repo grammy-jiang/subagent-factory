@@ -62,10 +62,16 @@ is strictly better (semantic heading anchors); the fallback is the floor.
 >   facts. **Additive + inert** — triggers only on `<table>` (which only the flag emits), so table-free
 >   markdown is byte-unchanged (5 synthetic-markdown tests + the existing inject_anchors suite green).
 >
-> **Remaining — Part 2:** make `convert_pdf` *emit* `<table>` HTML (structure-preserving) when the
-> flag is on (Docling `TableItem.export_to_html` over `doc.document.tables`), + a tiny table-PDF
-> fixture for the end-to-end (convert→anchor→claim) + a flag-off byte-identical regression check. Once
-> Part 2 lands, the parts compose: flag-on → HTML tables → `-t` anchors → claims cite table facts.
+> - **Part 2 — converter emits `<table>` HTML (logic built):** `convert_pdf._tables_to_html` replaces
+>   each pipe-table block in Docling's markdown with `TableItem.export_to_html()` (order-based,
+>   count-guarded), wired into `_try_docling` under the flag. **Byte-identical no-op when nothing is
+>   replaced / flag off.** 9 tests (helper + the part2→part3 composition: `_tables_to_html` output →
+>   `inject_anchors` → `-t` anchor). A live Docling-TSR run on a real table-PDF validates the
+>   real-output assumption (pipe-format + table order).
+>
+> **So H composes:** flag-on → Docling TSR → `<table>` HTML → `-t` anchors → claims cite table facts.
+> All flag-gated; default path byte-unchanged. Remaining polish: GriTS/TEDS quality gate (H3),
+> caption↔table association (H2).
 
 Folds `docs/Research/table-extraction/` (validated PASS 1.0). **Finding: the factory already runs
 Docling but FLATTENS its tables to Markdown — losing recoverable facts.** Structure-preserving

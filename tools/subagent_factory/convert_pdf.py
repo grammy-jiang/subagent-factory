@@ -104,6 +104,51 @@ def _tables_enabled() -> bool:
     }
 
 
+_PIPE_ROW_RE = re.compile(r"^\s*\|.*\|\s*$")
+
+
+def _tables_to_html(markdown: str, tables: list, doc: object | None = None) -> str:
+    """Replace each Markdown pipe-table block with the corresponding table's HTML (Step-20 H, part 2).
+
+    Docling's ``export_to_markdown`` renders recognized tables as pipe-tables, which lose merged cells
+    and which ``inject_anchors`` skips as noise. This swaps each contiguous pipe-row block (≥2 lines)
+    for ``tables[i].export_to_html()`` — a ``<table>`` block that part 3 anchors and that preserves
+    spans. **Order-based + count-guarded:** the i-th pipe block ↔ ``tables[i]`` (both document order);
+    extra pipe blocks (or a stray single ``|`` line) pass through unchanged, so a miscount degrades to
+    the old behaviour rather than corrupting. ``tables=[]`` (flag off) → returns the markdown verbatim.
+    """
+    if not tables:
+        return markdown
+    lines = markdown.splitlines()
+    out: list[str] = []
+    ti = 0
+    i = 0
+    while i < len(lines):
+        if _PIPE_ROW_RE.match(lines[i]):
+            j = i
+            while j < len(lines) and _PIPE_ROW_RE.match(lines[j]):
+                j += 1
+            if (j - i) >= 2 and ti < len(tables):  # a real table block + a table to map it to
+                try:
+                    html = tables[ti].export_to_html(doc=doc)
+                except TypeError:
+                    html = tables[ti].export_to_html()
+                out.append(html.strip())
+                ti += 1
+            else:
+                out.extend(lines[i:j])  # single stray pipe line, or no table left → leave as-is
+            i = j
+        else:
+            out.append(lines[i])
+            i += 1
+    if ti == 0:
+        return markdown  # nothing replaced → byte-identical (strong no-op guarantee)
+    result = "\n".join(out)
+    if markdown.endswith("\n") and not result.endswith("\n"):
+        result += "\n"  # splitlines drops the trailing newline; restore it
+    return result
+
+
 def _try_docling(src: Path):
     """Docling PDF→Markdown with a born-digital fast path.
 
@@ -134,6 +179,10 @@ def _try_docling(src: Path):
         )
         doc = converter.convert(str(src))
         text = doc.document.export_to_markdown()
+        if _tables_enabled():
+            text = _tables_to_html(
+                text, getattr(doc.document, "tables", []) or [], doc=doc.document
+            )
         return text, "docling", [], []
     except Exception as e:
         # Any failure in the fast-path construction (e.g. a docling API change) must not strand
@@ -142,7 +191,12 @@ def _try_docling(src: Path):
             from docling.document_converter import DocumentConverter
 
             doc = DocumentConverter().convert(str(src))
-            return doc.document.export_to_markdown(), "docling", [], []
+            text = doc.document.export_to_markdown()
+            if _tables_enabled():
+                text = _tables_to_html(
+                    text, getattr(doc.document, "tables", []) or [], doc=doc.document
+                )
+            return text, "docling", [], []
         except Exception as e2:
             return None, None, [], [f"docling error: {e}; default-fallback: {e2}"]
 
