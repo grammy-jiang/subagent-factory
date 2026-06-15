@@ -42,6 +42,7 @@ subagent_workflow_quality_enhancement_plan.md      (original 12 enhancements)
 | 13 | `step-13-ask-gate.md` | full | **partial (F4 twins + F3 two-axis grading built; runtime gate spec)** | 11, 12 | calibration-abstention |
 | 14 | `step-14-runtime-retrieval.md` | full | **spec (post-v0 runtime layer; 3 inherent lit gaps)** | 7 | rag-graphrag (§20 #10) |
 | 15 | `step-15-domain-adaptation-policy.md` | full | **spec (answers Q1: regulated/non-technical domains)** | 13,14 | domain-adaptation-regulated-advice |
+| 16 | `step-16-evidence-grading.md` | full | **spec (GRADE-style confidence + judge discipline)** | 1,3 | systematic-review-evidence-synthesis (§20 #1) |
 | 20 | `step-20-document-ai-pdf-parsing.md` | full | **implemented (merged); +table-preservation spec'd (H-track, not built)** | 0,1,2,10 | Step-10 A/B + table-extraction (§20 #2) |
 
 Depth: **full** = implementation-ready; **medium** = goal + file sketch + dependencies;
