@@ -44,9 +44,17 @@ half; evidence norms stay LLM). Pure data + pure functions, no schema change, no
   `validate_generated_package` (block #14). Inert for any profile with no `domain_risk_category` (every
   technical/non-regulated package → Tier-0 untouched). For a regulated package it lenient-checks
   (keyword-based, so rephrasing still passes) for a no-advice boundary, a defer-to-professional handoff,
-  and a non-empty disclaimer — and **FAILs** a regulated package that ships without them.
+  a non-empty disclaimer, and **(J5)** a mandatory-citation / answer-from-authority evidence norm — and
+  **FAILs** a regulated package that ships without them.
+- **J5 evidence norms — BUILT.** `domain_policy(domain)` now also emits `evidence_norms` (the
+  citation/authority *discipline*: answer from the cited source not parametric memory; cite the source
+  basis per substantive claim; on a retrieval miss, say so and defer rather than generate).
+  `merge_domain_policy` folds them into `source_of_truth_policy.evidence_norms` (preserving an existing
+  `canonical_owner`/`precedence`) and adds a rendered citation `forbidden_behaviour`. The *source-
+  specific* authority stays LLM-derived (Q17). This is the **contract** Step-14 runtime
+  retrieval-from-authority consumes (Step-14 is the engine; J5 is the norm + enforcement).
 - CLI: `python -m tools.subagent_factory.domain_policy <domain> [--merge profile.yaml]` (emit / preview;
-  never writes). 18 tests.
+  never writes). 23 tests.
 
 **Authoring integration — WIRED (2026-06-15).** The flow now fires the boundary on its own:
 - `source-interrogation` SKILL — a **regulated-domain flag** (after Q18): finance/legal/medical is
@@ -57,8 +65,8 @@ half; evidence norms stay LLM). Pure data + pure functions, no schema change, no
 - The gate (block #14) enforces it at validation time regardless, so a forgotten boundary is caught
   deterministically (gate decides, not the LLM).
 
-**Carried (LLM/academic):** J5 evidence norms (LLM interrogation, ties Step-14); the open regulatory
-gaps below.
+**Carried (LLM/academic):** the J5 *source-specific* authority/precedence (LLM interrogation, Q17) and
+the Step-14 runtime retrieval engine that consumes the J5 norm; the open regulatory gaps below.
 
 ## Spec (findings → factory design; no code yet)
 

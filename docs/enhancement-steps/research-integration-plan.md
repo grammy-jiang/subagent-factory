@@ -338,7 +338,7 @@ finance/stock — and legal/medical?). See memory `financial-domain-readiness`.
 | J2 | **Target the safety↔over-refusal frontier** — max-refusal blocks legitimate Qs | det | ✅ **done** — every no-advice line answers the general part before deferring (not binary refusal) |
 | J3 | **Defer-to-professional = server-side τ uncertainty-abstention gate** → `handoff_rules` (same shape as Step-13 ask-gate) | det | ✅ **done** — template `handoff_rules` defer-to-professional default |
 | J4 | **Don't trust model self-confidence** (worst-calibrated on law/medicine) — externally grounded τ | det | ✅ **done** — handoff rule triggers on external uncertainty signal, "not the model's own confidence" |
-| J5 | **Evidence norms = retrieval-from-authority + mandatory citations** → `source_of_truth_policy` (ties Step-14) | det + LLM | spec — LLM-interrogation half, carried (ties Step-14) |
+| J5 | **Evidence norms = retrieval-from-authority + mandatory citations** → `source_of_truth_policy` (ties Step-14) | det + LLM | ✅ **det discipline done** — `domain_policy` `evidence_norms` → `source_of_truth_policy.evidence_norms` + rendered citation rule + gate check. Source-specific authority (Q17, LLM) + Step-14 runtime carried |
 | J6 | **METHOD (Q1 answer): hybrid** — deterministic per-domain template for `forbidden_behaviours`/disclaimers + LLM interrogation ONLY for evidence norms; prompt-only scope control is unstable | det + LLM | ✅ **det half done** — `domain_policy` template + `check_domain_policy` gate (block #14); LLM evidence-norm half carried |
 | J7 | **Liability: human-in-loop "decision support, not replacement"** standing disclaimer/handoff default | det | ✅ **done** — `standing_disclaimer` per domain, surfaced via handoff_rules |
 
