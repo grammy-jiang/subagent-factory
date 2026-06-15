@@ -15,7 +15,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | **behaviour-test-generation** | ✅ PASS 1.0 (41 papers) | **E-track + `step-11-behaviour-test-generation.md`** | ✅ det core (`gen_behaviour_tests`, schema, coverage gate); LLM ideation = follow-on |
 | **prompt-optimization-eval** | ✅ PASS 1.0 (29 papers) | **D-track + `step-12-optimize-adapter.md`** | ✅ driver + proposer skill + live CLI (`cli optimize-adapter`) |
 | **calibration-abstention** | ✅ PASS 1.0 (31 papers) | **F-track + `step-13-ask-gate.md`** | ✅ F3+F4 built (answerable-twins + two-axis grading); F1/F2/F5 runtime gate spec (black-box gap) |
-| **rag-graphrag** (§20 #10) | ✅ PASS 1.0 (20+ papers) | **G-track + `step-14-runtime-retrieval.md`** | spec folded (post-v0 runtime layer); 3 inherent HIGH gaps → ships behind measurement |
+| **rag-graphrag** (§20 #10) | ✅ PASS 1.0 (20+ papers) | **G-track + `step-14-runtime-retrieval.md`** | G1 routing rule built (`knowledge_partition`, advisory); G2–G6 spec — 3 inherent HIGH gaps → ship behind measurement |
 | **table-extraction** (§20 #2) | ✅ PASS 1.0 | **H-track + `step-20` table-preservation section** | ✅ COMPLETE — opt-in TSR → `<table>` HTML → `-t` anchors + caption assoc (H2) + degeneracy gate (H3); flag-gated, default byte-unchanged |
 | **automated-program-repair** (§20 #13) | ✅ PASS 1.0 (41 papers, 3 rounds, reviewer-accepted) | **I-track + `step-6` patch-generation section** | ✅ engine built — `validate_patch` ladder (I1/I3/I5/I6 done, I4 partial); I2 oracles carried (LLM/academic) |
 | **domain-adaptation-regulated-advice** | ✅ PASS 1.0 (25 papers, 2 rounds) | **J-track + `step-15-domain-adaptation-policy.md`** | ✅ det template built — `domain_policy` (finance/legal/medical graded boundary) + opt-in gate (block #14); LLM evidence-norm half carried. Answers Q1 |
@@ -260,7 +260,7 @@ reporting (sensitivity/specificity, Youden's J, conformal/soft Elo). It also mea
 ACADEMIC gaps (non-blocking): deterministic missing-context detection for **black-box** models, and
 **multi-turn** ask-gates.
 
-## G. rag-graphrag → Step 14 (runtime retrieval) — §20 #10, post-v0
+## G. rag-graphrag → Step 14 (runtime retrieval) — §20 #10, post-v0 — G1 BUILT, G2–G6 spec
 Research **done** (`docs/Research/rag-graphrag/`, 20+ papers, PASS 1.0). Full spec:
 `step-14-runtime-retrieval.md`. The long-open §20 topic #10 (RAG/GraphRAG), and the answer to the
 *distill-vs-retrieve* architecture question for `knowledge_partition`. **Post-v0 design capture** — a
@@ -269,7 +269,7 @@ literature.
 
 | # | finding → factory direction | det / LLM | status |
 |---|---|---|---|
-| G1 | **knowledge_partition = deterministic routing**, not either/or — distill stable/high-reuse/non-citable, retrieve volatile/long-tail/large/citable | det | spec |
+| G1 | **knowledge_partition = deterministic routing**, not either/or — distill stable/high-reuse/non-citable, retrieve volatile/long-tail/large/citable | det | ✅ **done (advisory)** — `knowledge_partition.route_knowledge_item` / `partition_plan`; distill→always_on, retrieve→skills/references, fine-tune→retrieve+flag; no gate (G1 unproven → behind a per-package measurement) |
 | G2 | **Default retrieval spine is deterministic** — hybrid dense(λ≈0.8)+BM25 → distilled cross-encoder reranker; LLM only builds the index | det | spec |
 | G3 | **Passage-grounded graph** — PPR traversal, **always return real source passages**, route global queries to a precomputed-summary path; graph aids retrieval, never replaces the corpus | det | spec |
 | G4 | **Selective retrieval gate** — uncertainty/complexity threshold + hard ≤3-iter cap (same shape as the Step-13 ask-gate) | det | spec |

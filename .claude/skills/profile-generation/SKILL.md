@@ -109,6 +109,23 @@ This is **enforced**: `validate_generated_package` block #14 FAILs a package tha
 `domain_risk_category` without the no-advice / defer / disclaimer boundary **and the J5 evidence norm**.
 For technical / non-regulated packages, leave `domain_risk_category` unset — the gate stays inert.
 
+### 1.6 Knowledge-partition routing (G1 / Step-14 — advisory)
+
+When you decide what goes in `knowledge_partition.always_on` (distilled, in-prompt) vs
+`skills` / `references` (file-backed, read on demand), apply the deterministic routing rule rather
+than deciding ad hoc: `tools/subagent_factory/knowledge_partition.py` `route_knowledge_item(reuse,
+volatility, size, citation_need)` →
+
+- **distill → `always_on`**: stable + high-reuse + small + non-citable (the rules the expert always
+  applies);
+- **retrieve → `skills`/`references`**: volatile **or** long-tail (low-reuse) **or** large **or**
+  citation-bearing (anything that ages, is rarely needed, is too big, or must cite a real passage).
+
+**Advisory, not a gate.** G1 (own-store vs runtime retrieval) is an open question, so treat the
+routing as guidance and confirm by A/B on the package's behaviour-tests before trusting a non-obvious
+move — never apply it as a silent default. The full runtime-retrieval spine (G2–G6) is **spec only**
+(see `step-14-runtime-retrieval.md`); today "retrieve" means a reference file the agent reads.
+
 ### 2. Check profile bloat limits
 
 | Check | Limit |
