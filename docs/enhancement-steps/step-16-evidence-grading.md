@@ -37,9 +37,13 @@ decides" rule.
   baseline by source type, ±1 step per factor, clamp to `insufficient|low|medium|high`; medium (and
   any adjusted grade) returns a **range** (K6); explicit **insufficient** floor (K8). Pure
   deterministic, 10 unit tests. The LLM supplies the semantic factors; this owns the arithmetic (K1).
-- **Remaining (spec):** wire `grade_confidence` into principle-promotion (LLM emits factors → this
-  grades), an inclusion-criteria rubric (K3), and a validator that checks a principle's confidence is
-  GRADE-consistent. RoB stays advisory (K4).
+- **K2 wiring — BUILT.** Optional `grade` block in `principles-v1` (`source_type`/`downgrades`/
+  `upgrades`); `validate_confidence_grade` gate enforces `confidence == grade_confidence(grade).level`
+  (validate-if-present → non-breaking; flags an `insufficient` grade as drop-don't-promote); the
+  principle-promotion skill now sets confidence via GRADE. +4 tests.
+- **K3 inclusion gate — already satisfied** by `score_extracted_units` (Phase 2.5 importance ranking,
+  numbered criteria → deterministic sum → keep/review/discard); the research confirms that design.
+- **Remaining (spec):** RoB stays advisory (K4); the dual-judge conflict label (K5) overlaps Step-7.
 
 ## LLM ↔ deterministic split
 

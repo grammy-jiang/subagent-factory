@@ -30,7 +30,14 @@ Not every claim is promoted. Prefer fewer, load-bearing principles.
 For each promoted principle write a `principles-v1` entry:
 - `principle_id`, `statement` (the operational rule, not the raw claim),
 - `derived_from_claims` (≥1, real claim IDs),
-- `confidence` (high/medium/low),
+- `confidence` (high/medium/low) — **set it via the GRADE method (Step 16/K2), not by feel:** start
+  from a baseline by source type (peer-reviewed/official/replicated → high; expert-book/essay/case-study
+  → medium; anecdotal/secondary → low), then down-grade for risk-of-bias / inconsistency / conflict /
+  indirectness and up-grade for replication. When you can, record the factors in an optional `grade`
+  block (`source_type`, `downgrades[]`, `upgrades[]`); `validate_confidence_grade` then enforces
+  `confidence == grade_confidence(grade).level` (run `python -m tools.subagent_factory.grade_confidence
+  <source_type> [--down R] [--up R]` to compute it). If the factors grade to *insufficient*, **drop the
+  principle (abstain)** rather than promote it as `low`.
 - `applies_when` / `does_not_apply_when` (from the claims' conditions/exceptions),
 - `operational_mapping`: `profile_rule` (bool), `skill` (∈ knowledge_partition.skills or null),
   `reference` (∈ knowledge_partition.references or null), `test_cases` (the behaviour-test IDs
