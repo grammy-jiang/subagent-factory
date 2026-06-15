@@ -53,12 +53,19 @@ is strictly better (semantic heading anchors); the fallback is the floor.
 
 ## Table-structure preservation (table-extraction research, H-track — increment 1 built)
 
-> **Increment 1 BUILT (2026-06-15):** table-structure recognition is now **opt-in** in `convert_pdf`
-> (`_tables_enabled` → `SUBAGENT_FACTORY_DOCLING_TABLES=1` sets `do_table_structure=True`). **Default
-> OFF** = the fast born-digital path (zero regression). Turn it on for table-heavy sources (finance,
-> data). **Remaining (the interconnected part):** structure-preserving HTML/OTSL export + **anchoring
-> table content** so claims can cite tabular facts — today `inject_anchors` skips pipe-rows, so even
-> with TSR on, table cells aren't anchored. That's the deeper follow-on; the spec below is the target.
+> **Built so far (2026-06-15), behind the opt-in flag — zero default regression:**
+> - **Part 1 — opt-in TSR:** `convert_pdf._tables_enabled` → `SUBAGENT_FACTORY_DOCLING_TABLES=1` sets
+>   `do_table_structure=True`. Default OFF = the fast born-digital path. Turn on for table-heavy
+>   sources (finance, data).
+> - **Part 3 — table anchoring:** `inject_anchors` now anchors an HTML `<table>` block once as a
+>   `-t####` anchor (accumulating its tag-stripped text for grounding), so claims can cite tabular
+>   facts. **Additive + inert** — triggers only on `<table>` (which only the flag emits), so table-free
+>   markdown is byte-unchanged (5 synthetic-markdown tests + the existing inject_anchors suite green).
+>
+> **Remaining — Part 2:** make `convert_pdf` *emit* `<table>` HTML (structure-preserving) when the
+> flag is on (Docling `TableItem.export_to_html` over `doc.document.tables`), + a tiny table-PDF
+> fixture for the end-to-end (convert→anchor→claim) + a flag-off byte-identical regression check. Once
+> Part 2 lands, the parts compose: flag-on → HTML tables → `-t` anchors → claims cite table facts.
 
 Folds `docs/Research/table-extraction/` (validated PASS 1.0). **Finding: the factory already runs
 Docling but FLATTENS its tables to Markdown — losing recoverable facts.** Structure-preserving

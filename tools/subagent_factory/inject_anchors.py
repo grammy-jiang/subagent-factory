@@ -47,6 +47,14 @@ def _is_pdf_noise(stripped: str) -> bool:
     return False
 
 
+_HTML_TAG_RE = re.compile(r"<[^>]+>")
+
+
+def _strip_html(s: str) -> str:
+    """Drop HTML tags, collapse whitespace — for a table anchor's grounding text."""
+    return " ".join(_HTML_TAG_RE.sub(" ", s).split())
+
+
 def inject_anchors(
     markdown_path: str | Path,
     output_md_path: str | Path,
@@ -71,9 +79,50 @@ def inject_anchors(
     anchors = []
     output_lines = []
     anchor_counter = 0
+    in_table = False
+    current_table: dict | None = None
 
     for line_idx, line in enumerate(lines):
         line_num = line_idx + 1
+
+        # Table block (Step-20 H, part 3): an HTML <table> appears only when the Docling
+        # table-structure flag was on. Anchor the whole block ONCE as a `-t` anchor (accumulating
+        # its tag-stripped text for grounding) so claims can cite tabular facts; pass inner lines
+        # through untouched. INERT when there is no <table> — current markdown has none, so default
+        # behaviour is unchanged. Must run before the per-line heading/figure/code/noise logic so a
+        # table's inner rows are never mis-anchored or skipped as pipe-noise.
+        if in_table:
+            output_lines.append(line)
+            if current_table is not None:
+                current_table["text"] = (current_table["text"] + " " + _strip_html(line)).strip()[
+                    :600
+                ]
+            if "</table>" in line.lower():
+                if current_table is not None and not current_table["text"]:
+                    current_table["text"] = f"table at line {current_table['line_number']}"
+                in_table, current_table = False, None
+            continue
+        if re.search(r"<table\b", line, re.IGNORECASE):
+            anchor_id = f"{source_id}-t{anchor_counter:04d}"
+            anchor_counter += 1
+            rec = {
+                "schema_version": "source_anchor_v1",
+                "anchor_id": anchor_id,
+                "source_id": source_id,
+                "anchor_type": "table",
+                "level": None,
+                "text": _strip_html(line)[:600],
+                "line_number": line_num,
+                "page_number": None,
+            }
+            anchors.append(rec)
+            output_lines.append(f"<!-- anchor:{anchor_id} -->")
+            output_lines.append(line)
+            if "</table>" not in line.lower():
+                in_table, current_table = True, rec  # multi-line: accumulate inner text
+            elif not rec["text"]:
+                rec["text"] = f"table at line {line_num}"  # single-line, empty
+            continue
 
         heading_match = re.match(r"^(#{1,6})\s+(.+)$", line)
         figure_match = re.match(r"^!\[([^\]]*)\]", line)
