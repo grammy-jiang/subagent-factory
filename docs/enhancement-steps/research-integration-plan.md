@@ -17,7 +17,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | **calibration-abstention** | ✅ PASS 1.0 (31 papers) | **F-track + `step-13-ask-gate.md`** | ✅ F3+F4 built (answerable-twins + two-axis grading); F1/F2/F5 runtime gate spec (black-box gap) |
 | **rag-graphrag** (§20 #10) | ✅ PASS 1.0 (20+ papers) | **G-track + `step-14-runtime-retrieval.md`** | spec folded (post-v0 runtime layer); 3 inherent HIGH gaps → ships behind measurement |
 | **table-extraction** (§20 #2) | ✅ PASS 1.0 | **H-track + `step-20` table-preservation section** | ✅ COMPLETE — opt-in TSR → `<table>` HTML → `-t` anchors + caption assoc (H2) + degeneracy gate (H3); flag-gated, default byte-unchanged |
-| **automated-program-repair** (§20 #13) | ✅ PASS 1.0 (41 papers, 3 rounds, reviewer-accepted) | **I-track + `step-6` patch-generation section** | spec folded; ENGINEERING-HIGH = a `validate_patch` ladder |
+| **automated-program-repair** (§20 #13) | ✅ PASS 1.0 (41 papers, 3 rounds, reviewer-accepted) | **I-track + `step-6` patch-generation section** | ✅ engine built — `validate_patch` ladder (I1/I3/I5/I6 done, I4 partial); I2 oracles carried (LLM/academic) |
 | **domain-adaptation-regulated-advice** | ✅ PASS 1.0 (25 papers, 2 rounds) | **J-track + `step-15-domain-adaptation-policy.md`** | spec folded; answers Q1 (finance/legal/medical) — hybrid det-template + LLM-interrogation method |
 | **systematic-review-evidence-synthesis** (§20 #1) | ✅ PASS 1.0 (30 sources) | **K-track + `step-16-evidence-grading.md`** | spec folded; GRADE-style confidence + judge discipline; ties calibration + judge-replication + Step-7 |
 
@@ -308,7 +308,7 @@ Docling's TSR already handles the routing internally.
 behind a per-package table quality gate. This is the §20 #2 (Document AI) slice — the rest of #2 is
 already shipped as Step 20.
 
-## I. automated-program-repair → Step-6 (patch generation + validation) — §20 #13
+## I. automated-program-repair → Step-6 (patch generation + validation) — §20 #13 — ✅ ENGINE BUILT
 Research **done** (`docs/Research/automated-program-repair/`, **41 papers, 3 rounds, validation PASS
 1.0, reviewer-accepted**). (The Copilot run hit the hourly rate limit *after* completing — an earlier
 "provisional" read was off a stale `round_state.json`; the SUMMARY confirms it validated.) Spec: the
@@ -318,12 +318,12 @@ patch-capable subagents (incl. the new `legacy-code-change-advisor`).
 
 | # | finding → factory direction | det / LLM | status |
 |---|---|---|---|
-| I1 | **Deterministic validation ladder** — compile/parse → scope → reproduction(fail→pass) → regression(pass→pass) → CI | det | spec |
-| I2 | **Reference-free oracle rungs** — intent oracle, behavioral-fingerprint diff, sound symbolic-equivalence for small in-scope changes | det + LLM | spec |
-| I3 | **LLM never overrides the deterministic verdict** — it only ranks passing candidates + raises abstain/needs-human | det gate + LLM rank | spec |
-| I4 | **RED bug-reproduction test** — generate + protect (no-delete), reachability filter, flag fix↔test overfitting | det | spec |
-| I5 | **Bound the diff by construction** — minimal-edit, function scope, reject over-edits | det | spec |
-| I6 | **(ENGINEERING-HIGH)** a `validate_patch` ladder for produce/patch-suggest modes | det | spec — build target |
+| I1 | **Deterministic validation ladder** — compile/parse → scope → reproduction(fail→pass) → regression(pass→pass) → CI | det | ✅ **done** — `validate_patch.validate_patch` runs the rungs in order, short-circuits, returns pass/fail/needs_human |
+| I2 | **Reference-free oracle rungs** — intent oracle, behavioral-fingerprint diff, sound symbolic-equivalence for small in-scope changes | det + LLM | spec — only the structural over-edit proxy (→ I5) built; the oracles are LLM/academic |
+| I3 | **LLM never overrides the deterministic verdict** — it only ranks passing candidates + raises abstain/needs-human | det gate + LLM rank | ✅ **done** — `select_patch` keeps only `pass` candidates; ranker only orders them, out-of-set pick ignored |
+| I4 | **RED bug-reproduction test** — generate + protect (no-delete), reachability filter, flag fix↔test overfitting | det | ✅ **partial** — reproduce rung enforces fail→pass (`shell_runner`); generation/protection/overfitting-flag carried (live harness) |
+| I5 | **Bound the diff by construction** — minimal-edit, function scope, reject over-edits | det | ✅ **done** — `check_scope` (allow/deny paths + max files/hunks/changed-lines); AST function-scope carried |
+| I6 | **(ENGINEERING-HIGH)** a `validate_patch` ladder for produce/patch-suggest modes | det | ✅ **done** — `tools/subagent_factory/validate_patch.py` + CLI + 29 tests |
 
 Load-bearing principle matches the factory: **deterministic gate decides, LLM proposes + ranks.**
 
