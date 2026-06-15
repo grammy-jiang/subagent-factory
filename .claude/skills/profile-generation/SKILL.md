@@ -79,6 +79,30 @@ embed the `purpose_review` mode from `templates/purpose-review-contract.yaml.j2`
 or emit it as `subagents/<slug>/references/purpose-review-pattern.md` and list it
 in `knowledge_partition.references[]`.
 
+### 1.5 Regulated-domain no-advice boundary (J-track / Step-15)
+
+If the source's domain is **regulated / high-stakes — finance, legal, or medical** — the package must
+ship a graded no-advice boundary, and you must author it from the **deterministic per-domain
+template**, not by hand (prompt-only scope control is unstable; the template is the research-validated
+method).
+
+1. Set `domain_risk_category: <finance|legal|medical>` in the profile.
+2. Fold in the template from `tools/subagent_factory/domain_policy.py` — `domain_policy(<domain>)`
+   gives the graded `forbidden_behaviours` (safe-completion: answer the general part → refer to a
+   licensed professional, **not** a binary refusal), defer-to-professional `handoff_rules`, and a
+   `standing_disclaimer`. **Read those lines and copy them verbatim** into the matching profile fields
+   (merged with the source-derived lines); do **not** paraphrase — paraphrase weakens the boundary and
+   risks the gate. Also add the disclaimer as a `handoff_rules` entry so it renders in the adapter.
+   (The manager can emit the exact YAML with `python -m tools.subagent_factory.domain_policy <domain>`
+   or preview a merge with `--merge profile.yaml`.)
+3. The deferral rule must trigger on an **external** uncertainty signal (scope, missing context,
+   jurisdiction), explicitly **not** the model's own confidence — it is worst-calibrated on exactly
+   these domains.
+
+This is **enforced**: `validate_generated_package` block #14 FAILs a package that declares a regulated
+`domain_risk_category` without the no-advice / defer / disclaimer boundary. For technical /
+non-regulated packages, leave `domain_risk_category` unset — the gate stays inert.
+
 ### 2. Check profile bloat limits
 
 | Check | Limit |

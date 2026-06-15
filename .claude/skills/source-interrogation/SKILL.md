@@ -45,6 +45,14 @@ Do not invent information not found in the source.
 > Document the decision in the provenance ledger Q16 row.
 | Q18 | What is volatile or likely to drift? | provenance ledger review schedule |
 
+> **Regulated-domain flag (J-track / Step-15):** if Q1/Q2 place the source in a **regulated,
+> high-stakes advice domain — finance, legal, or medical** — record that explicitly. It is the
+> dominant influence on Q4/Q8/Q10 for these domains: the expert distills *education*, never
+> personalized advice, and defers the decision to a licensed professional. The deriver then sets
+> `domain_risk_category` and ships the deterministic no-advice boundary (graded refusal +
+> defer-to-professional + standing disclaimer) from `tools/subagent_factory/domain_policy.py`; the
+> validate gate (block #14) enforces it. Non-regulated/technical sources: no flag.
+
 ---
 
 ## Mode evidence rule
