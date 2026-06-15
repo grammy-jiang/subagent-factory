@@ -19,7 +19,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | **table-extraction** (§20 #2) | ✅ PASS 1.0 | **H-track + `step-20` table-preservation section** | ✅ COMPLETE — opt-in TSR → `<table>` HTML → `-t` anchors + caption assoc (H2) + degeneracy gate (H3); flag-gated, default byte-unchanged |
 | **automated-program-repair** (§20 #13) | ✅ PASS 1.0 (41 papers, 3 rounds, reviewer-accepted) | **I-track + `step-6` patch-generation section** | ✅ engine built — `validate_patch` ladder (I1/I3/I5/I6 done, I4 partial); I2 oracles carried (LLM/academic) |
 | **domain-adaptation-regulated-advice** | ✅ PASS 1.0 (25 papers, 2 rounds) | **J-track + `step-15-domain-adaptation-policy.md`** | ✅ det template built — `domain_policy` (finance/legal/medical graded boundary) + opt-in gate (block #14); LLM evidence-norm half carried. Answers Q1 |
-| **systematic-review-evidence-synthesis** (§20 #1) | ✅ PASS 1.0 (30 sources) | **K-track + `step-16-evidence-grading.md`** | spec folded; GRADE-style confidence + judge discipline; ties calibration + judge-replication + Step-7 |
+| **systematic-review-evidence-synthesis** (§20 #1) | ✅ PASS 1.0 (30 sources) | **K-track + `step-16-evidence-grading.md`** | ✅ COMPLETE — K2 GRADE fn + wiring, K3 satisfied, K4 RoB-advisory + K5 conflict-label built, K6 = `--judge-samples` |
 
 ---
 
@@ -348,7 +348,7 @@ Generalizes finance → legal/medical (same graded-boundary + τ-deferral + auth
 Ties: Step-13 (τ), Step-14 (authority retrieval), `evidence-protocol` per-domain override,
 `untrusted-source-policy` (the deferral signal is an attack surface).
 
-## K. systematic-review-evidence-synthesis → Step-16 (evidence grading) — §20 #1
+## K. systematic-review-evidence-synthesis → Step-16 (evidence grading) — §20 #1 — ✅ COMPLETE
 Research **done** (`docs/Research/systematic-review-evidence-synthesis/`, 30 sources, PASS 1.0, round 1,
 no open HIGH academic). Full spec: `step-16-evidence-grading.md`. Makes the factory's ad-hoc
 `confidence: high|medium|low` a principled **GRADE-style** assignment. The connective-tissue track —
@@ -359,8 +359,8 @@ it generalises calibration + judge-replication + Step-7 into one confidence laye
 | K1 | **Semantic-judgment / deterministic-arithmetic split** is the spine (= the factory's existing rule) | det + LLM | spec |
 | K2 | **GRADE-style confidence** — baseline by source type, down for RoB/inconsistency/conflict, up for replication, clamp | det | ✅ `grade_confidence` fn + **wired**: optional `grade` block in principles-v1, `validate_confidence_grade` gate (confidence == grade level; validate-if-present, non-breaking), principle-promotion skill updated |
 | K3 | **Inclusion gate** = numbered criteria → deterministic sum → keep/review/discard | det + LLM | ✅ **already satisfied** by `score_extracted_units` (Phase 2.5 importance ranking) — research confirms the existing design |
-| K4 | **RoB = advisory weight, NOT a gate** (LLM RoB ~42% F1; human ceiling κ=0.40) | det | spec |
-| K5 | **Conflict = reground + abstain, not average** (dual judges → verification label) = Step-7 multi-truth | det + LLM | spec |
+| K4 | **RoB = advisory weight, NOT a gate** (LLM RoB ~42% F1; human ceiling κ=0.40) | det | ✅ **done** — `rob_weight` / `grade_with_rob`: capped single advisory downgrade, `is_gate: False`, never drops a source. No validator gate by design |
+| K5 | **Conflict = reground + abstain, not average** (dual judges → verification label) = Step-7 multi-truth | det + LLM | ✅ **done** — `conflict_label`: agree→high / one_wins→medium / both-wrong\|unresolved→withhold(human); never averages |
 | K6 | **Never raw single-model self-confidence** (ECE up to 0.79); ensemble + pin + verbatim provenance; calibrated abstention + an "insufficient evidence" grade | det + LLM | spec |
 
 **The unifying lesson:** the headline negative — automated risk-of-bias is weak — keeps RoB advisory.
