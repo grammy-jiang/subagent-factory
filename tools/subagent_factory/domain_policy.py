@@ -54,6 +54,12 @@ _DOMAINS: dict[str, dict] = {
             "The source supplies the durable framework, not current prices, rates, or regulations; "
             "treat specific figures as illustrative and possibly stale."
         ),
+        "evidence_norms": [
+            "Answer from the cited source / curated authority, not from parametric memory; cite the "
+            "specific source basis for every substantive financial claim (figures, rules, frameworks).",
+            "On a retrieval miss — a question the source does not cover — say so and defer to a "
+            "licensed financial advisor rather than generating an unsupported financial claim.",
+        ],
     },
     "legal": {
         "professional": "a licensed attorney in the relevant jurisdiction",
@@ -79,6 +85,12 @@ _DOMAINS: dict[str, dict] = {
             "The source supplies the durable doctrine, not current statutes or case law; treat "
             "specific rules as jurisdiction-specific and possibly superseded."
         ),
+        "evidence_norms": [
+            "Answer from the cited source / curated authority, not from parametric memory; cite the "
+            "specific source basis for every substantive legal statement (doctrine, rule, holding).",
+            "On a retrieval miss — a question the source does not cover — say so and defer to a "
+            "licensed attorney rather than generating an unsupported legal statement.",
+        ],
     },
     "medical": {
         "professional": "a licensed medical professional or qualified clinician",
@@ -105,12 +117,27 @@ _DOMAINS: dict[str, dict] = {
             "The source supplies the durable mechanism, not current clinical guidelines or drug "
             "data; treat specific protocols as possibly superseded."
         ),
+        "evidence_norms": [
+            "Answer from the cited source / curated authority, not from parametric memory; cite the "
+            "specific source basis for every substantive medical statement (mechanism, concept).",
+            "On a retrieval miss — a question the source does not cover — say so and defer to a "
+            "licensed medical professional rather than generating an unsupported medical statement.",
+        ],
     },
 }
 
 # Keyword evidence the lenient gate looks for (so a human may rephrase the template and still pass).
 _NO_ADVICE_KEYWORDS = ("advice", "advise", "recommend", "diagnos", "personaliz", "personal")
 _DEFER_KEYWORDS = ("professional", "attorney", "advisor", "clinician", "licensed", "defer", "refer")
+_CITATION_KEYWORDS = ("cite", "citation", "cited", "source basis", "authority", "unsupported")
+
+# A rendered forbidden_behaviour form of the J5 evidence norm (the structured norm lives in
+# source_of_truth_policy.evidence_norms; this surfaces it in the adapter, which renders
+# forbidden_behaviours). Domain-generic.
+_CITATION_FORBIDDEN = (
+    "Do not state a claim in this regulated domain that the cited source does not support; cite the "
+    "source basis, and on a gap defer rather than generate from parametric memory."
+)
 
 
 def list_domains() -> list[str]:
@@ -128,7 +155,9 @@ def domain_policy(domain: str) -> dict:
 
     Keys: ``domain_risk_category``, ``professional``, ``forbidden_behaviours`` (graded no-advice
     lines), ``handoff_rules`` (defer-to-professional / τ default), ``standing_disclaimer``,
-    ``source_precedence_hint``. Raises ``ValueError`` for an unknown domain.
+    ``source_precedence_hint``, ``evidence_norms`` (J5 — mandatory-citation / answer-from-authority
+    discipline; the *source-specific* authority stays LLM-derived). Raises ``ValueError`` for an
+    unknown domain.
     """
     key = (domain or "").strip().lower()
     if key not in _DOMAINS:
@@ -143,6 +172,7 @@ def domain_policy(domain: str) -> dict:
         "handoff_rules": list(d["handoff_rules"]),
         "standing_disclaimer": d["standing_disclaimer"],
         "source_precedence_hint": d["source_precedence_hint"],
+        "evidence_norms": list(d["evidence_norms"]),
     }
 
 
@@ -158,22 +188,28 @@ def _extend_unique(existing: list, additions: list) -> list:
 def merge_domain_policy(profile: dict, domain: str) -> dict:
     """Fold a domain's policy template into a profile dict and return the merged copy (idempotent).
 
-    Extends ``forbidden_behaviours`` and ``handoff_rules`` (the fields the adapter already renders, so
-    the boundary surfaces with no export change), sets ``domain_risk_category`` and
-    ``standing_disclaimer``, and adds the disclaimer as a handoff rule so it appears in the adapter.
-    Existing profile content is preserved; re-running adds nothing new.
+    Extends ``forbidden_behaviours`` (incl. the J5 citation rule) and ``handoff_rules`` (the fields the
+    adapter already renders, so the boundary surfaces with no export change), sets
+    ``domain_risk_category`` and ``standing_disclaimer``, adds the disclaimer as a handoff rule, and
+    folds the J5 ``evidence_norms`` into ``source_of_truth_policy`` (preserving any existing
+    ``canonical_owner`` / ``precedence``). Existing profile content is preserved; re-running adds nothing
+    new. The *source-specific* authority/precedence stays for the LLM (Q17) to populate.
     """
     pol = domain_policy(domain)
     out = dict(profile)
     out["domain_risk_category"] = pol["domain_risk_category"]
     out["standing_disclaimer"] = pol["standing_disclaimer"]
     out["forbidden_behaviours"] = _extend_unique(
-        profile.get("forbidden_behaviours") or [], pol["forbidden_behaviours"]
+        profile.get("forbidden_behaviours") or [],
+        [*pol["forbidden_behaviours"], _CITATION_FORBIDDEN],
     )
     disclaimer_rule = f"State this disclaimer in every response: {pol['standing_disclaimer']}"
     out["handoff_rules"] = _extend_unique(
         profile.get("handoff_rules") or [], [*pol["handoff_rules"], disclaimer_rule]
     )
+    sot = dict(profile.get("source_of_truth_policy") or {})
+    sot["evidence_norms"] = _extend_unique(sot.get("evidence_norms") or [], pol["evidence_norms"])
+    out["source_of_truth_policy"] = sot
     return out
 
 
@@ -184,7 +220,9 @@ def check_domain_policy(profile: dict) -> list[str]:
     **Opt-in / inert by default:** a profile with no ``domain_risk_category`` (every technical and
     non-regulated package) returns ``[]``. For a regulated package the checks are lenient and
     keyword-based, so a human may rephrase the template lines and still pass: it requires a no-advice
-    forbidden behaviour, a defer-to-professional handoff rule, and a non-empty standing disclaimer.
+    forbidden behaviour, a defer-to-professional handoff rule, a non-empty standing disclaimer, and a
+    J5 evidence norm (mandatory-citation / answer-from-authority) in ``source_of_truth_policy`` or the
+    forbidden behaviours.
     """
     domain = (profile.get("domain_risk_category") or "").strip().lower()
     if not is_regulated_domain(domain):
@@ -194,6 +232,8 @@ def check_domain_policy(profile: dict) -> list[str]:
     fb = [str(x) for x in (profile.get("forbidden_behaviours") or [])]
     hr = [str(x) for x in (profile.get("handoff_rules") or [])]
     disclaimer = str(profile.get("standing_disclaimer") or "").strip()
+    sot = profile.get("source_of_truth_policy") or {}
+    norms = [str(x) for x in (sot.get("evidence_norms") or [])]
 
     if not any(any(k in x.lower() for k in _NO_ADVICE_KEYWORDS) for x in fb):
         errors.append(
@@ -208,6 +248,13 @@ def check_domain_policy(profile: dict) -> list[str]:
         errors.append(
             f"regulated domain '{domain}': standing_disclaimer is empty "
             "(decision-support-not-replacement posture expected)"
+        )
+    # J5: mandatory-citation / answer-from-authority evidence norm — in source_of_truth_policy
+    # (structured) or, leniently, as a citation-flavoured forbidden behaviour.
+    if not norms and not any(any(k in x.lower() for k in _CITATION_KEYWORDS) for x in fb):
+        errors.append(
+            f"regulated domain '{domain}': no evidence norm (mandatory-citation / "
+            "answer-from-authority) in source_of_truth_policy.evidence_norms or forbidden_behaviours"
         )
     return errors
 

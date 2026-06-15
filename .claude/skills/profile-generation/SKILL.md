@@ -89,19 +89,25 @@ method).
 1. Set `domain_risk_category: <finance|legal|medical>` in the profile.
 2. Fold in the template from `tools/subagent_factory/domain_policy.py` — `domain_policy(<domain>)`
    gives the graded `forbidden_behaviours` (safe-completion: answer the general part → refer to a
-   licensed professional, **not** a binary refusal), defer-to-professional `handoff_rules`, and a
-   `standing_disclaimer`. **Read those lines and copy them verbatim** into the matching profile fields
-   (merged with the source-derived lines); do **not** paraphrase — paraphrase weakens the boundary and
-   risks the gate. Also add the disclaimer as a `handoff_rules` entry so it renders in the adapter.
-   (The manager can emit the exact YAML with `python -m tools.subagent_factory.domain_policy <domain>`
-   or preview a merge with `--merge profile.yaml`.)
-3. The deferral rule must trigger on an **external** uncertainty signal (scope, missing context,
+   licensed professional, **not** a binary refusal), defer-to-professional `handoff_rules`, a
+   `standing_disclaimer`, and the J5 `evidence_norms` (mandatory-citation / answer-from-authority).
+   **Read those lines and copy them verbatim** into the matching profile fields (merged with the
+   source-derived lines); do **not** paraphrase — paraphrase weakens the boundary and risks the gate.
+   Also add the disclaimer as a `handoff_rules` entry so it renders in the adapter. (The manager can
+   emit the exact YAML with `python -m tools.subagent_factory.domain_policy <domain>` or preview a
+   merge with `--merge profile.yaml`.)
+3. **Evidence norms (J5).** Put `domain_policy(<domain>)`'s `evidence_norms` into
+   `source_of_truth_policy.evidence_norms` (the citation/authority *discipline* — deterministic). The
+   *source-specific* authority and precedence (which work governs, what corroborates) is **LLM-derived
+   from Q17** — author it into `source_of_truth_policy.canonical_owner` / `precedence` as for any
+   package. (Runtime retrieval-from-authority is Step-14's job; these norms are its contract.)
+4. The deferral rule must trigger on an **external** uncertainty signal (scope, missing context,
    jurisdiction), explicitly **not** the model's own confidence — it is worst-calibrated on exactly
    these domains.
 
 This is **enforced**: `validate_generated_package` block #14 FAILs a package that declares a regulated
-`domain_risk_category` without the no-advice / defer / disclaimer boundary. For technical /
-non-regulated packages, leave `domain_risk_category` unset — the gate stays inert.
+`domain_risk_category` without the no-advice / defer / disclaimer boundary **and the J5 evidence norm**.
+For technical / non-regulated packages, leave `domain_risk_category` unset — the gate stays inert.
 
 ### 2. Check profile bloat limits
 
