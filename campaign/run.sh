@@ -50,7 +50,10 @@ next_pending(){ awk -F'\t' 'NR>1 && $3=="pending"{print $1"\t"$2"\t"$5"\t"$6; ex
 done_slugs(){ ls -d "$REPO"/subagents/*/ 2>/dev/null | xargs -n1 basename 2>/dev/null | paste -sd, -; }
 
 echo "[campaign] repo=$REPO  model=$MODEL  count=$COUNT  collection=$COLLECTION"
-refresh_queue
+# A targeted --pdf run does not select from the queue, so skip the upfront full-collection
+# rebuild (sha256 over every PDF). The post-run refresh_queue still normalizes the queue and
+# marks this PDF's row done if it belongs to the collection.
+[ -n "$PDF_OVERRIDE" ] || refresh_queue
 
 processed=0
 while [ "$processed" -lt "$COUNT" ]; do
