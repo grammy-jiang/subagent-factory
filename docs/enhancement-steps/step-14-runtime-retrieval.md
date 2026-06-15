@@ -27,15 +27,31 @@ retrieval of real, citable passages — do not replace the corpus with LLM summa
 - **Pairs with Step 13** (ask-gate): the retrieval gate ("when to consult the store") is the same
   selective-prediction shape as the ask-gate ("when to ask/abstain").
 
-## New files (proposed — none built yet)
+## Built so far (2026-06-15) — G1 routing rule only
+
+- **G1 — `tools/subagent_factory/knowledge_partition.py` BUILT.** `route_knowledge_item(reuse,
+  volatility, size, citation_need)` + `partition_plan(items)` deterministically route each knowledge
+  item **distill** (`always_on`) vs **retrieve** (`skills`/`references`): distill stable+high-reuse+
+  small+non-citable; retrieve volatile / long-tail / large / citation-bearing; the research's
+  *fine-tune* bucket degrades to retrieve (no training step) with a flag. **Advisory, not a gate** —
+  defaults skew conservative (unknown → retrieve), and `measurement_required` reminds the caller that
+  G1 is unproven (A/B the partition on the package's behaviour-tests before trusting it). Wired as
+  guidance into the profile-generation skill §1.6. 11 tests. CLI:
+  `python -m tools.subagent_factory.knowledge_partition --reuse … | --plan items.json`.
+- **G2–G6 — still spec (deliberately).** The retrieval spine below stays unbuilt; the research's own
+  guidance is to ship retrieval behind a per-package measurement, and G1–G3 are inherent ACADEMIC gaps
+  (see Caveats). Building a speculative dense+rerank+PPR engine would violate the factory's "no
+  building ahead of evidence" rule.
+
+## New files (proposed — G2–G6 not built)
 
 | Path | Kind | Purpose |
 |---|---|---|
-| `tools/subagent_factory/knowledge_partition.py` | tool (det) | Routing rule: classify each knowledge item distill / retrieve / fine-tune by reuse, volatility, size, citation-need. |
-| retrieval spine | tool (det) | Hybrid dense(λ≈0.8)+BM25 over fixed-size chunks → distilled cross-encoder reranker; LLM only builds the index. |
-| passage-grounded graph store | tool (det) | Principle/evidence graph that **returns real source passages**; Personalized-PageRank traversal for multi-hop; a deterministic classifier routes global-sensemaking queries to a precomputed-summary path. |
-| retrieval gate | tool (det) | Selective "when to retrieve": uncertainty/complexity threshold + hard ≤3-iteration cap (never always-on top-1, never an unbounded LLM sufficiency gate). |
-| grounded-citation + eval | tool (det) + LLM | Generate-then-cite (self-generate extractive quotes, then answer) + a deterministic verifier loop; evaluate grounding by **precision AND coverage**, never precision alone. |
+| `tools/subagent_factory/knowledge_partition.py` | tool (det) | ✅ **BUILT** — routing rule: classify each knowledge item distill / retrieve (/ fine-tune→retrieve) by reuse, volatility, size, citation-need. |
+| retrieval spine | tool (det) | *(spec)* Hybrid dense(λ≈0.8)+BM25 over fixed-size chunks → distilled cross-encoder reranker; LLM only builds the index. |
+| passage-grounded graph store | tool (det) | *(spec)* Principle/evidence graph that **returns real source passages**; Personalized-PageRank traversal for multi-hop; a deterministic classifier routes global-sensemaking queries to a precomputed-summary path. |
+| retrieval gate | tool (det) | *(spec)* Selective "when to retrieve": uncertainty/complexity threshold + hard ≤3-iteration cap (never always-on top-1, never an unbounded LLM sufficiency gate). |
+| grounded-citation + eval | tool (det) + LLM | *(spec)* Generate-then-cite (self-generate extractive quotes, then answer) + a deterministic verifier loop; evaluate grounding by **precision AND coverage**, never precision alone. |
 
 ## LLM ↔ deterministic split
 
