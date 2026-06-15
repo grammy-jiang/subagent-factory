@@ -355,7 +355,7 @@ it generalises calibration + judge-replication + Step-7 into one confidence laye
 | # | finding → factory design | det / LLM | status |
 |---|---|---|---|
 | K1 | **Semantic-judgment / deterministic-arithmetic split** is the spine (= the factory's existing rule) | det + LLM | spec |
-| K2 | **GRADE-style confidence** — baseline by source type, down for RoB/inconsistency/conflict, up for replication, clamp | det | spec |
+| K2 | **GRADE-style confidence** — baseline by source type, down for RoB/inconsistency/conflict, up for replication, clamp | det | ✅ `grade_confidence` (deterministic fn + 10 tests; medium=range, insufficient floor) — wiring into principle-promotion = next increment |
 | K3 | **Inclusion gate** = numbered binary criteria → `{−1,0,+1}` + abstain → deterministic sum | det + LLM | spec |
 | K4 | **RoB = advisory weight, NOT a gate** (LLM RoB ~42% F1; human ceiling κ=0.40) | det | spec |
 | K5 | **Conflict = reground + abstain, not average** (dual judges → verification label) = Step-7 multi-truth | det + LLM | spec |

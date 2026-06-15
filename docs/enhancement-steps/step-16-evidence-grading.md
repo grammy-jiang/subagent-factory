@@ -30,6 +30,17 @@ decides" rule.
 | **judge discipline** | **never publish raw single-model self-confidence** (ECE up to 0.79; most-confident often least-reliable) — ensemble cuts ECE to ~0.05–0.27; self-report only to route/escalate; prefer **calibrated abstention** + an explicit "insufficient evidence" grade (optimise error *type*, not rate) | F2, F8 |
 | **provenance** | **pin every LLM judge** (fixed prompt/temp, repeat runs, log inter-run agreement — non-deterministic even at temp 0) + require a **verbatim source span per principle**, reject if absent | F10 |
 
+## Status (2026-06-15)
+
+- **K2 GRADE confidence function — BUILT.** `tools/subagent_factory/grade_confidence.py`:
+  `grade_confidence(source_type, downgrades, upgrades) -> {level, range, baseline, rationale}` —
+  baseline by source type, ±1 step per factor, clamp to `insufficient|low|medium|high`; medium (and
+  any adjusted grade) returns a **range** (K6); explicit **insufficient** floor (K8). Pure
+  deterministic, 10 unit tests. The LLM supplies the semantic factors; this owns the arithmetic (K1).
+- **Remaining (spec):** wire `grade_confidence` into principle-promotion (LLM emits factors → this
+  grades), an inclusion-criteria rubric (K3), and a validator that checks a principle's confidence is
+  GRADE-consistent. RoB stays advisory (K4).
+
 ## LLM ↔ deterministic split
 
 - **LLM:** per-criterion inclusion judgments, RoB signalling, conflict re-grounding.
