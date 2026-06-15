@@ -28,6 +28,17 @@
               "test_cases": {"type": "array", "items": {"type": "string"}}
             },
             "additionalProperties": false
+          },
+          "grade": {
+            "type": "object",
+            "description": "Optional GRADE factors (Step 16 / K2). When present, `confidence` must equal grade_confidence(source_type, downgrades, upgrades).level — checked by validate_confidence_grade. The LLM supplies these semantic factors; the deterministic function owns the level.",
+            "required": ["source_type"],
+            "properties": {
+              "source_type": {"type": "string"},
+              "downgrades": {"type": "array", "items": {"type": "string"}},
+              "upgrades": {"type": "array", "items": {"type": "string"}}
+            },
+            "additionalProperties": false
           }
         },
         "additionalProperties": false

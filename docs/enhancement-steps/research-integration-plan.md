@@ -355,8 +355,8 @@ it generalises calibration + judge-replication + Step-7 into one confidence laye
 | # | finding → factory design | det / LLM | status |
 |---|---|---|---|
 | K1 | **Semantic-judgment / deterministic-arithmetic split** is the spine (= the factory's existing rule) | det + LLM | spec |
-| K2 | **GRADE-style confidence** — baseline by source type, down for RoB/inconsistency/conflict, up for replication, clamp | det | ✅ `grade_confidence` (deterministic fn + 10 tests; medium=range, insufficient floor) — wiring into principle-promotion = next increment |
-| K3 | **Inclusion gate** = numbered binary criteria → `{−1,0,+1}` + abstain → deterministic sum | det + LLM | spec |
+| K2 | **GRADE-style confidence** — baseline by source type, down for RoB/inconsistency/conflict, up for replication, clamp | det | ✅ `grade_confidence` fn + **wired**: optional `grade` block in principles-v1, `validate_confidence_grade` gate (confidence == grade level; validate-if-present, non-breaking), principle-promotion skill updated |
+| K3 | **Inclusion gate** = numbered criteria → deterministic sum → keep/review/discard | det + LLM | ✅ **already satisfied** by `score_extracted_units` (Phase 2.5 importance ranking) — research confirms the existing design |
 | K4 | **RoB = advisory weight, NOT a gate** (LLM RoB ~42% F1; human ceiling κ=0.40) | det | spec |
 | K5 | **Conflict = reground + abstain, not average** (dual judges → verification label) = Step-7 multi-truth | det + LLM | spec |
 | K6 | **Never raw single-model self-confidence** (ECE up to 0.79); ensemble + pin + verbatim provenance; calibrated abstention + an "insufficient evidence" grade | det + LLM | spec |

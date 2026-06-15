@@ -41,6 +41,7 @@ from tools.subagent_factory.validate_behaviour_test_coverage import (
     validate_behaviour_test_coverage,
 )
 from tools.subagent_factory.validate_claims import validate_claims
+from tools.subagent_factory.validate_confidence_grade import validate_confidence_grade
 from tools.subagent_factory.validate_evidence_records import validate_evidence_records
 from tools.subagent_factory.validate_examples import validate_examples
 from tools.subagent_factory.validate_faithfulness_report import validate_faithfulness_report
@@ -95,6 +96,10 @@ _TIER_ARTIFACTS: list = [
     # every high-confidence profile-rule principle. Non-breaking: skips adapters with no invariant
     # section (pre-feature) and only catches a STALE invariant section once one exists.
     ("principles/principles.yaml", 99, validate_invariant_coverage),
+    # Step 16 (K2): GRADE-consistency — a principle carrying a `grade` block must have confidence ==
+    # grade_confidence(grade).level. Validate-if-present (min_tier 99): principles without a grade
+    # block pass trivially, so it is non-breaking until promotion starts emitting grade factors.
+    ("principles/principles.yaml", 99, validate_confidence_grade),
     # Phase 9 (instruction-induction A4): optional worked-example slot. Validate-if-present —
     # profile.yaml always exists so this runs every time, but returns [] unless an `examples` block
     # is present, so the example-less packages pass trivially. When examples ARE present, A4 bites:
