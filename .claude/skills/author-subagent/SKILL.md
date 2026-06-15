@@ -202,14 +202,26 @@ After the agent returns, verify the file was written:
 test -f subagents/<slug>/interrogation-records.yaml && echo "WRITTEN" || echo "MISSING"
 ```
 
-If **MISSING**: the interrogator returned its YAML as text without writing it (may include
-an agent ID in its output). If an agent ID was reported, use `SendMessage` to that agent
-to request the YAML content. Then write `subagents/<slug>/interrogation-records.yaml`
-in the main thread using the Write tool.
+If **MISSING**: the interrogator returned its YAML as text without writing it, or it
+spawn-stalled (see the Step 6.5 caution). Do **not** depend on `SendMessage` to recover it —
+it is often unavailable in headless / nested runs. Recover **in-thread**: take the worker's
+returned YAML (or re-run `source-interrogation` in-thread per the no-spawner branch) and
+`Write` `subagents/<slug>/interrogation-records.yaml` yourself.
 
 ---
 
 ## Step 6.5 — Tier classification + Tier-1 evidence chain
+
+> **Spawn-stall caution (headless / unattended runs — read before delegating).** The Tier-1 worker
+> agents (`source-structure-mapper`, `claim-extractor`, `principle-promoter`, `faithfulness-reviewer`)
+> have **reliably stalled when spawned in a headless / automated run**: the worker burns ~70–90k
+> tokens and dies before its final `Write`, leaving no file (observed again on Run 054 —
+> `source-structure-mapper` died ~88k tokens, 0 output). If **no human is watching** (a campaign /
+> `claude -p` run), do **not** spend a turn spawning these — take each sub-step's *no-spawner branch*
+> and author **in-thread** (load the worker's `.claude/agents/*.md` instructions, then `Write` the
+> file yourself). Spawning is fine only in an interactive main-thread session where you can watch and
+> recover. Either way the deterministic `validate` / `selfcheck` gates are the authority on
+> correctness — they do not care whether a file came from a sub-agent or from in-thread work.
 
 Classify the package tier (drives which evidence artifacts are required):
 
