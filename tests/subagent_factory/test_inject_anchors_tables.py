@@ -63,3 +63,36 @@ def test_multiple_tables_each_anchored(tmp_path):
     md = "<table><tr><td>1</td></tr></table>\n\nbetween\n\n<table>\n<tr><td>2</td></tr>\n</table>\n"
     anchors, _ = _run(tmp_path, md)
     assert len(_tables(anchors)) == 2
+
+
+# ── H2: caption↔table association (caption above the table, by proximity + reading order) ──
+
+
+def test_caption_directly_above_table_captured(tmp_path):
+    md = "Table 3: Quarterly sales\n<table><tr><td>EU</td><td>120</td></tr></table>\n"
+    tabs = _tables(_run(tmp_path, md)[0])
+    assert len(tabs) == 1
+    assert tabs[0]["text"].startswith("Table 3: Quarterly sales")  # caption seeded into text
+    assert "EU" in tabs[0]["text"]  # plus the table content
+
+
+def test_caption_with_blank_line_between_captured(tmp_path):
+    # the helper scans back past blanks/anchor-comments to the nearest content line
+    md = "Figure 2 — pipeline stages\n\n<table>\n<tr><td>x</td></tr>\n</table>\n"
+    tabs = _tables(_run(tmp_path, md)[0])
+    assert tabs[0]["text"].startswith("Figure 2 — pipeline stages")
+
+
+def test_non_caption_prose_above_table_not_captured(tmp_path):
+    # an ordinary sentence is not a caption → text must NOT start with it
+    md = "Here is the data we collected.\n<table><tr><td>x</td></tr></table>\n"
+    tabs = _tables(_run(tmp_path, md)[0])
+    assert not tabs[0]["text"].startswith("Here is the data")
+
+
+def test_caption_above_earlier_heading_not_crossed(tmp_path):
+    # nearest content line is the heading, not a caption → no caption seeded
+    md = "## Section\n<table><tr><td>x</td></tr></table>\n"
+    tabs = _tables(_run(tmp_path, md)[0])
+    assert not tabs[0]["text"].startswith("## Section")
+    assert not tabs[0]["text"].startswith("Section")

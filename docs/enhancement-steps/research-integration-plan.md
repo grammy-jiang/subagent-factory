@@ -16,7 +16,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | **prompt-optimization-eval** | ✅ PASS 1.0 (29 papers) | **D-track + `step-12-optimize-adapter.md`** | ✅ driver + proposer skill + live CLI (`cli optimize-adapter`) |
 | **calibration-abstention** | ✅ PASS 1.0 (31 papers) | **F-track + `step-13-ask-gate.md`** | ✅ F3+F4 built (answerable-twins + two-axis grading); F1/F2/F5 runtime gate spec (black-box gap) |
 | **rag-graphrag** (§20 #10) | ✅ PASS 1.0 (20+ papers) | **G-track + `step-14-runtime-retrieval.md`** | spec folded (post-v0 runtime layer); 3 inherent HIGH gaps → ships behind measurement |
-| **table-extraction** (§20 #2) | ✅ PASS 1.0 | **H-track + `step-20` table-preservation section** | spec folded; ENGINEERING-HIGH = wire TableFormer into the converter contract (factory flattens tables today) |
+| **table-extraction** (§20 #2) | ✅ PASS 1.0 | **H-track + `step-20` table-preservation section** | ✅ COMPLETE — opt-in TSR → `<table>` HTML → `-t` anchors + caption assoc (H2) + degeneracy gate (H3); flag-gated, default byte-unchanged |
 | **automated-program-repair** (§20 #13) | ✅ PASS 1.0 (41 papers, 3 rounds, reviewer-accepted) | **I-track + `step-6` patch-generation section** | spec folded; ENGINEERING-HIGH = a `validate_patch` ladder |
 | **domain-adaptation-regulated-advice** | ✅ PASS 1.0 (25 papers, 2 rounds) | **J-track + `step-15-domain-adaptation-policy.md`** | spec folded; answers Q1 (finance/legal/medical) — hybrid det-template + LLM-interrogation method |
 | **systematic-review-evidence-synthesis** (§20 #1) | ✅ PASS 1.0 (30 sources) | **K-track + `step-16-evidence-grading.md`** | spec folded; GRADE-style confidence + judge discipline; ties calibration + judge-replication + Step-7 |
@@ -285,19 +285,21 @@ not as a global default — the factory would be charting new ground. Distinct f
 (authoring-time graph build); this is *retrieval over that store at answer time*, and it pairs with the
 Step-13 ask-gate (the retrieval gate is the same selective-prediction shape).
 
-## H. table-extraction → Step-20 (table-structure preservation) — §20 #2
+## H. table-extraction → Step-20 (table-structure preservation) — §20 #2 — ✅ COMPLETE
 Research **done** (`docs/Research/table-extraction/`, PASS 1.0). Spec: the **table-structure
-preservation** section in `step-20-document-ai-pdf-parsing.md`. **The factory already runs Docling but
-flattens its tables to Markdown** — losing recoverable facts (structure-preserving conversion measures
-94.1% vs 86.2% downstream QA; ~33 pp on table-dependent questions). Most directly actionable research
-yet: the converter exists, it just discards table structure. Especially load-bearing for quantitative
-domains (finance — [[financial-domain-readiness]]).
+preservation** section in `step-20-document-ai-pdf-parsing.md`. The default fast path still flattens
+tables to Markdown (born-digital speed), but the **opt-in** flag now preserves them end-to-end: TSR →
+span-preserving `<table>` HTML → `-t` anchors → caption association → degeneracy quality gate. Folds
+the measured win (structure-preserving conversion 94.1% vs 86.2% downstream QA; ~33 pp on
+table-dependent questions). Especially load-bearing for quantitative domains (finance —
+[[financial-domain-readiness]]). H1+H2+H3 shipped; H4 (route-by-table-type) / H5 are subsumed —
+Docling's TSR already handles the routing internally.
 
 | # | finding → factory direction | det / LLM | status |
 |---|---|---|---|
-| H1 | **Keep TableFormer TSR output; persist span-preserving (OTSL/HTML), Markdown as human view only** | det | ✅ **done + live-validated** — parts 1 (opt-in flag) + 2 (`_tables_to_html`) + 3 (`inject_anchors` `-t`); real Kafka-benchmark PDF: 11 tables → 11 `<table>` → 11 `-t` anchors, PASS. Flag-gated, default byte-unchanged. Polish left: H2 caption-assoc, H3 GriTS/TEDS gate |
-| H2 | **Caption↔table/figure association** by spatial proximity + reading order | det | spec |
-| H3 | **Quality-gate** extracted tables (GriTS/TEDS); route low-confidence to review | det | spec |
+| H1 | **Keep TableFormer TSR output; persist span-preserving (OTSL/HTML), Markdown as human view only** | det | ✅ **done + live-validated** — parts 1 (opt-in flag) + 2 (`_tables_to_html`) + 3 (`inject_anchors` `-t`); real Kafka-benchmark PDF: 11 tables → 11 `<table>` → 11 `-t` anchors, PASS. Flag-gated, default byte-unchanged |
+| H2 | **Caption↔table/figure association** by proximity + reading order | det | ✅ **done** — `inject_anchors._table_caption` seeds a preceding `Table N`/`Figure N` caption into the `-t` anchor text (reading-order, no spatial coords — only linearized Markdown available); inert when absent. 4 tests |
+| H3 | **Quality-gate** extracted tables; route low-confidence to review | det | ✅ **done** — `table_quality.table_quality` structural-degeneracy heuristic (no rows/cells, header-only, single column, ≥60% empty) + `convert_pdf._table_warnings` per-table WARN. **Not** TEDS/GriTS (need ground-truth grid); advisory, never blocks. 12 tests |
 | H4 | **Route by table type** — line-based for clean ruled, deep TSR otherwise | det | spec |
 | H5 | **(ENGINEERING-HIGH, buildable)** wire TableFormer's structured output into the converter contract so claim extraction reads tabular facts | det | spec — build first |
 
