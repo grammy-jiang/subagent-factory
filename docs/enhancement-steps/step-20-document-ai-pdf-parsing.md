@@ -51,7 +51,14 @@ on a heading-less PDF: it skips conversion noise (running heads, page numbers, p
 sub-chunks the prose at sentence boundaries, so anchors land on body text, not page headers. Docling
 is strictly better (semantic heading anchors); the fallback is the floor.
 
-## Table-structure preservation (table-extraction research, H-track — SPEC, not yet built)
+## Table-structure preservation (table-extraction research, H-track — increment 1 built)
+
+> **Increment 1 BUILT (2026-06-15):** table-structure recognition is now **opt-in** in `convert_pdf`
+> (`_tables_enabled` → `SUBAGENT_FACTORY_DOCLING_TABLES=1` sets `do_table_structure=True`). **Default
+> OFF** = the fast born-digital path (zero regression). Turn it on for table-heavy sources (finance,
+> data). **Remaining (the interconnected part):** structure-preserving HTML/OTSL export + **anchoring
+> table content** so claims can cite tabular facts — today `inject_anchors` skips pipe-rows, so even
+> with TSR on, table cells aren't anchored. That's the deeper follow-on; the spec below is the target.
 
 Folds `docs/Research/table-extraction/` (validated PASS 1.0). **Finding: the factory already runs
 Docling but FLATTENS its tables to Markdown — losing recoverable facts.** Structure-preserving
