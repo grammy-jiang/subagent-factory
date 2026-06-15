@@ -233,6 +233,64 @@ def test_canonical_test_schema_has_no_misplaced_hint(tmp_path):
     assert "misplaced" not in finding["message"]
 
 
+def test_sibling_principle_behaviour_tests_not_flagged_as_misplaced(tmp_path):
+    # A Tier-1 package ships tests/principle-behaviour-tests.yaml (its own schema)
+    # next to golden-tests.yaml. Its `principle_behaviour_tests` list carries
+    # `test_id` items but is validated elsewhere — check 18 must NOT diagnose it as
+    # a misplaced golden-tests collection (that advice would be actively wrong).
+    pkg = _write_package(tmp_path)
+    (pkg / "tests" / "principle-behaviour-tests.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "schema_version": "principle-behaviour-tests-v1",
+                "subagent_slug": "demo-design-reviewer",
+                "principle_behaviour_tests": [
+                    {"test_id": "PB-001", "principle_id": "P001", "mode": "advise"},
+                    {"test_id": "PB-002", "principle_id": "P002", "mode": "review"},
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    finding = _finding(profile_self_check(pkg), 18)
+    assert finding["level"] == "PASS"
+    assert "misplaced" not in finding["message"]
+    assert "principle-behaviour-tests.yaml" not in finding["message"]
+
+
+def test_malformed_golden_tests_still_diagnosed_with_sibling_present(tmp_path):
+    # The sibling allowlist must not mask a genuinely malformed golden-tests file:
+    # a golden-tests-v1 doc parking tests under a `tests:` key is still caught.
+    pkg = _write_package(tmp_path)
+    (pkg / "tests" / "principle-behaviour-tests.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "schema_version": "principle-behaviour-tests-v1",
+                "principle_behaviour_tests": [
+                    {"test_id": "PB-001", "principle_id": "P001", "mode": "advise"},
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (pkg / "tests" / "golden-tests.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "schema_version": "golden-tests-v1",
+                "tests": [
+                    {"test_id": "GT001", "mode": "advise", "routing_type": "positive"},
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    finding = _finding(profile_self_check(pkg), 18)
+    assert finding["level"] == "FAIL"
+    assert "unrecognized key 'tests'" in finding["message"]
+    assert "golden-tests.yaml" in finding["message"]
+    assert "principle-behaviour-tests.yaml" not in finding["message"]
+
+
 def test_body_size_pass_has_plain_message_without_breakdown(tmp_path):
     # A within-budget profile keeps the compact "~N words" message and must NOT
     # carry the heaviest-sections breakdown (that is for over-budget profiles only).
