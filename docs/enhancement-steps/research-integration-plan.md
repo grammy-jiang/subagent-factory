@@ -18,7 +18,7 @@ layer (build the adapter well, judge it rigorously); tracks **D–E** are the me
 | **rag-graphrag** (§20 #10) | ✅ PASS 1.0 (20+ papers) | **G-track + `step-14-runtime-retrieval.md`** | spec folded (post-v0 runtime layer); 3 inherent HIGH gaps → ships behind measurement |
 | **table-extraction** (§20 #2) | ✅ PASS 1.0 | **H-track + `step-20` table-preservation section** | ✅ COMPLETE — opt-in TSR → `<table>` HTML → `-t` anchors + caption assoc (H2) + degeneracy gate (H3); flag-gated, default byte-unchanged |
 | **automated-program-repair** (§20 #13) | ✅ PASS 1.0 (41 papers, 3 rounds, reviewer-accepted) | **I-track + `step-6` patch-generation section** | ✅ engine built — `validate_patch` ladder (I1/I3/I5/I6 done, I4 partial); I2 oracles carried (LLM/academic) |
-| **domain-adaptation-regulated-advice** | ✅ PASS 1.0 (25 papers, 2 rounds) | **J-track + `step-15-domain-adaptation-policy.md`** | spec folded; answers Q1 (finance/legal/medical) — hybrid det-template + LLM-interrogation method |
+| **domain-adaptation-regulated-advice** | ✅ PASS 1.0 (25 papers, 2 rounds) | **J-track + `step-15-domain-adaptation-policy.md`** | ✅ det template built — `domain_policy` (finance/legal/medical graded boundary) + opt-in gate (block #14); LLM evidence-norm half carried. Answers Q1 |
 | **systematic-review-evidence-synthesis** (§20 #1) | ✅ PASS 1.0 (30 sources) | **K-track + `step-16-evidence-grading.md`** | spec folded; GRADE-style confidence + judge discipline; ties calibration + judge-replication + Step-7 |
 
 ---
@@ -327,20 +327,20 @@ patch-capable subagents (incl. the new `legacy-code-change-advisor`).
 
 Load-bearing principle matches the factory: **deterministic gate decides, LLM proposes + ranks.**
 
-## J. domain-adaptation-regulated-advice → Step-15 (domain-adaptation policy) — answers Q1
+## J. domain-adaptation-regulated-advice → Step-15 (domain-adaptation policy) — answers Q1 — ✅ TEMPLATE BUILT
 Research **done** (`docs/Research/domain-adaptation-regulated-advice/`, 25 papers, PASS 1.0, 2 rounds).
 Full spec: `step-15-domain-adaptation-policy.md`. The concrete answer to **Q1** (can the factory author
 finance/stock — and legal/medical?). See memory `financial-domain-readiness`.
 
 | # | finding → factory design | det / LLM | status |
 |---|---|---|---|
-| J1 | **GRADED no-advice boundary** (safe-completion, not binary; per-domain-risk, reconfigurable) → `forbidden_behaviours` | det template | spec |
-| J2 | **Target the safety↔over-refusal frontier** — max-refusal blocks legitimate Qs | det | spec |
-| J3 | **Defer-to-professional = server-side τ uncertainty-abstention gate** → `handoff_rules` (same shape as Step-13 ask-gate) | det | spec |
-| J4 | **Don't trust model self-confidence** (worst-calibrated on law/medicine) — externally grounded τ | det | spec |
-| J5 | **Evidence norms = retrieval-from-authority + mandatory citations** → `source_of_truth_policy` (ties Step-14) | det + LLM | spec |
-| J6 | **METHOD (Q1 answer): hybrid** — deterministic per-domain template for `forbidden_behaviours`/disclaimers + LLM interrogation ONLY for evidence norms; prompt-only scope control is unstable | det + LLM | spec |
-| J7 | **Liability: human-in-loop "decision support, not replacement"** standing disclaimer/handoff default | det | spec |
+| J1 | **GRADED no-advice boundary** (safe-completion, not binary; per-domain-risk, reconfigurable) → `forbidden_behaviours` | det template | ✅ **done** — `domain_policy(domain)` graded safe-completion lines (finance/legal/medical) |
+| J2 | **Target the safety↔over-refusal frontier** — max-refusal blocks legitimate Qs | det | ✅ **done** — every no-advice line answers the general part before deferring (not binary refusal) |
+| J3 | **Defer-to-professional = server-side τ uncertainty-abstention gate** → `handoff_rules` (same shape as Step-13 ask-gate) | det | ✅ **done** — template `handoff_rules` defer-to-professional default |
+| J4 | **Don't trust model self-confidence** (worst-calibrated on law/medicine) — externally grounded τ | det | ✅ **done** — handoff rule triggers on external uncertainty signal, "not the model's own confidence" |
+| J5 | **Evidence norms = retrieval-from-authority + mandatory citations** → `source_of_truth_policy` (ties Step-14) | det + LLM | spec — LLM-interrogation half, carried (ties Step-14) |
+| J6 | **METHOD (Q1 answer): hybrid** — deterministic per-domain template for `forbidden_behaviours`/disclaimers + LLM interrogation ONLY for evidence norms; prompt-only scope control is unstable | det + LLM | ✅ **det half done** — `domain_policy` template + `check_domain_policy` gate (block #14); LLM evidence-norm half carried |
+| J7 | **Liability: human-in-loop "decision support, not replacement"** standing disclaimer/handoff default | det | ✅ **done** — `standing_disclaimer` per domain, surfaced via handoff_rules |
 
 **Open gaps (not in arXiv → manual regulatory review, not a round):** personalized-vs-general advice
 *detection*, disclaimer legal efficacy / liability allocation, a finance/legal graded-scope benchmark.
