@@ -16,7 +16,7 @@ CAMP="$REPO/campaign"
 LOGS="$CAMP/logs"
 QUEUE="$CAMP/pdf-queue.tsv"
 TMPL="$CAMP/prompt.tmpl"
-COLLECTION="${COLLECTION:-/home/grammy-jiang/projects/awesome-book-collection}"
+COLLECTION="${COLLECTION:-$HOME/projects/awesome-book-collection}"
 MODEL="${MODEL:-claude-opus-4-8}"
 RUN_TIMEOUT="${RUN_TIMEOUT:-2400}"   # per-round wall-clock cap (seconds)
 COUNT=1
@@ -84,11 +84,11 @@ while [ "$processed" -lt "$COUNT" ]; do
     break
   fi
 
-  prompt="$(TMPL="$TMPL" PDF="$pdf_abs" RUN="$run" \
+  prompt="$(REPO="$REPO" TMPL="$TMPL" PDF="$pdf_abs" RUN="$run" \
             DONE_SLUGS="$(done_slugs)" RECENT_COMMITS="$(git -C "$REPO" log --oneline -15)" \
             python3 -c 'import os,sys
 t=open(os.environ["TMPL"],encoding="utf-8").read()
-for k in ("PDF","RUN","DONE_SLUGS","RECENT_COMMITS"):
+for k in ("REPO","PDF","RUN","DONE_SLUGS","RECENT_COMMITS"):
     t=t.replace("{{"+k+"}}",os.environ.get(k,""))
 sys.stdout.write(t)')"
 
