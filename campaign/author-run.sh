@@ -14,7 +14,9 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"
 LOGS="$CAMP/logs"
 TMPL="$CAMP/author-prompt.tmpl"
-MODEL="${MODEL:-claude-opus-4-8}"
+# Default to this machine's Opus 4.8 1M Bedrock ARN; public ids 400 here. See GENERATE-REVIEW.md.
+MODEL="${MODEL:-${ANTHROPIC_DEFAULT_OPUS_MODEL:-${ANTHROPIC_MODEL:-claude-opus-4-8}}}"
+EFFORT="${EFFORT:-max}"
 RUN_TIMEOUT="${RUN_TIMEOUT:-3000}"
 LABEL="${LABEL:-author}"   # run-name prefix; set distinct per instance for parallel runs
 COUNT=1
@@ -41,7 +43,11 @@ done
 mkdir -p "$LOGS"
 command -v claude >/dev/null 2>&1 || { echo "claude CLI not found on PATH" >&2; exit 3; }
 
-queue(){ python3 "$CAMP/author-queue.py" "$TIER_MIN" ${ONLY:+--only "$ONLY"}; }
+# Helper scripts import tools.subagent_factory (needs slugify etc.) — use the managed
+# .venv interpreter when present so they don't fail on a bare system python3.
+PY="python3"; [ -x "$REPO/.venv/bin/python" ] && PY="$REPO/.venv/bin/python"
+
+queue(){ "$PY" "$CAMP/author-queue.py" "$TIER_MIN" ${ONLY:+--only "$ONLY"}; }
 next_target(){ queue | head -1; }
 
 echo "[author] repo=$REPO  model=$MODEL  count=$COUNT  tier_min=$TIER_MIN  only=${ONLY:-all}"
@@ -60,7 +66,7 @@ while [ "$processed" -lt "$COUNT" ]; do
   echo "[author] $run · package $SLUG"
 
   prompt="$(SLUG="$SLUG" RECENT_COMMITS="$(git -C "$REPO" log --oneline -8)" \
-            python3 "$CAMP/render-prompt.py" "$TMPL")"
+            "$PY" "$CAMP/render-prompt.py" "$TMPL")"
 
   if [ "$DRYRUN" -eq 1 ]; then
     echo "[author] DRY-RUN — rendered prompt for $SLUG:"
@@ -74,9 +80,11 @@ while [ "$processed" -lt "$COUNT" ]; do
   fi
 
   start_ts="$(date -Is)"
-  echo "[author] launching claude (timeout ${RUN_TIMEOUT}s) ..."
+  MODELFLAG=""; [ -n "$MODEL" ] && MODELFLAG="--model $MODEL"
+  EFFORTFLAG=""; [ -n "$EFFORT" ] && EFFORTFLAG="--effort $EFFORT"
+  echo "[author] launching claude (model=${MODEL:-<env>} effort=${EFFORT:-<def>} timeout=${RUN_TIMEOUT}s) ..."
   printf '%s' "$prompt" | timeout "$RUN_TIMEOUT" claude -p \
-      --model "$MODEL" \
+      $MODELFLAG $EFFORTFLAG \
       --dangerously-skip-permissions \
       --output-format stream-json --verbose >"$log" 2>&1
   rc=$?
@@ -84,7 +92,7 @@ while [ "$processed" -lt "$COUNT" ]; do
   if make -C "$REPO" verify >"$LOGS/$run.verify.log" 2>&1; then verify=green; else verify=red; fi
 
   gate="$(REPO="$REPO" LOG="$log" SUMM="$summ" RUN="$run" SLUG="$SLUG" RC="$rc" \
-          START="$start_ts" VERIFY="$verify" python3 "$CAMP/author-gate.py")"
+          START="$start_ts" VERIFY="$verify" "$PY" "$CAMP/author-gate.py")"
 
   echo "[author] $run gate=$gate verify=$verify rc=$rc  (summary: $summ)"
   case "$gate" in

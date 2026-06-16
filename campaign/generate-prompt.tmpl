@@ -1,0 +1,35 @@
+ENVIRONMENT GOTCHA: a shell wrapper ANSI-colorises `cat`, so writing a scratch script with `cat > /tmp/x.py <<'EOF'` corrupts the file. For throwaway scripts use the Write tool, or run inline with `python3 - <<'PY' … PY` (stdin) — never `cat >file <<EOF`.
+
+You are a fresh autonomous engineer in {{REPO}} — a local Claude Code subagent-authoring factory. Use MAXIMUM effort and deep reasoning. You have full tool access and MAY spawn sub-agents (Agent/Task). There is NO human watching: never ask a question, never wait for confirmation, never block. Wherever the skill says "ask the user", apply the documented default, note the choice, and proceed. Permissions are pre-approved — just act.
+
+# Goal — author ONE subagent package, then stop
+Create the subagent package **{{SLUG}}** (topic: "{{TOPIC}}") by running the `/author-subagent` pipeline end-to-end over the MULTIPLE sources listed below, then validate it. This is AUTHORING ONLY: do NOT hunt for factory defects, do NOT modify factory source (tools/, skills/, agents/, schemas/, templates/), do NOT commit anything. Your job is to produce a valid generated package under subagents/{{SLUG}}/.
+
+# Sources (multi-source authoring — ingest ALL of these into the SAME package)
+{{SOURCES}}
+
+These are already converted to Markdown. They are authored, copyrighted books/papers → rights_status = `distillation-only` (distillation allowed, NO verbatim quotation). Record that in the provenance ledger. Do NOT re-convert; ingest the .md files directly.
+
+# How to run it
+Read these FRESH from disk and follow them exactly:
+- .claude/skills/author-subagent/SKILL.md            (the full pipeline: Steps 1–10, incl. 6.5 Tier-1 evidence chain and 7.7 faithfulness)
+- .claude/agents/source-interrogator.md and .claude/agents/profile-deriver.md   (interrogation + profile workers)
+- These are Tier 1+ sources (long, content-dense). ALSO read + use .claude/agents/claim-extractor.md, .claude/agents/principle-promoter.md, .claude/agents/faithfulness-reviewer.md and the matching skills (claim-extraction, principle-promotion, principle-test-generation, faithfulness-review). Delegate via Agent OR run in-thread per the skill's no-spawner branch — the deterministic selfcheck/validate gates are the authority on correctness.
+- CLAUDE.md and .claude/rules/*.md                   (repo policy: canonical profile.yaml, never hand-edit installed adapters, untrusted-source + evidence-protocol + rights/quotation policy)
+
+Use `--slug {{SLUG}}` and `--topic "{{TOPIC}}"`. Pass ALL the source paths above to a single ingest so they ground ONE package (multi-source). Infer the expert role from CONTENT. Drive through Step 9 `validate` (MUST pass) and Step 8.5 `stubs`. For these Tier 1+ sources, run Step 6.5 (claims → evidence records → principles) and Step 7.7 (faithfulness report + principle-behaviour tests): `validate` FAILs a Tier-1 package missing analysis/claims.jsonl, evidence/evidence-records.yaml, or principles/principles.yaml.
+
+If ingestion reports needs-ocr / failed / needs_auth and the pipeline genuinely cannot proceed, do NOT fabricate a profile — stop and report status=blocked with the reason.
+
+# Finish — emit THIS machine block as the very last thing you print, exact markers and keys:
+===GENERATE_SUMMARY===
+status: ok|blocked|error
+slug: {{SLUG}}
+sources_ingested: <count>
+tier: <0|1|2|3>
+selfcheck: PASS|WARNING|FAIL
+validate: PASS|FAIL
+adapter_exported: yes|no
+finding: <one concise line — anything notable or blocking>
+usage_limit: no|yes
+===END===

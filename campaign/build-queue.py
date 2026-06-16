@@ -33,7 +33,7 @@ CAMPAIGN = REPO / "campaign"
 QUEUE = CAMPAIGN / "pdf-queue.tsv"
 INVENTORY = CAMPAIGN / "pdf-inventory.md"
 SUBAGENTS = REPO / "subagents"
-DEFAULT_COLLECTION = Path("/home/grammy-jiang/projects/awesome-book-collection")
+DEFAULT_COLLECTION = Path.home() / "projects" / "awesome-book-collection"
 TERMINAL = {"done", "blocked", "error", "review"}
 HEADER = ["idx", "size_bytes", "status", "slug", "sha256", "relpath"]
 
