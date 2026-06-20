@@ -106,7 +106,13 @@ launch () {
   local folder="$1" topic="$2" keywords="$3" why="$4"
   local dir="$RESEARCH_ROOT/$folder"
   mkdir -p "$dir"
-  build_prompt "$topic" "$keywords" "$why" > "$dir/PROMPT.md"
+  # PROMPT_FILE override: reuse this launcher's engine/detach/MCP machinery with a CUSTOM prompt
+  # (e.g. resume + polish + gap-close), instead of build_prompt's from-scratch round.
+  if [ -n "${PROMPT_FILE:-}" ] && [ -r "$PROMPT_FILE" ]; then
+    cp "$PROMPT_FILE" "$dir/PROMPT.md"
+  else
+    build_prompt "$topic" "$keywords" "$why" > "$dir/PROMPT.md"
+  fi
   local prompt; prompt="$(cat "$dir/PROMPT.md")"
 
   # Build the per-engine command (same prompt; both CLIs carry the research-pipeline skill).
