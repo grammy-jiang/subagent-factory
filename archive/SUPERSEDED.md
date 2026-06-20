@@ -35,4 +35,18 @@ PostgreSQL and SQLite, which covers Postgres query performance plus much more.
 
 - **Backup:** `archive/superseded-postgres-query-performance-advisor-2026-06-20.zip`.
 - **Adapter removed:** `.claude/agents/generated/postgres-query-performance-advisor.md`.
-- mysql-at-scale-operations + mysql-replication-internals left intact (not in scope).
+- mysql-at-scale-operations + mysql-replication-internals left intact (not in scope). *(Superseded
+  by the next entry — both retired same day.)*
+
+## 2026-06-20 — mysql agents retired (not in use)
+
+Retired at the user's request — the org doesn't run MySQL, so no replacement is needed (unlike the
+Postgres case above):
+
+| Retired package | Source |
+|-----------------|--------|
+| `mysql-at-scale-operations-advisor` | High Performance MySQL: Running MySQL at Scale |
+| `mysql-replication-internals-advisor` | Understanding MySQL Internals |
+
+- **Backup:** `archive/superseded-mysql-2026-06-20.zip`.
+- **Adapters removed.** No replacement (out of scope, not superseded).
