@@ -292,6 +292,41 @@ Claude), and `compacted` are recorded per step (see *Logging* above), so a run i
   re-merge; `build --resume`; window-drain handoff (Copilot small-book queue, Claude drains the rest);
   gate every assembly on grounding-richness growing.
 
+## P0 prototype results (2026-06-21)
+Ran the chunk→book→corpus prototype on **software-architecture (9 books)**. Tools: `chunk_source.py`
+(deterministic chunker, 9 books → 60 chunks), `map_book.sh` + `map-book-prompt.tmpl` (one `claude -p`
+per book over its chunks; ran 2 parallel claim-guarded drains, all on Claude), `merge_principles_p0.py`
+(deterministic recall-stage dedup + measure). 5 books hit the usage cap mid-run and were cleanly
+re-run (per-step skip/claim guard).
+
+**MAP — decisive anti-dilution win** (per-book deep extraction vs the old single batch pass):
+
+| metric | batch v0.3.0 | P0 map→reduce | Δ |
+|---|---|---|---|
+| claims | 42 | **2,420** | **57×** |
+| principles (pre-merge) | 20 | 303 | 15× |
+| grounded bigrams | 1,295 | **44,813** | 34× |
+
+Every book yielded 63–428 claims (vs 42 for the *whole* old batch). The dilution finding is confirmed
+end-to-end: per-chunk extraction with its own budget removes the dilution.
+
+**REDUCE — three findings:**
+1. **Deterministic token-F1 recall is inadequate** — 0 cross-book merges @F1≥0.6; only 15/303 @F1≥0.3.
+   Lexical recall is paraphrase-blind (the research's exact warning).
+2. **Embedding recall works** — `embed_minilm` cosine clustering (the existing C1 clusterer,
+   `seed_principle_clusters --embeddings`) finds the cross-book duplicates token-F1 misses:
+   303 → **260 @cos0.6**, **215 @cos0.55**. So the recall stage MUST be semantic → confirms
+   recall-then-filter with an embedding recall.
+3. **Bloat is real — dedup alone is insufficient.** Even deduped, ~215–260 principles (≈11–13×
+   baseline) is far too many for a focused reviewer adapter. **Importance selection is essential**
+   (rank + keep the best ~40–60), not optional.
+
+**Verdict:** adopt the chunk-level MAP — the richness win is overwhelming and deterministic. REDUCE
+must chain (a) **embedding recall** (`seed_principle_clusters --embeddings`, already built) → (b) LLM
+precision filter → (c) **importance selection** to a focused set. The advice A/B (P0 measure 6) is
+deferred until after selection — a 303-principle adapter can't be A/B'd meaningfully. P0 measures
+(2) Copilot-vs-Claude depth and (5) claim-recall coverage remain to run.
+
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
 - **Global principle merge is one pass** — lighter than extraction, but if it dilutes too it may need chunking; the P0 prototype will show.
