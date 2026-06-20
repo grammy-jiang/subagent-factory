@@ -324,8 +324,16 @@ end-to-end: per-chunk extraction with its own budget removes the dilution.
 **Verdict:** adopt the chunk-level MAP — the richness win is overwhelming and deterministic. REDUCE
 must chain (a) **embedding recall** (`seed_principle_clusters --embeddings`, already built) → (b) LLM
 precision filter → (c) **importance selection** to a focused set. The advice A/B (P0 measure 6) is
-deferred until after selection — a 303-principle adapter can't be A/B'd meaningfully. P0 measures
-(2) Copilot-vs-Claude depth and (5) claim-recall coverage remain to run.
+deferred until after selection — a 303-principle adapter can't be A/B'd meaningfully.
+
+**Measure (2) — Copilot vs Claude MAP** (same hard-parts chunks; engine is the only variable):
+Copilot **51 claims / 15 principles** vs Claude **63 / 15** — comparable depth (~81% claims, *equal*
+principles), claims schema PASS, 27 premium-req / 5 min. **But Copilot dropped the nuance fields**:
+**0 conditions** (Claude 7) and **1 hedge** (Claude 6) — the faithfulness-relevant scoping
+(`condition`/`exception`/`certainty`). → Copilot is a usable MAP worker for breadth + budget-spread on
+small books; Claude is stronger on fidelity. Close the gap with a deterministic condition/hedge cue
+post-check (argument-mining rec 7) or keep high-fidelity MAP on Claude. Measure (5) claim-recall
+coverage still to run.
 
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
