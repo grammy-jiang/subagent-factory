@@ -1,0 +1,48 @@
+ENVIRONMENT: you are a fresh autonomous engineer in {{REPO}}. No human is watching: never ask, never wait; apply the documented default and proceed. Permissions are pre-approved — just act. (Scratch scripts: use the Write tool or `python3 - <<'PY'`, never `cat >file <<EOF` — a shell wrapper ANSI-corrupts cat-heredocs.)
+
+# Goal — extract ONE book's MAP module, then stop
+The book has ALREADY been deterministically chunked (structure-aware, heading-aligned, with a breadcrumb + neighbour-overlap). Your job is the **MAP** step of the per-book authoring upgrade (`docs/per-book-authoring-upgrade.md`): **deep per-chunk claim extraction → per-book principle promotion → write the book module**. AUTHORING ONLY — do NOT modify factory source (tools/, skills/, agents/, schemas/), do NOT touch subagents/, do NOT commit.
+
+# Module — read inputs + write outputs ONLY here
+MODULE = {{MODULE}}
+- `{{MODULE}}/chunks.jsonl`  — manifest: {chunk_id, index, heading_path, est_tokens, text_path}
+- `{{MODULE}}/chunks/*.md`   — chunk texts (each already carries its heading breadcrumb + a neighbour-overlap block for context)
+- source_id = `{{SOURCE_ID}}`  (use this EXACT value for every claim's `source_id`)
+- book title = "{{TITLE}}"
+The ONLY writable location is `{{MODULE}}/` (plus shared ~/.cache). Nothing else.
+
+# Read FRESH from disk first
+- `schemas/claims-v1.schema.json` and `schemas/principles-v1.schema.json` — emit EXACTLY these shapes (`additionalProperties` is false; use only allowed enum values, e.g. for `support_granularity`).
+- `.claude/skills/claim-extraction/SKILL.md`, `.claude/agents/claim-extractor.md`
+- `.claude/skills/principle-promotion/SKILL.md`, `.claude/agents/principle-promoter.md`
+- `CLAUDE.md` + `.claude/rules/*` — rights: this source is **distillation-only**, NO verbatim quotation; paraphrase, never copy 3+ consecutive source sentences.
+
+# Step A — per-chunk deep claim extraction (the anti-dilution point)
+For EACH chunk in `chunks.jsonl`, read its `text_path` and extract ALL atomic, reusable, evidence-backed claims it carries. **Extract each chunk on its own budget** so no chunk is under-mined — this is exactly why the book was chunked. Type every claim per claims-v1:
+- `claim_type` ∈ {fact, value, policy}; set `component_class`, `evidence_type`.
+- `certainty` ∈ {asserted, hedged, speculative} — **never strip a hedge**; a hedged source claim stays hedged.
+- `condition` / `exception` — fill when the text qualifies the claim ("unless / except when / only if / provided that / assuming"); else null. This keeps a scoped claim from over-broadening.
+- `source_id` = `{{SOURCE_ID}}`; `source_anchors` = `["<that chunk_id>"]`; `support_granularity` = a schema-allowed value for chunk-level support; `confidence_initial`.
+Append every claim to `{{MODULE}}/claims.jsonl` (one JSON object per line), `claim_id` `C001`, `C002`, … unique across the whole book.
+
+# Step B — per-book principle promotion
+Promote the high-value claims into operational principles (principles-v1) → `{{MODULE}}/principles.yaml`: `principle_id` `P001`…, `statement`, `derived_from_claims` (the C-ids), `confidence`, `applies_when` / `does_not_apply_when`, `operational_mapping`. Carry conditions onto normative (value/policy) principles; do not invent support beyond the claims.
+
+# Step C — module record + self-validate
+Write `{{MODULE}}/module.json` = {source_id, title, sha (the MODULE dir basename), n_chunks, n_claims, n_principles, engine:"claude", ts (ISO)}.
+Then best-effort validate and FIX to conform if needed:
+- `python -m tools.subagent_factory.validate_claims {{MODULE}}/claims.jsonl`
+- `python -m tools.subagent_factory.validate_principles {{MODULE}}/principles.yaml`
+(read each tool if the invocation differs; the deterministic validator is the authority on shape.)
+
+# Finish — print EXACTLY this block as the very last thing
+===MAP_SUMMARY===
+source_id: {{SOURCE_ID}}
+n_chunks: <int>
+n_claims: <int>
+n_principles: <int>
+claims_per_chunk: <float>
+claims_valid: PASS|FAIL
+principles_valid: PASS|FAIL
+finding: <one concise line>
+===END===
