@@ -10,7 +10,7 @@
 #   examples/review-with-subagents.sh <doc-path> [--reviewers a,b,c] [--out PATH]
 #                                     [--model M] [--timeout SECS] [--dry-run]
 #
-# Defaults: reviewers = software-design-reviewer,microservice-patterns-advisor,software-simplicity-advisor
+# Defaults: reviewers = software-design,software-architecture,microservice-patterns-advisor
 #           out       = <doc-dir>/reviews/<doc-name>.subagent-review.<date>.md
 #
 # List available reviewers:  python -m tools.subagent_factory.cli catalog
@@ -19,7 +19,7 @@ set -uo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MODEL="${MODEL:-claude-opus-4-8}"
 RUN_TIMEOUT="${RUN_TIMEOUT:-3600}"
-REVIEWERS="software-design-reviewer,microservice-patterns-advisor,software-simplicity-advisor"
+REVIEWERS="software-design,software-architecture,microservice-patterns-advisor"
 OUT=""
 DRYRUN=0
 DOC=""

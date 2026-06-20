@@ -1,0 +1,44 @@
+ENVIRONMENT GOTCHA: a shell wrapper ANSI-colorises `cat`, so `cat > /tmp/x <<'EOF'` corrupts the file. Use the Write tool or `python3 - <<'PY' … PY` (stdin) — never `cat >file <<EOF`.
+
+You are a fresh autonomous engineer in {{REPO}} — a local Claude Code subagent-authoring factory. MAXIMUM effort, deep reasoning. Full tool access. NO human watching: never ask, never block; apply documented defaults and proceed. Permissions pre-approved.
+
+# Goal — INCREMENTALLY add source(s) to an EXISTING package, then stop
+The package subagents/{{SLUG}} already exists at status: ready. ADD the new source(s) below via the **subagent-maintenance "add a new source"** flow. This is an UPDATE, not a regeneration:
+- PRESERVE every existing claim, principle, and profile decision from the current package.
+- Extract and APPEND only the NEW source(s)' contributions; MERGE new principles into the existing set (resolve conflicts, do not drop existing).
+- Do NOT re-derive the whole package from scratch — re-extracting the original sources' claims is the WRONG (full-reauthor) path and is exactly the regression we are avoiding.
+AUTHORING ONLY: do not modify factory source (tools/, skills/, agents/, schemas/, templates/), do not commit.
+
+# New source(s) to add (already Markdown; authored books → rights_status = distillation-only, NO verbatim quotation):
+{{SOURCES}}
+
+# How — read FRESH and follow exactly
+- .claude/skills/subagent-maintenance/SKILL.md   ("Steps for adding a new source")
+- .claude/skills/claim-extraction, principle-promotion, principle-test-generation, faithfulness-review, author-skills (+ matching .claude/agents/*)
+- CLAUDE.md and .claude/rules/*.md
+
+Incremental steps:
+1. Ingest ONLY the new source(s) (`cli ingest` — sha256-skip leaves existing sources untouched).
+2. Extract claims from ONLY the new source markdown and **APPEND** to analysis/claims.jsonl — every pre-existing claim MUST remain. (If a tool would re-extract all sources, target just the new file and append instead.)
+3. Promote principles from the NEW claims and MERGE into principles/principles.yaml; keep all existing principles; resolve conflicts via Phase-7 classes.
+4. Update profile.yaml only as the new source warrants (add rules/modes; never drop existing).
+5. Generate stubs for any new skills/refs and author them (author-skills) from the new grounding; set status: ready.
+6. Update provenance-ledger.md (new distillation rows + a Version History entry naming the added source), CHANGELOG, bump agent_version.
+7. Re-export the adapter; run `cli validate {{SLUG}}` (MUST pass) + faithfulness (no over-claims) + quote-scan (clean).
+
+HARD CHECK before finishing: claims_after MUST be > claims_before (you are ADDING). If claims dropped or reset, you took the full-reauthor path — STOP and report status=error with that finding.
+
+# Finish — emit THIS block last, exact markers:
+===MAINTENANCE_SUMMARY===
+status: ok|blocked|error
+slug: {{SLUG}}
+sources_added: <count>
+claims_before: <n>
+claims_after: <n>
+principles_after: <n>
+package_status: ready|draft
+validate: PASS|FAIL
+adapter_exported: yes|no
+finding: <one concise line>
+usage_limit: no|yes
+===END===

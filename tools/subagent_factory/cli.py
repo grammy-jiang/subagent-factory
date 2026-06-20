@@ -264,6 +264,36 @@ def cmd_grounding_check(slug, review, doc, do_record):
         console.print(f"  [green]recorded[/green] {slug} coverage to grounding baseline")
 
 
+@main.command("grounding-richness")
+@click.argument("slug")
+@click.option(
+    "--vs", "vs_dir", default=None, help="Another package dir to diff against (before/after gate)."
+)
+def cmd_grounding_richness(slug, vs_dir):
+    """Deterministic grounding SIZE (claims/principles/grounded vocab) — run-independent.
+
+    The reliable strengthen keep/revert gate: adding a source must GROW these, never shrink
+    (unlike review-coverage, which is stochastic). With --vs <dir>, prints the delta + PASS/FAIL.
+    """
+    from tools.subagent_factory.grounding_check import grounding_richness
+
+    repo_root = Path(__file__).parent.parent.parent
+    cur = grounding_richness(repo_root / "subagents" / slug)
+    console.print(
+        f"{slug}: claims={cur['claims']} principles={cur['principles']} "
+        f"uni={cur['grounded_unigrams']} bi={cur['grounded_bigrams']}"
+    )
+    if vs_dir:
+        old = grounding_richness(vs_dir)
+        d = {k: cur[k] - old[k] for k in cur}
+        console.print(
+            f"  vs {vs_dir}: Δclaims={d['claims']:+d} Δprinciples={d['principles']:+d} "
+            f"Δuni={d['grounded_unigrams']:+d} Δbi={d['grounded_bigrams']:+d}"
+        )
+        grew = cur["claims"] >= old["claims"] and cur["grounded_bigrams"] >= old["grounded_bigrams"]
+        console.print(f"  gate: {'PASS (grew/held)' if grew else 'FAIL (shrank)'}")
+
+
 @main.command("replay-score")
 @click.argument("slug")
 @click.option("--runner", default="examples/replay-runner.sh", help="Runner script (live model).")

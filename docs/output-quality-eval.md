@@ -174,3 +174,28 @@ win merely for spending more; (3) no independent gold set → circular evaluatio
 (4) no uncertainty on the verdict → accept a ranking only when conformal/bootstrap intervals don't
 overlap. The grounding-leak → multi-source-grounding finding is unaffected (it rests on the
 deterministic `grounding_check`, not on the judge).
+
+## Finding (2026-06-20): incremental update ≫ full re-author for "strengthening" (deterministic)
+
+A/B of two ways to add a source to an existing package, measured by **grounding-richness**
+(claims / principles / grounded bigrams — deterministic, run-independent, `cli grounding-richness`):
+
+| package | v0.2.0 | full re-author | incremental (add-source) |
+|---|---|---|---|
+| software-architecture | 24 cl / 12 p / 697 bi | 29 / 12 / 631 (Claude) | **42 / 20 / 1295** |
+| devops-sre-advisor | 72 / 14 / 1346 | 50 / 14 / 1062 (Copilot) | **101 / 18 / 2072** |
+
+- **Incremental wins on every metric, both packages.** It preserves existing claims/principles and
+  appends the new source's → grounding strictly grows.
+- **Full re-author does NOT reliably strengthen** — it regenerates everything (non-deterministic),
+  so adding sources can leave grounding flat or *worse* (arch claims 24→29 but bigrams 697→**631**,
+  principles unchanged; devops 72→50 under Copilot's 2a cap).
+- **The inferiority is the METHOD, not just the engine.** Even **full-Claude** re-author (arch, no
+  cap) lost to incremental (29 vs 42 claims; 631 vs 1295 bigrams). Re-author regenerates; incremental
+  preserves+adds.
+- **Reliable gate = `cli grounding-richness` (deterministic), not review-coverage.** Review coverage
+  is stochastic (LLM review × doc) — it flagged the devops drop but can't be trusted alone; richness
+  showed the real signal cleanly.
+- **Recipe:** strengthen via `subagent-maintenance` "add a new source" (`campaign/add-source.sh`) on
+  Claude — never a full re-author. Gate on grounding-richness growing. (See the auto-memory
+  `incremental-add-source-recipe` for the claim-append flow + validator gotchas.)
