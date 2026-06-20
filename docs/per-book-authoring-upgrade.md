@@ -335,6 +335,16 @@ small books; Claude is stronger on fidelity. Close the gap with a deterministic 
 post-check (argument-mining rec 7) or keep high-fidelity MAP on Claude. Measure (5) claim-recall
 coverage still to run.
 
+**REDUCE built (embedding recall + importance selection).** Embedding dedup (`embed_minilm` cosine
+≥0.55) merged 303 → **214** principles (27 cross-book/multi-source; token-F1 had merged ~0).
+Importance-selection (rank by cross-book strength → evidence breadth → confidence) → focused **50
+principles** retaining **~96% of grounded bigrams** (42,076 of the deduped 43,927). Focused-50 vs
+baseline: **50 principles (2.5×), 42,076 bigrams (32×), 2,420 claims (57×)** — the richness win is
+*retained* while the 214-principle bloat is tamed to a sane adapter size. The bloat question is
+answered: **dedup + select → focused *and* rich.** Remaining for a shippable package: (a) LLM
+**precision filter** to confirm/split the 27 cross-book clusters (merge quality), (b) **advice A/B**
+(measure 6) — assemble an adapter from the focused 50 and behaviour-replay it vs the v0.3.0 baseline.
+
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
 - **Global principle merge is one pass** — lighter than extraction, but if it dilutes too it may need chunking; the P0 prototype will show.
