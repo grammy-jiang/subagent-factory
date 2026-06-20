@@ -91,6 +91,21 @@ papers injected by verified arXiv-ID — before being used.)
 - **Do NOT import rag-graphrag's "fixed-size chunking is fine"** into the MAP — that is a *runtime
   retrieval* result; *extraction recall* needs structure-aware chunks (a different objective).
 
+**Reports reviewed (read status, 2026-06-20).**
+- **Deep-read + folded (3 full, 1 partial):** `long-document-structure-mapping` (full),
+  `argument-mining-claim-extraction` (full, 826-ln canonical), `rag-graphrag` (full),
+  `knowledge-fusion-conflict-detection` (regenerated PASS 1.00 — folded from its `SUMMARY.md` §4 cited
+  findings + Round-History/Gaps; the full 590-ln body was **not** re-read end-to-end).
+- **Health-scanned clean but NOT yet content-folded** (relevant to *other* levers — fold if/when those
+  are built): `factual-consistency-faithfulness` (faith steps), `behaviour-test-generation` (MAP test
+  seeds), `knowledge-graph-ontology-construction` (Step-7 graph),
+  `agent-benchmarking-output-evaluation` (advice / LLM-judge — P0 measure 6),
+  `prompt-optimization-eval` (optimize-adapter gate), `calibration-abstention` (ask-gate).
+- **Skipped — redundant:** `systematic-review-evidence-synthesis` (selection / GRADE overlaps
+  long-document check-worthiness + knowledge-fusion reconcile).
+- All 19 report files passed the degradation health-scan (0 fallback markers); only knowledge-fusion
+  had been degraded, now fixed.
+
 ## Determinism boundary (factory invariant)
 **Anything deterministic is a script — Python or bash under `tools/subagent_factory/` or `campaign/` —
 never an LLM prompt.** The LLM is spent only on *irreducible judgment*: reading a book into claims,
