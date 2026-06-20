@@ -21,6 +21,8 @@ import re
 import sys
 from pathlib import Path
 
+import yaml
+
 # Clear stub markers; deliberately omits ambiguous ones (XXX/TBD) to avoid false positives in
 # synthesized prose. Each entry is (regex, human label).
 _PLACEHOLDERS = [
@@ -35,6 +37,28 @@ _PLACEHOLDERS = [
 ]
 _REQUIRED_SECTIONS = ("## Role", "## When to use")
 _MIN_LINES = 20  # a real templated adapter is ~130 lines; below this it is a stub
+
+
+def _parse_frontmatter(text: str) -> tuple[str, object]:
+    """Parse the leading ``---``-delimited YAML frontmatter block.
+
+    Returns ``("ok", mapping)`` on success, ``("missing", None)`` if there is no delimited
+    block, or ``("invalid", message)`` if the block is not valid YAML or not a mapping. A
+    Claude Code adapter whose frontmatter does not parse is silently un-loadable by the
+    runtime (the agent never registers), so this must be a hard failure — not a stub check.
+    """
+    if not text.startswith("---"):
+        return ("missing", None)
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        return ("missing", None)
+    try:
+        data = yaml.safe_load(parts[1])
+    except yaml.YAMLError as exc:
+        return ("invalid", str(exc).splitlines()[0])
+    if not isinstance(data, dict):
+        return ("invalid", "frontmatter is not a mapping")
+    return ("ok", data)
 
 
 def _section_nonempty(text: str, heading: str) -> tuple[bool, bool]:
@@ -64,6 +88,19 @@ def validate_adapter_quality(subagent_dir: str | Path) -> list[tuple[str, str]]:
         out.append(
             ("FAIL", "adapter missing 'GENERATED FILE. DO NOT EDIT' header in first 20 lines")
         )
+
+    # Frontmatter must be loadable YAML, else the runtime silently drops the agent (the tdd
+    # regression: an unescaped quote in `description` broke the block and the agent never
+    # registered, yet every other quality check passed).
+    fm_status, fm_payload = _parse_frontmatter(text)
+    if fm_status == "missing":
+        out.append(("FAIL", "adapter has no '---' delimited YAML frontmatter block"))
+    elif fm_status == "invalid":
+        out.append(("FAIL", f"adapter frontmatter is not valid YAML: {fm_payload}"))
+    else:
+        for key in ("name", "description"):
+            if not (isinstance(fm_payload, dict) and fm_payload.get(key)):
+                out.append(("FAIL", f"adapter frontmatter missing required key '{key}'"))
 
     for pattern, label in _PLACEHOLDERS:
         if pattern.search(text):

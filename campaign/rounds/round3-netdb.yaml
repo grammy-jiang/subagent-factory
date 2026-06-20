@@ -1,0 +1,25 @@
+# Round-3 vetting: networking + relational-db, richer book lists (run with --resolve).
+stagger: 75
+packages:
+  - slug: networking-advisor
+    topic: "networking advisor"
+    engine: claude
+    books:
+      - "Computer Networking A Top-Down Approach Kurose"
+      - "Network Warrior"
+      - "Computer Networks Tanenbaum"
+      - "HTTP The Definitive Guide"
+      - "TCP/IP Guide Kozierok"
+      - "Wireshark Network Analysis"
+  - slug: postgresql-sqlite-advisor
+    topic: "PostgreSQL and SQLite database advisor"
+    engine: claude
+    books:
+      - "PostgreSQL High Performance"
+      - "The Art of PostgreSQL"
+      - "PostgreSQL Up and Running"
+      - "Mastering PostgreSQL"
+      - "Database Internals Petrov"
+      - "Using SQLite"
+      - "The Definitive Guide to SQLite"
+      - "SQL Performance Explained"

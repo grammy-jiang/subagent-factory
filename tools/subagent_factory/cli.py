@@ -221,21 +221,37 @@ def cmd_repair_faithfulness(slug):
 @click.argument("slug")
 @click.argument("review")
 @click.argument("doc", required=False)
-def cmd_grounding_check(slug, review, doc):
+@click.option(
+    "--record", "do_record", is_flag=True, help="Append this coverage to the calibration baseline."
+)
+def cmd_grounding_check(slug, review, doc, do_record):
     """Score a review's grounding vs the subagent's source; name cross-source borrows.
 
     SLUG = subagent; REVIEW = its review output file; DOC (optional) = the reviewed document
     (its quoted nouns are excluded). Cross-source borrows name the source to add (multi-source).
+    Coverage is shown against the recorded calibration baseline (the rank is the signal, not %).
     """
-    from tools.subagent_factory.grounding_check import grounding_check
+    from tools.subagent_factory.grounding_check import (
+        baseline_band,
+        grounding_check,
+        record_baseline,
+    )
 
     repo_root = Path(__file__).parent.parent.parent
     r = grounding_check(repo_root / "subagents" / slug, review, doc)
     console.print(
         f"grounding coverage [bold]{r['coverage']:.0%}[/bold] "
-        f"({r['n_grounded']}/{r['n_concept_terms']} concept bigrams grounded; "
-        f"{r['n_leak']} leak candidates; {r['n_doc_quoted_dropped']} doc-quoted dropped)"
+        f"({r['n_grounded']}/{r['n_concept_terms']} distinctive concept bigrams grounded; "
+        f"{r['n_leak']} leak candidates; {r['n_generic_dropped']} generic dropped; "
+        f"{r['n_doc_quoted_dropped']} doc-quoted dropped)"
     )
+    band = baseline_band(r["coverage"])
+    if band:
+        console.print(
+            f"  vs baseline (n={band['n']}): floor {band['floor']:.0%} / "
+            f"median {band['median']:.0%} / ceiling {band['ceiling']:.0%} "
+            f"— this run {band['percentile']}th pct"
+        )
     for bg, n, sibs in r["cross_source_terms"]:
         console.print(f"  [yellow]borrow[/yellow] x{n} {bg} <- {', '.join(sibs)}")
     if r["suggested_sources"]:
@@ -243,6 +259,9 @@ def cmd_grounding_check(slug, review, doc):
             "suggested source(s) to add: "
             + ", ".join(f"{s}(+{w})" for s, w in r["suggested_sources"])
         )
+    if do_record:
+        record_baseline(slug, r["coverage"], doc)
+        console.print(f"  [green]recorded[/green] {slug} coverage to grounding baseline")
 
 
 @main.command("replay-score")

@@ -1,0 +1,64 @@
+# Round-3 candidate vetting — run with --resolve to see which canonical books the corpus has.
+# engine is irrelevant for --resolve; set later per the chosen pair.
+stagger: 75
+packages:
+  - slug: algorithms-ds-advisor
+    topic: "algorithms and data structures advisor"
+    engine: claude
+    books:
+      - "Introduction to Algorithms Cormen CLRS"
+      - "Algorithm Design Manual Skiena"
+      - "Algorithms Sedgewick Wayne"
+      - "Grokking Algorithms"
+  - slug: distributed-systems-advisor
+    topic: "distributed systems advisor"
+    engine: claude
+    books:
+      - "Designing Data-Intensive Applications Kleppmann"
+      - "Database Internals Petrov"
+      - "Designing Distributed Systems Burns"
+  - slug: data-engineering-advisor
+    topic: "data engineering advisor"
+    engine: claude
+    books:
+      - "Fundamentals of Data Engineering Reis Housley"
+      - "Spark The Definitive Guide"
+      - "Designing Data-Intensive Applications Kleppmann"
+  - slug: machine-learning-advisor
+    topic: "machine learning advisor"
+    engine: claude
+    books:
+      - "Hands-On Machine Learning Geron"
+      - "Deep Learning Goodfellow Bengio Courville"
+      - "Hundred-Page Machine Learning Book Burkov"
+      - "Pattern Recognition and Machine Learning Bishop"
+  - slug: networking-advisor
+    topic: "networking advisor"
+    engine: claude
+    books:
+      - "Computer Networking A Top-Down Approach Kurose"
+      - "TCP/IP Illustrated Stevens"
+      - "Network Warrior"
+      - "High Performance Browser Networking Grigorik"
+  - slug: java-code-reviewer
+    topic: "java code reviewer"
+    engine: claude
+    books:
+      - "Effective Java Bloch"
+      - "Java Concurrency in Practice Goetz"
+      - "Modern Java in Action"
+  - slug: kafka-streaming-advisor
+    topic: "kafka streaming advisor"
+    engine: claude
+    books:
+      - "Kafka The Definitive Guide"
+      - "Kafka in Action"
+      - "Kafka Streams in Action"
+  - slug: relational-db-performance-advisor
+    topic: "relational database performance advisor"
+    engine: claude
+    books:
+      - "High Performance MySQL"
+      - "SQL Performance Explained"
+      - "PostgreSQL High Performance"
+      - "Database Internals Petrov"

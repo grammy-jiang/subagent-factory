@@ -438,13 +438,22 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
             if sid:
                 claim_sources.add(str(sid))
     if tier >= 2 and len(claim_sources) >= 2:
+        # Step 7 cross-source synthesis is opt-in. A package may explicitly defer it
+        # (`multisource_synthesis: deferred` in profile.yaml) — then the absence is an
+        # acknowledged decision, not a per-validate WARN that buries real findings.
+        synthesis_deferred = (
+            str(profile.get("multisource_synthesis", "")).strip().lower() == "deferred"
+        )
         for art in ("principle-clusters.json", "principle-graph.json"):
             if (base / "principles" / art).exists():
                 ok("multisource-synthesis", f"{art} present")
+            elif synthesis_deferred:
+                ok("multisource-synthesis", f"{art} deferred (multisource_synthesis: deferred)")
             else:
                 warn(
                     "multisource-synthesis",
-                    f"Tier-2 multi-source package has no principles/{art} — run Step 7 synthesis",
+                    f"Tier-2 multi-source package has no principles/{art} — run Step 7 "
+                    "synthesis or set multisource_synthesis: deferred",
                 )
 
     # Step 8: skill/reference body authoring — status-gated. FAIL only when the profile

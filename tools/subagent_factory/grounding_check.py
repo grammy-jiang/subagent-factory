@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import json
 import re
+import statistics
 import sys
 from collections import Counter
 from pathlib import Path
@@ -31,6 +32,56 @@ from tools.subagent_factory.claim_recall import _STOPWORDS, _content_tokens
 
 _MIN_SALIENCE = 2  # a review bigram must appear at least this many times to be "leaned on"
 _TOP_LEAK = 15
+
+# Denoise: a concept bigram is "generic" (common engineering vocab, not a distinctive borrow) when
+# it is grounded in >= _GENERIC_DF packages' sources, OR both its tokens are universal qualifiers.
+# Generic bigrams are excluded from coverage, leaks, and cross-source attribution so the score
+# reflects *distinctive* concept grounding and borrows name a real source, not a phrase collision
+# (e.g. "correctness performance" was falsely attributed to xv6-kernel-internals-reviewer).
+_GENERIC_DF = 3
+_GENERIC_TOKENS = frozenset(
+    {
+        "correctness",
+        "performance",
+        "quality",
+        "issue",
+        "issues",
+        "error",
+        "errors",
+        "result",
+        "results",
+        "impact",
+        "before",
+        "after",
+        "apply",
+        "applying",
+        "applied",
+        "highest",
+        "lowest",
+        "overall",
+        "general",
+        "various",
+        "multiple",
+        "several",
+        "important",
+        "simple",
+        "complex",
+        "good",
+        "better",
+        "best",
+        "proper",
+        "common",
+        "clear",
+        "strong",
+        "high",
+        "low",
+        "large",
+        "small",
+        "main",
+        "core",
+        "key",
+    }
+)
 
 
 def _token_seq(text: str) -> list[str]:
@@ -68,22 +119,23 @@ def _grounded_vocab(base: Path) -> tuple[set[str], set[str]]:
     return set(_content_tokens(blob)), set(_bigrams(blob))
 
 
-def _sibling_concept_index(root: Path, exclude: str) -> dict[str, list[str]]:
-    """{bigram -> [sibling slug whose source contains that exact bigram]} across the corpus.
+def _corpus_bigram_map(root: Path) -> dict[str, set[str]]:
+    """{bigram -> {package slugs whose grounded source contains that exact bigram}} (incl self).
 
-    Exact-bigram match (not the lenient both-token rule) so the cross-source signal is precise: a
-    leak term found here is a named expert concept that *another* distilled source actually uses —
-    high-confidence borrow, and it names the source to add (the eval-driven multi-source recipe).
+    One pass over the corpus serves two jobs: document-frequency (genericness — a bigram in many
+    sources is common vocab) and cross-source attribution (a distinctive leak found in exactly one
+    *other* source names the source to add — the eval-driven multi-source recipe). Exact-bigram
+    match keeps the borrow signal precise.
     """
-    index: dict[str, list[str]] = {}
+    index: dict[str, set[str]] = {}
     if not root.exists():
         return index
     for pkg in sorted(root.iterdir()):
-        if not pkg.is_dir() or pkg.name == exclude or not (pkg / "profile.yaml").exists():
+        if not pkg.is_dir() or not (pkg / "profile.yaml").exists():
             continue
-        _, sib_bi = _grounded_vocab(pkg)
-        for bg in sib_bi:
-            index.setdefault(bg, []).append(pkg.name)
+        _, pkg_bi = _grounded_vocab(pkg)
+        for bg in pkg_bi:
+            index.setdefault(bg, set()).add(pkg.name)
     return index
 
 
@@ -111,36 +163,97 @@ def grounding_check(
         a, b = bg.split(" ", 1)
         return a in uni and b in uni
 
-    grounded_terms = {bg for bg in concept if grounded(bg)}
+    cmap = _corpus_bigram_map(base.parent) if cross_source else {}
+
+    def is_generic(bg: str) -> bool:
+        if len(cmap.get(bg, ())) >= _GENERIC_DF:
+            return True
+        a, b = bg.split(" ", 1)
+        return a in _GENERIC_TOKENS and b in _GENERIC_TOKENS
+
+    # Distinctive concept vocab = the reviewer's own concept bigrams minus common/corpus-generic
+    # ones, so coverage measures *distinctive* concept grounding and leaks/borrows are meaningful.
+    distinctive = {bg: n for bg, n in concept.items() if not is_generic(bg)}
+    n_generic_dropped = len(concept) - len(distinctive)
+
+    grounded_terms = {bg for bg in distinctive if grounded(bg)}
     leak = sorted(
-        ((bg, n) for bg, n in concept.items() if bg not in grounded_terms),
+        ((bg, n) for bg, n in distinctive.items() if bg not in grounded_terms),
         key=lambda kv: -kv[1],
     )
-    coverage = len(grounded_terms) / len(concept) if concept else 1.0
+    coverage = len(grounded_terms) / len(distinctive) if distinctive else 1.0
 
-    # Cross-source: which leak terms are named concepts in ANOTHER subagent's source (precise,
-    # actionable borrows — they name the source to add). Aggregated by sibling for the recipe.
+    # Cross-source: a distinctive leak that ANOTHER source grounds names that source to add
+    # (precise, actionable — the eval-driven multi-source recipe).
     cross_terms: list[tuple[str, int, list[str]]] = []
-    add_source: Counter = Counter()
-    if cross_source:
-        idx = _sibling_concept_index(base.parent, base.name)
-        for bg, n in leak:
-            sibs = idx.get(bg)
-            if sibs:
-                cross_terms.append((bg, n, sibs))
-                for s in sibs:
-                    add_source[s] += n
+    src_bigrams: dict[str, set[str]] = {}
+    for bg, n in leak:
+        sibs = sorted(cmap.get(bg, set()) - {base.name})
+        if sibs:
+            cross_terms.append((bg, n, sibs))
+            for s in sibs:
+                src_bigrams.setdefault(s, set()).add(bg)
+    # Suggest a source only when >= 2 DISTINCT distinctive borrows point to it — a single shared
+    # phrase is a collision (e.g. "architecture review"), not evidence the source is missing.
+    suggested = sorted(
+        ((s, len(bgs)) for s, bgs in src_bigrams.items() if len(bgs) >= 2),
+        key=lambda kv: (-kv[1], kv[0]),
+    )[:3]
     return {
         "coverage": round(coverage, 3),
-        "n_concept_terms": len(concept),
+        "n_concept_terms": len(distinctive),
         "n_grounded": len(grounded_terms),
         "n_leak": len(leak),
+        "n_generic_dropped": n_generic_dropped,
         "n_doc_quoted_dropped": len(salient) - len(concept),
         "grounded_vocab_size": len(uni),
         "leak_terms": leak[:_TOP_LEAK],
         "cross_source_terms": cross_terms[:_TOP_LEAK],
-        "suggested_sources": add_source.most_common(3),
+        "suggested_sources": suggested,
     }
+
+
+_BASELINE_PATH = Path(__file__).with_name("grounding_baseline.json")
+
+
+def load_baseline(path: Path | None = None) -> list[dict]:
+    """Recorded (slug, doc, coverage) calibration points. Absolute coverage is only interpretable
+    relative to this distribution — the *rank* is the signal, not the raw %."""
+    p = path or _BASELINE_PATH
+    if not p.exists():
+        return []
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    return data if isinstance(data, list) else []
+
+
+def baseline_band(
+    coverage: float, records: list[dict] | None = None, path: Path | None = None
+) -> dict | None:
+    """Where a coverage sits in the recorded baseline: floor / median / ceiling + percentile."""
+    recs = records if records is not None else load_baseline(path)
+    covs = sorted(float(r["coverage"]) for r in recs if "coverage" in r)
+    if not covs:
+        return None
+    return {
+        "n": len(covs),
+        "floor": covs[0],
+        "median": statistics.median(covs),
+        "ceiling": covs[-1],
+        "percentile": round(100 * sum(1 for c in covs if c <= coverage) / len(covs)),
+    }
+
+
+def record_baseline(
+    slug: str, coverage: float, doc: str | None = None, path: Path | None = None
+) -> None:
+    """Append a measured coverage point so the calibration baseline grows with each eval."""
+    p = path or _BASELINE_PATH
+    recs = load_baseline(p)
+    recs.append({"slug": slug, "doc": doc or "", "coverage": round(float(coverage), 3)})
+    p.write_text(json.dumps(recs, indent=2) + "\n", encoding="utf-8")
 
 
 def main() -> None:
@@ -154,9 +267,9 @@ def main() -> None:
     r = grounding_check(sys.argv[1], sys.argv[2], doc)
     print(
         f"grounding coverage {r['coverage']:.0%} "
-        f"({r['n_grounded']}/{r['n_concept_terms']} reviewer-concept bigrams grounded; "
-        f"{r['n_leak']} leak candidates; {r['n_doc_quoted_dropped']} doc-quoted dropped; "
-        f"grounded-vocab {r['grounded_vocab_size']} tokens)"
+        f"({r['n_grounded']}/{r['n_concept_terms']} distinctive concept bigrams grounded; "
+        f"{r['n_leak']} leak candidates; {r['n_generic_dropped']} generic dropped; "
+        f"{r['n_doc_quoted_dropped']} doc-quoted dropped; grounded-vocab {r['grounded_vocab_size']} tokens)"
     )
     if r["cross_source_terms"]:
         print("cross-source borrows (concept is in another subagent's source — high-confidence):")

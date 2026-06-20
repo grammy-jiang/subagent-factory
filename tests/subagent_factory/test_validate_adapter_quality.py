@@ -3,8 +3,13 @@
 from tools.subagent_factory.validate_adapter_quality import validate_adapter_quality
 
 _HEADER = "<!-- GENERATED FILE. DO NOT EDIT DIRECTLY. -->\n"
+_FRONT = (
+    '---\nname: demo\ndescription: "Expert reviewer of demo things"\n'
+    "tools: Read, Grep, Glob\nmodel: sonnet\n---\n"
+)
 _GOOD = (
-    _HEADER
+    _FRONT
+    + _HEADER
     + "\n# demo\n\n## Role\n\nExpert reviewer of demo things with real substance.\n\n"
     + "## When to use\n\nWhen the user needs a demo review of their work.\n\n"
     + "## Supported modes and outputs\n\n### `review`\n\nReviews stuff.\n\n"
