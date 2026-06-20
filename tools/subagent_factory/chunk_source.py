@@ -1,0 +1,226 @@
+"""Deterministic structure-aware chunker for staged book Markdown (per-book MAP-inner).
+
+Splits a `pymupdf4llm`-converted book (which carries ATX `#` headings) into contiguous,
+heading-aligned chunks sized for deep per-chunk claim extraction — the MAP-inner unit of the
+per-book authoring upgrade (`docs/per-book-authoring-upgrade.md`). Whole-book-in-one-prompt is
+infeasible for the real corpus (200k-880k tok) and degrades extraction (flat reading loses recall
+past ~800 tok); a structure-aware chunk carrying its heading breadcrumb + a neighbour-overlap is the
+recall-preserving unit (long-document-structure-mapping research: neighbour context recovers
+boundary-spanning units, ~3.6% overhead).
+
+Deterministic — NO LLM (factory determinism boundary). Content-addressed by sha256 of the source
+bytes, so a book chunked on any machine yields identical chunk ids.
+
+Library:
+    chunk_markdown(text, target_tokens=24000, overlap_chars=1500) -> list[Chunk]
+CLI:
+    python -m tools.subagent_factory.chunk_source <staged.md> [--out cache/book-extracts]
+        [--target-tokens 24000] [--overlap-chars 1500]
+    -> writes <out>/<sha>/source.md, <out>/<sha>/chunks/<chunk_id>.md, <out>/<sha>/chunks.jsonl
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import re
+from dataclasses import dataclass
+from pathlib import Path
+
+_HEADING = re.compile(r"^(#{1,6})[ \t]+(.+?)[ \t]*#*$")
+_CHARS_PER_TOKEN = 4  # rough estimate, consistent with the rest of the factory
+
+
+@dataclass
+class Chunk:
+    """One heading-aligned chunk: metadata + the text actually fed to extraction."""
+
+    chunk_id: str  # "<sha12>-c0001"
+    index: int
+    heading_path: str  # "Part II > Chapter 3 > 3.2 Foo" (breadcrumb), or "(preamble)"
+    char_start: int  # offset of the chunk body in the source
+    char_end: int
+    est_tokens: int  # of the fed text (breadcrumb + overlap + body)
+    text: str
+
+
+def _iter_segments(text: str) -> list[tuple[list[str], int, str]]:
+    """Split into (heading_path, char_start, body) segments at every heading boundary.
+
+    Each segment begins with its own heading line (or is the pre-heading preamble) and carries the
+    full heading breadcrumb (stack of ancestor titles) active at that point.
+    """
+    segments: list[tuple[list[str], int, str]] = []
+    stack: list[tuple[int, str]] = []
+    seg_lines: list[str] = []
+    seg_path: list[str] = []
+    seg_start = 0
+    offset = 0
+    started = False
+    for line in text.splitlines(keepends=True):
+        m = _HEADING.match(line.rstrip("\n"))
+        if m:
+            if seg_lines:
+                segments.append((seg_path, seg_start, "".join(seg_lines)))
+            level = len(m.group(1))
+            title = m.group(2).strip()
+            while stack and stack[-1][0] >= level:
+                stack.pop()
+            stack.append((level, title))
+            seg_path = [t for _, t in stack]
+            seg_lines = [line]
+            seg_start = offset
+            started = True
+        else:
+            if not started:
+                seg_path = []
+                seg_start = offset
+                started = True
+            seg_lines.append(line)
+        offset += len(line)
+    if seg_lines:
+        segments.append((seg_path, seg_start, "".join(seg_lines)))
+    return segments
+
+
+def _split_oversize(
+    path: list[str], start: int, body: str, target_chars: int
+) -> list[tuple[list[str], int, str]]:
+    """Split a single over-target segment into <=target paragraph groups (keeps paragraphs whole)."""
+    out: list[tuple[list[str], int, str]] = []
+    cur: list[str] = []
+    cur_len = 0
+    cur_start = start
+    offset = start
+    for para in body.split("\n\n"):
+        piece = para + "\n\n"
+        if cur and cur_len + len(piece) > target_chars:
+            out.append((path, cur_start, "".join(cur)))
+            cur, cur_len, cur_start = [], 0, offset
+        cur.append(piece)
+        cur_len += len(piece)
+        offset += len(piece)
+    if cur:
+        out.append((path, cur_start, "".join(cur)))
+    return out
+
+
+def chunk_markdown(
+    text: str, *, target_tokens: int = 24000, overlap_chars: int = 1500
+) -> list[Chunk]:
+    """Chunk staged Markdown into heading-aligned, <=target-token pieces with neighbour overlap."""
+    target_chars = max(target_tokens, 1) * _CHARS_PER_TOKEN
+    sha12 = hashlib.sha256(text.encode("utf-8")).hexdigest()[:12]
+
+    pieces: list[tuple[list[str], int, str]] = []
+    for path, start, body in _iter_segments(text):
+        if len(body) <= target_chars:
+            pieces.append((path, start, body))
+        else:
+            pieces.extend(_split_oversize(path, start, body, target_chars))
+
+    # Greedily pack consecutive pieces up to target; the chunk's path is its first piece's path.
+    packed: list[tuple[list[str], int, str]] = []
+    cur: tuple[list[str], int, list[str]] | None = None
+    cur_len = 0
+    for path, start, body in pieces:
+        if cur is None:
+            cur, cur_len = (path, start, [body]), len(body)
+        elif cur_len + len(body) <= target_chars:
+            cur[2].append(body)
+            cur_len += len(body)
+        else:
+            packed.append((cur[0], cur[1], "".join(cur[2])))
+            cur, cur_len = (path, start, [body]), len(body)
+    if cur is not None:
+        packed.append((cur[0], cur[1], "".join(cur[2])))
+
+    chunks: list[Chunk] = []
+    prev_body = ""
+    for i, (path, start, body) in enumerate(packed):
+        breadcrumb = " > ".join(path) if path else "(preamble)"
+        header = f"<!-- chunk {i} context: {breadcrumb} -->\n\n"
+        if overlap_chars and prev_body:
+            tail = prev_body[-overlap_chars:]
+            header += f"<!-- neighbour-overlap (prev chunk tail, for context only) -->\n{tail}\n<!-- begin new content -->\n\n"
+        fed = header + body
+        chunks.append(
+            Chunk(
+                chunk_id=f"{sha12}-c{i:04d}",
+                index=i,
+                heading_path=breadcrumb,
+                char_start=start,
+                char_end=start + len(body),
+                est_tokens=len(fed) // _CHARS_PER_TOKEN,
+                text=fed,
+            )
+        )
+        prev_body = body
+    return chunks
+
+
+def write_book_module(
+    source_md: Path, out_root: Path, *, target_tokens: int = 24000, overlap_chars: int = 1500
+) -> dict:
+    """Chunk a staged book md into a content-addressed `cache/book-extracts/<sha>/` module."""
+    raw = source_md.read_bytes()
+    sha = hashlib.sha256(raw).hexdigest()
+    text = raw.decode("utf-8", errors="replace")
+    chunks = chunk_markdown(text, target_tokens=target_tokens, overlap_chars=overlap_chars)
+
+    base = out_root / sha
+    (base / "chunks").mkdir(parents=True, exist_ok=True)
+    (base / "source.md").write_bytes(raw)
+    manifest_lines: list[str] = []
+    for c in chunks:
+        text_path = f"chunks/{c.chunk_id}.md"
+        (base / text_path).write_text(c.text, encoding="utf-8")
+        manifest_lines.append(
+            json.dumps(
+                {
+                    "chunk_id": c.chunk_id,
+                    "index": c.index,
+                    "heading_path": c.heading_path,
+                    "char_start": c.char_start,
+                    "char_end": c.char_end,
+                    "est_tokens": c.est_tokens,
+                    "text_path": text_path,
+                },
+                ensure_ascii=False,
+            )
+        )
+    (base / "chunks.jsonl").write_text("\n".join(manifest_lines) + "\n", encoding="utf-8")
+    total_tok = sum(c.est_tokens for c in chunks)
+    return {
+        "sha": sha,
+        "source": str(source_md),
+        "title": source_md.stem,
+        "n_chunks": len(chunks),
+        "est_tokens": total_tok,
+        "module": str(base),
+    }
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="Deterministic structure-aware Markdown chunker.")
+    ap.add_argument("source", type=Path, help="staged book markdown")
+    ap.add_argument("--out", type=Path, default=Path("cache/book-extracts"))
+    ap.add_argument("--target-tokens", type=int, default=24000)
+    ap.add_argument("--overlap-chars", type=int, default=1500)
+    args = ap.parse_args()
+    if not args.source.is_file():
+        print(f"not a file: {args.source}")
+        return 2
+    info = write_book_module(
+        args.source,
+        args.out,
+        target_tokens=args.target_tokens,
+        overlap_chars=args.overlap_chars,
+    )
+    print(json.dumps(info))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
