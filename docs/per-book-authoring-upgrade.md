@@ -91,11 +91,35 @@ papers injected by verified arXiv-ID — before being used.)
 - **Do NOT import rag-graphrag's "fixed-size chunking is fine"** into the MAP — that is a *runtime
   retrieval* result; *extraction recall* needs structure-aware chunks (a different objective).
 
+**REDUCE contract — from the full knowledge-fusion read.** The merge is three staged operations, each
+*deterministic recall → LLM precision*, with explicit inter-stage artifacts:
+- **ALIGN/DEDUP → `cluster_id → members`** (+ inter-principle relations). Recall = normalize +
+  **union of complementary blocking keys** (one key is insufficient; keys must be recall-complete) +
+  dense/FAISS centroid; the LLM filter only confirms/re-weights, **claim-conditionally**, never invents
+  a link. [2109.07401, 1609.06265, 2603.24246, 1906.03538]
+- **DETECT → `(pair, conflict_type)`** via a **3-way SUPPORTS/REFUTES/NEI** stance head over a doc-NLI
+  backbone (keep REFUTES distinct from neutral), **credibility-agnostic** for modularity; type each
+  conflict **retrieval-verifiable** (→ deterministic authoritative lookup) vs **retrieval-resistant**
+  (→ reconcile). Never a bare-LLM verdict. [2106.09449, 2103.08541, 2403.08319, 2510.03418]
+- **RECONCILE → principle graph**, routed by conflict nature, **default multi-truth** (keep several
+  co-valid principles; collapse to one only when the topic genuinely admits one). *Factual:*
+  accuracy-weighted, **copy-discounted** — `score(v|o) = Σ_s (1−c(s))·log(A(s)/(1−A(s)))`, so N
+  near-duplicate books can't outvote one authority (re-attach source trust **here**, not at detect)
+  [1503.00310, 1708.02018]. *Normative (value/policy):* **social choice** (principles as voters; dedup
+  clones first; Arrow / Gibbard–Satterthwaite ⇒ some conflicts irreducible → keep both) + AGM/IC belief
+  merge-revise [2404.10271, 1404.6445, 2112.13557].
+- Evaluate the seam with a **metric family** (pairwise-F1 + closest-cluster / Variation-of-Information);
+  aggregator swappable [1509.04238, 1409.6428].
+
+**Honest limit (the report's decisive residual risk):** every contradiction method is demonstrated on
+synthetic / claim-anchored data, none on principles distilled from books, and normative reconciliation
+is theory-only → an in-the-wild principle-pair benchmark is needed before DETECT/RECONCILE are trusted.
+
 **Reports reviewed (read status, 2026-06-20).**
-- **Deep-read + folded (3 full, 1 partial):** `long-document-structure-mapping` (full),
-  `argument-mining-claim-extraction` (full, 826-ln canonical), `rag-graphrag` (full),
-  `knowledge-fusion-conflict-detection` (regenerated PASS 1.00 — folded from its `SUMMARY.md` §4 cited
-  findings + Round-History/Gaps; the full 590-ln body was **not** re-read end-to-end).
+- **Deep-read + folded (4 full):** `long-document-structure-mapping`, `argument-mining-claim-extraction`
+  (826-ln canonical), `rag-graphrag`, and `knowledge-fusion-conflict-detection` (regenerated PASS 1.00,
+  full 590-ln report) — **all read end-to-end.** Knowledge-fusion's full-read detail is folded as the
+  *REDUCE contract* above.
 - **Health-scanned clean but NOT yet content-folded** (relevant to *other* levers — fold if/when those
   are built): `factual-consistency-faithfulness` (faith steps), `behaviour-test-generation` (MAP test
   seeds), `knowledge-graph-ontology-construction` (Step-7 graph),
@@ -279,3 +303,4 @@ Claude), and `compacted` are recorded per step (see *Logging* above), so a run i
 - **Bloat (mirror of dilution)** — more claims can yield a worse, unfocused reviewer; REDUCE must rank-and-**select**, not accumulate. Anti-dilution (deep MAP) + anti-bloat (selection) together.
 - **Normative conflicts have no settled algorithm** (*knowledge-fusion* G1) — don't auto-resolve value/policy conflicts; preserve both with scope/condition. Cross-source contradiction detection is near-chance for bare LLMs → surface, don't trust.
 - **Count ≠ recall** — gate on claim-**recall** coverage vs a reference set + advice (semantic grader), not raw claim count (which can be padded/trivia).
+- **Merge methods are method-ready, not validated on *our* artifact** — cross-source contradiction evidence is synthetic/claim-anchored, normative reconcile is theory-only (*knowledge-fusion* decisive risk); needs an in-the-wild principle-pair benchmark before DETECT/RECONCILE are trusted.
