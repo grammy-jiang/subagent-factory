@@ -226,5 +226,16 @@ less globally than a batch.
 tolerates more than Copilot), then *grow* by adding 1–3 books incrementally (`add-source.sh`), gated
 on `grounding-richness`; stop when richness plateaus. Not one mega-batch; not strictly one-by-one.
 
-**Caveat:** N=2 packages, 1 run/method — deterministic but small. A clean controlled test (same N
-books as 1 batch vs N incremental adds, richness compared) would confirm.
+**Confirmed (controlled experiment, 2026-06-20):** authored software-architecture books from scratch
+at batch sizes 1 / 3 / 5 (throwaway slugs, Claude, same book pool):
+
+| batch | books | claims | **claims/book** |
+|-------|------:|-------:|----------------:|
+| 1 | 1 | 34 | **34.0** |
+| 3 | 3 | 37 | **12.3** |
+| 5 | 5 | 45 | **9.0** |
+
+Monotonic, steep: total claims barely rise (34→37→45) while books grow 5× → a single author pass
+spreads extraction thinner across more sources. ~4× more claims/book at n=1 vs n=5. (1 run/arm, so
+treat magnitudes as indicative; the *direction* is unambiguous.) → motivates the per-book
+map→merge authoring upgrade (`docs/per-book-authoring-upgrade.md`).
