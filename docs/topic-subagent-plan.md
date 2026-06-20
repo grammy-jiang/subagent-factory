@@ -11,10 +11,13 @@ on 2026-06-19.
 | `999-Computer-Books` | 998 PDF | flat `c(N).pdf`; titles in README.md; broad/older CS |
 | `Computer-Science-Reference-Books` | 494 PDF | flat `comp(N).pdf`; titles in README.md; textbook-heavy |
 | `awesome-book-collection` | 165 PDF + 12 epub | **already topic-foldered**; modern canon (DDIA, Clean Arch) |
+| `books` | 52 PDF | **topic-foldered + curated canon** (added 2026-06-20): TCP/IP Illustrated, Site Reliability Engineering, Definitive Guide to SQLite, SQL Performance Explained, High Performance MySQL, Kafka/K8s/Redis/Cassandra. Highest signal-per-file; the cleanest corpus. |
 | `subagent-factory` | 490 PDF | already-ingested sources — excluded |
 
-1625 unique titles after dedupe. ~1097 map to a CS topic; ~528 are tangential (GIS, ed-tech,
-business, electrical eng) and ignored.
+1625 unique titles after dedupe (pre-`books/`). ~1097 map to a CS topic; ~528 are tangential
+(GIS, ed-tech, business, electrical eng) and ignored. `books/` adds the canonical/curated layer
+that the flat collections lacked (e.g. it supplies the only SQLite + Google-SRE + TCP/IP-Illustrated
+copies), and its descriptive folder/filenames make it the easiest corpus for the resolver.
 
 ## 2. Topic map (corpus depth = how strongly a topic can be grounded)
 

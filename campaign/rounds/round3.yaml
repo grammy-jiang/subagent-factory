@@ -1,0 +1,24 @@
+# Round 3 — postgresql-sqlite-advisor: a database schema-design & fundamentals advisor that fits
+# PostgreSQL and SQLite. Rich 10-source set on Claude full (Copilot 2a would cap at this size, so
+# no pool split). Explicit paths (awesome-relative, /abs CSR, /abs books). Supersedes the existing
+# postgres-query-performance-advisor after it validates.
+stagger: 75
+packages:
+  - slug: postgresql-sqlite-advisor
+    topic: "database schema design and fundamentals advisor, specialized for PostgreSQL and SQLite"
+    engine: claude
+    books:
+      # fundamentals + schema design (3)
+      - path: "/home/grammy-jiang/projects/Computer-Science-Reference-Books/comp(3).pdf"        # Fundamentals of Database Systems (Elmasri)
+      - path: "/home/grammy-jiang/projects/Computer-Science-Reference-Books/comp(308).pdf"      # Database System Concepts (Silberschatz)
+      - path: "/home/grammy-jiang/projects/Computer-Science-Reference-Books/comp(230).pdf"      # Database Design for Mere Mortals
+      # PostgreSQL (4)
+      - path: "/home/grammy-jiang/projects/books/databases/postgresql/PostgreSQL Up and Running.pdf"
+      - path: "/home/grammy-jiang/projects/Computer-Science-Reference-Books/comp(312).pdf"      # Mastering PostgreSQL 10
+      - path: "Databases/postgresql/Effective_Indexing_in_Postgres.pdf"
+      - path: "Databases/postgresql/pganalyze_Best-Practices-for-Optimizing-Postgres-Query-Performance.pdf"
+      # SQLite (1)
+      - path: "/home/grammy-jiang/projects/books/databases/sqlite/The Definitive Guide to SQLite.pdf"
+      # cross-engine (2)
+      - path: "/home/grammy-jiang/projects/books/databases/SQL Performance Explained.pdf"
+      - path: "Databases/Alex Petrov - Database Internals_ A Deep Dive into How Distributed Data Systems Work-O'Reilly Media (2019).pdf"

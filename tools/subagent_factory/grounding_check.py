@@ -256,6 +256,37 @@ def record_baseline(
     p.write_text(json.dumps(recs, indent=2) + "\n", encoding="utf-8")
 
 
+def grounding_richness(subagent_dir: str | Path) -> dict:
+    """Deterministic, run-independent grounding size of a package: claim + principle counts plus
+    grounded vocabulary (unigrams/bigrams from principles + claims). Unlike review-coverage this
+    needs no LLM review or reviewed doc, so it is the reliable before/after gate for a strengthen:
+    adding a source must GROW these, never shrink them (the Round-4 full-reauthor shrank devops
+    72->50 claims under Copilot's cap — this measure caught it cleanly).
+    """
+    base = Path(subagent_dir)
+    uni, bi = _grounded_vocab(base)
+    cl = base / "analysis" / "claims.jsonl"
+    nclaims = (
+        sum(1 for ln in cl.read_text(encoding="utf-8").splitlines() if ln.strip())
+        if cl.exists()
+        else 0
+    )
+    nprin = 0
+    pp = base / "principles" / "principles.yaml"
+    if pp.exists():
+        try:
+            data = yaml.safe_load(pp.read_text(encoding="utf-8")) or {}
+            nprin = len(data.get("principles") or [])
+        except yaml.YAMLError:
+            nprin = 0
+    return {
+        "claims": nclaims,
+        "principles": nprin,
+        "grounded_unigrams": len(uni),
+        "grounded_bigrams": len(bi),
+    }
+
+
 def main() -> None:
     if len(sys.argv) < 3:
         print(

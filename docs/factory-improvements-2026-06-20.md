@@ -115,3 +115,41 @@ The eval exposed two **grounding-check** defects, both fixed in `grounding_check
 
 Method caveat still open: no absolute-coverage **calibration baseline** — the *rank* across packages
 is the usable signal, not the absolute %.
+
+---
+
+## Round-4 strengthen review (same day) — the grounding-gate + strengthen-method finding
+
+Round 4 re-authored two existing packages over expanded source sets (arch +scalability, devops
++SRE-book/RCA) to "strengthen" them. The grounding-gate (review-coverage) flagged devops dropping
+13%→8%. Investigation with a **deterministic** measure (claims/principles/grounded-vocab, no LLM)
+showed it was **real, not noise**:
+
+| | v0.2.0 | full-reauthor v0.3.0 |
+|--|--:|--:|
+| devops | 72 claims / 1346 bigrams | **50 / 1062** (Copilot 2a cap under-extracted 7 sources) |
+| arch | 24 / 697 | 29 / 631 (claims up, vocab down — non-deterministic) |
+
+**Root cause:** "strengthen via **full re-author**" is the wrong method — it regenerates *all*
+claims/principles, so before/after = (source change) + (LLM author variance), and you can't
+attribute a gain to the added books. Compounded by **Copilot's ~27-req 2a cap under-extracting a
+larger source set** (fixed budget ÷ more sources → fewer claims). The review-coverage gate looked
+"unreliable" because the *method it gates* is non-deterministic.
+
+**Fixes built:**
+- **`cli grounding-richness <slug> [--vs DIR]`** — deterministic, run-independent grounding size
+  (claims/principles/grounded vocab) + before/after delta + PASS/FAIL. The reliable strengthen gate
+  (review-coverage stays advisory). It cleanly caught devops 72→50.
+- **Incremental-update path** — `campaign/maintenance-prompt.tmpl` + `campaign/add-source.sh` drive
+  the `subagent-maintenance` "add a new source" flow on Claude: ingest only the new source(s),
+  append their claims, merge principles, keep existing — so grounding can only GROW. This is the
+  correct way to "strengthen" (vs full re-author).
+- `examples/review-with-subagents.sh` default reviewers updated (named retired slugs).
+
+**Process gotcha (reconfirmed):** `nohup … &` inside a harness-tracked background call reports the
+*wrapper* as "completed" while the real work runs detached — hit again on the gate eval; the fix is
+to run the long command directly under the tracked background (no nested nohup).
+
+**Decision:** reverted both packages to v0.2.0 (full-reauthor v0.3.0 not demonstrably better;
+devops measurably thinner). Re-strengthening **incrementally on Claude**, gated by
+`grounding-richness`; A/B comparing the two methods (full-reauthor vs incremental vs v0.2.0).
