@@ -358,6 +358,17 @@ cross-book) comes from selection. Tools: `precision_filter_p0.py` (emit/apply) +
 + `precision-filter-prompt.tmpl` (headless LLM confirm/split/conflict; P2 keeps this as the merge's
 precision stage).
 
+**P2 spike — anchor reconciliation PASS (the one real unknown).** Emitted chunk-level anchors
+(`anchor_type: paragraph`, one per chunk) for all 9 modules (`emit_anchors_p0.py`) →
+`validate_anchor_index` **0 errors**, and **all 2,420 claims' `source_anchors` resolve** (0
+unresolved). So P0's chunk-based provenance maps cleanly onto the factory's `source-anchor-index-v1`
+(chunks = paragraph anchors — coarser than the baseline's heading anchors, but valid + resolvable).
+The genuine risk in turning a focused set into a validate-passing package is removed. Remaining for a
+full validate pass is **mechanical P2-full assembly** with existing tools, no unknowns: evidence-records
+(deterministic, per backing claim), faithfulness-report (LLM review — required), profile (profile-deriver),
+golden/behaviour tests, skills (per-principle), adapter export, sources/ copy, and keeping
+`derived_from_claims` ↔ the renumbered `claims.jsonl` consistent.
+
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
 - **Global principle merge is one pass** — lighter than extraction, but if it dilutes too it may need chunking; the P0 prototype will show.
