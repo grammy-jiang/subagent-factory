@@ -342,8 +342,21 @@ principles** retaining **~96% of grounded bigrams** (42,076 of the deduped 43,92
 baseline: **50 principles (2.5×), 42,076 bigrams (32×), 2,420 claims (57×)** — the richness win is
 *retained* while the 214-principle bloat is tamed to a sane adapter size. The bloat question is
 answered: **dedup + select → focused *and* rich.** Remaining for a shippable package: (a) LLM
-**precision filter** to confirm/split the 27 cross-book clusters (merge quality), (b) **advice A/B**
+**precision filter** to confirm/split the cross-book clusters (merge quality), (b) **advice A/B**
 (measure 6) — assemble an adapter from the focused 50 and behaviour-replay it vs the v0.3.0 baseline.
+
+**LLM precision filter (#2) built — recall over-merges; the filter is essential.** Over the 51
+candidate clusters (embedding cos≥0.55), the LLM filter decided **45 split, 5 confirm, 1 conflict**
+(the 13-member cluster → 10 subgroups). So embedding recall mostly **false-merged** — it grouped
+same-*topic* but operationally-*distinct* principles. Applying the decisions raised the true-distinct
+count from the naive **214 → 289** (the filter rescued ~75 wrongly-fused principles); only ~14 genuine
+merges remain → **cross-book duplication is low; the 9 books are complementary, not redundant.** Two
+reframes: (1) **recall-then-filter is vindicated** — loose recall over-proposes, the LLM filter
+rejects the false merges; naive embedding-dedup *alone* is wrong. (2) **Importance selection, not
+dedup, is the bloat lever** — dedup barely shrinks the distinct set; the focused 50 (12 true
+cross-book) comes from selection. Tools: `precision_filter_p0.py` (emit/apply) + `precision_filter.sh`
++ `precision-filter-prompt.tmpl` (headless LLM confirm/split/conflict; P2 keeps this as the merge's
+precision stage).
 
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
