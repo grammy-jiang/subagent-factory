@@ -199,3 +199,32 @@ A/B of two ways to add a source to an existing package, measured by **grounding-
 - **Recipe:** strengthen via `subagent-maintenance` "add a new source" (`campaign/add-source.sh`) on
   Claude — never a full re-author. Gate on grounding-richness growing. (See the auto-memory
   `incremental-add-source-recipe` for the claim-append flow + validator gotchas.)
+
+## Finding (2026-06-20): per-run extraction dilution — smaller source-sets extract deeper
+
+Side-observation from the incremental A/B: **claims extracted per book rises as the number of
+sources in one author run falls** — and it holds **on Claude (no Copilot cap)**, so it is not only
+an engine artifact:
+
+| run | engine | books | claims | claims/book |
+|---|---|---:|---:|---:|
+| arch v0.2.0 (batch) | Claude | 7 | 24 | 3.4 |
+| arch incremental add | Claude | 2 | +18 | **9.0** |
+| devops batch re-author | Copilot | 7 | 50 | 7.1 |
+| devops incremental add | Claude | 2 | +29 | **14.5** |
+
+**Mechanism (hypothesis):** a single author pass has finite per-run extraction attention/budget;
+over many sources it extracts shallower per book, over few it goes deeper. Copilot's ~27-request 2a
+cap is an extreme case, but the dilution shows on Claude too (arch 3.4 vs 9.0 claims/book).
+
+**Implication:** for **grounding coverage**, feed books in **small increments**, not one mega-batch.
+Limits: it maximises grounding *richness*, **not proven advice quality**; past a point more claims
+risk a **bloated/unfocused** package; pure one-at-a-time costs N× runs and may cross-link principles
+less globally than a batch.
+
+**Practical rule:** *create* with a focused core (≤~5 books/run so the engine extracts fully; Claude
+tolerates more than Copilot), then *grow* by adding 1–3 books incrementally (`add-source.sh`), gated
+on `grounding-richness`; stop when richness plateaus. Not one mega-batch; not strictly one-by-one.
+
+**Caveat:** N=2 packages, 1 run/method — deterministic but small. A clean controlled test (same N
+books as 1 batch vs N incremental adds, richness compared) would confirm.
