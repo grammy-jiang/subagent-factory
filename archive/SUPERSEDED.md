@@ -22,3 +22,17 @@ Design Patterns). The three retired packages were each book-scoped and overlappe
   `python -m tools.subagent_factory.cli export <slug>`.
 - Residual mentions in `docs/` and synthetic test fixtures are historical records, intentionally
   left intact.
+
+## 2026-06-20 — postgresql-sqlite-advisor supersedes postgres-query-performance-advisor
+
+Retired in favour of **`postgresql-sqlite-advisor`** (Round 3) — a database schema-design &
+fundamentals advisor (Elmasri, Silberschatz, Database Design for Mere Mortals) fitted to both
+PostgreSQL and SQLite, which covers Postgres query performance plus much more.
+
+| Retired package | Source | Folded into |
+|-----------------|--------|-------------|
+| `postgres-query-performance-advisor` | Best Practices for Optimizing Postgres Query Performance | `postgresql-sqlite-advisor` |
+
+- **Backup:** `archive/superseded-postgres-query-performance-advisor-2026-06-20.zip`.
+- **Adapter removed:** `.claude/agents/generated/postgres-query-performance-advisor.md`.
+- mysql-at-scale-operations + mysql-replication-internals left intact (not in scope).
