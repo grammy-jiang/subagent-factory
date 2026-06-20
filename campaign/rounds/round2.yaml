@@ -1,0 +1,18 @@
+# Round 2 spec (used to validate the resolver reproduces the hand-picked sources).
+stagger: 75
+packages:
+  - slug: python-code-reviewer
+    topic: "python code reviewer"
+    engine: claude
+    books:
+      - "Fluent Python Ramalho"
+      - "Python Distilled Beazley"
+  - slug: devops-sre-advisor
+    topic: "devops and SRE advisor"
+    engine: copilot
+    books:
+      - "The DevOps Handbook"
+      - path: "Software Architecture/Accelerate_ The Science of DevOps ( PDFDrive ).pdf"
+      - "Pipeline as Code Continuous Delivery Jenkins Kubernetes Terraform"
+      - "The Site Reliability Workbook"
+      - "Continuous Delivery and DevOps A Quickstart Guide"

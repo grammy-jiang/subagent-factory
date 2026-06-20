@@ -1,5 +1,6 @@
 """Export a generated subagent package to a Claude Code runtime adapter."""
 
+import json
 import re
 import shutil
 from datetime import UTC, datetime
@@ -11,6 +12,16 @@ from jinja2 import Environment, FileSystemLoader
 _TEMPLATES_DIR = Path(__file__).parent.parent.parent / "templates"
 _REPO_ROOT = Path(__file__).parent.parent.parent
 GENERATOR_VERSION = "0.1.0"
+
+
+def _yaml_scalar(value: str) -> str:
+    """JSON-encode a string into a valid single-line YAML double-quoted scalar.
+
+    JSON strings are valid YAML; this escapes embedded quotes/newlines and (unlike Jinja's
+    ``tojson``) does not HTML-escape ``<>&``. Adapter frontmatter that fails to parse silently
+    un-registers the agent (the tdd regression), so the description must always be well-formed.
+    """
+    return json.dumps("" if value is None else str(value), ensure_ascii=False)
 
 
 def export_claude_agent(subagent_dir: str | Path) -> dict:
@@ -227,8 +238,9 @@ def _build_template_context(profile: dict) -> dict:
     modes = profile.get("outputs", {}).get("modes", [])
     tools = _determine_tools(profile)
 
-    # Build description: role + top triggers + top exclusion (Phase 9 rule).
-    description = _compose_description(profile)
+    # Build description: role + top triggers + top exclusion (Phase 9 rule), JSON-encoded into a
+    # valid single-line YAML scalar so an embedded quote can't break the adapter frontmatter.
+    description = _yaml_scalar(_compose_description(profile))
 
     kp = profile.get("knowledge_partition", {})
     sot = profile.get("source_of_truth_policy", {})

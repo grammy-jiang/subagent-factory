@@ -9,6 +9,8 @@ import tools.subagent_factory.validate_generated_package as vgp
 # A substantive adapter body that passes the adapter-quality gate (header + load-bearing
 # sections + length). Canonical and matching-installed adapters use this identical content.
 _ADAPTER_BODY = (
+    '---\nname: agent\ndescription: "Expert reviewer with real substance"\n'
+    "tools: Read, Grep, Glob\nmodel: sonnet\n---\n"
     "<!-- GENERATED FILE. DO NOT EDIT DIRECTLY. -->\n\n# agent\n\n"
     "## Role\n\nExpert reviewer with real substance.\n\n"
     "## When to use\n\nWhen the user needs a review.\n\n"

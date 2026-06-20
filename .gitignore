@@ -40,3 +40,9 @@ campaign/logs/
 
 # Per-subagent source recipes (point at gitignored generated markdown) — not tracked
 campaign/*.sources
+
+# Staged markdown (pymupdf4llm output) — regenerable from the corpus, not tracked
+campaign/staging/
+
+# Retired-package backups: keep the SUPERSEDED.md record, not the large binary zips
+archive/*.zip

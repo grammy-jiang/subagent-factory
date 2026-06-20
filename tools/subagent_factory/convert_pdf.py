@@ -1,4 +1,4 @@
-"""Convert PDF to Markdown. Chain: Docling → MarkItDown (self-heals) → PyMuPDF."""
+"""Convert PDF to Markdown. Chain: Docling → MarkItDown (self-heals) → PyMuPDF4LLM/PyMuPDF."""
 
 import os
 import re
@@ -243,17 +243,36 @@ def _try_markitdown(src: Path):
 
 
 def _try_pymupdf(src: Path):
-    """Last-resort plain-text extraction (PyMuPDF / fitz). Optional soft dep."""
+    """Fast PyMuPDF extraction. Prefers ``pymupdf4llm.to_markdown`` (recovers heading
+    structure, no ML/OCR wait) and falls back to raw ``fitz`` plain text. Both are soft deps.
+
+    The raw ``get_text()`` path is flat (``headings=0``), which degrades provenance anchoring
+    downstream; pymupdf4llm keeps the heading hierarchy, so it is the preferred fast converter
+    when Docling is unavailable.
+    """
+    pymupdf4llm_err: str | None = None
+    try:
+        import pymupdf4llm
+    except ImportError:
+        pass
+    else:
+        try:
+            return pymupdf4llm.to_markdown(str(src)), "pymupdf4llm", [], []
+        except Exception as e:
+            pymupdf4llm_err = f"pymupdf4llm error: {e}"
+
     try:
         import fitz  # PyMuPDF
     except ImportError:
-        return None, None, [], ["pymupdf not installed"]
+        errs = ["pymupdf not installed"]
+        return None, None, [], ([pymupdf4llm_err] + errs if pymupdf4llm_err else errs)
     try:
         with fitz.open(str(src)) as doc:
             text = "\n\n".join(page.get_text() for page in doc)
-        return text, "pymupdf", [], []
+        return text, "pymupdf", [], ([pymupdf4llm_err] if pymupdf4llm_err else [])
     except Exception as e:
-        return None, None, [], [f"pymupdf error: {e}"]
+        errs = [f"pymupdf error: {e}"]
+        return None, None, [], ([pymupdf4llm_err] + errs if pymupdf4llm_err else errs)
 
 
 def _pdf_page_count(src: Path) -> int | None:
