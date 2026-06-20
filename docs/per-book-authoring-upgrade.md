@@ -1,31 +1,43 @@
 # Per-book authoring upgrade (map → reduce, checkpointed)
 
-**Status:** proposed design (refined 2026-06-20 — added engine routing, context-window budgeting, determinism boundary). Motivated by the **confirmed** per-run
+**Status:** proposed design (refined 2026-06-20 — engine routing, context-window budgeting, determinism boundary; **research-grounded** against 4 prior research reports — see *Research grounding*). Motivated by the **confirmed** per-run
 extraction-dilution finding (`docs/output-quality-eval.md`): one author pass over N books extracts
 far fewer claims **per book** than per-book passes (software-architecture batch 1/3/5 →
 34 / 12.3 / 9.0 claims/book). Incremental `add-source` already beats full re-author (devops 72→101,
 arch 24→42). So the factory should **extract each book on its own, persist it, then merge** — for
 *creation*, not just updates — and the whole pipeline should be **resumable, portable, cap-tolerant**.
 
-## Architecture — deep MAP, light REDUCE
-The dilution lives in **claim extraction from raw book text**; promotion over already-extracted
-**claims** is light. And `add-source` already proves "extract one book → promote → merge". So push
-the deep work per-book; keep the global step thin.
+## Architecture — chunk → book → corpus (deep MAP, light REDUCE)
+The dilution lives in **claim extraction**; promotion over already-extracted **claims** is light. But
+"one book = one prompt" is infeasible for the real corpus (most staged books are 200k–880k tok — over
+Copilot's 200k, several over Claude's 1M) **and** degrades extraction even where it fits (flat reading
+loses recall past ~800 tok — *long-document-structure-mapping*). So the deep unit is the **chunk** (a
+source-map section), not the book: **three levels, not two.**
 
 ```
-per book → claims → evidence → principles → faith-check        ← MAP  (deep, cached by sha, parallel)
-all books → merge/dedup principles → conflicts → renumber
-          → global faithfulness → profile → skills              ← REDUCE (light, global)
+per chunk  → typed claims (+condition/exception/certainty)              ← MAP-inner (deep, structure-aware)
+per book   → aggregate claims → evidence → principles → faith-check      ← MAP   (cached by sha, parallel)
+all books  → recall-then-filter dedup → split-by-nature reconcile
+           → select → renumber → global faithfulness → profile → skills  ← REDUCE (light, global)
 ```
 
-**MAP (per book — a self-contained "book module", content-addressed by sha):**
-claims → evidence records → principle promotion → per-book faithfulness pre-check → behaviour-test
-seeds. Deep per book (no dilution), cached, parallelizable, reusable across packages/machines.
+**MAP (per book — a self-contained "book module", content-addressed by sha).** The claims step is
+itself **chunked**: build a part→chapter→section map (`source-structure-mapper`, already in the
+factory), extract **with neighbour-context overlap + a global salience pass** (chunk-local extraction
+misses boundary-spanning + scattered claims — *long-document*), and emit **typed atomic claims**
+(fact / value / policy, provenance-anchored, with nullable `condition`/`exception` and a `certainty`
+flag — *argument-mining*). Then per book: evidence records → principle promotion → faithfulness
+pre-check → behaviour-test seeds. Deep per book (no dilution), cached, parallel, reusable.
 
-**REDUCE (global, light):** merge/dedup principles across books (same principle from 2 books → one
-**multi-anchor** principle = strengthened), conflict resolution (Phase-7 classes), ID renumber,
+**REDUCE (global, light).** Merge is **recall-then-filter**: deterministic recall (token-F1
+`claim_recall` + embedding centroid) proposes equivalence candidates, an LLM **precision filter**
+confirms (never invents) — same principle from 2 books → one **multi-anchor** principle. Then
+**split-by-nature reconcile** (factual → accuracy-weighted + copy-discounted + multi-truth; **normative
+(value/policy) → social-choice, keep multiple co-valid principles** — *knowledge-fusion*), **importance
+selection** (independent selection breeds redundancy → rank + keep the best = anti-bloat), ID renumber,
 global faithfulness re-check, profile, skills. Claims stay **per-book** (cleaner provenance); the
-deduped layer is **principles** — so measure grounding-richness by **principles** + per-book claims.
+deduped layer is **principles** — measure richness by **principles** + per-book claim-**recall**
+(coverage vs a reference set, not raw count). Citations in *Research grounding*.
 
 ### What moved to per-book (vs the first draft) and why it's safe
 | step | now | why |
@@ -45,6 +57,39 @@ captured by the **dedup→multi-anchor** merge, and the emergent case *is* Step-
 **defer anyway**. So little lost; much gained (fully cached/parallel per-book modules; thin REDUCE).
 → The merge **subsumes** Step 7: global principle promotion/merge over per-book principles is the
 cross-source synthesis; `principle-clusters/graph` become its byproduct (no longer "deferred").
+
+## Research grounding (2026-06-20)
+Four prior research reports (`docs/Research/`) were reviewed against this design; each refinement above
+is cited here. (The knowledge-fusion report was **regenerated this day** — PASS 1.00, 8 foundational
+papers injected by verified arXiv-ID — before being used.)
+
+| design decision | report | key finding (arXiv) |
+|---|---|---|
+| **chunk** (not whole book) is the extraction unit | long-document | flat/fixed-window is the wrong baseline; degrades past ~800 tok [1905.13164, 2505.06862] |
+| neighbour-context + global salience pass | long-document | chunk-local under-recalls boundary-spanning + scattered units [2606.10716, 2502.00448, 2305.14806] |
+| provenance-anchored atomic units | long-document | bullet ↔ source span — the granularity claim-extraction consumes [2406.10370] |
+| **typed claims** (fact/value/policy) route the reconcile handler | argument-mining | validated 3-way taxonomy [2510.16363]; value/policy = normative |
+| **condition/exception** fields (anti-over-broad) | argument-mining | undercutting "unless X" qualifiers; surface-cue bootstrap [Pollock via s2-a2ae7155d9] |
+| **certainty** field (preserve hedging) | argument-mining | hedged ≠ asserted [2606.10471] — guards faithfulness `HEDGING_REMOVED` |
+| coverage is a capability ceiling → gate on claim-**recall** | argument-mining, long-document | precision-only rewards abstention; recall vs reference set [2606.09376, 2305.14251, 2502.10855] |
+| LLM + JSON schema + delayed-structure extraction | argument-mining | ~95% vs 75–80% classifiers; schema cost ≈ 0 for capable models [2606.09251, 2606.09410] |
+| REDUCE merge = **recall-then-filter** (det recall → LLM precision) | knowledge-fusion, rag-graphrag | dominant cross-doc architecture; recall stage must be recall-tuned [2109.07401, 2104.08413, 2004.04906] |
+| **dedup-before-voting + copy-detection** | knowledge-fusion | N near-duplicate books can't outvote one authority; our own distillation can manufacture false corroboration [1503.00310, 1708.02018] |
+| **split reconcile by nature** (factual vs normative) | knowledge-fusion | accuracy-weighting a normative conflict is a category error; social-choice + keep-both [2404.10271, 1404.6445, 2112.13557] |
+| contradiction = 3-way stance head, **not a bare LLM** | knowledge-fusion | off-the-shelf LLMs near chance on subtle conflicts [DocNLI 2106.09449, 2403.08319, 2103.08541] |
+| claim-**conditional** dedup (not raw paraphrase) | knowledge-fusion | equivalence is claim-conditional [PERSPECTRUM 1906.03538] |
+| principle store **aids retrieval of real passages, not LLM summaries** | rag-graphrag | summary-replacement collapses + hallucinates [2502.14802, 2605.20815] |
+| knowledge_partition = routed mix (distill stable / retrieve volatile) | rag-graphrag | distill + retrieve are complementary [2407.16833, 2401.08406] — grounds the existing Step-14 rule |
+| keep dedup/rank/retrieval DETERMINISTIC; LLM only for judgment/synthesis | rag-graphrag | cross-validates the *Determinism boundary* [2004.04906, 2405.14831, 2304.09542] |
+
+**Three cautions the research forces:**
+- **Chunking trades book-dilution for chunk-localism** — per-chunk extraction *must* add neighbour
+  overlap + a global salience pass, or it just relocates the dilution. Chunking alone is not the win.
+- **Cross-source contradiction detection is genuinely hard** (even GPT-4 near chance). REDUCE's
+  conflict step is **best-effort + surfaced for review**, never a guarantee — and "merge subsumes
+  Step 7" means *dedup + strengthen*, not reliable emergent synthesis.
+- **Do NOT import rag-graphrag's "fixed-size chunking is fine"** into the MAP — that is a *runtime
+  retrieval* result; *extraction recall* needs structure-aware chunks (a different objective).
 
 ## Determinism boundary (factory invariant)
 **Anything deterministic is a script — Python or bash under `tools/subagent_factory/` or `campaign/` —
@@ -178,8 +223,8 @@ Claude), and `compacted` are recorded per step (see *Logging* above), so a run i
 ## Resolved open questions
 | Question | Answer |
 |----------|--------|
-| Avoid bloat? | REDUCE dedups (multi-anchor) + merges globally → synthesize, not accumulate |
-| Subsume Step 7? | Yes — global principle merge is the cross-source synthesis |
+| Avoid bloat? | REDUCE dedups (multi-anchor) + **ranks & selects** by importance → synthesize, not accumulate (*long-document*: independent selection breeds redundancy) |
+| Subsume Step 7? | **Partly** — merge = dedup + strengthen via recall-then-filter; true emergent synthesis + reliable cross-source contradiction stay hard (*knowledge-fusion*) |
 | ID scheme? | faithfulness anchors are (sha+offset) — stable; merge renumbers CL/PR with an old→new map |
 | Cost? | extraction cached by sha → never re-run; only the lighter REDUCE re-runs on add; maps parallel |
 | Cap/restart? | per-step `.done` checkpoints + `--resume` + content-addressed modules → cap-tolerant, portable |
@@ -192,11 +237,14 @@ Claude), and `compacted` are recorded per step (see *Logging* above), so a run i
 **Determinism-first throughout:** each phase ships its mechanical work as a script
 (`tools/subagent_factory/` or `campaign/`) before any LLM step wraps it (see *Determinism boundary*).
 
-- **P0 — prototype (first):** minimal per-book module + N-way principle merge; rebuild ONE package
+- **P0 — prototype (first):** minimal **chunk-level** per-book module (source-map → typed claims with
+  neighbour-context + global salience) + N-way recall-then-filter merge; rebuild ONE package
   (software-architecture, 9 books) via map → reduce. Measure: (1) `grounding-richness` (principles)
   vs the current batch v0.3.0 — adopt only if it clearly wins; (2) same *small* book, Copilot-MAP vs
   Claude-MAP richness — equal ⇒ Copilot is a full MAP worker; (3) **zero `compacted=true`** on any
-  Copilot prompt; (4) REDUCE distilled-artifact input stays < 200k.
+  Copilot prompt; (4) REDUCE distilled-artifact input stays < 200k; (5) **claim-recall coverage** vs a
+  reference atomic-claim set rises (not just raw count); (6) **advice no-regression** on a small
+  behaviour-replay A/B (semantic grader) — guards the bloat risk.
 - **P1 — per-book module + content-addressed cache** (`cache/book-extracts/<sha>/`, per-step `.done`)
   + `route_books.py` (deterministic: tokenize staged md → small/large → per-book engine assignment).
 - **P2 — N-way merge/assemble** (dedup→multi-anchor principles, conflicts, IDs, faithfulness, profile,
@@ -212,3 +260,7 @@ Claude), and `compacted` are recorded per step (see *Logging* above), so a run i
 - Core-pipeline change → P0 prototype + richness comparison de-risks before adoption.
 - **Routing threshold (~100k tok)** — too high → Copilot compaction (silent quality loss); too low → Copilot underused. Tune from measured staged-md sizes; the `compacted` flag catches misses.
 - **Copilot MAP depth unverified** — assumed equal to Claude on small books; P0 measures it before the split is trusted.
+- **Chunk-local salience loss** — per-chunk extraction under-recalls boundary-spanning/scattered claims; mitigate with neighbour-context overlap + a global salience pass (*long-document*), else chunking just relocates the dilution.
+- **Bloat (mirror of dilution)** — more claims can yield a worse, unfocused reviewer; REDUCE must rank-and-**select**, not accumulate. Anti-dilution (deep MAP) + anti-bloat (selection) together.
+- **Normative conflicts have no settled algorithm** (*knowledge-fusion* G1) — don't auto-resolve value/policy conflicts; preserve both with scope/condition. Cross-source contradiction detection is near-chance for bare LLMs → surface, don't trust.
+- **Count ≠ recall** — gate on claim-**recall** coverage vs a reference set + advice (semantic grader), not raw claim count (which can be padded/trivia).
