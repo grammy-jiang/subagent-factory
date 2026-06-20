@@ -14,7 +14,7 @@ CLAUDE_BIN="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
 MODEL="${MODEL:-${ANTHROPIC_DEFAULT_OPUS_MODEL:-${ANTHROPIC_MODEL:-claude-opus-4-8}}}"
 EFFORT="${EFFORT:-max}"; RUN_TIMEOUT="${RUN_TIMEOUT:-7200}"
 CACHE="$REPO/cache/book-extracts"
-BOOK=""; DRYRUN=0; FG=0
+BOOK=""; DRYRUN=0; FG=0; FORCE=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --book) BOOK="$2"; shift 2;;
@@ -24,6 +24,7 @@ while [ $# -gt 0 ]; do
     --timeout) RUN_TIMEOUT="$2"; shift 2;;
     --dry-run) DRYRUN=1; shift;;
     --fg) FG=1; shift;;
+    --force) FORCE=1; shift;;
     *) echo "unknown arg: $1" >&2; exit 2;;
   esac
 done
@@ -41,6 +42,17 @@ SLUG="$(printf '%s' "$STEM" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9' '-' | 
 SOURCE_ID="${SLUG}-${SHA:0:8}"
 TITLE="$STEM"
 
+# Parallel-safe (multiple drain loops): skip a completed module; else atomically claim it (mkdir is
+# atomic) and release the claim on exit so a crashed book can be retried. Requires --fg (the claim is
+# held for the lifetime of this process, which blocks on the claude run only in --fg mode).
+if [ "$FORCE" -eq 0 ] && [ -f "$MODULE/principles.yaml" ] && [ -f "$MODULE/module.json" ]; then
+  echo "[map] $SOURCE_ID already complete — skip"; exit 0
+fi
+if ! mkdir "$MODULE/.claim" 2>/dev/null; then
+  echo "[map] $SOURCE_ID claimed by another worker — skip"; exit 0
+fi
+trap 'rmdir "$MODULE/.claim" 2>/dev/null' EXIT
+
 run="map-$SOURCE_ID"; log="$LOGS/$run.log.jsonl"; promptfile="$LOGS/$run.prompt.txt"
 REPO="$REPO" MODULE="$MODULE" SOURCE_ID="$SOURCE_ID" TITLE="$TITLE" \
   python3 "$CAMP/render-prompt.py" "$TMPL" > "$promptfile"
@@ -53,6 +65,7 @@ driver="$LOGS/$run.driver.sh"
 {
   echo '#!/usr/bin/env bash'
   echo "cd \"$REPO\""
+  echo 'sleep $((RANDOM % 4))  # jitter: avoid simultaneous claude-launch empty-log collision'
   echo "timeout \"$RUN_TIMEOUT\" \"$CLAUDE_BIN\" -p --model \"$MODEL\" --effort \"$EFFORT\" --add-dir \"$REPO\" \\"
   echo "    --dangerously-skip-permissions --output-format stream-json --verbose \\"
   echo "    < \"$promptfile\" > \"$log\" 2>&1"
