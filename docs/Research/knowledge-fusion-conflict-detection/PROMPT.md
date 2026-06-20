@@ -1,29 +1,77 @@
-Research the following topic using the research-pipeline skill, deep profile. This is an independent, unattended run.
+# Resume + polish + gap-close — knowledge-fusion research report (unattended)
 
-TOPIC:
-Cross-document knowledge fusion and contradiction detection for merging expert principles distilled from multiple source documents: cross-document concept and entity alignment, alias and duplicate clustering across documents, cross-document contradiction and conflict detection, claim and knowledge reconciliation with conflict resolution, and aggregation of conflicting evidence across sources.
+You are a fresh autonomous research engineer. There is NO human watching: never ask, never wait;
+apply the documented default, note it, and proceed. Permissions are pre-approved — just act.
 
-SEED KEYWORDS (focus the query plan; edit plan/query_plan.json if recall is weak):
-cross-document contradiction detection; knowledge fusion; conflicting information across documents; multi-document summarization contradiction; cross-document entity and event coreference; concept alignment; ontology and knowledge-graph alignment and fusion; claim deduplication; truth discovery; conflicting evidence aggregation; stance detection across documents; contradiction detection NLI; knowledge conflict resolution; merging knowledge from multiple sources; defeasible reasoning and undercutting
+## What this is — NOT a from-scratch run
+An existing knowledge-fusion research run already completed and **validated PASS 0.83** (19 papers).
+Your job is two things: **(A) polish** the degraded final report, and **(B) close two HIGH academic
+gaps** the prior run could not close because the pipeline's arXiv search is recency-locked (~2026).
 
-DOWNSTREAM USE (anchor scope to this application; keep it a literature review, not a product build):
-Feeds Step 7 "multi-source synthesis" in a subagent factory: when a subagent is built from 2+ books, merge their distilled principles into ONE knowledge model — (1) cluster co-expressed concepts across sources (alias/duplicate detection: e.g. "don't build for speculative futures" in one book ≈ "tactical vs strategic programming" in another), (2) detect cross-source contradictions (different thresholds, opposed advice), and (3) reconcile / resolve conflicts and record a principle graph. IMPORTANT SCOPE BOUNDARY: the INTRA-document argument-relation vocabulary (claim/premise detection, stance = support/contest/no_relation, Pollock rebutting vs undercutting attacks) is ALREADY covered by a prior argument-mining research report — DO NOT re-cover it. This spike must cover ONLY the CROSS-document / CROSS-source layer: aligning and deduplicating equivalent concepts across documents, and detecting + resolving contradictions BETWEEN sources. Deliver methods + how to apply them (deterministic-seed vs LLM split where possible), not a product build.
+- Working directory: THIS folder (the `knowledge-fusion-conflict-detection` topic folder).
+- Canonical complete run: **run_id `57e857a93e69`** — good synthesis artifacts already exist at
+  `57e857a93e69/summarize/` (`synthesis.md`, `synthesis_report.md`, per-paper `*.summary.json`) and
+  `57e857a93e69/analysis/`. Those 19 paper IDs are the prior corpus. Do NOT re-search them.
+- Problem: the top-level `cross-document-...-research-report.md` rendered in **template-fallback** —
+  it is full of `structured LLM extraction` / `not_reported` placeholders, ~171 auto `CON-###`
+  negation-spam lines, and empty Assumption/Operational/Design sections. The research is fine; the
+  report FILE is not.
 
-HOW TO RUN:
-- Launch via the runner, never bypass it. Round 1:
-    python3 $HOME/.claude/skills/research-pipeline/runners/runner.py "Cross-document knowledge fusion and contradiction detection for merging expert principles distilled from multiple source documents" --profile deep --config $HOME/.claude/skills/research-pipeline/config.toml
-- Follow the research-pipeline SKILL rules: when the runner prints DELEGATE TO SUB-AGENT, run the named sub-agent (paper-screener / paper-analyzer / paper-synthesizer) with the printed contract, set that task to accepted, and re-run. Honor reviewer gates (on 'rejected': fix, reset task to pending, re-run).
-- Write the final report only after validate-report is accepted.
-- DO NOT STOP AFTER ROUND 1. If the validated report still lists any HIGH-severity ACADEMIC gap and round < 4, run gap-closure round(s) per references/iterative-synthesis.md (new run_id, carry prior_paper_ids, derive a gap-specific topic from the open gap's suggested query) until every HIGH academic gap is closed or reclassified, or the 4-round hard cap is reached. ENGINEERING gaps are resolved inline in the report, never via a new round.
+## Read first (fresh from disk)
+- `~/.claude/skills/research-pipeline/SKILL.md` + references: `command-reference.md` (the exact
+  `expand` / paper-id injection flags + MCP tool map), `iterative-synthesis.md` (gap-closure rounds),
+  `output-templates.md` + `final-report-contract.yaml` (report shape), `troubleshooting.md` (if
+  structured extraction falls back again).
+- This folder's prior `SUMMARY.md` and `gaps.json` (the real findings + the open gaps G1/G3).
+- **Always launch via the runner; never bypass it.** Honor reviewer `rejected` gates (fix → reset to
+  pending → re-run; never override).
 
-OUTPUT / SANDBOX RULES (hard):
-- Your current working directory is this topic folder. Put EVERY artifact here: plan/, search/, screen/, download/, convert/, extract/, summarize/, workflow_state.json, gaps.json, and the final <topic-slug>-research-report.md.
-- Do NOT modify, create, or delete any file outside this folder. The ONLY permitted external location is the shared pipeline cache under ~/.cache (PDF + SQLite index).
-- Do not edit anything in the subagent-factory repository.
+## JOB A — polish the report
+Regenerate the final report from the canonical run's synthesis artifacts (resume-on-top:
+`research-pipeline report` for run_id `57e857a93e69`, or `runner.py --run-id 57e857a93e69 --state ...`).
+Snapshot the old report to `cross-document-...-research-report.2026-06-20.md` before overwriting.
 
-WHEN DONE — ALWAYS, as your final action — write SUMMARY.md in this folder containing:
-  1. final report filename;
-  2. the Round History table;
-  3. every remaining open gap with classification (ACADEMIC / ENGINEERING), severity, and one line on why it is still open;
-  4. the 5-10 findings most relevant to the DOWNSTREAM USE above, each with paper IDs.
-Then print exactly: RESEARCH RUN COMPLETE: <report filename>
+**Acceptance (HARD).** The regenerated report MUST be substantive. It MUST NOT contain any of:
+the literal `structured LLM extraction` placeholder, a `not_reported`-filled Evidence Matrix, auto
+`CON-###` negation-spam, or empty Assumption / Operational / Design sections. If it still falls back,
+the analyze/summarize stage was optimistic-accepted WITHOUT running — drive it explicitly: run the
+`paper-analyzer` / `paper-synthesizer` sub-agents with their printed contracts, and only mark a task
+`accepted` AFTER its tool actually produced the artifact. Then regenerate and re-check.
+
+## JOB B — close G1 and G3 by arXiv-ID injection (recency-lock workaround)
+The pipeline arXiv search returns only ~2026 papers, so rounds 2–3 found 0 foundational papers for
+these two gaps. **Bypass the search by injecting specific foundational papers by arXiv ID** (direct
+ID fetch/download is NOT recency-locked).
+
+1. For each gap, identify the canonical FOUNDATIONAL papers BY TITLE using your OWN web/arXiv access
+   (NOT the locked pipeline search). **Verify every arXiv ID resolves to the real paper before using
+   it — do NOT invent IDs; skip any you cannot verify.**
+   - **G3 — cross-document contradiction detection across independent documents:** DocNLI;
+     cross-document NLI; stance detection across documents; long-document / cross-document
+     contradiction & knowledge-conflict benchmarks.
+   - **G1 — reconciling normative / prescriptive principles ("prefer X" / "avoid Y"):** truth
+     discovery for subjective / opinion claims; social-choice / preference aggregation; AGM belief
+     revision & belief merging.
+2. Inject the verified IDs into the corpus with the skill's documented mechanism
+   (`research-pipeline expand --paper-ids <id1,id2,...>` — confirm exact flag in
+   `command-reference.md`), then download + convert + **analyze** them (paper-analyzer) so they carry
+   real structured extraction.
+3. Run gap-closure round(s) per `iterative-synthesis.md`: new `run_id`, `context.prior_paper_ids` =
+   the 19 canonical IDs, `--profile standard`, via `runner.py --state workflow_state.json`. Integrate
+   the injected papers, re-summarize, and regenerate the report so **G1 and G3 are RESOLVED (with
+   citations to the injected papers) or explicitly RECLASSIFIED** (e.g. ACADEMIC-HIGH → resolved, or
+   → ACADEMIC-LOW with reason). Engineering gaps stay resolved inline. Respect the 4-round hard cap.
+
+## Output / sandbox (HARD)
+- Every artifact stays in THIS folder. The only permitted external location is the shared `~/.cache`
+  pipeline cache (PDF + SQLite index). Do NOT edit, create, or delete anything in the
+  subagent-factory repository.
+- Write the final report only after `validate-report` is `accepted`.
+
+## When done — ALWAYS, as the final action
+Update `SUMMARY.md` with: final report filename; the Round History table (incl. the new injection
+round(s)); every remaining open gap (classification + severity + one-line why); and the 5–10 findings
+most relevant to the downstream use — Step-7 multi-source synthesis = merging distilled principles
+(align/dedup → detect-contradiction → reconcile), each with paper IDs. Then print exactly:
+
+RESEARCH RUN COMPLETE: <report filename>
