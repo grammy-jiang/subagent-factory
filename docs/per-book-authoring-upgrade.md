@@ -421,8 +421,16 @@ and writes `analysis/claims.jsonl` / `principles/principles.yaml` / `evidence/ev
 author-subagent run gets `sources/` + manifest from Step-5 ingest; Step 7+ then run unchanged). Proven
 on the real 9 books → a throwaway slug (2,420 claims, 50 principles, 463 evidence, 9 anchor indices,
 all `derived_from_claims` resolve). The `campaign/*_p0.py` scripts remain as the `software-architecture-p0`
-prototype record. **The map→reduce path is now fully slug-agnostic, gated, and factory-wired** — the
-only optional extra is a single turnkey CLI stitching the MAP gate + LLM filter + assemble (all pieces exist).
+prototype record. **The map→reduce path is now fully slug-agnostic, gated, and factory-wired.**
+
+**Turnkey CLI (P3 #1).** `campaign/build_map_reduce.py <slug> --sources <dir|file> [--resume]` runs the
+whole pipeline — route → chunk → MAP → anchors → reduce-emit(clusters) → filter → assemble — with
+per-step `.done` checkpoints + a `steps.log.jsonl` ledger under `subagents/<slug>/.build/`, deterministic
+work via the gated tools, and the two LLM steps (per-book MAP, precision filter) as **gates** (print the
+exact next command + stop; never auto-spend). Proven on the 9 books: run → gate at the filter → feed
+`.build/decisions.json` → `--resume` → distilled layer (2,420 claims / 50 principles / 463 evidence),
+all steps idempotently skipped on resume. Supersedes the slug-specific `build_p0.py`. (Only remaining
+optional item: the advice A/B — both `software-architecture` and `software-architecture-p0` are installed.)
 
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
