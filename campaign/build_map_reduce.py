@@ -11,6 +11,7 @@ software-architecture-p0-specific `build_p0.py`.
 Flow:  route -> chunk -> [MAP gate] -> anchors -> reduce-emit(clusters.json) -> [filter gate] -> assemble
 Run:   python3 campaign/build_map_reduce.py <slug> --sources <dir|file> [--resume] [--select N] [--cos C]
 """
+
 from __future__ import annotations
 
 import argparse
@@ -78,11 +79,18 @@ def main() -> int:
         return True
 
     def _map() -> bool:
-        missing = [s for s, sha in zip(sources, shas, strict=False) if not (CACHE / sha / "principles.yaml").exists()]
+        missing = [
+            s
+            for s, sha in zip(sources, shas, strict=False)
+            if not (CACHE / sha / "principles.yaml").exists()
+        ]
         if missing:
+            eng = {r["source"]: r["engine"] for r in route_books(missing, args.threshold_tokens)}
             print("      MAP incomplete — run these, then re-run --resume:")
             for s in missing:
-                print(f"        bash campaign/map_book.sh --book {s} --fg")
+                print(
+                    f"        bash campaign/map_book.sh --book {s} --engine {eng.get(s, 'claude')} --fg"
+                )
             return False
         print(f"      MAP complete for all {len(sources)} books")
         return True
@@ -97,8 +105,12 @@ def main() -> int:
         cmap, _ = map_reduce_build.build_claim_map(mods)
         gp = map_reduce_build.globalize_principles(mods, cmap)
         clusters = map_reduce_build.emit_clusters(gp, map_reduce_build._embed_minilm, args.cos)
-        (bdir / "clusters.json").write_text(json.dumps(clusters, indent=1, ensure_ascii=False), encoding="utf-8")
-        print(f"      {len(gp)} principles -> {len(clusters)} candidate clusters -> .build/clusters.json")
+        (bdir / "clusters.json").write_text(
+            json.dumps(clusters, indent=1, ensure_ascii=False), encoding="utf-8"
+        )
+        print(
+            f"      {len(gp)} principles -> {len(clusters)} candidate clusters -> .build/clusters.json"
+        )
         return True
 
     def _filter() -> bool:
@@ -106,14 +118,21 @@ def main() -> int:
             print("      precision filter complete (.build/decisions.json)")
             return True
         print("      precision filter incomplete — run the LLM filter over .build/clusters.json")
-        print(f"      -> write .build/decisions.json (group-index -> {{action: confirm|split|conflict, ...}}), then --resume")
+        print(
+            f"      -> write .build/decisions.json (group-index -> {{action: confirm|split|conflict, ...}}), then --resume"
+        )
         return False
 
     def _assemble() -> bool:
         dec = {int(k): v for k, v in json.loads((bdir / "decisions.json").read_text()).items()}
         summary = map_reduce_build.assemble(
-            args.slug, sources, repo=REPO, embedder=map_reduce_build._embed_minilm,
-            cos=args.cos, decisions=dec, select=args.select,
+            args.slug,
+            sources,
+            repo=REPO,
+            embedder=map_reduce_build._embed_minilm,
+            cos=args.cos,
+            decisions=dec,
+            select=args.select,
         )
         print(f"      assembled distilled layer: {summary}")
         return True
@@ -121,13 +140,17 @@ def main() -> int:
     do("route", sources, _route)
     do("chunk", sources, _chunk)
     if not do("map", shas, _map):
-        print("BUILD GATED at MAP."); return 1
+        print("BUILD GATED at MAP.")
+        return 1
     do("anchors", shas, _anchors)
     do("reduce-emit", shas, _reduce_emit)
     if not do("filter", [str(bdir / "clusters.json")], _filter):
-        print("BUILD GATED at precision-filter."); return 1
+        print("BUILD GATED at precision-filter.")
+        return 1
     do("assemble", [str(bdir / "decisions.json"), args.select], _assemble)
-    print(f"\nMAP->REDUCE distilled layer built for '{args.slug}'. Continue at author-subagent Step 7+.")
+    print(
+        f"\nMAP->REDUCE distilled layer built for '{args.slug}'. Continue at author-subagent Step 7+."
+    )
     return 0
 
 

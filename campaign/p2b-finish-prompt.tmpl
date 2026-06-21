@@ -1,30 +1,30 @@
 ENVIRONMENT: autonomous engineer in {{REPO}}. No human is watching: never ask, never wait; apply the documented default and proceed. Permissions pre-approved. (Scratch scripts: Write tool or `python3 - <<'PY'`, never `cat >file <<EOF`.)
 
 # Goal — finish the P0 package so `validate` PASSES, then stop
-Package: `{{PKG}}` (slug `{{SLUG}}`). Its **distilled layer is ALREADY assembled and deterministically
-valid — DO NOT touch it**:
-- `analysis/claims.jsonl` (2,420 claims, global ids `C#####`)
-- `principles/principles.yaml` (the focused 50; `derived_from_claims` resolve into claims.jsonl)
-- `evidence/evidence-records.yaml` (298 records)
+Package: `{{PKG}}` (slug `{{SLUG}}`). Its **distilled layer is ALREADY assembled by the map→reduce
+build and deterministically valid — DO NOT touch it**:
+- `analysis/claims.jsonl` (globally-renumbered claims `C#####`)
+- `principles/principles.yaml` (the merged/selected principles; `derived_from_claims` resolve into claims.jsonl)
+- `evidence/evidence-records.yaml`
 - `sources/anchors/*.anchors.jsonl` (chunk/paragraph anchors; every claim's `source_anchors` resolve)
 - `sources/{markdown,metadata,original,reports}`, `source-pack.manifest.yaml`, `provenance-ledger.md`
 
-The **LLM-authored layer is STALE** — it was copied from the baseline `software-architecture` package
-and still cites that package's old ids (`C001`..`C040`, heading anchors, baseline principle ids). The
-current `validate` shows ~192 failures, all in this layer. **Regenerate it for THESE 50 principles:**
+The **LLM-authored layer (profile, faithfulness, skills/references, tests, adapter) is missing or
+stale** — it must be (re)generated to match THIS package's principles. Run `validate` FIRST to see
+exactly what's needed, then (re)generate it for the principles in `principles.yaml`:
 
-1. **profile.yaml** — re-derive from the 50 principles (role, scope/boundaries, source_of_truth, and
-   `rules` mapped to the kept principles). Keep `sources[]` = the 9 source_ids already in the manifest.
+1. **profile.yaml** — derive from the package's principles (role, scope/boundaries, source_of_truth, and
+   `rules` mapped to the principles). Keep `sources[]` = the source_ids already in the manifest.
    Use the `profile-deriver` agent + `profile-generation` skill.
-2. **reports/faithfulness-report.yaml** — run `faithfulness-reviewer` over the profile rules / 50
+2. **reports/faithfulness-report.yaml** — run `faithfulness-reviewer` over the profile rules /
    principles against `evidence-records.yaml` + `claims.jsonl`. No rule stronger than its evidence.
-3. **skills/ + references/** — regenerate every skill body + reference (`skill-author`) grounded in the
-   50 principles' `operational_mapping` + their derived claims/evidence/anchors. **Delete** skills/refs
-   that no longer map to any kept principle; **add** any a kept principle's `operational_mapping`
-   names. Every cited `claim`/`evidence`/`source_anchor` id MUST resolve to an id that now exists.
-4. **tests/** — regenerate `golden-tests.yaml` + `principle-behaviour-tests.yaml` covering the 50
-   principles (`gen_behaviour_tests` + `principle-test-generation`); every principle needs a behaviour
-   test (principle→test coverage must pass).
+3. **skills/ + references/** — author a skill body + reference (`skill-author`) grounded in each
+   principle's `operational_mapping` + its derived claims/evidence/anchors. **Remove** any pre-existing
+   skill/ref that maps to no current principle; **add** any a principle's `operational_mapping` names.
+   Every cited `claim`/`evidence`/`source_anchor` id MUST resolve to an id that now exists.
+4. **tests/** — generate `golden-tests.yaml` + `principle-behaviour-tests.yaml` covering the principles
+   (`gen_behaviour_tests` + `principle-test-generation`); every principle needs a behaviour test
+   (principle→test coverage must pass).
 5. **adapter** — export via `python -m tools.subagent_factory.cli export {{SLUG}}` (writes
    `{{PKG}}/adapters/claude-code/{{SLUG}}.md` + installs `.claude/agents/generated/{{SLUG}}.md`).
 
