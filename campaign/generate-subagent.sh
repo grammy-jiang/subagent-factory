@@ -4,7 +4,11 @@
 # and STOPS. No factory-hardening, no bug-hunt, no commits (unlike campaign/run.sh).
 #
 # Usage: campaign/generate-subagent.sh --slug SLUG --topic "TOPIC" \
-#            [--sources-file F] [--model M] [--timeout SECS] [--dry-run] [--fg]
+#            [--sources-file F] [--model M] [--timeout SECS] [--dry-run] [--fg] [--batch]
+#
+# NOTE: best for SINGLE-source packages. For >1 source this prints the per-book map->reduce
+#   pipeline and STOPS (single-session multi-book batch under-extracts — see docs/per-book-
+#   authoring-upgrade.md); pass --batch to force the legacy single-session path anyway.
 #
 #   --slug         kebab-case package slug (e.g. software-architecture)
 #   --topic        expert role/topic passed to /author-subagent
@@ -27,7 +31,7 @@ TMPL="$CAMP/generate-prompt.tmpl"
 MODEL="${MODEL:-${ANTHROPIC_DEFAULT_OPUS_MODEL:-${ANTHROPIC_MODEL:-claude-opus-4-8}}}"
 EFFORT="${EFFORT:-max}"
 RUN_TIMEOUT="${RUN_TIMEOUT:-7200}"
-SLUG=""; TOPIC=""; SRCFILE=""; DRYRUN=0; FG=0
+SLUG=""; TOPIC=""; SRCFILE=""; DRYRUN=0; FG=0; BATCH=0
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -39,6 +43,7 @@ while [ $# -gt 0 ]; do
     --timeout) RUN_TIMEOUT="$2"; shift 2;;
     --dry-run) DRYRUN=1; shift;;
     --fg) FG=1; shift;;
+    --batch) BATCH=1; shift;;
     -h|--help) grep -E '^# ' "${BASH_SOURCE[0]}" | sed 's/^# //'; exit 0;;
     *) echo "unknown arg: $1" >&2; exit 2;;
   esac
@@ -62,6 +67,22 @@ while IFS= read -r line; do
 done < "$SRCFILE"
 [ "$missing" -eq 0 ] || { echo "$missing source(s) unreadable — aborting." >&2; exit 3; }
 [ "$n" -gt 0 ] || { echo "no sources listed in $SRCFILE" >&2; exit 3; }
+
+# Refinery routing: authoring >1 source in ONE headless /author-subagent session suffers per-run
+# extraction dilution — the reason the per-book map->reduce path exists. For multi-source, steer to
+# the map->reduce turnkey (richer grounding, no dilution) unless --batch forces the legacy path.
+if [ "$n" -gt 1 ] && [ "$BATCH" -eq 0 ]; then
+  echo "[generate] $n sources — the single-session batch path under-extracts multi-book packages." >&2
+  echo "[generate] Use the per-book map->reduce path instead:" >&2
+  echo "    python3 campaign/build_map_reduce.py $SLUG --sources $SRCFILE --resume     # route->chunk->MAP gate" >&2
+  echo "    bash    campaign/map_books.sh        --sources $SRCFILE                    # MAP all books (cap-aware, serial)" >&2
+  echo "    python3 campaign/build_map_reduce.py $SLUG --sources $SRCFILE --resume     # anchors->reduce-emit->filter gate" >&2
+  echo "    bash    campaign/precision_filter.sh --slug $SLUG --fg                     # (or author .build/decisions.json by hand)" >&2
+  echo "    python3 campaign/build_map_reduce.py $SLUG --sources $SRCFILE --resume --select 150   # assemble" >&2
+  echo "    bash    campaign/p2b_finish.sh       --slug $SLUG --fg                     # finish LLM layer + validate" >&2
+  echo "[generate] To force the legacy single-session batch anyway, re-run with --batch." >&2
+  exit 4
+fi
 
 # add-dir for each distinct source directory so the headless session can read them.
 # Build a deduped list of -add-dir flags (dirs may repeat across sources).

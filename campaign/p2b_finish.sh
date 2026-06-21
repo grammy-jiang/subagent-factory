@@ -17,7 +17,7 @@ while [ $# -gt 0 ]; do
   esac
 done
 PKG="$REPO/subagents/$SLUG"
-[ -d "$PKG" ] || { echo "package not found: $PKG (run assemble_package_p0.py first)" >&2; exit 3; }
+[ -d "$PKG" ] || { echo "package not found: $PKG (assemble its distilled layer via build_map_reduce.py first)" >&2; exit 3; }
 mkdir -p "$LOGS"
 run="p2b-$SLUG"; log="$LOGS/$run.log.jsonl"; promptfile="$LOGS/$run.prompt.txt"
 REPO="$REPO" PKG="$PKG" SLUG="$SLUG" python3 "$CAMP/render-prompt.py" "$TMPL" > "$promptfile"
@@ -29,7 +29,15 @@ driver="$LOGS/$run.driver.sh"
   echo "timeout \"$RUN_TIMEOUT\" \"$CLAUDE_BIN\" -p --model \"$MODEL\" --effort \"$EFFORT\" --add-dir \"$REPO\" \\"
   echo "    --dangerously-skip-permissions --output-format stream-json --verbose \\"
   echo "    < \"$promptfile\" > \"$log\" 2>&1"
-  echo "echo \"[p2b] $SLUG rc=\$?\""
+  echo "rc=\$?; echo \"[p2b] $SLUG claude rc=\$rc\""
+  # Deterministic safety net + gate, baked into the driver so it runs for BOTH --fg and background:
+  # strip any invalid faithfulness anchors the LLM emitted (e.g. heading anchors absent from the
+  # chunk index), then validate BY PATH (passing a slug to validate_generated_package gives a false
+  # 'missing required file'). The driver still exits with the engine rc so a cap kill is detectable.
+  echo "PY=\"$REPO/.venv/bin/python\"; [ -x \"\$PY\" ] || PY=python3"
+  echo "\"\$PY\" -m tools.subagent_factory.cli repair-faithfulness \"$SLUG\" 2>&1 | grep -vE 'Requests|warnings.warn' | tail -1"
+  echo "\"\$PY\" -m tools.subagent_factory.validate_generated_package \"$PKG\" 2>&1 | grep -E 'VALIDATION (PASSED|FAILED)' | tail -1"
+  echo "exit \$rc"
 } > "$driver"
 chmod +x "$driver"
 if [ "$FG" -eq 1 ]; then bash "$driver"; else

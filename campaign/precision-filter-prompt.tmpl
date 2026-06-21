@@ -2,34 +2,39 @@ ENVIRONMENT: autonomous engineer in {{REPO}}. No human watching: never ask, neve
 
 # Goal — precision-filter candidate principle clusters, then stop
 You are the PRECISION FILTER of a recall-then-filter merge. A deterministic embedding-recall step
-over-grouped operational principles distilled from 9 software-architecture books into candidate
+over-grouped operational principles (distilled per-book from THIS package's sources) into candidate
 clusters — embedding similarity is NOT equivalence, so some clusters fuse distinct principles. Decide,
 per cluster, whether its members are truly the same principle. AUTHORING ONLY: write just the one
 decisions file below; do not modify anything else, do not commit.
 
 # Input
-Read `{{WORK}}/clusters.json` — a JSON list of clusters, each `{cluster_id, members:[{pid, source_id, statement}]}`.
+Read `{{WORK}}/clusters.json` — a JSON list of multi-member candidate clusters, each
+`{"group": <int>, "members": [{"idx": <int>, "statement": "..."}]}`. `group` is the cluster id; `idx`
+is a principle's global index. (Singletons are auto-kept and do NOT appear here.)
 
 # Per cluster choose exactly ONE action
-- **confirm** — the members ARE the same operational principle, re-stated across books. Provide a single
-  `canonical` statement that captures the shared principle faithfully (NEVER stronger/broader than the
-  members; keep any hedges/conditions they share).
+- **confirm** — the members ARE the same operational principle re-stated; they merge into ONE. Optionally
+  add `canonical`: a single statement capturing the shared principle faithfully (NEVER stronger or broader
+  than the members; keep any shared hedges/conditions). Omit `canonical` to keep a member's own wording.
 - **split** — the members are DISTINCT principles that merely sound alike. Provide `subgroups`: a list of
-  pid-lists; each subgroup becomes one principle (a singleton subgroup stands alone). EVERY member pid
-  must appear in exactly one subgroup.
-- **conflict** — the members DISAGREE (opposing guidance), not duplicate. Keep them separate; downstream
-  reconcile handles it.
+  idx-lists; each subgroup merges into one principle (a singleton subgroup stands alone). Any member idx
+  you omit is kept as its own principle. Use a multi-idx subgroup ONLY for members that are truly the same.
+- **conflict** — the members DISAGREE (opposing guidance); keep every member separate.
 
-Judge by OPERATIONAL meaning, not surface wording: confirm only when a reviewer would apply the members
-interchangeably. **When unsure between confirm and split, SPLIT** — preserving a distinct principle is
-safer than fusing two. Large clusters (e.g. the 13-member one) are almost certainly multiple principles
-→ split into coherent subgroups.
+Judge by OPERATIONAL meaning, not surface wording: merge only when a reviewer would apply the members
+interchangeably. **When unsure, SPLIT** — preserving a distinct principle is safer than fusing two.
+Topically-related is NOT the same rule (e.g. many distinct indexing rules share vocabulary). A large
+cluster is almost certainly several principles → split into coherent subgroups.
 
-# Output — write `{{WORK}}/decisions.json` and NOTHING else there: a JSON list, one object per cluster:
-  {"cluster_id":"K01","action":"confirm","canonical":"<merged statement>"}
-  {"cluster_id":"K02","action":"split","subgroups":[["G0007"],["G0042","G0101"]]}
-  {"cluster_id":"K03","action":"conflict"}
-Cover EVERY cluster_id present in clusters.json. The file must be valid JSON (no prose, no trailing commas).
+# Output — write `{{WORK}}/decisions.json` and NOTHING else there. A JSON OBJECT keyed by the `group`
+# integer (as a string), one entry per cluster present in clusters.json:
+  {
+    "0": {"action": "confirm", "canonical": "<merged statement>"},
+    "4": {"action": "split", "subgroups": [[0, 33], [27], [41]]},
+    "7": {"action": "conflict"}
+  }
+Keys are `group` ints (as strings); subgroup values are the `idx` ints from that group's members. Cover
+EVERY group in clusters.json. Valid JSON only (no prose, no trailing commas). A missing group → confirm.
 
 # Finish — print EXACTLY this last
 ===FILTER_SUMMARY===

@@ -64,6 +64,15 @@ if ! mkdir "$MODULE/.claim" 2>/dev/null; then
 fi
 trap 'rmdir "$MODULE/.claim" 2>/dev/null' EXIT
 
+# A prior run that died (cap/429, timeout) leaves a partial claims.jsonl but no principles.yaml;
+# the MAP prompt APPENDS, so re-running would duplicate claims and collide C-ids. Reset the partial
+# extraction outputs — but KEEP the deterministic chunks (chunks.jsonl, chunks/, source.md).
+if [ -f "$MODULE/claims.jsonl" ] && [ ! -f "$MODULE/principles.yaml" ]; then
+  echo "[map] $SOURCE_ID has a partial (incomplete) extraction — resetting before re-MAP"
+  rm -f "$MODULE/claims.jsonl" "$MODULE/anchors.jsonl" "$MODULE/module.json"
+  rm -rf "$MODULE/_map" "$MODULE/_work"
+fi
+
 run="map-$SOURCE_ID${TAG}"; log="$LOGS/$run.log.jsonl"; promptfile="$LOGS/$run.prompt.txt"
 REPO="$REPO" MODULE="$MODULE" SOURCE_ID="$SOURCE_ID" TITLE="$TITLE" \
   python3 "$CAMP/render-prompt.py" "$TMPL" > "$promptfile"
@@ -84,7 +93,9 @@ driver="$LOGS/$run.driver.sh"
     echo "    --dangerously-skip-permissions --output-format stream-json --verbose \\"
     echo "    < \"$promptfile\" > \"$log\" 2>&1"
   fi
-  echo "echo \"[map] $SOURCE_ID $ENGINE rc=\$?\""
+  # Capture + propagate the engine's real exit code: a 429/cap kill must NOT look like success
+  # (the bare `echo` returned 0, masking cap failures so empty modules read as "done").
+  echo "rc=\$?; echo \"[map] $SOURCE_ID $ENGINE rc=\$rc\"; exit \$rc"
 } > "$driver"
 chmod +x "$driver"
 
