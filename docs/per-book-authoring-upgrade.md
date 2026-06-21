@@ -369,6 +369,16 @@ full validate pass is **mechanical P2-full assembly** with existing tools, no un
 golden/behaviour tests, skills (per-principle), adapter export, sources/ copy, and keeping
 `derived_from_claims` ↔ the renumbered `claims.jsonl` consistent.
 
+**P1 substrate built (2026-06-21).** `route_books.py` (deterministic engine router: ≤100k tok →
+Copilot, else Claude; the 9 books route 3 small→Copilot / 6 large→Claude) + `build_cache.py` (atomic
+`.done` markers with input-fingerprinting + `steps.log.jsonl` ledger) + `build_p0.py` orchestrator
+(route → chunk → MAP → anchors → reduce-emit → filter → reduce-apply, each checkpointed; `--resume`
+skips done; input change invalidates downstream; the two LLM steps are **gates** that print the
+command and stop rather than auto-spend). End-to-end run produced the focused 50-principle set with 7
+`.done` checkpoints + a clean step log. `make verify` green (635 passed; `route_books`/`build_cache`
+are in the gate with unit tests). Next: **P2-full assembly** over this substrate → an installable,
+`validate`-passing package.
+
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
 - **Global principle merge is one pass** — lighter than extraction, but if it dilutes too it may need chunking; the P0 prototype will show.
