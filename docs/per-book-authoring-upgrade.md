@@ -411,9 +411,18 @@ and the finish driver (`p2b_finish.sh`).
 (`route_books`, `build_cache`, `chunk_source`, `emit_chunk_anchors`, `reduce_principles`; `make verify`
 641). P3b added the **6.5-MR per-book map→reduce** branch to `author-subagent/SKILL.md` — multi-book
 CREATE = map→reduce, producing the same Step-7+ artifacts (the rest of the pipeline is unchanged);
-UPDATE = add-book→cache + re-merge is documented. **Remaining is polish only:** make the
-`campaign/*_p0.py` assemble/finish drivers slug-agnostic (proven, but currently
-`software-architecture-p0`-scoped) and lift them into `tools/`.
+UPDATE = add-book→cache + re-merge is documented.
+
+**P3 polish done.** `tools/subagent_factory/map_reduce_build.py` (verify-gated, tested) is the
+**slug-agnostic** distilled-layer assembler: given any `<slug>` + its per-book MAP modules + the
+precision-filter decisions, it global-renumbers claims, runs recall→filter→select (`reduce_principles`),
+and writes `analysis/claims.jsonl` / `principles/principles.yaml` / `evidence/evidence-records.yaml` /
+`sources/anchors/*.anchors.jsonl` into `subagents/<slug>/` with **no baseline copy** (a real
+author-subagent run gets `sources/` + manifest from Step-5 ingest; Step 7+ then run unchanged). Proven
+on the real 9 books → a throwaway slug (2,420 claims, 50 principles, 463 evidence, 9 anchor indices,
+all `derived_from_claims` resolve). The `campaign/*_p0.py` scripts remain as the `software-architecture-p0`
+prototype record. **The map→reduce path is now fully slug-agnostic, gated, and factory-wired** — the
+only optional extra is a single turnkey CLI stitching the MAP gate + LLM filter + assemble (all pieces exist).
 
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
