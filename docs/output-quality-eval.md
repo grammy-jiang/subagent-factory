@@ -239,3 +239,32 @@ Monotonic, steep: total claims barely rise (34→37→45) while books grow 5× �
 spreads extraction thinner across more sources. ~4× more claims/book at n=1 vs n=5. (1 run/arm, so
 treat magnitudes as indicative; the *direction* is unambiguous.) → motivates the per-book
 map→merge authoring upgrade (`docs/per-book-authoring-upgrade.md`).
+
+## Finding (2026-06-21): map→reduce vs batch — advice tie, grounding wins (measure 6)
+
+The deferred per-book-upgrade advice A/B (measure 6): **software-architecture-p0** (map→reduce, 50
+principles / 2,420 claims) vs **software-architecture** (batch v0.3.0, 20 principles / 42 claims),
+both reviewing the same architecture design doc (`per-book-authoring-upgrade.md`), graded by the
+**cross-family codex (gpt-5.5) judge**, 12 position-swapped passes → Bradley-Terry + bootstrap CI
+(`eval_report.run_eval`).
+
+| axis | batch-20p | mr-50p | verdict |
+|---|---|---|---|
+| advice quality (BT strength) | 0.5, CI [0.25, 0.75] | 0.5, CI [0.25, 0.75] | **tie — `separated: false`, 6–6 of 12** |
+| grounding coverage | 0.076 | **0.647** | **MR ~8.5× (deterministic)** |
+| cross-source borrows | 8 | **0** | **MR fully self-grounded** |
+| review size | 203 lines / 13.5k ch | 102 lines / 14.1k ch | char-parity ≈even (MR denser) |
+
+- **Advice quality: indistinguishable** — even under the *cross-family* judge that previously leaned
+  toward the longer/richer arm. Here the MR review is *shorter* (102 vs 203 lines), so no length
+  tailwind helped it, and chars are near-identical (4% apart) → the 6–6 split is a genuine tie, not a
+  length artifact (despite the line-count parity flag firing).
+- **Grounding: robust MR win.** The MR reviewer expressed its findings in vocabulary that traces to
+  its own principles/claims (coverage 0.647 vs 0.076) with **0 cross-source borrows vs the batch's
+  8** — the batch reviewer reached for concept terms grounded in *other* subagents' sources; the MR
+  reviewer did not need to.
+- **Net (consistent with the multi-source arc above, now on the batch-vs-map→reduce axis): the
+  robust, judge-independent payoff of richer per-book extraction is grounding/faithfulness, not
+  measurably better advice.** 57× claims / 2.5× principles buys *self-grounded, leak-free* expression
+  and broader coverage, not a higher advice score under a blind length-neutral judge. Measure 6 is
+  now **closed** with the same verdict the 1-source-vs-2-source A/B reached.
