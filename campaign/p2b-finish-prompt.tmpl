@@ -1,0 +1,43 @@
+ENVIRONMENT: autonomous engineer in {{REPO}}. No human is watching: never ask, never wait; apply the documented default and proceed. Permissions pre-approved. (Scratch scripts: Write tool or `python3 - <<'PY'`, never `cat >file <<EOF`.)
+
+# Goal — finish the P0 package so `validate` PASSES, then stop
+Package: `{{PKG}}` (slug `{{SLUG}}`). Its **distilled layer is ALREADY assembled and deterministically
+valid — DO NOT touch it**:
+- `analysis/claims.jsonl` (2,420 claims, global ids `C#####`)
+- `principles/principles.yaml` (the focused 50; `derived_from_claims` resolve into claims.jsonl)
+- `evidence/evidence-records.yaml` (298 records)
+- `sources/anchors/*.anchors.jsonl` (chunk/paragraph anchors; every claim's `source_anchors` resolve)
+- `sources/{markdown,metadata,original,reports}`, `source-pack.manifest.yaml`, `provenance-ledger.md`
+
+The **LLM-authored layer is STALE** — it was copied from the baseline `software-architecture` package
+and still cites that package's old ids (`C001`..`C040`, heading anchors, baseline principle ids). The
+current `validate` shows ~192 failures, all in this layer. **Regenerate it for THESE 50 principles:**
+
+1. **profile.yaml** — re-derive from the 50 principles (role, scope/boundaries, source_of_truth, and
+   `rules` mapped to the kept principles). Keep `sources[]` = the 9 source_ids already in the manifest.
+   Use the `profile-deriver` agent + `profile-generation` skill.
+2. **reports/faithfulness-report.yaml** — run `faithfulness-reviewer` over the profile rules / 50
+   principles against `evidence-records.yaml` + `claims.jsonl`. No rule stronger than its evidence.
+3. **skills/ + references/** — regenerate every skill body + reference (`skill-author`) grounded in the
+   50 principles' `operational_mapping` + their derived claims/evidence/anchors. **Delete** skills/refs
+   that no longer map to any kept principle; **add** any a kept principle's `operational_mapping`
+   names. Every cited `claim`/`evidence`/`source_anchor` id MUST resolve to an id that now exists.
+4. **tests/** — regenerate `golden-tests.yaml` + `principle-behaviour-tests.yaml` covering the 50
+   principles (`gen_behaviour_tests` + `principle-test-generation`); every principle needs a behaviour
+   test (principle→test coverage must pass).
+5. **adapter** — export via `python -m tools.subagent_factory.cli export {{SLUG}}` (writes
+   `{{PKG}}/adapters/claude-code/{{SLUG}}.md` + installs `.claude/agents/generated/{{SLUG}}.md`).
+
+Read fresh: `CLAUDE.md`, `.claude/rules/*`, `.claude/skills/{profile-generation,faithfulness-review,author-skills,principle-test-generation,adapter-export}/SKILL.md`, and the matching agents. Work ONLY inside `{{PKG}}` (plus the one installed adapter via `cli export`). Bump `agent_version` + add a CHANGELOG entry.
+
+# Drive to green
+Run `python -m tools.subagent_factory.validate_generated_package {{PKG}}` and FIX until it PASSES (0
+failures). Iterate. The deterministic spine already passes — only the regenerated layer should change.
+
+# Finish — print EXACTLY this last
+===P2B_SUMMARY===
+validate: PASS|FAIL
+remaining_failures: <int>
+skills_regenerated: <int>
+notes: <one concise line>
+===END===
