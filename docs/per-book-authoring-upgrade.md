@@ -397,8 +397,12 @@ tests**, then re-exported the adapter. `validate_generated_package`: **VALIDATIO
 (3 residual WARNs are pre-existing source-markdown injection-scan triage hits on the spine, out of
 scope). `software-architecture-p0` installs + registers as a runnable agent. **The per-book map→reduce
 upgrade is proven end-to-end — raw books → installable, validate-passing package.** Both
-`software-architecture` (batch v0.3.0) and `software-architecture-p0` (map→reduce) are now installed,
-so the deferred advice A/B (measure 6) is runnable on demand.
+`software-architecture` (batch v0.3.0) and `software-architecture-p0` (map→reduce) are now installed.
+**Advice A/B (measure 6) — done (2026-06-21):** codex (gpt-5.5) cross-family judge, 12 position-swapped
+passes → advice quality a **tie** (BT 0.5/0.5, CIs overlap, 6–6), while grounding is a **robust MR
+win** (coverage 0.647 vs 0.076; 0 vs 8 cross-source borrows). Same verdict as the multi-source arc:
+the judge-independent payoff is grounding/faithfulness, not measurably better advice. See
+`docs/output-quality-eval.md`.
 
 ## Status: P0–P3 (2026-06-21)
 The upgrade is **validated end-to-end, built, and wired into the factory**: deterministic chunker +
@@ -429,8 +433,9 @@ per-step `.done` checkpoints + a `steps.log.jsonl` ledger under `subagents/<slug
 work via the gated tools, and the two LLM steps (per-book MAP, precision filter) as **gates** (print the
 exact next command + stop; never auto-spend). Proven on the 9 books: run → gate at the filter → feed
 `.build/decisions.json` → `--resume` → distilled layer (2,420 claims / 50 principles / 463 evidence),
-all steps idempotently skipped on resume. Supersedes the slug-specific `build_p0.py`. (Only remaining
-optional item: the advice A/B — both `software-architecture` and `software-architecture-p0` are installed.)
+all steps idempotently skipped on resume. Supersedes the slug-specific `build_p0.py`. **Advice A/B
+(measure 6) is now done** (tie on advice, robust grounding win — see above + `docs/output-quality-eval.md`);
+no open items remain.
 
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
