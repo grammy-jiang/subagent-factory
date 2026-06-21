@@ -2,6 +2,9 @@
 # Campaign driver — run /author-subagent over the PDF queue, one fresh headless
 # Claude session per PDF (smallest-first). Deterministic orchestration only; the
 # LLM does the skill test / review / change / commit. See campaign/README.md.
+# NOTE: authors ONE single-source package per PDF (batch path). For a MULTI-book package use the
+#   per-book map->reduce path instead: campaign/build_map_reduce.py (+ map_books.sh, p2b_finish.sh)
+#   — see docs/per-book-authoring-upgrade.md. Multi-book batch authoring under-extracts (dilution).
 #
 # Usage: campaign/run.sh [-n N | --all] [--prompt-file F] [--collection DIR]
 #                        [--model M] [--timeout SECS] [--dry-run] [--yes]

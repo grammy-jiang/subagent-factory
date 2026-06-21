@@ -40,7 +40,13 @@ def main() -> int:
     ap.add_argument("slug")
     ap.add_argument("--sources", required=True, help="newline file of md paths, or a dir of *.md")
     ap.add_argument("--resume", action="store_true")
-    ap.add_argument("--select", type=int, default=50)
+    ap.add_argument(
+        "--select",
+        type=int,
+        default=50,
+        help="max principles to surface, importance-ranked (50 = focused reviewer; "
+        "150+ = comprehensive reference advisor; 0 = all merged/deduplicated principles)",
+    )
     ap.add_argument("--cos", type=float, default=0.55)
     ap.add_argument("--threshold-tokens", type=int, default=100_000)
     args = ap.parse_args()
