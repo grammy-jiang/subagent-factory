@@ -390,6 +390,24 @@ tier-artifact 24 (stale faithfulness / tests / coverage), adapter 2. → **P2b =
 skills/references/tests/faithfulness/profile/adapter for the focused-50** (LLM sessions). The
 deterministic assembly is proven; only the LLM-authored layer remains to make the package install.
 
+**P2b — LLM layer regenerated → `validate` PASS (2026-06-21).** One headless authoring session
+(`p2b_finish.sh`) over the assembled package regenerated, all grounded in the focused-50 + the global
+claims / chunk-anchors: **profile + faithfulness-report + 17 skills + 5 references + 50 behaviour
+tests**, then re-exported the adapter. `validate_generated_package`: **VALIDATION PASSED, 0 failures**
+(3 residual WARNs are pre-existing source-markdown injection-scan triage hits on the spine, out of
+scope). `software-architecture-p0` installs + registers as a runnable agent. **The per-book map→reduce
+upgrade is proven end-to-end — raw books → installable, validate-passing package.** Both
+`software-architecture` (batch v0.3.0) and `software-architecture-p0` (map→reduce) are now installed,
+so the deferred advice A/B (measure 6) is runnable on demand.
+
+## Status: P0 + P1 + P2 complete (2026-06-21)
+The upgrade is **validated end-to-end and built**: deterministic chunker + per-book MAP driver
+(`chunk_source`, `map_book.sh`), recall-then-filter REDUCE (`merge_principles_p0`, `precision_filter*`),
+deterministic assembly (`assemble_package_p0`), the checkpoint/route substrate (`route_books`,
+`build_cache`, `build_p0`), and the finish driver (`p2b_finish.sh`). Remaining = **P3**: fold these
+into `author-subagent` (CREATE = map→reduce; UPDATE = add-book→cache + re-merge) + productionize the
+prototype scripts (campaign/ → tools/, verify-gated). The method is proven; P3 is integration.
+
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
 - **Global principle merge is one pass** — lighter than extraction, but if it dilutes too it may need chunking; the P0 prototype will show.
