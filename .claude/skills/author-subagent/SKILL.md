@@ -232,7 +232,8 @@ python -m tools.subagent_factory.classify_tier subagents/<slug>
 - **Tier 0** (single short source): skip to Step 7. The safety gate (injection scan,
   adapter-policy, faithfulness-v0) still runs at Step 7.7 / Step 9.
 - **Tier 1+** (long book / content-dense / multi-source): run the evidence chain so the profile
-  is built from atomic, evidence-backed claims rather than a flat summary.
+  is built from atomic, evidence-backed claims rather than a flat summary. **Multi-book (≥2 long
+  sources): prefer 6.5-MR (per-book map→reduce) below over the single batch pass of 6.5a/6.5b.**
 
 ### 6.5-pre — Source structure mapping (Tier 1+, before claims) — Step 10
 
@@ -278,6 +279,40 @@ python -m tools.subagent_factory.validate_principles subagents/<slug>/principles
 ```
 
 Profile derivation (Step 7) then grounds its rules in these principles.
+
+### 6.5-MR — Per-book map→reduce (multi-book Tier-1+, the deeper alternative to 6.5a/6.5b)
+
+For a **multi-book** package (≥2 long sources), prefer **per-book map→reduce** over the single batch
+pass of 6.5a/6.5b: one author pass over N books extracts far fewer claims **per book** (the confirmed
+dilution finding — proven 57× more claims per-book on software-architecture; see
+`docs/per-book-authoring-upgrade.md`). It produces the **same artifacts** (`analysis/claims.jsonl`,
+`evidence/evidence-records.yaml`, `principles/principles.yaml`, `sources/anchors/*.anchors.jsonl`) that
+Step 7+ consume, so the rest of the pipeline is unchanged — continue at Step 7 afterwards.
+
+**MAP — per book (deep, cached, content-addressed by sha):**
+1. `route_books` — size→engine (≤~100k tok → Copilot whole-session; larger → Claude).
+2. `chunk_source` — deterministic heading-aligned chunks (+neighbour overlap) → `cache/book-extracts/<sha>/`.
+3. Per book, extract **per chunk** (own budget ⇒ no dilution) → typed claims (`claims-v1`:
+   claim_type fact/value/policy + condition/exception + certainty) → evidence → per-book principles.
+   Run one headless `claude -p`/book (`campaign/map_book.sh`) or in-thread per the no-spawner branch.
+   Each book is a self-contained module, skip-if-`.done` (resumable / cap-tolerant).
+4. `emit_chunk_anchors` — each chunk → a `source-anchor` `paragraph` anchor, so claims resolve.
+
+**REDUCE — global (`reduce_principles`, recall-then-filter):**
+5. **recall** — `recall_clusters` (embedding cosine) proposes cross-book duplicate candidates (token-F1
+   is paraphrase-blind; embeddings find the real ones, then over-propose).
+6. **precision filter** — an LLM confirms / splits / flags-conflict each candidate cluster (recall
+   over-merges; the books are largely complementary — never trust raw recall).
+7. **select** — `select_top` ranks by importance (cross-book strength → evidence breadth → confidence)
+   and keeps the best N. **Selection, not dedup, is the anti-bloat lever.**
+8. **renumber** — globalize claim ids so merged principles' `derived_from_claims` resolve into the
+   combined `claims.jsonl`. Conflicts split by nature: factual = accuracy-weighted/copy-discounted;
+   normative (value/policy) = keep multiple co-valid principles (`knowledge-fusion`).
+
+The orchestrator `campaign/build_p0.py` runs route→chunk→MAP→anchors→reduce with per-step `.done`
+checkpoints (`build_cache`) + a `steps.log.jsonl` ledger and `--resume` (cap-tolerant, portable).
+**UPDATE (add a book):** chunk + MAP only the new book into the cache, then re-run REDUCE — never
+re-MAP unchanged books.
 
 ---
 

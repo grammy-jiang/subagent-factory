@@ -400,13 +400,20 @@ upgrade is proven end-to-end — raw books → installable, validate-passing pac
 `software-architecture` (batch v0.3.0) and `software-architecture-p0` (map→reduce) are now installed,
 so the deferred advice A/B (measure 6) is runnable on demand.
 
-## Status: P0 + P1 + P2 complete (2026-06-21)
-The upgrade is **validated end-to-end and built**: deterministic chunker + per-book MAP driver
-(`chunk_source`, `map_book.sh`), recall-then-filter REDUCE (`merge_principles_p0`, `precision_filter*`),
-deterministic assembly (`assemble_package_p0`), the checkpoint/route substrate (`route_books`,
-`build_cache`, `build_p0`), and the finish driver (`p2b_finish.sh`). Remaining = **P3**: fold these
-into `author-subagent` (CREATE = map→reduce; UPDATE = add-book→cache + re-merge) + productionize the
-prototype scripts (campaign/ → tools/, verify-gated). The method is proven; P3 is integration.
+## Status: P0–P3 (2026-06-21)
+The upgrade is **validated end-to-end, built, and wired into the factory**: deterministic chunker +
+per-book MAP driver (`chunk_source`, `map_book.sh`), recall-then-filter REDUCE (`merge_principles_p0`,
+`precision_filter*` → productionized `reduce_principles`), deterministic assembly
+(`assemble_package_p0`), the checkpoint/route substrate (`route_books`, `build_cache`, `build_p0`),
+and the finish driver (`p2b_finish.sh`).
+
+**P3 (integration) — wired.** P3a productionized the deterministic cores into verify-gated `tools/`
+(`route_books`, `build_cache`, `chunk_source`, `emit_chunk_anchors`, `reduce_principles`; `make verify`
+641). P3b added the **6.5-MR per-book map→reduce** branch to `author-subagent/SKILL.md` — multi-book
+CREATE = map→reduce, producing the same Step-7+ artifacts (the rest of the pipeline is unchanged);
+UPDATE = add-book→cache + re-merge is documented. **Remaining is polish only:** make the
+`campaign/*_p0.py` assemble/finish drivers slug-agnostic (proven, but currently
+`software-architecture-p0`-scoped) and lift them into `tools/`.
 
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
