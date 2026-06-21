@@ -92,6 +92,15 @@ def main() -> int:
                     f"        bash campaign/map_book.sh --book {s} --engine {eng.get(s, 'claude')} --fg"
                 )
             return False
+        from tools.subagent_factory.extraction_density import density
+
+        for sha in shas:
+            r = density(CACHE / sha)
+            if r["over"]:
+                print(
+                    f"      WARN over-extraction: {r['source_id']} = {r['per_chunk']}/chunk"
+                    " — consider re-MAP with a tighter check-worthiness filter"
+                )
         print(f"      MAP complete for all {len(sources)} books")
         return True
 

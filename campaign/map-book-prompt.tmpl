@@ -18,7 +18,7 @@ The ONLY writable location is `{{MODULE}}/` (plus shared ~/.cache). Nothing else
 - `CLAUDE.md` + `.claude/rules/*` — rights: this source is **distillation-only**, NO verbatim quotation; paraphrase, never copy 3+ consecutive source sentences.
 
 # Step A — per-chunk deep claim extraction (the anti-dilution point)
-For EACH chunk in `chunks.jsonl`, read its `text_path` and extract ALL atomic, reusable, evidence-backed claims it carries. **Extract each chunk on its own budget** so no chunk is under-mined — this is exactly why the book was chunked. Type every claim per claims-v1:
+For EACH chunk in `chunks.jsonl`, read its `text_path` and extract the **high-value, operational** claims it carries — atomic, reusable, evidence-backed, and **check-worthy**: things a reviewer would *act on*. **Extract each chunk on its own budget** so no load-bearing claim is missed (this is why the book was chunked) — but **deep ≠ exhaustive: SKIP background, motivational, historical, and definitional trivia, and do NOT emit a claim per sentence or per example.** A chunk yields its load-bearing principles (typically ~15–50 claims); **if you are emitting more than ~60 claims for one chunk you are capturing trivia — tighten to the actionable ones.** Type every claim per claims-v1:
 - `claim_type` ∈ {fact, value, policy}; set `component_class`, `evidence_type`.
 - `certainty` ∈ {asserted, hedged, speculative} — **never strip a hedge**; a hedged source claim stays hedged.
 - `condition` / `exception` — fill when the text qualifies the claim ("unless / except when / only if / provided that / assuming"); else null. This keeps a scoped claim from over-broadening.
