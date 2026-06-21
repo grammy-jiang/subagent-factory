@@ -108,8 +108,14 @@ def test_assemble_merges_and_resolves(tmp_path):
     }
     assert claim_ids == {"C00001", "C00002"}
     prins = yaml.safe_load((pkg / "principles" / "principles.yaml").read_text())["principles"]
-    assert len(prins) == 1 and prins[0]["n_sources"] == 2
-    # every derived claim resolves into the assembled claims.jsonl
+    assert len(prins) == 1
+    assert (
+        "n_sources" not in prins[0] and "source_ids" not in prins[0]
+    )  # principles-v1 is additionalProperties:false
+    assert set(prins[0]["derived_from_claims"]) == {
+        "C00001",
+        "C00002",
+    }  # both books merged into one
     assert set(prins[0]["derived_from_claims"]) <= claim_ids
     ev = yaml.safe_load((pkg / "evidence" / "evidence-records.yaml").read_text())[
         "evidence_records"

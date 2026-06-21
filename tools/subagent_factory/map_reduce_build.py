@@ -34,6 +34,20 @@ from tools.subagent_factory.reduce_principles import (
 
 Embedder = Callable[[list[str]], list[list[float]]]
 
+# principles-v1 is additionalProperties:false — strip the merge working-fields (source_ids / n_sources)
+# before writing principles.yaml; multi-source provenance stays recoverable via derived_from_claims.
+_ALLOWED_PRINCIPLE_FIELDS = frozenset(
+    {
+        "statement",
+        "derived_from_claims",
+        "confidence",
+        "applies_when",
+        "does_not_apply_when",
+        "operational_mapping",
+        "grade",
+    }
+)
+
 
 def load_modules(source_paths: Sequence[str | Path], cache_root: Path) -> list[dict]:
     """Resolve each source md -> its content-addressed MAP module; dedup by sha; require completeness."""
@@ -155,7 +169,13 @@ def assemble(
     gp = globalize_principles(modules, cmap)
     groups = recall_clusters(gp, embedder, cos)
     merged = select_top(apply_decisions(gp, groups, decisions), select)
-    merged = [{"principle_id": f"P{i:03d}", **p} for i, p in enumerate(merged, 1)]
+    merged = [
+        {
+            "principle_id": f"P{i:03d}",
+            **{k: v for k, v in p.items() if k in _ALLOWED_PRINCIPLE_FIELDS},
+        }
+        for i, p in enumerate(merged, 1)
+    ]
     evidence = evidence_records(merged, claims_by_id)
 
     (pkg / "analysis").mkdir(parents=True, exist_ok=True)
