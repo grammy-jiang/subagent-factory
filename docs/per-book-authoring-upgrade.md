@@ -379,6 +379,17 @@ command and stop rather than auto-spend). End-to-end run produced the focused 50
 are in the gate with unit tests). Next: **P2-full assembly** over this substrate → an installable,
 `validate`-passing package.
 
+**P2a deterministic spine — assembled clean (2026-06-21).** `assemble_package_p0.py`: copy the baseline
+scaffold (same 9 source_ids) + overwrite the distilled layer — **2,420 globally-renumbered claims** +
+the **focused-50 principles** with renumber-consistent `derived_from_claims` + **298 evidence records**
++ the **chunk-anchors**. `validate_generated_package`: **0 spine failures** (claims / evidence /
+principles / anchor-index / required-files all clean — the renumber-consistency *and* anchor
+reconciliation hold in package context). The 192 failures are entirely the **P2b regeneration layer**:
+skill-authoring 166 (the copied baseline skills/references still cite the old distilled IDs),
+tier-artifact 24 (stale faithfulness / tests / coverage), adapter 2. → **P2b = regenerate
+skills/references/tests/faithfulness/profile/adapter for the focused-50** (LLM sessions). The
+deterministic assembly is proven; only the LLM-authored layer remains to make the package install.
+
 ## Residual risks
 - **Dedup threshold tuning** — too aggressive merges distinct principles; too loose keeps redundancy. Calibrate on real data.
 - **Global principle merge is one pass** — lighter than extraction, but if it dilutes too it may need chunking; the P0 prototype will show.
