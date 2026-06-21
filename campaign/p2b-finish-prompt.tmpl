@@ -18,6 +18,11 @@ exactly what's needed, then (re)generate it for the principles in `principles.ya
    Use the `profile-deriver` agent + `profile-generation` skill.
 2. **reports/faithfulness-report.yaml** — run `faithfulness-reviewer` over the profile rules /
    principles against `evidence-records.yaml` + `claims.jsonl`. No rule stronger than its evidence.
+   **Cite `source_anchors` ONLY as real chunk-anchor ids taken from `sources/anchors/*.anchors.jsonl`
+   (shape `<sha12>-cNNNN`), or leave the field absent/empty — NEVER heading or line anchors invented
+   from the raw source markdown (`-hNNNN`/`L<n>`): those are not in this package's chunk anchor index
+   and fail `validate_faithfulness_report`. When unsure, omit source_anchors (the note carries the
+   provenance).**
 3. **skills/ + references/** — author a skill body + reference (`skill-author`) grounded in each
    principle's `operational_mapping` + its derived claims/evidence/anchors. **Remove** any pre-existing
    skill/ref that maps to no current principle; **add** any a principle's `operational_mapping` names.
