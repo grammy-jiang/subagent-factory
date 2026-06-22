@@ -91,7 +91,10 @@ ignore = ["E501"]
 skips = ["B404", "B603", "B607", "B105", "B110", "B112"]
 
 [tool.mypy]
-python_version = "3.11"
+# 3.12 (not the 3.11 floor): a fresh numpy ships PEP 695 `type` statements in its bundled stubs,
+# which mypy rejects under a <3.12 target ("Type statement is only supported in Python 3.12 and
+# greater") when it parses them. 3.11 runtime compatibility is still gated by the test matrix.
+python_version = "3.12"
 # Pragmatic baseline for a mixed-typing codebase: type-check what is annotated
 # without forcing annotations onto every legacy function. Promote to stricter
 # flags incrementally once the tree stays clean.
@@ -115,13 +118,4 @@ module = [
     "nltk",
     "nltk.*",
 ]
-ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-# numpy (transitive via sentence-transformers / embeddings) ships PEP 695 `type` statements in its
-# bundled stubs (newer 2.x). Under python_version = "3.11" mypy parses those stubs and errors
-# "Type statement is only supported in Python 3.12 and greater", red-lining CI on a fresh numpy even
-# though our own code is clean. We do not type-check numpy — skip following into it (treat as Any).
-module = ["numpy", "numpy.*"]
-follow_imports = "skip"
 ignore_missing_imports = true
