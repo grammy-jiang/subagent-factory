@@ -424,8 +424,9 @@ and writes `analysis/claims.jsonl` / `principles/principles.yaml` / `evidence/ev
 `sources/anchors/*.anchors.jsonl` into `subagents/<slug>/` with **no baseline copy** (a real
 author-subagent run gets `sources/` + manifest from Step-5 ingest; Step 7+ then run unchanged). Proven
 on the real 9 books → a throwaway slug (2,420 claims, 50 principles, 463 evidence, 9 anchor indices,
-all `derived_from_claims` resolve). The `campaign/*_p0.py` scripts remain as the `software-architecture-p0`
-prototype record. **The map→reduce path is now fully slug-agnostic, gated, and factory-wired.**
+all `derived_from_claims` resolve). The `campaign/*_p0.py` prototype scripts were **retired** (2026-06-22,
+in git history) once the slug-agnostic toolchain superseded them. **The map→reduce path is now fully
+slug-agnostic, gated, and factory-wired.**
 
 **Turnkey CLI (P3 #1).** `campaign/build_map_reduce.py <slug> --sources <dir|file> [--resume]` runs the
 whole pipeline — route → chunk → MAP → anchors → reduce-emit(clusters) → filter → assemble — with
