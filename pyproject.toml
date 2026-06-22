@@ -116,3 +116,12 @@ module = [
     "nltk.*",
 ]
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# numpy (transitive via sentence-transformers / embeddings) ships PEP 695 `type` statements in its
+# bundled stubs (newer 2.x). Under python_version = "3.11" mypy parses those stubs and errors
+# "Type statement is only supported in Python 3.12 and greater", red-lining CI on a fresh numpy even
+# though our own code is clean. We do not type-check numpy — skip following into it (treat as Any).
+module = ["numpy", "numpy.*"]
+follow_imports = "skip"
+ignore_missing_imports = true
