@@ -309,10 +309,21 @@ Step 7+ consume, so the rest of the pipeline is unchanged — continue at Step 7
    combined `claims.jsonl`. Conflicts split by nature: factual = accuracy-weighted/copy-discounted;
    normative (value/policy) = keep multiple co-valid principles (`knowledge-fusion`).
 
-The orchestrator `campaign/build_p0.py` runs route→chunk→MAP→anchors→reduce with per-step `.done`
-checkpoints (`build_cache`) + a `steps.log.jsonl` ledger and `--resume` (cap-tolerant, portable).
-**UPDATE (add a book):** chunk + MAP only the new book into the cache, then re-run REDUCE — never
-re-MAP unchanged books.
+The turnkey orchestrator `campaign/build_map_reduce.py <slug> --sources <file|dir> [--resume]
+[--select N]` runs route→chunk→MAP→anchors→reduce-emit→filter→assemble with per-step `.done`
+checkpoints (`build_cache`) + a `steps.log.jsonl` ledger (cap-tolerant, portable). Its two LLM steps
+are **gates** (print the next command + stop, never auto-spend):
+- **MAP** — `campaign/map_books.sh --sources <file>` (cap-aware **serial** batch over the books, real
+  success by `principles.yaml`; or `campaign/map_book.sh --book <md>` per book). `map_book.sh` self-resets
+  a cap-killed partial module and propagates the engine exit code.
+- **precision filter** — `campaign/precision_filter.sh --slug <slug> --fg` (or hand-author
+  `subagents/<slug>/.build/decisions.json`: group-keyed confirm/split/conflict).
+
+After assemble, finish **Steps 7+** with `campaign/p2b_finish.sh --slug <slug> --fg` — regenerates
+profile/faithfulness/skills/tests/adapter, then bakes in `cli repair-faithfulness` + `validate`. `--select`
+caps surfaced principles (50 focused reviewer / 150+ comprehensive reference / 0 all). **UPDATE (add a
+book):** chunk + MAP only the new book into the cache, then re-run REDUCE — never re-MAP unchanged books.
+*(The old `campaign/build_p0.py` / `*_p0.py` were the software-architecture-p0 prototype — superseded.)*
 
 ---
 
