@@ -54,11 +54,6 @@ from tools.subagent_factory.validate_principle_graph import validate_principle_g
 from tools.subagent_factory.validate_principle_test_coverage import validate_principle_test_coverage
 from tools.subagent_factory.validate_principles import validate_principles
 from tools.subagent_factory.validate_skill_authoring import validate_skill_authoring
-from tools.subagent_factory.validate_source_map import (
-    claim_recall_findings,
-    coverage_findings,
-    validate_source_map,
-)
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
 
@@ -486,23 +481,6 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
             warn("stale-maintenance", f"{artifact}: {reason}")
         else:
             ok("stale-maintenance", f"{artifact}: {reason}")
-
-    # Step 10: source structure maps — validate any present (Tier-1 preprocessor output).
-    # Present-gated only: the LLM mapper isn't wired yet, so absence is never a failure — but a
-    # malformed or dangling map FAILs. Promote to require-at-Tier-1 when Step 10 ships.
-    for mp in sorted((base / "sources" / "maps").glob("*.source-map.yaml")):
-        errs = validate_source_map(mp)
-        if errs:
-            for e in errs:
-                fail("source-map", f"sources/maps/{mp.name}: {e}")
-        else:
-            ok("source-map", f"sources/maps/{mp.name} valid")
-        # Coverage (Step 10 G3, deterministic section-coverage proxy) — advisory WARN.
-        for cov in coverage_findings(mp):
-            warn("source-map-coverage", f"sources/maps/{mp.name}: {cov}")
-        # Claim recall (Step 10 G3, deterministic claim-recall counterpart) — advisory WARN.
-        for cr in claim_recall_findings(mp):
-            warn("source-map-claim-recall", f"sources/maps/{mp.name}: {cr}")
 
     failed = [f for f in findings if f["level"] == "FAIL"]
     passed = len(failed) == 0

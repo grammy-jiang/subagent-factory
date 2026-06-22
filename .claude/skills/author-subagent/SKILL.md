@@ -231,33 +231,24 @@ python -m tools.subagent_factory.classify_tier subagents/<slug>
 
 - **Tier 0** (single short source): skip to Step 7. The safety gate (injection scan,
   adapter-policy, faithfulness-v0) still runs at Step 7.7 / Step 9.
-- **Tier 1+** (long book / content-dense / multi-source): run the evidence chain so the profile
-  is built from atomic, evidence-backed claims rather than a flat summary. **Multi-book (≥2 long
-  sources): prefer 6.5-MR (per-book map→reduce) below over the single batch pass of 6.5a/6.5b.**
+- **Tier 1+** (long book / content-dense / one or more sources): build the evidence chain via
+  **6.5-MR (per-book map→reduce) — the default for ALL Tier-1+**, single book or multi. One long book
+  = chunk + per-chunk MAP + select (no cross-book merge); ≥2 books add the recall→filter REDUCE. The
+  old single-batch `6.5a`/`6.5b` and the `6.5-pre` source-structure-mapping subsystem are
+  **DEPRECATED**: 6.5-pre's tooling was removed (map→reduce uses `chunk_source`); 6.5a/6.5b remain
+  only as the in-thread fallback when the map→reduce tooling is unavailable.
 
-### 6.5-pre — Source structure mapping (Tier 1+, before claims) — Step 10
+### 6.5-pre — Source structure mapping — REMOVED (2026-06-22)
 
-For each content-dense source, build a structure-first map **before** extracting claims, so
-extraction reads the book's hierarchy + candidate units instead of flat-chunking (research:
-flat fixed-window chunking is the wrong baseline). Invoke `source-structure-mapper` via
-`Agent(subagent_type="source-structure-mapper")` (no-spawner: run `Skill("source-structure-mapping")`
-in-thread and write the file yourself). It writes `sources/maps/<source_id>.source-map.yaml`
-(`source-map-v1`: a `part→chapter→section→passage` tree + provenance-anchored atomic candidate
-units), validated by:
+Deprecated and removed: map→reduce's deterministic `chunk_source` (heading-aligned chunks + neighbour
+overlap) replaced the LLM `source-structure-mapper`. The whole subsystem — the `source-structure-mapper`
+agent, the `source-structure-mapping` skill, `validate_source_map`, and the `source-map-v1` schema —
+was deleted; it lives in git history.
 
-```bash
-python -m tools.subagent_factory.validate_source_map subagents/<slug>/sources/maps/<source_id>.source-map.yaml
-```
-
-Then **6.5a consumes the map's `candidate_units`** as the extraction targets (claims reference
-`unit_id` and inherit its `source_anchors`) rather than flat-reading the source. If the source is
-short/structureless and mapping adds no value, skip mapping and extract directly.
-
-### 6.5a — Claims + evidence (Tier 1+)
+### 6.5a — Claims + evidence (Tier 1+) — DEPRECATED (in-thread fallback only; prefer 6.5-MR)
 
 Invoke `claim-extractor` via `Agent(subagent_type="claim-extractor")` (no-spawner branch: run
-`Skill("claim-extraction")` in-thread and write the files yourself). When a source map exists
-(6.5-pre), extract from its `candidate_units` (structure-aware); otherwise read the source. It
+`Skill("claim-extraction")` in-thread and write the files yourself); read the source directly. It
 must write:
 - `analysis/claims.jsonl` (`claims-v1`),
 - `evidence/evidence-records.yaml` (`evidence-records-v1`) — ≥1 record per high-value claim,
@@ -268,7 +259,7 @@ python -m tools.subagent_factory.validate_claims subagents/<slug>/analysis/claim
 python -m tools.subagent_factory.validate_evidence_records subagents/<slug>/evidence/evidence-records.yaml
 ```
 
-### 6.5b — Principles (Tier 1+)
+### 6.5b — Principles (Tier 1+) — DEPRECATED (in-thread fallback only; prefer 6.5-MR)
 
 Invoke `principle-promoter` via `Agent(subagent_type="principle-promoter")` (no-spawner:
 `Skill("principle-promotion")` in-thread) → `principles/principles.yaml` (`principles-v1`),
