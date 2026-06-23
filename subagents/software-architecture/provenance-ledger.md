@@ -2,9 +2,9 @@
 
 Canonical owner of this ledger: the subagent-factory. This records the distillation of **nine**
 canonical software-architecture books into the `software-architecture` reviewer package. From
-v0.4.0 the package carries the **deep map→reduce spine** (promoted from the
-`software-architecture-p0` build): 2420 source-anchored claims and 50 operational principles over
-the same nine books.
+v1.1.0 the package carries the **calibrated map→reduce spine** (`build_map_reduce --select 0.25`
+over the same nine books): 2420 source-anchored claims and **69** operational principles — the
+top quarter of the deduplicated principle pool by importance.
 
 ## Rights status
 
@@ -58,14 +58,20 @@ interrogation behind the profile fields is recorded in `interrogation-records.ya
 
 ## Evidence-grading + ask-gate provenance
 
-- **Step-16 GRADE** (v1.0.0): every principle carries a `grade` block (`source_type` + up/down
-  factors). The 10 cross-source-corroborated principles (`P001–P012`, derived from ≥2 sources) grade
-  `expert-book + [corroborated]`; 32 single-source high principles grade `classic`; the 8 medium
-  principles grade `expert-book`. `validate_confidence_grade` enforces
-  `grade_confidence(grade).level == confidence`.
-- **Step-13 ask-gate** (v1.0.0): 48 decision-context-dependent principles carry `must_ask_for` slots
-  (the profile's declared driving forces — prioritized characteristics + constraints); the two
-  universal-invariant principles (`P001`, `P024`) carry none, to avoid over-asking.
+- **Step-16 GRADE** (v1.1.0): every one of the 69 principles carries a `grade` block (`source_type`
+  + up/down factors) derived from real evidence signal — the dominant source's authority and
+  distinct-source replication. 28 high principles from canonical texts grade `classic`; 4 high
+  multi-source grade `expert-book + [replication]`; 19 high single-source grade
+  `expert-book + [corroborated]`; 5 medium from canonical texts grade `classic + [indirectness]`; 13
+  medium grade `expert-book`. `validate_confidence_grade` enforces
+  `grade_confidence(grade).level == confidence` (0 mismatch).
+- **Step-13 ask-gate** (v1.1.0): the opt-in is declared in profile `ask_gate{enabled, slot_source,
+  measured_by}` and **measured** by `tests/behaviour-tests.yaml` — 51 missing-context tests (25
+  enriched with one specific decision-variable `must_ask_for` slot each) paired with 51 answerable
+  twins, scored two-axis (reward the single missing variable, penalise over-asking). `must_ask_for`
+  is NOT placed on principles (`principles-v1` forbids it via `additionalProperties:false`); the
+  runtime `ask_gate` reads each principle's `applies_when` as the secondary slot source — 51/69
+  principles are runtime-ask-capable.
 
 ## Version history
 
@@ -91,3 +97,17 @@ interrogation behind the profile fields is recorded in `interrogation-records.ya
   Refreshed README / this ledger / profile prose to the nine-book deep spine. `agent_version`
   `0.4.0` → `1.0.0`. The `software-architecture-p0` staging package is retired. validate PASS;
   faithfulness clean; quote-scan clean.
+- 1.1.0 (2026-06-24): **calibrated 0.25× rebuild** (branch `rebuild/software-architecture-v2`).
+  v1.0.0 promoted a stale hand-picked 50-principle spine that bypassed `build_map_reduce --select`;
+  this release runs the calibrated pipeline over the **same nine books** (byte-identical cached
+  per-book MAP — no re-extraction): 303 per-book principles → reduce/dedup → 51 candidate clusters →
+  in-thread precision filter (41 split / 10 confirm) → `select_top(0.25)` of the ~221-group merged
+  pool = **69 principles** (the measured best grounding/size tradeoff). 2420 claims, 410 evidence
+  records. The authored layer (profile prose, 17 skills, 5 references, faithfulness verdicts) is
+  reused from the same-source v1.0.0 sibling and **regrounded** onto this spine — every principle,
+  claim, evidence, and source-anchor id remapped to resolve here (0 unresolved); profile `(Pxxx)`
+  citations and faithfulness notes remapped by statement similarity. Step-16 GRADE re-derived per the
+  note above; Step-13 ask-gate suite regenerated. Per the supersession rule, the 0.1.0–1.0.0
+  decisions remain on record; the calibrated spine supersedes the hand-picked one. `agent_version`
+  `1.0.0` → `1.1.0`. Adapter re-exported; validate PASS (0 FAIL, 3 WARN benign injection-scan);
+  faithfulness valid; quote-scan clean.

@@ -2,6 +2,36 @@
 
 All notable changes to this generated subagent package are recorded here.
 
+## 1.1.0 — 2026-06-24
+
+**Calibrated 0.25× rebuild** (branch `rebuild/software-architecture-v2`).
+
+### Changed
+
+- **Spine recalibrated via `build_map_reduce --select 0.25`.** v1.0.0 promoted a hand-picked
+  50-principle spine that bypassed the calibrated `--select`. This release runs the calibrated
+  pipeline over the **same nine books**, reusing the byte-identical cached per-book MAP (no
+  re-extraction): 303 per-book principles → reduce/dedup → 51 candidate clusters → in-thread
+  precision filter (41 split / 10 confirm) → `select_top(0.25)` of the ~221-group merged pool =
+  **69 principles** (the measured best grounding/size tradeoff). 2420 claims, 410 evidence records.
+- **Authored layer regrounded.** Profile prose, 17 skills, 5 references, and the 18 faithfulness
+  verdicts are reused from the same-source v1.0.0 sibling and regrounded onto this spine — every
+  principle / claim / evidence / source-anchor id remapped to resolve here (0 unresolved); profile
+  `(Pxxx)` citations and faithfulness notes remapped by statement similarity.
+- **Step-16 GRADE re-derived** for all 69 principles from real evidence signal (dominant-source
+  authority + distinct-source replication); `validate_confidence_grade` passes (0 mismatch).
+- **Step-13 ask-gate suite regenerated**: 120 golden (69 + 51 answerable twins) + 51 missing-context
+  tests, 25 enriched with a specific decision-variable `must_ask_for` slot.
+- `agent_version` `1.0.0` → `1.1.0`. Adapter re-exported.
+
+### Notes
+
+- `must_ask_for` is not stored on principles (`principles-v1` forbids it via
+  `additionalProperties:false`); the runtime ask-gate uses each principle's `applies_when` as the
+  slot source (51/69 runtime-ask-capable).
+- `validate_generated_package`: PASS (0 FAIL, 3 WARN = benign Enterprise Integration Patterns
+  injection-scan triage hits). quote-scan clean.
+
 ## 1.0.0 — 2026-06-24
 
 First stable release of the modernized deep build (promotion in 0.4.0 + the Step-16 and Step-13
