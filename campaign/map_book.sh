@@ -5,7 +5,11 @@
 # dir and STOPS. Top-level `claude -p` (can spawn sub-agents; no sub-agent stall).
 #
 # Usage: campaign/map_book.sh --book <staged.md> [--cache cache/book-extracts]
-#                             [--model M] [--effort max] [--timeout SECS] [--dry-run] [--fg]
+#                             [--model M] [--effort max] [--timeout SECS] [--max-attempts N]
+#                             [--dry-run] [--fg]
+#   --max-attempts N: auto-resume this book across up to N runs (default 1) until principles.yaml
+#     exists. Each attempt resumes from persisted partials, so a per-request timeout on a big book
+#     costs one more attempt instead of a manual re-launch. Requires --fg (the loop blocks per run).
 set -uo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -18,7 +22,7 @@ MODEL="${MODEL:-${ANTHROPIC_DEFAULT_OPUS_MODEL:-${ANTHROPIC_MODEL:-claude-opus-4
 EFFORT="${EFFORT:-max}"; RUN_TIMEOUT="${RUN_TIMEOUT:-7200}"
 CACHE="$REPO/cache/book-extracts"
 ENGINE="claude"; TAG=""
-BOOK=""; DRYRUN=0; FG=0; FORCE=0
+BOOK=""; DRYRUN=0; FG=0; FORCE=0; MAX_ATTEMPTS=1
 while [ $# -gt 0 ]; do
   case "$1" in
     --book) BOOK="$2"; shift 2;;
@@ -26,6 +30,7 @@ while [ $# -gt 0 ]; do
     --model) MODEL="$2"; shift 2;;
     --effort) EFFORT="$2"; shift 2;;
     --timeout) RUN_TIMEOUT="$2"; shift 2;;
+    --max-attempts) MAX_ATTEMPTS="$2"; shift 2;;  # auto-resume a big book across N runs until principles.yaml
     --dry-run) DRYRUN=1; shift;;
     --fg) FG=1; shift;;
     --force) FORCE=1; shift;;
@@ -100,7 +105,28 @@ driver="$LOGS/$run.driver.sh"
 } > "$driver"
 chmod +x "$driver"
 
-if [ "$FG" -eq 1 ]; then bash "$driver"; else
-  nohup bash "$driver" >"$LOGS/$run.driver.log" 2>&1 &
+run_with_resume() {
+  # Run the driver up to MAX_ATTEMPTS times. Each attempt resumes from persisted partials (the prompt
+  # skips done chunks/batches); a per-request timeout/cap kill on a big book then just costs one more
+  # attempt instead of a manual re-launch. Stop early once principles.yaml exists (real success).
+  local attempt=1
+  while [ "$attempt" -le "$MAX_ATTEMPTS" ]; do
+    [ "$MAX_ATTEMPTS" -gt 1 ] && echo "[map] $SOURCE_ID attempt $attempt/$MAX_ATTEMPTS"
+    # Between attempts, clear only the post-merge artifacts (keep partials/ + chunks) so the re-run
+    # re-merges cleanly — same reset the script does once at the top.
+    if [ "$attempt" -gt 1 ] && [ ! -f "$MODULE/principles.yaml" ]; then
+      rm -f "$MODULE/claims.jsonl" "$MODULE/anchors.jsonl" "$MODULE/module.json"
+    fi
+    bash "$driver"
+    [ -f "$MODULE/principles.yaml" ] && { echo "[map] $SOURCE_ID complete after attempt $attempt"; return 0; }
+    attempt=$((attempt + 1))
+  done
+  echo "[map] $SOURCE_ID still incomplete after $MAX_ATTEMPTS attempt(s) — re-run to continue (partials kept)"
+  return 1
+}
+
+if [ "$FG" -eq 1 ]; then run_with_resume; else
+  nohup bash -c "$(declare -f run_with_resume); MODULE='$MODULE' SOURCE_ID='$SOURCE_ID' MAX_ATTEMPTS='$MAX_ATTEMPTS' driver='$driver' run_with_resume" \
+    >"$LOGS/$run.driver.log" 2>&1 &
   echo "[map] launched bg pid $!  transcript: $log"
 fi
