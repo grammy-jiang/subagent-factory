@@ -39,8 +39,9 @@ confidence alone, which have a confidently-wrong failure mode (#1, #2).
   (`must_not_do: "Ask for more information when the context is already sufficient"`). No new grader
   needed — the two axes fall out of the existing `behaviour_replay` components.
 - **F1 / F2 / F5 (runtime calibrated risk gate + 3-action planner + two-stage escalation) — spec
-  only.** Deterministic missing-context detection for **black-box** models is an open ACADEMIC gap
-  (below); these land when there's a usable risk signal.
+  only.** Single-turn: blocked on black-box missing-context detection (open ACADEMIC, below).
+  **Multi-turn: now BOUNDED** (round 3, 2026-06-23) — a compose-from-validated-parts adapt-path is
+  named with only 2 small novel residuals (see Caveats); the build is de-risked, just not yet built.
 
 ## New files (proposed)
 
@@ -98,7 +99,15 @@ The answerable-twin tests + two-axis `must_ask_for` scoring slot into the existi
 - **ACADEMIC (open):** purely deterministic missing-context detection for **black-box (API-only)**
   models is unsolved — white-box latent answerability probes don't transfer; the deterministic
   pre-filter for hosted models leans on calibrated scalar scores + correctness probes, not internals.
-- **ACADEMIC (open):** **multi-turn** ask-gates over long evolving context (beyond short-form QA).
+- **ACADEMIC (bounded — round 3, 2026-06-23):** **multi-turn** ask-gates over long evolving context.
+  A 17-paper round confirmed **no validated end-to-end multi-turn advisory ask-gate exists**, but all
+  four required functions (required-slot tracking, anti-re-ask, per-turn calibration, sufficiency
+  detection) are individually validated → **compose from validated parts**, don't invent. Two residual
+  novelties: (1) calibration that *updates as context grows* (conformal CICC is single-shot/frozen
+  [2403.18973]); (2) a *schema-free* required-context ontology (validated slot trackers assume a typed
+  schema). Eval the gate with ASK-F1 + InfoECE/Kendall-τ monotonicity + the VivaBench failure taxonomy.
+  Choose *what* to ask by information-gain / EVPI. See `docs/Research/calibration-abstention/` (48
+  papers, round-3 converged). Black-box single-turn detection (above) is the only HIGH-friction residual.
 - **ENGINEERING (resolved inline):** deterministic-vs-LLM threshold choice + which calibration metric
   the eval optimizes — the two-stage split + held-out τ tuning are the recipe.
 - **Judge tie-in (#6/#7):** the *same* calibration math governs trusting an LLM-judge verdict —
