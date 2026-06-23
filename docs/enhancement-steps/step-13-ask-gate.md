@@ -38,20 +38,46 @@ confidence alone, which have a confidently-wrong failure mode (#1, #2).
   (`must_ask_for`); the twin rewards answering (`minimum_output`) and forbids over-asking
   (`must_not_do: "Ask for more information when the context is already sufficient"`). No new grader
   needed — the two axes fall out of the existing `behaviour_replay` components.
-- **F1 / F2 / F5 (runtime calibrated risk gate + 3-action planner + two-stage escalation) — spec
-  only.** Single-turn: blocked on black-box missing-context detection (open ACADEMIC, below).
-  **Multi-turn: now BOUNDED** (round 3, 2026-06-23) — a compose-from-validated-parts adapt-path is
-  named with only 2 small novel residuals (see Caveats); the build is de-risked, just not yet built.
+- **F1 / F2 / F5 (runtime three-action gate + planner + escalation) — multi-turn core now BUILT**
+  (2026-06-24). The compose-from-validated-parts adapt path is implemented:
+  - **Deterministic gate (`tools/subagent_factory/ask_gate.py`).** `gate(principle, conversation)`
+    returns `{action, slot, missing, reason}` — `answer` when every required slot is filled, `ask`
+    the single highest-priority missing slot, `abstain` when out of scope OR when a slot was already
+    asked and is still unsupplied (the bounded multi-turn **anti-re-ask** escalation). Required-context
+    slots are the **schema-free ontology** (residual #2): from a principle's `must_ask_for` (primary)
+    or `applies_when` (secondary). Pure functions, no model — the determinism boundary.
+  - **LLM planner skill (`.claude/skills/ask-gate/SKILL.md`).** Phrases the chosen action only: one
+    information-gain question for `ask`, a scoped escalation for `abstain`. It never re-decides the
+    action (the determinism split).
+  - **Two-axis `must_ask_for` scoring (`behaviour_replay.py`).** One specific covered question = 1.0;
+    an over-ask barrage that still covers the variable is capped at 0.5 (over-asking hurts, #5).
+  - **Multi-turn replay + ASK-F1 (`ask_gate.replay_conversation` / `ask_f1`).** Executable
+    ask→answer-no-re-ask scenarios + the ASK-F1 (TP=asked-when-due, FP=over-ask, FN=silent-commit)
+    eval metric. Calibration-that-updates-as-context-grows (residual #1) is approximated structurally
+    (each step re-derives fill over the whole conversation → monotone confidence-to-answer).
+- **Black-box single-turn calibrated risk score — still DEFERRED.** Hosted (API-only) Claude exposes
+  no logprobs/latents, so the white-box answerability probe does not transfer (open ACADEMIC, below).
 
-## New files (proposed)
+## Wiring (opt-in, no new package-validity gate)
 
-| Path | Kind | Purpose |
-|---|---|---|
-| `tools/subagent_factory/ask_gate.py` | tool | Deterministic pre-filter: a calibrated risk score + threshold → {answer, escalate}; plus the answerable-twin grading helpers. |
-| `.claude/skills/ask-gate/SKILL.md` | skill (LLM) | The escalated three-action planner: classify Answer/Ask/Abstain + uncertainty source; emit the single highest-info clarification question. |
-| extend `gen_behaviour_tests.py` | tool | Emit answerable-twin pairs for missing-context cells (the answerable variant should NOT trigger asking). |
-| extend `behaviour_replay.py` | tool | Two-axis `must_ask_for` scoring: silent-commit penalty + over-ask penalty (reward one specific question). |
-| `tests/subagent_factory/test_ask_gate.py` | fixtures | Threshold/escalation + answerable-twin + over-ask scoring tests. |
+The ask-gate is an **opt-in profile capability**, not a hard gate — consistent with "no new
+package-validity gate". A package opts in by giving its gated principles required-context cues:
+`applies_when` clauses (already schema-valid on `principles-v1`) feed the secondary slot source, and an
+explicit `must_ask_for` list (if present) is the primary one. The behaviour is **measured, not
+enforced**, by the existing Step-11 `missing_context_tests` + their answerable twins running through
+`behaviour_replay` (now with the two-axis `must_ask_for` score). No validator gate is added; a package
+that does not opt in is unaffected. Eval the gate with **ASK-F1 + InfoECE / Kendall-τ monotonicity +
+the VivaBench failure taxonomy** (see Caveats), choosing *what* to ask by information-gain / EVPI.
+
+## New files (built / proposed)
+
+| Path | Kind | Status | Purpose |
+|---|---|---|---|
+| `tools/subagent_factory/ask_gate.py` | tool | **BUILT** | Deterministic three-action gate `gate()` (answer/ask/abstain, anti-re-ask), schema-free `required_slots`, multi-turn `replay_conversation`, `ask_f1`. Single-turn calibrated risk score DEFERRED (no API logprobs). |
+| `.claude/skills/ask-gate/SKILL.md` | skill (LLM) | **BUILT** | Phrases the chosen action only — one information-gain question (Ask) / scoped escalation (Abstain); never re-decides the action. |
+| extend `behaviour_replay.py` | tool | **BUILT** | Two-axis `must_ask_for` scoring: reward one specific question, cap the reward on over-ask (silent-commit still penalised by coverage). |
+| `tests/subagent_factory/test_ask_gate.py` | fixtures | **BUILT** | Gate decisions + multi-turn replay + ASK-F1, fakes only (21 tests). Two-axis tests added to `test_behaviour_replay.py`. |
+| extend `gen_behaviour_tests.py` | tool | BUILT (F4) | Answerable-twin pairs for missing-context cells (the answerable variant must NOT trigger asking). |
 
 ## LLM ↔ deterministic split (the headline recommendation, #9)
 
@@ -88,11 +114,15 @@ The answerable-twin tests + two-axis `must_ask_for` scoring slot into the existi
 
 ## Exit criteria
 
-- `gen_behaviour_tests` emits answerable-twin pairs; the answerable twin scores high *without* asking,
-  the ablated one requires asking.
-- Two-axis `must_ask_for` scoring penalizes both silent-commit and over-ask (unit-tested with fakes).
-- `ask_gate` deterministic threshold + escalation unit-tested.
-- `make verify` green; Tier-0 packages untouched.
+- [x] `gen_behaviour_tests` emits answerable-twin pairs; the answerable twin scores high *without*
+  asking, the ablated one requires asking. (F4, prior)
+- [x] Two-axis `must_ask_for` scoring penalizes both silent-commit and over-ask (unit-tested with
+  fakes — `test_behaviour_replay.py`).
+- [x] `ask_gate` deterministic three-action decision + multi-turn anti-re-ask escalation unit-tested
+  (`test_ask_gate.py`, fakes only). *Calibrated single-turn risk threshold remains deferred* (no API
+  logprobs) — the gate decides on required-slot fill, not a scalar risk score.
+- [x] Full `tests/subagent_factory` suite green (675 passed); Tier-0 packages untouched (no validator
+  or schema change).
 
 ## Caveats (open gaps from the research)
 
