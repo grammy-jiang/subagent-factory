@@ -1,6 +1,8 @@
 """Tests for the deterministic structure-aware Markdown chunker (per-book MAP-inner)."""
 
-from tools.subagent_factory.chunk_source import chunk_markdown
+import hashlib
+
+from tools.subagent_factory.chunk_source import chunk_markdown, write_book_module
 
 
 def test_empty_text_no_chunks():
@@ -62,3 +64,51 @@ def test_char_offsets_are_monotonic():
     chunks = chunk_markdown(md, target_tokens=1100, overlap_chars=0)
     starts = [c.char_start for c in chunks]
     assert starts == sorted(starts)
+
+
+def test_char_offsets_slice_back_to_body():
+    # char_start:char_end must reproduce the chunk's body bytes from the source (the offsets are
+    # surfaced as authoritative provenance and feed emit_chunk_anchors' line numbers).
+    body = "w " * 2000
+    md = "".join(f"## S{i}\n\n{body}\n\n" for i in range(4))
+    chunks = chunk_markdown(md, target_tokens=1100, overlap_chars=0)
+    for c in chunks:
+        # body == fed text minus the injected context header (overlap off)
+        injected = c.text.split("-->\n\n", 1)[1]
+        assert md[c.char_start : c.char_end] == injected
+
+
+def test_oversize_split_pieces_reconstruct_source_exactly():
+    # _split_oversize must not collapse/duplicate the "\n\n" separators (offset-exact reconstruction).
+    para = "p " * 1000
+    big = "\n\n".join(para for _ in range(6))
+    md = f"# Big\n\n{big}\n"
+    chunks = chunk_markdown(md, target_tokens=1000, overlap_chars=0)
+    rebuilt = "".join(md[c.char_start : c.char_end] for c in chunks)
+    assert rebuilt == md
+
+
+def test_determinism_chunk_ids_invariant_to_runtime(monkeypatch):
+    # Chunk ids are the map->reduce cache keys: identical input -> identical ids regardless of
+    # PYTHONHASHSEED / locale / cwd. (hash randomization must not leak into the sha256-based ids.)
+    md = "# T\n\n" + ("body line\n" * 50)
+    ids1 = [c.chunk_id for c in chunk_markdown(md, target_tokens=500)]
+    monkeypatch.setenv("PYTHONHASHSEED", "12345")
+    ids2 = [c.chunk_id for c in chunk_markdown(md, target_tokens=500)]
+    assert ids1 == ids2
+    assert all(
+        cid.split("-c")[0] == ids1[0].split("-c")[0] for cid in ids1
+    )  # shared book namespace
+
+
+def test_module_sha_and_chunk_sha12_agree(tmp_path):
+    # write_book_module's dir <sha> and chunk-id <sha12> must derive from the same canonical bytes,
+    # so sha.startswith(sha12) — even when the source has invalid UTF-8 (errors='replace').
+    src = tmp_path / "book.md"
+    src.write_bytes(b"# T\n\nvalid body\n\xff\xfe invalid utf8 tail\n")
+    info = write_book_module(src, tmp_path / "out", target_tokens=1000)
+    sha = info["sha"]
+    canonical = src.read_bytes().decode("utf-8", errors="replace").encode("utf-8")
+    assert sha == hashlib.sha256(canonical).hexdigest()
+    chunks = chunk_markdown(src.read_bytes().decode("utf-8", errors="replace"), target_tokens=1000)
+    assert sha.startswith(chunks[0].chunk_id.split("-c")[0])  # sha12 is a prefix of the dir sha
