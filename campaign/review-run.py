@@ -14,6 +14,7 @@ The `cli validate` call is read-only; this never mutates a package.
 """
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 import sys
@@ -45,9 +46,17 @@ def _summaries(text: str) -> list[str]:
 
 
 def _validate(slug: str) -> tuple[str, list[str], list[str]]:
+    # Use the repo venv python (it has the factory deps, e.g. slugify); falling back to sys.executable
+    # only if the venv is absent. Running under a bare system python yields a ModuleNotFoundError and a
+    # bogus verdict "?", which the READY gate then reads as a false NO.
+    venv_py = REPO / ".venv" / "bin" / "python"
+    py = str(venv_py) if venv_py.exists() else sys.executable
     proc = subprocess.run(
-        [sys.executable, "-m", "tools.subagent_factory.cli", "validate", slug],
-        cwd=REPO, capture_output=True, text=True,
+        [py, "-m", "tools.subagent_factory.cli", "validate", slug],
+        cwd=REPO,
+        capture_output=True,
+        text=True,
+        env={**os.environ, "SUBAGENT_FACTORY_USE_VENV": "1"},
     )
     out = proc.stdout + proc.stderr
     verdict = "PASSED" if "VALIDATION PASSED" in out else ("FAILED" if "VALIDATION FAILED" in out else "?")
