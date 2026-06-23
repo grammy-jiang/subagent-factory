@@ -69,6 +69,11 @@ _DECLINE_MARKERS = (
 # reply counts as an actual decline.
 _DECLINE_MAX_CHARS = 600
 
+# Two-axis `must_ask_for` scoring (Step-13): reward ONE specific clarification question, cap the
+# reward when the output over-asks. Up to this many question marks reads as a focused ask; beyond it
+# is a barrage (over-asking hurts and is nonmonotonic — calibration finding #5).
+_MAX_ASK_QUESTIONS = 2
+
 Runner = Callable[[str, str], str]
 Grader = Callable[[dict, str], dict]
 
@@ -131,7 +136,9 @@ def grade_output(test: dict, output: str) -> dict:
     Components (weighted, then renormalised over the ones that apply to this test):
     - ``route`` (0.3): did it engage vs decline as the expected_route demands.
     - ``minimum`` (0.5): content-token recall of ``minimum_output`` (did it cover what's required).
-    - ``ask`` (0.1, only if ``must_ask_for``): asked a question that overlaps the required ask.
+    - ``ask`` (0.1, only if ``must_ask_for``): asked a question that overlaps the required ask. Two
+      axes (Step-13): one specific covered question scores 1.0; an over-ask barrage that still covers
+      the variable is capped at 0.5 (over-asking hurts, nonmonotonic).
     - ``mustnot`` (0.1): heuristic — penalise outputs whose tokens strongly overlap a forbidden
       item. Deterministic "did NOT do X" detection is unreliable; this is a weak signal, low weight.
       **Known inversion (measured):** an expert answer that *names and condemns* a forbidden pattern
@@ -156,9 +163,17 @@ def grade_output(test: dict, output: str) -> dict:
 
     ask_applicable = bool(test["must_ask_for"])
     if ask_applicable:
-        asked = "?" in output
+        n_questions = output.count("?")
+        asked = n_questions >= 1
         ask_cov = max((_overlap_recall(a, output) for a in test["must_ask_for"]), default=0.0)
-        ask = 1.0 if (asked and ask_cov >= 0.5) else (0.5 if asked or ask_cov >= 0.5 else 0.0)
+        covered = ask_cov >= 0.5
+        if asked and covered:
+            # Two axes: rewarding the ask is not enough — a barrage of questions covers the variable
+            # too, yet over-asking hurts (nonmonotonic, #5). Cap the reward at 0.5 when the output
+            # over-asks; a single specific question naming the missing variable keeps the full 1.0.
+            ask = 1.0 if n_questions <= _MAX_ASK_QUESTIONS else 0.5
+        else:
+            ask = 0.5 if (asked or covered) else 0.0
     else:
         ask = None
 
@@ -221,7 +236,8 @@ def build_grade_prompt(test: dict, output: str) -> str:
         lines += [
             "",
             f'ASK — the response should ask the user for this missing input: "{items}". '
-            "ask=1 if it clearly requests it, 0.5 partial, 0 if not.",
+            "ask=1 if it asks ONE specific question naming the missing input, 0.5 if partial OR if it "
+            "over-asks (a barrage of clarifying questions — over-asking hurts), 0 if it does not ask.",
         ]
     if test["must_not_do"]:
         items = "; ".join(test["must_not_do"])
