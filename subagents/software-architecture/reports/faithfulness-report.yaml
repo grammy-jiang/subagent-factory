@@ -1,0 +1,253 @@
+schema_version: faithfulness-report-v1
+subagent_slug: software-architecture
+
+# Tier-2 faithfulness review (2026-06-21): each load-bearing profile rule compared against
+# evidence/evidence-records.yaml + analysis/claims.jsonl (the focused 50-principle distilled
+# layer) rather than raw source text. The backing principle/claim IDs are named in each
+# finding's note; per-finding source_anchors are omitted (the claims/evidence files already
+# carry the anchors). Result: no rule is stronger than its evidence — every rule is
+# EXACT_SUPPORT or WITHIN_SCOPE, and the scope is narrower than the union of sources (no code,
+# no products), which is a narrowing, not an over-claim. No CONTRADICTED or unsupported finding.
+
+findings:
+
+  - rule_ref: role
+    triplet:
+      head: software-architecture reviewer
+      relation: evaluates and guides
+      tail: architecture decisions against characteristics and trade-offs
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Principles P001/P029/P050; claims C00001/C00002/C00157. The role restates the books' framing
+      (architecture = structure + the few prioritized characteristics + decisions, governed by
+      trade-offs) and narrows to review/advise, excluding code and product choice, so it does not
+      over-claim authority.
+
+  - rule_ref: quality_bar[0]
+    triplet:
+      head: every recommendation
+      relation: must state
+      tail: what is gained AND what is sacrificed
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Principle P001; claims C00001/C00002. Restates the first Law of Software Architecture and the trade-off-analysis chapter.
+
+  - rule_ref: quality_bar[1]
+    triplet:
+      head: driving architecture characteristics
+      relation: must be
+      tail: named and prioritized, not all maximized
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Principle P029; claims C00157/C00162/C00176. Keeping the driving-characteristics list short and not over-specifying is directly supported.
+
+  - rule_ref: quality_bar[2]
+    triplet:
+      head: structural findings
+      relation: must be grounded in
+      tail: dependency direction, cohesion/coupling, policy/detail boundaries
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Principles P034/P035/P017/P037/P022; claims C01246/C01132/C00034/C01175/C01215. The Dependency
+      Rule, dependency inversion, the coupling definition, component cohesion, and policy/detail
+      separation are explicit in the sources.
+
+  - rule_ref: quality_bar[3]
+    triplet:
+      head: style and integration recommendations
+      relation: must match
+      tail: characteristic profile / trade-offs to the caller's forces
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Principles P004/P038/P008/P002; claims C00219/C01367/C00046/C00049. Pattern-by-characteristic
+      selection, integration-unlike-single-app, granularity right-sizing, and quantum-scoped splits
+      are supported; combining them into one bar is a synthesis within scope.
+
+  - rule_ref: quality_bar[4]
+    triplet:
+      head: each finding
+      relation: must be
+      tail: actionable (principle, consequence, remediation)
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Operational quality requirement consistent with the review function; not a domain claim, so it
+      neither broadens nor contradicts any source.
+
+  - rule_ref: forbidden_behaviours[0]
+    triplet:
+      head: reviewer
+      relation: must not
+      tail: produce production implementation code
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Some sources include code (PoEAA, Clean Architecture), but this package scopes itself to
+      architecture principles and trade-offs; excluding code is a narrowing, not an over-claim.
+
+  - rule_ref: forbidden_behaviours[1]
+    triplet:
+      head: reviewer
+      relation: must not
+      tail: prescribe a specific product, vendor, or framework
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Principles P014/P022; claims C00788/C01215. The sources teach storage/characteristic fit and
+      treat frameworks as details, not product recommendations; forbidding product selection follows
+      from that and narrows scope.
+
+  - rule_ref: forbidden_behaviours[2]
+    triplet:
+      head: reviewer
+      relation: must not
+      tail: present benefits while omitting the trade-off
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Principle P001; claims C00001/C00002. Directly restates the trade-off-primacy principle.
+
+  - rule_ref: forbidden_behaviours[3]
+    triplet:
+      head: reviewer
+      relation: must not
+      tail: assert a single universally-best architecture
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Principles P001/P004; claims C00001/C00219/C00220. "Everything is a trade-off" and pattern-by-characteristic selection are explicit source positions.
+
+  - rule_ref: outputs.modes[review]
+    triplet:
+      head: review mode
+      relation: is justified by
+      tail: the books' critique of existing structures against principles
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Principles P017/P034/P033; claims C00034/C01246/C00957. The sources evaluate existing designs (coupling, dependency direction, layering), which is a review activity.
+
+  - rule_ref: outputs.modes[advise]
+    triplet:
+      head: advise mode
+      relation: is justified by
+      tail: the books' guidance on which structure fits which forces
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Principles P004/P003/P029; claims C00219/C00395/C00157. Selecting structure and scaling approach by prioritized characteristics is advisory guidance.
+
+  - rule_ref: outputs.modes[compare]
+    triplet:
+      head: compare mode
+      relation: is justified by
+      tail: explicit characteristic contrasts between styles
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Principle P004; claims C00219/C00946. Each style is rated on the same characteristics, which is an explicit contrast.
+
+  - rule_ref: knowledge_partition.always_on[1]
+    triplet:
+      head: modularity and dependencies
+      relation: judged by
+      tail: cohesion/coupling and the inward Dependency Rule
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Principles P034/P035/P017/P037; claims C01246/C01132/C00034/C01175. Directly supported by the dependency-rule, dependency-inversion, coupling, and component-cohesion chapters.
+
+  - rule_ref: knowledge_partition.always_on[3]
+    triplet:
+      head: architecture styles and hard distributed decisions
+      relation: are
+      tail: profile-rated, none universally best, ADR/fitness-governed, coupling-split
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Principles P004/P018/P009/P002/P008; claims C00219/C00326/C00025/C00049/C00046. Style profiles, ADRs, fitness functions, the architecture quantum, and granularity right-sizing are explicit.
+
+  - rule_ref: knowledge_partition.always_on[4]
+    triplet:
+      head: enterprise layering, persistence, collaboration, integration
+      relation: are
+      tail: complexity-chosen, mapping-isolated, deliberate coupling trade-offs
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Principles P033/P050/P019/P005/P046; claims C00957/C00008/C01804/C00267/C00906. Closed layering, data-first-class, event collaboration, mediator/broker choice, and async coupling trade-offs are directly supported.
+
+  - rule_ref: quality_bar[5]
+    triplet:
+      head: scalability advice
+      relation: must be grounded in
+      tail: named scalability principles, each stated with its trade-off
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Principles P003/P013/P010/P025/P047/P024; claims C00395/C00755/C00532/C00568/C00418/C00079.
+      Scale-out over up, X-axis cloning, client/edge session and caching, high-availability-vs-load-
+      balancing, and economical right-sizing are each directly supported by Scalability Rules and
+      Scalable Internet Architectures; bundling them into one quality bar is a synthesis within scope.
+  - rule_ref: knowledge_partition.always_on[5]
+    triplet:
+      head: scalability dimension
+      relation: is
+      tail: scale-out/AKF-cube/stateless/cache/availability-not-load-balancing/economical/observable, all trade-offs
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Principles P003/P013/P032/P010/P025/P047/P024/P006; claims
+      C00395/C00755/C00880/C00532/C00568/C00418/C00079/C00419. Each clause restates a directly-
+      supported scalability claim from Scalability Rules (scale out, AKF cube, swimlanes, client
+      session/edge cache) and Scalable Internet Architectures (HA vs LB, economical staging,
+      end-to-end monitoring); no clause is stronger than its source.
