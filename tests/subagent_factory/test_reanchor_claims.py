@@ -149,3 +149,37 @@ def test_llm_no_support_leaves_empty(tmp_path):
     rep = reanchor_claims(base, lambda _p: '{"anchors": []}')
     assert rep["n_fixed"] == 0 and rep["n_empty"] == 2
     assert rep["chosen"]["CL001"] == []
+
+
+def test_reanchor_llm_subprocess_failure_is_resilient(tmp_path, recwarn):
+    # The shell-backed _claude_llm raises subprocess.SubprocessError (check=True) on a crashed/timed-out
+    # call. A crash is NOT "no anchor found": the run must not abort, the claim's existing anchors must
+    # be left intact (not wiped to []), and the failure must be counted + surfaced.
+    import subprocess
+
+    def crashing_llm(_prompt):
+        raise subprocess.CalledProcessError(1, ["claude", "-p"])
+
+    rep = reanchor_claims(base := _build(tmp_path), crashing_llm)
+    assert rep["n_errors"] == 2  # both claims hit the crash
+    assert rep["n_fixed"] == 0
+    assert rep["chosen"] == {}
+    # original (unresolved) anchors preserved on disk, NOT overwritten with []
+    recs = [
+        json.loads(line)
+        for line in (base / "analysis" / "claims.jsonl").read_text().splitlines()
+        if line.strip()
+    ]
+    assert recs[0]["source_anchors"] == ["ch2-mirroring"]
+    assert any(issubclass(w.category, RuntimeWarning) for w in recwarn.list)
+
+
+def test_reanchor_llm_non_subprocess_error_propagates(tmp_path):
+    # Guard: only subprocess failures are absorbed; a real bug in the injected llm still propagates.
+    import pytest
+
+    def buggy_llm(_prompt):
+        raise ValueError("real bug")
+
+    with pytest.raises(ValueError):
+        reanchor_claims(_build(tmp_path), buggy_llm)

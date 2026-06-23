@@ -20,6 +20,8 @@ injected runner/grader/proposer, so the loop is unit-tested without a live model
 
 from __future__ import annotations
 
+import subprocess
+import warnings
 from collections.abc import Callable
 
 from tools.subagent_factory.behaviour_replay import Grader, Runner, grade_output, replay_suite
@@ -113,7 +115,20 @@ def optimize_adapter(
             for t in tests
             if best["result"]["per_test"].get(_per_test_key(t), {}).get("score", 0.0) < pass_bar
         ]
-        candidates = proposer(best["text"], failing, r) or []
+        try:
+            candidates = proposer(best["text"], failing, r) or []
+        except subprocess.SubprocessError as e:
+            # The shell-backed proposer raises (check=True) on a crashed/timed-out model call. That is
+            # infra failure, not "no candidate this round" — skip the round (best-so-far is still
+            # returned) instead of aborting the whole optimization, and surface it. A non-subprocess
+            # error (a real bug in an injected proposer) still propagates.
+            warnings.warn(
+                f"proposer failed in round {r} ({type(e).__name__}: {e}); skipping round",
+                RuntimeWarning,
+                stacklevel=2,
+            )
+            history.append({"round": r, "error": "proposer-failed", "detail": str(e)})
+            candidates = []
 
         for cand in candidates:
             if accept_gate is not None:
