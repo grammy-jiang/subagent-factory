@@ -25,6 +25,7 @@ import argparse
 import hashlib
 import json
 import re
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -87,14 +88,28 @@ def _iter_segments(text: str) -> list[tuple[list[str], int, str]]:
 def _split_oversize(
     path: list[str], start: int, body: str, target_chars: int
 ) -> list[tuple[list[str], int, str]]:
-    """Split a single over-target segment into <=target paragraph groups (keeps paragraphs whole)."""
+    """Split a single over-target segment into <=target paragraph groups (keeps paragraphs whole).
+
+    Offset-exact: the emitted pieces concatenate back to ``body`` byte-for-byte (the separator is
+    re-attached to the piece it followed, never collapsed), so each piece's ``char_start`` stays a
+    true offset into the source. A single paragraph larger than ``target_chars`` is emitted whole
+    (paragraphs are never broken), so a piece may exceed the target — best-effort, not a hard cap.
+    """
     out: list[tuple[list[str], int, str]] = []
     cur: list[str] = []
     cur_len = 0
     cur_start = start
     offset = start
-    for para in body.split("\n\n"):
-        piece = para + "\n\n"
+    # Keep the "\n\n" separators by splitting with a capturing group and re-pairing each paragraph
+    # with the delimiter that followed it; pieces then reconstruct body exactly.
+    parts = re.split(r"(\n\n)", body)
+    paras: list[str] = []
+    for i in range(0, len(parts), 2):
+        sep = parts[i + 1] if i + 1 < len(parts) else ""
+        paras.append(parts[i] + sep)
+    for piece in paras:
+        if not piece:
+            continue
         if cur and cur_len + len(piece) > target_chars:
             out.append((path, cur_start, "".join(cur)))
             cur, cur_len, cur_start = [], 0, offset
@@ -121,24 +136,29 @@ def chunk_markdown(
             pieces.extend(_split_oversize(path, start, body, target_chars))
 
     # Greedily pack consecutive pieces up to target; the chunk's path is its first piece's path.
-    packed: list[tuple[list[str], int, str]] = []
-    cur: tuple[list[str], int, list[str]] | None = None
+    # Track the true end offset of the last packed piece so char_end is a real source offset
+    # (start + len(joined_body) only holds if pieces tile the source contiguously; carrying the
+    # end explicitly keeps char_end correct under any future packing change).
+    packed: list[tuple[list[str], int, int, str]] = []  # (path, start, end, body)
+    cur: tuple[list[str], int, int, list[str]] | None = None  # (path, start, end, bodies)
     cur_len = 0
     for path, start, body in pieces:
+        end = start + len(body)
         if cur is None:
-            cur, cur_len = (path, start, [body]), len(body)
+            cur, cur_len = (path, start, end, [body]), len(body)
         elif cur_len + len(body) <= target_chars:
-            cur[2].append(body)
+            cur[3].append(body)
+            cur = (cur[0], cur[1], end, cur[3])
             cur_len += len(body)
         else:
-            packed.append((cur[0], cur[1], "".join(cur[2])))
-            cur, cur_len = (path, start, [body]), len(body)
+            packed.append((cur[0], cur[1], cur[2], "".join(cur[3])))
+            cur, cur_len = (path, start, end, [body]), len(body)
     if cur is not None:
-        packed.append((cur[0], cur[1], "".join(cur[2])))
+        packed.append((cur[0], cur[1], cur[2], "".join(cur[3])))
 
     chunks: list[Chunk] = []
     prev_body = ""
-    for i, (path, start, body) in enumerate(packed):
+    for i, (path, start, end, body) in enumerate(packed):
         breadcrumb = " > ".join(path) if path else "(preamble)"
         header = f"<!-- chunk {i} context: {breadcrumb} -->\n\n"
         if overlap_chars and prev_body:
@@ -151,7 +171,7 @@ def chunk_markdown(
                 index=i,
                 heading_path=breadcrumb,
                 char_start=start,
-                char_end=start + len(body),
+                char_end=end,
                 est_tokens=len(fed) // _CHARS_PER_TOKEN,
                 text=fed,
             )
@@ -163,10 +183,17 @@ def chunk_markdown(
 def write_book_module(
     source_md: Path, out_root: Path, *, target_tokens: int = 8000, overlap_chars: int = 1500
 ) -> dict:
-    """Chunk a staged book md into a content-addressed `cache/book-extracts/<sha>/` module."""
+    """Chunk a staged book md into a content-addressed `cache/book-extracts/<sha>/` module.
+
+    The module dir ``<sha>`` and the per-chunk ``<sha12>`` are derived from the SAME canonical bytes
+    (the UTF-8 re-encoding of the decoded text), so ``sha.startswith(sha12)`` always holds — even for
+    a source with invalid UTF-8. (Hashing ``raw`` for the dir while ``chunk_markdown`` hashes the
+    decoded text let the two diverge on malformed input, contradicting content-addressing.)
+    """
     raw = source_md.read_bytes()
-    sha = hashlib.sha256(raw).hexdigest()
     text = raw.decode("utf-8", errors="replace")
+    canonical = text.encode("utf-8")
+    sha = hashlib.sha256(canonical).hexdigest()
     chunks = chunk_markdown(text, target_tokens=target_tokens, overlap_chars=overlap_chars)
 
     base = out_root / sha
@@ -210,7 +237,7 @@ def main() -> int:
     ap.add_argument("--overlap-chars", type=int, default=1500)
     args = ap.parse_args()
     if not args.source.is_file():
-        print(f"not a file: {args.source}")
+        print(f"not a file: {args.source}", file=sys.stderr)
         return 2
     info = write_book_module(
         args.source,
