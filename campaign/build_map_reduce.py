@@ -42,10 +42,11 @@ def main() -> int:
     ap.add_argument("--resume", action="store_true")
     ap.add_argument(
         "--select",
-        type=int,
+        type=float,
         default=50,
-        help="max principles to surface, importance-ranked (50 = focused reviewer; "
-        "150+ = comprehensive reference advisor; 0 = all merged/deduplicated principles)",
+        help="principles to surface, importance-ranked. COUNT (>=1, e.g. 50 focused / 150 "
+        "comprehensive), FRACTION (0<n<1, e.g. 0.25 = top quarter of the pool), or 0 = all "
+        "merged/deduplicated principles.",
     )
     ap.add_argument("--cos", type=float, default=0.55)
     ap.add_argument("--threshold-tokens", type=int, default=100_000)
