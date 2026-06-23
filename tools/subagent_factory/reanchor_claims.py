@@ -23,7 +23,9 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
+import warnings
 from collections.abc import Callable
 from pathlib import Path
 
@@ -111,7 +113,7 @@ def reanchor_claims(
         return cache[sid]
 
     chosen_by_claim: dict[str, list[str]] = {}
-    n_fixed = n_empty = 0
+    n_fixed = n_empty = n_errors = 0
     for c in claims:
         sid = c.get("source_id", "")
         ranked, window = source(sid)
@@ -120,11 +122,27 @@ def reanchor_claims(
         if current and all(a in allowed for a in current):
             continue  # already resolves — leave it
         cands = _candidates(c.get("statement", ""), ranked, top_k)
-        chosen = (
-            parse_reanchor(llm(build_reanchor_prompt(c["statement"], cands, window)), set(cands))
-            if cands
-            else []
-        )
+        chosen: list[str]
+        if not cands:
+            chosen = []
+        else:
+            try:
+                chosen = parse_reanchor(
+                    llm(build_reanchor_prompt(c["statement"], cands, window)), set(cands)
+                )
+            except subprocess.SubprocessError as e:
+                # check=True (the shell-backed _claude_llm) raises on a crashed/timed-out call. That is
+                # infra failure, not "no anchor": leave this claim's anchors untouched (don't overwrite
+                # with [] — the silent failure we removed) and keep going. A non-subprocess error (a
+                # real bug in the injected llm) still propagates.
+                warnings.warn(
+                    f"reanchor LLM failed for claim {c.get('claim_id')!r} "
+                    f"({type(e).__name__}: {e}); leaving its anchors unchanged",
+                    RuntimeWarning,
+                    stacklevel=2,
+                )
+                n_errors += 1
+                continue
         c["source_anchors"] = chosen
         chosen_by_claim[c["claim_id"]] = chosen
         n_fixed += bool(chosen)
@@ -148,13 +166,12 @@ def reanchor_claims(
         "n_claims": len(claims),
         "n_fixed": n_fixed,
         "n_empty": n_empty,
+        "n_errors": n_errors,
         "chosen": chosen_by_claim,
     }
 
 
 def _claude_llm(prompt: str) -> str:
-    import subprocess
-
     claude = str(Path.home() / ".local" / "bin" / "claude")
     # check=True so a crashed claude call raises instead of returning "" that the caller would treat
     # as "model found no anchor" — a swallowed infra failure masquerading as a real empty result.

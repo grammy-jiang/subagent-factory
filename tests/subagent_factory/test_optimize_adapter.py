@@ -144,6 +144,34 @@ def test_minibatch_screen_works_with_file_keyed_tests():
     assert res["eval_calls"] == len(tests4) + 2
 
 
+def test_proposer_subprocess_failure_skips_round_not_aborts(recwarn):
+    # The shell-backed proposer raises subprocess.SubprocessError (check=True) on a crashed/timed-out
+    # model call. That's infra, not "no candidate" — the round is skipped (best-so-far returned) and
+    # the failure is surfaced, NOT swallowed into a silent empty result that aborts the whole run.
+    import subprocess
+
+    def proposer(best_text, failing, rnd):
+        raise subprocess.CalledProcessError(1, ["bash", "proposer.sh"])
+
+    res = optimize_adapter("base alpha beta", TESTS2, _runner, proposer, budget=2, patience=1)
+    assert res["winner_text"] == "base alpha beta"  # did not abort
+    assert res["improved"] is False
+    assert any(h.get("error") == "proposer-failed" for h in res["history"])  # surfaced
+    assert any(issubclass(w.category, RuntimeWarning) for w in recwarn.list)
+
+
+def test_proposer_non_subprocess_error_propagates():
+    # Guard: only subprocess failures are absorbed. A real bug in an injected proposer must still blow
+    # up loudly — not be masked as "proposer-failed".
+    import pytest
+
+    def proposer(best_text, failing, rnd):
+        raise ValueError("real bug in proposer")
+
+    with pytest.raises(ValueError):
+        optimize_adapter("base", TESTS2, _runner, proposer, budget=2, patience=1)
+
+
 def test_early_stop_on_patience():
     # Proposer keeps offering the same already-best text → no improvement → patience stops the loop
     # well before the budget is exhausted.
