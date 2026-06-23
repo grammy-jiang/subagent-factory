@@ -27,7 +27,7 @@ retrieval of real, citable passages — do not replace the corpus with LLM summa
 - **Pairs with Step 13** (ask-gate): the retrieval gate ("when to consult the store") is the same
   selective-prediction shape as the ask-gate ("when to ask/abstain").
 
-## Built so far (2026-06-15) — G1 routing rule only
+## Built so far — G1 routing rule + local distill-vs-retrieve A/B
 
 - **G1 — `tools/subagent_factory/knowledge_partition.py` BUILT.** `route_knowledge_item(reuse,
   volatility, size, citation_need)` + `partition_plan(items)` deterministically route each knowledge
@@ -38,6 +38,17 @@ retrieval of real, citable passages — do not replace the corpus with LLM summa
   G1 is unproven (A/B the partition on the package's behaviour-tests before trusting it). Wired as
   guidance into the profile-generation skill §1.6. 11 tests. CLI:
   `python -m tools.subagent_factory.knowledge_partition --reuse … | --plan items.json`.
+- **G1 local A/B — `tools/subagent_factory/retrieval_ab.py` BUILT (2026-06-23).** Closes the G1
+  *measurement* gap **locally** (not the academic one): score a package's behaviour-test suite under
+  DISTILLED (current adapter) vs RETRIEVAL (deterministic BM25-lite over the **full source**
+  `sources/markdown/`, top-k passages prepended to the prompt), and report the mean delta + per-test
+  deltas + a banded `verdict` (`retrieval-helps` / `distillation-suffices` / `retrieval-hurts`). The
+  corpus is the *whole* source, not the distilled anchor spans (which ≈ what distillation kept →
+  biased), so retrieval can surface long-tail content the adapter dropped — the fair test. **Measurement,
+  not a gate.** Pure core (injected runner/grader, 6 tests) + live CLI; NO LLM in retrieval (determinism
+  boundary). Smoke: postgresql-sqlite-advisor → 18,898 passages, ~0.5 s. **Run this before building any
+  G2–G6 engine** — a flat/negative delta is the design-affirming finding that distillation suffices.
+  CLI: `python -m tools.subagent_factory.retrieval_ab subagents/<slug> --runner <answer.sh> [-k 5]`.
 - **G2–G6 — still spec (deliberately).** The retrieval spine below stays unbuilt; the research's own
   guidance is to ship retrieval behind a per-package measurement, and G1–G3 are inherent ACADEMIC gaps
   (see Caveats). Building a speculative dense+rerank+PPR engine would violate the factory's "no
