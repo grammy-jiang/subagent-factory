@@ -6,8 +6,12 @@
 # ${!arr[@]} misbehave, so inline launchers break; run this with `bash`.
 #
 # Usage: campaign/map_books.sh --sources campaign/<slug>.sources [--engine claude|copilot]
-#                              [--parallel N] [--timeout SECS]
+#                              [--parallel N] [--timeout SECS] [--max-attempts N]
 #        campaign/map_books.sh --book A.md --book B.md [...]
+#
+# --max-attempts N (default 1): per-book auto-resume — retry each book up to N runs until its
+#   principles.yaml exists. A big book that times out per-request mid-session then finishes
+#   unattended instead of needing a manual re-run. Resumes from persisted partials each attempt.
 #
 # Default is SERIAL (--parallel 1): concurrent heavy MAP runs split one spend-cap top-up and all
 # fail partial. Serialize; raise --parallel only when the cap has headroom. Re-running is safe —
@@ -15,7 +19,7 @@
 set -uo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CACHE="$REPO/cache/book-extracts"
-ENGINE="claude"; PAR=1; TIMEOUT=""; SRCFILE=""; BOOKS=()
+ENGINE="claude"; PAR=1; TIMEOUT=""; SRCFILE=""; BOOKS=(); MAX_ATTEMPTS=1
 while [ $# -gt 0 ]; do
   case "$1" in
     --sources) SRCFILE="$2"; shift 2;;
@@ -23,6 +27,7 @@ while [ $# -gt 0 ]; do
     --engine) ENGINE="$2"; shift 2;;
     --parallel) PAR="$2"; shift 2;;
     --timeout) TIMEOUT="$2"; shift 2;;
+    --max-attempts) MAX_ATTEMPTS="$2"; shift 2;;  # per-book auto-resume across N runs (big-book timeouts)
     -h|--help) grep -E '^# ' "${BASH_SOURCE[0]}" | sed 's/^# //'; exit 0;;
     *) echo "unknown arg: $1" >&2; exit 2;;
   esac
@@ -44,7 +49,8 @@ run_one() {
   local b="$1"
   # Chunk first (deterministic, idempotent) so map_book has a module to MAP.
   python3 -c "from tools.subagent_factory.chunk_source import write_book_module; from pathlib import Path; write_book_module(Path('$b'), Path('$CACHE'))" 2>/dev/null
-  bash "$REPO/campaign/map_book.sh" --book "$b" --engine "$ENGINE" "${TFLAG[@]}" --fg \
+  bash "$REPO/campaign/map_book.sh" --book "$b" --engine "$ENGINE" "${TFLAG[@]}" \
+    --max-attempts "$MAX_ATTEMPTS" --fg \
     > "/tmp/mapbooks-$(basename "$b" .md).out" 2>&1
 }
 
