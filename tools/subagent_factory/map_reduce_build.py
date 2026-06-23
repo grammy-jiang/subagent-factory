@@ -168,7 +168,7 @@ def assemble(
     embedder: Embedder,
     cos: float = 0.55,
     decisions: dict[int, dict] | None = None,
-    select: int = 0,
+    select: float = 0,
 ) -> dict:
     """Write the REDUCE'd distilled layer into subagents/<slug>/. Returns a counts summary."""
     cache_root = repo / "cache" / "book-extracts"
