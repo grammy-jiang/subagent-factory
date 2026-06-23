@@ -43,10 +43,10 @@ def main() -> int:
     ap.add_argument(
         "--select",
         type=float,
-        default=50,
-        help="principles to surface, importance-ranked. COUNT (>=1, e.g. 50 focused / 150 "
-        "comprehensive), FRACTION (0<n<1, e.g. 0.25 = top quarter of the pool), or 0 = all "
-        "merged/deduplicated principles.",
+        default=0.25,
+        help="principles to surface, importance-ranked. FRACTION (0<n<1, default 0.25 = top quarter "
+        "of the pool — measured best grounding/size tradeoff over 6 external files), COUNT (>=1, e.g. "
+        "50 focused / 150 comprehensive), or 0 = all merged/deduplicated principles.",
     )
     ap.add_argument("--cos", type=float, default=0.55)
     ap.add_argument("--threshold-tokens", type=int, default=100_000)
