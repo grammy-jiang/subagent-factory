@@ -8,9 +8,15 @@ per cluster, whether its members are truly the same principle. AUTHORING ONLY: w
 decisions file below; do not modify anything else, do not commit.
 
 # Input
-Read `{{WORK}}/clusters.json` — a JSON list of multi-member candidate clusters, each
+`{{WORK}}/clusters.json` — a JSON list of multi-member candidate clusters, each
 `{"group": <int>, "members": [{"idx": <int>, "statement": "..."}]}`. `group` is the cluster id; `idx`
 is a principle's global index. (Singletons are auto-kept and do NOT appear here.)
+
+**It is large (~130k chars). NEVER read the whole file into context — that single read times out.** Do
+NOT `Read` clusters.json and do NOT dump all clusters at once. Instead slice it per batch with a script:
+each batch, run a tiny `python3 - <<'PY'` that `json.load`s clusters.json, takes ONLY that batch's slice
+of groups (e.g. groups[start:start+30] in group order), and prints just those clusters' statements for
+you to judge. Only one batch's text ever enters your context at a time.
 
 # Per cluster choose exactly ONE action
 - **confirm** — the members ARE the same operational principle re-stated; they merge into ONE. Optionally
@@ -26,15 +32,33 @@ interchangeably. **When unsure, SPLIT** — preserving a distinct principle is s
 Topically-related is NOT the same rule (e.g. many distinct indexing rules share vocabulary). A large
 cluster is almost certainly several principles → split into coherent subgroups.
 
-# Output — write `{{WORK}}/decisions.json` and NOTHING else there. A JSON OBJECT keyed by the `group`
-# integer (as a string), one entry per cluster present in clusters.json:
+# Work in BATCHES of ~30 groups — read, judge, write, repeat (anti-timeout, resumable)
+Process the clusters in **batches of ~30 groups** in group order (131 clusters ⇒ ~5 batches: groups
+0–29, 30–59, …). For EACH batch, in this exact order:
+1. **Resume check** — if `{{WORK}}/decisions_parts/<NNN>.json` (NNN = `000`, `001`, …) already exists and
+   is non-empty, SKIP this batch entirely (do not even read its slice).
+2. **Read ONLY this batch's slice** via a script (json.load + groups[start:start+30]) — never the whole file.
+3. **Judge** each cluster in the slice (rules below).
+4. **Immediately write** `{{WORK}}/decisions_parts/<NNN>.json` — a JSON object keyed by `group`
+   int-as-string for just this batch's groups. Then move to the next batch.
+
+Persisting per batch means a timeout/cap kill loses only the in-flight batch; a re-run resumes from the
+first batch with no partial. Keep each batch's reasoning short — do not re-state earlier batches.
+
+# Output — each decision entry (in a partial, later merged) is keyed by the `group` integer (as a string):
   {
     "0": {"action": "confirm", "canonical": "<merged statement>"},
     "4": {"action": "split", "subgroups": [[0, 33], [27], [41]]},
     "7": {"action": "conflict"}
   }
 Keys are `group` ints (as strings); subgroup values are the `idx` ints from that group's members. Cover
-EVERY group in clusters.json. Valid JSON only (no prose, no trailing commas). A missing group → confirm.
+EVERY group in clusters.json across the batches. Valid JSON only (no prose, no trailing commas).
+
+# Merge (after every batch has a partial) — write `{{WORK}}/decisions.json`
+Concatenate all `{{WORK}}/decisions_parts/*.json` into one JSON object `{{WORK}}/decisions.json` keyed by
+group-int-as-string, one entry per cluster in clusters.json. Verify every group in clusters.json has an
+entry (a missing group defaults to confirm, but aim to cover all). decisions.json is the only file the
+build gate reads.
 
 # Finish — print EXACTLY this last
 ===FILTER_SUMMARY===
