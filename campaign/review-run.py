@@ -12,13 +12,14 @@ Collects what a generation/finish run produced and writes campaign/logs/review-<
 Usage: python3 campaign/review-run.py <slug> [<slug> ...]
 The `cli validate` call is read-only; this never mutates a package.
 """
+
 from __future__ import annotations
 
 import os
 import re
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
@@ -59,7 +60,11 @@ def _validate(slug: str) -> tuple[str, list[str], list[str]]:
         env={**os.environ, "SUBAGENT_FACTORY_USE_VENV": "1"},
     )
     out = proc.stdout + proc.stderr
-    verdict = "PASSED" if "VALIDATION PASSED" in out else ("FAILED" if "VALIDATION FAILED" in out else "?")
+    verdict = (
+        "PASSED"
+        if "VALIDATION PASSED" in out
+        else ("FAILED" if "VALIDATION FAILED" in out else "?")
+    )
     warns = [ln.strip() for ln in out.splitlines() if "[WARN" in ln or "│ WARN" in ln]
     fails = [ln.strip() for ln in out.splitlines() if "[FAIL" in ln or "│ FAIL" in ln]
     return verdict, warns, fails
@@ -80,7 +85,8 @@ def _faithfulness(slug: str) -> int:
     return sum(
         1
         for f in findings
-        if isinstance(f, dict) and (f.get("verdict") or f.get("claim_strength") or f.get("level")) in over
+        if isinstance(f, dict)
+        and (f.get("verdict") or f.get("claim_strength") or f.get("level")) in over
     )
 
 
@@ -112,7 +118,7 @@ def review(slug: str) -> Path:
     ready = prof.get("status") == "ready" and verdict == "PASSED" and not fails
     lines = [
         f"# Review — {slug}",
-        f"_generated {datetime.now(timezone.utc).isoformat(timespec='seconds')}_",
+        f"_generated {datetime.now(UTC).isoformat(timespec='seconds')}_",
         "",
         f"- **READY: {'YES' if ready else 'NO'}**",
         f"- status: `{prof.get('status')}`  version: `{prof.get('agent_version')}`  tier: `{prof.get('tier')}`",
