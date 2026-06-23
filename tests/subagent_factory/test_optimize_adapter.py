@@ -23,6 +23,15 @@ def _test(tid, minimum):
     }
 
 
+def _ftest(tid, minimum, file="golden-tests.yaml"):
+    """Same record, but carrying the `file` key that load_behaviour_tests always sets — which makes
+    replay_suite key per_test as "<file>:<test_id>" (behaviour_replay). Production tests always have
+    it; the bare-`file` _test fixtures above are the reason the bug stayed latent."""
+    t = _test(tid, minimum)
+    t["file"] = file
+    return t
+
+
 # Runner returns the adapter text itself, so grade_output's `minimum` component = whether the adapter
 # text contains the required tokens. An adapter "knows" a token iff the token is in its text.
 def _runner(system: str, prompt: str) -> str:
@@ -97,6 +106,41 @@ def test_minibatch_screen_prefilters_cheaply():
     )
     assert any(h.get("rejected") == "minibatch-screen" for h in res["history"])
     # Cost: baseline (4) + one minibatch screen (2) = 6; no full-confirm for the screened candidate.
+    assert res["eval_calls"] == len(tests4) + 2
+
+
+def test_failing_list_excludes_passing_file_keyed_tests():
+    # Regression guard (sync.patch commit 08): replay_suite keys per_test "<file>:<test_id>" when a
+    # test carries `file` (load_behaviour_tests always sets it). If optimize_adapter looks per_test up
+    # by the bare test_id, every lookup misses → a passing test is mis-flagged as failing.
+    seen = {}
+
+    def proposer(best_text, failing, rnd):
+        seen["failing"] = [f["test"]["test_id"] for f in failing]
+        return []
+
+    tests = [_ftest("GT-001", "alpha"), _ftest("GT-002", "beta")]
+    optimize_adapter("base alpha beta", tests, _runner, proposer, budget=1, patience=1)
+    assert seen["failing"] == []  # baseline knows both tokens → nothing is failing
+
+
+def test_minibatch_screen_works_with_file_keyed_tests():
+    # Same regression, screen path: a bare-key lookup makes best_screen_mean collapse to 0.0, so the
+    # screen can never pre-reject and every candidate wastes a full-suite confirm.
+    tests4 = [
+        _ftest("GT-001", "alpha"),
+        _ftest("GT-002", "beta"),
+        _ftest("GT-003", "gamma"),
+        _ftest("GT-004", "delta"),
+    ]
+
+    def proposer(best_text, failing, rnd):
+        return ["base gamma delta"]
+
+    res = optimize_adapter(
+        "base alpha beta", tests4, _runner, proposer, minibatch=2, budget=2, patience=1
+    )
+    assert any(h.get("rejected") == "minibatch-screen" for h in res["history"])
     assert res["eval_calls"] == len(tests4) + 2
 
 

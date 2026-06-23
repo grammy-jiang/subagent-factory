@@ -53,6 +53,15 @@ def _mean_on(per_test: dict, ids: list[str]) -> float:
     return round(sum(scores) / len(scores), 4) if scores else 0.0
 
 
+def _per_test_key(test: dict) -> str:
+    """Key a test the SAME way ``replay_suite`` does — it keys ``per_test`` as ``"<file>:<test_id>"``
+    when a test carries ``file`` (``behaviour_replay``). ``optimize_adapter`` must match that, or every
+    ``per_test`` lookup below misses on production tests (``load_behaviour_tests`` always sets ``file``)
+    → the failing-list flags every test and ``best_screen_mean`` collapses to 0.0. Keep in sync with
+    ``behaviour_replay.replay_suite``."""
+    return f"{test['file']}:{test['test_id']}" if test.get("file") else test["test_id"]
+
+
 def optimize_adapter(
     base_adapter: str,
     tests: list[dict],
@@ -79,7 +88,7 @@ def optimize_adapter(
     Returns ``winner_text``, ``winner_mean``, ``baseline_mean``, ``improved`` (bool), ``rounds_used``,
     ``eval_calls`` (runner invocations, for cost accounting), and ``history``.
     """
-    all_ids = [t["test_id"] for t in tests]
+    all_ids = [_per_test_key(t) for t in tests]
     eval_calls = 0
 
     baseline = replay_suite(base_adapter, tests, runner, grader)
@@ -100,9 +109,9 @@ def optimize_adapter(
         best_screen_mean = _mean_on(best["result"]["per_test"], screen_ids)
 
         failing = [
-            {"test": t, "grade": best["result"]["per_test"].get(t["test_id"], {})}
+            {"test": t, "grade": best["result"]["per_test"].get(_per_test_key(t), {})}
             for t in tests
-            if best["result"]["per_test"].get(t["test_id"], {}).get("score", 0.0) < pass_bar
+            if best["result"]["per_test"].get(_per_test_key(t), {}).get("score", 0.0) < pass_bar
         ]
         candidates = proposer(best["text"], failing, r) or []
 
