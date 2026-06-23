@@ -252,6 +252,8 @@ def shell_proposer(script: str, n_variants: int = 2, timeout: int = 300) -> Prop
     def _propose(best_text: str, failing: list[dict], round_idx: int) -> list[str]:
         prompt = build_propose_prompt(best_text, failing, n_variants)
         env = {**os.environ, "ADAPTER_TEXT": best_text}
+        # check=True: a crashed proposer must raise, not return "" that parse_variants reads as
+        # "no variants" — silently treating an infra failure as "no improvement found".
         out = subprocess.run(
             ["bash", script],
             input=prompt,
@@ -259,6 +261,7 @@ def shell_proposer(script: str, n_variants: int = 2, timeout: int = 300) -> Prop
             capture_output=True,
             timeout=timeout,
             env=env,
+            check=True,
         ).stdout
         return parse_variants(out, best_text, max_variants=n_variants)
 

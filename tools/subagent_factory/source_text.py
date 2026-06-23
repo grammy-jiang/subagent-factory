@@ -36,20 +36,28 @@ def load_restricted_source_ids(base: str | Path) -> set[str]:
     manifest_path = base / "source-pack.manifest.yaml"
     if not manifest_path.exists():
         return restricted
-    try:
-        with open(manifest_path) as f:
-            manifest = yaml.safe_load(f) or {}
-        for source in manifest.get("sources", []):
-            meta_path = base / source.get("metadata_path", "")
-            if not meta_path.exists():
-                continue
+    # This set drives quote_scan's rights enforcement: silently returning an empty set on a read
+    # error would FAIL OPEN (a restricted source goes unflagged, allowing verbatim quotation). So a
+    # manifest-level failure propagates; only a single unreadable/malformed per-source meta is skipped
+    # (treated as "rights unknown" — and an unknown source is conservatively flagged restricted).
+    with open(manifest_path) as f:
+        manifest = yaml.safe_load(f) or {}
+    for source in manifest.get("sources", []):
+        meta_path = base / source.get("metadata_path", "")
+        sid = source.get("source_id")
+        if not meta_path.exists():
+            continue
+        try:
             with open(meta_path) as f:
                 meta = json.load(f)
-            rights = meta.get("rights_status", "")
-            if "restricted" in rights.lower() or "distillation-only" in rights.lower():
-                restricted.add(source.get("source_id"))
-    except Exception:
-        pass
+        except (OSError, json.JSONDecodeError):
+            # rights unknown for this source → conservative floor: treat as restricted, don't skip it.
+            if sid:
+                restricted.add(sid)
+            continue
+        rights = meta.get("rights_status", "")
+        if "restricted" in rights.lower() or "distillation-only" in rights.lower():
+            restricted.add(sid)
     return restricted
 
 

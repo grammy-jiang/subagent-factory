@@ -156,11 +156,14 @@ def _claude_llm(prompt: str) -> str:
     import subprocess
 
     claude = str(Path.home() / ".local" / "bin" / "claude")
+    # check=True so a crashed claude call raises instead of returning "" that the caller would treat
+    # as "model found no anchor" — a swallowed infra failure masquerading as a real empty result.
     return subprocess.run(
         [claude, "-p", "--model", "claude-opus-4-8", "--dangerously-skip-permissions", prompt],
         text=True,
         capture_output=True,
         timeout=180,
+        check=True,
     ).stdout
 
 
