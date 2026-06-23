@@ -28,7 +28,7 @@ from pathlib import Path
 
 import yaml
 
-from tools.subagent_factory.claim_recall import _STOPWORDS, _content_tokens
+from tools.subagent_factory.claim_recall import _STOPWORDS
 
 _MIN_SALIENCE = 2  # a review bigram must appear at least this many times to be "leaned on"
 _TOP_LEAK = 15
@@ -116,7 +116,12 @@ def _grounded_vocab(base: Path) -> tuple[set[str], set[str]]:
             except json.JSONDecodeError:
                 continue
     blob = "\n".join(text_parts)
-    return set(_content_tokens(blob)), set(_bigrams(blob))
+    # Derive unigrams and bigrams from the SAME tokenizer (_token_seq). Previously unigrams came from
+    # claim_recall._content_tokens while bigrams came from _token_seq; if the two ever drifted,
+    # grounded() (which checks a bigram's two halves against the unigram set) would mismatch on
+    # tokenization rather than on actual grounding. One tokenizer → the check is leak-driven.
+    toks = _token_seq(blob)
+    return set(toks), set(_bigrams(blob))
 
 
 def _corpus_bigram_map(root: Path) -> dict[str, set[str]]:
@@ -181,7 +186,12 @@ def grounding_check(
         ((bg, n) for bg, n in distinctive.items() if bg not in grounded_terms),
         key=lambda kv: -kv[1],
     )
-    coverage = len(grounded_terms) / len(distinctive) if distinctive else 1.0
+    # Empty distinctive vocab (empty/trivial reviewer output, or all terms dropped as generic/quoted)
+    # is "nothing to assess", NOT "perfectly grounded". Returning 1.0 here let a degenerate review
+    # silently score as a perfect pass on the gate it informs. Report coverage=None + scored=False so
+    # a consumer treats it as not-applicable rather than a ceiling.
+    scored = bool(distinctive)
+    coverage = (len(grounded_terms) / len(distinctive)) if scored else None
 
     # Cross-source: a distinctive leak that ANOTHER source grounds names that source to add
     # (precise, actionable — the eval-driven multi-source recipe).
@@ -200,7 +210,8 @@ def grounding_check(
         key=lambda kv: (-kv[1], kv[0]),
     )[:3]
     return {
-        "coverage": round(coverage, 3),
+        "coverage": round(coverage, 3) if coverage is not None else None,
+        "scored": scored,
         "n_concept_terms": len(distinctive),
         "n_grounded": len(grounded_terms),
         "n_leak": len(leak),
@@ -296,8 +307,9 @@ def main() -> None:
         sys.exit(1)
     doc = sys.argv[3] if len(sys.argv) > 3 else None
     r = grounding_check(sys.argv[1], sys.argv[2], doc)
+    cov = f"{r['coverage']:.0%}" if r["coverage"] is not None else "n/a (no distinctive vocab)"
     print(
-        f"grounding coverage {r['coverage']:.0%} "
+        f"grounding coverage {cov} "
         f"({r['n_grounded']}/{r['n_concept_terms']} distinctive concept bigrams grounded; "
         f"{r['n_leak']} leak candidates; {r['n_generic_dropped']} generic dropped; "
         f"{r['n_doc_quoted_dropped']} doc-quoted dropped; grounded-vocab {r['grounded_vocab_size']} tokens)"

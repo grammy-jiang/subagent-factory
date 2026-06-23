@@ -9,7 +9,9 @@ from tools.subagent_factory.conversion_quality import assess_quality
 from tools.subagent_factory.self_heal import ensure_package
 from tools.subagent_factory.table_quality import table_quality
 
-SCANNED_THRESHOLD = 0.15  # chars-per-page (×1000) below this suggests scanned
+# Below this many characters per page, a PDF is likely scanned/image-only (calibrated ~150 chars/page;
+# born-digital pages carry far more text). Unit is chars/page — no scaling at the call site.
+SCANNED_CHARS_PER_PAGE = 150
 _MIN_WORDS_BORN_DIGITAL = 30  # below this, with no page signal, suspect a failed scan
 # A multi-page PDF with zero recovered headings is almost certainly a flattened (MarkItDown)
 # or scanned conversion: the heading hierarchy the anchor layer needs is gone, so anchoring
@@ -121,14 +123,19 @@ def _table_warnings(tables: list, doc: object | None = None) -> list[str]:
 
     Each table that fails the ``table_quality`` structural-degeneracy heuristic is reported so a
     table-heavy convert can route it to human review. **Advisory only** — never blocks the convert,
-    never alters the Markdown. Any failure assessing a table is swallowed so quality scoring can
-    never break an otherwise-successful conversion.
+    never alters the Markdown. A failure *assessing* a table is itself reported as a warning (not
+    silently skipped): the tables that throw are the malformed ones this function exists to surface,
+    so swallowing them would invert its purpose.
     """
     warns: list[str] = []
     for i, t in enumerate(tables):
         try:
             q = table_quality(_export_table_html(t, doc))
-        except Exception:
+        except Exception as e:  # noqa: BLE001 — assessment failure is itself a low-confidence signal
+            warns.append(
+                f"Table {i}: could not assess quality ({type(e).__name__}: {e}) "
+                "— review before grounding claims on it."
+            )
             continue
         if not q["ok"]:
             warns.append(
@@ -310,7 +317,7 @@ def _detect_scanned(text: str, page_count: int | None = None) -> bool:
     if not pages:
         return len(text.split()) < _MIN_WORDS_BORN_DIGITAL
     chars_per_page = len(text) / pages
-    return chars_per_page < SCANNED_THRESHOLD * 1000
+    return chars_per_page < SCANNED_CHARS_PER_PAGE
 
 
 def _compute_stats(text: str) -> dict:

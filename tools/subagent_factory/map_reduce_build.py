@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from collections.abc import Callable, Sequence
 from pathlib import Path
 
@@ -33,6 +34,15 @@ from tools.subagent_factory.reduce_principles import (
 )
 
 Embedder = Callable[[list[str]], list[list[float]]]
+
+
+def _atomic_write(path: Path, text: str) -> None:
+    """Write via a temp file + os.replace so a crash mid-write can't leave a truncated artifact in a
+    content-addressed package that a re-run would then trust."""
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(text, encoding="utf-8")
+    os.replace(tmp, path)
+
 
 # principles-v1 is additionalProperties:false — strip the merge working-fields (source_ids / n_sources)
 # before writing principles.yaml; multi-source provenance stays recoverable via derived_from_claims.
@@ -182,29 +192,38 @@ def assemble(
     (pkg / "principles").mkdir(parents=True, exist_ok=True)
     (pkg / "evidence").mkdir(parents=True, exist_ok=True)
     (pkg / "sources" / "anchors").mkdir(parents=True, exist_ok=True)
-    with open(pkg / "analysis" / "claims.jsonl", "w", encoding="utf-8") as f:
-        for c in claims:
-            f.write(json.dumps(c, ensure_ascii=False) + "\n")
-    (pkg / "principles" / "principles.yaml").write_text(
+    _atomic_write(
+        pkg / "analysis" / "claims.jsonl",
+        "".join(json.dumps(c, ensure_ascii=False) + "\n" for c in claims),
+    )
+    _atomic_write(
+        pkg / "principles" / "principles.yaml",
         yaml.safe_dump(
             {"schema_version": "principles-v1", "principles": merged},
             sort_keys=False,
             allow_unicode=True,
         ),
-        encoding="utf-8",
     )
-    (pkg / "evidence" / "evidence-records.yaml").write_text(
+    _atomic_write(
+        pkg / "evidence" / "evidence-records.yaml",
         yaml.safe_dump(
             {"schema_version": "evidence-records-v1", "evidence_records": evidence},
             sort_keys=False,
             allow_unicode=True,
         ),
-        encoding="utf-8",
     )
     for m in modules:
-        if (m["dir"] / "anchors.jsonl").exists() or emit_anchors(m["dir"]):
-            (pkg / "sources" / "anchors" / f"{m['source_id']}.anchors.jsonl").write_text(
-                (m["dir"] / "anchors.jsonl").read_text(encoding="utf-8"), encoding="utf-8"
+        # Ensure the per-module anchors.jsonl exists, THEN copy it. Don't gate the copy on
+        # emit_anchors' truthiness: it returns the records list, which is [] (falsy) for a chunkless
+        # module even after it writes the file — the old `exists() or emit_anchors()` then skipped a
+        # written-but-empty anchors file, silently dropping that source's provenance.
+        anchors = m["dir"] / "anchors.jsonl"
+        if not anchors.exists():
+            emit_anchors(m["dir"])
+        if anchors.exists():
+            _atomic_write(
+                pkg / "sources" / "anchors" / f"{m['source_id']}.anchors.jsonl",
+                anchors.read_text(encoding="utf-8"),
             )
     return {
         "books": len(modules),

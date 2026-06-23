@@ -239,6 +239,13 @@ def cmd_grounding_check(slug, review, doc, do_record):
 
     repo_root = Path(__file__).parent.parent.parent
     r = grounding_check(repo_root / "subagents" / slug, review, doc)
+    if not r.get("scored", r["coverage"] is not None):
+        console.print(
+            "[yellow]grounding coverage: n/a[/yellow] — no distinctive concept vocabulary in the "
+            f"review (all {r['n_generic_dropped']} generic / {r['n_doc_quoted_dropped']} doc-quoted "
+            "dropped). Nothing to score; not recorded to baseline."
+        )
+        return
     console.print(
         f"grounding coverage [bold]{r['coverage']:.0%}[/bold] "
         f"({r['n_grounded']}/{r['n_concept_terms']} distinctive concept bigrams grounded; "
