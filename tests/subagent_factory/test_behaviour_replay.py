@@ -78,6 +78,29 @@ def test_grade_must_ask_for_component():
     assert asked["score"] > silent["score"]
 
 
+def test_grade_must_ask_for_penalizes_over_asking():
+    # Two-axis (Step-13): rewarding the ask is not enough. A barrage of clarifying questions covers
+    # the variable too, yet over-asking hurts (nonmonotonic). One specific question keeps 1.0; an
+    # over-ask that still covers the variable is capped at 0.5.
+    test = {**_INVOKE, "must_ask_for": ["the brand and the selling goal"]}
+    one = grade_output(test, "What is the brand and the selling goal you are targeting?")
+    over = grade_output(
+        test,
+        "What is the brand? What is the selling goal? What is your budget? "
+        "What is the timeline? Who is the audience?",
+    )
+    assert one["ask"] == 1.0
+    assert over["ask"] == 0.5  # covered, but over-asked → capped
+    assert over["score"] < one["score"]
+
+
+def test_grade_must_ask_for_two_questions_is_not_over_asking():
+    # A focused clarification may legitimately carry two question marks; only a barrage is penalised.
+    test = {**_INVOKE, "must_ask_for": ["the brand and the selling goal"]}
+    g = grade_output(test, "What is the brand, and what is the selling goal?")
+    assert g["ask"] == 1.0
+
+
 def test_grade_must_not_do_penalty():
     test = {**_INVOKE, "must_not_do": ["produce finished ad copy jingle storyboard"]}
     clean = grade_output(test, "tie spend to selling outcome measurable")
