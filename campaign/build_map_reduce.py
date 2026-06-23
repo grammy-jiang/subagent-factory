@@ -135,7 +135,7 @@ def main() -> int:
             return True
         print("      precision filter incomplete — run the LLM filter over .build/clusters.json")
         print(
-            f"      -> write .build/decisions.json (group-index -> {{action: confirm|split|conflict, ...}}), then --resume"
+            "      -> write .build/decisions.json (group-index -> {action: confirm|split|conflict, ...}), then --resume"
         )
         return False
 
