@@ -12,7 +12,8 @@ from pathlib import Path
 import pymupdf4llm
 
 REPO = Path(__file__).resolve().parent.parent
-BOOKS = REPO.parent / "awesome-book-collection"
+PROJECTS = REPO.parent
+BOOKS = PROJECTS / "awesome-book-collection"
 
 SETS: dict[str, list[str]] = {
     "software-design": [
@@ -39,8 +40,8 @@ SETS: dict[str, list[str]] = {
         "devops/The DevOps Handbook_ How to Create World-Class Agility, Reliability, & Security in Technology Organizations-Gene Kim, Jez Humble, Patrick Debois, John Willis, Nicole Forsgren.pdf",
         "Software Architecture/Accelerate_ The Science of DevOps ( PDFDrive ).pdf",
         "devops/cicd/Pipeline as Code_ Continuous Delivery with Jenkins, Kubernetes, and Terraform-Manning (2021) - Mohamed Labouardy.pdf",
-        "/home/grammy-jiang/projects/Computer-Science-Reference-Books/comp(500).pdf",
-        "/home/grammy-jiang/projects/Computer-Science-Reference-Books/comp(109).pdf",
+        "Computer-Science-Reference-Books/comp(500).pdf",
+        "Computer-Science-Reference-Books/comp(109).pdf",
     ],
 }
 
@@ -64,7 +65,14 @@ def main() -> int:
         staged: list[Path] = []
         print(f"\n=== {slug} ===")
         for rel in rels:
-            src = Path(rel) if rel.startswith("/") else BOOKS / rel
+            # Relative paths resolve against BOOKS (awesome-book-collection) first, then the PROJECTS
+            # root, so sibling corpora are referenced portably without a machine-specific /home/ path.
+            if rel.startswith("/"):
+                src = Path(rel)
+            else:
+                src = BOOKS / rel
+                if not src.is_file():
+                    src = PROJECTS / rel
             if not src.is_file():
                 print(f"  MISSING: {src}"); rc = 1; continue
             short = slugify(Path(rel).name)

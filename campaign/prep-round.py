@@ -94,8 +94,15 @@ def _book_path(entry, idx) -> tuple[Path | None, str, float, list[Path]]:
     """Resolve one spec book entry (str hint or {path: ...}) -> (path, label, score, ties)."""
     if isinstance(entry, dict) and "path" in entry:
         raw = entry["path"]
-        p = Path(raw) if raw.startswith("/") else AWESOME / raw
-        return (p if p.is_file() else None), raw, (1.0 if p.is_file() else 0.0), []
+        if raw.startswith("/"):
+            p: Path | None = Path(raw)
+        else:
+            # Relative paths resolve against AWESOME first, then the PROJECTS root (REPO.parent) —
+            # so sibling corpora (Computer-Science-Reference-Books/, books/) are referenced portably
+            # without a machine-specific /home/... absolute path.
+            cand = AWESOME / raw
+            p = cand if cand.is_file() else (PROJECTS / raw)
+        return (p if p and p.is_file() else None), raw, (1.0 if p and p.is_file() else 0.0), []
     path, score, ties = resolve(str(entry), idx)
     return path, str(entry), score, ties
 
