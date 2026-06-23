@@ -1,9 +1,8 @@
 schema_version: principles-v1
 principles:
 - principle_id: P001
-  statement: Actively maintain modularity and govern accidental coupling (such as
-    cyclic dependencies) with automated fitness functions wired into the build, since
-    code reviews catch it too late.
+  statement: Actively maintain modularity and govern accidental coupling (such as cyclic dependencies)
+    with automated fitness functions wired into the build, since code reviews catch it too late.
   derived_from_claims:
   - C00027
   - C00066
@@ -24,10 +23,12 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P002
-  statement: Use the architecture quantum — an independently deployable artifact with
-    high functional cohesion, high static coupling, and synchronous dynamic coupling
-    — as the unit and shared language for coupling and granularity analysis.
+  statement: Use the architecture quantum — an independently deployable artifact with high functional
+    cohesion, high static coupling, and synchronous dynamic coupling — as the unit and shared language
+    for coupling and granularity analysis.
   derived_from_claims:
   - C00135
   - C00136
@@ -47,10 +48,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P003
-  statement: 'Design for horizontal scalability from the outset: build for current
-    demand but architect so that growth needs no application or architectural redesign
-    — scale out, not up.'
+  statement: 'Design for horizontal scalability from the outset: build for current demand but architect
+    so that growth needs no application or architectural redesign — scale out, not up.'
   derived_from_claims:
   - C01875
   - C01882
@@ -71,10 +73,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - replication
 - principle_id: P004
-  statement: Document and justify every architecture decision in an ADR with Context,
-    Decision, and Consequences, stating the decision affirmatively and recording the
-    why, the trade-offs, and the business value.
+  statement: Document and justify every architecture decision in an ADR with Context, Decision, and Consequences,
+    stating the decision affirmatively and recording the why, the trade-offs, and the business value.
   derived_from_claims:
   - C00263
   - C00268
@@ -91,11 +96,13 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P005
-  statement: 'Treat service-component granularity as the central microservices design
-    decision: right-size components to avoid both coarse-grained loss of benefits
-    and fine-grained orchestration; needing UI/API orchestration or inter-service
-    calls to satisfy one request signals components that are too fine-grained or mis-partitioned.'
+  statement: 'Treat service-component granularity as the central microservices design decision: right-size
+    components to avoid both coarse-grained loss of benefits and fine-grained orchestration; needing UI/API
+    orchestration or inter-service calls to satisfy one request signals components that are too fine-grained
+    or mis-partitioned.'
   derived_from_claims:
   - C00242
   - C00243
@@ -115,10 +122,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P006
-  statement: 'Treat every architecture choice as a trade-off: never present an option
-    as the single right answer, and if something appears not to be a trade-off, keep
-    looking until the trade-off is identified.'
+  statement: 'Treat every architecture choice as a trade-off: never present an option as the single right
+    answer, and if something appears not to be a trade-off, keep looking until the trade-off is identified.'
   derived_from_claims:
   - C00033
   - C00034
@@ -134,10 +142,11 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P007
-  statement: In event-driven design pick the mediator topology when an event needs
-    multi-step orchestration through a central mediator, and the broker topology when
-    events can be chained without central orchestration.
+  statement: In event-driven design pick the mediator topology when an event needs multi-step orchestration
+    through a central mediator, and the broker topology when events can be chained without central orchestration.
   derived_from_claims:
   - C00204
   - C00207
@@ -155,10 +164,12 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P008
-  statement: 'Reject silver-bullet solutions and blanket ''decouple everything'' advice:
-    no single technique gives order-of-magnitude gains, and over-decoupling yields
-    systems that cannot communicate — apply coupling appropriately instead.'
+  statement: 'Reject silver-bullet solutions and blanket ''decouple everything'' advice: no single technique
+    gives order-of-magnitude gains, and over-decoupling yields systems that cannot communicate — apply
+    coupling appropriately instead.'
   derived_from_claims:
   - C00595
   - C00635
@@ -176,10 +187,14 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - replication
 - principle_id: P009
-  statement: Treat all performance advice as unproven until measured on your own configuration;
-    measure before and after every optimization, redo optimizations after a significant
-    configuration change, and minimize remote calls.
+  statement: Treat all performance advice as unproven until measured on your own configuration; measure
+    before and after every optimization, redo optimizations after a significant configuration change,
+    and minimize remote calls.
   derived_from_claims:
   - C00668
   - C00670
@@ -195,10 +210,12 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P010
-  statement: 'Adopt ''design to be monitored'' as an architectural principle: instrument
-    transactions, and monitor from business metrics first (Is there a problem?) before
-    application (Where?) and system tools (What?), using week-over-week comparison.'
+  statement: 'Adopt ''design to be monitored'' as an architectural principle: instrument transactions,
+    and monitor from business metrics first (Is there a problem?) before application (Where?) and system
+    tools (What?), using week-over-week comparison.'
   derived_from_claims:
   - C01899
   - C01933
@@ -215,10 +232,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - replication
 - principle_id: P011
-  statement: Deploy page caches (reverse proxy caches) in front of web servers - especially
-    for dynamic content - and use ETags with conditional GETs to maximize cacheability
-    across proxies.
+  statement: Deploy page caches (reverse proxy caches) in front of web servers - especially for dynamic
+    content - and use ETags with conditional GETs to maximize cacheability across proxies.
   derived_from_claims:
   - C02015
   - C02029
@@ -234,10 +254,14 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - replication
 - principle_id: P012
-  statement: When session data is unavoidable, prefer keeping it in the user's browser
-    via small cookies so any server in the pool can serve the request, and protect
-    the authorization cookie over HTTPS against sidejacking.
+  statement: When session data is unavoidable, prefer keeping it in the user's browser via small cookies
+    so any server in the pool can serve the request, and protect the authorization cookie over HTTPS against
+    sidejacking.
   derived_from_claims:
   - C02012
   - C02013
@@ -253,10 +277,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P013
-  statement: Do not build transactions across microservice boundaries; fix the service
-    granularity instead, and use the saga pattern only sparingly for unavoidable cross-service
-    coordination.
+  statement: Do not build transactions across microservice boundaries; fix the service granularity instead,
+    and use the saga pattern only sparingly for unavoidable cross-service coordination.
   derived_from_claims:
   - C00254
   - C00255
@@ -269,11 +294,12 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P014
-  statement: 'Choose between concurrency controls by the frequency and severity of
-    conflicts: make Optimistic Offline Lock (conflict detection) the default because
-    it gives better liveness and is easier, and use Pessimistic Offline Lock (conflict
-    prevention) when conflicts are likely or their cost is unacceptable.'
+  statement: 'Choose between concurrency controls by the frequency and severity of conflicts: make Optimistic
+    Offline Lock (conflict detection) the default because it gives better liveness and is easier, and
+    use Pessimistic Offline Lock (conflict prevention) when conflicts are likely or their cost is unacceptable.'
   derived_from_claims:
   - C00770
   - C01016
@@ -288,10 +314,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P015
-  statement: Define each architecture characteristic objectively and measurably before
-    testing it, decomposing composite characteristics (e.g., agility) into measurable
-    contributors.
+  statement: Define each architecture characteristic objectively and measurably before testing it, decomposing
+    composite characteristics (e.g., agility) into measurable contributors.
   derived_from_claims:
   - C00101
   - C00119
@@ -305,10 +332,14 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
+    downgrades:
+    - indirectness
 - principle_id: P016
-  statement: 'Keep the business rules pristine and central: model enterprise-wide
-    rules as Entities and application-specific rules as Use Cases, with use cases
-    depending on entities and neither knowing about the UI, database, or frameworks.'
+  statement: 'Keep the business rules pristine and central: model enterprise-wide rules as Entities and
+    application-specific rules as Use Cases, with use cases depending on entities and neither knowing
+    about the UI, database, or frameworks.'
   derived_from_claims:
   - C00364
   - C00442
@@ -330,10 +361,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P017
-  statement: 'Scale transactions with X-axis cloning: duplicate stateless services
-    and read replicas behind a load balancer; start with an object cache before database
-    replication.'
+  statement: 'Scale transactions with X-axis cloning: duplicate stateless services and read replicas behind
+    a load balancer; start with an object cache before database replication.'
   derived_from_claims:
   - C02235
   - C02236
@@ -346,17 +378,20 @@ principles:
   - C02243
   confidence: high
   applies_when:
-  - databases with a high read-to-write ratio (~5:1+) or systems where transaction
-    growth exceeds data growth
+  - databases with a high read-to-write ratio (~5:1+) or systems where transaction growth exceeds data
+    growth
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P018
-  statement: Design for testability by applying the Humble Object pattern to split
-    hard-to-test from easy-to-test behavior, and never depend on volatile things such
-    as the GUI when testing business rules.
+  statement: Design for testability by applying the Humble Object pattern to split hard-to-test from easy-to-test
+    behavior, and never depend on volatile things such as the GUI when testing business rules.
   derived_from_claims:
   - C00514
   - C00515
@@ -373,10 +408,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P019
-  statement: Make Ajax calls cacheable via Last-Modified/Cache-Control/Expires headers,
-    set Cache-Control public for non-private data, and reference objects by stable
-    atomic IDs rather than relative offsets.
+  statement: Make Ajax calls cacheable via Last-Modified/Cache-Control/Expires headers, set Cache-Control
+    public for non-private data, and reference objects by stable atomic IDs rather than relative offsets.
   derived_from_claims:
   - C02307
   - C02308
@@ -395,10 +431,14 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P020
-  statement: 'Choose the storage tool by the data''s needs (relationships, growth,
-    read/write ratio, monetization): use an RDBMS only when ACID integrity or relationships
-    are required, and prefer file systems or NoSQL otherwise.'
+  statement: 'Choose the storage tool by the data''s needs (relationships, growth, read/write ratio, monetization):
+    use an RDBMS only when ACID integrity or relationships are required, and prefer file systems or NoSQL
+    otherwise.'
   derived_from_claims:
   - C02268
   - C02269
@@ -415,9 +455,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P021
-  statement: Select an architecture style by context, treating each style as a known
-    set of trade-offs; there is no universal best style.
+  statement: Select an architecture style by context, treating each style as a known set of trade-offs;
+    there is no universal best style.
   derived_from_claims:
   - C00038
   - C00039
@@ -430,10 +474,11 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P022
-  statement: Classify a concern as an architecture characteristic only when it specifies
-    a nondomain consideration, influences structure, is critical to success, and needs
-    special structural support.
+  statement: Classify a concern as an architecture characteristic only when it specifies a nondomain consideration,
+    influences structure, is critical to success, and needs special structural support.
   derived_from_claims:
   - C00091
   - C00093
@@ -446,10 +491,11 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P023
-  statement: 'Account for the eight fallacies of distributed computing: assume the
-    network is unreliable, know average and tail latency, pass minimal data, secure
-    every endpoint, and budget for higher cost.'
+  statement: 'Account for the eight fallacies of distributed computing: assume the network is unreliable,
+    know average and tail latency, pass minimal data, secure every endpoint, and budget for higher cost.'
   derived_from_claims:
   - C00163
   - C00164
@@ -463,10 +509,11 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P024
-  statement: Compose services through events rather than chains of commands and queries
-    whenever loose coupling matters, using events for both notification and state
-    transfer.
+  statement: Compose services through events rather than chains of commands and queries whenever loose
+    coupling matters, using events for both notification and state transfer.
   derived_from_claims:
   - C01295
   - C01297
@@ -484,10 +531,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P025
-  statement: Use one operational definition of coupling — a change in one part may
-    force a change in another — and analyze static (wiring) coupling separately from
-    dynamic (runtime call) coupling.
+  statement: Use one operational definition of coupling — a change in one part may force a change in another
+    — and analyze static (wiring) coupling separately from dynamic (runtime call) coupling.
   derived_from_claims:
   - C00626
   - C00633
@@ -503,10 +553,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P026
-  statement: Use Kafka transactions for exactly-once across Kafka-only chains, tying
-    state-store writes to message sends, but do not expect them to cover external
-    systems or to roll back after commit.
+  statement: Use Kafka transactions for exactly-once across Kafka-only chains, tying state-store writes
+    to message sends, but do not expect them to cover external systems or to roll back after commit.
   derived_from_claims:
   - C01413
   - C01414
@@ -523,10 +574,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P027
-  statement: Achieve reliable delivery with store-and-forward plus automatic retry,
-    and persist messages to disk with Guaranteed Delivery when message loss is unacceptable,
-    accepting the performance cost.
+  statement: Achieve reliable delivery with store-and-forward plus automatic retry, and persist messages
+    to disk with Guaranteed Delivery when message loss is unacceptable, accepting the performance cost.
   derived_from_claims:
   - C01500
   - C01503
@@ -542,10 +596,12 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P028
-  statement: Reduce and combine the number of objects on a page (e.g., sprites, combined
-    CSS/JS), balanced against parallel per-domain connections, and verify every change
-    by testing across browsers and connection speeds.
+  statement: Reduce and combine the number of objects on a page (e.g., sprites, combined CSS/JS), balanced
+    against parallel per-domain connections, and verify every change by testing across browsers and connection
+    speeds.
   derived_from_claims:
   - C02227
   - C02228
@@ -561,10 +617,14 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P029
-  statement: Relax temporal constraints rather than enforcing object state between
-    user actions; under CAP, adopt eventual consistency (BASE), lock inventory at
-    add-to-cart on the master (not on view), and tolerate brief transfer delays.
+  statement: Relax temporal constraints rather than enforcing object state between user actions; under
+    CAP, adopt eventual consistency (BASE), lock inventory at add-to-cart on the master (not on view),
+    and tolerate brief transfer delays.
   derived_from_claims:
   - C02297
   - C02298
@@ -574,17 +634,20 @@ principles:
   - C02302
   confidence: high
   applies_when:
-  - considering a constraint that an item must hold a certain state between a user's
-    actions
+  - considering a constraint that an item must hold a certain state between a user's actions
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P030
-  statement: Value technical breadth over depth and actively maintain it through habits
-    such as the 20-minute rule, a personal technology radar, and treating the technology
-    portfolio like a diversified financial portfolio.
+  statement: Value technical breadth over depth and actively maintain it through habits such as the 20-minute
+    rule, a personal technology radar, and treating the technology portfolio like a diversified financial
+    portfolio.
   derived_from_claims:
   - C00016
   - C00046
@@ -597,10 +660,14 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
+    downgrades:
+    - indirectness
 - principle_id: P031
-  statement: For product-based applications that ship features over time and need
-    per-user feature control, make the microkernel (plug-in) pattern the first-choice
-    starting architecture, leveraging its support for incremental, evolutionary development.
+  statement: For product-based applications that ship features over time and need per-user feature control,
+    make the microkernel (plug-in) pattern the first-choice starting architecture, leveraging its support
+    for incremental, evolutionary development.
   derived_from_claims:
   - C01150
   - C01155
@@ -610,18 +677,19 @@ principles:
   - C01167
   confidence: medium
   applies_when:
-  - building a product-based or pluggable application that releases features over
-    time
+  - building a product-based or pluggable application that releases features over time
   - designing a microkernel/plug-in architecture
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P032
-  statement: Never read back data you just wrote to validate it; act on the write's
-    error code instead, protect against corruption with high availability and multiple
-    data copies, and cache recently written data locally if it will be reused.
+  statement: Never read back data you just wrote to validate it; act on the write's error code instead,
+    protect against corruption with high availability and multiple data copies, and cache recently written
+    data locally if it will be reused.
   derived_from_claims:
   - C02285
   - C02286
@@ -637,10 +705,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P033
-  statement: Push caching toward the client and the network edge where possible —
-    the user's cookie and Anycast-directed nearest cluster — securing cookie data
-    with encryption and a message digest.
+  statement: Push caching toward the client and the network edge where possible — the user's cookie and
+    Anycast-directed nearest cluster — securing cookie data with encryption and a message digest.
   derived_from_claims:
   - C02048
   - C02049
@@ -655,10 +724,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P034
-  statement: Design for three or more live data centers (not a two-site hot/cold pair)
-    to lower cost, raise availability, and provide disaster recovery, reusing idle
-    capacity for tests and demand spikes.
+  statement: Design for three or more live data centers (not a two-site hot/cold pair) to lower cost,
+    raise availability, and provide disaster recovery, reusing idle capacity for tests and demand spikes.
   derived_from_claims:
   - C02258
   - C02259
@@ -674,10 +744,12 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P035
-  statement: Plan the data model carefully up front, because relationships dictate
-    how a database can be split and a broken model costs ~100x to fix later; treat
-    normalization level as a scale tradeoff and review queries with a DBA before production.
+  statement: Plan the data model carefully up front, because relationships dictate how a database can
+    be split and a broken model costs ~100x to fix later; treat normalization level as a scale tradeoff
+    and review queries with a DBA before production.
   derived_from_claims:
   - C02343
   - C02344
@@ -693,10 +765,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P036
-  statement: Choose the fewest architecture characteristics needed, keeping the driving
-    list short; over-specifying is as damaging as under-specifying because each characteristic
-    adds complexity.
+  statement: Choose the fewest architecture characteristics needed, keeping the driving list short; over-specifying
+    is as damaging as under-specifying because each characteristic adds complexity.
   derived_from_claims:
   - C00094
   - C00099
@@ -708,12 +781,13 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P037
-  statement: Select an architecture pattern deliberately by matching each pattern's
-    known characteristic ratings (agility, deployment, testability, performance, scalability,
-    ease of development) to the application's priority qualities and constraints,
-    and justify the choice explicitly — the decision is high-impact and very expensive
-    to reverse once implemented.
+  statement: Select an architecture pattern deliberately by matching each pattern's known characteristic
+    ratings (agility, deployment, testability, performance, scalability, ease of development) to the application's
+    priority qualities and constraints, and justify the choice explicitly — the decision is high-impact
+    and very expensive to reverse once implemented.
   derived_from_claims:
   - C01089
   - C01090
@@ -728,9 +802,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P038
-  statement: Minimize connascence that crosses encapsulation boundaries and maximize
-    connascence within them; minimize overall connascence by encapsulating elements.
+  statement: Minimize connascence that crosses encapsulation boundaries and maximize connascence within
+    them; minimize overall connascence by encapsulating elements.
   derived_from_claims:
   - C00083
   - C00085
@@ -742,11 +820,12 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P039
-  statement: Communicate asynchronously wherever possible to decouple services and
-    tiers (synchronous chains multiply failure and bug risk); apply async selectively
-    to external/third-party, long-running, error-prone, and no-temporal-constraint
-    calls, with timeouts on remaining sync calls.
+  statement: Communicate asynchronously wherever possible to decouple services and tiers (synchronous
+    chains multiply failure and bug risk); apply async selectively to external/third-party, long-running,
+    error-prone, and no-temporal-constraint calls, with timeouts on remaining sync calls.
   derived_from_claims:
   - C02386
   - C02387
@@ -761,10 +840,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P040
-  statement: 'Enforce the Dependency Rule: point all source-code dependencies inward
-    toward higher-level policy, and let nothing in an inner circle name anything in
-    an outer circle.'
+  statement: 'Enforce the Dependency Rule: point all source-code dependencies inward toward higher-level
+    policy, and let nothing in an inner circle name anything in an outer circle.'
   derived_from_claims:
   - C00473
   - C00477
@@ -778,9 +860,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P041
-  statement: Depend on abstractions rather than concretions, inverting dependencies
-    with interfaces so source-code dependencies oppose the flow of control.
+  statement: Depend on abstractions rather than concretions, inverting dependencies with interfaces so
+    source-code dependencies oppose the flow of control.
   derived_from_claims:
   - C00359
   - C00394
@@ -794,9 +878,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P042
-  statement: Give each module one and only one reason to change by making it responsible
-    to a single actor, and separate the code that serves different actors.
+  statement: Give each module one and only one reason to change by making it responsible to a single actor,
+    and separate the code that serves different actors.
   derived_from_claims:
   - C00374
   - C00375
@@ -810,10 +896,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P043
-  statement: Compose components for cohesion by grouping classes that change together
-    and are reused together (REP, CCP, CRP), balancing the inclusive/exclusive tension
-    for the team's current concerns.
+  statement: Compose components for cohesion by grouping classes that change together and are reused together
+    (REP, CCP, CRP), balancing the inclusive/exclusive tension for the team's current concerns.
   derived_from_claims:
   - C00402
   - C00403
@@ -822,17 +909,18 @@ principles:
   - C00409
   confidence: high
   applies_when:
-  - the project's maturity and the relative weight of develop-ability versus reuse
-    are taken into account, since the balance shifts over time
+  - the project's maturity and the relative weight of develop-ability versus reuse are taken into account,
+    since the balance shifts over time
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P044
-  statement: Manage component coupling by keeping the dependency graph acyclic (ADP),
-    depending in the direction of stability (SDP), and making each component as abstract
-    as it is stable (SAP).
+  statement: Manage component coupling by keeping the dependency graph acyclic (ADP), depending in the
+    direction of stability (SDP), and making each component as abstract as it is stable (SAP).
   derived_from_claims:
   - C00411
   - C00416
@@ -846,10 +934,12 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P045
-  statement: 'Manage database locks to maximize concurrency: match lock granularity
-    to the write, initially trust the optimizer then override it from production monitoring,
-    reduce contention via AKF splits, and choose an engine with flexible lock types.'
+  statement: 'Manage database locks to maximize concurrency: match lock granularity to the write, initially
+    trust the optimizer then override it from production monitoring, reduce contention via AKF splits,
+    and choose an engine with flexible lock types.'
   derived_from_claims:
   - C02349
   - C02350
@@ -864,10 +954,14 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P046
   statement: In a layered architecture keep layers closed by default to preserve layers-of-isolation,
-    open a layer only as a deliberate decision, and always document which layers are
-    open or closed and why.
+    open a layer only as a deliberate decision, and always document which layers are open or closed and
+    why.
   derived_from_claims:
   - C01100
   - C01101
@@ -882,9 +976,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P047
-  statement: Share 'data on the outside' through a replayable log (part messaging,
-    part database), not through a shared database or ephemeral messaging.
+  statement: Share 'data on the outside' through a replayable log (part messaging, part database), not
+    through a shared database or ephemeral messaging.
   derived_from_claims:
   - C01254
   - C01255
@@ -900,9 +998,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P048
-  statement: 'Apply the single writer principle: assign responsibility for propagating
-    each data type (or each state transition) to exactly one owning service.'
+  statement: 'Apply the single writer principle: assign responsibility for propagating each data type
+    (or each state transition) to exactly one owning service.'
   derived_from_claims:
   - C01407
   - C01408
@@ -919,10 +1021,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P049
-  statement: 'Apply CQRS: separate write and read models linked by an asynchronous
-    channel so each is optimised independently, and collapse read-your-writes with
-    a blocking read where needed.'
+  statement: 'Apply CQRS: separate write and read models linked by an asynchronous channel so each is
+    optimised independently, and collapse read-your-writes with a blocking read where needed.'
   derived_from_claims:
   - C01336
   - C01346
@@ -937,10 +1042,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P050
-  statement: Manage schema evolution with a compatibility-validating format such as
-    Avro plus a Schema Registry, and handle breaking changes with the Dual Schema
-    Upgrade Window.
+  statement: Manage schema evolution with a compatibility-validating format such as Avro plus a Schema
+    Registry, and handle breaking changes with the Dual Schema Upgrade Window.
   derived_from_claims:
   - C01438
   - C01440
@@ -955,10 +1063,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P051
-  statement: 'Do not design an integration the way you would a single application:
-    remote calls are orders of magnitude slower than local calls and can fail, so
-    account for latency, partial failure, and heterogeneity.'
+  statement: 'Do not design an integration the way you would a single application: remote calls are orders
+    of magnitude slower than local calls and can fail, so account for latency, partial failure, and heterogeneity.'
   derived_from_claims:
   - C01485
   - C01486
@@ -973,10 +1084,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P052
-  statement: Make messaging two-way with Request-Reply, giving the request a Return
-    Address for the reply channel and the reply a Correlation Identifier to match
-    it to its request.
+  statement: Make messaging two-way with Request-Reply, giving the request a Return Address for the reply
+    channel and the reply a Correlation Identifier to match it to its request.
   derived_from_claims:
   - C01663
   - C01675
@@ -991,10 +1103,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P053
-  statement: Isolate the application from messaging behind a Message Endpoint designed
-    as a Messaging Gateway, and use a Messaging Mapper so domain objects remain unaware
-    that messaging exists.
+  statement: Isolate the application from messaging behind a Message Endpoint designed as a Messaging
+    Gateway, and use a Messaging Mapper so domain objects remain unaware that messaging exists.
   derived_from_claims:
   - C01622
   - C01624
@@ -1009,10 +1122,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P054
-  statement: 'Decouple high availability from load balancing: they are orthogonal
-    concerns (resilience versus combining resources for load) and must be designed
-    and reasoned about separately.'
+  statement: 'Decouple high availability from load balancing: they are orthogonal concerns (resilience
+    versus combining resources for load) and must be designed and reasoned about separately.'
   derived_from_claims:
   - C01898
   - C01929
@@ -1026,10 +1140,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P055
-  statement: Guard against overly complex (overengineered) solutions during design;
-    test understandability by having engineers explain the design to peers of varying
-    experience.
+  statement: Guard against overly complex (overengineered) solutions during design; test understandability
+    by having engineers explain the design to peers of varying experience.
   derived_from_claims:
   - C02209
   - C02210
@@ -1044,10 +1161,14 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P056
-  statement: 'Always design every release to be rollback-capable: make database changes
-    additive only, script and test rollback under load, add a wire-on/wire-off feature
-    framework, and disambiguate SQL (no SELECT *, named UPDATE columns).'
+  statement: 'Always design every release to be rollback-capable: make database changes additive only,
+    script and test rollback under load, add a wire-on/wire-off feature framework, and disambiguate SQL
+    (no SELECT *, named UPDATE columns).'
   derived_from_claims:
   - C02334
   - C02335
@@ -1062,10 +1183,14 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P057
-  statement: 'Design fault-isolative swimlanes: split along Y/Z axes so each domain
-    shares nothing (never databases/servers), allows no synchronous calls across its
-    boundary, limits async calls, and toggles cross-boundary async with timeouts.'
+  statement: 'Design fault-isolative swimlanes: split along Y/Z axes so each domain shares nothing (never
+    databases/servers), allows no synchronous calls across its boundary, limits async calls, and toggles
+    cross-boundary async with timeouts.'
   derived_from_claims:
   - C02360
   - C02361
@@ -1080,10 +1205,13 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
+    upgrades:
+    - corroborated
 - principle_id: P058
-  statement: Design architecture to be as iterative as possible and expect unknown
-    unknowns, ensuring the architectural style and engineering practices form a symbiotic
-    mesh.
+  statement: Design architecture to be as iterative as possible and expect unknown unknowns, ensuring
+    the architectural style and engineering practices form a symbiotic mesh.
   derived_from_claims:
   - C00023
   - C00024
@@ -1095,10 +1223,13 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
+    downgrades:
+    - indirectness
 - principle_id: P059
-  statement: 'Stay hands-on while architecting: avoid the bottleneck trap by delegating
-    critical-path code, and write production-quality proof-of-concept code, since
-    breadth still requires some depth.'
+  statement: 'Stay hands-on while architecting: avoid the bottleneck trap by delegating critical-path
+    code, and write production-quality proof-of-concept code, since breadth still requires some depth.'
   derived_from_claims:
   - C00061
   - C00062
@@ -1110,9 +1241,13 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
+  grade:
+    source_type: classic
+    downgrades:
+    - indirectness
 - principle_id: P060
-  statement: Treat data as a first-class, long-lived architectural concern and keep
-    operational (OLTP) data distinct from analytical data when designing boundaries.
+  statement: Treat data as a first-class, long-lived architectural concern and keep operational (OLTP)
+    data distinct from analytical data when designing boundaries.
   derived_from_claims:
   - C00600
   - C00601
@@ -1127,11 +1262,15 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
+    downgrades:
+    - indirectness
 - principle_id: P061
-  statement: When scalability or high/variable concurrency is the dominant driver,
-    prefer a distributed pattern (event-driven, microservices, or space-based) over
-    the layered pattern; for extreme and variable load specifically, solve it architecturally
-    with space-based rather than retrofitting caching or scaling a central database.
+  statement: When scalability or high/variable concurrency is the dominant driver, prefer a distributed
+    pattern (event-driven, microservices, or space-based) over the layered pattern; for extreme and variable
+    load specifically, solve it architecturally with space-based rather than retrofitting caching or scaling
+    a central database.
   derived_from_claims:
   - C01121
   - C01176
@@ -1146,10 +1285,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P062
-  statement: Build logging as a reliable, real-time, multi-subscriber stream (e.g.
-    reliable IP multicast) and turn it into business-level monitors that trigger immediately
-    rather than via 24-hour roll-ups.
+  statement: Build logging as a reliable, real-time, multi-subscriber stream (e.g. reliable IP multicast)
+    and turn it into business-level monitors that trigger immediately rather than via 24-hour roll-ups.
   derived_from_claims:
   - C02143
   - C02148
@@ -1163,10 +1303,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P063
-  statement: Actively aggregate, monitor (with automated threshold alerts), and act
-    on application/web-server log files via a defined process, logging asynchronously
-    and purging by value to control cost.
+  statement: Actively aggregate, monitor (with automated threshold alerts), and act on application/web-server
+    log files via a defined process, logging asynchronously and purging by value to control cost.
   derived_from_claims:
   - C02279
   - C02280
@@ -1181,10 +1322,12 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P064
-  statement: 'Apply the Design-Implement-Deploy (D-I-D) approach to scale just-in-time:
-    design for ~20x capacity, implement for ~3x, and deploy for ~1.5x (more for hyper-growth),
-    deferring costly assets until just before need.'
+  statement: 'Apply the Design-Implement-Deploy (D-I-D) approach to scale just-in-time: design for ~20x
+    capacity, implement for ~3x, and deploy for ~1.5x (more for hyper-growth), deferring costly assets
+    until just before need.'
   derived_from_claims:
   - C02214
   - C02215
@@ -1199,10 +1342,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P065
-  statement: Simplify in three passes - scope (apply Pareto/80-20 to cut features),
-    design, and implementation (reuse proven open-source/third-party/internal solutions
-    before building your own).
+  statement: Simplify in three passes - scope (apply Pareto/80-20 to cut features), design, and implementation
+    (reuse proven open-source/third-party/internal solutions before building your own).
   derived_from_claims:
   - C02219
   - C02220
@@ -1217,10 +1361,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P066
-  statement: Build on small, inexpensive commodity systems treated as disposable,
-    rather than a few large high-margin servers; verify total cost of ownership yourself
-    against independent benchmarks.
+  statement: Build on small, inexpensive commodity systems treated as disposable, rather than a few large
+    high-margin servers; verify total cost of ownership yourself against independent benchmarks.
   derived_from_claims:
   - C02253
   - C02254
@@ -1235,10 +1380,12 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P067
-  statement: Avoid redirects where possible (they delay users, consume compute, and
-    are error-prone); when necessary prefer server-configuration redirects over HTML/code
-    redirects and replace some with lighter techniques.
+  statement: Avoid redirects where possible (they delay users, consume compute, and are error-prone);
+    when necessary prefer server-configuration redirects over HTML/code redirects and replace some with
+    lighter techniques.
   derived_from_claims:
   - C02292
   - C02293
@@ -1253,9 +1400,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: expert-book
 - principle_id: P068
-  statement: Architect to leave as many options open as possible for as long as possible,
-    maximizing the number of decisions not yet made.
+  statement: Architect to leave as many options open as possible for as long as possible, maximizing the
+    number of decisions not yet made.
   derived_from_claims:
   - C00430
   - C00441
@@ -1268,9 +1417,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
 - principle_id: P069
-  statement: Use Messaging when independent applications must exchange data or invoke
-    behaviour frequently, reliably, and asynchronously in small units.
+  statement: Use Messaging when independent applications must exchange data or invoke behaviour frequently,
+    reliably, and asynchronously in small units.
   derived_from_claims:
   - C01494
   - C01496
@@ -1284,3 +1435,5 @@ principles:
     skill: null
     reference: null
     test_cases: []
+  grade:
+    source_type: classic
