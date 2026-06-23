@@ -10,8 +10,10 @@ from __future__ import annotations
 from tools.subagent_factory.ask_gate import (
     Slot,
     already_asked,
+    ask_f1,
     filled_slots,
     gate,
+    replay_conversation,
     required_slots,
 )
 
@@ -145,3 +147,51 @@ def test_gate_no_required_context_answers() -> None:
     # A principle with no required-context slots just answers.
     d = gate({}, [_user("anything")])
     assert d["action"] == "answer"
+
+
+# --- multi-turn scenario replay (Phase C) -----------------------------------------------------
+
+
+def test_replay_conversation_ask_then_answer() -> None:
+    # The headline multi-turn behaviour: ask on turn 1, answer on turn 2, no re-ask.
+    decisions = replay_conversation(
+        {"must_ask_for": ["budget"]}, ["Help me plan the rollout", "The budget is 20k"]
+    )
+    assert [d["action"] for d in decisions] == ["ask", "answer"]
+
+
+def test_replay_conversation_anti_re_ask_to_abstain() -> None:
+    # Asked on turn 1; user never supplies it → escalate to abstain, do not re-ask the same slot.
+    decisions = replay_conversation(
+        {"must_ask_for": ["budget"]},
+        ["Help me plan the rollout", "I'm not sure, just give your best guess"],
+    )
+    assert [d["action"] for d in decisions] == ["ask", "abstain"]
+
+
+def test_replay_conversation_out_of_scope_step() -> None:
+    decisions = replay_conversation(
+        {"must_ask_for": ["budget"]}, ["something off topic"], out_of_scope_steps={0}
+    )
+    assert decisions[0]["action"] == "abstain"
+
+
+def test_ask_f1_perfect_sequence() -> None:
+    m = ask_f1(["ask", "answer"], ["ask", "answer"])
+    assert m["f1"] == 1.0
+    assert m["tp"] == 1 and m["fp"] == 0 and m["fn"] == 0
+    assert m["exact_match"] is True
+
+
+def test_ask_f1_no_ask_scenario_is_perfect() -> None:
+    # A scenario that correctly never asks is perfect, not undefined.
+    m = ask_f1(["answer", "answer"], ["answer", "answer"])
+    assert m["f1"] == 1.0 and m["tp"] == 0 and m["exact_match"] is True
+
+
+def test_ask_f1_penalizes_over_and_under_ask() -> None:
+    # expected answer→got ask (FP, over-ask); expected ask→got answer (FN, silent-commit).
+    m = ask_f1(["answer", "ask"], ["ask", "answer"])
+    assert m["tp"] == 0 and m["fp"] == 1 and m["fn"] == 1
+    assert m["f1"] == 0.0
+    assert m["exact_match"] is False

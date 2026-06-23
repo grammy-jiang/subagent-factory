@@ -200,6 +200,65 @@ def gate(principle: dict, conversation: list[dict], *, out_of_scope: bool = Fals
     }
 
 
+def replay_conversation(
+    principle: dict,
+    user_turns: list[str],
+    *,
+    out_of_scope_steps: set[int] | None = None,
+) -> list[dict]:
+    """Replay a **multi-turn** scenario through the gate, one user turn at a time (Step-13 Phase C).
+
+    After each user turn the gate decides; when it decides ``ask`` the (fallback) clarification
+    question is appended as an assistant turn *before the next user turn* — exactly so the next step's
+    ``already_asked`` check can see it and the anti-re-ask escalation fires. This is the executable
+    "ask on turn 1 → answer on turn 2, **no re-ask**" multi-turn behaviour, composed from the
+    validated single-turn parts (the round-3 compose-from-validated-parts adapt path). Returns the
+    decision dict at each step (one per user turn).
+
+    Calibration that *updates as context grows* (round-3 residual #1) is approximated structurally:
+    each step re-derives fill from the whole conversation so far, so a slot supplied on any earlier
+    turn stays satisfied — the gate's confidence to answer rises monotonically as slots fill."""
+    oos = out_of_scope_steps or set()
+    conversation: list[dict] = []
+    decisions: list[dict] = []
+    for i, utterance in enumerate(user_turns):
+        conversation.append({"role": "user", "content": utterance})
+        decision = gate(principle, conversation, out_of_scope=(i in oos))
+        decisions.append(decision)
+        if decision["action"] == "ask":
+            slot = next((s for s in required_slots(principle) if s.name == decision["slot"]), None)
+            question = slot.question if slot else f"What is the {decision['slot']}?"
+            conversation.append({"role": "assistant", "content": question})
+    return decisions
+
+
+def ask_f1(expected: list[str], actual: list[str]) -> dict:
+    """ASK-F1 over a scenario: precision / recall / F1 of the ``ask`` action — the gate's central
+    decision (calibration eval metric, round-3). TP = asked when it should; FP = asked when it should
+    not (over-asking); FN = should have asked but did not (silent-commit). ``exact_match`` is whether
+    the full action sequence matched (catches answer↔abstain confusions ASK-F1 alone misses).
+
+    Precision/recall default to 1.0 when there are no positive predictions/targets (a scenario that
+    correctly never asks is perfect, not undefined)."""
+    pairs = list(zip(expected, actual, strict=False))
+    tp = sum(1 for e, a in pairs if e == "ask" and a == "ask")
+    fp = sum(1 for e, a in pairs if e != "ask" and a == "ask")
+    fn = sum(1 for e, a in pairs if e == "ask" and a != "ask")
+    precision = tp / (tp + fp) if (tp + fp) else 1.0
+    recall = tp / (tp + fn) if (tp + fn) else 1.0
+    f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) else 0.0
+    return {
+        "precision": round(precision, 4),
+        "recall": round(recall, 4),
+        "f1": round(f1, 4),
+        "tp": tp,
+        "fp": fp,
+        "fn": fn,
+        "exact_match": all(e == a for e, a in pairs) if pairs else True,
+        "n_steps": len(pairs),
+    }
+
+
 def _load_json(path: str | Path) -> object:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
