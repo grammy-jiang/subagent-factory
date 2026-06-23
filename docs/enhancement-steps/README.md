@@ -40,7 +40,7 @@ subagent_workflow_quality_enhancement_plan.md      (original 12 enhancements)
 | 11 | `step-11-behaviour-test-generation.md` | full | **implemented (det core + gate; LLM ideation follow-on)** | 0,4,5 | behaviour-test-generation |
 | 12 | `step-12-optimize-adapter.md` | full | **implemented (driver + proposer skill + live CLI)** | 11 + A-track | prompt-optimization-eval |
 | 13 | `step-13-ask-gate.md` | full | **partial — F4 twins + F3 two-axis grading built; runtime ask-gate (F1/F2/F5, `ask_gate.py`) spec: black-box risk signal is an open academic gap** | 11, 12 | calibration-abstention |
-| 14 | `step-14-runtime-retrieval.md` | full | **G1 routing rule built (`knowledge_partition.py`, wired); G2–G6 retrieval engine spec (3 inherent academic gaps)** | 7 | rag-graphrag (§20 #10) |
+| 14 | `step-14-runtime-retrieval.md` | full | **G1 built — routing rule (`knowledge_partition.py`) + local distill-vs-retrieve A/B (`retrieval_ab.py`); G2–G6 retrieval engine spec (3 inherent academic gaps)** | 7 | rag-graphrag (§20 #10) |
 | 15 | `step-15-domain-adaptation-policy.md` | full | **implemented — `domain_policy.py` + wired gate #14 + authoring integration; non-code regulatory gaps open** | 13,14 | domain-adaptation-regulated-advice |
 | 16 | `step-16-evidence-grading.md` | full | **implemented — `grade_confidence.py` + wired gate; K-track complete; semantic signals are authoring-time** | 1,3 | systematic-review-evidence-synthesis (§20 #1) |
 | 20 | `step-20-document-ai-pdf-parsing.md` | full | **implemented (merged); +table-preservation spec'd (H-track, not built)** | 0,1,2,10 | Step-10 A/B + table-extraction (§20 #2) |
