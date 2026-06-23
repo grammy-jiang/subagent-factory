@@ -22,6 +22,7 @@ generated suite is graded correctly the moment it is written, and validated by
 from __future__ import annotations
 
 import sys
+import warnings
 from collections.abc import Callable, Sequence
 from datetime import date
 from pathlib import Path
@@ -86,8 +87,15 @@ def _make_prompt(principle: dict, cell_type: str, ideator: Ideator | None) -> st
             out = ideator(principle, cell_type)
             if isinstance(out, str) and out.strip():
                 return out.strip()
-        except Exception:  # noqa: BLE001 — any ideator failure falls back to the template
-            pass
+        except Exception as e:  # noqa: BLE001 — resilience boundary: any ideator failure falls back
+            # but make it OBSERVABLE: a silently-dying ideator would emit a passing-looking suite built
+            # entirely on template fallbacks, with no signal the LLM path is broken.
+            warnings.warn(
+                f"ideator failed for cell_type={cell_type!r} ({type(e).__name__}: {e}); "
+                "falling back to template",
+                RuntimeWarning,
+                stacklevel=2,
+            )
     return _template_prompt(principle, cell_type)
 
 
@@ -145,13 +153,21 @@ def _build_test(
     elif cell_type == "missing-context":
         test["expected_route"] = "invoke"
         test["must_ask_for"] = ["the decision-relevant specifics the request leaves unstated"]
-    else:  # golden OR answerable-twin: both should answer (the twin guards against over-asking)
+    elif cell_type in ("golden", "answerable-twin"):
+        # both should answer (the twin guards against over-asking)
         test["expected_route"] = "invoke"
         test["minimum_output"] = stmt
         if cell_type == "answerable-twin":
             test["must_not_do"] = [
                 "Ask for more information when the context is already sufficient"
             ]
+    else:
+        # Fail loud: a mistyped cell_type previously fell into the golden branch and produced a
+        # plausible-looking-but-wrong test instead of an error.
+        raise ValueError(
+            f"unknown cell_type {cell_type!r} "
+            f"(expected one of {sorted([*_CELLS, 'answerable-twin'])})"
+        )
     if twin_of:
         test["twin_of"] = twin_of
     return test

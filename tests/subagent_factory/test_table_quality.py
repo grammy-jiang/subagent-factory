@@ -95,9 +95,12 @@ def test_table_warnings_clean_is_silent():
     assert _table_warnings([_FakeTable(_CLEAN), _FakeTable(_CLEAN)]) == []
 
 
-def test_table_warnings_swallows_export_errors():
-    # a table that raises on export must not break the convert — it is skipped, not reported
-    assert _table_warnings([_BoomTable(), _FakeTable(_CLEAN)]) == []
+def test_table_warnings_reports_export_errors():
+    # a table that raises on export must not break the convert, but the failure IS reported (it is
+    # exactly the malformed-table signal this function exists to surface — not silently skipped).
+    warns = _table_warnings([_BoomTable(), _FakeTable(_CLEAN)])
+    assert len(warns) == 1
+    assert "Table 0" in warns[0] and "could not assess" in warns[0]
 
 
 def test_table_warnings_empty_list():

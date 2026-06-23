@@ -188,7 +188,7 @@ def ingest_source(
         cached_size = cache_md.stat().st_size
         conversion_result: dict[str, Any] = {
             "file_type": file_type,
-            "markdown_text": " " if cached_size > 0 else "",
+            "markdown_text": "",  # not re-read from cache; emptiness is judged via cached_bytes
             "converter_used": "cache",
             "warnings": [],
             "errors": [],
@@ -305,11 +305,13 @@ def _derive_status(conversion_result: dict) -> str:
         return "failed"
     if conversion_result.get("is_scanned"):
         return "needs-human-review"
-    # Cache hits skip text check — file content verified by non-zero cached_bytes.
-    if not conversion_result.get("from_cache"):
-        if not conversion_result.get("markdown_text", "").strip():
-            return "failed"
-    elif conversion_result.get("stats", {}).get("cached_bytes", 0) == 0:
+    # One emptiness rule for both paths: a fresh convert is empty if its markdown_text is blank; a
+    # cache hit is empty if it restored zero bytes. (No "_" sentinel faking non-empty for the cache.)
+    if conversion_result.get("from_cache"):
+        is_empty = conversion_result.get("stats", {}).get("cached_bytes", 0) == 0
+    else:
+        is_empty = not conversion_result.get("markdown_text", "").strip()
+    if is_empty:
         return "failed"
     if conversion_result.get("low_quality"):
         return "needs-human-review"
@@ -318,6 +320,12 @@ def _derive_status(conversion_result: dict) -> str:
 
 def _append_human_review_queue(reports_dir: Path, source_id: str, conversion_result: dict) -> None:
     queue_path = reports_dir / "human-review-queue.md"
+    # Idempotent: re-ingesting a still-failing source must not append a duplicate block for the same
+    # source_id (the ingest is designed to be re-run-safe).
+    if queue_path.exists() and f"\n## {source_id}\n" in (
+        "\n" + queue_path.read_text(encoding="utf-8")
+    ):
+        return
     reasons = conversion_result.get("errors", []) or ["Conversion quality requires review"]
     entry = f"\n## {source_id}\n\n"
     for r in reasons:

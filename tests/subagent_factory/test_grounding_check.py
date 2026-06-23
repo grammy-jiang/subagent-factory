@@ -87,3 +87,17 @@ def test_no_cross_source_when_alone(tmp_path):
     review.write_text("gamma delta. gamma delta.\n", encoding="utf-8")
     r = grounding_check(a, review, None)
     assert r["cross_source_terms"] == [] and r["suggested_sources"] == []
+
+
+def test_empty_review_is_not_applicable_not_perfect(tmp_path):
+    # A review with no distinctive concept vocab must NOT score coverage 1.0 (a free gate pass);
+    # it is "nothing to assess" → coverage None, scored False.
+    root = tmp_path / "subagents"
+    root.mkdir()
+    a = _pkg(root, "solo", ["The alpha beta principle matters."])
+    review = tmp_path / "empty.md"
+    review.write_text("the a an of and to in.\n", encoding="utf-8")  # only stopwords/short
+    r = grounding_check(a, review, None)
+    assert r["coverage"] is None
+    assert r["scored"] is False
+    assert r["n_concept_terms"] == 0

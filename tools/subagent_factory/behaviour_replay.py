@@ -149,7 +149,10 @@ def grade_output(test: dict, output: str) -> dict:
     else:
         route = 0.0 if declined else 1.0
 
-    minimum = _overlap_recall(test["minimum_output"], output)
+    # An empty minimum_output is "not applicable", not "trivially covered": _overlap_recall would
+    # return 1.0 and carry 0.5 weight, handing every test without a minimum_output half its score for
+    # free. Treat it as None so _combine_components redistributes the weight (as ask/mustnot do).
+    minimum = _overlap_recall(test["minimum_output"], output) if test["minimum_output"] else None
 
     ask_applicable = bool(test["must_ask_for"])
     if ask_applicable:
@@ -168,7 +171,7 @@ def grade_output(test: dict, output: str) -> dict:
     return {
         "score": _combine_components(route, minimum, ask, mustnot),
         "route": route,
-        "minimum": round(minimum, 4),
+        "minimum": round(minimum, 4) if minimum is not None else None,
         "ask": ask,
         "mustnot": mustnot,
         "declined": declined,
@@ -181,7 +184,7 @@ _WEIGHTS = {"route": 0.3, "minimum": 0.5, "ask": 0.1, "mustnot": 0.1}
 
 
 def _combine_components(
-    route: float, minimum: float, ask: float | None, mustnot: float | None
+    route: float, minimum: float | None, ask: float | None, mustnot: float | None
 ) -> float:
     """Weighted score over the components that apply to this test (``None`` = not applicable)."""
     comps = {"route": route, "minimum": minimum, "ask": ask, "mustnot": mustnot}
@@ -303,8 +306,12 @@ def replay_suite(
 ) -> dict:
     """Run every behaviour-test through ``runner`` (adapter as system prompt) and grade each.
 
-    Returns ``mean_score``, ``n_tests`` and ``per_test`` (test_id -> grade dict). Per-test failures
+    Returns ``mean_score``, ``n_tests`` and ``per_test`` (key -> grade dict). Per-test failures
     in the runner are recorded as score 0 with an ``error`` so one bad call doesn't abort the suite.
+
+    The ``per_test`` key is ``"<file>:<test_id>"`` (falling back to ``test_id``) so two records that
+    share a ``test_id`` across different YAML files do not silently overwrite each other — that would
+    drop a test from the mean while ``n_tests`` still counted it, an internal inconsistency.
     """
     per_test: dict[str, dict] = {}
     for t in tests:
@@ -313,10 +320,12 @@ def replay_suite(
             g = grader(t, output)
         except Exception as e:  # a runner/grader blow-up is a 0, not a crash
             g = {"score": 0.0, "error": str(e)}
-        per_test[t["test_id"]] = g
+        key = f"{t['file']}:{t['test_id']}" if t.get("file") else t["test_id"]
+        per_test[key] = g
     scores = [g["score"] for g in per_test.values()]
+    # mean and n_tests over the SAME collection (per_test), so a key collision can't desync them.
     mean_score = round(sum(scores) / len(scores), 4) if scores else 0.0
-    return {"mean_score": mean_score, "n_tests": len(tests), "per_test": per_test}
+    return {"mean_score": mean_score, "n_tests": len(per_test), "per_test": per_test}
 
 
 def rank_examples_by_utility(
@@ -401,14 +410,19 @@ def shell_runner(script: str | Path, timeout: int = 300) -> Runner:
 
     def _run(system: str, prompt: str) -> str:
         env = {**os.environ, "ADAPTER_TEXT": system}
-        return subprocess.run(
+        # check=True: a non-zero exit (crashed model call, bad ARN, timeout-kill) must raise so
+        # replay_suite records an error — NOT return empty stdout that grades as a legitimate empty
+        # response and silently poisons utility deltas / the replay gate.
+        proc = subprocess.run(
             ["bash", script],
             input=prompt,
             text=True,
             capture_output=True,
             timeout=timeout,
             env=env,
-        ).stdout
+            check=True,
+        )
+        return proc.stdout
 
     return _run
 
@@ -425,12 +439,16 @@ def shell_llm(script: str | Path, timeout: int = 300) -> Callable[[str], str]:
     script = str(script)
 
     def _ask(prompt: str) -> str:
-        return subprocess.run(
+        # check=True so a crashed judge raises (→ make_llm_grader records an unparseable grade)
+        # rather than returning "" that silently scores the item 0.
+        proc = subprocess.run(
             ["bash", script],
             input=prompt,
             text=True,
             capture_output=True,
             timeout=timeout,
-        ).stdout
+            check=True,
+        )
+        return proc.stdout
 
     return _ask

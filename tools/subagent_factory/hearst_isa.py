@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import re
 import sys
+import warnings
 from functools import lru_cache
 from pathlib import Path
 
@@ -191,8 +192,17 @@ def hearst_pairs(text: str, *, prefer_spacy: bool = True) -> list[tuple[str, str
     if prefer_spacy:
         try:
             pairs = _hearst_spacy(text)
-        except Exception:
+        except (ImportError, OSError) as e:
+            # spaCy missing or model not downloaded → fall back to the flat path, but make it
+            # observable: a silently-degraded parse just yields lower recall with no signal.
+            warnings.warn(
+                f"spaCy Hearst path unavailable ({type(e).__name__}: {e}); using flat regex path",
+                RuntimeWarning,
+                stacklevel=2,
+            )
             pairs = []
+        # NOTE: a logic error inside _hearst_spacy now propagates (not silently swallowed) — that is a
+        # bug to fix, not a reason to drop to the flat path.
     if not pairs:
         pairs = _hearst_flat(text)
     return list(dict.fromkeys(pairs))  # dedupe, preserve order
@@ -208,7 +218,15 @@ def wordnet_confirms(hypo: str, hyper: str) -> bool:
     hypo_key, hyper_key = hypo.split()[-1], hyper.split()[-1]  # head nouns
     try:
         syns = wn.synsets(hypo_key, pos=wn.NOUN)
-    except Exception:
+    except LookupError as e:
+        # Missing WordNet corpus is an environment problem (nltk.download('wordnet')), not "no match".
+        # Surface it instead of silently downgrading every pair to unconfirmed/low confidence.
+        warnings.warn(
+            f"WordNet corpus unavailable ({e}); is-a confirmation disabled — run "
+            "nltk.download('wordnet')",
+            RuntimeWarning,
+            stacklevel=2,
+        )
         return False
     targets = {hyper.lower(), hyper_key.lower()}
     for syn in syns:

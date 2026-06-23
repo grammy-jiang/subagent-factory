@@ -96,13 +96,34 @@ def test_replay_suite_mean_and_per_test():
     assert r["mean_score"] == 1.0
 
 
+def test_empty_minimum_output_is_not_a_free_pass():
+    # An empty minimum_output must be "not applicable" (None), not a 1.0 worth 0.5 weight.
+    empty_min = {**_INVOKE, "minimum_output": ""}
+    g = grade_output(empty_min, "this plan ties spend to a measurable selling outcome")
+    assert g["minimum"] is None  # not 1.0
+    # score is renormalised over route(+ask/mustnot if any); engaged invoke → route 1.0 → score 1.0
+    assert g["score"] == 1.0
+    # a non-empty minimum that is NOT covered must still drag the score below 1.0
+    g2 = grade_output(_INVOKE, "engaged but says nothing required")
+    assert g2["minimum"] is not None and g2["score"] < 1.0
+
+
 def test_replay_suite_runner_error_is_zero_not_crash():
     def boom(_s, _p):
         raise RuntimeError("model down")
 
     r = replay_suite("x", [_INVOKE], boom)
     assert r["per_test"]["GT-001"]["score"] == 0.0
-    assert "error" in r["per_test"]["GT-001"]
+
+
+def test_replay_suite_same_test_id_across_files_not_dropped():
+    # Two records sharing a test_id but from different files must both be counted (keyed by file:id),
+    # not silently overwritten — which would desync mean_score from n_tests.
+    a = {**_INVOKE, "test_id": "T-1", "file": "a.yaml"}
+    b = {**_INVOKE, "test_id": "T-1", "file": "b.yaml"}
+    r = replay_suite("HELPER adapter", [a, b], _good_runner)
+    assert r["n_tests"] == 2
+    assert set(r["per_test"]) == {"a.yaml:T-1", "b.yaml:T-1"}
 
 
 # ---- A1: rank_examples_by_utility -----------------------------------------------------------

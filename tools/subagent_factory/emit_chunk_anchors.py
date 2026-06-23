@@ -18,12 +18,22 @@ from pathlib import Path
 def emit_anchors(module_dir: str | Path) -> list[dict]:
     d = Path(module_dir)
     sid = json.loads((d / "module.json").read_text(encoding="utf-8"))["source_id"]
-    src = (d / "source.md").read_text(encoding="utf-8")
+    # Decode source.md exactly as chunk_source built char offsets (raw bytes, errors="replace"),
+    # so char_start indexes the SAME text. A plain strict read_text would raise on invalid UTF-8 and,
+    # if it differed, would slice at the wrong char position → wrong line_number.
+    src = (d / "source.md").read_bytes().decode("utf-8", errors="replace")
     records: list[dict] = []
     for line in (d / "chunks.jsonl").read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
         c = json.loads(line)
+        # char_start must index into src; a stale/wrong-revision module would silently mis-slice.
+        start = c["char_start"]
+        if not (0 <= start <= len(src)):
+            raise ValueError(
+                f"{d.name}: chunk {c['chunk_id']} char_start={start} out of range "
+                f"[0, {len(src)}] — chunks.jsonl and source.md are inconsistent (re-chunk the module)"
+            )
         records.append(
             {
                 "schema_version": "source_anchor_v1",
@@ -32,7 +42,7 @@ def emit_anchors(module_dir: str | Path) -> list[dict]:
                 "anchor_type": "paragraph",
                 "level": None,
                 "text": (c.get("heading_path") or "(chunk)")[:280],
-                "line_number": src[: c["char_start"]].count("\n") + 1,
+                "line_number": src[:start].count("\n") + 1,
                 "page_number": None,
             }
         )
