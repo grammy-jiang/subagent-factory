@@ -18,15 +18,30 @@ The ONLY writable location is `{{MODULE}}/` (plus shared ~/.cache). Nothing else
 - `CLAUDE.md` + `.claude/rules/*` — rights: this source is **distillation-only**, NO verbatim quotation; paraphrase, never copy 3+ consecutive source sentences.
 
 # Step A — per-chunk deep claim extraction (the anti-dilution point)
-For EACH chunk in `chunks.jsonl`, read its `text_path` and extract the **high-value, operational** claims it carries — atomic, reusable, evidence-backed, and **check-worthy**: things a reviewer would *act on*. **Extract each chunk on its own budget** so no load-bearing claim is missed (this is why the book was chunked) — but **deep ≠ exhaustive: SKIP background, motivational, historical, and definitional trivia, and do NOT emit a claim per sentence or per example.** A chunk yields its load-bearing principles (typically ~15–50 claims); **if you are emitting more than ~60 claims for one chunk you are capturing trivia — tighten to the actionable ones.** Type every claim per claims-v1:
+**Do this YOURSELF, in-thread, one chunk at a time. Do NOT spawn Agent/Task sub-agents to parallelise chunks — in a headless run they stall and you will return before they finish, producing an empty module.** Process chunks strictly sequentially.
+
+For EACH chunk in `chunks.jsonl`, read its `text_path` and extract the **high-value, operational** claims it carries — atomic, reusable, evidence-backed, and **check-worthy**: things a reviewer would *act on*. **Extract each chunk on its own budget** so no load-bearing claim is missed (this is why the book was chunked) — but **deep ≠ exhaustive: SKIP background, motivational, historical, and definitional trivia, and do NOT emit a claim per sentence or per example.** A chunk yields its load-bearing principles (typically ~10–30 claims at this chunk size); **if you are emitting more than ~40 claims for one chunk you are capturing trivia — tighten to the actionable ones.** Type every claim per claims-v1:
 - `claim_type` ∈ {fact, value, policy}; set `component_class`, `evidence_type`.
 - `certainty` ∈ {asserted, hedged, speculative} — **never strip a hedge**; a hedged source claim stays hedged.
 - `condition` / `exception` — fill when the text qualifies the claim ("unless / except when / only if / provided that / assuming"); else null. This keeps a scoped claim from over-broadening.
 - `source_id` = `{{SOURCE_ID}}`; `source_anchors` = `["<that chunk_id>"]`; `support_granularity` = a schema-allowed value for chunk-level support; `confidence_initial`.
-Append every claim to `{{MODULE}}/claims.jsonl` (one JSON object per line), `claim_id` `C001`, `C002`, … unique across the whole book.
 
-# Step B — per-book principle promotion
-Promote the high-value claims into operational principles (principles-v1) → `{{MODULE}}/principles.yaml`: `principle_id` `P001`…, `statement`, `derived_from_claims` (the C-ids), `confidence`, `applies_when` / `does_not_apply_when`, `operational_mapping`. Carry conditions onto normative (value/policy) principles; do not invent support beyond the claims.
+## Persist per chunk + resume (do NOT batch all chunks then write once)
+**Immediately after extracting each chunk, write that chunk's claims to its own partial file** `{{MODULE}}/partials/<chunk_id>.jsonl` (one JSON claim per line). Use a within-chunk `claim_id` like `<chunk_id>-001`, `<chunk_id>-002` (globally unique; renumbered at merge). Writing per chunk means a mid-run timeout/cap kill loses only the in-flight chunk, and the next run resumes.
+
+**Resume rule:** before extracting a chunk, check if `{{MODULE}}/partials/<chunk_id>.jsonl` already exists and is non-empty — if so, that chunk is DONE, SKIP it (do not re-extract). Only process chunks with no partial (or an empty partial). A chunk that genuinely yields zero claims: write a 0-byte partial so it counts as done and is not retried.
+
+## Merge (after all chunks have a partial)
+Concatenate every `{{MODULE}}/partials/*.jsonl` in chunk order into `{{MODULE}}/claims.jsonl` (one JSON object per line), renumbering `claim_id` to `C001`, `C002`, … sequential and unique across the whole book. Verify the count equals the sum of partial lines.
+
+# Step B — per-book principle promotion (BATCHED + persisted, same anti-timeout discipline as Step A)
+Promote the high-value claims into operational principles (principles-v1): `principle_id` `P001`…, `statement`, `derived_from_claims` (the C-ids), `confidence`, `applies_when` / `does_not_apply_when`, `operational_mapping`. Carry conditions onto normative (value/policy) principles; do not invent support beyond the claims.
+
+**Do NOT promote all claims in one pass — that single request is too large and times out.** Instead work in **batches of ~40 claims** (process claims.jsonl in order, ~40 at a time). After each batch, **immediately write that batch's principles** to its own partial file `{{MODULE}}/principles_parts/<NNN>.yaml` (NNN = zero-padded batch index `000`, `001`, …), each as a YAML list of principle objects. Persist per batch so a timeout/cap kill loses only the in-flight batch.
+
+**Resume rule:** before promoting a batch, check if `{{MODULE}}/principles_parts/<NNN>.yaml` already exists and is non-empty — if so SKIP it. Only promote batches with no partial.
+
+**Merge (after every batch has a partial):** concatenate all `{{MODULE}}/principles_parts/*.yaml` in order into `{{MODULE}}/principles.yaml`, renumbering `principle_id` to `P001`, `P002`, … sequential and unique across the whole book. A late merge/dedup pass MAY fold two batches' near-identical principles into one (union their `derived_from_claims`) — but never drop a distinct principle to hit a number.
 
 # Step C — module record + self-validate
 Write `{{MODULE}}/module.json` = {source_id, title, sha (the MODULE dir basename), n_chunks, n_claims, n_principles, engine:"claude", ts (ISO)}.

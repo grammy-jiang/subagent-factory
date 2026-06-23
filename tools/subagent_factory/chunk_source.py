@@ -12,10 +12,10 @@ Deterministic — NO LLM (factory determinism boundary). Content-addressed by sh
 bytes, so a book chunked on any machine yields identical chunk ids.
 
 Library:
-    chunk_markdown(text, target_tokens=24000, overlap_chars=1500) -> list[Chunk]
+    chunk_markdown(text, target_tokens=8000, overlap_chars=1500) -> list[Chunk]
 CLI:
     python -m tools.subagent_factory.chunk_source <staged.md> [--out cache/book-extracts]
-        [--target-tokens 24000] [--overlap-chars 1500]
+        [--target-tokens 8000] [--overlap-chars 1500]
     -> writes <out>/<sha>/source.md, <out>/<sha>/chunks/<chunk_id>.md, <out>/<sha>/chunks.jsonl
 """
 
@@ -107,7 +107,7 @@ def _split_oversize(
 
 
 def chunk_markdown(
-    text: str, *, target_tokens: int = 24000, overlap_chars: int = 1500
+    text: str, *, target_tokens: int = 8000, overlap_chars: int = 1500
 ) -> list[Chunk]:
     """Chunk staged Markdown into heading-aligned, <=target-token pieces with neighbour overlap."""
     target_chars = max(target_tokens, 1) * _CHARS_PER_TOKEN
@@ -161,7 +161,7 @@ def chunk_markdown(
 
 
 def write_book_module(
-    source_md: Path, out_root: Path, *, target_tokens: int = 24000, overlap_chars: int = 1500
+    source_md: Path, out_root: Path, *, target_tokens: int = 8000, overlap_chars: int = 1500
 ) -> dict:
     """Chunk a staged book md into a content-addressed `cache/book-extracts/<sha>/` module."""
     raw = source_md.read_bytes()
@@ -206,7 +206,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Deterministic structure-aware Markdown chunker.")
     ap.add_argument("source", type=Path, help="staged book markdown")
     ap.add_argument("--out", type=Path, default=Path("cache/book-extracts"))
-    ap.add_argument("--target-tokens", type=int, default=24000)
+    ap.add_argument("--target-tokens", type=int, default=8000)
     ap.add_argument("--overlap-chars", type=int, default=1500)
     args = ap.parse_args()
     if not args.source.is_file():
