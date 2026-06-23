@@ -1,0 +1,1549 @@
+schema_version: golden-tests-v1
+subagent_slug: software-architecture
+generated_at: '2026-06-24'
+golden_tests:
+- test_id: GT-001
+  prompt: fitness functions exist for the system. What do you advise, and why?
+  principle_coverage:
+  - P001
+  expected_route: invoke
+  minimum_output: Actively maintain modularity and govern accidental coupling (such as cyclic dependencies)
+    with automated fitness functions wired into the build, since code reviews catch it too late
+- test_id: GT-002
+  prompt: fitness functions exist for the system. (Every decision-relevant specific is provided.) What
+    do you advise?
+  principle_coverage:
+  - P001
+  expected_route: invoke
+  minimum_output: Actively maintain modularity and govern accidental coupling (such as cyclic dependencies)
+    with automated fitness functions wired into the build, since code reviews catch it too late
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-001
+- test_id: GT-003
+  prompt: delimiting boundaries in distributed or microservice architectures. What do you advise, and
+    why?
+  principle_coverage:
+  - P002
+  expected_route: invoke
+  minimum_output: Use the architecture quantum — an independently deployable artifact with high functional
+    cohesion, high static coupling, and synchronous dynamic coupling — as the unit and shared language
+    for coupling and granularity analysis
+- test_id: GT-004
+  prompt: delimiting boundaries in distributed or microservice architectures. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P002
+  expected_route: invoke
+  minimum_output: Use the architecture quantum — an independently deployable artifact with high functional
+    cohesion, high static coupling, and synchronous dynamic coupling — as the unit and shared language
+    for coupling and granularity analysis
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-002
+- test_id: GT-005
+  prompt: building or reviewing an internet-facing architecture expected to grow. What do you advise,
+    and why?
+  principle_coverage:
+  - P003
+  expected_route: invoke
+  minimum_output: 'Design for horizontal scalability from the outset: build for current demand but architect
+    so that growth needs no application or architectural redesign — scale out, not up'
+- test_id: GT-006
+  prompt: building or reviewing an internet-facing architecture expected to grow. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P003
+  expected_route: invoke
+  minimum_output: 'Design for horizontal scalability from the outset: build for current demand but architect
+    so that growth needs no application or architectural redesign — scale out, not up'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-003
+- test_id: GT-007
+  prompt: a consequential architecture decision is made and must be recorded. What do you advise, and
+    why?
+  principle_coverage:
+  - P004
+  expected_route: invoke
+  minimum_output: Document and justify every architecture decision in an ADR with Context, Decision, and
+    Consequences, stating the decision affirmatively and recording the why, the trade-offs, and the business
+    value
+- test_id: GT-008
+  prompt: a consequential architecture decision is made and must be recorded. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P004
+  expected_route: invoke
+  minimum_output: Document and justify every architecture decision in an ADR with Context, Decision, and
+    Consequences, stating the decision affirmatively and recording the why, the trade-offs, and the business
+    value
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-004
+- test_id: GT-009
+  prompt: designing a microservices architecture. What do you advise, and why?
+  principle_coverage:
+  - P005
+  expected_route: invoke
+  minimum_output: 'Treat service-component granularity as the central microservices design decision: right-size
+    components to avoid both coarse-grained loss of benefits and fine-grained orchestration; needing UI/API
+    orchestration or inter-service calls to satisfy one request signals components that are too fine-grained
+    or mis-partitioned'
+- test_id: GT-010
+  prompt: designing a microservices architecture. (Every decision-relevant specific is provided.) What
+    do you advise?
+  principle_coverage:
+  - P005
+  expected_route: invoke
+  minimum_output: 'Treat service-component granularity as the central microservices design decision: right-size
+    components to avoid both coarse-grained loss of benefits and fine-grained orchestration; needing UI/API
+    orchestration or inter-service calls to satisfy one request signals components that are too fine-grained
+    or mis-partitioned'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-005
+- test_id: GT-011
+  prompt: a novel or consequential architecture decision with competing forces. What do you advise, and
+    why?
+  principle_coverage:
+  - P006
+  expected_route: invoke
+  minimum_output: 'Treat every architecture choice as a trade-off: never present an option as the single
+    right answer, and if something appears not to be a trade-off, keep looking until the trade-off is
+    identified'
+- test_id: GT-012
+  prompt: a novel or consequential architecture decision with competing forces. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P006
+  expected_route: invoke
+  minimum_output: 'Treat every architecture choice as a trade-off: never present an option as the single
+    right answer, and if something appears not to be a trade-off, keep looking until the trade-off is
+    identified'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-006
+- test_id: GT-013
+  prompt: designing an event-driven architecture. What do you advise, and why?
+  principle_coverage:
+  - P007
+  expected_route: invoke
+  minimum_output: In event-driven design pick the mediator topology when an event needs multi-step orchestration
+    through a central mediator, and the broker topology when events can be chained without central orchestration
+- test_id: GT-014
+  prompt: designing an event-driven architecture. (Every decision-relevant specific is provided.) What
+    do you advise?
+  principle_coverage:
+  - P007
+  expected_route: invoke
+  minimum_output: In event-driven design pick the mediator topology when an event needs multi-step orchestration
+    through a central mediator, and the broker topology when events can be chained without central orchestration
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-007
+- test_id: GT-015
+  prompt: evaluating a proposed universal rule or 'always X' guidance. What do you advise, and why?
+  principle_coverage:
+  - P008
+  expected_route: invoke
+  minimum_output: 'Reject silver-bullet solutions and blanket ''decouple everything'' advice: no single
+    technique gives order-of-magnitude gains, and over-decoupling yields systems that cannot communicate
+    — apply coupling appropriately instead'
+- test_id: GT-016
+  prompt: evaluating a proposed universal rule or 'always X' guidance. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P008
+  expected_route: invoke
+  minimum_output: 'Reject silver-bullet solutions and blanket ''decouple everything'' advice: no single
+    technique gives order-of-magnitude gains, and over-decoupling yields systems that cannot communicate
+    — apply coupling appropriately instead'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-008
+- test_id: GT-017
+  prompt: Treat all performance advice as unproven until measured on your own configuration; measure before
+    and after every optimization, redo optimizations after a significant configuration change, and minimize
+    remote calls. What do you advise, and why?
+  principle_coverage:
+  - P009
+  expected_route: invoke
+  minimum_output: Treat all performance advice as unproven until measured on your own configuration; measure
+    before and after every optimization, redo optimizations after a significant configuration change,
+    and minimize remote calls
+- test_id: GT-018
+  prompt: adding or changing modules of the code base. What do you advise, and why?
+  principle_coverage:
+  - P010
+  expected_route: invoke
+  minimum_output: 'Adopt ''design to be monitored'' as an architectural principle: instrument transactions,
+    and monitor from business metrics first (Is there a problem?) before application (Where?) and system
+    tools (What?), using week-over-week comparison'
+- test_id: GT-019
+  prompt: adding or changing modules of the code base. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P010
+  expected_route: invoke
+  minimum_output: 'Adopt ''design to be monitored'' as an architectural principle: instrument transactions,
+    and monitor from business metrics first (Is there a problem?) before application (Where?) and system
+    tools (What?), using week-over-week comparison'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-009
+- test_id: GT-020
+  prompt: serving dynamic or static web content. What do you advise, and why?
+  principle_coverage:
+  - P011
+  expected_route: invoke
+  minimum_output: Deploy page caches (reverse proxy caches) in front of web servers - especially for dynamic
+    content - and use ETags with conditional GETs to maximize cacheability across proxies
+- test_id: GT-021
+  prompt: serving dynamic or static web content. (Every decision-relevant specific is provided.) What
+    do you advise?
+  principle_coverage:
+  - P011
+  expected_route: invoke
+  minimum_output: Deploy page caches (reverse proxy caches) in front of web servers - especially for dynamic
+    content - and use ETags with conditional GETs to maximize cacheability across proxies
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-010
+- test_id: GT-022
+  prompt: session data is needed and can be held client-side. What do you advise, and why?
+  principle_coverage:
+  - P012
+  expected_route: invoke
+  minimum_output: When session data is unavoidable, prefer keeping it in the user's browser via small
+    cookies so any server in the pool can serve the request, and protect the authorization cookie over
+    HTTPS against sidejacking
+- test_id: GT-023
+  prompt: session data is needed and can be held client-side. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P012
+  expected_route: invoke
+  minimum_output: When session data is unavoidable, prefer keeping it in the user's browser via small
+    cookies so any server in the pool can serve the request, and protect the authorization cookie over
+    HTTPS against sidejacking
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-011
+- test_id: GT-024
+  prompt: designing a microservices architecture. What do you advise, and why?
+  principle_coverage:
+  - P013
+  expected_route: invoke
+  minimum_output: Do not build transactions across microservice boundaries; fix the service granularity
+    instead, and use the saga pattern only sparingly for unavoidable cross-service coordination
+- test_id: GT-025
+  prompt: designing a microservices architecture. (Every decision-relevant specific is provided.) What
+    do you advise?
+  principle_coverage:
+  - P013
+  expected_route: invoke
+  minimum_output: Do not build transactions across microservice boundaries; fix the service granularity
+    instead, and use the saga pattern only sparingly for unavoidable cross-service coordination
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-012
+- test_id: GT-026
+  prompt: conflict probability is low (optimistic) versus high or costly (pessimistic). What do you advise,
+    and why?
+  principle_coverage:
+  - P014
+  expected_route: invoke
+  minimum_output: 'Choose between concurrency controls by the frequency and severity of conflicts: make
+    Optimistic Offline Lock (conflict detection) the default because it gives better liveness and is easier,
+    and use Pessimistic Offline Lock (conflict prevention) when conflicts are likely or their cost is
+    unacceptable'
+- test_id: GT-027
+  prompt: conflict probability is low (optimistic) versus high or costly (pessimistic). (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P014
+  expected_route: invoke
+  minimum_output: 'Choose between concurrency controls by the frequency and severity of conflicts: make
+    Optimistic Offline Lock (conflict detection) the default because it gives better liveness and is easier,
+    and use Pessimistic Offline Lock (conflict prevention) when conflicts are likely or their cost is
+    unacceptable'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-013
+- test_id: GT-028
+  prompt: specifying an architecture characteristic to govern or test. What do you advise, and why?
+  principle_coverage:
+  - P015
+  expected_route: invoke
+  minimum_output: Define each architecture characteristic objectively and measurably before testing it,
+    decomposing composite characteristics (e.g., agility) into measurable contributors
+- test_id: GT-029
+  prompt: specifying an architecture characteristic to govern or test. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P015
+  expected_route: invoke
+  minimum_output: Define each architecture characteristic objectively and measurably before testing it,
+    decomposing composite characteristics (e.g., agility) into measurable contributors
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-014
+- test_id: GT-030
+  prompt: 'Keep the business rules pristine and central: model enterprise-wide rules as Entities and application-specific
+    rules as Use Cases, with use cases depending on entities and neither knowing about the UI, database,
+    or frameworks. What do you advise, and why?'
+  principle_coverage:
+  - P016
+  expected_route: invoke
+  minimum_output: 'Keep the business rules pristine and central: model enterprise-wide rules as Entities
+    and application-specific rules as Use Cases, with use cases depending on entities and neither knowing
+    about the UI, database, or frameworks'
+- test_id: GT-031
+  prompt: databases with a high read-to-write ratio (~5:1+) or systems where transaction growth exceeds
+    data growth. What do you advise, and why?
+  principle_coverage:
+  - P017
+  expected_route: invoke
+  minimum_output: 'Scale transactions with X-axis cloning: duplicate stateless services and read replicas
+    behind a load balancer; start with an object cache before database replication'
+- test_id: GT-032
+  prompt: databases with a high read-to-write ratio (~5:1+) or systems where transaction growth exceeds
+    data growth. (Every decision-relevant specific is provided.) What do you advise?
+  principle_coverage:
+  - P017
+  expected_route: invoke
+  minimum_output: 'Scale transactions with X-axis cloning: duplicate stateless services and read replicas
+    behind a load balancer; start with an object cache before database replication'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-015
+- test_id: GT-033
+  prompt: Design for testability by applying the Humble Object pattern to split hard-to-test from easy-to-test
+    behavior, and never depend on volatile things such as the GUI when testing business rules. What do
+    you advise, and why?
+  principle_coverage:
+  - P018
+  expected_route: invoke
+  minimum_output: Design for testability by applying the Humble Object pattern to split hard-to-test from
+    easy-to-test behavior, and never depend on volatile things such as the GUI when testing business rules
+- test_id: GT-034
+  prompt: serving any cacheable object type. What do you advise, and why?
+  principle_coverage:
+  - P019
+  expected_route: invoke
+  minimum_output: Make Ajax calls cacheable via Last-Modified/Cache-Control/Expires headers, set Cache-Control
+    public for non-private data, and reference objects by stable atomic IDs rather than relative offsets
+- test_id: GT-035
+  prompt: serving any cacheable object type. (Every decision-relevant specific is provided.) What do you
+    advise?
+  principle_coverage:
+  - P019
+  expected_route: invoke
+  minimum_output: Make Ajax calls cacheable via Last-Modified/Cache-Control/Expires headers, set Cache-Control
+    public for non-private data, and reference objects by stable atomic IDs rather than relative offsets
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-016
+- test_id: GT-036
+  prompt: introducing new data or data structures into a system's architecture. What do you advise, and
+    why?
+  principle_coverage:
+  - P020
+  expected_route: invoke
+  minimum_output: 'Choose the storage tool by the data''s needs (relationships, growth, read/write ratio,
+    monetization): use an RDBMS only when ACID integrity or relationships are required, and prefer file
+    systems or NoSQL otherwise'
+- test_id: GT-037
+  prompt: introducing new data or data structures into a system's architecture. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P020
+  expected_route: invoke
+  minimum_output: 'Choose the storage tool by the data''s needs (relationships, growth, read/write ratio,
+    monetization): use an RDBMS only when ACID integrity or relationships are required, and prefer file
+    systems or NoSQL otherwise'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-017
+- test_id: GT-038
+  prompt: Select an architecture style by context, treating each style as a known set of trade-offs; there
+    is no universal best style. What do you advise, and why?
+  principle_coverage:
+  - P021
+  expected_route: invoke
+  minimum_output: Select an architecture style by context, treating each style as a known set of trade-offs;
+    there is no universal best style
+- test_id: GT-039
+  prompt: Classify a concern as an architecture characteristic only when it specifies a nondomain consideration,
+    influences structure, is critical to success, and needs special structural support. What do you advise,
+    and why?
+  principle_coverage:
+  - P022
+  expected_route: invoke
+  minimum_output: Classify a concern as an architecture characteristic only when it specifies a nondomain
+    consideration, influences structure, is critical to success, and needs special structural support
+- test_id: GT-040
+  prompt: designing or reviewing a distributed architecture. What do you advise, and why?
+  principle_coverage:
+  - P023
+  expected_route: invoke
+  minimum_output: 'Account for the eight fallacies of distributed computing: assume the network is unreliable,
+    know average and tail latency, pass minimal data, secure every endpoint, and budget for higher cost'
+- test_id: GT-041
+  prompt: designing or reviewing a distributed architecture. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P023
+  expected_route: invoke
+  minimum_output: 'Account for the eight fallacies of distributed computing: assume the network is unreliable,
+    know average and tail latency, pass minimal data, secure every endpoint, and budget for higher cost'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-018
+- test_id: GT-042
+  prompt: multiteam or cross-deployment-boundary systems. What do you advise, and why?
+  principle_coverage:
+  - P024
+  expected_route: invoke
+  minimum_output: Compose services through events rather than chains of commands and queries whenever
+    loose coupling matters, using events for both notification and state transfer
+- test_id: GT-043
+  prompt: multiteam or cross-deployment-boundary systems. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P024
+  expected_route: invoke
+  minimum_output: Compose services through events rather than chains of commands and queries whenever
+    loose coupling matters, using events for both notification and state transfer
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-019
+- test_id: GT-044
+  prompt: analyzing dependencies or change impact in a distributed architecture. What do you advise, and
+    why?
+  principle_coverage:
+  - P025
+  expected_route: invoke
+  minimum_output: Use one operational definition of coupling — a change in one part may force a change
+    in another — and analyze static (wiring) coupling separately from dynamic (runtime call) coupling
+- test_id: GT-045
+  prompt: analyzing dependencies or change impact in a distributed architecture. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P025
+  expected_route: invoke
+  minimum_output: Use one operational definition of coupling — a change in one part may force a change
+    in another — and analyze static (wiring) coupling separately from dynamic (runtime call) coupling
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-020
+- test_id: GT-046
+  prompt: both input and output of a step go through Kafka. What do you advise, and why?
+  principle_coverage:
+  - P026
+  expected_route: invoke
+  minimum_output: Use Kafka transactions for exactly-once across Kafka-only chains, tying state-store
+    writes to message sends, but do not expect them to cover external systems or to roll back after commit
+- test_id: GT-047
+  prompt: both input and output of a step go through Kafka. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P026
+  expected_route: invoke
+  minimum_output: Use Kafka transactions for exactly-once across Kafka-only chains, tying state-store
+    writes to message sends, but do not expect them to cover external systems or to roll back after commit
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-021
+- test_id: GT-048
+  prompt: message loss would harm the business. What do you advise, and why?
+  principle_coverage:
+  - P027
+  expected_route: invoke
+  minimum_output: Achieve reliable delivery with store-and-forward plus automatic retry, and persist messages
+    to disk with Guaranteed Delivery when message loss is unacceptable, accepting the performance cost
+- test_id: GT-049
+  prompt: message loss would harm the business. (Every decision-relevant specific is provided.) What do
+    you advise?
+  principle_coverage:
+  - P027
+  expected_route: invoke
+  minimum_output: Achieve reliable delivery with store-and-forward plus automatic retry, and persist messages
+    to disk with Guaranteed Delivery when message loss is unacceptable, accepting the performance cost
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-022
+- test_id: GT-050
+  prompt: web pages where performance matters. What do you advise, and why?
+  principle_coverage:
+  - P028
+  expected_route: invoke
+  minimum_output: Reduce and combine the number of objects on a page (e.g., sprites, combined CSS/JS),
+    balanced against parallel per-domain connections, and verify every change by testing across browsers
+    and connection speeds
+- test_id: GT-051
+  prompt: web pages where performance matters. (Every decision-relevant specific is provided.) What do
+    you advise?
+  principle_coverage:
+  - P028
+  expected_route: invoke
+  minimum_output: Reduce and combine the number of objects on a page (e.g., sprites, combined CSS/JS),
+    balanced against parallel per-domain connections, and verify every change by testing across browsers
+    and connection speeds
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-023
+- test_id: GT-052
+  prompt: considering a constraint that an item must hold a certain state between a user's actions. What
+    do you advise, and why?
+  principle_coverage:
+  - P029
+  expected_route: invoke
+  minimum_output: Relax temporal constraints rather than enforcing object state between user actions;
+    under CAP, adopt eventual consistency (BASE), lock inventory at add-to-cart on the master (not on
+    view), and tolerate brief transfer delays
+- test_id: GT-053
+  prompt: considering a constraint that an item must hold a certain state between a user's actions. (Every
+    decision-relevant specific is provided.) What do you advise?
+  principle_coverage:
+  - P029
+  expected_route: invoke
+  minimum_output: Relax temporal constraints rather than enforcing object state between user actions;
+    under CAP, adopt eventual consistency (BASE), lock inventory at add-to-cart on the master (not on
+    view), and tolerate brief transfer delays
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-024
+- test_id: GT-054
+  prompt: Value technical breadth over depth and actively maintain it through habits such as the 20-minute
+    rule, a personal technology radar, and treating the technology portfolio like a diversified financial
+    portfolio. What do you advise, and why?
+  principle_coverage:
+  - P030
+  expected_route: invoke
+  minimum_output: Value technical breadth over depth and actively maintain it through habits such as the
+    20-minute rule, a personal technology radar, and treating the technology portfolio like a diversified
+    financial portfolio
+- test_id: GT-055
+  prompt: building a product-based or pluggable application that releases features over time. What do
+    you advise, and why?
+  principle_coverage:
+  - P031
+  expected_route: invoke
+  minimum_output: For product-based applications that ship features over time and need per-user feature
+    control, make the microkernel (plug-in) pattern the first-choice starting architecture, leveraging
+    its support for incremental, evolutionary development
+- test_id: GT-056
+  prompt: building a product-based or pluggable application that releases features over time. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P031
+  expected_route: invoke
+  minimum_output: For product-based applications that ship features over time and need per-user feature
+    control, make the microkernel (plug-in) pattern the first-choice starting architecture, leveraging
+    its support for incremental, evolutionary development
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-025
+- test_id: GT-057
+  prompt: a write whose success is already reported by the write operation's error code. What do you advise,
+    and why?
+  principle_coverage:
+  - P032
+  expected_route: invoke
+  minimum_output: Never read back data you just wrote to validate it; act on the write's error code instead,
+    protect against corruption with high availability and multiple data copies, and cache recently written
+    data locally if it will be reused
+- test_id: GT-058
+  prompt: a write whose success is already reported by the write operation's error code. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P032
+  expected_route: invoke
+  minimum_output: Never read back data you just wrote to validate it; act on the write's error code instead,
+    protect against corruption with high availability and multiple data copies, and cache recently written
+    data locally if it will be reused
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-026
+- test_id: GT-059
+  prompt: Push caching toward the client and the network edge where possible — the user's cookie and Anycast-directed
+    nearest cluster — securing cookie data with encryption and a message digest. What do you advise, and
+    why?
+  principle_coverage:
+  - P033
+  expected_route: invoke
+  minimum_output: Push caching toward the client and the network edge where possible — the user's cookie
+    and Anycast-directed nearest cluster — securing cookie data with encryption and a message digest
+- test_id: GT-060
+  prompt: a rapidly growing business considering disaster-recovery capacity. What do you advise, and why?
+  principle_coverage:
+  - P034
+  expected_route: invoke
+  minimum_output: Design for three or more live data centers (not a two-site hot/cold pair) to lower cost,
+    raise availability, and provide disaster recovery, reusing idle capacity for tests and demand spikes
+- test_id: GT-061
+  prompt: a rapidly growing business considering disaster-recovery capacity. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P034
+  expected_route: invoke
+  minimum_output: Design for three or more live data centers (not a two-site hot/cold pair) to lower cost,
+    raise availability, and provide disaster recovery, reusing idle capacity for tests and demand spikes
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-027
+- test_id: GT-062
+  prompt: designing the data model, adding tables/columns, or writing queries. What do you advise, and
+    why?
+  principle_coverage:
+  - P035
+  expected_route: invoke
+  minimum_output: Plan the data model carefully up front, because relationships dictate how a database
+    can be split and a broken model costs ~100x to fix later; treat normalization level as a scale tradeoff
+    and review queries with a DBA before production
+- test_id: GT-063
+  prompt: designing the data model, adding tables/columns, or writing queries. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P035
+  expected_route: invoke
+  minimum_output: Plan the data model carefully up front, because relationships dictate how a database
+    can be split and a broken model costs ~100x to fix later; treat normalization level as a scale tradeoff
+    and review queries with a DBA before production
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-028
+- test_id: GT-064
+  prompt: Choose the fewest architecture characteristics needed, keeping the driving list short; over-specifying
+    is as damaging as under-specifying because each characteristic adds complexity. What do you advise,
+    and why?
+  principle_coverage:
+  - P036
+  expected_route: invoke
+  minimum_output: Choose the fewest architecture characteristics needed, keeping the driving list short;
+    over-specifying is as damaging as under-specifying because each characteristic adds complexity
+- test_id: GT-065
+  prompt: selecting or reviewing a top-level application architecture pattern. What do you advise, and
+    why?
+  principle_coverage:
+  - P037
+  expected_route: invoke
+  minimum_output: Select an architecture pattern deliberately by matching each pattern's known characteristic
+    ratings (agility, deployment, testability, performance, scalability, ease of development) to the application's
+    priority qualities and constraints, and justify the choice explicitly — the decision is high-impact
+    and very expensive to reverse once implemented
+- test_id: GT-066
+  prompt: selecting or reviewing a top-level application architecture pattern. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P037
+  expected_route: invoke
+  minimum_output: Select an architecture pattern deliberately by matching each pattern's known characteristic
+    ratings (agility, deployment, testability, performance, scalability, ease of development) to the application's
+    priority qualities and constraints, and justify the choice explicitly — the decision is high-impact
+    and very expensive to reverse once implemented
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-029
+- test_id: GT-067
+  prompt: Minimize connascence that crosses encapsulation boundaries and maximize connascence within them;
+    minimize overall connascence by encapsulating elements. What do you advise, and why?
+  principle_coverage:
+  - P038
+  expected_route: invoke
+  minimum_output: Minimize connascence that crosses encapsulation boundaries and maximize connascence
+    within them; minimize overall connascence by encapsulating elements
+- test_id: GT-068
+  prompt: calls between services and tiers. What do you advise, and why?
+  principle_coverage:
+  - P039
+  expected_route: invoke
+  minimum_output: Communicate asynchronously wherever possible to decouple services and tiers (synchronous
+    chains multiply failure and bug risk); apply async selectively to external/third-party, long-running,
+    error-prone, and no-temporal-constraint calls, with timeouts on remaining sync calls
+- test_id: GT-069
+  prompt: calls between services and tiers. (Every decision-relevant specific is provided.) What do you
+    advise?
+  principle_coverage:
+  - P039
+  expected_route: invoke
+  minimum_output: Communicate asynchronously wherever possible to decouple services and tiers (synchronous
+    chains multiply failure and bug risk); apply async selectively to external/third-party, long-running,
+    error-prone, and no-temporal-constraint calls, with timeouts on remaining sync calls
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-030
+- test_id: GT-070
+  prompt: 'Enforce the Dependency Rule: point all source-code dependencies inward toward higher-level
+    policy, and let nothing in an inner circle name anything in an outer circle. What do you advise, and
+    why?'
+  principle_coverage:
+  - P040
+  expected_route: invoke
+  minimum_output: 'Enforce the Dependency Rule: point all source-code dependencies inward toward higher-level
+    policy, and let nothing in an inner circle name anything in an outer circle'
+- test_id: GT-071
+  prompt: Depend on abstractions rather than concretions, inverting dependencies with interfaces so source-code
+    dependencies oppose the flow of control. What do you advise, and why?
+  principle_coverage:
+  - P041
+  expected_route: invoke
+  minimum_output: Depend on abstractions rather than concretions, inverting dependencies with interfaces
+    so source-code dependencies oppose the flow of control
+- test_id: GT-072
+  prompt: Give each module one and only one reason to change by making it responsible to a single actor,
+    and separate the code that serves different actors. What do you advise, and why?
+  principle_coverage:
+  - P042
+  expected_route: invoke
+  minimum_output: Give each module one and only one reason to change by making it responsible to a single
+    actor, and separate the code that serves different actors
+- test_id: GT-073
+  prompt: the project's maturity and the relative weight of develop-ability versus reuse are taken into
+    account, since the balance shifts over time. What do you advise, and why?
+  principle_coverage:
+  - P043
+  expected_route: invoke
+  minimum_output: Compose components for cohesion by grouping classes that change together and are reused
+    together (REP, CCP, CRP), balancing the inclusive/exclusive tension for the team's current concerns
+- test_id: GT-074
+  prompt: the project's maturity and the relative weight of develop-ability versus reuse are taken into
+    account, since the balance shifts over time. (Every decision-relevant specific is provided.) What
+    do you advise?
+  principle_coverage:
+  - P043
+  expected_route: invoke
+  minimum_output: Compose components for cohesion by grouping classes that change together and are reused
+    together (REP, CCP, CRP), balancing the inclusive/exclusive tension for the team's current concerns
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-031
+- test_id: GT-075
+  prompt: Manage component coupling by keeping the dependency graph acyclic (ADP), depending in the direction
+    of stability (SDP), and making each component as abstract as it is stable (SAP). What do you advise,
+    and why?
+  principle_coverage:
+  - P044
+  expected_route: invoke
+  minimum_output: Manage component coupling by keeping the dependency graph acyclic (ADP), depending in
+    the direction of stability (SDP), and making each component as abstract as it is stable (SAP)
+- test_id: GT-076
+  prompt: employing a relational database. What do you advise, and why?
+  principle_coverage:
+  - P045
+  expected_route: invoke
+  minimum_output: 'Manage database locks to maximize concurrency: match lock granularity to the write,
+    initially trust the optimizer then override it from production monitoring, reduce contention via AKF
+    splits, and choose an engine with flexible lock types'
+- test_id: GT-077
+  prompt: employing a relational database. (Every decision-relevant specific is provided.) What do you
+    advise?
+  principle_coverage:
+  - P045
+  expected_route: invoke
+  minimum_output: 'Manage database locks to maximize concurrency: match lock granularity to the write,
+    initially trust the optimizer then override it from production monitoring, reduce contention via AKF
+    splits, and choose an engine with flexible lock types'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-032
+- test_id: GT-078
+  prompt: designing or reviewing a layered architecture. What do you advise, and why?
+  principle_coverage:
+  - P046
+  expected_route: invoke
+  minimum_output: In a layered architecture keep layers closed by default to preserve layers-of-isolation,
+    open a layer only as a deliberate decision, and always document which layers are open or closed and
+    why
+- test_id: GT-079
+  prompt: designing or reviewing a layered architecture. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P046
+  expected_route: invoke
+  minimum_output: In a layered architecture keep layers closed by default to preserve layers-of-isolation,
+    open a layer only as a deliberate decision, and always document which layers are open or closed and
+    why
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-033
+- test_id: GT-080
+  prompt: core business datasets must be shared across many services or teams. What do you advise, and
+    why?
+  principle_coverage:
+  - P047
+  expected_route: invoke
+  minimum_output: Share 'data on the outside' through a replayable log (part messaging, part database),
+    not through a shared database or ephemeral messaging
+- test_id: GT-081
+  prompt: core business datasets must be shared across many services or teams. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P047
+  expected_route: invoke
+  minimum_output: Share 'data on the outside' through a replayable log (part messaging, part database),
+    not through a shared database or ephemeral messaging
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-034
+- test_id: GT-082
+  prompt: concurrent mutation of the same entity must be prevented. What do you advise, and why?
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  minimum_output: 'Apply the single writer principle: assign responsibility for propagating each data
+    type (or each state transition) to exactly one owning service'
+- test_id: GT-083
+  prompt: concurrent mutation of the same entity must be prevented. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  minimum_output: 'Apply the single writer principle: assign responsibility for propagating each data
+    type (or each state transition) to exactly one owning service'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-035
+- test_id: GT-084
+  prompt: read and write workloads have different scaling or shape needs. What do you advise, and why?
+  principle_coverage:
+  - P049
+  expected_route: invoke
+  minimum_output: 'Apply CQRS: separate write and read models linked by an asynchronous channel so each
+    is optimised independently, and collapse read-your-writes with a blocking read where needed'
+- test_id: GT-085
+  prompt: read and write workloads have different scaling or shape needs. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P049
+  expected_route: invoke
+  minimum_output: 'Apply CQRS: separate write and read models linked by an asynchronous channel so each
+    is optimised independently, and collapse read-your-writes with a blocking read where needed'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-036
+- test_id: GT-086
+  prompt: independently changing services share message schemas. What do you advise, and why?
+  principle_coverage:
+  - P050
+  expected_route: invoke
+  minimum_output: Manage schema evolution with a compatibility-validating format such as Avro plus a Schema
+    Registry, and handle breaking changes with the Dual Schema Upgrade Window
+- test_id: GT-087
+  prompt: independently changing services share message schemas. (Every decision-relevant specific is
+    provided.) What do you advise?
+  principle_coverage:
+  - P050
+  expected_route: invoke
+  minimum_output: Manage schema evolution with a compatibility-validating format such as Avro plus a Schema
+    Registry, and handle breaking changes with the Dual Schema Upgrade Window
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-037
+- test_id: GT-088
+  prompt: communication crosses a process or network boundary. What do you advise, and why?
+  principle_coverage:
+  - P051
+  expected_route: invoke
+  minimum_output: 'Do not design an integration the way you would a single application: remote calls are
+    orders of magnitude slower than local calls and can fail, so account for latency, partial failure,
+    and heterogeneity'
+- test_id: GT-089
+  prompt: communication crosses a process or network boundary. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P051
+  expected_route: invoke
+  minimum_output: 'Do not design an integration the way you would a single application: remote calls are
+    orders of magnitude slower than local calls and can fail, so account for latency, partial failure,
+    and heterogeneity'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-038
+- test_id: GT-090
+  prompt: a sender needs a response. What do you advise, and why?
+  principle_coverage:
+  - P052
+  expected_route: invoke
+  minimum_output: Make messaging two-way with Request-Reply, giving the request a Return Address for the
+    reply channel and the reply a Correlation Identifier to match it to its request
+- test_id: GT-091
+  prompt: a sender needs a response. (Every decision-relevant specific is provided.) What do you advise?
+  principle_coverage:
+  - P052
+  expected_route: invoke
+  minimum_output: Make messaging two-way with Request-Reply, giving the request a Return Address for the
+    reply channel and the reply a Correlation Identifier to match it to its request
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-039
+- test_id: GT-092
+  prompt: connecting application code to a messaging system. What do you advise, and why?
+  principle_coverage:
+  - P053
+  expected_route: invoke
+  minimum_output: Isolate the application from messaging behind a Message Endpoint designed as a Messaging
+    Gateway, and use a Messaging Mapper so domain objects remain unaware that messaging exists
+- test_id: GT-093
+  prompt: connecting application code to a messaging system. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P053
+  expected_route: invoke
+  minimum_output: Isolate the application from messaging behind a Message Endpoint designed as a Messaging
+    Gateway, and use a Messaging Mapper so domain objects remain unaware that messaging exists
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-040
+- test_id: GT-094
+  prompt: 'Decouple high availability from load balancing: they are orthogonal concerns (resilience versus
+    combining resources for load) and must be designed and reasoned about separately. What do you advise,
+    and why?'
+  principle_coverage:
+  - P054
+  expected_route: invoke
+  minimum_output: 'Decouple high availability from load balancing: they are orthogonal concerns (resilience
+    versus combining resources for load) and must be designed and reasoned about separately'
+- test_id: GT-095
+  prompt: designing any system, especially large or complex systems. What do you advise, and why?
+  principle_coverage:
+  - P055
+  expected_route: invoke
+  minimum_output: Guard against overly complex (overengineered) solutions during design; test understandability
+    by having engineers explain the design to peers of varying experience
+- test_id: GT-096
+  prompt: designing any system, especially large or complex systems. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P055
+  expected_route: invoke
+  minimum_output: Guard against overly complex (overengineered) solutions during design; test understandability
+    by having engineers explain the design to peers of varying experience
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-041
+- test_id: GT-097
+  prompt: preparing any code release. What do you advise, and why?
+  principle_coverage:
+  - P056
+  expected_route: invoke
+  minimum_output: 'Always design every release to be rollback-capable: make database changes additive
+    only, script and test rollback under load, add a wire-on/wire-off feature framework, and disambiguate
+    SQL (no SELECT *, named UPDATE columns)'
+- test_id: GT-098
+  prompt: preparing any code release. (Every decision-relevant specific is provided.) What do you advise?
+  principle_coverage:
+  - P056
+  expected_route: invoke
+  minimum_output: 'Always design every release to be rollback-capable: make database changes additive
+    only, script and test rollback under load, add a wire-on/wire-off feature framework, and disambiguate
+    SQL (no SELECT *, named UPDATE columns)'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-042
+- test_id: GT-099
+  prompt: beginning to split databases or services to scale. What do you advise, and why?
+  principle_coverage:
+  - P057
+  expected_route: invoke
+  minimum_output: 'Design fault-isolative swimlanes: split along Y/Z axes so each domain shares nothing
+    (never databases/servers), allows no synchronous calls across its boundary, limits async calls, and
+    toggles cross-boundary async with timeouts'
+- test_id: GT-100
+  prompt: beginning to split databases or services to scale. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P057
+  expected_route: invoke
+  minimum_output: 'Design fault-isolative swimlanes: split along Y/Z axes so each domain shares nothing
+    (never databases/servers), allows no synchronous calls across its boundary, limits async calls, and
+    toggles cross-boundary async with timeouts'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-043
+- test_id: GT-101
+  prompt: Design architecture to be as iterative as possible and expect unknown unknowns, ensuring the
+    architectural style and engineering practices form a symbiotic mesh. What do you advise, and why?
+  principle_coverage:
+  - P058
+  expected_route: invoke
+  minimum_output: Design architecture to be as iterative as possible and expect unknown unknowns, ensuring
+    the architectural style and engineering practices form a symbiotic mesh
+- test_id: GT-102
+  prompt: 'Stay hands-on while architecting: avoid the bottleneck trap by delegating critical-path code,
+    and write production-quality proof-of-concept code, since breadth still requires some depth. What
+    do you advise, and why?'
+  principle_coverage:
+  - P059
+  expected_route: invoke
+  minimum_output: 'Stay hands-on while architecting: avoid the bottleneck trap by delegating critical-path
+    code, and write production-quality proof-of-concept code, since breadth still requires some depth'
+- test_id: GT-103
+  prompt: designing or decomposing systems whose data outlives the architecture. What do you advise, and
+    why?
+  principle_coverage:
+  - P060
+  expected_route: invoke
+  minimum_output: Treat data as a first-class, long-lived architectural concern and keep operational (OLTP)
+    data distinct from analytical data when designing boundaries
+- test_id: GT-104
+  prompt: designing or decomposing systems whose data outlives the architecture. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P060
+  expected_route: invoke
+  minimum_output: Treat data as a first-class, long-lived architectural concern and keep operational (OLTP)
+    data distinct from analytical data when designing boundaries
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-044
+- test_id: GT-105
+  prompt: scalability or concurrency is the primary architectural concern. What do you advise, and why?
+  principle_coverage:
+  - P061
+  expected_route: invoke
+  minimum_output: When scalability or high/variable concurrency is the dominant driver, prefer a distributed
+    pattern (event-driven, microservices, or space-based) over the layered pattern; for extreme and variable
+    load specifically, solve it architecturally with space-based rather than retrofitting caching or scaling
+    a central database
+- test_id: GT-106
+  prompt: scalability or concurrency is the primary architectural concern. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P061
+  expected_route: invoke
+  minimum_output: When scalability or high/variable concurrency is the dominant driver, prefer a distributed
+    pattern (event-driven, microservices, or space-based) over the layered pattern; for extreme and variable
+    load specifically, solve it architecturally with space-based rather than retrofitting caching or scaling
+    a central database
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-045
+- test_id: GT-107
+  prompt: Build logging as a reliable, real-time, multi-subscriber stream (e.g. reliable IP multicast)
+    and turn it into business-level monitors that trigger immediately rather than via 24-hour roll-ups.
+    What do you advise, and why?
+  principle_coverage:
+  - P062
+  expected_route: invoke
+  minimum_output: Build logging as a reliable, real-time, multi-subscriber stream (e.g. reliable IP multicast)
+    and turn it into business-level monitors that trigger immediately rather than via 24-hour roll-ups
+- test_id: GT-108
+  prompt: operating an application with web/app server logs. What do you advise, and why?
+  principle_coverage:
+  - P063
+  expected_route: invoke
+  minimum_output: Actively aggregate, monitor (with automated threshold alerts), and act on application/web-server
+    log files via a defined process, logging asynchronously and purging by value to control cost
+- test_id: GT-109
+  prompt: operating an application with web/app server logs. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P063
+  expected_route: invoke
+  minimum_output: Actively aggregate, monitor (with automated threshold alerts), and act on application/web-server
+    log files via a defined process, logging asynchronously and purging by value to control cost
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-046
+- test_id: GT-110
+  prompt: planning scalability on any project. What do you advise, and why?
+  principle_coverage:
+  - P064
+  expected_route: invoke
+  minimum_output: 'Apply the Design-Implement-Deploy (D-I-D) approach to scale just-in-time: design for
+    ~20x capacity, implement for ~3x, and deploy for ~1.5x (more for hyper-growth), deferring costly assets
+    until just before need'
+- test_id: GT-111
+  prompt: planning scalability on any project. (Every decision-relevant specific is provided.) What do
+    you advise?
+  principle_coverage:
+  - P064
+  expected_route: invoke
+  minimum_output: 'Apply the Design-Implement-Deploy (D-I-D) approach to scale just-in-time: design for
+    ~20x capacity, implement for ~3x, and deploy for ~1.5x (more for hyper-growth), deferring costly assets
+    until just before need'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-047
+- test_id: GT-112
+  prompt: designing complex systems where engineering or computational resources are limited. What do
+    you advise, and why?
+  principle_coverage:
+  - P065
+  expected_route: invoke
+  minimum_output: Simplify in three passes - scope (apply Pareto/80-20 to cut features), design, and implementation
+    (reuse proven open-source/third-party/internal solutions before building your own)
+- test_id: GT-113
+  prompt: designing complex systems where engineering or computational resources are limited. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P065
+  expected_route: invoke
+  minimum_output: Simplify in three passes - scope (apply Pareto/80-20 to cut features), design, and implementation
+    (reuse proven open-source/third-party/internal solutions before building your own)
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-048
+- test_id: GT-114
+  prompt: production environments going through hyper-growth. What do you advise, and why?
+  principle_coverage:
+  - P066
+  expected_route: invoke
+  minimum_output: Build on small, inexpensive commodity systems treated as disposable, rather than a few
+    large high-margin servers; verify total cost of ownership yourself against independent benchmarks
+- test_id: GT-115
+  prompt: production environments going through hyper-growth. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P066
+  expected_route: invoke
+  minimum_output: Build on small, inexpensive commodity systems treated as disposable, rather than a few
+    large high-margin servers; verify total cost of ownership yourself against independent benchmarks
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-049
+- test_id: GT-116
+  prompt: a redirect is genuinely required. What do you advise, and why?
+  principle_coverage:
+  - P067
+  expected_route: invoke
+  minimum_output: Avoid redirects where possible (they delay users, consume compute, and are error-prone);
+    when necessary prefer server-configuration redirects over HTML/code redirects and replace some with
+    lighter techniques
+- test_id: GT-117
+  prompt: a redirect is genuinely required. (Every decision-relevant specific is provided.) What do you
+    advise?
+  principle_coverage:
+  - P067
+  expected_route: invoke
+  minimum_output: Avoid redirects where possible (they delay users, consume compute, and are error-prone);
+    when necessary prefer server-configuration redirects over HTML/code redirects and replace some with
+    lighter techniques
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-050
+- test_id: GT-118
+  prompt: Architect to leave as many options open as possible for as long as possible, maximizing the
+    number of decisions not yet made. What do you advise, and why?
+  principle_coverage:
+  - P068
+  expected_route: invoke
+  minimum_output: Architect to leave as many options open as possible for as long as possible, maximizing
+    the number of decisions not yet made
+- test_id: GT-119
+  prompt: applications are independent and need timely, reliable, decoupled collaboration. What do you
+    advise, and why?
+  principle_coverage:
+  - P069
+  expected_route: invoke
+  minimum_output: Use Messaging when independent applications must exchange data or invoke behaviour frequently,
+    reliably, and asynchronously in small units
+- test_id: GT-120
+  prompt: applications are independent and need timely, reliable, decoupled collaboration. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P069
+  expected_route: invoke
+  minimum_output: Use Messaging when independent applications must exchange data or invoke behaviour frequently,
+    reliably, and asynchronously in small units
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-051
+negative_routing_tests: []
+missing_context_tests:
+- test_id: MC-001
+  prompt: fitness functions exist for the system. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P001
+  expected_route: invoke
+  must_ask_for:
+  - which architecture characteristics must be governed and whether a build pipeline exists
+- test_id: MC-002
+  prompt: delimiting boundaries in distributed or microservice architectures. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P002
+  expected_route: invoke
+  must_ask_for:
+  - the proposed service or component boundaries and their data ownership
+- test_id: MC-003
+  prompt: building or reviewing an internet-facing architecture expected to grow. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P003
+  expected_route: invoke
+  must_ask_for:
+  - the expected load profile and growth trajectory
+- test_id: MC-004
+  prompt: a consequential architecture decision is made and must be recorded. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P004
+  expected_route: invoke
+  must_ask_for:
+  - the decision being made, its alternatives, and the forces driving it
+- test_id: MC-005
+  prompt: designing a microservices architecture. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P005
+  expected_route: invoke
+  must_ask_for:
+  - the transaction boundaries and which operations must stay atomic
+- test_id: MC-006
+  prompt: a novel or consequential architecture decision with competing forces. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P006
+  expected_route: invoke
+  must_ask_for:
+  - the system's prioritized architecture characteristics and driving forces
+- test_id: MC-007
+  prompt: designing an event-driven architecture. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P007
+  expected_route: invoke
+  must_ask_for:
+  - whether the workflow needs central orchestration or can be chained without it
+- test_id: MC-008
+  prompt: evaluating a proposed universal rule or 'always X' guidance. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P008
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-009
+  prompt: adding or changing modules of the code base. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P010
+  expected_route: invoke
+  must_ask_for:
+  - which business and system metrics signal a problem for this system
+- test_id: MC-010
+  prompt: serving dynamic or static web content. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P011
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-011
+  prompt: session data is needed and can be held client-side. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - P012
+  expected_route: invoke
+  must_ask_for:
+  - how much session data there is and its sensitivity and failover needs
+- test_id: MC-012
+  prompt: designing a microservices architecture. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P013
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-013
+  prompt: conflict probability is low (optimistic) versus high or costly (pessimistic). (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P014
+  expected_route: invoke
+  must_ask_for:
+  - the expected frequency and cost of write conflicts
+- test_id: MC-014
+  prompt: specifying an architecture characteristic to govern or test. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P015
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-015
+  prompt: databases with a high read-to-write ratio (~5:1+) or systems where transaction growth exceeds
+    data growth. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P017
+  expected_route: invoke
+  must_ask_for:
+  - whether the workload is read-heavy and the services are stateless
+- test_id: MC-016
+  prompt: serving any cacheable object type. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P019
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-017
+  prompt: introducing new data or data structures into a system's architecture. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P020
+  expected_route: invoke
+  must_ask_for:
+  - the data's relationships, growth, and read/write ratio
+- test_id: MC-018
+  prompt: designing or reviewing a distributed architecture. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P023
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-019
+  prompt: multiteam or cross-deployment-boundary systems. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P024
+  expected_route: invoke
+  must_ask_for:
+  - how tightly the services must be coupled and their consistency needs
+- test_id: MC-020
+  prompt: analyzing dependencies or change impact in a distributed architecture. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P025
+  expected_route: invoke
+  must_ask_for:
+  - which change is feared to ripple and across which boundary
+- test_id: MC-021
+  prompt: both input and output of a step go through Kafka. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P026
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-022
+  prompt: message loss would harm the business. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P027
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-023
+  prompt: web pages where performance matters. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P028
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-024
+  prompt: considering a constraint that an item must hold a certain state between a user's actions. (Key
+    specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P029
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-025
+  prompt: building a product-based or pluggable application that releases features over time. (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P031
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-026
+  prompt: a write whose success is already reported by the write operation's error code. (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P032
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-027
+  prompt: a rapidly growing business considering disaster-recovery capacity. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P034
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-028
+  prompt: designing the data model, adding tables/columns, or writing queries. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P035
+  expected_route: invoke
+  must_ask_for:
+  - the entity relationships and how the data will need to split
+- test_id: MC-029
+  prompt: selecting or reviewing a top-level application architecture pattern. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P037
+  expected_route: invoke
+  must_ask_for:
+  - the application's priority quality attributes and constraints
+- test_id: MC-030
+  prompt: calls between services and tiers. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P039
+  expected_route: invoke
+  must_ask_for:
+  - which calls have no temporal constraint and which are error-prone
+- test_id: MC-031
+  prompt: the project's maturity and the relative weight of develop-ability versus reuse are taken into
+    account, since the balance shifts over time. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P043
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-032
+  prompt: employing a relational database. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P045
+  expected_route: invoke
+  must_ask_for:
+  - the write granularity and the contention observed in production
+- test_id: MC-033
+  prompt: designing or reviewing a layered architecture. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P046
+  expected_route: invoke
+  must_ask_for:
+  - which layers exist and whether any must be open for performance
+- test_id: MC-034
+  prompt: core business datasets must be shared across many services or teams. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P047
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-035
+  prompt: concurrent mutation of the same entity must be prevented. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-036
+  prompt: read and write workloads have different scaling or shape needs. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P049
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-037
+  prompt: independently changing services share message schemas. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P050
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-038
+  prompt: communication crosses a process or network boundary. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - P051
+  expected_route: invoke
+  must_ask_for:
+  - the integration's latency, reliability, and ownership boundaries
+- test_id: MC-039
+  prompt: a sender needs a response. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P052
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-040
+  prompt: connecting application code to a messaging system. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P053
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-041
+  prompt: designing any system, especially large or complex systems. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P055
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-042
+  prompt: preparing any code release. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P056
+  expected_route: invoke
+  must_ask_for:
+  - whether the database changes can be made additive-only
+- test_id: MC-043
+  prompt: beginning to split databases or services to scale. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P057
+  expected_route: invoke
+  must_ask_for:
+  - the fault-isolation domains and which data or servers they may share
+- test_id: MC-044
+  prompt: designing or decomposing systems whose data outlives the architecture. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P060
+  expected_route: invoke
+  must_ask_for:
+  - whether the data is operational (OLTP) or analytical and its lifetime
+- test_id: MC-045
+  prompt: scalability or concurrency is the primary architectural concern. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P061
+  expected_route: invoke
+  must_ask_for:
+  - whether scalability or variable concurrency is the dominant driver
+- test_id: MC-046
+  prompt: operating an application with web/app server logs. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P063
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-047
+  prompt: planning scalability on any project. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P064
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-048
+  prompt: designing complex systems where engineering or computational resources are limited. (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P065
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-049
+  prompt: production environments going through hyper-growth. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - P066
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-050
+  prompt: a redirect is genuinely required. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P067
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-051
+  prompt: applications are independent and need timely, reliable, decoupled collaboration. (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P069
+  expected_route: invoke
+  must_ask_for:
+  - whether the applications must exchange data asynchronously and reliably
