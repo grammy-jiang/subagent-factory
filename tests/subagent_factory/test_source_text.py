@@ -48,6 +48,16 @@ def test_restricted_ids_exclude_open(tmp_path):
     assert load_restricted_source_ids(base) == set()
 
 
+def test_unreadable_meta_fails_closed_to_restricted(tmp_path):
+    # A malformed per-source metadata file must NOT silently drop the source from the restricted set
+    # (that would fail open — quote_scan would skip its rights check). Rights-unknown → restricted.
+    base, sid = _pkg(tmp_path, "hello world")
+    (base / f"sources/metadata/{sid}.metadata.json").write_text(
+        "{ not valid json", encoding="utf-8"
+    )
+    assert load_restricted_source_ids(base) == {sid}
+
+
 def test_load_source_texts_normalizes(tmp_path):
     base, sid = _pkg(tmp_path, "Hello   World")
     assert load_source_texts(base, {sid}) == {sid: "hello world"}
