@@ -64,11 +64,12 @@ if ! mkdir "$MODULE/.claim" 2>/dev/null; then
 fi
 trap 'rmdir "$MODULE/.claim" 2>/dev/null' EXIT
 
-# A prior run that died (cap/429, timeout) leaves a partial claims.jsonl but no principles.yaml;
-# the MAP prompt APPENDS, so re-running would duplicate claims and collide C-ids. Reset the partial
-# extraction outputs — but KEEP the deterministic chunks (chunks.jsonl, chunks/, source.md).
-if [ -f "$MODULE/claims.jsonl" ] && [ ! -f "$MODULE/principles.yaml" ]; then
-  echo "[map] $SOURCE_ID has a partial (incomplete) extraction — resetting before re-MAP"
+# A prior run that died (cap/429, timeout) before promoting principles leaves per-chunk partials
+# under partials/ and possibly a stale merged claims.jsonl. KEEP partials/ (the MAP prompt resumes
+# from them — completed chunks are skipped); only clear the post-merge artifacts so the re-run
+# re-merges cleanly. KEEP the deterministic chunks (chunks.jsonl, chunks/, source.md).
+if [ ! -f "$MODULE/principles.yaml" ] && { [ -f "$MODULE/claims.jsonl" ] || [ -d "$MODULE/partials" ]; }; then
+  echo "[map] $SOURCE_ID has an incomplete extraction — keeping partials/, clearing merged outputs before resume"
   rm -f "$MODULE/claims.jsonl" "$MODULE/anchors.jsonl" "$MODULE/module.json"
   rm -rf "$MODULE/_map" "$MODULE/_work"
 fi
