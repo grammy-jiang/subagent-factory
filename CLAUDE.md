@@ -40,6 +40,21 @@ templates/                  Jinja2 templates
 inputs/                     drop source files here before running /author-subagent
 ```
 
+## Running the factory (two layers)
+
+- **Skill = recipe.** `/author-subagent` runs the whole pipeline in one session
+  (source → claims → evidence → principles → profile → faithfulness → adapter → validate).
+- **`campaign/` bash = manager.** Drives the skill inside fresh headless `claude -p`
+  sessions, adding per-session budgets (anti-dilution), gates, logs, and resume. It does
+  not replace the skill.
+- **Single source** → `campaign/generate-subagent.sh`. **Multi-book** → the per-book
+  map→reduce path (`generate-subagent.sh` refuses ≥2 sources).
+
+Full run + review→fix→improve workflow, the 5-phase map→reduce commands, MAP caching
+rules, and the log-review tiers live in `docs/factory-ops.md` (section "Run and improve
+the factory"). Back up `subagents/<slug>/` before a fresh map→reduce — assemble/finish
+overwrites it.
+
 ## Key docs (read when relevant)
 
 - `docs/state-of-the-factory.md` — **start here.** Orientation: what's built, the A/B/C tracks, the
