@@ -165,3 +165,83 @@ Then set `attach_invariants: <rec.attach>` in `subagents/<slug>/profile.yaml` an
 python -m tools.subagent_factory.cli validate <slug>     # per package
 make verify                                               # factory code: lint + type + tests + secrets
 ```
+
+## Run and improve the factory (two layers)
+
+Two layers cooperate. **Layer 1 — the skill (`/author-subagent`)** is the recipe: one
+agent runs the whole pipeline in-thread (source → ingest → interrogate → claims →
+evidence → principles → profile → faithfulness → adapter → validate). Engine-agnostic
+instructions. **Layer 2 — the `campaign/` bash scripts** are the manager around the
+skill — they do NOT replace it. They drive the skill inside fresh, independent headless
+`claude -p` sessions and add the discipline a single skill call can't: per-session
+budgets (anti-dilution), resumability, deterministic gates, and offline logs.
+
+```text
+bash script ──render prompt──▶ claude -p (fresh session RUNS the skill) ──▶ log.jsonl
+     │                                                                        │
+     └──── deterministic gate (parse log, check artifact, make verify) ◀──────┘
+                  ok → next   |   fail/missing-artifact → STOP for review
+```
+
+Three-role loop (the intended way to test + improve this repo):
+
+- **Manager** = bash (`build_map_reduce.py`, `map_books.sh`, `p2b_finish.sh`): orchestrate, gate, log, resume.
+- **Worker** = fresh `claude -p` per step: runs one skill step on its own budget.
+- **Reviewer** = a separate claude reading the logs: `review-run.py` → diagnose → fix factory code/prompts → re-run only the affected phase.
+
+### Single book vs multi-book
+
+- **Single source** → `campaign/generate-subagent.sh --slug S --topic "..."`: ONE session
+  runs the whole skill end-to-end, auto-validates, stops.
+- **Multi-book (≥2 sources)** → `generate-subagent.sh` REFUSES (exit 4) because one
+  session over many books under-extracts (dilution — see
+  `docs/per-book-authoring-upgrade.md`). Use the per-book map→reduce path:
+
+```bash
+# Phase 1 — MAP (one fresh session per book; chunks + claims + principles cached by sha256)
+bash campaign/map_books.sh --sources campaign/<slug>.sources          # serial, cap-aware
+# Phase 2 — REDUCE to filter gate (deterministic: anchors → clusters.json, then STOPS)
+python3 campaign/build_map_reduce.py <slug> --sources campaign/<slug>.sources --resume
+# Phase 3 — precision filter (1 session → .build/decisions.json; or hand-author it)
+bash campaign/precision_filter.sh --slug <slug> --fg
+# Phase 4 — assemble (--select 50 focused / 150 comprehensive / 0 all)
+python3 campaign/build_map_reduce.py <slug> --sources campaign/<slug>.sources --resume --select 50
+# Phase 5 — finish LLM layer + validate (1 session)
+bash campaign/p2b_finish.sh --slug <slug> --fg
+```
+
+`build_map_reduce.py` is checkpointed (`subagents/<slug>/.build/*.done` +
+`steps.log.jsonl`) and resumable; its two LLM steps (MAP, precision filter) are **gates**
+that print the next command and stop — they never auto-spend.
+
+### Caching (reuse MAP outputs)
+
+- MAP output is cached at `cache/book-extracts/<sha256-of-book-bytes>/`
+  (`chunks.jsonl`, `claims.jsonl`, `principles.yaml`, `anchors.jsonl`, `module.json`).
+- Key = file bytes → identical markdown is a guaranteed cache hit; re-converting a PDF
+  changes the sha → re-MAP. **Real success = `principles.yaml` present**, not exit-0:
+  a cap/429 kill leaves a partial `claims.jsonl` with no `principles.yaml`; re-running
+  auto-resets that book (keeps chunks, re-MAPs). Engine exit codes are propagated so a
+  kill never marks the cache "done".
+- Cache is slug-independent → a book MAPped once is reused by every package that includes it.
+- UPDATE (add a book): chunk + MAP only the new book, then re-run REDUCE. Never re-MAP unchanged books.
+
+### Review → fix → improve loop
+
+| Tier | Artifact | Use for |
+| --- | --- | --- |
+| 1 | `campaign/logs/review-<slug>.md` (`python3 campaign/review-run.py <slug>`) | READY y/n, validate verdict, FAIL/WARN lines, real over-claims, log failure signatures |
+| 2 | `subagents/<slug>/.build/steps.log.jsonl` + the `===*_SUMMARY===` blocks in logs | which step gated/failed |
+| 3 | `campaign/logs/<run>.log.jsonl` | full transcript — only when debugging a specific failure |
+
+Other campaign loops: `run.sh` (factory-hardening campaign over the PDF queue, one
+session/PDF, agent finds+fixes a defect + commits; `summarize.py` gates each round),
+`faith-run.sh` (per-package faithfulness-report campaign), `prep-round.py` (spec-YAML →
+resolve titles → stage → launch staggered chains → auto-review), `eval-round.sh`
+(output-quality eval + grounding-check).
+
+Cautions: per-book MAP can take ~1h (default `RUN_TIMEOUT=7200`; raise via env for big
+books). A fresh map→reduce OVERWRITES an existing package on assemble/finish — back up
+`subagents/<slug>/` (e.g. to `subagents/.backups/<slug>-<ts>`) first if comparing old vs
+new. Headless runs author in-thread (no-spawner branch); spawn worker agents only in an
+interactive session where you can watch and recover.
