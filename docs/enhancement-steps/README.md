@@ -36,14 +36,20 @@ subagent_workflow_quality_enhancement_plan.md      (original 12 enhancements)
 | 7 | `step-7-multisource.md` | full | **implemented (Phase A–D; proven on a 2-source pkg)** | 4 | argument-mining + knowledge-fusion-conflict-detection |
 | 8 | `step-8-skill-authoring.md` | full | **implemented** | 0,2–5 | (factual-consistency guards the bodies) |
 | 9 | `step-9-stale-maintenance.md` | full | **implemented** | 8 | — |
-| 10 | `step-10-source-structure-mapping.md` | full | **spec (research done; scaffolding built)** | 0,2 | long-document-structure-mapping |
+| 10 | `step-10-source-structure-mapping.md` | full | **❌ removed (commit b79b03e) — superseded by Step 20 Docling parsing** | 0,2 | long-document-structure-mapping |
 | 11 | `step-11-behaviour-test-generation.md` | full | **implemented (det core + gate; LLM ideation follow-on)** | 0,4,5 | behaviour-test-generation |
 | 12 | `step-12-optimize-adapter.md` | full | **implemented (driver + proposer skill + live CLI)** | 11 + A-track | prompt-optimization-eval |
-| 13 | `step-13-ask-gate.md` | full | **partial (F4 twins + F3 two-axis grading built; runtime gate spec)** | 11, 12 | calibration-abstention |
-| 14 | `step-14-runtime-retrieval.md` | full | **spec (post-v0 runtime layer; 3 inherent lit gaps)** | 7 | rag-graphrag (§20 #10) |
-| 15 | `step-15-domain-adaptation-policy.md` | full | **spec (answers Q1: regulated/non-technical domains)** | 13,14 | domain-adaptation-regulated-advice |
-| 16 | `step-16-evidence-grading.md` | full | **spec (GRADE-style confidence + judge discipline)** | 1,3 | systematic-review-evidence-synthesis (§20 #1) |
+| 13 | `step-13-ask-gate.md` | full | **partial — F4 twins + F3 two-axis grading built; runtime ask-gate (F1/F2/F5, `ask_gate.py`) spec: black-box risk signal is an open academic gap** | 11, 12 | calibration-abstention |
+| 14 | `step-14-runtime-retrieval.md` | full | **G1 routing rule built (`knowledge_partition.py`, wired); G2–G6 retrieval engine spec (3 inherent academic gaps)** | 7 | rag-graphrag (§20 #10) |
+| 15 | `step-15-domain-adaptation-policy.md` | full | **implemented — `domain_policy.py` + wired gate #14 + authoring integration; non-code regulatory gaps open** | 13,14 | domain-adaptation-regulated-advice |
+| 16 | `step-16-evidence-grading.md` | full | **implemented — `grade_confidence.py` + wired gate; K-track complete; semantic signals are authoring-time** | 1,3 | systematic-review-evidence-synthesis (§20 #1) |
 | 20 | `step-20-document-ai-pdf-parsing.md` | full | **implemented (merged); +table-preservation spec'd (H-track, not built)** | 0,1,2,10 | Step-10 A/B + table-extraction (§20 #2) |
+
+> **Status re-verified against the codebase 2026-06-23.** Steps **15 & 16 are built + gated** (the
+> table previously under-reported them as "spec"); Step **10 was removed** (subsystem deleted in
+> `b79b03e`, superseded by Step 20); Step **14** has only its G1 routing rule built. Verified by tool
+> presence (`domain_policy.py`, `grade_confidence.py`, `knowledge_partition.py`; no `ask_gate.py`) +
+> wired validator blocks (`check_domain_policy`, `validate_confidence_grade`).
 
 Depth: **full** = implementation-ready; **medium** = goal + file sketch + dependencies;
 **stub** = goal + defer trigger only.

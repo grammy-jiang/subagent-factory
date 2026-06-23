@@ -1,7 +1,7 @@
 # State of the factory
 
 Orientation doc — what this factory is, what's built, what's open. Start here, then follow the
-links. Snapshot: 2026-06-14.
+links. Snapshot: 2026-06-23.
 
 ## What it is
 
@@ -23,9 +23,11 @@ stronger than its source support.
 
 ## At a glance
 
-- **23 packages**, all validating. **407 tests**, mypy + ruff clean.
-- **64 tool modules**, **15 schemas**, **16 build-step specs** (`docs/enhancement-steps/`).
-- Build steps **0–10 + 20** implemented (see `docs/enhancement-steps/README.md`).
+- **28 packages**, all validating. **646 tests**, mypy + ruff clean.
+- **81 tool modules**, **15 schemas**, **18 build-step specs** (`docs/enhancement-steps/`).
+- Build steps **0–9, 11, 12, 15, 16, 20** implemented; **13** partial (test-gen built, runtime
+  ask-gate deferred — black-box risk-signal gap); **14** routing-rule only (retrieval engine
+  deferred); **10 removed** (superseded by Step 20). See `docs/enhancement-steps/README.md`.
 
 ## Capabilities (the three research tracks)
 
