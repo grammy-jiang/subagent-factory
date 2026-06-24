@@ -10,8 +10,8 @@ Source package: subagents/software-architecture/
 Source profile: subagents/software-architecture/profile.yaml
 Regenerate with: /author-subagent --update software-architecture
 Generator version: 0.1.0
-Profile version: 1.1.0
-Generated: 2026-06-23T23:23:24.490728+00:00
+Profile version: 1.2.0
+Generated: 2026-06-24T03:15:40.727857+00:00
 -->
 
 ## Role

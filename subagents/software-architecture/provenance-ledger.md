@@ -111,3 +111,10 @@ interrogation behind the profile fields is recorded in `interrogation-records.ya
   decisions remain on record; the calibrated spine supersedes the hand-picked one. `agent_version`
   `1.0.0` → `1.1.0`. Adapter re-exported; validate PASS (0 FAIL, 3 WARN benign injection-scan);
   faithfulness valid; quote-scan clean.
+- 1.2.0 (2026-06-24): added the Step-7 **C-track principle graph** over the calibrated 0.25× spine —
+  `principle-clusters.json` (6 cross-source confirmed clusters), `principle-graph.json` (21 typed
+  edges incl. one scoped `conflicts`), `conflict-log.md`. Seeded deterministically
+  (`seed_principle_clusters`, MiniLM) then in-thread confirm + edge authoring against `P001–P069`;
+  the two no-shared-term cosine over-merges were split into real cross-source concepts and a lexical
+  false-merge dropped. `validate_principle_clusters` / `validate_principle_graph` / package validate
+  all PASS. Auxiliary; adapter behaviour unchanged. `agent_version` `1.1.0` → `1.2.0`.

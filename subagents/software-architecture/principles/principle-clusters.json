@@ -1,0 +1,164 @@
+{
+  "schema_version": "principle-clusters-v1",
+  "subagent_slug": "software-architecture",
+  "clusters": [
+    {
+      "cluster_id": "pc-concurrency",
+      "member_principle_ids": [
+        "P014",
+        "P045",
+        "P061"
+      ],
+      "sources": [
+        "patterns-of-enterpri-fbd95667",
+        "designing-event-driv-ddde058a",
+        "scalability-rules-745dee44",
+        "mark-richards-softwa-8afbdb74"
+      ],
+      "canonical_statement": "Choose and manage concurrency control by the frequency and severity of conflicts \u2014 from lock granularity through optimistic/pessimistic strategies to distributed patterns.",
+      "confidence": "high",
+      "method": "llm-confirmed",
+      "provenance": {
+        "was_derived_from": [
+          "P014",
+          "P045",
+          "P061",
+          "patterns-of-enterpri-fbd95667",
+          "designing-event-driv-ddde058a",
+          "scalability-rules-745dee44",
+          "mark-richards-softwa-8afbdb74"
+        ],
+        "was_attributed_to": "in-thread C-track Phase-A confirm (seed_principle_clusters -> confirm)",
+        "was_generated_by": "cluster-confirm"
+      }
+    },
+    {
+      "cluster_id": "pc-coupling",
+      "member_principle_ids": [
+        "P025",
+        "P044"
+      ],
+      "sources": [
+        "software-architectur-1c336f5c",
+        "book-clean-architect-a547bab6"
+      ],
+      "canonical_statement": "Define coupling operationally (a change in one part forces a change in another) and manage it by keeping the module/component dependency graph acyclic and directed toward stability.",
+      "confidence": "high",
+      "method": "llm-confirmed",
+      "provenance": {
+        "was_derived_from": [
+          "P025",
+          "P044",
+          "software-architectur-1c336f5c",
+          "book-clean-architect-a547bab6"
+        ],
+        "was_attributed_to": "in-thread C-track Phase-A confirm (seed_principle_clusters -> confirm)",
+        "was_generated_by": "cluster-confirm"
+      }
+    },
+    {
+      "cluster_id": "pc-distributed-transactions",
+      "member_principle_ids": [
+        "P013",
+        "P026"
+      ],
+      "sources": [
+        "fundamentals-of-soft-6b15bd8c",
+        "software-architectur-1c336f5c",
+        "designing-event-driv-ddde058a"
+      ],
+      "canonical_statement": "Do not span transactions across service boundaries; where cross-system exactly-once is unavoidable, confine it to a transactional log/messaging mechanism.",
+      "confidence": "medium",
+      "method": "llm-confirmed",
+      "provenance": {
+        "was_derived_from": [
+          "P013",
+          "P026",
+          "fundamentals-of-soft-6b15bd8c",
+          "software-architectur-1c336f5c",
+          "designing-event-driv-ddde058a"
+        ],
+        "was_attributed_to": "in-thread C-track Phase-A confirm (seed_principle_clusters -> confirm)",
+        "was_generated_by": "cluster-confirm"
+      }
+    },
+    {
+      "cluster_id": "pc-architecture-characteristics",
+      "member_principle_ids": [
+        "P015",
+        "P022",
+        "P036"
+      ],
+      "sources": [
+        "fundamentals-of-soft-6b15bd8c",
+        "software-architectur-1c336f5c"
+      ],
+      "canonical_statement": "Define each architecture characteristic objectively and measurably, classify a concern as a characteristic only when it is a nondomain consideration, and keep the driving set as few as possible.",
+      "confidence": "high",
+      "method": "llm-confirmed",
+      "provenance": {
+        "was_derived_from": [
+          "P015",
+          "P022",
+          "P036",
+          "fundamentals-of-soft-6b15bd8c",
+          "software-architectur-1c336f5c"
+        ],
+        "was_attributed_to": "in-thread C-track Phase-A confirm (seed_principle_clusters -> confirm)",
+        "was_generated_by": "cluster-confirm"
+      }
+    },
+    {
+      "cluster_id": "pc-style-pattern-selection",
+      "member_principle_ids": [
+        "P021",
+        "P037"
+      ],
+      "sources": [
+        "fundamentals-of-soft-6b15bd8c",
+        "mark-richards-softwa-8afbdb74"
+      ],
+      "canonical_statement": "Select an architecture style and pattern deliberately by matching their known characteristic trade-offs to the context \u2014 there is no universally best choice.",
+      "confidence": "high",
+      "method": "llm-confirmed",
+      "provenance": {
+        "was_derived_from": [
+          "P021",
+          "P037",
+          "fundamentals-of-soft-6b15bd8c",
+          "mark-richards-softwa-8afbdb74"
+        ],
+        "was_attributed_to": "in-thread C-track Phase-A confirm (seed_principle_clusters -> confirm)",
+        "was_generated_by": "cluster-confirm"
+      }
+    },
+    {
+      "cluster_id": "pc-async-decoupling",
+      "member_principle_ids": [
+        "P024",
+        "P039",
+        "P069"
+      ],
+      "sources": [
+        "designing-event-driv-ddde058a",
+        "scalability-rules-745dee44",
+        "enterprise-integrati-be84e4ec"
+      ],
+      "canonical_statement": "Prefer asynchronous, event- and message-based communication to decouple services, tiers, and independent applications.",
+      "confidence": "high",
+      "method": "llm-confirmed",
+      "provenance": {
+        "was_derived_from": [
+          "P024",
+          "P039",
+          "P069",
+          "designing-event-driv-ddde058a",
+          "scalability-rules-745dee44",
+          "enterprise-integrati-be84e4ec"
+        ],
+        "was_attributed_to": "in-thread C-track Phase-A confirm (seed_principle_clusters -> confirm)",
+        "was_generated_by": "cluster-confirm"
+      }
+    }
+  ]
+}
