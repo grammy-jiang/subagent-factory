@@ -4,7 +4,7 @@
 #   chain A: software-architecture  on Claude Code (claude -p, Opus 4.8)
 #   chain B: software-design        on GitHub Copilot (copilot -p, Opus 4.8)
 # Blocks until BOTH chains finish (run this with the Bash tool in background).
-set -uo pipefail
+set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"; LOGS="$CAMP/logs"; mkdir -p "$LOGS"
@@ -39,7 +39,7 @@ PB=$!
 
 echo "[pair] architecture/claude pid=$PA   design/copilot pid=$PB"
 echo "[pair] tail -f $PAIR"
-wait "$PA"; rcA=$?
-wait "$PB"; rcB=$?
+rcA=0; wait "$PA" || rcA=$?
+rcB=0; wait "$PB" || rcB=$?
 echo "[pair] $(date) BOTH DONE  architecture rc=$rcA  design rc=$rcB"
 echo "[pair] verify: python -m tools.subagent_factory.cli validate software-architecture / software-design"

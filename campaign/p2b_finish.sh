@@ -2,7 +2,7 @@
 # p2b_finish.sh — regenerate the LLM-authored layer (profile/faithfulness/skills/tests/adapter) of an
 # already-assembled P0 package so validate_generated_package PASSES, in a fresh headless Claude session.
 # Usage: campaign/p2b_finish.sh [--slug software-architecture-p0] [--fg]
-set -uo pipefail
+set -euo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"; LOGS="$CAMP/logs"; TMPL="$CAMP/p2b-finish-prompt.tmpl"
 CLAUDE_BIN="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
@@ -25,7 +25,7 @@ echo "[p2b] slug=$SLUG  pkg=$PKG  model=$MODEL effort=$EFFORT timeout=${RUN_TIME
 driver="$LOGS/$run.driver.sh"
 {
   echo '#!/usr/bin/env bash'
-  echo "cd \"$REPO\""
+  echo "cd \"$REPO\" || exit 1"
   echo "timeout \"$RUN_TIMEOUT\" \"$CLAUDE_BIN\" -p --model \"$MODEL\" --effort \"$EFFORT\" --add-dir \"$REPO\" \\"
   echo "    --dangerously-skip-permissions --output-format stream-json --verbose \\"
   echo "    < \"$promptfile\" > \"$log\" 2>&1"

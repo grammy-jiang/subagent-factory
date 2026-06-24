@@ -9,7 +9,7 @@
 #   ADAPTER_TEXT="$(cat adapters/claude-code/<slug>.md)" printf '%s' "$PROMPT" | examples/replay-runner.sh
 #
 # behaviour_replay.shell_runner() wires this up automatically (sets ADAPTER_TEXT, pipes the prompt).
-set -uo pipefail
+set -euo pipefail
 CLAUDE="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
 prompt="$(cat)"
 [ -n "$prompt" ] || { echo "empty prompt" >&2; exit 2; }

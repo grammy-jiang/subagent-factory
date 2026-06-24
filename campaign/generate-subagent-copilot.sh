@@ -6,7 +6,7 @@
 #
 # Usage: campaign/generate-subagent-copilot.sh --slug SLUG --topic "TOPIC" \
 #            [--sources-file F] [--model M] [--effort E] [--timeout SECS] [--dry-run] [--fg]
-set -uo pipefail
+set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"; LOGS="$CAMP/logs"
@@ -71,7 +71,7 @@ fi
 driver="$LOGS/$run.driver.sh"
 {
   echo '#!/usr/bin/env bash'
-  echo "cd \"$REPO\""
+  echo "cd \"$REPO\" || exit 1"
   echo "timeout \"$RUN_TIMEOUT\" copilot -p \"\$(cat '$promptfile')\" \\"
   echo "    --model \"$MODEL\" --effort \"$EFFORT\" \\"
   echo "    --allow-all-tools --allow-all-paths -C \"$REPO\" $ADDDIRS --context long_context \\"

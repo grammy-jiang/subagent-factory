@@ -7,7 +7,7 @@
 # CLOBBERS subagents/<slug> per level — caller must have backed it up; this restores nothing.
 # Usage: bash campaign/adapter_size_sweep.sh --slug python --sources campaign/python.sources \
 #          [--levels "0.25 0.5 0.75 0"]
-set -uo pipefail
+set -euo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PY="$REPO/.venv/bin/python"; [ -x "$PY" ] || PY=python3
 SLUG=""; SOURCES=""; LEVELS="0.25 0.5 0.75 0"
@@ -49,7 +49,7 @@ PY
   lines=$(wc -l < "$ADP" 2>/dev/null || echo 0)
   bytes=$(wc -c < "$ADP" 2>/dev/null || echo 0)
   inv=$(grep -c '^- ' "$ADP" 2>/dev/null || echo 0)
-  val=$(SUBAGENT_FACTORY_USE_VENV=1 "$PY" -m tools.subagent_factory.validate_generated_package "$PKG" 2>&1 | grep -oE 'VALIDATION (PASSED|FAILED)' | tail -1)
+  val=$(SUBAGENT_FACTORY_USE_VENV=1 "$PY" -m tools.subagent_factory.validate_generated_package "$PKG" 2>&1 | grep -oE 'VALIDATION (PASSED|FAILED)' | tail -1) || val=""
   printf "%s\t%s\t%s\t%s\t%s\t%s\n" "$lv" "$prin" "$lines" "$bytes" "$inv" "${val:-?}" | tee -a "$OUT"
 done
 echo "[size-sweep] done -> $OUT"

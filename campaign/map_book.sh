@@ -10,7 +10,7 @@
 #   --max-attempts N: auto-resume this book across up to N runs (default 1) until principles.yaml
 #     exists. Each attempt resumes from persisted partials, so a per-request timeout on a big book
 #     costs one more attempt instead of a manual re-launch. Requires --fg (the loop blocks per run).
-set -uo pipefail
+set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"; LOGS="$CAMP/logs"; TMPL="$CAMP/map-book-prompt.tmpl"
@@ -90,7 +90,7 @@ if [ "$DRYRUN" -eq 1 ]; then echo "[map] DRY-RUN; prompt: $promptfile"; exit 0; 
 driver="$LOGS/$run.driver.sh"
 {
   echo '#!/usr/bin/env bash'
-  echo "cd \"$REPO\""
+  echo "cd \"$REPO\" || exit 1"
   echo 'sleep $((RANDOM % 4))  # jitter: avoid simultaneous-launch empty-log collision'
   if [ "$ENGINE" = "copilot" ]; then
     echo "timeout \"$RUN_TIMEOUT\" \"$COPILOT_BIN\" -p \"\$(cat '$promptfile')\" --model \"$COPILOT_MODEL\" --effort \"$COPILOT_EFFORT\" --allow-all > \"$log\" 2>&1"
@@ -117,7 +117,7 @@ run_with_resume() {
     if [ "$attempt" -gt 1 ] && [ ! -f "$MODULE/principles.yaml" ]; then
       rm -f "$MODULE/claims.jsonl" "$MODULE/anchors.jsonl" "$MODULE/module.json"
     fi
-    bash "$driver"
+    bash "$driver" || true
     [ -f "$MODULE/principles.yaml" ] && { echo "[map] $SOURCE_ID complete after attempt $attempt"; return 0; }
     attempt=$((attempt + 1))
   done
