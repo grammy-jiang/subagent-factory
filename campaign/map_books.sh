@@ -16,7 +16,7 @@
 # Default is SERIAL (--parallel 1): concurrent heavy MAP runs split one spend-cap top-up and all
 # fail partial. Serialize; raise --parallel only when the cap has headroom. Re-running is safe —
 # completed modules skip, incomplete (cap-killed) modules are auto-reset by map_book.sh.
-set -uo pipefail
+set -euo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CACHE="$REPO/cache/book-extracts"
 ENGINE="claude"; PAR=1; TIMEOUT=""; SRCFILE=""; BOOKS=(); MAX_ATTEMPTS=1
@@ -54,7 +54,7 @@ run_one() {
     > "/tmp/mapbooks-$(basename "$b" .md).out" 2>&1
 }
 
-cd "$REPO"
+cd "$REPO" || exit 1
 if [ "$PAR" -le 1 ]; then
   for b in "${BOOKS[@]}"; do echo "[map-books] -> $(basename "$b")"; run_one "$b" || true; done
 else
@@ -69,7 +69,9 @@ fi
 echo "=== MAP results (real success = principles.yaml present) ==="
 ok=0; bad=0
 for b in "${BOOKS[@]}"; do
-  sha=$(sha256sum "$b" | cut -d' ' -f1); m="$CACHE/$sha"
+  sha=$(sha256sum "$b" 2>/dev/null | cut -d' ' -f1) || sha=""
+  if [ -z "$sha" ]; then echo "  FAIL $(basename "$b" .md): cannot hash (missing/unreadable)"; bad=$((bad+1)); continue; fi
+  m="$CACHE/$sha"
   if [ -f "$m/principles.yaml" ]; then
     echo "  OK   $(basename "$b" .md): $(grep -c . "$m/claims.jsonl" 2>/dev/null) claims"; ok=$((ok+1))
   else

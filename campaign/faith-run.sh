@@ -6,7 +6,7 @@
 #
 # Usage: campaign/faith-run.sh [-n N | --all] [--only s,s,...]
 #                              [--model M] [--timeout SECS] [--dry-run] [--yes]
-set -uo pipefail
+set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"
@@ -47,7 +47,7 @@ processed=0
 while [ "$processed" -lt "$COUNT" ]; do
   SLUG="$(next_target)"
   [ -z "$SLUG" ] && { echo "[faith] no packages left needing a report."; break; }
-  n=$(ls "$LOGS/$LABEL"-*.summary.md 2>/dev/null | wc -l)
+  n=$(ls "$LOGS/$LABEL"-*.summary.md 2>/dev/null | wc -l) || n=0
   run="$(printf '%s-%03d' "$LABEL" "$(( n + 1 ))")"
   log="$LOGS/$run.log.jsonl"
   summ="$LOGS/$run.summary.md"
@@ -65,16 +65,16 @@ while [ "$processed" -lt "$COUNT" ]; do
 
   if [ "$ASSUME_YES" -eq 0 ]; then
     printf "[faith] proceed with %s? [y/N] " "$SLUG"
-    read -r ans; case "$ans" in y|Y) ;; *) echo "[faith] aborted."; exit 0;; esac
+    read -r ans || ans=""; case "$ans" in y|Y) ;; *) echo "[faith] aborted."; exit 0;; esac
   fi
 
   start_ts="$(date -Is)"
   echo "[faith] launching claude (timeout ${RUN_TIMEOUT}s) ..."
+  rc=0
   printf '%s' "$prompt" | timeout "$RUN_TIMEOUT" claude -p \
       --model "$MODEL" \
       --dangerously-skip-permissions \
-      --output-format stream-json --verbose >"$log" 2>&1
-  rc=$?
+      --output-format stream-json --verbose >"$log" 2>&1 || rc=$?
 
   if make -C "$REPO" verify >"$LOGS/$run.verify.log" 2>&1; then verify=green; else verify=red; fi
 

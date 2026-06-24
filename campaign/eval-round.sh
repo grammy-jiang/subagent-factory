@@ -3,7 +3,7 @@
 # in-domain doc, then the deterministic grounding-check). Sequential (one headless review at a
 # time — respects the usage cap, avoids nested-spawn concurrency). Inputs are the factory's own
 # code/docs (real, in-domain).
-set -uo pipefail
+set -euo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOGS="$REPO/campaign/logs"; mkdir -p "$LOGS"
 EVAL="$LOGS/eval-round-$(date +%Y%m%d-%H%M%S).log"

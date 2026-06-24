@@ -4,7 +4,7 @@
 # claims/principles, appends only the new source(s). Authoring-only; validates; STOPS.
 #
 # Usage: campaign/add-source.sh --slug SLUG --sources-file F [--timeout SECS] [--dry-run] [--fg]
-set -uo pipefail
+set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"; LOGS="$CAMP/logs"; TMPL="$CAMP/maintenance-prompt.tmpl"
@@ -49,7 +49,7 @@ if [ "$DRYRUN" -eq 1 ]; then echo "[add-source] DRY-RUN; prompt: $promptfile"; e
 driver="$LOGS/$run.driver.sh"
 {
   echo '#!/usr/bin/env bash'
-  echo "cd \"$REPO\""
+  echo "cd \"$REPO\" || exit 1"
   echo "timeout \"$RUN_TIMEOUT\" claude -p --model \"$MODEL\" --effort \"$EFFORT\" $ADDDIRS \\"
   echo "    --dangerously-skip-permissions --output-format stream-json --verbose \\"
   echo "    < \"$promptfile\" > \"$log\" 2>&1"

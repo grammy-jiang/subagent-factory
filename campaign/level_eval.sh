@@ -7,7 +7,7 @@
 # CLOBBERS subagents/<slug> per level — caller must back it up + restore after.
 # Usage: bash campaign/level_eval.sh --slug python --sources campaign/python.sources \
 #          --doc tools/subagent_factory/cli.py [--levels "0 0.75 0.5 0.25"]
-set -uo pipefail
+set -euo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PY="$REPO/.venv/bin/python"; [ -x "$PY" ] || PY=python3
 SLUG=""; SOURCES=""; DOC=""; LEVELS="0 0.75 0.5 0.25"
@@ -72,7 +72,7 @@ PY
   rbytes=$(wc -c < "$review" 2>/dev/null || echo 0)
   cov="-"; nf="-"
   if [ -f "$review" ]; then
-    g=$(SUBAGENT_FACTORY_USE_VENV=1 "$PY" -m tools.subagent_factory.cli grounding-check "$SLUG" "$review" "$DOCABS" 2>/dev/null | grep -oE 'coverage [0-9]+%|coverage n/a' | head -1)
+    g=$(SUBAGENT_FACTORY_USE_VENV=1 "$PY" -m tools.subagent_factory.cli grounding-check "$SLUG" "$review" "$DOCABS" 2>/dev/null | grep -oE 'coverage [0-9]+%|coverage n/a' | head -1) || g=""
     cov="${g:-?}"
     nf=$(grep -cE '^\s*[0-9]+\.' "$review" 2>/dev/null || echo 0)
   fi
