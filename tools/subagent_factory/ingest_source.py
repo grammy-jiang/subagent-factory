@@ -101,7 +101,7 @@ def _create_source_dirs(subagent_path: Path, source_id: str) -> dict[str, Path]:
 def _convert_or_restore(
     original_dest: Path, md_path: Path, cache_md: Path, file_type: str
 ) -> dict[str, Any]:
-    """Convert the original to Markdown, or restore a cache hit (a synthetic ``converter='cache'``)."""
+    """Convert the original to Markdown, or restore a cache hit (a synthetic ``converter_used='cache'``)."""
     if cache_md.exists():
         shutil.copy2(cache_md, md_path)
         cached_size = cache_md.stat().st_size
