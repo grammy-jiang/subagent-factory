@@ -36,6 +36,7 @@ from pathlib import Path
 
 import yaml
 
+from tools.subagent_factory._common import cosine as _cosine
 from tools.subagent_factory.claim_recall import _content_tokens, claim_f1
 from tools.subagent_factory.prov import prov_record
 
@@ -50,13 +51,6 @@ _DEFAULT_COS_THRESHOLD = 0.5
 _DEFAULT_MARGIN = 0.15
 
 Embedder = Callable[[list[str]], list[list[float]]]
-
-
-def _cosine(a: list[float], b: list[float]) -> float:
-    dot = sum(x * y for x, y in zip(a, b, strict=False))
-    na = sum(x * x for x in a) ** 0.5
-    nb = sum(y * y for y in b) ** 0.5
-    return dot / (na * nb) if na and nb else 0.0
 
 
 _MINILM = "sentence-transformers/all-MiniLM-L6-v2"

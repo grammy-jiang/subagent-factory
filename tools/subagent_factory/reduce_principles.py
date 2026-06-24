@@ -15,21 +15,15 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 from collections.abc import Callable
 from pathlib import Path
 
 import yaml
 
+from tools.subagent_factory._common import confidence_rank
+from tools.subagent_factory._common import cosine as _cosine
+
 Embedder = Callable[[list[str]], list[list[float]]]
-_CONF = {"low": 0, "medium": 1, "high": 2}
-
-
-def _cosine(a: list[float], b: list[float]) -> float:
-    num = sum(x * y for x, y in zip(a, b, strict=False))
-    da = math.sqrt(sum(x * x for x in a))
-    db = math.sqrt(sum(y * y for y in b))
-    return num / (da * db) if da and db else 0.0
 
 
 def recall_clusters(
@@ -64,7 +58,7 @@ def merge_group(principles: list[dict], idxs: list[int]) -> dict:
         for a in p.get("applies_when") or []:
             if a not in applies:
                 applies.append(a)
-    conf = max((p.get("confidence", "medium") for p in members), key=lambda c: _CONF.get(c, 1))
+    conf = max((p.get("confidence", "medium") for p in members), key=confidence_rank)
     return {
         "statement": rep.get("statement"),
         "source_ids": sids,
@@ -111,7 +105,7 @@ def importance(p: dict) -> tuple:
     return (
         p.get("n_sources", 1),
         len(p.get("derived_from_claims") or []),
-        _CONF.get(p.get("confidence", "medium"), 1),
+        confidence_rank(p.get("confidence", "medium")),
     )
 
 
