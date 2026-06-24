@@ -6,7 +6,7 @@
 # self-contained (both reviews inline) and only needs a one-line JSON verdict, no tools.
 #
 # Usage: printf '%s' "$PROMPT" | examples/codex-judge.sh
-set -uo pipefail
+set -euo pipefail
 CODEX="${CODEX_BIN:-$HOME/.local/bin/codex}"
 prompt="$(cat)"
 [ -n "$prompt" ] || { echo "empty prompt" >&2; exit 2; }

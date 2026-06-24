@@ -8,7 +8,7 @@
 # writes the new blocks — it never rewrites the adapter (cheap + safe; v1 is additive-only).
 #
 #   ADAPTER_TEXT="$(cat adapters/claude-code/<slug>.md)" printf '%s' "$PROMPT" | examples/optimize-proposer.sh
-set -uo pipefail
+set -euo pipefail
 CLAUDE="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
 prompt="$(cat)"
 [ -n "$prompt" ] || { echo "empty prompt" >&2; exit 2; }

@@ -14,7 +14,7 @@
 #           out       = <doc-dir>/reviews/<doc-name>.subagent-review.<date>.md
 #
 # List available reviewers:  python -m tools.subagent_factory.cli catalog
-set -uo pipefail
+set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MODEL="${MODEL:-claude-opus-4-8}"
@@ -64,12 +64,12 @@ if [ "$DRYRUN" -eq 1 ]; then
 fi
 
 echo "[review] launching claude (timeout ${RUN_TIMEOUT}s) ..."
+rc=0
 ( cd "$REPO" && printf '%s' "$prompt" | timeout "$RUN_TIMEOUT" claude -p \
     --model "$MODEL" \
     --add-dir "$DOCDIR" \
     --dangerously-skip-permissions \
-    --output-format stream-json --verbose ) >"$log" 2>&1
-rc=$?
+    --output-format stream-json --verbose ) >"$log" 2>&1 || rc=$?
 
 echo "[review] rc=$rc  log=$log"
 if [ -f "$OUT" ]; then

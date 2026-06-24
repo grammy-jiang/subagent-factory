@@ -3,7 +3,7 @@
 # promote it to status: ready, on a chosen engine. Run after generate (2a) succeeds.
 #
 # Usage: campaign/finish-skills.sh --engine claude|copilot --slug SLUG [--timeout SECS] [--dry-run]
-set -uo pipefail
+set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"; LOGS="$CAMP/logs"
@@ -51,8 +51,8 @@ esac
 echo "[finish:$ENGINE] slug=$SLUG  model=$MODEL  timeout=${RUN_TIMEOUT}s"
 if [ "$DRYRUN" -eq 1 ]; then echo "[finish:$ENGINE] CMD: $CMD"; echo "[finish:$ENGINE] prompt: $promptfile"; exit 0; fi
 
-cd "$REPO"
-eval "$CMD"; rc=$?
+cd "$REPO" || exit 1
+rc=0; eval "$CMD" || rc=$?
 echo "[finish:$ENGINE] $ENGINE exited rc=$rc — validating $SLUG ..."
 VENV_PY="$REPO/.venv/bin/python"; [ -x "$VENV_PY" ] || VENV_PY=python3
 SUBAGENT_FACTORY_USE_VENV=1 "$VENV_PY" -m tools.subagent_factory.cli validate "$SLUG" 2>&1 | tail -10
