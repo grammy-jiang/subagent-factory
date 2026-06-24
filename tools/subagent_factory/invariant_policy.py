@@ -30,7 +30,10 @@ from tools.subagent_factory.behaviour_replay import (
     load_behaviour_tests,
     replay_suite,
 )
-from tools.subagent_factory.compile_invariants import strip_invariant_section
+from tools.subagent_factory.compile_invariants import (
+    INVARIANT_SECTION_HEADING,
+    strip_invariant_section,
+)
 
 _DEFAULT_THRESHOLD = 0.80
 
@@ -67,7 +70,7 @@ def recommend_invariants(
     if not adapter.exists():
         return {"error": "no adapter", "attach": True}
     text = adapter.read_text(encoding="utf-8")
-    if "## Operating invariants" not in text:
+    if INVARIANT_SECTION_HEADING not in text:
         return {"error": "no invariant section to gate", "attach": False}
     tests = load_behaviour_tests(base)
     if not tests:

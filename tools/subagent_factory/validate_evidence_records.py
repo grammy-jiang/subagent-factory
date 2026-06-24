@@ -23,53 +23,18 @@ from pathlib import Path
 import jsonschema
 import yaml
 
+from tools.subagent_factory.package_queries import (
+    anchor_ids as _anchor_ids,
+)
+from tools.subagent_factory.package_queries import (
+    claim_ids as _claim_ids,
+)
+from tools.subagent_factory.package_queries import (
+    manifest_source_ids as _manifest_source_ids,
+)
 from tools.subagent_factory.source_text import load_restricted_source_ids
 
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "evidence-records-v1.schema.json"
-
-
-def _claim_ids(base: Path) -> set[str]:
-    cp = base / "analysis" / "claims.jsonl"
-    if not cp.exists():
-        return set()
-    ids: set[str] = set()
-    for line in cp.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        try:
-            ids.add(json.loads(line)["claim_id"])
-        except (json.JSONDecodeError, KeyError):
-            continue
-    return ids
-
-
-def _manifest_source_ids(base: Path) -> set[str]:
-    mp = base / "source-pack.manifest.yaml"
-    if not mp.exists():
-        return set()
-    try:
-        manifest = yaml.safe_load(mp.read_text(encoding="utf-8")) or {}
-    except yaml.YAMLError:
-        return set()
-    return {str(s.get("source_id")) for s in (manifest.get("sources") or []) if s.get("source_id")}
-
-
-def _anchor_ids(base: Path) -> set[str]:
-    ids: set[str] = set()
-    anchors_dir = base / "sources" / "anchors"
-    if not anchors_dir.exists():
-        return ids
-    for af in anchors_dir.glob("*.anchors.jsonl"):
-        for line in af.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                ids.add(json.loads(line)["anchor_id"])
-            except (json.JSONDecodeError, KeyError):
-                continue
-    return ids
 
 
 def validate_evidence_records(records_path: str | Path) -> list[str]:

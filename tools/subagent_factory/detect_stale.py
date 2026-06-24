@@ -116,7 +116,8 @@ def _body_of(text: str) -> str:
 def _rewrite(path: Path, fm: dict, body: str) -> None:
     """Re-emit the frontmatter block (key order preserved), body verbatim."""
     dump = yaml.safe_dump(fm, sort_keys=False, allow_unicode=True, default_flow_style=False)
-    path.write_text(f"---\n{dump}---\n\n{body.lstrip(chr(10))}", encoding="utf-8")
+    body = body.lstrip("\n")
+    path.write_text(f"---\n{dump}---\n\n{body}", encoding="utf-8")
 
 
 def _source_drift(base: Path) -> list[tuple[str, str, str]]:

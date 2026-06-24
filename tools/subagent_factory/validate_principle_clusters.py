@@ -19,19 +19,10 @@ import sys
 from pathlib import Path
 
 import jsonschema
-import yaml
+
+from tools.subagent_factory.package_queries import principle_ids as _principle_ids
 
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "principle-clusters-v1.schema.json"
-
-
-def _principle_ids(principles_dir: Path) -> set[str]:
-    pp = principles_dir / "principles.yaml"
-    if not pp.exists():
-        return set()
-    data = yaml.safe_load(pp.read_text(encoding="utf-8")) or {}
-    return {
-        str(p.get("principle_id")) for p in (data.get("principles") or []) if p.get("principle_id")
-    }
 
 
 def validate_principle_clusters(clusters_path: str | Path) -> list[str]:

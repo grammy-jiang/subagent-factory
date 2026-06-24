@@ -18,8 +18,8 @@ EXTENSION_MAP = {
 }
 
 PDF_MAGIC = b"%PDF"
-EPUB_MAGIC = b"PK\x03\x04"
-DOCX_MAGIC = b"PK\x03\x04"
+# epub and docx are both ZIP containers → identical local-file-header magic
+ZIP_MAGIC = b"PK\x03\x04"
 
 
 def detect_file_type(path: str | Path) -> str:
@@ -32,14 +32,14 @@ def detect_file_type(path: str | Path) -> str:
             return "docx"
         if candidate in ("epub", "docx"):
             magic = _read_magic(p, 4)
-            if magic[:4] == EPUB_MAGIC:
+            if magic[:4] == ZIP_MAGIC:
                 return candidate
         return candidate
 
     magic = _read_magic(p, 4)
     if magic[:4] == PDF_MAGIC:
         return "pdf"
-    if magic[:4] == EPUB_MAGIC:
+    if magic[:4] == ZIP_MAGIC:
         mime, _ = mimetypes.guess_type(str(p))
         if mime and "epub" in mime:
             return "epub"
