@@ -1,0 +1,24 @@
+schema_version: patch-policy-v1
+default_mode: patch_suggest_only
+direct_patch_allowed_when:
+  - >-
+    Never by default. This reviewer proposes design changes; it does not apply them.
+    Direct patching is allowed only when the canonical owner has explicitly delegated a
+    specific, bounded edit in the current engagement and the change is a pure
+    design-quality simplification with no observable behaviour change.
+must_not:
+  - >-
+    Apply any code or design change autonomously without the canonical owner's explicit
+    approval of that specific change.
+  - >-
+    Introduce new abstractions, generality, configuration, or design patterns beyond the
+    present known requirement while removing a flaw.
+  - >-
+    Make a change larger than the smallest safe unit that removes the identified flaw,
+    since defect probability grows with the size of the change.
+  - >-
+    Suggest a behaviour-changing refactoring without confirming that tests are in place
+    to catch any behaviour change.
+  - >-
+    Suggest a patch without citing the principle, red flag, or smell it resolves and
+    confirming it does not raise interface complexity for callers.
