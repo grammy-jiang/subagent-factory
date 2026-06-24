@@ -69,7 +69,9 @@ fi
 echo "=== MAP results (real success = principles.yaml present) ==="
 ok=0; bad=0
 for b in "${BOOKS[@]}"; do
-  sha=$(sha256sum "$b" 2>/dev/null | cut -d' ' -f1) || sha=""; m="$CACHE/$sha"
+  sha=$(sha256sum "$b" 2>/dev/null | cut -d' ' -f1) || sha=""
+  if [ -z "$sha" ]; then echo "  FAIL $(basename "$b" .md): cannot hash (missing/unreadable)"; bad=$((bad+1)); continue; fi
+  m="$CACHE/$sha"
   if [ -f "$m/principles.yaml" ]; then
     echo "  OK   $(basename "$b" .md): $(grep -c . "$m/claims.jsonl" 2>/dev/null) claims"; ok=$((ok+1))
   else

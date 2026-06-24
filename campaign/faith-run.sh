@@ -45,7 +45,7 @@ echo "[faith] packages needing a faithfulness report:"; queue | sed 's/^/  - /'
 
 processed=0
 while [ "$processed" -lt "$COUNT" ]; do
-  SLUG="$(next_target)" || SLUG=""
+  SLUG="$(next_target)"
   [ -z "$SLUG" ] && { echo "[faith] no packages left needing a report."; break; }
   n=$(ls "$LOGS/$LABEL"-*.summary.md 2>/dev/null | wc -l) || n=0
   run="$(printf '%s-%03d' "$LABEL" "$(( n + 1 ))")"
