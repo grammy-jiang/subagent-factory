@@ -9,7 +9,7 @@ from pathlib import Path
 # preserved — they are source content, not injected anchors.
 _INJECTED_ANCHOR_RE = re.compile(r"^<!--\s*anchor:\S+\s*-->\s*$")
 
-# Heading-less paragraph fallback tuning (see ``inject_anchors``).
+# Heading-less paragraph fallback tuning (see ``_anchor_paragraph_fallback``).
 # When a PDF→Markdown conversion flattens body prose into hard-wrapped lines with blank lines
 # only at page boundaries, "anchor the opener of each blank-delimited block" degenerates to
 # "anchor one running-head per page". The fallback therefore (a) skips conversion-noise lines
@@ -95,29 +95,13 @@ def _make_anchor(
     }
 
 
-def inject_anchors(
-    markdown_path: str | Path,
-    output_md_path: str | Path,
-    anchors_jsonl_path: str | Path,
-    source_id: str,
-) -> dict:
+def _anchor_structural(lines: list[str], source_id: str) -> tuple[list[str], list[dict], int]:
+    """Pass 1 — anchor table blocks, headings, figures, and code fences.
+
+    Returns the anchored output lines, the anchor records, and the next free anchor counter.
     """
-    Read Markdown, inject HTML anchor comments, write JSONL index.
-
-    Idempotent: any anchor comments left by a prior injection are stripped before
-    re-anchoring. The markdown cache stores post-anchor Markdown, so a cache reuse
-    feeds an already-anchored file back through this function with a new source_id;
-    without stripping, each reuse would stack a second (stale-source_id) anchor above
-    every heading and inflate line numbers.
-
-    Returns dict: anchor_count, anchors list
-    """
-    src = Path(markdown_path)
-    text = src.read_text(encoding="utf-8")
-    lines = [ln for ln in text.splitlines() if not _INJECTED_ANCHOR_RE.match(ln)]
-
-    anchors = []
-    output_lines = []
+    anchors: list[dict] = []
+    output_lines: list[str] = []
     anchor_counter = 0
     in_table = False
     current_table: dict | None = None
@@ -212,7 +196,11 @@ def inject_anchors(
         else:
             output_lines.append(line)
 
-    # Page anchors from embedded page markers (e.g., from Docling)
+    return output_lines, anchors, anchor_counter
+
+
+def _anchor_pages(output_lines: list[str], anchors: list[dict], source_id: str) -> None:
+    """Pass 2 — append a page anchor for each embedded ``<!-- page N -->`` marker (mutates anchors)."""
     page_re = re.compile(r"<!-- page (\d+)", re.IGNORECASE)
     for line_idx, line in enumerate(output_lines):
         pm = page_re.search(line)
@@ -230,53 +218,88 @@ def inject_anchors(
                 )
             )
 
-    # Paragraph fallback: a structureless conversion (e.g. markitdown flattening a PDF to
-    # one wall of text with no ``#`` headings, code fences, figures, or page markers) yields
-    # zero structural anchors, leaving the Tier-1 evidence chain nothing to ground to — claims,
-    # evidence records, and faithfulness checks all reference ``source_anchors`` that must exist
-    # in this index, and ``validate_claims`` silently skips its referential check when the index
-    # is empty. Anchor real body prose so flat sources still carry referenceable spans. Only
-    # fires when no structural/page anchor was found, so structured sources are unaffected.
-    # Idempotent: prior anchor comments are stripped above.
-    #
-    # Two paragraph shapes occur and both must work:
-    #   (a) blank-delimited paragraphs (markitdown wall-of-text) — anchor each block's opener;
-    #   (b) hard-wrapped prose with blank lines only at PAGE boundaries (typical book PDF) —
-    #       here "block opener" is the page running head, so naive anchoring tags ~one junk
-    #       header per page and leaves the body unanchored. The fix: skip noise lines
-    #       (``_is_pdf_noise``) and, within a long unbroken prose run, open a fresh anchor past
-    #       ``_MAX_SPAN_CHARS`` at the next sentence end (or ``_HARD_CAP_CHARS`` regardless).
-    if not anchors:
-        output_lines = []
-        pending_para = True  # True at a real paragraph start (after a blank, through any noise)
-        chars_since = 0  # body chars accumulated since the last anchor (noise excluded)
-        last_sentence_end = False
-        for line_idx, line in enumerate(lines):
-            stripped = line.strip()
-            if not stripped:
-                pending_para = True
-                output_lines.append(line)
-                continue
-            if _is_pdf_noise(stripped):
-                output_lines.append(line)  # keep the line; never anchor noise
-                continue
-            anchor_here = (
-                pending_para
-                or (chars_since >= _MAX_SPAN_CHARS and last_sentence_end)
-                or chars_since >= _HARD_CAP_CHARS
-            )
-            if anchor_here:
-                anchor_id = f"{source_id}-t{anchor_counter:04d}"
-                anchor_counter += 1
-                anchors.append(
-                    _make_anchor(anchor_id, source_id, "paragraph", stripped[:120], line_idx + 1)
-                )
-                output_lines.append(f"<!-- anchor:{anchor_id} -->")
-                chars_since = 0
-                pending_para = False
+
+def _anchor_paragraph_fallback(
+    lines: list[str], source_id: str, anchor_counter: int
+) -> tuple[list[str], list[dict]]:
+    """Pass 3 — anchor body prose when a structureless conversion produced no structural anchor.
+
+    A structureless conversion (e.g. markitdown flattening a PDF to one wall of text with no ``#``
+    headings, code fences, figures, or page markers) yields zero structural anchors, leaving the
+    Tier-1 evidence chain nothing to ground to — claims, evidence records, and faithfulness checks
+    all reference ``source_anchors`` that must exist in this index, and ``validate_claims`` silently
+    skips its referential check when the index is empty. Anchoring real body prose keeps flat
+    sources referenceable. The caller fires this only when no structural/page anchor was found, so
+    structured sources are unaffected. Idempotent: prior anchor comments are stripped upstream.
+
+    Two paragraph shapes occur and both must work:
+      (a) blank-delimited paragraphs (markitdown wall-of-text) — anchor each block's opener;
+      (b) hard-wrapped prose with blank lines only at PAGE boundaries (typical book PDF) — here
+          "block opener" is the page running head, so naive anchoring tags ~one junk header per
+          page and leaves the body unanchored. The fix: skip noise lines (``_is_pdf_noise``) and,
+          within a long unbroken prose run, open a fresh anchor past ``_MAX_SPAN_CHARS`` at the next
+          sentence end (or ``_HARD_CAP_CHARS`` regardless).
+    """
+    output_lines: list[str] = []
+    anchors: list[dict] = []
+    pending_para = True  # True at a real paragraph start (after a blank, through any noise)
+    chars_since = 0  # body chars accumulated since the last anchor (noise excluded)
+    last_sentence_end = False
+    for line_idx, line in enumerate(lines):
+        stripped = line.strip()
+        if not stripped:
+            pending_para = True
             output_lines.append(line)
-            chars_since += len(stripped) + 1
-            last_sentence_end = bool(_SENTENCE_BREAK_RE.search(stripped))
+            continue
+        if _is_pdf_noise(stripped):
+            output_lines.append(line)  # keep the line; never anchor noise
+            continue
+        anchor_here = (
+            pending_para
+            or (chars_since >= _MAX_SPAN_CHARS and last_sentence_end)
+            or chars_since >= _HARD_CAP_CHARS
+        )
+        if anchor_here:
+            anchor_id = f"{source_id}-t{anchor_counter:04d}"
+            anchor_counter += 1
+            anchors.append(
+                _make_anchor(anchor_id, source_id, "paragraph", stripped[:120], line_idx + 1)
+            )
+            output_lines.append(f"<!-- anchor:{anchor_id} -->")
+            chars_since = 0
+            pending_para = False
+        output_lines.append(line)
+        chars_since += len(stripped) + 1
+        last_sentence_end = bool(_SENTENCE_BREAK_RE.search(stripped))
+    return output_lines, anchors
+
+
+def inject_anchors(
+    markdown_path: str | Path,
+    output_md_path: str | Path,
+    anchors_jsonl_path: str | Path,
+    source_id: str,
+) -> dict:
+    """
+    Read Markdown, inject HTML anchor comments, write JSONL index.
+
+    Idempotent: any anchor comments left by a prior injection are stripped before
+    re-anchoring. The markdown cache stores post-anchor Markdown, so a cache reuse
+    feeds an already-anchored file back through this function with a new source_id;
+    without stripping, each reuse would stack a second (stale-source_id) anchor above
+    every heading and inflate line numbers.
+
+    Returns dict: anchor_count, anchors list
+    """
+    src = Path(markdown_path)
+    text = src.read_text(encoding="utf-8")
+    lines = [ln for ln in text.splitlines() if not _INJECTED_ANCHOR_RE.match(ln)]
+
+    output_lines, anchors, anchor_counter = _anchor_structural(lines, source_id)
+    _anchor_pages(output_lines, anchors, source_id)
+    # Only when nothing structural/page was found — structured sources are unaffected.
+    if not anchors:
+        output_lines, anchors = _anchor_paragraph_fallback(lines, source_id, anchor_counter)
 
     out_text = "\n".join(output_lines) + "\n"
     Path(output_md_path).write_text(out_text, encoding="utf-8")
