@@ -20,10 +20,15 @@ Checks:
   - tier-gated artifacts (e.g. faithfulness report) validated when present
   - skill/reference body authoring (status-gated: FAIL only when status: ready)
   - stale maintenance (authored bodies whose grounding drifted; advisory WARN)
+
+``validate_generated_package`` runs each ``_check_*`` phase below in order; every phase appends its
+``{level, check, message}`` findings via the shared ``fail``/``warn``/``ok`` emitters, so the findings
+list (and the pass/fail verdict derived from it) is built in phase order.
 """
 
 import json
 import sys
+from collections.abc import Callable
 from pathlib import Path
 
 import yaml
@@ -56,6 +61,9 @@ from tools.subagent_factory.validate_principles import validate_principles
 from tools.subagent_factory.validate_skill_authoring import validate_skill_authoring
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
+
+# Each phase appends findings via these emitters: emit(check, message) -> None.
+_Emit = Callable[[str, str], None]
 
 # Tier-gated artifact registry: ``(rel_path, min_tier, validate_fn)`` where
 # ``validate_fn(path) -> list[str]``. The gate validates any entry that is *present*,
@@ -161,26 +169,8 @@ def _verbatim_source_withheld(base: Path) -> bool:
     )
 
 
-def validate_generated_package(subagent_dir: str | Path) -> dict:
-    """
-    Run all package validation checks.
-
-    Returns dict: passed (bool), findings list of {level, check, message}
-    """
-    base = Path(subagent_dir)
-    findings = []
-    slug = base.name
-
-    def fail(check, msg):
-        findings.append({"level": "FAIL", "check": check, "message": msg})
-
-    def warn(check, msg):
-        findings.append({"level": "WARN", "check": check, "message": msg})
-
-    def ok(check, msg):
-        findings.append({"level": "OK", "check": check, "message": msg})
-
-    # 1. Required files
+# 1. Required files
+def _check_required_files(base: Path, fail: _Emit, ok: _Emit) -> None:
     for fname in REQUIRED_FILES:
         p = base / fname
         if p.exists():
@@ -188,9 +178,11 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         else:
             fail("required-files", f"Missing required file: {fname}")
 
-    # 2. Required directories. sources/{original,markdown} hold the copyrighted source verbatim; a
-    # rights-clean export of distillation-only/restricted sources omits them by policy, so their
-    # absence is expected there (OK), not a warning. metadata/reports are rights-clean → still warn.
+
+# 2. Required directories. sources/{original,markdown} hold the copyrighted source verbatim; a
+# rights-clean export of distillation-only/restricted sources omits them by policy, so their
+# absence is expected there (OK), not a warning. metadata/reports are rights-clean → still warn.
+def _check_required_dirs(base: Path, warn: _Emit, ok: _Emit) -> None:
     verbatim_withheld = _verbatim_source_withheld(base)
     for dname in REQUIRED_DIRS:
         p = base / dname
@@ -205,7 +197,9 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         else:
             warn("required-dirs", f"Missing expected directory: {dname}/")
 
-    # 3. Metadata validation
+
+# 3. Metadata validation
+def _check_metadata(base: Path, fail: _Emit, warn: _Emit, ok: _Emit) -> None:
     meta_dir = base / "sources" / "metadata"
     if meta_dir.exists():
         meta_files = list(meta_dir.glob("*.metadata.json"))
@@ -219,14 +213,19 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
             else:
                 ok("metadata", f"{mf.name} valid")
 
-    # 3b. Profile sources trace back to ingested source metadata.
-    # profile.yaml's sources[] (source_id + sha256) are the provenance backbone
-    # required by rights-and-quotation-policy. A derivation that copies a stale
-    # sha256, points at a source that was never ingested, or leaves the hash
-    # blank silently breaks traceability — none of the other checks notice.
-    # The cross-check only runs when source metadata is present (the unit-test
-    # fixtures omit it); absence is already reported by the required-dirs check.
+
+# 3b. Profile sources trace back to ingested source metadata.
+# profile.yaml's sources[] (source_id + sha256) are the provenance backbone
+# required by rights-and-quotation-policy. A derivation that copies a stale
+# sha256, points at a source that was never ingested, or leaves the hash
+# blank silently breaks traceability — none of the other checks notice.
+# The cross-check only runs when source metadata is present (the unit-test
+# fixtures omit it); absence is already reported by the required-dirs check.
+# Returns the parsed profile (or {}) so the later multisource-synthesis check can reuse it.
+def _check_source_provenance(base: Path, fail: _Emit, warn: _Emit, ok: _Emit) -> dict:
+    meta_dir = base / "sources" / "metadata"
     profile_path = base / "profile.yaml"
+    profile: dict = {}
     if profile_path.exists() and meta_dir.exists():
         meta_sha = {}
         for mf in meta_dir.glob("*.metadata.json"):
@@ -261,8 +260,11 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
                     )
                 else:
                     ok("source-provenance", f"source '{sid}' traces to ingested metadata")
+    return profile
 
-    # 4. Manifest validation
+
+# 4. Manifest validation
+def _check_manifest(base: Path, fail: _Emit, ok: _Emit) -> None:
     manifest_path = base / "source-pack.manifest.yaml"
     if manifest_path.exists():
         errors = validate_manifest(manifest_path)
@@ -272,7 +274,9 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         else:
             ok("manifest", "source-pack.manifest.yaml valid")
 
-    # 5. Anchor index validation
+
+# 5. Anchor index validation
+def _check_anchors(base: Path, fail: _Emit, ok: _Emit) -> None:
     anchors_dir = base / "sources" / "anchors"
     if anchors_dir.exists():
         anchor_files = list(anchors_dir.glob("*.anchors.jsonl"))
@@ -284,7 +288,9 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
             else:
                 ok("anchors", f"{af.name} valid")
 
-    # 6. Conversion reports
+
+# 6. Conversion reports
+def _check_reports(base: Path, warn: _Emit, ok: _Emit) -> None:
     reports_dir = base / "sources" / "reports"
     if reports_dir.exists():
         reports = list(reports_dir.glob("*.conversion-report.md"))
@@ -293,7 +299,9 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         else:
             ok("reports", f"{len(reports)} conversion report(s) found")
 
-    # 7. Adapter check
+
+# 7. Adapter check
+def _check_adapter(base: Path, slug: str, fail: _Emit, ok: _Emit) -> None:
     adapter_path = base / "adapters" / "claude-code" / f"{slug}.md"
     if adapter_path.exists():
         ok("adapter", f"Canonical adapter {adapter_path.name} present")
@@ -314,7 +322,9 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
     else:
         fail("adapter-installed", f"Installed adapter not found at {installed_path}")
 
-    # 8. Tests — golden tests and a test-results record are required (v0 §17)
+
+# 8. Tests — golden tests and a test-results record are required (v0 §17)
+def _check_tests(base: Path, fail: _Emit, ok: _Emit) -> None:
     tests_dir = base / "tests"
     if not tests_dir.exists():
         fail("tests", "tests/ directory missing")
@@ -328,7 +338,9 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         else:
             fail("test-results", "tests/test-results.md missing — run `cli selfcheck <slug>` first")
 
-    # 9. Phase 8 profile self-check gate — any FAIL blocks the package
+
+# 9. Phase 8 profile self-check gate — any FAIL blocks the package
+def _check_phase8(base: Path, fail: _Emit, ok: _Emit) -> None:
     if (base / "profile.yaml").exists():
         gate = profile_self_check(base)
         gate_fails = [f for f in gate["findings"] if f["level"] == "FAIL"]
@@ -338,7 +350,9 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         else:
             ok("phase8", f"Phase 8 self-check {gate['verdict']}")
 
-    # 10. Quote scan
+
+# 10. Quote scan
+def _check_quote_scan(base: Path, warn: _Emit, ok: _Emit) -> None:
     quote_findings = quote_scan(base)
     if quote_findings:
         for qf in quote_findings:
@@ -346,9 +360,11 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
     else:
         ok("quote-scan", "No potential verbatim quotation found")
 
-    # 11. Prompt-injection scan over ingested source. Advisory triage — WARN, never
-    # block: detectors are adaptively breakable and the ~225:1 base rate makes hard
-    # blocking flood legit content; the source-safety-reviewer agent triages flags.
+
+# 11. Prompt-injection scan over ingested source. Advisory triage — WARN, never
+# block: detectors are adaptively breakable and the ~225:1 base rate makes hard
+# blocking flood legit content; the source-safety-reviewer agent triages flags.
+def _check_injection(base: Path, warn: _Emit, ok: _Emit) -> None:
     injection = prompt_injection_scan(base)
     if injection:
         for x in injection:
@@ -359,14 +375,18 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
     else:
         ok("injection-scan", "no injection payloads detected in source")
 
-    # 12. Adapter-policy scan: tool-grant widening / escalation = FAIL; body injection = WARN.
+
+# 12. Adapter-policy scan: tool-grant widening / escalation = FAIL; body injection = WARN.
+def _check_adapter_policy(base: Path, fail: _Emit, warn: _Emit) -> None:
     for x in adapter_policy_scan(base):
         if x["level"] == "FAIL":
             fail("adapter-policy", f"{x['file']}: {x['issue']}")
         else:
             warn("adapter-policy", f"{x['file']}: {x['issue']}")
 
-    # 13. Patch-safety policy — required when the profile grants a patch/produce mode.
+
+# 13. Patch-safety policy — required when the profile grants a patch/produce mode.
+def _check_patch_policy(base: Path, fail: _Emit, ok: _Emit) -> None:
     patch_policy = base / "policy" / "patch-policy.yaml"
     has_patch_mode = False
     if (base / "profile.yaml").exists():
@@ -389,11 +409,13 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
             "profile grants a patch/produce mode but policy/patch-policy.yaml is missing",
         )
 
-    # 14. Domain-adaptation policy (Step-15 J-track) — opt-in per regulated domain.
-    # Inert unless the profile declares a regulated `domain_risk_category` (finance/legal/medical):
-    # every technical / non-regulated package has no such field, so this returns [] and Tier-0
-    # packages are untouched. When set, the package must ship the graded no-advice boundary
-    # (no-advice forbidden behaviour + defer-to-professional handoff + standing disclaimer).
+
+# 14. Domain-adaptation policy (Step-15 J-track) — opt-in per regulated domain.
+# Inert unless the profile declares a regulated `domain_risk_category` (finance/legal/medical):
+# every technical / non-regulated package has no such field, so this returns [] and Tier-0
+# packages are untouched. When set, the package must ship the graded no-advice boundary
+# (no-advice forbidden behaviour + defer-to-professional handoff + standing disclaimer).
+def _check_domain_policy(base: Path, fail: _Emit, ok: _Emit) -> None:
     if (base / "profile.yaml").exists():
         try:
             _dprof = yaml.safe_load((base / "profile.yaml").read_text(encoding="utf-8")) or {}
@@ -409,17 +431,18 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
                 f"regulated domain '{_dprof['domain_risk_category']}' boundary present",
             )
 
-    # Tier-gated artifacts: validate any that are present; require those the tier mandates.
-    tier = _tier(base)
 
-    # Tier-consistency: the *declared* tier governs which evidence artifacts are
-    # required, but classify_tier is the deterministic authority on how content-dense
-    # the package actually is (source word count / source count). A package that
-    # under-declares its tier — or omits the field, as every pre-evidence-chain package
-    # does — silently escapes the Tier-1+ evidence-chain requirement above. Surface that
-    # drift. WARN, not FAIL: legacy packages predate the chain and must keep validating
-    # (see classify_tier docstring), and the deterministic signal is advisory guidance for
-    # the authoring run, which re-runs Step 6.5 and sets the real tier.
+# Tier-consistency: the *declared* tier governs which evidence artifacts are
+# required, but classify_tier is the deterministic authority on how content-dense
+# the package actually is (source word count / source count). A package that
+# under-declares its tier — or omits the field, as every pre-evidence-chain package
+# does — silently escapes the Tier-1+ evidence-chain requirement above. Surface that
+# drift. WARN, not FAIL: legacy packages predate the chain and must keep validating
+# (see classify_tier docstring), and the deterministic signal is advisory guidance for
+# the authoring run, which re-runs Step 6.5 and sets the real tier.
+# Returns the declared tier (which the tier-artifact + multisource checks below need).
+def _check_tier_consistency(base: Path, warn: _Emit, ok: _Emit) -> int:
+    tier = _tier(base)
     computed_tier = classify_tier(base)
     if computed_tier > tier:
         warn(
@@ -431,7 +454,11 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         )
     else:
         ok("tier-consistency", f"declared tier {tier} ≥ computed tier {computed_tier}")
+    return tier
 
+
+# Tier-gated artifacts: validate any that are present; require those the tier mandates.
+def _check_tier_artifacts(base: Path, tier: int, fail: _Emit, ok: _Emit) -> None:
     for rel, min_tier, vfn in _TIER_ARTIFACTS:
         p = base / rel
         if p.exists():
@@ -444,12 +471,14 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         elif tier >= min_tier:
             fail("tier-artifact", f"tier {tier} requires {rel} (missing)")
 
-    # Step 7: multi-source synthesis expected on Tier-2+ packages whose distilled claims genuinely
-    # span >=2 sources. Keyed on distinct claim source_ids, NOT the manifest source count — a package
-    # can list 2 sources yet distill claims from only one, in which case there is nothing to fuse and
-    # flagging it would be a false positive. Advisory (WARN), not FAIL: pre-Step-7 packages lack the
-    # artifacts; surfacing the gap drives a re-synthesis without breaking them. When present, the tier
-    # loop above already validated them (min_tier 99 entries).
+
+# Step 7: multi-source synthesis expected on Tier-2+ packages whose distilled claims genuinely
+# span >=2 sources. Keyed on distinct claim source_ids, NOT the manifest source count — a package
+# can list 2 sources yet distill claims from only one, in which case there is nothing to fuse and
+# flagging it would be a false positive. Advisory (WARN), not FAIL: pre-Step-7 packages lack the
+# artifacts; surfacing the gap drives a re-synthesis without breaking them. When present, the tier
+# loop above already validated them (min_tier 99 entries).
+def _check_multisource(base: Path, profile: dict, tier: int, warn: _Emit, ok: _Emit) -> None:
     claim_sources: set[str] = set()
     _cl_path = base / "analysis" / "claims.jsonl"
     if _cl_path.exists():
@@ -482,9 +511,11 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
                     "synthesis or set multisource_synthesis: deferred",
                 )
 
-    # Step 8: skill/reference body authoring — status-gated. FAIL only when the profile
-    # declares status: ready with an unauthored or invalid skill/reference; otherwise WARN
-    # (authored N/M). Draft packages (all 15 current ones) only ever WARN here.
+
+# Step 8: skill/reference body authoring — status-gated. FAIL only when the profile
+# declares status: ready with an unauthored or invalid skill/reference; otherwise WARN
+# (authored N/M). Draft packages (all 15 current ones) only ever WARN here.
+def _check_skill_authoring(base: Path, fail: _Emit, warn: _Emit, ok: _Emit) -> None:
     for level, msg in validate_skill_authoring(base):
         if level == "FAIL":
             fail("skill-authoring", msg)
@@ -493,9 +524,11 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         else:
             ok("skill-authoring", msg)
 
-    # Adapter output-quality gate: the exported deliverable must be substantive (DO-NOT-EDIT
-    # header, no stub/placeholder tokens, load-bearing sections present + non-empty). Complements
-    # the existence + security (adapter-policy) checks above.
+
+# Adapter output-quality gate: the exported deliverable must be substantive (DO-NOT-EDIT
+# header, no stub/placeholder tokens, load-bearing sections present + non-empty). Complements
+# the existence + security (adapter-policy) checks above.
+def _check_adapter_quality(base: Path, fail: _Emit, warn: _Emit, ok: _Emit) -> None:
     for level, msg in validate_adapter_quality(base):
         if level == "FAIL":
             fail("adapter-quality", msg)
@@ -504,14 +537,58 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         else:
             ok("adapter-quality", msg)
 
-    # Step 9: stale maintenance — authored bodies whose grounding (cited principles/claims) has
-    # drifted since authoring. Advisory only: a stale flag is human-reviewed/re-authored before
-    # the next release, never a hard release block. STALE/WARN → warn; INFO/OK → ok.
+
+# Step 9: stale maintenance — authored bodies whose grounding (cited principles/claims) has
+# drifted since authoring. Advisory only: a stale flag is human-reviewed/re-authored before
+# the next release, never a hard release block. STALE/WARN → warn; INFO/OK → ok.
+def _check_stale(base: Path, warn: _Emit, ok: _Emit) -> None:
     for level, artifact, reason in detect_stale(base):
         if level in ("STALE", "WARN"):
             warn("stale-maintenance", f"{artifact}: {reason}")
         else:
             ok("stale-maintenance", f"{artifact}: {reason}")
+
+
+def validate_generated_package(subagent_dir: str | Path) -> dict:
+    """
+    Run all package validation checks.
+
+    Returns dict: passed (bool), findings list of {level, check, message}
+    """
+    base = Path(subagent_dir)
+    findings = []
+    slug = base.name
+
+    def fail(check, msg):
+        findings.append({"level": "FAIL", "check": check, "message": msg})
+
+    def warn(check, msg):
+        findings.append({"level": "WARN", "check": check, "message": msg})
+
+    def ok(check, msg):
+        findings.append({"level": "OK", "check": check, "message": msg})
+
+    _check_required_files(base, fail, ok)
+    _check_required_dirs(base, warn, ok)
+    _check_metadata(base, fail, warn, ok)
+    profile = _check_source_provenance(base, fail, warn, ok)
+    _check_manifest(base, fail, ok)
+    _check_anchors(base, fail, ok)
+    _check_reports(base, warn, ok)
+    _check_adapter(base, slug, fail, ok)
+    _check_tests(base, fail, ok)
+    _check_phase8(base, fail, ok)
+    _check_quote_scan(base, warn, ok)
+    _check_injection(base, warn, ok)
+    _check_adapter_policy(base, fail, warn)
+    _check_patch_policy(base, fail, ok)
+    _check_domain_policy(base, fail, ok)
+    tier = _check_tier_consistency(base, warn, ok)
+    _check_tier_artifacts(base, tier, fail, ok)
+    _check_multisource(base, profile, tier, warn, ok)
+    _check_skill_authoring(base, fail, warn, ok)
+    _check_adapter_quality(base, fail, warn, ok)
+    _check_stale(base, warn, ok)
 
     failed = [f for f in findings if f["level"] == "FAIL"]
     passed = len(failed) == 0
