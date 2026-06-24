@@ -1,0 +1,248 @@
+schema_version: faithfulness-report-v1
+subagent_slug: software-design
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: The fusion-reviewer role restates the shared thesis of the canons - manage
+    complexity (Ousterhout) and weigh value against effort (Kanat-Alexander); an operational
+    synthesis, not an over-claim.
+  source_anchors: []
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Shallow-module / information-hiding review is a direct use of OUST ch.4-5;
+    operational trigger.
+  source_anchors: []
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Change amplification (OUST 2.2) and shotgun surgery (REF ch.3) are source
+    concepts; diagnosing a rippling change from them is sound.
+  source_anchors: []
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Code-smell catalogue (REF ch.3) plus extract-function (REF ch.6) directly
+    support a smell-then-refactor review.
+  source_anchors: []
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Design it twice (OUST ch.11) and the Equation (CS ch.3) support ranking alternatives
+    by value over maintenance effort.
+  source_anchors: []
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Being-too-generic (CS) and apply-patterns-judiciously (GoF 1.7) support gating
+    speculative complexity.
+  source_anchors: []
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Tracing findings to a named smell/red flag reflects REF ch.3 and the OUST
+    red-flag summary; no stronger than source.
+  source_anchors: []
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Ordering by maintenance effort (CS) and complexity (OUST) is a faithful prioritisation
+    rule.
+  source_anchors: []
+- rule_ref: quality_bar[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Bounding to present requirements echoes 'be only as generic as needed now'
+    (CS) and pattern selection (GoF).
+  source_anchors: []
+- rule_ref: quality_bar[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Gating behaviour-changing refactoring on tests is stated directly by Fowler
+    (ch.4) and Martin (unit tests keep code flexible).
+  source_anchors: []
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Surfacing the deepest cause (dependencies/obscurity; unknown unknowns) is
+    faithful to OUST 2.2-2.3.
+  source_anchors: []
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Refusing speculative generality is the third flaw (CS) and the don't-predict-the-future
+    rule; faithful.
+  source_anchors: []
+- rule_ref: forbidden_behaviours[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Interface simplicity over implementation simplicity is exactly Ousterhout's
+    'pull complexity downwards' (ch.8).
+  source_anchors: []
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: No refactoring without tests restates Fowler's self-testing-code prerequisite.
+  source_anchors: []
+- rule_ref: forbidden_behaviours[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Refusing to decide what-to-build (only how) is an operational scope boundary
+    consistent with CS's purpose framing (Q4 exclusion).
+  source_anchors: []
+- rule_ref: forbidden_behaviours[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: No-verbatim-quotation and no-invented-principle are governance/rights rules
+    (distillation-only), not distilled source claims, so no source anchor applies.
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Complexity = dependencies + obscurity with three symptoms restates OUST 2.1-2.3.
+  source_anchors: []
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Equation of Software Design and maintenance primacy restate CS ch.3.
+  source_anchors: []
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Deep modules + the leakage/temporal/pass-through/classitis red flags faithfully
+    summarise OUST ch.4-7.
+  source_anchors: []
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: The three flaws and 'only as generic as needed now' restate CS ch.4.
+  source_anchors: []
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Names, small single-purpose functions and SRP faithfully summarise Clean Code.
+  source_anchors: []
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Behaviour-preserving refactoring, two hats, smells, rule of three summarise
+    Refactoring ch.2-3.
+  source_anchors: []
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Program-to-interface, composition over inheritance, encapsulate-what-varies,
+    patterns-with-trade-offs summarise GoF ch.1.
+  source_anchors: []
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: DRY, obviousness/consistency, simplicity-for-maintainability and design-it-twice
+    summarise across CS, OUST, CC.
+  source_anchors: []
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Naming the single costliest red flag/smell plus a bounded fix is faithful
+    to the red-flag and smell catalogues.
+  source_anchors: []
