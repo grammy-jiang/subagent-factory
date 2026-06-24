@@ -17,12 +17,13 @@ import json
 from collections.abc import Sequence
 from pathlib import Path
 
-_CHARS_PER_TOKEN = 4
+from tools.subagent_factory._common import CHARS_PER_TOKEN
+
 _DEFAULT_THRESHOLD = 100_000  # tokens; <= -> copilot, > -> claude
 
 
 def classify(md_path: Path, threshold_tokens: int = _DEFAULT_THRESHOLD) -> dict:
-    tokens = md_path.stat().st_size // _CHARS_PER_TOKEN  # bytes ~ chars; ample for a size class
+    tokens = md_path.stat().st_size // CHARS_PER_TOKEN  # bytes ~ chars; ample for a size class
     klass = "small" if tokens <= threshold_tokens else "large"
     return {
         "source": str(md_path),

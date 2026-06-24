@@ -26,7 +26,7 @@ from pathlib import Path
 
 import yaml
 
-_SECTION_HEADING = "## Operating invariants (must hold)"
+INVARIANT_SECTION_HEADING = "## Operating invariants (must hold)"
 _MAX_INVARIANT_CHARS = 160
 
 
@@ -37,7 +37,7 @@ def strip_invariant_section(adapter_text: str) -> str:
     """
     import re
 
-    heading = re.escape(_SECTION_HEADING)
+    heading = re.escape(INVARIANT_SECTION_HEADING)
     return re.sub(rf"\n{heading}.*?(?=\n## )", "\n", adapter_text, flags=re.S)
 
 
@@ -110,7 +110,7 @@ def validate_invariant_coverage(principles_path: str | Path) -> list[str]:
     if not adapter.exists():
         return []  # adapter existence is a separate, earlier check
     text = adapter.read_text(encoding="utf-8")
-    if _SECTION_HEADING not in text:
+    if INVARIANT_SECTION_HEADING not in text:
         return []  # pre-feature adapter — not gated until it re-exports with the layer
     missing = [m["principle_id"] for m in must_hold if f"[{m['principle_id']}]" not in text]
     if missing:
