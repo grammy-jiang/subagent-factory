@@ -243,6 +243,42 @@ def test_source_provenance_empty_sha_warns_not_fails(tmp_path, monkeypatch):
     )
 
 
+def _required_dir_warns(result):
+    return [
+        f["message"]
+        for f in result["findings"]
+        if f["check"] == "required-dirs" and f["level"] == "WARN"
+    ]
+
+
+def test_distillation_only_omits_verbatim_dirs_without_warning(tmp_path, monkeypatch):
+    # distillation-only sources → sources/{original,markdown} hold copyrighted verbatim and are
+    # withheld by the rights policy; their absence must NOT warn (rights-clean export).
+    pkg, _ = _build(tmp_path, monkeypatch)
+    md = pkg / "sources" / "metadata"
+    md.mkdir(parents=True, exist_ok=True)
+    (md / "s1.metadata.json").write_text(
+        json.dumps({"source_id": "s1", "sha256": "abc", "rights_status": "distillation-only"}),
+        encoding="utf-8",
+    )
+    warns = _required_dir_warns(vgp.validate_generated_package(pkg))
+    assert not any("sources/original" in w or "sources/markdown" in w for w in warns)
+
+
+def test_open_rights_still_warns_missing_verbatim_dirs(tmp_path, monkeypatch):
+    # openly-licensed sources can be committed → absent verbatim dirs still warn.
+    pkg, _ = _build(tmp_path, monkeypatch)
+    md = pkg / "sources" / "metadata"
+    md.mkdir(parents=True, exist_ok=True)
+    (md / "s1.metadata.json").write_text(
+        json.dumps({"source_id": "s1", "sha256": "abc", "rights_status": "open"}),
+        encoding="utf-8",
+    )
+    warns = _required_dir_warns(vgp.validate_generated_package(pkg))
+    assert any("sources/original" in w for w in warns)
+    assert any("sources/markdown" in w for w in warns)
+
+
 def _warn_checks(result):
     return {f["check"] for f in result["findings"] if f["level"] == "WARN"}
 

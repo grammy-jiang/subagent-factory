@@ -138,6 +138,28 @@ REQUIRED_DIRS = [
     "sources/reports",
 ]
 
+# sources/original (the raw source bytes) and sources/markdown (the verbatim conversion) carry the
+# copyrighted source verbatim. For distillation-only / restricted sources the rights-and-quotation
+# policy forbids publishing them, so a rights-clean export legitimately omits these two — their
+# absence is then expected, not a warning. The rights-clean dirs (metadata, reports) still warn.
+_VERBATIM_SOURCE_DIRS = ("sources/original", "sources/markdown")
+
+
+def _verbatim_source_withheld(base: Path) -> bool:
+    """True if the package's sources are distillation-only / restricted / proprietary, so the verbatim
+    ``sources/{original,markdown}`` are intentionally withheld (rights-and-quotation-policy). Unknown
+    or fully-open rights → False (keep the warning; openly-licensed sources can be committed)."""
+    statuses: list[str] = []
+    for mf in (base / "sources" / "metadata").glob("*.metadata.json"):
+        try:
+            rs = json.loads(mf.read_text(encoding="utf-8")).get("rights_status", "")
+        except (OSError, json.JSONDecodeError):
+            continue
+        statuses.append(str(rs).lower())
+    return any(
+        any(t in s for t in ("distillation-only", "restricted", "proprietary")) for s in statuses
+    )
+
 
 def validate_generated_package(subagent_dir: str | Path) -> dict:
     """
@@ -166,11 +188,20 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
         else:
             fail("required-files", f"Missing required file: {fname}")
 
-    # 2. Required directories
+    # 2. Required directories. sources/{original,markdown} hold the copyrighted source verbatim; a
+    # rights-clean export of distillation-only/restricted sources omits them by policy, so their
+    # absence is expected there (OK), not a warning. metadata/reports are rights-clean → still warn.
+    verbatim_withheld = _verbatim_source_withheld(base)
     for dname in REQUIRED_DIRS:
         p = base / dname
         if p.exists():
             ok("required-dirs", f"{dname}/ present")
+        elif dname in _VERBATIM_SOURCE_DIRS and verbatim_withheld:
+            ok(
+                "required-dirs",
+                f"{dname}/ absent — verbatim source withheld for distillation-only/restricted rights "
+                "(rights-clean export)",
+            )
         else:
             warn("required-dirs", f"Missing expected directory: {dname}/")
 
