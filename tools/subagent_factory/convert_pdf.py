@@ -1,5 +1,6 @@
 """Convert PDF to Markdown. Chain: Docling → MarkItDown (self-heals) → PyMuPDF4LLM/PyMuPDF."""
 
+import importlib.util
 import os
 import re
 from pathlib import Path
@@ -18,6 +19,20 @@ _MIN_WORDS_BORN_DIGITAL = 30  # below this, with no page signal, suspect a faile
 # or scanned conversion: the heading hierarchy the anchor layer needs is gone, so anchoring
 # degrades to the paragraph fallback. Warn at convert time rather than discover it downstream.
 _MIN_PAGES_FOR_HEADINGS = 5
+
+
+def preferred_pdf_converter() -> str:
+    """Name of the highest-fidelity PDF converter currently importable (the cache discriminator).
+
+    The chain order — Docling > MarkItDown > PyMuPDF — is the same one ``convert_pdf`` runs below;
+    ``ingest_source`` keys its markdown cache on this so installing a higher-fidelity converter
+    auto-invalidates older lower-fidelity entries. Uses ``find_spec`` so the check never imports
+    Docling's heavy ML stack. Returns ``"none"`` when no PDF converter is installed.
+    """
+    for name, tag in (("docling", "docling"), ("markitdown", "markitdown"), ("fitz", "pymupdf")):
+        if importlib.util.find_spec(name) is not None:
+            return tag
+    return "none"
 
 
 def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:

@@ -1,7 +1,6 @@
 """Main source ingestion entry point — Phase 1.5 of the authoring cycle."""
 
 import hashlib
-import importlib.util
 import shutil
 from pathlib import Path
 from typing import Any
@@ -10,6 +9,7 @@ import yaml
 from slugify import slugify
 
 from tools.subagent_factory.convert_document import convert_document
+from tools.subagent_factory.convert_pdf import preferred_pdf_converter as _preferred_pdf_converter
 from tools.subagent_factory.detect_file_type import detect_file_type
 from tools.subagent_factory.extract_assets import extract_assets
 from tools.subagent_factory.fetch_url import fetch_url
@@ -23,19 +23,6 @@ VALID_RIGHTS_STATUSES = ("open", "distillation-only", "proprietary/restricted", 
 # `unknown` is a blocking state: it must be resolved to a concrete status before a
 # source may enter distillation. Per policy, never ingest with rights_status=unknown.
 INGESTIBLE_RIGHTS_STATUSES = ("open", "distillation-only", "proprietary/restricted")
-
-
-def _preferred_pdf_converter() -> str:
-    """Name of the highest-fidelity PDF converter currently importable (the cache discriminator).
-
-    Mirrors ``convert_pdf``'s chain order: Docling > MarkItDown > PyMuPDF. Uses ``find_spec`` so
-    checking availability never imports Docling's heavy ML stack. Returns ``"none"`` when no PDF
-    converter is installed (the convert step then fails loudly downstream).
-    """
-    for name, tag in (("docling", "docling"), ("markitdown", "markitdown"), ("fitz", "pymupdf")):
-        if importlib.util.find_spec(name) is not None:
-            return tag
-    return "none"
 
 
 def _content_source_id(source_file: Path, sha256: str) -> str:
