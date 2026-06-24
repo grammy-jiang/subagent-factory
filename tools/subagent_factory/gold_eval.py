@@ -16,7 +16,9 @@ verdicts; below that, the judge (or rubric) needs work before its rankings mean 
 
 from __future__ import annotations
 
+import json
 from collections import Counter
+from pathlib import Path
 
 
 def cohens_kappa(rater_a: list[str], rater_b: list[str]) -> float:
@@ -66,9 +68,6 @@ def judge_vs_gold(judge_labels: dict[str, str], gold_labels: dict[str, str]) -> 
 
 def load_gold(path: str) -> dict[str, str]:
     """Read a human gold-label jsonl into ``{item: winner}`` (last label per item wins)."""
-    import json
-    from pathlib import Path
-
     out: dict[str, str] = {}
     for line in Path(path).read_text(encoding="utf-8").splitlines():
         line = line.strip()

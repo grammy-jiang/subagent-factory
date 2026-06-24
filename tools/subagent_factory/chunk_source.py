@@ -29,8 +29,9 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+from tools.subagent_factory._common import CHARS_PER_TOKEN
+
 _HEADING = re.compile(r"^(#{1,6})[ \t]+(.+?)[ \t]*#*$")
-_CHARS_PER_TOKEN = 4  # rough estimate, consistent with the rest of the factory
 
 
 @dataclass
@@ -125,7 +126,7 @@ def chunk_markdown(
     text: str, *, target_tokens: int = 8000, overlap_chars: int = 1500
 ) -> list[Chunk]:
     """Chunk staged Markdown into heading-aligned, <=target-token pieces with neighbour overlap."""
-    target_chars = max(target_tokens, 1) * _CHARS_PER_TOKEN
+    target_chars = max(target_tokens, 1) * CHARS_PER_TOKEN
     sha12 = hashlib.sha256(text.encode("utf-8")).hexdigest()[:12]
 
     pieces: list[tuple[list[str], int, str]] = []
@@ -172,7 +173,7 @@ def chunk_markdown(
                 heading_path=breadcrumb,
                 char_start=start,
                 char_end=end,
-                est_tokens=len(fed) // _CHARS_PER_TOKEN,
+                est_tokens=len(fed) // CHARS_PER_TOKEN,
                 text=fed,
             )
         )

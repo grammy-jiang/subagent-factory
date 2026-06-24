@@ -24,7 +24,10 @@ into the prompt. Pure functions, no deps. Maps onto the existing profile `knowle
 distill → `always_on`; retrieve → `skills` / `references`.
 """
 
+import argparse
+import json
 import sys
+from pathlib import Path
 
 # Attribute vocabularies (case-insensitive). Anything not recognised as the distill-favouring value
 # is treated conservatively (→ retrieve): an unknown volatility is volatile, an unknown reuse is
@@ -130,10 +133,6 @@ def partition_plan(items: list[dict]) -> dict:
 
 
 def main() -> None:
-    import argparse
-    import json
-    from pathlib import Path
-
     ap = argparse.ArgumentParser(
         description="Distill-vs-retrieve knowledge routing (Step-14 G-track, G1 — advisory)."
     )

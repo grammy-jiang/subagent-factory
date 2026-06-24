@@ -28,8 +28,10 @@ No model, no deps; pure functions. The factory's existing ``confidence: high|med
 
 from __future__ import annotations
 
-# Ordered low→high; "insufficient" is the abstention floor (K8).
-LEVELS = ("insufficient", "low", "medium", "high")
+from tools.subagent_factory._common import CONFIDENCE_LEVELS
+
+# Ordered weakest→strongest; "insufficient" is the abstention floor (K8). Shared single source.
+LEVELS = CONFIDENCE_LEVELS
 
 # Source-type → GRADE baseline level, aligned with the evidence-protocol confidence scale
 # (high = official/peer-reviewed/replicated/classic; medium = expert book / strong essay / case study;

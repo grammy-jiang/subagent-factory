@@ -21,23 +21,9 @@ from pathlib import Path
 import jsonschema
 import yaml
 
+from tools.subagent_factory.package_queries import claim_ids as _claim_ids
+
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "principles-v1.schema.json"
-
-
-def _claim_ids(base: Path) -> set[str]:
-    cp = base / "analysis" / "claims.jsonl"
-    if not cp.exists():
-        return set()
-    ids: set[str] = set()
-    for line in cp.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        try:
-            ids.add(json.loads(line)["claim_id"])
-        except (json.JSONDecodeError, KeyError):
-            continue
-    return ids
 
 
 def _evidence_claim_ids(base: Path) -> set[str]:

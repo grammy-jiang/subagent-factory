@@ -36,6 +36,15 @@ import jsonschema
 import yaml
 
 from tools.subagent_factory.generate_stubs import planned_slugs
+from tools.subagent_factory.package_queries import (
+    anchor_ids as _anchor_ids,
+)
+from tools.subagent_factory.package_queries import (
+    claim_ids as _claim_ids,
+)
+from tools.subagent_factory.package_queries import (
+    principle_ids,
+)
 
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "authored-doc-v1.schema.json"
 _STUB_MARKERS = ("STATUS: STUB", "TODO: author")
@@ -49,29 +58,6 @@ def _load_yaml(path: Path) -> dict:
         return {}
 
 
-def _principle_ids(base: Path) -> set[str]:
-    data = _load_yaml(base / "principles" / "principles.yaml")
-    return {
-        str(p.get("principle_id")) for p in (data.get("principles") or []) if p.get("principle_id")
-    }
-
-
-def _claim_ids(base: Path) -> set[str]:
-    cp = base / "analysis" / "claims.jsonl"
-    if not cp.exists():
-        return set()
-    ids: set[str] = set()
-    for line in cp.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        try:
-            ids.add(json.loads(line)["claim_id"])
-        except (json.JSONDecodeError, KeyError):
-            continue
-    return ids
-
-
 def _evidence_ids(base: Path) -> set[str]:
     data = _load_yaml(base / "evidence" / "evidence-records.yaml")
     return {
@@ -79,23 +65,6 @@ def _evidence_ids(base: Path) -> set[str]:
         for e in (data.get("evidence_records") or [])
         if e.get("evidence_id")
     }
-
-
-def _anchor_ids(base: Path) -> set[str]:
-    ids: set[str] = set()
-    anchors_dir = base / "sources" / "anchors"
-    if not anchors_dir.exists():
-        return ids
-    for af in anchors_dir.glob("*.anchors.jsonl"):
-        for line in af.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                ids.add(json.loads(line)["anchor_id"])
-            except (json.JSONDecodeError, KeyError):
-                continue
-    return ids
 
 
 def _parse_frontmatter(text: str) -> dict | None:
@@ -117,7 +86,7 @@ class _IdSets:
     """Lazily-loaded referential ID universes for provenance cross-checks."""
 
     def __init__(self, base: Path):
-        self.principles = _principle_ids(base)
+        self.principles = principle_ids(base / "principles")
         self.claims = _claim_ids(base)
         self.evidence = _evidence_ids(base)
         self.anchors = _anchor_ids(base)
