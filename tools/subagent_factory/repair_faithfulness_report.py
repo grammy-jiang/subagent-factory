@@ -13,30 +13,13 @@ the report structurally valid. Deterministic, no LLM.
 
 from __future__ import annotations
 
-import json
 import sys
 from pathlib import Path
 
 import yaml
 
+from tools.subagent_factory.package_queries import anchor_ids as _anchor_ids
 from tools.subagent_factory.validate_faithfulness_report import _ANCHOR_ID_RE
-
-
-def _anchor_ids(base: Path) -> set[str]:
-    ids: set[str] = set()
-    adir = base / "sources" / "anchors"
-    if not adir.exists():
-        return ids
-    for af in adir.glob("*.anchors.jsonl"):
-        for line in af.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                ids.add(json.loads(line)["anchor_id"])
-            except (json.JSONDecodeError, KeyError):
-                continue
-    return ids
 
 
 def _is_valid_anchor(a: str, anchors: set[str]) -> bool:

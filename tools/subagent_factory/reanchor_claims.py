@@ -29,8 +29,7 @@ import warnings
 from collections.abc import Callable
 from pathlib import Path
 
-import yaml
-
+from tools.subagent_factory.anchor_io import load_claims, write_claims_and_propagate
 from tools.subagent_factory.claim_recall import _content_tokens
 
 _WINDOW_CHARS = 320
@@ -98,12 +97,7 @@ def reanchor_claims(
 ) -> dict:
     """Re-anchor every claim whose current anchors don't resolve; propagate to evidence. Summary out."""
     base = Path(subagent_dir)
-    claims_path = base / "analysis" / "claims.jsonl"
-    claims = [
-        json.loads(line)
-        for line in claims_path.read_text(encoding="utf-8").splitlines()
-        if line.strip()
-    ]
+    claims = load_claims(base)
 
     cache: dict[str, tuple[list[tuple[str, set[str]]], dict[str, str]]] = {}
 
@@ -149,19 +143,7 @@ def reanchor_claims(
         n_empty += not chosen
 
     if write and chosen_by_claim:
-        claims_path.write_text(
-            "\n".join(json.dumps(c, ensure_ascii=False) for c in claims) + "\n", encoding="utf-8"
-        )
-        ev_path = base / "evidence" / "evidence-records.yaml"
-        if ev_path.exists():
-            ev = yaml.safe_load(ev_path.read_text(encoding="utf-8")) or {}
-            for r in ev.get("evidence_records", []) or []:
-                cid = r.get("claim_id")
-                if cid in chosen_by_claim:
-                    r["source_anchors"] = chosen_by_claim[cid]
-            ev_path.write_text(
-                yaml.safe_dump(ev, sort_keys=False, allow_unicode=True), encoding="utf-8"
-            )
+        write_claims_and_propagate(base, claims, chosen_by_claim)
     return {
         "n_claims": len(claims),
         "n_fixed": n_fixed,
