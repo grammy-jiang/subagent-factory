@@ -22,7 +22,8 @@ import re
 import sys
 from pathlib import Path
 
-import yaml
+from tools.subagent_factory.anchor_io import load_claims, write_claims_and_propagate
+from tools.subagent_factory.package_queries import anchor_ids as _all_anchor_ids
 
 _PREFIX_RE = re.compile(r"^(ch\d+|chapter\d+|appendix|app|sec\d+|section\d+)-")
 
@@ -74,12 +75,7 @@ def reanchor_by_heading(subagent_dir: str | Path, *, write: bool = True) -> dict
     headings = _heading_anchors(base)
     all_anchor_ids = _all_anchor_ids(base)
 
-    claims_path = base / "analysis" / "claims.jsonl"
-    claims = [
-        json.loads(line)
-        for line in claims_path.read_text(encoding="utf-8").splitlines()
-        if line.strip()
-    ]
+    claims = load_claims(base)
 
     chosen_by_claim: dict[str, list[str]] = {}
     n_resolved = n_unresolved = 0
@@ -103,19 +99,7 @@ def reanchor_by_heading(subagent_dir: str | Path, *, write: bool = True) -> dict
         chosen_by_claim[c["claim_id"]] = c["source_anchors"]
 
     if write and chosen_by_claim:
-        claims_path.write_text(
-            "\n".join(json.dumps(c, ensure_ascii=False) for c in claims) + "\n", encoding="utf-8"
-        )
-        ev_path = base / "evidence" / "evidence-records.yaml"
-        if ev_path.exists():
-            ev = yaml.safe_load(ev_path.read_text(encoding="utf-8")) or {}
-            for r in ev.get("evidence_records", []) or []:
-                cid = r.get("claim_id")
-                if cid in chosen_by_claim:
-                    r["source_anchors"] = chosen_by_claim[cid]
-            ev_path.write_text(
-                yaml.safe_dump(ev, sort_keys=False, allow_unicode=True), encoding="utf-8"
-            )
+        write_claims_and_propagate(base, claims, chosen_by_claim)
     n_claims_empty = sum(1 for v in chosen_by_claim.values() if not v)
     return {
         "n_resolved": n_resolved,
@@ -123,22 +107,6 @@ def reanchor_by_heading(subagent_dir: str | Path, *, write: bool = True) -> dict
         "n_claims_touched": len(chosen_by_claim),
         "n_claims_left_empty": n_claims_empty,
     }
-
-
-def _all_anchor_ids(base: Path) -> set[str]:
-    ids: set[str] = set()
-    adir = base / "sources" / "anchors"
-    if not adir.exists():
-        return ids
-    for af in adir.glob("*.anchors.jsonl"):
-        for line in af.read_text(encoding="utf-8").splitlines():
-            if not line.strip():
-                continue
-            try:
-                ids.add(json.loads(line)["anchor_id"])
-            except (json.JSONDecodeError, KeyError):
-                continue
-    return ids
 
 
 def main() -> None:
