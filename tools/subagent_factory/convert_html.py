@@ -5,6 +5,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from tools.subagent_factory._converter_common import compute_stats
 from tools.subagent_factory.conversion_quality import assess_quality
 from tools.subagent_factory.self_heal import ensure_package
 
@@ -48,7 +49,7 @@ def convert_html(source_path: str | Path, output_path: str | Path) -> dict:
     result["quality"] = quality
     result["low_quality"] = quality["low_quality"]
     result["warnings"] = warns + [f"Low conversion quality: {r}" for r in quality["reasons"]]
-    result["stats"] = _compute_stats(text)
+    result["stats"] = compute_stats(text)
     Path(output_path).write_text(text, encoding="utf-8")
     return result
 
@@ -98,13 +99,3 @@ def _clean_markdown(text: str) -> str:
     text = re.sub(r"\n{3,}", "\n\n", text)
     text = re.sub(r"[ \t]+\n", "\n", text)
     return text.strip()
-
-
-def _compute_stats(text: str) -> dict:
-    return {
-        "word_count": len(text.split()),
-        "heading_count": len(re.findall(r"^#{1,6} ", text, re.MULTILINE)),
-        "table_count": len(re.findall(r"^\|", text, re.MULTILINE)) // 2,
-        "code_block_count": text.count("```") // 2,
-        "figure_count": len(re.findall(r"!\[", text)),
-    }

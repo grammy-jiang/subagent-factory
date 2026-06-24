@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+from tools.subagent_factory._converter_common import compute_stats
 from tools.subagent_factory.conversion_quality import assess_quality
 from tools.subagent_factory.self_heal import ensure_package
 from tools.subagent_factory.table_quality import table_quality
@@ -76,7 +77,7 @@ def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:
     result["quality"] = quality
     result["low_quality"] = quality["low_quality"]
     result["warnings"] = warns + [f"Low conversion quality: {r}" for r in quality["reasons"]]
-    stats = _compute_stats(text)
+    stats = compute_stats(text)
     stats["page_count"] = page_count
     result["stats"] = stats
     if page_count and page_count >= _MIN_PAGES_FOR_HEADINGS and stats["heading_count"] == 0:
@@ -318,13 +319,3 @@ def _detect_scanned(text: str, page_count: int | None = None) -> bool:
         return len(text.split()) < _MIN_WORDS_BORN_DIGITAL
     chars_per_page = len(text) / pages
     return chars_per_page < SCANNED_CHARS_PER_PAGE
-
-
-def _compute_stats(text: str) -> dict:
-    return {
-        "word_count": len(text.split()),
-        "heading_count": len(re.findall(r"^#{1,6} ", text, re.MULTILINE)),
-        "table_count": len(re.findall(r"^\|", text, re.MULTILINE)) // 2,
-        "code_block_count": text.count("```") // 2,
-        "figure_count": len(re.findall(r"!\[", text)),
-    }

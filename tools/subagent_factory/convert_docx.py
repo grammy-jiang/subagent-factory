@@ -1,12 +1,13 @@
 """Convert DOCX to Markdown. Primary: Pandoc. Fallback: MarkItDown (self-healed)."""
 
-import re
-import subprocess
 from pathlib import Path
 from typing import Any
 
-from tools.subagent_factory.conversion_quality import assess_quality
-from tools.subagent_factory.self_heal import ensure_package
+from tools.subagent_factory._converter_common import (
+    finalize,
+    try_markitdown,
+    try_pandoc,
+)
 
 
 def convert_docx(source_path: str | Path, output_path: str | Path) -> dict:
@@ -27,9 +28,9 @@ def convert_docx(source_path: str | Path, output_path: str | Path) -> dict:
         "stats": {},
     }
 
-    text, used, warns, errs = _try_pandoc(src)
+    text, used, warns, errs = try_pandoc(src, "docx")
     if not text:
-        text2, used2, warns2, errs2 = _try_markitdown(src)
+        text2, used2, warns2, errs2 = try_markitdown(src, "DOCX conversion")
         if text2:
             text, used = text2, used2
             warns = warns2 + ["Pandoc unavailable or failed; used MarkItDown fallback"]
@@ -40,58 +41,4 @@ def convert_docx(source_path: str | Path, output_path: str | Path) -> dict:
             result["converter_used"] = "none"
             return result
 
-    return _finalize(result, text, used, warns, errs, output_path)
-
-
-def _finalize(result, text, used, warns, errs, output_path):
-    result["converter_used"] = used
-    result["errors"] = errs
-    result["markdown_text"] = text
-    quality = assess_quality(text)
-    result["quality"] = quality
-    result["low_quality"] = quality["low_quality"]
-    result["warnings"] = warns + [f"Low conversion quality: {r}" for r in quality["reasons"]]
-    result["stats"] = _compute_stats(text)
-    Path(output_path).write_text(text, encoding="utf-8")
-    return result
-
-
-def _try_pandoc(src: Path):
-    try:
-        proc = subprocess.run(
-            ["pandoc", "--from=docx", "--to=markdown", "--wrap=none", str(src)],
-            capture_output=True,
-            text=True,
-            timeout=120,
-        )
-        if proc.returncode == 0 and proc.stdout.strip():
-            return proc.stdout, "pandoc", [], []
-        return None, None, [], [f"pandoc exit {proc.returncode}: {proc.stderr[:200]}"]
-    except FileNotFoundError:
-        return None, None, [], ["pandoc not installed"]
-    except subprocess.TimeoutExpired:
-        return None, None, [], ["pandoc timed out"]
-    except Exception as e:
-        return None, None, [], [f"pandoc error: {e}"]
-
-
-def _try_markitdown(src: Path):
-    md_mod = ensure_package("markitdown", purpose="DOCX conversion")
-    if md_mod is None:
-        return None, None, [], ["markitdown not installed and could not be auto-installed"]
-    try:
-        md = md_mod.MarkItDown()
-        result = md.convert(str(src))
-        return result.text_content, "markitdown", [], []
-    except Exception as e:
-        return None, None, [], [f"markitdown error: {e}"]
-
-
-def _compute_stats(text: str) -> dict:
-    return {
-        "word_count": len(text.split()),
-        "heading_count": len(re.findall(r"^#{1,6} ", text, re.MULTILINE)),
-        "table_count": len(re.findall(r"^\|", text, re.MULTILINE)) // 2,
-        "code_block_count": text.count("```") // 2,
-        "figure_count": len(re.findall(r"!\[", text)),
-    }
+    return finalize(result, text, used, warns, errs, output_path)
