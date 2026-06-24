@@ -1,0 +1,755 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: 'Treat a fast, self-checking, self-testing suite as a prerequisite for
+    refactoring: automate the tests, make them check their own results, run them frequently,
+    and confirm each test can fail when it should.'
+  derived_from_claims:
+  - C00256
+  - C00542
+  - C00573
+  - C00574
+  - C00652
+  - C00653
+  - C00654
+  - C00705
+  - C00745
+  - C00746
+  - C00748
+  - C00749
+  confidence: high
+  applies_when:
+  - a system that will undergo ongoing change and refactoring
+  - About to refactor any non-trivial code.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Write for the reader, not the writer: code is read far more than written,
+    so judge clarity from the viewpoint of another programmer who knows nothing about
+    the system, and make code obvious with good names, consistency, and structure-revealing
+    whitespace.'
+  derived_from_claims:
+  - C00242
+  - C00244
+  - C00247
+  - C00249
+  - C00353
+  - C00354
+  - C00355
+  - C00363
+  - C00365
+  - C00371
+  - C00372
+  - C00373
+  - C00374
+  - C00376
+  - C00377
+  confidence: high
+  applies_when:
+  - writing or reviewing code for readability
+  - writing code, documentation, or interfaces others will read
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: 'Make testing risk-driven and bug-finding: concentrate tests on complex
+    code and boundary/corner cases, start a bug fix by writing a failing test that
+    exposes it, and judge a suite by confidence that a defect would trip a test rather
+    than by coverage percentage.'
+  derived_from_claims:
+  - C00607
+  - C00633
+  - C00634
+  - C00635
+  - C00636
+  - C00637
+  - C00638
+  - C00751
+  - C00754
+  - C00755
+  - C00756
+  - C00758
+  - C00759
+  - C00760
+  - C00761
+  confidence: high
+  applies_when:
+  - Deciding what and how much to test.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Name variables, functions, and classes with intention-revealing, unambiguous,
+    pronounceable, searchable names that say why they exist, what they do, and how
+    they are used; if a name needs a comment to be understood, it has failed.
+  derived_from_claims:
+  - C00459
+  - C00460
+  - C00461
+  - C00462
+  - C00463
+  - C00465
+  - C00632
+  - C00665
+  - C00666
+  - C00667
+  - C00719
+  - C00768
+  - C00771
+  - C00795
+  confidence: high
+  applies_when:
+  - any time you introduce or read a name in code
+  - A name does not clearly communicate the purpose of the thing it names.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: 'Prefer small, well-named functions that separate intention from implementation:
+    extract a fragment into a function named after what it does whenever you would
+    otherwise write a comment, and inline functions whose indirection no longer earns
+    its keep.'
+  derived_from_claims:
+  - C00475
+  - C00476
+  - C00477
+  - C00478
+  - C00479
+  - C00480
+  - C00661
+  - C00721
+  - C00722
+  - C00743
+  - C00764
+  - C00765
+  confidence: high
+  applies_when:
+  - A function is long, or a fragment needs a comment to be understood.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: 'Optimize for changeability and leave the codebase healthier than you
+    found it: the real test of good code is how easily it can be changed, so favor
+    clarity over brevity and write primarily for the future human reader.'
+  derived_from_claims:
+  - C00220
+  - C00221
+  - C00222
+  - C00223
+  - C00674
+  - C00675
+  - C00677
+  - C00680
+  - C00682
+  - C00683
+  - C00684
+  confidence: high
+  applies_when:
+  - fixing a bug or adding a feature in an existing code base
+  - Making any change to a long-lived codebase.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: 'Simplify conditional logic: decompose complex conditions into intention-named
+    functions, use guard clauses for unusual cases, and replace type-code switching
+    with polymorphism — reserving polymorphism for type-based or base-plus-variant
+    cases rather than converting every conditional.'
+  derived_from_claims:
+  - C00481
+  - C00482
+  - C00621
+  - C00672
+  - C00731
+  - C00799
+  - C00800
+  - C00801
+  - C00802
+  - C00803
+  - C00819
+  confidence: high
+  applies_when:
+  - Conditional logic is complex, or the same type-based switch is duplicated across
+    functions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Use OO mechanisms, inheritance, and design patterns only where they reduce
+    complexity; prefer composition over implementation inheritance and avoid exposing
+    instance variables.
+  derived_from_claims:
+  - C00250
+  - C00252
+  - C00253
+  - C00259
+  - C00260
+  - C00826
+  - C00827
+  - C00828
+  - C00829
+  confidence: high
+  applies_when:
+  - choosing OO structuring, inheritance, or a design pattern
+  - choosing between subclassing and composition for reuse
+  - behaviour must be changeable at run time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: 'Separate constructing a system from using it: move object construction
+    and dependency wiring into main, factories, or a dependency-injection container
+    so application objects stay passive and unaware of how they were built.'
+  derived_from_claims:
+  - C00560
+  - C00561
+  - C00562
+  - C00563
+  - C00838
+  - C00842
+  - C00843
+  - C00844
+  - C00845
+  confidence: high
+  applies_when:
+  - object creation must be independent of the concrete product classes
+  - families of products or construction steps vary
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: 'Eliminate duplicated knowledge so the system says everything once and
+    only once: fold identical code into a method, repeated conditionals into polymorphism,
+    and similar algorithms into a Template Method or Strategy.'
+  derived_from_claims:
+  - C00450
+  - C00493
+  - C00575
+  - C00609
+  - C00650
+  - C00681
+  - C00720
+  - C00789
+  - C00805
+  confidence: high
+  applies_when:
+  - The same logic or structure appears in more than one place.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Be only as generic as present known needs require; treat any design that
+    adds complexity instead of removing it as overengineering.
+  derived_from_claims:
+  - C00116
+  - C00327
+  - C00328
+  - C00329
+  confidence: high
+  applies_when:
+  - introducing any new design element
+  - deciding how generic or abstract to make a design
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: 'Refactor when change demands it: refactor first to make a feature or
+    bug fix easy (preparatory), refactor to understand unfamiliar code (comprehension),
+    remove duplication by the rule of three, and fold refactoring opportunistically
+    into everyday work because software is never done.'
+  derived_from_claims:
+  - C00646
+  - C00647
+  - C00649
+  - C00685
+  - C00686
+  - C00687
+  - C00688
+  - C00689
+  - C00690
+  - C00691
+  - C00692
+  confidence: high
+  applies_when:
+  - Adding a feature, fixing a bug, or trying to understand code.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: 'Manage inheritance deliberately: pull common members up and push specific
+    members down, remove subclasses that no longer earn their keep, and replace subclassing
+    with delegation when you need more than one axis of variation or the subclass
+    is not a true subtype — favoring composition over inheritance.'
+  derived_from_claims:
+  - C00742
+  - C00814
+  - C00815
+  - C00816
+  - C00817
+  - C00818
+  - C00820
+  - C00821
+  - C00822
+  - C00823
+  - C00824
+  confidence: high
+  applies_when:
+  - A class hierarchy has duplication, misused inheritance, or a subclass that refuses
+    its parent's interface.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: 'Keep surviving comments truthful, brief, and local: delete redundant,
+    mandated, noise, obsolete, journal, and authorship comments and all commented-out
+    code, and let source control hold history; reserve comments for technical notes
+    the code cannot express.'
+  derived_from_claims:
+  - C00497
+  - C00501
+  - C00502
+  - C00503
+  - C00504
+  - C00505
+  - C00506
+  - C00599
+  - C00600
+  - C00601
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: 'Co-locate behavior with the data it uses and cut inappropriate coupling
+    between modules: move a function or field to the data it most references, and
+    reduce excessive chatting between modules (feature envy, message chains, middle
+    man, insider trading) with moves, delegation hiding, or a shared module.'
+  derived_from_claims:
+  - C00726
+  - C00727
+  - C00728
+  - C00736
+  - C00737
+  - C00738
+  - C00782
+  - C00783
+  - C00785
+  - C00786
+  confidence: medium
+  applies_when:
+  - A function interacts with another module's data more than its own, or modules
+    trade too much detail.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Refactor in tiny behavior-preserving steps, compiling and running the
+    tests after each step and committing after each success; when a step breaks the
+    tests and the cause is not obvious, revert to the last green commit and redo with
+    smaller steps.
+  derived_from_claims:
+  - C00645
+  - C00655
+  - C00656
+  - C00657
+  - C00658
+  - C00659
+  - C00660
+  - C00750
+  - C00763
+  confidence: high
+  applies_when:
+  - Restructuring existing, working code under a test suite.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Apply one agreed team formatting style enforced by a tool, keep source
+    files small, and structure each file newspaper-style with high-level concepts
+    first, vertical openness between concepts, vertical closeness of related code,
+    and short lines.
+  derived_from_claims:
+  - C00507
+  - C00508
+  - C00509
+  - C00510
+  - C00511
+  - C00512
+  - C00513
+  - C00515
+  - C00516
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Keep classes small and single-responsibility (exactly one reason to change),
+    measured by counting responsibilities; prefer many small, highly cohesive classes
+    over a few large ones, and split a class when its cohesion drops.
+  derived_from_claims:
+  - C00549
+  - C00550
+  - C00551
+  - C00552
+  - C00553
+  - C00554
+  - C00555
+  - C00556
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: 'Minimize and encapsulate mutable and global data: route access through
+    functions, restrict scope, prefer immutability, remove setters for fields that
+    should not change, and replace derived variables with queries.'
+  derived_from_claims:
+  - C00670
+  - C00724
+  - C00725
+  - C00770
+  - C00776
+  - C00777
+  - C00796
+  - C00810
+  confidence: high
+  applies_when:
+  - Data is mutable and accessed beyond a very small scope.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Form classes or transforms around a common body of data, split classes
+    that have grown too big, and create first-class domain types for primitives that
+    have gained behavior.
+  derived_from_claims:
+  - C00730
+  - C00739
+  - C00773
+  - C00774
+  - C00776
+  - C00778
+  - C00780
+  - C00781
+  confidence: medium
+  applies_when:
+  - A group of functions share data, a class does too much, or a primitive needs behavior
+    beyond printing.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Evaluate any technology for survival potential, interoperability, and
+    attention to quality, preferring broadly adopted, standard-based options to avoid
+    lock-in.
+  derived_from_claims:
+  - C00401
+  - C00402
+  - C00403
+  - C00404
+  - C00405
+  - C00406
+  - C00407
+  confidence: high
+  applies_when:
+  - selecting a library, language, database, or other dependency
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Prefer throwing exceptions to returning error codes, write the try-catch-finally
+    scope first, give every exception enough context to locate and log it, classify
+    exceptions by how they are caught, and prefer unchecked exceptions in general
+    application code.
+  derived_from_claims:
+  - C00491
+  - C00492
+  - C00527
+  - C00528
+  - C00529
+  - C00530
+  - C00531
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: 'Keep test code as clean as production code: readable above all, one
+    concept per test with minimal asserts, built-operate-check structure, a domain-specific
+    testing language, and F.I.R.S.T. (fast, independent, repeatable, self-validating,
+    timely).'
+  derived_from_claims:
+  - C00541
+  - C00543
+  - C00544
+  - C00545
+  - C00546
+  - C00547
+  - C00548
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: 'Optimize for readability, since code is read far more than it is written:
+    make intent visible with good names, small functions, explanatory variables, and
+    conditionals encapsulated in intent-revealing positive predicates.'
+  derived_from_claims:
+  - C00446
+  - C00447
+  - C00455
+  - C00576
+  - C00618
+  - C00625
+  - C00626
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Treat patterns as a shared vocabulary and as targets for refactoring;
+    classify a recurring problem by purpose (creational/structural/behavioral) and
+    scope (class/object) to narrow the candidate patterns.
+  derived_from_claims:
+  - C00836
+  - C00837
+  - C00838
+  - C00839
+  - C00840
+  - C00841
+  - C00884
+  confidence: high
+  applies_when:
+  - selecting, communicating, or refactoring toward a design solution for a recurring
+    problem
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: 'Write clean code by successive refinement under a covering test suite:
+    first make it work, then make it right, refactoring in many tiny verified steps
+    and stopping to fix the structure before a mess grows too large, never via a big-bang
+    rewrite.'
+  derived_from_claims:
+  - C00574
+  - C00592
+  - C00593
+  - C00594
+  - C00597
+  - C00598
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Optimize design to minimize long-term maintenance effort rather than
+    implementation effort, since over a system's lifetime maintenance dominates the
+    desirability of changes.
+  derived_from_claims:
+  - C00303
+  - C00304
+  - C00305
+  - C00306
+  - C00307
+  - C00308
+  confidence: high
+  applies_when:
+  - the software will be maintained over a long lifetime
+  - evaluating or designing a change for a long-lived system
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: When complexity appears, look for the underlying design error, redesign
+    pieces in small steps without adding complexity, and hide truly unfixable complexity
+    behind a simple wrapper.
+  derived_from_claims:
+  - C00409
+  - C00410
+  - C00415
+  - C00416
+  - C00417
+  - C00423
+  confidence: high
+  applies_when:
+  - a part of the system has become hard to change or extend
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Minimize function arguments (zero, then one, then two; avoid three or
+    more), forbid flag/boolean arguments by splitting the function, avoid output arguments
+    by mutating the owning object, and wrap groups of related arguments in a class.
+  derived_from_claims:
+  - C00483
+  - C00484
+  - C00485
+  - C00486
+  - C00487
+  - C00488
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: It is not enough for code to work; keep it clean continuously and leave
+    every module cleaner than you found it (the Boy Scout Rule), because deferred
+    cleanup never happens and bad code rots into a weight that drags the team down.
+  derived_from_claims:
+  - C00438
+  - C00439
+  - C00453
+  - C00456
+  - C00595
+  - C00596
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: 'Pursue performance by writing well-factored, tunable code first and
+    optimizing last: measure with a profiler instead of speculating, target the small
+    fraction of hot-spot code, and tune in small measured steps, backing out changes
+    that do not help.'
+  derived_from_claims:
+  - C00668
+  - C00669
+  - C00713
+  - C00714
+  - C00715
+  - C00716
+  confidence: high
+  applies_when:
+  - Improving the speed of a program.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Avoid name encodings (Hungarian notation, member or interface prefixes)
+    and gratuitous context, size a name to its scope, name classes as nouns and methods
+    as verbs, and rename freely with tools when a better name appears.
+  derived_from_claims:
+  - C00464
+  - C00466
+  - C00467
+  - C00468
+  - C00473
+  - C00474
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: 'Be precise and prefer structure to convention: handle nulls, currency,
+    locking, and type constraints deliberately, prefer nonstatic to static, keep interfaces
+    minimal, avoid artificial coupling, and delete dead code and clutter.'
+  derived_from_claims:
+  - C00604
+  - C00612
+  - C00614
+  - C00617
+  - C00623
+  - C00624
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: 'Keep parameter lists short and meaningful: combine data clumps into
+    a parameter object, pass a whole record instead of several of its fields, replace
+    a flag argument with explicit functions, and drop a parameter the function could
+    compute itself.'
+  derived_from_claims:
+  - C00723
+  - C00729
+  - C00772
+  - C00806
+  - C00807
+  - C00808
+  confidence: medium
+  applies_when:
+  - A function has a long parameter list or a flag/derivable argument.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
