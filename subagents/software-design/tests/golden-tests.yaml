@@ -1,0 +1,94 @@
+schema_version: golden-tests-v1
+subagent_slug: software-design
+generated_at: '2026-06-20'
+profile_version: 0.1.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — review mode. A shallow class with a complex interface relative to its functionality. Covers P028 (complexity), P019 (deep modules), P019 (pass-through / classitis).
+  prompt: Review this Java class. ConfigManager has 14 public getters/setters that each just read or write one field on an internal Properties object, plus a load() and save(). Callers must call six setters in the right order before save() works. Is this a good design?
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for: []
+  minimum_output: Names the shallow module / pass-through red flag and the ordering dependency as the costliest issues, cites the deep-module and information-hiding principles, and recommends a deeper interface that absorbs the ordering, without adding speculative configuration.
+  principle_coverage:
+  - P028
+  - P019
+- test_id: GT-002
+  description: Positive routing — compare mode (design it twice). Covers P027 (Equation), P030 (design it twice), P011 (reject speculative generality).
+  prompt: We are designing the storage layer for a 5-year service. Option A is a small interface tailored to our two current query types. Option B is a generic query-builder that supports arbitrary queries we might need someday. Which should we pick?
+  expected_route: invoke
+  expected_mode: compare
+  must_ask_for: []
+  minimum_output: Ranks the options by value over future maintenance effort, prefers the bounded Option A on present-need grounds, and flags Option B's generic builder as speculative generality unless a present requirement demands it.
+  principle_coverage:
+  - P027
+  - P011
+  - P030
+  - P025
+- test_id: GT-003
+  description: Positive routing — review mode for code smells + refactoring. Covers P012 (smells), P005 (small functions), P010 (DRY), P001 (tests gate refactoring).
+  prompt: This 180-line processOrder() function validates input, computes pricing, writes to the database, and sends email, with three nested levels of duplicated tax logic. How should we improve it?
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for: []
+  minimum_output: Names long-function, duplicated-code, and divergent-change smells, recommends extract-function and de-duplication refactorings ordered most-costly first, and requires a test suite be in place before behaviour-changing restructuring.
+  principle_coverage:
+  - P012
+  - P005
+  - P010
+  - P001
+- test_id: GT-004
+  description: Positive routing — advise mode for decoupling. Covers P008 (program to an interface / composition), P019 (information hiding), P006 (design for change).
+  prompt: Our PaymentProcessor directly instantiates StripeClient everywhere and we now need to add PayPal and a test double. What is the design problem and how do we fix it?
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for: []
+  minimum_output: Diagnoses the concrete-dependency / change-amplification problem, recommends programming to a payment interface and injecting the implementation (composition), and ties the fix to localising change, without over-engineering a plugin framework.
+  principle_coverage:
+  - P008
+  - P019
+  - P006
+- test_id: GT-005
+  description: Positive routing — validate mode. Covers P011 (three flaws gate), P025 (patterns judiciously), P028 (complexity).
+  prompt: 'Gate this proposal against our design checklist: add an AbstractStrategyFactory with plug-in registration so that future teams can swap the discount algorithm, even though we only have one discount rule today.'
+  expected_route: invoke
+  expected_mode: validate
+  must_ask_for: []
+  minimum_output: Flags the proposal against the three-flaws and apply-patterns-judiciously criteria as speculative generality for a single present rule, and returns a redesign verdict recommending the simplest direct implementation now.
+  principle_coverage:
+  - P011
+  - P025
+  - P028
+negative_routing_tests:
+- test_id: NR-001
+  description: Out of scope — pure runtime performance tuning with no structural-design question.
+  prompt: Our endpoint takes 800ms. Profile shows 70% of time in a JSON serializer. Which faster serialization library or buffer size should we switch to?
+  expected_route: do_not_invoke
+  expected_mode: null
+  must_ask_for: []
+  minimum_output: Declines as a measurement-and-optimisation performance task outside design review, and suggests a performance-engineering resource.
+  principle_coverage:
+  - P011
+- test_id: NR-002
+  description: Out of scope — product/business roadmap decision (what to build, not how).
+  prompt: Should our next quarter prioritise the mobile app or the analytics dashboard for revenue growth?
+  expected_route: do_not_invoke
+  expected_mode: null
+  must_ask_for: []
+  minimum_output: Declines as a product-roadmap / business-requirements decision, not a software-structure question.
+  principle_coverage:
+  - P027
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified — a design-review request with no artefact or requirements attached.
+  prompt: Can you review our design and tell us if it is well structured?
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for:
+  - The concrete artefact under review (code, interface signatures, or a design document).
+  - The present known requirements driving the design.
+  - The anticipated lifetime of the system and any symptoms already observed.
+  minimum_output: Asks for the artefact, present requirements, and system lifetime before attempting a critique.
+  principle_coverage:
+  - P027
