@@ -72,6 +72,29 @@ def _table_caption(prior_lines: list[str]) -> str:
     return ""
 
 
+def _make_anchor(
+    anchor_id: str,
+    source_id: str,
+    anchor_type: str,
+    text: str,
+    line_number: int,
+    *,
+    level: int | None = None,
+    page_number: int | None = None,
+) -> dict:
+    """One ``source_anchor_v1`` record. ``level`` is set for headings; ``page_number`` for pages."""
+    return {
+        "schema_version": "source_anchor_v1",
+        "anchor_id": anchor_id,
+        "source_id": source_id,
+        "anchor_type": anchor_type,
+        "level": level,
+        "text": text,
+        "line_number": line_number,
+        "page_number": page_number,
+    }
+
+
 def inject_anchors(
     markdown_path: str | Path,
     output_md_path: str | Path,
@@ -123,16 +146,13 @@ def inject_anchors(
             caption = _table_caption(output_lines)  # H2: nearest preceding Table/Figure caption
             anchor_id = f"{source_id}-t{anchor_counter:04d}"
             anchor_counter += 1
-            rec = {
-                "schema_version": "source_anchor_v1",
-                "anchor_id": anchor_id,
-                "source_id": source_id,
-                "anchor_type": "table",
-                "level": None,
-                "text": f"{caption} {_strip_html(line)}".strip()[:600],
-                "line_number": line_num,
-                "page_number": None,
-            }
+            rec = _make_anchor(
+                anchor_id,
+                source_id,
+                "table",
+                f"{caption} {_strip_html(line)}".strip()[:600],
+                line_num,
+            )
             anchors.append(rec)
             output_lines.append(f"<!-- anchor:{anchor_id} -->")
             output_lines.append(line)
@@ -152,16 +172,7 @@ def inject_anchors(
             anchor_id = f"{source_id}-h{anchor_counter:04d}"
             anchor_counter += 1
             anchors.append(
-                {
-                    "schema_version": "source_anchor_v1",
-                    "anchor_id": anchor_id,
-                    "source_id": source_id,
-                    "anchor_type": "heading",
-                    "level": level,
-                    "text": text_content,
-                    "line_number": line_num,
-                    "page_number": None,
-                }
+                _make_anchor(anchor_id, source_id, "heading", text_content, line_num, level=level)
             )
             output_lines.append(f"<!-- anchor:{anchor_id} -->")
             output_lines.append(line)
@@ -171,16 +182,13 @@ def inject_anchors(
             anchor_id = f"{source_id}-f{anchor_counter:04d}"
             anchor_counter += 1
             anchors.append(
-                {
-                    "schema_version": "source_anchor_v1",
-                    "anchor_id": anchor_id,
-                    "source_id": source_id,
-                    "anchor_type": "figure",
-                    "level": None,
-                    "text": alt_text or f"figure at line {line_num}",
-                    "line_number": line_num,
-                    "page_number": None,
-                }
+                _make_anchor(
+                    anchor_id,
+                    source_id,
+                    "figure",
+                    alt_text or f"figure at line {line_num}",
+                    line_num,
+                )
             )
             output_lines.append(f"<!-- anchor:{anchor_id} -->")
             output_lines.append(line)
@@ -190,16 +198,13 @@ def inject_anchors(
             anchor_id = f"{source_id}-c{anchor_counter:04d}"
             anchor_counter += 1
             anchors.append(
-                {
-                    "schema_version": "source_anchor_v1",
-                    "anchor_id": anchor_id,
-                    "source_id": source_id,
-                    "anchor_type": "code_block",
-                    "level": None,
-                    "text": f"code block ({lang}) at line {line_num}",
-                    "line_number": line_num,
-                    "page_number": None,
-                }
+                _make_anchor(
+                    anchor_id,
+                    source_id,
+                    "code_block",
+                    f"code block ({lang}) at line {line_num}",
+                    line_num,
+                )
             )
             output_lines.append(f"<!-- anchor:{anchor_id} -->")
             output_lines.append(line)
@@ -215,16 +220,14 @@ def inject_anchors(
             page_num = int(pm.group(1))
             anchor_id = f"{source_id}-p{page_num:04d}"
             anchors.append(
-                {
-                    "schema_version": "source_anchor_v1",
-                    "anchor_id": anchor_id,
-                    "source_id": source_id,
-                    "anchor_type": "page",
-                    "level": None,
-                    "text": f"page {page_num}",
-                    "line_number": line_idx + 1,
-                    "page_number": page_num,
-                }
+                _make_anchor(
+                    anchor_id,
+                    source_id,
+                    "page",
+                    f"page {page_num}",
+                    line_idx + 1,
+                    page_number=page_num,
+                )
             )
 
     # Paragraph fallback: a structureless conversion (e.g. markitdown flattening a PDF to
@@ -266,16 +269,7 @@ def inject_anchors(
                 anchor_id = f"{source_id}-t{anchor_counter:04d}"
                 anchor_counter += 1
                 anchors.append(
-                    {
-                        "schema_version": "source_anchor_v1",
-                        "anchor_id": anchor_id,
-                        "source_id": source_id,
-                        "anchor_type": "paragraph",
-                        "level": None,
-                        "text": stripped[:120],
-                        "line_number": line_idx + 1,
-                        "page_number": None,
-                    }
+                    _make_anchor(anchor_id, source_id, "paragraph", stripped[:120], line_idx + 1)
                 )
                 output_lines.append(f"<!-- anchor:{anchor_id} -->")
                 chars_since = 0
