@@ -23,6 +23,8 @@ from pathlib import Path
 import jsonschema
 import yaml
 
+from tools.subagent_factory.package_queries import anchor_ids as _anchor_ids
+
 _SCHEMA_PATH = (
     Path(__file__).parent.parent.parent / "schemas" / "faithfulness-report-v1.schema.json"
 )
@@ -95,23 +97,6 @@ def _resolve_rule_ref(profile: dict, ref: str) -> tuple[str, str]:
                 return "miss", f"no element name='{idx}' in '{name}'"
             cur = el
     return "ok", ""
-
-
-def _anchor_ids(base: Path) -> set[str]:
-    ids: set[str] = set()
-    anchors_dir = base / "sources" / "anchors"
-    if not anchors_dir.exists():
-        return ids
-    for af in anchors_dir.glob("*.anchors.jsonl"):
-        for line in af.read_text(encoding="utf-8").splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                ids.add(json.loads(line)["anchor_id"])
-            except (json.JSONDecodeError, KeyError):
-                continue
-    return ids
 
 
 def validate_faithfulness_report(report_path: str | Path) -> list[str]:
