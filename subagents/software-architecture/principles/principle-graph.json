@@ -1,0 +1,234 @@
+{
+  "schema_version": "principle-graph-v1",
+  "subagent_slug": "software-architecture",
+  "edges": [
+    {
+      "source": "P044",
+      "target": "P025",
+      "relation": "refines",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Acyclic dependency management is a concrete mechanism for the operational coupling rule."
+    },
+    {
+      "source": "P038",
+      "target": "P025",
+      "relation": "refines",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Minimizing cross-boundary connascence refines the coupling rule."
+    },
+    {
+      "source": "P001",
+      "target": "P025",
+      "relation": "supports",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      }
+    },
+    {
+      "source": "P041",
+      "target": "P040",
+      "relation": "supports",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Depending on abstractions (DIP) makes the inward Dependency Rule achievable."
+    },
+    {
+      "source": "P044",
+      "target": "P040",
+      "relation": "supports",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "medium",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      }
+    },
+    {
+      "source": "P008",
+      "target": "P006",
+      "relation": "supports",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Rejecting silver bullets follows from treating every choice as a trade-off."
+    },
+    {
+      "source": "P021",
+      "target": "P006",
+      "relation": "refines",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Style selection applies the trade-off principle at the top level."
+    },
+    {
+      "source": "P037",
+      "target": "P021",
+      "relation": "refines",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Pattern selection refines style selection to the pattern level."
+    },
+    {
+      "source": "P022",
+      "target": "P015",
+      "relation": "refines",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Classifying a concern as a characteristic refines the measurable-definition rule."
+    },
+    {
+      "source": "P036",
+      "target": "P015",
+      "relation": "supports",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Keeping the driving set small supports defining each characteristic precisely."
+    },
+    {
+      "source": "P024",
+      "target": "P039",
+      "relation": "supports",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Composing through events supports asynchronous decoupling."
+    },
+    {
+      "source": "P069",
+      "target": "P039",
+      "relation": "specializes",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Messaging is a specific form of asynchronous communication."
+    },
+    {
+      "source": "P049",
+      "target": "P039",
+      "relation": "refines",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "medium",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "CQRS's async channel refines asynchronous decoupling."
+    },
+    {
+      "source": "P017",
+      "target": "P003",
+      "relation": "specializes",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "X-axis cloning is a specific mechanism for horizontal scalability."
+    },
+    {
+      "source": "P057",
+      "target": "P003",
+      "relation": "specializes",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Y/Z-axis swimlanes are a specific decomposition for horizontal scalability."
+    },
+    {
+      "source": "P054",
+      "target": "P003",
+      "relation": "supports",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "medium",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      }
+    },
+    {
+      "source": "P033",
+      "target": "P011",
+      "relation": "refines",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "medium",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Pushing caching to the edge refines reverse-proxy page caching."
+    },
+    {
+      "source": "P019",
+      "target": "P011",
+      "relation": "specializes",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "medium",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Cacheable Ajax responses specialize page caching to XHR."
+    },
+    {
+      "source": "P063",
+      "target": "P009",
+      "relation": "supports",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Aggregating and monitoring metrics supports the measure-before-acting rule."
+    },
+    {
+      "source": "P010",
+      "target": "P009",
+      "relation": "supports",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "high",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      }
+    },
+    {
+      "source": "P026",
+      "target": "P013",
+      "relation": "conflicts",
+      "provenance": {
+        "method": "llm-confirmed",
+        "confidence": "medium",
+        "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+      },
+      "note": "Both concern cross-boundary transactions, at different scopes.",
+      "resolution": "Scoped: P013 forbids application-level transactions across heterogeneous service boundaries; P026's exactly-once is confined to a Kafka-only message chain, so they do not actually contradict."
+    }
+  ]
+}

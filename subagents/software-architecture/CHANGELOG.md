@@ -2,6 +2,16 @@
 
 All notable changes to this generated subagent package are recorded here.
 
+## 1.2.0 — 2026-06-24
+
+- Added the Step-7 **C-track principle graph**: `principles/principle-clusters.json` (6 cross-source
+  confirmed clusters — concurrency, coupling, distributed-transactions, architecture-characteristics,
+  style-pattern-selection, async-decoupling), `principles/principle-graph.json` (21 typed
+  alias/refines/specializes/supports/conflicts edges, including one scoped `conflicts` edge), and the
+  rendered `principles/conflict-log.md`. Closes the C-track artifacts the base validate did not require
+  but `validate_principle_clusters` / `validate_principle_graph` flagged on absence. Auxiliary —
+  adapter behaviour unchanged. `agent_version` `1.1.0` → `1.2.0`.
+
 ## 1.1.0 — 2026-06-24
 
 **Calibrated 0.25× rebuild** (branch `rebuild/software-architecture-v2`).
