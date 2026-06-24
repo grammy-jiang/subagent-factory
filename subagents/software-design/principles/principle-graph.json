@@ -1,0 +1,205 @@
+{
+ "schema_version": "principle-graph-v1",
+ "subagent_slug": "software-design",
+ "edges": [
+  {
+   "source": "P024",
+   "target": "P002",
+   "relation": "alias",
+   "note": "Both state that code is read far more than written, so clarity is judged from the reader.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P030",
+   "target": "P006",
+   "relation": "alias",
+   "note": "Boy Scout Rule (leave each module cleaner) restates leaving the codebase healthier than found.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P032",
+   "target": "P004",
+   "relation": "refines",
+   "note": "Avoiding name encodings and sizing names to scope is concrete guidance under intention-revealing naming.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P034",
+   "target": "P029",
+   "relation": "refines",
+   "note": "Bundling related parameters into a parameter object is a mechanism for minimizing arguments.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P016",
+   "target": "P012",
+   "relation": "refines",
+   "note": "Tiny behaviour-preserving steps with tests is the mechanism for refactoring when change demands it.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P023",
+   "target": "P030",
+   "relation": "specializes",
+   "note": "Keeping test code as clean as production code specializes keep-it-clean-continuously to tests.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P001",
+   "target": "P016",
+   "relation": "supports",
+   "note": "A fast self-checking test suite is the safety net that makes tiny-step refactoring possible.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P003",
+   "target": "P001",
+   "relation": "supports",
+   "note": "Risk-driven, bug-finding testing supports maintaining a trustworthy self-testing suite.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P004",
+   "target": "P024",
+   "relation": "supports",
+   "note": "Intention-revealing names make intent visible, supporting readability.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P005",
+   "target": "P024",
+   "relation": "supports",
+   "note": "Small, well-named functions that separate intention from implementation support readability.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P017",
+   "target": "P024",
+   "relation": "supports",
+   "note": "Consistent formatting and newspaper-style file structure support readability.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P025",
+   "target": "P008",
+   "relation": "supports",
+   "note": "Treating patterns as shared vocabulary and refactoring targets supports using patterns only where they reduce complexity.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P019",
+   "target": "P008",
+   "relation": "supports",
+   "note": "Encapsulating mutable and global data supports composition-based OO design.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P028",
+   "target": "P027",
+   "relation": "supports",
+   "note": "Redesigning when complexity appears supports minimizing long-term maintenance effort.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P011",
+   "target": "P027",
+   "relation": "supports",
+   "note": "Building only as generic as present needs require supports minimizing long-term maintenance effort.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P012",
+   "target": "P006",
+   "relation": "supports",
+   "note": "Refactoring when change demands it supports optimizing for changeability.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P026",
+   "target": "P030",
+   "relation": "supports",
+   "note": "Writing clean code by successive refinement supports keeping code clean continuously.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   }
+  },
+  {
+   "source": "P025",
+   "target": "P011",
+   "relation": "conflicts",
+   "note": "Pattern enthusiasm (apply patterns, build a pattern vocabulary) can pull toward speculative generality, which the only-as-generic-as-present-needs rule rejects.",
+   "provenance": {
+    "method": "llm-confirmed",
+    "confidence": "high",
+    "was_attributed_to": "in-thread C-track Phase-C edge authoring"
+   },
+   "resolution": "Scope by present need: introduce a pattern only when a problem actually recurs now (refactor TO patterns), never speculatively. With that gate both rules agree."
+  }
+ ]
+}
