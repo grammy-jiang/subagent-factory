@@ -340,7 +340,9 @@ principles:
   - C00600
   - C00601
   confidence: high
-  applies_when: []
+  applies_when:
+  - Reviewing comments or commented-out code in a change.
+  - Deciding whether a comment earns its place or should be deleted.
   operational_mapping:
     profile_rule: true
     skill: null
@@ -408,7 +410,9 @@ principles:
   - C00515
   - C00516
   confidence: medium
-  applies_when: []
+  applies_when:
+  - Reviewing source-file formatting, size, or vertical layout.
+  - A team is agreeing on a formatting style or file organisation.
   operational_mapping:
     profile_rule: true
     skill: null
@@ -430,7 +434,9 @@ principles:
   - C00555
   - C00556
   confidence: high
-  applies_when: []
+  applies_when:
+  - Reviewing a class that may have more than one reason to change.
+  - Deciding whether to split a large or low-cohesion class.
   operational_mapping:
     profile_rule: true
     skill: null
@@ -515,7 +521,9 @@ principles:
   - C00530
   - C00531
   confidence: high
-  applies_when: []
+  applies_when:
+  - Reviewing error-handling or exception design in a change.
+  - Deciding how a function should signal and propagate failure.
   operational_mapping:
     profile_rule: true
     skill: null
@@ -534,7 +542,9 @@ principles:
   - C00547
   - C00548
   confidence: high
-  applies_when: []
+  applies_when:
+  - Reviewing test code for readability and structure.
+  - A test suite is slow, brittle, or hard to read.
   operational_mapping:
     profile_rule: true
     skill: null
@@ -553,7 +563,9 @@ principles:
   - C00625
   - C00626
   confidence: high
-  applies_when: []
+  applies_when:
+  - Reviewing code that is hard to read or follow.
+  - Deciding between a clever and a readable implementation.
   operational_mapping:
     profile_rule: true
     skill: null
@@ -591,7 +603,9 @@ principles:
   - C00597
   - C00598
   confidence: high
-  applies_when: []
+  applies_when:
+  - Cleaning up or restructuring working-but-messy code.
+  - Deciding between incremental refactoring and a big-bang rewrite.
   operational_mapping:
     profile_rule: true
     skill: null
@@ -652,7 +666,9 @@ principles:
   - C00487
   - C00488
   confidence: high
-  applies_when: []
+  applies_when:
+  - Reviewing a function with a long or flag-laden parameter list.
+  - Deciding how to group or reduce a function's arguments.
   operational_mapping:
     profile_rule: true
     skill: null
@@ -670,7 +686,9 @@ principles:
   - C00595
   - C00596
   confidence: high
-  applies_when: []
+  applies_when:
+  - Deciding whether to leave touched code cleaner than found.
+  - A module is accumulating deferred cleanup.
   operational_mapping:
     profile_rule: true
     skill: null
@@ -707,7 +725,9 @@ principles:
   - C00473
   - C00474
   confidence: medium
-  applies_when: []
+  applies_when:
+  - Reviewing names that use encodings, prefixes, or gratuitous context.
+  - Deciding how to name a class, method, or variable.
   operational_mapping:
     profile_rule: true
     skill: null
@@ -727,7 +747,9 @@ principles:
   - C00623
   - C00624
   confidence: medium
-  applies_when: []
+  applies_when:
+  - Reviewing handling of nulls, currency, locking, or type constraints.
+  - Deciding between a precise structure and a loose convention.
   operational_mapping:
     profile_rule: true
     skill: null
