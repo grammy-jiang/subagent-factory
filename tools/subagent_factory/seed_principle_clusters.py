@@ -115,19 +115,21 @@ def _load_principles(base: Path) -> list[dict]:
     return data.get("principles") or []
 
 
-class _UF:
+class _UnionFind:
+    """Disjoint-set with path compression; clusters principle ids by transitive similarity."""
+
     def __init__(self) -> None:
-        self.p: dict[str, str] = {}
+        self._parent: dict[str, str] = {}
 
     def find(self, x: str) -> str:
-        self.p.setdefault(x, x)
-        while self.p[x] != x:
-            self.p[x] = self.p[self.p[x]]
-            x = self.p[x]
+        self._parent.setdefault(x, x)
+        while self._parent[x] != x:
+            self._parent[x] = self._parent[self._parent[x]]
+            x = self._parent[x]
         return x
 
     def union(self, a: str, b: str) -> None:
-        self.p[self.find(a)] = self.find(b)
+        self._parent[self.find(a)] = self.find(b)
 
 
 def seed_clusters(
@@ -192,7 +194,7 @@ def seed_clusters(
             return False
         return c >= _baseline(a, c) + margin and c >= _baseline(b, c) + margin
 
-    uf = _UF()
+    uf = _UnionFind()
     pair_score: dict[tuple[str, str], float] = {}  # lexical overlap, drives mean_overlap
     edges: list[tuple[str, str]] = []
     for a, b in combinations(pid_stmt, 2):
