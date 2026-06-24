@@ -115,21 +115,21 @@ def importance(p: dict) -> tuple:
     )
 
 
-def select_top(principles: list[dict], n: float) -> list[dict]:
+def select_top(principles: list[dict], limit: float) -> list[dict]:
     """Keep the importance-ranked top principles.
 
-    ``n`` is a count or a fraction:
+    ``limit`` is a count or a fraction:
     - ``0`` (or falsy)      → keep all.
-    - ``0 < n < 1``         → keep that FRACTION of the pool (e.g. 0.25 → top quarter), min 1.
-    - ``n >= 1``            → keep that many (count), capped at the pool size.
+    - ``0 < limit < 1``     → keep that FRACTION of the pool (e.g. 0.25 → top quarter), min 1.
+    - ``limit >= 1``        → keep that many (count), capped at the pool size.
     """
     ranked = sorted(principles, key=importance, reverse=True)
-    if not n or n <= 0:
+    if not limit or limit <= 0:
         return ranked
-    if n < 1:
-        k = max(1, round(len(ranked) * n))
+    if limit < 1:
+        k = max(1, round(len(ranked) * limit))
     else:
-        k = int(n)
+        k = int(limit)
     return ranked[:k]
 
 
