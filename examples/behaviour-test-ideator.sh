@@ -7,7 +7,7 @@
 # prompt, falling back to its deterministic template on any empty/error reply.
 #
 #   printf '%s' "$IDEATE_PROMPT" | examples/behaviour-test-ideator.sh
-set -uo pipefail
+set -euo pipefail
 CLAUDE="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
 prompt="$(cat)"
 [ -n "$prompt" ] || { echo "empty prompt" >&2; exit 2; }

@@ -12,7 +12,7 @@
 #
 # --pdf ABS_PATH: skip the queue and author this one specific PDF (a create-new /
 #   targeted test, vs the default smallest-pending queue selection). Runs exactly once.
-set -uo pipefail
+set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"
@@ -66,7 +66,7 @@ while [ "$processed" -lt "$COUNT" ]; do
     size="$(stat -c%s "$pdf_abs" 2>/dev/null || echo 0)"; idx="-"
     # real sha256 (matches build-queue.py) so summarize.py marks this PDF's queue row done if
     # it is part of the collection — keeps the queue consistent after a targeted --pdf run.
-    sha="$(sha256sum "$pdf_abs" 2>/dev/null | cut -d' ' -f1)"
+    sha="$(sha256sum "$pdf_abs" 2>/dev/null | cut -d' ' -f1)" || sha=""
   else
     line="$(next_pending)"
     [ -z "$line" ] && { echo "[campaign] no pending PDFs left — campaign complete."; break; }
@@ -110,20 +110,20 @@ sys.stdout.write(t)')"
 
   if [ "$ASSUME_YES" -eq 0 ]; then
     printf "[campaign] proceed with Run %s? [y/N] " "$run"
-    read -r ans; case "$ans" in y|Y) ;; *) echo "[campaign] aborted."; exit 0;; esac
+    read -r ans || ans=""; case "$ans" in y|Y) ;; *) echo "[campaign] aborted."; exit 0;; esac
   fi
 
   head_before="$(git -C "$REPO" rev-parse HEAD)"
   start_ts="$(date -Is)"
   echo "[campaign] launching claude (timeout ${RUN_TIMEOUT}s) ..."
 
+  rc=0
   printf '%s' "$prompt" | timeout "$RUN_TIMEOUT" claude -p \
       --model "$MODEL" \
       --add-dir "$COLLECTION" \
       --add-dir "$(dirname "$pdf_abs")" \
       --dangerously-skip-permissions \
-      --output-format stream-json --verbose >"$log" 2>&1
-  rc=$?
+      --output-format stream-json --verbose >"$log" 2>&1 || rc=$?
 
   head_after="$(git -C "$REPO" rev-parse HEAD)"
   if make -C "$REPO" verify >"$LOGS/run-$run.verify.log" 2>&1; then verify=green; else verify=red; fi

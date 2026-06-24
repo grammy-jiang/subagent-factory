@@ -5,7 +5,7 @@
 # software-engineering-practices (code-quality lenses). Reviews land in <dir>/reviews/.
 #
 # Usage: bash campaign/review_scripts.sh <listfile> [--reviewers a,b] [--timeout SECS]
-set -uo pipefail
+set -euo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LIST="${1:?usage: review_scripts.sh <listfile> [--reviewers a,b] [--timeout S]}"; shift || true
 REVIEWERS="python,software-engineering-practices"; TIMEOUT=2400

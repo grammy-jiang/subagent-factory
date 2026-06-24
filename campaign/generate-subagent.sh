@@ -22,7 +22,7 @@
 #   --timeout      per-run wall-clock cap, seconds (default 7200 — large multi-source run)
 #   --dry-run      print the rendered prompt + command, run nothing
 #   --fg           run in foreground (default backgrounds via nohup, prints log path)
-set -uo pipefail
+set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"; LOGS="$CAMP/logs"
@@ -118,7 +118,7 @@ fi
 driver="$LOGS/$run.driver.sh"
 cat > "$driver" <<DRIVER
 #!/usr/bin/env bash
-cd "$REPO"
+cd "$REPO" || exit 1
 timeout "$RUN_TIMEOUT" claude -p $MODELFLAG $EFFORTFLAG $ADDDIRS \\
     --dangerously-skip-permissions --output-format stream-json --verbose \\
     < "$promptfile" > "$log" 2>&1

@@ -4,7 +4,7 @@
 # subagents/<slug>/.build/decisions.json (group-keyed confirm/split/conflict), then stops. This is
 # the automated alternative to authoring decisions.json by hand at the build_map_reduce filter gate.
 # Usage: campaign/precision_filter.sh --slug SLUG [--fg]
-set -uo pipefail
+set -euo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"; LOGS="$CAMP/logs"; TMPL="$CAMP/precision-filter-prompt.tmpl"
 CLAUDE_BIN="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
@@ -30,7 +30,7 @@ echo "[filter] slug=$SLUG  clusters=$(python3 -c "import json;print(len(json.loa
 driver="$LOGS/$run.driver.sh"
 {
   echo '#!/usr/bin/env bash'
-  echo "cd \"$REPO\""
+  echo "cd \"$REPO\" || exit 1"
   echo "timeout \"$RUN_TIMEOUT\" \"$CLAUDE_BIN\" -p --model \"$MODEL\" --effort \"$EFFORT\" --add-dir \"$REPO\" \\"
   echo "    --dangerously-skip-permissions --output-format stream-json --verbose \\"
   echo "    < \"$promptfile\" > \"$log\" 2>&1"
