@@ -15,10 +15,11 @@ profile.yaml itself (examples live inside it). Empty list = valid.
 
 from __future__ import annotations
 
-import sys
 from pathlib import Path
 
 import yaml
+
+from tools.subagent_factory._validator_cli import validator_main
 
 _REQUIRED_FIELDS = ("title", "scenario", "ideal_response", "kind")
 _KINDS = {"happy-path", "failure-recovery"}
@@ -67,13 +68,10 @@ def validate_examples(profile_path: str | Path) -> list[str]:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("Usage: python -m tools.subagent_factory.validate_examples <profile.yaml>")
-        sys.exit(1)
-    errors = validate_examples(sys.argv[1])
-    for e in errors:
-        print(f"ERROR: {e}")
-    sys.exit(0 if not errors else 1)
+    validator_main(
+        validate_examples,
+        "Usage: python -m tools.subagent_factory.validate_examples <profile.yaml>",
+    )
 
 
 if __name__ == "__main__":

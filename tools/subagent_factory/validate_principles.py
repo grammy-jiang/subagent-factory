@@ -15,12 +15,12 @@ Base dir is ``<base>/principles/principles.yaml``.
 """
 
 import json
-import sys
 from pathlib import Path
 
 import jsonschema
 import yaml
 
+from tools.subagent_factory._validator_cli import validator_main
 from tools.subagent_factory.package_queries import claim_ids as _claim_ids
 
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "principles-v1.schema.json"
@@ -134,13 +134,10 @@ def validate_principles(principles_path: str | Path) -> list[str]:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("Usage: python -m tools.subagent_factory.validate_principles <principles.yaml>")
-        sys.exit(1)
-    errors = validate_principles(sys.argv[1])
-    for e in errors:
-        print(f"ERROR: {e}")
-    sys.exit(0 if not errors else 1)
+    validator_main(
+        validate_principles,
+        "Usage: python -m tools.subagent_factory.validate_principles <principles.yaml>",
+    )
 
 
 if __name__ == "__main__":

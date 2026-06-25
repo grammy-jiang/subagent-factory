@@ -17,12 +17,12 @@ in ``validate_generated_package``. Base dir is derived as ``<base>/reports/<file
 
 import json
 import re
-import sys
 from pathlib import Path
 
 import jsonschema
 import yaml
 
+from tools.subagent_factory._validator_cli import validator_main
 from tools.subagent_factory.package_queries import anchor_ids as _anchor_ids
 
 _SCHEMA_PATH = (
@@ -156,13 +156,10 @@ def validate_faithfulness_report(report_path: str | Path) -> list[str]:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("Usage: python -m tools.subagent_factory.validate_faithfulness_report <report.yaml>")
-        sys.exit(1)
-    errors = validate_faithfulness_report(sys.argv[1])
-    for e in errors:
-        print(f"ERROR: {e}")
-    sys.exit(0 if not errors else 1)
+    validator_main(
+        validate_faithfulness_report,
+        "Usage: python -m tools.subagent_factory.validate_faithfulness_report <report.yaml>",
+    )
 
 
 if __name__ == "__main__":
