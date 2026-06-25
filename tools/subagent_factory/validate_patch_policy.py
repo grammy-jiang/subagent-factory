@@ -10,11 +10,12 @@ is enforced by a mode-conditional block in ``validate_generated_package``, not h
 """
 
 import json
-import sys
 from pathlib import Path
 
 import jsonschema
 import yaml
+
+from tools.subagent_factory._validator_cli import validator_main
 
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "patch-policy-v1.schema.json"
 
@@ -49,13 +50,10 @@ def validate_patch_policy(policy_path: str | Path) -> list[str]:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("Usage: python -m tools.subagent_factory.validate_patch_policy <patch-policy.yaml>")
-        sys.exit(1)
-    errors = validate_patch_policy(sys.argv[1])
-    for e in errors:
-        print(f"ERROR: {e}")
-    sys.exit(0 if not errors else 1)
+    validator_main(
+        validate_patch_policy,
+        "Usage: python -m tools.subagent_factory.validate_patch_policy <patch-policy.yaml>",
+    )
 
 
 if __name__ == "__main__":
