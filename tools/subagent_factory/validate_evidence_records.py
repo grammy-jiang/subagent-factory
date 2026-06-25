@@ -17,12 +17,12 @@ not this deterministic validator.
 """
 
 import json
-import sys
 from pathlib import Path
 
 import jsonschema
 import yaml
 
+from tools.subagent_factory._validator_cli import validator_main
 from tools.subagent_factory.package_queries import (
     anchor_ids as _anchor_ids,
 )
@@ -91,15 +91,10 @@ def validate_evidence_records(records_path: str | Path) -> list[str]:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print(
-            "Usage: python -m tools.subagent_factory.validate_evidence_records <evidence-records.yaml>"
-        )
-        sys.exit(1)
-    errors = validate_evidence_records(sys.argv[1])
-    for e in errors:
-        print(f"ERROR: {e}")
-    sys.exit(0 if not errors else 1)
+    validator_main(
+        validate_evidence_records,
+        "Usage: python -m tools.subagent_factory.validate_evidence_records <evidence-records.yaml>",
+    )
 
 
 if __name__ == "__main__":

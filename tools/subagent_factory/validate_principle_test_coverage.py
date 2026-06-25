@@ -10,10 +10,11 @@ Signature is ``(path) -> list[str]`` for the tier-gated artifact registry; it is
 Base dir is ``<base>/principles/principles.yaml``.
 """
 
-import sys
 from pathlib import Path
 
 import yaml
+
+from tools.subagent_factory._validator_cli import validator_main
 
 
 def _referenced_principle_ids(base: Path) -> set[str]:
@@ -67,15 +68,10 @@ def validate_principle_test_coverage(principles_path: str | Path) -> list[str]:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print(
-            "Usage: python -m tools.subagent_factory.validate_principle_test_coverage <principles.yaml>"
-        )
-        sys.exit(1)
-    errors = validate_principle_test_coverage(sys.argv[1])
-    for e in errors:
-        print(f"ERROR: {e}")
-    sys.exit(0 if not errors else 1)
+    validator_main(
+        validate_principle_test_coverage,
+        "Usage: python -m tools.subagent_factory.validate_principle_test_coverage <principles.yaml>",
+    )
 
 
 if __name__ == "__main__":
