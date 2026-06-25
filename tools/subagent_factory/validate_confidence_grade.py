@@ -13,11 +13,11 @@ dropped (abstain), not promoted with a high/medium/low confidence.
 Signature ``(path) -> list[str]`` for the tier-gated registry, keyed on ``principles/principles.yaml``.
 """
 
-import sys
 from pathlib import Path
 
 import yaml
 
+from tools.subagent_factory._validator_cli import validator_main
 from tools.subagent_factory.grade_confidence import grade_confidence
 
 
@@ -58,13 +58,10 @@ def validate_confidence_grade(principles_path: str | Path) -> list[str]:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("Usage: python -m tools.subagent_factory.validate_confidence_grade <principles.yaml>")
-        sys.exit(1)
-    errors = validate_confidence_grade(sys.argv[1])
-    for e in errors:
-        print(f"ERROR: {e}")
-    sys.exit(0 if not errors else 1)
+    validator_main(
+        validate_confidence_grade,
+        "Usage: python -m tools.subagent_factory.validate_confidence_grade <principles.yaml>",
+    )
 
 
 if __name__ == "__main__":

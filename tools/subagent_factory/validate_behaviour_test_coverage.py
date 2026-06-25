@@ -15,11 +15,12 @@ package ships a Step-11 generated suite. Base dir is ``<base>/tests/behaviour-te
 """
 
 import json
-import sys
 from pathlib import Path
 
 import jsonschema
 import yaml
+
+from tools.subagent_factory._validator_cli import validator_main
 
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "golden-tests-v1.schema.json"
 
@@ -111,16 +112,10 @@ def validate_behaviour_test_coverage(suite_path: str | Path) -> list[str]:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print(
-            "Usage: python -m tools.subagent_factory.validate_behaviour_test_coverage "
-            "<tests/behaviour-tests.yaml>"
-        )
-        sys.exit(1)
-    errors = validate_behaviour_test_coverage(sys.argv[1])
-    for e in errors:
-        print(f"ERROR: {e}")
-    sys.exit(0 if not errors else 1)
+    validator_main(
+        validate_behaviour_test_coverage,
+        "Usage: python -m tools.subagent_factory.validate_behaviour_test_coverage <tests/behaviour-tests.yaml>",
+    )
 
 
 if __name__ == "__main__":

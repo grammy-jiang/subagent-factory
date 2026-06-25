@@ -16,11 +16,11 @@ non-deterministic and must not hard-fail the gate.
 """
 
 import json
-import sys
 from pathlib import Path
 
 import jsonschema
 
+from tools.subagent_factory._validator_cli import validator_main
 from tools.subagent_factory.package_queries import (
     anchor_ids as _anchor_ids,
 )
@@ -87,13 +87,10 @@ def validate_claims(claims_path: str | Path) -> list[str]:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("Usage: python -m tools.subagent_factory.validate_claims <claims.jsonl>")
-        sys.exit(1)
-    errors = validate_claims(sys.argv[1])
-    for e in errors:
-        print(f"ERROR: {e}")
-    sys.exit(0 if not errors else 1)
+    validator_main(
+        validate_claims,
+        "Usage: python -m tools.subagent_factory.validate_claims <claims.jsonl>",
+    )
 
 
 if __name__ == "__main__":

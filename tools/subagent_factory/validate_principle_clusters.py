@@ -15,11 +15,11 @@ Signature ``(path) -> list[str]`` for the tier-gated artifact registry. The clus
 from __future__ import annotations
 
 import json
-import sys
 from pathlib import Path
 
 import jsonschema
 
+from tools.subagent_factory._validator_cli import validator_main
 from tools.subagent_factory.package_queries import principle_ids as _principle_ids
 
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "principle-clusters-v1.schema.json"
@@ -67,14 +67,10 @@ def validate_principle_clusters(clusters_path: str | Path) -> list[str]:
 
 
 def main() -> None:
-    if len(sys.argv) < 2:
-        print("Usage: python -m tools.subagent_factory.validate_principle_clusters <clusters.json>")
-        sys.exit(1)
-    errs = validate_principle_clusters(sys.argv[1])
-    for e in errs:
-        print(f"ERROR: {e}")
-    print("OK" if not errs else f"{len(errs)} error(s)")
-    sys.exit(0 if not errs else 1)
+    validator_main(
+        validate_principle_clusters,
+        "Usage: python -m tools.subagent_factory.validate_principle_clusters <clusters.json>",
+    )
 
 
 if __name__ == "__main__":
