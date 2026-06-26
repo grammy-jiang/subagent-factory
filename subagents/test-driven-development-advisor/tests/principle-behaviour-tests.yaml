@@ -1,0 +1,101 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: test-driven-development-advisor
+generated_at: "2026-06-15"
+
+principle_behaviour_tests:
+
+  - test_id: PB-001
+    principle_id: P001
+    mode: advise
+    prompt: >-
+      I need to add a discount calculation. Just give me the steps to do it the TDD way.
+    expected_behaviour:
+      - Sequences the work as red/green/refactor — one small failing test first, then smallest change to green, then refactor.
+      - Confirms running all tests and seeing the new one fail before any production code.
+      - Names which step each instruction serves.
+      - Cites P001.
+    must_not:
+      - Suggest writing the implementation before a failing test exists.
+      - Skip the refactor step.
+
+  - test_id: PB-002
+    principle_id: P002
+    mode: review
+    prompt: >-
+      My teammate wrote the whole feature, then added tests afterward that all pass. That's TDD, right?
+    expected_behaviour:
+      - States this violates the rule to write a failing test before production code.
+      - Notes the second rule — remove duplication once tests pass — as part of TDD.
+      - Explains why test-after differs from test-first.
+      - Cites P002.
+    must_not:
+      - Endorse test-after as equivalent to TDD.
+
+  - test_id: PB-004
+    principle_id: P004
+    mode: advise
+    prompt: >-
+      I can't get a clean elegant implementation for this failing test. I've been stuck an hour
+      designing it. What do I do?
+    expected_behaviour:
+      - Tells the developer to get to green first with the simplest thing that works, even if ugly.
+      - Then requires an immediate refactor to remove the duplication introduced.
+      - Separates make-it-work from make-it-clean.
+      - Cites P004.
+    must_not:
+      - Tell the developer to keep designing the perfect solution before any test passes.
+      - Allow the ugly green solution to be left un-refactored.
+
+  - test_id: PB-006
+    principle_id: P006
+    mode: compare
+    prompt: >-
+      Should I type in the real code, return a hard-coded value, or write a second example first?
+    expected_behaviour:
+      - Maps Obvious Implementation to when the real code is clear.
+      - Maps Fake It (return a constant, then generalise) to when it is not.
+      - Maps Triangulation (two or more examples) to justifying an abstraction.
+      - Notes falling back from Obvious Implementation to Fake It on an unexpected red bar.
+      - Cites P006.
+    must_not:
+      - Assert one strategy as always correct without tying it to confidence/evidence.
+
+  - test_id: PB-008
+    principle_id: P008
+    mode: advise
+    prompt: >-
+      I just don't like that this method mutates its object, but I can't explain why it's wrong.
+    expected_behaviour:
+      - Suggests turning the objection into a concrete failing test (e.g. multiply the same object twice and assert it is unchanged).
+      - Frames the design disagreement as a testable case rather than an abstract debate.
+      - Cites P008.
+    must_not:
+      - Resolve the design debate purely in the abstract with no test.
+
+  - test_id: PB-009
+    principle_id: P009
+    mode: advise
+    prompt: >-
+      While doing this change I keep noticing other tests I should write and cleanups I should do.
+      It's overwhelming. How do I keep going?
+    expected_behaviour:
+      - Recommends a running to-do list of tests to write and refactorings to make.
+      - Advises adding items as discovered, working one at a time, and crossing them off.
+      - Keeps the current small step in focus so nothing is lost.
+      - Cites P009.
+    must_not:
+      - Tell the developer to handle all discovered work at once.
+
+  - test_id: PB-010
+    principle_id: P010
+    mode: advise
+    prompt: >-
+      We want to design the whole class hierarchy up front before writing any tests so we never
+      have to change it. Good plan?
+    expected_behaviour:
+      - Advises growing the design organically, one design decision at a time via refactoring.
+      - Recommends starting from the simplest case and proceeding to the more complex in small increments.
+      - Cautions against committing the whole structure up front.
+      - Cites P010.
+    must_not:
+      - Endorse full up-front design as the TDD approach.

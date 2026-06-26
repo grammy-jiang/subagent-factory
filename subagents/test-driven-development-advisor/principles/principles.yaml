@@ -1,0 +1,128 @@
+schema_version: principles-v1
+principles:
+  - principle_id: P001
+    statement: >-
+      Drive every change through the red/green/refactor cycle: write one small failing test
+      first, run all tests and confirm the new one fails, make the smallest change that gets
+      every test to pass, then refactor to remove duplication before adding the next test.
+    derived_from_claims: [TDD-001, TDD-003]
+    confidence: high
+    applies_when:
+      - A developer is adding a feature or fixing a bug in code that can be unit-tested.
+      - A team asks how to sequence test-writing, implementation, and refactoring.
+    does_not_apply_when:
+      - The work is a spike or throwaway exploration whose code will be discarded.
+      - No automated testing is feasible for the target (e.g. pure UI exploration).
+    operational_mapping:
+      profile_rule: true
+      skill: red-green-refactor-cycle
+      reference: null
+      test_cases: [PB-001]
+
+  - principle_id: P002
+    statement: >-
+      Hold the two rules of TDD: never write production code until a failing automated test
+      demands it, and remove duplication once the test passes.
+    derived_from_claims: [TDD-002]
+    confidence: high
+    applies_when:
+      - Reviewing whether code was written test-first.
+      - A developer proposes writing implementation before a test exists.
+    does_not_apply_when:
+      - Adding pure configuration or generated code with no behaviour to specify.
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: [PB-002]
+
+  - principle_id: P004
+    statement: >-
+      Separate "make it work" from "make it clean": get the bar green as fast as possible
+      first (a quick green permits a temporarily ugly solution), then immediately refactor to
+      remove the duplication — do not try to design the clean solution before it passes.
+    derived_from_claims: [TDD-004, TDD-005]
+    confidence: high
+    applies_when:
+      - A developer is stuck trying to write the perfect implementation before any test passes.
+      - Reviewing whether refactoring follows promptly after a green bar.
+    does_not_apply_when:
+      - A clean, simple solution is already obvious and quick to type in.
+    operational_mapping:
+      profile_rule: true
+      skill: get-to-green-then-refactor
+      reference: null
+      test_cases: [PB-004]
+
+  - principle_id: P006
+    statement: >-
+      Choose a get-to-green strategy deliberately: Obvious Implementation when the real code
+      is clear, Fake It (return a constant, then generalise) when it is not, and Triangulation
+      (two or more examples) to justify an abstraction; on an unexpected red bar, fall back
+      from Obvious Implementation to Fake It and smaller steps.
+    derived_from_claims: [TDD-006, TDD-007]
+    confidence: high
+    applies_when:
+      - A developer asks how to implement just enough to pass a failing test.
+      - A developer is unsure whether to generalise code now or wait for another example.
+    does_not_apply_when:
+      - The behaviour is trivial and a single line obviously satisfies the test.
+    operational_mapping:
+      profile_rule: true
+      skill: getting-to-green-strategies
+      reference: null
+      test_cases: [PB-006]
+
+  - principle_id: P008
+    statement: >-
+      Turn a design objection or aesthetic discomfort (for example unwanted side effects) into
+      a concrete failing test rather than arguing it in the abstract, so design disagreements
+      become testable cases.
+    derived_from_claims: [TDD-008]
+    confidence: medium
+    applies_when:
+      - A reviewer or developer dislikes a design but cannot pin the concern to behaviour.
+      - A team is debating a design choice without a concrete example.
+    does_not_apply_when:
+      - The objection is about non-behavioural concerns (naming, formatting) with no testable effect.
+    operational_mapping:
+      profile_rule: false
+      skill: getting-to-green-strategies
+      reference: null
+      test_cases: [PB-008]
+
+  - principle_id: P009
+    statement: >-
+      Maintain a running to-do list of tests still to write and refactorings still to make:
+      add items the moment you notice them, work one at a time, and cross them off, so the next
+      small step is always explicit and nothing is lost.
+    derived_from_claims: [TDD-009]
+    confidence: high
+    applies_when:
+      - A developer keeps getting distracted by newly discovered work mid-change.
+      - Planning the order of small TDD steps.
+    does_not_apply_when:
+      - The change is a single trivial test with no follow-on work.
+    operational_mapping:
+      profile_rule: false
+      skill: null
+      reference: tdd-to-do-list
+      test_cases: [PB-009]
+
+  - principle_id: P010
+    statement: >-
+      Grow the design organically by refactoring in one design decision at a time, starting
+      from the simplest case and proceeding to the more complex in small increments — rather
+      than designing the whole structure up front.
+    derived_from_claims: [TDD-010, TDD-011]
+    confidence: high
+    applies_when:
+      - A team wants to settle the whole architecture before writing tests.
+      - Deciding how large the next increment should be.
+    does_not_apply_when:
+      - A well-understood constraint genuinely requires an up-front structural decision.
+    operational_mapping:
+      profile_rule: true
+      skill: red-green-refactor-cycle
+      reference: null
+      test_cases: [PB-010]

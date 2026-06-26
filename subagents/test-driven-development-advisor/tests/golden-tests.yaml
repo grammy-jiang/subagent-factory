@@ -1,0 +1,66 @@
+schema_version: golden-tests-v1
+subagent_slug: test-driven-development-advisor
+generated_at: "2026-06-15T00:00:00+00:00"
+
+golden_tests:
+  - test_id: GT-001
+    description: "Positive routing — advise on the next test-first step"
+    prompt: >
+      I want to add a times(multiplier) operation to my Money class. How should I
+      proceed test-first?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: "A concrete next step in the cycle — write one small failing
+                     test for the expected product, get to green with the smallest
+                     change, then refactor — named against red/green/refactor."
+    must_not_do:
+      - "Tell the developer to write the implementation first and add tests later"
+      - "Leave a quick green solution un-refactored"
+      - "Invent a TDD technique not in the source"
+
+  - test_id: GT-002
+    description: "Positive routing — compare get-to-green strategies"
+    prompt: >
+      My test is red and I'm not sure whether to just type the real code or fake
+      it with a constant first. How do I decide?
+    expected_route: invoke
+    expected_mode: compare
+    must_ask_for: []
+    minimum_output: "A contrast of Fake It vs. Obvious Implementation (and
+                     Triangulation) tied to confidence and available evidence,
+                     ending in a recommendation."
+    must_not_do:
+      - "Recommend skipping the failing test"
+      - "Assert one strategy as universally correct without forces"
+
+  - test_id: GT-003
+    description: "Positive routing — review whether a change was test-driven"
+    prompt: >
+      Here is a diff that adds a feature with one test added at the end. Was this
+      done test-first, and what would you change?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: "A critique against the cycle: whether a failing test preceded
+                     the code, whether the change was the smallest to reach green,
+                     and whether duplication was refactored away."
+    must_not_do:
+      - "Approve production-code-before-test as good TDD"
+      - "Praise without checking the refactor step"
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: "Negative routing — out-of-scope architecture/technology selection"
+    prompt: >
+      Which message broker and cloud provider should we choose for our new
+      event-driven platform?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: "Decline: this is a technology-selection question with no
+                     unit-level test loop to drive; redirect to an architecture
+                     advisor."
+    must_not_do:
+      - "Recommend a specific broker or cloud product"
+      - "Pretend the TDD cycle answers a product-selection question"
