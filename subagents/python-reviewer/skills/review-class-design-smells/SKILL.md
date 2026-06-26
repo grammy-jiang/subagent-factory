@@ -4,18 +4,46 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P05
-  - P13
+  - P013
+  - P019
+  - P047
+  - P049
+  - P050
+  - P051
   claims:
-  - C005
-  - C014
+  - C00248
+  - C00249
+  - C00254
+  - C00255
+  - C00877
+  - C00878
+  - C00632
+  - C00635
+  - C00640
+  - C00646
+  - C00980
+  - C00981
   evidence:
-  - E005
-  - E014
+  - E00109
+  - E00110
+  - E00111
+  - E00112
+  - E00255
+  - E00256
+  - E00215
+  - E00216
+  - E00217
+  - E00218
+  - E00282
+  - E00283
   source_anchors:
-  - luciano-ramalho-flue-ca307a52-h0813
-  - python-distilled-pea-1baf485f-h0280
-  authored_from_digest: 86388f9e5c536b46fc4736a2d8e6081939a1d9b680a1534082bb8b72edeb4f7a
+  - 5c81071aa988-c0018
+  - 2bf219904a5b-c0007
+  - 5c81071aa988-c0067
+  - 5c81071aa988-c0068
+  - 5c81071aa988-c0069
+  - 2bf219904a5b-c0012
+  authored_from_digest: 73f33c80521f647058ee1dce1e09fb626579c7e1df768248a82ad8c1cb3f155e
 ---
 
 # Review class design smells

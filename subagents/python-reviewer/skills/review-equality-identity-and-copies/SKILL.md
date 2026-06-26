@@ -4,18 +4,43 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P02
-  - P03
+  - P010
+  - P011
+  - P027
+  - P057
+  - P058
   claims:
-  - C003
-  - C004
+  - C00223
+  - C00224
+  - C00225
+  - C00226
+  - C00737
+  - C00738
+  - C00239
+  - C00240
+  - C00241
+  - C00816
+  - C00817
+  - C00818
   evidence:
-  - E003
-  - E004
+  - E00096
+  - E00097
+  - E00098
+  - E00099
+  - E00231
+  - E00232
+  - E00103
+  - E00104
+  - E00105
+  - E00243
+  - E00244
+  - E00245
   source_anchors:
-  - luciano-ramalho-flue-ca307a52-h0883
-  - luciano-ramalho-flue-ca307a52-c0895
-  authored_from_digest: 0fc51e5a2343d914bb26dfac461ead438be69986435d5e1a40b79f10262936c4
+  - 5c81071aa988-c0016
+  - 2bf219904a5b-c0002
+  - 5c81071aa988-c0017
+  - 2bf219904a5b-c0005
+  authored_from_digest: c6a65a8f3d5528616a5138c5c7a7de897653edf1c796d363a76871c3f628801f
 ---
 
 # Review equality, identity, and copies

@@ -2,6 +2,28 @@
 
 All notable changes to this generated subagent package are recorded here.
 
+## 0.3.0 — 2026-06-26
+
+### Changed
+
+- Regenerated the LLM-authored layer to match the map→reduce-rebuilt distilled
+  spine (60 globally-renumbered principles `P001`–`P060`, claims `C#####`,
+  evidence `E#####`). The deterministic spine (claims, principles, evidence,
+  chunk anchors) was not altered except to populate each principle's
+  `operational_mapping` (skill / reference / profile_rule / test_cases).
+- Re-pointed the source layer at this build's chunk-anchor ingestion: manifest,
+  metadata, and `profile.sources[]` now carry `luciano-ramalho-flue-5c81071a`
+  (Fluent Python) and `python-distilled-pea-2bf21990` (Python Distilled) with
+  matching sha256; the prior paragraph-anchor ingestion (`…-ca307a52`,
+  `…-1baf485f`) and its markdown/metadata/anchors/original were removed.
+- Rewired all 10 skills and 2 references to the new principle / claim / evidence
+  / chunk-anchor IDs and re-stamped `authored_from_digest`; bodies preserved.
+- Regenerated `tests/principle-behaviour-tests.yaml` so every principle
+  `P001`–`P060` has a behaviour test, and refreshed `golden-tests` coverage IDs.
+- Regenerated `reports/faithfulness-report.yaml` against the new evidence,
+  citing chunk anchors (`<sha12>-cNNNN`) only.
+- Bumped `agent_version` 0.2.1 → 0.3.0 and re-exported the adapter.
+
 ## 0.2.1 — 2026-06-26
 
 ### Changed

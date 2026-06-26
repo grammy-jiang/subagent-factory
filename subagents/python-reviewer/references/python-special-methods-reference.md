@@ -4,16 +4,46 @@ kind: reference
 status: ready
 provenance:
   principles:
-  - P01
+  - P003
+  - P016
+  - P020
+  - P034
+  - P035
+  - P038
+  - P056
+  - P059
+  - P060
   claims:
-  - C001
-  - C002
+  - C00430
+  - C00431
+  - C00432
+  - C00433
+  - C00839
+  - C00840
+  - C00841
+  - C00489
+  - C00490
+  - C00491
+  - C00842
+  - C00843
   evidence:
-  - E001
-  - E002
+  - E00180
+  - E00181
+  - E00182
+  - E00183
+  - E00246
+  - E00247
+  - E00248
+  - E00192
+  - E00193
+  - E00194
+  - E00249
+  - E00250
   source_anchors:
-  - luciano-ramalho-flue-ca307a52-h0033
-  authored_from_digest: 1ad0bb35de8e29421fd7a4aa974c2ea2c8757854a5721a0fe29b8d08f1720dc5
+  - 5c81071aa988-c0038
+  - 2bf219904a5b-c0006
+  - 5c81071aa988-c0045
+  authored_from_digest: d9a1cd098e78cf256627ba484d1a584ad5e069d3ec18f75fca2714738717ab7d
 ---
 
 # Python special methods reference
