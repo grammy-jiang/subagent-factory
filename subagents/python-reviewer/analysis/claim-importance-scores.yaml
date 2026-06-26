@@ -1,0 +1,236 @@
+schema_version: importance-scores-v1
+candidate_units:
+- id: C001
+  source_id: luciano-ramalho-flue-ca307a52
+  summary: Implement the data model via special methods; let built-ins dispatch
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 4
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C002
+  source_id: luciano-ramalho-flue-ca307a52
+  summary: Do not invent undocumented __dunder__ names (breakage risk)
+  scores:
+    authority: 5
+    actionability: 3
+    reusability: 3
+    risk_impact: 3
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C003
+  source_id: luciano-ramalho-flue-ca307a52
+  summary: == for value, is only for None/sentinels; default to == when unsure
+  scores:
+    authority: 5
+    actionability: 5
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 4
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C004
+  source_id: luciano-ramalho-flue-ca307a52
+  summary: Copies are shallow by default; deepcopy for nested mutable items
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 4
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C005
+  source_id: luciano-ramalho-flue-ca307a52
+  summary: A data-only class is a code smell; move behaviour in (with exceptions)
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C006
+  source_id: luciano-ramalho-flue-ca307a52
+  summary: Never use a mutable default argument; use None and build inside
+  scores:
+    authority: 5
+    actionability: 5
+    reusability: 5
+    risk_impact: 5
+    evidence_strength: 4
+    uniqueness: 4
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C007
+  source_id: luciano-ramalho-flue-ca307a52
+  summary: Comprehensions readable but keep short and side-effect-free
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C008
+  source_id: python-distilled-pea-1baf485f
+  summary: Composition/delegation over inheritance unless genuine is-a
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C009
+  source_id: python-distilled-pea-1baf485f
+  summary: Do not subclass built-in dict/list/str; use UserDict/composition
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 5
+    evidence_strength: 4
+    uniqueness: 4
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C010
+  source_id: python-distilled-pea-1baf485f
+  summary: Program to the protocol (duck typing), not the concrete type
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C011
+  source_id: python-distilled-pea-1baf485f
+  summary: _name = internal convention; __name = mangling for inheritance clashes
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C012
+  source_id: python-distilled-pea-1baf485f
+  summary: Plain attributes + @property only when needed; uniform access
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C013
+  source_id: python-distilled-pea-1baf485f
+  summary: __slots__ is a targeted memory optimization with trade-offs
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C014
+  source_id: python-distilled-pea-1baf485f
+  summary: 'Keep it simple: plain class over metaclass/descriptor/mixin machinery'
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C015
+  source_id: python-distilled-pea-1baf485f
+  summary: Manage resources with with / context managers, not manual close
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C016
+  source_id: python-distilled-pea-1baf485f
+  summary: Let unrecoverable exceptions propagate; do not over-catch
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 4
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C017
+  source_id: python-distilled-pea-1baf485f
+  summary: Keep except clauses narrow; avoid blanket except Exception
+  scores:
+    authority: 5
+    actionability: 5
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
+- id: C018
+  source_id: python-distilled-pea-1baf485f
+  summary: Define custom exception types for intentional errors
+  scores:
+    authority: 5
+    actionability: 4
+    reusability: 5
+    risk_impact: 4
+    evidence_strength: 4
+    uniqueness: 3
+    transferability: 4
+    stability: 5
+    operational_fit: 5
