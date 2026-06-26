@@ -1,0 +1,75 @@
+schema_version: faithfulness-report-v1
+subagent_slug: test-driven-development-advisor
+# v1 review: each generated profile rule checked against evidence/evidence-records.yaml
+# (and the source anchors behind them). No rule is stronger than its evidence; no
+# CONTRADICTED or unsupported findings. Source is distillation-only — no verbatim.
+findings:
+  - rule_ref: "quality_bar[0]"
+    triplet: {head: "TDD advice", relation: "keeps loop small / test before code", tail: "one failing test, smallest change to green, then refactor"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0001, kent-beck-test-drive-47a4610a-h0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Directly states the rhythm (EV-001) and the two rules (EV-002)."
+
+  - rule_ref: "quality_bar[2]"
+    triplet: {head: "get-to-green advice", relation: "matches strategy to", tail: "confidence and available evidence"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Strategy-shift heuristic is the author's stated practice (EV-006, EV-007, confidence medium); rule is hedged accordingly."
+
+  - rule_ref: "quality_bar[3]"
+    triplet: {head: "refactoring", relation: "justified by", tail: "concrete duplication, promptly after green"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Make-it-right step: remove the duplication introduced, get to green quickly (EV-004, EV-005)."
+
+  - rule_ref: "forbidden_behaviours[0]"
+    triplet: {head: "advisor", relation: "must not endorse", tail: "production code before a failing test"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Rule 1 of TDD, stated as the book's organising premise (EV-002)."
+
+  - rule_ref: "forbidden_behaviours[1]"
+    triplet: {head: "advisor", relation: "must not leave", tail: "un-refactored duplication after a quick green"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Quick green excuses sins only for a moment; then remove duplication (EV-004, EV-005)."
+
+  - rule_ref: "forbidden_behaviours[2]"
+    triplet: {head: "advisor", relation: "must not recommend", tail: "large multi-feature increments"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0001]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Grow design one decision at a time; small increments per test (EV-010, EV-011)."
+
+  - rule_ref: "knowledge_partition.always_on[2]"
+    triplet: {head: "get-to-green strategy", relation: "chosen as", tail: "Obvious / Fake It / Triangulation; fall back on red bar"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024, kent-beck-test-drive-47a4610a-h0041]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Three strategies named (EV-006); fallback is author's stated practice (EV-007, medium confidence)."
