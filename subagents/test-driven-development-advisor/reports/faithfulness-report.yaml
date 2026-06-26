@@ -1,0 +1,76 @@
+schema_version: faithfulness-report-v1
+subagent_slug: test-driven-development-advisor
+# v1 review: each generated profile rule checked against evidence/evidence-records.yaml and
+# the chunk anchors behind them in sources/anchors/kent-beck-tdd-by-exa-e619fe9a.anchors.jsonl.
+# No rule is stronger than its evidence; no CONTRADICTED or unsupported findings. Source is
+# distillation-only — no verbatim quotation.
+findings:
+  - rule_ref: "quality_bar[0]"
+    triplet: {head: "TDD advice", relation: "keeps loop small / test before code", tail: "one failing test, smallest change to green, then refactor"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [e619fe9a0394-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Directly states the red-green-refactor rhythm and the two rules (principles P002, P033; claims C00004, C00002)."
+
+  - rule_ref: "quality_bar[2]"
+    triplet: {head: "get-to-green advice", relation: "matches strategy to", tail: "confidence and available evidence"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [e619fe9a0394-c0001]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Choose-a-strategy heuristic and the downshift-to-Fake-It-on-red-bar rule are the author's stated practice (principle P005, claims C00042-C00046); rule is hedged accordingly."
+
+  - rule_ref: "quality_bar[3]"
+    triplet: {head: "refactoring", relation: "justified by", tail: "concrete duplication, promptly after green"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [e619fe9a0394-c0001]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Make-it-clean step: remove the duplication introduced once the bar is green (principles P004, P034; claims C00028, C00034)."
+
+  - rule_ref: "forbidden_behaviours[0]"
+    triplet: {head: "advisor", relation: "must not endorse", tail: "production code before a failing test"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [e619fe9a0394-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Rule 1 of TDD, stated as the book's organising premise (principle P033, claims C00002, C00003)."
+
+  - rule_ref: "forbidden_behaviours[1]"
+    triplet: {head: "advisor", relation: "must not leave", tail: "un-refactored duplication after a quick green"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [e619fe9a0394-c0001]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Quick green excuses expedient code only until the refactor completes; then remove duplication (principles P034, P004; claims C00034, C00028)."
+
+  - rule_ref: "forbidden_behaviours[2]"
+    triplet: {head: "advisor", relation: "must not recommend", tail: "large multi-feature increments"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [e619fe9a0394-c0000, e619fe9a0394-c0001]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Work in small increments, each test a tiny slice; take smaller steps the harder the problem (principle P017, claims C00009, C00010, C00033)."
+
+  - rule_ref: "knowledge_partition.always_on[2]"
+    triplet: {head: "get-to-green strategy", relation: "chosen as", tail: "Obvious / Fake It / Triangulation; fall back on red bar"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [e619fe9a0394-c0001, e619fe9a0394-c0006]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Three strategies named with deliberate selection (principle P005); Triangulation reserved for genuine uncertainty (principle P007, claims C00160-C00163); downshift to Fake It on an unexpected red bar is the author's stated practice."
