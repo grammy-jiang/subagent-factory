@@ -12,14 +12,17 @@ Verdict:
   WARNING — no FAIL but at least one WARNING.
   PASS    — all checks pass.
 
-Structure: ``profile_self_check`` loads the profile, extracts its fields, then runs the 18 numbered
-checks below in order. Each ``_check_N_*`` appends its finding(s) via the shared ``add`` emitter, so
-the findings list — consumed by the CLI, ``test-results.md``, and tests — is built in check order.
+Structure: ``profile_self_check`` loads the profile, extracts its fields into a ``Fields`` bag, then
+runs the checks in the ``_CHECKS`` registry in order. Each check receives its own ordinal ``num``
+(so the number lives in exactly one place — the registry) and appends finding(s) via the shared
+``add`` emitter, so the findings list — consumed by the CLI, ``test-results.md``, and tests — is
+built in check order.
 """
 
 import re
 import sys
 from collections.abc import Callable
+from dataclasses import dataclass
 from pathlib import Path
 
 import yaml
@@ -73,199 +76,241 @@ _BODY_FAIL_WORDS = 1000
 _Emit = Callable[[int, str, str, str], None]
 
 
-# 1. Role slug is kebab-case and role-based
-def _check_1_slug(slug: str, add: _Emit) -> None:
+@dataclass(frozen=True)
+class Fields:
+    """Typed field bag extracted once from the profile, consumed by the checks.
+
+    Constructing this (the "extract" responsibility) is separated from running the
+    checks (the "use" responsibility); see ``_extract_fields``.
+    """
+
+    base: Path
+    slug: str
+    when_to_use: list
+    when_not_to_use: list
+    inputs_required: list
+    primary_format: str
+    modes: list
+    quality_bar: list
+    minimum_useful_output: str
+    forbidden: list
+    canonical_owner: str
+    may_edit_canonical: object
+    body_groups: dict
+    body_fields: list
+
+
+# A check receives its own ordinal ``num`` (the single home of the number), the
+# extracted ``Fields`` bag, and the shared ``add`` emitter.
+_Check = Callable[[int, Fields, _Emit], None]
+
+
+# Role slug is kebab-case and role-based
+def _check_slug(num: int, f: Fields, add: _Emit) -> None:
+    slug = f.slug
     if not _SLUG_RE.match(slug):
-        add(1, "FAIL", "slug-kebab", f"slug '{slug}' is not kebab-case")
+        add(num, "FAIL", "slug-kebab", f"slug '{slug}' is not kebab-case")
     elif "-" not in slug:
         add(
-            1,
+            num,
             "WARNING",
             "slug-role-based",
             f"slug '{slug}' is a single word; role slugs are usually <domain>-<function>",
         )
     else:
-        add(1, "PASS", "slug", f"slug '{slug}' is kebab-case and role-based")
+        add(num, "PASS", "slug", f"slug '{slug}' is kebab-case and role-based")
 
 
-# 2. when_to_use has 3–6 concrete triggers
-def _check_2_when_to_use(when_to_use: list, add: _Emit) -> None:
+# when_to_use has 3–6 concrete triggers
+def _check_when_to_use(num: int, f: Fields, add: _Emit) -> None:
+    when_to_use = f.when_to_use
     if not 3 <= len(when_to_use) <= 6:
-        add(2, "FAIL", "when-to-use", f"when_to_use has {len(when_to_use)} triggers; require 3–6")
+        add(num, "FAIL", "when-to-use", f"when_to_use has {len(when_to_use)} triggers; require 3–6")
     else:
-        add(2, "PASS", "when-to-use", f"{len(when_to_use)} triggers")
+        add(num, "PASS", "when-to-use", f"{len(when_to_use)} triggers")
 
 
-# 3. when_not_to_use has 2+ explicit exclusions
-def _check_3_when_not_to_use(when_not_to_use: list, add: _Emit) -> None:
+# when_not_to_use has 2+ explicit exclusions
+def _check_when_not_to_use(num: int, f: Fields, add: _Emit) -> None:
+    when_not_to_use = f.when_not_to_use
     if len(when_not_to_use) < 2:
         add(
-            3,
+            num,
             "FAIL",
             "when-not-to-use",
             f"when_not_to_use has {len(when_not_to_use)} exclusions; require 2+",
         )
     else:
-        add(3, "PASS", "when-not-to-use", f"{len(when_not_to_use)} exclusions")
+        add(num, "PASS", "when-not-to-use", f"{len(when_not_to_use)} exclusions")
 
 
-# 4. Every assigned mode has source evidence (structural proxy + delegated)
-def _check_4_modes_evidence(modes: list, add: _Emit) -> None:
+# Every assigned mode has source evidence (structural proxy + delegated)
+def _check_modes_evidence(num: int, f: Fields, add: _Emit) -> None:
+    modes = f.modes
     if not modes:
-        add(4, "FAIL", "modes-present", "no modes defined in outputs.modes")
+        add(num, "FAIL", "modes-present", "no modes defined in outputs.modes")
     else:
         missing_trigger = [
             m.get("name", "?") for m in modes if not str(m.get("trigger", "")).strip()
         ]
         if missing_trigger:
             add(
-                4,
+                num,
                 "WARNING",
                 "modes-evidence",
                 f"modes missing a trigger (evidence proxy): {', '.join(missing_trigger)}",
             )
         else:
             add(
-                4,
+                num,
                 "INFO",
                 "modes-evidence",
                 "mode source-evidence traceability delegated to profile-reviewer",
             )
 
 
-# 5. inputs.required explicit
-def _check_5_inputs_required(inputs_required: list, add: _Emit) -> None:
+# inputs.required explicit
+def _check_inputs_required(num: int, f: Fields, add: _Emit) -> None:
+    inputs_required = f.inputs_required
     if not inputs_required:
-        add(5, "FAIL", "inputs-required", "inputs.required is empty")
+        add(num, "FAIL", "inputs-required", "inputs.required is empty")
     else:
-        add(5, "PASS", "inputs-required", f"{len(inputs_required)} required input(s)")
+        add(num, "PASS", "inputs-required", f"{len(inputs_required)} required input(s)")
 
 
-# 6. outputs.primary_format explicit
-def _check_6_primary_format(primary_format: str, add: _Emit) -> None:
+# outputs.primary_format explicit
+def _check_primary_format(num: int, f: Fields, add: _Emit) -> None:
+    primary_format = f.primary_format
     if not primary_format:
-        add(6, "FAIL", "primary-format", "outputs.primary_format is empty")
+        add(num, "FAIL", "primary-format", "outputs.primary_format is empty")
     else:
-        add(6, "PASS", "primary-format", primary_format[:60])
+        add(num, "PASS", "primary-format", primary_format[:60])
 
 
-# 7. Every mode states its output format
-def _check_7_mode_output(modes: list, add: _Emit) -> None:
+# Every mode states its output format
+def _check_mode_output(num: int, f: Fields, add: _Emit) -> None:
+    modes = f.modes
     if modes:
         missing_output = [m.get("name", "?") for m in modes if not str(m.get("output", "")).strip()]
         if missing_output:
             add(
-                7,
+                num,
                 "FAIL",
                 "mode-output",
                 f"modes missing an output contract: {', '.join(missing_output)}",
             )
         else:
-            add(7, "PASS", "mode-output", "every mode states its output")
+            add(num, "PASS", "mode-output", "every mode states its output")
 
 
-# 8. minimum_useful_output defined
-def _check_8_minimum_useful_output(minimum_useful_output: str, add: _Emit) -> None:
+# minimum_useful_output defined
+def _check_minimum_useful_output(num: int, f: Fields, add: _Emit) -> None:
+    minimum_useful_output = f.minimum_useful_output
     if not minimum_useful_output:
-        add(8, "FAIL", "minimum-useful-output", "minimum_useful_output is empty")
+        add(num, "FAIL", "minimum-useful-output", "minimum_useful_output is empty")
     else:
-        add(8, "PASS", "minimum-useful-output", "defined")
+        add(num, "PASS", "minimum-useful-output", "defined")
 
 
-# 9. canonical_owner named in source_of_truth_policy
-def _check_9_canonical_owner(canonical_owner: str, add: _Emit) -> None:
+# canonical_owner named in source_of_truth_policy
+def _check_canonical_owner(num: int, f: Fields, add: _Emit) -> None:
+    canonical_owner = f.canonical_owner
     if not canonical_owner:
-        add(9, "FAIL", "canonical-owner", "source_of_truth_policy.canonical_owner is empty")
+        add(num, "FAIL", "canonical-owner", "source_of_truth_policy.canonical_owner is empty")
     else:
-        add(9, "PASS", "canonical-owner", canonical_owner[:60])
+        add(num, "PASS", "canonical-owner", canonical_owner[:60])
 
 
-# 10. may_edit_canonical is false for specialist roles
-def _check_10_may_edit_canonical(may_edit_canonical, add: _Emit) -> None:
+# may_edit_canonical is false for specialist roles
+def _check_may_edit_canonical(num: int, f: Fields, add: _Emit) -> None:
+    may_edit_canonical = f.may_edit_canonical
     if may_edit_canonical in (
         None,
         "",
     ):
-        add(10, "FAIL", "may-edit-canonical", "source_of_truth_policy.may_edit_canonical is unset")
+        add(num, "FAIL", "may-edit-canonical", "source_of_truth_policy.may_edit_canonical is unset")
     elif _truthy(may_edit_canonical):
         add(
-            10,
+            num,
             "FAIL",
             "may-edit-canonical",
             "may_edit_canonical is true; specialist roles must be false",
         )
     else:
-        add(10, "PASS", "may-edit-canonical", "false")
+        add(num, "PASS", "may-edit-canonical", "false")
 
 
-# 11. quality_bar requires evidence citation
-def _check_11_quality_bar(quality_bar: list, add: _Emit) -> None:
+# quality_bar requires evidence citation
+def _check_quality_bar(num: int, f: Fields, add: _Emit) -> None:
+    quality_bar = f.quality_bar
     if not quality_bar:
-        add(11, "FAIL", "quality-bar", "quality_bar is empty")
+        add(num, "FAIL", "quality-bar", "quality_bar is empty")
     else:
         qb_text = " ".join(str(q) for q in quality_bar).lower()
         if not any(w in qb_text for w in _EVIDENCE_WORDS) and not _ID_CITATION_RE.search(qb_text):
             add(
-                11,
+                num,
                 "WARNING",
                 "quality-bar-evidence",
                 "no quality_bar check references evidence/source/principle",
             )
         elif len(quality_bar) < 3:
             add(
-                11,
+                num,
                 "WARNING",
                 "quality-bar",
                 f"only {len(quality_bar)} quality_bar checks (expect 3–5)",
             )
         else:
-            add(11, "PASS", "quality-bar", f"{len(quality_bar)} evidence-citing checks")
+            add(num, "PASS", "quality-bar", f"{len(quality_bar)} evidence-citing checks")
 
 
-# 12. forbidden_behaviours present and traceable
-def _check_12_forbidden(forbidden: list, add: _Emit) -> None:
+# forbidden_behaviours present and traceable
+def _check_forbidden(num: int, f: Fields, add: _Emit) -> None:
+    forbidden = f.forbidden
     if not forbidden:
-        add(12, "FAIL", "forbidden-behaviours", "forbidden_behaviours is empty")
+        add(num, "FAIL", "forbidden-behaviours", "forbidden_behaviours is empty")
     else:
         add(
-            12,
+            num,
             "INFO",
             "forbidden-behaviours",
             f"{len(forbidden)} rules; source traceability delegated to profile-reviewer",
         )
 
 
-# 13. No multi-step workflow in profile body
-def _check_13_no_procedure(body_fields: list, add: _Emit) -> None:
-    if any(_STEP_RE.search(t) for t in body_fields):
+# No multi-step workflow in profile body
+def _check_no_procedure(num: int, f: Fields, add: _Emit) -> None:
+    if any(_STEP_RE.search(t) for t in f.body_fields):
         add(
-            13,
+            num,
             "WARNING",
             "no-procedure-in-body",
             "possible multi-step workflow in profile body; extract to a skill",
         )
     else:
-        add(13, "PASS", "no-procedure-in-body", "no ordered procedure detected in body")
+        add(num, "PASS", "no-procedure-in-body", "no ordered procedure detected in body")
 
 
-# 14. Profile body under 800 words
-def _check_14_body_size(body_groups: dict, body_fields: list, add: _Emit) -> None:
+# Profile body under 800 words
+def _check_body_size(num: int, f: Fields, add: _Emit) -> None:
+    body_fields = f.body_fields
     word_count = sum(len(str(t).split()) for t in body_fields)
     if word_count <= _BODY_WARN_WORDS:
-        add(14, "PASS", "body-size", f"~{word_count} words")
+        add(num, "PASS", "body-size", f"~{word_count} words")
     else:
         # Over budget: name the heaviest sections so trimming is targeted, not
         # guesswork. (Closing this WARNING is otherwise pure trial-and-error.)
         level = "FAIL" if word_count > _BODY_FAIL_WORDS else "WARNING"
         limit = _BODY_FAIL_WORDS if level == "FAIL" else _BODY_WARN_WORDS
         section_words = {
-            name: sum(len(str(t).split()) for t in group) for name, group in body_groups.items()
+            name: sum(len(str(t).split()) for t in group) for name, group in f.body_groups.items()
         }
         top = sorted(section_words.items(), key=lambda kv: kv[1], reverse=True)[:3]
         breakdown = ", ".join(f"{name} {n}w" for name, n in top if n)
         over = word_count - _BODY_WARN_WORDS
         add(
-            14,
+            num,
             level,
             "body-size",
             f"profile body ~{word_count} words (> {limit}); "
@@ -274,55 +319,79 @@ def _check_14_body_size(body_groups: dict, body_fields: list, add: _Emit) -> Non
         )
 
 
-# 15. No platform-specific paths or tool names in core
-def _check_15_platform_neutral(body_fields: list, add: _Emit) -> None:
-    core_text = " ".join(str(t) for t in body_fields).lower()
+# No platform-specific paths or tool names in core
+def _check_platform_neutral(num: int, f: Fields, add: _Emit) -> None:
+    core_text = " ".join(str(t) for t in f.body_fields).lower()
     hits = sorted({tok for tok in _PLATFORM_FAIL_TOKENS if tok in core_text})
     if hits:
-        add(15, "FAIL", "platform-neutral", f"platform-specific tokens in core: {', '.join(hits)}")
+        add(num, "FAIL", "platform-neutral", f"platform-specific tokens in core: {', '.join(hits)}")
     else:
-        add(15, "PASS", "platform-neutral", "core is platform-neutral")
+        add(num, "PASS", "platform-neutral", "core is platform-neutral")
 
 
-# 16. Provenance ledger exists and is non-trivial
-def _check_16_provenance_ledger(base: Path, add: _Emit) -> None:
-    ledger = base / "provenance-ledger.md"
+# Provenance ledger exists and is non-trivial
+def _check_provenance_ledger(num: int, f: Fields, add: _Emit) -> None:
+    ledger = f.base / "provenance-ledger.md"
     if not ledger.exists():
-        add(16, "FAIL", "provenance-ledger", "provenance-ledger.md missing")
+        add(num, "FAIL", "provenance-ledger", "provenance-ledger.md missing")
     elif ledger.stat().st_size < 200:
         add(
-            16,
+            num,
             "WARNING",
             "provenance-ledger",
             "provenance-ledger.md is very small; may be incomplete",
         )
     else:
-        add(16, "PASS", "provenance-ledger", "present")
+        add(num, "PASS", "provenance-ledger", "present")
 
 
-# 17. No unresolved conflict (delegated — requires merge log)
-def _check_17_no_unresolved_conflict(add: _Emit) -> None:
+# No unresolved conflict (delegated — requires merge log)
+def _check_no_unresolved_conflict(num: int, f: Fields, add: _Emit) -> None:
     add(
-        17,
+        num,
         "INFO",
         "no-unresolved-conflict",
         "conflict resolution review delegated to profile-reviewer / Phase 7 merge log",
     )
 
 
-# 18. At least 3 golden tests including 1 negative routing test
-def _check_18_golden_tests(base: Path, add: _Emit) -> None:
-    golden, negative, misplaced_hint = _count_tests(base)
+# At least 3 golden tests including 1 negative routing test
+def _check_golden_tests(num: int, f: Fields, add: _Emit) -> None:
+    golden, negative, misplaced_hint = _count_tests(f.base)
     if golden < 3 or negative < 1:
         add(
-            18,
+            num,
             "FAIL",
             "golden-tests",
             f"found {golden} golden test(s) and {negative} negative routing test(s); "
             f"require 3+ golden and 1+ negative" + misplaced_hint,
         )
     else:
-        add(18, "PASS", "golden-tests", f"{golden} golden, {negative} negative routing")
+        add(num, "PASS", "golden-tests", f"{golden} golden, {negative} negative routing")
+
+
+# The single home of each check's ordinal. Add or reorder here only — the number
+# is passed into the check, so it lives in exactly one place.
+_CHECKS: list[tuple[int, _Check]] = [
+    (1, _check_slug),
+    (2, _check_when_to_use),
+    (3, _check_when_not_to_use),
+    (4, _check_modes_evidence),
+    (5, _check_inputs_required),
+    (6, _check_primary_format),
+    (7, _check_mode_output),
+    (8, _check_minimum_useful_output),
+    (9, _check_canonical_owner),
+    (10, _check_may_edit_canonical),
+    (11, _check_quality_bar),
+    (12, _check_forbidden),
+    (13, _check_no_procedure),
+    (14, _check_body_size),
+    (15, _check_platform_neutral),
+    (16, _check_provenance_ledger),
+    (17, _check_no_unresolved_conflict),
+    (18, _check_golden_tests),
+]
 
 
 def _result(findings: list[dict]) -> dict:
@@ -352,10 +421,23 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
 
     try:
         profile = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
-    except Exception as e:
+    except yaml.YAMLError as e:
         add(0, "FAIL", "profile-parse", f"profile.yaml failed to parse: {e}")
         return _result(findings)
 
+    fields = _extract_fields(profile, base)
+    for num, check in _CHECKS:
+        check(num, fields, add)
+
+    return _result(findings)
+
+
+def _extract_fields(profile: dict, base: Path) -> Fields:
+    """Build the typed ``Fields`` bag the checks consume (the "construct" step).
+
+    Separated from ``profile_self_check`` so the orchestrator only dispatches checks
+    and the field-derivation logic lives in one place.
+    """
     slug = str(profile.get("slug", "") or "")
     when_to_use = _as_list(profile.get("when_to_use"))
     when_not_to_use = _as_list(profile.get("when_not_to_use"))
@@ -387,26 +469,22 @@ def profile_self_check(subagent_dir: str | Path) -> dict:
     }
     body_fields = [t for group in body_groups.values() for t in group]
 
-    _check_1_slug(slug, add)
-    _check_2_when_to_use(when_to_use, add)
-    _check_3_when_not_to_use(when_not_to_use, add)
-    _check_4_modes_evidence(modes, add)
-    _check_5_inputs_required(inputs_required, add)
-    _check_6_primary_format(primary_format, add)
-    _check_7_mode_output(modes, add)
-    _check_8_minimum_useful_output(minimum_useful_output, add)
-    _check_9_canonical_owner(canonical_owner, add)
-    _check_10_may_edit_canonical(may_edit_canonical, add)
-    _check_11_quality_bar(quality_bar, add)
-    _check_12_forbidden(forbidden, add)
-    _check_13_no_procedure(body_fields, add)
-    _check_14_body_size(body_groups, body_fields, add)
-    _check_15_platform_neutral(body_fields, add)
-    _check_16_provenance_ledger(base, add)
-    _check_17_no_unresolved_conflict(add)
-    _check_18_golden_tests(base, add)
-
-    return _result(findings)
+    return Fields(
+        base=base,
+        slug=slug,
+        when_to_use=when_to_use,
+        when_not_to_use=when_not_to_use,
+        inputs_required=inputs_required,
+        primary_format=primary_format,
+        modes=modes,
+        quality_bar=quality_bar,
+        minimum_useful_output=minimum_useful_output,
+        forbidden=forbidden,
+        canonical_owner=canonical_owner,
+        may_edit_canonical=may_edit_canonical,
+        body_groups=body_groups,
+        body_fields=body_fields,
+    )
 
 
 def _as_list(value) -> list:
@@ -461,7 +539,7 @@ def _count_tests(base: Path) -> tuple[int, int, str]:
     for tf in sorted(tests_dir.glob("*.yaml")):
         try:
             data = yaml.safe_load(tf.read_text(encoding="utf-8")) or {}
-        except Exception:
+        except (yaml.YAMLError, OSError):
             continue
         if not isinstance(data, dict):
             continue

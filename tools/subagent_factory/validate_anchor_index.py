@@ -15,14 +15,18 @@ def validate_anchor_index(anchors_path: str | Path) -> list[str]:
     """Return list of error strings. Empty list = valid."""
     path = Path(anchors_path)
     errors = []
+    record_count = 0
+    file_read = False
     try:
         with open(_SCHEMA_PATH) as f:
             schema = json.load(f)
         with open(path) as f:
+            file_read = True
             for line_num, line in enumerate(f, 1):
                 line = line.strip()
                 if not line:
                     continue
+                record_count += 1
                 try:
                     record = json.loads(line)
                     jsonschema.validate(record, schema)
@@ -32,6 +36,10 @@ def validate_anchor_index(anchors_path: str | Path) -> list[str]:
                     errors.append(f"Line {line_num}: {e.message}")
     except Exception as e:
         errors.append(str(e))
+    # Fail-closed: an existing-but-recordless file is an invalid anchor index.
+    # An empty (or all-blank) file silently passed before (fail-open); reject it.
+    if file_read and record_count == 0:
+        errors.append("anchor index is empty (no anchor records)")
     return errors
 
 

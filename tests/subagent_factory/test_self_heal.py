@@ -92,6 +92,89 @@ def test_allowlist_specs_are_sane():
     assert sh.ALLOWED_PACKAGES["slugify"].startswith("python-slugify")
 
 
+def _fake_completed(returncode, stdout="", stderr=""):
+    return types.SimpleNamespace(returncode=returncode, stdout=stdout, stderr=stderr)
+
+
+def test_install_cmd_uses_uv_when_present(monkeypatch):
+    monkeypatch.setattr(sh.shutil, "which", lambda name: "/usr/bin/uv")
+    cmd = sh._install_cmd(".[convert]", "/venv/bin/python")
+    assert cmd == ["uv", "pip", "install", "--python", "/venv/bin/python", ".[convert]"]
+
+
+def test_install_cmd_falls_back_to_pip(monkeypatch):
+    monkeypatch.setattr(sh.shutil, "which", lambda name: None)
+    cmd = sh._install_cmd(".[convert]", "/venv/bin/python")
+    assert cmd == ["/venv/bin/python", "-m", "pip", "install", ".[convert]"]
+
+
+def test_bootstrap_reports_failure_when_post_install_import_fails(monkeypatch, tmp_path):
+    """A zero-exit install with a broken import must report failure, not success."""
+    # Pretend the venv already exists so we skip the create step.
+    monkeypatch.setattr(sh, "_VENV_DIR", tmp_path / ".venv")
+    (tmp_path / ".venv").mkdir()
+    monkeypatch.setattr(sh.shutil, "which", lambda name: None)
+
+    calls = []
+
+    def fake_run(cmd, **kwargs):
+        calls.append(cmd)
+        # The install command succeeds...
+        if "install" in cmd:
+            return _fake_completed(0)
+        # ...but the `-c "import markitdown"` probe fails.
+        if "-c" in cmd:
+            return _fake_completed(1, stderr="ModuleNotFoundError: No module named 'markitdown'")
+        return _fake_completed(0)
+
+    monkeypatch.setattr(sh.subprocess, "run", fake_run)
+    result = sh.bootstrap_environment(extra="convert")
+    assert result["installed"] is False
+    assert result["error"] and "importable" in result["error"]
+    # The import probe was actually attempted.
+    assert any("-c" in c for c in calls)
+
+
+def test_bootstrap_reports_failure_when_import_probe_times_out(monkeypatch, tmp_path):
+    """A wedged import probe times out -> installed False, clear error, and the
+    probe uses the short probe budget, not the 10-minute install timeout."""
+    monkeypatch.setattr(sh, "_VENV_DIR", tmp_path / ".venv")
+    (tmp_path / ".venv").mkdir()
+    monkeypatch.setattr(sh.shutil, "which", lambda name: None)
+
+    probe_timeouts = []
+
+    def fake_run(cmd, **kwargs):
+        # The install command succeeds...
+        if "install" in cmd:
+            return _fake_completed(0)
+        # ...but the `-c "import markitdown"` probe hangs and gets killed.
+        if "-c" in cmd:
+            probe_timeouts.append(kwargs.get("timeout"))
+            raise sh.subprocess.TimeoutExpired(cmd=cmd, timeout=kwargs.get("timeout"))
+        return _fake_completed(0)
+
+    monkeypatch.setattr(sh.subprocess, "run", fake_run)
+    result = sh.bootstrap_environment(extra="convert")
+
+    assert result["installed"] is False
+    assert result["error"] and "importable" in result["error"]
+    # The probe ran with the short budget, never the 10-minute install timeout.
+    assert probe_timeouts == [sh._IMPORT_PROBE_TIMEOUT]
+    assert sh._IMPORT_PROBE_TIMEOUT < sh._INSTALL_TIMEOUT
+    assert sh._INSTALL_TIMEOUT not in probe_timeouts
+
+
+def test_bootstrap_succeeds_when_import_verifies(monkeypatch, tmp_path):
+    monkeypatch.setattr(sh, "_VENV_DIR", tmp_path / ".venv")
+    (tmp_path / ".venv").mkdir()
+    monkeypatch.setattr(sh.shutil, "which", lambda name: None)
+    monkeypatch.setattr(sh.subprocess, "run", lambda cmd, **kw: _fake_completed(0))
+    result = sh.bootstrap_environment(extra="convert")
+    assert result["installed"] is True
+    assert result["error"] is None
+
+
 def test_doctor_reports_without_installing(monkeypatch):
     called = []
     monkeypatch.setattr(sh, "_pip_install", lambda spec: called.append(spec) or True)

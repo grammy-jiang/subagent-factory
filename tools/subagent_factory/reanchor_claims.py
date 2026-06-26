@@ -31,6 +31,7 @@ from pathlib import Path
 
 from tools.subagent_factory.anchor_io import load_claims, write_claims_and_propagate
 from tools.subagent_factory.claim_recall import _content_tokens
+from tools.subagent_factory.inject_anchors import _INJECTED_ANCHOR_RE
 
 _WINDOW_CHARS = 320
 
@@ -46,7 +47,13 @@ def _load_source(base: Path, sid: str) -> tuple[list[tuple[str, set[str]]], dict
     recs = [r for r in recs if r.get("anchor_id") and r.get("line_number")]
     recs.sort(key=lambda r: r["line_number"])
     md = base / "sources" / "markdown" / f"{sid}.md"
-    lines = md.read_text(encoding="utf-8").splitlines() if md.exists() else []
+    # inject_anchors records line_number against the anchor-comment-FREE input, but writes the
+    # markdown with a `<!-- anchor:... -->` line inserted before each anchored line. Strip those
+    # injected comment lines here so our line coordinates match the line_numbers in the index —
+    # otherwise every window drifts by the count of preceding comments and shows a neighbor's
+    # passage, making the LLM judge support against the wrong text (silent provenance corruption).
+    raw_lines = md.read_text(encoding="utf-8").splitlines() if md.exists() else []
+    lines = [ln for ln in raw_lines if not _INJECTED_ANCHOR_RE.match(ln)]
     ranked: list[tuple[str, set[str]]] = []
     window: dict[str, str] = {}
     for i, r in enumerate(recs):

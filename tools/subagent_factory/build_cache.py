@@ -4,7 +4,7 @@ Per-step completion markers with **input-fingerprinting** + **atomic writes**, s
 build resumes (skip done steps) and a changed upstream invalidates the downstream marker (no stale
 resume). NO LLM.
 
-  atomic_write_text(path, text)        : write via tmp -> fsync -> rename (never a torn/half file).
+  atomic_write_text(path, text)        : re-exported from _common (single owner; unique sibling temp + os.replace).
   mark_done(step_dir, step, inputs)    : write <step>.done carrying the inputs' fingerprint + ts.
   is_done(step_dir, step, inputs)      : True iff <step>.done exists AND its fingerprint matches inputs.
   step_log(log_path, **fields)         : append one JSON line to a steps.log.jsonl run ledger.
@@ -14,10 +14,15 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 import time
 from collections.abc import Iterable
 from pathlib import Path
+
+# Single owner of the atomic-write pattern (P010). Re-exported so existing
+# `from build_cache import atomic_write_text` call sites keep working.
+from tools.subagent_factory._common import atomic_write_text
+
+__all__ = ["atomic_write_text", "fingerprint", "is_done", "mark_done", "step_log"]
 
 
 def fingerprint(inputs: Iterable[object]) -> str:
@@ -28,20 +33,11 @@ def fingerprint(inputs: Iterable[object]) -> str:
     return h.hexdigest()[:16]
 
 
-def atomic_write_text(path: str | Path, text: str) -> None:
-    p = Path(path)
-    p.parent.mkdir(parents=True, exist_ok=True)
-    tmp = p.with_name(p.name + ".tmp")
-    with open(tmp, "w", encoding="utf-8") as f:
-        f.write(text)
-        f.flush()
-        os.fsync(f.fileno())
-    tmp.rename(p)
-
-
 def mark_done(step_dir: str | Path, step: str, inputs: Iterable[object] = ()) -> None:
+    target = Path(step_dir) / f"{step}.done"
+    target.parent.mkdir(parents=True, exist_ok=True)
     atomic_write_text(
-        Path(step_dir) / f"{step}.done",
+        target,
         json.dumps({"step": step, "fp": fingerprint(inputs), "ts": time.time()}),
     )
 

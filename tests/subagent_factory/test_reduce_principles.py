@@ -67,3 +67,17 @@ def test_select_top_by_importance():
     a = {"n_sources": 3, "derived_from_claims": ["C1"], "confidence": "high"}
     b = {"n_sources": 1, "derived_from_claims": [], "confidence": "low"}
     assert select_top([b, a], 1) == [a]
+
+
+def test_select_top_fraction_keeps_top_fraction():
+    # 0<limit<1 keeps that FRACTION (rounded, min 1) of the importance-ranked pool. This path is
+    # only reachable from the CLI once --select is type=float (was type=int, which truncated it).
+    ps = [{"n_sources": n, "derived_from_claims": [], "confidence": "low"} for n in range(1, 5)]
+    kept = select_top(ps, 0.5)  # 4 principles -> top half = 2
+    assert [p["n_sources"] for p in kept] == [4, 3]
+
+
+def test_select_top_fraction_rounds_to_min_one():
+    ps = [{"n_sources": n, "derived_from_claims": [], "confidence": "low"} for n in range(1, 4)]
+    # 3 * 0.1 = 0.3 -> round -> 0, floored to min 1.
+    assert len(select_top(ps, 0.1)) == 1

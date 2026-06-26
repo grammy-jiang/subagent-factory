@@ -139,7 +139,12 @@ def main() -> int:
         "principles_yaml", type=Path, help="combined principles.yaml (schema principles-v1)"
     )
     ap.add_argument("--cos", type=float, default=0.55)
-    ap.add_argument("--select", type=int, default=0)
+    ap.add_argument(
+        "--select",
+        type=float,
+        default=0,
+        help="0=keep all; 0<x<1=keep that fraction (e.g. 0.5=top half); x>=1=keep that many",
+    )
     ap.add_argument("--decisions", type=Path, help="optional decisions.json keyed by group index")
     args = ap.parse_args()
     ps = (yaml.safe_load(args.principles_yaml.read_text(encoding="utf-8")) or {}).get(

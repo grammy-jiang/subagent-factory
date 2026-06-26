@@ -52,6 +52,24 @@ def test_pdf_by_magic():
     assert detect_file_type(tmp) == "pdf"
 
 
+def test_non_zip_docx_not_trusted_as_docx():
+    # A .docx whose bytes are NOT a ZIP (legacy OLE .doc renamed, or garbage) must not be trusted
+    # as docx on extension alone — the magic-byte gate must apply to .docx too (C1).
+    with tempfile.NamedTemporaryFile(suffix=".docx", delete=False) as f:
+        f.write(b"\xd0\xcf\x11\xe0 legacy OLE compound doc, not a zip")
+        tmp = f.name
+    assert detect_file_type(tmp) != "docx"
+
+
+def test_legacy_doc_not_trusted_as_docx():
+    # .doc maps to the docx candidate but a real legacy .doc is an OLE container, not a ZIP — it
+    # must not be dispatched to the docx/pandoc path as if it were OOXML.
+    with tempfile.NamedTemporaryFile(suffix=".doc", delete=False) as f:
+        f.write(b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1 OLE2 legacy word doc")
+        tmp = f.name
+    assert detect_file_type(tmp) != "docx"
+
+
 def test_unknown():
     with tempfile.NamedTemporaryFile(suffix=".xyz", delete=False) as f:
         f.write(b"\x00\x01\x02\x03 binary")

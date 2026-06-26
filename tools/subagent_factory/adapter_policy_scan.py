@@ -21,33 +21,94 @@ from pathlib import Path
 import yaml
 
 from tools.subagent_factory.export_claude_agent import _determine_tools
-from tools.subagent_factory.prompt_injection_scan import _denylist_hits
+from tools.subagent_factory.prompt_injection_scan import _denylist_hits, _norm
+from tools.subagent_factory.validate_skill_authoring import (
+    _FRONTMATTER_CORRUPT,
+    _parse_frontmatter,
+    split_frontmatter,
+)
 
 _REPO_ROOT = Path(__file__).parent.parent.parent
 
+# A grant value the parser cannot reduce to a clean name-set (corrupt frontmatter, or a `tools`
+# value that is a mapping / nested structure) yields this sentinel instead of an empty set. It can
+# never be in the allowed baseline, so `granted_tools(text) - allowed` is non-empty → tool-grant
+# FAIL. This makes "a tools shape I can't model" fail CLOSED, not open (the recurring seam: every
+# unmodelled shape used to collapse to set() and PASS).
+_UNPARSEABLE_GRANT = "\x00UNPARSEABLE-TOOLS"
+
+# Permission-escalation tokens never legitimate in a generated adapter. Matched case-folded after
+# normalization (zero-width strip / confusable fold) so an obfuscated key can't slip past, and
+# de-hyphenated so ``allowed-tools`` and ``allowedTools`` collapse to the same token. Includes the
+# authority-widening keys (``allowedtools`` widens the tool grant outside the profile basis;
+# ``additionaldirectories`` widens filesystem reach) alongside the permission-mode escapes.
 _ESCALATION = (
     "mcpservers",
     "permissionmode",
     "disallowedtools",
+    "allowedtools",
+    "additionaldirectories",
     "bypasspermissions",
-    "dangerously-skip-permissions",
+    "dangerouslyskippermissions",
 )
-_FRONT_MATTER = re.compile(r"^---\n(.*?)\n---", re.S)
-_TOOLS_LINE = re.compile(r"^tools:\s*(.+)$", re.M)
 
 
-def _granted_tools(text: str) -> set[str]:
-    m = _FRONT_MATTER.search(text)
-    fm = m.group(1) if m else text
-    tm = _TOOLS_LINE.search(fm)
-    if not tm:
+def granted_tools(text: str) -> set[str]:
+    """Public: the set of tool names an adapter's front-matter ``tools:`` grants (empty if none).
+
+    Parses the frontmatter via the shared ``_parse_frontmatter`` (BOM/blank-line/CRLF-tolerant —
+    the same fence recognition the rest of the factory uses, so this can't diverge from how the
+    doc is otherwise read), then reads the ``tools`` value as YAML. BOTH supported Claude Code
+    forms are covered: the inline scalar (``tools: Read, Grep``) and the block list
+    (``tools:\\n  - Read\\n  - Bash``). The earlier line-regex (a) only read the inline form and
+    (b) fell back to parsing the whole body when its strict ``^---\\n`` fence missed a BOM/CRLF
+    opening — both let a Bash/Write grant bypass the load-bearing tool-grant FAIL path. Used by
+    this scan and by ``optimize_adapter.make_policy_gate``, so the parsing rule lives in one place.
+    """
+    fm = _parse_frontmatter(text)
+    if fm is _FRONTMATTER_CORRUPT:
+        # Present-but-unparseable adapter frontmatter: cannot be assessed → fail closed (a hidden
+        # `tools: Bash` inside malformed frontmatter must not read as "grants nothing").
+        return {_UNPARSEABLE_GRANT}
+    if not isinstance(fm, dict):
+        return set()  # no frontmatter at all → no grant
+    val = fm.get("tools")
+    if val is None:
         return set()
-    return {t.strip() for t in tm.group(1).split(",") if t.strip()}
+    if isinstance(val, str):
+        return {t.strip() for t in val.split(",") if t.strip()}
+    if isinstance(val, (list, tuple)):
+        # Names must be scalars; a non-scalar element (list of mappings, nested) is unmodellable.
+        if all(isinstance(t, (str, int, float)) for t in val):
+            return {str(t).strip() for t in val if str(t).strip()}
+        return {_UNPARSEABLE_GRANT}
+    # dict or any other shape: cannot reduce to a name-set → fail closed.
+    return {_UNPARSEABLE_GRANT}
+
+
+def _escalation_keys(fm: object) -> set[str]:
+    """All mapping KEYS in the frontmatter, recursively, normalized (zero-width strip / confusable
+    fold, lowercased, hyphens+underscores dropped) so allowed-tools / allowed_tools / allowedTools
+    collapse to one token. Escalation is a frontmatter-KEY control — Claude Code honors these as
+    keys, not as words in body prose — so matching keys (not a whole-text substring sweep) catches
+    the real attack while not false-FAILing a reviewer adapter whose prose merely names the concept.
+    """
+    keys: set[str] = set()
+    if isinstance(fm, dict):
+        for k, v in fm.items():
+            keys.add(re.sub(r"[-_]", "", _norm(str(k)).lower()))
+            keys |= _escalation_keys(v)
+    elif isinstance(fm, (list, tuple)):
+        for item in fm:
+            keys |= _escalation_keys(item)
+    return keys
 
 
 def _body(text: str) -> str:
-    m = _FRONT_MATTER.search(text)
-    return text[m.end() :] if m else text
+    # Shared (BOM/blank/CRLF-tolerant) split. With no frontmatter at all the whole text is body;
+    # with frontmatter present the split's body is authoritative (even if empty).
+    result, body = split_frontmatter(text)
+    return text if result is None else body
 
 
 def adapter_policy_scan(subagent_dir: str | Path) -> list[dict]:
@@ -58,25 +119,55 @@ def adapter_policy_scan(subagent_dir: str | Path) -> list[dict]:
     base = Path(subagent_dir)
     findings: list[dict] = []
     profile_path = base / "profile.yaml"
-    if not profile_path.exists():
-        return findings
-    try:
-        profile = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
-    except yaml.YAMLError:
+
+    # The profile is the policy BASIS (which tools the modes earn). If it is missing or corrupt we
+    # cannot derive `allowed`, so the gate must FAIL CLOSED whenever an adapter is nonetheless
+    # present — returning [] (PASS) would let a tampered package that also removed/corrupted its
+    # profile disable this control entirely. With no adapter present there is nothing to gate, so
+    # an absent profile is a benign no-op (preserves the empty-package PASS).
+    cc_dir = base / "adapters" / "claude-code"
+    adapter_present = cc_dir.is_dir() and any(cc_dir.glob("*.md"))
+    # A profile that loads but is NOT a mapping (top-level list/scalar) is not a usable policy
+    # basis — treat it like a parse failure (None) and fail closed below, rather than coercing it
+    # to {} (which would silently pass a read-only adapter on a garbage profile).
+    profile: dict | None = None
+    if profile_path.exists():
+        try:
+            loaded = yaml.safe_load(profile_path.read_text(encoding="utf-8"))
+            profile = loaded if isinstance(loaded, dict) else None
+        except yaml.YAMLError:
+            profile = None
+    if profile is None:
+        if adapter_present:
+            findings.append(
+                {
+                    "file": str(profile_path),
+                    "level": "FAIL",
+                    "kind": "scan-error",
+                    "issue": "cannot load profile.yaml to derive the allowed-tool basis; "
+                    "failing closed (adapter present, policy basis unavailable)",
+                }
+            )
         return findings
 
     slug = str(profile.get("slug") or base.name)
     allowed = set(_determine_tools(profile))
-    candidates = [
-        base / "adapters" / "claude-code" / f"{slug}.md",
-        _REPO_ROOT / ".claude" / "agents" / "generated" / f"{slug}.md",
-    ]
+    # Scan EVERY adapter file in the package's claude-code dir, not only {slug}.md: a file whose
+    # name drifted from the slug (rename not propagated) must not escape the FAIL path. Plus the
+    # installed adapter at the canonical {slug}.md path. Dedup by resolved path, stable order.
+    candidates: list[Path] = sorted(cc_dir.glob("*.md")) if cc_dir.is_dir() else []
+    candidates.append(_REPO_ROOT / ".claude" / "agents" / "generated" / f"{slug}.md")
+    seen: set[Path] = set()
     for ad in candidates:
         if not ad.exists():
             continue
+        rp = ad.resolve()
+        if rp in seen:
+            continue
+        seen.add(rp)
         text = ad.read_text(encoding="utf-8", errors="replace")
 
-        extra = _granted_tools(text) - allowed
+        extra = granted_tools(text) - allowed
         if extra:
             findings.append(
                 {
@@ -88,8 +179,14 @@ def adapter_policy_scan(subagent_dir: str | Path) -> list[dict]:
                 }
             )
 
-        low = text.lower()
-        esc = [t for t in _ESCALATION if t in low]
+        # Escalation is a frontmatter-KEY control: match against the parsed frontmatter keys
+        # (normalized), NOT a whole-document substring sweep. The substring approach false-FAILed a
+        # reviewer adapter whose body prose legitimately named "allowedTools"/"permissionMode" as
+        # concepts — the body is reviewed prose (WARN tier), only a real frontmatter key is an
+        # escalation. A corrupt/parseless adapter yields no keys here; its grant is already failed
+        # closed by granted_tools' sentinel.
+        keys = _escalation_keys(_parse_frontmatter(text))
+        esc = [t for t in _ESCALATION if any(t in k for k in keys)]
         if esc:
             findings.append(
                 {

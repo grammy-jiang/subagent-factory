@@ -230,6 +230,20 @@ def test_source_provenance_unknown_source_id_fails(tmp_path, monkeypatch):
     assert result["passed"] is False
 
 
+def test_source_provenance_sha_format_insensitive_match_ok(tmp_path, monkeypatch):
+    # The two sha values are written by different producers (metadata generation
+    # vs profile authoring). A digest that differs only by case, surrounding
+    # whitespace, or a leading "sha256:" prefix is the SAME hash and must not
+    # raise a false "sha256 does not match" provenance FAIL.
+    pkg, _ = _build(tmp_path, monkeypatch)
+    # profile sha256 is the canonical lowercase "abc"; metadata emits an
+    # equivalent but differently-formatted digest.
+    _write_metadata(pkg, source_id="s1", sha256="  sha256:ABC  ")
+    result = vgp.validate_generated_package(pkg)
+    assert "source-provenance" not in _fail_checks(result)
+    assert any(f["check"] == "source-provenance" and f["level"] == "OK" for f in result["findings"])
+
+
 def test_source_provenance_empty_sha_warns_not_fails(tmp_path, monkeypatch):
     profile = _valid_profile()
     profile["sources"] = [{"source_id": "s1", "title": "A Book", "sha256": ""}]
@@ -322,6 +336,73 @@ def test_tier_consistency_ok_when_declared_matches(tmp_path, monkeypatch):
     result = vgp.validate_generated_package(pkg)
     assert "tier-consistency" not in _warn_checks(result)
     assert any(f["check"] == "tier-consistency" and f["level"] == "OK" for f in result["findings"])
+
+
+def test_route_and_single_parse_preserve_full_findings(tmp_path, monkeypatch):
+    # Equivalence guard for the _route / _emit_errors / single-profile-parse refactor:
+    # a known complete package must still produce the same verdict AND the exact same
+    # ordered (level, check, message) findings stream. Pins both routing-helper output
+    # and phase ordering so a future change that alters either is caught.
+    # Complete package (no source metadata fixture — that minimal fixture fails the
+    # separate metadata schema check; see test_source_provenance_match_ok).
+    pkg, _ = _build(tmp_path, monkeypatch)
+    result = vgp.validate_generated_package(pkg)
+    assert result["passed"] is True, _fail_checks(result)
+
+    stream = [(f["level"], f["check"], f["message"]) for f in result["findings"]]
+    # Every finding routed through an emitter carries one of the three levels.
+    assert all(level in ("FAIL", "WARN", "OK") for level, _c, _m in stream)
+    # The routing-helper-fed adapter-quality check lands as OK with its check label.
+    assert any(c == "adapter-quality" and lvl == "OK" for lvl, c, _m in stream)
+    # _emit_errors-fed tier-artifact success message keeps its "<rel> valid" shape.
+    assert ("OK", "tier-artifact", "reports/faithfulness-report.yaml valid") in stream
+    # Determinism: re-running yields a byte-identical findings stream.
+    again = vgp.validate_generated_package(pkg)
+    assert [(f["level"], f["check"], f["message"]) for f in again["findings"]] == stream
+
+
+def test_route_helper_dispatches_by_level():
+    calls: list[tuple[str, str, str]] = []
+    vgp._route(
+        [("FAIL", "boom"), ("WARN", "careful"), ("OK", "fine"), ("INFO", "noted")],
+        fail=lambda c, m: calls.append(("FAIL", c, m)),
+        warn=lambda c, m: calls.append(("WARN", c, m)),
+        ok=lambda c, m: calls.append(("OK", c, m)),
+        check="demo",
+    )
+    # FAIL→fail, WARN→warn, every other level (OK / INFO / …) → ok; order preserved.
+    assert calls == [
+        ("FAIL", "demo", "boom"),
+        ("WARN", "demo", "careful"),
+        ("OK", "demo", "fine"),
+        ("OK", "demo", "noted"),
+    ]
+
+
+def test_emit_errors_fails_each_then_ok_when_clean():
+    fails: list[tuple[str, str]] = []
+    oks: list[tuple[str, str]] = []
+    # Non-empty error list → one fail per error (label-prefixed), no ok.
+    vgp._emit_errors(
+        ["bad a", "bad b"],
+        fail=lambda c, m: fails.append((c, m)),
+        ok=lambda c, m: oks.append((c, m)),
+        check="chk",
+        label="file.yaml",
+    )
+    assert fails == [("chk", "file.yaml: bad a"), ("chk", "file.yaml: bad b")]
+    assert oks == []
+    # Empty error list → single ok ("<label> valid"), no fail.
+    fails.clear()
+    vgp._emit_errors(
+        [],
+        fail=lambda c, m: fails.append((c, m)),
+        ok=lambda c, m: oks.append((c, m)),
+        check="chk",
+        label="file.yaml",
+    )
+    assert fails == []
+    assert oks == [("chk", "file.yaml valid")]
 
 
 def test_phase8_fail_propagates_to_validation(tmp_path, monkeypatch):

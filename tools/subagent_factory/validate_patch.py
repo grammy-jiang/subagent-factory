@@ -28,7 +28,7 @@ adapter (mirrors ``behaviour_replay.shell_runner``). Verdicts:
 import shlex
 import subprocess  # nosec B404 — used only with explicit argv lists, never shell=True
 import sys
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from fnmatch import fnmatch
 from pathlib import Path
 from typing import NamedTuple
@@ -67,6 +67,52 @@ def _strip_ab(p: str) -> str:
     return p
 
 
+def _classify(line: str, next_line: str | None) -> str:
+    """Classify one diff line by the event it begins. ``next_line`` enables one-token lookahead.
+
+    Kinds:
+      - ``git_header``  — a ``diff --git`` line (starts a new file).
+      - ``file_header`` — an adjacent ``--- ``/``+++ `` pair (this line is the ``--- ``, the next is
+        the ``+++ ``). The pair is one event, consumed together. Adjacency is what disambiguates a
+        real header from a removed *content* line that merely starts with ``--- ``.
+      - ``hunk``        — a ``@@`` hunk header.
+      - ``added`` / ``removed`` — a content line inside a hunk (``+``/``-``), explicitly excluding
+        ``+++``/``---`` so header-marker tokens are never miscounted as content.
+      - ``other``       — context lines, indices, blank lines, anything else.
+    """
+    if line.startswith("diff --git"):
+        return "git_header"
+    if line.startswith("--- ") and next_line is not None and next_line.startswith("+++ "):
+        return "file_header"
+    if line.startswith("@@"):
+        return "hunk"
+    if line.startswith("+") and not line.startswith("+++"):
+        return "added"
+    if line.startswith("-") and not line.startswith("---"):
+        return "removed"
+    return "other"
+
+
+def _events(lines: list[str]) -> Iterator[tuple[str, str, str | None]]:
+    """Walk ``lines`` and yield one ``(kind, raw, nxt)`` event per diff event.
+
+    The single source of index motion for the parser: each iteration classifies the current line via
+    ``_classify`` (with one-token lookahead) and advances. A ``file_header`` is the only multi-line
+    event — its adjacent ``+++ `` line is carried in ``nxt`` and consumed here, so it is never
+    re-emitted as a separate event. Every other kind advances one line. ``nxt`` is the lookahead line
+    (``None`` at end of input).
+    """
+    n = len(lines)
+    i = 0
+    while i < n:
+        raw = lines[i]
+        nxt = lines[i + 1] if i + 1 < n else None
+        kind = _classify(raw, nxt)
+        yield kind, raw, nxt
+        # A file_header consumes its adjacent '+++ ' line (two lines, one event); all else, one line.
+        i += 2 if kind == "file_header" else 1
+
+
 def parse_unified_diff(diff_text: str) -> list[FilePatch]:
     """Parse a unified diff into per-file add/remove/hunk counts. Raise ``ValueError`` if malformed.
 
@@ -74,6 +120,10 @@ def parse_unified_diff(diff_text: str) -> list[FilePatch]:
     (``--- /dev/null``) and deletion (``+++ /dev/null``). A ``--- ``/``+++ `` pair is treated as a file
     header only when they are adjacent — so a removed *content* line that happens to start with
     ``--- `` inside a hunk is not mistaken for a header.
+
+    Implemented as a single pass over ``(kind, raw, nxt)`` events from ``_events`` (which owns all
+    index motion), with one pure handler per kind. A ``file_header`` event already has its adjacent
+    ``+++ `` line consumed by the generator, so each branch here is index-free.
     """
     if not diff_text or not diff_text.strip():
         raise ValueError("empty diff")
@@ -91,41 +141,28 @@ def parse_unified_diff(diff_text: str) -> list[FilePatch]:
             files.append(cur)
             cur = None
 
-    lines = diff_text.splitlines()
-    n = len(lines)
-    i = 0
-    while i < n:
-        raw = lines[i]
-        if raw.startswith("diff --git"):
+    for kind, raw, nxt in _events(diff_text.splitlines()):
+        if kind == "git_header":
             _flush()
             parts = raw.split()
             cur = _new(_strip_ab(parts[-1]) if len(parts) >= 3 else "")
-            i += 1
-            continue
-        if raw.startswith("--- ") and i + 1 < n and lines[i + 1].startswith("+++ "):
+        elif kind == "file_header":
+            # nxt is the adjacent '+++ ' line (consumed by _events; not re-emitted).
             old = _strip_ab(raw[4:])
-            new = _strip_ab(lines[i + 1][4:])
+            new = _strip_ab(nxt[4:])  # type: ignore[index]  # guaranteed non-None by _classify
             path = new if new != "/dev/null" else old
             if cur is None or cur["hunks"] > 0:
                 _flush()
                 cur = _new(path)
             else:
                 cur["path"] = path or cur["path"]
-            i += 2
-            continue
-        if raw.startswith("@@"):
+        elif kind == "hunk":
             if cur is None:
                 raise ValueError("hunk header before any file header")
             cur["hunks"] += 1
             saw_hunk = True
-            i += 1
-            continue
-        if cur is not None and cur["hunks"] > 0:
-            if raw.startswith("+") and not raw.startswith("+++"):
-                cur["added"] += 1
-            elif raw.startswith("-") and not raw.startswith("---"):
-                cur["removed"] += 1
-        i += 1
+        elif kind in ("added", "removed") and cur is not None and cur["hunks"] > 0:
+            cur["added" if kind == "added" else "removed"] += 1
     _flush()
 
     fps = [FilePatch(f["path"], f["added"], f["removed"], f["hunks"]) for f in files if f["hunks"]]
@@ -137,7 +174,20 @@ def parse_unified_diff(diff_text: str) -> list[FilePatch]:
 
 
 def _path_matches(path: str, pattern: str) -> bool:
-    """True if ``path`` matches ``pattern`` as an exact path, a directory prefix, or an fnmatch glob."""
+    """True if ``path`` matches ``pattern`` under any of three semantics (OR-combined).
+
+    This is the security-relevant predicate behind the deny/allow scope rung, so its three
+    semantics are spelled out and pinned by tests:
+
+      1. **exact** — ``path == pattern`` (e.g. ``"src/calc.py"`` matches ``"src/calc.py"``).
+      2. **directory prefix** — ``path`` lives under the directory named by ``pattern``: the
+         pattern's trailing ``/`` is normalized, then a ``"<pattern>/"`` prefix is required, so
+         ``"subagents/"`` matches ``"subagents/foo/profile.yaml"`` but not ``"subagents-x/y"``.
+      3. **fnmatch glob** — shell-style wildcards (e.g. ``"src/*.py"`` matches ``"src/calc.py"``).
+
+    A match under *any* semantic returns True; deny wins (a denied path is rejected even if it
+    would also satisfy an allow pattern).
+    """
     pre = pattern.rstrip("/") + "/"
     return path == pattern or path.startswith(pre) or fnmatch(path, pattern)
 
@@ -182,7 +232,12 @@ def _rec(rung: str, status: str, detail: str) -> dict:
     return {"rung": rung, "status": status, "detail": detail}
 
 
-def _finish(records: list[dict], stopped_at: str | None, metrics: dict) -> dict:
+def _verdict(records: list[dict], stopped_at: str | None, metrics: dict) -> dict:
+    """Fold the recorded rung statuses into the final verdict dict.
+
+    A single ``fail`` → ``fail``; every ``_REQUIRED_FOR_PASS`` rung ``pass`` → ``pass``; otherwise
+    (a required rung was skipped) → ``needs_human``.
+    """
     status = {r["rung"]: r["status"] for r in records}
     if any(v == "fail" for v in status.values()):
         verdict = "fail"
@@ -191,6 +246,31 @@ def _finish(records: list[dict], stopped_at: str | None, metrics: dict) -> dict:
     else:
         verdict = "needs_human"
     return {"verdict": verdict, "stopped_at": stopped_at, "rungs": records, "metrics": metrics}
+
+
+def _scope_rung(files: list[FilePatch], scope: dict | None) -> dict:
+    """Produce the ``scope`` rung record (I5). Omitted scope → ``skip`` (→ ``needs_human``)."""
+    if scope is None:
+        return _rec("scope", "skip", "no scope bound configured — bound the diff to allow pass")
+    ok, detail = check_scope(files, scope)
+    return _rec("scope", "pass" if ok else "fail", detail)
+
+
+def _execution_rung(phase: str, runner: Runner | None, request: tuple[str, ...]) -> dict:
+    """Produce one execution-rung record (``reproduce``/``regress``/``ci``).
+
+    Not requested or no runner → ``skip``. A runner exception is caught and reported as ``fail`` so a
+    flaky harness surfaces as a rung failure, not a crash.
+    """
+    if phase not in request:
+        return _rec(phase, "skip", "not requested")
+    if runner is None:
+        return _rec(phase, "skip", "no runner provided")
+    try:
+        res = runner(phase)
+    except Exception as e:  # a flaky harness must surface as a rung failure, not a crash
+        return _rec(phase, "fail", f"runner error: {e}")
+    return _rec(phase, "pass" if res.ok else "fail", res.detail)
 
 
 def validate_patch(
@@ -205,6 +285,11 @@ def validate_patch(
     ``scope`` bounds the diff (skipped, → ``needs_human``, when omitted). ``runner`` runs the
     execution rungs named in ``request``; without it those rungs are skipped (→ ``needs_human``).
     Short-circuits at the first failing rung (``stopped_at``). See the module docstring for verdicts.
+
+    The ladder is a list of ``(name, step)`` rungs iterated once through one short-circuiting loop:
+    each ``step`` returns a record dict; the first ``fail`` stops the ladder and names ``stopped_at``.
+    The ``parse`` rung runs first (outside the loop) because it produces the ``files``/``metrics`` the
+    later rungs consume and short-circuits on a malformed diff.
     """
     records: list[dict] = []
     metrics: dict = {}
@@ -213,7 +298,7 @@ def validate_patch(
         files = parse_unified_diff(diff_text)
     except ValueError as e:
         records.append(_rec("parse", "fail", str(e)))
-        return _finish(records, "parse", metrics)
+        return _verdict(records, "parse", metrics)
     metrics = {
         "files": [f.path for f in files],
         "n_files": len(files),
@@ -224,33 +309,20 @@ def validate_patch(
         _rec("parse", "pass", f"{metrics['n_files']} file(s), {metrics['n_hunks']} hunk(s)")
     )
 
-    if scope is None:
-        records.append(
-            _rec("scope", "skip", "no scope bound configured — bound the diff to allow pass")
-        )
-    else:
-        ok, detail = check_scope(files, scope)
-        records.append(_rec("scope", "pass" if ok else "fail", detail))
-        if not ok:
-            return _finish(records, "scope", metrics)
+    # Remaining rungs as uniform record-producing steps; one loop, short-circuit on first fail.
+    rungs: list[tuple[str, Callable[[], dict]]] = [
+        ("scope", lambda: _scope_rung(files, scope)),
+        ("reproduce", lambda: _execution_rung("reproduce", runner, request)),
+        ("regress", lambda: _execution_rung("regress", runner, request)),
+        ("ci", lambda: _execution_rung("ci", runner, request)),
+    ]
+    for name, step in rungs:
+        record = step()
+        records.append(record)
+        if record["status"] == "fail":
+            return _verdict(records, name, metrics)
 
-    for phase in ("reproduce", "regress", "ci"):
-        if phase not in request:
-            records.append(_rec(phase, "skip", "not requested"))
-            continue
-        if runner is None:
-            records.append(_rec(phase, "skip", "no runner provided"))
-            continue
-        try:
-            res = runner(phase)
-        except Exception as e:  # a flaky harness must surface as a rung failure, not a crash
-            records.append(_rec(phase, "fail", f"runner error: {e}"))
-            return _finish(records, phase, metrics)
-        records.append(_rec(phase, "pass" if res.ok else "fail", res.detail))
-        if not res.ok:
-            return _finish(records, phase, metrics)
-
-    return _finish(records, None, metrics)
+    return _verdict(records, None, metrics)
 
 
 def select_patch(

@@ -51,10 +51,22 @@ def test_invalid_anchor_type():
     assert len(errors) > 0
 
 
-def test_empty_file_is_valid():
+def test_empty_file_fails():
+    # An anchor index with zero records is invalid: an empty file must FAIL,
+    # not pass (fail-open). See validate_anchor_index empty-records check.
     with tempfile.NamedTemporaryFile(
         suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
     ) as f:
         path = f.name
     errors = validate_anchor_index(path)
-    assert errors == []
+    assert any("empty" in e for e in errors)
+
+
+def test_all_blank_lines_fails():
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
+        f.write("\n   \n\n")
+        path = f.name
+    errors = validate_anchor_index(path)
+    assert any("empty" in e for e in errors)

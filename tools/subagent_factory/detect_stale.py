@@ -26,7 +26,10 @@ from pathlib import Path
 import yaml
 
 from tools.subagent_factory.generate_stubs import planned_slugs
-from tools.subagent_factory.validate_skill_authoring import _parse_frontmatter
+from tools.subagent_factory.validate_skill_authoring import (
+    _FRONTMATTER_CORRUPT,
+    split_frontmatter,
+)
 
 _US = "\x1f"  # unit separator: id ↔ statement
 _RS = "\x1e"  # record separator: between cited items
@@ -108,13 +111,8 @@ def _doc_paths(base: Path) -> list[tuple[str, str, Path]]:
     return out
 
 
-def _body_of(text: str) -> str:
-    end = text.find("\n---", 3)
-    return text[end + 4 :] if end != -1 else ""
-
-
 def _rewrite(path: Path, fm: dict, body: str) -> None:
-    """Re-emit the frontmatter block (key order preserved), body verbatim."""
+    """Re-serialize the frontmatter (key order preserved; comments/scalar-styles NOT), body verbatim."""
     dump = yaml.safe_dump(fm, sort_keys=False, allow_unicode=True, default_flow_style=False)
     body = body.lstrip("\n")
     path.write_text(f"---\n{dump}---\n\n{body}", encoding="utf-8")
@@ -132,6 +130,17 @@ def _source_drift(base: Path) -> list[tuple[str, str, str]]:
         files = [f for f in files if f.is_file()]
         if not files:
             continue
+        if len(files) > 1:
+            # The manifest records one sha per source_id, so exactly one original.* is expected.
+            # Multiple means drift in a non-first file would go unchecked — surface the ambiguity
+            # rather than silently hashing files[0] and reporting a possibly-false OK.
+            out.append(
+                (
+                    "WARN",
+                    f"source:{sid}",
+                    f"ambiguous original.* ({len(files)} files, expected 1); checking {files[0].name}",
+                )
+            )
         if _sha256_file(files[0]) != sha:
             out.append(
                 (
@@ -158,13 +167,18 @@ def detect_stale(
         if not path.exists():
             continue
         text = path.read_text(encoding="utf-8")
-        fm = _parse_frontmatter(text)
-        if not fm:
+        aid = f"{kind}:{slug}"
+        fm, body = split_frontmatter(text)
+        if fm is _FRONTMATTER_CORRUPT:
+            # Fence opened but unparseable/unclosed: surface it (a malformed doc must not silently
+            # vanish from the scan, and must not crash the run on the sentinel) and move on.
+            out.append(("WARN", aid, "frontmatter present but unparseable; re-author"))
             continue
+        if not isinstance(fm, dict):
+            continue  # no frontmatter at all → a legitimate stub, Step 8's concern
         status = str(fm.get("status", "")).lower()
         if status not in ("ready", "stale"):
             continue  # stubs are Step 8's concern, not maintenance
-        aid = f"{kind}:{slug}"
         prov = fm.get("provenance") or {}
         current, missing = _digest(prov, principles, claims)
 
@@ -178,7 +192,7 @@ def detect_stale(
                 continue
             prov["authored_from_digest"] = current
             fm["provenance"] = prov
-            _rewrite(path, fm, _body_of(text))
+            _rewrite(path, fm, body)
             out.append(("OK", aid, "stamped"))
             continue
 
@@ -211,7 +225,7 @@ def detect_stale(
             continue
         if level == "STALE" and mark and status != "stale":
             fm["status"] = "stale"
-            _rewrite(path, fm, _body_of(text))
+            _rewrite(path, fm, body)
             reason += " [marked stale]"
         out.append((level, aid, reason))
 

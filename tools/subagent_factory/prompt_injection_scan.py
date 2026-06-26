@@ -22,9 +22,11 @@ Source content is data, never instruction (``.claude/rules/untrusted-source-poli
 
 import base64
 import codecs
+import html
 import re
 import sys
 import unicodedata
+from collections.abc import Callable
 from pathlib import Path
 
 # ── Canonical denylist (case-insensitive) ────────────────────────────────────
@@ -32,7 +34,7 @@ _DENYLIST: list[tuple[str, re.Pattern[str]]] = [
     (
         "imperative-override",
         re.compile(
-            r"ignore\s+(all\s+)?(the\s+)?(previous|prior|former|above)\s+instructions", re.I
+            r"ignore\s+(all\s+)?(the\s+)?(previous|prior|former|above)\s+instructions?", re.I
         ),
     ),
     ("imperative-override", re.compile(r"disregard\s+(all\s+)?(previous|prior|the\s+above)", re.I)),
@@ -61,10 +63,20 @@ _CSS_HIDDEN = re.compile(
 
 # Zero-width / bidi-control codepoints used to obfuscate payloads. Written as hex
 # escapes (not literals) so the source itself contains no bidi controls (bandit B613).
+# Kept explicit as a fallback, but _strip_zero_width also strips the WHOLE Unicode Cf
+# (format) category (F2) so inter-letter separators outside this hand-list — soft hyphen
+# U+00AD, function-application U+2061, other zero-width / bidi controls — can't defeat the
+# word-gap regexes by sitting between letters.
 _ZERO_WIDTH = dict.fromkeys([0x200B, 0x200C, 0x200D, 0x200E, 0x200F, 0x2060, 0xFEFF], None)
 
-# Minimal Unicode-confusable fold (Cyrillic/Greek look-alikes → ASCII). NFKD handles
-# many; this covers the common homoglyph-substitution attack letters NFKD leaves alone.
+# Unicode-confusable fold (Cyrillic/Greek look-alikes → ASCII).
+#
+# NFKD normalization (applied first in _fold_confusables) is the *load-bearing* defense:
+# it canonicalizes the bulk of compatibility/decomposable confusables. This hand-listed
+# table is a deliberately small, KNOWN-INCOMPLETE supplement for the common homoglyph-
+# substitution attack letters that NFKD leaves alone (Cyrillic/Greek look-alikes share no
+# NFKD decomposition with their ASCII twins). Full Unicode TR39 confusable coverage is out
+# of scope for this pass — do NOT treat this list as exhaustive.
 _CONFUSABLES = str.maketrans(
     {
         "а": "a",
@@ -92,16 +104,77 @@ _CONFUSABLES = str.maketrans(
 )
 
 _HTML_TAG = re.compile(r"<[^>]+>")
-_BASE64_TOKEN = re.compile(r"[A-Za-z0-9+/]{16,}={0,2}")
-_TAIL_CHARS = 1000
+# F4: floor lowered from 16 → 8 so short denylist phrases ("you are now", "TODO: …")
+# encoded into a sub-16-char base64 token are still decoded. Tradeoff: 8-char base64
+# runs appear more often in natural text, but matching stays gated behind the canonical
+# denylist (a decoded fragment only surfaces if it matches a denylist family), so the
+# false-positive cost is the extra decode work, not extra findings on benign prose.
+# Alphabet includes the base64url chars (-_) so a urlsafe-encoded payload isn't shredded
+# at every - / _ into garbage-decoding fragments; _base64_decoded translates -_ → +/ before
+# decoding. Standard base64 never contains -_, so the translate is a no-op there.
+_BASE64_TOKEN = re.compile(r"[A-Za-z0-9+/_-]{8,}={0,2}")
+_B64URL = str.maketrans({"-": "+", "_": "/"})
+
+
+# Collapse a \r\n\t run (plus immediately-adjacent spaces) that SEPARATES two characters of the
+# same class. One template, two char classes — the class is the ONLY intended difference between
+# the word-level and base64-level dewraps, so deriving both from `_dewrap` keeps that the single
+# point of divergence (a prior bug crept in precisely because two hand-written copies silently
+# diverged on the break/pad sets). Plain spaces are never in the break set: collapsing them would
+# merge adjacent prose words (the base64 case) or be the accepted-residual letter-spacing attack
+# (the word case).
+def _dewrap(char_class: str) -> re.Pattern[str]:
+    return re.compile(rf"(?<={char_class})[ ]*[\r\n\t]+[ ]*(?={char_class})")
+
+
+# Word-level: an attacker breaks a denylist word mid-token ("ig\nnore", "ig\tnore") so neither the
+# per-line scan nor the whole-doc base matches the literal phrase; rejoining the word fixes it.
+# Applied as an ADDITIVE fixpoint transform — the untouched base still carries word-boundary
+# whitespace, so a legitimate "previous\ninstructions" (where \s+ must match the newline) is
+# unaffected. Merging whitespace can only ever REMOVE a separator, and every denylist phrase
+# requires \s+ between words, so this can never manufacture a false hit.
+_INTRAWORD_BREAK = _dewrap(r"\w")
+# base64-level: a wrapped/newline-or-tab-split blob (MIME line-wrap, or a break at a non-4-aligned
+# column to straddle the phrase) is rejoined into one aligned token before decode.
+_BASE64_DEWRAP = _dewrap(r"[A-Za-z0-9+/_=-]")
+
+# Bounds for the decode fixpoint (see _decode_fixpoint): _FIXPOINT_DEPTH layers of _TRANSFORMS
+# are peeled, so LAYERED obfuscation (rot13∘base64, reversed∘base64, base64∘base64, …) is caught
+# up to that many compositions; beyond it is accepted residual risk. _MAX_DERIVED caps total
+# derived strings so a pathological re-decoding input cannot explode runtime.
+_FIXPOINT_DEPTH = 3
+_MAX_DERIVED = 256
 
 
 def _strip_zero_width(text: str) -> str:
-    return text.translate(_ZERO_WIDTH)
+    """Strip the explicit zero-width set, every Unicode Cf (format) char, and combining marks.
+
+    Generalizing from ~7 hand-picked codepoints to the whole format category (Cf) closes the
+    gap where invisible inter-letter separators (soft hyphen U+00AD, function application
+    U+2061, bidi controls, …) defeat the word-gap regexes. Combining marks (category M:
+    Mn/Mc/Me) are stripped for the same reason — a lone combining mark inserted between two
+    letters (e.g. ``i`` + U+0301 + ``gnore``) is invisible-ish glue that splits a word from
+    the ``\\s+``/``\\b`` regexes without NFKD removing it. Legitimate Latin-script override
+    phrases carry no bare inter-letter combining marks, so stripping category M is safe here.
+    NFKD/confusable folding still runs after this in _fold_confusables.
+    """
+
+    def _drop(c: str) -> bool:
+        cat = unicodedata.category(c)
+        # Cf = format chars (zero-width/bidi); M* = combining marks. NOT Cc — that would
+        # strip newlines/tabs and break the line-level + tail passes.
+        return c in _ZERO_WIDTH or cat == "Cf" or cat[0] == "M"
+
+    return "".join(c for c in text if not _drop(c))
 
 
 def _fold_confusables(text: str) -> str:
-    return unicodedata.normalize("NFKD", text).translate(_CONFUSABLES)
+    # NFKD decomposes a precomposed accented letter into base + combining mark; drop the
+    # marks NFKD produces so a diacritic-split payload (precomposed í between letters)
+    # collapses to its ASCII base here too — not only on the fixpoint's second strip pass.
+    decomposed = unicodedata.normalize("NFKD", text)
+    no_marks = "".join(c for c in decomposed if unicodedata.category(c)[0] != "M")
+    return no_marks.translate(_CONFUSABLES)
 
 
 def _strip_html_tags(text: str) -> str:
@@ -110,18 +183,37 @@ def _strip_html_tags(text: str) -> str:
 
 
 def _base64_decoded(text: str) -> str:
-    """Concatenate the decoded text of base64-looking tokens that decode to printable ASCII."""
+    """Concatenate the decoded text of base64-looking tokens.
+
+    Decoding is deliberately tolerant of attacker tricks rather than fail-open:
+    - **whitespace inside a base64 run is collapsed first** (line-wrapped MIME base64, or a
+      newline inserted at a non-4-aligned column to straddle the denylist phrase across two
+      fragments), so the run decodes as one aligned token instead of two garbage halves;
+    - ``-``/``_`` are translated to ``+``/``/`` so a base64url payload decodes instead of
+      being shredded at every url-safe char;
+    - unpadded tokens (``len % 4 != 0``) are padded to a multiple of 4 before decode, so a
+      stripped ``=`` no longer drops the payload silently;
+    - decode as UTF-8 with ``errors="replace"`` (not ASCII-only), so multi-byte payloads
+      survive instead of being discarded on a UnicodeDecodeError;
+    - fold confusables on the decoded text, so a homoglyph payload hidden inside base64
+      still normalizes to the denylist before matching.
+    """
+    # Collapse \r\n\t between base64 chars so a wrapped/split blob is one token (MIME line-wrap,
+    # or a break at a non-4-aligned column to straddle the phrase). Never spaces: collapsing
+    # spaces would merge adjacent prose words into the run. Shares `_dewrap` with the word-level
+    # break so the two stay in lockstep.
+    dewrapped = _BASE64_DEWRAP.sub("", text)
     out: list[str] = []
-    for m in _BASE64_TOKEN.finditer(text):
-        tok = m.group(0)
-        if len(tok) % 4:
-            continue
+    for m in _BASE64_TOKEN.finditer(dewrapped):
+        tok = m.group(0).rstrip("=").translate(_B64URL)
+        pad = (-len(tok)) % 4
         try:
-            dec = base64.b64decode(tok, validate=True).decode("ascii")
+            dec = base64.b64decode(tok + "=" * pad, validate=False).decode(
+                "utf-8", errors="replace"
+            )
         except (ValueError, UnicodeDecodeError):
             continue
-        if dec.isprintable():
-            out.append(dec)
+        out.append(_fold_confusables(dec))
     return " ".join(out)
 
 
@@ -129,23 +221,41 @@ def _denylist_hits(text: str) -> list[str]:
     return sorted({fam for fam, rx in _DENYLIST if rx.search(text)})
 
 
-def _scan_file(path: Path, findings: list[dict]) -> None:
-    try:
-        raw = path.read_text(encoding="utf-8", errors="replace")
-    except OSError:
-        return
+def _norm(s: str) -> str:
+    return _fold_confusables(_strip_zero_width(s))
 
-    name = str(path)
+
+# Decode transforms peeled by the fixpoint: name → callable producing a derived string.
+# `unescaped` decodes HTML entities / numeric char refs (&#105;…, &#x69;…) — the most common
+# DOM obfuscation; `dewrapped` rejoins a word broken mid-token by \r\n\t. In the fixpoint they
+# compose with each other (entity∘base64, dewrap∘reverse, …) up to _FIXPOINT_DEPTH.
+_TRANSFORMS: dict[str, Callable[[str], str]] = {
+    "reversed": lambda s: s[::-1],
+    "rot13": lambda s: codecs.decode(s, "rot13"),
+    "base64": _base64_decoded,
+    "detagged": _strip_html_tags,
+    "unescaped": html.unescape,
+    "dewrapped": lambda s: _INTRAWORD_BREAK.sub("", s),
+}
+
+
+def _scan_lines(raw: str, name: str) -> list[dict]:
+    """Line-level denylist on the confusable-folded text (gives line numbers + tail flag).
+
+    Tail hits (last few lines ≈ document tail, where injection success is highest) are raised to
+    ``high``/``tail``; body hits are ``medium``/``body``. A single-line document trivially counts
+    as tail. The obfuscation pass (``_decode_fixpoint``), by contrast, reports every hit as
+    ``high`` with no tail flag — obfuscation itself is the signal there, independent of position.
+    """
     folded = _fold_confusables(_strip_zero_width(raw))
-
-    # 1. Line-level denylist on the folded text (gives line numbers + tail flag).
     lines = folded.splitlines()
     n = len(lines)
+    out: list[dict] = []
     for i, line in enumerate(lines, 1):
         for fam, rx in _DENYLIST:
             if rx.search(line):
-                in_tail = i >= max(1, n - 5)  # last few lines ≈ document tail
-                findings.append(
+                in_tail = i >= max(1, n - 5)
+                out.append(
                     {
                         "file": name,
                         "line": i,
@@ -155,31 +265,73 @@ def _scan_file(path: Path, findings: list[dict]) -> None:
                         "excerpt": line.strip()[:120],
                     }
                 )
+    return out
 
-    # 2. Obfuscation variants (whole-doc; report at line 0 with the vector that revealed it).
-    variants = {
-        "detagged": _strip_html_tags(folded),
-        "reversed": folded[::-1],
-        "rot13": codecs.decode(folded, "rot13"),
-        "base64": _base64_decoded(raw),
-    }
-    for vector, variant in variants.items():
-        for fam in _denylist_hits(variant):
-            findings.append(
+
+def _decode_fixpoint(raw: str, name: str) -> list[dict]:
+    """Bounded-depth fixpoint over the decode transforms (whole-doc; findings reported at line 0).
+
+    A flat set of single-transform variants is bypassable by LAYERED obfuscation (rot13∘base64,
+    reversed∘base64, base64∘base64, base64-in-reversed). Instead, seed a worklist with the
+    normalized BASE (detag → strip zero-width → fold confusables) and, for up to _FIXPOINT_DEPTH
+    layers, apply each _TRANSFORMS decode to every newly derived string. Each product is
+    re-normalized, deduped via a ``seen`` set (which also breaks transform cycles like
+    reverse∘reverse), and matched against the denylist. _MAX_DERIVED bounds total work so a
+    pathological re-decoding input cannot blow up.
+    """
+    base = _norm(_strip_html_tags(raw))
+    seen: set[str] = {base}
+    # worklist entries: (string, chain-of-transforms-applied-so-far). The chain length is the
+    # depth; the base seed has an empty chain (it is the normalized document, no decode applied).
+    worklist: list[tuple[str, tuple[str, ...]]] = [(base, ())]
+    reported: set[tuple[str, str]] = set()  # (family, vector) dedupe for findings
+    out: list[dict] = []
+    while worklist and len(seen) < _MAX_DERIVED:
+        current, chain = worklist.pop()
+        # The reported vector is the OUTERMOST (first-applied) transform that began the decode
+        # path — "base64" for base64>reversed — so a single phrase reached two ways isn't double
+        # reported under each composition. The excerpt names the full chain so the
+        # source-safety-reviewer can reproduce the exact decode sequence. The base seed (empty
+        # chain) reports under "detagged" (it is already detag+strip+fold normalized).
+        vector = chain[0] if chain else "detagged"
+        for fam in _denylist_hits(current):
+            key = (fam, vector)
+            if key in reported:
+                continue
+            reported.add(key)
+            seq = " > ".join(chain) if chain else "base normalization"
+            out.append(
                 {
                     "file": name,
                     "line": 0,
                     "family": fam,
                     "vector": vector,
                     "severity": "high",
-                    "excerpt": f"payload revealed after {vector} normalization",
+                    "excerpt": f"payload revealed after {seq}",
                 }
             )
+        if len(chain) >= _FIXPOINT_DEPTH:
+            continue
+        for tname, fn in _TRANSFORMS.items():
+            try:
+                product = _norm(fn(current))
+            except (ValueError, UnicodeDecodeError):
+                continue
+            if not product or product in seen:
+                continue
+            seen.add(product)
+            worklist.append((product, (*chain, tname)))
+            if len(seen) >= _MAX_DERIVED:
+                break  # stop mid-expansion at the cap; the outer guard then drains the worklist
+    return out
 
-    # 3. Presentation-layer hiding.
+
+def _scan_css(raw: str, name: str) -> list[dict]:
+    """Presentation-layer hiding: CSS that renders a payload invisible (opacity:0, display:none…)."""
+    out: list[dict] = []
     for i, line in enumerate(raw.splitlines(), 1):
         if _CSS_HIDDEN.search(line):
-            findings.append(
+            out.append(
                 {
                     "file": name,
                     "line": i,
@@ -189,21 +341,17 @@ def _scan_file(path: Path, findings: list[dict]) -> None:
                     "excerpt": line.strip()[:120],
                 }
             )
+    return out
 
-    # 4. Explicit scan-tail denylist sweep (last N chars), in case the tail is one long line.
-    tail = folded[-_TAIL_CHARS:]
-    if n <= 1:  # single-line docs never hit the line-tail heuristic above
-        for fam in _denylist_hits(tail):
-            findings.append(
-                {
-                    "file": name,
-                    "line": 0,
-                    "family": fam,
-                    "vector": "tail",
-                    "severity": "high",
-                    "excerpt": tail.strip()[-120:],
-                }
-            )
+
+def _scan_file(path: Path) -> list[dict]:
+    """All findings for one markdown file: line-level + obfuscation fixpoint + CSS-hidden."""
+    try:
+        raw = path.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return []
+    name = str(path)
+    return [*_scan_lines(raw, name), *_decode_fixpoint(raw, name), *_scan_css(raw, name)]
 
 
 def prompt_injection_scan(subagent_dir: str | Path) -> list[dict]:
@@ -218,7 +366,7 @@ def prompt_injection_scan(subagent_dir: str | Path) -> list[dict]:
     if not md_dir.exists():
         return findings
     for md in sorted(md_dir.glob("*.md")):
-        _scan_file(md, findings)
+        findings.extend(_scan_file(md))
     return findings
 
 

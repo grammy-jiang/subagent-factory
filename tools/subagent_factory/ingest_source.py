@@ -98,23 +98,73 @@ def _create_source_dirs(subagent_path: Path, source_id: str) -> dict[str, Path]:
     return dirs
 
 
-def _convert_or_restore(
-    original_dest: Path, md_path: Path, cache_md: Path, file_type: str
-) -> dict[str, Any]:
-    """Convert the original to Markdown, or restore a cache hit (a synthetic ``converter_used='cache'``)."""
-    if cache_md.exists():
-        shutil.copy2(cache_md, md_path)
-        cached_size = cache_md.stat().st_size
-        return {
-            "file_type": file_type,
-            "markdown_text": "",  # not re-read from cache; emptiness is judged via cached_bytes
-            "converter_used": "cache",
-            "warnings": [],
-            "errors": [],
-            "stats": {"cached_bytes": cached_size},
-            "from_cache": True,
-        }
-    return convert_document(original_dest, md_path)
+class MarkdownCache:
+    """Owns the converter-keyed markdown cache: key scheme + get-or-convert + populate-guard.
+
+    Cache layout: ``inputs/markdown-cache/<sha256>.<tag>.md``. The tag is converter-keyed:
+    a PDF's entry is tagged with the *preferred available* PDF converter (docling > markitdown >
+    pymupdf), so installing Docling on top of a MarkItDown-cached corpus misses the old
+    ``<sha>.markitdown.md`` and forces a fresh, higher-fidelity Docling convert — no manual cache
+    purge. Non-PDF types key on the stable ``file_type``. (Legacy bare ``<sha>.md`` entries are
+    simply never hit and ignored.)
+
+    Centralising the key scheme keeps the get (``get_or_convert``) and the populate
+    (``populate``) in lock-step: both compute the path the same way, so a hit and the write that
+    produced it can never silently disagree.
+    """
+
+    def __init__(self, cache_dir: Path, sha256: str, file_type: str) -> None:
+        self._cache_dir = cache_dir
+        conv_tag = _preferred_pdf_converter() if file_type == "pdf" else file_type
+        self._cache_md = cache_dir / f"{sha256}.{conv_tag}.md"
+        self._file_type = file_type
+
+    def get_or_convert(self, original_dest: Path, md_path: Path) -> dict[str, Any]:
+        """Restore a cache hit (synthetic ``converter_used='cache'``) or convert the original."""
+        if self._cache_md.exists():
+            shutil.copy2(self._cache_md, md_path)
+            cached_size = self._cache_md.stat().st_size
+            return {
+                "file_type": self._file_type,
+                "markdown_text": "",  # not re-read from cache; emptiness is judged via cached_bytes
+                "converter_used": "cache",
+                "warnings": [],
+                "errors": [],
+                "stats": {"cached_bytes": cached_size},
+                "from_cache": True,
+            }
+        return convert_document(original_dest, md_path)
+
+    @staticmethod
+    def is_cache_hit(conversion_result: dict[str, Any]) -> bool:
+        """True iff this result was restored from the cache.
+
+        Encapsulates the cache-internal ``from_cache`` key so callers (e.g. ``_derive_status``)
+        never read it directly.
+        """
+        return bool(conversion_result.get("from_cache"))
+
+    @staticmethod
+    def is_empty_cached_result(conversion_result: dict[str, Any]) -> bool:
+        """True iff this is a cache hit that restored zero bytes.
+
+        Encapsulates the cache-internal ``from_cache`` / ``stats.cached_bytes`` keys so callers
+        (e.g. ``_derive_status``) never reach into them directly. Returns False for non-cache
+        results (their emptiness is judged elsewhere via ``markdown_text``).
+        """
+        if not MarkdownCache.is_cache_hit(conversion_result):
+            return False
+        return conversion_result.get("stats", {}).get("cached_bytes", 0) == 0
+
+    def populate(self, md_path: Path, conversion_result: dict[str, Any]) -> None:
+        """Cache a fresh, successful conversion. No-op for cache hits or non-ok status."""
+        if (
+            conversion_result.get("from_cache")
+            or conversion_result.get("conversion_status") != "ok"
+        ):
+            return
+        self._cache_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(md_path, self._cache_md)
 
 
 def ingest_source(
@@ -138,19 +188,7 @@ def ingest_source(
     Returns result dict.
     """
     subagent_path = Path(subagent_dir)
-    result: dict[str, Any] = {
-        "source_id": None,
-        "original_path": None,
-        "markdown_path": None,
-        "metadata": None,
-        "conversion_result": None,
-        "anchor_count": 0,
-        "asset_count": 0,
-        "needs_auth": False,
-        "already_ingested": False,
-        "duplicate_source_slugs": [],
-        "error": None,
-    }
+    result = _new_result()
 
     # Fail fast on an invalid or non-ingestible rights classification, before any conversion work.
     rights_status = metadata_overrides.get("rights_status", "distillation-only")
@@ -172,6 +210,9 @@ def ingest_source(
         existing_manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8")) or {}
         for existing_source in existing_manifest.get("sources", []):
             if existing_source.get("sha256") == sha256:
+                # Early return shares the same result shape as the happy path (every key is
+                # present, defaulted by _new_result) so the two can't silently diverge; only
+                # source_id + already_ingested carry signal here.
                 result["source_id"] = existing_source["source_id"]
                 result["already_ingested"] = True
                 return result
@@ -187,22 +228,60 @@ def ingest_source(
         subagent_path.parent, sha256, subagent_slug
     )
 
-    file_type = detect_file_type(source_file)
+    result.update(
+        _process_resolved_source(
+            source_file, subagent_path, subagent_slug, source_id, sha256, metadata_overrides
+        )
+    )
+    return result
 
-    # Markdown cache: inputs/markdown-cache/<sha256>.<converter>.md
-    # Avoids re-converting the same source across packages / rounds. The key is converter-keyed:
-    # a PDF's entry is tagged with the *preferred available* PDF converter (docling > markitdown >
-    # pymupdf), so installing Docling on top of a MarkItDown-cached corpus misses the old
-    # `<sha>.markitdown.md` and forces a fresh, higher-fidelity Docling convert — no manual cache
-    # purge. Non-PDF types key on the stable file_type. (Legacy bare `<sha>.md` entries are simply
-    # never hit and ignored.)
-    cache_dir = subagent_path.parent.parent / "inputs" / "markdown-cache"
-    conv_tag = _preferred_pdf_converter() if file_type == "pdf" else file_type
-    cache_md = cache_dir / f"{sha256}.{conv_tag}.md"
+
+def _new_result() -> dict[str, Any]:
+    """The canonical result shape — every public return key, defaulted.
+
+    Both the dedup early return and the full happy path build on this, so the two return
+    shapes are identical by construction (an early return that forgot a key is impossible).
+    """
+    return {
+        "source_id": None,
+        "original_path": None,
+        "markdown_path": None,
+        "metadata": None,
+        "conversion_result": None,
+        "anchor_count": 0,
+        "asset_count": 0,
+        "needs_auth": False,
+        "already_ingested": False,
+        "duplicate_source_slugs": [],
+        "error": None,
+    }
+
+
+def _process_resolved_source(
+    source_file: Path,
+    subagent_path: Path,
+    subagent_slug: str,
+    source_id: str | None,
+    sha256: str,
+    metadata_overrides: dict,
+) -> dict[str, Any]:
+    """Convert, anchor, cache, and record one resolved source; return a result fragment.
+
+    Runs after the rights / resolve / dedup guards in ``ingest_source`` have passed. Returns
+    only the keys it computes (``source_id``, ``original_path``, ``markdown_path``,
+    ``conversion_result``, ``anchor_count``, ``asset_count``, ``metadata``) for the caller to
+    merge onto the canonical result shape.
+    """
+    fragment: dict[str, Any] = {}
+
+    file_type = detect_file_type(source_file)
+    cache = MarkdownCache(
+        subagent_path.parent.parent / "inputs" / "markdown-cache", sha256, file_type
+    )
 
     if source_id is None:
         source_id = _content_source_id(source_file, sha256)
-    result["source_id"] = source_id
+    fragment["source_id"] = source_id
 
     dirs = _create_source_dirs(subagent_path, source_id)
 
@@ -210,29 +289,26 @@ def ingest_source(
     ext = source_file.suffix or f".{file_type}"
     original_dest = dirs["original"] / f"original{ext}"
     shutil.copy2(source_file, original_dest)
-    result["original_path"] = str(original_dest)
+    fragment["original_path"] = str(original_dest)
 
     # Convert to Markdown (or restore from cache), then derive its status
     md_path = dirs["markdown"] / f"{source_id}.md"
-    conversion_result = _convert_or_restore(original_dest, md_path, cache_md, file_type)
+    conversion_result = cache.get_or_convert(original_dest, md_path)
     conversion_result["conversion_status"] = _derive_status(conversion_result)
-    result["conversion_result"] = conversion_result
+    fragment["conversion_result"] = conversion_result
 
     # Extract assets
     asset_result = extract_assets(md_path, dirs["assets"], source_id)
-    result["asset_count"] = asset_result["asset_count"]
+    fragment["asset_count"] = asset_result["asset_count"]
 
-    # Inject anchors
-    anchored_md = dirs["markdown"] / f"{source_id}.md"
+    # Inject anchors in place (reads + rewrites md_path)
     anchors_path = dirs["anchors"] / f"{source_id}.anchors.jsonl"
-    anchor_result = inject_anchors(md_path, anchored_md, anchors_path, source_id)
-    result["anchor_count"] = anchor_result["anchor_count"]
-    result["markdown_path"] = str(anchored_md)
+    anchor_result = inject_anchors(md_path, md_path, anchors_path, source_id)
+    fragment["anchor_count"] = anchor_result["anchor_count"]
+    fragment["markdown_path"] = str(md_path)
 
-    # Populate markdown cache on fresh conversion
-    if not conversion_result.get("from_cache") and conversion_result["conversion_status"] == "ok":
-        cache_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(anchored_md, cache_md)
+    # Cache the anchored markdown on a fresh, successful conversion
+    cache.populate(md_path, conversion_result)
 
     # Generate metadata
     meta_path = dirs["metadata"] / f"{source_id}.metadata.json"
@@ -242,11 +318,11 @@ def ingest_source(
         file_type,
         conversion_result,
         meta_path,
-        anchor_count=result["anchor_count"],
-        asset_count=result["asset_count"],
+        anchor_count=fragment["anchor_count"],
+        asset_count=fragment["asset_count"],
         **metadata_overrides,
     )
-    result["metadata"] = metadata
+    fragment["metadata"] = metadata
 
     # Generate conversion report
     report_path = dirs["reports"] / f"{source_id}.conversion-report.md"
@@ -274,7 +350,7 @@ def ingest_source(
     }
     generate_manifest(subagent_path, subagent_slug, [manifest_source])
 
-    return result
+    return fragment
 
 
 def _sha256_file(path: Path) -> str:
@@ -324,9 +400,10 @@ def _derive_status(conversion_result: dict) -> str:
     if conversion_result.get("is_scanned"):
         return "needs-human-review"
     # One emptiness rule for both paths: a fresh convert is empty if its markdown_text is blank; a
-    # cache hit is empty if it restored zero bytes. (No "_" sentinel faking non-empty for the cache.)
-    if conversion_result.get("from_cache"):
-        is_empty = conversion_result.get("stats", {}).get("cached_bytes", 0) == 0
+    # cache hit is empty if it restored zero bytes (judged behind MarkdownCache so this function
+    # never touches the cache-internal from_cache/cached_bytes keys).
+    if MarkdownCache.is_cache_hit(conversion_result):
+        is_empty = MarkdownCache.is_empty_cached_result(conversion_result)
     else:
         is_empty = not conversion_result.get("markdown_text", "").strip()
     if is_empty:

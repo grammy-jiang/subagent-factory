@@ -144,6 +144,78 @@ def test_unresolved_contradiction(tmp_path):
     assert any("CONTRADICTED" in e for e in validate_faithfulness_report(rp))
 
 
+def test_contradicted_with_add_condition_fails(tmp_path):
+    # A CONTRADICTED rule conflicts with its source; adding a condition does not make it true.
+    # Only an actual resolution (remove/downgrade) is acceptable — accept_with_note AND add_condition
+    # must both FAIL (they don't resolve the contradiction).
+    report = {
+        "schema_version": "faithfulness-report-v1",
+        "subagent_slug": "demo",
+        "findings": [
+            {"rule_ref": "quality_bar", "verdict": "CONTRADICTED", "action": "add_condition"}
+        ],
+    }
+    rp = _pkg(tmp_path, report, profile={"quality_bar": ["a"]})
+    assert any("CONTRADICTED" in e for e in validate_faithfulness_report(rp))
+
+
+def test_contradicted_with_downgrade_passes(tmp_path):
+    # A CONTRADICTED finding resolved by an actual fix (downgrade/remove) is the legitimate path.
+    report = {
+        "schema_version": "faithfulness-report-v1",
+        "subagent_slug": "demo",
+        "findings": [{"rule_ref": "quality_bar", "verdict": "CONTRADICTED", "action": "downgrade"}],
+    }
+    rp = _pkg(tmp_path, report, profile={"quality_bar": ["a"]})
+    assert not any("CONTRADICTED" in e for e in validate_faithfulness_report(rp))
+
+
+def test_scope_broadened_accept_with_note_fails(tmp_path):
+    # SCOPE_BROADENED / HEDGING_REMOVED are over-claims (the rule says more than the source). A bare
+    # note does not correct the drift — it must be downgraded/removed/conditioned. accept_with_note
+    # must FAIL for these verdicts, same class as CONTRADICTED one rung up the ladder.
+    for verdict in ("SCOPE_BROADENED", "HEDGING_REMOVED"):
+        report = {
+            "schema_version": "faithfulness-report-v1",
+            "subagent_slug": "demo",
+            "findings": [
+                {"rule_ref": "quality_bar[0]", "verdict": verdict, "action": "accept_with_note"}
+            ],
+        }
+        rp = _pkg(tmp_path / verdict, report, profile={"quality_bar": ["a", "b", "c"]})
+        assert any(verdict in e for e in validate_faithfulness_report(rp)), (
+            f"{verdict} over-claim accepted with only a note must FAIL"
+        )
+
+
+def test_scope_broadened_add_condition_passes(tmp_path):
+    # Unlike CONTRADICTED, a SCOPE_BROADENED claim CAN be legitimately re-scoped by a condition.
+    report = {
+        "schema_version": "faithfulness-report-v1",
+        "subagent_slug": "demo",
+        "findings": [
+            {"rule_ref": "quality_bar[0]", "verdict": "SCOPE_BROADENED", "action": "add_condition"}
+        ],
+    }
+    rp = _pkg(tmp_path, report, profile={"quality_bar": ["a", "b", "c"]})
+    assert not any("SCOPE_BROADENED" in e for e in validate_faithfulness_report(rp))
+
+
+def test_empty_findings_on_nontrivial_profile_fails(tmp_path):
+    # A report with zero findings on a profile that has gradable rules means the faithfulness step
+    # graded NOTHING — the gate must not report "faithful" by vacuous omission.
+    report = {"schema_version": "faithfulness-report-v1", "subagent_slug": "demo", "findings": []}
+    rp = _pkg(tmp_path, report, profile={"quality_bar": ["a", "b", "c"]})
+    assert validate_faithfulness_report(rp), "empty findings on a non-trivial profile must FAIL"
+
+
+def test_empty_findings_on_empty_profile_passes(tmp_path):
+    # No gradable rules → nothing to grade → empty findings is legitimately fine (no false-FAIL).
+    report = {"schema_version": "faithfulness-report-v1", "subagent_slug": "demo", "findings": []}
+    rp = _pkg(tmp_path, report, profile={"slug": "demo"})
+    assert validate_faithfulness_report(rp) == []
+
+
 def test_freetext_anchor_flagged_as_invalid(tmp_path):
     # The faithfulness step sometimes emits a section description instead of an anchor id; it must
     # be flagged distinctly (free text), not as a merely-missing index entry.

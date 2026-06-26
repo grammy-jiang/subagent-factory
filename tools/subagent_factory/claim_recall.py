@@ -7,8 +7,9 @@ claim set are recalled by a *candidate* claim set by lexical content-token overl
 without an embedding model.
 
 Matching is token-set F1 over content tokens (lowercased word tokens, stopwords and length<=2
-dropped). A reference claim is "recalled" if some candidate scores >= ``threshold``. This is a
-paraphrase-blind lower bound — lexical overlap under-counts true semantic matches — so treat the
+dropped). A reference claim is "recalled" if some candidate scores >= ``threshold`` (per-reference
+independent matching — one candidate may recall several references; see ``claim_recall`` for the
+precise semantics). This is a paraphrase-blind lower bound — lexical overlap under-counts true semantic matches — so treat the
 numbers as a conservative floor, useful for *relative* arm comparison rather than an absolute truth.
 
 Library: ``claim_recall(reference, candidate, threshold) -> dict``.
@@ -25,8 +26,15 @@ from pathlib import Path
 
 import yaml
 
+# --- Shared tokenizer (PUBLIC contract) -------------------------------------------------------
+# ``STOPWORDS`` and ``content_tokens`` are the single source of truth for lexical content-token
+# extraction across the factory. They are imported by seven other modules (grounding_check,
+# ask_gate, reground_skill_anchors, behaviour_replay, reanchor_claims, retrieval_ab,
+# seed_principle_clusters). Treat any change here as a contract change: it shifts recall/grounding
+# numbers in every importer at once. ``test_claim_recall.py`` pins this contract.
+
 # Small, deliberately generic stopword set — domain terms must survive so matching stays meaningful.
-_STOPWORDS = {
+STOPWORDS = {
     "the",
     "a",
     "an",
@@ -94,17 +102,24 @@ _STOPWORDS = {
 }
 
 
-def _content_tokens(text: str) -> set[str]:
+def content_tokens(text: str) -> set[str]:
+    """Lowercased word tokens with stopwords and length<=2 dropped — the shared tokenizer."""
     return {
         t
         for t in re.findall(r"[a-z][a-z0-9]+", str(text).lower())
-        if len(t) > 2 and t not in _STOPWORDS
+        if len(t) > 2 and t not in STOPWORDS
     }
+
+
+# Backward-compat aliases: the seven importers reference these private names. Keep them bound to
+# the public names so the contract stays single-source without churning 7 files.
+_STOPWORDS = STOPWORDS
+_content_tokens = content_tokens
 
 
 def claim_f1(a: str, b: str) -> float:
     """Token-set F1 between two claim statements (0..1)."""
-    ta, tb = _content_tokens(a), _content_tokens(b)
+    ta, tb = content_tokens(a), content_tokens(b)
     if not ta or not tb:
         return 0.0
     inter = len(ta & tb)
@@ -118,24 +133,31 @@ def claim_f1(a: str, b: str) -> float:
 def claim_recall(reference: list[str], candidate: list[str], threshold: float = 0.5) -> dict:
     """Score how many ``reference`` claims are recalled by ``candidate`` claims.
 
-    Returns recall (fraction of reference claims matched), precision (fraction of candidate claims
-    that match some reference — a duplication/noise signal), f1, counts, and the unmatched
-    reference statements (the recall gaps).
+    Matching semantics — PER-REFERENCE INDEPENDENT MATCHING (not a 1:1 assignment):
+
+    * A reference claim is "recalled" if ANY candidate scores ``>= threshold`` against it. A
+      single candidate may therefore recall several references; recall is the fraction of
+      reference claims with at least one above-threshold candidate. This is deliberate: a
+      structure-mapped candidate that subsumes two narrow reference claims should count for both.
+    * ``precision`` is the fraction of DISTINCT candidates that recall at least one reference (a
+      duplication/noise signal): candidates that match nothing are noise. Because matching is
+      independent per reference, precision is order-independent — it counts the set of candidates
+      that ever cleared threshold, with no first-candidate tie-break.
+
+    Returns recall, precision, f1, counts, and the unmatched reference statements (recall gaps).
     """
     matched_ref: list[str] = []
     unmatched_ref: list[str] = []
-    used_candidate: set[int] = set()
+    matching_candidates: set[int] = set()
     for r in reference:
-        best, best_j = 0.0, -1
-        for j, c in enumerate(candidate):
-            s = claim_f1(r, c)
-            if s > best:
-                best, best_j = s, j
-        if best >= threshold and best_j >= 0:
+        # Per-reference: every candidate that clears threshold counts (no greedy first-best pick).
+        hits = [j for j, c in enumerate(candidate) if claim_f1(r, c) >= threshold]
+        if hits:
             matched_ref.append(r)
-            used_candidate.add(best_j)
+            matching_candidates.update(hits)
         else:
             unmatched_ref.append(r)
+    used_candidate = matching_candidates
     n_ref, n_cand = len(reference), len(candidate)
     recall = len(matched_ref) / n_ref if n_ref else 0.0
     precision = len(used_candidate) / n_cand if n_cand else 0.0
@@ -175,14 +197,26 @@ def load_statements(path: str | Path) -> list[str]:
     return out
 
 
+_USAGE = (
+    "Usage: python -m tools.subagent_factory.claim_recall <reference> <candidate> "
+    "[threshold]\n  each path: claims.jsonl or *.source-map.yaml; threshold in [0, 1]"
+)
+
+
 def main() -> None:
     if len(sys.argv) < 3:
-        print(
-            "Usage: python -m tools.subagent_factory.claim_recall <reference> <candidate> "
-            "[threshold]\n  each path: claims.jsonl or *.source-map.yaml"
-        )
+        print(_USAGE)
         sys.exit(1)
-    threshold = float(sys.argv[3]) if len(sys.argv) > 3 else 0.5
+    threshold = 0.5
+    if len(sys.argv) > 3:
+        try:
+            threshold = float(sys.argv[3])
+        except ValueError:
+            print(f"error: threshold must be a number in [0, 1], got {sys.argv[3]!r}\n{_USAGE}")
+            sys.exit(1)
+        if not 0.0 <= threshold <= 1.0:
+            print(f"error: threshold must be in [0, 1], got {threshold}\n{_USAGE}")
+            sys.exit(1)
     reference = load_statements(sys.argv[1])
     candidate = load_statements(sys.argv[2])
     rep = claim_recall(reference, candidate, threshold)

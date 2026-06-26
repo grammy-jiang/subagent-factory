@@ -25,15 +25,22 @@ from tools.subagent_factory._validator_cli import validator_main
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "golden-tests-v1.schema.json"
 
 
-def _high_confidence_principles(base: Path) -> tuple[set[str], set[str]]:
-    """Return (all_principle_ids, high_confidence_principle_ids)."""
+def _high_confidence_principles(base: Path) -> tuple[set[str], set[str], bool]:
+    """Return (all_principle_ids, high_confidence_principle_ids, readable).
+
+    ``readable`` is False when principles.yaml is absent or unparseable — a coverage
+    gate cannot verify coverage against a file it cannot read, so the caller fails
+    closed. It is True when the file parsed (even if it declares zero principles, which
+    is legitimately full coverage). This distinguishes the missing/unparseable case
+    from the genuinely-empty case, which the prior (set(), set()) return collapsed.
+    """
     pp = base / "principles" / "principles.yaml"
     if not pp.exists():
-        return set(), set()
+        return set(), set(), False
     try:
         data = yaml.safe_load(pp.read_text(encoding="utf-8")) or {}
     except yaml.YAMLError:
-        return set(), set()
+        return set(), set(), False
     all_ids: set[str] = set()
     high: set[str] = set()
     for p in data.get("principles") or []:
@@ -43,7 +50,7 @@ def _high_confidence_principles(base: Path) -> tuple[set[str], set[str]]:
         all_ids.add(pid)
         if p.get("confidence") == "high":
             high.add(pid)
-    return all_ids, high
+    return all_ids, high, True
 
 
 def _refs(tests: list) -> set[str]:
@@ -97,7 +104,14 @@ def validate_behaviour_test_coverage(suite_path: str | Path) -> list[str]:
             )
 
     # Coverage: each high-confidence principle needs ≥1 golden test; refs must resolve.
-    all_ids, high = _high_confidence_principles(base)
+    all_ids, high, readable = _high_confidence_principles(base)
+    # Fail-closed: a coverage gate that cannot read what it covers must FAIL, rather
+    # than iterate an empty principle set and pass vacuously (fail-open). A present
+    # file that declares zero principles is readable and legitimately full coverage.
+    if not readable:
+        errors.append("coverage: principles.yaml missing/unparseable — cannot verify coverage")
+        return errors
+
     golden_refs = _refs(golden)
     all_refs = _refs(golden) | _refs(negative) | _refs(missing)
 
@@ -105,7 +119,7 @@ def validate_behaviour_test_coverage(suite_path: str | Path) -> list[str]:
         if pid not in golden_refs:
             errors.append(f"coverage: high-confidence principle '{pid}' has no golden test")
     for ref in sorted(all_refs):
-        if all_ids and ref not in all_ids:
+        if ref not in all_ids:
             errors.append(f"coverage: test references unknown principle id '{ref}'")
 
     return errors

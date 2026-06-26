@@ -4,12 +4,26 @@ import importlib.util
 import os
 import re
 from pathlib import Path
-from typing import Any
+from typing import Any, NamedTuple
 
 from tools.subagent_factory._converter_common import compute_stats
 from tools.subagent_factory.conversion_quality import assess_quality
 from tools.subagent_factory.self_heal import ensure_package
 from tools.subagent_factory.table_quality import table_quality
+
+
+class ConvertAttempt(NamedTuple):
+    """Outcome of one converter attempt in the chain.
+
+    ``text`` is None when the converter could not produce output (then ``errors`` carries the
+    reason); a non-empty ``text`` means success and ``converter`` names which converter ran.
+    """
+
+    text: str | None
+    converter: str | None
+    warnings: list[str]
+    errors: list[str]
+
 
 # Below this many characters per page, a PDF is likely scanned/image-only (calibrated ~150 chars/page;
 # born-digital pages carry far more text). Unit is chars/page — no scaling at the call site.
@@ -68,16 +82,16 @@ def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:
         ("markitdown", _try_markitdown),
         ("pymupdf", _try_pymupdf),
     ):
-        t, u, w, e = fn(src)
-        if t:
-            text, used, warns = t, u, w
+        attempt = fn(src)
+        if attempt.text:
+            text, used, warns = attempt.text, attempt.converter, attempt.warnings
             if name != "docling":
                 warns = list(warns) + [
-                    f"Docling unavailable or failed; used {u} fallback. Enable Docling "
+                    f"Docling unavailable or failed; used {used} fallback. Enable Docling "
                     "for best layout/table fidelity: `bootstrap --extra convert-full`."
                 ]
             break
-        attempt_errors += e
+        attempt_errors += attempt.errors
     else:
         result["errors"] = attempt_errors + ["All PDF converters failed"]
         result["converter_used"] = "none"
@@ -85,6 +99,18 @@ def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:
 
     result["converter_used"] = used
     result["markdown_text"] = text
+    _assess_and_enrich(result, text, src, warns)
+    Path(output_path).write_text(text, encoding="utf-8")
+    return result
+
+
+def _assess_and_enrich(result: dict, text: str, src: Path, warns: list[str]) -> None:
+    """Post-conversion analysis: scanned detection, quality, stats, and heading warning.
+
+    Mutates ``result`` in place — fills ``page_count``, ``is_scanned``, ``quality``,
+    ``low_quality``, ``warnings`` (converter warnings + quality/heading warnings), and ``stats``.
+    A distinct responsibility from converter-chain selection in ``convert_pdf``.
+    """
     page_count = _pdf_page_count(src)
     result["page_count"] = page_count
     result["is_scanned"] = _detect_scanned(text, page_count)
@@ -101,8 +127,6 @@ def convert_pdf(source_path: str | Path, output_path: str | Path) -> dict:
             "conversion; structure anchoring degrades to the paragraph fallback. Enable Docling "
             "(bootstrap --extra convert-full) for heading recovery."
         )
-    Path(output_path).write_text(text, encoding="utf-8")
-    return result
 
 
 def _tables_enabled() -> bool:
@@ -199,7 +223,7 @@ def _tables_to_html(markdown: str, tables: list, doc: object | None = None) -> s
     return result
 
 
-def _try_docling(src: Path):
+def _try_docling(src: Path) -> ConvertAttempt:
     """Docling PDF→Markdown with a born-digital fast path.
 
     The default ``DocumentConverter`` runs OCR plus the table-structure ML model on every page.
@@ -219,22 +243,23 @@ def _try_docling(src: Path):
         from docling.datamodel.pipeline_options import PdfPipelineOptions
         from docling.document_converter import DocumentConverter, PdfFormatOption
     except ImportError:
-        return None, None, [], ["docling not installed"]
+        return ConvertAttempt(None, None, [], ["docling not installed"])
+    tables_on = _tables_enabled()
+    # Each try produces ONLY a converted ``doc``: it wraps just converter construction +
+    # ``convert(src)``, the part that can fail on a docling API change. Post-processing
+    # (``_finish_docling`` — export + table HTML + warnings) runs exactly once, AFTER a converter
+    # succeeds and OUTSIDE both try blocks. That keeps the fallback's blast radius scoped to real
+    # construction/API failures: a genuine post-processing failure surfaces as itself rather than
+    # being misattributed as a construction failure and silently retried on the ~20x slower
+    # OCR+table default pipeline (which would fail the same way and mask the real error).
     try:
         opts = PdfPipelineOptions()
         opts.do_ocr = False
-        opts.do_table_structure = _tables_enabled()
+        opts.do_table_structure = tables_on
         converter = DocumentConverter(
             format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=opts)}
         )
         doc = converter.convert(str(src))
-        text = doc.document.export_to_markdown()
-        warns: list[str] = []
-        if _tables_enabled():
-            tbls = getattr(doc.document, "tables", []) or []
-            text = _tables_to_html(text, tbls, doc=doc.document)
-            warns = _table_warnings(tbls, doc=doc.document)
-        return text, "docling", warns, []
     except Exception as e:
         # Any failure in the fast-path construction (e.g. a docling API change) must not strand
         # the chain — fall back to a default converter before giving up on docling entirely.
@@ -242,30 +267,48 @@ def _try_docling(src: Path):
             from docling.document_converter import DocumentConverter
 
             doc = DocumentConverter().convert(str(src))
-            text = doc.document.export_to_markdown()
-            warns = []
-            if _tables_enabled():
-                tbls = getattr(doc.document, "tables", []) or []
-                text = _tables_to_html(text, tbls, doc=doc.document)
-                warns = _table_warnings(tbls, doc=doc.document)
-            return text, "docling", warns, []
         except Exception as e2:
-            return None, None, [], [f"docling error: {e}; default-fallback: {e2}"]
+            return ConvertAttempt(None, None, [], [f"docling error: {e}; default-fallback: {e2}"])
+    # Post-processing runs once. A failure here is its own error (export / table post-processing),
+    # surfaced verbatim and NOT retried on the slow default pipeline — soft-fail, never raise.
+    try:
+        text, warns = _finish_docling(doc.document, tables_on)
+    except Exception as e:
+        return ConvertAttempt(None, None, [], [f"docling post-processing error: {e}"])
+    return ConvertAttempt(text, "docling", warns, [])
 
 
-def _try_markitdown(src: Path):
+def _finish_docling(document: object, tables_on: bool) -> tuple[str, list[str]]:
+    """Export a converted Docling document to Markdown and apply table post-processing once.
+
+    Owns the single table-handling block shared by ``_try_docling``'s fast path and its
+    default-converter fallback: export to markdown, then (when ``tables_on``) swap pipe-tables for
+    structure-preserving HTML and collect low-confidence-extraction warnings.
+    """
+    text = document.export_to_markdown()  # type: ignore[attr-defined]
+    warns: list[str] = []
+    if tables_on:
+        tbls = getattr(document, "tables", []) or []
+        text = _tables_to_html(text, tbls, doc=document)
+        warns = _table_warnings(tbls, doc=document)
+    return text, warns
+
+
+def _try_markitdown(src: Path) -> ConvertAttempt:
     md_mod = ensure_package("markitdown", purpose="PDF conversion")
     if md_mod is None:
-        return None, None, [], ["markitdown not installed and could not be auto-installed"]
+        return ConvertAttempt(
+            None, None, [], ["markitdown not installed and could not be auto-installed"]
+        )
     try:
         md = md_mod.MarkItDown()
         result = md.convert(str(src))
-        return result.text_content, "markitdown", [], []
+        return ConvertAttempt(result.text_content, "markitdown", [], [])
     except Exception as e:
-        return None, None, [], [f"markitdown error: {e}"]
+        return ConvertAttempt(None, None, [], [f"markitdown error: {e}"])
 
 
-def _try_pymupdf(src: Path):
+def _try_pymupdf(src: Path) -> ConvertAttempt:
     """Fast PyMuPDF extraction. Prefers ``pymupdf4llm.to_markdown`` (recovers heading
     structure, no ML/OCR wait) and falls back to raw ``fitz`` plain text. Both are soft deps.
 
@@ -280,7 +323,7 @@ def _try_pymupdf(src: Path):
         pass
     else:
         try:
-            return pymupdf4llm.to_markdown(str(src)), "pymupdf4llm", [], []
+            return ConvertAttempt(pymupdf4llm.to_markdown(str(src)), "pymupdf4llm", [], [])
         except Exception as e:
             pymupdf4llm_err = f"pymupdf4llm error: {e}"
 
@@ -288,14 +331,14 @@ def _try_pymupdf(src: Path):
         import fitz  # PyMuPDF
     except ImportError:
         errs = ["pymupdf not installed"]
-        return None, None, [], ([pymupdf4llm_err] + errs if pymupdf4llm_err else errs)
+        return ConvertAttempt(None, None, [], [pymupdf4llm_err] + errs if pymupdf4llm_err else errs)
     try:
         with fitz.open(str(src)) as doc:
             text = "\n\n".join(page.get_text() for page in doc)
-        return text, "pymupdf", [], ([pymupdf4llm_err] if pymupdf4llm_err else [])
+        return ConvertAttempt(text, "pymupdf", [], [pymupdf4llm_err] if pymupdf4llm_err else [])
     except Exception as e:
         errs = [f"pymupdf error: {e}"]
-        return None, None, [], ([pymupdf4llm_err] + errs if pymupdf4llm_err else errs)
+        return ConvertAttempt(None, None, [], [pymupdf4llm_err] + errs if pymupdf4llm_err else errs)
 
 
 def _pdf_page_count(src: Path) -> int | None:
