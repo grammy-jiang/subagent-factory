@@ -1,0 +1,382 @@
+[
+ {
+  "group": 1,
+  "members": [
+   {
+    "idx": 1,
+    "statement": "Write production code only in response to a currently failing automated test, and continuously eliminate duplication; these are the two core rules of TDD."
+   },
+   {
+    "idx": 7,
+    "statement": "Recognize TDD's limits: do not rely on tests alone for software whose goals need human judgment or cannot be reliably reproduced, such as security and subtle concurrency."
+   },
+   {
+    "idx": 56,
+    "statement": "Do not implement all tests at once; instead, in pure TDD stay never more than one change from green, writing newly-implied tests and refactorings onto the list and handling every leftover item at session end while never deferring a test you suspect might fail."
+   },
+   {
+    "idx": 114,
+    "statement": "When adopting TDD on a legacy codebase, do not test and refactor the whole system at once; limit the scope of changes, leave working-but-ugly parts alone, and break the test/refactoring deadlock with other feedback such as a careful partner and imperfect system-level tests."
+   }
+  ]
+ },
+ {
+  "group": 2,
+  "members": [
+   {
+    "idx": 2,
+    "statement": "Follow the red-green-refactor cycle: write a small failing test, make it pass as quickly as possible even with expedient code, then remove all introduced duplication; run all tests after each small change."
+   },
+   {
+    "idx": 11,
+    "statement": "Treat a red bar as concrete progress; in the green phase aim only to pass the test, then generalize a limited implementation before moving to the next test."
+   },
+   {
+    "idx": 13,
+    "statement": "Make it work first and make it clean second; quick green excuses expedient code only until the refactor step completes."
+   },
+   {
+    "idx": 22,
+    "statement": "Allow copy-and-edit to reach green quickly only if the duplication is removed before the next test."
+   },
+   {
+    "idx": 31,
+    "statement": "Force a real change by choosing test parameters that break the current implementation, reaching green with localized ugly code and then moving it where it belongs once tests pass."
+   },
+   {
+    "idx": 42,
+    "statement": "Run the tests between every refactoring step to confirm behavior is unchanged."
+   },
+   {
+    "idx": 123,
+    "statement": "Integrate at each passing test with duplication removed to shorten CI cycles to roughly 15 to 30 minutes, achieving simple design by coding only what the tests need and removing all duplication, while a growing test suite lets you attempt more aggressive large-scale refactorings."
+   }
+  ]
+ },
+ {
+  "group": 3,
+  "members": [
+   {
+    "idx": 3,
+    "statement": "Work in small increments with each test covering a tiny slice of functionality, taking smaller steps the harder the problem while retaining the ability to take larger steps."
+   },
+   {
+    "idx": 21,
+    "statement": "When a test is too big to implement in one step, invent a smaller test that represents real progress toward it."
+   }
+  ]
+ },
+ {
+  "group": 4,
+  "members": [
+   {
+    "idx": 4,
+    "statement": "Use TDD to manage programming fear by shortening the gap between decision and feedback."
+   },
+   {
+    "idx": 26,
+    "statement": "Treat TDD as a steering process with no single right step size: bigger steps when confident, smaller steps when unsure."
+   },
+   {
+    "idx": 43,
+    "statement": "Treat mastery of TDD as being able to take tiny steps when the situation calls for them, not always taking them."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 5,
+    "statement": "Design for testability: compose the system from many highly cohesive, loosely coupled components, demand a development environment with rapid response, and grow the design organically from running-code feedback."
+   },
+   {
+    "idx": 50,
+    "statement": "When building a testing framework, focus on supporting a set of isolated, composable test cases rather than on implementation details, and distinguish assertion failures from other errors because failures take longer to debug."
+   },
+   {
+    "idx": 54,
+    "statement": "Keep tests fully isolated: they must not affect one another, must be fast enough to run yourself often, and should be sought at a smaller scale than the whole application, which forces a highly cohesive, loosely coupled design."
+   }
+  ]
+ },
+ {
+  "group": 6,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Have developers write their own tests rather than waiting for someone else."
+   },
+   {
+    "idx": 9,
+    "statement": "Maintain a written to-do list of tests, marking items in progress, crossing them off when done, and adding new tests as they occur."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 8,
+    "statement": "Start from the simplest failing test, imagining the ideal interface and working backward from that API."
+   },
+   {
+    "idx": 65,
+    "statement": "Before using an unfamiliar external library facility, write a Learning Test that verifies the API behaves as expected, and re-run those tests when new releases arrive."
+   }
+  ]
+ },
+ {
+  "group": 8,
+  "members": [
+   {
+    "idx": 10,
+    "statement": "Get to green minimally by doing the least to compile and fixing one error at a time, and seek a concrete numerical measure of progress."
+   },
+   {
+    "idx": 37,
+    "statement": "When a desired test cannot go green quickly, back off to a more specific achievable test, get to green, then generalize."
+   }
+  ]
+ },
+ {
+  "group": 9,
+  "members": [
+   {
+    "idx": 12,
+    "statement": "Attack dependency by removing its symptom, duplication — including duplication between test data and code — before writing the next test, so the next test passes with a single change."
+   },
+   {
+    "idx": 81,
+    "statement": "Isolate a change by adding a parameter in the test so the implementation can change without affecting the test, and vice versa."
+   }
+  ]
+ },
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 14,
+    "statement": "Apply Value Object discipline: keep values immutable after construction, return a new object from every operation, and implement equals (and hashCode when used as a hash key) to avoid aliasing bugs."
+   },
+   {
+    "idx": 30,
+    "statement": "Compare an object's meaningful attributes, not its concrete class, when implementing equality."
+   },
+   {
+    "idx": 90,
+    "statement": "Design a Value Object by setting state at creation and never changing it, returning a new object from every operation and implementing equality (and usually hashing), to defeat the aliasing problem; address allocation performance only with realistic data, usage, profiling, and actual complaints."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 17,
+    "statement": "Choose a get-to-green strategy deliberately — Fake It (return a constant, then replace with variables), Obvious Implementation (type the real code when confident and quick), or Triangulation (generalize only with two or more examples) — and downshift to Fake It on an unexpected red bar, reserving Triangulation for when you are unsure how to refactor."
+   },
+   {
+    "idx": 78,
+    "statement": "Reach green with Fake It (return a constant, then transform into a real expression), since having something green is better than nothing and a green bar gives certainty and scope control by letting you generalize from one concrete example."
+   },
+   {
+    "idx": 79,
+    "statement": "Drive abstraction conservatively with Triangulation once two or more examples demand it, reserving it for when you are very unsure of the abstraction and otherwise typing the Obvious Implementation while downshifting to smaller steps when red bars surprise you."
+   }
+  ]
+ },
+ {
+  "group": 17,
+  "members": [
+   {
+    "idx": 23,
+    "statement": "Eliminate duplication structurally: introduce factory methods to decouple clients from concrete subclasses, reconcile near-duplicate methods to a common supertype, and push identical members up into a superclass."
+   },
+   {
+    "idx": 33,
+    "statement": "Replace explicit class checks with polymorphism, promoting a shared method onto a common interface so dispatch eliminates casts and class checks."
+   }
+  ]
+ },
+ {
+  "group": 18,
+  "members": [
+   {
+    "idx": 24,
+    "statement": "Before deleting a test, keep it if it still exercises unique logic and treat a fully redundant test as a deletion candidate."
+   },
+   {
+    "idx": 34,
+    "statement": "Do not mark a test done until the duplication it introduced has been eliminated."
+   },
+   {
+    "idx": 110,
+    "statement": "Keep a redundant test if removing it would reduce confidence or if it communicates a distinct scenario, deleting the less useful one only when it is redundant on both confidence and communication."
+   }
+  ]
+ },
+ {
+  "group": 19,
+  "members": [
+   {
+    "idx": 25,
+    "statement": "Protect the refactoring rhythm: entertain only a brief interruption and never interrupt an interruption, and when a larger step goes wrong, unwind it, shift to smaller steps, and redo."
+   },
+   {
+    "idx": 117,
+    "statement": "Reduce repeatable behavior to explicit rules so applying them becomes rote and fast, freeing time and energy for creativity when a genuine exception arises."
+   },
+   {
+    "idx": 124,
+    "statement": "Focus on one mode at a time: while adding functionality only try to pass a test, and while refactoring only try to get the design right, which yields a 'rapid unhurriedness' where steady one-thing-at-a-time progress turns out to be fast."
+   }
+  ]
+ },
+ {
+  "group": 21,
+  "members": [
+   {
+    "idx": 28,
+    "statement": "Improve confusing test-failure messages by adding diagnostics such as a toString implementation."
+   },
+   {
+    "idx": 75,
+    "statement": "Test rarely-invoked error code deliberately with a Crash Test Dummy that throws instead of doing real work, overriding just the one method needed to keep the test readable, because untested code does not work."
+   }
+  ]
+ },
+ {
+  "group": 30,
+  "members": [
+   {
+    "idx": 44,
+    "statement": "Avoid Pluggable Selector because it makes code hard to analyze statically."
+   },
+   {
+    "idx": 94,
+    "statement": "Use a Pluggable Selector to store and dynamically invoke a method name only when cleaning up a straightforward situation of one-method subclasses, mindful that its main drawback is the difficulty of tracing whether a method is invoked."
+   }
+  ]
+ },
+ {
+  "group": 31,
+  "members": [
+   {
+    "idx": 45,
+    "statement": "Structure most tests as Arrange-Act-Assert: create objects, stimulate them, then check results."
+   },
+   {
+    "idx": 47,
+    "statement": "Build a clean fixture in setUp() before each test, favoring simplicity of test writing over raw performance, and simplify a test to stop checking something only when another test reliably covers it."
+   },
+   {
+    "idx": 72,
+    "statement": "Test that one object communicates correctly with another using Self Shunt, having the object under test talk to the test case itself, which reads better by keeping expected and actual together."
+   },
+   {
+    "idx": 82,
+    "statement": "Automate result-checking with specific boolean assertions that remove all human judgment, putting the expected value first in equality assertions and asserting observable behavior rather than implementation details so a test survives a representation change."
+   },
+   {
+    "idx": 128,
+    "statement": "Drive a test from a table of input and expected-output values to factor out duplicated assertion structure and make adding cases cheap."
+   }
+  ]
+ },
+ {
+  "group": 32,
+  "members": [
+   {
+    "idx": 46,
+    "statement": "Balance test performance against test isolation, and prevent test coupling — run each test in a fresh instance with freshly created objects so one failure means one problem and tests stay order-independent."
+   },
+   {
+    "idx": 48,
+    "statement": "Release external resources in tearDown() so tests stay independent, leaving the world in the same state as before each test."
+   }
+  ]
+ },
+ {
+  "group": 33,
+  "members": [
+   {
+    "idx": 49,
+    "statement": "Record method calls in an ordered log rather than many boolean flags to assert both that methods ran and the order in which they ran."
+   },
+   {
+    "idx": 74,
+    "statement": "Assert call order with a string log appended as each message runs, using a set comparison instead when order does not matter."
+   }
+  ]
+ },
+ {
+  "group": 38,
+  "members": [
+   {
+    "idx": 57,
+    "statement": "Write the test before the code it tests, using test-first primarily as a design and scope-control tool rather than after-the-fact verification."
+   },
+   {
+    "idx": 58,
+    "statement": "Write a test's assertions first and work backward to create the setup they require, building a system from the stories you want to tell, a feature from the tests it should pass, and a test from the asserts that should pass — which separates 'what is the right answer?' and 'how will I check it?' from the other problems."
+   }
+  ]
+ },
+ {
+  "group": 52,
+  "members": [
+   {
+    "idx": 76,
+    "statement": "End a solo session by leaving the last test broken as a concrete bookmark, but on a team end with all tests passing, always making every test pass before check-in and never commenting out a test to make the suite pass."
+   },
+   {
+    "idx": 77,
+    "statement": "When an integration test breaks at check-in, either discard your work and start over or allow a few minutes to fix it before starting over, and run the whole suite all the time until it becomes annoyingly slow."
+   }
+  ]
+ },
+ {
+  "group": 69,
+  "members": [
+   {
+    "idx": 100,
+    "statement": "In TDD a refactoring preserves the semantics that matter — the currently passing tests — which obliges you to keep enough tests for that equivalence to be trustworthy."
+   },
+   {
+    "idx": 102,
+    "statement": "Avoid leap-of-faith refactorings that rely on long chains of reasoning; reduce them with small steps and concrete feedback."
+   },
+   {
+    "idx": 111,
+    "statement": "Expect slower test-compile-run-refactor cycles to tempt larger steps and fewer intermediate refactorings; counter this deliberately."
+   }
+  ]
+ },
+ {
+  "group": 80,
+  "members": [
+   {
+    "idx": 115,
+    "statement": "Treat TDD as encoding a value system that assumes better code leads to more success, so it suits those who revisit and refine their code rather than those who slam code together once."
+   },
+   {
+    "idx": 120,
+    "statement": "Value how TDD shortens the design-decision feedback loop to seconds or minutes and behaves like an attractor that converges code toward correctness as features are added one at a time after all tests pass."
+   }
+  ]
+ },
+ {
+  "group": 82,
+  "members": [
+   {
+    "idx": 118,
+    "statement": "When implementing a pattern-driven design with TDD, think about what you want the system to do and let the design emerge, because pre-committed design ideas often turn out wrong."
+   },
+   {
+    "idx": 121,
+    "statement": "Treat TDD as fundamentally an analysis and design technique for structuring all development, driving development with tests rather than speculation or specifications."
+   }
+  ]
+ }
+]
