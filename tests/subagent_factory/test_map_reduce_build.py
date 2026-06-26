@@ -3,13 +3,18 @@
 import hashlib
 import json
 
+import pytest
 import yaml
 
 from tools.subagent_factory.map_reduce_build import (
     assemble,
     build_claim_map,
+    build_groups,
+    deserialize_groups,
+    emit_clusters,
     globalize_principles,
     load_modules,
+    serialize_groups,
 )
 
 
@@ -122,3 +127,149 @@ def test_assemble_merges_and_resolves(tmp_path):
     ]
     assert {e["claim_id"] for e in ev} == {"C00001", "C00002"}
     assert (pkg / "sources" / "anchors" / "alpha-0001.anchors.jsonl").exists()
+
+
+# --- single-producer group-index contract (fix #1) + group-key validation (fix #2) ----------------
+
+
+def test_emit_and_assemble_share_one_grouping(tmp_path):
+    # build_groups is the single producer; emit_clusters keys the LLM decisions on it and assemble
+    # applies them against the SAME grouping (threaded via the optional `groups` arg) — no recompute.
+    sources = _fixture(tmp_path)
+    mods = load_modules(sources, tmp_path / "cache" / "book-extracts")
+    cmap, _ = build_claim_map(mods)
+    gp = globalize_principles(mods, cmap)
+    groups = build_groups(gp, _fake_embedder, cos=0.5)
+    clusters = emit_clusters(gp, _fake_embedder, cos=0.5, groups=groups)
+    # The two example principles cluster into one multi-member group at this threshold.
+    assert clusters and clusters[0]["group"] == 0
+    summary = assemble(
+        "demo-shared",
+        sources,
+        repo=tmp_path,
+        embedder=_fake_embedder,
+        cos=0.5,
+        decisions={clusters[0]["group"]: {"action": "confirm"}},
+        select=0,
+        groups=groups,  # identical object the emit phase keyed its decisions on
+    )
+    assert summary["principles"] == 1  # confirm merged the shared cluster
+
+
+def test_assemble_rejects_out_of_range_group_key(tmp_path):
+    # A decisions file built against a stale/different cluster set has an out-of-range GROUP KEY.
+    # apply_decisions would silently default it to confirm; assemble must instead fail loudly.
+    sources = _fixture(tmp_path)
+    with pytest.raises(ValueError, match="out-of-range group keys"):
+        assemble(
+            "demo-stale",
+            sources,
+            repo=tmp_path,
+            embedder=_fake_embedder,
+            cos=0.5,
+            decisions={99: {"action": "confirm"}},
+            select=0,
+        )
+
+
+# --- cross-process group persistence + replay (fix: silent reshuffle hazard) ----------------------
+
+
+def _gp(sid, statement, claims):
+    return {"source_id": sid, "statement": statement, "derived_from_claims": list(claims)}
+
+
+def test_serialize_then_deserialize_roundtrips_positions():
+    principles = [
+        _gp("a", "alpha", ["C1"]),
+        _gp("b", "beta", ["C2"]),
+        _gp("a", "gamma", ["C3"]),
+    ]
+    groups = [[0, 2], [1]]
+    serialized = serialize_groups(principles, groups)
+    assert deserialize_groups(principles, serialized) == groups
+
+
+def test_persisted_groups_replay_to_same_principles_under_reshuffle():
+    # The emit phase produced this grouping on the ORIGINAL order; the LLM keyed decisions on it.
+    emit_order = [
+        _gp("a", "prefer caching", ["C1"]),
+        _gp("b", "prefer caching strongly", ["C2"]),
+        _gp("c", "use a bulkhead to isolate failures", ["C3"]),
+    ]
+    # group 0 = the two cache principles (identities a/prefer caching + b/prefer caching strongly).
+    emit_groups = [[0, 1], [2]]
+    serialized = serialize_groups(emit_order, emit_groups)
+
+    # A second process re-globalizes principles in a DIFFERENT order (the reshuffle hazard).
+    assemble_order = [emit_order[2], emit_order[0], emit_order[1]]  # c, a, b
+
+    # Replaying the persisted grouping maps group 0 to the SAME principle identities, NOT positions.
+    replayed = deserialize_groups(assemble_order, serialized)
+    replayed_keys = [
+        {(assemble_order[i]["source_id"], assemble_order[i]["statement"]) for i in grp}
+        for grp in replayed
+    ]
+    assert replayed_keys[0] == {("a", "prefer caching"), ("b", "prefer caching strongly")}
+    assert replayed_keys[1] == {("c", "use a bulkhead to isolate failures")}
+    # Position 0 in assemble_order is the bulkhead principle — a naive position-keyed reuse of
+    # emit_groups would have wrongly merged it; the identity replay does not.
+    assert 0 not in replayed[0]
+
+
+def test_deserialize_rejects_changed_principle_set():
+    emit_order = [_gp("a", "alpha", ["C1"]), _gp("b", "beta", ["C2"])]
+    serialized = serialize_groups(emit_order, [[0, 1]])
+    changed = [_gp("a", "alpha", ["C1"]), _gp("b", "DIFFERENT", ["C2"])]
+    with pytest.raises(ValueError, match="no match in the current principle set"):
+        deserialize_groups(changed, serialized)
+
+
+def test_deserialize_rejects_grown_principle_set_superset():
+    # The persisted payload covers only a SUBSET of the current principles: a module was re-MAP'd
+    # and GAINED a principle between emit and assemble. Every old key still matches, so the existing
+    # missing-member check never fires — but the new principle (index 2) is in NO group and would be
+    # SILENTLY DROPPED from the distilled layer. deserialize_groups must instead fail loudly.
+    emit_order = [_gp("a", "alpha", ["C1"]), _gp("b", "beta", ["C2"])]
+    serialized = serialize_groups(emit_order, [[0, 1]])
+    grown = [
+        _gp("a", "alpha", ["C1"]),
+        _gp("b", "beta", ["C2"]),
+        _gp("c", "newly added principle", ["C3"]),  # gained after the grouping was persisted
+    ]
+    with pytest.raises(ValueError, match="uncovered"):
+        deserialize_groups(grown, serialized)
+
+
+def test_emit_persist_assemble_applies_decision_to_original_cluster(tmp_path):
+    # End-to-end of the two-phase contract: emit produces a grouping, it is persisted by stable
+    # identity, and assemble loading the persisted groups applies the decision to the SAME cluster
+    # even when fed a DIFFERENT principle order than emit saw.
+    sources = _fixture(tmp_path)
+    mods = load_modules(sources, tmp_path / "cache" / "book-extracts")
+    cmap, _ = build_claim_map(mods)
+    gp = globalize_principles(mods, cmap)
+    groups = build_groups(gp, _fake_embedder, cos=0.5)
+    clusters = emit_clusters(gp, _fake_embedder, cos=0.5, groups=groups)
+    assert clusters and clusters[0]["group"] == 0
+    serialized = serialize_groups(gp, groups)
+
+    # Simulate the assemble process re-globalizing in a different order, then replaying the groups.
+    reshuffled = list(reversed(gp))
+    replayed = deserialize_groups(reshuffled, serialized)
+    # Replayed group 0 still contains exactly the two original cache-principle identities.
+    keys = {(reshuffled[i]["source_id"], reshuffled[i]["statement"]) for i in replayed[0]}
+    assert keys == {("alpha-0001", "prefer caching"), ("beta-0002", "prefer caching strongly")}
+
+    # assemble with the persisted (replayed) groups confirms the shared cluster -> 1 merged principle.
+    summary = assemble(
+        "demo-persist",
+        sources,
+        repo=tmp_path,
+        embedder=_fake_embedder,
+        cos=0.5,
+        decisions={clusters[0]["group"]: {"action": "confirm"}},
+        select=0,
+        groups=build_groups(gp, _fake_embedder, cos=0.5),
+    )
+    assert summary["principles"] == 1

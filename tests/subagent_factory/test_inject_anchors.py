@@ -98,8 +98,10 @@ def test_paragraph_fallback_for_structureless_source():
     assert result["anchor_count"] == 2
     anchors = [json.loads(ln) for ln in Path(out_jsonl).read_text().strip().splitlines() if ln]
     assert {a["anchor_type"] for a in anchors} == {"paragraph"}
-    assert all(a["anchor_id"].startswith("flat-source-t") for a in anchors)
-    assert "<!-- anchor:flat-source-t0000 -->" in Path(out_md).read_text()
+    # Paragraph anchors use the distinct ``-g`` prefix (NOT ``-t``, which is reserved for tables).
+    assert all(a["anchor_id"].startswith("flat-source-g") for a in anchors)
+    assert not any("-t" in a["anchor_id"][len("flat-source") :] for a in anchors)
+    assert "<!-- anchor:flat-source-g0000 -->" in Path(out_md).read_text()
 
 
 def test_is_pdf_noise_classifies_conversion_artifacts():
@@ -220,3 +222,124 @@ def test_reinjection_is_idempotent():
     # No stacking: comment count is stable across passes (page anchors emit no comment).
     assert output.count("<!-- anchor:") == comments_after_first
     assert "<!-- page 2 -->" in output  # page markers preserved, not stripped
+
+
+def test_page_anchor_line_number_is_input_relative():
+    """A page anchor's line_number must index the INPUT line, like every other anchor type.
+
+    Regression: pages were scanned over the POST-injection output (which has extra anchor-comment
+    lines), offsetting their line_number by the count of injected comments above the marker. Here a
+    heading injects one comment line before the page marker; the page anchor must still report the
+    marker's INPUT line, and that input line must actually contain the marker.
+    """
+    src_text = "# Title\n\nbody text\n\n<!-- page 7 -->\n\nmore body\n"
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
+        f.write(src_text)
+        src = f.name
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
+        out_md = f.name
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
+        out_jsonl = f.name
+
+    result = inject_anchors(src, out_md, out_jsonl, "src")
+    page_anchors = [a for a in result["anchors"] if a["anchor_type"] == "page"]
+    assert len(page_anchors) == 1
+    pa = page_anchors[0]
+    assert pa["page_number"] == 7
+
+    # line_number is 1-based and must point at the INPUT line holding the page marker.
+    input_lines = src_text.splitlines()
+    assert "<!-- page 7 -->" in input_lines[pa["line_number"] - 1]
+
+
+def test_repeated_page_marker_yields_distinct_anchor_ids():
+    """The SAME page number appearing twice (PDF running header/footer, repeated front-matter)
+    must still produce TWO anchors with DISTINCT anchor_id values.
+
+    Regression: page anchor ids were derived from the page NUMBER (``src-p0007``), so two
+    ``<!-- page 7 -->`` markers collided on one id. Any downstream that keys anchors by anchor_id
+    (the package_queries / corpus_health anchor-id sets, dedup, the faithfulness index) then
+    silently dropped one page's line_number. Each duplicate must keep its own input line number.
+    """
+    src_text = "# Title\n\n<!-- page 7 -->\n\nbody text\n\nmore body\n\n<!-- page 7 -->\n\ntail\n"
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
+        f.write(src_text)
+        src = f.name
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
+        out_md = f.name
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
+        out_jsonl = f.name
+
+    result = inject_anchors(src, out_md, out_jsonl, "src")
+    page_anchors = [a for a in result["anchors"] if a["anchor_type"] == "page"]
+    assert len(page_anchors) == 2
+
+    ids = [a["anchor_id"] for a in page_anchors]
+    assert len(set(ids)) == 2, f"page anchor ids collided: {ids}"
+
+    # Both record page 7, and the page number must still be recoverable from the record field.
+    assert all(a["page_number"] == 7 for a in page_anchors)
+
+    # Each anchor keeps its own INPUT-relative line number, pointing at a real page-7 marker.
+    input_lines = src_text.splitlines()
+    line_nums = sorted(a["line_number"] for a in page_anchors)
+    assert len(set(line_nums)) == 2
+    for ln in line_nums:
+        assert "<!-- page 7 -->" in input_lines[ln - 1]
+
+    # Ids must still end in a single type-letter + digits (validate_faithfulness_report's
+    # ``-[a-z]\\d{3,}$`` pattern) and carry the page ``-p`` type letter.
+    for aid in ids:
+        assert re.search(r"-[a-z]\d{3,}$", aid)
+        assert aid[len("src") :].startswith("-p")
+    # Sanity: a heading anchor exists above it and shares the same INPUT-relative scale.
+    heading = [a for a in result["anchors"] if a["anchor_type"] == "heading"][0]
+    assert input_lines[heading["line_number"] - 1].startswith("# Title")
+
+
+def test_unclosed_table_still_finalizes_record_and_does_not_crash():
+    """A <table> with no </table> (truncated/malformed) must still yield a valid table anchor.
+
+    Before the fix, ``in_table`` stayed True for the rest of the file. The single open-table record
+    must be finalized with fallback text rather than left empty, and injection must complete.
+    """
+    md = "# Heading\n\n<table>\n<tr><td>row one</td></tr>\n<tr><td>row two</td></tr>\n"
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
+        f.write(md)
+        src = f.name
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
+        out_md = f.name
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
+        out_jsonl = f.name
+
+    result = inject_anchors(src, out_md, out_jsonl, "src")
+    tables = [a for a in result["anchors"] if a["anchor_type"] == "table"]
+    assert len(tables) == 1
+    # Accumulated inner-row text is non-empty (so the empty-text branch isn't what we assert), but
+    # the key guarantee is the record is finalized and valid — text is always a non-empty string.
+    assert isinstance(tables[0]["text"], str) and tables[0]["text"]
+
+
+def test_unclosed_empty_table_gets_fallback_text():
+    """An unclosed table with no extractable text falls back to ``table at line N``."""
+    md = "<table>\n<tr></tr>\n"  # opens, never closes, no word content
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
+        f.write(md)
+        src = f.name
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
+        out_md = f.name
+    with tempfile.NamedTemporaryFile(
+        suffix=".jsonl", mode="w", delete=False, encoding="utf-8"
+    ) as f:
+        out_jsonl = f.name
+
+    result = inject_anchors(src, out_md, out_jsonl, "src")
+    tables = [a for a in result["anchors"] if a["anchor_type"] == "table"]
+    assert len(tables) == 1
+    assert tables[0]["text"].startswith("table at line")

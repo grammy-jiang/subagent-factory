@@ -105,6 +105,26 @@ def test_load_passages_skips_trivial_and_dedupes(tmp_path):
     (base / "sources" / "anchors" / "s.anchors.jsonl").write_text(
         "\n".join(json.dumps(r) for r in rows), encoding="utf-8"
     )
-    passages = load_passages(base)
+    passages, source_kind = load_passages(base)
     assert [p.id for p in passages] == ["P1"]
     assert "crash recovery" in passages[0].text
+    assert source_kind == "anchors"  # no markdown dir → distilled-span fallback
+
+
+def test_load_passages_reports_markdown_kind(tmp_path):
+    base = tmp_path / "pkg"
+    (base / "sources" / "markdown").mkdir(parents=True)
+    (base / "sources" / "markdown" / "s.md").write_text(
+        "Write-ahead logging guarantees durable crash recovery after any failure.\n",
+        encoding="utf-8",
+    )
+    passages, source_kind = load_passages(base)
+    assert source_kind == "markdown"
+    assert passages and passages[0].id == "s#0"
+
+
+def test_load_passages_reports_none_when_empty(tmp_path):
+    base = tmp_path / "pkg"
+    (base / "sources").mkdir(parents=True)
+    passages, source_kind = load_passages(base)
+    assert passages == [] and source_kind == "none"

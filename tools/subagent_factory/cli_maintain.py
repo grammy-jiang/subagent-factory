@@ -6,9 +6,14 @@ Registered on the main group in cli.py via add_command — flat command names un
 import sys
 
 import click
-from rich.table import Table
 
-from tools.subagent_factory.cli_support import console, repo_root, subagent_path
+from tools.subagent_factory.cli_support import (
+    console,
+    render_table,
+    repo_root,
+    status_color,
+    subagent_path,
+)
 
 
 @click.command("catalog")
@@ -25,27 +30,34 @@ def cmd_catalog(ready_only, md):
     if md:
         print(format_markdown(cat))
         return
-    t = Table(title=f"Generated Subagents ({len(cat)})  ·  local, gitignored output")
-    t.add_column("Expert")
-    t.add_column("T", justify="right")
-    t.add_column("Status")
-    t.add_column("Modes")
-    t.add_column("Sk/Rf", justify="right")
-    t.add_column("Adapter")
-    t.add_column("Source")
+    rows = []
     for e in cat:
         adapter = "[green]ok[/green]" if e["adapter_installed"] else "[red]missing[/red]"
-        scolor = {"ready": "green", "draft": "yellow"}.get(e["status"], "white")
-        t.add_row(
-            e["slug"],
-            str(e["tier"]),
-            f"[{scolor}]{e['status']}[/{scolor}]",
-            ", ".join(e["modes"]),
-            f"{e['skills']}/{e['references']}",
-            adapter,
-            e["source"],
+        scolor = status_color(e["status"])
+        rows.append(
+            (
+                e["slug"],
+                str(e["tier"]),
+                f"[{scolor}]{e['status']}[/{scolor}]",
+                ", ".join(e["modes"]),
+                f"{e['skills']}/{e['references']}",
+                adapter,
+                e["source"],
+            )
         )
-    console.print(t)
+    render_table(
+        f"Generated Subagents ({len(cat)})  ·  local, gitignored output",
+        [
+            "Expert",
+            ("T", {"justify": "right"}),
+            "Status",
+            "Modes",
+            ("Sk/Rf", {"justify": "right"}),
+            "Adapter",
+            "Source",
+        ],
+        rows,
+    )
     console.print(
         '\nTest any expert: spawn [bold]Agent(subagent_type="<slug>")[/bold], or just prompt '
         "Claude Code with a matching task (it routes via the installed adapter's description).\n"
@@ -67,24 +79,25 @@ def cmd_search(topic, keywords):
         console.print("No related subagents found — create new.")
         return
 
-    t = Table(title=f"Related subagents for: {topic}")
-    t.add_column("Slug")
-    t.add_column("Similarity")
-    t.add_column("Recommendation")
-    t.add_column("Matched terms")
-    t.add_column("Role excerpt")
+    rows = []
     for c in candidates:
         rec_color = {"update": "green", "consider-update": "yellow", "create-new": "blue"}.get(
             c["recommendation"], "white"
         )
-        t.add_row(
-            c["slug"],
-            f"{c['similarity']:.2f}",
-            f"[{rec_color}]{c['recommendation']}[/{rec_color}]",
-            ", ".join(c.get("matched_terms", [])[:6]),
-            c["role"][:60],
+        rows.append(
+            (
+                c["slug"],
+                f"{c['similarity']:.2f}",
+                f"[{rec_color}]{c['recommendation']}[/{rec_color}]",
+                ", ".join(c.get("matched_terms", [])[:6]),
+                c["role"][:60],
+            )
         )
-    console.print(t)
+    render_table(
+        f"Related subagents for: {topic}",
+        ["Slug", "Similarity", "Recommendation", "Matched terms", "Role excerpt"],
+        rows,
+    )
 
 
 @click.command("corpus-health")
@@ -101,24 +114,28 @@ def cmd_corpus_health(as_json):
         click.echo(_json.dumps(rows, indent=2))
         return
 
-    t = Table(title=f"Corpus health ({len(rows)} packages)")
-    for col in ("slug", "tier", "status", "conv", "anchors", "type", "claims", "dead", "health"):
-        t.add_column(col)
+    table_rows = []
     for r in rows:
         bad = {"empty-anchors", "dead-refs"} & set(r["health"])
         color = "green" if r["health"] == ["ok"] else "red" if bad else "yellow"
-        t.add_row(
-            r["slug"],
-            str(r["tier"]),
-            str(r["status"]),
-            r["converter"],
-            str(r["anchors"]),
-            r["anchor_type"],
-            str(r["claims"]),
-            str(r["dead_refs"]),
-            f"[{color}]{','.join(r['health'])}[/{color}]",
+        table_rows.append(
+            (
+                r["slug"],
+                str(r["tier"]),
+                str(r["status"]),
+                r["converter"],
+                str(r["anchors"]),
+                r["anchor_type"],
+                str(r["claims"]),
+                str(r["dead_refs"]),
+                f"[{color}]{','.join(r['health'])}[/{color}]",
+            )
         )
-    console.print(t)
+    render_table(
+        f"Corpus health ({len(rows)} packages)",
+        ["slug", "tier", "status", "conv", "anchors", "type", "claims", "dead", "health"],
+        table_rows,
+    )
     fc = Counter(f for r in rows for f in r["health"])
     console.print("summary: " + "  ".join(f"{k}={v}" for k, v in sorted(fc.items())))
 
@@ -129,27 +146,31 @@ def cmd_doctor():
     from tools.subagent_factory.self_heal import doctor
 
     report = doctor()
-    t = Table(title="Subagent Factory — converter health")
-    t.add_column("Kind")
-    t.add_column("Name")
-    t.add_column("Status")
-    t.add_column("Note")
+    rows = []
     for name, ok in report["python_packages"].items():
-        t.add_row(
-            "python",
-            name,
-            "[green]ok[/green]" if ok else "[red]missing[/red]",
-            "" if ok else "auto-installs on demand",
+        rows.append(
+            (
+                "python",
+                name,
+                "[green]ok[/green]" if ok else "[red]missing[/red]",
+                "" if ok else "auto-installs on demand",
+            )
         )
     for name, info in report["system_tools"].items():
         ok = info["present"]
-        t.add_row(
-            "system",
-            name,
-            "[green]ok[/green]" if ok else "[yellow]missing[/yellow]",
-            "" if ok else info["hint"],
+        rows.append(
+            (
+                "system",
+                name,
+                "[green]ok[/green]" if ok else "[yellow]missing[/yellow]",
+                "" if ok else info["hint"],
+            )
         )
-    console.print(t)
+    render_table(
+        "Subagent Factory — converter health",
+        ["Kind", "Name", "Status", "Note"],
+        rows,
+    )
     venv = report.get("venv")
     console.print(
         f"Managed venv: {venv}" if venv else "Managed venv: not created (run `bootstrap --venv`)"
@@ -169,32 +190,42 @@ def cmd_doctor():
 )
 def cmd_bootstrap(venv, extra):
     """Set up converter dependencies so ingestion works out of the box."""
-    from tools.subagent_factory.self_heal import bootstrap_environment, ensure_converter_stack
-
     if venv:
-        console.print(f"[bold]Bootstrapping managed .venv with [{extra}]...[/bold]")
-        status = bootstrap_environment(extra=extra)
-        if status.get("error"):
-            console.print(f"[red]ERROR:[/red] {status['error']}")
-            sys.exit(1)
-        console.print(
-            f"[green]venv ready:[/green] {status['venv']} (created={status['created']}, installed={status['installed']})"
-        )
-        console.print("Run with SUBAGENT_FACTORY_USE_VENV=1 to use it automatically.")
+        _bootstrap_venv(extra)
     else:
-        console.print("[bold]Ensuring converter stack in current interpreter...[/bold]")
-        report = ensure_converter_stack()
-        if report["missing"]:
-            console.print(f"[red]Still missing:[/red] {', '.join(report['missing'])}")
-            sys.exit(1)
-        console.print(
-            f"[green]Converter stack ready[/green] (healed: {', '.join(report['healed']) or 'none needed'})"
-        )
-        for tool, info in report["system_tools"].items():
-            if not info["present"]:
-                console.print(
-                    f"[yellow]Optional system tool '{tool}' missing:[/yellow] {info['hint']}"
-                )
+        _bootstrap_inproc()
+
+
+def _bootstrap_venv(extra):
+    """Create the managed .venv and install the converter extra into it."""
+    from tools.subagent_factory.self_heal import bootstrap_environment
+
+    console.print(f"[bold]Bootstrapping managed .venv with [{extra}]...[/bold]")
+    status = bootstrap_environment(extra=extra)
+    if status.get("error"):
+        console.print(f"[red]ERROR:[/red] {status['error']}")
+        sys.exit(1)
+    console.print(
+        f"[green]venv ready:[/green] {status['venv']} (created={status['created']}, installed={status['installed']})"
+    )
+    console.print("Run with SUBAGENT_FACTORY_USE_VENV=1 to use it automatically.")
+
+
+def _bootstrap_inproc():
+    """Heal the converter stack in the current interpreter."""
+    from tools.subagent_factory.self_heal import ensure_converter_stack
+
+    console.print("[bold]Ensuring converter stack in current interpreter...[/bold]")
+    report = ensure_converter_stack()
+    if report["missing"]:
+        console.print(f"[red]Still missing:[/red] {', '.join(report['missing'])}")
+        sys.exit(1)
+    console.print(
+        f"[green]Converter stack ready[/green] (healed: {', '.join(report['healed']) or 'none needed'})"
+    )
+    for tool, info in report["system_tools"].items():
+        if not info["present"]:
+            console.print(f"[yellow]Optional system tool '{tool}' missing:[/yellow] {info['hint']}")
 
 
 @click.command("repair-faithfulness")

@@ -69,16 +69,37 @@ def validate_evidence_records(records_path: str | Path) -> list[str]:
             errors.append(f"evidence_records[{i}]: duplicate evidence_id '{eid}'")
         seen.add(eid)
 
-        if claim_ids and rec["claim_id"] not in claim_ids:
-            errors.append(
-                f"evidence_records[{i}]: claim_id '{rec['claim_id']}' not in analysis/claims.jsonl"
-            )
-        for sid in rec.get("source_ids", []):
-            if source_ids and sid not in source_ids:
-                errors.append(f"evidence_records[{i}]: source_id '{sid}' not in manifest")
-        for a in rec.get("source_anchors", []) or []:
-            if anchors and a not in anchors:
-                errors.append(f"evidence_records[{i}]: source_anchor '{a}' not in the anchor index")
+        # Fail-closed: package_queries returns an empty set for an absent OR garbled
+        # reference file. A citation cannot be resolved against an empty set, so the
+        # old `if claim_ids and ...` guards fail-open. When the record cites a ref but
+        # the resolved set is empty, FAIL rather than skip. (Worked around here in the
+        # consumer: we gate on the cited field being non-empty while the resolved set
+        # is empty, since package_queries collapses absent and empty to set().)
+        if rec.get("claim_id"):
+            if not claim_ids:
+                errors.append(
+                    f"evidence_records[{i}]: cites claim_id '{rec['claim_id']}' but no "
+                    "resolvable claims.jsonl"
+                )
+            elif rec["claim_id"] not in claim_ids:
+                errors.append(
+                    f"evidence_records[{i}]: claim_id '{rec['claim_id']}' not in "
+                    "analysis/claims.jsonl"
+                )
+        if rec.get("source_ids") and not source_ids:
+            errors.append(f"evidence_records[{i}]: cites source_ids but no resolvable manifest")
+        else:
+            for sid in rec.get("source_ids", []):
+                if source_ids and sid not in source_ids:
+                    errors.append(f"evidence_records[{i}]: source_id '{sid}' not in manifest")
+        if rec.get("source_anchors") and not anchors:
+            errors.append(f"evidence_records[{i}]: cites anchors but no resolvable anchor index")
+        else:
+            for a in rec.get("source_anchors", []) or []:
+                if anchors and a not in anchors:
+                    errors.append(
+                        f"evidence_records[{i}]: source_anchor '{a}' not in the anchor index"
+                    )
 
         if rec.get("quote_allowed") is True:
             bad = [s for s in rec.get("source_ids", []) if s in restricted]

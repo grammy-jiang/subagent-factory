@@ -2,12 +2,13 @@
 
 import json
 import re
-import shutil
 from datetime import UTC, datetime
 from pathlib import Path
 
 import yaml
 from jinja2 import Environment, FileSystemLoader
+
+from tools.subagent_factory._common import atomic_write_text
 
 _TEMPLATES_DIR = Path(__file__).parent.parent.parent / "templates"
 _REPO_ROOT = Path(__file__).parent.parent.parent
@@ -31,6 +32,16 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
       .claude/agents/generated/<slug>.md                (installed)
 
     Returns dict: slug, adapter_path, installed_path, error
+
+    Error contract (intentionally dual; callers must handle both):
+    - Missing-input failures (no profile.yaml, profile missing 'slug') are RETURNED as a result dict
+      with a populated ``error`` field and ``None`` paths — callers branch on ``result["error"]``
+      (see cli_pipeline.cmd_export). This stays a soft, recoverable signal for a missing/incomplete
+      package.
+    - Malformed-input failures further in (yaml parse, missing template, compile_invariants) RAISE.
+      These are programmer/data-corruption errors, not the expected "package not ready yet" case.
+    Kept dual deliberately: the cli caller (out of this change's scope) depends on the returned
+    ``error`` field, so the missing-input branches must not be converted to raises here.
     """
     subagent_path = Path(subagent_dir)
     profile_path = subagent_path / "profile.yaml"
@@ -74,23 +85,34 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
     tmpl = env.get_template("claude-agent-adapter.md.j2")
     rendered = tmpl.render(**ctx)
 
-    # Write canonical adapter inside package
+    # Write canonical adapter inside package (atomically — temp file + os.replace).
     adapter_dir = subagent_path / "adapters" / "claude-code"
     adapter_dir.mkdir(parents=True, exist_ok=True)
     adapter_path = adapter_dir / f"{slug}.md"
-    adapter_path.write_text(rendered, encoding="utf-8")
+    atomic_write_text(adapter_path, rendered)
     result["adapter_path"] = str(adapter_path)
 
-    # Install to .claude/agents/generated/
+    # Install to .claude/agents/generated/. Write the SAME rendered bytes atomically rather than
+    # shutil.copy2-ing from the canonical file: copy2 is non-atomic, so a crash/error mid-copy left
+    # the canonical adapter written but the installed one absent or truncated (a torn install) with
+    # no rollback. atomic_write_text writes a sibling temp file then os.replace's it into place, so a
+    # reader sees either the previous installed adapter or the complete new one — never a partial.
+    # Writing `rendered` (not copying) keeps the installed file byte-identical to the canonical one.
     generated_dir = _REPO_ROOT / ".claude" / "agents" / "generated"
     generated_dir.mkdir(parents=True, exist_ok=True)
     installed_path = generated_dir / f"{slug}.md"
-    shutil.copy2(adapter_path, installed_path)
+    atomic_write_text(installed_path, rendered)
     result["installed_path"] = str(installed_path)
 
     return result
 
 
+# FUTURE EXTRACTION (do not move now): the ~140 LOC description-cleaning cluster below
+# (_TRAILING_CONNECTORS, _drop_dangling_open_paren, _neutralize_inner_dashes, _clean_clause,
+# _compose_description) is router-description grammar logic, not adapter-export logic. It belongs in
+# its own module (e.g. adapter_description.py) so export_claude_agent stays focused on read profile ->
+# render template -> install. Deferred here because relocating it carries behaviour risk (the clause
+# heuristics are pinned by a large regression suite); extract in a dedicated, test-backed pass.
 _TRAILING_CONNECTORS = {
     "for",
     "to",

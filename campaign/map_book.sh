@@ -14,6 +14,8 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"; LOGS="$CAMP/logs"; TMPL="$CAMP/map-book-prompt.tmpl"
+# Single source of truth for the claude `claude -p` argv (shared with run.sh / generate-subagent.sh).
+source "$CAMP/_claude_run.sh"
 CLAUDE_BIN="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
 COPILOT_BIN="${COPILOT_BIN:-$HOME/.local/bin/copilot}"
 COPILOT_MODEL="${COPILOT_MODEL:-claude-opus-4.8}"   # Copilot's opus id (dot, not dash)
@@ -85,25 +87,44 @@ REPO="$REPO" MODULE="$MODULE" SOURCE_ID="$SOURCE_ID" TITLE="$TITLE" \
 echo "[map] book=$STEM  source_id=$SOURCE_ID  module=$MODULE  engine=$ENGINE"
 echo "[map] chunks=$(grep -c . "$MODULE/chunks.jsonl")"
 
-if [ "$DRYRUN" -eq 1 ]; then echo "[map] DRY-RUN; prompt: $promptfile"; exit 0; fi
+# Build the engine argv ONCE as an ARRAY (no generated script, no two-level quoting). The
+# claude case uses the shared build_claude_argv contract — with --effort and a single
+# --add-dir "$REPO" — then overrides argv[0] to honour the CLAUDE_BIN path. The copilot
+# case is a genuinely different invocation, so it is its own small array.
+if [ "$ENGINE" = "copilot" ]; then
+  engine_argv=("$COPILOT_BIN" -p "$(cat "$promptfile")" --model "$COPILOT_MODEL" --effort "$COPILOT_EFFORT" --allow-all)
+else
+  build_claude_argv engine_argv "$MODEL" "$EFFORT" "$REPO"
+  engine_argv[0]="$CLAUDE_BIN"   # contract is `claude -p ...`; use the configured binary path
+fi
 
-driver="$LOGS/$run.driver.sh"
-{
-  echo '#!/usr/bin/env bash'
-  echo "cd \"$REPO\" || exit 1"
-  echo 'sleep $((RANDOM % 4))  # jitter: avoid simultaneous-launch empty-log collision'
+if [ "$DRYRUN" -eq 1 ]; then
+  echo "[map] DRY-RUN; prompt: $promptfile"
+  echo "[map] command that would run (cwd=$REPO):"
   if [ "$ENGINE" = "copilot" ]; then
-    echo "timeout \"$RUN_TIMEOUT\" \"$COPILOT_BIN\" -p \"\$(cat '$promptfile')\" --model \"$COPILOT_MODEL\" --effort \"$COPILOT_EFFORT\" --allow-all > \"$log\" 2>&1"
+    echo "    timeout $RUN_TIMEOUT $(claude_argv_str "${engine_argv[@]}") > $log 2>&1"
   else
-    echo "timeout \"$RUN_TIMEOUT\" \"$CLAUDE_BIN\" -p --model \"$MODEL\" --effort \"$EFFORT\" --add-dir \"$REPO\" \\"
-    echo "    --dangerously-skip-permissions --output-format stream-json --verbose \\"
-    echo "    < \"$promptfile\" > \"$log\" 2>&1"
+    echo "    timeout $RUN_TIMEOUT $(claude_argv_str "${engine_argv[@]}") < $promptfile > $log 2>&1"
   fi
+  exit 0
+fi
+
+run_driver() {
+  # Run the engine ONCE. Defined as a function (not a generated heredoc script) so the
+  # engine_argv array + $REPO/$promptfile/$log survive without a second round of re-quoting.
   # Capture + propagate the engine's real exit code: a 429/cap kill must NOT look like success
-  # (the bare `echo` returned 0, masking cap failures so empty modules read as "done").
-  echo "rc=\$?; echo \"[map] $SOURCE_ID $ENGINE rc=\$rc\"; exit \$rc"
-} > "$driver"
-chmod +x "$driver"
+  # (a bare success rc would mask cap failures, so empty modules read as "done").
+  cd "$REPO" || return 1
+  sleep $((RANDOM % 4))  # jitter: avoid simultaneous-launch empty-log collision
+  local rc=0
+  if [ "$ENGINE" = "copilot" ]; then
+    timeout "$RUN_TIMEOUT" "${engine_argv[@]}" > "$log" 2>&1 || rc=$?
+  else
+    timeout "$RUN_TIMEOUT" "${engine_argv[@]}" < "$promptfile" > "$log" 2>&1 || rc=$?
+  fi
+  echo "[map] $SOURCE_ID $ENGINE rc=$rc"
+  return "$rc"
+}
 
 run_with_resume() {
   # Run the driver up to MAX_ATTEMPTS times. Each attempt resumes from persisted partials (the prompt
@@ -117,7 +138,7 @@ run_with_resume() {
     if [ "$attempt" -gt 1 ] && [ ! -f "$MODULE/principles.yaml" ]; then
       rm -f "$MODULE/claims.jsonl" "$MODULE/anchors.jsonl" "$MODULE/module.json"
     fi
-    bash "$driver" || true
+    run_driver || true
     [ -f "$MODULE/principles.yaml" ] && { echo "[map] $SOURCE_ID complete after attempt $attempt"; return 0; }
     attempt=$((attempt + 1))
   done
@@ -125,8 +146,25 @@ run_with_resume() {
   return 1
 }
 
-if [ "$FG" -eq 1 ]; then run_with_resume; else
-  nohup bash -c "$(declare -f run_with_resume); MODULE='$MODULE' SOURCE_ID='$SOURCE_ID' MAX_ATTEMPTS='$MAX_ATTEMPTS' driver='$driver' run_with_resume" \
+if [ "$FG" -eq 1 ]; then
+  # Foreground: this process blocks on the run, so the parent EXIT trap (set at the top)
+  # releases $MODULE/.claim only after the work finishes — claim held for the run's lifetime.
+  run_with_resume
+else
+  # Background in a SUBSHELL (not `bash -c "$(declare -f ...) VAR='$VAR' ..."`): the old form
+  # string-interpolated user-supplied vars (MODULE/SOURCE_ID from --tag/--cache) into single-quoted
+  # assignments — a single quote in them broke the command. The subshell inherits the functions and
+  # the engine_argv array intact, so no re-serialization is needed.
+  #
+  # Claim semantics: bash does NOT run the parent's EXIT trap inside a `( )` subshell, and the parent
+  # exits immediately after launching — so the OLD code released $MODULE/.claim while the bg child was
+  # still running (another worker could re-claim and double-process). Fix: clear the parent trap for
+  # the bg path (so the parent's exit no longer touches the claim) and OWN the release inside the
+  # subshell, where it fires when the actual work finishes — including on a crash. `trap '' HUP`
+  # + redirected fds + disown give nohup-like detachment so the driver outlives this shell.
+  trap - EXIT
+  ( trap 'rmdir "$MODULE/.claim" 2>/dev/null' EXIT; trap '' HUP; run_with_resume ) \
     >"$LOGS/$run.driver.log" 2>&1 &
-  echo "[map] launched bg pid $!  transcript: $log"
+  disown
+  echo "[map] launched bg pid $!  transcript: $log  driver log: $LOGS/$run.driver.log"
 fi

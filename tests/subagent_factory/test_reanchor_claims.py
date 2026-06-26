@@ -5,7 +5,9 @@ import re
 
 import yaml
 
+from tools.subagent_factory.inject_anchors import inject_anchors
 from tools.subagent_factory.reanchor_claims import (
+    _load_source,
     build_reanchor_prompt,
     parse_reanchor,
     reanchor_claims,
@@ -100,6 +102,42 @@ def _keyword_llm(prompt: str) -> str:
         if overlap > best:
             best, best_id = overlap, aid
     return json.dumps({"anchors": [best_id] if best_id else []})
+
+
+def test_load_source_window_aligns_with_injected_anchor_comments(tmp_path):
+    """_load_source must slice windows from the SAME coordinate system the anchor line_numbers use.
+
+    inject_anchors records line_number against the anchor-comment-free input, then writes the
+    markdown with a `<!-- anchor:... -->` line inserted before each anchored line. _load_source reads
+    that on-disk (comment-laden) file; if it slices by the raw line_number it drifts by the count of
+    preceding comments, so an anchor's window shows a NEIGHBOR's passage — the LLM then judges support
+    against the wrong text and silently re-anchors a claim to the wrong span. Build the source via the
+    REAL inject_anchors (so the comment shift is present) and assert each anchor's window contains its
+    OWN paragraph, not a neighbor's.
+    """
+    base = tmp_path / "pkg"
+    md_dir = base / "sources" / "markdown"
+    an_dir = base / "sources" / "anchors"
+    md_dir.mkdir(parents=True)
+    an_dir.mkdir(parents=True)
+    sid = "doc-1"
+    doc = (
+        "# Alpha\n\nAlpha para about mirroring and tactical empathy.\n\n"
+        "# Beta\n\nBeta para about resource ordering and deadlock.\n\n"
+        "# Gamma\n\nGamma para about the closing concept here.\n"
+    )
+    src = md_dir / f"{sid}.md"
+    src.write_text(doc, encoding="utf-8")
+    inject_anchors(src, src, an_dir / f"{sid}.anchors.jsonl", sid)
+
+    _, window = _load_source(base, sid)
+    a, b, g = f"{sid}-h0000", f"{sid}-h0001", f"{sid}-h0002"
+    # Each heading anchor's window must carry its own section's paragraph, not a neighbor's.
+    assert "mirroring" in window[a] and "deadlock" not in window[a]
+    assert "deadlock" in window[b] and "closing concept" not in window[b]
+    assert "closing concept" in window[g]
+    # And the injected comment markers must not leak into the windows shown to the LLM.
+    assert "<!-- anchor:" not in window[a]
 
 
 def test_parse_reanchor_rejects_invented_ids():

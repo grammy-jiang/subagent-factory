@@ -123,7 +123,7 @@ def _remap_one(
     n = int(m.group(1))
     byline = maps[sid]
     covering = [a for ln, a in byline if ln <= n]
-    return covering[-1] if covering else byline[0][1]
+    return covering[-1] if covering else None
 
 
 def remap_faithfulness_anchors(report_path: str | Path, *, write: bool = True) -> dict:

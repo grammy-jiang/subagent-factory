@@ -47,11 +47,26 @@ echo "[map-books] ${#BOOKS[@]} books  engine=$ENGINE  parallel=$PAR"
 
 run_one() {
   local b="$1"
+  # Per-book out file keyed on the book's sha (not basename): two books sharing a
+  # basename would otherwise clobber each other's log under --parallel.
+  local bsha; bsha="$(sha256sum "$b" 2>/dev/null | cut -d' ' -f1)" || bsha=""
+  local out="/tmp/mapbooks-${bsha:-$(basename "$b" .md)}.out"
   # Chunk first (deterministic, idempotent) so map_book has a module to MAP.
-  python3 -c "from tools.subagent_factory.chunk_source import write_book_module; from pathlib import Path; write_book_module(Path('$b'), Path('$CACHE'))" 2>/dev/null
+  # Pass the paths as ARGV (sys.argv), never interpolated into the Python source:
+  # a path with a quote/$/backtick/newline would otherwise break out of the literal
+  # and execute, and a space would silently mis-bind. Keep stderr visible (into the
+  # per-book out file) so a chunk failure surfaces here, not as a downstream map error.
+  # Gate the MAP launch on the chunk step's rc EXPLICITLY: run_one is always invoked
+  # as `run_one ... || true` (serial) or `run_one ... &` (parallel), which disables
+  # set -e inside this function body — so a bare chained command would NOT abort on a
+  # chunk crash. If chunking fails (import error, unwritable cache) there is no module
+  # to MAP; emit a DISTINCT CHUNK-FAIL marker and return non-zero so the failure is
+  # attributable here, instead of being misreported downstream as a generic cap/429 kill.
+  python3 -c 'import sys; from pathlib import Path; from tools.subagent_factory.chunk_source import write_book_module as w; w(Path(sys.argv[1]), Path(sys.argv[2]))' "$b" "$CACHE" \
+    > "$out" 2>&1 || { echo "CHUNK-FAIL $b" >> "$out"; return 1; }
   bash "$REPO/campaign/map_book.sh" --book "$b" --engine "$ENGINE" "${TFLAG[@]}" \
     --max-attempts "$MAX_ATTEMPTS" --fg \
-    > "/tmp/mapbooks-$(basename "$b" .md).out" 2>&1
+    >> "$out" 2>&1
 }
 
 cd "$REPO" || exit 1
@@ -74,8 +89,10 @@ for b in "${BOOKS[@]}"; do
   m="$CACHE/$sha"
   if [ -f "$m/principles.yaml" ]; then
     echo "  OK   $(basename "$b" .md): $(grep -c . "$m/claims.jsonl" 2>/dev/null) claims"; ok=$((ok+1))
+  elif grep -q "^CHUNK-FAIL " "/tmp/mapbooks-$sha.out" 2>/dev/null; then
+    echo "  FAIL $(basename "$b" .md): chunk step failed before MAP (CHUNK-FAIL, see /tmp/mapbooks-$sha.out)"; bad=$((bad+1))
   else
-    echo "  FAIL $(basename "$b" .md): no principles.yaml (cap/429? see /tmp/mapbooks-$(basename "$b" .md).out)"; bad=$((bad+1))
+    echo "  FAIL $(basename "$b" .md): no principles.yaml (cap/429? see /tmp/mapbooks-$sha.out)"; bad=$((bad+1))
   fi
 done
 echo "[map-books] $ok ok, $bad incomplete"

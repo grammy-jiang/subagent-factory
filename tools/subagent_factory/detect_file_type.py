@@ -28,12 +28,14 @@ def detect_file_type(path: str | Path) -> str:
     ext = p.suffix.lower()
     if ext in EXTENSION_MAP:
         candidate = EXTENSION_MAP[ext]
-        if candidate == "docx" and ext == ".docx":
-            return "docx"
+        # epub/docx are ZIP (OOXML) containers — gate on the ZIP magic for ALL of them, including
+        # .docx and .doc. A .docx/.doc whose bytes are not a ZIP (a legacy OLE2 .doc, or garbage
+        # with a docx extension) must NOT be trusted on extension alone and dispatched to the
+        # docx/pandoc path; route it to 'unknown' so it fails cleanly rather than mis-converting.
         if candidate in ("epub", "docx"):
-            magic = _read_magic(p, 4)
-            if magic[:4] == ZIP_MAGIC:
+            if _read_magic(p, 4)[:4] == ZIP_MAGIC:
                 return candidate
+            return "unknown"
         return candidate
 
     magic = _read_magic(p, 4)

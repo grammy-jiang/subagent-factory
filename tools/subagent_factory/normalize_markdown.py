@@ -47,18 +47,23 @@ def normalize_markdown(
 
 
 def _split_front_matter(text: str) -> tuple[dict, str]:
-    if not text.startswith("---"):
+    # Only a fence on its OWN line opens front matter; a leading `---` thematic break (horizontal
+    # rule) followed by prose must NOT be consumed. Require `---\n` at the very start and a full-line
+    # `---` close. If the fenced block doesn't parse to a MAPPING (e.g. it's body prose between two
+    # rules, or malformed YAML), treat the WHOLE original text as body — never silently drop content.
+    if not (text.startswith("---\n") or text.startswith("---\r\n")):
         return {}, text
-    end = text.find("\n---", 3)
-    if end == -1:
+    m = re.search(r"\r?\n---[ \t]*(?:\r?\n|$)", text)
+    if m is None:
         return {}, text
-    fm_raw = text[3:end].strip()
-    body = text[end + 4 :].lstrip("\n")
+    fm_raw = text[text.index("\n") + 1 : m.start()]
     try:
-        fm = yaml.safe_load(fm_raw) or {}
+        parsed = yaml.safe_load(fm_raw)
     except yaml.YAMLError:
-        fm = {}
-    return fm, body
+        return {}, text
+    if not isinstance(parsed, dict):
+        return {}, text
+    return parsed, text[m.end() :].lstrip("\n")
 
 
 def _normalize_headings(text: str) -> str:

@@ -16,6 +16,8 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"
+# Single source of truth for the `claude -p` argv (shared with generate-subagent.sh).
+source "$CAMP/_claude_run.sh"
 LOGS="$CAMP/logs"
 QUEUE="$CAMP/pdf-queue.tsv"
 TMPL="$CAMP/prompt.tmpl"
@@ -49,6 +51,10 @@ command -v claude >/dev/null 2>&1 || { echo "claude CLI not found on PATH" >&2; 
 [ -d "$COLLECTION" ] || { echo "collection not found: $COLLECTION" >&2; exit 3; }
 
 refresh_queue(){ python3 "$CAMP/build-queue.py" "$COLLECTION" >/dev/null; }
+# Queue TSV schema (must match build-queue.py HEADER):
+#   $1=idx  $2=size_bytes  $3=status  $4=slug  $5=sha256  $6=relpath
+# Emit (idx, size, sha, relpath) for the first pending row. If build-queue.py
+# reorders columns, update this projection and the `read` binding below in lockstep.
 next_pending(){ awk -F'\t' 'NR>1 && $3=="pending"{print $1"\t"$2"\t"$5"\t"$6; exit}' "$QUEUE"; }
 done_slugs(){ ls -d "$REPO"/subagents/*/ 2>/dev/null | xargs -n1 basename 2>/dev/null | paste -sd, -; }
 
@@ -70,11 +76,17 @@ while [ "$processed" -lt "$COUNT" ]; do
   else
     line="$(next_pending)"
     [ -z "$line" ] && { echo "[campaign] no pending PDFs left — campaign complete."; break; }
+    # Columns here mirror next_pending()'s projection: idx, size_bytes, sha256, relpath.
     IFS=$'\t' read -r idx size sha relpath <<<"$line"
     relpath="${relpath%$'\r'}"   # defensive: strip any stray CR from the queue
     pdf_abs="$COLLECTION/$relpath"
   fi
-  run="$(printf '%03d' "$(( $(ls "$LOGS"/*.summary.md 2>/dev/null | wc -l) + 1 ))")"
+  # Authoritative, monotonic, collision-safe run id. The old counter
+  # (count of *.summary.md + 1) collided whenever a summary was deleted or two
+  # invocations raced, silently overwriting $log/$summ. A timestamp plus the
+  # PID suffix is unique across two quick successive runs (even within the same
+  # second / same wall-clock from parallel processes).
+  run="$(date +%Y%m%d-%H%M%S)-$$"
   log="$LOGS/run-$run.log.jsonl"
   summ="$LOGS/run-$run.summary.md"
 
@@ -95,11 +107,14 @@ for k in ("REPO","PDF","RUN","DONE_SLUGS","RECENT_COMMITS"):
     t=t.replace("{{"+k+"}}",os.environ.get(k,""))
 sys.stdout.write(t)')"
 
+  # Build the claude argv ONCE so the --dry-run preview and the real run are
+  # the same command. Both --add-dir flags (collection + the PDF's own dir)
+  # are part of this single array — the preview cannot drift from reality.
+  build_claude_argv claude_argv "$MODEL" "" "$COLLECTION" "$(dirname "$pdf_abs")"
+
   if [ "$DRYRUN" -eq 1 ]; then
     echo "[campaign] DRY-RUN — command that would run:"
-    echo "    printf '%s' \"\$prompt\" | timeout $RUN_TIMEOUT claude -p \\"
-    echo "        --model $MODEL --add-dir \"$COLLECTION\" --dangerously-skip-permissions \\"
-    echo "        --output-format stream-json --verbose"
+    echo "    printf '%s' \"\$prompt\" | timeout $RUN_TIMEOUT $(claude_argv_str "${claude_argv[@]}")"
     echo "[campaign] log -> $log"
     echo "[campaign] summary -> $summ"
     echo "------------------ rendered prompt ------------------"
@@ -118,12 +133,11 @@ sys.stdout.write(t)')"
   echo "[campaign] launching claude (timeout ${RUN_TIMEOUT}s) ..."
 
   rc=0
-  printf '%s' "$prompt" | timeout "$RUN_TIMEOUT" claude -p \
-      --model "$MODEL" \
-      --add-dir "$COLLECTION" \
-      --add-dir "$(dirname "$pdf_abs")" \
-      --dangerously-skip-permissions \
-      --output-format stream-json --verbose >"$log" 2>&1 || rc=$?
+  # Same argv array previewed by --dry-run above (both --add-dir flags included).
+  # Feed the prompt via here-string (not `printf | claude`): under `pipefail` a
+  # SIGPIPE on the writer (claude draining early) would surface as rc 141 and be
+  # misattributed to the run. A redirect makes claude's rc the only rc.
+  timeout "$RUN_TIMEOUT" "${claude_argv[@]}" <<<"$prompt" >"$log" 2>&1 || rc=$?
 
   head_after="$(git -C "$REPO" rev-parse HEAD)"
   if make -C "$REPO" verify >"$LOGS/run-$run.verify.log" 2>&1; then verify=green; else verify=red; fi

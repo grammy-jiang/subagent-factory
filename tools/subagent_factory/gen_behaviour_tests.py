@@ -24,6 +24,7 @@ from __future__ import annotations
 import sys
 import warnings
 from collections.abc import Callable, Sequence
+from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 
@@ -34,13 +35,6 @@ Ideator = Callable[[dict, str], str]
 
 Embedder = Callable[[str], Sequence[float]]
 """text -> embedding vector (e.g. seed_principle_clusters.embed_minilm)."""
-
-# cell_type -> (suite section key, test_id prefix)
-_CELLS = {
-    "golden": ("golden_tests", "GT"),
-    "negative-routing": ("negative_routing_tests", "NR"),
-    "missing-context": ("missing_context_tests", "MC"),
-}
 
 
 def _first(seq: object) -> str:
@@ -66,19 +60,126 @@ def _cosine(a: Sequence[float], b: Sequence[float]) -> float:
     return num / (na * nb)
 
 
+# ── table-driven cell-type registry: the SINGLE source of truth for cell types ─────
+#
+# One row per cell type. This replaces the parallel ``_CELLS`` dict-of-tuples plus the loop
+# literals/guards that previously seeded the concept in three places (the ``(section, prefix)``
+# table, the two ``if cell_type == ... continue`` seeding guards, and the hardcoded
+# ``answerable-twin``/``golden_tests``/``GT`` twin emit). Each row owns everything about its type:
+#   - ``section`` / ``prefix``: the suite section key + test_id prefix (was ``_CELLS``)
+#   - ``template``: deterministic seed-prompt builder (no model call)
+#   - ``ideate_guide``: the instruction fragment handed to an LLM ideator
+#   - ``fields``: the route/oracle fields merged into a test for this cell
+#   - ``requires``: the seeding precondition — does this principle warrant this cell?
+#     (was the two ``if cell_type == ... continue`` guards in the main loop)
+#   - ``twin``: the cell that THIS cell spawns as a paired test, or ``None`` (was the hardcoded
+#     ``if cell_type == "missing-context"`` twin block coupling two rows by string literal)
+# ``answerable-twin`` is a first-class row here but a *derived/paired* cell — it is not iterated as
+# a primary loop row (see ``_PRIMARY_CELLS`` / ``_CELLS``); it is emitted only as a twin.
+
+
+@dataclass(frozen=True)
+class _Cell:
+    section: str  # suite section key (e.g. "golden_tests")
+    prefix: str  # test_id prefix (e.g. "GT")
+    template: Callable[
+        [str, str, str], str
+    ]  # (applies_when, does_not_apply_when, statement) -> str
+    ideate_guide: str
+    fields: Callable[[str], dict]  # (statement) -> route/oracle fields for the test
+    requires: Callable[[dict], bool]  # (principle) -> does this principle warrant this cell?
+    twin: str | None = None  # the cell this one spawns as a paired test, or None
+
+
+_CELL_REGISTRY: dict[str, _Cell] = {
+    "golden": _Cell(
+        section="golden_tests",
+        prefix="GT",
+        template=lambda aw, dna, stmt: f"{aw or stmt}. What do you advise, and why?",
+        ideate_guide=(
+            "a realistic message where this situation clearly holds and the advisor SHOULD "
+            "engage and help"
+        ),
+        fields=lambda stmt: {"expected_route": "invoke", "minimum_output": stmt},
+        requires=lambda principle: True,  # the coverage floor: every principle gets a golden cell
+    ),
+    "negative-routing": _Cell(
+        section="negative_routing_tests",
+        prefix="NR",
+        template=lambda aw, dna, stmt: (
+            f"{dna or 'This request is outside your stated area'}. Can you handle this for us?"
+        ),
+        ideate_guide=(
+            "a realistic but OUT-OF-SCOPE request — a hard negative that looks plausible for this "
+            "advisor yet falls outside its remit, so the advisor SHOULD decline or hand off"
+        ),
+        fields=lambda stmt: {
+            "expected_route": "do_not_invoke",
+            "must_not_do": ["Answer as if the request were in scope when it is not"],
+        },
+        requires=lambda principle: bool(_first(principle.get("does_not_apply_when"))),
+    ),
+    "missing-context": _Cell(
+        section="missing_context_tests",
+        prefix="MC",
+        template=lambda aw, dna, stmt: (
+            f"{aw or stmt}. (Key specifics are not stated.) Give me your recommendation."
+        ),
+        ideate_guide=(
+            "a realistic message about this situation but with a decision-relevant detail OMITTED, "
+            "so the advisor SHOULD ask for the missing input before answering"
+        ),
+        fields=lambda stmt: {
+            "expected_route": "invoke",
+            "must_ask_for": ["the decision-relevant specifics the request leaves unstated"],
+        },
+        requires=lambda principle: bool(_first(principle.get("applies_when"))),
+        twin="answerable-twin",  # pair every missing-context test with an answerable twin
+    ),
+    "answerable-twin": _Cell(
+        section="golden_tests",  # the twin lands in golden_tests under the GT prefix
+        prefix="GT",
+        template=lambda aw, dna, stmt: (
+            f"{aw or stmt}. (Every decision-relevant specific is provided.) What do you advise?"
+        ),
+        ideate_guide=(
+            "the SAME situation as a missing-context probe but with EVERY decision-relevant detail "
+            "supplied, so the advisor SHOULD answer directly and must NOT ask for more (the "
+            "answerable twin — its job is to catch over-asking)"
+        ),
+        fields=lambda stmt: {
+            "expected_route": "invoke",
+            "minimum_output": stmt,
+            "must_not_do": ["Ask for more information when the context is already sufficient"],
+        },
+        requires=lambda principle: True,  # always answerable; only emitted as a twin
+    ),
+}
+
+# Primary (matrix-iterated) cell types, in the order the per-principle loop must walk them so that
+# output ids/sections stay byte-identical to the old ``_CELLS``-driven loop: golden,
+# negative-routing, missing-context. A primary cell is any registry row that is not itself the
+# *target* of another row's ``twin`` (answerable-twin is a twin target → derived, not primary).
+_TWIN_TARGETS = {c.twin for c in _CELL_REGISTRY.values() if c.twin}
+_PRIMARY_CELLS = [ct for ct in _CELL_REGISTRY if ct not in _TWIN_TARGETS]
+
+# Back-compat: the old ``_CELLS`` dict-of-tuples (cell_type -> (section, prefix)), now *derived*
+# from the registry rather than an independent source of truth. Still drives the per-principle loop
+# (and is monkeypatchable in tests). ``answerable-twin`` is excluded — it is a derived/paired cell.
+_CELLS = {ct: (_CELL_REGISTRY[ct].section, _CELL_REGISTRY[ct].prefix) for ct in _PRIMARY_CELLS}
+
+
 def _template_prompt(principle: dict, cell_type: str) -> str:
     """Deterministic seed prompt for a cell (no model call)."""
+    cell = _CELL_REGISTRY.get(cell_type)
+    if cell is None:
+        raise ValueError(
+            f"unknown cell_type {cell_type!r} (expected one of {sorted(_CELL_REGISTRY)})"
+        )
     aw = _clause(_first(principle.get("applies_when")))
     dna = _clause(_first(principle.get("does_not_apply_when")))
     stmt = _clause(principle.get("statement", ""))
-    if cell_type == "golden":
-        return f"{aw or stmt}. What do you advise, and why?"
-    if cell_type == "negative-routing":
-        return f"{dna or 'This request is outside your stated area'}. Can you handle this for us?"
-    if cell_type == "answerable-twin":
-        return f"{aw or stmt}. (Every decision-relevant specific is provided.) What do you advise?"
-    # missing-context
-    return f"{aw or stmt}. (Key specifics are not stated.) Give me your recommendation."
+    return cell.template(aw, dna, stmt)
 
 
 def _make_prompt(principle: dict, cell_type: str, ideator: Ideator | None) -> str:
@@ -99,6 +200,54 @@ def _make_prompt(principle: dict, cell_type: str, ideator: Ideator | None) -> st
     return _template_prompt(principle, cell_type)
 
 
+@dataclass
+class Selector:
+    """Parameter object owning the prompt-selection configuration + the mutable accepted-vector set.
+
+    Replaces the 7-param data clump that ``_choose_prompt`` used to take. Constructed once in
+    ``gen_behaviour_tests`` and threaded through; ``choose`` carries the per-cell selection.
+    """
+
+    ideator: Ideator | None = None
+    embedder: Embedder | None = None
+    n_candidates: int = 1
+    cos_threshold: float = 0.92
+    accepted_vecs: list[Sequence[float]] = field(default_factory=list)
+
+    def choose(self, principle: dict, cell_type: str) -> str | None:
+        """Pick one prompt for a cell, with optional multi-candidate **rare-weighted** selection.
+
+        Ideates up to ``n_candidates`` prompts (one model call each; template-mode returns one).
+        With an ``embedder``, drops any candidate within ``cos_threshold`` cosine of an
+        already-accepted prompt (anti-collapse) and, among the survivors, keeps the **most novel**
+        — the one with the *lowest* max cosine to the accepted set (diversity-preserving /
+        rare-weighted keep-if-new). Returns ``None`` when every candidate is a near-duplicate (the
+        cell is skipped). Mutates ``accepted_vecs`` with the chosen vector.
+        """
+        cands: list[str] = []
+        for _ in range(max(1, self.n_candidates)):
+            p = _make_prompt(principle, cell_type, self.ideator)
+            if p and p not in cands:
+                cands.append(p)
+        if not cands:
+            return None
+        if self.embedder is None:
+            return cands[0]
+        scored: list[tuple[float, str, Sequence[float]]] = []
+        for p in cands:
+            vec = self.embedder(p)
+            max_cos = max((_cosine(vec, a) for a in self.accepted_vecs), default=0.0)
+            if max_cos >= self.cos_threshold:
+                continue  # near-duplicate of something already in the suite
+            scored.append((max_cos, p, vec))
+        if not scored:
+            return None
+        scored.sort(key=lambda t: t[0])  # lowest max-cosine = most novel
+        _, chosen, chosen_vec = scored[0]
+        self.accepted_vecs.append(chosen_vec)
+        return chosen
+
+
 def _choose_prompt(
     principle: dict,
     cell_type: str,
@@ -108,66 +257,30 @@ def _choose_prompt(
     n_candidates: int,
     cos_threshold: float,
 ) -> str | None:
-    """Pick one prompt for a cell, with optional multi-candidate **rare-weighted** selection.
-
-    Ideates up to ``n_candidates`` prompts (one model call each; template-mode returns one). With an
-    ``embedder``, drops any candidate within ``cos_threshold`` cosine of an already-accepted prompt
-    (anti-collapse) and, among the survivors, keeps the **most novel** — the one with the *lowest* max
-    cosine to the accepted set (diversity-preserving / rare-weighted keep-if-new, finding #6). Returns
-    ``None`` when every candidate is a near-duplicate (the cell is skipped). Mutates ``accepted_vecs``
-    with the chosen vector.
-    """
-    cands: list[str] = []
-    for _ in range(max(1, n_candidates)):
-        p = _make_prompt(principle, cell_type, ideator)
-        if p and p not in cands:
-            cands.append(p)
-    if not cands:
-        return None
-    if embedder is None:
-        return cands[0]
-    scored: list[tuple[float, str, Sequence[float]]] = []
-    for p in cands:
-        vec = embedder(p)
-        max_cos = max((_cosine(vec, a) for a in accepted_vecs), default=0.0)
-        if max_cos >= cos_threshold:
-            continue  # near-duplicate of something already in the suite
-        scored.append((max_cos, p, vec))
-    if not scored:
-        return None
-    scored.sort(key=lambda t: t[0])  # lowest max-cosine = most novel
-    _, chosen, chosen_vec = scored[0]
-    accepted_vecs.append(chosen_vec)
-    return chosen
+    """Back-compat shim around :meth:`Selector.choose` (kept for callers/tests importing it)."""
+    return Selector(
+        ideator=ideator,
+        embedder=embedder,
+        n_candidates=n_candidates,
+        cos_threshold=cos_threshold,
+        accepted_vecs=accepted_vecs,
+    ).choose(principle, cell_type)
 
 
 def _build_test(
     principle: dict, cell_type: str, test_id: str, prompt: str, twin_of: str | None = None
 ) -> dict:
-    pid = str(principle.get("principle_id", ""))
-    stmt = _clause(principle.get("statement", ""))
-    test: dict = {"test_id": test_id, "prompt": prompt, "principle_coverage": [pid]}
-    if cell_type == "negative-routing":
-        test["expected_route"] = "do_not_invoke"
-        test["must_not_do"] = ["Answer as if the request were in scope when it is not"]
-    elif cell_type == "missing-context":
-        test["expected_route"] = "invoke"
-        test["must_ask_for"] = ["the decision-relevant specifics the request leaves unstated"]
-    elif cell_type in ("golden", "answerable-twin"):
-        # both should answer (the twin guards against over-asking)
-        test["expected_route"] = "invoke"
-        test["minimum_output"] = stmt
-        if cell_type == "answerable-twin":
-            test["must_not_do"] = [
-                "Ask for more information when the context is already sufficient"
-            ]
-    else:
+    cell = _CELL_REGISTRY.get(cell_type)
+    if cell is None:
         # Fail loud: a mistyped cell_type previously fell into the golden branch and produced a
         # plausible-looking-but-wrong test instead of an error.
         raise ValueError(
-            f"unknown cell_type {cell_type!r} "
-            f"(expected one of {sorted([*_CELLS, 'answerable-twin'])})"
+            f"unknown cell_type {cell_type!r} (expected one of {sorted(_CELL_REGISTRY)})"
         )
+    pid = str(principle.get("principle_id", ""))
+    stmt = _clause(principle.get("statement", ""))
+    test: dict = {"test_id": test_id, "prompt": prompt, "principle_coverage": [pid]}
+    test.update(cell.fields(stmt))
     if twin_of:
         test["twin_of"] = twin_of
     return test
@@ -196,44 +309,43 @@ def gen_behaviour_tests(
     """
     sections: dict[str, list[dict]] = {key: [] for key, _ in _CELLS.values()}
     counters: dict[str, int] = {prefix: 0 for _, prefix in _CELLS.values()}
-    accepted_vecs: list[Sequence[float]] = []
+    selector = Selector(
+        ideator=ideator,
+        embedder=embedder,
+        n_candidates=n_candidates,
+        cos_threshold=cos_threshold,
+    )
+
+    def _emit(
+        section: str, prefix: str, cell_type: str, prompt: str, twin_of: str | None = None
+    ) -> str:
+        """Mint the next sequential id for ``prefix``, build the test, append it; return the id."""
+        counters[prefix] += 1
+        tid = f"{prefix}-{counters[prefix]:03d}"
+        sections[section].append(_build_test(principle, cell_type, tid, prompt, twin_of=twin_of))
+        return tid
 
     for principle in principles:
         if not isinstance(principle, dict) or not principle.get("principle_id"):
             continue
         for cell_type, (section, prefix) in _CELLS.items():
-            if cell_type == "negative-routing" and not _first(principle.get("does_not_apply_when")):
+            cell = _CELL_REGISTRY[cell_type]
+            if not cell.requires(principle):  # seeding precondition (was the two ``==`` guards)
                 continue
-            if cell_type == "missing-context" and not _first(principle.get("applies_when")):
-                continue
-            prompt = _choose_prompt(
-                principle, cell_type, ideator, embedder, accepted_vecs, n_candidates, cos_threshold
-            )
+            prompt = selector.choose(principle, cell_type)
             if prompt is None:  # every candidate was a near-duplicate
                 continue
-            counters[prefix] += 1
-            tid = f"{prefix}-{counters[prefix]:03d}"
-            sections[section].append(_build_test(principle, cell_type, tid, prompt))
+            tid = _emit(section, prefix, cell_type, prompt)
 
-            # F4 (Step-13): pair each missing-context test with an answerable twin — a golden test
-            # whose context IS sufficient — so the suite catches over-asking, not just silent-commit.
-            if cell_type == "missing-context" and answerable_twins:
-                twin_prompt = _choose_prompt(
-                    principle,
-                    "answerable-twin",
-                    ideator,
-                    embedder,
-                    accepted_vecs,
-                    n_candidates,
-                    cos_threshold,
-                )
-                if twin_prompt is None:
-                    continue
-                counters["GT"] += 1
-                twin_tid = f"GT-{counters['GT']:03d}"
-                sections["golden_tests"].append(
-                    _build_test(principle, "answerable-twin", twin_tid, twin_prompt, twin_of=tid)
-                )
+            # F4 (Step-13): pair this cell with its registered twin (a golden test whose context IS
+            # sufficient, for missing-context) so the suite catches over-asking, not just
+            # silent-commit. A dropped twin (near-duplicate) must be a LOCAL no-op: it must not
+            # abort the principle's remaining cell types (that was the old ``continue`` bug, #1).
+            if cell.twin and answerable_twins:
+                twin_cell = _CELL_REGISTRY[cell.twin]
+                twin_prompt = selector.choose(principle, cell.twin)
+                if twin_prompt is not None:
+                    _emit(twin_cell.section, twin_cell.prefix, cell.twin, twin_prompt, twin_of=tid)
 
     suite: dict = {
         "schema_version": "golden-tests-v1",
@@ -272,25 +384,6 @@ def write_suite(base: str | Path, suite: dict) -> Path:
 # shape as ``behaviour_replay.shell_runner`` / ``optimize_adapter.shell_proposer``: deterministic core,
 # LLM behind an injectable hook. Falls back to the template on any failure (handled by ``_make_prompt``).
 
-_IDEATE_GUIDE = {
-    "golden": (
-        "a realistic message where this situation clearly holds and the advisor SHOULD engage and help"
-    ),
-    "negative-routing": (
-        "a realistic but OUT-OF-SCOPE request — a hard negative that looks plausible for this advisor "
-        "yet falls outside its remit, so the advisor SHOULD decline or hand off"
-    ),
-    "missing-context": (
-        "a realistic message about this situation but with a decision-relevant detail OMITTED, so the "
-        "advisor SHOULD ask for the missing input before answering"
-    ),
-    "answerable-twin": (
-        "the SAME situation as a missing-context probe but with EVERY decision-relevant detail "
-        "supplied, so the advisor SHOULD answer directly and must NOT ask for more (the answerable "
-        "twin — its job is to catch over-asking)"
-    ),
-}
-
 
 def build_ideate_prompt(principle: dict, cell_type: str) -> str:
     """Prompt an LLM to write ONE realistic user message for a cell, grounded in the principle."""
@@ -298,13 +391,14 @@ def build_ideate_prompt(principle: dict, cell_type: str) -> str:
     aw = _clause(_first(principle.get("applies_when")))
     dna = _clause(_first(principle.get("does_not_apply_when")))
     situation = dna if cell_type == "negative-routing" else (aw or stmt)
+    guide = (_CELL_REGISTRY.get(cell_type) or _CELL_REGISTRY["golden"]).ideate_guide
     return "\n".join(
         [
             "Write ONE realistic user message that tests an expert advisor. "
             "Output ONLY the message — no preamble, no quotes, no explanation.",
             f"The advisor's principle: {stmt}",
             f"Situation to base it on: {situation}",
-            f"Write {_IDEATE_GUIDE.get(cell_type, _IDEATE_GUIDE['golden'])}.",
+            f"Write {guide}.",
             "Keep it 1-3 sentences, first person (the user's voice), concrete and specific.",
         ]
     )
@@ -321,13 +415,25 @@ def shell_ideator(script: str | Path, timeout: int = 120) -> Ideator:
 
     def _ideate(principle: dict, cell_type: str) -> str:
         prompt = build_ideate_prompt(principle, cell_type)
-        return subprocess.run(
+        proc = subprocess.run(
             ["bash", script],
             input=prompt,
             text=True,
             capture_output=True,
             timeout=timeout,
-        ).stdout.strip()
+        )
+        out = (proc.stdout or "").strip()
+        # Surface failure instead of swallowing it: a non-zero exit or empty stdout used to be
+        # silently turned into "" and then a template fallback, with no signal the LLM path is
+        # broken. Raise so ``_make_prompt`` catches it and emits the RuntimeWarning (finding #5).
+        if proc.returncode != 0 or not out:
+            err = (proc.stderr or "").strip()
+            snippet = err[:200] + ("…" if len(err) > 200 else "")
+            raise RuntimeError(
+                f"ideator script {script!r} failed (returncode={proc.returncode}, "
+                f"stdout {'empty' if not out else 'present'}); stderr: {snippet!r}"
+            )
+        return out
 
     return _ideate
 

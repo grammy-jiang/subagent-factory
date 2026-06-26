@@ -28,6 +28,20 @@ def test_flat_and_other():
     assert ("oauth", "delegation protocols") in pairs or ("oauth", "protocols") in pairs
 
 
+def test_flat_and_other_does_not_swallow_prior_sentence():
+    # Two sentences: the "X and other Y" list must be bounded to its own clause and NOT
+    # reach back into the prior sentence. Only "oauth" should be a hyponym, never "tokens"
+    # or other words from the first sentence.
+    text = "We configure access tokens for delegation. OAuth and other protocols are common."
+    pairs = _hearst_flat(text)
+    hypos = {h for h, _ in pairs}
+    assert "oauth" in hypos
+    # nothing from the prior sentence should leak into the list
+    assert "tokens" not in hypos
+    assert "delegation" not in hypos
+    assert "access" not in hypos
+
+
 def test_hearst_pairs_falls_back_to_flat_when_spacy_off():
     pairs = hearst_pairs("metrics such as latency and throughput", prefer_spacy=False)
     assert ("latency", _hearst_flat("metrics such as latency")[0][1]) in pairs
@@ -81,6 +95,19 @@ def test_spacy_hearst_extracts_clean_heads():
 
 
 # ---- WordNet hybrid (skip-guarded) ----------------------------------------------------------
+
+
+def test_wordnet_confirms_warns_once_when_nltk_absent():
+    try:
+        import nltk.corpus  # noqa: F401
+    except ImportError:
+        pass
+    else:
+        pytest.skip("nltk installed; this test pins the nltk-absent observability path")
+    # nltk genuinely absent: confirmation must be observable (warn), not a silent False.
+    wordnet_confirms.cache_clear()
+    with pytest.warns(RuntimeWarning, match="nltk"):
+        assert wordnet_confirms("dog", "animal") is False
 
 
 def test_wordnet_confirms_general_isa():

@@ -114,3 +114,33 @@ def test_quote_allowed_on_open_ok(tmp_path):
 
 def test_duplicate_evidence_id(tmp_path):
     assert any("duplicate" in e for e in validate_evidence_records(_pkg(tmp_path, [_REC, _REC])))
+
+
+# --- Fail-closed: a citation against an absent/empty reference set must FAIL ---
+# package_queries returns an empty set for a missing OR garbled file, which the old
+# `if anchors and ...` guards silently treated as "nothing to check against" (fail-open).
+
+
+def test_cites_anchor_but_no_anchor_index_fails(tmp_path):
+    # Record cites source_anchors, but no anchor index exists (anchors=None).
+    errs = validate_evidence_records(_pkg(tmp_path, [_REC], anchors=None))
+    assert any("anchor" in e for e in errs)
+
+
+def test_cites_claim_but_no_claims_file_fails(tmp_path):
+    # Record cites claim_id, but no claims.jsonl exists (claim_ids=None).
+    errs = validate_evidence_records(_pkg(tmp_path, [_REC], claim_ids=None))
+    assert any("claim" in e.lower() for e in errs)
+
+
+def test_cites_source_but_no_manifest_fails(tmp_path):
+    # Record cites source_ids, but no manifest exists (source_ids=None).
+    errs = validate_evidence_records(_pkg(tmp_path, [_REC], source_ids=None))
+    assert any("source" in e.lower() for e in errs)
+
+
+def test_no_anchor_citation_no_index_passes(tmp_path):
+    # Legitimately citing no anchors while no anchor index exists must still PASS
+    # (no false-FAIL). claims + manifest still present so other refs resolve.
+    rec = {**_REC, "source_anchors": []}
+    assert validate_evidence_records(_pkg(tmp_path, [rec], anchors=None)) == []

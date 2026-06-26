@@ -43,6 +43,8 @@ def extract_content_sample(source_path: str | Path) -> dict:
 
     file_type = detect_file_type(p)
 
+    conversion_error: str | None = None
+
     # For non-Markdown files, convert to Markdown first (in temp location)
     if file_type == "markdown":
         text = p.read_text(encoding="utf-8", errors="replace")
@@ -50,16 +52,31 @@ def extract_content_sample(source_path: str | Path) -> dict:
     else:
         import tempfile
 
-        with tempfile.NamedTemporaryFile(suffix=".md", delete=False) as tmp:
-            tmp_path = tmp.name
-        result = convert_document(p, tmp_path)
-        text = result.get("markdown_text", "")
-        if not text:
-            text = (
-                Path(tmp_path).read_text(encoding="utf-8", errors="replace")
-                if Path(tmp_path).exists()
-                else ""
-            )
+        # TemporaryDirectory removes the delete=False footgun structurally:
+        # the temp file is always cleaned up when the context exits, even if
+        # convert_document raises.
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = str(Path(tmp_dir) / "converted.md")
+            try:
+                result = convert_document(p, tmp_path)
+            except Exception as exc:  # surface conversion failure to caller
+                text = ""
+                conversion_error = f"conversion raised: {type(exc).__name__}: {exc}"
+            else:
+                text = result.get("markdown_text", "")
+                if not text:
+                    text = (
+                        Path(tmp_path).read_text(encoding="utf-8", errors="replace")
+                        if Path(tmp_path).exists()
+                        else ""
+                    )
+                if not text:
+                    # Empty conversion is distinct from a genuinely empty source:
+                    # signal it so role-inference does not silently degrade.
+                    errors = result.get("errors") or []
+                    conversion_error = (
+                        "; ".join(errors) if errors else "conversion produced empty markdown"
+                    )
 
     headings = _extract_headings(text)
     toc = _extract_toc(text)
@@ -71,6 +88,7 @@ def extract_content_sample(source_path: str | Path) -> dict:
         "body_excerpt": body,
         "toc_entries": toc,
         "file_hint": file_hint,
+        "conversion_error": conversion_error,
     }
 
 
@@ -167,6 +185,7 @@ def _empty_sample(p: Path) -> dict:
         "body_excerpt": "",
         "toc_entries": [],
         "file_hint": _file_hint(p),
+        "conversion_error": None,
     }
 
 

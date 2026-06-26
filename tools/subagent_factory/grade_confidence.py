@@ -33,6 +33,15 @@ from tools.subagent_factory._common import CONFIDENCE_LEVELS
 # Ordered weakest→strongest; "insufficient" is the abstention floor (K8). Shared single source.
 LEVELS = CONFIDENCE_LEVELS
 
+# The clamp floor (index 0) IS the K8 abstention level by name. Assert the invariant at import so a
+# future reordering of CONFIDENCE_LEVELS cannot silently make the documented "insufficient" floor
+# unreachable or rename the level a downgrade saturates to.
+INSUFFICIENT = "insufficient"
+if not LEVELS or LEVELS[0] != INSUFFICIENT:
+    raise ValueError(
+        f"CONFIDENCE_LEVELS[0] must be {INSUFFICIENT!r} (the abstention floor), got {LEVELS!r}"
+    )
+
 # Source-type → GRADE baseline level, aligned with the evidence-protocol confidence scale
 # (high = official/peer-reviewed/replicated/classic; medium = expert book / strong essay / case study;
 # low = anecdotal / weak secondary). Unknown source types fall back to ``default_baseline``.
@@ -70,10 +79,19 @@ def grade_confidence(
     """Return a GRADE-style confidence grade.
 
     ``source_type`` sets the baseline level; each entry in ``downgrades`` lowers it one step and each
-    in ``upgrades`` raises it one step; the result is clamped to ``LEVELS``. Returns ``level`` (a
-    single ``LEVELS`` value), ``range`` (``[lo, hi]`` — widened to ±1 step whenever any factor was
-    applied, so an adjusted grade surfaces its uncertainty per K6), ``baseline``, and the applied
-    ``downgrades``/``upgrades`` for audit.
+    in ``upgrades`` raises it one step; the result is clamped to ``LEVELS``.
+
+    Returns:
+    - ``level`` — a single ``LEVELS`` value (the clamped grade).
+    - ``range`` — ``[lo, hi]``. This is a **fixed ±1-step adjacency flag, not a calibrated magnitude**:
+      whenever any factor was applied (or the level is "medium") the grade is marked uncertain by
+      widening to the immediately adjacent levels. One downgrade and five downgrades that land on the
+      same level report the *same* ±1 window — ``range`` says "this grade was adjusted / is unclear",
+      it does **not** encode how far the factors pushed (that magnitude is recoverable from
+      ``downgrades``/``upgrades`` and ``saturated``). A clean baseline-only grade is a tight point range.
+    - ``saturated`` — ``True`` when the raw (pre-clamp) index fell outside ``LEVELS`` (factors pushed
+      past the floor/ceiling), so the reported ``level`` is a clamp, not the literal arithmetic result.
+    - ``baseline`` and the applied ``downgrades``/``upgrades`` for audit.
     """
     base = _BASELINE.get(source_type, default_baseline)
     if base not in LEVELS:
@@ -81,12 +99,14 @@ def grade_confidence(
 
     n_down = len([d for d in downgrades if d])
     n_up = len([u for u in upgrades if u])
-    idx = LEVELS.index(base) + n_up - n_down
-    idx = max(0, min(idx, len(LEVELS) - 1))
+    raw_idx = LEVELS.index(base) + n_up - n_down
+    idx = max(0, min(raw_idx, len(LEVELS) - 1))
     level = LEVELS[idx]
+    saturated = raw_idx != idx  # the clamp moved the index → reported level is a floor/ceiling
 
-    # K6: any grade the factors moved (or a "medium") is uncertain → report a ±1-step range; a clean
-    # baseline-only grade is a tight point range.
+    # K6: any grade the factors moved (or a "medium") is uncertain → flag it with a ±1-step range; a
+    # clean baseline-only grade is a tight point range. NOTE: width is fixed at 1 step by design — it
+    # is an adjacency/uncertainty flag, not a magnitude (see docstring).
     moved = (n_down + n_up) > 0
     if moved or level == "medium":
         lo = LEVELS[max(0, idx - 1)]
@@ -97,6 +117,7 @@ def grade_confidence(
     return {
         "level": level,
         "range": [lo, hi],
+        "saturated": saturated,
         "baseline": base,
         "downgrades": [d for d in downgrades if d],
         "upgrades": [u for u in upgrades if u],
@@ -126,12 +147,17 @@ def rob_weight(domain_assessments: dict | list | tuple) -> dict:
         domain_assessments.values() if isinstance(domain_assessments, dict) else domain_assessments
     )
     norm = [str(x).strip().lower() for x in raw if str(x).strip()]
-    counts = {lv: norm.count(lv) for lv in _ROB_LEVELS}
+    # A level outside the RoB2 vocabulary must not silently vanish from the rollup: route it to
+    # "unclear" (uncertainty, not demonstrated bias) so it is counted, and surface the raw tokens for
+    # audit. ``recognized`` is what the rollup rules below reason over.
+    unrecognized = [x for x in norm if x not in _ROB_LEVELS]
+    recognized = [(x if x in _ROB_LEVELS else "unclear") for x in norm]
+    counts = {lv: recognized.count(lv) for lv in _ROB_LEVELS}
     if counts["high"]:
         overall = "high"
     elif counts["some-concerns"]:
         overall = "some-concerns"
-    elif norm and all(x == "low" for x in norm):
+    elif recognized and all(x == "low" for x in recognized):
         overall = "low"
     else:
         overall = "unclear"
@@ -141,6 +167,7 @@ def rob_weight(domain_assessments: dict | list | tuple) -> dict:
         "advisory": True,
         "is_gate": False,
         "counts": counts,
+        "unrecognized": unrecognized,
     }
 
 

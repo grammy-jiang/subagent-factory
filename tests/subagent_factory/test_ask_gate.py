@@ -137,6 +137,88 @@ def test_gate_anti_re_ask_escalates_to_abstain() -> None:
     assert d["slot"] == "budget"
 
 
+def test_already_asked_resets_after_slot_is_supplied() -> None:
+    # Recency bound: an ask is only "outstanding" until the user supplies the slot. Asked on an
+    # assistant turn, then supplied on a later user turn → no longer counts as already-asked.
+    budget = required_slots({"must_ask_for": ["budget"]})[0]
+    asked_then_unanswered = [
+        _assistant("What is the budget for this?"),
+        _user("not sure"),
+    ]
+    assert already_asked(budget, asked_then_unanswered)
+    asked_then_answered = [
+        _assistant("What is the budget for this?"),
+        _user("the budget is 20k"),
+    ]
+    assert not already_asked(budget, asked_then_answered)
+
+
+def test_gate_re_asks_after_slot_supplied_then_needed_again() -> None:
+    # The fix-#1 regression: vague → ask X, user supplies X (→answer), then a later assistant ask for
+    # X with the user still not re-supplying it → the gate must ASK again, NOT abstain. The earlier
+    # ask was satisfied when the slot was supplied, so it must not escalate forever.
+    p = {"must_ask_for": ["budget", "timeline"]}
+    conv = [
+        _user("Help me plan the rollout"),
+        _assistant("What is the budget?"),
+        _user("the budget is 20k"),  # supplies budget → satisfies the earlier ask
+        _assistant("What is the budget cap, to be precise?"),  # asks budget again, post-fill
+        _user("please just advise"),  # does NOT re-supply; timeline still missing
+    ]
+    d = gate(p, conv)
+    # budget is filled (accumulated); the still-missing slot is timeline → ask it, never abstain.
+    assert d["action"] == "ask"
+    assert d["slot"] == "timeline"
+
+
+def test_gate_external_incidental_question_does_not_block_ask() -> None:
+    # Bug fix: on an EXTERNALLY-supplied transcript (not gate-generated), a real assistant
+    # rhetorical/clarifying question that incidentally shares ~half a slot's keywords must NOT be
+    # read as "we already asked this slot". Slot "deployment target" = {deployment, target}; the
+    # assistant's unrelated question mentions only "deployment" (1/2 keywords, NOT the full slot).
+    # Under the old 0.5 ask-detection bar this tripped already_asked → silent ABSTAIN. The gate must
+    # still ASK the slot (the false-negative this module exists to prevent).
+    p = {"must_ask_for": ["deployment target"]}
+    conv = [
+        _user("Help me ship this service"),
+        _assistant("Is the deployment ready to start?"),  # incidental: shares only "deployment"
+        _user("just advise me"),
+    ]
+    d = gate(p, conv)
+    assert d["action"] == "ask"
+    assert d["slot"] == "deployment target"
+
+
+def test_already_asked_strict_full_slot_match() -> None:
+    # Directly pin the stricter ask-detection bar: a partial-keyword incidental question is NOT an
+    # ask of the slot, but the gate's own full-phrasing fallback question IS detected as already-asked.
+    slot = required_slots({"must_ask_for": ["deployment target"]})[0]
+    incidental = [_assistant("Is the deployment ready to start?"), _user("not sure")]
+    assert not already_asked(slot, incidental)
+    # The gate-generated fallback embeds the full slot phrasing → still detected (recency/re-ask path).
+    full_phrasing = [_assistant(slot.question), _user("not sure")]
+    assert already_asked(slot, full_phrasing)
+
+
+def test_gate_generated_re_ask_still_detected_after_fix() -> None:
+    # Behaviour-preserving for gate-generated conversations: replay writes the slot's full fallback
+    # question, so the anti-re-ask escalation to abstain still fires under the stricter bar.
+    decisions = replay_conversation(
+        {"must_ask_for": ["deployment target"]},
+        ["Help me ship this service", "I'm not sure, just give your best guess"],
+    )
+    assert [d["action"] for d in decisions] == ["ask", "abstain"]
+
+
+def test_gate_decision_includes_slot_question() -> None:
+    # gate surfaces the chosen slot's fallback question so callers need not re-derive it.
+    d = gate({"must_ask_for": ["budget"]}, [_user("please advise")])
+    assert d["action"] == "ask"
+    assert d["question"] == required_slots({"must_ask_for": ["budget"]})[0].question
+    answer = gate({"must_ask_for": ["budget"]}, [_user("budget is 20k")])
+    assert answer["action"] == "answer" and answer["question"] is None
+
+
 def test_gate_out_of_scope_abstains() -> None:
     d = gate({"must_ask_for": ["budget"]}, [_user("anything")], out_of_scope=True)
     assert d["action"] == "abstain"
