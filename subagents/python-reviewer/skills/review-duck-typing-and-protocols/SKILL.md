@@ -4,14 +4,44 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P09
+  - P004
+  - P052
+  - P053
+  - P054
+  - P055
   claims:
-  - C010
+  - C00307
+  - C00308
+  - C00309
+  - C00310
+  - C00858
+  - C00859
+  - C00945
+  - C00320
+  - C00321
+  - C00322
+  - C00323
+  - C00325
   evidence:
-  - E010
+  - E00129
+  - E00130
+  - E00131
+  - E00132
+  - E00253
+  - E00254
+  - E00265
+  - E00133
+  - E00134
+  - E00135
+  - E00136
+  - E00137
   source_anchors:
-  - python-distilled-pea-1baf485f-h0214
-  authored_from_digest: 95f86014ef159c276d091c57357796870d415209f9032b302b03b008b5cdedaa
+  - 5c81071aa988-c0024
+  - 2bf219904a5b-c0006
+  - 2bf219904a5b-c0010
+  - 5c81071aa988-c0025
+  - 5c81071aa988-c0026
+  authored_from_digest: d9ca2474b74910e3cc596199a3e07b57e0a7d300f3bc99c203ebe773891505f5
 ---
 
 # Review duck typing and protocols

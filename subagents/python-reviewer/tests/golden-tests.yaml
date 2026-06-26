@@ -1,99 +1,82 @@
 schema_version: golden-tests-v1
 subagent_slug: python-reviewer
-generated_at: "2026-06-20"
-profile_version: "0.1.0"
+generated_at: '2026-06-20'
+profile_version: 0.1.0
 tier: 2
-
 golden_tests:
-  - test_id: G-001
-    description: Multiple idiomatic defects in one class (mutable default, shallow copy, missing data model)
-    prompt: >-
-      Review this class:
-      `class Cart:
-          def __init__(self, items=[]): self.items = items
-          def snapshot(self): return list(self.items)
-          def size(self): return self.count()`
-      where items can hold nested option lists. Is it Pythonic?
-    expected_route: invoke
-    expected_mode: review
-    minimum_output: >-
-      Names the mutable default `items=[]` as the most serious defect and gives
-      the `None`-default fix, then the shallow-copy and data-model points.
-    must_do:
-      - Flag the mutable default argument and recommend items=None built inside __init__.
-      - Note that list(self.items) is a shallow copy and recommend copy.deepcopy for nested mutable items.
-      - Recommend implementing __len__ so len() works instead of a bespoke size()/count().
-      - Order findings by impact and trace each to a principle.
-    must_not_do:
-      - Approve items=[] as harmless.
-      - Quote the source books verbatim.
-    principle_coverage: [P04, P03, P01]
-
-  - test_id: G-002
-    description: Inheritance versus composition comparison
-    prompt: >-
-      Should my new EventLog be `class EventLog(list)` so I get append and
-      slicing for free, or should it hold a list internally? Compare the options.
-    expected_route: invoke
-    expected_mode: compare
-    minimum_output: >-
-      Recommends composition (hold a list) over subclassing list, ranked by
-      coupling and idiom, and warns that built-in methods bypass overrides.
-    must_do:
-      - Compare subclassing list against composition/delegation.
-      - Recommend composition unless EventLog is a true is-a specialization of list.
-      - Warn that subclassing built-ins is risky (C-level methods bypass overrides; suggest UserList if a list subtype is truly needed).
-    must_not_do:
-      - Recommend subclassing list without weighing composition.
-    principle_coverage: [P07, P08]
-
-  - test_id: G-003
-    description: Exception and resource handling review
-    prompt: >-
-      Review this: `def load(path):
-          f = open(path)
-          try: return parse(f.read())
-          except Exception: pass
-          f.close()`
-    expected_route: invoke
-    expected_mode: review
-    minimum_output: >-
-      Flags `except Exception: pass` as swallowing errors and the manual
-      open/close, recommending a with-statement and a narrow except.
-    must_do:
-      - Recommend managing the file with a with-statement so it closes on every path.
-      - Flag except Exception: pass as hiding programming errors and narrow or remove it.
-      - Advise letting unrecoverable errors propagate rather than swallowing them.
-    must_not_do:
-      - Approve the bare except that swallows exceptions.
-    principle_coverage: [P14, P15]
-
+- test_id: G-001
+  description: Multiple idiomatic defects in one class (mutable default, shallow copy, missing data model)
+  prompt: "Review this class: `class Cart:\n    def __init__(self, items=[]): self.items = items\n   \
+    \ def snapshot(self): return list(self.items)\n    def size(self): return self.count()`\nwhere items\
+    \ can hold nested option lists. Is it Pythonic?"
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: Names the mutable default `items=[]` as the most serious defect and gives the `None`-default
+    fix, then the shallow-copy and data-model points.
+  must_do:
+  - Flag the mutable default argument and recommend items=None built inside __init__.
+  - Note that list(self.items) is a shallow copy and recommend copy.deepcopy for nested mutable items.
+  - Recommend implementing __len__ so len() works instead of a bespoke size()/count().
+  - Order findings by impact and trace each to a principle.
+  must_not_do:
+  - Approve items=[] as harmless.
+  - Quote the source books verbatim.
+  principle_coverage:
+  - P001
+- test_id: G-002
+  description: Inheritance versus composition comparison
+  prompt: Should my new EventLog be `class EventLog(list)` so I get append and slicing for free, or should
+    it hold a list internally? Compare the options.
+  expected_route: invoke
+  expected_mode: compare
+  minimum_output: Recommends composition (hold a list) over subclassing list, ranked by coupling and idiom,
+    and warns that built-in methods bypass overrides.
+  must_do:
+  - Compare subclassing list against composition/delegation.
+  - Recommend composition unless EventLog is a true is-a specialization of list.
+  - Warn that subclassing built-ins is risky (C-level methods bypass overrides; suggest UserList if a
+    list subtype is truly needed).
+  must_not_do:
+  - Recommend subclassing list without weighing composition.
+  principle_coverage:
+  - P001
+- test_id: G-003
+  description: Exception and resource handling review
+  prompt: "Review this: `def load(path):\n    f = open(path)\n    try: return parse(f.read())\n    except\
+    \ Exception: pass\n    f.close()`"
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: 'Flags `except Exception: pass` as swallowing errors and the manual open/close, recommending
+    a with-statement and a narrow except.'
+  must_do:
+  - Recommend managing the file with a with-statement so it closes on every path.
+  - Flag except Exception: pass as hiding programming errors and narrow or remove it.
+  - Advise letting unrecoverable errors propagate rather than swallowing them.
+  must_not_do:
+  - Approve the bare except that swallows exceptions.
+  principle_coverage:
+  - P001
 negative_routing_tests:
-  - test_id: N-001
-    description: Runtime performance tuning — out of scope
-    prompt: >-
-      Profile my NumPy matrix-multiplication loop and make it run two times
-      faster.
-    expected_route: do_not_invoke
-    must_not_do:
-      - Provide runtime profiling or vectorisation tuning as if it were idiomatic-review work.
-
-  - test_id: N-002
-    description: Non-Python code — out of scope
-    prompt: >-
-      Here is a Go HTTP handler — review it for idiomatic style and bugs.
-    expected_route: do_not_invoke
-    must_not_do:
-      - Review non-Python code as if it were within this reviewer's scope.
-
+- test_id: N-001
+  description: Runtime performance tuning — out of scope
+  prompt: Profile my NumPy matrix-multiplication loop and make it run two times faster.
+  expected_route: do_not_invoke
+  must_not_do:
+  - Provide runtime profiling or vectorisation tuning as if it were idiomatic-review work.
+- test_id: N-002
+  description: Non-Python code — out of scope
+  prompt: Here is a Go HTTP handler — review it for idiomatic style and bugs.
+  expected_route: do_not_invoke
+  must_not_do:
+  - Review non-Python code as if it were within this reviewer's scope.
 missing_context_tests:
-  - test_id: M-001
-    description: No code supplied
-    prompt: >-
-      My Python is kind of ugly and unpythonic. Can you clean it up?
-    expected_route: invoke
-    must_ask_for:
-      - The actual Python code (snippet, function, class, or module) to review.
-      - Its intended purpose and behaviour.
-      - The target Python version and any compatibility or performance constraints.
-    principle_coverage: [P13]
+- test_id: M-001
+  description: No code supplied
+  prompt: My Python is kind of ugly and unpythonic. Can you clean it up?
+  expected_route: invoke
+  must_ask_for:
+  - The actual Python code (snippet, function, class, or module) to review.
+  - Its intended purpose and behaviour.
+  - The target Python version and any compatibility or performance constraints.
+  principle_coverage:
+  - P001

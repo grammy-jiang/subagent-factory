@@ -4,17 +4,43 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P10
-  - P11
+  - P017
+  - P028
+  - P030
   claims:
-  - C011
-  - C012
+  - C00602
+  - C00603
+  - C00605
+  - C00946
+  - C00947
+  - C00948
+  - C00157
+  - C00158
+  - C00159
+  - C00692
+  - C00434
+  - C00435
   evidence:
-  - E011
-  - E012
+  - E00208
+  - E00209
+  - E00210
+  - E00266
+  - E00267
+  - E00268
+  - E00073
+  - E00074
+  - E00075
+  - E00224
+  - E00184
+  - E00185
   source_anchors:
-  - python-distilled-pea-1baf485f-h0221
-  authored_from_digest: fcf7ce1240c0856438710780b13b0cc38cf33fe3ea1fcb6372419ae8ced9f67d
+  - 5c81071aa988-c0062
+  - 5c81071aa988-c0063
+  - 2bf219904a5b-c0010
+  - 5c81071aa988-c0011
+  - 2bf219904a5b-c0001
+  - 5c81071aa988-c0038
+  authored_from_digest: 8e8785a1632eeab148f4abffa0894e2d2b994ea69513f9073c356b1e3bcbf47f
 ---
 
 # Review encapsulation and properties

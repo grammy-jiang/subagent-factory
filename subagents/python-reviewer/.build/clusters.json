@@ -1,0 +1,1266 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Integrate user-defined types with the Python Data Model by implementing the special (\"dunder\") methods the interpreter and built-ins call, rather than inventing ad-hoc named methods; this lets len(), subscripting, iteration, repr(), formatting, and operators work on your objects the same way they do on built-in types."
+   },
+   {
+    "idx": 210,
+    "statement": "Recognize that object behavior is defined by dynamically-dispatched special (dunder) methods, so Python verifies nothing in advance and an object works wherever the operations it implements are supported, failing only at runtime with TypeError on unsupported combinations (duck typing)."
+   }
+  ]
+ },
+ {
+  "group": 1,
+  "members": [
+   {
+    "idx": 1,
+    "statement": "Always implement __repr__ to give a developer-facing, unambiguous representation (ideally one that looks like a constructor call that recreates the object), and implement __str__ only when users need a different readable form; __repr__ is the fallback used when __str__ is absent."
+   },
+   {
+    "idx": 143,
+    "statement": "Always define a __repr__ method on a class to simplify debugging by controlling how its instances display."
+   },
+   {
+    "idx": 212,
+    "statement": "Rarely define __del__ (it fires at garbage collection, not at a del that merely decrements the count), and by convention have __repr__ return an expression string that recreates the object, falling back to an angle-bracketed <...> form."
+   }
+  ]
+ },
+ {
+  "group": 4,
+  "members": [
+   {
+    "idx": 4,
+    "statement": "Build sequences with list comprehensions or generator expressions instead of manual append loops or map/filter when the goal is to construct a new sequence, because comprehensions read more clearly; keep each comprehension short (a few lines) and doing one thing, and remember it has its own local scope."
+   },
+   {
+    "idx": 5,
+    "statement": "Prefer a generator expression over a list comprehension when you do not need the whole result materialised at once (for example when feeding a constructor or iterating once), because the generator yields items lazily and saves memory."
+   },
+   {
+    "idx": 17,
+    "statement": "Build and combine mappings concisely with dict comprehensions and the modern merge operators | and |= (Python 3.9+), and unpack mappings with **; prefer these to manual loops that copy and update keys."
+   },
+   {
+    "idx": 67,
+    "statement": "Learn the standard generator toolkit before writing your own: itertools supplies filtering, mapping, merging, and combinatoric generators, and you must bound the infinite generators (count, cycle, repeat) with islice or takewhile before materialising them, or you will exhaust memory."
+   },
+   {
+    "idx": 119,
+    "statement": "Prefer a list comprehension over a manual loop for simple calculations that build a new list."
+   },
+   {
+    "idx": 173,
+    "statement": "Build collections with comprehensions: list comprehensions support filters and nested for/if clauses, curly braces produce a set comprehension, key:value pairs produce a dict comprehension, and a later duplicate entry overwrites an earlier one."
+   },
+   {
+    "idx": 176,
+    "statement": "Prefer a generator expression (parentheses) over a list comprehension when you only iterate the result, for large memory and performance wins, remembering it is single-use, is not a sequence (not indexable, no list methods), is materialized with list(), and may drop its parentheses when it is a function's sole argument."
+   },
+   {
+    "idx": 254,
+    "statement": "Restructure deeply nested loops and conditionals into small, composable generator pipeline stages, each handling a single task and accepting any iterable, to improve code reuse, testability, and clarity."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Emulate numeric types with the arithmetic and comparison special methods (__add__, __mul__, __abs__, __bool__, etc.) so instances work with operators and truth tests, and define __bool__ (or rely on __len__) so emptiness is reported correctly."
+   },
+   {
+    "idx": 215,
+    "statement": "Implement object protocols correctly: truth testing uses __bool__ then __len__ (else True), value equality uses __eq__ (whose default is identity, with __ne__ rarely needed), and comparison methods may return any type and should return the NotImplemented object when a comparison is undefined."
+   }
+  ]
+ },
+ {
+  "group": 6,
+  "members": [
+   {
+    "idx": 7,
+    "statement": "Use tuples for two distinct purposes and make the intent clear: as immutable records where position carries meaning, and as immutable lists that are safer and can be more efficient than lists; remember a tuple's immutability is only relative — it can still hold references to mutable objects."
+   },
+   {
+    "idx": 120,
+    "statement": "Treat a tuple as an immutable object (no replace, delete, or append) that still supports indexing, slicing, and concatenation, writing a one-element tuple with a trailing comma and an empty tuple as ()."
+   },
+   {
+    "idx": 121,
+    "statement": "Use a set as an unordered collection of unique, immutable elements that cannot be indexed and whose iteration order is unpredictable and may vary between runs, so never put a list in a set or depend on set ordering."
+   },
+   {
+    "idx": 125,
+    "statement": "Use only immutable objects (such as numbers and tuples, including tuples as composite keys) as dictionary keys, never lists, sets, or dicts."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 8,
+    "statement": "Unpack sequences and iterables with parallel assignment, nested unpacking, and the star target to grab excess items, instead of indexing element by element; this is clearer and works for swapping, returning multiple values, and splitting head/tail."
+   },
+   {
+    "idx": 182,
+    "statement": "Replace manual counters and parallel indexing with enumerate (yielding (index, value) with an optional start) and zip (iterating iterables in parallel, stopping at the shortest), materializing zip's one-pass iterator with list() when needed."
+   }
+  ]
+ },
+ {
+  "group": 9,
+  "members": [
+   {
+    "idx": 10,
+    "statement": "Exploit Python's slicing semantics deliberately: slices exclude the stop index (so ranges line up and split cleanly), slice objects can be named and reused, and assigning to a slice mutates a list in place; reach for these instead of manual element-by-element copying."
+   },
+   {
+    "idx": 62,
+    "statement": "Build a custom sequence by implementing the sequence protocol (__len__ and __getitem__), and handle slice objects inside __getitem__ so that slicing returns a new instance of the same type rather than a bare list."
+   },
+   {
+    "idx": 118,
+    "statement": "Treat lists as ordered, mutable, zero-indexed collections, and remember that slice assignment can replace a region and change the list's length."
+   },
+   {
+    "idx": 170,
+    "statement": "Use extended slicing s[i:j:stride] (negative strides and sign-dependent default bounds are allowed) but keep slices simple for readability and name a reused slice with slice()."
+   },
+   {
+    "idx": 171,
+    "statement": "Know that slice assignment can grow or shrink a list whereas a strided slice assignment requires an exactly-matching right-hand length (else ValueError), and that third-party types such as numpy arrays may define different slicing semantics."
+   },
+   {
+    "idx": 218,
+    "statement": "Implement container behavior with the container special methods (__len__, __getitem__, __setitem__, __delitem__, __contains__), where slicing passes a slice object as the key and an extended or multidimensional slice passes a tuple of slice and Ellipsis objects (multidimensional slicing and Ellipsis being reserved for third-party libraries such as numpy)."
+   }
+  ]
+ },
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 11,
+    "statement": "Beware shared references when building sequences with the * operator: an expression like [[]] * n produces n references to the SAME inner list, so use a comprehension ([[] for _ in range(n)]) when you need independent nested sequences."
+   },
+   {
+    "idx": 169,
+    "statement": "Do not use s*n to repeat a sequence containing mutable objects because it duplicates references so all copies share the same object; build independent copies with a comprehension such as [list(a) for _ in range(n)]."
+   }
+  ]
+ },
+ {
+  "group": 11,
+  "members": [
+   {
+    "idx": 12,
+    "statement": "Understand augmented assignment: += and *= mutate a mutable target in place (via __iadd__/__imul__) but rebind an immutable target to a new object, which explains why += on a list inside a tuple both succeeds and raises; prefer it for clear in-place updates and avoid putting mutable items in tuples."
+   },
+   {
+    "idx": 158,
+    "statement": "Beware that augmented assignment such as += mutates a mutable object in place, so every other reference to that object also observes the change."
+   }
+  ]
+ },
+ {
+  "group": 12,
+  "members": [
+   {
+    "idx": 13,
+    "statement": "Sort in place with list.sort (which returns None, signalling mutation) and build a new sorted list from any iterable with the sorted built-in; control ordering with the key function rather than custom comparison logic, and never assign the result of list.sort."
+   },
+   {
+    "idx": 231,
+    "statement": "Avoid side effects (functions that mutate their inputs or external state) because they cause subtle bugs as programs grow and interact poorly with concurrency; by convention a side-effecting function returns None (as list.sort() does), so a missing return value signals one."
+   }
+  ]
+ },
+ {
+  "group": 15,
+  "members": [
+   {
+    "idx": 16,
+    "statement": "Handle missing dictionary keys intentionally rather than with try/except or pre-checks: use dict.get(key, default) for reads, dict.setdefault for insert-or-update in one lookup, collections.defaultdict for auto-created defaults, or override __missing__ in a dict subclass for custom behaviour."
+   },
+   {
+    "idx": 19,
+    "statement": "Remember that dict and set are backed by hash tables: keys and members must be hashable, lookups and membership tests are fast, iteration follows insertion order (dict, since 3.7), and you must not add or remove keys while iterating over the same dict or set."
+   },
+   {
+    "idx": 122,
+    "statement": "Create an empty set with set(), never {}, because {} produces an empty dictionary."
+   },
+   {
+    "idx": 123,
+    "statement": "Choose set.discard() to remove an item that may be absent and set.remove() only when a missing item should raise KeyError."
+   },
+   {
+    "idx": 124,
+    "statement": "Use a dictionary as a key-to-value mapping, testing membership with in and using get(key, default) to read a possibly-missing key without raising KeyError."
+   },
+   {
+    "idx": 127,
+    "statement": "Rely on dictionaries preserving key insertion order only from Python 3.6 onward, and not when targeting older versions."
+   }
+  ]
+ },
+ {
+  "group": 16,
+  "members": [
+   {
+    "idx": 18,
+    "statement": "Use the right dict variant for the job: collections.Counter for tallying, ChainMap for layered namespaces, OrderedDict only when order-sensitive equality or move_to_end is needed (plain dict already preserves insertion order), and subclass collections.UserDict — not dict — when customising a mapping, to avoid surprises from built-in method shortcuts."
+   },
+   {
+    "idx": 331,
+    "statement": "Reach for the richer standard containers in the collections module (deque, defaultdict, Counter) and the reusable iteration patterns in itertools (chaining, products, permutations, grouping) instead of hand-rolling equivalents."
+   }
+  ]
+ },
+ {
+  "group": 17,
+  "members": [
+   {
+    "idx": 20,
+    "statement": "Expose a read-only mapping to clients with types.MappingProxyType, which gives a dynamic but unmodifiable view of an internal dict, instead of copying the dict or trusting callers not to mutate it."
+   },
+   {
+    "idx": 89,
+    "statement": "Avoid property and descriptor recursion by reading and writing the backing value through the instance __dict__ directly, and know the attribute machinery: special methods are looked up on the type, __getattribute__ runs on every read, and direct __dict__ access bypasses these hooks."
+   }
+  ]
+ },
+ {
+  "group": 18,
+  "members": [
+   {
+    "idx": 21,
+    "statement": "Use set operations (union |, intersection &, difference -, symmetric difference ^) and set/frozenset literals or comprehensions for fast membership testing and deduplication instead of hand-written loops; use frozenset when you need a hashable set (for example as a dict key or set member)."
+   },
+   {
+    "idx": 153,
+    "statement": "Prefer the simplest solution built from the core language and built-in lists, sets, and dictionaries when one exists, before reaching for more complex machinery."
+   },
+   {
+    "idx": 330,
+    "statement": "Use a frozenset when you need an immutable, hashable set, for example as a dictionary key or an element of another set, knowing it supports all set operations except those that mutate in place."
+   }
+  ]
+ },
+ {
+  "group": 19,
+  "members": [
+   {
+    "idx": 22,
+    "statement": "Treat dict views (keys(), values(), items()) as live windows over the dict that also support set-like operations; iterate them directly rather than snapshotting into a list unless you specifically need a stable copy."
+   },
+   {
+    "idx": 126,
+    "statement": "Treat dict.keys(), .values(), and .items() as live views that reflect later changes to the dictionary, and take list(dict) when you need a stable snapshot."
+   },
+   {
+    "idx": 172,
+    "statement": "Apply set operators (|, &, -, ^) to a dictionary's keys() and items() views, for example to compute the keys two dictionaries share."
+   }
+  ]
+ },
+ {
+  "group": 20,
+  "members": [
+   {
+    "idx": 23,
+    "statement": "Apply the Unicode sandwich: decode incoming bytes to str as early as possible, do all text processing on str, and encode str back to bytes as late as possible on output; keep the str-only middle layer free of bytes and never rely on the platform default encoding."
+   },
+   {
+    "idx": 24,
+    "statement": "Always pass an explicit encoding when opening text files or calling encode/decode (default to UTF-8), and decide deliberately how to handle errors (the errors= argument or a registered handler) and byte-order marks, rather than letting UnicodeEncodeError or UnicodeDecodeError surface unpredictably."
+   },
+   {
+    "idx": 27,
+    "statement": "Keep text and binary data on clearly separate paths: str and bytes share many method names but differ in behaviour, and APIs such as re and os accept both, so mixing them silently invites encoding bugs."
+   },
+   {
+    "idx": 307,
+    "statement": "Handle text at I/O boundaries by decoding all input and encoding all output with an explicit encoding such as 'utf-8', selecting an errors policy ('strict' raising UnicodeError by default, or alternatives like 'surrogateescape' that round-trip malformed bytes where the encoding cannot be guaranteed)."
+   }
+  ]
+ },
+ {
+  "group": 21,
+  "members": [
+   {
+    "idx": 25,
+    "statement": "Normalize Unicode to NFC before comparing, indexing, or storing user-supplied text, and use str.casefold for case-insensitive matching, because strings that look identical can be different code-point sequences that compare unequal."
+   },
+   {
+    "idx": 327,
+    "statement": "Normalize Unicode text with unicodedata.normalize('NFC'/'NFD') before comparing or keying, since the same visible text can have composed versus decomposed code-point forms that compare unequal, and more broadly keep text and binary data strictly separate while concentrating encoding and decoding at the application's edges where most I/O complexity lives."
+   }
+  ]
+ },
+ {
+  "group": 26,
+  "members": [
+   {
+    "idx": 31,
+    "statement": "Distinguish identity from equality: compare values with == (which calls __eq__) and compare identity with is, reserving is for singletons such as None; never use is to test value equality, and never assume two equal objects are the same object."
+   },
+   {
+    "idx": 160,
+    "statement": "Use == for value comparison and reserve is / is not for identity checks, since x == y can be true while x is y is false, making comparison with is almost never what you want."
+   }
+  ]
+ },
+ {
+  "group": 28,
+  "members": [
+   {
+    "idx": 33,
+    "statement": "Never use a mutable object (list, dict, set) as a default parameter value, because the single default is shared across all calls and accumulates state; use None as the sentinel default and create the fresh mutable object inside the function body."
+   },
+   {
+    "idx": 222,
+    "statement": "Match a call's argument count and order to the function's signature (otherwise a TypeError is raised), making any default-valued parameter and those after it optional, and never placing a non-default parameter after a default one."
+   },
+   {
+    "idx": 223,
+    "statement": "Never use a mutable default argument, since defaults are evaluated once at definition and shared across calls (accumulating changes); default to None and create the object inside the function, and as a rule use only immutable default values."
+   }
+  ]
+ },
+ {
+  "group": 29,
+  "members": [
+   {
+    "idx": 34,
+    "statement": "Copy objects deliberately: plain assignment and shallow copies share the nested mutable objects, so use copy.deepcopy when you need a fully independent clone, and be aware deep copies can fail or recurse on cyclic or unpicklable structures."
+   },
+   {
+    "idx": 206,
+    "statement": "Remember that assignment creates a new reference rather than a copy, so mutating a shared mutable object is visible through every name; a shallow copy such as list(a) still shares nested elements, while copy.deepcopy recurses but is slow, fails on objects holding system or runtime state, and should be reserved for when you must mutate without affecting the original."
+   }
+  ]
+ },
+ {
+  "group": 30,
+  "members": [
+   {
+    "idx": 35,
+    "statement": "Do not rely on __del__ for resource cleanup, since objects are reclaimed by reference counting plus cyclic garbage collection at times you do not control; release resources with context managers and break reference cycles or hold caches and back-references with weakref."
+   },
+   {
+    "idx": 285,
+    "statement": "Rarely define __del__: reserve it for extra cleanup, never rely on its timing (a reference cycle prevents it firing under reference counting, leaving collection to the unpredictable cyclic GC), keep it simple by avoiding locks (escaping exceptions just go to stderr), and instead provide an explicit close() method plus context-manager support."
+   }
+  ]
+ },
+ {
+  "group": 31,
+  "members": [
+   {
+    "idx": 36,
+    "statement": "Treat functions as first-class objects — pass them as arguments, return them, and store them — and use higher-order functions (map, filter, sorted's key, custom decorators) to parameterise behaviour instead of duplicating control flow."
+   },
+   {
+    "idx": 241,
+    "statement": "Use higher-order, first-class functions and closures (a function plus the environment it needs, which a passed or returned nested function remembers) to implement callbacks and lazy or deferred evaluation."
+   }
+  ]
+ },
+ {
+  "group": 32,
+  "members": [
+   {
+    "idx": 37,
+    "statement": "Replace map/filter with list or generator comprehensions and replace functools.reduce with purpose-built built-ins (sum, any, all, math.prod) for readability, and reserve lambda for tiny anonymous functions passed as arguments, never for code that deserves a name."
+   },
+   {
+    "idx": 68,
+    "statement": "Use the reducing built-ins (sum, any, all, min, max, functools.reduce) for fold operations; all and any short-circuit as soon as the result is determined, and all of these only terminate on iterables that eventually stop."
+   },
+   {
+    "idx": 246,
+    "statement": "Cover most map and filter needs with comprehensions and generator expressions (map equals an applying generator expression and filter yields lazily), and prefer the built-in reductions sum, min, and max over the often-confusing functools.reduce."
+   }
+  ]
+ },
+ {
+  "group": 33,
+  "members": [
+   {
+    "idx": 38,
+    "statement": "Build small callables for sort keys and callbacks with the operator module (itemgetter, attrgetter, methodcaller) and functools.partial to freeze arguments, instead of writing throwaway lambdas that obscure intent."
+   },
+   {
+    "idx": 239,
+    "statement": "Use a lambda for a small single-expression anonymous function (no statements allowed), typically as a callback such as a sorted() key function."
+   }
+  ]
+ },
+ {
+  "group": 35,
+  "members": [
+   {
+    "idx": 40,
+    "statement": "Design flexible signatures using positional parameters, *args, keyword-only parameters, and **kwargs, and prefer keyword-only parameters for optional flags so call sites read clearly and cannot pass them positionally by accident."
+   },
+   {
+    "idx": 132,
+    "statement": "Prefer keyword arguments (whose order does not matter) when a function has many optional parameters, relying on omitted arguments taking their declared defaults, to keep call sites readable."
+   },
+   {
+    "idx": 232,
+    "statement": "At a call site, use * to unpack a sequence into positional arguments and ** to unpack a mapping into keyword arguments (each usable more than once), relying on Python to reject any call that fails to satisfy the signature."
+   }
+  ]
+ },
+ {
+  "group": 36,
+  "members": [
+   {
+    "idx": 41,
+    "statement": "Understand decorator and closure mechanics: a decorator runs at import or definition time and wraps or replaces the decorated function; a closure captures free variables from its enclosing scope by reference, and rebinding such a variable requires a nonlocal declaration."
+   },
+   {
+    "idx": 42,
+    "statement": "Memoize pure, expensive functions with functools.cache or functools.lru_cache, build configurable decorators as decorator factories (a function returning a decorator), and apply functools.wraps inside a decorator to preserve the wrapped function's name and docstring."
+   },
+   {
+    "idx": 245,
+    "statement": "Know that stacked decorators apply innermost-first and their order can matter (for example @classmethod or @staticmethod usually must be outermost), that a decorator taking arguments is a factory you call once and reuse, and that a decorator may simply register a function rather than replace it."
+   }
+  ]
+ },
+ {
+  "group": 38,
+  "members": [
+   {
+    "idx": 44,
+    "statement": "Adopt gradual typing: add type hints incrementally where they pay off (public APIs, complex data shapes), run a static checker such as Mypy in CI, and remember that hints have no runtime effect — they neither validate nor coerce values unless you add explicit runtime checks."
+   },
+   {
+    "idx": 98,
+    "statement": "Validate fields at runtime by treating type-hint constructors as callables inside a descriptor's __set__, reading the annotations from the class namespace during construction, and failing fast on unexpected attributes rather than silently accepting them."
+   },
+   {
+    "idx": 229,
+    "statement": "Do not add type hints unless you actively run a checking tool, because hints have no runtime effect (function hints live in __annotations__ and local-variable hints are ignored entirely) and incorrect hints otherwise go undiscovered."
+   },
+   {
+    "idx": 275,
+    "statement": "Remember class attributes are unconstrained in type and value and that type hints add no runtime checking, so do not guess at attribute hints unless you are actively running a type checker."
+   }
+  ]
+ },
+ {
+  "group": 42,
+  "members": [
+   {
+    "idx": 48,
+    "statement": "Parameterise generic containers and functions with TypeVar (bounded or constrained where appropriate) instead of Any, so the type checker can relate input and output types and catch mismatches; use the standard generic collection and tuple notations (list[int], dict[k, v], tuple[x, ...])."
+   },
+   {
+    "idx": 203,
+    "statement": "Prefer isinstance(value, type-or-tuple) when a type check is needed because it is subtype-aware, but recognize that explicit type checking is often less useful than it appears: it costs performance and misses duck-typed objects that share an interface without inheriting from the type (such as collections.deque versus list)."
+   }
+  ]
+ },
+ {
+  "group": 43,
+  "members": [
+   {
+    "idx": 49,
+    "statement": "Define structural interfaces with typing.Protocol (static duck typing) when you care about an object's behaviour rather than its base class, and mark a protocol @runtime_checkable only for isinstance checks that test for the presence of methods (not their signatures)."
+   },
+   {
+    "idx": 268,
+    "statement": "Lean on duck typing, where an attribute lookup succeeds on any object that has the attribute regardless of its type, to write loosely-coupled code that works with anything implementing the needed interface."
+   },
+   {
+    "idx": 279,
+    "statement": "Specify an interface either with a plain base class whose methods raise NotImplementedError (usable for type hints or defensive isinstance checks) or, better, with an abstract base class (abc.ABC plus @abstractmethod) that cannot be instantiated until every abstract method is implemented, so a missing or misnamed method is caught early at instantiation."
+   }
+  ]
+ },
+ {
+  "group": 47,
+  "members": [
+   {
+    "idx": 53,
+    "statement": "Do not subclass the built-in types dict, list, or str directly, because their C-level methods bypass overridden special methods; subclass collections.UserDict, UserList, or UserString, or the appropriate ABC, when you need to customise a built-in collection."
+   },
+   {
+    "idx": 269,
+    "statement": "Avoid subclassing built-in types such as dict, because their C-implemented methods (for example update) bypass your Python overrides; use collections.UserDict, UserList, or UserString when you must, but generally build a new class by composition instead."
+   }
+  ]
+ },
+ {
+  "group": 48,
+  "members": [
+   {
+    "idx": 54,
+    "statement": "With multiple inheritance, understand the method resolution order (C3 linearisation) and always delegate with super() cooperatively so every class in the chain participates; reserve multiple inheritance mainly for mixins rather than modelling is-a relationships."
+   },
+   {
+    "idx": 55,
+    "statement": "Design mixins as small, single-purpose classes that add one capability and are never instantiated on their own, and favour composition and explicit interfaces (ABCs or Protocols) over deep inheritance hierarchies."
+   },
+   {
+    "idx": 280,
+    "statement": "Treat multiple inheritance as a specialized tool for organizing type and interface relations or mixins rather than combining unrelated classes: name a mixin with a Mixin suffix, have it call super() and rely on a sibling for missing behavior, give cooperating mixins a common parent with default implementations, keep mixin-method signatures compatible, and always use super() so the cooperative call chain is not broken."
+   },
+   {
+    "idx": 281,
+    "statement": "Understand the Method Resolution Order (__mro__): a linear search order computed by C3 linearization in which a child precedes its parents and parents keep their written order (inconsistent hierarchies raise TypeError and object is last), where super() delegates to the next class on the instance's MRO so which method runs depends on the instance's type."
+   }
+  ]
+ },
+ {
+  "group": 50,
+  "members": [
+   {
+    "idx": 57,
+    "statement": "Make a type hashable only when it is effectively immutable: implement __hash__ and __eq__ consistently so that equal objects hash equal, base the hash on the same attributes used for equality, and expose those attributes as read-only."
+   },
+   {
+    "idx": 61,
+    "statement": "Implement rich comparison consistently — pair __eq__ with __hash__ and define ordering through __lt__ and friends — and use augmented-assignment dunders (__iadd__, __imul__) so that += and *= mutate mutable types in place while immutable types are rebound to new objects."
+   }
+  ]
+ },
+ {
+  "group": 51,
+  "members": [
+   {
+    "idx": 58,
+    "statement": "Support positional class patterns by declaring __match_args__, and treat the single-underscore prefix as a protected convention and the double-underscore name-mangling as private — both are conventions for communicating intent, not enforced access control."
+   },
+   {
+    "idx": 140,
+    "statement": "Recognize that special double-underscore methods implement operators and protocols, for example __add__ backing the + operator."
+   }
+  ]
+ },
+ {
+  "group": 52,
+  "members": [
+   {
+    "idx": 59,
+    "statement": "Use __slots__ (a tuple of allowed attribute names) to cut per-instance memory when you will create very many instances, accepting the trade-offs: instances get no __dict__, cannot gain undeclared attributes, and subclasses must redeclare __slots__ to keep the benefit."
+   },
+   {
+    "idx": 286,
+    "statement": "Use a weak reference (weakref.ref, called like a function to get the object or None) to reference an object without keeping it alive, which suits caches that should not grow without bound, remembering that built-in types and classes using __slots__ or named tuples need an added __weakref__ attribute to support weak references."
+   },
+   {
+    "idx": 290,
+    "statement": "Use __slots__ (listing the fixed instance attribute names) to replace the per-instance __dict__ with a compact layout for substantial memory savings when many instances are created, while being mindful that a slotted base's subclass must also define __slots__, that it is incompatible with multiple nonempty-slot bases, and that it removes the instance __dict__."
+   }
+  ]
+ },
+ {
+  "group": 53,
+  "members": [
+   {
+    "idx": 60,
+    "statement": "Overload operators only between meaningful operand types and keep them well-behaved: return NotImplemented (do not raise) for unsupported operands so Python can try the reflected method, make unary and binary arithmetic operators (-, +, *, ~) return new objects with no side effects, and provide reflected (__radd__) and in-place (__iadd__) variants deliberately."
+   },
+   {
+    "idx": 157,
+    "statement": "Expect standard operators to be overloaded by type (+ concatenates sequences, * replicates them, % formats strings) and mixed-type numeric operations to follow the numeric hierarchy, while some type combinations such as Fraction with Decimal still raise TypeError."
+   },
+   {
+    "idx": 213,
+    "statement": "Know binary-operator dispatch: x + y tries x.__add__(y) first (or y.__radd__(x) first when y subtypes x), falls back to the reversed method when one returns NotImplemented, then fails; in-place methods such as __iadd__ back += and may mutate in place, falling back to a = a + b when undefined."
+   }
+  ]
+ },
+ {
+  "group": 54,
+  "members": [
+   {
+    "idx": 63,
+    "statement": "Provide computed or virtual attributes with __getattr__ (invoked only when normal lookup fails) and guard __setattr__ to stop callers from silently shadowing them, and compute __hash__ and __eq__ over the object's components using functools.reduce and zip rather than ad-hoc loops."
+   },
+   {
+    "idx": 88,
+    "statement": "Use __getattr__ (invoked only when normal lookup fails) to build read-only façades over nested data and to compute attributes on demand, but raise AttributeError for genuinely missing names rather than leaking the backing store's exception, and beware that generating attribute names from external data can shadow methods."
+   },
+   {
+    "idx": 289,
+    "statement": "Build a proxy or delegation (an alternative to inheritance) by forwarding attribute lookups through __getattr__ to an inner object, but remember this does not cover operators mapped to special methods, so explicitly implement the needed dunders such as __len__ and __getitem__."
+   }
+  ]
+ },
+ {
+  "group": 55,
+  "members": [
+   {
+    "idx": 64,
+    "statement": "Keep iterables and iterators distinct: an iterable's __iter__ must return a fresh independent iterator on each call, while an iterator is consumed after a single pass and its __iter__ returns self; never make a collection its own iterator (do not add __next__ to it), or you break repeated and simultaneous iteration."
+   },
+   {
+    "idx": 65,
+    "statement": "Implement __iter__ as a generator function (a function containing yield) instead of writing a separate iterator class with __next__: the generator is a factory that returns a stateful iterator automatically and needs far less code."
+   },
+   {
+    "idx": 219,
+    "statement": "Make a class iterable by providing __iter__ that returns an iterator whose __next__ yields items or raises StopIteration, most easily by implementing __iter__ as a generator since the for statement is built on this protocol."
+   },
+   {
+    "idx": 257,
+    "statement": "In modern Python implement iterators as generators, and reconsider any generator that is not performing iteration since there is usually a better or more modern approach."
+   }
+  ]
+ },
+ {
+  "group": 57,
+  "members": [
+   {
+    "idx": 69,
+    "statement": "Delegate to a subgenerator with yield from to flatten nested iteration and to capture the subgenerator's return value, recognising that yield from is the direct precursor of await in asynchronous code."
+   },
+   {
+    "idx": 251,
+    "statement": "Recognize that a function containing yield is a generator: calling it runs none of its code but returns a generator object that executes only as it is iterated, advancing to each yield and suspending with all local state intact until resumed."
+   },
+   {
+    "idx": 253,
+    "statement": "Use yield from to delegate iteration to a sub-iterable (handy for recursively flattening nested iterables), but rewrite a deeply recursive generator with an explicit stack of iterators to avoid the recursion limit."
+   }
+  ]
+ },
+ {
+  "group": 59,
+  "members": [
+   {
+    "idx": 71,
+    "statement": "Manage paired setup and teardown with the with statement and the context-manager protocol (__enter__/__exit__), build a context manager from a single-yield generator with @contextlib.contextmanager (wrapping the yield in try/finally), and check contextlib for ready-made tools (closing, suppress, ExitStack) before writing your own."
+   },
+   {
+    "idx": 83,
+    "statement": "Use the asynchronous protocol consistently: async with for asynchronous context managers (__aenter__/__aexit__), async for over asynchronous iterables (__aiter__/__anext__), async generators (async def with yield), and contextlib.asynccontextmanager to build an async context manager from a single-yield async generator."
+   },
+   {
+    "idx": 256,
+    "statement": "Use the contextlib @contextmanager decorator to build a context manager from a generator, where code before the single yield runs on entry and code after it runs on exit."
+   }
+  ]
+ },
+ {
+  "group": 61,
+  "members": [
+   {
+    "idx": 73,
+    "statement": "Distinguish concurrency from parallelism and choose the execution unit accordingly: threads and processes use preemptive multitasking, while coroutines use cooperative multitasking on a single event-loop thread — so never put a blocking call inside a coroutine, because it stalls the whole loop."
+   },
+   {
+    "idx": 79,
+    "statement": "Structure asyncio programs around native coroutines (async def) driven by an event loop: drive the top-level coroutine with asyncio.run, schedule concurrent work with asyncio.create_task (which returns immediately and need not be awaited if you do not need its result), and await a coroutine only when you need its result before proceeding."
+   },
+   {
+    "idx": 80,
+    "statement": "Never block the event loop: do not call time.sleep or other blocking functions inside a coroutine — use await asyncio.sleep — and delegate unavoidable blocking work (file I/O, CPU-bound computation, legacy code) to a thread or process with asyncio.to_thread or loop.run_in_executor."
+   },
+   {
+    "idx": 82,
+    "statement": "Throttle concurrent coroutines with an asyncio.Semaphore used as an asynchronous context manager (so only the waiting coroutine suspends at the limit, not the whole program), and hold locks and semaphores for the shortest possible time."
+   }
+  ]
+ },
+ {
+  "group": 67,
+  "members": [
+   {
+    "idx": 81,
+    "statement": "Combine awaitables with the right primitive: asyncio.gather waits for all and returns results in submission order (pass return_exceptions=True so one failure does not abort the whole batch), while asyncio.as_completed yields results as each finishes, which is what you want for progress reporting."
+   },
+   {
+    "idx": 84,
+    "statement": "Treat asyncio as all-or-nothing: replace every I/O function on the hot path with an awaitable version because one blocking call stalls everything, and remember there is no such thing as an I/O-bound system — only I/O-bound functions — so plan from the start to offload the inevitable CPU-bound parts to a process pool or task queue."
+   },
+   {
+    "idx": 249,
+    "statement": "Know that an async def function returns a coroutine that never runs on its own and needs an event loop such as asyncio.run, that it otherwise evaluates normally with await (valid only inside an async function) required to drive another async function, and that an async function cannot be called from non-async code, with async with and async for provided for the protocol cases."
+   }
+  ]
+ },
+ {
+  "group": 70,
+  "members": [
+   {
+    "idx": 87,
+    "statement": "Start simple by exposing public attributes and convert one to a property only when you need validation or computation, without changing client code: keep the real value in a private attribute and raise ValueError in the setter on invalid input to prevent garbage-in, garbage-out."
+   },
+   {
+    "idx": 91,
+    "statement": "Replace repeated near-identical getter/setter pairs with abstraction — a property factory (a closure returning property(getter, setter)) or, more flexibly, a descriptor class — and prefer the built-in property for simple read-only or validated attributes."
+   },
+   {
+    "idx": 276,
+    "statement": "Use a property to intercept attribute access through getter, setter, and deleter methods for validation or computation without changing code that uses the attribute, store the backing value under a different private name to avoid infinite recursion, and use read-only computed properties (such as a shape's area) for a uniform attribute interface with no trailing ()."
+   }
+  ]
+ },
+ {
+  "group": 72,
+  "members": [
+   {
+    "idx": 92,
+    "statement": "Use descriptors to reuse the same attribute-access logic across many attributes and classes (as ORMs do): implement __get__/__set__, store each value on the managed instance rather than on the single shared descriptor object, and let __set_name__ capture the attribute name automatically instead of repeating it."
+   },
+   {
+    "idx": 270,
+    "statement": "Use a class variable (defined in the class body and modified through the class) for state shared across all instances, relying on instance attribute lookup to fall back to the class."
+   },
+   {
+    "idx": 291,
+    "statement": "Use a descriptor (a class-level object implementing __get__, __set__, or __delete__, with __set_name__ for its attribute name) to reuse attribute-access logic, knowing properties and methods are built on this mechanism and that a data descriptor with __set__ overrides the instance __dict__ while a __get__-only method descriptor yields only when the dict has no matching entry."
+   }
+  ]
+ },
+ {
+  "group": 73,
+  "members": [
+   {
+    "idx": 93,
+    "statement": "Understand overriding versus nonoverriding descriptors (whether __set__ is defined) and that functions are nonoverriding descriptors which is how methods bind self; for most attribute-management needs prefer properties or descriptors over the harder-to-get-right __getattribute__ and __setattr__."
+   },
+   {
+    "idx": 220,
+    "statement": "Understand that attribute access flows through __getattribute__ then __getattr__ (whose default raises AttributeError), with __setattr__ and __delattr__ handling writes and deletes, and that these blunt hooks are refined by properties and descriptors; make an object callable by defining __call__."
+   },
+   {
+    "idx": 288,
+    "statement": "Know the attribute-access machinery: __getattribute__ handles reads (checking properties and descriptors, the instance __dict__, and the class dicts along the MRO, then falling back to __getattr__ or raising AttributeError) while __setattr__ and __delattr__ handle writes and deletes, and a class overriding any of these must call the super() default so properties and descriptors still work."
+   }
+  ]
+ },
+ {
+  "group": 74,
+  "members": [
+   {
+    "idx": 94,
+    "statement": "Treat classes as first-class objects: the type built-in constructs a class at runtime from a name, bases tuple, and namespace dict, type is the default metaclass of all classes, and you can introspect classes through __mro__, __bases__, __subclasses__(), and __qualname__."
+   },
+   {
+    "idx": 95,
+    "statement": "Customise class creation with the simplest tool that works, in ascending order of complexity — the PEP 487 hooks __init_subclass__ and __set_name__ first, then a class decorator, and only then a metaclass — and avoid all of these in application code, reserving them for library and framework development."
+   },
+   {
+    "idx": 96,
+    "statement": "Know the class-creation order (metaclass __prepare__, the class body, metaclass __new__, __set_name__, __init_subclass__, then any class decorator, then name binding) and that only a metaclass __new__ can configure __slots__, because it runs before type.__new__ whereas __init_subclass__ and class decorators run after the class already exists."
+   },
+   {
+    "idx": 97,
+    "statement": "Use a metaclass (a class whose instances are classes, i.e. a subclass of type) only when you must adjust the arguments passed to type.__new__; remember a class can have only one metaclass (so watch for metaclass conflicts), and expose a plain base class so users never have to reference the metaclass directly."
+   },
+   {
+    "idx": 292,
+    "statement": "Understand class definition: the body runs as a script into a fresh namespace (any statement allowed) that becomes the class __dict__ but is not a variable scope, so qualify names used in methods, and a class can be built without the class statement via types.new_class, which is preferred over type() because it respects metaclass machinery."
+   },
+   {
+    "idx": 293,
+    "statement": "Recognize that a class is itself an object created by a metaclass (type by default, selected with the metaclass keyword or inherited from the first base's type and propagating to subclasses), but reserve metaclasses for control that must occur during class creation (such as setting __slots__ from the __init__ signature) and otherwise prefer __init_subclass__, class decorators, descriptors, or mixins."
+   }
+  ]
+ },
+ {
+  "group": 77,
+  "members": [
+   {
+    "idx": 101,
+    "statement": "Remember that variable and parameter type annotations are only readability hints: they are ignored at runtime and never prevent assigning a value of a different type, so do not rely on them for enforcement."
+   },
+   {
+    "idx": 130,
+    "statement": "Do not rely on function parameter or return annotations for runtime safety, since they are informational only and the function can still be called with mismatched types."
+   }
+  ]
+ },
+ {
+  "group": 80,
+  "members": [
+   {
+    "idx": 104,
+    "statement": "Because Python integers are arbitrary precision and never overflow or truncate, explicitly mask or size the result yourself when bitwise operations must map onto fixed-width native integers."
+   },
+   {
+    "idx": 114,
+    "statement": "Convert strings to numbers explicitly with int() or float() before arithmetic, because + only concatenates strings and Python never implicitly coerces a string to a number."
+   }
+  ]
+ },
+ {
+  "group": 81,
+  "members": [
+   {
+    "idx": 105,
+    "statement": "Know that and/or short-circuit and return one of their operands (not a strict boolean), and that a value is false only if it is False, None, numeric zero, or empty and true otherwise."
+   },
+   {
+    "idx": 162,
+    "statement": "Rely on left-to-right short-circuit evaluation, in which the right operand of and/or is evaluated only when it is needed to determine the result."
+   },
+   {
+    "idx": 214,
+    "statement": "Remember the logical and, or, and not operators cannot be overloaded by special methods because their short-circuit evaluation cannot be expressed as a normal method call."
+   }
+  ]
+ },
+ {
+  "group": 84,
+  "members": [
+   {
+    "idx": 108,
+    "statement": "Always wrap a walrus := assignment expression in parentheses, as it is normally used inside an if or while test."
+   },
+   {
+    "idx": 156,
+    "statement": "Remember that plain assignment is a statement, not an expression, so combine evaluation and assignment with the parenthesized := assignment expression, typically inside an if or while test."
+   }
+  ]
+ },
+ {
+  "group": 85,
+  "members": [
+   {
+    "idx": 109,
+    "statement": "Remember that break and continue act only on the innermost enclosing loop: break aborts it and continue skips to its next iteration."
+   },
+   {
+    "idx": 183,
+    "statement": "Remember that break and continue affect only the innermost loop and Python has no goto, so escape deeply nested loops by raising and catching an exception, and use continue to flatten deeply nested code by reversing a test."
+   },
+   {
+    "idx": 184,
+    "statement": "Use a loop's else clause, which executes only when the loop completes without hitting break, to detect premature exit without maintaining a separate flag variable."
+   }
+  ]
+ },
+ {
+  "group": 90,
+  "members": [
+   {
+    "idx": 115,
+    "statement": "Prefer repr() over str() when producing debugging output, because repr() is unambiguous and reveals an object's type and exact value."
+   },
+   {
+    "idx": 207,
+    "statement": "Use the !r conversion in string formatting to render a value's repr() instead of its normal str() conversion."
+   }
+  ]
+ },
+ {
+  "group": 92,
+  "members": [
+   {
+    "idx": 117,
+    "statement": "Read files knowing that read() returns the whole file (empty string at EOF) and read(size) returns a bounded chunk, that files default to UTF-8 unless an encoding is passed, and that input() omits the trailing newline."
+   },
+   {
+    "idx": 312,
+    "statement": "Manage file I/O details: files are buffered by default (buffering=0 is unbuffered binary, 1 is line-buffered, and flush() or unbuffering avoids inter-process deadlock), text mode takes explicit encoding and errors arguments (specify the encoding even when it matches the system default), and universal newline mode normalizes line endings unless overridden via the newline argument."
+   },
+   {
+    "idx": 313,
+    "statement": "Read and write files knowing read()/readline() signal EOF with an empty string (readline keeps the newline), write()/writelines() add no newline, and a for loop iterates lines; redirect output with the print() keyword arguments end, sep, and file, and use sys.stdin/stdout/stderr (reassignable, with input() dropping the trailing newline)."
+   }
+  ]
+ },
+ {
+  "group": 94,
+  "members": [
+   {
+    "idx": 129,
+    "statement": "Give a function a documentation string as its first statement so it feeds help() and developer tools."
+   },
+   {
+    "idx": 228,
+    "statement": "Follow the function naming convention of lowercase words separated by underscores, prefixing a single underscore to mark a function as an internal helper."
+   }
+  ]
+ },
+ {
+  "group": 95,
+  "members": [
+   {
+    "idx": 131,
+    "statement": "Return multiple values from a function by packing them into a tuple that the caller unpacks into separate variables."
+   },
+   {
+    "idx": 233,
+    "statement": "Return None when there is nothing to return, a tuple for multiple values the caller unpacks, or a NamedTuple when access by named attribute also helps readability."
+   }
+  ]
+ },
+ {
+  "group": 96,
+  "members": [
+   {
+    "idx": 133,
+    "statement": "Understand that variables assigned inside a function are local and destroyed on return, while the function may still read module-global variables defined in the same file."
+   },
+   {
+    "idx": 235,
+    "statement": "Understand scoping: each call has a local namespace where assigned names are local and free variables resolve in the defining module's globals; a name's local-or-global status is fixed at definition by whether it is assigned anywhere in the body, so reading it before that assignment raises UnboundLocalError (even with a same-named global), and referencing an undefined name raises NameError."
+   },
+   {
+    "idx": 236,
+    "statement": "Know that assigning a name inside a function binds a new local and does not change the module global; use the global statement to rebind a global, but prefer encapsulating shared mutable state in a class because global is considered poor style."
+   },
+   {
+    "idx": 248,
+    "statement": "Understand the namespace functions: globals() exposes the global namespace while locals() returns a collected copy whose edits do not affect real locals, and exec(string) runs code in the caller's namespaces (where its local edits also have no effect) or in explicit dictionaries, underpinning namedtuple and @dataclass."
+   }
+  ]
+ },
+ {
+  "group": 98,
+  "members": [
+   {
+    "idx": 135,
+    "statement": "Handle exceptions with try/except where 'except T as e' binds and handles a matching error, an unmatched type still crashes, and after handling, execution resumes after the last except block and never returns to the raise site."
+   },
+   {
+    "idx": 186,
+    "statement": "Use a bare raise statement inside an except block to re-raise the exception currently being handled."
+   },
+   {
+    "idx": 187,
+    "statement": "Reference the exception variable bound by 'except T as e' only within that except block, because it becomes undefined once control leaves the block."
+   },
+   {
+    "idx": 188,
+    "statement": "Handle multiple error types with several except clauses or with a single clause listing a tuple of types, such as 'except (TypeError, ValueError) as e'."
+   },
+   {
+    "idx": 191,
+    "statement": "Use a try-else clause (placed after the last except) for code that should run only when the try block raised no exception, and a finally clause for cleanup that always runs, after which any still-pending exception is re-raised for an outer handler."
+   },
+   {
+    "idx": 192,
+    "statement": "Catch a general base exception category rather than enumerating specific types (for example LookupError covers both IndexError and KeyError), since exceptions form an inheritance hierarchy, do not appear in function signatures, and are not compiler-checked, so the set a piece of code may raise is hard to know in advance."
+   },
+   {
+    "idx": 193,
+    "statement": "Catch Exception rather than BaseException for normal program errors, because BaseException also matches control-flow exceptions such as SystemExit, KeyboardInterrupt, and StopIteration."
+   },
+   {
+    "idx": 197,
+    "statement": "Chain exceptions deliberately with 'raise New(...) from e' (which sets __cause__ for an anticipated failure), suppress the chain with 'from None', and recognize that an unexpected exception raised while handling another is recorded in __context__ (set in both cases) rather than __cause__."
+   }
+  ]
+ },
+ {
+  "group": 103,
+  "members": [
+   {
+    "idx": 141,
+    "statement": "In a method, access the instance through the explicit first parameter conventionally named self, qualifying every attribute and sibling-method reference with self."
+   },
+   {
+    "idx": 259,
+    "statement": "Operate on instance attributes through getting, setting, and deleting (attributes can be added dynamically), using getattr/setattr/delattr/hasattr for string-named access (getattr taking an optional default), and remember that accessing a method yields a bound method that automatically passes the instance as self."
+   },
+   {
+    "idx": 260,
+    "statement": "Always qualify attribute and sibling-method access with self inside methods, because a class namespace is not a name-resolution scope, unlike the implicit this of C++ or Java."
+   },
+   {
+    "idx": 287,
+    "statement": "Know that an instance's state lives in its __dict__ (where setting an attribute equals editing __dict__ unless a property or descriptor manages it), that the instance links to its class through __class__, and that the methods live in the class's own __dict__."
+   }
+  ]
+ },
+ {
+  "group": 104,
+  "members": [
+   {
+    "idx": 142,
+    "statement": "Treat a single leading underscore as a non-enforced convention marking a name as internal, since Python provides no real data hiding."
+   },
+   {
+    "idx": 274,
+    "statement": "Treat all attributes as public, reading a single leading underscore as a non-enforced internal/protected marker (a subclass may still use it) and a double leading underscore as triggering name mangling to _Classname__name (which prevents accidental subclass override, happens once at definition, and does not apply to string-based getattr); do not overthink privacy beyond this."
+   }
+  ]
+ },
+ {
+  "group": 105,
+  "members": [
+   {
+    "idx": 144,
+    "statement": "Use inheritance to extend or override a base class and call super() to invoke the base class's prior definition of an overridden method."
+   },
+   {
+    "idx": 263,
+    "statement": "When overriding __init__, always call super().__init__(...) with the required arguments or you leave a half-initialized object, and avoid hardcoding a class name in methods such as __repr__ by using type(self).__name__ so subclasses display correctly."
+   },
+   {
+    "idx": 284,
+    "statement": "Use a base class's __init_subclass__(cls), which fires automatically whenever any subclass is defined, for implicit registration, method rewriting, or validation across a whole hierarchy without decorating each class, calling super().__init_subclass__() under multiple inheritance."
+   }
+  ]
+ },
+ {
+  "group": 106,
+  "members": [
+   {
+    "idx": 145,
+    "statement": "Prefer composition over inheritance when the new type merely uses another object as a component rather than being a specialization of it."
+   },
+   {
+    "idx": 265,
+    "statement": "Prefer composition by building a type as its own class that holds another object as a private implementation detail, which gives clarity of purpose and the freedom to change the internal representation later without affecting users."
+   },
+   {
+    "idx": 267,
+    "statement": "Decide inheritance by asking whether the object is a specialized version of the parent (use inheritance) or merely uses it as a component (do not), and replace many single-method classes with plain functions, since premature abstraction is usually counterproductive."
+   }
+  ]
+ },
+ {
+  "group": 107,
+  "members": [
+   {
+    "idx": 146,
+    "statement": "Understand that import executes a module's file once into a new namespace accessed by the module-name prefix, that import X as Y aliases it, and that from X import name brings specific definitions into the current namespace."
+   },
+   {
+    "idx": 295,
+    "statement": "Understand the import mechanism: importing locates the source (raising ImportError if missing), creates and executes a module-namespace object, and binds the module name in the caller, running all top-level statements as a side effect, with the file required on sys.path and named without the .py suffix."
+   },
+   {
+    "idx": 296,
+    "statement": "Rely on module caching: a module's source executes only once and later imports bind the cached object in sys.modules (Python never auto-reloads changed source), so list imports at the top of a file but defer a rarely-used module's import into the function that needs it to speed up startup."
+   },
+   {
+    "idx": 297,
+    "statement": "Know that from-import still loads and caches the whole module (no efficiency gain) and does not change an imported function's scoping (it uses its defining module's globals), and that reassigning a from-imported name rebinds only the local, so reference module.name to share mutable global state."
+   },
+   {
+    "idx": 298,
+    "statement": "Use 'import module as name' to alias a module locally (handy for selecting a platform-specific implementation behind a common name), and avoid 'from module import *' in programs (it is top-level only, pollutes the namespace, and is controlled by __all__) in favor of importing explicit names."
+   }
+  ]
+ },
+ {
+  "group": 108,
+  "members": [
+   {
+    "idx": 147,
+    "statement": "On an ImportError, verify the module file exists and resides in a directory listed on sys.path."
+   },
+   {
+    "idx": 150,
+    "statement": "Make a package a directory containing __init__.py, and import sibling modules with fully-qualified or package-relative imports (preferring relative imports so the package name is not hardcoded), since a bare top-level import breaks once files move into a package."
+   },
+   {
+    "idx": 302,
+    "statement": "Build a package as a directory with an __init__.py that runs on import (a missing __init__ makes a rarely-wanted namespace package, so always include one), import within it using absolute or package-relative imports (relative only in the from-form and only inside a package, preferred so the package name is not hardwired), and run a submodule with python -m package.module since it cannot be run directly."
+   }
+  ]
+ },
+ {
+  "group": 109,
+  "members": [
+   {
+    "idx": 148,
+    "statement": "Guard script-only top-level code with if __name__ == '__main__' so a file works as both an importable library and a runnable script, knowing __name__ is '__main__' only when run directly."
+   },
+   {
+    "idx": 301,
+    "statement": "Know that imports search sys.path in order (the current working directory or script directory first, plus zip archives, extendable via sys.path or PYTHONPATH) and that the directly-run module is named __main__, so guard test or demo code with if __name__ == '__main__' and recall that a directory or zip containing a __main__.py is runnable with python on it."
+   }
+  ]
+ },
+ {
+  "group": 110,
+  "members": [
+   {
+    "idx": 149,
+    "statement": "Process simple command-line arguments from sys.argv and reach for the argparse module when option handling becomes complex."
+   },
+   {
+    "idx": 224,
+    "statement": "Collect extra positional arguments with a *args parameter (received as a tuple) and extra keyword arguments with a **kwargs parameter (an order-preserving dictionary handy for open-ended configuration options)."
+   },
+   {
+    "idx": 309,
+    "statement": "Read command-line arguments from sys.argv (strings, with argv[0] the program name) via a dedicated main(argv) function for testability, raising SystemExit with a usage message on error and using the argparse module for non-trivial parsing."
+   }
+  ]
+ },
+ {
+  "group": 115,
+  "members": [
+   {
+    "idx": 159,
+    "statement": "Compare values with == (sequences by length/elements/order, dictionaries by keys and values, sets by elements), noting that == on incompatible types returns False rather than raising and that numerically equal values of different numeric types compare equal."
+   },
+   {
+    "idx": 161,
+    "statement": "Know that ordered comparisons return booleans (a set tests strict subset, sequences compare lexicographically, strings by code-point) and that unsupported types such as dictionaries or mismatched types raise TypeError."
+   }
+  ]
+ },
+ {
+  "group": 116,
+  "members": [
+   {
+    "idx": 163,
+    "statement": "Avoid relying on implicit truthiness because an empty container is falsy; write precise conditional checks and compare explicitly against None when None is the intended sentinel."
+   },
+   {
+    "idx": 209,
+    "statement": "Use None as the singleton sentinel for optional or missing values (it is returned by no-return functions, serves as a default argument, is falsy, and has no attributes) and test for it with is, not == which linters may flag."
+   }
+  ]
+ },
+ {
+  "group": 128,
+  "members": [
+   {
+    "idx": 181,
+    "statement": "Use a for loop's iteration variable carefully, since it is not private to the loop: it overwrites an existing variable of the same name and retains its final value after the loop ends."
+   },
+   {
+    "idx": 240,
+    "statement": "Beware that free variables in a lambda or closure bind late (evaluated when the function runs, not when defined), so functions created inside a loop all see the loop variable's final value; capture a per-iteration value by binding it as a default argument."
+   }
+  ]
+ },
+ {
+  "group": 129,
+  "members": [
+   {
+    "idx": 185,
+    "statement": "Catch only exceptions you can actually recover from at that location and let unrecoverable ones propagate to code that can handle them, since an unmatched exception propagates outward and aborts the program if it reaches the top level uncaught; unlike error-code languages, Python expects failing operations to raise rather than be checked everywhere."
+   },
+   {
+    "idx": 189,
+    "statement": "Never silently swallow an exception with 'except ...: pass'; at minimum log or report it somewhere it can be inspected later."
+   },
+   {
+    "idx": 190,
+    "statement": "When catching broadly with 'except Exception' (which excludes exit-related exceptions), always report accurate exception details including the exception value so failures remain debuggable."
+   }
+  ]
+ },
+ {
+  "group": 130,
+  "members": [
+   {
+    "idx": 194,
+    "statement": "Know the key base exception categories (ArithmeticError, LookupError, OSError with IOError/EnvironmentError aliases, and ValueError with UnicodeError as a subclass) and that an exception's e.args holds its constructor arguments (a 2- or 3-tuple of errno, message, optional filename for OSError)."
+   },
+   {
+    "idx": 196,
+    "statement": "Define custom exceptions as classes inheriting from Exception, organized into a hierarchy so a base class catches a whole family (use type(e) to identify the subclass), passing raise values as constructor arguments and, when overriding __init__, assigning them to self.args so traceback messages stay informative."
+   },
+   {
+    "idx": 319,
+    "statement": "Handle system errors via OSError and its subclasses such as PermissionError and FileNotFoundError, inspecting the numeric errno attribute against errno-module constants like ENOSPC for specific cases."
+   }
+  ]
+ },
+ {
+  "group": 140,
+  "members": [
+   {
+    "idx": 211,
+    "statement": "Understand that instance creation runs __new__ then __init__: define __init__ for normal initialization and reserve __new__ for advanced creation logic such as caching, singletons, or immutability, where it can bypass __init__."
+   },
+   {
+    "idx": 258,
+    "statement": "Treat a class as a blueprint that creates no instances by itself: instance methods take self, __init__ initializes per-instance state (viewable with vars()), the methods live on the class while each instance links to its class via its type, and defining __repr__ aids debugging."
+   }
+  ]
+ },
+ {
+  "group": 144,
+  "members": [
+   {
+    "idx": 225,
+    "statement": "Pass keyword arguments by name in any order, placing positional arguments first and giving no argument two values, since an unknown name or a missing required argument raises TypeError."
+   },
+   {
+    "idx": 226,
+    "statement": "Force keyword-only parameters with a bare * and positional-only parameters with a / in the signature (Python 3.8+) to improve call-site readability and to avoid name clashes when a function also forwards **kwargs."
+   }
+  ]
+ },
+ {
+  "group": 145,
+  "members": [
+   {
+    "idx": 227,
+    "statement": "Use the *args/**kwargs accept-and-forward pattern to write wrappers, decorators, and proxies that pass any arguments through without needing to know the wrapped function's signature."
+   },
+   {
+    "idx": 244,
+    "statement": "Use a decorator (where @decorate is shorthand for func = decorate(func)) for cross-cutting behavior, and apply functools.wraps to the wrapper so the wrapped function's name, docstring, and other metadata are preserved."
+   }
+  ]
+ },
+ {
+  "group": 154,
+  "members": [
+   {
+    "idx": 252,
+    "statement": "Remember a generator stops at return or end by raising StopIteration (a non-None return value lands on StopIteration.value, reachable only by driving it manually), runs only once (make __iter__ a generator for repeated iteration), and must place any cleanup in a try-finally or context manager, which is guaranteed to run even if the generator is abandoned."
+   },
+   {
+    "idx": 255,
+    "statement": "Drive an enhanced generator (yield used as an expression) with send() after priming it with send(None), shut it down with close() (which raises GeneratorExit, and sending afterward raises StopIteration), and inject exceptions with throw(); such a generator can encapsulate a worker faster than an equivalent class thanks to fast local-variable access."
+   }
+  ]
+ },
+ {
+  "group": 156,
+  "members": [
+   {
+    "idx": 262,
+    "statement": "Use inheritance to specialize a base class (a class with no explicit base inherits from object), establishing an is-a relationship so a child instance passes isinstance against its parent."
+   },
+   {
+    "idx": 278,
+    "statement": "Test membership with isinstance(obj, cls), which is true for the class or any subclass, and subclass relationships with issubclass(A, B)."
+   }
+  ]
+ },
+ {
+  "group": 168,
+  "members": [
+   {
+    "idx": 303,
+    "statement": "Curate a package's public surface in __init__.py by importing selected high-level names from submodules (a bare package import runs only __init__.py), letting submodules declare their exports in __all__ that __init__ propagates with import *, which is acceptable there because __all__ controls it."
+   },
+   {
+    "idx": 305,
+    "statement": "Start every program as a package from the outset (a directory with __init__.py and __main__.py, run with python -m) rather than a single growing script, to keep code isolated from name collisions, and avoid advanced module/import hacking that causes most packaging pain."
+   }
+  ]
+ },
+ {
+  "group": 170,
+  "members": [
+   {
+    "idx": 306,
+    "statement": "Represent binary data with bytes or bytearray and text with str (indexing bytes yields integers, not characters) and maintain Python's strict separation of the two: there is no automatic conversion, cross-type comparison is False, and any operation mixing them raises an error."
+   },
+   {
+    "idx": 323,
+    "statement": "Convert between Python values and binary structures with struct.pack/unpack format codes for C interop, binary file formats, and network protocols, remembering a 32-bit float field loses precision because Python floats are 64-bit; and run python -m http.server for a quick local static-file server for testing."
+   }
+  ]
+ }
+]

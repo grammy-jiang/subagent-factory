@@ -4,14 +4,38 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P12
+  - P015
+  - P022
   claims:
-  - C013
+  - C00412
+  - C00413
+  - C00414
+  - C00415
+  - C00974
+  - C00975
+  - C00153
+  - C00154
+  - C00155
+  - C00156
+  - C00693
   evidence:
-  - E013
+  - E00168
+  - E00169
+  - E00170
+  - E00171
+  - E00278
+  - E00279
+  - E00069
+  - E00070
+  - E00071
+  - E00072
+  - E00225
   source_anchors:
-  - python-distilled-pea-1baf485f-h0260
-  authored_from_digest: 29cc90eda405f7b7ec41a363092d16d6b98bbc90e391fdb60dd34b126fba9a1e
+  - 5c81071aa988-c0036
+  - 2bf219904a5b-c0012
+  - 5c81071aa988-c0011
+  - 2bf219904a5b-c0001
+  authored_from_digest: 7fef878b4596650cbf4b43477355db548ec78b433c617e8768de4579004542f8
 ---
 
 # Review __slots__ and memory
