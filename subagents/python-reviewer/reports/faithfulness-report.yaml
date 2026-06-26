@@ -1,0 +1,148 @@
+schema_version: faithfulness-report-v1
+subagent_slug: python-reviewer
+# Tier 2 package -> faithfulness-v1: each profile rule compared against the
+# evidence records (evidence/evidence-records.yaml) and their source anchors in
+# Fluent Python (Ramalho, 2022) and Python Distilled (Beazley, 2021), the two
+# co-equal canonical sources named by source_of_truth_policy.precedence. Rules
+# were derived directly from those evidence records, so verdicts are
+# EXACT_SUPPORT or WITHIN_SCOPE. Hedged source idioms (is-for-None, data-class
+# smell, __slots__) are carried with their caveats, so no HEDGING_REMOVED and no
+# CONTRADICTED findings.
+findings:
+  - rule_ref: quality_bar[0]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: ["luciano-ramalho-flue-ca307a52-h0033", "python-distilled-pea-1baf485f-h0280"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Process rule (trace every finding to a principle). A reasonable operational
+      inference from both books' practice of grounding each critique in a named
+      idiom; not a single source sentence.
+
+  - rule_ref: quality_bar[1]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: ["luciano-ramalho-flue-ca307a52-c0920", "luciano-ramalho-flue-ca307a52-c0895"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Order by impact: the mutable-default (P04/C006) and shallow-copy aliasing
+      (P03/C004) defects are presented by the source as concrete bugs, supporting
+      ranking them ahead of cosmetic issues.
+
+  - rule_ref: quality_bar[2]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: ["luciano-ramalho-flue-ca307a52-c0920", "python-distilled-pea-1baf485f-h0221", "python-distilled-pea-1baf485f-h0018"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Minimal-fix rule. Each named feature (None default, @property, with) is the
+      exact remedy the source gives for the corresponding pattern (C006, C012, C015).
+
+  - rule_ref: quality_bar[3]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: ["luciano-ramalho-flue-ca307a52-h0883", "luciano-ramalho-flue-ca307a52-h0813", "python-distilled-pea-1baf485f-h0260"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The source itself hedges these idioms (is is "the only common use case" for
+      None; a data class "may signal" a problem with explicit exceptions; __slots__
+      carries stated trade-offs). The rule requires preserving those caveats.
+
+  - rule_ref: quality_bar[4]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: ["python-distilled-pea-1baf485f-h0210", "python-distilled-pea-1baf485f-h0101"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Distinguishing a defect (built-in subclass bypass C009; swallowed exception
+      C017) from a preference is a within-scope inference from the source's
+      defect-vs-style framing.
+
+  - rule_ref: forbidden_behaviours[0]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: ["luciano-ramalho-flue-ca307a52-h0033", "python-distilled-pea-1baf485f-h0280"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      No-verbatim-quotation rule from the rights policy; both sources are
+      distillation-only (quote_allowed:false in all evidence records). Not a
+      source claim — a policy constraint, recorded for completeness.
+
+  - rule_ref: forbidden_behaviours[1]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: ["luciano-ramalho-flue-ca307a52-h0033", "python-distilled-pea-1baf485f-h0214"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Do-not-assert-ungrounded-rules. Consistent with C002 (only documented dunder
+      use is safe) and the books' grounding discipline; a within-scope guard.
+
+  - rule_ref: forbidden_behaviours[2]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: ["python-distilled-pea-1baf485f-h0101"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Patch-suggest-only / no-silent-edit. Operational handoff policy (patch-policy.yaml),
+      not a source claim; anchored to a representative review-discipline section.
+
+  - rule_ref: forbidden_behaviours[3]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: ["luciano-ramalho-flue-ca307a52-h0883", "luciano-ramalho-flue-ca307a52-h0813", "python-distilled-pea-1baf485f-h0260"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Mirror of quality_bar[3]: preserve the source's hedges/exceptions. Directly
+      supported by the hedged source passages for C003, C005, C013.
+
+  - rule_ref: forbidden_behaviours[4]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: ["python-distilled-pea-1baf485f-h0280"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Scope boundary (no non-Python, no runtime perf, no architecture). Neither
+      book covers those topics; the exclusion anchors at section granularity to a
+      topic absent across the sources (Q4).
+
+  - rule_ref: outputs.modes[review].trigger
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: ["luciano-ramalho-flue-ca307a52-h0813", "python-distilled-pea-1baf485f-h0210"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The review mode is directly supported: both books critique existing code
+      ("code smell"; subclassing built-ins "only seems to work").
+
+  - rule_ref: outputs.modes[patch-suggest].trigger
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: ["luciano-ramalho-flue-ca307a52-c0920", "python-distilled-pea-1baf485f-h0210"]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Patch-suggest is grounded in the source's before/after fixes (HauntedBus ->
+      None default; udict -> UserDict); offered as a bounded suggestion only.

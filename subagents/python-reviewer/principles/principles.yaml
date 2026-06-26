@@ -1,0 +1,256 @@
+schema_version: principles-v1
+principles:
+- principle_id: P01
+  statement: Integrate objects with the language through the documented special (dunder) methods and let
+    built-ins like `len()`, `iter()`, and operators dispatch to them; never invent undocumented `__dunder__`
+    names.
+  derived_from_claims:
+  - C001
+  - C002
+  confidence: high
+  applies_when:
+  - a class needs to support iteration, operators, len(), subscripting, or with-blocks
+  does_not_apply_when:
+  - the code only uses plain functions and needs no integration with language protocols
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: python-special-methods-reference
+    test_cases:
+    - PB-P01
+- principle_id: P02
+  statement: Use `==` for value comparison and reserve `is` for identity against singletons — chiefly
+    `x is None` — flagging any other `is` comparison and defaulting to `==` when unsure.
+  derived_from_claims:
+  - C003
+  confidence: high
+  applies_when:
+  - code compares objects for equality or tests against None or a sentinel
+  does_not_apply_when:
+  - identity comparison against a documented singleton is exactly what is intended
+  operational_mapping:
+    profile_rule: true
+    skill: review-equality-identity-and-copies
+    reference: null
+    test_cases:
+    - PB-P02
+- principle_id: P03
+  statement: Treat `list(x)`, `x[:]`, and `copy.copy` as shallow copies that still share nested mutable
+    elements, and require `copy.deepcopy` (or an explicit deep clone) wherever independent nested copies
+    are needed.
+  derived_from_claims:
+  - C004
+  confidence: high
+  applies_when:
+  - code copies a container that holds mutable elements and then mutates a copy
+  does_not_apply_when:
+  - the container's items are all immutable so sharing references is harmless
+  operational_mapping:
+    profile_rule: true
+    skill: review-equality-identity-and-copies
+    reference: null
+    test_cases:
+    - PB-P03
+- principle_id: P04
+  statement: Flag any mutable default argument (e.g. `def f(x=[])`); require `None` as the default with
+    the object built inside the function, because a default is evaluated once and shared across calls.
+  derived_from_claims:
+  - C006
+  confidence: high
+  applies_when:
+  - a function or method signature uses a list, dict, set, or other mutable as a default value
+  does_not_apply_when:
+  - the default value is immutable (None, a number, a string, a tuple, or a frozen type)
+  operational_mapping:
+    profile_rule: true
+    skill: review-mutable-default-arguments
+    reference: null
+    test_cases:
+    - PB-P04
+- principle_id: P05
+  statement: Flag a class that is only data with getters/setters and no behaviour as a Data Class smell
+    and recommend moving the related behaviour into it — unless it is deliberate scaffolding or an immutable
+    intermediate representation crossing a boundary.
+  derived_from_claims:
+  - C005
+  confidence: high
+  applies_when:
+  - a class exposes fields and accessors but no significant behaviour, and logic over it lives elsewhere
+  does_not_apply_when:
+  - the class is short-lived scaffolding or an immutable record used only to import/export data (e.g.
+    JSON)
+  operational_mapping:
+    profile_rule: true
+    skill: review-class-design-smells
+    reference: null
+    test_cases:
+    - PB-P05
+- principle_id: P06
+  statement: Prefer short, side-effect-free comprehensions and generator expressions over `map`/`filter`
+    or accumulation loops, but recommend a plain loop or named generator function once a comprehension
+    grows past a couple of lines or exists only for side effects.
+  derived_from_claims:
+  - C007
+  confidence: high
+  applies_when:
+  - code builds a list, dict, or set, or uses map/filter, or runs a comprehension for its side effects
+  does_not_apply_when:
+  - the existing comprehension is short, pure, and already the most readable form
+  operational_mapping:
+    profile_rule: true
+    skill: review-comprehension-style
+    reference: null
+    test_cases:
+    - PB-P06
+- principle_id: P07
+  statement: Recommend inheritance only for a genuine is-a specialization; when an object merely uses
+    another as a component, prefer composition and delegation for looser coupling and hidden implementation
+    detail.
+  derived_from_claims:
+  - C008
+  confidence: high
+  applies_when:
+  - a design uses (or proposes) subclassing to reuse another class's functionality
+  does_not_apply_when:
+  - the subclass is a true behavioural specialization of its parent (is-a)
+  operational_mapping:
+    profile_rule: true
+    skill: review-inheritance-and-composition
+    reference: null
+    test_cases:
+    - PB-P07
+- principle_id: P08
+  statement: Flag subclassing of built-in `dict`, `list`, or `str` because their C-level methods bypass
+    overridden dunder methods; recommend `collections.UserDict`/`UserList`/`UserString` or composition
+    instead.
+  derived_from_claims:
+  - C009
+  confidence: high
+  applies_when:
+  - code subclasses a built-in container or string type and overrides its dunder methods
+  does_not_apply_when:
+  - no built-in type is being subclassed, or the standard User* base classes are already used
+  operational_mapping:
+    profile_rule: true
+    skill: review-inheritance-and-composition
+    reference: null
+    test_cases:
+    - PB-P08
+- principle_id: P09
+  statement: 'Favour duck typing: have code depend on the attributes and methods (the protocol) an object
+    supports rather than on its concrete class or an explicit type check.'
+  derived_from_claims:
+  - C010
+  confidence: medium
+  applies_when:
+  - code performs isinstance/type checks that could instead rely on the object's protocol
+  does_not_apply_when:
+  - a genuine type guard is required for correctness, safety, or dispatch
+  operational_mapping:
+    profile_rule: true
+    skill: review-duck-typing-and-protocols
+    reference: null
+    test_cases:
+    - PB-P09
+- principle_id: P10
+  statement: Use a single leading underscore to signal an internal attribute (a convention, not enforcement)
+    and reserve double-underscore name-mangling for avoiding attribute clashes across inheritance, not
+    as a general privacy mechanism.
+  derived_from_claims:
+  - C011
+  confidence: high
+  applies_when:
+  - a class exposes internal state and the review concerns naming/encapsulation conventions
+  does_not_apply_when:
+  - the attribute is genuinely part of the public interface
+  operational_mapping:
+    profile_rule: true
+    skill: review-encapsulation-and-properties
+    reference: null
+    test_cases:
+    - PB-P10
+- principle_id: P11
+  statement: Discourage Java-style get/set method pairs; expose plain attributes and introduce `@property`
+    only for validation or computed/read-only values, preserving a uniform attribute-access interface.
+  derived_from_claims:
+  - C012
+  confidence: high
+  applies_when:
+  - a class adds explicit getX/setX methods, or needs validation or a computed attribute
+  does_not_apply_when:
+  - a property already exists where validation or computation is genuinely required
+  operational_mapping:
+    profile_rule: true
+    skill: review-encapsulation-and-properties
+    reference: null
+    test_cases:
+    - PB-P11
+- principle_id: P12
+  statement: Recommend `__slots__` only as a targeted memory optimization for classes instantiated in
+    large numbers with a fixed attribute set, and call out its trade-offs with inheritance and loss of
+    `__dict__`.
+  derived_from_claims:
+  - C013
+  confidence: medium
+  applies_when:
+  - a class is instantiated in very large numbers with a fixed, known set of attributes
+  does_not_apply_when:
+  - instance counts are small, attributes are dynamic, or the class relies on inheritance or __dict__
+  operational_mapping:
+    profile_rule: true
+    skill: review-slots-and-memory
+    reference: null
+    test_cases:
+    - PB-P12
+- principle_id: P13
+  statement: Hold designs to the simplest construct that works — a plain class ahead of metaclasses, descriptors,
+    multiple inheritance, or mixins — and treat code that is hard to read, observe, debug, or test as
+    a signal to reorganize.
+  derived_from_claims:
+  - C014
+  confidence: high
+  applies_when:
+  - a design reaches for advanced metaprogramming or deep abstraction layers
+  does_not_apply_when:
+  - the advanced construct is genuinely required and a simpler form was shown to be insufficient
+  operational_mapping:
+    profile_rule: true
+    skill: review-class-design-smells
+    reference: null
+    test_cases:
+    - PB-P13
+- principle_id: P14
+  statement: Require resources such as files, locks, and connections to be managed with `with`/context
+    managers rather than manual open/close so cleanup is guaranteed on every path, including errors.
+  derived_from_claims:
+  - C015
+  confidence: high
+  applies_when:
+  - code acquires a file, lock, socket, or other resource that must be released
+  does_not_apply_when:
+  - the resource is already managed by a with-statement or an equivalent context manager
+  operational_mapping:
+    profile_rule: true
+    skill: review-resource-and-exception-handling
+    reference: null
+    test_cases:
+    - PB-P14
+- principle_id: P15
+  statement: 'Hold exception handling to three rules: let an exception propagate when there is no sensible
+    local recovery, keep `except` clauses as narrow as reasonable instead of a blanket `except Exception`,
+    and define custom exception types for intentional errors.'
+  derived_from_claims:
+  - C016
+  - C017
+  - C018
+  confidence: high
+  applies_when:
+  - code catches, raises, or re-raises exceptions, or uses try/except for control flow
+  does_not_apply_when:
+  - a deliberate top-level boundary intentionally catches broadly to log and shut down cleanly
+  operational_mapping:
+    profile_rule: true
+    skill: review-resource-and-exception-handling
+    reference: null
+    test_cases:
+    - PB-P15
