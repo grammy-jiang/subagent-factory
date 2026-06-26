@@ -1,5 +1,29 @@
 # Changelog — test-driven-development-advisor
 
+## 0.3.0 — 2026-06-26
+
+### Changed
+
+- **Full-book rebuild.** Re-grounded the package on the complete *Test-Driven Development
+  By Example* (full 11-chunk ingestion `kent-beck-tdd-by-exa-e619fe9a`, chunk-anchored)
+  produced by the per-book map→reduce authoring upgrade, superseding the 0.1.0 66-page
+  partial. Distilled spine: 251 claims (`C#####`), 145 evidence records, 45 principles
+  (P001–P045; 41 high-confidence). Spine assembled deterministically — not edited here.
+- Reconciled the source layer to the distilled spine: added the full source markdown +
+  metadata + conversion report for `kent-beck-tdd-by-exa-e619fe9a` and pointed
+  `source-pack.manifest.yaml` and `profile.yaml` `sources[]` at it (the prior partial
+  `kent-beck-test-drive-47a4610a` ingestion is no longer referenced by any claim/evidence).
+- Re-derived the profile rules' principle citations onto the new P001–P045 numbering;
+  `sources[]` sha256 now matches the full-book ingestion.
+- Re-grounded all three skills + the `tdd-to-do-list` reference onto the rebuilt
+  principles/claims/chunk-anchors (provenance now resolves to real `C#####` /
+  `e619fe9a0394-c####` ids; stale `TDD-###` citations removed; drift digests re-stamped).
+- Regenerated `tests/principle-behaviour-tests.yaml` to cover every high-confidence
+  principle (41 behaviour tests) and `reports/faithfulness-report.yaml` against the new
+  chunk anchors.
+- Re-exported the Claude Code adapter (invariant layer recompiled from the 41 must-hold
+  principles). Bumped `agent_version` 0.2.0 → 0.3.0.
+
 ## 0.2.0 — 2026-06-26
 
 ### Added

@@ -1,101 +1,459 @@
 schema_version: principle-behaviour-tests-v1
 subagent_slug: test-driven-development-advisor
-generated_at: "2026-06-15"
+generated_at: "2026-06-26"
 
 principle_behaviour_tests:
 
   - test_id: PB-001
     principle_id: P001
     mode: advise
-    prompt: >-
-      I need to add a discount calculation. Just give me the steps to do it the TDD way.
+    prompt: "I have a Money class whose amount field gets mutated by callers and causes aliasing bugs. How should I design it test-first?"
     expected_behaviour:
-      - Sequences the work as red/green/refactor — one small failing test first, then smallest change to green, then refactor.
-      - Confirms running all tests and seeing the new one fail before any production code.
-      - Names which step each instruction serves.
-      - Cites P001.
+      - "Recommends a Value Object: set state at construction, never mutate, return a new object from each operation"
+      - "Says to implement equality (and usually hashing) and only address allocation cost with profiling on real usage"
+      - "Cites P001"
     must_not:
-      - Suggest writing the implementation before a failing test exists.
-      - Skip the refactor step.
+      - "Suggest adding setters or mutating in place"
+      - "Optimize allocation before any measured complaint"
 
   - test_id: PB-002
     principle_id: P002
-    mode: review
-    prompt: >-
-      My teammate wrote the whole feature, then added tests afterward that all pass. That's TDD, right?
+    mode: advise
+    prompt: "Give me the TDD steps to add a discount calculation."
     expected_behaviour:
-      - States this violates the rule to write a failing test before production code.
-      - Notes the second rule — remove duplication once tests pass — as part of TDD.
-      - Explains why test-after differs from test-first.
-      - Cites P002.
+      - "Sequences red/green/refactor: small failing test, quickest pass even if expedient, then remove duplication"
+      - "Says run all tests after each small change"
+      - "Cites P002"
     must_not:
-      - Endorse test-after as equivalent to TDD.
+      - "Write production code before a failing test"
+      - "Skip the refactor step"
+
+  - test_id: PB-003
+    principle_id: P003
+    mode: review
+    prompt: "Our unit tests share state and one takes 8 seconds because it boots the whole app. Is that fine?"
+    expected_behaviour:
+      - "Flags lost isolation and slow tests; tests must not affect one another and must be fast enough to run often"
+      - "Says to test at a smaller scale than the whole application, which pushes a cohesive, loosely coupled design"
+      - "Cites P003"
+    must_not:
+      - "Endorse shared mutable state between tests"
+      - "Treat whole-app boot per test as acceptable"
 
   - test_id: PB-004
     principle_id: P004
     mode: advise
-    prompt: >-
-      I can't get a clean elegant implementation for this failing test. I've been stuck an hour
-      designing it. What do I do?
+    prompt: "My test is red and I keep trying to design the perfect implementation. What do I do?"
     expected_behaviour:
-      - Tells the developer to get to green first with the simplest thing that works, even if ugly.
-      - Then requires an immediate refactor to remove the duplication introduced.
-      - Separates make-it-work from make-it-clean.
-      - Cites P004.
+      - "Says attack duplication first — including duplication between test data and code — so the next test passes with one change"
+      - "Separates getting to green from removing duplication"
+      - "Cites P004"
     must_not:
-      - Tell the developer to keep designing the perfect solution before any test passes.
-      - Allow the ugly green solution to be left un-refactored.
+      - "Tell them to perfect the design before green"
+
+  - test_id: PB-005
+    principle_id: P005
+    mode: compare
+    prompt: "My bar is red. Should I just type the real code, fake it, or triangulate?"
+    expected_behaviour:
+      - "Contrasts Fake It, Obvious Implementation, and Triangulation and matches them to confidence and evidence"
+      - "Says downshift to Fake It on an unexpected red bar and reserve Triangulation for when unsure how to refactor"
+      - "Cites P005"
+    must_not:
+      - "Recommend Triangulation when the implementation is already obvious"
 
   - test_id: PB-006
     principle_id: P006
-    mode: compare
-    prompt: >-
-      Should I type in the real code, return a hard-coded value, or write a second example first?
+    mode: advise
+    prompt: "I see ten tests I'll eventually need. Should I write them all now?"
     expected_behaviour:
-      - Maps Obvious Implementation to when the real code is clear.
-      - Maps Fake It (return a constant, then generalise) to when it is not.
-      - Maps Triangulation (two or more examples) to justifying an abstraction.
-      - Notes falling back from Obvious Implementation to Fake It on an unexpected red bar.
-      - Cites P006.
+      - "Says do not implement all at once; stay never more than one change from green and record newly-implied tests on the list"
+      - "Says handle leftover items at session end and never defer a test you suspect might fail"
+      - "Cites P006"
     must_not:
-      - Assert one strategy as always correct without tying it to confidence/evidence.
+      - "Tell them to write all ten tests up front at once"
+
+  - test_id: PB-007
+    principle_id: P007
+    mode: advise
+    prompt: "I'm unsure whether my generalization is right after one example. When should I triangulate?"
+    expected_behaviour:
+      - "Says triangulate conservatively, only once two or more examples demand it and you are very unsure of the abstraction"
+      - "Otherwise type the Obvious Implementation, downshifting to smaller steps when red bars surprise you"
+      - "Cites P007"
+    must_not:
+      - "Triangulate from a single example by default"
 
   - test_id: PB-008
     principle_id: P008
     mode: advise
-    prompt: >-
-      I just don't like that this method mutates its object, but I can't explain why it's wrong.
+    prompt: "I have near-duplicate subclasses and clients that new up concrete types. How do I remove the duplication?"
     expected_behaviour:
-      - Suggests turning the objection into a concrete failing test (e.g. multiply the same object twice and assert it is unchanged).
-      - Frames the design disagreement as a testable case rather than an abstract debate.
-      - Cites P008.
+      - "Suggests structural moves: factory methods to decouple clients from concrete subclasses, reconcile near-duplicate methods, push identical members up"
+      - "Ties each move to removing duplication"
+      - "Cites P008"
     must_not:
-      - Resolve the design debate purely in the abstract with no test.
+      - "Leave the duplication because tests pass"
 
   - test_id: PB-009
     principle_id: P009
-    mode: advise
-    prompt: >-
-      While doing this change I keep noticing other tests I should write and cleanups I should do.
-      It's overwhelming. How do I keep going?
+    mode: review
+    prompt: "A teammate edited model code with no test, just eyeballing the output. Acceptable?"
     expected_behaviour:
-      - Recommends a running to-do list of tests to write and refactorings to make.
-      - Advises adding items as discovered, working one at a time, and crossing them off.
-      - Keeps the current small step in focus so nothing is lost.
-      - Cites P009.
+      - "Says never change real model code without a supporting test; the conservative red-bar response is back out to green, write the test, fix, reapply"
+      - "Notes the narrow exceptions (immediately-visible low-risk output, or already on a red bar) and prefers not to author a new test while red"
+      - "Cites P009"
     must_not:
-      - Tell the developer to handle all discovered work at once.
+      - "Endorse routinely changing model code without tests"
 
   - test_id: PB-010
     principle_id: P010
     mode: advise
-    prompt: >-
-      We want to design the whole class hierarchy up front before writing any tests so we never
-      have to change it. Good plan?
+    prompt: "How should I start a TDD session for a new feature?"
     expected_behaviour:
-      - Advises growing the design organically, one design decision at a time via refactoring.
-      - Recommends starting from the simplest case and proceeding to the more complex in small increments.
-      - Cautions against committing the whole structure up front.
-      - Cites P010.
+      - "Says write down the list of tests you'll need first — every operation, degenerate/null cases, and refactorings — rather than holding it in your head"
+      - "Says never take a step without knowing where your foot will land"
+      - "Cites P010"
     must_not:
-      - Endorse full up-front design as the TDD approach.
+      - "Tell them to keep the plan only in their head"
+
+  - test_id: PB-011
+    principle_id: P011
+    mode: advise
+    prompt: "My class depends on a slow external billing service and the tests are flaky and slow. How do I test it?"
+    expected_behaviour:
+      - "Suggests a Mock Object returning constants for performance, reliability, readability, and lower coupling"
+      - "Says mitigate mock/real divergence with a shared test set run against both"
+      - "Cites P011"
+    must_not:
+      - "Ignore the divergence risk between mock and real"
+
+  - test_id: PB-012
+    principle_id: P012
+    mode: advise
+    prompt: "I'm stopping for the day mid-feature, and separately what about before a team check-in?"
+    expected_behaviour:
+      - "Solo: leave the last test broken as a concrete bookmark"
+      - "Team: end with all tests passing, make every test pass before check-in, never comment out a test to green the suite"
+      - "Cites P012"
+    must_not:
+      - "Comment out a failing test to make the suite pass before check-in"
+
+  - test_id: PB-013
+    principle_id: P013
+    mode: advise
+    prompt: "Can application-level tests capture what users want, and how do I adopt them?"
+    expected_behaviour:
+      - "Says application tests capture real user wants but carry fixturing and organizational challenges"
+      - "Says establish red-green-refactor in your own practice first, keep programmer-TDD for immediate green bars, then spread the practice"
+      - "Cites P013"
+    must_not:
+      - "Roll application tests org-wide before practicing TDD yourself"
+
+  - test_id: PB-014
+    principle_id: P014
+    mode: advise
+    prompt: "We want TDD on a big untested legacy system. Where do we start?"
+    expected_behaviour:
+      - "Says do not test and refactor the whole system at once; limit scope and leave working-but-ugly parts alone"
+      - "Says break the test/refactor deadlock with other feedback — a careful partner, imperfect system-level tests"
+      - "Cites P014"
+    must_not:
+      - "Advise a full system-wide test-and-refactor at once"
+
+  - test_id: PB-015
+    principle_id: P015
+    mode: advise
+    prompt: "I just got a red bar and feel stuck. Is red progress?"
+    expected_behaviour:
+      - "Frames a red bar as concrete progress; in green aim only to pass the test"
+      - "Then generalize the limited implementation before moving to the next test"
+      - "Cites P015"
+    must_not:
+      - "Tell them red means failure and to over-build past the test"
+
+  - test_id: PB-016
+    principle_id: P016
+    mode: review
+    prompt: "Our CI takes hours and integration is rare. How does TDD help?"
+    expected_behaviour:
+      - "Says integrate at each passing test with duplication removed to keep CI cycles ~15–30 minutes"
+      - "Says achieve simple design by coding only what tests need; a growing suite enables bolder refactorings"
+      - "Cites P016"
+    must_not:
+      - "Recommend big-bang integration far apart"
+
+  - test_id: PB-017
+    principle_id: P017
+    mode: advise
+    prompt: "This problem is hard and my steps keep failing. How big should each step be?"
+    expected_behaviour:
+      - "Says work in small increments, each test a tiny slice; take smaller steps the harder the problem"
+      - "Notes you retain the ability to take larger steps when confident"
+      - "Cites P017"
+    must_not:
+      - "Insist on one fixed large step size regardless of difficulty"
+
+  - test_id: PB-018
+    principle_id: P018
+    mode: advise
+    prompt: "Where do I begin testing a brand-new operation?"
+    expected_behaviour:
+      - "Says start from the simplest failing test"
+      - "Imagine the ideal interface and work backward from that API"
+      - "Cites P018"
+    must_not:
+      - "Start from the most complex case"
+
+  - test_id: PB-019
+    principle_id: P019
+    mode: advise
+    prompt: "I can't see the real implementation yet but want momentum. What now?"
+    expected_behaviour:
+      - "Says reach green with Fake It — return a constant, then transform into a real expression"
+      - "Says a green bar gives certainty and scope control, generalizing from one concrete example"
+      - "Cites P019"
+    must_not:
+      - "Stall on a red bar rather than fake to green"
+
+  - test_id: PB-020
+    principle_id: P020
+    mode: advise
+    prompt: "How do I test error-handling code that almost never runs?"
+    expected_behaviour:
+      - "Suggests a Crash Test Dummy that throws instead of doing real work, overriding just the one method needed"
+      - "Justifies it because untested code does not work and keeps the test readable"
+      - "Cites P020"
+    must_not:
+      - "Leave the rarely-invoked error path untested"
+
+  - test_id: PB-021
+    principle_id: P021
+    mode: review
+    prompt: "My test prints values and I eyeball them; assertEquals(actual, expected). Any issues?"
+    expected_behaviour:
+      - "Says automate checking with specific boolean assertions that remove human judgment"
+      - "Says put the expected value first and assert observable behavior, not implementation details, so the test survives representation change"
+      - "Cites P021"
+    must_not:
+      - "Endorse manual eyeballing of output"
+
+  - test_id: PB-022
+    principle_id: P022
+    mode: review
+    prompt: "Our tests fail in cascades and depend on run order. Why?"
+    expected_behaviour:
+      - "Diagnoses test coupling; run each test in a fresh instance with freshly created objects"
+      - "Says this keeps tests order-independent so one failure means one problem, balancing performance against isolation"
+      - "Cites P022"
+    must_not:
+      - "Accept order-dependent tests sharing instances"
+
+  - test_id: PB-023
+    principle_id: P023
+    mode: advise
+    prompt: "I don't know how to structure a complicated test. Where do I start writing it?"
+    expected_behaviour:
+      - "Says write the assertions first and work backward to the setup they require"
+      - "Frames building from the stories/tests/asserts you want, separating 'right answer?' and 'how to check?' from other problems"
+      - "Cites P023"
+    must_not:
+      - "Write elaborate setup before knowing the assertion"
+
+  - test_id: PB-024
+    principle_id: P024
+    mode: review
+    prompt: "My test reuses the constant 5 for the price, the quantity, and the id. Fine?"
+    expected_behaviour:
+      - "Flags reusing one constant for multiple meanings; choose data that reads clearly for a future human"
+      - "Says make any difference between values meaningful so a reversed-argument bug cannot hide"
+      - "Cites P024"
+    must_not:
+      - "Endorse the same constant meaning several things"
+
+  - test_id: PB-025
+    principle_id: P025
+    mode: advise
+    prompt: "My test turned out way too big to get to green. What do I do?"
+    expected_behaviour:
+      - "Says write a smaller child test for the broken part, get it running, then reintroduce the larger test"
+      - "Says pause to learn what would have made it smaller; minimizing red-bar time is worth the effort"
+      - "Cites P025"
+    must_not:
+      - "Grind on the oversized test while red"
+
+  - test_id: PB-026
+    principle_id: P026
+    mode: review
+    prompt: "My test methods are long and named test1, test2. Improve them?"
+    expected_behaviour:
+      - "Says name each test method with a 'test' prefix whose remainder explains why it exists"
+      - "Keep methods short, readable, straight-line; categories become documentation of the class contract"
+      - "Cites P026"
+    must_not:
+      - "Keep opaque names and long test bodies"
+
+  - test_id: PB-027
+    principle_id: P027
+    mode: advise
+    prompt: "Two algorithms share an invariant sequence but differ in one step. How to structure them?"
+    expected_behaviour:
+      - "Suggests a Template Method written in terms of other methods, with the varying substep abstract when meaningless without it"
+      - "Says discover templates through refactoring rather than up-front design before moving to the superclass"
+      - "Cites P027"
+    must_not:
+      - "Design the template up front before any duplication appears"
+
+  - test_id: PB-028
+    principle_id: P028
+    mode: advise
+    prompt: "I have two similar methods I want to merge. How?"
+    expected_behaviour:
+      - "Says bring them gradually closer and merge only when absolutely identical"
+      - "Applies at every scale and sometimes works backward by making the last step trivial"
+      - "Cites P028"
+    must_not:
+      - "Merge two not-yet-identical pieces in one leap"
+
+  - test_id: PB-029
+    principle_id: P033
+    mode: review
+    prompt: "Is writing the code first and tests later still TDD if everything passes?"
+    expected_behaviour:
+      - "States the two core rules: write production code only for a currently failing test, and continuously eliminate duplication"
+      - "Explains test-after is not test-first"
+      - "Cites P033"
+    must_not:
+      - "Endorse test-after as equivalent to TDD"
+
+  - test_id: PB-030
+    principle_id: P034
+    mode: advise
+    prompt: "I'm mixing cleanup with getting the feature working and it's slow. Advice?"
+    expected_behaviour:
+      - "Says make it work first, make it clean second"
+      - "Quick green excuses expedient code only until the refactor step completes"
+      - "Cites P034"
+    must_not:
+      - "Tell them to perfect cleanliness before green"
+
+  - test_id: PB-031
+    principle_id: P035
+    mode: compare
+    prompt: "Should every TDD step be the same tiny size?"
+    expected_behaviour:
+      - "Frames TDD as a steering process with no single right step size"
+      - "Bigger steps when confident, smaller steps when unsure"
+      - "Cites P035"
+    must_not:
+      - "Mandate one fixed step size always"
+
+  - test_id: PB-032
+    principle_id: P036
+    mode: advise
+    prompt: "My code branches on getClass()/instanceof everywhere. How do I clean it test-first?"
+    expected_behaviour:
+      - "Says replace explicit class checks with polymorphism"
+      - "Promote a shared method onto a common interface so dispatch eliminates casts and class checks"
+      - "Cites P036"
+    must_not:
+      - "Add more instanceof branches"
+
+  - test_id: PB-033
+    principle_id: P037
+    mode: review
+    prompt: "I have two tests that overlap. Should I delete one?"
+    expected_behaviour:
+      - "Says keep a redundant test if removing it would cut confidence or if it communicates a distinct scenario"
+      - "Delete the less useful one only when redundant on both confidence and communication"
+      - "Cites P037"
+    must_not:
+      - "Delete a test that still adds confidence or communicates a distinct case"
+
+  - test_id: PB-034
+    principle_id: P038
+    mode: advise
+    prompt: "I keep adding features while refactoring at the same time and it's chaos."
+    expected_behaviour:
+      - "Says focus on one mode at a time: adding functionality only tries to pass a test; refactoring only improves design"
+      - "Describes the resulting 'rapid unhurriedness' where one-thing-at-a-time is fast"
+      - "Cites P038"
+    must_not:
+      - "Encourage adding behavior during a refactor"
+
+  - test_id: PB-035
+    principle_id: P039
+    mode: advise
+    prompt: "My code only works for the one value in my test. How do I generalize?"
+    expected_behaviour:
+      - "Says generalize by replacing constants with variables"
+      - "Rely on TDD's concrete running examples rather than abstract reasoning"
+      - "Cites P039"
+    must_not:
+      - "Generalize by abstract speculation with no example"
+
+  - test_id: PB-036
+    principle_id: P040
+    mode: review
+    prompt: "Each test rebuilds its objects inline and they differ subtly. Better approach?"
+    expected_behaviour:
+      - "Says build a clean fixture in setUp() before each test, favoring simplicity of writing over raw performance"
+      - "Says stop a test checking something only when another test reliably covers it"
+      - "Cites P040"
+    must_not:
+      - "Drop an assertion with nothing else covering it"
+
+  - test_id: PB-037
+    principle_id: P041
+    mode: advise
+    prompt: "Is test-first mainly about catching regressions?"
+    expected_behaviour:
+      - "Says write the test before the code it tests"
+      - "Frames test-first primarily as a design and scope-control tool, not after-the-fact verification"
+      - "Cites P041"
+    must_not:
+      - "Reduce test-first to mere regression checking done afterward"
+
+  - test_id: PB-038
+    principle_id: P042
+    mode: advise
+    prompt: "Which test should I pick next from my list?"
+    expected_behaviour:
+      - "Says pick a next test that will teach you something and that you are confident you can implement"
+      - "Grow the program from the known toward the unknown"
+      - "Cites P042"
+    must_not:
+      - "Pick a test you have no idea how to implement just because it's hard"
+
+  - test_id: PB-039
+    principle_id: P043
+    mode: advise
+    prompt: "I'm starting a brand new piece from scratch. What's the very first test?"
+    expected_behaviour:
+      - "Says start with a degenerate Starter Test whose output equals its input, with the smallest possible input"
+      - "Keep the red-green-refactor loop to minutes via trivially easy inputs and outputs"
+      - "Cites P043"
+    must_not:
+      - "Open with a large, complex first test"
+
+  - test_id: PB-040
+    principle_id: P044
+    mode: advise
+    prompt: "I need a variant behavior. Should I add an if-statement?"
+    expected_behaviour:
+      - "Says introduce variation by adding a new implementation of an existing protocol (Imposter) rather than conditional logic"
+      - "Add an if only when there is one obvious place and no duplicated logic"
+      - "Cites P044"
+    must_not:
+      - "Default to scattering conditional logic for every variation"
+
+  - test_id: PB-041
+    principle_id: P045
+    mode: advise
+    prompt: "My method is long and tangled; separately I over-extracted tiny methods. Refactor?"
+    expected_behaviour:
+      - "Says use Extract Method to turn part of a long method into a well-named method"
+      - "Use Inline Method to collapse twisted control flow or reel back from over-abstraction"
+      - "Cites P045"
+    must_not:
+      - "Tell them extraction is always good and never inline"
