@@ -4,35 +4,45 @@ kind: reference
 status: ready
 provenance:
   principles:
-  - P004
-  - P005
-  - P006
-  - P007
+  - P043
+  - P044
+  - P045
+  - P015
   - P008
-  - P009
+  - P046
+  - P047
+  - P004
+  - P007
   claims:
-  - C029
-  - C030
-  - C032
-  - C033
-  - C036
-  - C037
-  - C043
-  - C044
-  - C046
-  - C049
-  - C050
-  - C054
-  - C055
-  - C056
+  - C00085
+  - C00086
+  - C00087
+  - C00088
+  - C00096
+  - C00099
+  - C00100
+  - C00101
+  - C00102
+  - C00103
+  - C00104
+  - C00106
+  evidence:
+  - E00048
+  - E00049
+  - E00050
+  - E00051
+  - E00059
+  - E00060
+  - E00061
+  - E00062
+  - E00063
+  - E00064
+  - E00065
+  - E00066
   source_anchors:
-  - domaindrivendesignqu-20260612231910-h0022
-  - domaindrivendesignqu-20260612231910-h0023
-  - domaindrivendesignqu-20260612231910-h0025
-  - domaindrivendesignqu-20260612231910-h0029
-  - domaindrivendesignqu-20260612231910-h0031
-  - domaindrivendesignqu-20260612231910-h0032
-  authored_from_digest: 2068fe14f260d46b5b63b5a03552a2bfd537df938d3a96228454a33985477c0c
+  - 9e0c1e6c6dd6-c0004
+  - 9e0c1e6c6dd6-c0005
+  authored_from_digest: 7907beb87aff35cd9d88455baec2dcf4f0c38f986bb72849abf3f1dcc839427b
 ---
 
 # Building Block Pattern Summaries
@@ -67,9 +77,4 @@ Prefer Value Objects over Entities: unnecessary entities add tracking overhead a
 
 ## Provenance
 
-Derived from "Domain-Driven Design Quickly" (Avram & Marinescu, InfoQ 2006), sections
-covering Entities (h0022), Value Objects (h0023), Services (h0025), Aggregates (h0029),
-Factories (h0031), and Repositories (h0032) in source
-`domaindrivendesignqu-20260612231910`. Grounded in principles P004-P009 and claims
-C029, C030, C032, C033, C036, C037, C043, C044, C046, C049, C050, C054, C055, C056.
-Source is `distillation-only` — all content paraphrased, no verbatim passages.
+Grounded in principles P043, P044, P045, P015, P008, P046, P047, P004, P007 of this package, derived from Eric Evans, "Domain-Driven Design: Tackling Complexity in the Heart of Software" (Addison-Wesley, 2003). Representative chunk anchors: `9e0c1e6c6dd6-c0004`, `9e0c1e6c6dd6-c0005`. Source rights: `distillation-only` — all content is paraphrased; no verbatim quotation.

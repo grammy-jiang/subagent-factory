@@ -4,14 +4,50 @@ kind: skill
 status: ready
 provenance:
   principles:
+  - P012
   - P013
+  - P034
+  - P014
+  - P009
+  - P022
+  - P007
+  - P017
+  - P018
+  - P015
+  - P027
+  - P049
+  - P026
+  - P005
   claims:
-  - C088
-  - C089
-  - C090
+  - C00406
+  - C00407
+  - C00408
+  - C00409
+  - C00410
+  - C00411
+  - C00419
+  - C00420
+  - C00421
+  - C00422
+  - C00423
+  - C00424
+  evidence:
+  - E00222
+  - E00223
+  - E00224
+  - E00225
+  - E00226
+  - E00227
+  - E00233
+  - E00234
+  - E00235
+  - E00236
+  - E00237
+  - E00238
   source_anchors:
-  - domaindrivendesignqu-20260612231910-h0064
-  authored_from_digest: e3468ef6b24ca79811b021ea32053e32dfd17035bb857f3bcb3d231bbc37618c
+  - 9e0c1e6c6dd6-c0022
+  - 9e0c1e6c6dd6-c0023
+  authored_from_digest: 777bdb19ee4e9cb07abe5ddce4cdb755a6b5610bb2e294e35919a1060fa601a7
 ---
 
 # Domain Distillation
@@ -43,14 +79,14 @@ and whether staffing and implementation choices reflect that priority.
 Determine which part of the model captures the essence of the system's unique
 business purpose — the primary source of its competitive or operational value.
 The Core is context-specific: a concept that is central to one system may be a
-generic supporting concern in another (C091). Verify that the team can articulate
+generic supporting concern in another. Verify that the team can articulate
 what the Core is and distinguish it from the surrounding model.
 
 ### 2. Check whether the Core is small and explicitly marked
 
 Assess whether the model has been boiled down so that the Core concepts stand out
 clearly from supporting material. A well-distilled Core is deliberately made small;
-all other parts of the model should be justified by how they support it (C089).
+all other parts of the model should be justified by how they support it.
 Flag any model where Core concepts are indistinguishable from generic ones — this
 is a distillation gap.
 
@@ -60,7 +96,7 @@ Review whether the best available developers are assigned to the Core Domain. If
 the Core receives less senior attention than supporting subdomains, or if core
 developers are routinely pulled onto generic work, flag this as a priority
 misalignment. Mistakes in Core Domain design are harder to recover from than
-deficiencies elsewhere (P013, C089).
+deficiencies elsewhere.
 
 ### 4. Identify Generic Subdomains
 
@@ -69,12 +105,12 @@ the project's motivating purpose — standard accounting logic, generic scheduli
 common charting, general currency handling, and similar concerns that appear in
 many systems. These are Generic Subdomains. Verify that they have been factored
 into separate Modules and that no project-specific specialties are embedded in
-them (C090).
+them.
 
 ### 5. Evaluate Generic Subdomain implementation routes
 
 For each Generic Subdomain, determine which of the four available routes has been
-chosen or should be chosen (C092):
+chosen or should be chosen:
 
 | Route | Description | Key trade-off |
 |---|---|---|
@@ -84,14 +120,14 @@ chosen or should be chosen (C092):
 | In-house implementation | Build it internally | Highest integration control; consumes team capacity that could serve the Core |
 
 Flag cases where core developers are building generic subdomains that could be
-sourced externally without meaningful loss (C090).
+sourced externally without meaningful loss.
 
 ### 6. Confirm lower priority for Generic Subdomains
 
 Verify that Generic Subdomains receive lower development priority than the Core
 and that core developers are not routinely assigned to them. The goal is to
 preserve the team's best design capacity for the work that differentiates the
-system (P013, C090).
+system.
 
 ### 7. Recognise that the Core emerges iteratively
 
@@ -99,7 +135,7 @@ The Core Domain does not appear fully formed in one step. It becomes clearer
 through successive refactorings as the model matures. Check whether the team
 treats Core identification as an ongoing activity and re-examines generic elements
 in light of a newly clarified Core, rather than treating the initial distillation
-as fixed (C088).
+as fixed.
 
 ## Inputs
 
@@ -125,18 +161,6 @@ A distillation assessment covering:
 5. Any distillation gaps: concepts that obscure the Core, missing Module
    boundaries, or Core Domains that are too large or insufficiently highlighted.
 
-## References
-
-- `references/building-block-pattern-summaries.md` — Module pattern details
-  relevant to factoring Generic Subdomains.
-- `references/context-map-pattern-catalogue.md` — inter-context relationships
-  that can emerge once distillation clarifies boundaries.
-
 ## Provenance
 
-Grounded in principle P013 (Core Domain identification and staffing), claims
-C088, C089, C090, and evidence records E037, E038, E039, all sourced from the
-Distillation section of "Domain-Driven Design Quickly" (Avram & Marinescu,
-InfoQ 2006), anchor `domaindrivendesignqu-20260612231910-h0064`.
-Source rights status is `distillation-only`; all content is paraphrased — no
-verbatim passages are reproduced.
+Grounded in principles P012, P013, P034, P014, P009, P022, P007, P017, P018, P015, P027, P049, P026, P005 of this package, derived from Eric Evans, "Domain-Driven Design: Tackling Complexity in the Heart of Software" (Addison-Wesley, 2003). Representative chunk anchors: `9e0c1e6c6dd6-c0022`, `9e0c1e6c6dd6-c0023`. Source rights: `distillation-only` — all content is paraphrased; no verbatim quotation.

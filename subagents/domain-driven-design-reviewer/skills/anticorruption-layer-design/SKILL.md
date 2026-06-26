@@ -4,13 +4,45 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P012
+  - P001
+  - P010
+  - P011
+  - P023
+  - P032
+  - P041
+  - P031
   claims:
-  - C084
-  - C085
+  - C00196
+  - C00197
+  - C00200
+  - C00351
+  - C00352
+  - C00353
+  - C00354
+  - C00355
+  - C00356
+  - C00357
+  - C00333
+  - C00334
+  evidence:
+  - E00119
+  - E00120
+  - E00121
+  - E00199
+  - E00200
+  - E00201
+  - E00202
+  - E00203
+  - E00204
+  - E00205
+  - E00188
+  - E00189
   source_anchors:
-  - domaindrivendesignqu-20260612231910-h0059
-  authored_from_digest: b558d9bf9a91653ff3340a98d134a7f855f3c28e16fa776c573ed8071736d989
+  - 9e0c1e6c6dd6-c0009
+  - 9e0c1e6c6dd6-c0010
+  - 9e0c1e6c6dd6-c0019
+  - 9e0c1e6c6dd6-c0018
+  authored_from_digest: a74a293a72fb21f9168c9803bfd1d56cefad45b1c0626ac7d012b190efa9cc70
 ---
 
 # Anticorruption Layer Design
@@ -20,24 +52,23 @@ provenance:
 Guide and critique the design of an Anticorruption Layer (ACL) — the isolation boundary that
 protects a client domain model from being distorted by an external or legacy system's model.
 The ACL translates between the two models in both directions, presenting all external concepts
-in the client's own terms so the client model stays coherent and internally consistent (P012,
-C084).
+in the client's own terms so the client model stays coherent and internally consistent.
 
 ## When to use
 
 - A team is integrating with a legacy system or external service whose terminology, structures,
-  or semantics differ from the client model and would alter it if absorbed directly (P012).
+  or semantics differ from the client model and would alter it if absorbed directly.
 - A downstream team cannot influence or change the upstream supplier's API and must therefore
-  shield its own model from upstream design decisions (P012).
+  shield its own model from upstream design decisions.
 - An existing integration shows signs of model leakage: external identifiers, external status
   codes, or external object structures appearing untranslated in domain-layer classes.
 
 Do not apply this skill when:
 
 - The two contexts share a Shared Kernel and their models are intentionally aligned — no
-  translation boundary is needed (P012).
+  translation boundary is needed.
 - The team has made a deliberate Conformist decision to adopt the upstream model as-is — the
-  ACL would duplicate effort without adding isolation value (P012).
+  ACL would duplicate effort without adding isolation value.
 
 ## Procedure
 
@@ -53,7 +84,7 @@ accepted a Conformist stance, redirect to Context Map pattern selection instead.
 Design the ACL surface that the client model will call. The interface must speak exclusively in
 the client model's language: client-side entity identifiers, client-side value types, and
 client-side operation names. No external identifier, type, or concept should appear in this
-interface (C084).
+interface.
 
 **Step 3 — Place a Facade over the external system.**
 
@@ -61,21 +92,21 @@ Wrap the external system's interface in a Facade that simplifies and narrows the
 the external system the ACL needs to reach. The Facade has one responsibility: present a
 clean, manageable view of the external system to the layer's internal components. When the
 external interface is large or complex, the Facade also absorbs that complexity so downstream
-components do not have to (C085).
+components do not have to.
 
 **Step 4 — Add an Adapter between the Facade and the Service.**
 
 The Adapter converts the simplified external interface (from the Facade) into the interface
 the client-side Service implementation expects. Each Service in the ACL should have its own
 Adapter; do not route multiple Services through a single shared Adapter, as that leads to
-mixed and cluttered responsibilities (C085).
+mixed and cluttered responsibilities.
 
 **Step 5 — Add a Translator for object and data conversion.**
 
 Introduce a Translator component that converts between external data structures or objects and
 the corresponding client-model types. The Translator handles the semantic mapping: it knows
 what an external concept means in client terms and constructs the appropriate client-model
-Value Objects or Entity references. It does not hold state (C085).
+Value Objects or Entity references. It does not hold state.
 
 **Step 6 — Verify translation completeness.**
 
@@ -126,17 +157,6 @@ A structured review or design covering:
 5. **Risk notes** — external interface volatility, missing tests on the Facade boundary, or
    structural gaps in the current design.
 
-## References
-
-- `references/context-map-pattern-catalogue.md` — Anticorruption Layer in the full Context
-  Map pattern catalogue; adjacent patterns (Customer-Supplier, Conformist, Separate Ways).
-- `references/building-block-pattern-summaries.md` — Service definition (stateless, not on
-  Entity/Value Object, refers to domain objects; P006) applicable to the ACL Service surface.
-
 ## Provenance
 
-Grounded in Avram & Marinescu, "Domain-Driven Design Quickly" (InfoQ, 2006), section
-"Anticorruption Layer" within the "Preserving Model Integrity" chapter.
-Source anchor: `domaindrivendesignqu-20260612231910-h0059`.
-Principle P012; claims C084 (evidence E036), C085 (evidence E045).
-Source rights: `distillation-only` — all content paraphrased, no verbatim passages.
+Grounded in principles P001, P010, P011, P023, P032, P041, P031 of this package, derived from Eric Evans, "Domain-Driven Design: Tackling Complexity in the Heart of Software" (Addison-Wesley, 2003). Representative chunk anchors: `9e0c1e6c6dd6-c0009`, `9e0c1e6c6dd6-c0010`, `9e0c1e6c6dd6-c0019`, `9e0c1e6c6dd6-c0018`. Source rights: `distillation-only` — all content is paraphrased; no verbatim quotation.

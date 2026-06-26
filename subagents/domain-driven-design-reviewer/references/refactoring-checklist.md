@@ -4,20 +4,47 @@ kind: reference
 status: ready
 provenance:
   principles:
-  - P002
-  - P010
+  - P006
+  - P048
+  - P024
+  - P020
+  - P021
+  - P030
+  - P003
+  - P029
+  - P050
+  - P035
   claims:
-  - C022
-  - C023
-  - C025
-  - C060
-  - C061
-  - C064
+  - C00210
+  - C00211
+  - C00212
+  - C00215
+  - C00217
+  - C00218
+  - C00202
+  - C00203
+  - C00204
+  - C00205
+  - C00412
+  - C00413
+  evidence:
+  - E00126
+  - E00127
+  - E00128
+  - E00129
+  - E00130
+  - E00131
+  - E00122
+  - E00123
+  - E00124
+  - E00125
+  - E00228
+  - E00229
   source_anchors:
-  - domaindrivendesignqu-20260612231910-h0018
-  - domaindrivendesignqu-20260612231910-h0037
-  - domaindrivendesignqu-20260612231910-h0039
-  authored_from_digest: 53d10a51dea533473ff13859fee1710bdad61d23a13a9fb56f32bd1a6bdfd9ee
+  - 9e0c1e6c6dd6-c0010
+  - 9e0c1e6c6dd6-c0011
+  - 9e0c1e6c6dd6-c0022
+  authored_from_digest: a1619faef6ec52ba754a1f06b1be3a42522bf4c3a47614c0b509dd0d0fae3f23
 ---
 
 # Refactoring Checklist
@@ -135,12 +162,4 @@ When a missing concept is confirmed, select the appropriate form:
 
 ## Provenance
 
-Derived from "Domain-Driven Design Quickly" (Avram & Marinescu, InfoQ 2006),
-sections anchored at `domaindrivendesignqu-20260612231910-h0018` (model-code
-correspondence, developer responsibility for model integrity),
-`domaindrivendesignqu-20260612231910-h0037` (iterative refactoring with domain-expert
-involvement; domain-insight refactoring as distinct from code-quality refactoring),
-and `domaindrivendesignqu-20260612231910-h0039` (making implicit concepts explicit as
-the mechanism of breakthrough insight). Grounded in principles P002 and P010, claims
-C022, C023, C025, C060, C061, C064, evidence records E012, E013, E014, E027, E028,
-E029. Source is `distillation-only` — paraphrased throughout, no verbatim quotation.
+Grounded in principles P006, P048, P024, P020, P021, P030, P003, P029, P050, P035 of this package, derived from Eric Evans, "Domain-Driven Design: Tackling Complexity in the Heart of Software" (Addison-Wesley, 2003). Representative chunk anchors: `9e0c1e6c6dd6-c0010`, `9e0c1e6c6dd6-c0011`, `9e0c1e6c6dd6-c0022`. Source rights: `distillation-only` — all content is paraphrased; no verbatim quotation.

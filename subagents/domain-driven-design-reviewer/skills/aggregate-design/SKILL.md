@@ -4,22 +4,44 @@ kind: skill
 status: ready
 provenance:
   principles:
+  - P008
+  - P019
+  - P043
+  - P044
+  - P045
   - P004
-  - P005
-  - P007
+  - P042
+  - P021
   claims:
-  - C029
-  - C030
-  - C032
-  - C033
-  - C043
-  - C044
-  - C046
+  - C00139
+  - C00140
+  - C00142
+  - C00143
+  - C00144
+  - C00145
+  - C00141
+  - C00146
+  - C00147
+  - C00148
+  - C00149
+  - C00085
+  evidence:
+  - E00088
+  - E00089
+  - E00091
+  - E00092
+  - E00093
+  - E00094
+  - E00090
+  - E00095
+  - E00096
+  - E00097
+  - E00098
+  - E00048
   source_anchors:
-  - domaindrivendesignqu-20260612231910-h0022
-  - domaindrivendesignqu-20260612231910-h0023
-  - domaindrivendesignqu-20260612231910-h0029
-  authored_from_digest: 22cc4d6954b403ab667ed76c5f914d9e36f1f2a57deaf95d24fef80ea70a7bd0
+  - 9e0c1e6c6dd6-c0007
+  - 9e0c1e6c6dd6-c0004
+  authored_from_digest: 0d38c448a0e5da28c5b1e9d379d03abec05e64eb1f5eb1a19f2a2724b20a1d41
 ---
 
 # Aggregate Design
@@ -162,19 +184,6 @@ For each Aggregate reviewed, a structured finding containing:
 - **Value Object defects**: mutation methods found, or scattered attributes that
   should be consolidated into a Value Object.
 
-## References
-
-- `principles/principles.yaml` — P004 (Entity identity semantics), P005 (Value
-  Object immutability), P007 (Aggregate boundary and root-only access).
-- `references/building-block-pattern-summaries.md`
-- Evidence records E015, E016, E017, E020, E021, E046, E047 in
-  `evidence/evidence-records.yaml`.
-
 ## Provenance
 
-Grounded in P004 (derived from C029, C030; evidence E015, E046; source anchor
-domaindrivendesignqu-20260612231910-h0022), P005 (derived from C032, C033;
-evidence E016, E017; source anchor domaindrivendesignqu-20260612231910-h0023),
-and P007 (derived from C043, C044, C046; evidence E020, E021, E047; source
-anchor domaindrivendesignqu-20260612231910-h0029). Source is
-distillation-only; all content is paraphrased, no verbatim quotation.
+Grounded in principles P008, P019, P043, P044, P045, P004, P042, P021 of this package, derived from Eric Evans, "Domain-Driven Design: Tackling Complexity in the Heart of Software" (Addison-Wesley, 2003). Representative chunk anchors: `9e0c1e6c6dd6-c0007`, `9e0c1e6c6dd6-c0004`. Source rights: `distillation-only` — all content is paraphrased; no verbatim quotation.

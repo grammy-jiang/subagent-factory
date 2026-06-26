@@ -4,15 +4,47 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P001
+  - P036
+  - P038
+  - P039
+  - P002
+  - P016
+  - P020
+  - P037
+  - P040
+  - P033
+  - P025
   claims:
-  - C013
-  - C014
-  - C015
+  - C00005
+  - C00020
+  - C00022
+  - C00023
+  - C00043
+  - C00045
+  - C00046
+  - C00047
+  - C00052
+  - C00055
+  - C00056
+  - C00057
+  evidence:
+  - E00004
+  - E00007
+  - E00009
+  - E00010
+  - E00018
+  - E00019
+  - E00020
+  - E00021
+  - E00025
+  - E00027
+  - E00028
+  - E00029
   source_anchors:
-  - domaindrivendesignqu-20260612231910-h0013
-  - domaindrivendesignqu-20260612231910-h0014
-  authored_from_digest: f44120abb3f17c2f8902dc59533104849ec21894a3594f8115e476023eb69d11
+  - 9e0c1e6c6dd6-c0000
+  - 9e0c1e6c6dd6-c0001
+  - 9e0c1e6c6dd6-c0002
+  authored_from_digest: 7d539984cb9fec739b1ebdc215933cf788b9d5e47e77e540e6d142e3b05bad49
 ---
 
 # Ubiquitous Language Session
@@ -30,20 +62,20 @@ The Ubiquitous Language is not merely a naming convention. It is the
 vehicle through which domain knowledge is reliably shared: when discussion
 terminology diverges from code terminology, the most precise expressions of
 domain understanding exist only transiently and are never captured
-(C013, P001).
+.
 
 ## When to use
 
 - Code identifiers, diagram labels, or written documents use terminology
   that does not match the words domain experts use when describing the
-  domain — language drift is active or suspected (P001).
+  domain — language drift is active or suspected.
 - A new domain is being modeled and the primary concepts have not yet been
   given stable, agreed-upon names.
 - A review finding implicates naming inconsistency: a class or method name
   does not correspond to the model concept it is meant to express.
 - A change to the domain model is under consideration and the reviewer must
   confirm that any language change will propagate to the model, and vice
-  versa (C014, P001).
+  versa.
 
 ## Procedure
 
@@ -56,7 +88,7 @@ domain understanding exist only transiently and are never captured
 2. Establish that the same terms must appear in all communication forms:
    spoken discussion, written documents, diagrams, and code. Any term
    used in speech but absent from the code — or present in code but
-   unknown to domain experts — is a gap to resolve (C013).
+   unknown to domain experts — is a gap to resolve.
 
 ### Phase 2 — Surface and map candidate terms
 
@@ -74,10 +106,10 @@ domain understanding exist only transiently and are never captured
 5. **Domain expert test:** A domain expert should object to any term or
    structure that is awkward or that fails to convey domain understanding.
    If an expert cannot recognize a term in the model, treat that as a
-   signal the model requires correction — not the expert (C015).
+   signal the model requires correction — not the expert.
 
 6. **Developer test:** Developers should flag terms that are ambiguous or
-   are used inconsistently across different parts of the design (C015).
+   are used inconsistently across different parts of the design.
 
 ### Phase 4 — Resolve and choose
 
@@ -96,7 +128,7 @@ domain understanding exist only transiently and are never captured
 9. Treat any agreed change to the Ubiquitous Language as a simultaneous
    change to the domain model, and vice versa. The two must move in
    lockstep: a language change that does not update the model, or a model
-   change that does not update the shared language, is incomplete (C014).
+   change that does not update the shared language, is incomplete.
 
 10. Push the main domain concepts into code: verify that the central model
     concepts each have a corresponding class or method, so the code
@@ -138,24 +170,11 @@ A structured language-alignment report containing:
 
 3. **Language-model coupling gaps** — any detected cases where a language
    change has not been reflected in the model, or a model change has not
-   been reflected in the language (C014).
+   been reflected in the language.
 
 4. **Session notes** (if a live session was run) — terms considered and
    rejected, with reasons, to prevent the same debates recurring.
 
-## References
-
-- `principles/principles.yaml` — P001 (Ubiquitous Language consistency),
-  C013, C014, C015.
-- `references/building-block-pattern-summaries.md` — building-block
-  pattern definitions that the Ubiquitous Language must name correctly.
-
 ## Provenance
 
-Grounded in P001 (derived from C013, C014, C015) and evidence records
-E008, E009, E010. Source: Avram & Marinescu, "Domain-Driven Design
-Quickly" (InfoQ, 2006), sections anchored at
-`domaindrivendesignqu-20260612231910-h0013` ("The Ubiquitous Language")
-and `domaindrivendesignqu-20260612231910-h0014` ("The Need for a Common
-Language" / "Creating the Ubiquitous Language"). Rights status:
-`distillation-only` — all content paraphrased, no verbatim quotation.
+Grounded in principles P036, P038, P039, P002, P016, P020, P037, P040, P033, P025 of this package, derived from Eric Evans, "Domain-Driven Design: Tackling Complexity in the Heart of Software" (Addison-Wesley, 2003). Representative chunk anchors: `9e0c1e6c6dd6-c0000`, `9e0c1e6c6dd6-c0001`, `9e0c1e6c6dd6-c0002`. Source rights: `distillation-only` — all content is paraphrased; no verbatim quotation.

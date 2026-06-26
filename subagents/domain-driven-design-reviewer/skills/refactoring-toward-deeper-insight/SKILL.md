@@ -4,20 +4,46 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P002
-  - P010
+  - P006
+  - P048
+  - P024
+  - P050
+  - P030
+  - P003
+  - P021
+  - P035
+  - P029
   claims:
-  - C022
-  - C023
-  - C025
-  - C060
-  - C061
-  - C064
+  - C00210
+  - C00211
+  - C00212
+  - C00215
+  - C00217
+  - C00218
+  - C00202
+  - C00203
+  - C00204
+  - C00205
+  - C00412
+  - C00413
+  evidence:
+  - E00126
+  - E00127
+  - E00128
+  - E00129
+  - E00130
+  - E00131
+  - E00122
+  - E00123
+  - E00124
+  - E00125
+  - E00228
+  - E00229
   source_anchors:
-  - domaindrivendesignqu-20260612231910-h0018
-  - domaindrivendesignqu-20260612231910-h0037
-  - domaindrivendesignqu-20260612231910-h0039
-  authored_from_digest: 53d10a51dea533473ff13859fee1710bdad61d23a13a9fb56f32bd1a6bdfd9ee
+  - 9e0c1e6c6dd6-c0010
+  - 9e0c1e6c6dd6-c0011
+  - 9e0c1e6c6dd6-c0022
+  authored_from_digest: 1eace9254441c313a0097a38416b01bd19c82ec804f65d57dc18f195fc69baeb
 ---
 
 # Refactoring Toward Deeper Insight
@@ -34,10 +60,10 @@ explain other concepts and is then recognised as a first-class part of the model
 The reviewer uses this skill to judge two things. First, whether model and code
 still correspond: a portion of the software must literally reflect the domain
 model, so the mapping between the two is obvious. Refactoring the code to a state
-where it no longer expresses the model is a design failure, not progress (P002).
+where it no longer expresses the model is a design failure, not progress.
 Second, whether the team is doing the second kind of refactoring at all — the
 insight-driven kind that produces breakthroughs — or only tidying code while the
-model stays shallow (P010).
+model stays shallow.
 
 ## When to use
 
@@ -57,26 +83,26 @@ model stays shallow (P010).
    meant to carry the domain model. Check that the mapping is obvious: domain
    concepts appear as named elements, not buried in procedural logic. If the
    central design does not map to the model, the model has little value and the
-   software's correctness is suspect (C025).
+   software's correctness is suspect.
 2. **Treat code changes as model changes.** For each proposed refactoring, ask
    what it does to the model's expression. A change to the code implies a change
    to the model; flag any step that leaves the code less able to state the model
-   than before (C023).
+   than before.
 3. **Check that modellers and implementers are the same loop.** Verify the people
    refactoring know the model well and feel responsible for its integrity, and
    that modelling and implementation are not happening in isolation from each
-   other (C022, P002).
+   other.
 4. **Separate the two kinds of refactoring.** Distinguish technical code-quality
    refactoring from insight-driven refactoring. Confirm the team is also doing
    the second kind: incorporating newly discovered relationships and clearer
-   concepts back into the design (C061).
+   concepts back into the design.
 5. **Hunt for implicit concepts.** Look for a concept that is repeatedly used to
    explain other concepts, described in conversation but absent from the model.
    Recommend giving it its own class or relationship — this making-explicit move
-   is the primary mechanism of breakthrough insight (C064).
+   is the primary mechanism of breakthrough insight.
 6. **Require domain-expert involvement and iteration.** Sophisticated models are
    developed only through iterative refactoring with continuous domain-expert
-   participation. Flag a process that refactors without that involvement (C060).
+   participation. Flag a process that refactors without that involvement.
 7. **Keep steps safe and bounded.** Recommend small, controllable steps backed by
    automated tests that verify behaviour is preserved. Flag for caution any step
    that lacks test coverage or that crosses a Bounded Context boundary, where the
@@ -97,20 +123,6 @@ with where it currently hides); and whether the step is safely bounded (test
 coverage present, no unguarded Bounded Context crossing). Each finding names the
 specific model element and gives one corrective step.
 
-## References
-
-- `references/refactoring-checklist.md` — the step-by-step checklist form of this
-  skill.
-- `references/building-block-pattern-summaries.md` — the patterns an explicit
-  concept is usually promoted into (Entity, Value Object, Service, etc.).
-
 ## Provenance
 
-Distilled from "Domain-Driven Design Quickly" (Avram & Marinescu, InfoQ, 2006),
-rights status distillation-only — paraphrased, no verbatim quotation.
-
-- **P002** (model–code correspondence): claims C022 (E012), C023 (E013),
-  C025 (E014), anchor h0018 ("Model-Driven Design").
-- **P010** (refactoring toward deeper insight): claims C060 (E027), C061 (E028),
-  C064 (E029), anchors h0037 ("Continuous Refactoring") and h0039
-  ("Bring Key Concepts Into Light").
+Grounded in principles P006, P048, P024, P050, P030, P003, P021, P035, P029 of this package, derived from Eric Evans, "Domain-Driven Design: Tackling Complexity in the Heart of Software" (Addison-Wesley, 2003). Representative chunk anchors: `9e0c1e6c6dd6-c0010`, `9e0c1e6c6dd6-c0011`, `9e0c1e6c6dd6-c0022`. Source rights: `distillation-only` — all content is paraphrased; no verbatim quotation.

@@ -4,18 +4,40 @@ kind: skill
 status: ready
 provenance:
   principles:
+  - P046
+  - P047
+  - P028
   - P008
-  - P009
   claims:
-  - C049
-  - C050
-  - C054
-  - C055
-  - C056
+  - C00165
+  - C00166
+  - C00167
+  - C00168
+  - C00150
+  - C00151
+  - C00152
+  - C00153
+  - C00154
+  - C00155
+  - C00158
+  - C00159
+  evidence:
+  - E00108
+  - E00109
+  - E00110
+  - E00111
+  - E00099
+  - E00100
+  - E00101
+  - E00102
+  - E00103
+  - E00104
+  - E00105
+  - E00106
   source_anchors:
-  - domaindrivendesignqu-20260612231910-h0031
-  - domaindrivendesignqu-20260612231910-h0032
-  authored_from_digest: 2a771f1d82f2af2c10f3b5ad963edd159231e135519ff83a00b7021735968ea9
+  - 9e0c1e6c6dd6-c0008
+  - 9e0c1e6c6dd6-c0007
+  authored_from_digest: 843d5beb41fd20975c8070760a127e28a9efd01f81950820b7a198455f7e90db
 ---
 
 # Repository and Factory Design
@@ -33,17 +55,17 @@ express domain concepts rather than construction or persistence mechanics.
 - Reviewing creation logic for an Aggregate whose initialization involves multiple
   steps, inter-object wiring, or invariants that must hold from the very first
   moment — situations where a plain constructor would force clients to carry
-  internal structural knowledge (P008, C049).
+  internal structural knowledge.
 - Checking whether a partially-constructed object can escape creation: if the
-  Factory does not raise an exception on failure it is defective (P008, C050).
+  Factory does not raise an exception on failure it is defective.
 - Reviewing domain-layer classes for direct calls to ORMs, SQL builders, or raw
-  data stores instead of going through a Repository (P009, C054).
+  data stores instead of going through a Repository.
 - Verifying that Repository interfaces are expressed in domain terms and that
   Repositories exist only for Aggregate roots, not for their internal members
-  (P009, C055).
+ .
 - Evaluating whether direct database access has caused domain logic to migrate
   into queries, degrading Entities and Value Objects into mere data containers
-  (P009, C056).
+ .
 
 ## Procedure
 
@@ -52,7 +74,7 @@ express domain concepts rather than construction or persistence mechanics.
 Examine the candidate creation site. A Factory is warranted when:
 
 - Construction requires knowledge of the Aggregate's internal structure or wiring
-  that no client should possess (C049).
+  that no client should possess.
 - The process involves building multiple related objects as a coordinated unit.
 - There are invariants that must be satisfied at the moment the object first
   exists.
@@ -67,7 +89,7 @@ Factories to simple cases).
 Confirm that the Factory creates the object as a complete, valid unit in a single
 logical operation. If any mandatory invariant cannot be satisfied during
 construction, the Factory must raise an exception; it must never return a partial
-or invalid object (C050). Flag any creation path that could yield an object in an
+or invalid object. Flag any creation path that could yield an object in an
 incomplete state.
 
 ### Step 3 — Assess Factory placement
@@ -95,7 +117,7 @@ supporting context for this distinction).
 ### Step 5 — Check Repository scope
 
 Confirm that a Repository exists only for Aggregate roots that genuinely require
-direct access (C055). Internal Aggregate objects must be reached by traversal
+direct access. Internal Aggregate objects must be reached by traversal
 through the root, never by a dedicated Repository. A Repository for a non-root
 object is a boundary violation and must be flagged.
 
@@ -104,7 +126,7 @@ object is a boundary violation and must be flagged.
 Inspect the Repository interface. It must be expressed in domain terms — add,
 remove, and criteria-based select operations that present the illusion of an
 in-memory collection — regardless of how the implementation is wired to a
-data store (C054, C055). Infrastructure types (ORM sessions, SQL builders,
+data store. Infrastructure types (ORM sessions, SQL builders,
 connection strings) must not appear in the interface.
 
 ### Step 7 — Detect direct database access in the domain layer
@@ -112,7 +134,7 @@ connection strings) must not appear in the interface.
 Search for domain-layer classes that call persistence infrastructure directly. When
 clients bypass the Repository and access the database themselves, domain logic
 gravitates into queries and client code; Entities and Value Objects become data
-containers and the model loses relevance (C056). Each such call is a finding
+containers and the model loses relevance. Each such call is a finding
 requiring a corrective step.
 
 ### Step 8 — Confirm Factory/Repository separation
@@ -148,15 +170,6 @@ Structured findings for the Factory and Repository review areas, each including:
 
 For conformant designs, enumerate which checks were applied and found passing.
 
-## References
-
-- `references/building-block-pattern-summaries.md`
-
 ## Provenance
 
-Derived from Avram & Marinescu, "Domain-Driven Design Quickly" (InfoQ, 2006),
-sections "Factories" (source anchor domaindrivendesignqu-20260612231910-h0031)
-and "Repositories" (source anchor domaindrivendesignqu-20260612231910-h0032).
-Principles P008 (claims C049, C050) and P009 (claims C054, C055, C056); evidence
-records E023 (C049), E051 (C050), E024 (C054), E025 (C055), E026 (C056).
-Source rights: distillation-only — all content paraphrased, no verbatim quotation.
+Grounded in principles P046, P047, P028, P008 of this package, derived from Eric Evans, "Domain-Driven Design: Tackling Complexity in the Heart of Software" (Addison-Wesley, 2003). Representative chunk anchors: `9e0c1e6c6dd6-c0008`, `9e0c1e6c6dd6-c0007`. Source rights: `distillation-only` — all content is paraphrased; no verbatim quotation.

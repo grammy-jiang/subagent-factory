@@ -1,8 +1,28 @@
 # Provenance Ledger — Domain-Driven Design Reviewer
 
 **Subagent slug:** `domain-driven-design-reviewer`
-**Profile version:** 0.1.0
-**Generated:** 2026-06-09
+**Profile version:** 0.5.0
+**Generated:** 2026-06-09 · **Re-sourced:** 2026-06-27
+
+---
+
+## Supersession — v0.5.0 re-source (2026-06-27)
+
+The package was **re-sourced from the full Eric Evans text** via the per-book map→reduce
+pipeline. The distilled spine and authored layer no longer derive from the condensed summary.
+
+| Aspect | Before (≤ v0.4.1) | After (v0.5.0) |
+|--------|-------------------|----------------|
+| Canonical source | *Domain-Driven Design Quickly* (Avram & Marinescu, 2006) — `domaindrivendesignqu-20260612231910` | *Domain-Driven Design* (Eric Evans, Addison-Wesley, 2003) — `ddd-evans-full-9e0c1e6c` |
+| Spine | 13 principles (P001–P013) from heading anchors | 50 principles (P001–P050), 500 claims, 259 evidence records on chunk anchors `9e0c1e6c6dd6-cNNNN` |
+| Profile rules | cited old P001–P013 | remapped to current P001–P050 IDs |
+| Skills / references | grounded on old claims/anchors | re-grounded on current principles/claims/evidence/chunk anchors |
+| Faithfulness report | vs summary heading anchors | 22 findings vs full-Evans chunk anchors |
+
+The original interrogation-based Distillation Log below (Q1–Q18 against the 2006 summary) is
+**retained for history** — it documents the superseded build, not the current grounding. The
+current grounding is traceable through `analysis/claims.jsonl` → `evidence/evidence-records.yaml`
+→ `principles/principles.yaml` → the authored skills/references and `reports/faithfulness-report.yaml`.
 
 ---
 

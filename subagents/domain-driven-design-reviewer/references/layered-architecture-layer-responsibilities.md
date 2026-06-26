@@ -4,13 +4,43 @@ kind: reference
 status: ready
 provenance:
   principles:
+  - P017
+  - P018
+  - P027
+  - P015
   - P003
   claims:
-  - C026
-  - C028
+  - C00066
+  - C00067
+  - C00068
+  - C00072
+  - C00076
+  - C00121
+  - C00122
+  - C00123
+  - C00124
+  - C00125
+  - C00180
+  - C00181
+  evidence:
+  - E00035
+  - E00036
+  - E00037
+  - E00038
+  - E00039
+  - E00076
+  - E00077
+  - E00078
+  - E00079
+  - E00080
+  - E00112
+  - E00113
   source_anchors:
-  - domaindrivendesignqu-20260612231910-h0020
-  authored_from_digest: 987f2016b05489bbf6ad9f398ec29e181da1719f897aedba68bb84bc4e641ac2
+  - 9e0c1e6c6dd6-c0003
+  - 9e0c1e6c6dd6-c0005
+  - 9e0c1e6c6dd6-c0006
+  - 9e0c1e6c6dd6-c0009
+  authored_from_digest: 056804450e6903d065a979e11579d8a311e512633a34a1bcde18a94cbe6cfb6b
 ---
 
 # Layered Architecture — Layer Responsibilities
@@ -58,7 +88,4 @@ and the layer it belongs in. Common patterns:
 
 ## Provenance
 
-Derived from "Domain-Driven Design Quickly" (Avram & Marinescu, InfoQ 2006), Layered
-Architecture section, source anchor `domaindrivendesignqu-20260612231910-h0020`.
-Grounded in principle P003, claims C026 and C028, evidence records E040 and E041.
-Source rights status: `distillation-only` — all content paraphrased, no verbatim quotation.
+Grounded in principles P017, P018, P027, P015, P003 of this package, derived from Eric Evans, "Domain-Driven Design: Tackling Complexity in the Heart of Software" (Addison-Wesley, 2003). Representative chunk anchors: `9e0c1e6c6dd6-c0003`, `9e0c1e6c6dd6-c0005`, `9e0c1e6c6dd6-c0006`, `9e0c1e6c6dd6-c0009`. Source rights: `distillation-only` — all content is paraphrased; no verbatim quotation.

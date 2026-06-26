@@ -2,6 +2,41 @@
 
 All notable changes to this subagent are documented here.
 
+## [0.5.0] — 2026-06-27
+
+### Changed
+
+- **Re-source supersession: Domain-Driven Design Quickly → full Eric Evans text.**
+  The distilled spine (claims, evidence, principles, chunk anchors) was rebuilt by the
+  per-book map→reduce pipeline from the full text of Eric Evans, *Domain-Driven Design:
+  Tackling Complexity in the Heart of Software* (Addison-Wesley, 2003), source_id
+  `ddd-evans-full-9e0c1e6c` (500 claims, 259 evidence records, 50 principles). This
+  supersedes the condensed summary *Domain-Driven Design Quickly* (source_id
+  `domaindrivendesignqu-20260612231910`) as the canonical source.
+- Synced `source-pack.manifest.yaml` + added `sources/metadata/ddd-evans-full-9e0c1e6c.metadata.json`
+  for the new source; removed the superseded summary's orphaned markdown/metadata/anchors.
+- Regenerated the LLM-authored layer to match the new 50-principle scheme:
+  - `profile.yaml` rule citations remapped from the old P001–P013 numbering to the current
+    P001–P050 principle IDs; `sources[]` updated to the full-Evans source; structure
+    (rule counts, mode names) preserved.
+  - Re-grounded all 6 skill and 4 reference bodies onto current principles/claims/evidence/
+    chunk anchors (provenance frontmatter + footers; drift baseline re-stamped). The timeless
+    DDD prose was retained; only the citations and source attribution were updated.
+  - Regenerated `reports/faithfulness-report.yaml` (22 findings) against the new evidence and
+    real chunk anchors; no rule graded stronger than its source, no CONTRADICTED findings.
+  - Regenerated behaviour tests: `tests/behaviour-tests.yaml` (150 golden/negative-routing/
+    missing-context) and `tests/principle-behaviour-tests.yaml` (one test per principle), so
+    every high-confidence principle is exercised.
+- Re-exported the Claude Code adapter (invariant layer refreshed to the new principles).
+- Bumped `agent_version` 0.4.1 → 0.5.0. Package validates with 0 failures / 0 warnings.
+
+### Notes
+
+- Rights unchanged: `distillation-only` — the copyrighted full text is withheld from the
+  package (`sources/markdown` is empty by policy); all content is paraphrase.
+- `analysis/claim-importance-scores.yaml` and `interrogation-records.yaml` remain from the
+  prior interrogation build; they are not consumed by the validator and were left as-is.
+
 ## [0.4.1] — 2026-06-26
 
 ### Fixed
