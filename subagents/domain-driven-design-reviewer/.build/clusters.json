@@ -1,0 +1,572 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Build the domain model collaboratively between developers and domain experts (knowledge crunching) rather than handing specifications down a chain; the waterfall hand-off and feature-by-feature iteration without abstraction both fail to accumulate domain knowledge."
+   },
+   {
+    "idx": 1,
+    "statement": "Bind the domain model to the implementation from the start with a working prototype and keep them aligned through every iteration, treating model and code as a single co-evolving activity."
+   },
+   {
+    "idx": 4,
+    "statement": "Never run two languages on a team: keep domain experts and developers on one shared model, have experts object to awkward terms and developers watch for ambiguity, and treat experts not understanding the core model as evidence the model is wrong."
+   },
+   {
+    "idx": 9,
+    "statement": "Avoid infrastructure such as persistence and UI in early exploratory prototypes so the team can concentrate on domain behavior."
+   },
+   {
+    "idx": 24,
+    "statement": "Concentrate all domain-model code in one layer isolated from UI, application, and infrastructure, route lower-to-upper communication through callbacks or observers, and keep the infrastructure free of domain knowledge by exposing generic capabilities as services."
+   },
+   {
+    "idx": 26,
+    "statement": "Reserve domain-driven design for ambitious projects with strong skills and design model-driven from the outset; use the Smart-UI approach only for simple data-entry projects with few rules and unskilled teams, recognizing it is mutually exclusive with DDD and offers no graceful growth path."
+   },
+   {
+    "idx": 41,
+    "statement": "Manage the domain-object life cycle to maintain integrity and keep the model from being swamped, using Aggregates for ownership and boundaries, Factories for creation, and Repositories for finding and retrieval."
+   },
+   {
+    "idx": 65,
+    "statement": "Engage domain experts actively in the search for missing concepts (or use them as validators), let learning the domain's theory yield better questions, and accept that finding a good model takes trial and error in which you must not get attached to your ideas, since avoiding all missteps yields a lower-quality, slower result."
+   },
+   {
+    "idx": 76,
+    "statement": "Decompose design elements into cohesive units along the domain's conceptual contours rather than by cookbook granularity rules, implementing operations at the whole-value level and clumping detail users do not dissect; treat localized refactoring as a sign of model fit and a requirement forcing extensive restructuring as a signal the domain understanding needs refinement, since contour-aligned design accommodates unanticipated change."
+   },
+   {
+    "idx": 90,
+    "statement": "Practice refactoring toward deeper insight by living in the domain, looking at things differently, and keeping an unbroken dialog with domain experts; initiate it even when code is tidy if the language is disconnected from experts or requirements do not fit, and feed it with prior art (domain books, analysis and design patterns, formalisms)."
+   },
+   {
+    "idx": 91,
+    "statement": "Explore model problems with a small self-organizing team brainstorming in short sessions over a few days (including a domain expert), and do not wait until a refactoring can be fully justified, because by then the cost is higher and the target code more embedded."
+   },
+   {
+    "idx": 113,
+    "statement": "Identify the Core Domain as the distinctive part central to the application's purpose, boil the model down to make the core easy to distinguish and small, and counteract the tendency of top talent to gravitate to infrastructure, because leaving the specialized core to less-skilled developers produces software that never does compelling things for users."
+   },
+   {
+    "idx": 115,
+    "statement": "Break the cycle that keeps domain-ignorant top developers on supporting components by pairing committed strong developers with domain experts; do not hire short-term outsiders to build the core (knowledge leaks) and do not expect to purchase the core, since the greatest value of custom software comes from total control of it."
+   },
+   {
+    "idx": 145,
+    "statement": "Make understanding the target domain and incorporating it into the software the defining priority of domain-driven design, cultivating the language, staying dissatisfied with the model, treating continuous refinement as opportunity and an ill-fitting model as risk, and taking design skill seriously."
+   }
+  ]
+ },
+ {
+  "group": 1,
+  "members": [
+   {
+    "idx": 2,
+    "statement": "Cultivate a single ubiquitous language grounded in the domain model and use it relentlessly in speech, code, diagrams, documents, and tests; its vocabulary includes class names, operations, explicit rules, organizing structures, and pattern names."
+   },
+   {
+    "idx": 3,
+    "statement": "Treat a change in the ubiquitous language as a change to the model: rename classes, methods, and modules to match, and iron out language difficulties by experimenting with alternative expressions and then refactoring the code to the chosen model."
+   },
+   {
+    "idx": 127,
+    "statement": "Adopt a System Metaphor only when an apt, evocative analogy emerges that leads thinking usefully, absorbing it into the ubiquitous language and dropping it if it overextends; few projects find a useful metaphor, a mature domain model is not a naive metaphor, and the ubiquitous language can fulfill the metaphor's role."
+   },
+   {
+    "idx": 147,
+    "statement": "Use named design and domain patterns as terms in the team's language to move beyond 'everything is an object', because standard patterns let teams avoid reinventing known solutions, enable economical discussion, and prevent designs too idiosyncratic to communicate."
+   },
+   {
+    "idx": 148,
+    "statement": "Apply the precise domain-driven vocabulary consistently in the ubiquitous language: Entity (defined by identity/continuity) versus Value Object (no identity); stateless Service standing alone in the model; deep model versus supple design; assertion, invariant, and side effect; conceptual contour; unification within a bounded context; model-driven design; standalone class and whole value; and strategic design as team-level decisions affecting the whole project."
+   }
+  ]
+ },
+ {
+  "group": 3,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Make the model knowledge-rich (behavior and enforced rules, not a data schema) and surface implicit business rules buried in guard clauses as explicit named domain concepts, modeling a substitutable rule as an explicit policy (Strategy) object."
+   },
+   {
+    "idx": 88,
+    "statement": "Factor the varying part of a process into an explicit Strategy (Policy) object that expresses a meaningful process or policy concept and replaces scattered conditionals with uniform, testable behavior, gaining extra meaning when it corresponds to a real business strategy."
+   },
+   {
+    "idx": 132,
+    "statement": "When configurable behavior is needed, neither a fully general nor a highly customized model serves users; make a field that has come to represent a policy-enforcing concept an explicit type object, and apply a Knowledge Level (built of ordinary domain objects, not language reflection) sparingly where customization is crucial, since its indirection adds obscurity and burdens the designer."
+   }
+  ]
+ },
+ {
+  "group": 4,
+  "members": [
+   {
+    "idx": 7,
+    "statement": "Distill the model by dropping concepts that are not central, and do not apply elaborate design to every detail; focus effort on the important concepts and minimize or separate the rest."
+   },
+   {
+    "idx": 33,
+    "statement": "Avoid unnecessary constraints in the model while making the essential ones explicit, maintain conceptual distinctions through discipline even when the language cannot declare them, and eliminate bidirectional associations between value objects (treating their apparent need as a sign of an unrecognized entity)."
+   },
+   {
+    "idx": 63,
+    "statement": "Deepen a model by recognizing concepts only hinted at and representing them explicitly; dig them out by digging in the most awkward part of the design, listening to the team's language, scrutinizing contradictions, mining domain literature, and experimenting, treating a term used in conversation but absent from the design as a warning and an opportunity."
+   }
+  ]
+ },
+ {
+  "group": 9,
+  "members": [
+   {
+    "idx": 13,
+    "statement": "Remember that well-written code reveals the model but its message is not guaranteed accurate, since names can mislead; aligning code's behavior, intent, and message takes discipline, and the code must use the same language as the requirements and team."
+   },
+   {
+    "idx": 14,
+    "statement": "Base the code on the same language used in requirements and team discussion so that application requirements become scenarios expressed within the model, letting specifications stay concise."
+   }
+  ]
+ },
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 15,
+    "statement": "Use one model as the single foundation for implementation, design, and communication, discarding the analysis-model/design-model dichotomy; a model on paper that does not aid running software is of little value, and a separate analysis model gets abandoned once coding starts."
+   },
+   {
+    "idx": 19,
+    "statement": "Apply only one model to a given part of the system across all activities (different subsystems may differ), and make domain concepts explicit in the model rather than inferring them through incidental mechanisms such as naming conventions; an incisive design emerges only over several iterations."
+   },
+   {
+    "idx": 93,
+    "statement": "Keep each model internally consistent (unification, with unambiguous terms and no contradictory rules), since combining code based on two different implicit models of the same term produces unreliable software whose root is in team organization and the absence of a process to detect divergence."
+   }
+  ]
+ },
+ {
+  "group": 11,
+  "members": [
+   {
+    "idx": 16,
+    "statement": "Design a portion of the software to reflect the domain model literally so the mapping is obvious, treat the code as an expression of the model (a code change may be a model change), and demand a literal, exact correspondence; when a model is impractical to implement or unfaithful to the domain, search for a new one."
+   },
+   {
+    "idx": 17,
+    "statement": "Keep explanatory models (used only to teach the domain) separate from the design model and avoid UML for them, so they do not imply a false correspondence with the software."
+   },
+   {
+    "idx": 34,
+    "statement": "Model a significant domain operation that belongs to no entity or value object as a Service: relate it to a real domain concept, define its interface in domain terms, name it for an activity, and keep it stateless; use services judiciously rather than forcing operations into ill-fitting objects or slipping into procedural code."
+   },
+   {
+    "idx": 38,
+    "statement": "Map each domain concept straightforwardly to an implementation element (cleaning up code or changing the model when it does not), and resist adding anything to domain objects that does not closely relate to the concepts they represent."
+   },
+   {
+    "idx": 71,
+    "statement": "Treat a domain pattern as a solution that retains a model-driven design rather than a neat UML idea, and remember software must serve developers as well as users, since fragility and duplication in a poorly designed model place a ceiling on the richness of behavior feasible to build."
+   },
+   {
+    "idx": 98,
+    "statement": "Maintain a Context Map that identifies and names each model (including non-OO subsystems) in the ubiquitous language and describes the points of contact and explicit translation; map the terrain as it actually is, avoid code reuse between contexts, and until the map is unambiguous change only the outright contradictions."
+   }
+  ]
+ },
+ {
+  "group": 12,
+  "members": [
+   {
+    "idx": 18,
+    "statement": "Use an implementation paradigm and tools that support direct analogs to model constructs (object-oriented programming dominates), since model-driven design is limited in purely procedural languages; the real breakthrough comes when code expresses model concepts rather than using objects as data structures."
+   },
+   {
+    "idx": 21,
+    "statement": "Treat programmers as modelers and keep modeling and implementation together: any technical contributor must touch the code and learn to express the model through it, because if code writers do not feel responsible for the model it becomes irrelevant; specialized roles are fine, separating modeling from implementation is not."
+   },
+   {
+    "idx": 39,
+    "statement": "Use object-oriented technology as the core for most model-driven designs and avoid esoteric paradigms the team or experts cannot grasp, recognizing a domain model need not be an object model; mix in another paradigm only when major parts of the domain genuinely belong to it, after exhausting the dominant paradigm, and only with an expressive implementation."
+   }
+  ]
+ },
+ {
+  "group": 14,
+  "members": [
+   {
+    "idx": 22,
+    "statement": "Isolate the domain in its own layer within a layered architecture in which each element depends only on its own or lower layers, since isolating the domain implementation is a prerequisite for domain-driven design and isolated layers are cheaper to maintain."
+   },
+   {
+    "idx": 37,
+    "statement": "Use packaging to separate the domain layer but otherwise leave domain developers free to package by their model, keep all code for a single conceptual object together (don't let a framework fragment it across packages) unless genuinely distributing on different servers, and adopt only minimal technical partitioning; when conceptual clarity and low technical coupling conflict, favor clarity."
+   }
+  ]
+ },
+ {
+  "group": 15,
+  "members": [
+   {
+    "idx": 23,
+    "statement": "Keep the application layer thin (it coordinates tasks and holds no business rules or business-situation state) and place business concepts and rules in the domain layer, the heart of business software."
+   },
+   {
+    "idx": 35,
+    "statement": "Distinguish domain services (which embed business rules and meaningful domain terms) from application and infrastructure services (which carry no business meaning), and use medium-grained stateless domain services to keep domain knowledge from leaking into the application or UI; provide access with the simplest mechanism that works."
+   },
+   {
+    "idx": 53,
+    "statement": "Keep application-layer classes as coordinators that delegate answers to the domain layer, abstract goals or criteria into a separate Specification object to keep entities simple, and classify each object as Entity or Value Object by whether its identity must be tracked, reusing an organization's existing identifier and placing a borrowed-identity entity inside its owner's aggregate."
+   },
+   {
+    "idx": 59,
+    "statement": "Enforce business rules in the domain layer rather than the application layer, and assign responsibility for deriving a value to the object that knows the rules (splitting them into a Strategy when they vary by purpose) rather than the object that merely holds the data."
+   },
+   {
+    "idx": 67,
+    "statement": "Represent a domain process explicitly as a Service for a complex algorithm or a Strategy when there is more than one way to do it, deciding to make it explicit by whether domain experts talk about it; never move business rules out of the domain layer merely to relieve a host object, since that leaves a dead data object."
+   },
+   {
+    "idx": 129,
+    "statement": "Use the Relaxed Layered System variant for responsibility layers (a layer may access any lower layer), treat the choice of which layer a concept belongs to as a business-modeling decision, and let a structure grounded in deep domain understanding push the model toward clearer meaning."
+   },
+   {
+    "idx": 131,
+    "statement": "Keep a layering system simple (no more than four or five layers, ferociously distilled), drawing on recurring layers (Potential, Operations, Decision Support, Policy, Commitment) where they fit but not forcing a domain into standard layers, and implement a Policy layer in the same model as the layers it constrains."
+   }
+  ]
+ },
+ {
+  "group": 17,
+  "members": [
+   {
+    "idx": 27,
+    "statement": "Provide a software mechanism with the same properties for every traversable association, and constrain associations as much as possible (impose a traversal direction, add a qualifier to reduce multiplicity, or eliminate nonessential ones), embedding each discovered constraint in both model and implementation."
+   },
+   {
+    "idx": 54,
+    "statement": "Constrain association traversal to what the business actually tracks, resolve circular references by replacing a maintained collection with a query, and draw an aggregate boundary to sweep in what would not exist but for the root while making an object its own root when its activity has meaning apart from that root."
+   }
+  ]
+ },
+ {
+  "group": 18,
+  "members": [
+   {
+    "idx": 28,
+    "statement": "Classify an object whose continuity and identity matter as an Entity, make identity primary to its definition, and keep it spare around the characteristics that identify it, because a mistaken identity in software leads to data corruption."
+   },
+   {
+    "idx": 29,
+    "statement": "Define each entity's identity from the domain with an operation guaranteed to produce a unique, immutable identifier (never the language's memory-based identity); use a generated symbol when no natural key exists, make users responsible for externally supplied IDs, and accept that meaningful identity matching often needs human input."
+   },
+   {
+    "idx": 30,
+    "statement": "Classify an object you care about only for its attributes as a Value Object: give it no identity, treat it as immutable, and make its attributes form a conceptual whole; whether something is an Entity or a Value Object depends on the application's concerns."
+   },
+   {
+    "idx": 31,
+    "statement": "Do not assign artificial identity to all objects, because tracking identity that is not needed hurts performance, adds analytical work, and muddles the model; software design is a constant battle with complexity, so make distinctions so special handling applies only where necessary."
+   }
+  ]
+ },
+ {
+  "group": 20,
+  "members": [
+   {
+    "idx": 36,
+    "statement": "Choose modules to tell the story of the domain and contain cohesive concepts that can be reasoned about independently, give them names that enter the ubiquitous language, and refactor modules alongside the model and code, because cognitive overload, not just technical concern, is the primary motivation for modularity."
+   },
+   {
+    "idx": 57,
+    "statement": "Partition modules by cohesive broad domain concepts whose names tell the story and enter the ubiquitous language, never by design pattern or technical scheme such as persistent-versus-transient."
+   }
+  ]
+ },
+ {
+  "group": 22,
+  "members": [
+   {
+    "idx": 42,
+    "statement": "Define an Aggregate as a cluster with one root entity and a boundary; allow outside objects to reference only the root, obtain only roots via database queries, pass internal references only transiently, delete the whole aggregate at once, and make the root responsible for enforcing all invariants at the completion of each transaction."
+   },
+   {
+    "idx": 43,
+    "statement": "Choose aggregate boundaries from the domain's change frequency so high-contention points stay loose and strict invariants stay tight, make ownership reflect business practice, and enforce whole-aggregate invariants by guarding at the aggregate level rather than locking single fine-grained members; loosen a high-contention dependency (e.g. copy a value) when its changes need not propagate immediately."
+   },
+   {
+    "idx": 45,
+    "statement": "Make each factory method atomic and invariant-enforcing (producing only consistent objects) and abstracted to the desired type; place a factory on the aggregate root or a closely related object, or use a standalone factory when no natural host exists, and let it delegate invariant checking to the product except where rules span the aggregate or never apply after creation."
+   },
+   {
+    "idx": 47,
+    "statement": "Create a Repository for each aggregate root that needs global access, giving the illusion of an in-memory collection that encapsulates storage and query technology; provide repositories only for roots that genuinely need direct access, since most objects should not be reachable by global search and direct database access from clients tempts developers to bypass aggregates and reduce entities to data containers."
+   }
+  ]
+ },
+ {
+  "group": 26,
+  "members": [
+   {
+    "idx": 49,
+    "statement": "Keep Factories and Repositories distinct (a factory makes new objects, a repository finds old ones and may delegate reconstitution to a factory), avoid combined find-or-create functionality, and reconstitute a stored entity without assigning a new ID while having a strategy to repair invariant violations on existing data."
+   },
+   {
+    "idx": 55,
+    "statement": "Add a repository, feature, or association only when an actual application requirement needs it (never speculatively), cross-check model decisions by stepping through scenarios, and clone an aggregate-root entity by copying inside the boundary, assigning a fresh identity, and keeping references to external entities."
+   }
+  ]
+ },
+ {
+  "group": 28,
+  "members": [
+   {
+    "idx": 51,
+    "statement": "Do not fight your frameworks: keep domain-driven fundamentals, seek affinities with the framework's concepts, and choose harmonious frameworks when free to."
+   },
+   {
+    "idx": 134,
+    "statement": "Build a Pluggable Component Framework (an abstract core of interfaces with freely substitutable implementations) only after several applications exist in a mature deep domain, never as the first or second structure, treating it as a conceptual organization of responsibilities and adopting a technical framework only for an essential technical problem; signal exceptions from lower to higher layers through events to avoid two-way dependencies."
+   },
+   {
+    "idx": 141,
+    "statement": "Develop technical frameworks with the same biases of evolution, minimalism, and involvement with the application team, and do not write frameworks for dummies (which underestimates application development and erects barriers), while still encapsulating irrelevant technical detail to put powerful abstractions in capable developers' hands."
+   }
+  ]
+ },
+ {
+  "group": 31,
+  "members": [
+   {
+    "idx": 58,
+    "statement": "Integrate an external system through a translating Anticorruption Layer that exposes only what you need and reabstracts it in your domain terms, naming the integration service for its responsibility in your own system; a facade-based anticorruption layer confines the ripple of external changes to one place."
+   },
+   {
+    "idx": 103,
+    "statement": "Build an Anticorruption Layer that exposes the external system as services in your own model and translates conceptual objects in both directions (not merely transporting messages), implemented as facades, adapters, and lightweight stateless translators; write the facade in the other system's model, and never assume primitive data transported between systems carries the same meaning."
+   },
+   {
+    "idx": 104,
+    "statement": "Treat integration as always expensive and confirm it is really needed; use an anticorruption layer for a gradual legacy transition, and declare a bounded context to go Separate Ways when two sets of functionality have no indispensable relationship."
+   }
+  ]
+ },
+ {
+  "group": 33,
+  "members": [
+   {
+    "idx": 61,
+    "statement": "Expect returns from refactoring to be non-linear, recognize a breakthrough to a deeper model as an event to act on, and look to remove an inappropriate constraint that the model imposed but the business does not, since doing so can collapse layers of special-case logic; be suspicious of a model concept that is not a real domain term and that experts do not understand."
+   },
+   {
+    "idx": 62,
+    "statement": "Treat a disruptive breakthrough refactoring as higher opportunity and higher risk: weigh the cost to regain functionality, the slowdown without it, and long-term fit, doing it before an installed base makes it harder; do not become paralyzed chasing breakthroughs but push the predictable clarity levers (knowledge crunching, ubiquitous language, explicit concepts, supple design, distillation), and keep making modest improvements that cascade."
+   },
+   {
+    "idx": 92,
+    "statement": "Refactor when the design does not express the team's current understanding, when an important concept is implicit, or when a part can be made suppler; temper this with limits (not before a release, not for technical virtuosity, not a model an expert would not use), and treat a sudden obvious model inadequacy as an opportunity signaling a new level of understanding."
+   }
+  ]
+ },
+ {
+  "group": 40,
+  "members": [
+   {
+    "idx": 73,
+    "statement": "Give classes and operations intention-revealing names that describe effect and purpose (not means) and conform to the ubiquitous language, state relationships and rules in public interfaces without revealing how they are enforced, and drive interface design by writing the test the way a client would want to use the object; if a developer must read the implementation to use a component, the value of encapsulation is lost."
+   },
+   {
+    "idx": 79,
+    "statement": "Pursue a declarative style of design built from intention-revealing interfaces, side-effect-free functions, and assertions (e.g. specifications combinable with AND/OR/NOT), while being wary of declarative-framework pitfalls; the greatest value comes from a narrowly scoped framework automating a tedious aspect, and a declarative approach is corrupted whenever developers bypass it."
+   }
+  ]
+ },
+ {
+  "group": 41,
+  "members": [
+   {
+    "idx": 74,
+    "statement": "Place as much logic as possible in side-effect-free functions, strictly segregate commands into simple operations that do not return domain data, eliminate side effects by deriving a new immutable value object instead of mutating state, and avoid modifying arguments."
+   },
+   {
+    "idx": 83,
+    "statement": "Refactor a method that both calculates and modifies into a side-effect-free calculation and a simple command, treat implementation experience as a trigger for new model insight, and centralize complex calculation in immutable value objects with closed side-effect-free operations so client code reads declaratively, preferring a familiar formalism (like arithmetic) over an invented protocol."
+   }
+  ]
+ },
+ {
+  "group": 43,
+  "members": [
+   {
+    "idx": 77,
+    "statement": "Treat every dependency as suspect until proven fundamental to the concept, factor the most intricate computations into Standalone Classes (often value objects) that can be understood and tested alone, and aim to eliminate nonessential dependencies rather than all of them, without dumbing the model down to primitives."
+   },
+   {
+    "idx": 85,
+    "statement": "Tame a tangle of cross-object dependencies by making the dependency rules explicit objects with one clear point of initiation and firing-mode vocabulary in the ubiquitous language; keep the basic concept a well-known pattern term designates intact while renaming when the model evolves, and record the conceptual ideal when a pragmatic placement differs for clearer code."
+   }
+  ]
+ },
+ {
+  "group": 45,
+  "members": [
+   {
+    "idx": 80,
+    "statement": "Do not build pattern features you do not yet need (add them later if concepts stay clear), and choose among the many possible implementations of a pattern the one whose trade-offs fit your circumstances while keeping the model faithful to the domain's key concepts."
+   },
+   {
+    "idx": 84,
+    "statement": "Use analysis patterns as expressive starting points that carry cross-project model insight, design direction, and implementation consequences, validating each borrowed concept against your domain with an expert and discarding misfits; they reveal blind spots where application code hides domain logic, and they are a kit of model fragments to adapt, not code to reuse."
+   },
+   {
+    "idx": 87,
+    "statement": "Use a design pattern in the domain only when it genuinely fits a domain concept and says something about the conceptual domain (not merely solving a technical problem), viewing it on two levels (technical pattern in code and conceptual pattern in the model), and apply it only when actually needed."
+   }
+  ]
+ },
+ {
+  "group": 51,
+  "members": [
+   {
+    "idx": 95,
+    "statement": "Draw an explicit context boundary to keep a model pure and potent where it applies, remembering bounded contexts are not modules; when two teams share objects without a defined relationship, stop sharing code until the relationship is established."
+   },
+   {
+    "idx": 99,
+    "statement": "Choose a context-relationship pattern based on the control you have over the other model, the level of team cooperation, and the degree of integration; yield to a separate context when a sub-team needs a different conceptual organization, translate only the specific mappings needed via a dedicated translator both teams maintain and test, and test the contact points thoroughly."
+   },
+   {
+    "idx": 108,
+    "statement": "Base context-boundary decisions on the cost-benefit of independent team action versus rich integration (acknowledging political reality), weighing the forces that favor larger contexts (smoother flow, one model, hard translation, shared language) against those favoring smaller ones (less communication overhead, easier CI, scarce skills, specialized jargon), and accept that deep integration between contexts is impractical."
+   },
+   {
+    "idx": 110,
+    "statement": "On a project already under way, define bounded contexts by the teams' true current practice before changing them, then change boundaries in small pragmatic pieces; breaking up contexts is easy but merging is hard, so move Separate Ways toward a Shared Kernel in planned steps, defer merging jargon-specialized models until a deep model supersedes both, and let deployment feasibility feed back into where boundaries are drawn."
+   },
+   {
+    "idx": 133,
+    "statement": "Recognize that a knowledge level has bidirectional dependencies (unlike layers) and can reveal further clarifying insights, and watch for a statement spoken in the language the team wants but the model does not yet support as a sign of an implicit concept to make explicit."
+   }
+  ]
+ },
+ {
+  "group": 58,
+  "members": [
+   {
+    "idx": 106,
+    "statement": "Recognize that integration forces compromises (a specialized model gives way to a more abstract one) and that cutting low-value integrations can deliver capabilities quickly, while remembering Separate Ways forecloses options because models developed in isolation are hard to merge later."
+   },
+   {
+    "idx": 107,
+    "statement": "Treat unifying multiple models as creating a new model that hinges on minimalism (dropping incidental and incorrect aspects), needing only enough maturity for immediate needs; value simply recognizing where models disagree, since that prevents teams from talking at cross-purposes even before they integrate."
+   }
+  ]
+ },
+ {
+  "group": 61,
+  "members": [
+   {
+    "idx": 112,
+    "statement": "Do not break a large bounded context merely because its model seems complex; first apply distillation and large-scale structure, distilling the model to aid understanding, identify a manageable core for the language, guide refactoring, focus work on the highest-value areas, and guide outsourcing and assignment decisions."
+   },
+   {
+    "idx": 121,
+    "statement": "Allow pragmatic refactoring that reabsorbs a separated mechanism while keeping its declarative interface, and pursue the exceptional payoff of part of the core breaking through to a deep model that functions as a language for expressing the most important scenarios."
+   },
+   {
+    "idx": 125,
+    "statement": "Introduce a Large-Scale Structure (high-level concepts or rules) that lets each part's role in the whole be understood without detailed knowledge and usually spans multiple contexts, complementing distillation; do not impose it up front but let it evolve, since architectures that freeze many decisions become a straitjacket."
+   },
+   {
+    "idx": 136,
+    "statement": "Hold a large-scale structure together by team self-discipline, incorporating its terminology into the ubiquitous language, because such structures are abstract and not enforced by code or tests; a design that has a structure is easier to transform, continuous distillation eases restructuring, and the three strategic principles (context, distillation, structure) are complementary, with the structure sometimes itself part of the core."
+   }
+  ]
+ },
+ {
+  "group": 62,
+  "members": [
+   {
+    "idx": 114,
+    "statement": "Apply top talent to the core domain and justify investment elsewhere by how it supports the core, keep everything outside the core as generic as practical, reserve secrecy and the first refactoring priority for the core, and identify the core iteratively since it depends on point of view."
+   },
+   {
+    "idx": 118,
+    "statement": "Base the first-cut end-to-end system on some part of the core domain (unless team skills are proven and the domain familiar), because the core is the high-risk part and domain-modeling risk (unforeseen complexity, poor expert access, skill gaps) is easily underestimated."
+   },
+   {
+    "idx": 119,
+    "statement": "Write a short Domain Vision Statement of the core's value proposition and make the core easy to see (via a minimalist distillation document or by flagging core elements in the model repository), using the distillation document as a process tool whereby a change forcing it to change signals a core change needing team consultation."
+   },
+   {
+    "idx": 122,
+    "statement": "Create a Segregated Core by refactoring to separate core concepts from supporting players (strengthening cohesion, reducing coupling, even splitting a cohesive module), accepting the work and some obscured non-core relationships because the enterprise-specific aspects add the most value; move the whole team together with a joint decision process that keeps one evolving definition of the core, identifying it from the vision statement and letting segregation surface new insights."
+   }
+  ]
+ },
+ {
+  "group": 63,
+  "members": [
+   {
+    "idx": 116,
+    "statement": "Distill in escalating order of commitment (vision statement and highlighted core through generic subdomains and cohesive mechanisms to segregated and abstract core), factoring generic subdomains that are not the project's motivation into separate modules (with no trace of your specialties) at lower priority, and prefer a published or formalized model for them when one exists."
+   },
+   {
+    "idx": 120,
+    "statement": "When computations bloat the design, first seek a model that makes the computation simple, then partition a conceptually coherent Cohesive Mechanism into a separate framework behind an intention-revealing interface (watching for documented formalisms), distinguishing it from a generic subdomain (a model proposes, a mechanism disposes); remove mechanisms from the core except a proprietary one that is itself key value."
+   },
+   {
+    "idx": 123,
+    "statement": "When many interactions span separately packaged subdomains and the polymorphic interfaces correspond to fundamental domain concepts, factor them into an Abstract Core module that expresses most cross-component interaction; this is not mechanical but an act of refactoring to deeper insight, and distillation also means refactoring subdomains (especially the core) toward a deep model and supple design."
+   }
+  ]
+ },
+ {
+  "group": 66,
+  "members": [
+   {
+    "idx": 126,
+    "statement": "Accept that a large-scale structure favors manageability of the whole over optimal individual parts (mitigated by selecting from real domain experience and avoiding over-constriction) and treat it as optional: impose one only when costs and benefits favor it and a fitting structure is found, preferring a minimal set since an ill-fitting structure is worse than none."
+   },
+   {
+    "idx": 135,
+    "statement": "Balance how restrictive a structure is (more uniformity versus less flexibility), keeping its most important contribution conceptual coherence rather than regimentation; find a fitting structure only from deep, iterative domain understanding and rethink it throughout, keeping it minimal and lightweight."
+   }
+  ]
+ },
+ {
+  "group": 67,
+  "members": [
+   {
+    "idx": 128,
+    "statement": "Apply responsibility-driven design at large scale by defining Responsibility Layers from the domain's natural strata (parts that change at different rates) as broad abstract responsibilities that tell the system's story, refactoring each object, aggregate, and module to fit within one layer."
+   },
+   {
+    "idx": 130,
+    "statement": "Once a structure is adopted, make subsequent decisions respect it and reject an otherwise appealing design that violates it (or modify the structure if it forces many awkward choices); look for storytelling, conceptual dependency, and conceptual contours in good layers, keep operational objects referencing potential objects but never the reverse, and exploit that lower layers can exist without higher ones."
+   }
+  ]
+ },
+ {
+  "group": 69,
+  "members": [
+   {
+    "idx": 138,
+    "statement": "Begin strategic design with an assessment (draw and check the context map, evaluate the ubiquitous language, confirm the core and a vision statement, judge technology and team skills/knowledge/interest), and do not hand strategy down from an ivory-tower architecture team; let order emerge from a self-disciplined application team or a hands-on peer architecture team, valuing developers' actual relationship with the strategy over bestowed authority."
+   },
+   {
+    "idx": 139,
+    "statement": "Make the strategic-design decision process absorb feedback through a tight loop with the application teams (who alone have the depth of knowledge), let the plan allow for evolution rather than setting top-level decisions in stone, and do not let architecture teams siphon off all the best developers, ensuring strong designers on every application team and domain knowledge on any strategic-design team."
+   },
+   {
+    "idx": 140,
+    "statement": "Practice minimalism and humility in strategic design, paring organizing principles to nothing that does not significantly improve clarity (since almost every element gets in someone's way), and make objects specialists with narrow responsibilities while letting developers be generalists who cross into each other's areas."
+   }
+  ]
+ }
+]

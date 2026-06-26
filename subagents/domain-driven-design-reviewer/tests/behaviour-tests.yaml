@@ -1,0 +1,1510 @@
+schema_version: golden-tests-v1
+subagent_slug: domain-driven-design-reviewer
+generated_at: '2026-06-27'
+golden_tests:
+- test_id: GT-001
+  prompt: interacting with a system built on a different model. What do you advise, and why?
+  principle_coverage:
+  - P001
+  expected_route: invoke
+  minimum_output: Build an Anticorruption Layer that exposes the external system as services in your own
+    model and translates conceptual objects in both directions (not merely transporting messages), implemented
+    as facades, adapters, and lightweight stateless translators; write the facade in the other system's
+    model, and never assume primitive data transported between systems carries the same meaning
+- test_id: GT-002
+  prompt: interacting with a system built on a different model. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P001
+  expected_route: invoke
+  minimum_output: Build an Anticorruption Layer that exposes the external system as services in your own
+    model and translates conceptual objects in both directions (not merely transporting messages), implemented
+    as facades, adapters, and lightweight stateless translators; write the facade in the other system's
+    model, and never assume primitive data transported between systems carries the same meaning
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-001
+- test_id: GT-003
+  prompt: establishing shared terminology for design discussions and reviews. What do you advise, and
+    why?
+  principle_coverage:
+  - P002
+  expected_route: invoke
+  minimum_output: 'Apply the precise domain-driven vocabulary consistently in the ubiquitous language:
+    Entity (defined by identity/continuity) versus Value Object (no identity); stateless Service standing
+    alone in the model; deep model versus supple design; assertion, invariant, and side effect; conceptual
+    contour; unification within a bounded context; model-driven design; standalone class and whole value;
+    and strategic design as team-level decisions affecting the whole project'
+- test_id: GT-004
+  prompt: establishing shared terminology for design discussions and reviews. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P002
+  expected_route: invoke
+  minimum_output: 'Apply the precise domain-driven vocabulary consistently in the ubiquitous language:
+    Entity (defined by identity/continuity) versus Value Object (no identity); stateless Service standing
+    alone in the model; deep model versus supple design; assertion, invariant, and side effect; conceptual
+    contour; unification within a bounded context; model-driven design; standalone class and whole value;
+    and strategic design as team-level decisions affecting the whole project'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-002
+- test_id: GT-005
+  prompt: designing operations that compute or change state. What do you advise, and why?
+  principle_coverage:
+  - P003
+  expected_route: invoke
+  minimum_output: 'Separate commands from queries: place as much logic as possible in side-effect-free
+    functions — refactoring a method that both calculates and modifies into a side-effect-free calculation
+    plus a simple command that returns no domain data — eliminate side effects by deriving a new immutable
+    value object instead of mutating state, avoid modifying arguments, and centralize complex calculation
+    in immutable value objects with closed side-effect-free operations'
+- test_id: GT-006
+  prompt: designing operations that compute or change state. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P003
+  expected_route: invoke
+  minimum_output: 'Separate commands from queries: place as much logic as possible in side-effect-free
+    functions — refactoring a method that both calculates and modifies into a side-effect-free calculation
+    plus a simple command that returns no domain data — eliminate side effects by deriving a new immutable
+    value object instead of mutating state, avoid modifying arguments, and centralize complex calculation
+    in immutable value objects with closed side-effect-free operations'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-003
+- test_id: GT-007
+  prompt: establishing identity for an entity. What do you advise, and why?
+  principle_coverage:
+  - P004
+  expected_route: invoke
+  minimum_output: Define each entity's identity from the domain with an operation guaranteed to produce
+    a unique, immutable identifier (never the language's memory-based identity); use a generated symbol
+    when no natural key exists, make users responsible for externally supplied IDs, and accept that meaningful
+    identity matching often needs human input
+- test_id: GT-008
+  prompt: establishing identity for an entity. (Every decision-relevant specific is provided.) What do
+    you advise?
+  principle_coverage:
+  - P004
+  expected_route: invoke
+  minimum_output: Define each entity's identity from the domain with an operation guaranteed to produce
+    a unique, immutable identifier (never the language's memory-based identity); use a generated symbol
+    when no natural key exists, make users responsible for externally supplied IDs, and accept that meaningful
+    identity matching often needs human input
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-004
+- test_id: GT-009
+  prompt: choosing and mixing modeling paradigms. What do you advise, and why?
+  principle_coverage:
+  - P005
+  expected_route: invoke
+  minimum_output: Use object-oriented technology as the core for most model-driven designs and avoid esoteric
+    paradigms the team or experts cannot grasp, recognizing a domain model need not be an object model;
+    mix in another paradigm only when major parts of the domain genuinely belong to it, after exhausting
+    the dominant paradigm, and only with an expressive implementation
+- test_id: GT-010
+  prompt: choosing and mixing modeling paradigms. (Every decision-relevant specific is provided.) What
+    do you advise?
+  principle_coverage:
+  - P005
+  expected_route: invoke
+  minimum_output: Use object-oriented technology as the core for most model-driven designs and avoid esoteric
+    paradigms the team or experts cannot grasp, recognizing a domain model need not be an object model;
+    mix in another paradigm only when major parts of the domain genuinely belong to it, after exhausting
+    the dominant paradigm, and only with an expressive implementation
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-005
+- test_id: GT-011
+  prompt: a design is awkward or the language outruns the model. What do you advise, and why?
+  principle_coverage:
+  - P006
+  expected_route: invoke
+  minimum_output: Deepen a model by recognizing concepts only hinted at and representing them explicitly;
+    dig them out by digging in the most awkward part of the design, listening to the team's language,
+    scrutinizing contradictions, mining domain literature, and experimenting, treating a term used in
+    conversation but absent from the design as a warning and an opportunity
+- test_id: GT-012
+  prompt: a design is awkward or the language outruns the model. (Every decision-relevant specific is
+    provided.) What do you advise?
+  principle_coverage:
+  - P006
+  expected_route: invoke
+  minimum_output: Deepen a model by recognizing concepts only hinted at and representing them explicitly;
+    dig them out by digging in the most awkward part of the design, listening to the team's language,
+    scrutinizing contradictions, mining domain literature, and experimenting, treating a term used in
+    conversation but absent from the design as a warning and an opportunity
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-006
+- test_id: GT-013
+  prompt: organizing the domain model into modules. What do you advise, and why?
+  principle_coverage:
+  - P007
+  expected_route: invoke
+  minimum_output: Partition modules by cohesive, broad domain concepts that tell the story of the domain
+    — never by design pattern or technical scheme (e.g. persistent-versus-transient) — give them names
+    that enter the ubiquitous language, and refactor modules alongside the model and code, since cognitive
+    overload (not merely technical concern) is the primary motivation for modularity
+- test_id: GT-014
+  prompt: organizing the domain model into modules. (Every decision-relevant specific is provided.) What
+    do you advise?
+  principle_coverage:
+  - P007
+  expected_route: invoke
+  minimum_output: Partition modules by cohesive, broad domain concepts that tell the story of the domain
+    — never by design pattern or technical scheme (e.g. persistent-versus-transient) — give them names
+    that enter the ubiquitous language, and refactor modules alongside the model and code, since cognitive
+    overload (not merely technical concern) is the primary motivation for modularity
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-007
+- test_id: GT-015
+  prompt: defining transactional consistency boundaries. What do you advise, and why?
+  principle_coverage:
+  - P008
+  expected_route: invoke
+  minimum_output: Define an Aggregate as a cluster with one root entity and a boundary; allow outside
+    objects to reference only the root, obtain only roots via database queries, pass internal references
+    only transiently, delete the whole aggregate at once, and make the root responsible for enforcing
+    all invariants at the completion of each transaction
+- test_id: GT-016
+  prompt: defining transactional consistency boundaries. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P008
+  expected_route: invoke
+  minimum_output: Define an Aggregate as a cluster with one root entity and a boundary; allow outside
+    objects to reference only the root, obtain only roots via database queries, pass internal references
+    only transiently, delete the whole aggregate at once, and make the root responsible for enforcing
+    all invariants at the completion of each transaction
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-008
+- test_id: GT-017
+  prompt: a familiar analysis pattern matches the problem. What do you advise, and why?
+  principle_coverage:
+  - P009
+  expected_route: invoke
+  minimum_output: Use analysis patterns as expressive starting points that carry cross-project model insight,
+    design direction, and implementation consequences, validating each borrowed concept against your domain
+    with an expert and discarding misfits; they reveal blind spots where application code hides domain
+    logic, and they are a kit of model fragments to adapt, not code to reuse
+- test_id: GT-018
+  prompt: a familiar analysis pattern matches the problem. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P009
+  expected_route: invoke
+  minimum_output: Use analysis patterns as expressive starting points that carry cross-project model insight,
+    design direction, and implementation consequences, validating each borrowed concept against your domain
+    with an expert and discarding misfits; they reveal blind spots where application code hides domain
+    logic, and they are a kit of model fragments to adapt, not code to reuse
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-009
+- test_id: GT-019
+  prompt: relating two bounded contexts. What do you advise, and why?
+  principle_coverage:
+  - P010
+  expected_route: invoke
+  minimum_output: Choose a context-relationship pattern based on the control you have over the other model,
+    the level of team cooperation, and the degree of integration; yield to a separate context when a sub-team
+    needs a different conceptual organization, translate only the specific mappings needed via a dedicated
+    translator both teams maintain and test, and test the contact points thoroughly
+- test_id: GT-020
+  prompt: relating two bounded contexts. (Every decision-relevant specific is provided.) What do you advise?
+  principle_coverage:
+  - P010
+  expected_route: invoke
+  minimum_output: Choose a context-relationship pattern based on the control you have over the other model,
+    the level of team cooperation, and the degree of integration; yield to a separate context when a sub-team
+    needs a different conceptual organization, translate only the specific mappings needed via a dedicated
+    translator both teams maintain and test, and test the contact points thoroughly
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-010
+- test_id: GT-021
+  prompt: a subsystem is in high demand for integration by many parties. What do you advise, and why?
+  principle_coverage:
+  - P011
+  expected_route: invoke
+  minimum_output: When a subsystem must integrate with many others, define an Open Host Service exposing
+    it as a cohesive set of services and keep the shared protocol simple by handling idiosyncratic needs
+    with one-off translators; use a well-documented Published Language as the interchange medium rather
+    than one application's internal model (which would freeze it), reusing an existing published language
+    and keeping it stable while still refactoring the host
+- test_id: GT-022
+  prompt: a subsystem is in high demand for integration by many parties. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P011
+  expected_route: invoke
+  minimum_output: When a subsystem must integrate with many others, define an Open Host Service exposing
+    it as a cohesive set of services and keep the shared protocol simple by handling idiosyncratic needs
+    with one-off translators; use a well-documented Published Language as the interchange medium rather
+    than one application's internal model (which would freeze it), reusing an existing published language
+    and keeping it stable while still refactoring the host
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-011
+- test_id: GT-023
+  prompt: communicating and protecting the core domain. What do you advise, and why?
+  principle_coverage:
+  - P012
+  expected_route: invoke
+  minimum_output: Write a short Domain Vision Statement of the core's value proposition and make the core
+    easy to see (via a minimalist distillation document or by flagging core elements in the model repository),
+    using the distillation document as a process tool whereby a change forcing it to change signals a
+    core change needing team consultation
+- test_id: GT-024
+  prompt: communicating and protecting the core domain. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P012
+  expected_route: invoke
+  minimum_output: Write a short Domain Vision Statement of the core's value proposition and make the core
+    easy to see (via a minimalist distillation document or by flagging core elements in the model repository),
+    using the distillation document as a process tool whereby a change forcing it to change signals a
+    core change needing team consultation
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-012
+- test_id: GT-025
+  prompt: a large critical context's essential model is obscured by supporting capability. What do you
+    advise, and why?
+  principle_coverage:
+  - P013
+  expected_route: invoke
+  minimum_output: Create a Segregated Core by refactoring to separate core concepts from supporting players
+    (strengthening cohesion, reducing coupling, even splitting a cohesive module), accepting the work
+    and some obscured non-core relationships because the enterprise-specific aspects add the most value;
+    move the whole team together with a joint decision process that keeps one evolving definition of the
+    core, identifying it from the vision statement and letting segregation surface new insights
+- test_id: GT-026
+  prompt: a large critical context's essential model is obscured by supporting capability. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P013
+  expected_route: invoke
+  minimum_output: Create a Segregated Core by refactoring to separate core concepts from supporting players
+    (strengthening cohesion, reducing coupling, even splitting a cohesive module), accepting the work
+    and some obscured non-core relationships because the enterprise-specific aspects add the most value;
+    move the whole team together with a joint decision process that keeps one evolving definition of the
+    core, identifying it from the vision statement and letting segregation surface new insights
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-013
+- test_id: GT-027
+  prompt: deciding whether and how restrictively to adopt a large-scale structure. What do you advise,
+    and why?
+  principle_coverage:
+  - P014
+  expected_route: invoke
+  minimum_output: 'Treat a large-scale structure as optional and keep it minimal and lightweight: impose
+    one only when its costs and benefits favor it and a fitting structure — found through deep, iterative
+    domain understanding — is available, since its most important contribution is conceptual coherence
+    and manageability of the whole rather than regimentation, and an ill-fitting or over-restrictive structure
+    is worse than none'
+- test_id: GT-028
+  prompt: deciding whether and how restrictively to adopt a large-scale structure. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P014
+  expected_route: invoke
+  minimum_output: 'Treat a large-scale structure as optional and keep it minimal and lightweight: impose
+    one only when its costs and benefits favor it and a fitting structure — found through deep, iterative
+    domain understanding — is available, since its most important contribution is conceptual coherence
+    and manageability of the whole rather than regimentation, and an ill-fitting or over-restrictive structure
+    is worse than none'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-014
+- test_id: GT-029
+  prompt: an important operation does not fit any entity or value object. What do you advise, and why?
+  principle_coverage:
+  - P015
+  expected_route: invoke
+  minimum_output: 'Model a significant domain operation that belongs to no entity or value object as a
+    Service: relate it to a real domain concept, define its interface in domain terms, name it for an
+    activity, and keep it stateless; use services judiciously rather than forcing operations into ill-fitting
+    objects or slipping into procedural code'
+- test_id: GT-030
+  prompt: an important operation does not fit any entity or value object. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P015
+  expected_route: invoke
+  minimum_output: 'Model a significant domain operation that belongs to no entity or value object as a
+    Service: relate it to a real domain concept, define its interface in domain terms, name it for an
+    activity, and keep it stateless; use services judiciously rather than forcing operations into ill-fitting
+    objects or slipping into procedural code'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-015
+- test_id: GT-031
+  prompt: organizing roles on a model-driven project. What do you advise, and why?
+  principle_coverage:
+  - P016
+  expected_route: invoke
+  minimum_output: 'Treat programmers as modelers and keep modeling and implementation together: any technical
+    contributor must touch the code and learn to express the model through it, because if code writers
+    do not feel responsible for the model it becomes irrelevant; specialized roles are fine, separating
+    modeling from implementation is not'
+- test_id: GT-032
+  prompt: organizing roles on a model-driven project. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P016
+  expected_route: invoke
+  minimum_output: 'Treat programmers as modelers and keep modeling and implementation together: any technical
+    contributor must touch the code and learn to express the model through it, because if code writers
+    do not feel responsible for the model it becomes irrelevant; specialized roles are fine, separating
+    modeling from implementation is not'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-016
+- test_id: GT-033
+  prompt: structuring a complex application around a domain model. What do you advise, and why?
+  principle_coverage:
+  - P017
+  expected_route: invoke
+  minimum_output: Isolate the domain in its own layer within a layered architecture in which each element
+    depends only on its own or lower layers, since isolating the domain implementation is a prerequisite
+    for domain-driven design and isolated layers are cheaper to maintain
+- test_id: GT-034
+  prompt: structuring a complex application around a domain model. (Every decision-relevant specific is
+    provided.) What do you advise?
+  principle_coverage:
+  - P017
+  expected_route: invoke
+  minimum_output: Isolate the domain in its own layer within a layered architecture in which each element
+    depends only on its own or lower layers, since isolating the domain implementation is a prerequisite
+    for domain-driven design and isolated layers are cheaper to maintain
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-017
+- test_id: GT-035
+  prompt: organizing packages and modules in a model-driven design. What do you advise, and why?
+  principle_coverage:
+  - P018
+  expected_route: invoke
+  minimum_output: Use packaging to separate the domain layer but otherwise leave domain developers free
+    to package by their model, keep all code for a single conceptual object together (don't let a framework
+    fragment it across packages) unless genuinely distributing on different servers, and adopt only minimal
+    technical partitioning; when conceptual clarity and low technical coupling conflict, favor clarity
+- test_id: GT-036
+  prompt: organizing packages and modules in a model-driven design. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P018
+  expected_route: invoke
+  minimum_output: Use packaging to separate the domain layer but otherwise leave domain developers free
+    to package by their model, keep all code for a single conceptual object together (don't let a framework
+    fragment it across packages) unless genuinely distributing on different servers, and adopt only minimal
+    technical partitioning; when conceptual clarity and low technical coupling conflict, favor clarity
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-018
+- test_id: GT-037
+  prompt: sizing aggregates and handling concurrent access. What do you advise, and why?
+  principle_coverage:
+  - P019
+  expected_route: invoke
+  minimum_output: Choose aggregate boundaries from the domain's change frequency so high-contention points
+    stay loose and strict invariants stay tight, make ownership reflect business practice, and enforce
+    whole-aggregate invariants by guarding at the aggregate level rather than locking single fine-grained
+    members; loosen a high-contention dependency (e.g. copy a value) when its changes need not propagate
+    immediately
+- test_id: GT-038
+  prompt: sizing aggregates and handling concurrent access. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P019
+  expected_route: invoke
+  minimum_output: Choose aggregate boundaries from the domain's change frequency so high-contention points
+    stay loose and strict invariants stay tight, make ownership reflect business practice, and enforce
+    whole-aggregate invariants by guarding at the aggregate level rather than locking single fine-grained
+    members; loosen a high-contention dependency (e.g. copy a value) when its changes need not propagate
+    immediately
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-019
+- test_id: GT-039
+  prompt: designing public interfaces of domain elements. What do you advise, and why?
+  principle_coverage:
+  - P020
+  expected_route: invoke
+  minimum_output: Give classes and operations intention-revealing names that describe effect and purpose
+    (not means) and conform to the ubiquitous language, state relationships and rules in public interfaces
+    without revealing how they are enforced, and drive interface design by writing the test the way a
+    client would want to use the object; if a developer must read the implementation to use a component,
+    the value of encapsulation is lost
+- test_id: GT-040
+  prompt: designing public interfaces of domain elements. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P020
+  expected_route: invoke
+  minimum_output: Give classes and operations intention-revealing names that describe effect and purpose
+    (not means) and conform to the ubiquitous language, state relationships and rules in public interfaces
+    without revealing how they are enforced, and drive interface design by writing the test the way a
+    client would want to use the object; if a developer must read the implementation to use a component,
+    the value of encapsulation is lost
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-020
+- test_id: GT-041
+  prompt: characterizing the behavior and integrity of a design. What do you advise, and why?
+  principle_coverage:
+  - P021
+  expected_route: invoke
+  minimum_output: State postconditions of operations and invariants of classes and aggregates as assertions
+    (capturing them as automated tests where the language cannot), seeking coherent concepts that let
+    developers infer the intended assertions, because state-based assertions are easier to analyze than
+    tracing delegated side effects; when a logically consistent model proves unsuitable for requirements,
+    treat the awkwardness as a sign of missing concepts
+- test_id: GT-042
+  prompt: characterizing the behavior and integrity of a design. (Every decision-relevant specific is
+    provided.) What do you advise?
+  principle_coverage:
+  - P021
+  expected_route: invoke
+  minimum_output: State postconditions of operations and invariants of classes and aggregates as assertions
+    (capturing them as automated tests where the language cannot), seeking coherent concepts that let
+    developers infer the intended assertions, because state-based assertions are easier to analyze than
+    tracing delegated side effects; when a logically consistent model proves unsuitable for requirements,
+    treat the awkwardness as a sign of missing concepts
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-021
+- test_id: GT-043
+  prompt: considering a published design pattern for the domain model. What do you advise, and why?
+  principle_coverage:
+  - P022
+  expected_route: invoke
+  minimum_output: Use a design pattern in the domain only when it genuinely fits a domain concept and
+    says something about the conceptual domain (not merely solving a technical problem), viewing it on
+    two levels (technical pattern in code and conceptual pattern in the model), and apply it only when
+    actually needed
+- test_id: GT-044
+  prompt: considering a published design pattern for the domain model. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P022
+  expected_route: invoke
+  minimum_output: Use a design pattern in the domain only when it genuinely fits a domain concept and
+    says something about the conceptual domain (not merely solving a technical problem), viewing it on
+    two levels (technical pattern in code and conceptual pattern in the model), and apply it only when
+    actually needed
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-022
+- test_id: GT-045
+  prompt: one subsystem feeds another with one-way dependency. What do you advise, and why?
+  principle_coverage:
+  - P023
+  expected_route: invoke
+  minimum_output: For a one-directional upstream/downstream dependency, establish a Customer/Supplier
+    relationship in which the downstream plays customer in the upstream's planning, with jointly developed
+    automated acceptance tests in the upstream's CI suite (a change to which signals an interface change);
+    its two essentials are that the customer's needs are paramount and that the test suite frees each
+    team from monitoring the other, succeeding best under shared management
+- test_id: GT-046
+  prompt: one subsystem feeds another with one-way dependency. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P023
+  expected_route: invoke
+  minimum_output: For a one-directional upstream/downstream dependency, establish a Customer/Supplier
+    relationship in which the downstream plays customer in the upstream's planning, with jointly developed
+    automated acceptance tests in the upstream's CI suite (a change to which signals an interface change);
+    its two essentials are that the customer's needs are paramount and that the test suite frees each
+    team from monitoring the other, succeeding best under shared management
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-023
+- test_id: GT-047
+  prompt: complex computation is swamping the expressive model. What do you advise, and why?
+  principle_coverage:
+  - P024
+  expected_route: invoke
+  minimum_output: When computations bloat the design, first seek a model that makes the computation simple,
+    then partition a conceptually coherent Cohesive Mechanism into a separate framework behind an intention-revealing
+    interface (watching for documented formalisms), distinguishing it from a generic subdomain (a model
+    proposes, a mechanism disposes); remove mechanisms from the core except a proprietary one that is
+    itself key value
+- test_id: GT-048
+  prompt: complex computation is swamping the expressive model. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P024
+  expected_route: invoke
+  minimum_output: When computations bloat the design, first seek a model that makes the computation simple,
+    then partition a conceptually coherent Cohesive Mechanism into a separate framework behind an intention-revealing
+    interface (watching for documented formalisms), distinguishing it from a generic subdomain (a model
+    proposes, a mechanism disposes); remove mechanisms from the core except a proprietary one that is
+    itself key value
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-024
+- test_id: GT-049
+  prompt: refining or validating a model with domain experts. What do you advise, and why?
+  principle_coverage:
+  - P025
+  expected_route: invoke
+  minimum_output: 'Refine the model by speaking it: explore scenarios out loud using model elements, use
+    ease versus awkwardness of expression as a quick viability test, and let domain experts write use
+    cases and acceptance tests in the model language'
+- test_id: GT-050
+  prompt: refining or validating a model with domain experts. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P025
+  expected_route: invoke
+  minimum_output: 'Refine the model by speaking it: explore scenarios out loud using model elements, use
+    ease versus awkwardness of expression as a quick viability test, and let domain experts write use
+    cases and acceptance tests in the model language'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-025
+- test_id: GT-051
+  prompt: roles and relationships among entities must be configured at install or runtime. What do you
+    advise, and why?
+  principle_coverage:
+  - P026
+  expected_route: invoke
+  minimum_output: When configurable behavior is needed, neither a fully general nor a highly customized
+    model serves users; make a field that has come to represent a policy-enforcing concept an explicit
+    type object, and apply a Knowledge Level (built of ordinary domain objects, not language reflection)
+    sparingly where customization is crucial, since its indirection adds obscurity and burdens the designer
+- test_id: GT-052
+  prompt: roles and relationships among entities must be configured at install or runtime. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P026
+  expected_route: invoke
+  minimum_output: When configurable behavior is needed, neither a fully general nor a highly customized
+    model serves users; make a field that has come to represent a policy-enforcing concept an explicit
+    type object, and apply a Knowledge Level (built of ordinary domain objects, not language reflection)
+    sparingly where customization is crucial, since its indirection adds obscurity and burdens the designer
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-026
+- test_id: GT-053
+  prompt: working a model through to a practical design. What do you advise, and why?
+  principle_coverage:
+  - P027
+  expected_route: invoke
+  minimum_output: Keep application-layer classes as coordinators that delegate answers to the domain layer,
+    abstract goals or criteria into a separate Specification object to keep entities simple, and classify
+    each object as Entity or Value Object by whether its identity must be tracked, reusing an organization's
+    existing identifier and placing a borrowed-identity entity inside its owner's aggregate
+- test_id: GT-054
+  prompt: working a model through to a practical design. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P027
+  expected_route: invoke
+  minimum_output: Keep application-layer classes as coordinators that delegate answers to the domain layer,
+    abstract goals or criteria into a separate Specification object to keep entities simple, and classify
+    each object as Entity or Value Object by whether its identity must be tracked, reusing an organization's
+    existing identifier and placing a borrowed-identity entity inside its owner's aggregate
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-027
+- test_id: GT-055
+  prompt: designing the factory itself. What do you advise, and why?
+  principle_coverage:
+  - P028
+  expected_route: invoke
+  minimum_output: Make each factory method atomic and invariant-enforcing (producing only consistent objects)
+    and abstracted to the desired type; place a factory on the aggregate root or a closely related object,
+    or use a standalone factory when no natural host exists, and let it delegate invariant checking to
+    the product except where rules span the aggregate or never apply after creation
+- test_id: GT-056
+  prompt: designing the factory itself. (Every decision-relevant specific is provided.) What do you advise?
+  principle_coverage:
+  - P028
+  expected_route: invoke
+  minimum_output: Make each factory method atomic and invariant-enforcing (producing only consistent objects)
+    and abstracted to the desired type; place a factory on the aggregate root or a closely related object,
+    or use a standalone factory when no natural host exists, and let it delegate invariant checking to
+    the product except where rules span the aggregate or never apply after creation
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-028
+- test_id: GT-057
+  prompt: implementing specification-based queries or generators against a model. What do you advise,
+    and why?
+  principle_coverage:
+  - P029
+  expected_route: invoke
+  minimum_output: Keep the model in lockstep with the implementation while remaining free to choose any
+    faithful implementation, declare a rule in one place (let the specification control which query a
+    repository runs), do not leak table-structure details into the domain layer, and define a generator's
+    interface via a descriptive specification (starting from the validation problem) so the same specification
+    validates the output
+- test_id: GT-058
+  prompt: implementing specification-based queries or generators against a model. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P029
+  expected_route: invoke
+  minimum_output: Keep the model in lockstep with the implementation while remaining free to choose any
+    faithful implementation, declare a rule in one place (let the specification control which query a
+    repository runs), do not leak table-structure details into the domain layer, and define a generator's
+    interface via a descriptive specification (starting from the validation problem) so the same specification
+    validates the output
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-029
+- test_id: GT-059
+  prompt: seeking declarative, combinable model elements. What do you advise, and why?
+  principle_coverage:
+  - P030
+  expected_route: invoke
+  minimum_output: Pursue a declarative style of design built from intention-revealing interfaces, side-effect-free
+    functions, and assertions (e.g. specifications combinable with AND/OR/NOT), while being wary of declarative-framework
+    pitfalls; the greatest value comes from a narrowly scoped framework automating a tedious aspect, and
+    a declarative approach is corrupted whenever developers bypass it
+- test_id: GT-060
+  prompt: seeking declarative, combinable model elements. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P030
+  expected_route: invoke
+  minimum_output: Pursue a declarative style of design built from intention-revealing interfaces, side-effect-free
+    functions, and assertions (e.g. specifications combinable with AND/OR/NOT), while being wary of declarative-framework
+    pitfalls; the greatest value comes from a narrowly scoped framework automating a tedious aspect, and
+    a declarative approach is corrupted whenever developers bypass it
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-030
+- test_id: GT-061
+  prompt: transforming context boundaries on an existing project. What do you advise, and why?
+  principle_coverage:
+  - P031
+  expected_route: invoke
+  minimum_output: On a project already under way, define bounded contexts by the teams' true current practice
+    before changing them, then change boundaries in small pragmatic pieces; breaking up contexts is easy
+    but merging is hard, so move Separate Ways toward a Shared Kernel in planned steps, defer merging
+    jargon-specialized models until a deep model supersedes both, and let deployment feasibility feed
+    back into where boundaries are drawn
+- test_id: GT-062
+  prompt: transforming context boundaries on an existing project. (Every decision-relevant specific is
+    provided.) What do you advise?
+  principle_coverage:
+  - P031
+  expected_route: invoke
+  minimum_output: On a project already under way, define bounded contexts by the teams' true current practice
+    before changing them, then change boundaries in small pragmatic pieces; breaking up contexts is easy
+    but merging is hard, so move Separate Ways toward a Shared Kernel in planned steps, defer merging
+    jargon-specialized models until a deep model supersedes both, and let deployment feasibility feed
+    back into where boundaries are drawn
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-031
+- test_id: GT-063
+  prompt: relating to external systems and serving specialized user groups. What do you advise, and why?
+  principle_coverage:
+  - P032
+  expected_route: invoke
+  minimum_output: Do not assume an external or legacy system is a coherent single context (check whether
+    its development is integrated); choose Conformist only for a peripheral extension to a dominant system,
+    keep roughly one team per context, and weigh the costs and risks of catering to specialized jargon
+    with distinct models, knowing you cannot plan on a deep unifying model and must seize it when it emerges
+- test_id: GT-064
+  prompt: relating to external systems and serving specialized user groups. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P032
+  expected_route: invoke
+  minimum_output: Do not assume an external or legacy system is a coherent single context (check whether
+    its development is integrated); choose Conformist only for a peripheral extension to a dominant system,
+    keep roughly one team per context, and weigh the costs and risks of catering to specialized jargon
+    with distinct models, knowing you cannot plan on a deep unifying model and must seize it when it emerges
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-032
+- test_id: GT-065
+  prompt: a non-trivial business domain is being modeled. What do you advise, and why?
+  principle_coverage:
+  - P033
+  expected_route: invoke
+  minimum_output: Build the domain model collaboratively between developers and domain experts (knowledge
+    crunching) rather than handing specifications down a chain; the waterfall hand-off and feature-by-feature
+    iteration without abstraction both fail to accumulate domain knowledge
+- test_id: GT-066
+  prompt: a non-trivial business domain is being modeled. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P033
+  expected_route: invoke
+  minimum_output: Build the domain model collaboratively between developers and domain experts (knowledge
+    crunching) rather than handing specifications down a chain; the waterfall hand-off and feature-by-feature
+    iteration without abstraction both fail to accumulate domain knowledge
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-033
+- test_id: GT-067
+  prompt: choosing between Smart UI and model-driven design at project start. What do you advise, and
+    why?
+  principle_coverage:
+  - P034
+  expected_route: invoke
+  minimum_output: Reserve domain-driven design for ambitious projects with strong skills and design model-driven
+    from the outset; use the Smart-UI approach only for simple data-entry projects with few rules and
+    unskilled teams, recognizing it is mutually exclusive with DDD and offers no graceful growth path
+- test_id: GT-068
+  prompt: choosing between Smart UI and model-driven design at project start. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P034
+  expected_route: invoke
+  minimum_output: Reserve domain-driven design for ambitious projects with strong skills and design model-driven
+    from the outset; use the Smart-UI approach only for simple data-entry projects with few rules and
+    unskilled teams, recognizing it is mutually exclusive with DDD and offers no graceful growth path
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-034
+- test_id: GT-069
+  prompt: deciding how finely to break down model elements. What do you advise, and why?
+  principle_coverage:
+  - P035
+  expected_route: invoke
+  minimum_output: Decompose design elements into cohesive units along the domain's conceptual contours
+    rather than by cookbook granularity rules, implementing operations at the whole-value level and clumping
+    detail users do not dissect; treat localized refactoring as a sign of model fit and a requirement
+    forcing extensive restructuring as a signal the domain understanding needs refinement, since contour-aligned
+    design accommodates unanticipated change
+- test_id: GT-070
+  prompt: deciding how finely to break down model elements. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P035
+  expected_route: invoke
+  minimum_output: Decompose design elements into cohesive units along the domain's conceptual contours
+    rather than by cookbook granularity rules, implementing operations at the whole-value level and clumping
+    detail users do not dissect; treat localized refactoring as a sign of model fit and a requirement
+    forcing extensive restructuring as a signal the domain understanding needs refinement, since contour-aligned
+    design accommodates unanticipated change
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-035
+- test_id: GT-071
+  prompt: a team shares a domain model. What do you advise, and why?
+  principle_coverage:
+  - P036
+  expected_route: invoke
+  minimum_output: Cultivate a single ubiquitous language grounded in the domain model and use it relentlessly
+    in speech, code, diagrams, documents, and tests; its vocabulary includes class names, operations,
+    explicit rules, organizing structures, and pattern names
+- test_id: GT-072
+  prompt: a team shares a domain model. (Every decision-relevant specific is provided.) What do you advise?
+  principle_coverage:
+  - P036
+  expected_route: invoke
+  minimum_output: Cultivate a single ubiquitous language grounded in the domain model and use it relentlessly
+    in speech, code, diagrams, documents, and tests; its vocabulary includes class names, operations,
+    explicit rules, organizing structures, and pattern names
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-036
+- test_id: GT-073
+  prompt: communicating or documenting a model. What do you advise, and why?
+  principle_coverage:
+  - P037
+  expected_route: invoke
+  minimum_output: Use simple, informal diagrams of a few central objects to anchor discussion rather than
+    comprehensive diagrams, recognizing that a diagram cannot convey concept meaning or object intent
+    (fill that in with natural language), and that the model is not the diagram while the code is the
+    authoritative repository of design detail
+- test_id: GT-074
+  prompt: communicating or documenting a model. (Every decision-relevant specific is provided.) What do
+    you advise?
+  principle_coverage:
+  - P037
+  expected_route: invoke
+  minimum_output: Use simple, informal diagrams of a few central objects to anchor discussion rather than
+    comprehensive diagrams, recognizing that a diagram cannot convey concept meaning or object intent
+    (fill that in with natural language), and that the model is not the diagram while the code is the
+    authoritative repository of design detail
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-037
+- test_id: GT-075
+  prompt: committing to model-driven design. What do you advise, and why?
+  principle_coverage:
+  - P038
+  expected_route: invoke
+  minimum_output: Use one model as the single foundation for implementation, design, and communication,
+    discarding the analysis-model/design-model dichotomy; a model on paper that does not aid running software
+    is of little value, and a separate analysis model gets abandoned once coding starts
+- test_id: GT-076
+  prompt: committing to model-driven design. (Every decision-relevant specific is provided.) What do you
+    advise?
+  principle_coverage:
+  - P038
+  expected_route: invoke
+  minimum_output: Use one model as the single foundation for implementation, design, and communication,
+    discarding the analysis-model/design-model dichotomy; a model on paper that does not aid running software
+    is of little value, and a separate analysis model gets abandoned once coding starts
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-038
+- test_id: GT-077
+  prompt: organizing models and making implicit concepts explicit. What do you advise, and why?
+  principle_coverage:
+  - P039
+  expected_route: invoke
+  minimum_output: Apply only one model to a given part of the system across all activities (different
+    subsystems may differ), and make domain concepts explicit in the model rather than inferring them
+    through incidental mechanisms such as naming conventions; an incisive design emerges only over several
+    iterations
+- test_id: GT-078
+  prompt: organizing models and making implicit concepts explicit. (Every decision-relevant specific is
+    provided.) What do you advise?
+  principle_coverage:
+  - P039
+  expected_route: invoke
+  minimum_output: Apply only one model to a given part of the system across all activities (different
+    subsystems may differ), and make domain concepts explicit in the model rather than inferring them
+    through incidental mechanisms such as naming conventions; an incisive design emerges only over several
+    iterations
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-039
+- test_id: GT-079
+  prompt: building the domain layer of a model-driven design. What do you advise, and why?
+  principle_coverage:
+  - P040
+  expected_route: invoke
+  minimum_output: Design a portion of the software to reflect the domain model literally so the mapping
+    is obvious, treat the code as an expression of the model (a code change may be a model change), and
+    demand a literal, exact correspondence; when a model is impractical to implement or unfaithful to
+    the domain, search for a new one
+- test_id: GT-080
+  prompt: building the domain layer of a model-driven design. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P040
+  expected_route: invoke
+  minimum_output: Design a portion of the software to reflect the domain model literally so the mapping
+    is obvious, treat the code as an expression of the model (a code change may be a model change), and
+    demand a literal, exact correspondence; when a model is impractical to implement or unfaithful to
+    the domain, search for a new one
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-040
+- test_id: GT-081
+  prompt: giving a global view of contexts and their relationships. What do you advise, and why?
+  principle_coverage:
+  - P041
+  expected_route: invoke
+  minimum_output: Maintain a Context Map that identifies and names each model (including non-OO subsystems)
+    in the ubiquitous language and describes the points of contact and explicit translation; map the terrain
+    as it actually is, avoid code reuse between contexts, and until the map is unambiguous change only
+    the outright contradictions
+- test_id: GT-082
+  prompt: giving a global view of contexts and their relationships. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P041
+  expected_route: invoke
+  minimum_output: Maintain a Context Map that identifies and names each model (including non-OO subsystems)
+    in the ubiquitous language and describes the points of contact and explicit translation; map the terrain
+    as it actually is, avoid code reuse between contexts, and until the map is unambiguous change only
+    the outright contradictions
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-041
+- test_id: GT-083
+  prompt: designing associations between domain objects. What do you advise, and why?
+  principle_coverage:
+  - P042
+  expected_route: invoke
+  minimum_output: Provide a software mechanism with the same properties for every traversable association,
+    and constrain associations as much as possible (impose a traversal direction, add a qualifier to reduce
+    multiplicity, or eliminate nonessential ones), embedding each discovered constraint in both model
+    and implementation
+- test_id: GT-084
+  prompt: designing associations between domain objects. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P042
+  expected_route: invoke
+  minimum_output: Provide a software mechanism with the same properties for every traversable association,
+    and constrain associations as much as possible (impose a traversal direction, add a qualifier to reduce
+    multiplicity, or eliminate nonessential ones), embedding each discovered constraint in both model
+    and implementation
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-042
+- test_id: GT-085
+  prompt: an object must be tracked and distinguished across states and forms. What do you advise, and
+    why?
+  principle_coverage:
+  - P043
+  expected_route: invoke
+  minimum_output: Classify an object whose continuity and identity matter as an Entity, make identity
+    primary to its definition, and keep it spare around the characteristics that identify it, because
+    a mistaken identity in software leads to data corruption
+- test_id: GT-086
+  prompt: an object must be tracked and distinguished across states and forms. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P043
+  expected_route: invoke
+  minimum_output: Classify an object whose continuity and identity matter as an Entity, make identity
+    primary to its definition, and keep it spare around the characteristics that identify it, because
+    a mistaken identity in software leads to data corruption
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-043
+- test_id: GT-087
+  prompt: modeling a descriptive aspect of the domain. What do you advise, and why?
+  principle_coverage:
+  - P044
+  expected_route: invoke
+  minimum_output: 'Classify an object you care about only for its attributes as a Value Object: give it
+    no identity, treat it as immutable, and make its attributes form a conceptual whole; whether something
+    is an Entity or a Value Object depends on the application''s concerns'
+- test_id: GT-088
+  prompt: modeling a descriptive aspect of the domain. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P044
+  expected_route: invoke
+  minimum_output: 'Classify an object you care about only for its attributes as a Value Object: give it
+    no identity, treat it as immutable, and make its attributes form a conceptual whole; whether something
+    is an Entity or a Value Object depends on the application''s concerns'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-044
+- test_id: GT-089
+  prompt: managing copying, sharing, and mutability of value objects. What do you advise, and why?
+  principle_coverage:
+  - P045
+  expected_route: invoke
+  minimum_output: Design value objects as immutable so they can be shared safely, pass an immutable object
+    or a copy when handing out an attribute, and restrict sharing to immutable objects where space saving
+    is critical and communication overhead is low; allow a mutable, non-shared value only for performance
+- test_id: GT-090
+  prompt: managing copying, sharing, and mutability of value objects. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P045
+  expected_route: invoke
+  minimum_output: Design value objects as immutable so they can be shared safely, pass an immutable object
+    or a copy when handing out an attribute, and restrict sharing to immutable objects where space saving
+    is critical and communication overhead is low; allow a mutable, non-shared value only for performance
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-045
+- test_id: GT-091
+  prompt: a persistent aggregate root must be found globally. What do you advise, and why?
+  principle_coverage:
+  - P046
+  expected_route: invoke
+  minimum_output: Create a Repository for each aggregate root that needs global access, giving the illusion
+    of an in-memory collection that encapsulates storage and query technology; provide repositories only
+    for roots that genuinely need direct access, since most objects should not be reachable by global
+    search and direct database access from clients tempts developers to bypass aggregates and reduce entities
+    to data containers
+- test_id: GT-092
+  prompt: a persistent aggregate root must be found globally. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P046
+  expected_route: invoke
+  minimum_output: Create a Repository for each aggregate root that needs global access, giving the illusion
+    of an in-memory collection that encapsulates storage and query technology; provide repositories only
+    for roots that genuinely need direct access, since most objects should not be reachable by global
+    search and direct database access from clients tempts developers to bypass aggregates and reduce entities
+    to data containers
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-046
+- test_id: GT-093
+  prompt: object or aggregate creation is complex or exposes internal structure. What do you advise, and
+    why?
+  principle_coverage:
+  - P047
+  expected_route: invoke
+  minimum_output: Encapsulate complex creation of an object or aggregate in a Factory that does not require
+    the client to reference concrete classes, treating creation as a domain-layer responsibility; do not
+    overload a complex object or its client with its own creation, which would breach encapsulation and
+    couple the client to internals
+- test_id: GT-094
+  prompt: object or aggregate creation is complex or exposes internal structure. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P047
+  expected_route: invoke
+  minimum_output: Encapsulate complex creation of an object or aggregate in a Factory that does not require
+    the client to reference concrete classes, treating creation as a domain-layer responsibility; do not
+    overload a complex object or its client with its own creation, which would breach encapsulation and
+    couple the client to internals
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-047
+- test_id: GT-095
+  prompt: persistent defects or escalating complexity suggest a model flaw. What do you advise, and why?
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  minimum_output: Expect returns from refactoring to be non-linear, recognize a breakthrough to a deeper
+    model as an event to act on, and look to remove an inappropriate constraint that the model imposed
+    but the business does not, since doing so can collapse layers of special-case logic; be suspicious
+    of a model concept that is not a real domain term and that experts do not understand
+- test_id: GT-096
+  prompt: persistent defects or escalating complexity suggest a model flaw. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  minimum_output: Expect returns from refactoring to be non-linear, recognize a breakthrough to a deeper
+    model as an event to act on, and look to remove an inappropriate constraint that the model imposed
+    but the business does not, since doing so can collapse layers of special-case logic; be suspicious
+    of a model concept that is not a real domain term and that experts do not understand
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-048
+- test_id: GT-097
+  prompt: a business rule overwhelms an entity or value object. What do you advise, and why?
+  principle_coverage:
+  - P049
+  expected_route: invoke
+  minimum_output: Create an explicit predicate-like Specification value object to test whether an object
+    satisfies criteria, keeping the rule in the domain layer; use it to unify validation, selection, and
+    building-to-order, configure it (often via a factory) with needed information, and avoid a full general
+    logic-programming implementation in favor of specialized predicates
+- test_id: GT-098
+  prompt: a business rule overwhelms an entity or value object. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P049
+  expected_route: invoke
+  minimum_output: Create an explicit predicate-like Specification value object to test whether an object
+    satisfies criteria, keeping the rule in the domain layer; use it to unify validation, selection, and
+    building-to-order, configure it (often via a factory) with needed information, and avoid a full general
+    logic-programming implementation in favor of specialized predicates
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-049
+- test_id: GT-099
+  prompt: complexity in a crucial part is holding back progress. What do you advise, and why?
+  principle_coverage:
+  - P050
+  expected_route: invoke
+  minimum_output: Aim for a supple design that serves both the client developer (revealing a deep model
+    through loosely coupled concepts with predictable results) and the developer changing it (easy to
+    understand, bending at flexible points), beware over-engineering disguised as flexibility, and hone
+    the most crucial intricate parts to suppleness rather than expecting the whole system to be supple
+- test_id: GT-100
+  prompt: complexity in a crucial part is holding back progress. (Every decision-relevant specific is
+    provided.) What do you advise?
+  principle_coverage:
+  - P050
+  expected_route: invoke
+  minimum_output: Aim for a supple design that serves both the client developer (revealing a deep model
+    through loosely coupled concepts with predictable results) and the developer changing it (easy to
+    understand, bending at flexible points), beware over-engineering disguised as flexibility, and hone
+    the most crucial intricate parts to suppleness rather than expecting the whole system to be supple
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-050
+negative_routing_tests: []
+missing_context_tests:
+- test_id: MC-001
+  prompt: interacting with a system built on a different model. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - P001
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-002
+  prompt: establishing shared terminology for design discussions and reviews. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P002
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-003
+  prompt: designing operations that compute or change state. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P003
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-004
+  prompt: establishing identity for an entity. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P004
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-005
+  prompt: choosing and mixing modeling paradigms. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P005
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-006
+  prompt: a design is awkward or the language outruns the model. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P006
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-007
+  prompt: organizing the domain model into modules. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P007
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-008
+  prompt: defining transactional consistency boundaries. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P008
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-009
+  prompt: a familiar analysis pattern matches the problem. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P009
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-010
+  prompt: relating two bounded contexts. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P010
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-011
+  prompt: a subsystem is in high demand for integration by many parties. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P011
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-012
+  prompt: communicating and protecting the core domain. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P012
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-013
+  prompt: a large critical context's essential model is obscured by supporting capability. (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P013
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-014
+  prompt: deciding whether and how restrictively to adopt a large-scale structure. (Key specifics are
+    not stated.) Give me your recommendation.
+  principle_coverage:
+  - P014
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-015
+  prompt: an important operation does not fit any entity or value object. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P015
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-016
+  prompt: organizing roles on a model-driven project. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P016
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-017
+  prompt: structuring a complex application around a domain model. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P017
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-018
+  prompt: organizing packages and modules in a model-driven design. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P018
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-019
+  prompt: sizing aggregates and handling concurrent access. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P019
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-020
+  prompt: designing public interfaces of domain elements. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P020
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-021
+  prompt: characterizing the behavior and integrity of a design. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P021
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-022
+  prompt: considering a published design pattern for the domain model. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P022
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-023
+  prompt: one subsystem feeds another with one-way dependency. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - P023
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-024
+  prompt: complex computation is swamping the expressive model. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - P024
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-025
+  prompt: refining or validating a model with domain experts. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - P025
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-026
+  prompt: roles and relationships among entities must be configured at install or runtime. (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P026
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-027
+  prompt: working a model through to a practical design. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P027
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-028
+  prompt: designing the factory itself. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P028
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-029
+  prompt: implementing specification-based queries or generators against a model. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P029
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-030
+  prompt: seeking declarative, combinable model elements. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P030
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-031
+  prompt: transforming context boundaries on an existing project. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P031
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-032
+  prompt: relating to external systems and serving specialized user groups. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P032
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-033
+  prompt: a non-trivial business domain is being modeled. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P033
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-034
+  prompt: choosing between Smart UI and model-driven design at project start. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P034
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-035
+  prompt: deciding how finely to break down model elements. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P035
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-036
+  prompt: a team shares a domain model. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P036
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-037
+  prompt: communicating or documenting a model. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P037
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-038
+  prompt: committing to model-driven design. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P038
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-039
+  prompt: organizing models and making implicit concepts explicit. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P039
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-040
+  prompt: building the domain layer of a model-driven design. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - P040
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-041
+  prompt: giving a global view of contexts and their relationships. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P041
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-042
+  prompt: designing associations between domain objects. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P042
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-043
+  prompt: an object must be tracked and distinguished across states and forms. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P043
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-044
+  prompt: modeling a descriptive aspect of the domain. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P044
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-045
+  prompt: managing copying, sharing, and mutability of value objects. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P045
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-046
+  prompt: a persistent aggregate root must be found globally. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - P046
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-047
+  prompt: object or aggregate creation is complex or exposes internal structure. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P047
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-048
+  prompt: persistent defects or escalating complexity suggest a model flaw. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-049
+  prompt: a business rule overwhelms an entity or value object. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - P049
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-050
+  prompt: complexity in a crucial part is holding back progress. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P050
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
