@@ -1,0 +1,396 @@
+schema_version: faithfulness-report-v1
+subagent_slug: domain-driven-design-reviewer
+
+# Faithfulness review — Tier 1, evidence-based
+# Source: "Domain-Driven Design Quickly" (Avram & Marinescu, InfoQ 2006)
+# rights_status: distillation-only
+# Reviewed: 2026-06-13
+# Reviewer: faithfulness-reviewer agent
+#
+# Scope: all operative profile rules — quality_bar, forbidden_behaviours,
+# knowledge_partition.always_on, outputs.modes (output contracts).
+# Q-references (Q4, Q10, Q18) in the profile are interrogation-record labels,
+# not evidence-record IDs; they trace to source material via
+# interrogation-records.yaml and are noted where relevant.
+
+findings:
+
+  # ── quality_bar ────────────────────────────────────────────────────────────
+
+  - rule_ref: "quality_bar[0]"
+    verdict: WITHIN_SCOPE
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0018
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      P002 (C022, C023, C025) establishes that model-code correspondence must be
+      obvious and that every review must be artifact-grounded. "Every finding
+      names the specific model element" is a reasonable operational entailment
+      of C025 ("if the central part of the design does not map to the domain
+      model, the model has little value"). The source does not use the phrase
+      "artifact-free general statements are not acceptable" verbatim, but the
+      operational requirement follows directly. Verdict WITHIN_SCOPE.
+
+  - rule_ref: "quality_bar[1]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0022
+      - domaindrivendesignqu-20260612231910-h0023
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C029 defines Entity by identity/continuity; C032 defines Value Object by
+      attributes alone with no identity. P004 and P005 are direct distillations.
+      "Not convenience or implementation detail" is an accurate negative
+      characterisation drawn from the same section. EXACT_SUPPORT.
+
+  - rule_ref: "quality_bar[2]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0013
+      - domaindrivendesignqu-20260612231910-h0014
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      P001 (C013, C014) states the Ubiquitous Language must be used in all
+      communication including speech, documents, and code, and that divergence
+      between discussion language and code is a first-order defect because domain
+      knowledge is then never reliably captured. The rule faithfully reproduces
+      the source's scope and strength. EXACT_SUPPORT.
+
+  - rule_ref: "quality_bar[3]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0050
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C072 explicitly states that BC boundaries must be set in terms of team
+      organisation, application boundaries, code bases, and database schemas.
+      C073 directly states "A Bounded Context is not a Module." P011 captures
+      both. EXACT_SUPPORT.
+
+  - rule_ref: "quality_bar[4]"
+    verdict: WITHIN_SCOPE
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0037
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      RESOLVED. C059 says refactoring is done "in small, controllable steps"
+      with automated tests to verify no functionality is broken. The earlier
+      draft added an unsupported "high-risk / requires human judgment"
+      characterisation of wholesale refactoring. The rule was rewritten to scope
+      the caution to its source basis: steps lacking test coverage or crossing a
+      Bounded Context boundary. The rule is now a faithful operational
+      entailment of the source within scope.
+
+  - rule_ref: "quality_bar[5]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0025
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C037 gives the three-part test verbatim: operation not naturally on any
+      Entity/VO; refers to other domain objects; is stateless. P006 faithfully
+      reproduces this. EXACT_SUPPORT.
+
+  # ── forbidden_behaviours ───────────────────────────────────────────────────
+
+  - rule_ref: "forbidden_behaviours[0]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0049
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C070 directly states: "striving to maintain one large unified model for
+      the entire enterprise will not work; instead the model should be
+      consciously divided into several well-integrated smaller models." P011
+      captures this accurately. EXACT_SUPPORT.
+
+  - rule_ref: "forbidden_behaviours[1]"
+    verdict: WITHIN_SCOPE
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0070
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C093 records Evans' practical advice "don't try to apply DDD to
+      everything." The "Smart UI" named pattern is DDD vocabulary from the
+      Evans source (referenced in Q4 interrogation record). The prohibition is
+      a faithful extension of C093's explicit advice to avoid applying DDD where
+      it adds overhead without benefit. WITHIN_SCOPE — the specific "Smart UI"
+      framing goes slightly beyond C093's literal text but remains within the
+      scope of the source's intent.
+
+  - rule_ref: "forbidden_behaviours[2]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0018
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C020 states that when an analysis model is created without developer
+      input and handed off for implementation, a divide opens between model and
+      code. C022 requires that domain modeling and design be closely related.
+      C023 requires developers to know and feel responsible for the model. The
+      prohibition is a faithful summary. EXACT_SUPPORT.
+
+  - rule_ref: "forbidden_behaviours[3]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0010
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C007 states domain knowledge must be built collaboratively with domain
+      experts; the Q10 interrogation record quotes the source: "who knows
+      banking? The bankers, of course." The prohibition against inventing domain
+      knowledge is a direct and accurate distillation. EXACT_SUPPORT.
+
+  - rule_ref: "forbidden_behaviours[4]"
+    verdict: WITHIN_SCOPE
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0029
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C044 states external objects may only hold persistent references to the
+      Aggregate root, not to internal objects. C046 states repositories should
+      only be provided for Aggregate roots. P007 accurately captures both rules.
+      The phrase "invariant-enforcement contract" is a derived characterisation
+      (C045 explains invariant enforcement as the causal mechanism), which is
+      within scope but not verbatim. WITHIN_SCOPE.
+
+  # ── knowledge_partition.always_on ──────────────────────────────────────────
+
+  - rule_ref: "knowledge_partition.always_on[0]"
+    verdict: WITHIN_SCOPE
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0022
+      - domaindrivendesignqu-20260612231910-h0023
+      - domaindrivendesignqu-20260612231910-h0025
+      - domaindrivendesignqu-20260612231910-h0028
+      - domaindrivendesignqu-20260612231910-h0029
+      - domaindrivendesignqu-20260612231910-h0031
+      - domaindrivendesignqu-20260612231910-h0032
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The seven building-block patterns are canonical DDD definitions covered in
+      dedicated sections of the source. Each sub-description ("identity-based
+      continuity," "attribute-only, immutable," "stateless, not on Entity/VO,"
+      "single root, all external access through root," "encapsulates complex
+      creation, enforces invariants," "all retrieval logic for Aggregate roots")
+      faithfully summarises the source at section granularity. "All retrieval
+      logic" for Repository is slightly stronger than C054's "encapsulates all
+      logic needed to obtain references to pre-existing domain objects" but is
+      equivalent in intent. WITHIN_SCOPE.
+
+  - rule_ref: "knowledge_partition.always_on[1]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0020
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C026 and C028 establish the four-layer architecture (UI, Application,
+      Domain, Infrastructure) and the isolation of the Domain layer from all
+      other layers including storage concerns. C039 restates that the Domain
+      layer must remain isolated from infrastructure. P003 accurately captures
+      the rule. EXACT_SUPPORT.
+
+  - rule_ref: "knowledge_partition.always_on[2]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0013
+      - domaindrivendesignqu-20260612231910-h0014
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C013 defines Ubiquitous Language as a language based on the model used
+      consistently in all communication. C014 establishes lockstep evolution
+      between language and model. C015 assigns shared responsibility to experts
+      and developers. All are faithfully represented. EXACT_SUPPORT.
+
+  - rule_ref: "knowledge_partition.always_on[3]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0050
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C072 defines Bounded Context with explicit boundaries in terms of team
+      organisation, code bases, and schemas. C073 states "A Bounded Context is
+      not a Module." P011 faithfully represents both. EXACT_SUPPORT.
+
+  - rule_ref: "knowledge_partition.always_on[4]"
+    verdict: WITHIN_SCOPE
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0056
+      - domaindrivendesignqu-20260612231910-h0058
+      - domaindrivendesignqu-20260612231910-h0059
+      - domaindrivendesignqu-20260612231910-h0060
+      - domaindrivendesignqu-20260612231910-h0062
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The six Context Map patterns (Shared Kernel, Customer-Supplier, Conformist,
+      Anticorruption Layer, Separate Ways, Open Host Service) are each covered
+      in dedicated source sections. Enumerating them as always-on knowledge is
+      a faithful and appropriately scoped summary. WITHIN_SCOPE.
+
+  - rule_ref: "knowledge_partition.always_on[5]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0064
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C088 defines Core Domain as the essence of unique business value separated
+      from Generic Subdomains. C089 requires Core Domain to be made small,
+      highlighted, and staffed with best developers. C090 prescribes off-the-shelf
+      or outsourcing for Generic Subdomains. P013 faithfully summarises all three.
+      EXACT_SUPPORT.
+
+  - rule_ref: "knowledge_partition.always_on[6]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0037
+      - domaindrivendesignqu-20260612231910-h0039
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      C061 establishes domain-insight-driven refactoring as distinct from
+      technical refactoring. C064 states that making implicit concepts explicit
+      is the primary breakthrough mechanism. P010 accurately captures both. The
+      enumeration of Constraints, Processes, and Specifications as implicit
+      concept types is supported by C067, C068, C069. EXACT_SUPPORT.
+
+  # ── outputs.modes ──────────────────────────────────────────────────────────
+
+  - rule_ref: "outputs.modes[0]"
+    verdict: WITHIN_SCOPE
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0018
+      - domaindrivendesignqu-20260612231910-h0022
+      - domaindrivendesignqu-20260612231910-h0029
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The "review" mode output contract (structured findings with element,
+      violated principle, severity, corrective step, UL consistency, E/VO
+      classification) is an operationalisation of P001-P013 review scope. No
+      single source sentence mandates this exact output format, but the
+      requirement follows reasonably from the source's emphasis on model
+      correctness assessment. WITHIN_SCOPE.
+
+  - rule_ref: "outputs.modes[1]"
+    verdict: WITHIN_SCOPE
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0023
+      - domaindrivendesignqu-20260612231910-h0029
+      - domaindrivendesignqu-20260612231910-h0032
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The "validate" mode output (pass/fail per rule with artifact evidence and
+      corrective step for failures) is a reasonable operational instantiation of
+      P005, P007, and P009. The source supports rule-level conformance checking
+      by defining the rules; pass/fail output is a reviewer inference. WITHIN_SCOPE.
+
+  - rule_ref: "outputs.modes[2]"
+    verdict: WITHIN_SCOPE
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0039
+      - domaindrivendesignqu-20260612231910-h0049
+      - domaindrivendesignqu-20260612231910-h0064
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The "advise" mode output ("does not make implementation decisions for the
+      team") aligns with the source's repeated framing that DDD is a
+      practitioner-guided process requiring domain expert collaboration. The
+      constraint against making implementation decisions is a reasonable
+      guardrail for a review agent. WITHIN_SCOPE.
+
+  - rule_ref: "outputs.modes[3]"
+    verdict: EXACT_SUPPORT
+    distortion:
+      - none
+    source_anchors:
+      - domaindrivendesignqu-20260612231910-h0039
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The "extract" mode (surface implicit Constraints, Processes, Specifications)
+      is directly supported by C064, C067, C068, and the "Bring Key Concepts Into
+      Light" source section. P010 explicitly identifies this as the primary
+      breakthrough mechanism. EXACT_SUPPORT.

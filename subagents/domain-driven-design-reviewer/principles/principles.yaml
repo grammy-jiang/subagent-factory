@@ -1,0 +1,408 @@
+schema_version: principles-v1
+
+# Operational principles for the Domain-Driven Design Reviewer.
+# Promoted from high-value, evidence-backed claims in analysis/claims.jsonl
+# + evidence/evidence-records.yaml.  Only load-bearing, review-actionable
+# principles are included; background or purely descriptive claims are omitted.
+
+principles:
+
+  # ── P001: Ubiquitous Language consistency ─────────────────────────────────
+  - principle_id: P001
+    statement: >
+      The entire team — domain experts and developers alike — must use a single
+      language based on the domain model (the Ubiquitous Language) in all
+      communication: spoken conversation, written documents, diagrams, and code.
+      A divergence between the language used in discussions and the language
+      embedded in code is a first-order defect: it means domain knowledge is
+      never reliably captured.  Any change to this language must simultaneously
+      become a change to the model, and vice versa.
+    derived_from_claims:
+      - C013
+      - C014
+      - C015
+    confidence: high
+    applies_when:
+      - Reviewing any domain model, code artifact, or design document for DDD
+        correctness.
+      - Evaluating consistency between team conversation vocabulary and class /
+        method names in code.
+      - Assessing whether documentation and diagrams reflect the current model.
+    does_not_apply_when:
+      - Infrastructure-only code (persistence adapters, HTTP handlers) that
+        deliberately uses technology-specific terminology rather than domain
+        terms.
+    operational_mapping:
+      profile_rule: true
+      skill: ubiquitous-language-session
+      reference: null
+      test_cases:
+        - GT-001
+
+  # ── P002: Model-code tight correspondence ─────────────────────────────────
+  - principle_id: P002
+    statement: >
+      A portion of the software must literally reflect the domain model, making
+      the mapping between model and implementation obvious.  Developers who write
+      the code must know the model well and feel responsible for its integrity.
+      Refactoring code to a state where it no longer expresses the model is a
+      design failure, not an improvement.  Analysis and implementation must never
+      be performed in isolation from each other.
+    derived_from_claims:
+      - C022
+      - C023
+      - C025
+    confidence: high
+    applies_when:
+      - Reviewing whether domain-layer classes and their names, relationships,
+        and responsibilities correspond to stated domain concepts.
+      - Identifying whether a handoff gap between analysts and developers has
+        caused model drift.
+    does_not_apply_when:
+      - Application-layer orchestration classes that intentionally sit above the
+        domain model and coordinate use cases.
+    operational_mapping:
+      profile_rule: true
+      skill: refactoring-toward-deeper-insight
+      reference: refactoring-checklist
+      test_cases:
+        - GT-001
+
+  # ── P003: Layered architecture — domain isolation ─────────────────────────
+  - principle_id: P003
+    statement: >
+      Domain logic must be concentrated in a single, isolated Domain Layer,
+      completely free from display logic, storage concerns, and application
+      orchestration responsibilities.  A complex application must be partitioned
+      into at least four conceptual layers — User Interface, Application, Domain,
+      and Infrastructure — where each layer depends only on layers below it.
+      Mixing domain code with any other layer makes business logic extremely
+      difficult to understand or modify safely.
+    derived_from_claims:
+      - C026
+      - C028
+    confidence: high
+    applies_when:
+      - Assessing whether domain-layer classes call infrastructure code (ORMs,
+        SQL builders, HTTP clients) directly.
+      - Detecting business rules implemented inside UI controllers, REST
+        handlers, or persistence classes.
+    does_not_apply_when:
+      - Deliberately thin CRUD applications where the team has explicitly
+        accepted a Smart UI pattern with no significant domain complexity.
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: layered-architecture-layer-responsibilities
+      test_cases:
+        - GT-001
+
+  # ── P004: Entity identity semantics ───────────────────────────────────────
+  - principle_id: P004
+    statement: >
+      An Entity is defined by a thread of identity and continuity across
+      states, not by its attribute values.  When a domain object is
+      distinguished by who or what it is rather than what it has, identity
+      must be made primary in its model definition: a unique identity operation
+      must be defined, and two objects with the same identity must be considered
+      the same regardless of attribute differences.  Mistaken identity leads to
+      data corruption.
+    derived_from_claims:
+      - C029
+      - C030
+    confidence: high
+    applies_when:
+      - Classifying domain objects as Entity vs. Value Object.
+      - Reviewing identity schemes (database IDs, natural keys, composite keys)
+        for correctness.
+      - Evaluating equality semantics in existing code.
+    does_not_apply_when:
+      - Objects that describe attributes of a concept without needing
+        individual tracking (use Value Object guidance instead).
+    operational_mapping:
+      profile_rule: true
+      skill: aggregate-design
+      reference: building-block-pattern-summaries
+      test_cases:
+        - GT-001
+        - GT-003
+
+  # ── P005: Value Object immutability ───────────────────────────────────────
+  - principle_id: P005
+    statement: >
+      A Value Object describes aspects of a domain concept solely through its
+      attributes and has no identity.  Value Objects must be immutable: they are
+      created with a constructor and never modified; when a different value is
+      needed, a new instance is created.  Assigning mutation methods to a Value
+      Object is a design defect; immutability enables safe sharing across
+      consumers.
+    derived_from_claims:
+      - C032
+      - C033
+    confidence: high
+    applies_when:
+      - Reviewing Entity classes for attributes that are conceptually related
+        and could be extracted into a Value Object.
+      - Checking whether Value Objects expose mutation methods.
+      - Assessing whether shared Value Objects are safely reusable.
+    does_not_apply_when:
+      - Objects that require individual tracking across transactions (use Entity
+        instead).
+    operational_mapping:
+      profile_rule: true
+      skill: aggregate-design
+      reference: building-block-pattern-summaries
+      test_cases:
+        - GT-001
+
+  # ── P006: Service placement — stateless domain operation ──────────────────
+  - principle_id: P006
+    statement: >
+      When an important domain behavior does not naturally belong to any Entity
+      or Value Object — because it involves multiple domain objects and
+      represents a significant concept in the domain — it must be declared as a
+      domain Service.  A Service has three characteristics: the operation refers
+      to a domain concept not naturally housed in any Entity/Value Object; it
+      refers to other objects in the domain; and it is stateless.  Services must
+      not replace operations that naturally belong on domain objects.
+    derived_from_claims:
+      - C036
+      - C037
+    confidence: high
+    applies_when:
+      - Reviewing whether a domain operation has been incorrectly placed on an
+        Entity or pushed into the Application layer.
+      - Evaluating whether a proposed Service truly operates on domain concepts
+        or is actually an application orchestration concern.
+    does_not_apply_when:
+      - Application-layer services that orchestrate use cases but do not
+        contain domain logic.
+      - Infrastructure services (email senders, PDF generators) that have no
+        domain semantics.
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: building-block-pattern-summaries
+      test_cases:
+        - GT-001
+
+  # ── P007: Aggregate boundary and root-only access ─────────────────────────
+  - principle_id: P007
+    statement: >
+      An Aggregate is a cluster of associated domain objects treated as a single
+      unit for data changes.  It has a single root Entity through which all
+      external access must pass.  External objects may only hold persistent
+      references to the Aggregate root, never to internal objects.  All
+      invariants across the cluster are enforced by the root.  Repositories must
+      be provided only for Aggregate roots; internal objects are reached by
+      traversal, never by direct query.
+    derived_from_claims:
+      - C043
+      - C044
+      - C046
+    confidence: high
+    applies_when:
+      - Reviewing whether external code holds direct references to internal
+        Aggregate objects and bypasses the root.
+      - Checking whether Repositories exist for non-root objects.
+      - Evaluating invariant enforcement in a cluster of related objects.
+    does_not_apply_when:
+      - Objects that are not part of a transactional boundary (standalone
+        Entities or Value Objects used purely for read operations).
+    operational_mapping:
+      profile_rule: true
+      skill: aggregate-design
+      reference: building-block-pattern-summaries
+      test_cases:
+        - GT-003
+
+  # ── P008: Factory for complex Aggregate creation ──────────────────────────
+  - principle_id: P008
+    statement: >
+      When creating a complex Aggregate or object requires significant knowledge
+      of its internal structure and invariants, a Factory must be used to
+      encapsulate that creation logic.  Complex creation in a constructor or in
+      client code breaks encapsulation and leaks domain knowledge.  Factory
+      creation must be atomic: if the object cannot be fully and validly
+      constructed, an exception is raised and no partially-created object is
+      returned.
+    derived_from_claims:
+      - C049
+      - C050
+    confidence: high
+    applies_when:
+      - Reviewing creation logic for Aggregates with multi-step initialization
+        or many invariants to satisfy.
+      - Checking whether invalid or partial objects can escape creation.
+    does_not_apply_when:
+      - Simple objects whose construction requires no domain knowledge and
+        involves no other domain objects.
+      - Reconstitution of persisted objects from a data store (handled by the
+        Repository, not the Factory).
+    operational_mapping:
+      profile_rule: true
+      skill: repository-and-factory-design
+      reference: building-block-pattern-summaries
+      test_cases: []
+
+  # ── P009: Repository as domain-model interface to persistence ─────────────
+  - principle_id: P009
+    statement: >
+      A Repository encapsulates all logic needed to obtain references to
+      pre-existing domain objects.  Domain objects must obtain needed references
+      through the Repository, not by accessing infrastructure directly.  The
+      Repository interface is a pure domain-model interface — even when its
+      implementation contains infrastructure details — presenting the illusion of
+      an in-memory collection with add, remove, and select-by-criteria operations.
+      Allowing clients direct database access causes domain logic to migrate into
+      queries, making the model irrelevant.
+    derived_from_claims:
+      - C054
+      - C055
+      - C056
+    confidence: high
+    applies_when:
+      - Reviewing domain-layer classes for direct calls to ORMs, SQL builders,
+        or raw data stores.
+      - Checking whether Repository interfaces are expressed in domain terms
+        rather than storage terms.
+      - Verifying that only Aggregate roots have Repositories.
+    does_not_apply_when:
+      - Read-model or reporting queries that intentionally bypass the domain
+        model for performance and operate at the infrastructure layer under
+        explicit architectural allowance.
+    operational_mapping:
+      profile_rule: true
+      skill: repository-and-factory-design
+      reference: building-block-pattern-summaries
+      test_cases:
+        - GT-001
+
+  # ── P010: Refactoring toward deeper domain insight ────────────────────────
+  - principle_id: P010
+    statement: >
+      Sophisticated domain models are developed only through iterative refactoring
+      with continuous domain-expert involvement.  Beyond technical code-quality
+      refactoring, there is a second kind driven by new insight into the domain:
+      whenever a relationship is discovered or a concept becomes clearer, that
+      insight must be incorporated into the design through refactoring.  Making
+      implicit concepts explicit — recognising a concept used informally and
+      giving it its own class or relationship in the model — is the primary
+      mechanism of breakthrough insight.
+    derived_from_claims:
+      - C060
+      - C061
+      - C064
+    confidence: high
+    applies_when:
+      - Reviewing a model that feels awkward, has workarounds, or uses the same
+        term in multiple inconsistent ways.
+      - Proposing refactoring to close a gap between the model and domain
+        expert language.
+      - Identifying missing explicit concepts in a design.
+    does_not_apply_when:
+      - Pure structural code refactoring with no domain-concept change (rename,
+        extract method for readability only).
+    operational_mapping:
+      profile_rule: true
+      skill: refactoring-toward-deeper-insight
+      reference: refactoring-checklist
+      test_cases:
+        - GT-001
+
+  # ── P011: Bounded Context — explicit scope and Context Map ────────────────
+  - principle_id: P011
+    statement: >
+      Every domain model must have explicitly defined boundaries (a Bounded
+      Context).  The boundaries must be set in terms of team organisation,
+      application boundaries, code bases, and database schemas.  Within those
+      bounds the model must remain strictly consistent; terms must not be assumed
+      equivalent across context boundaries.  In a multi-team project a single
+      unified model will not work: the model must be consciously divided into
+      well-integrated smaller models.  All Bounded Contexts and the relationships
+      between them must be documented in a Context Map that every team member
+      shares and understands.
+    derived_from_claims:
+      - C070
+      - C072
+      - C077
+    confidence: high
+    applies_when:
+      - Reviewing multi-team projects for uncontrolled model sharing or missing
+        context boundaries.
+      - Assessing whether terms carry different meanings in different parts of
+        the codebase.
+      - Recommending inter-context integration patterns.
+    does_not_apply_when:
+      - Single-team projects with a single bounded model that is fully
+        consistent — explicit Context Map is still recommended but urgency is
+        lower.
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: context-map-pattern-catalogue
+      test_cases:
+        - GT-002
+
+  # ── P012: Anticorruption Layer for external/legacy integration ────────────
+  - principle_id: P012
+    statement: >
+      When integrating with an external or legacy system whose model would
+      corrupt the client model if absorbed directly, an Anticorruption Layer
+      must be used.  The layer translates between the two models — presenting
+      external concepts in the client's own terms — so the client model remains
+      pure and consistent.  The Anticorruption Layer is best implemented as a
+      domain Service backed by a Facade wrapping the external system and an
+      Adapter that translates between them.
+    derived_from_claims:
+      - C084
+      - C085
+    confidence: high
+    applies_when:
+      - Integrating with a legacy system whose terminology or concepts would
+        otherwise leak into the client domain model.
+      - A downstream team cannot change a supplier's API and must protect its
+        own model.
+    does_not_apply_when:
+      - Both contexts share a Shared Kernel and their models are
+        intentionally aligned.
+      - The team has chosen a Conformist stance and deliberately adopts the
+        upstream model.
+    operational_mapping:
+      profile_rule: true
+      skill: anticorruption-layer-design
+      reference: context-map-pattern-catalogue
+      test_cases:
+        - GT-002
+
+  # ── P013: Core Domain identification and staffing ─────────────────────────
+  - principle_id: P013
+    statement: >
+      Distillation of a large model requires identifying the Core Domain — the
+      unique business logic that is the primary source of competitive value —
+      and separating it from Generic Subdomains that are necessary but not
+      differentiating.  The Core Domain must be kept small, explicitly
+      highlighted, and staffed with the best available developers; if the core
+      is poorly designed, all other parts of the system provide little value.
+      Generic Subdomains should be factored into separate Modules with lower
+      development priority, and off-the-shelf or published models should be
+      considered for them.
+    derived_from_claims:
+      - C088
+      - C089
+      - C090
+    confidence: high
+    applies_when:
+      - Reviewing resource allocation and development priority decisions across
+        a large model.
+      - Identifying which parts of a model warrant the most design investment.
+      - Evaluating whether a subdomain could be replaced by an off-the-shelf
+        solution.
+    does_not_apply_when:
+      - Small, single-domain systems where every part of the model is core and
+        no generic subdomain separation is warranted.
+    operational_mapping:
+      profile_rule: true
+      skill: domain-distillation
+      reference: null
+      test_cases: []

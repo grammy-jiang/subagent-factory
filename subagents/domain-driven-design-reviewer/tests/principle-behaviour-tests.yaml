@@ -1,0 +1,258 @@
+schema_version: principle-behaviour-tests-v1
+
+# Behavioural tests for the Domain-Driven Design Reviewer.
+# Each high-confidence principle (P001-P013) is exercised by at least one test
+# that references it via principle_id. Prompts are paraphrased review scenarios;
+# the source ("Domain-Driven Design Quickly", distillation-only) is never quoted
+# verbatim. expected_behaviour and must_not encode the reviewer behaviour the
+# principle should drive.
+
+principle_behaviour_tests:
+
+  # ── P001: Ubiquitous Language consistency ─────────────────────────────────
+  - test_id: PB-001
+    principle_id: P001
+    prompt: >
+      Review this design. The team's discussions talk about "policy holders"
+      and "claims", but the code names the classes Customer, Record, and
+      DataManager. The lead says the names do not matter as long as the logic
+      is correct.
+    expected_behaviour:
+      - identifies a divergence between the team's spoken vocabulary and the
+        names used in code as a first-order defect
+      - explains that one Ubiquitous Language must span conversation, documents,
+        diagrams, and code
+      - recommends renaming code artifacts so model and language change together
+      - cites P001
+    must_not:
+      - accepts that naming is cosmetic and unrelated to model integrity
+      - proposes a broad rewrite of working logic beyond the naming alignment
+
+  # ── P002: Model-code tight correspondence ─────────────────────────────────
+  - test_id: PB-002
+    principle_id: P002
+    prompt: >
+      An analyst produced a domain model document, then a separate team
+      implemented it months later. The resulting domain classes no longer
+      resemble the documented concepts. Is this acceptable if the code works?
+    expected_behaviour:
+      - flags model drift caused by performing analysis and implementation in
+        isolation
+      - states that the implementation must literally reflect the domain model
+      - recommends developers who write the code take responsibility for model
+        integrity
+      - cites P002
+    must_not:
+      - treats a handoff gap between analysts and developers as harmless
+      - recommends discarding the domain model in favour of whatever the code does
+
+  # ── P003: Layered architecture — domain isolation ─────────────────────────
+  - test_id: PB-003
+    principle_id: P003
+    prompt: >
+      This REST controller validates business rules, computes pricing, and runs
+      raw SQL all in one handler method. The team asks whether this is a
+      reasonable structure for a system with real domain complexity.
+    expected_behaviour:
+      - identifies business logic mixed into a UI/handler layer and direct
+        storage access as a layering violation
+      - recommends concentrating domain logic in an isolated Domain Layer
+      - references the four-layer separation (UI, Application, Domain,
+        Infrastructure) with downward-only dependencies
+      - cites P003
+    must_not:
+      - approves business rules living inside the controller for a complex domain
+
+  # ── P004: Entity identity semantics ───────────────────────────────────────
+  - test_id: PB-004
+    principle_id: P004
+    prompt: >
+      Two Account objects are currently treated as equal whenever their balance
+      and owner name match. The team is surprised that distinct accounts get
+      merged. How should equality and identity be modelled here?
+    expected_behaviour:
+      - classifies Account as an Entity defined by a continuous thread of
+        identity, not by attribute values
+      - recommends a unique identity operation so two objects are the same only
+        when their identity matches
+      - warns that attribute-based equality causes mistaken identity and data
+        corruption
+      - cites P004
+    must_not:
+      - recommends keeping attribute-value equality for an object that needs
+        individual tracking
+
+  - test_id: PB-005
+    principle_id: P004
+    prompt: >
+      A reviewer must decide whether a Money concept used throughout the order
+      module should carry its own database identity. The team added an id column
+      to it "for consistency".
+    expected_behaviour:
+      - distinguishes objects tracked by identity (Entity) from those described
+        only by attributes (Value Object)
+      - questions giving identity to a concept that does not need individual
+        tracking
+      - cites P004
+    must_not:
+      - asserts every domain object must have a unique database identity
+
+  # ── P005: Value Object immutability ───────────────────────────────────────
+  - test_id: PB-006
+    principle_id: P005
+    prompt: >
+      An Address class has setStreet, setCity, and setZip methods and is shared
+      by reference across several customers. Occasionally one customer's edit
+      silently changes another's address. Review this design.
+    expected_behaviour:
+      - identifies Address as a Value Object that should be immutable
+      - explains the shared-mutation bug arises from mutating a shared Value
+        Object
+      - recommends removing mutators and creating a new instance when a different
+        value is needed
+      - cites P005
+    must_not:
+      - recommends deep-copying on every read instead of making the object
+        immutable
+
+  # ── P006: Service placement — stateless domain operation ──────────────────
+  - test_id: PB-007
+    principle_id: P006
+    prompt: >
+      A funds-transfer behaviour involves two Account aggregates and an
+      overdraft policy. It was forced onto the Account entity, which now reaches
+      into another Account. Where should this behaviour live?
+    expected_behaviour:
+      - recognises a domain operation spanning multiple objects that belongs in a
+        stateless domain Service
+      - confirms the three Service characteristics (domain concept not housed in
+        one Entity, refers to other domain objects, stateless)
+      - cites P006
+    must_not:
+      - moves the operation into the Application layer and calls it domain logic
+      - recommends a Service for behaviour that naturally belongs on one object
+
+  # ── P007: Aggregate boundary and root-only access ─────────────────────────
+  - test_id: PB-008
+    principle_id: P007
+    prompt: >
+      External code loads OrderLine objects directly from an OrderLineRepository
+      and edits them without going through the Order. Order totals are now
+      sometimes inconsistent. Review the aggregate design.
+    expected_behaviour:
+      - identifies that external access bypasses the Aggregate root (Order) and
+        holds references to internal objects
+      - states a Repository should exist only for the Aggregate root, not for
+        internal objects like OrderLine
+      - recommends enforcing cross-cluster invariants through the root
+      - cites P007
+    must_not:
+      - endorses a Repository for the internal OrderLine object
+
+  # ── P008: Factory for complex Aggregate creation ──────────────────────────
+  - test_id: PB-009
+    principle_id: P008
+    prompt: >
+      Client code constructs a complex Order aggregate step by step, setting
+      internal fields and wiring child objects directly, and a half-built Order
+      can escape if a step fails. How should creation be handled?
+    expected_behaviour:
+      - recommends a Factory to encapsulate the complex creation and its
+        invariants
+      - requires creation to be atomic — raise on failure, never return a
+        partially constructed object
+      - cites P008
+    must_not:
+      - recommends a Factory for a trivial object needing no domain knowledge
+      - conflates Factory creation with Repository reconstitution of persisted
+        objects
+
+  # ── P009: Repository as domain-model interface to persistence ─────────────
+  - test_id: PB-010
+    principle_id: P009
+    prompt: >
+      Several domain-layer classes call an ORM session and build SQL directly to
+      fetch related objects. Business rules are starting to appear inside query
+      builders. Review the persistence approach.
+    expected_behaviour:
+      - flags domain logic leaking into queries because clients access storage
+        directly
+      - recommends a Repository presenting an in-memory-collection illusion (add,
+        remove, select-by-criteria) expressed in domain terms
+      - confirms the Repository interface stays a domain interface even if its
+        implementation holds infrastructure details
+      - cites P009
+    must_not:
+      - approves domain classes issuing raw SQL as a performance optimisation
+        without an explicit architectural allowance
+
+  # ── P010: Refactoring toward deeper domain insight ────────────────────────
+  - test_id: PB-011
+    principle_id: P010
+    prompt: >
+      A model has grown awkward: a "status flag" is checked in many places with
+      special-case workarounds, and domain experts keep describing a concept the
+      code never names. The team only does readability refactors. Advise them.
+    expected_behaviour:
+      - recommends refactoring toward deeper insight, beyond technical code
+        cleanup
+      - identifies an implicit domain concept that should be made explicit as its
+        own class or relationship
+      - ties the refactoring to continuous domain-expert involvement
+      - cites P010
+    must_not:
+      - treats the awkwardness as solvable by rename/extract-method readability
+        changes alone
+
+  # ── P011: Bounded Context — explicit scope and Context Map ────────────────
+  - test_id: PB-012
+    principle_id: P011
+    prompt: >
+      Three teams share one large unified model. The term "Customer" means
+      different things in the sales and support areas, causing integration bugs,
+      and no one has mapped how the parts relate. Review the situation.
+    expected_behaviour:
+      - recommends defining explicit Bounded Contexts (team, application, code
+        base, schema boundaries) instead of one unified multi-team model
+      - warns that a term must not be assumed equivalent across context
+        boundaries
+      - recommends documenting a shared Context Map of contexts and their
+        relationships
+      - cites P011
+    must_not:
+      - insists on forcing a single consistent model across all three teams
+
+  # ── P012: Anticorruption Layer for external/legacy integration ────────────
+  - test_id: PB-013
+    principle_id: P012
+    prompt: >
+      A downstream team must integrate with a legacy billing system it cannot
+      change, and the legacy system's data structures are starting to dictate
+      the team's own domain classes. How should they integrate?
+    expected_behaviour:
+      - recommends an Anticorruption Layer that translates between the two models
+        so the client model stays pure
+      - suggests implementing it as a domain Service backed by a Facade over the
+        legacy system and an Adapter that translates concepts
+      - cites P012
+    must_not:
+      - recommends adopting the legacy model directly when the team needs to
+        protect its own model and is not a Conformist by choice
+
+  # ── P013: Core Domain identification and staffing ─────────────────────────
+  - test_id: PB-014
+    principle_id: P013
+    prompt: >
+      A large model mixes the company's distinctive pricing engine with generic
+      concerns like notifications and a user directory. The best engineers are
+      assigned to the generic parts and a notification framework is being built
+      in-house. Review the resource allocation.
+    expected_behaviour:
+      - recommends identifying and highlighting the Core Domain (the
+        differentiating pricing engine) and keeping it small
+      - recommends staffing the Core Domain with the best developers
+      - recommends factoring generic subdomains into separate Modules at lower
+        priority and considering off-the-shelf or published models for them
+      - cites P013
+    must_not:
+      - endorses spending the strongest design effort on the generic subdomains

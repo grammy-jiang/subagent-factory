@@ -1,0 +1,135 @@
+schema_version: golden-tests-v1
+subagent_slug: domain-driven-design-reviewer
+generated_at: "2026-06-13"
+profile_version: "0.3.0"
+
+golden_tests:
+  - test_id: GT-001
+    description: >-
+      Positive routing — review mode for submitted domain model covering
+      Entity/Value Object misclassification and layer violation (P003, P004, P005)
+    prompt: >
+      We have a draft class diagram for an e-commerce order management system.
+      Order, OrderLine, Customer, and Address are all modelled as entities with
+      auto-generated integer IDs. The domain layer classes call directly into
+      a SqlRepository class that builds SQL strings. Please review this model
+      for DDD correctness.
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: >
+      At least three findings with principle references: (1) Address should be
+      classified as a Value Object — no thread of continuity, attribute-only
+      (P004, P005); (2) SqlRepository is an infrastructure concern bleeding into
+      the domain layer — Domain layer must be isolated from infrastructure (P003,
+      P009); (3) ubiquitous language assessment — do class names match domain
+      expert terminology (P001)? Each finding must name the model element
+      affected and include one actionable corrective step.
+    must_not_do:
+      - Recommend a single enterprise-wide unified model
+      - Apply DDD patterns without assessing whether domain complexity warrants them
+      - Implement code changes directly
+      - Issue findings without naming the specific model element
+
+  - test_id: GT-002
+    description: >-
+      Positive routing — advise mode for Bounded Context and inter-context
+      integration pattern selection (P011, P012)
+    prompt: >
+      We have two teams: the Billing team owns a Payment bounded context and the
+      Orders team owns an Order bounded context. The Billing team cannot change
+      its API quickly. We need to protect the Orders model from Billing's legacy
+      concepts leaking in. Which context map integration pattern is most
+      appropriate?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: >
+      Analysis of at least two applicable patterns — Anticorruption Layer
+      (P012) versus Customer-Supplier or Conformist — with a recommendation and
+      rationale tied to the team structure, the supplier's API immutability, and
+      the need to protect the client model. Must not recommend merging both
+      contexts into one unified model (P011).
+    must_not_do:
+      - Recommend ignoring Billing's API shape entirely
+      - Suggest merging both contexts into one unified model (violates P011)
+      - Make implementation decisions on behalf of the team
+
+  - test_id: GT-003
+    description: >-
+      Positive routing — validate mode for Aggregate invariant check (P007)
+    prompt: >
+      In our Order aggregate, we allow external code to hold direct references
+      to OrderLine objects and call setPrice() on them without going through the
+      Order root. Does this satisfy DDD aggregate rules?
+    expected_route: invoke
+    expected_mode: validate
+    must_ask_for: []
+    minimum_output: >
+      Fail verdict: Aggregate invariant violated — only the Aggregate root
+      (Order) may be accessible from outside; external code holding references
+      to OrderLine and modifying it directly bypasses invariant enforcement
+      (P007). At least one corrective step proposed (e.g., route price changes
+      through Order root; remove external references to OrderLine).
+    must_not_do:
+      - Return a pass verdict without checking aggregate access rules
+      - Suggest merging OrderLine into a different aggregate without justification
+      - Issue a finding without citing the Aggregate principle
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: >-
+      Negative routing — pure DevOps concern with no domain-modeling dimension
+    prompt: >
+      We need to choose between GitHub Actions and Jenkins for our CI/CD pipeline.
+      Which one should we use for our microservices deployment?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >
+      Clear statement that this is a pure infrastructure/DevOps question with no
+      domain-modeling dimension and falls outside the DDD reviewer's scope
+      (when_not_to_use: infrastructure concerns with no domain-modeling dimension).
+    must_not_do:
+      - Invent a domain-modeling angle to justify invoking
+      - Proceed with CI/CD recommendations as if within scope
+
+  - test_id: NR-002
+    description: >-
+      Negative routing — trivial CRUD application, Smart UI acknowledged
+    prompt: >
+      We are building a simple internal tool that lets admins create, read, update,
+      and delete employee records. The team has agreed a Smart UI is fine. Should
+      we apply DDD tactical patterns like aggregates and repositories?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >
+      Clear statement that DDD tactical patterns are not warranted for a simple
+      CRUD application where a Smart UI is explicitly acknowledged as appropriate;
+      no significant business complexity requiring DDD is present (when_not_to_use:
+      trivial CRUD with Smart UI acknowledged; forbidden_behaviours: do not apply
+      DDD patterns where Smart UI is appropriate).
+    must_not_do:
+      - Apply DDD tactical patterns to a problem where they add no value
+      - Override the team's explicit Smart UI decision
+
+missing_context_tests:
+  - test_id: MC-001
+    description: >-
+      Missing required input — model artifact not provided
+    prompt: "Please review our domain model."
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for:
+      - >-
+        Domain model artifact (class diagram, UML model, code sample, or written
+        design document)
+    minimum_output: >
+      Clear statement that the review cannot begin without the domain model
+      artifact under review, and a specific request for that artifact
+      (inputs.required item 1).
+    must_not_do:
+      - Proceed as if the artifact was provided
+      - Hallucinate model content to review
+      - Return a review with fabricated findings
