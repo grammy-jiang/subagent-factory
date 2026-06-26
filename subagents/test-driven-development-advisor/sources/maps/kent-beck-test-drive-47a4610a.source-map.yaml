@@ -1,0 +1,170 @@
+schema_version: source-map-v1
+source_id: kent-beck-test-drive-47a4610a
+
+# Structure-first map of Kent Beck, "Test-Driven Development By Example" (Addison-Wesley,
+# 2002). The converted markdown covers the Introduction + Part I (The Money Example,
+# Chapters 1-17 incl. the Money Retrospective). Part II (the xUnit Example) and Part III
+# (Patterns for TDD) are absent from this conversion. The operational TDD method is stated
+# in the Introduction (the rhythm + the two rules) and in Chapter 2 (the general cycle +
+# the three get-to-green strategies); the chapters demonstrate it on a worked example.
+
+nodes:
+  - node_id: N-intro
+    parent_id: null
+    level: chapter
+    title: Introduction
+    structural_address: "0"
+    role_class: definition
+    source_anchors: [kent-beck-test-drive-47a4610a-h0000]
+    salience: 0.95
+
+  - node_id: N-part1
+    parent_id: null
+    level: part
+    title: "Part I: The Money Example"
+    structural_address: "1"
+    role_class: method
+    source_anchors: [kent-beck-test-drive-47a4610a-h0001]
+    salience: 0.9
+
+  - node_id: N-ch1
+    parent_id: N-part1
+    level: chapter
+    title: Chapter 1. Multi-Currency Money
+    structural_address: "1.1"
+    role_class: example
+    source_anchors: [kent-beck-test-drive-47a4610a-h0002]
+    salience: 0.8
+
+  - node_id: N-ch2
+    parent_id: N-part1
+    level: chapter
+    title: Chapter 2. Degenerate Objects
+    structural_address: "1.2"
+    role_class: method
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    salience: 0.95
+
+  - node_id: N-ch3
+    parent_id: N-part1
+    level: chapter
+    title: Chapter 3. Equality for All
+    structural_address: "1.3"
+    role_class: method
+    source_anchors: [kent-beck-test-drive-47a4610a-h0041]
+    salience: 0.75
+
+  - node_id: N-ch11
+    parent_id: N-part1
+    level: chapter
+    title: Chapter 11. The Root of All Evil
+    structural_address: "1.11"
+    role_class: method
+    source_anchors: [kent-beck-test-drive-47a4610a-h0136]
+    salience: 0.6
+
+  - node_id: N-ch17
+    parent_id: N-part1
+    level: chapter
+    title: Chapter 17. Money Retrospective
+    structural_address: "1.17"
+    role_class: result
+    source_anchors: [kent-beck-test-drive-47a4610a-h0251]
+    salience: 0.7
+
+candidate_units:
+  - unit_id: U001
+    node_id: N-intro
+    statement: >-
+      Test-driven development follows a rhythm: quickly add a test; run all tests and watch
+      the new one fail; make a small change; run all tests and see them pass; refactor to
+      remove duplication.
+    source_anchors: [kent-beck-test-drive-47a4610a-h0001]
+    salience: 0.97
+
+  - unit_id: U002
+    node_id: N-intro
+    statement: >-
+      TDD rests on two rules: write a failing automated test before writing any production
+      code, and remove duplication.
+    source_anchors: [kent-beck-test-drive-47a4610a-h0000]
+    salience: 0.96
+
+  - unit_id: U003
+    node_id: N-ch2
+    statement: >-
+      The general TDD cycle is write a test (inventing the interface you wish you had), then
+      make it run (get the bar green fast), then make it right (remove the duplication you
+      introduced).
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    salience: 0.95
+
+  - unit_id: U004
+    node_id: N-ch2
+    statement: >-
+      The goal is clean code that works: first solve "that works" (get to green), then solve
+      "clean code" (refactor) — the reverse of architecture-driven development.
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    salience: 0.9
+
+  - unit_id: U005
+    node_id: N-ch2
+    statement: >-
+      While getting to green, getting the bar green quickly dominates everything else; a
+      quick green buys permission to commit a temporarily ugly solution, but only until the
+      duplication is removed in the refactor step.
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    salience: 0.85
+
+  - unit_id: U006
+    node_id: N-ch2
+    statement: >-
+      There are three strategies for getting to green: Fake It (return a constant and
+      gradually replace constants with variables), Obvious Implementation (type in the real
+      code), and Triangulation (drive the abstraction with two or more examples).
+    source_anchors:
+      - kent-beck-test-drive-47a4610a-h0024
+      - kent-beck-test-drive-47a4610a-h0041
+    salience: 0.92
+
+  - unit_id: U007
+    node_id: N-ch2
+    statement: >-
+      In practice shift between Obvious Implementation and Fake It: use Obvious Implementation
+      while confident, and on an unexpected red bar back up to faking implementations and
+      refactoring to the right code until confidence returns.
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    salience: 0.8
+
+  - unit_id: U008
+    node_id: N-ch2
+    statement: >-
+      Translate a design objection or aesthetic feeling (e.g. dislike of side effects) into a
+      concrete failing test case rather than debating it abstractly.
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    salience: 0.78
+
+  - unit_id: U009
+    node_id: N-ch1
+    statement: >-
+      Keep a running to-do list of tests to write and refactorings to make; add items as you
+      discover them and cross them off as you complete them, so the next small step is always
+      visible.
+    source_anchors: [kent-beck-test-drive-47a4610a-h0002]
+    salience: 0.82
+
+  - unit_id: U010
+    node_id: N-part1
+    statement: >-
+      Grow the design organically by refactoring to add one design decision at a time, rather
+      than designing the whole structure up front.
+    source_anchors: [kent-beck-test-drive-47a4610a-h0001]
+    salience: 0.85
+
+  - unit_id: U011
+    node_id: N-part1
+    statement: >-
+      Solve complicated tasks by starting from the simplest case and proceeding to the more
+      complex, taking small increments where each test covers a small slice of functionality.
+    source_anchors: [kent-beck-test-drive-47a4610a-h0001]
+    salience: 0.8

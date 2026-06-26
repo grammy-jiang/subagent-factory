@@ -1,0 +1,135 @@
+schema_version: evidence-records-v1
+# Each high-value claim bound to its source-grounded evidence. Source is
+# distillation-only (Addison-Wesley copyright); quote_allowed is false everywhere.
+evidence_records:
+  - evidence_id: EV-001
+    claim_id: TDD-001
+    source_ids: [kent-beck-test-drive-47a4610a]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0001]
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Stated as the author's TDD rhythm in the Part I introduction."
+
+  - evidence_id: EV-002
+    claim_id: TDD-002
+    source_ids: [kent-beck-test-drive-47a4610a]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0000]
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "The two rules are stated verbatim as the book's organising premise in the Introduction."
+
+  - evidence_id: EV-003
+    claim_id: TDD-003
+    source_ids: [kent-beck-test-drive-47a4610a]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Stated explicitly as 'The general TDD cycle' at the head of Chapter 2."
+
+  - evidence_id: EV-004
+    claim_id: TDD-004
+    source_ids: [kent-beck-test-drive-47a4610a]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: moderate
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Author frames 'clean code that works' and the divide-and-conquer ordering as the goal; a value claim about ordering."
+
+  - evidence_id: EV-005
+    claim_id: TDD-005
+    source_ids: [kent-beck-test-drive-47a4610a]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: moderate
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Author notes the aesthetic shift is hard for some experienced engineers; scoped to the make-it-run step only."
+
+  - evidence_id: EV-006
+    claim_id: TDD-006
+    source_ids: [kent-beck-test-drive-47a4610a]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024, kent-beck-test-drive-47a4610a-h0041]
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Fake It and Obvious Implementation named in Chapter 2; Triangulation named there and demonstrated in Chapter 3."
+
+  - evidence_id: EV-007
+    claim_id: TDD-007
+    source_ids: [kent-beck-test-drive-47a4610a]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: moderate
+    support_level: entailed
+    confidence: medium
+    quote_allowed: false
+    limitations: "Author describes his own practice ('When I use TDD in practice'); a personal-practice heuristic, not a universal law."
+
+  - evidence_id: EV-008
+    claim_id: TDD-008
+    source_ids: [kent-beck-test-drive-47a4610a]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0024]
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: moderate
+    support_level: entailed
+    confidence: medium
+    quote_allowed: false
+    limitations: "Stated as 'a common theme of TDD'; framed as a learned skill the author improves at over time."
+
+  - evidence_id: EV-009
+    claim_id: TDD-009
+    source_ids: [kent-beck-test-drive-47a4610a]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0002]
+    support_granularity: section
+    evidence_type: case
+    evidence_strength: moderate
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Demonstrated repeatedly across the worked example (the to-do list appears throughout Part I) rather than stated as a numbered rule."
+
+  - evidence_id: EV-010
+    claim_id: TDD-010
+    source_ids: [kent-beck-test-drive-47a4610a]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0001]
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Listed as a learning objective in both the Introduction and Part I opener."
+
+  - evidence_id: EV-011
+    claim_id: TDD-011
+    source_ids: [kent-beck-test-drive-47a4610a]
+    source_anchors: [kent-beck-test-drive-47a4610a-h0001]
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Listed as a learning objective; 'small increment of functionality' named as an expected surprise of Part I."
