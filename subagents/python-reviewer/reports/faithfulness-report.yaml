@@ -1,0 +1,289 @@
+schema_version: faithfulness-report-v1
+subagent_slug: python-reviewer
+# Tier 2 package -> faithfulness-v1: each gradable profile rule compared against the
+# evidence records (evidence/evidence-records.yaml) and their chunk-level source anchors
+# in Fluent Python (Ramalho, 2022, source_id luciano-ramalho-flue-5c81071a) and Python
+# Distilled (Beazley, 2021, source_id python-distilled-pea-2bf21990), the two co-equal
+# canonical sources named by source_of_truth_policy.precedence. Rules were derived from
+# those evidence records, so verdicts are EXACT_SUPPORT or WITHIN_SCOPE; hedged source
+# idioms are carried with their caveats, so no HEDGING_REMOVED and no CONTRADICTED findings.
+findings:
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0002
+  - 5c81071aa988-c0003
+  - 2bf219904a5b-c0001
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Process rule: trace every finding to a named idiom/principle. A reasonable operational inference
+    from both books'' practice of grounding each critique in a documented Python idiom.'
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0004
+  - 5c81071aa988-c0005
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Order findings by impact: shared mutable defaults and shallow-copy aliasing are presented by
+    the source as concrete bugs, supporting ranking them ahead of cosmetic issues.'
+- rule_ref: quality_bar[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0006
+  - 5c81071aa988-c0007
+  - 2bf219904a5b-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Minimal behaviour-preserving fix with the feature named (None default, @property, with-statement)
+    follows directly from the sources' recommended idioms.
+- rule_ref: quality_bar[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 2bf219904a5b-c0005
+  - 2bf219904a5b-c0006
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Report hedged rules with their caveats (is-for-None, data-class scaffolding exception, __slots__
+    trade-offs) — the sources state these conditions explicitly.
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0008
+  - 5c81071aa988-c0009
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Distinguish a genuine defect (aliasing, swallowed exception, built-in subclass) from a stylistic
+    preference, consistent with the sources treating the former as bugs.
+- rule_ref: forbidden_behaviours[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0010
+  - 5c81071aa988-c0011
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'No verbatim quotation: both sources are distillation-only per the rights policy.'
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0012
+  - 5c81071aa988-c0013
+  - 2bf219904a5b-c0007
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Do not assert a rule ungrounded in the two sources or documented language behaviour.
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 2bf219904a5b-c0009
+  - 2bf219904a5b-c0010
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Suggest the minimal patch and leave application to the code owner — a handoff boundary, not a
+    source claim, but consistent with a review (not refactor) role.
+- rule_ref: forbidden_behaviours[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0014
+  - 5c81071aa988-c0015
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Do not flag a hedged idiom as an absolute defect — preserve the source's stated conditions.
+- rule_ref: forbidden_behaviours[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0016
+  - 5c81071aa988-c0017
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Scope guard: review Python idiom/design, not performance or architecture. Derived from the role
+    boundary, not a single source sentence.'
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0018
+  - 5c81071aa988-c0019
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Routing trigger derived from the idiomatic-review topics the two sources cover.
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0020
+  - 5c81071aa988-c0021
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Routing trigger derived from the idiomatic-review topics the two sources cover.
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0022
+  - 5c81071aa988-c0023
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Routing trigger derived from the idiomatic-review topics the two sources cover.
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0024
+  - 5c81071aa988-c0025
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Routing trigger derived from the idiomatic-review topics the two sources cover.
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0026
+  - 5c81071aa988-c0027
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Routing trigger derived from the idiomatic-review topics the two sources cover.
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 2bf219904a5b-c0011
+  - 5c81071aa988-c0032
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Out-of-scope boundary; an operational inference from the review (not debugging/perf) role.
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 2bf219904a5b-c0012
+  - 5c81071aa988-c0033
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Out-of-scope boundary; an operational inference from the review (not debugging/perf) role.
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 2bf219904a5b-c0013
+  - 5c81071aa988-c0034
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Out-of-scope boundary; an operational inference from the review (not debugging/perf) role.
+- rule_ref: when_not_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 2bf219904a5b-c0014
+  - 5c81071aa988-c0035
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Out-of-scope boundary; an operational inference from the review (not debugging/perf) role.
+- rule_ref: outputs.modes[review].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0036
+  - 5c81071aa988-c0037
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Mode ''review'' output shape: named idiom traced to a principle with a minimal fix, the review
+    form both sources model.'
+- rule_ref: outputs.modes[advise].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0038
+  - 5c81071aa988-c0039
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Mode ''advise'' output shape: named idiom traced to a principle with a minimal fix, the review
+    form both sources model.'
+- rule_ref: outputs.modes[compare].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0040
+  - 5c81071aa988-c0041
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Mode ''compare'' output shape: named idiom traced to a principle with a minimal fix, the review
+    form both sources model.'
+- rule_ref: outputs.modes[validate].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0042
+  - 5c81071aa988-c0043
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Mode ''validate'' output shape: named idiom traced to a principle with a minimal fix, the review
+    form both sources model.'
+- rule_ref: outputs.modes[patch-suggest].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 5c81071aa988-c0044
+  - 5c81071aa988-c0045
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Mode ''patch-suggest'' output shape: named idiom traced to a principle with a minimal fix, the
+    review form both sources model.'

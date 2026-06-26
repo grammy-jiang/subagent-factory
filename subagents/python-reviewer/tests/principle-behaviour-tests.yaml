@@ -1,0 +1,784 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: python-reviewer
+generated_at: '2026-06-26'
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Build sequences with list comprehensions or
+    generator expressions instead of manual append loops or map/filter when the goal is to construct a
+    new seq. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P001
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P002
+  principle_id: P002
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Prefer a generator expression (parentheses)
+    over a list comprehension when you only iterate the result, for large memory and performance wins,
+    remembe. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P002
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P003
+  principle_id: P003
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Implement container behavior with the container
+    special methods (__len__, __getitem__, __setitem__, __delitem__, __contains__), where slicing passes
+    a. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P003
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P004
+  principle_id: P004
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Adopt gradual typing: add type hints incrementally
+    where they pay off (public APIs, complex data shapes), run a static checker such as Mypy in CI, and.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P004
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P005
+  principle_id: P005
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Understand the Method Resolution Order (__mro__):
+    a linear search order computed by C3 linearization in which a child precedes its parents and parents.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P005
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P006
+  principle_id: P006
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Treat multiple inheritance as a specialized
+    tool for organizing type and interface relations or mixins rather than combining unrelated classes:
+    name a. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P006
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P007
+  principle_id: P007
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Exploit Python''s slicing semantics deliberately:
+    slices exclude the stop index (so ranges line up and split cleanly), slice objects can be named and
+    r. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P007
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P008
+  principle_id: P008
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Handle text at I/O boundaries by decoding all
+    input and encoding all output with an explicit encoding such as ''utf-8'', selecting an errors policy
+    (''st. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P008
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P009
+  principle_id: P009
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Normalize Unicode (for example to NFC) before
+    comparing, indexing, keying, or storing user-supplied text, and use str.casefold for case-insensitive
+    ma. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P009
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P010
+  principle_id: P010
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Compare values with == (which calls __eq__)
+    and identity with is / is not, reserving is for singletons such as None; since x == y can be true
+    while x . Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P010
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P011
+  principle_id: P011
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Understand that assignment creates a new reference
+    (not a copy) and a shallow copy such as list(a) still shares the nested mutable objects, so use cop.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P011
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P012
+  principle_id: P012
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Do not rely on __del__ for resource cleanup,
+    since objects are reclaimed by reference counting plus cyclic GC at times you do not control (a reference.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P012
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P013
+  principle_id: P013
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Treat functions as first-class objects — pass
+    them as arguments, return them, and store them — and use higher-order functions and closures (a function.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P013
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P014
+  principle_id: P014
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Replace map/filter with list or generator comprehensions
+    and replace functools.reduce with purpose-built built-ins (sum, any, all, math.prod) for read. Is
+    it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P014
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P015
+  principle_id: P015
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Use __slots__ (listing the fixed instance attribute
+    names) to replace the per-instance __dict__ with a compact layout for substantial memory savings w.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P015
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P016
+  principle_id: P016
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Implement __iter__ as a generator function
+    (a function containing yield) instead of writing a separate iterator class with __next__: the generator
+    is . Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P016
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P017
+  principle_id: P017
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Use a property to intercept attribute access
+    through getter, setter, and deleter methods for validation or computation without changing code that
+    uses. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P017
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P018
+  principle_id: P018
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Use a descriptor (a class-level object implementing
+    __get__, __set__, or __delete__, with __set_name__ for its attribute name) to reuse attribute-acce.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P018
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P019
+  principle_id: P019
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Recognize that a class is itself an object
+    created by a metaclass (type by default, selected with the metaclass keyword or inherited from the
+    first ba. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P019
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P020
+  principle_id: P020
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Always implement __repr__ to give a developer-facing,
+    unambiguous representation (ideally one that looks like a constructor call that recreates the ob.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P020
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P021
+  principle_id: P021
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Handle missing dictionary keys intentionally
+    rather than with try/except or pre-checks: use dict.get(key, default) for reads, dict.setdefault for
+    inse. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P021
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P022
+  principle_id: P022
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Remember that dict and set are backed by hash
+    tables: keys and members must be hashable, lookups and membership tests are fast, iteration follows
+    inse. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P022
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P023
+  principle_id: P023
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Never use a mutable object (list, dict, set)
+    as a default parameter value, because the single default is shared across all calls and accumulates
+    state. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P023
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P024
+  principle_id: P024
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Do not subclass the built-in types dict, list,
+    or str directly, because their C-level methods bypass your overridden special methods; subclass collect.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P024
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P025
+  principle_id: P025
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Manage paired setup and teardown with the with
+    statement and the context-manager protocol (__enter__/__exit__), build a context manager from a single-.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P025
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P026
+  principle_id: P026
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Do not build repeated or nested sequences with
+    the * operator when the elements are mutable, because s*n duplicates references to the SAME object
+    so a. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P026
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P027
+  principle_id: P027
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Understand that augmented assignment (+=, *=)
+    mutates a mutable target in place (via __iadd__/__imul__) so every other reference observes the change,
+    . Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P027
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P028
+  principle_id: P028
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Treat dict views (keys(), values(), items())
+    as live windows over the dict that also support set-like operations; iterate them directly rather
+    than sn. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P028
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P029
+  principle_id: P029
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Use yield from to delegate iteration to a sub-iterable
+    (handy for recursively flattening nested iterables), but rewrite a deeply recursive generator w. Is
+    it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P029
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P030
+  principle_id: P030
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Use __getattr__ (invoked only when normal lookup
+    fails) to build read-only façades over nested data and to compute attributes on demand, but raise
+    Att. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P030
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P031
+  principle_id: P031
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Read and write files knowing read()/readline()
+    signal EOF with an empty string (readline keeps the newline), write()/writelines() add no newline,
+    and . Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P031
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P032
+  principle_id: P032
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Build a package as a directory with an __init__.py
+    that runs on import (a missing __init__ makes a rarely-wanted namespace package, so always include
+    . Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P032
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P033
+  principle_id: P033
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Recognize that I/O is fundamentally blocking
+    (a call waits while nothing else runs), so achieve concurrency with nonblocking I/O (setblocking(False)
+    r. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P033
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P034
+  principle_id: P034
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Integrate user-defined types with the Python
+    Data Model by implementing the special ("dunder") methods the interpreter and built-ins call, rather
+    than. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P034
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P035
+  principle_id: P035
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Make custom collections honor the Collection
+    API by implementing the abstract behaviours of Sized, Iterable, and Container (__len__, __iter__,
+    __conta. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P035
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P036
+  principle_id: P036
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Choose the sequence type deliberately along
+    two axes: container sequences (hold references, can mix types) versus flat sequences (store packed
+    values . Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P036
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P037
+  principle_id: P037
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Learn the standard generator toolkit before
+    writing your own: itertools supplies filtering, mapping, merging, and combinatoric generators, and
+    you mus. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P037
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P038
+  principle_id: P038
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Emulate numeric types with the arithmetic and
+    comparison special methods (__add__, __mul__, __abs__, __bool__, etc.) so instances work with operators
+    . Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P038
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P039
+  principle_id: P039
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Use tuples for two distinct purposes and make
+    the intent clear: as immutable records where position carries meaning, and as immutable lists that
+    are s. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P039
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P040
+  principle_id: P040
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Unpack sequences and iterables with parallel
+    assignment, nested unpacking, and the star target to grab excess items, instead of indexing element
+    by el. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P040
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P041
+  principle_id: P041
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Use match/case structural pattern matching
+    to destructure and dispatch on the shape of sequences and mappings (and class instances), which is
+    clearer . Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P041
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P042
+  principle_id: P042
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Sort in place with list.sort (which returns
+    None, signalling mutation) and build a new sorted list from any iterable with the sorted built-in;
+    control. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P042
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P043
+  principle_id: P043
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Reach for the specialised sequence types when
+    a plain list is the wrong tool: array.array for large homogeneous numeric data, memoryview for zero-copy.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P043
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P044
+  principle_id: P044
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Use the right dict variant for the job: collections.Counter
+    for tallying, ChainMap for layered namespaces, OrderedDict only when order-sensitive equal. Is it
+    idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P044
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P045
+  principle_id: P045
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Use set operations (union |, intersection &,
+    difference -, symmetric difference ^) and set/frozenset literals or comprehensions for fast membership
+    te. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P045
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P046
+  principle_id: P046
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Always pass an explicit encoding when opening
+    text files or calling encode/decode (default to UTF-8), and decide deliberately how to handle errors
+    (th. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P046
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P047
+  principle_id: P047
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Prefer a data class builder over a hand-written
+    boilerplate class when an object is mostly a bundle of named fields: typing.NamedTuple or collections..
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P047
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P048
+  principle_id: P048
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: When using @dataclass, supply mutable field
+    defaults only through field(default_factory=...) (never a bare mutable default, which would be shared
+    acro. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P048
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P049
+  principle_id: P049
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Build small callables for sort keys and callbacks
+    with the operator module (itemgetter, attrgetter, methodcaller) and functools.partial to freeze argu.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P049
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P050
+  principle_id: P050
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Understand decorator and closure mechanics:
+    a decorator runs at import or definition time and wraps or replaces the decorated function; a closure
+    capt. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P050
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P051
+  principle_id: P051
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Memoize pure, expensive functions with functools.cache
+    or functools.lru_cache, build configurable decorators as decorator factories (a function return. Is
+    it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P051
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P052
+  principle_id: P052
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Spell optional values as X | None (or Optional[X])
+    and avoid Any except at genuine dynamic boundaries, since Any silently disables type checking; reac.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P052
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P053
+  principle_id: P053
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Parameterise generic containers and functions
+    with TypeVar (bounded or constrained where appropriate) instead of Any, so the type checker can relate
+    i. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P053
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P054
+  principle_id: P054
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Define structural interfaces with typing.Protocol
+    (static duck typing) when you care about an object''s behaviour rather than its base class, and mark
+    . Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P054
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P055
+  principle_id: P055
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Program defensively and fail fast: validate
+    inputs at the boundaries and raise early with clear errors rather than letting bad data propagate
+    to a con. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P055
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P056
+  principle_id: P056
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Give every value object a useful __repr__ (plus
+    __str__, __bytes__, and __format__ where relevant), and provide alternative constructors as classmetho.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P056
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P057
+  principle_id: P057
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Make a type hashable only when it is effectively
+    immutable: implement __hash__ and __eq__ consistently so that equal objects hash equal, base the hash.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P057
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P058
+  principle_id: P058
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Implement rich comparison consistently — pair
+    __eq__ with __hash__ and define ordering through __lt__ and friends — and use augmented-assignment
+    dunde. Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P058
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P059
+  principle_id: P059
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Overload operators only between meaningful
+    operand types and keep them well-behaved: return NotImplemented (do not raise) for unsupported operands
+    so . Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P059
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
+- test_id: PB-P060
+  principle_id: P060
+  mode: review
+  prompt: 'Review this Python code for the idiom in scope: Keep iterables and iterators distinct: an iterable''s
+    __iter__ must return a fresh independent iterator on each call, while an iterator is consumed aft.
+    Is it idiomatic, and if not what is the minimal fix?'
+  expected_behaviour:
+  - Names the specific Python idiom or pitfall in scope
+  - Traces the finding to principle P060
+  - Proposes the minimal behaviour-preserving fix
+  must_not:
+  - Invents a rule with no grounding in the two sources
+  - Rewrites wholesale instead of the smallest idiomatic change
