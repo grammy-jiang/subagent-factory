@@ -1,0 +1,276 @@
+# Faithfulness review — Tier 1, evidence-based (re-grounded 2026-06-27)
+# Source: Eric Evans, "Domain-Driven Design: Tackling Complexity in the Heart of
+# Software" (Addison-Wesley, 2003); source_id ddd-evans-full-9e0c1e6c.
+# rights_status: distillation-only
+# Scope: all operative profile rules — quality_bar, forbidden_behaviours,
+# knowledge_partition.always_on, outputs.modes. Each rule_ref resolves to a profile
+# path; source_anchors are real chunk anchors from sources/anchors/. No rule is graded
+# stronger than its evidence; no CONTRADICTED findings.
+
+schema_version: faithfulness-report-v1
+subagent_slug: domain-driven-design-reviewer
+findings:
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0002
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P040 (Eric Evans, 2003). The rule turns the principle into
+    a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0004
+  - 9e0c1e6c6dd6-c0005
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Direct distillation of principle(s) P043, P044, each grounded in claims from Eric Evans, "Domain-Driven
+    Design" (2003). The rule restates the principle without broadening its scope. EXACT_SUPPORT.
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0000
+  - 9e0c1e6c6dd6-c0001
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Direct distillation of principle(s) P036, each grounded in claims from Eric Evans, "Domain-Driven
+    Design" (2003). The rule restates the principle without broadening its scope. EXACT_SUPPORT.
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0017
+  - 9e0c1e6c6dd6-c0005
+  - 9e0c1e6c6dd6-c0009
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P041, P007 (Eric Evans, 2003). The rule turns the principle
+    into a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0010
+  - 9e0c1e6c6dd6-c0011
+  - 9e0c1e6c6dd6-c0013
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P006, P021 (Eric Evans, 2003). The rule turns the principle
+    into a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
+- rule_ref: quality_bar[5]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0005
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Direct distillation of principle(s) P015, each grounded in claims from Eric Evans, "Domain-Driven
+    Design" (2003). The rule restates the principle without broadening its scope. EXACT_SUPPORT.
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0017
+  - 9e0c1e6c6dd6-c0002
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P041, P039 (Eric Evans, 2003). The rule turns the principle
+    into a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P034 (Eric Evans, 2003). The rule turns the principle into
+    a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0002
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P038 (Eric Evans, 2003). The rule turns the principle into
+    a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
+- rule_ref: forbidden_behaviours[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0000
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P033 (Eric Evans, 2003). The rule turns the principle into
+    a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
+- rule_ref: forbidden_behaviours[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0007
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P008 (Eric Evans, 2003). The rule turns the principle into
+    a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0004
+  - 9e0c1e6c6dd6-c0005
+  - 9e0c1e6c6dd6-c0009
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Direct distillation of principle(s) P043, P044, P045, P015, P007, P008, P047, P046, each grounded
+    in claims from Eric Evans, "Domain-Driven Design" (2003). The rule restates the principle without
+    broadening its scope. EXACT_SUPPORT.
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Direct distillation of principle(s) P017, each grounded in claims from Eric Evans, "Domain-Driven
+    Design" (2003). The rule restates the principle without broadening its scope. EXACT_SUPPORT.
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0000
+  - 9e0c1e6c6dd6-c0001
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Direct distillation of principle(s) P036, each grounded in claims from Eric Evans, "Domain-Driven
+    Design" (2003). The rule restates the principle without broadening its scope. EXACT_SUPPORT.
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0017
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Direct distillation of principle(s) P041, each grounded in claims from Eric Evans, "Domain-Driven
+    Design" (2003). The rule restates the principle without broadening its scope. EXACT_SUPPORT.
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0017
+  - 9e0c1e6c6dd6-c0009
+  - 9e0c1e6c6dd6-c0010
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Direct distillation of principle(s) P041, P001, each grounded in claims from Eric Evans, "Domain-Driven
+    Design" (2003). The rule restates the principle without broadening its scope. EXACT_SUPPORT.
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0022
+  - 9e0c1e6c6dd6-c0023
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Direct distillation of principle(s) P012, P013, each grounded in claims from Eric Evans, "Domain-Driven
+    Design" (2003). The rule restates the principle without broadening its scope. EXACT_SUPPORT.
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0010
+  - 9e0c1e6c6dd6-c0011
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Direct distillation of principle(s) P006, P048, each grounded in claims from Eric Evans, "Domain-Driven
+    Design" (2003). The rule restates the principle without broadening its scope. EXACT_SUPPORT.
+- rule_ref: outputs.modes[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0000
+  - 9e0c1e6c6dd6-c0001
+  - 9e0c1e6c6dd6-c0004
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P036, P043, P017, P041 (Eric Evans, 2003). The rule turns
+    the principle into a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
+- rule_ref: outputs.modes[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0004
+  - 9e0c1e6c6dd6-c0005
+  - 9e0c1e6c6dd6-c0007
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P044, P008, P046 (Eric Evans, 2003). The rule turns the
+    principle into a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
+- rule_ref: outputs.modes[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0010
+  - 9e0c1e6c6dd6-c0011
+  - 9e0c1e6c6dd6-c0022
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P006, P012, P013 (Eric Evans, 2003). The rule turns the
+    principle into a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
+- rule_ref: outputs.modes[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 9e0c1e6c6dd6-c0010
+  - 9e0c1e6c6dd6-c0011
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P006 (Eric Evans, 2003). The rule turns the principle into
+    a reviewer obligation without asserting more than the source supports. WITHIN_SCOPE.
