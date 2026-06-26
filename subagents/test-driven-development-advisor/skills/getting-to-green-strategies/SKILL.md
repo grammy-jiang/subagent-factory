@@ -4,16 +4,26 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P006
-  - P008
+  - P005
+  - P007
+  - P019
   claims:
-  - TDD-006
-  - TDD-007
-  - TDD-008
+  - C00042
+  - C00043
+  - C00044
+  - C00045
+  - C00046
+  - C00160
+  - C00161
+  - C00162
+  - C00163
+  - C00157
+  - C00158
+  - C00159
   source_anchors:
-  - kent-beck-test-drive-47a4610a-h0024
-  - kent-beck-test-drive-47a4610a-h0041
-  authored_from_digest: 0a1e19bc55851585b7b75ee63408e3aa5d1fd11c805444f1de3ca44509ffe8b0
+  - e619fe9a0394-c0001
+  - e619fe9a0394-c0006
+  authored_from_digest: 4bcd5088a229a7de9a373e087d04576f23d0d64f0167905cfdc1f3f825aac97d
 ---
 
 # Getting-to-green strategies
@@ -24,17 +34,17 @@ Guide the developer in choosing and applying one of three distinct strategies fo
 from a failing test to a passing bar: Obvious Implementation, Fake It, or Triangulation.
 The choice is deliberate and depends on confidence and evidence — not instinct. This skill
 also covers turning a design objection into a concrete failing test instead of debating it
-in the abstract. (P006, P008)
+in the abstract. (P005, P007)
 
 ## When to use
 
 - A failing test exists and the developer is deciding how to make it pass.
 - The developer is unsure whether to write the real implementation now, return a constant
-  and generalise later, or wait for a second example before abstracting.
+ and generalise later, or wait for a second example before abstracting.
 - A reviewer or developer dislikes something about a design but cannot tie the concern to
-  any specific observable behaviour.
+ any specific observable behaviour.
 - A developer has just hit an unexpected red bar while using Obvious Implementation and
-  needs to recover.
+ needs to recover.
 
 Do not apply when the bar is already green — strategy selection belongs to the make-it-run
 step only. Once every test passes, hand off to the refactoring step.
@@ -50,7 +60,7 @@ to write one first (see **red-green-refactor-cycle**).
 ### Step 2 — Choose a strategy
 
 Use the decision below. Apply the chosen strategy in Step 3; do not blend strategies in a
-single pass. (TDD-006)
+single pass. 
 
 #### Obvious Implementation
 
@@ -60,7 +70,7 @@ the test pass without surprises.
 Type in the real implementation directly. Run all tests immediately. If the bar turns green,
 you are done with this step. If it turns red unexpectedly — any failure you did not
 anticipate — do not debug the implementation; back up to Fake It (Step 2, branch below) and
-work in smaller steps until confidence returns. (TDD-007)
+work in smaller steps until confidence returns. 
 
 #### Fake It — return a constant, then generalise
 
@@ -68,15 +78,15 @@ work in smaller steps until confidence returns. (TDD-007)
 Implementation attempt produced an unexpected red bar.
 
 1. Return the simplest hardcoded value that makes the current failing test pass — often a
-   literal constant.
+ literal constant.
 2. Run all tests; confirm the bar is green.
 3. Identify any duplication between the constant in the test assertion and the constant in
-   the production code. That duplication is the signal to generalise.
+ the production code. That duplication is the signal to generalise.
 4. Replace each constant with a variable or expression, one substitution at a time, running
-   all tests after each change. Stop when no duplication remains.
+ all tests after each change. Stop when no duplication remains.
 
 If another test is needed to justify the next generalisation step, add it to the to-do list
-and write it in the next cycle rather than generalising speculatively now. (TDD-006)
+and write it in the next cycle rather than generalising speculatively now. 
 
 #### Triangulation — drive an abstraction from two or more examples
 
@@ -85,13 +95,13 @@ suite itself to force the abstraction rather than relying on your judgment.
 
 1. Keep the current test passing (which may mean keeping a fake return value for now).
 2. Write a second test that exercises the same behaviour with a different input value and
-   asserts a different expected output.
+ asserts a different expected output.
 3. Run all tests; both should now fail (or the second should fail while the first passes on
-   the fake).
+ the fake).
 4. Now generalise the implementation — replace the hardcoded value with the general
-   expression — so that both tests pass.
+ expression — so that both tests pass.
 5. With two concrete examples in the test suite, the abstraction is triangulated: the
-   implementation must be genuinely general to satisfy both. (TDD-006)
+ implementation must be genuinely general to satisfy both. 
 
 Reserve Triangulation for cases where uncertainty is real. If the general solution is
 already obvious, Obvious Implementation is faster and Triangulation adds ceremony for no
@@ -114,7 +124,7 @@ If any test that was previously passing now fails, stop immediately:
 4. Work in smaller increments until every test passes again.
 
 An unexpected failure is a signal that the step was too large, not a reason to debug
-production code while the bar is red. (TDD-007)
+production code while the bar is red. 
 
 ### Step 5 — Turn a design objection into a test (optional)
 
@@ -129,7 +139,7 @@ cannot identify a currently failing test that captures the concern:
 
 This converts an abstract design debate into a testable case. If no concrete assertion can
 be formed, the objection may be about naming or formatting rather than behaviour, and is
-outside the scope of the get-to-green step. (TDD-008, P008)
+outside the scope of the get-to-green step. (P008)
 
 ### Step 6 — Confirm green, then hand off
 
@@ -137,7 +147,7 @@ Once every test passes:
 
 - Do not refactor during this step.
 - Record any duplication noticed, and any follow-on tests or refactorings identified, on the
-  to-do list (see **tdd-to-do-list**).
+ to-do list (see **tdd-to-do-list**).
 - Hand off to the refactoring step — see **get-to-green-then-refactor**.
 
 ## Inputs
@@ -152,7 +162,7 @@ Once every test passes:
 One of:
 
 - A strategy recommendation (Obvious Implementation / Fake It / Triangulation) with the
-  rationale — which condition was met — and the concrete next action for that strategy.
+ rationale — which condition was met — and the concrete next action for that strategy.
 - A recovery instruction when an unexpected red bar is encountered.
 - A concrete failing test derived from a design objection, ready to add to the cycle.
 
@@ -162,20 +172,18 @@ choice fits the developer's current confidence and the evidence available.
 ## References
 
 - [red-green-refactor-cycle](../red-green-refactor-cycle/SKILL.md) — the enclosing cycle
-  this skill operates within; confirms a failing test exists before strategy selection.
+ this skill operates within; confirms a failing test exists before strategy selection.
 - [get-to-green-then-refactor](../get-to-green-then-refactor/SKILL.md) — the step that
-  immediately follows: remove duplication after the bar is green.
+ immediately follows: remove duplication after the bar is green.
 - [tdd-to-do-list](../../references/tdd-to-do-list.md) — record follow-on tests and
-  refactorings discovered during the get-to-green step so nothing is lost.
+ refactorings discovered during the get-to-green step so nothing is lost.
 
 ## Provenance
 
-Derived from principles **P006** (claims **TDD-006**, **TDD-007**) and **P008** (claim
-**TDD-008**), grounded in Kent Beck's "Test-Driven Development By Example" at anchors
-`kent-beck-test-drive-47a4610a-h0024` (Chapter 2 — the three strategies named and the
-shift between Obvious Implementation and Fake It described) and
-`kent-beck-test-drive-47a4610a-h0041` (Chapter 3 — Triangulation demonstrated).
-Distillation-only source: paraphrased throughout, no verbatim quotation. EV-006 (strong
-support, entailed) backs the three-strategy taxonomy; EV-007 (moderate support, entailed)
-backs the Obvious Implementation / Fake It shift heuristic; EV-008 (moderate support,
-entailed) backs the design-objection-to-test pattern.
+Derived from the choose-a-strategy principle **P005** (Fake It / Obvious Implementation /
+Triangulation), the conservative-Triangulation principle **P007**, and the Fake-It principle
+**P019** (claims **C00042**, **C00160**, **C00157**), grounded in Kent Beck, *Test-Driven
+Development By Example* (Addison-Wesley, 2002) at chunk anchors `e619fe9a0394-c0001`
+(the strategies and the Obvious-Implementation/Fake-It shift) and `e619fe9a0394-c0006`
+(Triangulation demonstrated).
+Distillation-only source: paraphrased throughout, no verbatim quotation.

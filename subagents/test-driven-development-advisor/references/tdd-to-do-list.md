@@ -4,12 +4,26 @@ kind: reference
 status: ready
 provenance:
   principles:
+  - P010
+  - P006
   - P009
   claims:
-  - TDD-009
+  - C00108
+  - C00109
+  - C00110
+  - C00111
+  - C00112
+  - C00113
+  - C00114
+  - C00115
+  - C00063
+  - C00064
+  - C00065
+  - C00067
   source_anchors:
-  - kent-beck-test-drive-47a4610a-h0002
-  authored_from_digest: 2da4efce11f0a877332cbb5c0e682bf628ad0cd6f07cc478584271eb61fd660c
+  - e619fe9a0394-c0005
+  - e619fe9a0394-c0002
+  authored_from_digest: 8e42a2043dd33d54732b11e6f250a04e1aff7a647695496377472a08cd8f5e22
 ---
 
 # TDD to-do list
@@ -25,7 +39,7 @@ code during a test-driven development session. It has two categories of entry:
 
 - **Tests still to write** — behaviours not yet covered by a failing test.
 - **Refactorings still to make** — duplication or design problems noticed but deferred so
-  the current test could reach green first.
+ the current test could reach green first.
 
 The list is not a backlog or a project plan. It is a focus device for a single working
 session: short, disposable, and expected to be empty when the session is complete.
@@ -61,7 +75,7 @@ The to-do list and the cycle interlock:
 1. **Before red** — choose the next pending test from the list; make it in-progress.
 2. **Red** — write the failing test for that item; run all tests and confirm failure.
 3. **Green** — make the smallest change to pass; if new smells appear, add them to the list
-   rather than fixing them now.
+ rather than fixing them now.
 4. **Refactor** — remove the duplication introduced; cross off the item when clean.
 5. **Repeat** — pick the next pending item; if the list is empty, the session is done.
 
@@ -86,7 +100,9 @@ unrefactored. An incomplete list is not a failure; an unrefactored green bar is.
 
 ## Provenance
 
-Built from principle **P009** (claim **TDD-009**, evidence **EV-009**) anchored at
-`kent-beck-test-drive-47a4610a-h0002` (Chapter 1, Multi-Currency Money worked example).
+Built from the list-the-tests-first principle **P010**, the never-more-than-one-change-from-green
+principle **P006**, and the back-out-to-green principle **P009** (claims **C00108**, **C00112**,
+**C00063**), grounded in Kent Beck, *Test-Driven Development By Example* (Addison-Wesley, 2002)
+at chunk anchors `e619fe9a0394-c0005` and `e619fe9a0394-c0002`.
 Source is distillation-only; this reference paraphrases and restructures the demonstrated
 technique — no verbatim quotation is present.
