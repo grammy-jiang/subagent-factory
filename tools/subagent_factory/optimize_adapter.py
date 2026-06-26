@@ -24,7 +24,13 @@ import subprocess
 import warnings
 from collections.abc import Callable
 
-from tools.subagent_factory.behaviour_replay import Grader, Runner, grade_output, replay_suite
+from tools.subagent_factory.behaviour_replay import (
+    Grader,
+    Runner,
+    grade_output,
+    per_test_key,
+    replay_suite,
+)
 
 # (best_adapter_text, failing_tests, round_index) -> candidate adapter texts.
 # Each failing entry is {"test": <behaviour-test dict>, "grade": <grade dict>}.
@@ -50,18 +56,35 @@ def _assess(before: dict, after: dict, tol: float) -> tuple[list[dict], list[dic
     return regressions, improvements
 
 
+def _merge_results(screen: dict, tail: dict) -> dict:
+    """Combine a minibatch-screen result with a tail-only confirm into one full-suite result.
+
+    The screen scored ``tests[:mb]`` and the tail scored ``tests[mb:]`` (disjoint), so their
+    ``per_test`` maps union to the full suite. Mean and ``n_tests`` are recomputed over the merged
+    map exactly as ``replay_suite`` does, so a merged result is indistinguishable from one produced
+    by a single full ``replay_suite`` call — the screened+confirmed path stays behaviour-equivalent,
+    it only avoids re-running the prefix tests.
+    """
+    per_test = {**screen["per_test"], **tail["per_test"]}
+    # The slices are disjoint, so the union MUST have len(screen)+len(tail) entries. A shortfall means
+    # two tests across the mb boundary collided on per_test_key (same "file:test_id", or two no-`file`
+    # tests sharing a bare test_id): the union silently dropped one, shrinking n_tests and the mean
+    # denominator while eval_calls still counts len(tests) — the exact n_tests/score desync per_test_key
+    # exists to prevent. Fail loud instead of corrupting the gate's numbers.
+    expected = len(screen["per_test"]) + len(tail["per_test"])
+    if len(per_test) != expected:
+        raise ValueError(
+            f"merge-seam per_test_key collision: screen+tail = {expected} disjoint tests but merged "
+            f"map has {len(per_test)} — a key collides across the minibatch boundary"
+        )
+    scores = [g["score"] for g in per_test.values()]
+    mean_score = round(sum(scores) / len(scores), 4) if scores else 0.0
+    return {"mean_score": mean_score, "n_tests": len(per_test), "per_test": per_test}
+
+
 def _mean_on(per_test: dict, ids: list[str]) -> float:
     scores = [per_test[i]["score"] for i in ids if i in per_test]
     return round(sum(scores) / len(scores), 4) if scores else 0.0
-
-
-def _per_test_key(test: dict) -> str:
-    """Key a test the SAME way ``replay_suite`` does — it keys ``per_test`` as ``"<file>:<test_id>"``
-    when a test carries ``file`` (``behaviour_replay``). ``optimize_adapter`` must match that, or every
-    ``per_test`` lookup below misses on production tests (``load_behaviour_tests`` always sets ``file``)
-    → the failing-list flags every test and ``best_screen_mean`` collapses to 0.0. Keep in sync with
-    ``behaviour_replay.replay_suite``."""
-    return f"{test['file']}:{test['test_id']}" if test.get("file") else test["test_id"]
 
 
 def optimize_adapter(
@@ -90,7 +113,7 @@ def optimize_adapter(
     Returns ``winner_text``, ``winner_mean``, ``baseline_mean``, ``improved`` (bool), ``rounds_used``,
     ``eval_calls`` (runner invocations, for cost accounting), and ``history``.
     """
-    all_ids = [_per_test_key(t) for t in tests]
+    all_ids = [per_test_key(t) for t in tests]
     eval_calls = 0
 
     baseline = replay_suite(base_adapter, tests, runner, grader)
@@ -106,14 +129,14 @@ def optimize_adapter(
 
     for r in range(1, budget + 1):
         rounds_used = r
-        best = max(pool, key=lambda p: p["result"]["mean_score"])
+        best = min(pool, key=lambda p: (-p["result"]["mean_score"], p["text"]))
         prev_best_mean = best["result"]["mean_score"]
         best_screen_mean = _mean_on(best["result"]["per_test"], screen_ids)
 
         failing = [
-            {"test": t, "grade": best["result"]["per_test"].get(_per_test_key(t), {})}
+            {"test": t, "grade": best["result"]["per_test"].get(per_test_key(t), {})}
             for t in tests
-            if best["result"]["per_test"].get(_per_test_key(t), {}).get("score", 0.0) < pass_bar
+            if best["result"]["per_test"].get(per_test_key(t), {}).get("score", 0.0) < pass_bar
         ]
         try:
             candidates = proposer(best["text"], failing, r) or []
@@ -143,9 +166,15 @@ def optimize_adapter(
                 if screen["mean_score"] < best_screen_mean - tol:
                     history.append({"round": r, "rejected": "minibatch-screen"})
                     continue
-
-            cand_result = replay_suite(cand, tests, runner, grader)
-            eval_calls += len(tests)
+                # Confirmed past the screen: score only the UNSEEN tail and reuse the screen's
+                # per_test for the prefix, instead of re-running the prefix (the whole point of
+                # screening is to NOT pay for the same tests twice).
+                tail = replay_suite(cand, tests[mb:], runner, grader)
+                eval_calls += len(tests) - mb
+                cand_result = _merge_results(screen, tail)
+            else:
+                cand_result = replay_suite(cand, tests, runner, grader)
+                eval_calls += len(tests)
             regressions, _ = _assess(best["result"]["per_test"], cand_result["per_test"], tol)
             if not regressions and cand_result["mean_score"] > best["result"]["mean_score"] + tol:
                 pool.append({"text": cand, "result": cand_result})
@@ -158,6 +187,10 @@ def optimize_adapter(
                     }
                 )
 
+        # Stable secondary key so equal-mean candidates order deterministically by text (not by
+        # emission/list order). Sort ascending by text first, then stable-sort by mean descending →
+        # higher mean wins, ties resolve to the lexicographically smaller text at pool[0].
+        pool = sorted(pool, key=lambda p: p["text"])
         pool = sorted(pool, key=lambda p: p["result"]["mean_score"], reverse=True)[:pool_size]
         new_best_mean = pool[0]["result"]["mean_score"]
         history.append({"round": r, "mean": new_best_mean, "pool_size": len(pool)})
@@ -169,7 +202,7 @@ def optimize_adapter(
             if no_improve >= patience:
                 break
 
-    winner = max(pool, key=lambda p: p["result"]["mean_score"])
+    winner = min(pool, key=lambda p: (-p["result"]["mean_score"], p["text"]))
     return {
         "winner_text": winner["text"],
         "winner_mean": winner["result"]["mean_score"],
@@ -180,6 +213,43 @@ def optimize_adapter(
         "n_tests": len(tests),
         "history": history,
     }
+
+
+def optimize_adapter_with_shell_proposer(
+    base_text: str,
+    tests: list[dict],
+    runner: Runner,
+    proposer_script: str,
+    *,
+    grader: Grader = grade_output,
+    n_variants: int = 2,
+    budget: int = 4,
+    minibatch: int | None = None,
+    pool_size: int = 4,
+    patience: int = 2,
+    tol: float = 0.0,
+    proposer_timeout: int = 300,
+) -> dict:
+    """Façade for the CLI: run the optimize loop with the live shell-backed proposer + policy gate.
+
+    Wraps the three pieces the CLI used to wire by hand — ``shell_proposer(proposer_script)``,
+    ``make_policy_gate(base_text)``, and ``optimize_adapter(...)`` — into one call so the CLI stops
+    reaching into module internals. Optimization behaviour is unchanged: it passes the same
+    arguments through, with the policy gate always installed (as the live path always did).
+    """
+    return optimize_adapter(
+        base_text,
+        tests,
+        runner,
+        shell_proposer(proposer_script, n_variants=n_variants, timeout=proposer_timeout),
+        grader=grader,
+        budget=budget,
+        minibatch=minibatch,
+        pool_size=pool_size,
+        patience=patience,
+        tol=tol,
+        accept_gate=make_policy_gate(base_text),
+    )
 
 
 # ── live wiring (D8): a shell-backed proposer + a text-level policy gate ─────────
@@ -299,14 +369,14 @@ def make_policy_gate(base_text: str) -> AcceptGate:
     runs when the human folds the winning edits into ``profile.yaml`` and re-exports). Assumes the
     additive proposer, so it scans the text added beyond the baseline.
     """
-    from tools.subagent_factory.adapter_policy_scan import _granted_tools
+    from tools.subagent_factory.adapter_policy_scan import granted_tools
 
     base = base_text.rstrip()
-    base_tools = _granted_tools(base_text)
+    base_tools = granted_tools(base_text)
 
     def _gate(cand: str) -> list[str]:
         violations: list[str] = []
-        if not _granted_tools(cand) <= base_tools:
+        if not granted_tools(cand) <= base_tools:
             violations.append("widens tool grants")
         added = (cand[len(base) :] if cand.startswith(base) else cand).lower()
         for tok in _ESCALATION_TOKENS:

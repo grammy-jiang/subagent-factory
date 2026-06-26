@@ -31,20 +31,37 @@ from pathlib import Path
 
 from tools.subagent_factory._common import CHARS_PER_TOKEN
 
-_HEADING = re.compile(r"^(#{1,6})[ \t]+(.+?)[ \t]*#*$")
+# ATX heading. The trailing group strips ONLY a true ATX closing sequence — a whitespace-preceded
+# `#` run (`# Title ###` -> "Title") — not a `#` fused to the title text (`# C#` stays "C#").
+_HEADING = re.compile(r"^(#{1,6})[ \t]+(.+?)(?:[ \t]+#+)?[ \t]*$")
+# A fenced code block opens/closes on a line whose first non-space run is ``` or ~~~ (3+).
+_FENCE = re.compile(r"^[ \t]*(`{3,}|~{3,})")
 
 
 @dataclass
 class Chunk:
-    """One heading-aligned chunk: metadata + the text actually fed to extraction."""
+    """One heading-aligned chunk: metadata + the text actually fed to extraction.
+
+    Two distinct sizes are recorded and MUST NOT be conflated:
+    - ``char_start``/``char_end`` index **the source** (``source.md``): ``source[char_start:char_end]``
+      is the chunk's raw body, which feeds line-number provenance (``emit_chunk_anchors``). They do
+      *not* index ``text``.
+    - ``est_tokens`` estimates **the fed text** (``text`` = breadcrumb header + optional
+      neighbour-overlap + body), i.e. what extraction actually reads — larger than the source body.
+    ``body_chars`` (= ``char_end - char_start``) is the source-body length, kept alongside so a
+    consumer can compare the source span against the fed-text token estimate without re-deriving it.
+    """
 
     chunk_id: str  # "<sha12>-c0001"
     index: int
     heading_path: str  # "Part II > Chapter 3 > 3.2 Foo" (breadcrumb), or "(preamble)"
-    char_start: int  # offset of the chunk body in the source
-    char_end: int
-    est_tokens: int  # of the fed text (breadcrumb + overlap + body)
-    text: str
+    char_start: int  # offset into source.md (NOT into `text`) of the chunk body start
+    char_end: int  # offset into source.md of the chunk body end
+    est_tokens: (
+        int  # token estimate of the FED text (breadcrumb + overlap + body), not the source body
+    )
+    text: str  # the fed text actually sent to extraction (header + overlap + body)
+    body_chars: int = 0  # length of the source body span (char_end - char_start)
 
 
 def _iter_segments(text: str) -> list[tuple[list[str], int, str]]:
@@ -52,6 +69,10 @@ def _iter_segments(text: str) -> list[tuple[list[str], int, str]]:
 
     Each segment begins with its own heading line (or is the pre-heading preamble) and carries the
     full heading breadcrumb (stack of ancestor titles) active at that point.
+
+    Fence-aware: a ``#`` line *inside* a ```` ``` ````/``~~~`` fenced code block is body text (e.g. a
+    shell comment), never an ATX heading — heading detection is suppressed until the fence closes, so
+    such a line cannot corrupt the breadcrumb stack or open a spurious segment.
     """
     segments: list[tuple[list[str], int, str]] = []
     stack: list[tuple[int, str]] = []
@@ -60,8 +81,19 @@ def _iter_segments(text: str) -> list[tuple[list[str], int, str]]:
     seg_start = 0
     offset = 0
     started = False
+    in_fence = False
+    fence_marker = ""
     for line in text.splitlines(keepends=True):
-        m = _HEADING.match(line.rstrip("\n"))
+        stripped = line.rstrip("\n")
+        fence_m = _FENCE.match(stripped)
+        if fence_m:
+            marker = fence_m.group(1)[0]  # ` or ~
+            if not in_fence:
+                in_fence, fence_marker = True, marker
+            elif marker == fence_marker:
+                # A fence only closes on its own marker type (``` does not close a ~~~ block).
+                in_fence, fence_marker = False, ""
+        m = None if in_fence else _HEADING.match(stripped)
         if m:
             if seg_lines:
                 segments.append((seg_path, seg_start, "".join(seg_lines)))
@@ -173,8 +205,9 @@ def chunk_markdown(
                 heading_path=breadcrumb,
                 char_start=start,
                 char_end=end,
-                est_tokens=len(fed) // CHARS_PER_TOKEN,
+                est_tokens=len(fed) // CHARS_PER_TOKEN,  # of the FED text, not the source body
                 text=fed,
+                body_chars=end - start,  # source-body span length (char_end - char_start)
             )
         )
         prev_body = body
@@ -210,9 +243,10 @@ def write_book_module(
                     "chunk_id": c.chunk_id,
                     "index": c.index,
                     "heading_path": c.heading_path,
-                    "char_start": c.char_start,
+                    "char_start": c.char_start,  # offset into source.md, not text_path
                     "char_end": c.char_end,
-                    "est_tokens": c.est_tokens,
+                    "body_chars": c.body_chars,  # source-body span length
+                    "est_tokens": c.est_tokens,  # estimate of the fed text in text_path
                     "text_path": text_path,
                 },
                 ensure_ascii=False,

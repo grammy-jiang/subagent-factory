@@ -3,11 +3,23 @@
 from tools.subagent_factory.build_cache import atomic_write_text, is_done, mark_done, step_log
 
 
-def test_atomic_write_creates_file_and_parents(tmp_path):
-    target = tmp_path / "sub" / "out.txt"
+def test_atomic_write_lands_file_no_orphan(tmp_path):
+    # atomic_write_text is now re-exported from _common (single owner, P010): it writes via a
+    # unique sibling temp + os.replace and requires the parent dir to exist (caller's job).
+    target = tmp_path / "out.txt"
     atomic_write_text(target, "hello")
     assert target.read_text() == "hello"
-    assert not (tmp_path / "sub" / "out.txt.tmp").exists()  # tmp renamed away
+    assert list(tmp_path.glob("*.tmp")) == []  # unique sibling temp replaced away, no orphan
+
+
+def test_mark_done_no_tmp_orphan_and_roundtrips(tmp_path):
+    # mark_done creates the marker's parent and lands a .done that is_done parses back. After a
+    # successful write no *.tmp sibling is left behind (the fixed-name collision bug is gone).
+    step_dir = tmp_path / "steps"
+    mark_done(step_dir, "claims", ["a", "b"])
+    assert is_done(step_dir, "claims", ["a", "b"])
+    assert (step_dir / "claims.done").exists()
+    assert list(step_dir.glob("*.tmp")) == []
 
 
 def test_done_roundtrip(tmp_path):

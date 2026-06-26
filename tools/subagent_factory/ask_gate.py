@@ -9,9 +9,11 @@ of the chosen action (the one specific clarification question, or the scoped abs
 What the gate decides, per the research spec (``docs/enhancement-steps/step-13-ask-gate.md``):
 
 - **answer** — every required-context slot the principle needs is already supplied.
-- **ask** — a decision-relevant slot is missing; ask the single highest-priority one (information
-  gain, not a generic "tell me more"). Over-asking hurts and is nonmonotonic (#5), so the gate asks
-  for exactly one slot at a time and never re-asks.
+- **ask** — a decision-relevant slot is missing; ask the single first-declared required slot (the
+  deterministic layer owns *which slot is missing*, in ``must_ask_for`` declaration order — it does
+  **not** compute an information-gain ranking; sharpening to "ask the most informative one" is the
+  LLM skill's job). Over-asking hurts and is nonmonotonic (#5), so the gate asks for exactly one slot
+  at a time and only re-asks a slot that has not been supplied since it was last asked.
 - **abstain** — either the request is out of scope, or the missing slot was *already asked* in a prior
   assistant turn and the user still has not supplied it (the bounded multi-turn **anti-re-ask** rule:
   the user can't or won't give it → escalate, don't loop the same question).
@@ -126,29 +128,75 @@ def _role(turn: dict) -> str:
 
 
 def _fraction_present(keywords: set[str], tokens: set[str]) -> bool:
+    # 2-token edge (P011, documented, intentionally not changed): with _FILL_FRACTION=0.5 a
+    # two-keyword slot is satisfied by EITHER keyword (1/2 == 0.5), so a turn that mentions only one
+    # half of a two-word slot name counts as a fill — a potential premature false-fill. The threshold
+    # stays 0.5 unless a test demonstrates a real false-fill; tightening it would also break the
+    # single-keyword exact-presence case (1/1).
+    #
+    # NOTE: this 0.5 FILL threshold is used for slot *fill* detection (filled_slots) AND, separately,
+    # for the *recency-reset* leg of already_asked (a user turn that supplies the slot). It is NOT
+    # used for the assistant-question (ASK) detection leg — that uses the stricter _all_present below.
+    # See _all_present for why ASK-detection demands the full slot phrasing.
     if not keywords:
         return False
     present = sum(1 for k in keywords if k in tokens)
     return present >= 1 and present / len(keywords) >= _FILL_FRACTION
 
 
+def _all_present(keywords: set[str], tokens: set[str]) -> bool:
+    # Stricter bar than _fraction_present, used ONLY for assistant-question (ASK) detection in
+    # already_asked. Requires EVERY slot keyword to be present (full normalized-name match).
+    #
+    # Why stricter for ASK-detection specifically: gate() runs not only on gate-GENERATED transcripts
+    # (replay_conversation, where only the gate writes assistant turns using the full slot phrasing)
+    # but also on EXTERNALLY-supplied transcripts (the CLI, validate_generated_package wiring). On an
+    # external transcript a real assistant rhetorical/clarifying question can incidentally share >=50%
+    # of a slot's keywords (e.g. slot "deployment target" and the assistant says "Is the deployment
+    # ready?"). Under the loose 0.5 bar that incidental question would count as "we already asked this
+    # slot" and the gate would ABSTAIN instead of ASK — a silent-commit-adjacent false negative,
+    # exactly what this module exists to prevent. Demanding the full slot phrasing avoids that while
+    # still matching every gate-generated fallback question (which embeds the whole slot name).
+    if not keywords:
+        return False
+    return all(k in tokens for k in keywords)
+
+
 def already_asked(slot: Slot, conversation: list[dict]) -> bool:
-    """True if a prior **assistant** turn already asked for this slot.
+    """True if the slot was asked in an **assistant** turn and has **not been supplied since**.
 
     Requires both a question mark (the turn is interrogative, not merely discussing the topic) and the
-    slot's keywords present — so a normal answer that happens to mention the slot does not count."""
+    slot's **full** keyword set present — so a normal answer that happens to mention the slot, or an
+    incidental external question that merely shares part of the slot phrasing, does not count. The
+    ASK-detection bar is deliberately stricter (``_all_present``) than the fill bar (``_fraction_present``,
+    0.5): on EXTERNALLY-supplied transcripts an incidental assistant question sharing only half a slot's
+    keywords must NOT be read as "we already asked this slot" (that would drive a silent abstain instead
+    of the needed ask). Gate-generated fallback questions embed the full slot phrasing, so the strict bar
+    still matches them — the recency/re-ask behaviour is unchanged for gate-generated conversations.
+
+    Recency bound (fix for silent over-abstention): an ask only triggers escalation while it is still
+    *outstanding*. If a later **user** turn supplies the slot, that ask is satisfied and no longer
+    counts — so a slot that was asked, answered, then becomes relevant again is re-asked rather than
+    abstained on. (``filled_slots`` deliberately accumulates a slot as filled forever; this prior-ask
+    detection must NOT accumulate the same way, or it would escalate a slot that was already answered.)
+    """
     keywords = _slot_keywords(slot)
     if not keywords:
         return False
+    asked_outstanding = False
     for turn in conversation:
-        if _role(turn) != "assistant":
-            continue
+        role = _role(turn)
         text = _turn_text(turn)
-        if "?" not in text:
-            continue
-        if _fraction_present(keywords, _content_tokens(text)):
-            return True
-    return False
+        if role == "assistant":
+            # ASK-detection uses the stricter full-keyword bar (not _fraction_present) so an incidental
+            # external question that merely shares part of the slot phrasing does not trip a silent abstain.
+            if "?" in text and _all_present(keywords, _content_tokens(text)):
+                asked_outstanding = True
+        elif role == "user":
+            # A user turn that supplies the slot satisfies any earlier ask for it.
+            if _fraction_present(keywords, _content_tokens(text)):
+                asked_outstanding = False
+    return asked_outstanding
 
 
 def filled_slots(slots: list[Slot], conversation: list[dict]) -> set[str]:
@@ -164,13 +212,17 @@ def filled_slots(slots: list[Slot], conversation: list[dict]) -> set[str]:
 def gate(principle: dict, conversation: list[dict], *, out_of_scope: bool = False) -> dict:
     """Decide Answer / Ask / Abstain for ``principle`` given the ``conversation`` so far.
 
-    Returns ``{"action", "slot", "missing", "reason"}``. ``slot`` is the slot to ask about (for
-    ``ask``) or the unsupplied slot that triggered escalation (for the anti-re-ask ``abstain``), else
-    ``None``. ``missing`` is every still-unfilled required slot, in priority order."""
+    Returns ``{"action", "slot", "question", "missing", "reason"}``. ``slot`` is the slot to ask about
+    (for ``ask``) or the unsupplied slot that triggered escalation (for the anti-re-ask ``abstain``),
+    else ``None``; ``question`` is that slot's fallback clarification question (``None`` when ``slot``
+    is ``None``) so callers need not re-look-up or re-derive it. ``missing`` is every still-unfilled
+    required slot, in declaration order. The chosen slot is simply the **first declared** missing slot
+    — this layer owns *which slot is missing*, not an information-gain ranking (that is the skill's)."""
     if out_of_scope:
         return {
             "action": "abstain",
             "slot": None,
+            "question": None,
             "missing": [],
             "reason": "request is out of scope for this advisor",
         }
@@ -181,6 +233,7 @@ def gate(principle: dict, conversation: list[dict], *, out_of_scope: bool = Fals
         return {
             "action": "answer",
             "slot": None,
+            "question": None,
             "missing": [],
             "reason": "all required context is present",
         }
@@ -189,14 +242,16 @@ def gate(principle: dict, conversation: list[dict], *, out_of_scope: bool = Fals
         return {
             "action": "abstain",
             "slot": first.name,
+            "question": first.question,
             "missing": missing,
             "reason": f"already asked for '{first.name}' and it was not supplied — escalate, do not re-ask",
         }
     return {
         "action": "ask",
         "slot": first.name,
+        "question": first.question,
         "missing": missing,
-        "reason": f"missing decision-relevant context: '{first.name}'",
+        "reason": f"missing required context: first declared unfilled slot '{first.name}'",
     }
 
 
@@ -226,9 +281,9 @@ def replay_conversation(
         decision = gate(principle, conversation, out_of_scope=(i in oos))
         decisions.append(decision)
         if decision["action"] == "ask":
-            slot = next((s for s in required_slots(principle) if s.name == decision["slot"]), None)
-            question = slot.question if slot else f"What is the {decision['slot']}?"
-            conversation.append({"role": "assistant", "content": question})
+            # gate returns the chosen slot's fallback question; reuse it verbatim so the next step's
+            # already_asked check sees the same phrasing (no re-look-up, no divergent reconstruction).
+            conversation.append({"role": "assistant", "content": decision["question"]})
     return decisions
 
 

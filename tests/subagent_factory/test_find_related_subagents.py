@@ -8,7 +8,7 @@ import yaml
 from tools.subagent_factory.find_related_subagents import (
     _build_profile_corpus,
     _jaccard,
-    _overlap_coefficient,
+    _query_coverage,
     _tokenize,
     extract_domain_keywords,
     find_related_subagents,
@@ -49,7 +49,7 @@ def test_build_profile_corpus_uses_all_fields():
         "knowledge_partition": {"always_on": ["OAuth 2.0 flows"]},
         "sources": [{"title": "OWASP API Security Top 10"}],
     }
-    tokens, _ = _build_profile_corpus(profile)
+    tokens = _build_profile_corpus(profile)
     assert "auditor" in tokens
     assert "authentication" in tokens
     assert "owasp" in tokens
@@ -160,11 +160,11 @@ def test_recommendation_thresholds():
         assert top["recommendation"] in ("update", "consider-update")
 
 
-def test_overlap_coefficient_covers_small_query_in_large_corpus():
+def test_query_coverage_covers_small_query_in_large_corpus():
     query = {"concurrency", "threads", "locks"}
     corpus = query | {f"filler{i}" for i in range(200)}
-    # Query is fully covered → overlap 1.0, while Jaccard collapses to ~0.015.
-    assert _overlap_coefficient(query, corpus) == 1.0
+    # Query is fully covered → coverage 1.0, while Jaccard collapses to ~0.015.
+    assert _query_coverage(query, corpus) == 1.0
     assert _jaccard(query, corpus) < 0.1
 
 
@@ -207,6 +207,75 @@ def test_small_query_large_corpus_reaches_update_threshold():
         assert top["slug"] == "java-concurrency-reviewer"
         assert top["similarity"] >= 0.55
         assert top["recommendation"] in ("update", "consider-update")
+
+
+def test_overlap_coefficient_uses_query_denominator_not_min():
+    # Coverage-of-query intent: a thin corpus SMALLER than the query must not
+    # score 1.0 just because it is fully contained. Under min(|A|,|B|) this
+    # scored 1.0 (corpus is the smaller set); under query-coverage it is 1/5.
+    query = {"complexity", "abstraction", "modules", "interfaces", "hiding"}
+    thin_corpus = {"complexity"}
+    assert _query_coverage(query, thin_corpus) == 0.2
+
+
+def test_thin_corpus_does_not_wrongly_recommend_update():
+    # A stub profile with one matching token must not be promoted to "update"
+    # against a richer query. Under the buggy min-denominator it scored 1.0.
+    with tempfile.TemporaryDirectory() as tmp:
+        slug_dir = Path(tmp) / "stub-reviewer"
+        slug_dir.mkdir()
+        profile = {
+            "slug": "stub-reviewer",
+            "display_name": "complexity",
+            "role": "",
+            "when_to_use": [],
+            "sources": [],
+        }
+        (slug_dir / "profile.yaml").write_text(yaml.dump(profile))
+
+        results = find_related_subagents(
+            "complexity abstraction modules interfaces hiding",
+            subagents_dir=tmp,
+        )
+        # 1 of 5 query tokens covered → 0.2, below the 0.10 floor it survives
+        # but must never be "update" or "consider-update".
+        assert len(results) == 1
+        assert results[0]["similarity"] == 0.2
+        assert results[0]["recommendation"] == "create-new"
+
+
+def test_malformed_profile_is_surfaced_not_silently_dropped():
+    # A dropped candidate can flip the verdict to "create-new" and cause a
+    # duplicate subagent, so a skipped/unreadable profile must be surfaced.
+    import io
+    from contextlib import redirect_stderr
+
+    with tempfile.TemporaryDirectory() as tmp:
+        good_dir = Path(tmp) / "good-reviewer"
+        good_dir.mkdir()
+        (good_dir / "profile.yaml").write_text(
+            yaml.dump(
+                {
+                    "slug": "good-reviewer",
+                    "display_name": "API Security Reviewer",
+                    "role": "Reviews API security",
+                }
+            )
+        )
+
+        bad_dir = Path(tmp) / "broken-reviewer"
+        bad_dir.mkdir()
+        # Invalid YAML that yaml.safe_load cannot parse.
+        (bad_dir / "profile.yaml").write_text("display_name: [unclosed\n  : :")
+
+        stderr = io.StringIO()
+        with redirect_stderr(stderr):
+            results = find_related_subagents("api security reviewer", subagents_dir=tmp)
+
+        # Good profile still found.
+        assert any(r["slug"] == "good-reviewer" for r in results)
+        # The skip is surfaced on stderr (not silently swallowed).
+        assert "broken-reviewer" in stderr.getvalue()
 
 
 def test_matched_terms_returned():

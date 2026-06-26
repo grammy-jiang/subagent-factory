@@ -2,7 +2,7 @@
 
 import yaml
 
-from tools.subagent_factory.profile_self_check import profile_self_check
+from tools.subagent_factory.profile_self_check import _CHECKS, profile_self_check
 
 
 def _valid_profile() -> dict:
@@ -323,3 +323,21 @@ def test_body_size_fail_includes_breakdown(tmp_path):
     assert finding["level"] == "FAIL"
     assert "heaviest" in finding["message"]
     assert "role" in finding["message"]
+
+
+def test_check_registry_numbers_are_contiguous_and_unique():
+    # The check ordinal now lives in exactly one place — the _CHECKS registry.
+    # Guard the equivalence with the prior hard-coded numbering: 1..18, no gaps,
+    # no duplicates, run in ascending order.
+    nums = [num for num, _ in _CHECKS]
+    assert nums == list(range(1, 19))
+    assert len(nums) == len(set(nums))
+
+
+def test_valid_profile_emits_one_finding_per_check(tmp_path):
+    # Each registered check emits exactly its own numbered finding for a valid
+    # profile, so the findings set matches the registry numbers 1..18.
+    pkg = _write_package(tmp_path)
+    result = profile_self_check(pkg)
+    emitted = sorted(f["num"] for f in result["findings"])
+    assert emitted == [num for num, _ in _CHECKS]

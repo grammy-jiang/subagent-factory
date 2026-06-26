@@ -28,7 +28,7 @@ list (and the pass/fail verdict derived from it) is built in phase order.
 
 import json
 import sys
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from pathlib import Path
 
 import yaml
@@ -64,6 +64,58 @@ _REPO_ROOT = Path(__file__).parent.parent.parent
 
 # Each phase appends findings via these emitters: emit(check, message) -> None.
 _Emit = Callable[[str, str], None]
+
+
+def _discard(_check: str, _msg: str) -> None:
+    """A no-op _Emit sink for scans that emit only FAIL/WARN (no OK branch)."""
+    return None
+
+
+def _route(
+    findings: Iterable[tuple[str, str]],
+    *,
+    fail: _Emit,
+    warn: _Emit,
+    ok: _Emit,
+    check: str,
+) -> None:
+    """Route a stream of ``(level, message)`` sub-scan findings to the shared emitters.
+
+    ``FAIL`` → ``fail``, ``WARN`` → ``warn``, anything else → ``ok``. Callers whose
+    sub-scan emits a different finding shape (dicts, 3-tuples, custom level vocabularies)
+    pre-normalize into ``(level, message)`` pairs before calling this, so the emitted
+    check/message text stays byte-for-byte identical.
+    """
+    for level, message in findings:
+        if level == "FAIL":
+            fail(check, message)
+        elif level == "WARN":
+            warn(check, message)
+        else:
+            ok(check, message)
+
+
+def _emit_errors(
+    errors: Iterable[str],
+    *,
+    fail: _Emit,
+    ok: _Emit,
+    check: str,
+    label: str,
+) -> None:
+    """Emit an error-list sub-validator result: each error → ``fail``; empty → one ``ok``.
+
+    ``label`` is reused for both branches — failures are prefixed ``f"{label}: {error}"``
+    and the success message is ``f"{label} valid"`` — so the emitted text matches the
+    hand-rolled ``for e in errors: fail(...)`` / ``else: ok(...)`` blocks it replaces.
+    """
+    errors = list(errors)
+    if errors:
+        for e in errors:
+            fail(check, f"{label}: {e}")
+    else:
+        ok(check, f"{label} valid")
+
 
 # Tier-gated artifact registry: ``(rel_path, min_tier, validate_fn)`` where
 # ``validate_fn(path) -> list[str]``. The gate validates any entry that is *present*,
@@ -112,22 +164,31 @@ _TIER_ARTIFACTS: list = [
 ]
 
 
-def _tier(base: Path) -> int:
-    """Read the package tier from profile.yaml (default 0).
+def _load_profile(base: Path) -> dict:
+    """Parse profile.yaml once for the whole run; ``{}`` if absent or unparseable.
+
+    The orchestrator parses the profile a single time and threads the dict (and the
+    derived tier) through every phase that needs it, replacing the four independent
+    reads that previously each opened + ``safe_load``-ed the file.
+    """
+    profile_path = base / "profile.yaml"
+    if not profile_path.exists():
+        return {}
+    try:
+        return yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError:
+        return {}
+
+
+def _tier(profile: dict) -> int:
+    """Derive the declared package tier from a parsed profile (default 0).
 
     Absent ``tier:`` ⇒ Tier 0, so existing packages require no new artifacts. The
     gate validates any tier artifact that is *present* regardless of tier, but only
     *requires* an artifact when the package's tier mandates it.
     """
-    profile_path = base / "profile.yaml"
-    if not profile_path.exists():
-        return 0
     try:
-        prof = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
-    except yaml.YAMLError:
-        return 0
-    try:
-        return int(prof.get("tier", 0) or 0)
+        return int(profile.get("tier", 0) or 0)
     except (TypeError, ValueError):
         return 0
 
@@ -206,12 +267,7 @@ def _check_metadata(base: Path, fail: _Emit, warn: _Emit, ok: _Emit) -> None:
         if not meta_files:
             warn("metadata", "No metadata files found in sources/metadata/")
         for mf in meta_files:
-            errors = validate_metadata(mf)
-            if errors:
-                for e in errors:
-                    fail("metadata", f"{mf.name}: {e}")
-            else:
-                ok("metadata", f"{mf.name} valid")
+            _emit_errors(validate_metadata(mf), fail=fail, ok=ok, check="metadata", label=mf.name)
 
 
 # 3b. Profile sources trace back to ingested source metadata.
@@ -221,11 +277,22 @@ def _check_metadata(base: Path, fail: _Emit, warn: _Emit, ok: _Emit) -> None:
 # blank silently breaks traceability — none of the other checks notice.
 # The cross-check only runs when source metadata is present (the unit-test
 # fixtures omit it); absence is already reported by the required-dirs check.
-# Returns the parsed profile (or {}) so the later multisource-synthesis check can reuse it.
-def _check_source_provenance(base: Path, fail: _Emit, warn: _Emit, ok: _Emit) -> dict:
+# The profile is parsed once by the orchestrator and threaded in.
+def _check_source_provenance(
+    base: Path, profile: dict, fail: _Emit, warn: _Emit, ok: _Emit
+) -> None:
+    # The metadata sha256 and the profile sha256 are written by different
+    # producers; normalize both to a canonical form (strip whitespace,
+    # lowercase, drop a leading "sha256:" prefix) so digests that are equal
+    # but differently-formatted are not reported as a false mismatch.
+    def _norm_sha(s: str) -> str:
+        s = s.strip().lower()
+        if s.startswith("sha256:"):
+            s = s[len("sha256:") :].strip()
+        return s
+
     meta_dir = base / "sources" / "metadata"
     profile_path = base / "profile.yaml"
-    profile: dict = {}
     if profile_path.exists() and meta_dir.exists():
         meta_sha = {}
         for mf in meta_dir.glob("*.metadata.json"):
@@ -234,16 +301,12 @@ def _check_source_provenance(base: Path, fail: _Emit, warn: _Emit, ok: _Emit) ->
             except (json.JSONDecodeError, OSError):
                 continue
             if m.get("source_id"):
-                meta_sha[m["source_id"]] = str(m.get("sha256") or "")
-        try:
-            profile = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
-        except yaml.YAMLError:
-            profile = {}
+                meta_sha[m["source_id"]] = _norm_sha(str(m.get("sha256") or ""))
         profile_sources = profile.get("sources") or []
         if meta_sha and profile_sources:
             for src in profile_sources:
                 sid = str(src.get("source_id") or "")
-                sha = str(src.get("sha256") or "")
+                sha = _norm_sha(str(src.get("sha256") or ""))
                 if sid not in meta_sha:
                     fail(
                         "source-provenance",
@@ -260,7 +323,6 @@ def _check_source_provenance(base: Path, fail: _Emit, warn: _Emit, ok: _Emit) ->
                     )
                 else:
                     ok("source-provenance", f"source '{sid}' traces to ingested metadata")
-    return profile
 
 
 # 4. Manifest validation
@@ -281,12 +343,9 @@ def _check_anchors(base: Path, fail: _Emit, ok: _Emit) -> None:
     if anchors_dir.exists():
         anchor_files = list(anchors_dir.glob("*.anchors.jsonl"))
         for af in anchor_files:
-            errors = validate_anchor_index(af)
-            if errors:
-                for e in errors:
-                    fail("anchors", f"{af.name}: {e}")
-            else:
-                ok("anchors", f"{af.name} valid")
+            _emit_errors(
+                validate_anchor_index(af), fail=fail, ok=ok, check="anchors", label=af.name
+            )
 
 
 # 6. Conversion reports
@@ -313,8 +372,8 @@ def _check_adapter(base: Path, slug: str, fail: _Emit, ok: _Emit) -> None:
         ok("adapter-installed", "Installed adapter present")
         # Compare content — installed adapter must match canonical (v0 requirement)
         if adapter_path.exists():
-            canonical = adapter_path.read_text()
-            installed = installed_path.read_text()
+            canonical = adapter_path.read_text(encoding="utf-8")
+            installed = installed_path.read_text(encoding="utf-8")
             if canonical != installed:
                 fail("adapter-sync", "Installed adapter differs from canonical — re-export needed")
             else:
@@ -378,24 +437,24 @@ def _check_injection(base: Path, warn: _Emit, ok: _Emit) -> None:
 
 # 12. Adapter-policy scan: tool-grant widening / escalation = FAIL; body injection = WARN.
 def _check_adapter_policy(base: Path, fail: _Emit, warn: _Emit) -> None:
-    for x in adapter_policy_scan(base):
-        if x["level"] == "FAIL":
-            fail("adapter-policy", f"{x['file']}: {x['issue']}")
-        else:
-            warn("adapter-policy", f"{x['file']}: {x['issue']}")
+    # Only FAIL/WARN are emitted (no OK branch); normalize non-FAIL → WARN before routing.
+    _route(
+        (
+            ("FAIL" if x["level"] == "FAIL" else "WARN", f"{x['file']}: {x['issue']}")
+            for x in adapter_policy_scan(base)
+        ),
+        fail=fail,
+        warn=warn,
+        ok=_discard,
+        check="adapter-policy",
+    )
 
 
 # 13. Patch-safety policy — required when the profile grants a patch/produce mode.
-def _check_patch_policy(base: Path, fail: _Emit, ok: _Emit) -> None:
+def _check_patch_policy(base: Path, profile: dict, fail: _Emit, ok: _Emit) -> None:
     patch_policy = base / "policy" / "patch-policy.yaml"
-    has_patch_mode = False
-    if (base / "profile.yaml").exists():
-        try:
-            _prof = yaml.safe_load((base / "profile.yaml").read_text(encoding="utf-8")) or {}
-        except yaml.YAMLError:
-            _prof = {}
-        modes = [m.get("name") for m in (_prof.get("outputs", {}) or {}).get("modes", []) or []]
-        has_patch_mode = any(m in ("produce", "patch-suggest") for m in modes)
+    modes = [m.get("name") for m in (profile.get("outputs", {}) or {}).get("modes", []) or []]
+    has_patch_mode = any(m in ("produce", "patch-suggest") for m in modes)
     if patch_policy.exists():
         pp_errs = validate_patch_policy(patch_policy)
         if pp_errs:
@@ -415,21 +474,16 @@ def _check_patch_policy(base: Path, fail: _Emit, ok: _Emit) -> None:
 # every technical / non-regulated package has no such field, so this returns [] and Tier-0
 # packages are untouched. When set, the package must ship the graded no-advice boundary
 # (no-advice forbidden behaviour + defer-to-professional handoff + standing disclaimer).
-def _check_domain_policy(base: Path, fail: _Emit, ok: _Emit) -> None:
-    if (base / "profile.yaml").exists():
-        try:
-            _dprof = yaml.safe_load((base / "profile.yaml").read_text(encoding="utf-8")) or {}
-        except yaml.YAMLError:
-            _dprof = {}
-        dom_errs = check_domain_policy(_dprof)
-        if dom_errs:
-            for e in dom_errs:
-                fail("domain-policy", e)
-        elif _dprof.get("domain_risk_category"):
-            ok(
-                "domain-policy",
-                f"regulated domain '{_dprof['domain_risk_category']}' boundary present",
-            )
+def _check_domain_policy(profile: dict, fail: _Emit, ok: _Emit) -> None:
+    dom_errs = check_domain_policy(profile)
+    if dom_errs:
+        for e in dom_errs:
+            fail("domain-policy", e)
+    elif profile.get("domain_risk_category"):
+        ok(
+            "domain-policy",
+            f"regulated domain '{profile['domain_risk_category']}' boundary present",
+        )
 
 
 # Tier-consistency: the *declared* tier governs which evidence artifacts are
@@ -441,8 +495,8 @@ def _check_domain_policy(base: Path, fail: _Emit, ok: _Emit) -> None:
 # (see classify_tier docstring), and the deterministic signal is advisory guidance for
 # the authoring run, which re-runs Step 6.5 and sets the real tier.
 # Returns the declared tier (which the tier-artifact + multisource checks below need).
-def _check_tier_consistency(base: Path, warn: _Emit, ok: _Emit) -> int:
-    tier = _tier(base)
+def _check_tier_consistency(base: Path, profile: dict, warn: _Emit, ok: _Emit) -> int:
+    tier = _tier(profile)
     computed_tier = classify_tier(base)
     if computed_tier > tier:
         warn(
@@ -462,12 +516,7 @@ def _check_tier_artifacts(base: Path, tier: int, fail: _Emit, ok: _Emit) -> None
     for rel, min_tier, vfn in _TIER_ARTIFACTS:
         p = base / rel
         if p.exists():
-            errs = vfn(p)
-            if errs:
-                for e in errs:
-                    fail("tier-artifact", f"{rel}: {e}")
-            else:
-                ok("tier-artifact", f"{rel} valid")
+            _emit_errors(vfn(p), fail=fail, ok=ok, check="tier-artifact", label=rel)
         elif tier >= min_tier:
             fail("tier-artifact", f"tier {tier} requires {rel} (missing)")
 
@@ -516,37 +565,31 @@ def _check_multisource(base: Path, profile: dict, tier: int, warn: _Emit, ok: _E
 # declares status: ready with an unauthored or invalid skill/reference; otherwise WARN
 # (authored N/M). Draft packages (all 15 current ones) only ever WARN here.
 def _check_skill_authoring(base: Path, fail: _Emit, warn: _Emit, ok: _Emit) -> None:
-    for level, msg in validate_skill_authoring(base):
-        if level == "FAIL":
-            fail("skill-authoring", msg)
-        elif level == "WARN":
-            warn("skill-authoring", msg)
-        else:
-            ok("skill-authoring", msg)
+    _route(validate_skill_authoring(base), fail=fail, warn=warn, ok=ok, check="skill-authoring")
 
 
 # Adapter output-quality gate: the exported deliverable must be substantive (DO-NOT-EDIT
 # header, no stub/placeholder tokens, load-bearing sections present + non-empty). Complements
 # the existence + security (adapter-policy) checks above.
 def _check_adapter_quality(base: Path, fail: _Emit, warn: _Emit, ok: _Emit) -> None:
-    for level, msg in validate_adapter_quality(base):
-        if level == "FAIL":
-            fail("adapter-quality", msg)
-        elif level == "WARN":
-            warn("adapter-quality", msg)
-        else:
-            ok("adapter-quality", msg)
+    _route(validate_adapter_quality(base), fail=fail, warn=warn, ok=ok, check="adapter-quality")
 
 
 # Step 9: stale maintenance — authored bodies whose grounding (cited principles/claims) has
 # drifted since authoring. Advisory only: a stale flag is human-reviewed/re-authored before
 # the next release, never a hard release block. STALE/WARN → warn; INFO/OK → ok.
 def _check_stale(base: Path, warn: _Emit, ok: _Emit) -> None:
-    for level, artifact, reason in detect_stale(base):
-        if level in ("STALE", "WARN"):
-            warn("stale-maintenance", f"{artifact}: {reason}")
-        else:
-            ok("stale-maintenance", f"{artifact}: {reason}")
+    # detect_stale yields (level, artifact, reason); STALE/WARN → warn, else → ok.
+    _route(
+        (
+            ("WARN" if level in ("STALE", "WARN") else "OK", f"{artifact}: {reason}")
+            for level, artifact, reason in detect_stale(base)
+        ),
+        fail=_discard,
+        warn=warn,
+        ok=ok,
+        check="stale-maintenance",
+    )
 
 
 def validate_generated_package(subagent_dir: str | Path) -> dict:
@@ -558,6 +601,9 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
     base = Path(subagent_dir)
     findings = []
     slug = base.name
+    # Parse profile.yaml exactly once and thread the dict (and the tier derived from it)
+    # through every phase that needs it.
+    profile = _load_profile(base)
 
     def fail(check, msg):
         findings.append({"level": "FAIL", "check": check, "message": msg})
@@ -571,7 +617,7 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
     _check_required_files(base, fail, ok)
     _check_required_dirs(base, warn, ok)
     _check_metadata(base, fail, warn, ok)
-    profile = _check_source_provenance(base, fail, warn, ok)
+    _check_source_provenance(base, profile, fail, warn, ok)
     _check_manifest(base, fail, ok)
     _check_anchors(base, fail, ok)
     _check_reports(base, warn, ok)
@@ -581,9 +627,9 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
     _check_quote_scan(base, warn, ok)
     _check_injection(base, warn, ok)
     _check_adapter_policy(base, fail, warn)
-    _check_patch_policy(base, fail, ok)
-    _check_domain_policy(base, fail, ok)
-    tier = _check_tier_consistency(base, warn, ok)
+    _check_patch_policy(base, profile, fail, ok)
+    _check_domain_policy(profile, fail, ok)
+    tier = _check_tier_consistency(base, profile, warn, ok)
     _check_tier_artifacts(base, tier, fail, ok)
     _check_multisource(base, profile, tier, warn, ok)
     _check_skill_authoring(base, fail, warn, ok)

@@ -20,10 +20,17 @@ Pure data + pure functions. ``merge_domain_policy`` folds a template into a prof
 ``domain_risk_category``), wired into ``validate_generated_package``.
 """
 
+import copy
 import sys
 
 # Each regulated domain → its graded no-advice scaffolding. ``domain_risk_category`` in a profile is
 # set to one of these keys; everything else (technical, advisory non-regulated) is unaffected.
+#
+# DESIGN NOTE (P010 — duplication, flagged not fixed): the three templates below are ~85% duplicated
+# boilerplate (same no-advice / defer / disclaimer / evidence-norm shape, only the domain nouns
+# differ). A parameterized generator was considered and deliberately deferred: the wording is
+# safety-load-bearing and per-domain hand-tuned (e.g. medical "emergency", finance "past
+# performance"), so the behaviour-risk of templating it now outweighs the deduplication value.
 _DOMAINS: dict[str, dict] = {
     "finance": {
         "professional": "a licensed financial advisor or registered investment professional",
@@ -193,10 +200,14 @@ def merge_domain_policy(profile: dict, domain: str) -> dict:
     ``domain_risk_category`` and ``standing_disclaimer``, adds the disclaimer as a handoff rule, and
     folds the J5 ``evidence_norms`` into ``source_of_truth_policy`` (preserving any existing
     ``canonical_owner`` / ``precedence``). Existing profile content is preserved; re-running adds nothing
-    new. The *source-specific* authority/precedence stays for the LLM (Q17) to populate.
+    new. The input ``profile`` is left untouched. The *source-specific* authority/precedence stays for
+    the LLM (Q17) to populate.
     """
     pol = domain_policy(domain)
-    out = dict(profile)
+    # Deep-copy so the returned profile shares no nested object with the caller's input — the
+    # documented "input untouched" contract then holds for every key, not just the ones reassigned
+    # below (cheap insurance against latent aliasing).
+    out = copy.deepcopy(profile)
     out["domain_risk_category"] = pol["domain_risk_category"]
     out["standing_disclaimer"] = pol["standing_disclaimer"]
     out["forbidden_behaviours"] = _extend_unique(
@@ -214,15 +225,24 @@ def merge_domain_policy(profile: dict, domain: str) -> dict:
 
 
 def check_domain_policy(profile: dict) -> list[str]:
-    """Deterministic gate: a profile that declares a regulated ``domain_risk_category`` must ship the
-    no-advice boundary. Returns error strings; empty = OK.
+    """Deterministic **presence smoke-test** for the regulated no-advice boundary. Returns error
+    strings; empty = OK.
+
+    **This is a presence check, NOT a correctness check.** It only verifies that boundary-shaped
+    *text is present* — it matches bare keywords (``advice`` / ``advise`` / ``personal`` / ``defer`` /
+    ``cite`` …) anywhere in the relevant fields. It does **not** and cannot verify that the boundary
+    is semantically sound: an inverted line such as "Do give personalized advice" would still pass.
+    A deterministic semantic checker is impossible, and the leniency is intentional so a human may
+    rephrase the template lines and still pass. The load-bearing control is the template-derived
+    producer (``merge_domain_policy``) plus human review — this gate is a cheap tripwire that catches
+    a profile which declares a regulated domain but ships *no* boundary text at all, not a guarantee
+    that the shipped boundary is correct.
 
     **Opt-in / inert by default:** a profile with no ``domain_risk_category`` (every technical and
-    non-regulated package) returns ``[]``. For a regulated package the checks are lenient and
-    keyword-based, so a human may rephrase the template lines and still pass: it requires a no-advice
-    forbidden behaviour, a defer-to-professional handoff rule, a non-empty standing disclaimer, and a
-    J5 evidence norm (mandatory-citation / answer-from-authority) in ``source_of_truth_policy`` or the
-    forbidden behaviours.
+    non-regulated package) returns ``[]``. For a regulated package it requires the *presence* of a
+    no-advice forbidden behaviour, a defer-to-professional handoff rule, a non-empty standing
+    disclaimer, and a J5 evidence norm (mandatory-citation / answer-from-authority) in
+    ``source_of_truth_policy`` or the forbidden behaviours.
     """
     domain = (profile.get("domain_risk_category") or "").strip().lower()
     if not is_regulated_domain(domain):
@@ -235,10 +255,13 @@ def check_domain_policy(profile: dict) -> list[str]:
     sot = profile.get("source_of_truth_policy") or {}
     norms = [str(x) for x in (sot.get("evidence_norms") or [])]
 
+    # NOTE: these are PRESENCE keyword checks (no-advice text present?), not correctness checks —
+    # see the docstring. They catch a regulated profile shipping no boundary text at all.
     if not any(any(k in x.lower() for k in _NO_ADVICE_KEYWORDS) for x in fb):
         errors.append(
             f"regulated domain '{domain}': forbidden_behaviours has no no-advice / "
-            "no-recommendation boundary (graded safe-completion expected)"
+            "no-recommendation boundary text present (presence smoke-test; graded safe-completion "
+            "expected)"
         )
     if not any(any(k in x.lower() for k in _DEFER_KEYWORDS) for x in hr):
         errors.append(
@@ -278,7 +301,15 @@ def main() -> None:
     if args.merge:
         from pathlib import Path
 
-        profile = yaml.safe_load(Path(args.merge).read_text(encoding="utf-8")) or {}
+        profile = yaml.safe_load(Path(args.merge).read_text(encoding="utf-8"))
+        # Guard against empty / all-comment files (None) and non-mapping YAML (e.g. a top-level
+        # list or scalar). Coercing those to {} would silently emit a bare-template "merged"
+        # profile, and a non-dict would later blow up opaquely inside merge_domain_policy.
+        if profile is None:
+            profile = {}
+        if not isinstance(profile, dict):
+            print(f"profile YAML must be a mapping (got {type(profile).__name__})", file=sys.stderr)
+            sys.exit(2)
         merged = merge_domain_policy(profile, args.domain)
         print(yaml.safe_dump(merged, sort_keys=False, allow_unicode=True))
     else:

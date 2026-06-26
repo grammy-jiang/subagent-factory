@@ -101,6 +101,66 @@ def test_determinism_chunk_ids_invariant_to_runtime(monkeypatch):
     )  # shared book namespace
 
 
+def test_hash_inside_code_fence_is_not_a_heading():
+    # A `# comment` at column 0 INSIDE a ``` fence must NOT open a new heading segment
+    # (common in technical books). Only ATX headings outside fences split. With a small
+    # target the post-fence heading must remain its own chunk; a mis-parsed in-fence `#`
+    # corrupts the breadcrumb stack so the real `## After` is no longer top of stack.
+    pad = "filler line\n" * 400  # force separate chunks so segment boundaries are observable
+    md = (
+        "# Real Heading\n\n"
+        "```\n# this is a shell comment, not a heading\nprint(1)\n```\n\n"
+        f"{pad}\n"
+        "## After Fence\n\n"
+        f"{pad}\n"
+    )
+    chunks = chunk_markdown(md, target_tokens=300, overlap_chars=0)
+    paths = [c.heading_path for c in chunks]
+    # No breadcrumb may be derived from the in-fence comment line.
+    assert all("shell comment" not in p for p in paths)
+    # The real post-fence heading nests correctly under the H1 (stack not corrupted).
+    assert "Real Heading > After Fence" in paths
+
+
+def test_tilde_fence_also_guards_in_fence_hashes():
+    pad = "filler line\n" * 400
+    md = "# H\n\n~~~\n# not a heading\n~~~\n\n" + pad + "\n## Sub\n\n" + pad + "\n"
+    chunks = chunk_markdown(md, target_tokens=300, overlap_chars=0)
+    paths = [c.heading_path for c in chunks]
+    assert all("not a heading" not in p for p in paths)
+    assert "H > Sub" in paths
+
+
+def test_heading_with_trailing_hash_keeps_full_title():
+    # `# C#` must keep the title "C#" — a trailing `#` directly attached to the word is
+    # NOT an ATX closing sequence (only a whitespace-preceded `#` run is). Old regex ate it
+    # ("C# " -> "C"). Pair with the internal-hash guard below.
+    assert chunk_markdown("# C#\n\nbody\n", target_tokens=1000)[0].heading_path == "C#"
+    assert (
+        chunk_markdown("# C# language\n\nbody\n", target_tokens=1000)[0].heading_path
+        == "C# language"
+    )
+
+
+def test_atx_closing_hash_run_is_still_stripped():
+    # A whitespace-preceded trailing `#` run IS an ATX closing sequence and is stripped.
+    chunks = chunk_markdown("# Title ###\n\nbody\n", target_tokens=1000)
+    assert chunks[0].heading_path == "Title"
+
+
+def test_body_chars_is_source_span_not_fed_text():
+    # body_chars indexes the SOURCE span (char_end - char_start); est_tokens estimates the FED text
+    # (which includes the breadcrumb header), so the two sizes are distinct and not conflated.
+    body = "w " * 2000
+    md = "".join(f"## S{i}\n\n{body}\n\n" for i in range(4))
+    chunks = chunk_markdown(md, target_tokens=1100, overlap_chars=0)
+    for c in chunks:
+        assert c.body_chars == c.char_end - c.char_start
+        assert len(md[c.char_start : c.char_end]) == c.body_chars
+        # fed text carries the injected header on top of the source body, so it is strictly longer
+        assert len(c.text) > c.body_chars
+
+
 def test_module_sha_and_chunk_sha12_agree(tmp_path):
     # write_book_module's dir <sha> and chunk-id <sha12> must derive from the same canonical bytes,
     # so sha.startswith(sha12) — even when the source has invalid UTF-8 (errors='replace').

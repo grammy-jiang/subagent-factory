@@ -87,10 +87,25 @@ def test_finding_source_inference():
 
 
 def test_single_source_line_refs_recovered_and_validate(tmp_path):
+    # both cited lines are >= the first anchor's line (1), so both are genuinely covered
     rp = _pkg(tmp_path, {_SRC: _ANCHORS}, [[f"{_SRC}:L148", f"{_SRC}:L5"]])
     r = remap_faithfulness_anchors(rp)
     assert r["n_remapped"] == 2 and r["n_quarantined"] == 0
     assert validate_faithfulness_report(rp) == []
+
+
+def test_line_before_first_anchor_quarantines_not_fabricated(tmp_path):
+    # first anchor starts at line 100: a finding citing L5 has NO covering anchor.
+    # The honest action is to quarantine it, NOT silently map it to the first anchor (t0010).
+    anchors = [(100, f"{_SRC}-t0010"), (200, f"{_SRC}-t0020")]
+    rp = _pkg(tmp_path, {_SRC: anchors}, [[f"{_SRC}:L150", f"{_SRC}:L5"]])
+    r = remap_faithfulness_anchors(rp)
+    # L150 covers (->t0010); L5 is before the first anchor -> quarantined, not fabricated
+    assert r["n_remapped"] == 1 and r["n_quarantined"] == 1
+    assert r["quarantined"][0]["dropped"] == f"{_SRC}:L5"
+    assert validate_faithfulness_report(rp) == []
+    side = rp.parent / "faithfulness-repair.yaml"
+    assert side.exists()  # uncoverable ref recorded for review, not silently linked
 
 
 def test_slug_refs_quarantined_but_report_validates(tmp_path):

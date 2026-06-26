@@ -30,7 +30,10 @@ as ``judge_ab``):
 from __future__ import annotations
 
 import json
+import os
 import re
+import subprocess
+import warnings
 from collections.abc import Callable
 from pathlib import Path
 from statistics import median
@@ -74,8 +77,26 @@ _DECLINE_MAX_CHARS = 600
 # is a barrage (over-asking hurts and is nonmonotonic — calibration finding #5).
 _MAX_ASK_QUESTIONS = 2
 
+# Token-overlap cutoffs (not score values): a clarification question counts as "covered" at or above
+# _ASK_COVER_MIN recall of a must_ask_for item; a must_not_do item counts as "violated" at or above
+# _MUSTNOT_OVERLAP_MIN recall. Both are heuristic thresholds, distinct from the partial-credit scores.
+_ASK_COVER_MIN = 0.5
+_MUSTNOT_OVERLAP_MIN = 0.6
+
 Runner = Callable[[str, str], str]
 Grader = Callable[[dict, str], dict]
+
+
+def per_test_key(test: dict) -> str:
+    """The single source of truth for a test's ``per_test`` map key.
+
+    A test that carries a ``file`` (``load_behaviour_tests`` always sets it) keys as
+    ``"<file>:<test_id>"`` so two records sharing a ``test_id`` across different YAML files do not
+    silently overwrite each other; otherwise it falls back to the bare ``test_id``. ``replay_suite``
+    uses this and so must any consumer that looks ``per_test`` up by key (e.g. ``optimize_adapter``),
+    so the two cannot drift.
+    """
+    return f"{test['file']}:{test['test_id']}" if test.get("file") else test["test_id"]
 
 
 def load_behaviour_tests(subagent_dir: str | Path) -> list[dict]:
@@ -84,18 +105,37 @@ def load_behaviour_tests(subagent_dir: str | Path) -> list[dict]:
     Each record: ``test_id, section, prompt, expected_route, expected_mode, must_ask_for (list),
     minimum_output (str), must_not_do (list)``. Records without a prompt are skipped (nothing to
     replay).
+
+    A ``tests/*.yaml`` that fails to parse (YAMLError) or is not a mapping is **skipped but
+    surfaced**: a ``RuntimeWarning`` names every dropped file so a corrupted file cannot silently
+    shrink the suite — a green-but-smaller run that hides a broken test file is itself a failure. The
+    return type stays ``list[dict]`` (callers unchanged); use ``load_behaviour_tests_report`` when the
+    explicit skipped-file list is needed.
+    """
+    out, _skipped = load_behaviour_tests_report(subagent_dir)
+    return out
+
+
+def load_behaviour_tests_report(subagent_dir: str | Path) -> tuple[list[dict], list[str]]:
+    """Like ``load_behaviour_tests`` but also returns the list of skipped/unparseable file names.
+
+    Same flattening and same ``RuntimeWarning`` on skips; this variant lets a caller assert on the
+    skipped set without catching warnings. ``load_behaviour_tests`` delegates here.
     """
     base = Path(subagent_dir)
     tests_dir = base / "tests"
     out: list[dict] = []
+    skipped: list[str] = []
     if not tests_dir.exists():
-        return out
+        return out, skipped
     for tf in sorted(tests_dir.glob("*.yaml")):
         try:
             data = yaml.safe_load(tf.read_text(encoding="utf-8")) or {}
         except yaml.YAMLError:
+            skipped.append(tf.name)
             continue
         if not isinstance(data, dict):
+            skipped.append(tf.name)
             continue
         for section in _TEST_SECTIONS:
             for rec in data.get(section, []) or []:
@@ -114,7 +154,14 @@ def load_behaviour_tests(subagent_dir: str | Path) -> list[dict]:
                         "file": tf.name,
                     }
                 )
-    return out
+    if skipped:
+        warnings.warn(
+            "load_behaviour_tests skipped "
+            f"{len(skipped)} unparseable/non-mapping test file(s): {', '.join(sorted(skipped))}",
+            RuntimeWarning,
+            stacklevel=2,
+        )
+    return out, skipped
 
 
 def _declined(output: str) -> bool:
@@ -128,6 +175,69 @@ def _overlap_recall(reference: str, output: str) -> float:
     if not ref:
         return 1.0  # nothing required → trivially covered
     return len(ref & _content_tokens(output)) / len(ref)
+
+
+def _applicable_components(test: dict) -> set[str]:
+    """Which scoring components apply to this test — stated ONCE, consumed by both the deterministic
+    grader (``grade_output``) and the semantic grader (``build_grade_prompt`` / ``make_llm_grader``).
+
+    ``route`` always applies. ``minimum`` applies only when the test carries a ``minimum_output``
+    (an empty one is "not applicable", not "trivially covered"). ``ask`` / ``mustnot`` apply only
+    when ``must_ask_for`` / ``must_not_do`` are present.
+    """
+    comps = {"route"}
+    if test.get("minimum_output"):
+        comps.add("minimum")
+    if test.get("must_ask_for"):
+        comps.add("ask")
+    if test.get("must_not_do"):
+        comps.add("mustnot")
+    return comps
+
+
+def _score_route(test: dict, declined: bool) -> float:
+    """route (always applies): did the output engage vs decline as ``expected_route`` demands."""
+    if test["expected_route"] == "do_not_invoke":
+        return 1.0 if declined else 0.0
+    return 0.0 if declined else 1.0
+
+
+def _score_minimum(test: dict, output: str) -> float | None:
+    """minimum: content-token recall of ``minimum_output``; ``None`` when not applicable."""
+    if not test["minimum_output"]:
+        return None
+    return _overlap_recall(test["minimum_output"], output)
+
+
+def _score_ask(test: dict, output: str) -> float | None:
+    """ask: rewards ONE specific covered clarification question; caps an over-ask barrage at 0.5.
+
+    Two axes (Step-13): a single specific question naming the missing variable keeps the full 1.0;
+    over-asking (a barrage of questions) is nonmonotonic and capped. ``None`` when not applicable.
+    """
+    if not test["must_ask_for"]:
+        return None
+    n_questions = output.count("?")
+    asked = n_questions >= 1
+    ask_cov = max((_overlap_recall(a, output) for a in test["must_ask_for"]), default=0.0)
+    covered = ask_cov >= _ASK_COVER_MIN
+    if asked and covered:
+        return 1.0 if n_questions <= _MAX_ASK_QUESTIONS else 0.5
+    return 0.5 if (asked or covered) else 0.0
+
+
+def _score_mustnot(test: dict, output: str) -> float | None:
+    """mustnot: weak heuristic — penalise outputs whose tokens strongly overlap a forbidden item.
+
+    ``None`` when not applicable. See ``grade_output`` docstring for the measured inversion this
+    component can suffer; a real adherence verdict needs the semantic grader.
+    """
+    if not test["must_not_do"]:
+        return None
+    violated = sum(
+        1 for f in test["must_not_do"] if _overlap_recall(f, output) >= _MUSTNOT_OVERLAP_MIN
+    )
+    return 1.0 - violated / len(test["must_not_do"])
 
 
 def grade_output(test: dict, output: str) -> dict:
@@ -149,39 +259,17 @@ def grade_output(test: dict, output: str) -> dict:
 
     The number is a *proxy*: trust it for relative comparison (A1 deltas, A2 regressions), not as an
     absolute quality verdict. Returns the score plus its components for transparency.
+
+    The four scoring policies live in ``_score_route`` / ``_score_minimum`` / ``_score_ask`` /
+    ``_score_mustnot`` (each ``float | None``); the "which components apply" rule lives once in
+    ``_applicable_components`` and is shared with the semantic grader path.
     """
     declined = _declined(output)
-    if test["expected_route"] == "do_not_invoke":
-        route = 1.0 if declined else 0.0
-    else:
-        route = 0.0 if declined else 1.0
-
-    # An empty minimum_output is "not applicable", not "trivially covered": _overlap_recall would
-    # return 1.0 and carry 0.5 weight, handing every test without a minimum_output half its score for
-    # free. Treat it as None so _combine_components redistributes the weight (as ask/mustnot do).
-    minimum = _overlap_recall(test["minimum_output"], output) if test["minimum_output"] else None
-
-    ask_applicable = bool(test["must_ask_for"])
-    if ask_applicable:
-        n_questions = output.count("?")
-        asked = n_questions >= 1
-        ask_cov = max((_overlap_recall(a, output) for a in test["must_ask_for"]), default=0.0)
-        covered = ask_cov >= 0.5
-        if asked and covered:
-            # Two axes: rewarding the ask is not enough — a barrage of questions covers the variable
-            # too, yet over-asking hurts (nonmonotonic, #5). Cap the reward at 0.5 when the output
-            # over-asks; a single specific question naming the missing variable keeps the full 1.0.
-            ask = 1.0 if n_questions <= _MAX_ASK_QUESTIONS else 0.5
-        else:
-            ask = 0.5 if (asked or covered) else 0.0
-    else:
-        ask = None
-
-    if test["must_not_do"]:
-        violated = sum(1 for f in test["must_not_do"] if _overlap_recall(f, output) >= 0.6)
-        mustnot = 1.0 - violated / len(test["must_not_do"])
-    else:
-        mustnot = None
+    applicable = _applicable_components(test)
+    route = _score_route(test, declined)
+    minimum = _score_minimum(test, output) if "minimum" in applicable else None
+    ask = _score_ask(test, output) if "ask" in applicable else None
+    mustnot = _score_mustnot(test, output) if "mustnot" in applicable else None
 
     return {
         "score": _combine_components(route, minimum, ask, mustnot),
@@ -199,9 +287,13 @@ _WEIGHTS = {"route": 0.3, "minimum": 0.5, "ask": 0.1, "mustnot": 0.1}
 
 
 def _combine_components(
-    route: float, minimum: float | None, ask: float | None, mustnot: float | None
+    route: float | None, minimum: float | None, ask: float | None, mustnot: float | None
 ) -> float:
-    """Weighted score over the components that apply to this test (``None`` = not applicable)."""
+    """Weighted score over the components that apply to this test (``None`` = not applicable).
+
+    ``route`` is normally always present, but the semantic grader passes ``None`` when no sample
+    returned a parseable route (every judged route abstained); it is dropped like any other ``None``.
+    """
     comps = {"route": route, "minimum": minimum, "ask": ask, "mustnot": mustnot}
     parts = [(v, _WEIGHTS[k]) for k, v in comps.items() if v is not None]
     total_w = sum(w for _, w in parts)
@@ -231,7 +323,8 @@ def build_grade_prompt(test: dict, output: str) -> str:
         f'MINIMUM — how fully does the response cover what is required: "{test["minimum_output"]}" ? '
         "Give a fraction 0.0-1.0 (semantic coverage, paraphrase counts).",
     ]
-    if test["must_ask_for"]:
+    applicable = _applicable_components(test)
+    if "ask" in applicable:
         items = "; ".join(test["must_ask_for"])
         lines += [
             "",
@@ -239,7 +332,7 @@ def build_grade_prompt(test: dict, output: str) -> str:
             "ask=1 if it asks ONE specific question naming the missing input, 0.5 if partial OR if it "
             "over-asks (a barrage of clarifying questions — over-asking hurts), 0 if it does not ask.",
         ]
-    if test["must_not_do"]:
+    if "mustnot" in applicable:
         items = "; ".join(test["must_not_do"])
         lines += [
             "",
@@ -272,6 +365,21 @@ def _clamp01(v: object, default: float = 0.0) -> float:
         return default
 
 
+def _route_vote(g: dict) -> float | None:
+    """One sample's route vote, or ``None`` to abstain when the judge's ``route`` isn't numeric.
+
+    The ``build_grade_prompt`` contract asks for ``route:0|1``. A contract-violating judge (e.g. a
+    cross-family model) can return a non-numeric route (``"route":"invoke"``); ``_clamp01``'s
+    default-on-failure (0.0) is correct for the 0..1 partial-credit components but would silently
+    score such a sample as a FAILED route, systematically biasing the gate toward false regressions.
+    Returning ``None`` here lets the aggregator drop the sample from the route vote instead.
+    """
+    try:
+        return 1.0 if _clamp01(float(g.get("route"))) >= 0.5 else 0.0  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
+
+
 def make_llm_grader(llm: Callable[[str], str], samples: int = 1) -> Grader:
     """Build a semantic ``grader`` bound to an LLM judge (drop-in for ``grade_output``).
 
@@ -292,19 +400,27 @@ def make_llm_grader(llm: Callable[[str], str], samples: int = 1) -> Grader:
         grades = [g for g in (parse_grade(llm(prompt)) for _ in range(max(1, samples))) if g]
         if not grades:
             return {"score": 0.0, "error": "unparseable grade"}
-        route_mean = sum(1.0 if _clamp01(g.get("route")) >= 0.5 else 0.0 for g in grades) / len(
-            grades
+        route_votes = [v for v in (_route_vote(g) for g in grades) if v is not None]
+        if route_votes:
+            # Majority/mean over samples whose route parses as a number; non-numeric routes abstain.
+            route = 1.0 if (sum(route_votes) / len(route_votes)) >= 0.5 else 0.0
+        else:
+            # No sample had a parseable route at all: rather than silently scoring a false route
+            # failure, abstain the route component (None drops it from _combine_components). This is
+            # the only behavioural change vs. counting non-numeric routes as 0.
+            route = None
+        applicable = _applicable_components(test)
+        minimum = (
+            median(_clamp01(g.get("minimum")) for g in grades) if "minimum" in applicable else None
         )
-        route = 1.0 if route_mean >= 0.5 else 0.0
-        minimum = median(_clamp01(g.get("minimum")) for g in grades)
-        ask = median(_clamp01(g.get("ask")) for g in grades) if test["must_ask_for"] else None
+        ask = median(_clamp01(g.get("ask")) for g in grades) if "ask" in applicable else None
         mustnot = (
-            median(_clamp01(g.get("mustnot")) for g in grades) if test["must_not_do"] else None
+            median(_clamp01(g.get("mustnot")) for g in grades) if "mustnot" in applicable else None
         )
         return {
             "score": _combine_components(route, minimum, ask, mustnot),
             "route": route,
-            "minimum": round(minimum, 4),
+            "minimum": round(minimum, 4) if minimum is not None else None,
             "ask": ask,
             "mustnot": mustnot,
             "reason": str(grades[-1].get("reason", ""))[:200],
@@ -325,9 +441,10 @@ def replay_suite(
     Returns ``mean_score``, ``n_tests`` and ``per_test`` (key -> grade dict). Per-test failures
     in the runner are recorded as score 0 with an ``error`` so one bad call doesn't abort the suite.
 
-    The ``per_test`` key is ``"<file>:<test_id>"`` (falling back to ``test_id``) so two records that
-    share a ``test_id`` across different YAML files do not silently overwrite each other — that would
-    drop a test from the mean while ``n_tests`` still counted it, an internal inconsistency.
+    The ``per_test`` key is ``per_test_key(t)`` — ``"<file>:<test_id>"`` (falling back to ``test_id``)
+    so two records that share a ``test_id`` across different YAML files do not silently overwrite each
+    other — that would drop a test from the mean while ``n_tests`` still counted it, an internal
+    inconsistency.
     """
     per_test: dict[str, dict] = {}
     for t in tests:
@@ -336,12 +453,41 @@ def replay_suite(
             g = grader(t, output)
         except Exception as e:  # a runner/grader blow-up is a 0, not a crash
             g = {"score": 0.0, "error": str(e)}
-        key = f"{t['file']}:{t['test_id']}" if t.get("file") else t["test_id"]
-        per_test[key] = g
+        per_test[per_test_key(t)] = g
     scores = [g["score"] for g in per_test.values()]
     # mean and n_tests over the SAME collection (per_test), so a key collision can't desync them.
     mean_score = round(sum(scores) / len(scores), 4) if scores else 0.0
     return {"mean_score": mean_score, "n_tests": len(per_test), "per_test": per_test}
+
+
+def score_suite(
+    adapter_path: str | Path,
+    base: str | Path,
+    runner: Runner,
+    grader: Grader = grade_output,
+    tests: list[dict] | None = None,
+) -> dict:
+    """Façade for the CLI: load a package's behaviour-tests, score ``adapter_path`` against them.
+
+    One call instead of wiring ``load_behaviour_tests`` + ``replay_suite`` (+ ``shell_runner``) by
+    hand. ``adapter_path`` is the adapter ``.md`` to score; ``base`` is the package dir whose
+    ``tests/*.yaml`` supply the suite. Returns the ``replay_suite`` dict (``mean_score``, ``n_tests``,
+    ``per_test``) plus ``tests`` (the flattened records, so the caller can short-circuit on an empty
+    suite without re-loading). Skipped/unparseable test files are surfaced via ``load_behaviour_tests``
+    ``RuntimeWarning``.
+
+    ``tests`` may be passed pre-loaded (e.g. by a caller that already ran ``load_behaviour_tests``
+    via the shared CLI preamble) to avoid a redundant second read of the same files; when ``None``
+    (the default) the suite is loaded here, preserving the original single-call behaviour.
+    """
+    if tests is None:
+        tests = load_behaviour_tests(base)
+    if not tests:
+        return {"mean_score": 0.0, "n_tests": 0, "per_test": {}, "tests": tests}
+    adapter_text = Path(adapter_path).read_text(encoding="utf-8")
+    result = replay_suite(adapter_text, tests, runner, grader)
+    result["tests"] = tests
+    return result
 
 
 def rank_examples_by_utility(
@@ -412,6 +558,26 @@ def replay_gate(
     }
 
 
+def _bash_stdout(script: str | Path, prompt: str, env: dict[str, str] | None, timeout: int) -> str:
+    """Run ``bash <script>`` with ``prompt`` on stdin and return stdout.
+
+    Shared by ``shell_runner`` and ``shell_llm`` (their only difference was an extra ``ADAPTER_TEXT``
+    env var). ``check=True``: a non-zero exit (crashed model call, bad ARN, timeout-kill) must raise
+    so the caller records an error — NOT return empty stdout that grades as a legitimate empty
+    response and silently poisons utility deltas / the replay gate / the judge.
+    """
+    proc = subprocess.run(
+        ["bash", str(script)],
+        input=prompt,
+        text=True,
+        capture_output=True,
+        timeout=timeout,
+        env=env,
+        check=True,
+    )
+    return proc.stdout
+
+
 def shell_runner(script: str | Path, timeout: int = 300) -> Runner:
     """Build a real ``runner`` that shells out to a script (e.g. ``examples/replay-runner.sh``).
 
@@ -419,26 +585,10 @@ def shell_runner(script: str | Path, timeout: int = 300) -> Runner:
     stdin, and prints the model's response on stdout. Used by the CLI for live replay; tests use a
     fake runner instead.
     """
-    import os
-    import subprocess
-
-    script = str(script)
 
     def _run(system: str, prompt: str) -> str:
         env = {**os.environ, "ADAPTER_TEXT": system}
-        # check=True: a non-zero exit (crashed model call, bad ARN, timeout-kill) must raise so
-        # replay_suite records an error — NOT return empty stdout that grades as a legitimate empty
-        # response and silently poisons utility deltas / the replay gate.
-        proc = subprocess.run(
-            ["bash", script],
-            input=prompt,
-            text=True,
-            capture_output=True,
-            timeout=timeout,
-            env=env,
-            check=True,
-        )
-        return proc.stdout
+        return _bash_stdout(script, prompt, env, timeout)
 
     return _run
 
@@ -450,21 +600,8 @@ def shell_llm(script: str | Path, timeout: int = 300) -> Callable[[str], str]:
     semantic grader with ``make_llm_grader(shell_llm(script))``; a cross-family judge (codex/gpt-5.5)
     avoids the same-family self-preference a Claude judge would carry when scoring Claude output.
     """
-    import subprocess
-
-    script = str(script)
 
     def _ask(prompt: str) -> str:
-        # check=True so a crashed judge raises (→ make_llm_grader records an unparseable grade)
-        # rather than returning "" that silently scores the item 0.
-        proc = subprocess.run(
-            ["bash", script],
-            input=prompt,
-            text=True,
-            capture_output=True,
-            timeout=timeout,
-            check=True,
-        )
-        return proc.stdout
+        return _bash_stdout(script, prompt, None, timeout)
 
     return _ask
