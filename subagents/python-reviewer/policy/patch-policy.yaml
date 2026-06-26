@@ -1,0 +1,15 @@
+schema_version: patch-policy-v1
+# This package grants a patch-suggest mode. Default to proposing patches only;
+# never apply them silently. See .claude/rules and the patch-safety policy.
+default_mode: patch_suggest_only
+direct_patch_allowed_when:
+  - user_explicitly_requests_patch
+  - target_files_are_supplied
+  - validation_command_exists
+  - patch_scope_is_bounded
+must_not:
+  - silently_edit_canonical_artifacts
+  - rewrite_architecture_without_approval
+  - patch_without_risk_explanation
+  - patch_on_weak_evidence
+  - refactor_and_add_functionality_simultaneously
