@@ -22,6 +22,10 @@ _HARD_CAP_CHARS = 1500  # hard cap: open one even with no sentence end in range
 # ends usually fall mid-line; requiring a line-final terminator would almost never sub-chunk.
 _SENTENCE_BREAK_RE = re.compile(r'[.!?][")\'’”]?(\s|$)')
 
+# Tag-stripped grounding text accumulated for a table anchor is truncated to this many
+# characters (sibling budget to ``_MAX_SPAN_CHARS`` / ``_HARD_CAP_CHARS``).
+_MAX_ANCHOR_TEXT = 600
+
 
 def _is_pdf_noise(stripped: str) -> bool:
     """True for a PDF-conversion noise line that must not receive a paragraph anchor.
@@ -119,7 +123,7 @@ def _anchor_structural(lines: list[str], source_id: str) -> tuple[list[str], lis
             output_lines.append(line)
             if current_table is not None:
                 current_table["text"] = (current_table["text"] + " " + _strip_html(line)).strip()[
-                    :600
+                    :_MAX_ANCHOR_TEXT
                 ]
             if "</table>" in line.lower():
                 if current_table is not None and not current_table["text"]:
@@ -134,7 +138,7 @@ def _anchor_structural(lines: list[str], source_id: str) -> tuple[list[str], lis
                 anchor_id,
                 source_id,
                 "table",
-                f"{caption} {_strip_html(line)}".strip()[:600],
+                f"{caption} {_strip_html(line)}".strip()[:_MAX_ANCHOR_TEXT],
                 line_num,
             )
             anchors.append(rec)
@@ -196,17 +200,43 @@ def _anchor_structural(lines: list[str], source_id: str) -> tuple[list[str], lis
         else:
             output_lines.append(line)
 
+    # Malformed/truncated input: a <table> opened but no </table> ever arrived. Without this,
+    # ``in_table`` would have stayed True for the rest of the file and silently swallowed every
+    # later heading/figure/code line. Finalize the open table record (mirror the empty-text
+    # fallback) so the anchor is still valid and the early-return below is purely defensive.
+    if in_table and current_table is not None and not current_table["text"]:
+        current_table["text"] = f"table at line {current_table['line_number']}"
+
     return output_lines, anchors, anchor_counter
 
 
-def _anchor_pages(output_lines: list[str], anchors: list[dict], source_id: str) -> None:
-    """Pass 2 — append a page anchor for each embedded ``<!-- page N -->`` marker (mutates anchors)."""
+def _anchor_pages(
+    lines: list[str], anchors: list[dict], source_id: str, anchor_counter: int
+) -> int:
+    """Pass 2 — append a page anchor for each embedded ``<!-- page N -->`` marker (mutates anchors).
+
+    Returns the next free anchor counter.
+
+    Scans the INPUT ``lines`` (not the post-injection output) so a page anchor's ``line_number`` is
+    INPUT-relative — the same coordinate system every other anchor type uses. Scanning the output
+    would offset each page anchor by the count of injected anchor-comment lines above it, leaving two
+    anchor families on two different line-number scales.
+
+    The anchor id is keyed off the shared sequential ``anchor_counter`` (``-p0000``, ``-p0001`` …),
+    NOT the page number — exactly like heading/figure/code/paragraph anchors get their suffix. A page
+    number can recur across markers (PDF running header/footer, repeated front-matter), so a
+    number-keyed id (``-p0007``) collides when ``<!-- page 7 -->`` appears twice, and any downstream
+    that keys anchors by ``anchor_id`` (the package_queries / corpus_health anchor-id sets, dedup,
+    the faithfulness index) then silently drops one page's ``line_number``. The page number is
+    preserved in the ``page_number`` record field; nothing decodes it from the id.
+    """
     page_re = re.compile(r"<!-- page (\d+)", re.IGNORECASE)
-    for line_idx, line in enumerate(output_lines):
+    for line_idx, line in enumerate(lines):
         pm = page_re.search(line)
         if pm:
             page_num = int(pm.group(1))
-            anchor_id = f"{source_id}-p{page_num:04d}"
+            anchor_id = f"{source_id}-p{anchor_counter:04d}"
+            anchor_counter += 1
             anchors.append(
                 _make_anchor(
                     anchor_id,
@@ -217,6 +247,7 @@ def _anchor_pages(output_lines: list[str], anchors: list[dict], source_id: str) 
                     page_number=page_num,
                 )
             )
+    return anchor_counter
 
 
 def _anchor_paragraph_fallback(
@@ -260,7 +291,10 @@ def _anchor_paragraph_fallback(
             or chars_since >= _HARD_CAP_CHARS
         )
         if anchor_here:
-            anchor_id = f"{source_id}-t{anchor_counter:04d}"
+            # ``-g`` (paraGraph): a DISTINCT single-letter type prefix so paragraph anchors are not
+            # mis-classified as table (``-t``) anchors downstream. Must stay a single ``[a-z]`` to
+            # satisfy the type-letter pattern in ``validate_faithfulness_report`` (``-[a-z]\d{3,}$``).
+            anchor_id = f"{source_id}-g{anchor_counter:04d}"
             anchor_counter += 1
             anchors.append(
                 _make_anchor(anchor_id, source_id, "paragraph", stripped[:120], line_idx + 1)
@@ -296,7 +330,7 @@ def inject_anchors(
     lines = [ln for ln in text.splitlines() if not _INJECTED_ANCHOR_RE.match(ln)]
 
     output_lines, anchors, anchor_counter = _anchor_structural(lines, source_id)
-    _anchor_pages(output_lines, anchors, source_id)
+    anchor_counter = _anchor_pages(lines, anchors, source_id, anchor_counter)
     # Only when nothing structural/page was found — structured sources are unaffected.
     if not anchors:
         output_lines, anchors = _anchor_paragraph_fallback(lines, source_id, anchor_counter)

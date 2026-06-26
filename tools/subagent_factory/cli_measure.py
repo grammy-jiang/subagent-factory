@@ -4,11 +4,32 @@ Registered on the main group in cli.py via add_command — flat command names un
 """
 
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 
 import click
 
 from tools.subagent_factory.cli_support import console, subagent_path
+
+
+def _load_adapter_and_tests(slug):
+    """Resolve SLUG → (package dir, adapter path, flattened behaviour-tests), or ``sys.exit(1)``.
+
+    The shared preamble of the live-measurement commands: the adapter file must exist and the
+    package must carry at least one behaviour-test, else the command prints why and exits non-zero.
+    """
+    from tools.subagent_factory.behaviour_replay import load_behaviour_tests
+
+    base = subagent_path(slug)
+    adapter = base / "adapters" / "claude-code" / f"{slug}.md"
+    if not adapter.exists():
+        console.print(f"[red]adapter not found:[/red] {adapter}")
+        sys.exit(1)
+    tests = load_behaviour_tests(base)
+    if not tests:
+        console.print(f"[yellow]no behaviour-tests under[/yellow] {base / 'tests'}")
+        sys.exit(1)
+    return base, adapter, tests
 
 
 @click.command("replay-score")
@@ -20,22 +41,10 @@ def cmd_replay_score(slug, runner):
     A1/A2 execution path: runs each tests/*.yaml prompt through the adapter (as system prompt) via
     RUNNER and scores the output with the deterministic grader. Burns model calls — use deliberately.
     """
-    from tools.subagent_factory.behaviour_replay import (
-        load_behaviour_tests,
-        replay_suite,
-        shell_runner,
-    )
+    from tools.subagent_factory.behaviour_replay import score_suite, shell_runner
 
-    base = subagent_path(slug)
-    adapter = base / "adapters" / "claude-code" / f"{slug}.md"
-    if not adapter.exists():
-        console.print(f"[red]adapter not found:[/red] {adapter}")
-        sys.exit(1)
-    tests = load_behaviour_tests(base)
-    if not tests:
-        console.print(f"[yellow]no behaviour-tests under[/yellow] {base / 'tests'}")
-        sys.exit(1)
-    r = replay_suite(adapter.read_text(encoding="utf-8"), tests, shell_runner(runner))
+    base, adapter, _tests = _load_adapter_and_tests(slug)
+    r = score_suite(adapter, base, shell_runner(runner), tests=_tests)
     console.print(f"replay mean score [bold]{r['mean_score']:.2f}[/bold] over {r['n_tests']} tests")
     for tid, g in sorted(r["per_test"].items()):
         console.print(
@@ -82,6 +91,52 @@ def cmd_replay_gate(slug, before_adapter, after_adapter, runner):
             f"  [green]improve[/green] {imp['test_id']}: {imp['before']:.2f} → {imp['after']:.2f}"
         )
     sys.exit(1 if r["gate"] == "fail" else 0)
+
+
+@dataclass
+class OptimizeConfig:
+    """The optimize-adapter knobs, grouped so they ride through as one object rather than 13 params.
+
+    Mirrors the CLI option surface 1:1 — the command unpacks its options into this and passes it on.
+    """
+
+    runner: str
+    proposer: str
+    budget: int
+    variants: int
+    minibatch: int
+    pool_size: int
+    patience: int
+    tol: float
+    grader_kind: str
+    judge: str
+    judge_samples: int
+
+
+def _build_grader(cfg: OptimizeConfig):
+    """Resolve the grader callable from the config (coarse deterministic, or live semantic judge)."""
+    from tools.subagent_factory.behaviour_replay import grade_output, make_llm_grader, shell_llm
+
+    if cfg.grader_kind == "coarse":
+        return grade_output
+    console.print(f"[cyan]semantic grader:[/cyan] {cfg.judge} (×{cfg.judge_samples})")
+    return make_llm_grader(shell_llm(cfg.judge), samples=cfg.judge_samples)
+
+
+def _report_baseline(adapter, base, run, grader_fn, tests=None):
+    """--dry-run path: score the baseline suite and list each test with a pass/below-1.0 mark.
+
+    ``tests`` may be passed pre-loaded (the caller already has the flattened suite from the shared
+    preamble) so the baseline score does not re-read the same ``tests/*.yaml`` files.
+    """
+    from tools.subagent_factory.behaviour_replay import score_suite
+
+    r = score_suite(adapter, base, run, grader_fn, tests=tests)
+    console.print(f"baseline mean [bold]{r['mean_score']:.2f}[/bold] over {r['n_tests']} tests")
+    for tid, g in sorted(r["per_test"].items()):
+        mark = "[green]ok[/green]" if g["score"] >= 1.0 else "[yellow]below 1.0[/yellow]"
+        err = f"  [red]{g['error']}[/red]" if "error" in g else ""
+        console.print(f"  {tid}: {g['score']:.2f} {mark}{err}")
 
 
 @click.command("optimize-adapter")
@@ -156,60 +211,44 @@ def cmd_optimize_adapter(
     overwrites the canonical adapter or profile (fold the winning edits into profile.yaml +
     re-export). --dry-run scores the baseline only (still burns baseline model calls).
     """
-    from tools.subagent_factory.behaviour_replay import (
-        grade_output,
-        load_behaviour_tests,
-        make_llm_grader,
-        replay_suite,
-        shell_llm,
-        shell_runner,
-    )
-    from tools.subagent_factory.optimize_adapter import (
-        make_policy_gate,
-        optimize_adapter,
-        shell_proposer,
-    )
+    from tools.subagent_factory.behaviour_replay import shell_runner
+    from tools.subagent_factory.optimize_adapter import optimize_adapter_with_shell_proposer
 
-    base = subagent_path(slug)
-    adapter = base / "adapters" / "claude-code" / f"{slug}.md"
-    if not adapter.exists():
-        console.print(f"[red]adapter not found:[/red] {adapter}")
-        sys.exit(1)
-    tests = load_behaviour_tests(base)
-    if not tests:
-        console.print(f"[yellow]no behaviour-tests under[/yellow] {base / 'tests'}")
-        sys.exit(1)
-    base_text = adapter.read_text(encoding="utf-8")
-    run = shell_runner(runner)
-    grader_fn = (
-        grade_output
-        if grader_kind == "coarse"
-        else make_llm_grader(shell_llm(judge), samples=judge_samples)
-    )
-    if grader_kind == "llm":
-        console.print(f"[cyan]semantic grader:[/cyan] {judge} (×{judge_samples})")
-
-    if dry_run:
-        r = replay_suite(base_text, tests, run, grader_fn)
-        console.print(f"baseline mean [bold]{r['mean_score']:.2f}[/bold] over {r['n_tests']} tests")
-        for tid, g in sorted(r["per_test"].items()):
-            mark = "[green]ok[/green]" if g["score"] >= 1.0 else "[yellow]below 1.0[/yellow]"
-            err = f"  [red]{g['error']}[/red]" if "error" in g else ""
-            console.print(f"  {tid}: {g['score']:.2f} {mark}{err}")
-        return
-
-    res = optimize_adapter(
-        base_text,
-        tests,
-        run,
-        shell_proposer(proposer, n_variants=variants),
-        grader=grader_fn,
+    cfg = OptimizeConfig(
+        runner=runner,
+        proposer=proposer,
         budget=budget,
-        minibatch=(minibatch or None),
+        variants=variants,
+        minibatch=minibatch,
         pool_size=pool_size,
         patience=patience,
         tol=tol,
-        accept_gate=make_policy_gate(base_text),
+        grader_kind=grader_kind,
+        judge=judge,
+        judge_samples=judge_samples,
+    )
+
+    base, adapter, tests = _load_adapter_and_tests(slug)
+    base_text = adapter.read_text(encoding="utf-8")
+    run = shell_runner(cfg.runner)
+    grader_fn = _build_grader(cfg)
+
+    if dry_run:
+        _report_baseline(adapter, base, run, grader_fn, tests=tests)
+        return
+
+    res = optimize_adapter_with_shell_proposer(
+        base_text,
+        tests,
+        run,
+        cfg.proposer,
+        grader=grader_fn,
+        n_variants=cfg.variants,
+        budget=cfg.budget,
+        minibatch=(cfg.minibatch or None),
+        pool_size=cfg.pool_size,
+        patience=cfg.patience,
+        tol=cfg.tol,
     )
     color = "green" if res["improved"] else "yellow"
     console.print(

@@ -88,6 +88,41 @@ def test_parse_hunk_before_file_raises():
         parse_unified_diff("@@ -1 +1 @@\n-a\n+b\n")
 
 
+# ── parser characterization tests (pin current behaviour on the tricky cases) ──
+
+
+def test_parse_adjacent_header_pair_after_completed_hunk_starts_new_file():
+    # Two file headers back-to-back: the second '--- '/'+++ ' pair appears after the first
+    # file's hunk already had content (hunks > 0), so it must start a *new* file, not re-point
+    # the current one.
+    diff = (
+        "diff --git a/x b/x\n--- a/x\n+++ b/x\n@@ -1 +1 @@\n-old\n+new\n"
+        "--- a/y\n+++ b/y\n@@ -1 +1 @@\n-p\n+q\n"
+    )
+    fps = parse_unified_diff(diff)
+    assert [f.path for f in fps] == ["x", "y"]
+    assert fps[0] == FilePatch("x", 1, 1, 1)
+    assert fps[1] == FilePatch("y", 1, 1, 1)
+
+
+def test_parse_content_lines_starting_with_header_markers_inside_hunk():
+    # A content line that literally starts with '--- '/'+++ ' (adjacent) inside a hunk is, under
+    # the current parser, consumed as a header pair (the adjacent-pair branch fires before the
+    # content-line +/- counting). The synthetic 'also not' file has no hunks of its own and is
+    # dropped, so only the original file survives with no added/removed counted for those lines.
+    diff = "--- a/x.txt\n+++ b/x.txt\n@@ -1,2 +1,2 @@\n--- not a header\n+++ also not\n keep\n"
+    fps = parse_unified_diff(diff)
+    assert fps == [FilePatch("x.txt", added=0, removed=0, hunks=1)]
+
+
+def test_parse_lone_plus_plus_plus_content_line_not_counted_as_added():
+    # A non-adjacent '+++' content line inside a hunk (no following pair) is NOT counted as an
+    # added line — the +/- counters explicitly exclude lines starting with '+++'/'---'.
+    diff = "--- a/x.txt\n+++ b/x.txt\n@@ -1,2 +1,3 @@\n keep\n+real add\n+++marker\n"
+    fps = parse_unified_diff(diff)
+    assert fps == [FilePatch("x.txt", added=1, removed=0, hunks=1)]
+
+
 # ── check_scope (I5) ──
 
 _FILES = [FilePatch("src/calc.py", 1, 1, 1)]
@@ -124,6 +159,39 @@ def test_scope_max_changed_lines_exceeded():
     files = [FilePatch("big.py", 50, 60, 1)]
     ok, detail = check_scope(files, {"max_changed_lines": 100})
     assert ok is False and "changed lines 110 exceeds" in detail
+
+
+# ── _path_matches three semantics, pinned via the security-relevant deny rung ──
+# Each semantic (exact / dir-prefix / glob) is locked down independently so the
+# never-touch-canonical-artifacts guard cannot silently regress.
+
+
+def test_path_match_exact_semantic_denies():
+    # exact: path == pattern
+    files = [FilePatch(".claude/settings.json", 1, 0, 1)]
+    ok, detail = check_scope(files, {"deny_paths": [".claude/settings.json"]})
+    assert ok is False and "denied" in detail
+
+
+def test_path_match_dir_prefix_semantic_denies():
+    # directory prefix: path lives under the pattern directory
+    files = [FilePatch("subagents/foo/profile.yaml", 1, 0, 1)]
+    ok, detail = check_scope(files, {"deny_paths": ["subagents"]})
+    assert ok is False and "denied" in detail
+
+
+def test_path_match_dir_prefix_does_not_match_sibling_with_shared_prefix():
+    # the prefix boundary is on a '/': 'subagents' must NOT match 'subagents-experimental/...'
+    files = [FilePatch("subagents-experimental/x.py", 1, 0, 1)]
+    ok, _ = check_scope(files, {"deny_paths": ["subagents"]})
+    assert ok is True  # not denied — no exact/prefix/glob match
+
+
+def test_path_match_glob_semantic_denies():
+    # fnmatch glob: shell-style wildcard
+    files = [FilePatch(".claude/agents/generated/x.md", 1, 0, 1)]
+    ok, detail = check_scope(files, {"deny_paths": [".claude/agents/generated/*.md"]})
+    assert ok is False and "denied" in detail
 
 
 # ── validate_patch verdicts ──

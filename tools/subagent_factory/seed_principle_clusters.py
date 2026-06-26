@@ -19,17 +19,18 @@ misses (the common case — *why* multi-source synthesis is hard). It is still a
 (the LLM-confirm step decides). The embedder is **injectable** (``Callable[[list[str]],
 list[list[float]]]``), mirroring how the eval harness injects its LLM judge — unit tests use a fake.
 ``embed_minilm`` is the provided, **validated** reference (cached, pinned all-MiniLM-L6-v2; clear
-paraphrases ~0.5 vs unrelated ~0.0); the CLI ``--embeddings`` flag uses it. Library:
-``seed_clusters(subagent_dir, threshold=0.15, embedder=None, cos_threshold=0.6) -> dict``.
+paraphrases ~0.5 vs unrelated ~0.0); the CLI ``--embeddings`` flag uses it.
 
-Library: ``seed_clusters(subagent_dir, threshold=0.15) -> dict`` (principle-clusters-v1).
-CLI: ``python -m tools.subagent_factory.seed_principle_clusters <subagents/slug> [threshold]``.
+Library: ``seed_clusters(subagent_dir, threshold=0.15, *, embedder=None, cos_threshold=0.5,
+margin=0.15) -> dict`` (principle-clusters-v1).
+CLI: ``python -m tools.subagent_factory.seed_principle_clusters <subagents/slug> [threshold]
+[--embeddings]``.
 """
 
 from __future__ import annotations
 
 import json
-import sys
+import warnings
 from collections.abc import Callable
 from itertools import combinations
 from pathlib import Path
@@ -59,21 +60,40 @@ _MINILM = "sentence-transformers/all-MiniLM-L6-v2"
 _MINILM_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"  # pragma: allowlist secret
 
 
+# Lazy singleton: load (tokenizer, model) once and reuse across calls, keyed on model name. The model
+# is pinned, so the loaded weights are identical for every call — caching only removes the per-call
+# ``from_pretrained`` ×2 reload, output is unchanged.
+_MINILM_CACHE: dict[str, tuple] = {}
+
+
+def _load_minilm(model_name: str = _MINILM) -> tuple:
+    cached = _MINILM_CACHE.get(model_name)
+    if cached is not None:
+        return cached
+    from transformers import AutoModel, AutoTokenizer
+
+    tok = AutoTokenizer.from_pretrained(model_name, revision=_MINILM_REVISION)
+    model = AutoModel.from_pretrained(model_name, revision=_MINILM_REVISION)
+    model.eval()
+    _MINILM_CACHE[model_name] = (tok, model)
+    return tok, model
+
+
 def embed_minilm(statements: list[str]) -> list[list[float]]:
     """Reference embedder for C1: cached all-MiniLM-L6-v2, mean-pooled + L2-normalised.
 
     Validated (``docs/output-quality-eval.md``): identical strings → cosine 1.0; clear paraphrases
     separate (~0.5) from unrelated (~0.0). It is *one* usable embedder, not the only one — the
     ``seed_clusters`` ``embedder`` arg takes any ``Callable[[list[str]], list[list[float]]]``. Lazy
-    torch+transformers import + pinned, locally-cached model, so the seeder stays dependency-light
-    unless embeddings are requested.
+    torch+transformers import + pinned, locally-cached model memoised at module scope, so the seeder
+    stays dependency-light unless embeddings are requested and the model loads at most once per
+    process. Empty input returns ``[]`` without importing torch/transformers.
     """
+    if not statements:
+        return []
     import torch
-    from transformers import AutoModel, AutoTokenizer
 
-    tok = AutoTokenizer.from_pretrained(_MINILM, revision=_MINILM_REVISION)
-    model = AutoModel.from_pretrained(_MINILM, revision=_MINILM_REVISION)
-    model.eval()
+    tok, model = _load_minilm()
     enc = tok(list(statements), padding=True, truncation=True, max_length=256, return_tensors="pt")
     with torch.no_grad():
         out = model(**enc)
@@ -88,6 +108,7 @@ def _claim_sources(base: Path) -> dict[str, str]:
     cp = base / "analysis" / "claims.jsonl"
     if not cp.exists():
         return out
+    skipped = 0
     for line in cp.read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if not line:
@@ -95,9 +116,20 @@ def _claim_sources(base: Path) -> dict[str, str]:
         try:
             c = json.loads(line)
         except json.JSONDecodeError:
+            # A malformed line drops a claim, which collapses its principle's source set toward "?"
+            # and can silently exclude that principle from cross-source clustering — so warn (never
+            # silently swallow) but keep going on the well-formed lines.
+            skipped += 1
             continue
         if c.get("claim_id"):
             out[c["claim_id"]] = str(c.get("source_id", "?"))
+    if skipped:
+        warnings.warn(
+            f"_claim_sources: skipped {skipped} malformed line(s) in {cp}; "
+            "affected principles may collapse toward source '?' and drop from cross-source clusters",
+            RuntimeWarning,
+            stacklevel=2,
+        )
     return out
 
 
@@ -238,24 +270,37 @@ def seed_clusters(
 
 
 def main() -> None:
-    args = [a for a in sys.argv[1:] if not a.startswith("-")]
-    use_embeddings = "--embeddings" in sys.argv
-    if not args:
-        print(
-            "Usage: python -m tools.subagent_factory.seed_principle_clusters "
-            "<subagents/slug> [threshold] [--embeddings]   # --embeddings: add C1 cosine via MiniLM"
-        )
-        sys.exit(1)
-    threshold = float(args[1]) if len(args) > 1 else _DEFAULT_THRESHOLD
-    result = seed_clusters(args[0], threshold, embedder=embed_minilm if use_embeddings else None)
+    import argparse
+
+    ap = argparse.ArgumentParser(
+        description="Seed candidate cross-source principle clusters (Step 7 Phase A)."
+    )
+    ap.add_argument("subagent", help="path to subagents/<slug>")
+    ap.add_argument(
+        "threshold",
+        nargs="?",
+        type=float,
+        default=_DEFAULT_THRESHOLD,
+        help=f"lexical token-F1 acceptance threshold (default {_DEFAULT_THRESHOLD})",
+    )
+    ap.add_argument(
+        "--embeddings",
+        action="store_true",
+        help="also add C1 embedding cosine via MiniLM (embed_minilm)",
+    )
+    args = ap.parse_args()
+
+    result = seed_clusters(
+        args.subagent, args.threshold, embedder=embed_minilm if args.embeddings else None
+    )
     n = len(result["clusters"])
-    print(f"seeded {n} candidate cross-source cluster(s) (threshold {threshold}):")
+    print(f"seeded {n} candidate cross-source cluster(s) (threshold {args.threshold}):")
     for c in result["clusters"]:
         print(
             f"  {c['cluster_id']}: {len(c['member_principle_ids'])} principles "
             f"across {c['sources']} (overlap {c['mean_overlap']}); shared: {c['shared_terms'][:6]}"
         )
-    out = Path(args[0]) / "principles" / "principle-clusters.seed.json"
+    out = Path(args.subagent) / "principles" / "principle-clusters.seed.json"
     out.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(f"written: {out}")
 

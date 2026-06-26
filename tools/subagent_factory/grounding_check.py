@@ -23,6 +23,7 @@ import json
 import re
 import statistics
 import sys
+import warnings
 from collections import Counter
 from pathlib import Path
 
@@ -124,20 +125,35 @@ def _grounded_vocab(base: Path) -> tuple[set[str], set[str]]:
     return set(toks), set(_bigrams(blob))
 
 
-def _corpus_bigram_map(root: Path) -> dict[str, set[str]]:
+def _corpus_bigram_map(
+    root: Path, self_bigrams: tuple[str, set[str]] | None = None
+) -> dict[str, set[str]]:
     """{bigram -> {package slugs whose grounded source contains that exact bigram}} (incl self).
 
     One pass over the corpus serves two jobs: document-frequency (genericness — a bigram in many
     sources is common vocab) and cross-source attribution (a distinctive leak found in exactly one
     *other* source names the source to add — the eval-driven multi-source recipe). Exact-bigram
     match keeps the borrow signal precise.
+
+    ``self_bigrams`` lets the caller inject the package-under-review's already-computed
+    ``(slug, bigrams)`` so we skip re-parsing it here (the package's vocab was derived once in
+    ``grounding_check``). The package is matched by directory name and its precomputed bigrams are
+    folded in instead of re-deriving them from disk — the resulting map is identical, just without
+    the redundant YAML+JSONL parse fan-out over the package under review.
     """
     index: dict[str, set[str]] = {}
+    self_slug: str | None = None
+    if self_bigrams is not None:
+        self_slug = self_bigrams[0]
+        for bg in self_bigrams[1]:
+            index.setdefault(bg, set()).add(self_slug)
     if not root.exists():
         return index
     for pkg in sorted(root.iterdir()):
         if not pkg.is_dir() or not (pkg / "profile.yaml").exists():
             continue
+        if pkg.name == self_slug:
+            continue  # already injected via self_bigrams — avoid the redundant re-parse
         _, pkg_bi = _grounded_vocab(pkg)
         for bg in pkg_bi:
             index.setdefault(bg, set()).add(pkg.name)
@@ -168,7 +184,7 @@ def grounding_check(
         a, b = bg.split(" ", 1)
         return a in uni and b in uni
 
-    cmap = _corpus_bigram_map(base.parent) if cross_source else {}
+    cmap = _corpus_bigram_map(base.parent, (base.name, bi)) if cross_source else {}
 
     def is_generic(bg: str) -> bool:
         if len(cmap.get(bg, ())) >= _GENERIC_DF:
@@ -231,13 +247,42 @@ def load_baseline(path: Path | None = None) -> list[dict]:
     """Recorded (slug, doc, coverage) calibration points. Absolute coverage is only interpretable
     relative to this distribution — the *rank* is the signal, not the raw %."""
     p = path or _BASELINE_PATH
-    if not p.exists():
-        return []
     try:
         data = json.loads(p.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
+    except FileNotFoundError:
+        # Genuinely absent baseline is normal on first run — silent, no signal needed.
+        return []
+    except (OSError, json.JSONDecodeError) as exc:
+        # A present-but-corrupt baseline must NOT silently degrade a calibration gate to no-signal.
+        # Warn (naming the path) so the corruption is visible, then fall back to no baseline.
+        warnings.warn(
+            f"grounding baseline at {p} is unreadable/corrupt ({exc}); ignoring it",
+            RuntimeWarning,
+            stacklevel=2,
+        )
         return []
     return data if isinstance(data, list) else []
+
+
+def _baseline_is_corrupt(p: Path) -> bool:
+    """True iff the file EXISTS and is non-empty but cannot be parsed as JSON — i.e. corruption
+    (a torn/truncated file), distinct from genuinely absent (FileNotFoundError) or legitimately
+    empty (``[]`` / whitespace). Used to refuse a read-modify-write that would clobber recoverable
+    history. Relies on json.JSONDecodeError directly rather than load_baseline's lossy [] so a
+    corrupt file is never mistaken for an empty one."""
+    try:
+        raw = p.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        return False  # absent → first run, not corruption
+    except OSError:
+        return True  # exists but unreadable (permissions, torn inode) → treat as corrupt
+    if not raw.strip():
+        return False  # legitimately empty file → safe to append
+    try:
+        json.loads(raw)
+    except json.JSONDecodeError:
+        return True  # present, non-empty, unparseable → corruption
+    return False
 
 
 def baseline_band(
@@ -260,8 +305,20 @@ def baseline_band(
 def record_baseline(
     slug: str, coverage: float, doc: str | None = None, path: Path | None = None
 ) -> None:
-    """Append a measured coverage point so the calibration baseline grows with each eval."""
+    """Append a measured coverage point so the calibration baseline grows with each eval.
+
+    Refuses to write over a present-but-corrupt baseline: load_baseline returns [] for a corrupt
+    file (after warning), so a naive append+overwrite would convert visible corruption into silent
+    TOTAL loss of all prior recoverable points. An absent file (first run) or a legitimately-empty
+    ``[]`` baseline still appends normally.
+    """
     p = path or _BASELINE_PATH
+    if _baseline_is_corrupt(p):
+        raise ValueError(
+            f"refusing to record baseline: existing baseline at {p} is non-empty but corrupt "
+            f"(unparseable JSON). Overwriting it would destroy prior recoverable points. "
+            f"Inspect/repair or remove the file, then retry."
+        )
     recs = load_baseline(p)
     recs.append({"slug": slug, "doc": doc or "", "coverage": round(float(coverage), 3)})
     p.write_text(json.dumps(recs, indent=2) + "\n", encoding="utf-8")

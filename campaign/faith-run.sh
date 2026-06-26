@@ -10,6 +10,8 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"
+# Single source of truth for the `claude -p` argv (shared with run.sh / generate-subagent.sh).
+source "$CAMP/_claude_run.sh"
 LOGS="$CAMP/logs"
 TMPL="$CAMP/faith-prompt.tmpl"
 MODEL="${MODEL:-claude-opus-4-8}"
@@ -37,7 +39,7 @@ done
 mkdir -p "$LOGS"
 command -v claude >/dev/null 2>&1 || { echo "claude CLI not found on PATH" >&2; exit 3; }
 
-queue(){ python3 "$CAMP/faith-queue.py" ${ONLY:+--only "$ONLY"}; }
+queue(){ local a=(); [ -n "$ONLY" ] && a=(--only "$ONLY"); python3 "$CAMP/faith-queue.py" "${a[@]}"; }
 next_target(){ queue | head -1; }
 
 echo "[faith] repo=$REPO  model=$MODEL  count=$COUNT  only=${ONLY:-all}"
@@ -47,8 +49,11 @@ processed=0
 while [ "$processed" -lt "$COUNT" ]; do
   SLUG="$(next_target)"
   [ -z "$SLUG" ] && { echo "[faith] no packages left needing a report."; break; }
-  n=$(ls "$LOGS/$LABEL"-*.summary.md 2>/dev/null | wc -l) || n=0
-  run="$(printf '%s-%03d' "$LABEL" "$(( n + 1 ))")"
+  # Authoritative, monotonic, collision-safe run id (matches run.sh). The old
+  # counter (count of *.summary.md + 1) collided whenever a summary was deleted
+  # or two LABEL-tagged instances raced, silently overwriting $log/$summ. A
+  # timestamp plus the PID suffix is unique across quick successive / parallel runs.
+  run="$LABEL-$(date +%Y%m%d-%H%M%S)-$$"
   log="$LOGS/$run.log.jsonl"
   summ="$LOGS/$run.summary.md"
 
@@ -58,8 +63,15 @@ while [ "$processed" -lt "$COUNT" ]; do
   prompt="$(SLUG="$SLUG" python3 "$CAMP/render-prompt.py" "$TMPL")"
 
   if [ "$DRYRUN" -eq 1 ]; then
-    echo "[faith] DRY-RUN — rendered prompt for $SLUG:"
+    # Same argv the real run uses (build_claude_argv with empty effort, no --add-dir).
+    build_claude_argv claude_argv "$MODEL" ""
+    echo "[faith] DRY-RUN — command that would run:"
+    echo "    timeout $RUN_TIMEOUT $(claude_argv_str "${claude_argv[@]}") <<<\"\$prompt\""
+    echo "[faith] log -> $log"
+    echo "[faith] summary -> $summ"
+    echo "------------------ rendered prompt ------------------"
     printf '%s\n' "$prompt"
+    echo "---------------- end rendered prompt ----------------"
     break
   fi
 
@@ -71,10 +83,14 @@ while [ "$processed" -lt "$COUNT" ]; do
   start_ts="$(date -Is)"
   echo "[faith] launching claude (timeout ${RUN_TIMEOUT}s) ..."
   rc=0
-  printf '%s' "$prompt" | timeout "$RUN_TIMEOUT" claude -p \
-      --model "$MODEL" \
-      --dangerously-skip-permissions \
-      --output-format stream-json --verbose >"$log" 2>&1 || rc=$?
+  # Build the claude argv from the shared contract. This driver deliberately
+  # passes NO --effort and NO --add-dir (empty effort arg, no trailing dirs) —
+  # that omission is now a visible argument rather than a silent flag-set diff.
+  build_claude_argv claude_argv "$MODEL" ""
+  # Feed the prompt via here-string (not `printf | claude`): under `pipefail` a
+  # SIGPIPE on the writer (claude draining early) would surface as rc 141 and be
+  # misattributed to the gate. A redirect makes claude's rc the only rc.
+  timeout "$RUN_TIMEOUT" "${claude_argv[@]}" <<<"$prompt" >"$log" 2>&1 || rc=$?
 
   if make -C "$REPO" verify >"$LOGS/$run.verify.log" 2>&1; then verify=green; else verify=red; fi
 

@@ -24,6 +24,7 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
 from tools.subagent_factory import chunk_source, map_reduce_build  # noqa: E402
+from tools.subagent_factory._common import atomic_write_text  # noqa: E402
 from tools.subagent_factory.build_cache import is_done, mark_done, step_log  # noqa: E402
 from tools.subagent_factory.emit_chunk_anchors import emit_anchors  # noqa: E402
 from tools.subagent_factory.route_books import _gather, route_books  # noqa: E402
@@ -120,9 +121,19 @@ def main() -> int:
         mods = map_reduce_build.load_modules(sources, CACHE)
         cmap, _ = map_reduce_build.build_claim_map(mods)
         gp = map_reduce_build.globalize_principles(mods, cmap)
-        clusters = map_reduce_build.emit_clusters(gp, map_reduce_build._embed_minilm, args.cos)
-        (bdir / "clusters.json").write_text(
-            json.dumps(clusters, indent=1, ensure_ascii=False), encoding="utf-8"
+        # Single-producer contract: cluster ONCE here and persist the grouping by stable principle
+        # identity, so _assemble (a separate process) replays the IDENTICAL groups instead of
+        # re-running the order/float-sensitive clusterer and risking a silent reshuffle.
+        groups = map_reduce_build.build_groups(gp, map_reduce_build._embed_minilm, args.cos)
+        clusters = map_reduce_build.emit_clusters(
+            gp, map_reduce_build._embed_minilm, args.cos, groups=groups
+        )
+        atomic_write_text(
+            bdir / "clusters.json", json.dumps(clusters, indent=1, ensure_ascii=False)
+        )
+        atomic_write_text(
+            bdir / "groups.json",
+            json.dumps(map_reduce_build.serialize_groups(gp, groups), ensure_ascii=False),
         )
         print(
             f"      {len(gp)} principles -> {len(clusters)} candidate clusters -> .build/clusters.json"
@@ -141,6 +152,22 @@ def main() -> int:
 
     def _assemble() -> bool:
         dec = {int(k): v for k, v in json.loads((bdir / "decisions.json").read_text()).items()}
+        groups = None
+        groups_path = bdir / "groups.json"
+        if groups_path.exists():
+            # Replay the grouping the emit phase keyed its decisions on (rebuild positional groups
+            # against this process's freshly globalized principles), so decisions cannot drift onto
+            # a reshuffled cluster.
+            mods = map_reduce_build.load_modules(sources, CACHE)
+            cmap, _ = map_reduce_build.build_claim_map(mods)
+            gp = map_reduce_build.globalize_principles(mods, cmap)
+            serialized = json.loads(groups_path.read_text(encoding="utf-8"))
+            groups = map_reduce_build.deserialize_groups(gp, serialized)
+        else:
+            print(
+                "      WARN .build/groups.json missing (older build) — recomputing the grouping; "
+                "group provenance is unavailable and a clusterer reshuffle could mis-map decisions"
+            )
         summary = map_reduce_build.assemble(
             args.slug,
             sources,
@@ -149,6 +176,7 @@ def main() -> int:
             cos=args.cos,
             decisions=dec,
             select=args.select,
+            groups=groups,
         )
         print(f"      assembled distilled layer: {summary}")
         return True

@@ -27,6 +27,8 @@ set -euo pipefail
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CAMP="$REPO/campaign"; LOGS="$CAMP/logs"
 TMPL="$CAMP/generate-prompt.tmpl"
+# Single source of truth for the `claude -p` argv (shared with run.sh).
+source "$CAMP/_claude_run.sh"
 # Default to Opus 4.8 1M (the machine's Bedrock ARN); fall back to ANTHROPIC_MODEL.
 MODEL="${MODEL:-${ANTHROPIC_DEFAULT_OPUS_MODEL:-${ANTHROPIC_MODEL:-claude-opus-4-8}}}"
 EFFORT="${EFFORT:-max}"
@@ -56,13 +58,14 @@ SRCFILE="${SRCFILE:-$CAMP/$SLUG.sources}"
 command -v claude >/dev/null 2>&1 || { echo "claude CLI not found on PATH" >&2; exit 3; }
 mkdir -p "$LOGS"
 
-# Resolve + validate every source (follow symlinks); build a space-joined list.
-SOURCES=""; n=0; missing=0
+# Resolve + validate every source (follow symlinks); build an ARRAY (paths may
+# contain spaces — a space-joined string would word-split and mis-bind sources).
+SOURCES=(); n=0; missing=0
 while IFS= read -r line; do
   line="${line%$'\r'}"; [ -z "$line" ] && continue
   case "$line" in \#*) continue;; esac
   abs="$line"; case "$abs" in /*) ;; *) abs="$REPO/$line";; esac
-  if [ -r "$abs" ]; then SOURCES="${SOURCES:+$SOURCES }$abs"; n=$((n+1))
+  if [ -r "$abs" ]; then SOURCES+=("$abs"); n=$((n+1))
   else echo "  MISSING source: $abs" >&2; missing=$((missing+1)); fi
 done < "$SRCFILE"
 [ "$missing" -eq 0 ] || { echo "$missing source(s) unreadable — aborting." >&2; exit 3; }
@@ -85,27 +88,32 @@ if [ "$n" -gt 1 ] && [ "$BATCH" -eq 0 ]; then
 fi
 
 # add-dir for each distinct source directory so the headless session can read them.
-# Build a deduped list of -add-dir flags (dirs may repeat across sources).
-declare -A _seen=(); ADDDIRS=""
-for s in $SOURCES; do d="$(dirname "$s")"; [ -n "${_seen[$d]:-}" ] && continue; _seen[$d]=1; ADDDIRS="$ADDDIRS --add-dir $d"; done
-
-# Only pass --model when set (defaulted to Opus ARN above; empty only if env is unset).
-MODELFLAG=""; [ -n "$MODEL" ] && MODELFLAG="--model $MODEL"
-EFFORTFLAG=""; [ -n "$EFFORT" ] && EFFORTFLAG="--effort $EFFORT"
+# Build a deduped ARRAY of dirs (dirs may repeat across sources; a path may
+# contain spaces). build_claude_argv() turns each into its own --add-dir D.
+declare -A _seen=(); ADDDIRS=()
+for s in "${SOURCES[@]}"; do
+  d="$(dirname "$s")"; [ -n "${_seen[$d]:-}" ] && continue; _seen[$d]=1; ADDDIRS+=("$d")
+done
 
 run="gen-$SLUG"
 log="$LOGS/$run.log.jsonl"
 promptfile="$LOGS/$run.prompt.txt"
-REPO="$REPO" SLUG="$SLUG" TOPIC="$TOPIC" SOURCES="$SOURCES" \
+# render-prompt.py consumes SOURCES as a single env string; join the array with
+# newlines (one source per line) so multi-source prompts list cleanly.
+SOURCES_STR="$(printf '%s\n' "${SOURCES[@]}")"
+REPO="$REPO" SLUG="$SLUG" TOPIC="$TOPIC" SOURCES="$SOURCES_STR" \
     python3 "$CAMP/render-prompt.py" "$TMPL" > "$promptfile"
+
+# Build the claude argv ONCE; the --dry-run preview and the real run share it.
+build_claude_argv claude_argv "$MODEL" "$EFFORT" "${ADDDIRS[@]}"
 
 echo "[generate] slug=$SLUG  sources=$n  effort=${EFFORT:-<default>}  timeout=${RUN_TIMEOUT}s"
 echo "[generate] model=${MODEL:-<env default>}"
-echo "[generate] sources:"; for s in $SOURCES; do echo "    - $s"; done
+echo "[generate] sources:"; for s in "${SOURCES[@]}"; do echo "    - $s"; done
 
 if [ "$DRYRUN" -eq 1 ]; then
   echo "[generate] DRY-RUN — command:"
-  echo "  claude -p $MODELFLAG $EFFORTFLAG $ADDDIRS --dangerously-skip-permissions --output-format stream-json --verbose < <prompt>"
+  echo "  timeout $RUN_TIMEOUT $(claude_argv_str "${claude_argv[@]}") < $promptfile"
   echo "[generate] prompt rendered to: $promptfile"
   echo "------------------ rendered prompt ------------------"
   cat "$promptfile"
@@ -113,28 +121,40 @@ if [ "$DRYRUN" -eq 1 ]; then
   exit 0
 fi
 
-# Driver: feed prompt from file (robust), run claude, then validate. Reads $promptfile,
-# $log, $ADDDIRS, $MODEL, $RUN_TIMEOUT, $SLUG, $REPO from the environment.
-driver="$LOGS/$run.driver.sh"
-cat > "$driver" <<DRIVER
-#!/usr/bin/env bash
-cd "$REPO" || exit 1
-timeout "$RUN_TIMEOUT" claude -p $MODELFLAG $EFFORTFLAG $ADDDIRS \\
-    --dangerously-skip-permissions --output-format stream-json --verbose \\
-    < "$promptfile" > "$log" 2>&1
-echo "[generate] claude exited rc=\$? — validating $SLUG ..."
-VENV_PY="$REPO/.venv/bin/python"; [ -x "\$VENV_PY" ] || VENV_PY=python3
-SUBAGENT_FACTORY_USE_VENV=1 "\$VENV_PY" -m tools.subagent_factory.cli validate "$SLUG" 2>&1 | tail -8
-DRIVER
-chmod +x "$driver"
+# Driver function: feed prompt from file (robust), run claude, then validate.
+# Defined as a function (not a generated heredoc script) so the claude_argv
+# array and $REPO/$promptfile/$log survive without a second round of re-quoting.
+# It propagates claude's rc as its own exit status (was previously only logged).
+rcfile="$LOGS/$run.rc"
+run_driver() {
+  cd "$REPO" || return 1
+  local rc=0
+  timeout "$RUN_TIMEOUT" "${claude_argv[@]}" < "$promptfile" > "$log" 2>&1 || rc=$?
+  echo "[generate] claude exited rc=$rc — validating $SLUG ..."
+  local venv_py="$REPO/.venv/bin/python"; [ -x "$venv_py" ] || venv_py=python3
+  # `| tail` would mask the validate rc under pipefail, so capture PIPESTATUS[0].
+  SUBAGENT_FACTORY_USE_VENV=1 "$venv_py" -m tools.subagent_factory.cli validate "$SLUG" 2>&1 | tail -8
+  local vrc="${PIPESTATUS[0]}"
+  # Final rc reflects BOTH stages: a clean claude run with a failing validate must
+  # not look like success. claude rc wins if set, else the validate rc.
+  [ "$rc" -ne 0 ] || rc="$vrc"
+  echo "$rc" > "$rcfile"
+  return "$rc"
+}
 
 if [ "$FG" -eq 1 ]; then
-  bash "$driver"
+  run_driver
 else
-  nohup bash "$driver" >"$LOGS/$run.driver.log" 2>&1 &
+  # Background the driver in a SUBSHELL (not a fresh `bash -c`) so the run_driver
+  # function and the claude_argv array are inherited intact — no re-quoting, no
+  # generated script. `trap '' HUP` + redirected fds + disown give nohup-like
+  # detachment so the driver outlives this shell.
+  ( trap '' HUP; run_driver ) >"$LOGS/$run.driver.log" 2>&1 &
+  disown
   echo "[generate] launched in background (pid $!)."
   echo "[generate] transcript:  $log"
   echo "[generate] driver log:  $LOGS/$run.driver.log"
+  echo "[generate] exit rc ->   $rcfile (written when the driver finishes)"
   echo "[generate] watch:    tail -f $log"
   echo "[generate] validate: python -m tools.subagent_factory.cli validate $SLUG"
 fi

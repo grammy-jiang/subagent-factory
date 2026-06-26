@@ -70,20 +70,26 @@ def _tokens(text: str) -> list[str]:
 
 def load_passages(
     subagent_dir: str | Path, *, min_tokens: int = 4, max_passage_chars: int = 2000
-) -> list[Passage]:
+) -> tuple[list[Passage], str]:
     """Build the retrieval corpus from the package's **full source** (``sources/markdown/*.md``,
     paragraph-segmented) — the fair distill-vs-retrieve test: retrieval must be able to surface
     long-tail content the adapter dropped, so the corpus is the whole source, not the sparse distilled
     anchor spans. Falls back to the citable anchor spans only if no source markdown is present.
     Paragraphs below ``min_tokens`` (headings, list stubs) are dropped; each is capped at
-    ``max_passage_chars``."""
+    ``max_passage_chars``.
+
+    Returns ``(passages, source_kind)`` where ``source_kind`` is the corpus actually used —
+    ``"markdown"`` (the fair full-source corpus), ``"anchors"`` (the distilled-span fallback), or
+    ``"none"`` (no corpus found). Callers report this so a silent degrade to the anchor fallback is
+    visible and an empty-corpus message names the right candidate dirs."""
     base = Path(subagent_dir)
     md_dir = base / "sources" / "markdown"
     if md_dir.is_dir():
         passages = _passages_from_markdown(md_dir, min_tokens, max_passage_chars)
         if passages:
-            return passages
-    return _passages_from_anchors(base / "sources" / "anchors", min_tokens)
+            return passages, "markdown"
+    anchors = _passages_from_anchors(base / "sources" / "anchors", min_tokens)
+    return (anchors, "anchors") if anchors else ([], "none")
 
 
 def _passages_from_markdown(md_dir: Path, min_tokens: int, max_chars: int) -> list[Passage]:
@@ -171,15 +177,25 @@ def build_retriever(passages: list[Passage], k: int = 5) -> Callable[[str], list
 
 
 def _format_context(hits: list[Passage], max_chars: int) -> str:
+    """Render the retrieved passages as a citable context block within a ``max_chars`` budget.
+
+    The budget counts *all* emitted characters — the header line and each ``[id] `` citation prefix,
+    not just the passage bodies — so the returned block never exceeds ``max_chars`` (modulo the join
+    newlines between the lines kept)."""
     if not hits:
         return ""
-    lines = ["Relevant source passages (cite by [id]):"]
-    used = 0
+    header = "Relevant source passages (cite by [id]):"
+    lines = [header]
+    used = len(header)
     for p in hits:
+        prefix = f"[{p.id}] "
+        used += len(prefix)
+        if used >= max_chars:
+            break
         t = p.text.strip()
         if used + len(t) > max_chars:
             t = t[: max(0, max_chars - used)]
-        lines.append(f"[{p.id}] {t}")
+        lines.append(f"{prefix}{t}")
         used += len(t)
         if used >= max_chars:
             break
@@ -263,13 +279,21 @@ def main() -> int:
         print(f"adapter not found: {adapter}")
         return 2
     tests = load_behaviour_tests(base)
-    passages = load_passages(base)
+    passages, source_kind = load_passages(base)
     if not tests:
         print(f"no behaviour-tests under {base / 'tests'}")
         return 2
     if not passages:
-        print(f"no anchor passages under {base / 'sources' / 'anchors'}")
+        md_dir = base / "sources" / "markdown"
+        anchors_dir = base / "sources" / "anchors"
+        print(f"no retrievable passages under {md_dir} or {anchors_dir}")
         return 2
+    if source_kind == "anchors":
+        print(
+            f"note: no source markdown under {base / 'sources' / 'markdown'}; "
+            f"degraded to the distilled anchor-span fallback ({len(passages)} passages) — "
+            "this is not the fair full-source distill-vs-retrieve test"
+        )
 
     runner = shell_runner(args.runner)
     grader = (

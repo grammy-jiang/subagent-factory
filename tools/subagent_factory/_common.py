@@ -7,9 +7,40 @@ factory module without risking an import cycle.
 
 from __future__ import annotations
 
+import os
+import tempfile
+from pathlib import Path
+
 # Rough char -> token estimate, used by the chunker and the size router. Kept identical so a
 # book's size class and its chunk token estimates agree.
 CHARS_PER_TOKEN = 4
+
+
+def atomic_write_text(path: Path, text: str) -> None:
+    """Write ``text`` to ``path`` via a sibling temp file + ``os.replace`` so a crash mid-write
+    can never leave a truncated artifact behind.
+
+    ``os.replace`` is atomic on the same filesystem, so a reader (or a content-addressed re-run
+    that would otherwise trust a partially written file) sees either the old file or the complete
+    new one. The temp file is a *unique* sibling of the target (``mkstemp`` in ``path.parent``): a
+    per-writer name means two concurrent writers to the same target never share a temp file, so one
+    writer's ``os.replace`` can never fire on a temp the other is still filling (the torn-write
+    window a shared ``<name>.tmp`` reintroduced). The temp stays a sibling so the rename stays on one
+    filesystem. Single owner for the pattern; see map_reduce_build and export_claude_agent.
+    """
+    fd, tmp_name = tempfile.mkstemp(dir=str(path.parent), prefix=path.name + ".", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(text)
+        os.replace(tmp_name, path)
+    except BaseException:
+        # No orphan temp left behind if writing or replacing fails.
+        try:
+            os.unlink(tmp_name)
+        except FileNotFoundError:
+            pass
+        raise
+
 
 # Confidence levels, ordered weakest -> strongest. "insufficient" is the abstention floor (K8).
 # One ordering shared by the GRADE grader and the principle-importance ranker, so they cannot drift.
@@ -24,8 +55,14 @@ def confidence_rank(level: str, *, default: str = "medium") -> int:
 
 
 def cosine(a: list[float], b: list[float]) -> float:
-    """Cosine similarity of two equal-length vectors; 0.0 if either vector has zero norm."""
-    dot = sum(x * y for x, y in zip(a, b, strict=False))
+    """Cosine similarity of two equal-length vectors; 0.0 if either vector has zero norm.
+
+    ``strict=True``: a length mismatch raises ``ValueError`` instead of silently truncating to
+    the shorter vector. Cosine here is always over same-space embeddings from one embedder, so a
+    differing length is always an upstream bug (it would otherwise corrupt clustering with a
+    plausible-but-wrong score and no signal), never valid ragged data.
+    """
+    dot = sum(x * y for x, y in zip(a, b, strict=True))
     na = sum(x * x for x in a) ** 0.5
     nb = sum(y * y for y in b) ** 0.5
     return dot / (na * nb) if na and nb else 0.0

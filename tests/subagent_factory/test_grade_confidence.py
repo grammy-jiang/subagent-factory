@@ -69,6 +69,30 @@ def test_audit_fields_preserved():
     assert g["baseline"] == "high" and g["downgrades"] == ["conflict"] and g["upgrades"] == []
 
 
+def test_range_is_fixed_pm1_adjacency_flag_not_magnitude():
+    # HONESTY (K6): `range` is a FIXED ±1 adjacency flag ("this grade was adjusted"), NOT a
+    # magnitude — one downgrade and five downgrades that land on the same level report the same
+    # ±1-step range. Pin that documented behaviour so the docstring stays honest.
+    one = grade_confidence("peer-reviewed", downgrades=["a"])  # high -> medium
+    many = grade_confidence(
+        "peer-reviewed", downgrades=["a", "b", "c", "d", "e"]
+    )  # clamps to floor
+    # both moved, both report a ±1-step window around their (clamped) level; width is not scaled
+    assert one["range"] == ["low", "high"]  # around medium
+    assert many["level"] == "insufficient"
+    assert many["range"] == ["insufficient", "low"]  # ±1 around the floor, still width 1, not 5
+
+
+def test_saturated_flag_when_clamped():
+    # ROBUSTNESS: when the raw index was clamped (factors pushed past the LEVELS span) the grade is
+    # `saturated`; an unclamped grade is not.
+    assert grade_confidence("peer-reviewed")["saturated"] is False
+    g = grade_confidence("anecdotal", downgrades=["a", "b", "c"])  # low - 3 → clamped to floor
+    assert g["level"] == "insufficient" and g["saturated"] is True
+    hi = grade_confidence("peer-reviewed", upgrades=["a", "b"])  # high + 2 → clamped to ceiling
+    assert hi["level"] == "high" and hi["saturated"] is True
+
+
 # ── K4: risk-of-bias as advisory weight, never a gate ──
 
 
@@ -104,6 +128,21 @@ def test_rob_accepts_dict():
 def test_rob_empty():
     r = rob_weight([])
     assert r["overall"] == "unclear" and r["downgrades"] == []
+
+
+def test_rob_unrecognized_level_routes_to_unclear_not_vanish():
+    # ROB rollup: a level outside the RoB2 vocabulary ("n/a", "weird") must not silently vanish
+    # from the rollup — it routes to `unclear` (uncertainty), and the count is surfaced.
+    r = rob_weight(["weird", "n/a"])
+    assert r["overall"] == "unclear" and r["downgrades"] == []
+    # the unrecognized inputs are surfaced, not dropped
+    assert r["counts"].get("unclear", 0) >= 1 or r["unrecognized"]
+
+
+def test_rob_unrecognized_does_not_block_a_real_high():
+    # a genuine `high` still rolls up to high even when an unrecognized level is present
+    r = rob_weight(["high", "bogus"])
+    assert r["overall"] == "high" and r["downgrades"] == ["risk-of-bias"]
 
 
 def test_grade_with_rob_lowers_but_never_drops():

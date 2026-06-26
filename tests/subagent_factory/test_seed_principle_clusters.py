@@ -2,9 +2,14 @@
 
 import json
 
+import pytest
 import yaml
 
-from tools.subagent_factory.seed_principle_clusters import _cosine, seed_clusters
+from tools.subagent_factory.seed_principle_clusters import (
+    _cosine,
+    embed_minilm,
+    seed_clusters,
+)
 
 _OVERLAP = "deep modules reduce complexity through information hiding"
 
@@ -219,3 +224,40 @@ def test_margin_keeps_standout_pair(tmp_path):
     r = seed_clusters(base, 0.99, embedder=emb, cos_threshold=0.5)
     assert len(r["clusters"]) == 1
     assert set(r["clusters"][0]["member_principle_ids"]) == {"P1", "P2"}  # P/Q, not R
+
+
+# ---- malformed-claim warning + embed_minilm empty guard --------------------------------------
+
+
+def test_malformed_claim_line_warns_not_silent(tmp_path):
+    # A corrupt claims.jsonl line must WARN (naming the skipped count), not be silently dropped.
+    base = tmp_path / "pkg"
+    (base / "principles").mkdir(parents=True)
+    (base / "analysis").mkdir(parents=True)
+    (base / "analysis" / "claims.jsonl").write_text(
+        '{"claim_id": "c1", "source_id": "bookA", "statement": "x"}\n'
+        "{not valid json at all\n"  # malformed -> would silently drop c2's source
+        '{"claim_id": "c2", "source_id": "bookB", "statement": "y"}\n',
+        encoding="utf-8",
+    )
+    (base / "principles" / "principles.yaml").write_text(
+        yaml.safe_dump({"schema_version": "principles-v1", "principles": []}),
+        encoding="utf-8",
+    )
+    with pytest.warns(RuntimeWarning, match="skipped 1 malformed line"):
+        seed_clusters(base, 0.15)
+
+
+def test_embed_minilm_empty_input_returns_empty_without_torch(monkeypatch):
+    # Empty input must short-circuit to [] before importing torch/transformers (no model load).
+    import builtins
+
+    real_import = builtins.__import__
+
+    def _no_torch(name, *a, **k):
+        if name in ("torch", "transformers"):
+            raise AssertionError(f"embed_minilm imported {name} on empty input")
+        return real_import(name, *a, **k)
+
+    monkeypatch.setattr(builtins, "__import__", _no_torch)
+    assert embed_minilm([]) == []

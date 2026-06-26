@@ -83,6 +83,14 @@ _FUNCTION = {
     "when",
     "which",
 }
+# KNOWN DIVERGENCE (intentional, do not "fix" by force): the trigger set is encoded twice —
+# here as surface strings for the spaCy path (_hearst_spacy uses str.find on these), and as
+# anchored regexes in _FLAT_PATTERNS below for the flat path. The two are deliberately NOT unified:
+# the flat path needs the special infix "such X as" form (no spaCy equivalent) and _NP-anchored
+# capture groups, while the spaCy path snaps spans to parsed noun chunks and only needs surface
+# markers. Reconciling them into a single table would change extraction outputs, so the small
+# duplication is preferred over behaviour drift. Net effect callers should know: which trigger
+# variants fire can differ slightly depending on whether spaCy is installed.
 _TRIGGERS_HL = (" such as ", " including ", ", especially ", " especially ")  # hypernym → list
 _TRIGGERS_LH = (", and other ", " and other ", ", or other ", " or other ")  # list → hypernym
 _NP = r"([A-Za-z][\w ’'\-]{2,45})"
@@ -91,8 +99,8 @@ _FLAT_PATTERNS: list[tuple[re.Pattern, str]] = [
     (re.compile(r"such\s+" + _NP + r"\s+as\s+(.+?)(?:[.;]|$)", re.I), "H_LIST"),
     (re.compile(_NP + r"\s+including\s+(.+?)(?:[.;]|$)", re.I), "H_LIST"),
     (re.compile(_NP + r"\s*,?\s+especially\s+(.+?)(?:[.;]|$)", re.I), "H_LIST"),
-    (re.compile(r"(.+?)\s*,?\s+and other\s+" + _NP, re.I), "LIST_H"),
-    (re.compile(r"(.+?)\s*,?\s+or other\s+" + _NP, re.I), "LIST_H"),
+    (re.compile(r"([^.;]+?)\s*,?\s+and other\s+" + _NP, re.I), "LIST_H"),
+    (re.compile(r"([^.;]+?)\s*,?\s+or other\s+" + _NP, re.I), "LIST_H"),
 ]
 
 
@@ -213,7 +221,15 @@ def wordnet_confirms(hypo: str, hyper: str) -> bool:
     """True if WordNet makes ``hyper`` a (transitive) hypernym of ``hypo`` (nltk). False if absent."""
     try:
         from nltk.corpus import wordnet as wn
-    except Exception:
+    except ImportError as e:
+        # nltk not installed is an environment problem (pip install nltk), not "no match".
+        # Surface it instead of silently downgrading every pair to unconfirmed/low confidence —
+        # mirroring the missing-corpus LookupError branch below.
+        warnings.warn(
+            f"nltk unavailable ({e}); is-a confirmation disabled — install the 'nlp' extra",
+            RuntimeWarning,
+            stacklevel=2,
+        )
         return False
     hypo_key, hyper_key = hypo.split()[-1], hyper.split()[-1]  # head nouns
     try:

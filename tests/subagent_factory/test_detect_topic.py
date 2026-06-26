@@ -1,8 +1,10 @@
 """Tests for detect_topic (content sample extraction)."""
 
+import glob
 import tempfile
 from pathlib import Path
 
+from tools.subagent_factory import detect_topic
 from tools.subagent_factory.detect_topic import (
     _extract_body_excerpt,
     _extract_headings,
@@ -103,3 +105,73 @@ def test_nonexistent_file_returns_empty():
     sample = extract_content_sample("/tmp/does_not_exist_xyz.md")
     assert sample["headings"] == []
     assert sample["body_excerpt"] == ""
+    assert sample["conversion_error"] is None
+
+
+def test_markdown_path_has_no_conversion_error():
+    with tempfile.NamedTemporaryFile(suffix=".md", mode="w", delete=False, encoding="utf-8") as f:
+        f.write(MD_WITH_FRONTMATTER)
+        path = f.name
+
+    sample = extract_content_sample(path)
+    assert sample["conversion_error"] is None
+
+
+def test_nonmarkdown_conversion_succeeds_without_leaking_tempfile(monkeypatch, tmp_path):
+    """A non-Markdown source is converted without leaking the temp file."""
+    src = tmp_path / "doc.pdf"
+    src.write_bytes(b"%PDF-1.4 fake")
+
+    monkeypatch.setattr(detect_topic, "detect_file_type", lambda p: "pdf")
+    monkeypatch.setattr(
+        detect_topic,
+        "convert_document",
+        lambda p, out: {
+            "markdown_text": "# Converted Title\n\nReliable distributed systems content.",
+            "errors": [],
+        },
+    )
+
+    before = set(glob.glob(str(Path(tempfile.gettempdir()) / "*")))
+    sample = extract_content_sample(str(src))
+    after = set(glob.glob(str(Path(tempfile.gettempdir()) / "*")))
+
+    assert "Converted Title" in sample["headings"]
+    assert sample["conversion_error"] is None
+    # No leftover temp artifacts created by the conversion path.
+    assert after == before
+
+
+def test_nonmarkdown_conversion_failure_is_surfaced(monkeypatch, tmp_path):
+    """When convert_document raises, the dict carries a conversion_error signal."""
+    src = tmp_path / "doc.pdf"
+    src.write_bytes(b"%PDF-1.4 fake")
+
+    monkeypatch.setattr(detect_topic, "detect_file_type", lambda p: "pdf")
+
+    def _boom(p, out):
+        raise RuntimeError("converter exploded")
+
+    monkeypatch.setattr(detect_topic, "convert_document", _boom)
+
+    sample = extract_content_sample(str(src))
+    assert sample["body_excerpt"] == ""
+    assert sample["conversion_error"] is not None
+    assert "converter exploded" in sample["conversion_error"]
+
+
+def test_nonmarkdown_empty_conversion_is_distinguished(monkeypatch, tmp_path):
+    """An empty conversion is signalled, not silently degraded to text=''."""
+    src = tmp_path / "doc.pdf"
+    src.write_bytes(b"%PDF-1.4 fake")
+
+    monkeypatch.setattr(detect_topic, "detect_file_type", lambda p: "pdf")
+    monkeypatch.setattr(
+        detect_topic,
+        "convert_document",
+        lambda p, out: {"markdown_text": "", "errors": ["no converter for file type: pdf"]},
+    )
+
+    sample = extract_content_sample(str(src))
+    assert sample["body_excerpt"] == ""
+    assert sample["conversion_error"] is not None

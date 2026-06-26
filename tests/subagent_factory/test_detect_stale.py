@@ -5,6 +5,11 @@ import json
 import yaml
 
 from tools.subagent_factory.detect_stale import detect_stale
+from tools.subagent_factory.validate_skill_authoring import _parse_frontmatter, split_frontmatter
+
+
+def _body_after_frontmatter(text: str) -> str:
+    return split_frontmatter(text)[1]
 
 
 def _skill_md(slug, *, status="ready", principles=(), claims=(), digest=None, body="1. do x"):
@@ -169,3 +174,81 @@ def test_stamp_preserves_body(tmp_path):
 
 def test_no_profile_returns_empty(tmp_path):
     assert detect_stale(tmp_path / "nope") == []
+
+
+def test_corrupt_frontmatter_does_not_crash_run(tmp_path):
+    """A doc that opens a --- fence but never closes it must NOT abort the whole scan with an
+    AttributeError on the _FRONTMATTER_CORRUPT sentinel; it is surfaced and the run continues."""
+    good = _skill_md("alpha", principles=["P1"], claims=[], digest="x")
+    base = _pkg(
+        tmp_path,
+        skills={"alpha": good, "broken": "---\nname: broken\nstatus: ready\nno close fence\n"},
+        principles={"P1": "orig"},
+        claims={},
+    )
+    # Both skills are declared in the profile partition.
+    prof = base / "profile.yaml"
+    data = yaml.safe_load(prof.read_text())
+    data["knowledge_partition"]["skills"] = ["alpha", "broken"]
+    prof.write_text(yaml.safe_dump(data), encoding="utf-8")
+    findings = detect_stale(base)  # must not raise
+    arts = {a for _, a, _ in findings}
+    assert "skill:alpha" in arts  # the good doc still got checked
+    assert any("broken" in a and lvl == "WARN" for lvl, a, _ in findings)
+
+
+def test_stamp_preserves_body_containing_horizontal_rule(tmp_path):
+    """--stamp must not truncate a body that itself contains a line of '---' (a Markdown
+    horizontal rule / nested fence). The reader and rewriter share one anchored fence split."""
+    body = "intro paragraph\n\n---\n\nsection after a horizontal rule TAILTOKEN"
+    base = _pkg(
+        tmp_path,
+        skills={"alpha": _skill_md("alpha", principles=["P1"], claims=[], body=body)},
+        principles={"P1": "orig"},
+        claims={},
+    )
+    detect_stale(base, stamp=True)
+    written = (base / "skills" / "alpha" / "SKILL.md").read_text()
+    assert "TAILTOKEN" in written
+    assert "section after a horizontal rule" in written
+
+
+def test_stamp_with_fence_line_inside_frontmatter_value(tmp_path):
+    """The closing fence must be a FULL '---' line: a '---' embedded inside a multiline
+    frontmatter value must not be mistaken for the close, or --stamp leaks frontmatter into the
+    body. Reader and rewriter share one anchored split, so the body survives intact."""
+    base = _pkg(
+        tmp_path,
+        skills={"alpha": _skill_md("alpha", principles=["P1"], claims=[], digest="x")},
+        principles={"P1": "orig"},
+        claims={},
+    )
+    # Hand-write a doc whose frontmatter has a block-scalar value containing a '---' line.
+    doc = (
+        "---\n"
+        "name: alpha\n"
+        "kind: skill\n"
+        "status: ready\n"
+        "note: |\n"
+        "  first line of note\n"
+        "  ---\n"
+        "  second line after a dashed line\n"
+        "provenance:\n"
+        "  principles: [P1]\n"
+        "  claims: []\n"
+        "  source_anchors: []\n"
+        "  authored_from_digest: x\n"
+        "---\n\n"
+        "# alpha\n\n## Procedure\n\nBODY_SENTINEL\n"
+    )
+    (base / "skills" / "alpha" / "SKILL.md").write_text(doc, encoding="utf-8")
+    detect_stale(base, stamp=True)
+    written = (base / "skills" / "alpha" / "SKILL.md").read_text()
+    # Re-parse: the note value (incl. its embedded '---' line) must stay in the frontmatter, and
+    # the body must be exactly the real body — no frontmatter leaked past the true closing fence.
+    fm = _parse_frontmatter(written)
+    assert isinstance(fm, dict)
+    assert "second line after a dashed line" in fm["note"]
+    body = written.split("\n---\n", 1)[-1] if False else _body_after_frontmatter(written)
+    assert "BODY_SENTINEL" in body
+    assert "note:" not in body and "second line after a dashed line" not in body

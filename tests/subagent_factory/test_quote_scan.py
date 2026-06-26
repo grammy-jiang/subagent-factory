@@ -1,16 +1,15 @@
 """Tests for the verbatim-quotation scan.
 
-Regression focus: the inline-quote pre-filter regex must admit the *shortest
-possible* MIN_WORDS_FOR_CONCERN-word quoted span, so a real 40-word verbatim quote
-made of short words (negotiation scripts, dialogue, aphorisms) is not silently
-missed. The rights policy contract is word-based — 40+ consecutive source words —
-and the regex character floor must never raise that bar.
+The rights policy contract is word-based — 40+ consecutive source words in output require
+manual review. The scan slides a word window over the presentation-stripped body, so detection is
+quote-style-independent: unquoted prose, straight/smart quotes, and block-quotes are all caught,
+and a 40-word lift of short words (negotiation scripts, dialogue, aphorisms) is never missed by a
+character floor.
 """
 
 import json
 
 from tools.subagent_factory.quote_scan import (
-    _MIN_QUOTE_CHARS,
     MIN_WORDS_FOR_CONCERN,
     quote_scan,
 )
@@ -52,15 +51,9 @@ def _short_word_quote(n_words: int) -> str:
     return " ".join((base * 6)[:n_words])
 
 
-def test_char_floor_is_derived_from_word_policy():
-    # The floor must be the minimum chars a MIN_WORDS_FOR_CONCERN-word string can
-    # occupy: N single-char words + (N-1) single spaces = 2N - 1.
-    assert _MIN_QUOTE_CHARS == 2 * MIN_WORDS_FOR_CONCERN - 1
-
-
 def test_short_word_verbatim_quote_is_flagged(tmp_path):
     # A 40-word verbatim quote of short words is < 200 chars — the old 200-char
-    # regex floor missed it entirely. It must now be caught.
+    # regex floor missed it entirely. The window scan has no char floor, so it must be caught.
     quote = _short_word_quote(MIN_WORDS_FOR_CONCERN)
     assert len(quote) < 200, "test premise: this quote is under the old 200-char floor"
     assert len(quote.split()) == MIN_WORDS_FOR_CONCERN
@@ -74,7 +67,7 @@ def test_short_word_verbatim_quote_is_flagged(tmp_path):
 
     findings = quote_scan(base)
     assert findings, "40-word short-word verbatim quote must be flagged"
-    assert any("Verbatim inline quote" in f["issue"] for f in findings)
+    assert any("Verbatim run" in f["issue"] for f in findings)
 
 
 def test_under_threshold_quote_not_flagged(tmp_path):
@@ -126,7 +119,7 @@ def test_verbatim_quote_flagged_despite_source_whitespace(tmp_path):
 
     findings = quote_scan(base)
     assert findings, "verbatim quote must be flagged even when source whitespace differs"
-    assert any("Verbatim inline quote" in f["issue"] for f in findings)
+    assert any("Verbatim run" in f["issue"] for f in findings)
 
 
 def test_multiline_block_quote_is_coalesced_and_flagged(tmp_path):
@@ -153,7 +146,7 @@ def test_multiline_block_quote_is_coalesced_and_flagged(tmp_path):
 
     findings = quote_scan(base)
     assert findings, "multi-line verbatim block quote must be flagged"
-    assert any("Verbatim block-quote" in f["issue"] for f in findings)
+    assert any("Verbatim run" in f["issue"] for f in findings)
 
 
 def test_short_block_quote_run_not_flagged(tmp_path):
@@ -168,6 +161,77 @@ def test_short_block_quote_run_not_flagged(tmp_path):
         encoding="utf-8",
     )
     assert quote_scan(base) == []
+
+
+def test_unquoted_verbatim_prose_is_flagged(tmp_path):
+    # The plagiarism the rights policy exists to catch: a generated body that reproduces a
+    # 40+-word source run with NO quote marks at all. The old quote-punctuation-gated scan
+    # missed this entirely. The window check is quote-style-independent.
+    quote = _short_word_quote(MIN_WORDS_FOR_CONCERN + 5)
+    base, _ = _build_package(tmp_path, source_text=f"intro {quote} outro")
+    (base / "references").mkdir()
+    (base / "references" / "leak.md").write_text(
+        f"Here is some framing and then {quote} and then a closing sentence.\n",
+        encoding="utf-8",
+    )
+    findings = quote_scan(base)
+    assert findings, "unquoted verbatim prose must be flagged (rights gate)"
+
+
+def test_smart_quoted_verbatim_is_flagged(tmp_path):
+    # PDF→markdown converters emit curly/smart quotes. A verbatim lift wrapped in “ ” must
+    # still be caught — quote glyph must not be an evasion vector.
+    quote = _short_word_quote(MIN_WORDS_FOR_CONCERN + 2)
+    base, _ = _build_package(tmp_path, source_text=f"intro {quote} outro")
+    (base / "references").mkdir()
+    (base / "references" / "leak.md").write_text(
+        f"The book says: “{quote}” here.\n", encoding="utf-8"
+    )
+    findings = quote_scan(base)
+    assert findings, "smart-quoted verbatim quote must be flagged (rights gate)"
+
+
+def test_inline_markdown_markup_in_output_does_not_evade(tmp_path):
+    # A verbatim lift where the output italicizes/code-spans one word inside the run must still be
+    # caught: the source side and output side must normalize markdown markup symmetrically, or
+    # `*word*` in the output breaks the substring match against a source that has plain `word`.
+    quote = _short_word_quote(MIN_WORDS_FOR_CONCERN + 5)
+    words = quote.split()
+    words[len(words) // 2] = f"*{words[len(words) // 2]}*"  # emphasis on one mid-run word
+    leak = "Here it is: " + " ".join(words) + " done.\n"
+    base, _ = _build_package(tmp_path, source_text=f"intro {quote} outro")
+    (base / "references").mkdir()
+    (base / "references" / "leak.md").write_text(leak, encoding="utf-8")
+    findings = quote_scan(base)
+    assert findings, "inline markdown markup in the output must not evade the verbatim scan"
+
+
+def test_inline_html_tag_in_output_does_not_evade(tmp_path):
+    # `<b>word</b>` renders identically to `*word*` but the markup chars `<`/`>`/`/` are not in the
+    # glyph set — an inline HTML tag inside a verbatim run must not break the match.
+    quote = _short_word_quote(MIN_WORDS_FOR_CONCERN + 5)
+    words = quote.split()
+    mid = len(words) // 2
+    words[mid] = f"<b>{words[mid]}</b>"
+    base, _ = _build_package(tmp_path, source_text=f"intro {quote} outro")
+    (base / "references").mkdir()
+    (base / "references" / "leak.md").write_text(
+        "Here: " + " ".join(words) + " done.\n", encoding="utf-8"
+    )
+    assert quote_scan(base), "inline HTML tag in the output must not evade the verbatim scan"
+
+
+def test_backslash_escape_in_output_does_not_evade(tmp_path):
+    # A markdown backslash escape (`word\`) inside a verbatim run must not break the match.
+    quote = _short_word_quote(MIN_WORDS_FOR_CONCERN + 5)
+    words = quote.split()
+    words[len(words) // 2] = words[len(words) // 2] + "\\"
+    base, _ = _build_package(tmp_path, source_text=f"intro {quote} outro")
+    (base / "references").mkdir()
+    (base / "references" / "leak.md").write_text(
+        "Here: " + " ".join(words) + " done.\n", encoding="utf-8"
+    )
+    assert quote_scan(base), "backslash escape in the output must not evade the verbatim scan"
 
 
 def test_open_rights_source_not_loaded_for_matching(tmp_path):

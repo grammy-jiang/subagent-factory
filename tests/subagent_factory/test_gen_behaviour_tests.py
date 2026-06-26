@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import jsonschema
+import pytest
 import yaml
 
 from tools.subagent_factory.behaviour_replay import load_behaviour_tests
@@ -84,6 +85,87 @@ def test_no_twins_when_disabled():
     suite = gen_behaviour_tests([_P_FULL], "demo", answerable_twins=False)
     assert not any(t.get("twin_of") for t in suite["golden_tests"])
     assert len(suite["golden_tests"]) == 1
+
+
+def test_dropped_twin_does_not_abort_remaining_cells(monkeypatch):
+    """BUG #1: a dropped answerable twin must not skip a principle's remaining cell types.
+
+    The twin is emitted inside the missing-context branch of the per-principle loop. If a
+    dropped twin uses ``continue`` on the OUTER ``for cell_type`` loop, any cell type processed
+    after missing-context for the same principle is lost. We force exactly that ordering and a
+    twin-only near-duplicate so the bug is observable: the negative-routing cell must survive.
+    """
+    import tools.subagent_factory.gen_behaviour_tests as gbt
+
+    # Order cells so negative-routing is processed AFTER missing-context (so the bug bites).
+    monkeypatch.setattr(
+        gbt,
+        "_CELLS",
+        {
+            "golden": ("golden_tests", "GT"),
+            "missing-context": ("missing_context_tests", "MC"),
+            "negative-routing": ("negative_routing_tests", "NR"),
+        },
+        raising=True,
+    )
+
+    # Give each cell a near-orthogonal direction so only the twin collapses. The golden prompt and
+    # the answerable twin share a direction (so the twin is a near-duplicate of the accepted
+    # golden); missing-context and negative-routing each get their own orthogonal axis (novel).
+    def embedder(text):
+        if "Every decision-relevant specific is provided" in text:  # answerable twin
+            return [1.0, 0.0, 0.0, 0.0]
+        if "What do you advise, and why?" in text:  # golden
+            return [1.0, 0.0, 0.0, 0.0]
+        if "Key specifics are not stated" in text:  # missing-context
+            return [0.0, 1.0, 0.0, 0.0]
+        return [0.0, 0.0, 1.0, 0.0]  # negative-routing (orthogonal → novel)
+
+    suite = gen_behaviour_tests([_P_FULL], "demo", embedder=embedder, cos_threshold=0.95)
+    # The twin is a near-duplicate of the golden cell and is dropped, but negative-routing
+    # (processed after missing-context in this ordering) must STILL be emitted.
+    assert len(suite["negative_routing_tests"]) == 1
+    _validate_schema(suite)
+
+
+# ── registry is the single source of truth ──────────────────────────────────────
+
+
+def test_cell_registry_is_single_source_of_truth():
+    """``_CELL_REGISTRY`` is the one table: every row carries section/prefix/requires; the derived
+    ``_CELLS`` view matches it; primary loop order is golden→negative-routing→missing-context; and
+    every declared ``twin`` names a real registry row."""
+    import tools.subagent_factory.gen_behaviour_tests as gbt
+
+    for cell_type, cell in gbt._CELL_REGISTRY.items():
+        assert cell.section, f"{cell_type} missing section"
+        assert cell.prefix, f"{cell_type} missing prefix"
+        assert callable(cell.requires), f"{cell_type} missing requires"
+        assert callable(cell.template) and callable(cell.fields)
+        if cell.twin is not None:
+            assert cell.twin in gbt._CELL_REGISTRY, f"{cell_type} twin target missing"
+
+    # ``_CELLS`` is derived from the registry primary cells, in the canonical loop order, and
+    # excludes the derived twin-target cell (answerable-twin).
+    assert list(gbt._CELLS) == ["golden", "negative-routing", "missing-context"]
+    assert gbt._CELLS == {
+        ct: (gbt._CELL_REGISTRY[ct].section, gbt._CELL_REGISTRY[ct].prefix) for ct in gbt._CELLS
+    }
+    twin_targets = {c.twin for c in gbt._CELL_REGISTRY.values() if c.twin}
+    assert "answerable-twin" in twin_targets
+    assert "answerable-twin" not in gbt._CELLS
+
+    # The seeding precondition lives on the row, not in the loop: golden always requires; the
+    # gated cells require their seed field.
+    assert gbt._CELL_REGISTRY["golden"].requires({}) is True
+    assert gbt._CELL_REGISTRY["negative-routing"].requires({}) is False
+    assert gbt._CELL_REGISTRY["negative-routing"].requires(_P_FULL) is True
+    assert gbt._CELL_REGISTRY["missing-context"].requires({}) is False
+    assert gbt._CELL_REGISTRY["missing-context"].requires(_P_FULL) is True
+    # missing-context spawns the answerable twin; the others spawn nothing.
+    assert gbt._CELL_REGISTRY["missing-context"].twin == "answerable-twin"
+    assert gbt._CELL_REGISTRY["golden"].twin is None
+    assert gbt._CELL_REGISTRY["negative-routing"].twin is None
 
 
 # ── multi-candidate generation + rare-weighting (#2 follow-on) ──────────────────
@@ -315,3 +397,36 @@ def test_shell_ideator_feeds_generator(tmp_path):
     suite = gen_behaviour_tests([_P_FULL], "demo", ideator=shell_ideator(str(script)))
     assert suite["golden_tests"][0]["prompt"] == "A crafted realistic message."
     assert suite["negative_routing_tests"][0]["prompt"] == "A crafted realistic message."
+
+
+def test_shell_ideator_nonzero_exit_warns_and_falls_back(tmp_path):
+    """SURFACE #5: a shell ideator whose script fails must be OBSERVABLE, not silently swallowed.
+
+    A non-zero exit (or empty stdout) used to be turned into an empty string, which
+    ``_make_prompt`` quietly converted into a template prompt with no signal the LLM path is
+    broken. The failure must now raise so ``_make_prompt`` emits a RuntimeWarning and falls back.
+    """
+    from tools.subagent_factory.gen_behaviour_tests import _make_prompt, _template_prompt
+
+    script = tmp_path / "broken.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\ncat >/dev/null\necho 'boom on stderr' >&2\nexit 3\n",
+        encoding="utf-8",
+    )
+    ideator = shell_ideator(str(script))
+    with pytest.warns(RuntimeWarning):
+        prompt = _make_prompt(_P_FULL, "golden", ideator)
+    # fell back to the deterministic template prompt
+    assert prompt == _template_prompt(_P_FULL, "golden")
+
+
+def test_shell_ideator_empty_stdout_warns_and_falls_back(tmp_path):
+    """SURFACE #5: zero exit but empty stdout is also a broken ideator → warn + fall back."""
+    from tools.subagent_factory.gen_behaviour_tests import _make_prompt, _template_prompt
+
+    script = tmp_path / "empty.sh"
+    script.write_text("#!/usr/bin/env bash\ncat >/dev/null\n", encoding="utf-8")
+    ideator = shell_ideator(str(script))
+    with pytest.warns(RuntimeWarning):
+        prompt = _make_prompt(_P_FULL, "negative-routing", ideator)
+    assert prompt == _template_prompt(_P_FULL, "negative-routing")

@@ -20,28 +20,21 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 from collections.abc import Callable, Sequence
 from pathlib import Path
 
 import yaml
 
+from tools.subagent_factory._common import atomic_write_text
 from tools.subagent_factory.emit_chunk_anchors import emit_anchors
 from tools.subagent_factory.reduce_principles import (
+    _embed_minilm,
     apply_decisions,
     recall_clusters,
     select_top,
 )
 
 Embedder = Callable[[list[str]], list[list[float]]]
-
-
-def _atomic_write(path: Path, text: str) -> None:
-    """Write via a temp file + os.replace so a crash mid-write can't leave a truncated artifact in a
-    content-addressed package that a re-run would then trust."""
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(text, encoding="utf-8")
-    os.replace(tmp, path)
 
 
 # principles-v1 is additionalProperties:false — strip the merge working-fields (source_ids / n_sources)
@@ -76,15 +69,17 @@ def load_modules(source_paths: Sequence[str | Path], cache_root: Path) -> list[d
         out.append(
             {
                 "dir": d,
-                "source_id": json.loads((d / "module.json").read_text())["source_id"],
+                "source_id": json.loads((d / "module.json").read_text(encoding="utf-8"))[
+                    "source_id"
+                ],
                 "claims": [
                     json.loads(x)
-                    for x in (d / "claims.jsonl").read_text().splitlines()
+                    for x in (d / "claims.jsonl").read_text(encoding="utf-8").splitlines()
                     if x.strip()
                 ],
-                "principles": (yaml.safe_load((d / "principles.yaml").read_text()) or {}).get(
-                    "principles"
-                )
+                "principles": (
+                    yaml.safe_load((d / "principles.yaml").read_text(encoding="utf-8")) or {}
+                ).get("principles")
                 or [],
             }
         )
@@ -122,9 +117,136 @@ def globalize_principles(modules: list[dict], cmap: dict[tuple[str, str], str]) 
     return out
 
 
-def emit_clusters(principles: list[dict], embedder: Embedder, cos: float = 0.55) -> list[dict]:
-    """Candidate multi-member clusters (with their group index) for the LLM precision filter."""
-    groups = recall_clusters(principles, embedder, cos)
+# --- Single-producer group-index contract -------------------------------------------------------
+# The emit -> external-LLM-decisions -> assemble pipeline keys the `decisions` dict on a GROUP INDEX
+# (the position of a cluster in `recall_clusters`' output). `recall_clusters` is a greedy, order- and
+# float-sensitive single-pass clusterer (see reduce_principles.recall_clusters), so two independent
+# calls can produce DIFFERENT groupings — which would silently land each decision on the wrong
+# cluster. To make the contract sound, `recall_clusters` must be the SINGLE producer of `groups` for
+# a given run: compute it once, then feed the SAME `groups` to both `emit_clusters` (which the LLM
+# keys its decisions on) and `assemble` (which applies them). `build_groups` is that one producer;
+# pass its result through both phases. `assemble` accepts an optional precomputed `groups` so an
+# in-process caller can thread the identical object end-to-end; only when it is omitted does
+# `assemble` recompute (and it then owns the single-producer call itself).
+
+
+def build_groups(principles: list[dict], embedder: Embedder, cos: float = 0.55) -> list[list[int]]:
+    """The single producer of the group-index contract: cluster `principles` ONCE.
+
+    Both `emit_clusters` (which the external LLM decisions key on) and `assemble` (which applies
+    those decisions) must consume the SAME list this returns — never recompute it independently —
+    so `decisions[group_index]` always lands on the cluster the LLM actually saw.
+    """
+    return recall_clusters(principles, embedder, cos)
+
+
+# --- Cross-process group persistence (single-producer contract, replayed) -----------------------
+# `build_groups` produces a positional grouping (lists of indices into the principle list). When the
+# emit and apply phases run in SEPARATE processes (the campaign driver), `assemble` cannot reuse the
+# in-memory `groups` object — and re-running `build_groups` from scratch risks a reshuffle (greedy,
+# float-sensitive clusterer + a re-invoked embedder), silently landing each LLM decision on a
+# different cluster. So the emit phase serializes the grouping by a STABLE principle identity
+# (positions are meaningless across processes), and the apply phase reloads it and rebuilds the
+# positional `groups` against its own principle list — keeping `build_groups` the single producer and
+# the persisted file merely its replayed output.
+
+
+def principle_group_key(principle: dict) -> tuple[str, str, str]:
+    """A stable, position-independent identity for a globalized principle.
+
+    Built from fields that survive serialization and a fresh `globalize_principles` pass:
+    `source_id`, `statement`, and the (global) `derived_from_claims`. Used to persist a grouping by
+    identity rather than list position, so it can be replayed in another process.
+    """
+    return (
+        str(principle.get("source_id", "")),
+        str(principle.get("statement", "")),
+        ",".join(map(str, principle.get("derived_from_claims") or [])),
+    )
+
+
+def _keyed_index(principles: list[dict]) -> dict[tuple[str, str, str, int], int]:
+    """Map (stable key + per-key occurrence) -> position, so duplicate keys map deterministically."""
+    out: dict[tuple[str, str, str, int], int] = {}
+    seen: dict[tuple[str, str, str], int] = {}
+    for i, p in enumerate(principles):
+        k = principle_group_key(p)
+        occ = seen.get(k, 0)
+        seen[k] = occ + 1
+        out[(*k, occ)] = i
+    return out
+
+
+def serialize_groups(principles: list[dict], groups: list[list[int]]) -> list[list[list[str]]]:
+    """Render `groups` (positional) as lists of stable principle keys for cross-process persistence.
+
+    Each member becomes a 3-tuple key `[source_id, statement, derived_from_claims_csv]`; duplicate
+    keys keep their multiplicity by repetition, so `deserialize_groups` can reconstruct the exact
+    positional grouping against a freshly globalized principle list.
+    """
+    return [[list(principle_group_key(principles[i])) for i in idxs] for idxs in groups]
+
+
+def deserialize_groups(
+    principles: list[dict], serialized: list[list[list[str]]]
+) -> list[list[int]]:
+    """Rebuild the positional `groups` for `principles` from a `serialize_groups` payload.
+
+    Raises ValueError if a persisted member cannot be matched to a current principle (the set
+    shrank) OR if the resulting groups do not cover every current principle (the set grew — a
+    superset that would otherwise silently drop the new principles downstream) — fail loudly rather
+    than silently mis-map or drop.
+    """
+    index = _keyed_index(principles)
+    used: dict[tuple[str, str, str], int] = {}
+    groups: list[list[int]] = []
+    for grp in serialized:
+        idxs: list[int] = []
+        for key in grp:
+            k = (str(key[0]), str(key[1]), str(key[2]))
+            occ = used.get(k, 0)
+            used[k] = occ + 1
+            lookup = (*k, occ)
+            if lookup not in index:
+                raise ValueError(
+                    f"persisted group member {k!r} (occurrence {occ}) has no match in the current "
+                    "principle set — the principles changed since the grouping was persisted; "
+                    "regenerate clusters before assembling"
+                )
+            idxs.append(index[lookup])
+        groups.append(idxs)
+    # Full-coverage check: every current principle must land in exactly one group. The per-member
+    # lookup above only catches a SHRUNK set (a persisted key with no current match). It does NOT
+    # catch a GROWN set (current principles are a superset of what was persisted) — every old key
+    # still matches, but the newly-added principles appear in no group and would be silently dropped
+    # by `apply_decisions` (which iterates groups only). Fail loudly with the same "regenerate
+    # clusters" contract instead.
+    covered = {i for grp in groups for i in grp}
+    if covered != set(range(len(principles))):
+        uncovered = len(principles) - len(covered)
+        raise ValueError(
+            f"persisted grouping covers only {len(covered)} of {len(principles)} current principles "
+            f"({uncovered} uncovered) — the principle set grew since the grouping was persisted; "
+            "regenerate clusters before assembling"
+        )
+    return groups
+
+
+def emit_clusters(
+    principles: list[dict],
+    embedder: Embedder,
+    cos: float = 0.55,
+    *,
+    groups: list[list[int]] | None = None,
+) -> list[dict]:
+    """Candidate multi-member clusters (with their group index) for the LLM precision filter.
+
+    Pass `groups` (from `build_groups`) to bind the emitted group indices to the exact same
+    grouping `assemble` will apply decisions against; when omitted, `build_groups` is called here
+    and the caller is then responsible for reusing it in `assemble` (single-producer invariant).
+    """
+    if groups is None:
+        groups = build_groups(principles, embedder, cos)
     return [
         {
             "group": gi,
@@ -169,15 +291,35 @@ def assemble(
     cos: float = 0.55,
     decisions: dict[int, dict] | None = None,
     select: float = 0,
+    groups: list[list[int]] | None = None,
 ) -> dict:
-    """Write the REDUCE'd distilled layer into subagents/<slug>/. Returns a counts summary."""
+    """Write the REDUCE'd distilled layer into subagents/<slug>/. Returns a counts summary.
+
+    Pass `groups` (the same list produced by `build_groups` and fed to `emit_clusters`) to honour
+    the single-producer group-index contract; when omitted, `assemble` becomes the single producer
+    and clusters once here. Either way the SAME grouping backs both the emit and apply phases of a
+    run, so `decisions[group_index]` cannot drift onto the wrong cluster.
+    """
     cache_root = repo / "cache" / "book-extracts"
     pkg = repo / "subagents" / slug
     modules = load_modules(source_paths, cache_root)
     cmap, claims = build_claim_map(modules)
     claims_by_id = {c["claim_id"]: c for c in claims}
     gp = globalize_principles(modules, cmap)
-    groups = recall_clusters(gp, embedder, cos)
+    if groups is None:
+        groups = build_groups(gp, embedder, cos)
+    # Bound-check the GROUP KEYS (not just subgroup member indices, which apply_decisions already
+    # guards): a decisions file built against a stale/different cluster set would otherwise have its
+    # out-of-range keys silently ignored (apply_decisions falls back to `confirm`), swallowing author
+    # intent. Fail loudly so the mismatch is fixed, not masked.
+    if decisions:
+        bad = sorted(gi for gi in decisions if not 0 <= gi < len(groups))
+        if bad:
+            raise ValueError(
+                f"decisions reference out-of-range group keys {bad} for a cluster set of "
+                f"{len(groups)} groups (valid 0..{len(groups) - 1}); the decisions were built "
+                "against a different/stale grouping — regenerate clusters before assembling"
+            )
     merged = select_top(apply_decisions(gp, groups, decisions), select)
     merged = [
         {
@@ -192,11 +334,11 @@ def assemble(
     (pkg / "principles").mkdir(parents=True, exist_ok=True)
     (pkg / "evidence").mkdir(parents=True, exist_ok=True)
     (pkg / "sources" / "anchors").mkdir(parents=True, exist_ok=True)
-    _atomic_write(
+    atomic_write_text(
         pkg / "analysis" / "claims.jsonl",
         "".join(json.dumps(c, ensure_ascii=False) + "\n" for c in claims),
     )
-    _atomic_write(
+    atomic_write_text(
         pkg / "principles" / "principles.yaml",
         yaml.safe_dump(
             {"schema_version": "principles-v1", "principles": merged},
@@ -204,7 +346,7 @@ def assemble(
             allow_unicode=True,
         ),
     )
-    _atomic_write(
+    atomic_write_text(
         pkg / "evidence" / "evidence-records.yaml",
         yaml.safe_dump(
             {"schema_version": "evidence-records-v1", "evidence_records": evidence},
@@ -221,7 +363,7 @@ def assemble(
         if not anchors.exists():
             emit_anchors(m["dir"])
         if anchors.exists():
-            _atomic_write(
+            atomic_write_text(
                 pkg / "sources" / "anchors" / f"{m['source_id']}.anchors.jsonl",
                 anchors.read_text(encoding="utf-8"),
             )
@@ -233,10 +375,9 @@ def assemble(
     }
 
 
-def _embed_minilm(statements: list[str]) -> list[list[float]]:
-    from tools.subagent_factory.seed_principle_clusters import embed_minilm
-
-    return embed_minilm(statements)
+# `_embed_minilm` is imported from reduce_principles (single definition; the two were byte-identical)
+# and kept at module level here so `map_reduce_build._embed_minilm` remains a valid reference for
+# existing callers (e.g. campaign/build_map_reduce.py).
 
 
 def main() -> int:
@@ -257,12 +398,12 @@ def main() -> int:
         if Path(args.sources).is_dir()
         else [
             ln.strip()
-            for ln in Path(args.sources).read_text().splitlines()
+            for ln in Path(args.sources).read_text(encoding="utf-8").splitlines()
             if ln.strip() and not ln.lstrip().startswith("#")
         ]
     )
     dec = (
-        {int(k): v for k, v in json.loads(args.decisions.read_text()).items()}
+        {int(k): v for k, v in json.loads(args.decisions.read_text(encoding="utf-8")).items()}
         if args.decisions
         else None
     )

@@ -7,12 +7,16 @@ with a literal " | ", and the whole string was clipped mid-trigger
 ("...experiencing change").
 """
 
+import yaml
+
+from tools.subagent_factory import export_claude_agent as _eca
 from tools.subagent_factory.export_claude_agent import (
     _TRAILING_CONNECTORS,
     _clean_clause,
     _compose_description,
     _drop_dangling_open_paren,
     _neutralize_inner_dashes,
+    export_claude_agent,
 )
 
 # A profile whose role and triggers are all longer than their clause budgets,
@@ -220,6 +224,65 @@ def test_neutralize_inner_dashes_demotes_em_and_en_dashes_to_commas():
 def test_neutralize_inner_dashes_leaves_hyphens_and_slashes_untouched():
     for s in ("user/kernel boundary", "copy-on-write fork", "Unix-like kernel"):
         assert _neutralize_inner_dashes(s) == s
+
+
+# --- export_claude_agent: error contract + atomic, byte-identical install --------------------------
+
+_MINIMAL_PROFILE = {
+    "slug": "export-test-x",
+    "role": "An expert reviewer.",
+    "when_to_use": ["When asked to review."],
+    "when_not_to_use": ["When asked to write features."],
+    "attach_invariants": False,  # avoid needing principles for the invariant layer
+    "outputs": {"modes": [{"name": "advise"}]},
+}
+
+
+def _write_profile(tmp_path, profile):
+    pkg = tmp_path / "subagents" / profile["slug"]
+    pkg.mkdir(parents=True)
+    (pkg / "profile.yaml").write_text(yaml.safe_dump(profile), encoding="utf-8")
+    return pkg
+
+
+def test_export_missing_profile_returns_error_not_raises(tmp_path):
+    # Missing-input branch is the soft, RETURNED-error half of the documented dual contract.
+    result = export_claude_agent(tmp_path / "subagents" / "absent")
+    assert result["error"] and "profile.yaml not found" in result["error"]
+    assert result["adapter_path"] is None and result["installed_path"] is None
+
+
+def test_export_profile_missing_slug_returns_error(tmp_path):
+    pkg = tmp_path / "subagents" / "noslug"
+    pkg.mkdir(parents=True)
+    (pkg / "profile.yaml").write_text(yaml.safe_dump({"role": "x"}), encoding="utf-8")
+    result = export_claude_agent(pkg)
+    assert result["error"] == "profile.yaml missing 'slug' field"
+
+
+def test_export_writes_byte_identical_canonical_and_install(tmp_path, monkeypatch):
+    # Point the install dir at the tmp repo so the test never touches the real .claude tree.
+    monkeypatch.setattr(_eca, "_REPO_ROOT", tmp_path)
+    pkg = _write_profile(tmp_path, _MINIMAL_PROFILE)
+    result = export_claude_agent(pkg)
+    assert result["error"] is None
+    canonical = (pkg / "adapters" / "claude-code" / "export-test-x.md").read_text(encoding="utf-8")
+    installed = (tmp_path / ".claude" / "agents" / "generated" / "export-test-x.md").read_text(
+        encoding="utf-8"
+    )
+    # The install must be byte-identical to the canonical adapter (same rendered bytes).
+    assert canonical == installed
+    assert result["adapter_path"].endswith("adapters/claude-code/export-test-x.md")
+
+
+def test_export_install_is_atomic_no_temp_leftover(tmp_path, monkeypatch):
+    # atomic_write_text renames a sibling .tmp into place; on success no .tmp file is left behind.
+    monkeypatch.setattr(_eca, "_REPO_ROOT", tmp_path)
+    pkg = _write_profile(tmp_path, _MINIMAL_PROFILE)
+    export_claude_agent(pkg)
+    gen = tmp_path / ".claude" / "agents" / "generated"
+    assert not list(gen.glob("*.tmp"))
+    assert not list((pkg / "adapters" / "claude-code").glob("*.tmp"))
 
 
 def test_clean_clause_demotes_inner_em_dash():

@@ -73,27 +73,60 @@ def autoinstall_enabled() -> bool:
     return os.environ.get("SUBAGENT_FACTORY_NO_AUTOINSTALL", "") not in ("1", "true", "yes")
 
 
+# Subprocess wall-clock budget (seconds) for any pip/uv install.
+_INSTALL_TIMEOUT = 600
+
+# Wall-clock budget (seconds) for the post-install import probe. A bare `import`
+# that has not returned in seconds is wedged (corrupt install deadlocking the
+# loader, a converter blocking on a network/device probe at import time), not
+# slow — so it gets its own short budget instead of sharing the 10-minute
+# install timeout, which would otherwise stall bootstrap silently.
+_IMPORT_PROBE_TIMEOUT = 60
+
+
+def _install_cmd(target: str, python: str) -> list[str]:
+    """Build the install command for ``target`` against interpreter ``python``.
+
+    Uses ``uv pip install --python <python>`` when ``uv`` is on PATH, else
+    ``<python> -m pip install``. Single source of truth for the three install
+    sites (in-process heal + venv create-and-install).
+    """
+    if shutil.which("uv"):
+        return ["uv", "pip", "install", "--python", python, target]
+    return [python, "-m", "pip", "install", target]
+
+
+def _run_install(cmd: list[str], target: str, *, cwd: str | None = None) -> tuple[bool, str]:
+    """Run an install ``cmd``. Returns (ok, error_detail).
+
+    Enforces ``_INSTALL_TIMEOUT`` so a wedged installer cannot hang the process.
+    """
+    _log(f"installing {target} via: {' '.join(cmd)}")
+    try:
+        proc = subprocess.run(
+            cmd, capture_output=True, text=True, timeout=_INSTALL_TIMEOUT, cwd=cwd
+        )
+    except subprocess.TimeoutExpired:
+        msg = f"install timed out after {_INSTALL_TIMEOUT}s: {target}"
+        _log(msg)
+        return False, msg
+    except Exception as e:  # pragma: no cover - defensive
+        msg = f"install error for {target}: {e}"
+        _log(msg)
+        return False, msg
+    if proc.returncode != 0:
+        detail = (proc.stderr or proc.stdout or "").strip()
+        tail = detail.splitlines()[-3:]
+        _log(f"install failed for {target} (exit {proc.returncode}): {' | '.join(tail)}")
+        return False, detail[:300]
+    _log(f"installed {target}")
+    return True, ""
+
+
 def _pip_install(spec: str) -> bool:
     """Install ``spec`` into the current interpreter. Returns True on success."""
-    if shutil.which("uv"):
-        cmd = ["uv", "pip", "install", "--python", sys.executable, spec]
-    else:
-        cmd = [sys.executable, "-m", "pip", "install", spec]
-    _log(f"installing {spec} via: {' '.join(cmd)}")
-    try:
-        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
-    except subprocess.TimeoutExpired:
-        _log(f"install timed out: {spec}")
-        return False
-    except Exception as e:  # pragma: no cover - defensive
-        _log(f"install error for {spec}: {e}")
-        return False
-    if proc.returncode != 0:
-        tail = (proc.stderr or proc.stdout or "").strip().splitlines()[-3:]
-        _log(f"install failed for {spec} (exit {proc.returncode}): {' | '.join(tail)}")
-        return False
-    _log(f"installed {spec}")
-    return True
+    ok, _ = _run_install(_install_cmd(spec, sys.executable), spec)
+    return ok
 
 
 def ensure_package(import_name: str, *, purpose: str = "") -> ModuleType | None:
@@ -185,34 +218,67 @@ def _venv_python() -> Path:
     return _VENV_DIR / "bin" / "python"
 
 
+# Import name that must be loadable in the venv after the convert extra installs.
+# Both `convert` and `convert-full` extras pull in markitdown (see pyproject.toml).
+_VENV_VERIFY_IMPORT = "markitdown"
+
+
+def _verify_venv_import(venv_python: str, import_name: str) -> bool:
+    """Confirm ``import_name`` actually imports under the venv interpreter.
+
+    Mirrors ``ensure_package``'s retry-import check: a zero exit code from the
+    installer does not prove the package is importable, so probe it directly.
+    """
+    cmd = [venv_python, "-c", f"import {import_name}"]
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=_IMPORT_PROBE_TIMEOUT)
+    except subprocess.TimeoutExpired:
+        _log(f"import check timed out after {_IMPORT_PROBE_TIMEOUT}s: {import_name}")
+        return False
+    except Exception as e:  # pragma: no cover - defensive
+        _log(f"import check error for {import_name}: {e}")
+        return False
+    if proc.returncode != 0:
+        tail = (proc.stderr or proc.stdout or "").strip().splitlines()[-3:]
+        _log(f"import check failed for {import_name}: {' | '.join(tail)}")
+        return False
+    return True
+
+
 def bootstrap_environment(extra: str = "convert") -> dict:
     """Create the project ``.venv`` and install ``.[extra]`` into it.
 
-    Returns a status dict. Used by ``cli bootstrap --venv``.
+    Returns a status dict. Used by ``cli bootstrap --venv``. ``installed`` is only
+    True once the converter package is confirmed importable under the venv
+    interpreter — a zero install exit code with a broken import reports failure.
     """
     result = {"venv": str(_VENV_DIR), "created": False, "installed": False, "error": None}
-    use_uv = bool(shutil.which("uv"))
+    venv_python = str(_venv_python())
     if not _VENV_DIR.exists():
-        cmd = (
-            ["uv", "venv", str(_VENV_DIR)]
-            if use_uv
-            else [sys.executable, "-m", "venv", str(_VENV_DIR)]
-        )
+        if shutil.which("uv"):
+            cmd = ["uv", "venv", str(_VENV_DIR)]
+        else:
+            cmd = [sys.executable, "-m", "venv", str(_VENV_DIR)]
         _log(f"creating venv: {' '.join(cmd)}")
-        proc = subprocess.run(cmd, capture_output=True, text=True)
+        try:
+            proc = subprocess.run(cmd, capture_output=True, text=True, timeout=_INSTALL_TIMEOUT)
+        except subprocess.TimeoutExpired:
+            result["error"] = f"venv creation timed out after {_INSTALL_TIMEOUT}s"
+            return result
         if proc.returncode != 0:
             result["error"] = f"venv creation failed: {(proc.stderr or proc.stdout).strip()[:300]}"
             return result
         result["created"] = True
     target = f".[{extra}]"
-    if use_uv:
-        cmd = ["uv", "pip", "install", "--python", str(_venv_python()), target]
-    else:
-        cmd = [str(_venv_python()), "-m", "pip", "install", target]
-    _log(f"installing {target} into venv: {' '.join(cmd)}")
-    proc = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_REPO_ROOT))
-    if proc.returncode != 0:
-        result["error"] = f"install failed: {(proc.stderr or proc.stdout).strip()[:300]}"
+    ok, detail = _run_install(_install_cmd(target, venv_python), target, cwd=str(_REPO_ROOT))
+    if not ok:
+        result["error"] = f"install failed: {detail}"
+        return result
+    if not _verify_venv_import(venv_python, _VENV_VERIFY_IMPORT):
+        result["error"] = (
+            f"install reported success but '{_VENV_VERIFY_IMPORT}' is not importable "
+            f"under {venv_python}"
+        )
         return result
     result["installed"] = True
     return result
