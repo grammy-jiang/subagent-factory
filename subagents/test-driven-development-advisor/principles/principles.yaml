@@ -1,0 +1,709 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Design a Value Object by setting state at creation and never changing
+    it, returning a new object from every operation and implementing equality (and
+    usually hashing), to defeat the aliasing problem; address allocation performance
+    only with realistic data, usage, profiling, and actual complaints.
+  derived_from_claims:
+  - C00036
+  - C00037
+  - C00038
+  - C00039
+  - C00040
+  - C00181
+  - C00182
+  - C00183
+  - C00184
+  confidence: high
+  applies_when:
+  - the object's identity is unimportant and it is widely shared
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Follow the red-green-refactor cycle: write a small failing test, make
+    it pass as quickly as possible even with expedient code, then remove all introduced
+    duplication; run all tests after each small change.'
+  derived_from_claims:
+  - C00004
+  - C00005
+  - C00006
+  - C00007
+  - C00008
+  - C00011
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: 'Keep tests fully isolated: they must not affect one another, must be
+    fast enough to run yourself often, and should be sought at a smaller scale than
+    the whole application, which forces a highly cohesive, loosely coupled design.'
+  derived_from_claims:
+  - C00103
+  - C00104
+  - C00105
+  - C00106
+  - C00107
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Attack dependency by removing its symptom, duplication — including duplication
+    between test data and code — before writing the next test, so the next test passes
+    with a single change.
+  derived_from_claims:
+  - C00028
+  - C00029
+  - C00030
+  - C00031
+  - C00032
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Choose a get-to-green strategy deliberately — Fake It (return a constant,
+    then replace with variables), Obvious Implementation (type the real code when
+    confident and quick), or Triangulation (generalize only with two or more examples)
+    — and downshift to Fake It on an unexpected red bar, reserving Triangulation for
+    when you are unsure how to refactor.
+  derived_from_claims:
+  - C00042
+  - C00043
+  - C00044
+  - C00045
+  - C00046
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: Do not implement all tests at once; instead, in pure TDD stay never more
+    than one change from green, writing newly-implied tests and refactorings onto
+    the list and handling every leftover item at session end while never deferring
+    a test you suspect might fail.
+  derived_from_claims:
+  - C00112
+  - C00113
+  - C00114
+  - C00115
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: Drive abstraction conservatively with Triangulation once two or more
+    examples demand it, reserving it for when you are very unsure of the abstraction
+    and otherwise typing the Obvious Implementation while downshifting to smaller
+    steps when red bars surprise you.
+  derived_from_claims:
+  - C00160
+  - C00161
+  - C00162
+  - C00163
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: 'Eliminate duplication structurally: introduce factory methods to decouple
+    clients from concrete subclasses, reconcile near-duplicate methods to a common
+    supertype, and push identical members up into a superclass.'
+  derived_from_claims:
+  - C00053
+  - C00054
+  - C00055
+  - C00056
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: Never change real model code without a supporting test; the conservative
+    response to a red bar is to back out to green, write the test, fix, and reapply
+    — though writing a little code without a test first is acceptable for immediately-visible
+    low-risk output or while already on a red bar, and prefer not to author a new
+    test while red.
+  derived_from_claims:
+  - C00063
+  - C00064
+  - C00065
+  - C00067
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Before coding, write down a list of all the tests you know you will need
+    — examples of every operation, null or degenerate versions of operations that
+    do not yet exist, and the refactorings needed for clean code — rather than holding
+    it in your head, and never take a step without knowing where your foot will land.
+  derived_from_claims:
+  - C00108
+  - C00109
+  - C00110
+  - C00111
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Test an object that depends on an expensive or complicated resource with
+    a Mock Object that returns constants, gaining performance, reliability, readability,
+    and lower coupling, while mitigating the risk of divergence with a shared test
+    set run against both mock and real object.
+  derived_from_claims:
+  - C00140
+  - C00141
+  - C00142
+  - C00143
+  confidence: high
+  applies_when:
+  - the real resource is slow, fragile, or hard to set up
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: End a solo session by leaving the last test broken as a concrete bookmark,
+    but on a team end with all tests passing, always making every test pass before
+    check-in and never commenting out a test to make the suite pass.
+  derived_from_claims:
+  - C00151
+  - C00152
+  - C00153
+  - C00154
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: 'Use application-level tests to capture what users actually want, while
+    accepting their fixturing and organizational challenges: establish red-green-refactor
+    in your own practice first, keep programmer-level TDD for immediate green bars
+    and simpler design, and spread the practice afterward.'
+  derived_from_claims:
+  - C00220
+  - C00221
+  - C00222
+  - C00223
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: When adopting TDD on a legacy codebase, do not test and refactor the
+    whole system at once; limit the scope of changes, leave working-but-ugly parts
+    alone, and break the test/refactoring deadlock with other feedback such as a careful
+    partner and imperfect system-level tests.
+  derived_from_claims:
+  - C00224
+  - C00225
+  - C00226
+  confidence: high
+  applies_when:
+  - introducing TDD into a large legacy codebase
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: Treat a red bar as concrete progress; in the green phase aim only to
+    pass the test, then generalize a limited implementation before moving to the next
+    test.
+  derived_from_claims:
+  - C00025
+  - C00026
+  - C00027
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Integrate at each passing test with duplication removed to shorten CI
+    cycles to roughly 15 to 30 minutes, achieving simple design by coding only what
+    the tests need and removing all duplication, while a growing test suite lets you
+    attempt more aggressive large-scale refactorings.
+  derived_from_claims:
+  - C00239
+  - C00240
+  - C00241
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Work in small increments with each test covering a tiny slice of functionality,
+    taking smaller steps the harder the problem while retaining the ability to take
+    larger steps.
+  derived_from_claims:
+  - C00009
+  - C00010
+  - C00033
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Start from the simplest failing test, imagining the ideal interface and
+    working backward from that API.
+  derived_from_claims:
+  - C00018
+  - C00019
+  - C00020
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: Reach green with Fake It (return a constant, then transform into a real
+    expression), since having something green is better than nothing and a green bar
+    gives certainty and scope control by letting you generalize from one concrete
+    example.
+  derived_from_claims:
+  - C00157
+  - C00158
+  - C00159
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Test rarely-invoked error code deliberately with a Crash Test Dummy that
+    throws instead of doing real work, overriding just the one method needed to keep
+    the test readable, because untested code does not work.
+  derived_from_claims:
+  - C00148
+  - C00149
+  - C00150
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Automate result-checking with specific boolean assertions that remove
+    all human judgment, putting the expected value first in equality assertions and
+    asserting observable behavior rather than implementation details so a test survives
+    a representation change.
+  derived_from_claims:
+  - C00166
+  - C00167
+  - C00168
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Balance test performance against test isolation, and prevent test coupling
+    — run each test in a fresh instance with freshly created objects so one failure
+    means one problem and tests stay order-independent.
+  derived_from_claims:
+  - C00090
+  - C00091
+  - C00092
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Write a test's assertions first and work backward to create the setup
+    they require, building a system from the stories you want to tell, a feature from
+    the tests it should pass, and a test from the asserts that should pass — which
+    separates 'what is the right answer?' and 'how will I check it?' from the other
+    problems.
+  derived_from_claims:
+  - C00118
+  - C00119
+  - C00120
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: Choose test data that makes the test easy to read for a future human,
+    making any difference between values meaningful and never using the same constant
+    to mean more than one thing so a reversed-argument bug cannot hide.
+  derived_from_claims:
+  - C00121
+  - C00123
+  - C00125
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: When a test turns out too big, write a smaller child test for the broken
+    part, get it running, then reintroduce the larger test, first pausing to learn
+    what would have made it smaller; maintaining the rhythm and minimizing time at
+    a red bar is worth extra effort.
+  derived_from_claims:
+  - C00137
+  - C00138
+  - C00139
+  confidence: high
+  applies_when:
+  - a test requires several changes at once to pass
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Represent each test case as a method named with a 'test' prefix whose
+    remaining name explains why it exists, keeping test methods short, readable, straight-line
+    code and outlining test categories that become documentation of the class contract.
+  derived_from_claims:
+  - C00173
+  - C00174
+  - C00175
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Use a Template Method written entirely in terms of other methods to express
+    an invariant sequence while allowing subclass refinement, declaring a substep
+    abstract when the computation is meaningless without it, and discovering templates
+    through refactoring rather than up-front design before moving them to the superclass.
+  derived_from_claims:
+  - C00186
+  - C00187
+  - C00188
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Unify two similar pieces of code by gradually bringing them closer and
+    merging only when absolutely identical, applying this at every scale (loops, conditional
+    branches, methods, classes) and sometimes working backward by making the last
+    step trivial.
+  derived_from_claims:
+  - C00203
+  - C00205
+  - C00206
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: 'Design for testability: compose the system from many highly cohesive,
+    loosely coupled components, demand a development environment with rapid response,
+    and grow the design organically from running-code feedback.'
+  derived_from_claims:
+  - C00013
+  - C00014
+  - C00016
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: 'Verify assumptions pragmatically: write a small test for unfamiliar
+    language or library behavior, allow a refactoring''s private helper to rely on
+    existing tests, and use a quick suboptimal implementation to get running before
+    improving it with real usage data.'
+  derived_from_claims:
+  - C00074
+  - C00075
+  - C00076
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Factor common fixture setup into setUp() when readers cannot easily remember
+    it but keep it inline when top-to-bottom readability matters more, making each
+    distinct fixture its own TestCase subclass created and discarded per use; there
+    is no one-to-one mapping between test and model classes.
+  derived_from_claims:
+  - C00169
+  - C00170
+  - C00171
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Implement a Composite as an Imposter for its components through a shared
+    interface; the real-world conceptual disconnect is usually worth the code simplification,
+    and Composites and Imposters are discovered by eliminating duplication.
+  derived_from_claims:
+  - C00195
+  - C00196
+  - C00197
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Write production code only in response to a currently failing automated
+    test, and continuously eliminate duplication; these are the two core rules of
+    TDD.
+  derived_from_claims:
+  - C00002
+  - C00003
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Make it work first and make it clean second; quick green excuses expedient
+    code only until the refactor step completes.
+  derived_from_claims:
+  - C00034
+  - C00035
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: 'Treat TDD as a steering process with no single right step size: bigger
+    steps when confident, smaller steps when unsure.'
+  derived_from_claims:
+  - C00060
+  - C00087
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Replace explicit class checks with polymorphism, promoting a shared method
+    onto a common interface so dispatch eliminates casts and class checks.
+  derived_from_claims:
+  - C00071
+  - C00072
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Keep a redundant test if removing it would reduce confidence or if it
+    communicates a distinct scenario, deleting the less useful one only when it is
+    redundant on both confidence and communication.
+  derived_from_claims:
+  - C00057
+  - C00217
+  confidence: high
+  applies_when:
+  - two tests are redundant for both confidence and communication
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: 'Focus on one mode at a time: while adding functionality only try to
+    pass a test, and while refactoring only try to get the design right, which yields
+    a ''rapid unhurriedness'' where steady one-thing-at-a-time progress turns out
+    to be fast.'
+  derived_from_claims:
+  - C00242
+  - C00243
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Generalize code that works for one instance to many by replacing constants
+    with variables, relying on TDD's concrete running examples rather than abstract
+    reasoning.
+  derived_from_claims:
+  - C00083
+  - C00084
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Build a clean fixture in setUp() before each test, favoring simplicity
+    of test writing over raw performance, and simplify a test to stop checking something
+    only when another test reliably covers it.
+  derived_from_claims:
+  - C00093
+  - C00094
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Write the test before the code it tests, using test-first primarily as
+    a design and scope-control tool rather than after-the-fact verification.
+  derived_from_claims:
+  - C00116
+  - C00117
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Pick the next test as one that will teach you something and that you
+    are confident you can implement, growing the program from the known toward the
+    unknown.
+  derived_from_claims:
+  - C00126
+  - C00127
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Start with a degenerate Starter Test whose output equals its input and
+    whose input is as small as possible, keeping the red-green-refactor loop to minutes
+    by choosing trivially easy inputs and outputs.
+  derived_from_claims:
+  - C00128
+  - C00129
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: Introduce variation by adding a new implementation of an existing protocol
+    (Imposter) rather than conditional logic, adding an if-statement only when there
+    is one obvious place and no duplicated logic.
+  derived_from_claims:
+  - C00193
+  - C00194
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: Use Extract Method to turn part of a long method into a well-named method
+    and Inline Method to collapse twisted control flow or reel yourself back from
+    over-abstraction.
+  derived_from_claims:
+  - C00210
+  - C00211
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
