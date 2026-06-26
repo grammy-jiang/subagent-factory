@@ -4,22 +4,47 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P14
-  - P15
+  - P008
+  - P009
+  - P012
+  - P021
+  - P025
+  - P031
+  - P033
+  - P044
+  - P046
   claims:
-  - C015
-  - C016
-  - C017
-  - C018
+  - C00173
+  - C00174
+  - C00175
+  - C00176
+  - C01008
+  - C01009
+  - C00183
+  - C00184
+  - C00185
+  - C00186
+  - C01047
+  - C01048
   evidence:
-  - E015
-  - E016
-  - E017
-  - E018
+  - E00076
+  - E00077
+  - E00078
+  - E00079
+  - E00287
+  - E00288
+  - E00084
+  - E00085
+  - E00086
+  - E00087
+  - E00297
+  - E00298
   source_anchors:
-  - python-distilled-pea-1baf485f-h0018
-  - python-distilled-pea-1baf485f-h0101
-  authored_from_digest: e1117bf7502dcd8ba4882c20ef68a413ca14fb96ff5ea2ebd62a647c186e9e4e
+  - 5c81071aa988-c0012
+  - 2bf219904a5b-c0014
+  - 5c81071aa988-c0013
+  - 2bf219904a5b-c0017
+  authored_from_digest: d87d45d31c66fc97bb9094b664e6c17e9c0d814c425d950a10fda2bb03a11099
 ---
 
 # Review resource and exception handling

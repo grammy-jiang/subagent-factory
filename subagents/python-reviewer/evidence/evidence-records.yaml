@@ -1,240 +1,3876 @@
 schema_version: evidence-records-v1
 evidence_records:
-- evidence_id: E001
-  claim_id: C001
+- evidence_id: E00001
+  claim_id: C00001
   source_ids:
-  - luciano-ramalho-flue-ca307a52
+  - luciano-ramalho-flue-5c81071a
   source_anchors:
-  - luciano-ramalho-flue-ca307a52-h0033
+  - 5c81071aa988-c0002
   support_granularity: section
-  evidence_type: explanation
-  evidence_strength: strong
-  support_level: entailed
-  confidence: high
-  quote_allowed: false
-  limitations: Core framing of the data model; the canonical idiomatic-Python rationale.
-- evidence_id: E002
-  claim_id: C002
-  source_ids:
-  - luciano-ramalho-flue-ca307a52
-  source_anchors:
-  - luciano-ramalho-flue-ca307a52-h0033
-  support_granularity: section
-  evidence_type: explanation
-  evidence_strength: strong
-  support_level: entailed
-  confidence: high
-  quote_allowed: false
-  limitations: Direct paraphrase of the Language Reference warning quoted in the source.
-- evidence_id: E003
-  claim_id: C003
-  source_ids:
-  - luciano-ramalho-flue-ca307a52
-  source_anchors:
-  - luciano-ramalho-flue-ca307a52-h0883
-  support_granularity: section
-  evidence_type: explanation
-  evidence_strength: strong
-  support_level: entailed
-  confidence: high
-  quote_allowed: false
-  limitations: Author states checking for None is the only common correct use of `is`; hedge preserved.
-- evidence_id: E004
-  claim_id: C004
-  source_ids:
-  - luciano-ramalho-flue-ca307a52
-  source_anchors:
-  - luciano-ramalho-flue-ca307a52-c0895
-  support_granularity: section
-  evidence_type: case
-  evidence_strength: strong
-  support_level: entailed
-  confidence: high
-  quote_allowed: false
-  limitations: Demonstrated with a worked list-copy example; condition on immutable items preserved.
-- evidence_id: E005
-  claim_id: C005
-  source_ids:
-  - luciano-ramalho-flue-ca307a52
-  source_anchors:
-  - luciano-ramalho-flue-ca307a52-h0813
-  support_granularity: section
-  evidence_type: explanation
-  evidence_strength: strong
-  support_level: entailed
-  confidence: high
-  quote_allowed: false
-  limitations: Drawn from Fowler's Data Class smell as reproduced in the source; exceptions (scaffolding/IR)
-    preserved.
-- evidence_id: E006
-  claim_id: C006
-  source_ids:
-  - luciano-ramalho-flue-ca307a52
-  source_anchors:
-  - luciano-ramalho-flue-ca307a52-c0920
-  support_granularity: section
-  evidence_type: case
-  evidence_strength: strong
-  support_level: entailed
-  confidence: high
-  quote_allowed: false
-  limitations: Demonstrated with the HauntedBus aliasing example; widely-replicated Python pitfall.
-- evidence_id: E007
-  claim_id: C007
-  source_ids:
-  - luciano-ramalho-flue-ca307a52
-  source_anchors:
-  - luciano-ramalho-flue-ca307a52-h0115
-  support_granularity: section
-  evidence_type: explanation
+  evidence_type: expert
   evidence_strength: moderate
   support_level: entailed
-  confidence: high
+  confidence: medium
   quote_allowed: false
-  limitations: Author's stated rule of thumb on comprehension abuse and readability; hedge preserved.
-- evidence_id: E008
-  claim_id: C008
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00002
+  claim_id: C00002
   source_ids:
-  - python-distilled-pea-1baf485f
+  - luciano-ramalho-flue-5c81071a
   source_anchors:
-  - python-distilled-pea-1baf485f-h0207
-  support_granularity: section
-  evidence_type: explanation
-  evidence_strength: strong
-  support_level: entailed
-  confidence: high
-  quote_allowed: false
-  limitations: Author's explicit is-a vs has-a decision rule for inheritance.
-- evidence_id: E009
-  claim_id: C009
-  source_ids:
-  - python-distilled-pea-1baf485f
-  source_anchors:
-  - python-distilled-pea-1baf485f-h0210
-  support_granularity: section
-  evidence_type: case
-  evidence_strength: strong
-  support_level: entailed
-  confidence: high
-  quote_allowed: false
-  limitations: Demonstrated with the udict/UserDict example; built-in C methods bypass overrides.
-- evidence_id: E010
-  claim_id: C010
-  source_ids:
-  - python-distilled-pea-1baf485f
-  source_anchors:
-  - python-distilled-pea-1baf485f-h0214
+  - 5c81071aa988-c0002
   support_granularity: section
   evidence_type: explanation
   evidence_strength: moderate
   support_level: entailed
   confidence: medium
   quote_allowed: false
-  limitations: Conceptual statement of dynamic binding; 'program to the protocol' is a reasonable inference
-    within scope.
-- evidence_id: E011
-  claim_id: C011
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00003
+  claim_id: C00003
   source_ids:
-  - python-distilled-pea-1baf485f
+  - luciano-ramalho-flue-5c81071a
   source_anchors:
-  - python-distilled-pea-1baf485f-h0221
+  - 5c81071aa988-c0002
+  support_granularity: section
+  evidence_type: expert
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00004
+  claim_id: C00004
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0003
   support_granularity: section
   evidence_type: explanation
-  evidence_strength: strong
+  evidence_strength: moderate
   support_level: entailed
   confidence: high
   quote_allowed: false
-  limitations: Direct account of the underscore conventions and name mangling.
-- evidence_id: E012
-  claim_id: C012
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00005
+  claim_id: C00005
   source_ids:
-  - python-distilled-pea-1baf485f
+  - luciano-ramalho-flue-5c81071a
   source_anchors:
-  - python-distilled-pea-1baf485f-h0221
+  - 5c81071aa988-c0003
   support_granularity: section
   evidence_type: explanation
-  evidence_strength: strong
+  evidence_strength: moderate
   support_level: entailed
   confidence: high
   quote_allowed: false
-  limitations: Author advocates properties over get/set for uniform access; computed read-only example
-    given.
-- evidence_id: E013
-  claim_id: C013
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00006
+  claim_id: C00006
   source_ids:
-  - python-distilled-pea-1baf485f
+  - luciano-ramalho-flue-5c81071a
   source_anchors:
-  - python-distilled-pea-1baf485f-h0260
+  - 5c81071aa988-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00007
+  claim_id: C00007
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00008
+  claim_id: C00008
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0003
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00009
+  claim_id: C00009
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0003
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00010
+  claim_id: C00010
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00011
+  claim_id: C00011
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00012
+  claim_id: C00012
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00013
+  claim_id: C00013
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00014
+  claim_id: C00016
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00015
+  claim_id: C00018
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00016
+  claim_id: C00022
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0004
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00017
+  claim_id: C00023
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0004
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00018
+  claim_id: C00024
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0004
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00019
+  claim_id: C00025
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0004
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00020
+  claim_id: C00027
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0004
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00021
+  claim_id: C00028
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0004
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00022
+  claim_id: C00029
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0004
   support_granularity: section
   evidence_type: explanation
   evidence_strength: moderate
   support_level: entailed
   confidence: medium
   quote_allowed: false
-  limitations: Benefits and the inheritance/__dict__ trade-offs both stated by the source.
-- evidence_id: E014
-  claim_id: C014
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00023
+  claim_id: C00031
   source_ids:
-  - python-distilled-pea-1baf485f
+  - luciano-ramalho-flue-5c81071a
   source_anchors:
-  - python-distilled-pea-1baf485f-h0280
+  - 5c81071aa988-c0004
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00024
+  claim_id: C00036
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0004
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00025
+  claim_id: C00037
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0004
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00026
+  claim_id: C00040
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0005
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00027
+  claim_id: C00041
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0005
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00028
+  claim_id: C00042
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0005
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00029
+  claim_id: C00043
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0005
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00030
+  claim_id: C00044
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0005
   support_granularity: section
   evidence_type: expert
   evidence_strength: moderate
   support_level: entailed
   confidence: high
   quote_allowed: false
-  limitations: Author's closing design advice ('Keep It Simple'); expert judgment rather than empirical
-    study.
-- evidence_id: E015
-  claim_id: C015
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00031
+  claim_id: C00045
   source_ids:
-  - python-distilled-pea-1baf485f
+  - luciano-ramalho-flue-5c81071a
   source_anchors:
-  - python-distilled-pea-1baf485f-h0018
-  support_granularity: section
-  evidence_type: explanation
-  evidence_strength: strong
-  support_level: entailed
-  confidence: high
-  quote_allowed: false
-  limitations: Author recommends the with statement so close() cannot be forgotten.
-- evidence_id: E016
-  claim_id: C016
-  source_ids:
-  - python-distilled-pea-1baf485f
-  source_anchors:
-  - python-distilled-pea-1baf485f-h0101
-  support_granularity: section
-  evidence_type: explanation
-  evidence_strength: strong
-  support_level: entailed
-  confidence: high
-  quote_allowed: false
-  limitations: Author's first exception rule of thumb; condition on no-local-recovery preserved.
-- evidence_id: E017
-  claim_id: C017
-  source_ids:
-  - python-distilled-pea-1baf485f
-  source_anchors:
-  - python-distilled-pea-1baf485f-h0101
-  support_granularity: section
-  evidence_type: explanation
-  evidence_strength: strong
-  support_level: entailed
-  confidence: high
-  quote_allowed: false
-  limitations: Author warns that except Exception hides programming errors.
-- evidence_id: E018
-  claim_id: C018
-  source_ids:
-  - python-distilled-pea-1baf485f
-  source_anchors:
-  - python-distilled-pea-1baf485f-h0101
+  - 5c81071aa988-c0005
   support_granularity: section
   evidence_type: explanation
   evidence_strength: moderate
   support_level: entailed
   confidence: high
   quote_allowed: false
-  limitations: Author recommends custom exception types to attribute blame.
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00032
+  claim_id: C00046
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0005
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00033
+  claim_id: C00047
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0005
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00034
+  claim_id: C00048
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0005
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00035
+  claim_id: C00063
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00036
+  claim_id: C00064
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00037
+  claim_id: C00065
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00038
+  claim_id: C00066
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00039
+  claim_id: C00075
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00040
+  claim_id: C00078
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00041
+  claim_id: C00085
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00042
+  claim_id: C00086
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00043
+  claim_id: C00088
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00044
+  claim_id: C00089
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00045
+  claim_id: C00090
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00046
+  claim_id: C00091
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00047
+  claim_id: C00092
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00048
+  claim_id: C00093
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00049
+  claim_id: C00096
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00050
+  claim_id: C00097
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00051
+  claim_id: C00098
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00052
+  claim_id: C00099
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00053
+  claim_id: C00100
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0008
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00054
+  claim_id: C00103
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0008
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00055
+  claim_id: C00107
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0008
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00056
+  claim_id: C00110
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0008
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00057
+  claim_id: C00129
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0009
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00058
+  claim_id: C00130
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0009
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00059
+  claim_id: C00131
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0009
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00060
+  claim_id: C00132
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0009
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00061
+  claim_id: C00139
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00062
+  claim_id: C00140
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00063
+  claim_id: C00141
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00064
+  claim_id: C00142
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00065
+  claim_id: C00147
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00066
+  claim_id: C00148
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00067
+  claim_id: C00149
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00068
+  claim_id: C00150
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00069
+  claim_id: C00153
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00070
+  claim_id: C00154
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00071
+  claim_id: C00155
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00072
+  claim_id: C00156
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00073
+  claim_id: C00157
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00074
+  claim_id: C00158
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00075
+  claim_id: C00159
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00076
+  claim_id: C00173
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00077
+  claim_id: C00174
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00078
+  claim_id: C00175
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00079
+  claim_id: C00176
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00080
+  claim_id: C00177
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00081
+  claim_id: C00178
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00082
+  claim_id: C00179
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00083
+  claim_id: C00180
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00084
+  claim_id: C00183
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0013
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00085
+  claim_id: C00184
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0013
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00086
+  claim_id: C00185
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0013
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00087
+  claim_id: C00186
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0013
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00088
+  claim_id: C00196
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0014
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00089
+  claim_id: C00197
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0014
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00090
+  claim_id: C00198
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0014
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00091
+  claim_id: C00199
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0014
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00092
+  claim_id: C00207
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0015
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00093
+  claim_id: C00208
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0015
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00094
+  claim_id: C00209
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0015
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00095
+  claim_id: C00210
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0015
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00096
+  claim_id: C00223
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0016
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00097
+  claim_id: C00224
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0016
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00098
+  claim_id: C00225
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0016
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00099
+  claim_id: C00226
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0016
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00100
+  claim_id: C00236
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0017
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00101
+  claim_id: C00237
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0017
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00102
+  claim_id: C00238
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0017
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00103
+  claim_id: C00239
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0017
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00104
+  claim_id: C00240
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0017
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00105
+  claim_id: C00241
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0017
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00106
+  claim_id: C00244
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0018
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00107
+  claim_id: C00245
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0018
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00108
+  claim_id: C00246
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0018
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00109
+  claim_id: C00248
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0018
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00110
+  claim_id: C00249
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0018
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00111
+  claim_id: C00254
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0018
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00112
+  claim_id: C00255
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0018
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00113
+  claim_id: C00257
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0019
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00114
+  claim_id: C00258
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0019
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00115
+  claim_id: C00259
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0019
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00116
+  claim_id: C00260
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0019
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00117
+  claim_id: C00268
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0020
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00118
+  claim_id: C00269
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0020
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00119
+  claim_id: C00270
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0020
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00120
+  claim_id: C00271
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0020
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00121
+  claim_id: C00278
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0021
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00122
+  claim_id: C00279
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0021
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00123
+  claim_id: C00282
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0021
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00124
+  claim_id: C00283
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0021
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00125
+  claim_id: C00290
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0022
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00126
+  claim_id: C00291
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0022
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00127
+  claim_id: C00292
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0022
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00128
+  claim_id: C00293
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0022
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00129
+  claim_id: C00307
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0024
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00130
+  claim_id: C00308
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0024
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00131
+  claim_id: C00309
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0024
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00132
+  claim_id: C00310
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0024
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00133
+  claim_id: C00320
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0025
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00134
+  claim_id: C00321
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0025
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00135
+  claim_id: C00322
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0025
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00136
+  claim_id: C00323
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0025
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00137
+  claim_id: C00325
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0026
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00138
+  claim_id: C00328
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0026
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00139
+  claim_id: C00334
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0027
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00140
+  claim_id: C00336
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0027
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00141
+  claim_id: C00339
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0028
+  support_granularity: section
+  evidence_type: expert
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00142
+  claim_id: C00340
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0028
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00143
+  claim_id: C00342
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0028
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00144
+  claim_id: C00343
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0028
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00145
+  claim_id: C00348
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0029
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00146
+  claim_id: C00349
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0029
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00147
+  claim_id: C00350
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0029
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00148
+  claim_id: C00351
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0029
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00149
+  claim_id: C00369
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0031
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00150
+  claim_id: C00370
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0031
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00151
+  claim_id: C00371
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0031
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00152
+  claim_id: C00379
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0032
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00153
+  claim_id: C00380
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0032
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00154
+  claim_id: C00381
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0032
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00155
+  claim_id: C00382
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0032
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00156
+  claim_id: C00383
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0032
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00157
+  claim_id: C00386
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0033
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00158
+  claim_id: C00390
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0033
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00159
+  claim_id: C00393
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0033
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00160
+  claim_id: C00395
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0034
+  support_granularity: section
+  evidence_type: expert
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00161
+  claim_id: C00396
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0034
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00162
+  claim_id: C00399
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0034
+  support_granularity: section
+  evidence_type: expert
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00163
+  claim_id: C00402
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0034
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00164
+  claim_id: C00404
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0035
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00165
+  claim_id: C00405
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0035
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00166
+  claim_id: C00406
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0035
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00167
+  claim_id: C00407
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0035
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00168
+  claim_id: C00412
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0036
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00169
+  claim_id: C00413
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0036
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00170
+  claim_id: C00414
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0036
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00171
+  claim_id: C00415
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0036
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00172
+  claim_id: C00416
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0036
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00173
+  claim_id: C00420
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0037
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00174
+  claim_id: C00421
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0037
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00175
+  claim_id: C00424
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0037
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00176
+  claim_id: C00425
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0037
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00177
+  claim_id: C00426
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0037
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00178
+  claim_id: C00427
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0037
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00179
+  claim_id: C00428
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0037
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00180
+  claim_id: C00430
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0038
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00181
+  claim_id: C00431
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0038
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00182
+  claim_id: C00432
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0038
+  support_granularity: section
+  evidence_type: expert
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00183
+  claim_id: C00433
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0038
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00184
+  claim_id: C00434
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0038
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00185
+  claim_id: C00435
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0038
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00186
+  claim_id: C00437
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0038
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00187
+  claim_id: C00438
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0038
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00188
+  claim_id: C00485
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0045
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00189
+  claim_id: C00486
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0045
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00190
+  claim_id: C00487
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0045
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00191
+  claim_id: C00488
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0045
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00192
+  claim_id: C00489
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0045
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00193
+  claim_id: C00490
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0045
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00194
+  claim_id: C00491
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0045
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00195
+  claim_id: C00493
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0046
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00196
+  claim_id: C00497
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0046
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00197
+  claim_id: C00498
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0047
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00198
+  claim_id: C00499
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0047
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00199
+  claim_id: C00502
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0047
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00200
+  claim_id: C00503
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0048
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00201
+  claim_id: C00513
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0049
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00202
+  claim_id: C00514
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0049
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00203
+  claim_id: C00515
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0049
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00204
+  claim_id: C00517
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0050
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00205
+  claim_id: C00597
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0062
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00206
+  claim_id: C00598
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0062
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00207
+  claim_id: C00601
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0062
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00208
+  claim_id: C00602
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0062
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00209
+  claim_id: C00603
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0063
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00210
+  claim_id: C00605
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0063
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00211
+  claim_id: C00617
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0065
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00212
+  claim_id: C00618
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0065
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00213
+  claim_id: C00619
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0065
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00214
+  claim_id: C00620
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0065
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00215
+  claim_id: C00632
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0067
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00216
+  claim_id: C00635
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0068
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00217
+  claim_id: C00640
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0068
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00218
+  claim_id: C00646
+  source_ids:
+  - luciano-ramalho-flue-5c81071a
+  source_anchors:
+  - 5c81071aa988-c0069
+  support_granularity: section
+  evidence_type: expert
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00219
+  claim_id: C00677
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0001
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00220
+  claim_id: C00678
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0001
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00221
+  claim_id: C00679
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0001
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00222
+  claim_id: C00682
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0001
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00223
+  claim_id: C00690
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0001
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00224
+  claim_id: C00692
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0001
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00225
+  claim_id: C00693
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0001
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00226
+  claim_id: C00712
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0002
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00227
+  claim_id: C00721
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0002
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00228
+  claim_id: C00722
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0002
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00229
+  claim_id: C00723
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0002
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00230
+  claim_id: C00734
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0002
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00231
+  claim_id: C00737
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0002
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00232
+  claim_id: C00738
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0002
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00233
+  claim_id: C00749
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0003
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00234
+  claim_id: C00751
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00235
+  claim_id: C00752
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00236
+  claim_id: C00756
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00237
+  claim_id: C00758
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00238
+  claim_id: C00759
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00239
+  claim_id: C00761
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00240
+  claim_id: C00762
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00241
+  claim_id: C00763
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00242
+  claim_id: C00764
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0003
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00243
+  claim_id: C00816
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0005
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00244
+  claim_id: C00817
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0005
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00245
+  claim_id: C00818
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0005
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00246
+  claim_id: C00839
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00247
+  claim_id: C00840
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00248
+  claim_id: C00841
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00249
+  claim_id: C00842
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00250
+  claim_id: C00843
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00251
+  claim_id: C00849
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0006
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00252
+  claim_id: C00850
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00253
+  claim_id: C00858
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00254
+  claim_id: C00859
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0006
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00255
+  claim_id: C00877
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00256
+  claim_id: C00878
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00257
+  claim_id: C00890
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00258
+  claim_id: C00891
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0007
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00259
+  claim_id: C00907
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0008
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00260
+  claim_id: C00909
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0008
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00261
+  claim_id: C00913
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0009
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00262
+  claim_id: C00915
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0009
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00263
+  claim_id: C00934
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0010
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00264
+  claim_id: C00935
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00265
+  claim_id: C00945
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00266
+  claim_id: C00946
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00267
+  claim_id: C00947
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00268
+  claim_id: C00948
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0010
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00269
+  claim_id: C00953
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00270
+  claim_id: C00954
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00271
+  claim_id: C00955
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00272
+  claim_id: C00956
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00273
+  claim_id: C00957
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0011
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00274
+  claim_id: C00958
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00275
+  claim_id: C00963
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00276
+  claim_id: C00964
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00277
+  claim_id: C00965
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0011
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00278
+  claim_id: C00974
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00279
+  claim_id: C00975
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00280
+  claim_id: C00976
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00281
+  claim_id: C00977
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00282
+  claim_id: C00980
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00283
+  claim_id: C00981
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0012
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00284
+  claim_id: C00997
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0013
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00285
+  claim_id: C00998
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0013
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00286
+  claim_id: C00999
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0014
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00287
+  claim_id: C01008
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0014
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00288
+  claim_id: C01009
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0014
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00289
+  claim_id: C01020
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0015
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00290
+  claim_id: C01021
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0015
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00291
+  claim_id: C01023
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0015
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00292
+  claim_id: C01028
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0015
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00293
+  claim_id: C01029
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0016
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00294
+  claim_id: C01030
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0016
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00295
+  claim_id: C01031
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0016
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00296
+  claim_id: C01032
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0016
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00297
+  claim_id: C01047
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0017
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.
+- evidence_id: E00298
+  claim_id: C01048
+  source_ids:
+  - python-distilled-pea-2bf21990
+  source_anchors:
+  - 2bf219904a5b-c0017
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Distilled paraphrase; bound to a chunk-level (paragraph) anchor.

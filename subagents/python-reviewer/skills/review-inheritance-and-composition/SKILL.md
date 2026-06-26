@@ -4,18 +4,42 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P07
-  - P08
+  - P005
+  - P006
+  - P018
+  - P024
+  - P032
   claims:
-  - C008
-  - C009
+  - C00379
+  - C00380
+  - C00381
+  - C00382
+  - C00955
+  - C00956
+  - C00957
+  - C00383
+  - C00386
+  - C00390
+  - C00393
+  - C00953
   evidence:
-  - E008
-  - E009
+  - E00152
+  - E00153
+  - E00154
+  - E00155
+  - E00271
+  - E00272
+  - E00273
+  - E00156
+  - E00157
+  - E00158
+  - E00159
+  - E00269
   source_anchors:
-  - python-distilled-pea-1baf485f-h0207
-  - python-distilled-pea-1baf485f-h0210
-  authored_from_digest: 9e3ed78a414316c0a029b45ab99c2f5ce5fcf57ecd99729c753f6ce9cdd24a28
+  - 5c81071aa988-c0032
+  - 2bf219904a5b-c0011
+  - 5c81071aa988-c0033
+  authored_from_digest: 63b3053176c3a00b9024703280c2fffa6eab194f812c0fd257cab8a38c48c965
 ---
 
 # Review inheritance and composition

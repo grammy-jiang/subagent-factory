@@ -4,14 +4,42 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P04
+  - P023
+  - P026
+  - P048
   claims:
-  - C006
+  - C00236
+  - C00237
+  - C00238
+  - C00849
+  - C00850
+  - C00088
+  - C00089
+  - C00090
+  - C00749
+  - C00207
+  - C00208
+  - C00209
   evidence:
-  - E006
+  - E00100
+  - E00101
+  - E00102
+  - E00251
+  - E00252
+  - E00043
+  - E00044
+  - E00045
+  - E00233
+  - E00092
+  - E00093
+  - E00094
   source_anchors:
-  - luciano-ramalho-flue-ca307a52-c0920
-  authored_from_digest: 9065909f74b6d45ec8ac94a6f3fa293f55d064261bcda661946296689fd0eefe
+  - 5c81071aa988-c0017
+  - 2bf219904a5b-c0006
+  - 5c81071aa988-c0007
+  - 2bf219904a5b-c0003
+  - 5c81071aa988-c0015
+  authored_from_digest: 79b1ca0e2ec5dbd31ccd4d4d9a4e9be5fb2a99d9c394591310c82a7e8ed9eb31
 ---
 
 # Review mutable default arguments

@@ -1,256 +1,1154 @@
 schema_version: principles-v1
 principles:
-- principle_id: P01
-  statement: Integrate objects with the language through the documented special (dunder) methods and let
-    built-ins like `len()`, `iter()`, and operators dispatch to them; never invent undocumented `__dunder__`
-    names.
+- principle_id: P001
+  statement: Build sequences with list comprehensions or generator expressions instead
+    of manual append loops or map/filter when the goal is to construct a new sequence,
+    because comprehensions read more clearly; keep each comprehension short (a few
+    lines) and doing one thing, and remember it has its own local scope.
   derived_from_claims:
-  - C001
-  - C002
+  - C00027
+  - C00028
+  - C00029
+  - C00031
+  - C00682
+  - C00756
+  - C00758
+  - C00759
   confidence: high
-  applies_when:
-  - a class needs to support iteration, operators, len(), subscripting, or with-blocks
-  does_not_apply_when:
-  - the code only uses plain functions and needs no integration with language protocols
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-comprehension-style
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P001
+- principle_id: P002
+  statement: Prefer a generator expression (parentheses) over a list comprehension
+    when you only iterate the result, for large memory and performance wins, remembering
+    it is single-use, is not a sequence (not indexable, no list methods), is materialized
+    with list(), and may drop its parentheses when it is a function's sole argument.
+  derived_from_claims:
+  - C00036
+  - C00037
+  - C00040
+  - C00761
+  - C00762
+  - C00763
+  - C00764
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-comprehension-style
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P002
+- principle_id: P003
+  statement: Implement container behavior with the container special methods (__len__,
+    __getitem__, __setitem__, __delitem__, __contains__), where slicing passes a slice
+    object as the key and an extended or multidimensional slice passes a tuple of
+    slice and Ellipsis objects (multidimensional slicing and Ellipsis being reserved
+    for third-party libraries such as numpy).
+  derived_from_claims:
+  - C00430
+  - C00431
+  - C00432
+  - C00433
+  - C00839
+  - C00840
+  - C00841
+  confidence: high
+  applies_when: []
   operational_mapping:
     profile_rule: true
     skill: review-special-methods-and-data-model
     reference: python-special-methods-reference
     test_cases:
-    - PB-P01
-- principle_id: P02
-  statement: Use `==` for value comparison and reserve `is` for identity against singletons — chiefly
-    `x is None` — flagging any other `is` comparison and defaulting to `==` when unsure.
+    - PB-P003
+- principle_id: P004
+  statement: 'Adopt gradual typing: add type hints incrementally where they pay off
+    (public APIs, complex data shapes), run a static checker such as Mypy in CI, and
+    remember that hints have no runtime effect — they neither validate nor coerce
+    values unless you add explicit runtime checks.'
   derived_from_claims:
-  - C003
+  - C00307
+  - C00308
+  - C00309
+  - C00310
+  - C00858
+  - C00859
+  - C00945
   confidence: high
-  applies_when:
-  - code compares objects for equality or tests against None or a sentinel
-  does_not_apply_when:
-  - identity comparison against a documented singleton is exactly what is intended
-  operational_mapping:
-    profile_rule: true
-    skill: review-equality-identity-and-copies
-    reference: null
-    test_cases:
-    - PB-P02
-- principle_id: P03
-  statement: Treat `list(x)`, `x[:]`, and `copy.copy` as shallow copies that still share nested mutable
-    elements, and require `copy.deepcopy` (or an explicit deep clone) wherever independent nested copies
-    are needed.
-  derived_from_claims:
-  - C004
-  confidence: high
-  applies_when:
-  - code copies a container that holds mutable elements and then mutates a copy
-  does_not_apply_when:
-  - the container's items are all immutable so sharing references is harmless
-  operational_mapping:
-    profile_rule: true
-    skill: review-equality-identity-and-copies
-    reference: null
-    test_cases:
-    - PB-P03
-- principle_id: P04
-  statement: Flag any mutable default argument (e.g. `def f(x=[])`); require `None` as the default with
-    the object built inside the function, because a default is evaluated once and shared across calls.
-  derived_from_claims:
-  - C006
-  confidence: high
-  applies_when:
-  - a function or method signature uses a list, dict, set, or other mutable as a default value
-  does_not_apply_when:
-  - the default value is immutable (None, a number, a string, a tuple, or a frozen type)
-  operational_mapping:
-    profile_rule: true
-    skill: review-mutable-default-arguments
-    reference: null
-    test_cases:
-    - PB-P04
-- principle_id: P05
-  statement: Flag a class that is only data with getters/setters and no behaviour as a Data Class smell
-    and recommend moving the related behaviour into it — unless it is deliberate scaffolding or an immutable
-    intermediate representation crossing a boundary.
-  derived_from_claims:
-  - C005
-  confidence: high
-  applies_when:
-  - a class exposes fields and accessors but no significant behaviour, and logic over it lives elsewhere
-  does_not_apply_when:
-  - the class is short-lived scaffolding or an immutable record used only to import/export data (e.g.
-    JSON)
-  operational_mapping:
-    profile_rule: true
-    skill: review-class-design-smells
-    reference: null
-    test_cases:
-    - PB-P05
-- principle_id: P06
-  statement: Prefer short, side-effect-free comprehensions and generator expressions over `map`/`filter`
-    or accumulation loops, but recommend a plain loop or named generator function once a comprehension
-    grows past a couple of lines or exists only for side effects.
-  derived_from_claims:
-  - C007
-  confidence: high
-  applies_when:
-  - code builds a list, dict, or set, or uses map/filter, or runs a comprehension for its side effects
-  does_not_apply_when:
-  - the existing comprehension is short, pure, and already the most readable form
-  operational_mapping:
-    profile_rule: true
-    skill: review-comprehension-style
-    reference: null
-    test_cases:
-    - PB-P06
-- principle_id: P07
-  statement: Recommend inheritance only for a genuine is-a specialization; when an object merely uses
-    another as a component, prefer composition and delegation for looser coupling and hidden implementation
-    detail.
-  derived_from_claims:
-  - C008
-  confidence: high
-  applies_when:
-  - a design uses (or proposes) subclassing to reuse another class's functionality
-  does_not_apply_when:
-  - the subclass is a true behavioural specialization of its parent (is-a)
-  operational_mapping:
-    profile_rule: true
-    skill: review-inheritance-and-composition
-    reference: null
-    test_cases:
-    - PB-P07
-- principle_id: P08
-  statement: Flag subclassing of built-in `dict`, `list`, or `str` because their C-level methods bypass
-    overridden dunder methods; recommend `collections.UserDict`/`UserList`/`UserString` or composition
-    instead.
-  derived_from_claims:
-  - C009
-  confidence: high
-  applies_when:
-  - code subclasses a built-in container or string type and overrides its dunder methods
-  does_not_apply_when:
-  - no built-in type is being subclassed, or the standard User* base classes are already used
-  operational_mapping:
-    profile_rule: true
-    skill: review-inheritance-and-composition
-    reference: null
-    test_cases:
-    - PB-P08
-- principle_id: P09
-  statement: 'Favour duck typing: have code depend on the attributes and methods (the protocol) an object
-    supports rather than on its concrete class or an explicit type check.'
-  derived_from_claims:
-  - C010
-  confidence: medium
-  applies_when:
-  - code performs isinstance/type checks that could instead rely on the object's protocol
-  does_not_apply_when:
-  - a genuine type guard is required for correctness, safety, or dispatch
+  applies_when: []
   operational_mapping:
     profile_rule: true
     skill: review-duck-typing-and-protocols
     reference: null
     test_cases:
-    - PB-P09
-- principle_id: P10
-  statement: Use a single leading underscore to signal an internal attribute (a convention, not enforcement)
-    and reserve double-underscore name-mangling for avoiding attribute clashes across inheritance, not
-    as a general privacy mechanism.
+    - PB-P004
+- principle_id: P005
+  statement: 'Understand the Method Resolution Order (__mro__): a linear search order
+    computed by C3 linearization in which a child precedes its parents and parents
+    keep their written order (inconsistent hierarchies raise TypeError and object
+    is last), where super() delegates to the next class on the instance''s MRO so
+    which method runs depends on the instance''s type.'
   derived_from_claims:
-  - C011
+  - C00379
+  - C00380
+  - C00381
+  - C00382
+  - C00955
+  - C00956
+  - C00957
   confidence: high
-  applies_when:
-  - a class exposes internal state and the review concerns naming/encapsulation conventions
-  does_not_apply_when:
-  - the attribute is genuinely part of the public interface
+  applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-encapsulation-and-properties
-    reference: null
+    skill: review-inheritance-and-composition
+    reference: pythonic-review-checklist
     test_cases:
-    - PB-P10
-- principle_id: P11
-  statement: Discourage Java-style get/set method pairs; expose plain attributes and introduce `@property`
-    only for validation or computed/read-only values, preserving a uniform attribute-access interface.
+    - PB-P005
+- principle_id: P006
+  statement: 'Treat multiple inheritance as a specialized tool for organizing type
+    and interface relations or mixins rather than combining unrelated classes: name
+    a mixin with a Mixin suffix, have it call super() and rely on a sibling for missing
+    behavior, give cooperating mixins a common parent with default implementations,
+    keep mixin-method signatures compatible, and always use super() so the cooperative
+    call chain is not broken.'
   derived_from_claims:
-  - C012
+  - C00383
+  - C00386
+  - C00390
+  - C00393
+  - C00953
+  - C00954
+  - C00958
   confidence: high
-  applies_when:
-  - a class adds explicit getX/setX methods, or needs validation or a computed attribute
-  does_not_apply_when:
-  - a property already exists where validation or computation is genuinely required
+  applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-encapsulation-and-properties
+    skill: review-inheritance-and-composition
     reference: null
     test_cases:
-    - PB-P11
-- principle_id: P12
-  statement: Recommend `__slots__` only as a targeted memory optimization for classes instantiated in
-    large numbers with a fixed attribute set, and call out its trade-offs with inheritance and loss of
-    `__dict__`.
+    - PB-P006
+- principle_id: P007
+  statement: 'Exploit Python''s slicing semantics deliberately: slices exclude the
+    stop index (so ranges line up and split cleanly), slice objects can be named and
+    reused, and assigning to a slice mutates a list in place; reach for these instead
+    of manual element-by-element copying.'
   derived_from_claims:
-  - C013
-  confidence: medium
-  applies_when:
-  - a class is instantiated in very large numbers with a fixed, known set of attributes
-  does_not_apply_when:
-  - instance counts are small, attributes are dynamic, or the class relies on inheritance or __dict__
+  - C00075
+  - C00078
+  - C00085
+  - C00086
+  - C00751
+  - C00752
+  confidence: high
+  applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-slots-and-memory
+    skill: review-special-methods-and-data-model
     reference: null
     test_cases:
-    - PB-P12
-- principle_id: P13
-  statement: Hold designs to the simplest construct that works — a plain class ahead of metaclasses, descriptors,
-    multiple inheritance, or mixins — and treat code that is hard to read, observe, debug, or test as
-    a signal to reorganize.
+    - PB-P007
+- principle_id: P008
+  statement: Handle text at I/O boundaries by decoding all input and encoding all
+    output with an explicit encoding such as 'utf-8', selecting an errors policy ('strict'
+    raising UnicodeError by default, or alternatives like 'surrogateescape' that round-trip
+    malformed bytes where the encoding cannot be guaranteed).
   derived_from_claims:
-  - C014
+  - C00173
+  - C00174
+  - C00175
+  - C00176
+  - C01008
+  - C01009
   confidence: high
-  applies_when:
-  - a design reaches for advanced metaprogramming or deep abstraction layers
-  does_not_apply_when:
-  - the advanced construct is genuinely required and a simpler form was shown to be insufficient
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-resource-and-exception-handling
+    reference: null
+    test_cases:
+    - PB-P008
+- principle_id: P009
+  statement: Normalize Unicode (for example to NFC) before comparing, indexing, keying,
+    or storing user-supplied text, and use str.casefold for case-insensitive matching,
+    because the same visible text can be different code-point sequences (composed
+    versus decomposed) that compare unequal.
+  derived_from_claims:
+  - C00183
+  - C00184
+  - C00185
+  - C00186
+  - C01047
+  - C01048
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-resource-and-exception-handling
+    reference: null
+    test_cases:
+    - PB-P009
+- principle_id: P010
+  statement: Compare values with == (which calls __eq__) and identity with is / is
+    not, reserving is for singletons such as None; since x == y can be true while
+    x is y is false, never use is to test value equality and never assume two equal
+    objects are the same object.
+  derived_from_claims:
+  - C00223
+  - C00224
+  - C00225
+  - C00226
+  - C00737
+  - C00738
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-equality-identity-and-copies
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P010
+- principle_id: P011
+  statement: Understand that assignment creates a new reference (not a copy) and a
+    shallow copy such as list(a) still shares the nested mutable objects, so use copy.deepcopy
+    when you need a fully independent clone — but reserve it for that, as deep copies
+    are slow and can fail or recurse on cyclic objects or objects holding system/runtime
+    state.
+  derived_from_claims:
+  - C00239
+  - C00240
+  - C00241
+  - C00816
+  - C00817
+  - C00818
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-equality-identity-and-copies
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P011
+- principle_id: P012
+  statement: Do not rely on __del__ for resource cleanup, since objects are reclaimed
+    by reference counting plus cyclic GC at times you do not control (a reference
+    cycle can prevent it firing); instead provide an explicit close() method with
+    context-manager support, and use weakref to break cycles or hold caches and back-references.
+  derived_from_claims:
+  - C00244
+  - C00245
+  - C00246
+  - C00963
+  - C00964
+  - C00965
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-resource-and-exception-handling
+    reference: null
+    test_cases:
+    - PB-P012
+- principle_id: P013
+  statement: Treat functions as first-class objects — pass them as arguments, return
+    them, and store them — and use higher-order functions and closures (a function
+    plus the environment it remembers) to parameterise behaviour, callbacks, and lazy/deferred
+    evaluation instead of duplicating control flow.
+  derived_from_claims:
+  - C00248
+  - C00249
+  - C00254
+  - C00255
+  - C00877
+  - C00878
+  confidence: high
+  applies_when: []
   operational_mapping:
     profile_rule: true
     skill: review-class-design-smells
     reference: null
     test_cases:
-    - PB-P13
-- principle_id: P14
-  statement: Require resources such as files, locks, and connections to be managed with `with`/context
-    managers rather than manual open/close so cleanup is guaranteed on every path, including errors.
+    - PB-P013
+- principle_id: P014
+  statement: Replace map/filter with list or generator comprehensions and replace
+    functools.reduce with purpose-built built-ins (sum, any, all, math.prod) for readability,
+    and reserve lambda for tiny anonymous functions passed as arguments, never for
+    code that deserves a name.
   derived_from_claims:
-  - C015
+  - C00257
+  - C00258
+  - C00259
+  - C00260
+  - C00890
+  - C00891
   confidence: high
-  applies_when:
-  - code acquires a file, lock, socket, or other resource that must be released
-  does_not_apply_when:
-  - the resource is already managed by a with-statement or an equivalent context manager
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-comprehension-style
+    reference: null
+    test_cases:
+    - PB-P014
+- principle_id: P015
+  statement: Use __slots__ (listing the fixed instance attribute names) to replace
+    the per-instance __dict__ with a compact layout for substantial memory savings
+    when many instances are created, while being mindful that a slotted base's subclass
+    must also define __slots__, that it is incompatible with multiple nonempty-slot
+    bases, and that it removes the instance __dict__.
+  derived_from_claims:
+  - C00412
+  - C00413
+  - C00414
+  - C00415
+  - C00974
+  - C00975
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-slots-and-memory
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P015
+- principle_id: P016
+  statement: 'Implement __iter__ as a generator function (a function containing yield)
+    instead of writing a separate iterator class with __next__: the generator is a
+    factory that returns a stateful iterator automatically and needs far less code.'
+  derived_from_claims:
+  - C00489
+  - C00490
+  - C00491
+  - C00842
+  - C00843
+  - C00915
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: python-special-methods-reference
+    test_cases:
+    - PB-P016
+- principle_id: P017
+  statement: Use a property to intercept attribute access through getter, setter,
+    and deleter methods for validation or computation without changing code that uses
+    the attribute, store the backing value under a different private name to avoid
+    infinite recursion, and use read-only computed properties (such as a shape's area)
+    for a uniform attribute interface with no trailing ().
+  derived_from_claims:
+  - C00602
+  - C00603
+  - C00605
+  - C00946
+  - C00947
+  - C00948
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-encapsulation-and-properties
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P017
+- principle_id: P018
+  statement: Use a descriptor (a class-level object implementing __get__, __set__,
+    or __delete__, with __set_name__ for its attribute name) to reuse attribute-access
+    logic, knowing properties and methods are built on this mechanism and that a data
+    descriptor with __set__ overrides the instance __dict__ while a __get__-only method
+    descriptor yields only when the dict has no matching entry.
+  derived_from_claims:
+  - C00617
+  - C00618
+  - C00619
+  - C00620
+  - C00976
+  - C00977
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-inheritance-and-composition
+    reference: null
+    test_cases:
+    - PB-P018
+- principle_id: P019
+  statement: Recognize that a class is itself an object created by a metaclass (type
+    by default, selected with the metaclass keyword or inherited from the first base's
+    type and propagating to subclasses), but reserve metaclasses for control that
+    must occur during class creation (such as setting __slots__ from the __init__
+    signature) and otherwise prefer __init_subclass__, class decorators, descriptors,
+    or mixins.
+  derived_from_claims:
+  - C00632
+  - C00635
+  - C00640
+  - C00646
+  - C00980
+  - C00981
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-class-design-smells
+    reference: null
+    test_cases:
+    - PB-P019
+- principle_id: P020
+  statement: Always implement __repr__ to give a developer-facing, unambiguous representation
+    (ideally one that looks like a constructor call that recreates the object), and
+    implement __str__ only when users need a different readable form; __repr__ is
+    the fallback used when __str__ is absent.
+  derived_from_claims:
+  - C00008
+  - C00009
+  - C00010
+  - C00011
+  - C00712
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: python-special-methods-reference
+    test_cases:
+    - PB-P020
+- principle_id: P021
+  statement: 'Handle missing dictionary keys intentionally rather than with try/except
+    or pre-checks: use dict.get(key, default) for reads, dict.setdefault for insert-or-update
+    in one lookup, collections.defaultdict for auto-created defaults, or override
+    __missing__ in a dict subclass for custom behaviour.'
+  derived_from_claims:
+  - C00129
+  - C00130
+  - C00131
+  - C00132
+  - C00690
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-resource-and-exception-handling
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P021
+- principle_id: P022
+  statement: 'Remember that dict and set are backed by hash tables: keys and members
+    must be hashable, lookups and membership tests are fast, iteration follows insertion
+    order (dict, since 3.7), and you must not add or remove keys while iterating over
+    the same dict or set.'
+  derived_from_claims:
+  - C00153
+  - C00154
+  - C00155
+  - C00156
+  - C00693
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-slots-and-memory
+    reference: null
+    test_cases:
+    - PB-P022
+- principle_id: P023
+  statement: Never use a mutable object (list, dict, set) as a default parameter value,
+    because the single default is shared across all calls and accumulates state; use
+    None as the sentinel default and create the fresh mutable object inside the function
+    body.
+  derived_from_claims:
+  - C00236
+  - C00237
+  - C00238
+  - C00849
+  - C00850
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-mutable-default-arguments
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P023
+- principle_id: P024
+  statement: Do not subclass the built-in types dict, list, or str directly, because
+    their C-level methods bypass your overridden special methods; subclass collections.UserDict,
+    UserList, or UserString (or an appropriate ABC) when you must, or build a new
+    class by composition instead.
+  derived_from_claims:
+  - C00369
+  - C00370
+  - C00371
+  - C00934
+  - C00935
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-inheritance-and-composition
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P024
+- principle_id: P025
+  statement: Manage paired setup and teardown with the with statement and the context-manager
+    protocol (__enter__/__exit__), build a context manager from a single-yield generator
+    with @contextlib.contextmanager (wrapping the yield in try/finally), and check
+    contextlib for ready-made tools (closing, suppress, ExitStack) before writing
+    your own.
+  derived_from_claims:
+  - C00513
+  - C00514
+  - C00515
+  - C00517
+  - C00913
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-resource-and-exception-handling
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P025
+- principle_id: P026
+  statement: Do not build repeated or nested sequences with the * operator when the
+    elements are mutable, because s*n duplicates references to the SAME object so
+    all copies share it; build independent copies with a comprehension such as [[]
+    for _ in range(n)] or [list(a) for _ in range(n)].
+  derived_from_claims:
+  - C00088
+  - C00089
+  - C00090
+  - C00749
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-mutable-default-arguments
+    reference: null
+    test_cases:
+    - PB-P026
+- principle_id: P027
+  statement: Understand that augmented assignment (+=, *=) mutates a mutable target
+    in place (via __iadd__/__imul__) so every other reference observes the change,
+    but rebinds an immutable target to a new object; this explains why += on a list
+    inside a tuple both mutates and raises, so avoid putting mutable items in tuples.
+  derived_from_claims:
+  - C00091
+  - C00092
+  - C00093
+  - C00734
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-equality-identity-and-copies
+    reference: null
+    test_cases:
+    - PB-P027
+- principle_id: P028
+  statement: Treat dict views (keys(), values(), items()) as live windows over the
+    dict that also support set-like operations; iterate them directly rather than
+    snapshotting into a list unless you specifically need a stable copy.
+  derived_from_claims:
+  - C00157
+  - C00158
+  - C00159
+  - C00692
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-encapsulation-and-properties
+    reference: null
+    test_cases:
+    - PB-P028
+- principle_id: P029
+  statement: Use yield from to delegate iteration to a sub-iterable (handy for recursively
+    flattening nested iterables), but rewrite a deeply recursive generator with an
+    explicit stack of iterators to avoid the recursion limit.
+  derived_from_claims:
+  - C00502
+  - C00503
+  - C00907
+  - C00909
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-comprehension-style
+    reference: null
+    test_cases:
+    - PB-P029
+- principle_id: P030
+  statement: Use __getattr__ (invoked only when normal lookup fails) to build read-only
+    façades over nested data and to compute attributes on demand, but raise AttributeError
+    for genuinely missing names rather than leaking the backing store's exception,
+    and beware that generating attribute names from external data can shadow methods.
+  derived_from_claims:
+  - C00434
+  - C00435
+  - C00437
+  - C00438
+  - C00597
+  - C00598
+  - C00601
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-encapsulation-and-properties
+    reference: null
+    test_cases:
+    - PB-P030
+- principle_id: P031
+  statement: Read and write files knowing read()/readline() signal EOF with an empty
+    string (readline keeps the newline), write()/writelines() add no newline, and
+    a for loop iterates lines; redirect output with the print() keyword arguments
+    end, sep, and file, and use sys.stdin/stdout/stderr (reassignable, with input()
+    dropping the trailing newline).
+  derived_from_claims:
+  - C00677
+  - C00678
+  - C00679
+  - C01020
+  - C01021
+  - C01023
+  confidence: high
+  applies_when: []
   operational_mapping:
     profile_rule: true
     skill: review-resource-and-exception-handling
     reference: null
     test_cases:
-    - PB-P14
-- principle_id: P15
-  statement: 'Hold exception handling to three rules: let an exception propagate when there is no sensible
-    local recovery, keep `except` clauses as narrow as reasonable instead of a blanket `except Exception`,
-    and define custom exception types for intentional errors.'
+    - PB-P031
+- principle_id: P032
+  statement: Build a package as a directory with an __init__.py that runs on import
+    (a missing __init__ makes a rarely-wanted namespace package, so always include
+    one), import within it using absolute or package-relative imports (relative only
+    in the from-form and only inside a package, preferred so the package name is not
+    hardwired), and run a submodule with python -m package.module since it cannot
+    be run directly.
   derived_from_claims:
-  - C016
-  - C017
-  - C018
+  - C00721
+  - C00722
+  - C00723
+  - C00997
+  - C00998
+  - C00999
   confidence: high
-  applies_when:
-  - code catches, raises, or re-raises exceptions, or uses try/except for control flow
-  does_not_apply_when:
-  - a deliberate top-level boundary intentionally catches broadly to log and shut down cleanly
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-inheritance-and-composition
+    reference: null
+    test_cases:
+    - PB-P032
+- principle_id: P033
+  statement: Recognize that I/O is fundamentally blocking (a call waits while nothing
+    else runs), so achieve concurrency with nonblocking I/O (setblocking(False) raising
+    BlockingIOError, though busy-spinning is clumsy), I/O polling (select/selectors,
+    the basis of asyncio), threads (OS-managed, where one blocking task does not block
+    others), or asyncio's event loop with async functions.
+  derived_from_claims:
+  - C01028
+  - C01029
+  - C01030
+  - C01031
+  - C01032
+  confidence: high
+  applies_when: []
   operational_mapping:
     profile_rule: true
     skill: review-resource-and-exception-handling
     reference: null
     test_cases:
-    - PB-P15
+    - PB-P033
+- principle_id: P034
+  statement: Integrate user-defined types with the Python Data Model by implementing
+    the special ("dunder") methods the interpreter and built-ins call, rather than
+    inventing ad-hoc named methods; this lets len(), subscripting, iteration, repr(),
+    formatting, and operators work on your objects the same way they do on built-in
+    types.
+  derived_from_claims:
+  - C00001
+  - C00002
+  - C00003
+  - C00004
+  confidence: high
+  applies_when:
+  - Designing a class that should behave like a built-in collection, number, or value
+    object.
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: python-special-methods-reference
+    test_cases:
+    - PB-P034
+- principle_id: P035
+  statement: Make custom collections honor the Collection API by implementing the
+    abstract behaviours of Sized, Iterable, and Container (__len__, __iter__, __contains__)
+    so that len(), iteration, and the in operator work without surprises.
+  derived_from_claims:
+  - C00012
+  - C00013
+  - C00016
+  - C00018
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: python-special-methods-reference
+    test_cases:
+    - PB-P035
+- principle_id: P036
+  statement: 'Choose the sequence type deliberately along two axes: container sequences
+    (hold references, can mix types) versus flat sequences (store packed values of
+    one type, more compact), and mutable versus immutable; pick by the data you hold
+    and whether it must change in place.'
+  derived_from_claims:
+  - C00022
+  - C00023
+  - C00024
+  - C00025
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: null
+    test_cases:
+    - PB-P036
+- principle_id: P037
+  statement: 'Learn the standard generator toolkit before writing your own: itertools
+    supplies filtering, mapping, merging, and combinatoric generators, and you must
+    bound the infinite generators (count, cycle, repeat) with islice or takewhile
+    before materialising them, or you will exhaust memory.'
+  derived_from_claims:
+  - C00493
+  - C00497
+  - C00498
+  - C00499
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-comprehension-style
+    reference: null
+    test_cases:
+    - PB-P037
+- principle_id: P038
+  statement: Emulate numeric types with the arithmetic and comparison special methods
+    (__add__, __mul__, __abs__, __bool__, etc.) so instances work with operators and
+    truth tests, and define __bool__ (or rely on __len__) so emptiness is reported
+    correctly.
+  derived_from_claims:
+  - C00004
+  - C00005
+  - C00006
+  - C00007
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: python-special-methods-reference
+    test_cases:
+    - PB-P038
+- principle_id: P039
+  statement: 'Use tuples for two distinct purposes and make the intent clear: as immutable
+    records where position carries meaning, and as immutable lists that are safer
+    and can be more efficient than lists; remember a tuple''s immutability is only
+    relative — it can still hold references to mutable objects.'
+  derived_from_claims:
+  - C00041
+  - C00042
+  - C00043
+  - C00044
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: null
+    test_cases:
+    - PB-P039
+- principle_id: P040
+  statement: Unpack sequences and iterables with parallel assignment, nested unpacking,
+    and the star target to grab excess items, instead of indexing element by element;
+    this is clearer and works for swapping, returning multiple values, and splitting
+    head/tail.
+  derived_from_claims:
+  - C00045
+  - C00046
+  - C00047
+  - C00048
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: null
+    test_cases:
+    - PB-P040
+- principle_id: P041
+  statement: Use match/case structural pattern matching to destructure and dispatch
+    on the shape of sequences and mappings (and class instances), which is clearer
+    and more extensible than chains of if/elif with manual indexing; bind sub-parts
+    with capture patterns and ignore the rest with the wildcard.
+  derived_from_claims:
+  - C00063
+  - C00064
+  - C00065
+  - C00066
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: null
+    test_cases:
+    - PB-P041
+- principle_id: P042
+  statement: Sort in place with list.sort (which returns None, signalling mutation)
+    and build a new sorted list from any iterable with the sorted built-in; control
+    ordering with the key function rather than custom comparison logic, and never
+    assign the result of list.sort.
+  derived_from_claims:
+  - C00096
+  - C00097
+  - C00098
+  - C00099
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: null
+    test_cases:
+    - PB-P042
+- principle_id: P043
+  statement: 'Reach for the specialised sequence types when a plain list is the wrong
+    tool: array.array for large homogeneous numeric data, memoryview for zero-copy
+    slices of binary buffers, collections.deque for fast appends and pops at both
+    ends (and bounded queues), and NumPy/SciPy for numerical arrays.'
+  derived_from_claims:
+  - C00100
+  - C00103
+  - C00107
+  - C00110
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: null
+    test_cases:
+    - PB-P043
+- principle_id: P044
+  statement: 'Use the right dict variant for the job: collections.Counter for tallying,
+    ChainMap for layered namespaces, OrderedDict only when order-sensitive equality
+    or move_to_end is needed (plain dict already preserves insertion order), and subclass
+    collections.UserDict — not dict — when customising a mapping, to avoid surprises
+    from built-in method shortcuts.'
+  derived_from_claims:
+  - C00139
+  - C00140
+  - C00141
+  - C00142
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-resource-and-exception-handling
+    reference: null
+    test_cases:
+    - PB-P044
+- principle_id: P045
+  statement: Use set operations (union |, intersection &, difference -, symmetric
+    difference ^) and set/frozenset literals or comprehensions for fast membership
+    testing and deduplication instead of hand-written loops; use frozenset when you
+    need a hashable set (for example as a dict key or set member).
+  derived_from_claims:
+  - C00147
+  - C00148
+  - C00149
+  - C00150
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-comprehension-style
+    reference: null
+    test_cases:
+    - PB-P045
+- principle_id: P046
+  statement: Always pass an explicit encoding when opening text files or calling encode/decode
+    (default to UTF-8), and decide deliberately how to handle errors (the errors=
+    argument or a registered handler) and byte-order marks, rather than letting UnicodeEncodeError
+    or UnicodeDecodeError surface unpredictably.
+  derived_from_claims:
+  - C00177
+  - C00178
+  - C00179
+  - C00180
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-resource-and-exception-handling
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P046
+- principle_id: P047
+  statement: 'Prefer a data class builder over a hand-written boilerplate class when
+    an object is mostly a bundle of named fields: typing.NamedTuple or collections.namedtuple
+    for immutable records, and @dataclass for mutable ones, which generate __init__,
+    __repr__, and __eq__ and document the fields with type hints.'
+  derived_from_claims:
+  - C00196
+  - C00197
+  - C00198
+  - C00199
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-class-design-smells
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P047
+- principle_id: P048
+  statement: When using @dataclass, supply mutable field defaults only through field(default_factory=...)
+    (never a bare mutable default, which would be shared across instances), and put
+    cross-field validation or derived values in __post_init__.
+  derived_from_claims:
+  - C00207
+  - C00208
+  - C00209
+  - C00210
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-mutable-default-arguments
+    reference: null
+    test_cases:
+    - PB-P048
+- principle_id: P049
+  statement: Build small callables for sort keys and callbacks with the operator module
+    (itemgetter, attrgetter, methodcaller) and functools.partial to freeze arguments,
+    instead of writing throwaway lambdas that obscure intent.
+  derived_from_claims:
+  - C00268
+  - C00269
+  - C00270
+  - C00271
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-class-design-smells
+    reference: null
+    test_cases:
+    - PB-P049
+- principle_id: P050
+  statement: 'Understand decorator and closure mechanics: a decorator runs at import
+    or definition time and wraps or replaces the decorated function; a closure captures
+    free variables from its enclosing scope by reference, and rebinding such a variable
+    requires a nonlocal declaration.'
+  derived_from_claims:
+  - C00278
+  - C00279
+  - C00282
+  - C00283
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-class-design-smells
+    reference: null
+    test_cases:
+    - PB-P050
+- principle_id: P051
+  statement: Memoize pure, expensive functions with functools.cache or functools.lru_cache,
+    build configurable decorators as decorator factories (a function returning a decorator),
+    and apply functools.wraps inside a decorator to preserve the wrapped function's
+    name and docstring.
+  derived_from_claims:
+  - C00290
+  - C00291
+  - C00292
+  - C00293
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-class-design-smells
+    reference: null
+    test_cases:
+    - PB-P051
+- principle_id: P052
+  statement: Spell optional values as X | None (or Optional[X]) and avoid Any except
+    at genuine dynamic boundaries, since Any silently disables type checking; reach
+    for a precise Union or a Protocol before falling back to Any.
+  derived_from_claims:
+  - C00320
+  - C00321
+  - C00322
+  - C00323
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-duck-typing-and-protocols
+    reference: null
+    test_cases:
+    - PB-P052
+- principle_id: P053
+  statement: Parameterise generic containers and functions with TypeVar (bounded or
+    constrained where appropriate) instead of Any, so the type checker can relate
+    input and output types and catch mismatches; use the standard generic collection
+    and tuple notations (list[int], dict[k, v], tuple[x, ...]).
+  derived_from_claims:
+  - C00325
+  - C00328
+  - C00334
+  - C00336
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-duck-typing-and-protocols
+    reference: null
+    test_cases:
+    - PB-P053
+- principle_id: P054
+  statement: Define structural interfaces with typing.Protocol (static duck typing)
+    when you care about an object's behaviour rather than its base class, and mark
+    a protocol @runtime_checkable only for isinstance checks that test for the presence
+    of methods (not their signatures).
+  derived_from_claims:
+  - C00339
+  - C00340
+  - C00342
+  - C00343
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-duck-typing-and-protocols
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P054
+- principle_id: P055
+  statement: 'Program defensively and fail fast: validate inputs at the boundaries
+    and raise early with clear errors rather than letting bad data propagate to a
+    confusing failure later; rely on duck-typed behaviour but check the assumptions
+    whose violation would corrupt state.'
+  derived_from_claims:
+  - C00348
+  - C00349
+  - C00350
+  - C00351
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-duck-typing-and-protocols
+    reference: pythonic-review-checklist
+    test_cases:
+    - PB-P055
+- principle_id: P056
+  statement: Give every value object a useful __repr__ (plus __str__, __bytes__, and
+    __format__ where relevant), and provide alternative constructors as classmethods
+    rather than staticmethods so that subclasses construct instances of the correct
+    type.
+  derived_from_claims:
+  - C00395
+  - C00396
+  - C00399
+  - C00402
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: python-special-methods-reference
+    test_cases:
+    - PB-P056
+- principle_id: P057
+  statement: 'Make a type hashable only when it is effectively immutable: implement
+    __hash__ and __eq__ consistently so that equal objects hash equal, base the hash
+    on the same attributes used for equality, and expose those attributes as read-only.'
+  derived_from_claims:
+  - C00404
+  - C00405
+  - C00406
+  - C00407
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-equality-identity-and-copies
+    reference: null
+    test_cases:
+    - PB-P057
+- principle_id: P058
+  statement: Implement rich comparison consistently — pair __eq__ with __hash__ and
+    define ordering through __lt__ and friends — and use augmented-assignment dunders
+    (__iadd__, __imul__) so that += and *= mutate mutable types in place while immutable
+    types are rebound to new objects.
+  derived_from_claims:
+  - C00425
+  - C00426
+  - C00427
+  - C00428
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-equality-identity-and-copies
+    reference: null
+    test_cases:
+    - PB-P058
+- principle_id: P059
+  statement: 'Overload operators only between meaningful operand types and keep them
+    well-behaved: return NotImplemented (do not raise) for unsupported operands so
+    Python can try the reflected method, make unary and binary arithmetic operators
+    (-, +, *, ~) return new objects with no side effects, and provide reflected (__radd__)
+    and in-place (__iadd__) variants deliberately.'
+  derived_from_claims:
+  - C00416
+  - C00420
+  - C00421
+  - C00424
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: python-special-methods-reference
+    test_cases:
+    - PB-P059
+- principle_id: P060
+  statement: 'Keep iterables and iterators distinct: an iterable''s __iter__ must
+    return a fresh independent iterator on each call, while an iterator is consumed
+    after a single pass and its __iter__ returns self; never make a collection its
+    own iterator (do not add __next__ to it), or you break repeated and simultaneous
+    iteration.'
+  derived_from_claims:
+  - C00485
+  - C00486
+  - C00487
+  - C00488
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: review-special-methods-and-data-model
+    reference: python-special-methods-reference
+    test_cases:
+    - PB-P060

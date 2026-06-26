@@ -1,0 +1,889 @@
+{
+  "0": {
+    "action": "split",
+    "subgroups": [
+      [
+        0
+      ],
+      [
+        210
+      ]
+    ]
+  },
+  "1": {
+    "action": "split",
+    "subgroups": [
+      [
+        1,
+        143
+      ],
+      [
+        212
+      ]
+    ]
+  },
+  "4": {
+    "action": "split",
+    "subgroups": [
+      [
+        4,
+        119,
+        173
+      ],
+      [
+        5,
+        176
+      ],
+      [
+        17
+      ],
+      [
+        67
+      ],
+      [
+        254
+      ]
+    ]
+  },
+  "5": {
+    "action": "split",
+    "subgroups": [
+      [
+        6
+      ],
+      [
+        215
+      ]
+    ]
+  },
+  "6": {
+    "action": "split",
+    "subgroups": [
+      [
+        7
+      ],
+      [
+        120
+      ],
+      [
+        121
+      ],
+      [
+        125
+      ]
+    ]
+  },
+  "7": {
+    "action": "split",
+    "subgroups": [
+      [
+        8
+      ],
+      [
+        182
+      ]
+    ]
+  },
+  "9": {
+    "action": "split",
+    "subgroups": [
+      [
+        10,
+        170
+      ],
+      [
+        62,
+        218
+      ],
+      [
+        118
+      ],
+      [
+        171
+      ]
+    ]
+  },
+  "10": {
+    "action": "confirm",
+    "canonical": "Do not build repeated or nested sequences with the * operator when the elements are mutable, because s*n duplicates references to the SAME object so all copies share it; build independent copies with a comprehension such as [[] for _ in range(n)] or [list(a) for _ in range(n)]."
+  },
+  "11": {
+    "action": "confirm",
+    "canonical": "Understand that augmented assignment (+=, *=) mutates a mutable target in place (via __iadd__/__imul__) so every other reference observes the change, but rebinds an immutable target to a new object; this explains why += on a list inside a tuple both mutates and raises, so avoid putting mutable items in tuples."
+  },
+  "12": {
+    "action": "split",
+    "subgroups": [
+      [
+        13
+      ],
+      [
+        231
+      ]
+    ]
+  },
+  "15": {
+    "action": "split",
+    "subgroups": [
+      [
+        16,
+        124
+      ],
+      [
+        19,
+        127
+      ],
+      [
+        122
+      ],
+      [
+        123
+      ]
+    ]
+  },
+  "16": {
+    "action": "split",
+    "subgroups": [
+      [
+        18
+      ],
+      [
+        331
+      ]
+    ]
+  },
+  "17": {
+    "action": "split",
+    "subgroups": [
+      [
+        20
+      ],
+      [
+        89
+      ]
+    ]
+  },
+  "18": {
+    "action": "split",
+    "subgroups": [
+      [
+        21
+      ],
+      [
+        330
+      ],
+      [
+        153
+      ]
+    ]
+  },
+  "19": {
+    "action": "split",
+    "subgroups": [
+      [
+        22,
+        126
+      ],
+      [
+        172
+      ]
+    ]
+  },
+  "20": {
+    "action": "split",
+    "subgroups": [
+      [
+        23,
+        307
+      ],
+      [
+        24
+      ],
+      [
+        27
+      ]
+    ]
+  },
+  "21": {
+    "action": "confirm",
+    "canonical": "Normalize Unicode (for example to NFC) before comparing, indexing, keying, or storing user-supplied text, and use str.casefold for case-insensitive matching, because the same visible text can be different code-point sequences (composed versus decomposed) that compare unequal."
+  },
+  "26": {
+    "action": "confirm",
+    "canonical": "Compare values with == (which calls __eq__) and identity with is / is not, reserving is for singletons such as None; since x == y can be true while x is y is false, never use is to test value equality and never assume two equal objects are the same object."
+  },
+  "28": {
+    "action": "split",
+    "subgroups": [
+      [
+        33,
+        223
+      ],
+      [
+        222
+      ]
+    ]
+  },
+  "29": {
+    "action": "confirm",
+    "canonical": "Understand that assignment creates a new reference (not a copy) and a shallow copy such as list(a) still shares the nested mutable objects, so use copy.deepcopy when you need a fully independent clone — but reserve it for that, as deep copies are slow and can fail or recurse on cyclic objects or objects holding system/runtime state."
+  },
+  "30": {
+    "action": "confirm",
+    "canonical": "Do not rely on __del__ for resource cleanup, since objects are reclaimed by reference counting plus cyclic GC at times you do not control (a reference cycle can prevent it firing); instead provide an explicit close() method with context-manager support, and use weakref to break cycles or hold caches and back-references."
+  },
+  "31": {
+    "action": "confirm",
+    "canonical": "Treat functions as first-class objects — pass them as arguments, return them, and store them — and use higher-order functions and closures (a function plus the environment it remembers) to parameterise behaviour, callbacks, and lazy/deferred evaluation instead of duplicating control flow."
+  },
+  "32": {
+    "action": "split",
+    "subgroups": [
+      [
+        37,
+        246
+      ],
+      [
+        68
+      ]
+    ]
+  },
+  "33": {
+    "action": "split",
+    "subgroups": [
+      [
+        38
+      ],
+      [
+        239
+      ]
+    ]
+  },
+  "35": {
+    "action": "split",
+    "subgroups": [
+      [
+        40
+      ],
+      [
+        132
+      ],
+      [
+        232
+      ]
+    ]
+  },
+  "36": {
+    "action": "split",
+    "subgroups": [
+      [
+        41
+      ],
+      [
+        42
+      ],
+      [
+        245
+      ]
+    ]
+  },
+  "38": {
+    "action": "split",
+    "subgroups": [
+      [
+        44,
+        229,
+        275
+      ],
+      [
+        98
+      ]
+    ]
+  },
+  "42": {
+    "action": "split",
+    "subgroups": [
+      [
+        48
+      ],
+      [
+        203
+      ]
+    ]
+  },
+  "43": {
+    "action": "split",
+    "subgroups": [
+      [
+        49
+      ],
+      [
+        268
+      ],
+      [
+        279
+      ]
+    ]
+  },
+  "47": {
+    "action": "confirm",
+    "canonical": "Do not subclass the built-in types dict, list, or str directly, because their C-level methods bypass your overridden special methods; subclass collections.UserDict, UserList, or UserString (or an appropriate ABC) when you must, or build a new class by composition instead."
+  },
+  "48": {
+    "action": "split",
+    "subgroups": [
+      [
+        54,
+        281
+      ],
+      [
+        55,
+        280
+      ]
+    ]
+  },
+  "50": {
+    "action": "split",
+    "subgroups": [
+      [
+        57
+      ],
+      [
+        61
+      ]
+    ]
+  },
+  "51": {
+    "action": "split",
+    "subgroups": [
+      [
+        58
+      ],
+      [
+        140
+      ]
+    ]
+  },
+  "52": {
+    "action": "split",
+    "subgroups": [
+      [
+        59,
+        290
+      ],
+      [
+        286
+      ]
+    ]
+  },
+  "53": {
+    "action": "split",
+    "subgroups": [
+      [
+        60
+      ],
+      [
+        157
+      ],
+      [
+        213
+      ]
+    ]
+  },
+  "54": {
+    "action": "split",
+    "subgroups": [
+      [
+        63,
+        88
+      ],
+      [
+        289
+      ]
+    ]
+  },
+  "55": {
+    "action": "split",
+    "subgroups": [
+      [
+        64
+      ],
+      [
+        65,
+        219,
+        257
+      ]
+    ]
+  },
+  "57": {
+    "action": "split",
+    "subgroups": [
+      [
+        69,
+        253
+      ],
+      [
+        251
+      ]
+    ]
+  },
+  "59": {
+    "action": "split",
+    "subgroups": [
+      [
+        71,
+        256
+      ],
+      [
+        83
+      ]
+    ]
+  },
+  "61": {
+    "action": "split",
+    "subgroups": [
+      [
+        73
+      ],
+      [
+        79
+      ],
+      [
+        80
+      ],
+      [
+        82
+      ]
+    ]
+  },
+  "67": {
+    "action": "split",
+    "subgroups": [
+      [
+        81
+      ],
+      [
+        84
+      ],
+      [
+        249
+      ]
+    ]
+  },
+  "70": {
+    "action": "split",
+    "subgroups": [
+      [
+        87,
+        276
+      ],
+      [
+        91
+      ]
+    ]
+  },
+  "72": {
+    "action": "split",
+    "subgroups": [
+      [
+        92,
+        291
+      ],
+      [
+        270
+      ]
+    ]
+  },
+  "73": {
+    "action": "split",
+    "subgroups": [
+      [
+        220,
+        288
+      ],
+      [
+        93
+      ]
+    ]
+  },
+  "74": {
+    "action": "split",
+    "subgroups": [
+      [
+        95,
+        293
+      ],
+      [
+        94
+      ],
+      [
+        96
+      ],
+      [
+        97
+      ],
+      [
+        292
+      ]
+    ]
+  },
+  "77": {
+    "action": "confirm",
+    "canonical": "Treat variable, parameter, and return type annotations as readability hints only: they are ignored at runtime and never prevent assigning or passing a value of a different type, so do not rely on them for enforcement or safety."
+  },
+  "80": {
+    "action": "split",
+    "subgroups": [
+      [
+        104
+      ],
+      [
+        114
+      ]
+    ]
+  },
+  "81": {
+    "action": "split",
+    "subgroups": [
+      [
+        105,
+        162
+      ],
+      [
+        214
+      ]
+    ]
+  },
+  "84": {
+    "action": "confirm",
+    "canonical": "Because plain assignment is a statement, not an expression, use the walrus assignment expression := (wrapped in parentheses) to combine evaluation and assignment, typically inside an if or while test."
+  },
+  "85": {
+    "action": "split",
+    "subgroups": [
+      [
+        109,
+        183
+      ],
+      [
+        184
+      ]
+    ]
+  },
+  "90": {
+    "action": "split",
+    "subgroups": [
+      [
+        115
+      ],
+      [
+        207
+      ]
+    ]
+  },
+  "92": {
+    "action": "split",
+    "subgroups": [
+      [
+        117,
+        313
+      ],
+      [
+        312
+      ]
+    ]
+  },
+  "94": {
+    "action": "split",
+    "subgroups": [
+      [
+        129
+      ],
+      [
+        228
+      ]
+    ]
+  },
+  "95": {
+    "action": "confirm",
+    "canonical": "Return multiple values by packing them into a tuple the caller unpacks (or a NamedTuple when access by named attribute also aids readability), and return None when there is nothing to return."
+  },
+  "96": {
+    "action": "split",
+    "subgroups": [
+      [
+        133,
+        235
+      ],
+      [
+        236
+      ],
+      [
+        248
+      ]
+    ]
+  },
+  "98": {
+    "action": "split",
+    "subgroups": [
+      [
+        135
+      ],
+      [
+        186
+      ],
+      [
+        187
+      ],
+      [
+        188
+      ],
+      [
+        191
+      ],
+      [
+        192
+      ],
+      [
+        193
+      ],
+      [
+        197
+      ]
+    ]
+  },
+  "103": {
+    "action": "split",
+    "subgroups": [
+      [
+        141,
+        260
+      ],
+      [
+        259
+      ],
+      [
+        287
+      ]
+    ]
+  },
+  "104": {
+    "action": "confirm",
+    "canonical": "Treat a single leading underscore as a non-enforced convention marking a name as internal/protected (Python has no real data hiding, and a subclass may still use it), and a double leading underscore as triggering name mangling to _Classname__name; do not overthink privacy beyond this."
+  },
+  "105": {
+    "action": "split",
+    "subgroups": [
+      [
+        144
+      ],
+      [
+        263
+      ],
+      [
+        284
+      ]
+    ]
+  },
+  "106": {
+    "action": "split",
+    "subgroups": [
+      [
+        145,
+        265
+      ],
+      [
+        267
+      ]
+    ]
+  },
+  "107": {
+    "action": "split",
+    "subgroups": [
+      [
+        146,
+        295
+      ],
+      [
+        296
+      ],
+      [
+        297
+      ],
+      [
+        298
+      ]
+    ]
+  },
+  "108": {
+    "action": "split",
+    "subgroups": [
+      [
+        150,
+        302
+      ],
+      [
+        147
+      ]
+    ]
+  },
+  "109": {
+    "action": "split",
+    "subgroups": [
+      [
+        148
+      ],
+      [
+        301
+      ]
+    ]
+  },
+  "110": {
+    "action": "split",
+    "subgroups": [
+      [
+        149,
+        309
+      ],
+      [
+        224
+      ]
+    ]
+  },
+  "115": {
+    "action": "split",
+    "subgroups": [
+      [
+        159
+      ],
+      [
+        161
+      ]
+    ]
+  },
+  "116": {
+    "action": "split",
+    "subgroups": [
+      [
+        163
+      ],
+      [
+        209
+      ]
+    ]
+  },
+  "128": {
+    "action": "split",
+    "subgroups": [
+      [
+        181
+      ],
+      [
+        240
+      ]
+    ]
+  },
+  "129": {
+    "action": "split",
+    "subgroups": [
+      [
+        185
+      ],
+      [
+        189,
+        190
+      ]
+    ]
+  },
+  "130": {
+    "action": "split",
+    "subgroups": [
+      [
+        194
+      ],
+      [
+        196
+      ],
+      [
+        319
+      ]
+    ]
+  },
+  "140": {
+    "action": "split",
+    "subgroups": [
+      [
+        211
+      ],
+      [
+        258
+      ]
+    ]
+  },
+  "144": {
+    "action": "split",
+    "subgroups": [
+      [
+        225
+      ],
+      [
+        226
+      ]
+    ]
+  },
+  "145": {
+    "action": "split",
+    "subgroups": [
+      [
+        227
+      ],
+      [
+        244
+      ]
+    ]
+  },
+  "154": {
+    "action": "split",
+    "subgroups": [
+      [
+        252
+      ],
+      [
+        255
+      ]
+    ]
+  },
+  "156": {
+    "action": "split",
+    "subgroups": [
+      [
+        262
+      ],
+      [
+        278
+      ]
+    ]
+  },
+  "168": {
+    "action": "split",
+    "subgroups": [
+      [
+        303
+      ],
+      [
+        305
+      ]
+    ]
+  },
+  "170": {
+    "action": "split",
+    "subgroups": [
+      [
+        306
+      ],
+      [
+        323
+      ]
+    ]
+  }
+}
