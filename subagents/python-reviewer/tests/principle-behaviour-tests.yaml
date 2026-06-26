@@ -1,0 +1,151 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: python-reviewer
+generated_at: '2026-06-20'
+principle_behaviour_tests:
+- test_id: PB-P01
+  principle_id: P01
+  mode: review
+  prompt: Review this class that stores cards in a list but has no __len__ or __getitem__; callers use
+    my own .count() and .at() methods. Is this idiomatic?
+  expected_behaviour:
+  - Recommends implementing __len__ and __getitem__ so len() and indexing work
+  - cites P01
+  must_not:
+  - Endorses bespoke .count()/.at() methods as idiomatic
+- test_id: PB-P02
+  principle_id: P02
+  mode: review
+  prompt: In my code I wrote `if user.role is 'admin':` and `if result == None:`. Are these correct?
+  expected_behaviour:
+  - Flags `is 'admin'` as wrong (use ==) and recommends `result is None`
+  - cites P02
+  must_not:
+  - Says `is` and `==` are interchangeable here
+- test_id: PB-P03
+  principle_id: P03
+  mode: review
+  prompt: I did `new = list(old)` on a list of lists and then edited new[0][0], but old changed too. Review
+    my copy.
+  expected_behaviour:
+  - Identifies the shallow copy and recommends copy.deepcopy for the nested lists
+  - cites P03
+  must_not:
+  - Calls list(old) a sufficient deep copy
+- test_id: PB-P04
+  principle_id: P04
+  mode: patch-suggest
+  prompt: 'Review this signature: `def add_item(item, basket=[]):` — it appends item to basket and returns
+    it.'
+  expected_behaviour:
+  - Flags the mutable default and proposes basket=None with the list built inside
+  - cites P04
+  must_not:
+  - Approves the mutable default as harmless
+- test_id: PB-P05
+  principle_id: P05
+  mode: review
+  prompt: 'Review this Customer class: it only has name/email fields with get_/set_ methods; all the logic
+    lives in CustomerService.'
+  expected_behaviour:
+  - Names the Data Class smell and suggests moving CustomerService behaviour into Customer
+  - cites P05
+  must_not:
+  - Approves the data-only class with no caveat
+- test_id: PB-P06
+  principle_id: P06
+  mode: advise
+  prompt: Is this Pythonic? `result = []` then a for-loop with `result.append(x*2)` over a range; also
+    I have a 6-line nested comprehension.
+  expected_behaviour:
+  - Endorses a comprehension for the simple loop but recommends a loop/generator for the 6-line one
+  - cites P06
+  must_not:
+  - Demands a comprehension even for the unreadable 6-line case
+- test_id: PB-P07
+  principle_id: P07
+  mode: compare
+  prompt: Should my `EmailQueue` subclass `list` to reuse append/pop, or hold a list inside? Compare the
+    options.
+  expected_behaviour:
+  - Recommends composition (hold a list) over subclassing list, ranking the trade-offs
+  - cites P07
+  must_not:
+  - Recommends subclassing list without weighing composition
+- test_id: PB-P08
+  principle_id: P08
+  mode: review
+  prompt: I subclassed dict as `class UpperDict(dict)` and overrode __setitem__ to upper-case keys, but
+    .update() ignores it. Review.
+  expected_behaviour:
+  - Explains C-level update bypasses __setitem__ and recommends collections.UserDict
+  - cites P08
+  must_not:
+  - Approves subclassing dict for key transformation
+- test_id: PB-P09
+  principle_id: P09
+  mode: advise
+  prompt: 'Review this function that does `if isinstance(x, list): ...` before iterating, to decide if
+    it should accept other iterables.'
+  expected_behaviour:
+  - Suggests relying on the iterable protocol instead of an isinstance(list) check
+  - cites P09
+  must_not:
+  - Insists on an isinstance check where the protocol suffices
+- test_id: PB-P10
+  principle_id: P10
+  mode: review
+  prompt: My class exposes `self.balance` directly and other modules mutate it. How should I signal it
+    is internal?
+  expected_behaviour:
+  - Recommends the single-underscore _balance convention and a public accessor
+  - cites P10
+  must_not:
+  - Claims the underscore enforces privacy at runtime
+- test_id: PB-P11
+  principle_id: P11
+  mode: advise
+  prompt: Should I add `get_area()`/`set_area()` to my Box class, or use something else for a computed
+    area?
+  expected_behaviour:
+  - Recommends a read-only @property area instead of get/set methods
+  - cites P11
+  must_not:
+  - Recommends Java-style get/set method pairs
+- test_id: PB-P12
+  principle_id: P12
+  mode: advise
+  prompt: I create millions of Point objects with just x and y. Advise on reducing memory use.
+  expected_behaviour:
+  - Recommends __slots__ = ('x','y') and notes its inheritance trade-offs
+  - cites P12
+  must_not:
+  - Recommends __slots__ as a default for every class
+- test_id: PB-P13
+  principle_id: P13
+  mode: compare
+  prompt: I built a metaclass-and-descriptor framework to register plugins; a colleague says a plain class
+    would do. Compare.
+  expected_behaviour:
+  - Recommends the plain class unless the framework is genuinely required
+  - cites P13
+  must_not:
+  - Endorses the metaclass framework without justification
+- test_id: PB-P14
+  principle_id: P14
+  mode: patch-suggest
+  prompt: Review this code that does `f = open(path)`, reads it, then `f.close()` at the end of the function.
+  expected_behaviour:
+  - Rewrites to a with-statement so the file closes on every path
+  - cites P14
+  must_not:
+  - Leaves the manual open/close with no error handling
+- test_id: PB-P15
+  principle_id: P15
+  mode: review
+  prompt: 'Review this handler: it wraps the whole body in `try: ... except Exception: pass` and re-raises
+    a generic Exception(''failed'').'
+  expected_behaviour:
+  - 'Flags except Exception: pass, narrows the clause, and replaces the generic raise with a custom type'
+  - cites P15
+  must_not:
+  - 'Approves except Exception: pass that swallows errors'

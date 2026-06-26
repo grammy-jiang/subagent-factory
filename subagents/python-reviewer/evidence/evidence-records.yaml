@@ -1,0 +1,240 @@
+schema_version: evidence-records-v1
+evidence_records:
+- evidence_id: E001
+  claim_id: C001
+  source_ids:
+  - luciano-ramalho-flue-ca307a52
+  source_anchors:
+  - luciano-ramalho-flue-ca307a52-h0033
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Core framing of the data model; the canonical idiomatic-Python rationale.
+- evidence_id: E002
+  claim_id: C002
+  source_ids:
+  - luciano-ramalho-flue-ca307a52
+  source_anchors:
+  - luciano-ramalho-flue-ca307a52-h0033
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Direct paraphrase of the Language Reference warning quoted in the source.
+- evidence_id: E003
+  claim_id: C003
+  source_ids:
+  - luciano-ramalho-flue-ca307a52
+  source_anchors:
+  - luciano-ramalho-flue-ca307a52-h0883
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Author states checking for None is the only common correct use of `is`; hedge preserved.
+- evidence_id: E004
+  claim_id: C004
+  source_ids:
+  - luciano-ramalho-flue-ca307a52
+  source_anchors:
+  - luciano-ramalho-flue-ca307a52-c0895
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Demonstrated with a worked list-copy example; condition on immutable items preserved.
+- evidence_id: E005
+  claim_id: C005
+  source_ids:
+  - luciano-ramalho-flue-ca307a52
+  source_anchors:
+  - luciano-ramalho-flue-ca307a52-h0813
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Drawn from Fowler's Data Class smell as reproduced in the source; exceptions (scaffolding/IR)
+    preserved.
+- evidence_id: E006
+  claim_id: C006
+  source_ids:
+  - luciano-ramalho-flue-ca307a52
+  source_anchors:
+  - luciano-ramalho-flue-ca307a52-c0920
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Demonstrated with the HauntedBus aliasing example; widely-replicated Python pitfall.
+- evidence_id: E007
+  claim_id: C007
+  source_ids:
+  - luciano-ramalho-flue-ca307a52
+  source_anchors:
+  - luciano-ramalho-flue-ca307a52-h0115
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Author's stated rule of thumb on comprehension abuse and readability; hedge preserved.
+- evidence_id: E008
+  claim_id: C008
+  source_ids:
+  - python-distilled-pea-1baf485f
+  source_anchors:
+  - python-distilled-pea-1baf485f-h0207
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Author's explicit is-a vs has-a decision rule for inheritance.
+- evidence_id: E009
+  claim_id: C009
+  source_ids:
+  - python-distilled-pea-1baf485f
+  source_anchors:
+  - python-distilled-pea-1baf485f-h0210
+  support_granularity: section
+  evidence_type: case
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Demonstrated with the udict/UserDict example; built-in C methods bypass overrides.
+- evidence_id: E010
+  claim_id: C010
+  source_ids:
+  - python-distilled-pea-1baf485f
+  source_anchors:
+  - python-distilled-pea-1baf485f-h0214
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Conceptual statement of dynamic binding; 'program to the protocol' is a reasonable inference
+    within scope.
+- evidence_id: E011
+  claim_id: C011
+  source_ids:
+  - python-distilled-pea-1baf485f
+  source_anchors:
+  - python-distilled-pea-1baf485f-h0221
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Direct account of the underscore conventions and name mangling.
+- evidence_id: E012
+  claim_id: C012
+  source_ids:
+  - python-distilled-pea-1baf485f
+  source_anchors:
+  - python-distilled-pea-1baf485f-h0221
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Author advocates properties over get/set for uniform access; computed read-only example
+    given.
+- evidence_id: E013
+  claim_id: C013
+  source_ids:
+  - python-distilled-pea-1baf485f
+  source_anchors:
+  - python-distilled-pea-1baf485f-h0260
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: medium
+  quote_allowed: false
+  limitations: Benefits and the inheritance/__dict__ trade-offs both stated by the source.
+- evidence_id: E014
+  claim_id: C014
+  source_ids:
+  - python-distilled-pea-1baf485f
+  source_anchors:
+  - python-distilled-pea-1baf485f-h0280
+  support_granularity: section
+  evidence_type: expert
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Author's closing design advice ('Keep It Simple'); expert judgment rather than empirical
+    study.
+- evidence_id: E015
+  claim_id: C015
+  source_ids:
+  - python-distilled-pea-1baf485f
+  source_anchors:
+  - python-distilled-pea-1baf485f-h0018
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Author recommends the with statement so close() cannot be forgotten.
+- evidence_id: E016
+  claim_id: C016
+  source_ids:
+  - python-distilled-pea-1baf485f
+  source_anchors:
+  - python-distilled-pea-1baf485f-h0101
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Author's first exception rule of thumb; condition on no-local-recovery preserved.
+- evidence_id: E017
+  claim_id: C017
+  source_ids:
+  - python-distilled-pea-1baf485f
+  source_anchors:
+  - python-distilled-pea-1baf485f-h0101
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: strong
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Author warns that except Exception hides programming errors.
+- evidence_id: E018
+  claim_id: C018
+  source_ids:
+  - python-distilled-pea-1baf485f
+  source_anchors:
+  - python-distilled-pea-1baf485f-h0101
+  support_granularity: section
+  evidence_type: explanation
+  evidence_strength: moderate
+  support_level: entailed
+  confidence: high
+  quote_allowed: false
+  limitations: Author recommends custom exception types to attribute blame.
