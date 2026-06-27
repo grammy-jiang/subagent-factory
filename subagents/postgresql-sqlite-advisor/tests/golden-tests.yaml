@@ -1,0 +1,113 @@
+schema_version: golden-tests-v1
+subagent_slug: postgresql-sqlite-advisor
+generated_at: '2026-06-22'
+profile_version: 0.3.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: 'Positive routing — review: a delimited multi-valued column.'
+  prompt: We store a product's tags as one comma-separated VARCHAR column. Is that fine for our schema?
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for: []
+  must_do:
+  - Explains a delimited string defeats integrity and indexing
+  - Recommends a normalized tag table joined by foreign key, or jsonb + GIN where a document column fits
+  must_not_do:
+  - Blesses the comma-separated column without naming the trade-off
+  principle_coverage:
+  - P045
+  - P024
+  - P018
+- test_id: GT-002
+  description: 'Positive routing — advise: choosing an index type for a JSONB containment query.'
+  prompt: In Postgres I filter a jsonb column by contained keys and a plain B-tree index isn't used. What index should I create?
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for: []
+  must_do:
+  - Recommends a GIN index with the @> containment operator for jsonb
+  - Explains the index type must match the data type and operators
+  must_not_do:
+  - Recommends a default B-tree index for JSONB containment
+  principle_coverage:
+  - P018
+  - P040
+  - P002
+- test_id: GT-003
+  description: 'Positive routing — advise: case-insensitive lookup does a Seq Scan.'
+  prompt: A query with WHERE lower(email) = $1 sequentially scans even though email is indexed. Why, and what do I do?
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for: []
+  must_do:
+  - Explains a plain column index can't serve a function/expression predicate
+  - Recommends an expression index on lower(email)
+  must_not_do:
+  - Claims the plain index on email already covers lower(email)
+  principle_coverage:
+  - P010
+  - P040
+- test_id: GT-004
+  description: 'Positive routing — review: too many indexes on a write-heavy table.'
+  prompt: Our inserts got slow after we added 12 indexes to speed up reads. Is more indexes always safe?
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for: []
+  must_do:
+  - Explains each index is maintained on every write (a write tax) and adds WAL
+  - Recommends dropping redundant/unused indexes
+  must_not_do:
+  - Confirms that adding indexes is always safe
+  principle_coverage:
+  - P006
+  - P001
+- test_id: GT-005
+  description: 'Positive routing — compare: PostgreSQL versus SQLite for a multi-writer service.'
+  prompt: Should we use SQLite or PostgreSQL for a web service with many concurrent writers?
+  expected_route: invoke
+  expected_mode: compare
+  must_ask_for: []
+  must_do:
+  - Frames SQLite as embedded/single-file/zero-config, not a multi-writer server RDBMS
+  - Recommends PostgreSQL for high write-concurrency and names the trade-offs
+  must_not_do:
+  - Recommends SQLite as the primary store for a high write-concurrency workload
+  principle_coverage:
+  - P049
+  - P022
+- test_id: GT-006
+  description: 'Positive routing — advise: choosing an isolation level for a balance-transfer.'
+  prompt: Two transactions update related rows and we sometimes see write skew. Which isolation level do we need?
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for: []
+  must_do:
+  - Explains snapshot isolation prevents lost updates but not write skew
+  - Recommends choosing the level by the anomalies to prevent, up to serializable
+  must_not_do:
+  - Asserts snapshot isolation alone prevents write skew
+  principle_coverage:
+  - P005
+negative_routing_tests:
+- test_id: NR-001
+  description: Negative routing — application feature code unrelated to the database.
+  prompt: Help me debug this React component's state update loop.
+  expected_route: do_not_invoke
+  expected_mode: null
+  must_ask_for: []
+- test_id: NR-002
+  description: Negative routing — a different engine (MySQL) outside scope.
+  prompt: How do I size the MySQL InnoDB buffer pool and set up group replication?
+  expected_route: do_not_invoke
+  expected_mode: null
+  must_ask_for: []
+missing_context_tests:
+- test_id: MC-001
+  description: Missing context — no schema, query, plan, or engine supplied.
+  prompt: My database is slow and the design feels wrong. Fix it.
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for:
+  - the engine and version (PostgreSQL or SQLite) and the schema or query in scope
+  - the workload shape and any EXPLAIN output or current indexes

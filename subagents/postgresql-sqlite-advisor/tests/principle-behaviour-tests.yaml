@@ -1,0 +1,1202 @@
+schema_version: principle-behaviour-tests-v1
+principle_behaviour_tests:
+- test_id: PB-001
+  principle_id: P001
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: A hot query selects only columns that can fit in an index. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use an index-only scan (covering index) to skip table access for read-heavy aggregating queries, but add select-clause columns to an index only when needed (memory and…'
+  - cites P001
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-002
+  principle_id: P002
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: choosing an index type. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Select the index method to fit the data and operators: B-Tree as the general default, GiST for spatial/full-text/exclusion (lossy), GIN for jsonb/full-text (faster…'
+  - cites P002
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-003
+  principle_id: P003
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: analyzing why a specific query is slow. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Do not trust that an index is ''used'' — verify access-versus-filter predicates in the predicate information, since the optimizer picks an index only because it beats a…'
+  - cites P003
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-004
+  principle_id: P004
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: designing a backup routine. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Back up with pg_dump for selective day-to-day backups (compressed/TAR/directory formats enable parallel restore) and run pg_dumpall --globals-only daily to capture roles…'
+  - cites P004
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-005
+  principle_id: P005
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: designing or reviewing a multi-column index. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Choose a concatenated index''s column order from how the application queries the data (leftmost-prefix usability), not from per-column selectivity; a non-leading column…'
+  - cites P005
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-006
+  principle_id: P006
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Choose the isolation level by the anomalies you must prevent (dirty/nonrepeatable/phantom reads, lost update/dirty write/write skew), remembering snapshot isolation…'
+  - cites P006
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-007
+  principle_id: P007
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: queries filter on a function or expression of a column rather than the bare column. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Never wrap an indexed column in a function, arithmetic, or implicit type conversion in the where clause; convert the search term instead, or add a function-based index…'
+  - cites P007
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-008
+  principle_id: P008
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a query needs ordered output, especially combined with LIMIT or keyset pagination. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Implement top-N and pagination with a pipelined order by and tell the database you need only N rows; prefer the seek (keyset) method over offset for deep paging, and…'
+  - cites P008
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-009
+  principle_id: P009
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: identifying which queries to optimize first. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use pg_stat_statements to find the most expensive queries, ordering by total cumulative time, and reset its statistics when you need a clean measurement window.'
+  - cites P009
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-010
+  principle_id: P010
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: creating or organizing database roles. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Manage roles with CREATE ROLE (not the deprecated CREATE USER/GROUP), keep group roles login-less, state INHERIT/NOINHERIT explicitly, and rely on SET ROLE for the…'
+  - cites P010
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-011
+  principle_id: P011
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: writing database functions. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Mark function volatility correctly (IMMUTABLE/STABLE/VOLATILE) so the planner can optimize, apply STRICT cautiously (it can block index use), and prefer SQL functions…'
+  - cites P011
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-012
+  principle_id: P012
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Diagnosing a slow query or slow system. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Treat missing or wrong indexing as the first suspect for bad PostgreSQL performance; verify the expected indexes exist before tuning memory or hardware, and watch for…'
+  - cites P012
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-013
+  principle_id: P013
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Investigating why a specific query is slow. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Drive tuning with EXPLAIN: use EXPLAIN (ANALYZE[, BUFFERS, VERBOSE]), wrap data-changing EXPLAIN ANALYZE in BEGIN/ROLLBACK, compare costs only on the same server, and…'
+  - cites P013
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-014
+  principle_id: P014
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: assigning object privileges. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Grant USAGE on a schema or table/function grants are inert; do not assume database ownership grants access to all objects; and consider revoking risky PUBLIC defaults…'
+  - cites P014
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-015
+  principle_id: P015
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Data-loss tolerance must be minimized for some or all transactions. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Plan replication for availability and read scalability with one master and read-only slaves shipping WAL; choose synchronous (waits for a slave) versus asynchronous…'
+  - cites P015
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-016
+  principle_id: P016
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: write-heavy workload with multiple secondary indexes (favour indirection). What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Reserve index-organized / clustered-index tables for tables that need a single index; a secondary index on an index-organized table requires two tree traversals per row…'
+  - cites P016
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-017
+  principle_id: P017
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a query uses a LIKE filter. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Avoid LIKE patterns with a leading wildcard; only the prefix before the first wildcard is an access predicate, and a leading wildcard forces a full table scan unless…'
+  - cites P017
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-018
+  principle_id: P018
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Run space-reclamation maintenance (vacuum/compaction) as an asynchronous background process and persist the free-page list so free space survives crashes and is not…'
+  - cites P018
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-019
+  principle_id: P019
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: storing/querying JSON in PostgreSQL. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Prefer jsonb (binary, faster, GIN-indexable, key-deduping) over json unless you must preserve exact text, whitespace, key order, or duplicate keys; index containment…'
+  - cites P019
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-020
+  principle_id: P020
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a table carries indexes that are rarely or never used by the planner. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Keep the number of indexes small to protect write performance — insert cost is dominated by index count and the first index already costs the most — and consider…'
+  - cites P020
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-021
+  principle_id: P021
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: indexing computed values or row subsets. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use functional indexes for case-insensitive or expression searches (always querying with the same function) and partial indexes for hot subsets (WHERE must be IMMUTABLE…'
+  - cites P021
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-022
+  principle_id: P022
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: the workload repeatedly filters with the same constant predicate (e.g. deleted_at IS NULL). What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use a partial index (an index with a WHERE clause) for workloads that consistently filter on the same constant predicate to get a smaller, faster index, but do not…'
+  - cites P022
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-023
+  principle_id: P023
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: cancelling runaway queries or preparing for restore. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Terminate connections sparingly: pg_cancel_backend cancels a query without dropping the connection, pg_terminate_backend kills it; clear affected connections before a…'
+  - cites P023
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-024
+  principle_id: P024
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: disk space is low on a PostgreSQL data volume. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Never delete files from the data cluster folder to reclaim space: pg_log may be purged, but deleting pg_xlog''s root or pg_clog destroys data and deleting archived WAL…'
+  - cites P024
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-025
+  principle_id: P025
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Reasoning about what data a column can actually hold, or enforcing strict typing.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Understand storage classes and type affinity - SQLite has five storage classes, a column may hold mixed classes across rows, sort order is NULL then numbers then TEXT…'
+  - cites P025
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-026
+  principle_id: P026
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: providing controlled, combined, or summarized data access. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Define views to work with related tables, reflect current data, customize output, enforce integrity (validation view), and restrict access; a multitable view requires…'
+  - cites P026
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-027
+  principle_id: P027
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Designing or reviewing a relational schema for keys and normalization.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Give every relation a primary key that uniquely identifies its rows (no duplicate rows) and normalize to remove duplication - 1NF atomic values, 2NF dependence on the…'
+  - cites P027
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-028
+  principle_id: P028
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: imposing organization-specific constraints. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Define business rules from how the organization uses its data; establish database-oriented rules in the logical design (field-specific via field-spec elements…'
+  - cites P028
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-029
+  principle_id: P029
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Deciding where and how to enforce data validity and relationships.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Enforce data integrity through schema constraints, not application code - cover domain, entity, referential, and user-defined integrity using NOT NULL (paired with…'
+  - cites P029
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-030
+  principle_id: P030
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Select a database/storage engine by simulating the real anticipated workload and measuring the metrics that matter, not by comparing components, popularity rank, or…'
+  - cites P030
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-031
+  principle_id: P031
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Writing or reviewing multi-table joins in SQLite.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Prefer explicit JOIN ... ON syntax with table-qualified column names, avoid NATURAL JOIN (whose results silently change when columns are added or removed), and remember…'
+  - cites P031
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-032
+  principle_id: P032
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: gathering requirements from people. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Conduct the design interviews deliberately: prepare questions, favour open-ended questions, interview users and management separately, keep the group small, maintain…'
+  - cites P032
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-033
+  principle_id: P033
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: the design is otherwise complete. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Perform a final modular data-integrity review against the table-, field-, relationship-, and business-rule checklists, then assemble the RDBMS-independent design…'
+  - cites P033
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-034
+  principle_id: P034
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: assigning keys to a table. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Give every table a primary key chosen from candidate keys that conform to the Elements of a Candidate Key (no multipart, unique, non-null, no privacy breach…'
+  - cites P034
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-035
+  principle_id: P035
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: specifying a field''s value rules. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Set the logical specification elements to enforce value integrity: no nulls for keys/required fields (never blanks for meaning), required value yes for primary keys…'
+  - cites P035
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-036
+  principle_id: P036
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: orienting to the integrity model. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Understand the four types of data integrity (table-, field-, relationship-level, and business rules) and the three relationship characteristics (type, participation…'
+  - cites P036
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-037
+  principle_id: P037
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: reading an execution plan to find the cause of a slow statement. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Diagnose performance from the execution plan including its predicate information, knowing each database''s access/filter labels; never run PostgreSQL EXPLAIN ANALYZE on a…'
+  - cites P037
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-038
+  principle_id: P038
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use the slotted-page layout (cells on one side, sorted offset pointers on the other) to store variable-size records, allow binary search without relocating cells, and…'
+  - cites P038
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-039
+  principle_id: P039
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Manage the page cache deliberately: pin hot upper-tree pages, choose a recency/frequency-aware replacement policy (a bigger cache alone can worsen evictions via Bélády''s…'
+  - cites P039
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-040
+  principle_id: P040
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Repair replica divergence with the anti-entropy mechanism that matches the need — read-repair and hinted handoff for scope, bitmap version vectors for recency, Merkle…'
+  - cites P040
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-041
+  principle_id: P041
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: For multi-partition atomicity use atomic commitment (no commit unless all participants vote yes; it fails under Byzantine faults): 2PC is simple but blocks on…'
+  - cites P041
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-042
+  principle_id: P042
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use a consensus algorithm (Paxos, Multi-Paxos, Raft) for agreement under crash failures with majority quorums (2f+1 tolerate f, and quorum overlap gives safety), a…'
+  - cites P042
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-043
+  principle_id: P043
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: designing or reviewing an index for a known query predicate. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Drive index design from the query workload in order: evaluate the required data types and operators first, then pick the index type, then decide whether an advanced…'
+  - cites P043
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-044
+  principle_id: P044
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: naming a table. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Name each table with a unique, descriptive, single-subject, plural name, avoiding physical-characteristic words, acronyms/abbreviations, data-restricting proper names…'
+  - cites P044
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-045
+  principle_id: P045
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Composing nested, compound, or aggregating queries, or optimizing them.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use subqueries and compound queries knowing relational closure lets operations nest; a correlated subquery re-evaluates per outer row while an uncorrelated one runs…'
+  - cites P045
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-046
+  principle_id: P046
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: starting a new database design. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Begin every design by defining a mission statement (the database''s purpose) and mission objectives (single-task statements the data must support), and let them drive the…'
+  - cites P046
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-047
+  principle_id: P047
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: deciding when to involve the RDBMS. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Keep the logical design separate from and prior to physical implementation, and design it without regard to any specific RDBMS so the structure is driven by information…'
+  - cites P047
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-048
+  principle_id: P048
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: connecting two related tables. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Establish relationships explicitly: a copied primary key as a foreign key for one-to-one and one-to-many, and a linking table (composite primary key) for many-to-many —…'
+  - cites P048
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-049
+  principle_id: P049
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: When migrating to PostgreSQL, rewrite non-portable SQL (LIMIT/OFFSET, Oracle (+)/dual/sysdate) and clean data-integrity violations from non-strict MySQL; use…'
+  - cites P049
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-050
+  principle_id: P050
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Designing primary keys or relying on key-generation behavior.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Declaring a column INTEGER PRIMARY KEY makes it an alias for the table''s 64-bit ROWID with auto-generated keys and is the one column whose type is enforced; default…'
+  - cites P050
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-051
+  principle_id: P051
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Choosing a data store for an embedded, on-device, or small-to-medium application.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Reach for SQLite as an embedded, in-process, zero-configuration, single-file relational engine for small-to-medium applications; it is not a universal drop-in for a…'
+  - cites P051
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-052
+  principle_id: P052
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Writing predicates or aggregates over columns that can contain NULL.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Handle NULL deliberately - NULL is the absence of a value (not zero, empty string, true, or false); test it with IS NULL / IS NOT NULL (never = NULL), expect it to…'
+  - cites P052
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-053
+  principle_id: P053
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Accept the failure-detector trade-offs (false positives versus negatives; accuracy versus speed cannot both be maximized), tune ping frequency and timeout, and use…'
+  - cites P053
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-054
+  principle_id: P054
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Pick a consistency model by required guarantees against synchronization cost — linearizability (strongest, composable, expensive, implemented via consensus), then…'
+  - cites P054
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-055
+  principle_id: P055
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: tuning indexes for a join. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Index for the join algorithm: for nested loops, index the join predicates of the inner table plus the driving filter; for hash and sort-merge joins, index only the…'
+  - cites P055
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-056
+  principle_id: P056
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: defining or reviewing a field. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Ensure every field holds a single value, represents one distinct characteristic, and conforms to the Elements of the Ideal Field (single value, indivisible, no…'
+  - cites P056
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-057
+  principle_id: P057
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: defining how tables relate. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Set each relationship''s characteristics: a deletion rule (default Restrict, set from the parent perspective, guarding orphans), a participation type…'
+  - cites P057
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-058
+  principle_id: P058
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: A table is so large that management or query pruning becomes a problem. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Partition very large tables (declarative PARTITION BY in PostgreSQL 10, or inheritance plus CHECK constraints for constraint exclusion), index each partition separately…'
+  - cites P058
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-059
+  principle_id: P059
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Deciding whether and how to add an index, or diagnosing a slow query.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Add an index only when a specific, measured performance gain justifies it - an index scan is logarithmic versus a linear sequential scan, but indexes cost storage and…'
+  - cites P059
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-060
+  principle_id: P060
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: deciding whether to add an index. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Do not over-index: each index adds insert/delete/update cost and function-based indexes breed redundant ones, so unify access paths, index the original column data, and…'
+  - cites P060
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-061
+  principle_id: P061
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: you need full query text and bind values from production. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Capture slow query text and parameters through the Postgres logging system using log_min_duration_statement, and avoid log_statement = all on production because its…'
+  - cites P061
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-062
+  principle_id: P062
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: designing triggers. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Design triggers by timing and scope: BEFORE to modify NEW, AFTER for logging/replication, INSTEAD OF for views; choose row vs statement level; and recall each trigger…'
+  - cites P062
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-063
+  principle_id: P063
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Securing a SQLite database against unauthorized access or SQL injection, especially in web or multi-user contexts.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Treat the database file as the security boundary - SQLite has no GRANT/REVOKE or user-level access control; keep database files out of public web directories, and build…'
+  - cites P063
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-064
+  principle_id: P064
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Design on-disk structures for the fewest disk accesses: high fanout and low height, block-aligned access, strong key locality, and minimal out-of-page pointers.'
+  - cites P064
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-065
+  principle_id: P065
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Version on-disk formats and verify integrity: record each file''s version, place magic numbers for sanity checks, compute per-page checksums and reject corrupt pages on…'
+  - cites P065
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-066
+  principle_id: P066
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Apply buffering and immutability deliberately: in-memory buffering reduces write amplification, while immutability improves concurrency and space amplification at the…'
+  - cites P066
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-067
+  principle_id: P067
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Reconcile multi-source LSM reads by timestamp (insert/update are upserts; highest timestamp wins) using a min-heap merge-iteration, and manage read/write/space…'
+  - cites P067
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-068
+  principle_id: P068
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use a leader to cut coordination but guarantee liveness and require a majority of votes to avoid split brain, partition data into per-leader replica sets to avoid a…'
+  - cites P068
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-069
+  principle_id: P069
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a query filters on a column that has no supporting index. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Add an index on the filtered column to eliminate a sequential scan, and promote it to a covering index (INCLUDE on Postgres 11+, or a multicolumn index on older…'
+  - cites P069
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-070
+  principle_id: P070
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: naming a field. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Name each field with a unique, descriptive, singular name that identifies exactly one characteristic, prefixing generic names with the table name and using abbreviations…'
+  - cites P070
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-071
+  principle_id: P071
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: sizing PostgreSQL memory settings. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Tune memory deliberately: shared_buffers around 25% of RAM (diminishing returns past ~8 GB and never near total RAM), effective_cache_size at half or more of RAM on a…'
+  - cites P071
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-072
+  principle_id: P072
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: structuring complex queries with CTEs or lateral joins. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use CTEs for readable/reusable subqueries (writable CTEs for atomic cross-table moves, recursive CTEs for tree structures) and LATERAL to reference left-side columns or…'
+  - cites P072
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-073
+  principle_id: P073
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: A statement may hit a constraint violation and you want non-default handling.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use SQLite conflict resolution to control constraint-violation handling - choose among REPLACE, IGNORE, FAIL, ABORT (the default), and ROLLBACK per statement (which…'
+  - cites P073
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-074
+  principle_id: P074
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: defining or reviewing a table structure. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Ensure every table represents exactly one subject and conforms to the Elements of the Ideal Table (single subject, primary key, no multipart/multivalued fields, no…'
+  - cites P074
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-075
+  principle_id: P075
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: after table structures and keys are set. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Define a complete field specification (general, physical, logical elements) for every field to establish field-level integrity and form the database''s data dictionary…'
+  - cites P075
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-076
+  principle_id: P076
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Keep planner statistics accurate: run/rely on ANALYZE, index expressions to gain expression-level statistics, and use CREATE STATISTICS for correlated columns, because…'
+  - cites P076
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-077
+  principle_id: P077
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Apply fine-grained access with column-level grants (GRANT SELECT(col)) and row-level security policies (ENABLE ROW LEVEL SECURITY plus USING/WITH CHECK policies) for…'
+  - cites P077
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-078
+  principle_id: P078
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: restoring a database. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Restore plain-text backups with psql (use --set ON_ERROR_STOP=on to abort on error) and compressed/TAR/directory backups with a pg_restore whose version is at least the…'
+  - cites P078
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-079
+  principle_id: P079
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Install the contrib modules and use the right extension for the job: postgres_fdw/file_fdw (with push-down and IMPORT FOREIGN SCHEMA) for foreign data…'
+  - cites P079
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-080
+  principle_id: P080
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: installing or managing extensions. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Install extensions per-database on an as-needed basis into a dedicated schema added to search_path, prune unused ones, and remember most (C-based) extensions require a…'
+  - cites P080
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-081
+  principle_id: P081
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: importing delimited data. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Load data with \copy by first creating a matching table (no type inference), treating the import as one transaction that aborts on any error; stage messy data in lenient…'
+  - cites P081
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-082
+  principle_id: P082
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: modeling date/time columns. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Prefer timestamptz for date-time data: it stores UTC (no zone marker) and displays per session/user/database/server, giving automatic DST handling; anticipate display…'
+  - cites P082
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-083
+  principle_id: P083
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: designing or updating through views. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Encapsulate repeated queries in views; prefer INSTEAD OF triggers over rules for updatable/multi-table views; rely on auto-updatable single-table+PK views; and add WITH…'
+  - cites P083
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-084
+  principle_id: P084
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: caching slow query results. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use materialized views for slow queries with tolerable staleness: index them, schedule REFRESH (CONCURRENTLY requires a unique index), and remember they cannot be…'
+  - cites P084
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-085
+  principle_id: P085
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: writing or reviewing query SQL. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Win performance first through well-written SQL: avoid SELECT *, replace overused correlated subqueries with joins plus aggregation, and use CASE or FILTER for…'
+  - cites P085
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-086
+  principle_id: P086
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Several connections concurrently write to one database.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: When multiple connections write to the same database, start each writer with BEGIN IMMEDIATE (or BEGIN EXCLUSIVE) to serialize writers and avoid deadlock; on a write…'
+  - cites P086
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-087
+  principle_id: P087
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: write-heavy workload (favour LSM). What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Choose a B-Tree (in-place update, read-optimized) versus an LSM Tree (append-only, write-optimized) by the read/write ratio; LSM Trees suit write-heavy workloads because…'
+  - cites P087
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-088
+  principle_id: P088
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Distinguish locks (logical integrity, taken on keys, held for the whole transaction) from latches (physical integrity, taken on pages, held briefly); hold latches for…'
+  - cites P088
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-089
+  principle_id: P089
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Apply CAP/PACELC honestly: under a partition choose consistency or availability (partition tolerance is not optional); otherwise trade latency against consistency; and…'
+  - cites P089
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-090
+  principle_id: P090
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Configure tunable consistency with R + W > N to always read the latest write, raising R/W for consistency and lowering for availability; a quorum is ⌊N/2⌋+1 tolerating f…'
+  - cites P090
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-091
+  principle_id: P091
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: nodes are untrusted or potentially adversarial. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use Byzantine-fault-tolerant consensus (PBFT: n = 3f + 1, cross-validated three-phase protocol, signed digests, encrypted links) only in adversarial or untrusted…'
+  - cites P091
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-092
+  principle_id: P092
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: the query filters with =, <, <=, >=, or > on a common scalar type. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Default to a B-tree index for equality and range predicates on common scalar data types; for these operators B-tree is the right choice the overwhelming majority of the…'
+  - cites P092
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-093
+  principle_id: P093
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: passing values into a SQL statement from application code. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use bind parameters by default — they prevent SQL injection and enable execution-plan-cache reuse — and supply a literal only for the rare value that should deliberately…'
+  - cites P093
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-094
+  principle_id: P094
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a query has an order by or group by you want pipelined. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Provide a pipelined order by / group by by making the index that serves the where clause also deliver the required order; match ASC/DESC modifiers in the index when the…'
+  - cites P094
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-095
+  principle_id: P095
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a slow query is blamed on hardware or proposed to be fixed by scaling out. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Treat proper indexing — not bigger or more hardware — as the primary lever for query response time: hardware and horizontal scaling raise throughput, but response time…'
+  - cites P095
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-096
+  principle_id: P096
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: turning requirements into an initial structure. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Derive tables from subjects and fields from characteristics using the subject- and characteristic-identification techniques, building a preliminary field list of the…'
+  - cites P096
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-097
+  principle_id: P097
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Designing views or needing to write through a view.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Views are read-only stored relational expressions evaluated on each use and are useful for naming a frequent query or preserving an original logical shape after…'
+  - cites P097
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-098
+  principle_id: P098
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: tempted to denormalize or break a rule. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Bend or break the design rules only for an analytical database or, as a last resort, for performance — design properly first, weigh the data-integrity cost, exhaust…'
+  - cites P098
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-099
+  principle_id: P099
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: reasoning about why the methodology works. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Treat data and information as distinct (data is stored, information is processed/retrieved) and remember the relational model''s mathematical foundation (set theory and…'
+  - cites P099
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-100
+  principle_id: P100
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: integrating external data sources. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Query external data through foreign data wrappers as foreign tables (file_fdw and postgres_fdw built in, updatable since 9.3): a foreign table can map a column subset…'
+  - cites P100
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-101
+  principle_id: P101
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Writing INSERT/UPDATE statements, copying tables, or storing large blobs.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Watch the data-modification gotchas - INSERT value order must match the column list (or the CREATE TABLE order), CREATE TABLE AS SELECT copies data but drops constraints…'
+  - cites P101
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-102
+  principle_id: P102
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Sorting or comparing text where default byte comparison is inadequate.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use collations to control text comparison and ordering - the built-ins are BINARY, NOCASE, and REVERSE, and a custom collation (a comparison function returning…'
+  - cites P102
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-103
+  principle_id: P103
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: monotonically increasing keys with low update/delete ratio. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Exploit known write patterns: use right-only-append/fastpath optimizations for monotonically increasing keys and bottom-up bulk loading for presorted data to avoid…'
+  - cites P103
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-104
+  principle_id: P104
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: designing or reviewing a database structure. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Follow the complete database-design process from start to finish; the structural and data integrity achieved is in direct proportion to how thoroughly the process is…'
+  - cites P104
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-105
+  principle_id: P105
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: an old, legacy, or sample database exists. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Do not adopt an existing, legacy, or vendor-sample structure as the basis for a new database, because copying it transfers its hidden problems; design the new logical…'
+  - cites P105
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-106
+  principle_id: P106
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: an organization already manages the data somehow. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Analyze the current database before designing the new one — reviewing how data is collected, how information is presented, and interviewing staff — to surface…'
+  - cites P106
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-107
+  principle_id: P107
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Resolve read-modify-write races with SELECT FOR UPDATE, use SKIP LOCKED for worker queues and NOWAIT/lock_timeout to bound waits, and watch for foreign-key lock…'
+  - cites P107
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-108
+  principle_id: P108
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Optimize the query first, then size work_mem (per-operation) to keep hash aggregation and sorts in memory, and use maintenance_work_mem for CREATE INDEX/VACUUM/ALTER…'
+  - cites P108
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-109
+  principle_id: P109
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Authenticate remote connections with scram-sha-256 (never trust/md5/plaintext password), order pg_hba.conf rules carefully since the first match wins, and enable SSL…'
+  - cites P109
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-110
+  principle_id: P110
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Use triggers with their deterministic firing order (BEFORE alphabetically, then the row op, then AFTER) and NEW/OLD plus TG_* context variables, and use PostgreSQL 10…'
+  - cites P110
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-111
+  principle_id: P111
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: changing PostgreSQL server configuration. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Know which configuration settings need a full service restart (postmaster context, which drops active connections) versus only a reload (user context); after editing…'
+  - cites P111
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-112
+  principle_id: P112
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: adding indexes or diagnosing unused ones. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Treat a wrong index as worse than none: verify indexes are actually used (pg_stat_user_indexes, EXPLAIN) and ensure the query form matches the index''s operator class…'
+  - cites P112
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-113
+  principle_id: P113
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Minimize random writes to match the medium — HDD head seeks and SSD garbage-collection penalties — by writing full blocks and batching writes, and respect the SSD…'
+  - cites P113
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-114
+  principle_id: P114
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Sizing a SQLite deployment or estimating its concurrency and scale headroom.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Respect SQLite''s write-concurrency and size limits - coarse-grained single-writer locking and per-transaction overhead that grows with database size; for high write…'
+  - cites P114
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-115
+  principle_id: P115
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Writing or reviewing grouped or aggregate queries.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Filter rows with WHERE and groups with HAVING - aggregates compute over the WHERE-selected rows (filter first, then aggregate), and GROUP BY splits those rows into…'
+  - cites P115
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-116
+  principle_id: P116
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Performing multiple writes that depend on each other or on shared state.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Wrap interdependent writes in one explicit BEGIN..COMMIT transaction rather than relying on per-statement autocommit, so they succeed or fail together and another…'
+  - cites P116
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-117
+  principle_id: P117
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Executing parameterized or repeated SQL from application code.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Execute commands as prepared statements (prepare, step, finalize) and bind values to positional or named parameters instead of building SQL strings - binding escapes…'
+  - cites P117
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-118
+  principle_id: P118
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: choosing physical data layout for a known query workload. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Choose row- versus column-oriented layout by access pattern — records consumed whole with point/range queries favour row-oriented, large scans or aggregates over few…'
+  - cites P118
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-119
+  principle_id: P119
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Compress page-wise rather than whole-file, trading compression ratio against CPU/RAM and access speed, and evaluate compression libraries on memory overhead, compression…'
+  - cites P119
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-120
+  principle_id: P120
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Partition by a routing key sized to load and value distribution, prefer consistent hashing (which relocates only ~K/n keys on a cluster change) over modulo placement…'
+  - cites P120
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-121
+  principle_id: P121
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: In an LSM Tree record deletes explicitly as tombstones and retain them through compaction until no older record for the same key can exist anywhere, otherwise deleted…'
+  - cites P121
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-122
+  principle_id: P122
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: When stacking log-structured layers (application, filesystem, SSD FTL), align partitions and writes to the underlying page/erase size and keep the log on a separate…'
+  - cites P122
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-123
+  principle_id: P123
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Enforce the write-ahead-log invariant: durably log every state change before modifying its page, force the log to the commit-record LSN before acknowledging a commit…'
+  - cites P123
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-124
+  principle_id: P124
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Choose steal/force page-cache policies for the recovery scheme you need — no-steal enables redo-only recovery, no-force enables deferred buffering, force removes redo…'
+  - cites P124
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-125
+  principle_id: P125
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Treat the fallacies of distributed computing as defaults to defend against: the network is unreliable, latency is nonzero, bandwidth and queues are finite, the topology…'
+  - cites P125
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-126
+  principle_id: P126
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Design node-local and cluster-wide subsystems holistically, since the storage engine drives local performance while the cluster-communication subsystem drives…'
+  - cites P126
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-127
+  principle_id: P127
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: An in-memory store is not a disk store with a large page cache (serialization/layout overhead limits its optimizations), its growth is bounded by RAM volatility and…'
+  - cites P127
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-128
+  principle_id: P128
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a query combines equality and range predicates. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Order index columns equality-first then range: a single B-tree supports only one range condition as an access predicate, and a leading range column leaves later…'
+  - cites P128
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-129
+  principle_id: P129
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: tuning or reviewing index usage for a query. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Keep the scanned index range as small as possible and read the predicate information to separate access predicates (which narrow the range) from filter predicates (which…'
+  - cites P129
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-130
+  principle_id: P130
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: the table is append-only and indexed values increase with physical row order. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Reserve BRIN indexes for large append-only tables whose physical row order correlates with the indexed value; avoid BRIN where many updates/deletes break that…'
+  - cites P130
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-131
+  principle_id: P131
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: you need representative execution plans for intermittently slow queries. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Enable auto_explain to capture execution plans automatically at the moment slow queries run, rather than reconstructing plans later from logs, since a plan reproduced…'
+  - cites P131
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-132
+  principle_id: P132
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a query supports optional/combinable search filters. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Reject the ''smart logic'' optional-filter anti-pattern (col = :p OR :p IS NULL); build dynamic SQL containing only the filters needed right now, still using bind…'
+  - cites P132
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-133
+  principle_id: P133
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: fetching related rows through an ORM. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Execute joins in the database rather than ORM per-row nested selects (the N+1 problem), control fetch/eager behavior at runtime instead of statically, and enable SQL…'
+  - cites P133
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-134
+  principle_id: P134
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: documenting a table. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Write a table description that both defines the table''s subject and states why it matters to the organization, kept clear, succinct, self-contained, free of…'
+  - cites P134
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-135
+  principle_id: P135
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: standardizing field definitions. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Choose the right field-specification type: Unique for a one-off or primary-key field, Generic as a reusable template for same-meaning fields, and Replica for a field…'
+  - cites P135
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-136
+  principle_id: P136
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: designing multicolumn indexes. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Apply compound-index judgment: a leading-column query already uses the compound index (no separate single-column index needed), let the planner combine single-column…'
+  - cites P136
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-137
+  principle_id: P137
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Approaching an unfamiliar or misbehaving database. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Diagnose from data: set up monitoring first, then check pg_stat_activity for active/idle/idle-in-transaction counts, long-running transactions, and ungranted locks.'
+  - cites P137
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-138
+  principle_id: P138
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: setting up or promoting replicas. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Operate replication carefully: start slaves before the master, clone a running master with pg_basebackup, promote a slave one-way via its trigger_file, and reach for…'
+  - cites P138
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-139
+  principle_id: P139
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a PostgreSQL server fails to start or restart. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Recover a server that won''t start by reading the last line of the latest log file; the usual culprits are shared_buffers set too high, a stale postmaster/postgresql.pid…'
+  - cites P139
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-140
+  principle_id: P140
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: modeling value or temporal ranges. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Model intervals with range types plus a GiST index instead of separate start/end columns; understand [ ]/( ) bounds and discrete-range canonicalization to [), and always…'
+  - cites P140
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-141
+  principle_id: P141
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Relying on foreign-key relationships in a SQLite version that does not enforce them.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: A foreign key relates a child column to a parent table''s primary key; because the documented SQLite version parses but does not enforce foreign keys, emulate referential…'
+  - cites P141
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-142
+  principle_id: P142
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: Tuning concurrency or reasoning about who can read or write when.. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Understand SQLite''s lock-escalation states (unlocked, shared, reserved, pending, exclusive) - multiple readers coexist with one writer because the writer works in…'
+  - cites P142
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-143
+  principle_id: P143
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relevant database design or operations decision. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Reduce coordination where it is provably safe: snapshot isolation for efficient first-committer-wins reads (still allowing write skew), invariant-confluent coordination…'
+  - cites P143
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-144
+  principle_id: P144
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: shipping a feature that adds new queries. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Verify the actual SQL produced by new feature code against realistic data before trusting that it is index-efficient, because ORM-generated SQL and missing indexes often…'
+  - cites P144
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-145
+  principle_id: P145
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a field stores multiple instances of the same value. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Resolve a multivalued field by moving it into a new table related back to the original — decomposing a multivalued field yields a new table, never flattened numbered…'
+  - cites P145
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-146
+  principle_id: P146
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: reviewing any structure for redundancy. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Keep redundant data to an absolute minimum; redundancy is acceptable only when it results from a field that relates two tables, because redundancy enables inconsistent…'
+  - cites P146
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-147
+  principle_id: P147
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a field appears in more than one table. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Remove unnecessary duplicate fields; the only necessary duplicate field is one that relates two tables, and reference fields should be replaced by a view that assembles…'
+  - cites P147
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-148
+  principle_id: P148
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: finalizing a primary key. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Verify the primary key exclusively identifies the value of every other field in a record (load sample data and test each field); remove any field it does not exclusively…'
+  - cites P148
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-149
+  principle_id: P149
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: a relationship has been established. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Make every foreign key conform to the Elements of a Foreign Key: same name as its source primary key (except self-referencing), a replica of its specification, and…'
+  - cites P149
+  must_not:
+  - Gives generic advice without grounding it in the principle
+- test_id: PB-150
+  principle_id: P150
+  prompt: 'Relational database / PostgreSQL / SQLite question — context: evaluating a non-relational data store. What do you recommend and why?'
+  expected_behaviour:
+  - 'Recommends: Avoid flat-file and spreadsheet ''databases''; a spreadsheet is not a relational database, and both produce multipart/multivalued/duplicate fields, redundancy, and weak…'
+  - cites P150
+  must_not:
+  - Gives generic advice without grounding it in the principle

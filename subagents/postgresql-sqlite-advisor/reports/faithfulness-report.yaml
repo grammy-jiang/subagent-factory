@@ -1,0 +1,179 @@
+schema_version: faithfulness-report-v1
+subagent_slug: postgresql-sqlite-advisor
+findings:
+- rule_ref: quality_bar[0]
+  triplet:
+    head: P024/P032/P045
+    relation: asserts
+    tail: Give every relation a primary key that uniquely identifies its rows (no duplicate rows) and norm
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Quality-bar rule maps to promoted principle(s) P024, P032, P045; no strengthening beyond the distilled claims.
+  source_anchors:
+  - 9aa0ce19c36d-c0001
+  - 82a20f5886e3-c0001
+- rule_ref: quality_bar[1]
+  triplet:
+    head: P026/P033/P050
+    relation: asserts
+    tail: 'Enforce data integrity through schema constraints, not application code - cover domain, entity, '
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Quality-bar rule maps to promoted principle(s) P026, P033, P050; no strengthening beyond the distilled claims.
+  source_anchors:
+  - 9aa0ce19c36d-c0002
+  - 82a20f5886e3-c0002
+- rule_ref: quality_bar[2]
+  triplet:
+    head: P040/P002/P014
+    relation: asserts
+    tail: 'Drive index design from the query workload in order: evaluate the required data types and operat'
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Quality-bar rule maps to promoted principle(s) P040, P002, P014; no strengthening beyond the distilled claims.
+  source_anchors:
+  - 163dcf344261-c0000
+  - b1c9b849675c-c0001
+- rule_ref: quality_bar[3]
+  triplet:
+    head: P006/P046
+    relation: asserts
+    tail: 'Keep the number of indexes minimal: every index must be maintained on each insert/update/delete '
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Quality-bar rule maps to promoted principle(s) P006, P046; no strengthening beyond the distilled claims.
+  source_anchors:
+  - 163dcf344261-c0000
+  - 9269d920fbf8-c0000
+- rule_ref: quality_bar[4]
+  triplet:
+    head: P013/P007
+    relation: asserts
+    tail: 'Drive tuning with EXPLAIN: use EXPLAIN (ANALYZE[, BUFFERS, VERBOSE]), wrap data-changing EXPLAIN'
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Quality-bar rule maps to promoted principle(s) P013, P007; no strengthening beyond the distilled claims.
+  source_anchors:
+  - b1c9b849675c-c0000
+  - b1c9b849675c-c0002
+- rule_ref: quality_bar[5]
+  triplet:
+    head: P049/P022/P048
+    relation: asserts
+    tail: Reach for SQLite as an embedded, in-process, zero-configuration, single-file relational engine f
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Quality-bar rule maps to promoted principle(s) P049, P022, P048; no strengthening beyond the distilled claims.
+  source_anchors:
+  - 9aa0ce19c36d-c0000
+  - 9aa0ce19c36d-c0001
+- rule_ref: quality_bar[6]
+  triplet:
+    head: P027/P028/P005
+    relation: asserts
+    tail: Select a database/storage engine by simulating the real anticipated workload and measuring the m
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Quality-bar rule maps to promoted principle(s) P027, P028, P005; no strengthening beyond the distilled claims.
+  source_anchors:
+  - 7bf3da04ec81-c0000
+  - b1c9b849675c-c0000
+- rule_ref: forbidden_behaviours[0]
+  triplet:
+    head: P024/P026
+    relation: forbids
+    tail: Give every relation a primary key that uniquely identifies its rows (no duplicate rows) and norm
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Forbidden behaviour maps to promoted principle(s) P024, P026; no strengthening beyond the distilled claims.
+  source_anchors:
+  - 9aa0ce19c36d-c0001
+  - 9aa0ce19c36d-c0002
+- rule_ref: forbidden_behaviours[1]
+  triplet:
+    head: P006
+    relation: forbids
+    tail: 'Keep the number of indexes minimal: every index must be maintained on each insert/update/delete '
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Forbidden behaviour maps to promoted principle(s) P006; no strengthening beyond the distilled claims.
+  source_anchors:
+  - 163dcf344261-c0000
+- rule_ref: forbidden_behaviours[2]
+  triplet:
+    head: P013
+    relation: forbids
+    tail: 'Drive tuning with EXPLAIN: use EXPLAIN (ANALYZE[, BUFFERS, VERBOSE]), wrap data-changing EXPLAIN'
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Forbidden behaviour maps to promoted principle(s) P013; no strengthening beyond the distilled claims.
+  source_anchors:
+  - b1c9b849675c-c0000
+- rule_ref: forbidden_behaviours[3]
+  triplet:
+    head: P022/P049
+    relation: forbids
+    tail: Understand storage classes and type affinity - SQLite has five storage classes, a column may hol
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Forbidden behaviour maps to promoted principle(s) P022, P049; no strengthening beyond the distilled claims.
+  source_anchors:
+  - 9aa0ce19c36d-c0000
+- rule_ref: forbidden_behaviours[4]
+  triplet:
+    head: P021
+    relation: forbids
+    tail: 'Never delete files from the data cluster folder to reclaim space: pg_log may be purged, but dele'
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Forbidden behaviour maps to promoted principle(s) P021; no strengthening beyond the distilled claims.
+  source_anchors:
+  - b1c9b849675c-c0005
