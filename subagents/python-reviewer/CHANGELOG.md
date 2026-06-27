@@ -2,6 +2,27 @@
 
 All notable changes to this generated subagent package are recorded here.
 
+## 0.3.1 — 2026-06-27
+
+### Changed
+
+- Re-aligned the LLM-authored layer to the re-assembled distilled spine. The
+  map→reduce build was re-run with full coverage and now carries 142 globally
+  renumbered principles `P001`–`P142` (up from 60); claims, evidence records, and
+  chunk anchors were re-assembled to match. No spine statement, `derived_from_claims`,
+  confidence, evidence record, or anchor was edited by this step.
+- Populated `operational_mapping` for the 75 principles the build carried without
+  one (`profile_rule: false`, `skill`/`reference: null`, `test_cases: []`), so
+  `principles.yaml` validates against `principles-v1`. The 28 must-hold principles
+  (`confidence: high` + `profile_rule: true`) the build selected are unchanged.
+- Regenerated `tests/principle-behaviour-tests.yaml` so every principle
+  `P001`–`P142` has a behaviour test (all 126 high-confidence principles covered;
+  no dangling `principle_id`).
+- Re-exported the adapter, refreshing the must-hold invariant layer to the full
+  28-principle set. Profile rules, skill/reference bodies, and the faithfulness
+  report were not changed (still grounded; grounding unchanged).
+- Bumped `agent_version` 0.3.0 → 0.3.1.
+
 ## 0.3.0 — 2026-06-26
 
 ### Changed
