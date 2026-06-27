@@ -4,7 +4,10 @@
 # what `python` resolves to on PATH. Override with `make PY=... <target>`.
 PY ?= $(shell test -x "$(CURDIR)/.venv/bin/python" && "$(CURDIR)/.venv/bin/python" -c 'import ruff,mypy,bandit,yaml,slugify' >/dev/null 2>&1 && echo "$(CURDIR)/.venv/bin/python" || echo python)
 
-.PHONY: install lint format-check typecheck security secrets audit test verify toolcheck bootstrap clean
+.PHONY: install lint format-check typecheck security secrets audit test verify toolcheck bootstrap clean validate-packages validate-changed
+
+# Base ref for `validate-changed`; override with `make BASE=origin/main validate-changed`.
+BASE ?= origin/master
 
 install:  ## Install package with dev, convert, and lint extras
 	$(PY) -m pip install -e ".[dev,convert,lint]"
@@ -39,6 +42,12 @@ toolcheck:  ## Fail fast (with a fix hint) if the lint/type toolchain is missing
 
 verify: toolcheck lint format-check typecheck security secrets test  ## Full gate: lint + format + types + SAST + secrets + tests (must pass to ship)
 	@echo "verify: OK"
+
+validate-packages:  ## Validate every tracked subagent package (full cli validate each)
+	$(PY) tools/precommit/validate_subagents.py --all
+
+validate-changed:  ## Validate packages changed vs BASE (default origin/master)
+	$(PY) tools/precommit/validate_subagents.py --range $(BASE)
 
 bootstrap:  ## Ensure converter dependencies are available
 	$(PY) -m tools.subagent_factory.cli bootstrap
