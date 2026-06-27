@@ -1,0 +1,903 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Follow the complete database-design process from start to finish; the structural and data integrity achieved is in direct proportion to how thoroughly the process is followed, and an incomplete design is a poor design."
+   },
+   {
+    "idx": 32,
+    "statement": "Perform a final modular data-integrity review against the table-, field-, relationship-, and business-rule checklists, then assemble the RDBMS-independent design documentation as the implementation blueprint."
+   }
+  ]
+ },
+ {
+  "group": 1,
+  "members": [
+   {
+    "idx": 1,
+    "statement": "Begin every design by defining a mission statement (the database's purpose) and mission objectives (single-task statements the data must support), and let them drive the table, field, relationship, view, integrity, and business-rule decisions."
+   },
+   {
+    "idx": 33,
+    "statement": "Keep the logical design separate from and prior to physical implementation, and design it without regard to any specific RDBMS so the structure is driven by information requirements rather than tool constraints."
+   }
+  ]
+ },
+ {
+  "group": 6,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Ensure every table represents exactly one subject and conforms to the Elements of the Ideal Table (single subject, primary key, no multipart/multivalued fields, no calculated fields, no unnecessary duplicate fields, minimal redundant data)."
+   },
+   {
+    "idx": 9,
+    "statement": "Ensure every field holds a single value, represents one distinct characteristic, and conforms to the Elements of the Ideal Field (single value, indivisible, no calculated/concatenated value, unique except relationship fields)."
+   },
+   {
+    "idx": 16,
+    "statement": "Give every table a primary key chosen from candidate keys that conform to the Elements of a Candidate Key (no multipart, unique, non-null, no privacy breach, non-optional, minimal fields, exclusively identifies each record, rarely changes)."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 7,
+    "statement": "Name each table with a unique, descriptive, single-subject, plural name, avoiding physical-characteristic words, acronyms/abbreviations, data-restricting proper names, and multi-subject names."
+   },
+   {
+    "idx": 8,
+    "statement": "Write a table description that both defines the table's subject and states why it matters to the organization, kept clear, succinct, self-contained, free of implementation detail and examples."
+   },
+   {
+    "idx": 10,
+    "statement": "Name each field with a unique, descriptive, singular name that identifies exactly one characteristic, prefixing generic names with the table name and using abbreviations only judiciously."
+   }
+  ]
+ },
+ {
+  "group": 8,
+  "members": [
+   {
+    "idx": 11,
+    "statement": "Resolve a multipart (composite) field by splitting its value into separate single-item fields."
+   },
+   {
+    "idx": 12,
+    "statement": "Resolve a multivalued field by moving it into a new table related back to the original — decomposing a multivalued field yields a new table, never flattened numbered fields."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 18,
+    "statement": "Create an artificial (surrogate) candidate key when no natural one exists or when it is stronger/simpler than the natural keys; a single-field ID conforms to the candidate-key elements and simplifies relationships."
+   },
+   {
+    "idx": 27,
+    "statement": "Choose the right field-specification type: Unique for a one-off or primary-key field, Generic as a reusable template for same-meaning fields, and Replica for a field based on a generic field or serving as a foreign key."
+   }
+  ]
+ },
+ {
+  "group": 15,
+  "members": [
+   {
+    "idx": 20,
+    "statement": "Establish relationships explicitly: a copied primary key as a foreign key for one-to-one and one-to-many, and a linking table (composite primary key) for many-to-many — never embed repeated or single copies of one table's fields in the other."
+   },
+   {
+    "idx": 21,
+    "statement": "Make every foreign key conform to the Elements of a Foreign Key: same name as its source primary key (except self-referencing), a replica of its specification, and values drawn only from existing primary-key values."
+   },
+   {
+    "idx": 151,
+    "statement": "Give every relation a primary key that uniquely identifies its rows (no duplicate rows) and normalize to remove duplication - 1NF atomic values, 2NF dependence on the whole key, 3NF no transitive dependencies - decomposing tables so implicit relationships become explicit and enforceable."
+   }
+  ]
+ },
+ {
+  "group": 17,
+  "members": [
+   {
+    "idx": 23,
+    "statement": "Define a complete field specification (general, physical, logical elements) for every field to establish field-level integrity and form the database's data dictionary; the data's accuracy is proportional to how completely the specifications are defined."
+   },
+   {
+    "idx": 26,
+    "statement": "Set the logical specification elements to enforce value integrity: no nulls for keys/required fields (never blanks for meaning), required value yes for primary keys, meaningful default values only, an explicit range of values (never Other/Miscellaneous), an edit rule, and allowed comparisons/operations."
+   }
+  ]
+ },
+ {
+  "group": 23,
+  "members": [
+   {
+    "idx": 31,
+    "statement": "Define views to work with related tables, reflect current data, customize output, enforce integrity (validation view), and restrict access; a multitable view requires its base tables to be related, and views may carry calculated fields, filters, and must be documented."
+   },
+   {
+    "idx": 162,
+    "statement": "Views are read-only stored relational expressions evaluated on each use and are useful for naming a frequent query or preserving an original logical shape after restructuring; to make a view writable, define an INSTEAD OF trigger that maps changes to the base tables."
+   }
+  ]
+ },
+ {
+  "group": 27,
+  "members": [
+   {
+    "idx": 37,
+    "statement": "Understand the four types of data integrity (table-, field-, relationship-level, and business rules) and the three relationship characteristics (type, participation type, degree) as the integrity framework the whole methodology builds."
+   },
+   {
+    "idx": 152,
+    "statement": "Enforce data integrity through schema constraints, not application code - cover domain, entity, referential, and user-defined integrity using NOT NULL (paired with DEFAULT), UNIQUE, CHECK, and COLLATE on columns or tables, defined once in the database."
+   }
+  ]
+ },
+ {
+  "group": 28,
+  "members": [
+   {
+    "idx": 38,
+    "statement": "Treat missing or wrong indexing as the first suspect for bad PostgreSQL performance; verify the expected indexes exist before tuning memory or hardware, and watch for over-indexing that slows writes."
+   },
+   {
+    "idx": 61,
+    "statement": "Find missing indexes from pg_stat_user_tables (high seq_scan/seq_tup_read with low idx_scan) and review rarely-used indexes via pg_stat_user_indexes, but do not drop them blindly."
+   },
+   {
+    "idx": 82,
+    "statement": "Partition very large tables (declarative PARTITION BY in PostgreSQL 10, or inheritance plus CHECK constraints for constraint exclusion), index each partition separately, and drop a child table for instant data cleanup."
+   },
+   {
+    "idx": 137,
+    "statement": "Use planner strategy toggles (enable_seqscan, enable_nestloop) only as diagnostics, since PostgreSQL has no index hints and a sequential scan signals no usable or cheaper index."
+   },
+   {
+    "idx": 243,
+    "statement": "Verify every index change against what Postgres actually does: run EXPLAIN (or auto_explain) to confirm the new index is actually picked, remembering the lowest-cost scan wins."
+   },
+   {
+    "idx": 249,
+    "statement": "Assume missing indexes are the most likely cause of a database performance problem and check for them first when triaging slow queries."
+   },
+   {
+    "idx": 283,
+    "statement": "Diagnose performance from the execution plan including its predicate information, knowing each database's access/filter labels; never run PostgreSQL EXPLAIN ANALYZE on a data-modifying statement without a transaction and rollback."
+   }
+  ]
+ },
+ {
+  "group": 29,
+  "members": [
+   {
+    "idx": 39,
+    "statement": "Trust the cost-based planner: it uses an index only when cheaper than a sequential scan, and execution plans depend on the actual data values and distribution (so the same query can switch plans)."
+   },
+   {
+    "idx": 41,
+    "statement": "Keep planner statistics accurate: run/rely on ANALYZE, index expressions to gain expression-level statistics, and use CREATE STATISTICS for correlated columns, because bad estimates cause bad plans."
+   },
+   {
+    "idx": 124,
+    "statement": "Apply compound-index judgment: a leading-column query already uses the compound index (no separate single-column index needed), let the planner combine single-column indexes via bitmap scan when query patterns are unpredictable, exploit index-only scans, and don't overload an index with columns."
+   },
+   {
+    "idx": 161,
+    "statement": "Add an index only when a specific, measured performance gain justifies it - an index scan is logarithmic versus a linear sequential scan, but indexes cost storage and slow writes; design multicolumn indexes left-to-right with at most one trailing inequality, and run ANALYZE so the optimizer has statistics."
+   },
+   {
+    "idx": 255,
+    "statement": "When reading an EXPLAIN plan, run it with ANALYZE and BUFFERS and focus on the most expensive node; a Sequential Scan with a high 'Rows Removed by Filter' and large buffer reads signals a missing index."
+   },
+   {
+    "idx": 273,
+    "statement": "Do not trust that an index is 'used' — verify access-versus-filter predicates in the predicate information, since the optimizer picks an index only because it beats a full scan, which does not make it optimal."
+   }
+  ]
+ },
+ {
+  "group": 30,
+  "members": [
+   {
+    "idx": 40,
+    "statement": "Read execution plans with EXPLAIN (ANALYZE, BUFFERS) from the inside out, comparing estimates to actual rows/time and finding where time or buffer usage jumps."
+   },
+   {
+    "idx": 134,
+    "statement": "Drive tuning with EXPLAIN: use EXPLAIN (ANALYZE[, BUFFERS, VERBOSE]), wrap data-changing EXPLAIN ANALYZE in BEGIN/ROLLBACK, compare costs only on the same server, and read a large estimate-vs-actual row gap as a sign of stale statistics."
+   }
+  ]
+ },
+ {
+  "group": 31,
+  "members": [
+   {
+    "idx": 42,
+    "statement": "Prefer index-only (covering) indexes when all selected columns are present in the index, to avoid touching the table."
+   },
+   {
+    "idx": 48,
+    "statement": "Keep an indexed column bare on one side of a predicate so the index remains usable; rely on PostgreSQL inlining IMMUTABLE SQL functions rather than wrapping the indexed column in an expression."
+   },
+   {
+    "idx": 238,
+    "statement": "Add non-key columns with INCLUDE to build a covering index that enables Index Only Scans, returning all requested columns from the index without touching the table."
+   },
+   {
+    "idx": 270,
+    "statement": "Do not over-index: each index adds insert/delete/update cost and function-based indexes breed redundant ones, so unify access paths, index the original column data, and use the same case-folding function throughout the application."
+   },
+   {
+    "idx": 278,
+    "statement": "Use an index-only scan (covering index) to skip table access for read-heavy aggregating queries, but add select-clause columns to an index only when needed (memory and update cost), and avoid SELECT * so a slim covering index suffices."
+   }
+  ]
+ },
+ {
+  "group": 32,
+  "members": [
+   {
+    "idx": 43,
+    "statement": "Order a combined index by the leftmost-prefix columns you actually filter on; a single tailored combined index beats separate per-column indexes."
+   },
+   {
+    "idx": 236,
+    "statement": "Prefer a single multi-column index over several single-column indexes combined via a Bitmap Index/Heap Scan when queries filter on the same columns together; bitmap-combining is also only possible across indexes of the same type."
+   },
+   {
+    "idx": 260,
+    "statement": "Choose a concatenated index's column order from how the application queries the data (leftmost-prefix usability), not from per-column selectivity; a non-leading column alone cannot use the index tree."
+   },
+   {
+    "idx": 263,
+    "statement": "Prefer one well-ordered multi-column index over several single-column indexes or index-merge; a single index scan avoids a second tree traversal plus the memory and CPU of combining results."
+   }
+  ]
+ },
+ {
+  "group": 33,
+  "members": [
+   {
+    "idx": 44,
+    "statement": "Use partial indexes to exclude very frequent values (roughly 25%+ of rows) and use functional indexes only with IMMUTABLE functions."
+   },
+   {
+    "idx": 123,
+    "statement": "Use functional indexes for case-insensitive or expression searches (always querying with the same function) and partial indexes for hot subsets (WHERE must be IMMUTABLE and the query's WHERE must be a superset of the index condition)."
+   }
+  ]
+ },
+ {
+  "group": 35,
+  "members": [
+   {
+    "idx": 46,
+    "statement": "Match the index type to the workload: b-tree by default, GiST for geometric/range/KNN, GIN for full-text and multi-value data, BRIN only for highly-correlated data, and hash only on PostgreSQL 10+."
+   },
+   {
+    "idx": 120,
+    "statement": "Select the index method to fit the data and operators: B-Tree as the general default, GiST for spatial/full-text/exclusion (lossy), GIN for jsonb/full-text (faster reads, slower writes), and avoid legacy hash indexes (not WAL-logged, unusable in replication)."
+   },
+   {
+    "idx": 242,
+    "statement": "Choose a hash index only for equality-only workloads that need no other B-tree features, and only on Postgres 10 or newer, because hash indexes were not crash-safe before Postgres 10 and the gain over B-tree is small."
+   },
+   {
+    "idx": 246,
+    "statement": "Do not rely on putting high-cardinality columns first in a multi-column index on Postgres 13 or newer; B-tree deduplication has largely removed that historical benefit."
+   }
+  ]
+ },
+ {
+  "group": 36,
+  "members": [
+   {
+    "idx": 47,
+    "statement": "Use pg_trgm trigram indexes for fuzzy search and for LIKE/regex with non-trailing wildcards, and use full-text search (to_tsvector/to_tsquery on a GIN index) for word-level search."
+   },
+   {
+    "idx": 122,
+    "statement": "For LIKE/wildcard searches on text or varchar, build the index with text_pattern_ops/varchar_pattern_ops because the default opclass lacks the LIKE operator, and create separate indexes per opclass since one index covers a single opclass."
+   },
+   {
+    "idx": 268,
+    "statement": "Avoid LIKE patterns with a leading wildcard; only the prefix before the first wildcard is an access predicate, and a leading wildcard forces a full table scan unless another access predicate exists — use a dedicated full-text index instead."
+   }
+  ]
+ },
+ {
+  "group": 38,
+  "members": [
+   {
+    "idx": 50,
+    "statement": "Choose the isolation level deliberately: READ COMMITTED by default, REPEATABLE READ for consistent multi-statement reports, SERIALIZABLE only with engine understanding, and always retry serialization failures."
+   },
+   {
+    "idx": 200,
+    "statement": "Choose the isolation level by the anomalies you must prevent (dirty/nonrepeatable/phantom reads, lost update/dirty write/write skew), remembering snapshot isolation prevents lost updates but not write skew and that serializability requires coordination."
+   }
+  ]
+ },
+ {
+  "group": 43,
+  "members": [
+   {
+    "idx": 55,
+    "statement": "Eliminate long-running and idle-in-transaction transactions because they block VACUUM cleanup and cause table bloat; monitor them and bound them with old_snapshot_threshold."
+   },
+   {
+    "idx": 57,
+    "statement": "Avoid VACUUM FULL on large tables (it locks and rewrites them); detect bloat via pg_stat_user_tables/pgstattuple and reorganize online with pg_squeeze."
+   },
+   {
+    "idx": 65,
+    "statement": "Optimize the query first, then size work_mem (per-operation) to keep hash aggregation and sorts in memory, and use maintenance_work_mem for CREATE INDEX/VACUUM/ALTER TABLE."
+   }
+  ]
+ },
+ {
+  "group": 44,
+  "members": [
+   {
+    "idx": 56,
+    "statement": "Account for MVCC storage: UPDATE/DELETE leave dead rows that (auto)VACUUM reclaims asynchronously into the free space map, usually without shrinking the table."
+   },
+   {
+    "idx": 189,
+    "statement": "Run space-reclamation maintenance (vacuum/compaction) as an asynchronous background process and persist the free-page list so free space survives crashes and is not leaked."
+   }
+  ]
+ },
+ {
+  "group": 46,
+  "members": [
+   {
+    "idx": 59,
+    "statement": "Diagnose from data: set up monitoring first, then check pg_stat_activity for active/idle/idle-in-transaction counts, long-running transactions, and ungranted locks."
+   },
+   {
+    "idx": 63,
+    "statement": "Diagnose I/O by enabling track_io_timing and reading block times in pg_stat_database/pg_stat_statements plus temp_files (a sign of low work_mem), then confirm with vmstat's wait column."
+   }
+  ]
+ },
+ {
+  "group": 47,
+  "members": [
+   {
+    "idx": 60,
+    "statement": "Always enable pg_stat_statements and rely on its aggregated per-query stats over the slow-query log, which misses the many-medium-queries case."
+   },
+   {
+    "idx": 133,
+    "statement": "Optimize in order — perfect the SQL, then add indexes, then update statistics — and locate the bottleneck queries first with the pg_stat_statements extension."
+   },
+   {
+    "idx": 251,
+    "statement": "Use pg_stat_statements to find the most expensive queries, ordering by total cumulative time, and reset its statistics when you need a clean measurement window."
+   },
+   {
+    "idx": 253,
+    "statement": "Capture slow query text and parameters through the Postgres logging system using log_min_duration_statement, and avoid log_statement = all on production because its overhead on fast queries can take the system down."
+   }
+  ]
+ },
+ {
+  "group": 49,
+  "members": [
+   {
+    "idx": 64,
+    "statement": "Stop a runaway query with pg_cancel_backend (keeping the connection) and kill a whole connection with pg_terminate_backend."
+   },
+   {
+    "idx": 100,
+    "statement": "Terminate connections sparingly: pg_cancel_backend cancels a query without dropping the connection, pg_terminate_backend kills it; clear affected connections before a backup or restore."
+   },
+   {
+    "idx": 101,
+    "statement": "Use noninteractive psql (-f / -c) for automation, turn AUTOCOMMIT off (and remember to COMMIT) for risky batch updates, and set PG* env vars or ~/.pgpass to avoid repeating connection parameters."
+   }
+  ]
+ },
+ {
+  "group": 52,
+  "members": [
+   {
+    "idx": 68,
+    "statement": "Model permissions with NOLOGIN group roles that LOGIN users inherit, and apply least privilege (grant CREATEDB/REPLICATION/BYPASSRLS only when needed; bound with CONNECTION LIMIT and VALID UNTIL)."
+   },
+   {
+    "idx": 93,
+    "statement": "Manage roles with CREATE ROLE (not the deprecated CREATE USER/GROUP), keep group roles login-less, state INHERIT/NOINHERIT explicitly, and rely on SET ROLE for the never-inherited superuser rights."
+   }
+  ]
+ },
+ {
+  "group": 53,
+  "members": [
+   {
+    "idx": 69,
+    "statement": "Revoke default PUBLIC privileges (database CONNECT and public-schema CREATE) and grant access explicitly, using ALTER DEFAULT PRIVILEGES so future objects inherit the intended grants."
+   },
+   {
+    "idx": 94,
+    "statement": "Grant USAGE on a schema or table/function grants are inert; do not assume database ownership grants access to all objects; and consider revoking risky PUBLIC defaults (CONNECT, EXECUTE, etc.)."
+   }
+  ]
+ },
+ {
+  "group": 54,
+  "members": [
+   {
+    "idx": 70,
+    "statement": "Apply fine-grained access with column-level grants (GRANT SELECT(col)) and row-level security policies (ENABLE ROW LEVEL SECURITY plus USING/WITH CHECK policies) for multi-tenant data, and stop using SELECT *."
+   },
+   {
+    "idx": 103,
+    "statement": "Organize objects into schemas and isolate multi-tenant data by giving each tenant its own schema named to match its login role, with search_path \"$user\",public so identical SQL serves every tenant."
+   }
+  ]
+ },
+ {
+  "group": 57,
+  "members": [
+   {
+    "idx": 73,
+    "statement": "Back up with compressed custom/directory-format pg_dump plus pg_dumpall -g for globals, and for low data loss and fast restore use PITR (WAL archiving plus pg_basebackup)."
+   },
+   {
+    "idx": 74,
+    "statement": "Never delete WAL files manually; let checkpoints recycle them and clean the archive with pg_archivecleanup."
+   },
+   {
+    "idx": 89,
+    "statement": "Never delete files from the data cluster folder to reclaim space: pg_log may be purged, but deleting pg_xlog's root or pg_clog destroys data and deleting archived WAL breaks point-in-time recovery and slave catch-up."
+   },
+   {
+    "idx": 97,
+    "statement": "Back up with pg_dump for selective day-to-day backups (compressed/TAR/directory formats enable parallel restore) and run pg_dumpall --globals-only daily to capture roles and tablespaces."
+   },
+   {
+    "idx": 98,
+    "statement": "Restore plain-text backups with psql (use --set ON_ERROR_STOP=on to abort on error) and compressed/TAR/directory backups with a pg_restore whose version is at least the pg_dump that made them; supply credentials via ~/.pgpass or PGPASSWORD."
+   },
+   {
+    "idx": 99,
+    "statement": "For remote servers or very large databases, prefer the command-line backup/restore tools over pgAdmin to avoid added complexity."
+   }
+  ]
+ },
+ {
+  "group": 59,
+  "members": [
+   {
+    "idx": 76,
+    "statement": "Set up streaming replication with pg_basebackup -R plus replication rules in pg_hba.conf using a dedicated REPLICATION role, and protect it with a monitored replication slot or wal_keep_segments."
+   },
+   {
+    "idx": 78,
+    "statement": "Resolve replication conflicts and standby promotion intentionally: bound query cancellation with max_standby_streaming_delay (and hot_standby_feedback for OLTP), pause/resume replay with pg_wal_replay_pause/resume, and promote with pg_ctl promote."
+   },
+   {
+    "idx": 139,
+    "statement": "Operate replication carefully: start slaves before the master, clone a running master with pg_basebackup, promote a slave one-way via its trigger_file, and reach for third-party tools (Slony/Bucardo) only when you need table-level, mixed-version, or multimaster replication (trigger-based, DDL-limited)."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 77,
+    "statement": "Choose durability deliberately: use synchronous replication with at least three nodes to minimize data loss, and tune it per transaction/user/database via synchronous_commit."
+   },
+   {
+    "idx": 138,
+    "statement": "Plan replication for availability and read scalability with one master and read-only slaves shipping WAL; choose synchronous (waits for a slave) versus asynchronous (lower latency but possible lag/loss); use streaming/cascading to reduce coupling; and note all servers must share the same version and unlogged tables are excluded."
+   },
+   {
+    "idx": 169,
+    "statement": "Trade durability against speed with the synchronous setting - FULL waits for data to reach disk and survives OS or power failure but is slow, OFF is far faster but can corrupt the database on an OS crash or power loss; the rollback journal plus hot-journal recovery is what restores a database after an interrupted transaction."
+   }
+  ]
+ },
+ {
+  "group": 61,
+  "members": [
+   {
+    "idx": 79,
+    "statement": "Mark function volatility correctly (VOLATILE/STABLE/IMMUTABLE), reduce the number of function calls, prefer SQL functions for optimizer freedom, and set COST/ROWS hints for expensive or set-returning functions."
+   },
+   {
+    "idx": 131,
+    "statement": "Mark function volatility correctly (IMMUTABLE/STABLE/VOLATILE) so the planner can optimize, apply STRICT cautiously (it can block index use), and prefer SQL functions for planner inlining while using PL/pgSQL when control flow or dynamic SQL is needed."
+   }
+  ]
+ },
+ {
+  "group": 69,
+  "members": [
+   {
+    "idx": 88,
+    "statement": "Run the postgres OS account with least privilege — a regular system user holding rights only to the data cluster and tablespace folders — to limit the blast radius of an SQL-injection attack and avoid startup failures."
+   },
+   {
+    "idx": 95,
+    "statement": "Use SECURITY DEFINER to let users act through a function without the underlying privilege, and treat untrusted-language functions as superuser-only code that runs under the postgres OS account."
+   }
+  ]
+ },
+ {
+  "group": 78,
+  "members": [
+   {
+    "idx": 107,
+    "statement": "Use serial/bigserial as a surrogate primary key when no natural key exists; note dropping the column drops its sequence but renaming the table does not rename it, and share a sequence across tables via nextval defaults."
+   },
+   {
+    "idx": 149,
+    "statement": "Declaring a column INTEGER PRIMARY KEY makes it an alias for the table's 64-bit ROWID with auto-generated keys and is the one column whose type is enforced; default ROWIDs may be recycled and non-monotonic after deletes, so add AUTOINCREMENT only when the application truly needs never-reused, strictly increasing keys."
+   }
+  ]
+ },
+ {
+  "group": 81,
+  "members": [
+   {
+    "idx": 110,
+    "statement": "Prefer jsonb (binary, faster, GIN-indexable, key-deduping) over json unless you must preserve exact text, whitespace, key order, or duplicate keys; index containment queries with @> plus a GIN index."
+   },
+   {
+    "idx": 234,
+    "statement": "Use a GIN index for JSONB key/element lookups (and for full-text search), because a B-tree cannot index lookups on arbitrary keys inside a JSONB value."
+   }
+  ]
+ },
+ {
+  "group": 88,
+  "members": [
+   {
+    "idx": 117,
+    "statement": "Use CHECK constraints (function-capable, planner-pruned, inherited) and exclusion constraints (non-equality uniqueness via operators like && for scheduling, backed by GiST/btree_gist) for richer integrity rules."
+   },
+   {
+    "idx": 118,
+    "statement": "Partition with parent-child inheritance plus a per-child CHECK constraint so the planner applies constraint exclusion, remembering primary-key/unique/index definitions are not inherited (CHECK constraints are)."
+   }
+  ]
+ },
+ {
+  "group": 93,
+  "members": [
+   {
+    "idx": 127,
+    "statement": "Win performance first through well-written SQL: avoid SELECT *, replace overused correlated subqueries with joins plus aggregation, and use CASE or FILTER for conditional aggregation so the table is scanned once."
+   },
+   {
+    "idx": 157,
+    "statement": "Use subqueries and compound queries knowing relational closure lets operations nest; a correlated subquery re-evaluates per outer row while an uncorrelated one runs once; compound queries (UNION/INTERSECT/EXCEPT) require equal column counts and a single trailing ORDER BY; UNION removes duplicates while UNION ALL keeps them; and pushing aggregation into a subquery before a join can cut the rows the join must match."
+   }
+  ]
+ },
+ {
+  "group": 99,
+  "members": [
+   {
+    "idx": 136,
+    "statement": "Match random_page_cost to the storage (default 4 for mechanical disks, ~2.0-2.5 for SSDs) and exploit caching (CTEs/IMMUTABLE functions, pg_prewarm) without bloating shared_buffers."
+   },
+   {
+    "idx": 185,
+    "statement": "Minimize random writes to match the medium — HDD head seeks and SSD garbage-collection penalties — by writing full blocks and batching writes, and respect the SSD page-write/block-erase asymmetry."
+   }
+  ]
+ },
+ {
+  "group": 102,
+  "members": [
+   {
+    "idx": 142,
+    "statement": "Reach for SQLite as an embedded, in-process, zero-configuration, single-file relational engine for small-to-medium applications; it is not a universal drop-in for a large-scale server RDBMS."
+   },
+   {
+    "idx": 143,
+    "statement": "Respect SQLite's write-concurrency and size limits - coarse-grained single-writer locking and per-transaction overhead that grows with database size; for high write concurrency that is time-critical, or very large databases, test empirically and consider another database."
+   },
+   {
+    "idx": 144,
+    "statement": "Use SQLite on a network file system only when no more than one connection accesses a given database at a time, because unreliable network-file-system locking can corrupt the database."
+   },
+   {
+    "idx": 145,
+    "statement": "Treat the database file as the security boundary - SQLite has no GRANT/REVOKE or user-level access control; keep database files out of public web directories, and build all SQL from user input with bound parameters or %q-style escaping, optionally restricting untrusted SQL with an authorizer."
+   }
+  ]
+ },
+ {
+  "group": 104,
+  "members": [
+   {
+    "idx": 147,
+    "statement": "Remember that SQLite uses manifest typing and does not enforce declared column types - any storage class can be stored in any column; when a column must hold one type, enforce it with a CHECK(typeof(x)=...) constraint or a validation function plus BEFORE INSERT/UPDATE triggers, and give validated columns a DEFAULT."
+   },
+   {
+    "idx": 148,
+    "statement": "Understand storage classes and type affinity - SQLite has five storage classes, a column may hold mixed classes across rows, sort order is NULL then numbers then TEXT then BLOB, and each column has NUMERIC/INTEGER/TEXT/NONE affinity derived from its declared type (an unrecognized type defaults to NUMERIC, no type gives NONE)."
+   },
+   {
+    "idx": 153,
+    "statement": "A foreign key relates a child column to a parent table's primary key; because the documented SQLite version parses but does not enforce foreign keys, emulate referential integrity with BEFORE INSERT/UPDATE triggers on the child and a BEFORE DELETE trigger on the parent."
+   }
+  ]
+ },
+ {
+  "group": 112,
+  "members": [
+   {
+    "idx": 163,
+    "statement": "Use triggers to run SQL on INSERT/UPDATE/DELETE events (BEFORE or AFTER, with OLD and NEW row access and RAISE to reject) for integrity rules and side effects that a CHECK constraint cannot express."
+   },
+   {
+    "idx": 165,
+    "statement": "Use SQLite conflict resolution to control constraint-violation handling - choose among REPLACE, IGNORE, FAIL, ABORT (the default), and ROLLBACK per statement (which overrides a table or index default); know that REPLACE skips delete triggers, and prefer IGNORE over FAIL when you want all processable rows changed since processing order is nondeterministic."
+   }
+  ]
+ },
+ {
+  "group": 113,
+  "members": [
+   {
+    "idx": 164,
+    "statement": "Wrap interdependent writes in one explicit BEGIN..COMMIT transaction rather than relying on per-statement autocommit, so they succeed or fail together and another connection cannot change the database between them."
+   },
+   {
+    "idx": 172,
+    "statement": "A connection always runs under exactly one transaction context shared by all its statements - use separate connections for separate transactions, and finalize every prepared statement before closing a connection or the close returns SQLITE_BUSY."
+   }
+  ]
+ },
+ {
+  "group": 114,
+  "members": [
+   {
+    "idx": 166,
+    "statement": "Understand SQLite's lock-escalation states (unlocked, shared, reserved, pending, exclusive) - multiple readers coexist with one writer because the writer works in RESERVED using a page cache and enters EXCLUSIVE only to flush; size cache_size so most work stays in RESERVED and the EXCLUSIVE lock is held only briefly, maximizing concurrency."
+   },
+   {
+    "idx": 167,
+    "statement": "When multiple connections write to the same database, start each writer with BEGIN IMMEDIATE (or BEGIN EXCLUSIVE) to serialize writers and avoid deadlock; on a write SQLITE_BUSY do not brute-force retry step() in autocommit (the state is indeterminate) - restart with BEGIN IMMEDIATE and use a busy handler or busy_timeout to wait for locks."
+   },
+   {
+    "idx": 168,
+    "statement": "Do not read and write the same table at the same time - a SELECT places a B-tree cursor that table-locks it, so a concurrent modification returns SQLITE_BUSY; read the rows fully into memory or a temporary table first, and always finalize a SELECT before writing with another connection, since its shared lock holds until end-of-results or finalize."
+   },
+   {
+    "idx": 176,
+    "statement": "Follow SQLite's threading rules - compile with thread support, pass a connection between threads only while it is UNLOCKED, never across a fork; and in shared-cache mode toggle the cache only when no connection is active and keep a connection's operations on one thread."
+   }
+  ]
+ },
+ {
+  "group": 116,
+  "members": [
+   {
+    "idx": 171,
+    "statement": "Execute commands as prepared statements (prepare, step, finalize) and bind values to positional or named parameters instead of building SQL strings - binding escapes values to prevent injection, an unbound parameter defaults to NULL, reusing a statement via reset avoids recompilation, and bound TEXT/BLOB needs SQLITE_TRANSIENT when its buffer may change versus SQLITE_STATIC for stable memory."
+   },
+   {
+    "idx": 177,
+    "statement": "Choose a language binding by weighing license, type mapping, query-method coverage, and how it links and upgrades SQLite; all bindings expose a connection object plus a cursor/statement object over the same C API, but watch binding-specific behavior such as PySQLite not running in SQLite's default autocommit mode (set isolation_level to None to restore it)."
+   }
+  ]
+ },
+ {
+  "group": 120,
+  "members": [
+   {
+    "idx": 178,
+    "statement": "Select a database/storage engine by simulating the real anticipated workload and measuring the metrics that matter, not by comparing components, popularity rank, or implementation language; treat the choice as hard to reverse."
+   },
+   {
+    "idx": 180,
+    "statement": "There is no universally optimal storage engine; choose one whose optimization target (read latency, write latency, density, or operational simplicity) matches the workload, because every design embeds trade-offs."
+   }
+  ]
+ },
+ {
+  "group": 122,
+  "members": [
+   {
+    "idx": 181,
+    "statement": "Choose row- versus column-oriented layout by access pattern — records consumed whole with point/range queries favour row-oriented, large scans or aggregates over few columns favour column-oriented — and do not conflate column stores with wide-column stores."
+   },
+   {
+    "idx": 237,
+    "statement": "Order the columns of a multi-column B-tree so leading columns are used by all sharing queries and later columns only by a subset, and keep the index to roughly three columns or fewer; a rarely queried leading column wastes I/O and extra columns bloat the index out of the planner's choice."
+   }
+  ]
+ },
+ {
+  "group": 123,
+  "members": [
+   {
+    "idx": 182,
+    "statement": "Choose index and data-file organization by the read/write mix: index-organized/clustered tables and direct-offset references favour read-mostly access, while primary-key indirection is better for write-heavy workloads with multiple secondary indexes."
+   },
+   {
+    "idx": 190,
+    "statement": "Choose a B-Tree (in-place update, read-optimized) versus an LSM Tree (append-only, write-optimized) by the read/write ratio; LSM Trees suit write-heavy workloads because writes never have to locate records on disk."
+   },
+   {
+    "idx": 284,
+    "statement": "Reserve index-organized / clustered-index tables for tables that need a single index; a secondary index on an index-organized table requires two tree traversals per row and is very inefficient, so multi-index tables usually fare better as heap tables."
+   }
+  ]
+ },
+ {
+  "group": 126,
+  "members": [
+   {
+    "idx": 186,
+    "statement": "Version on-disk formats and verify integrity: record each file's version, place magic numbers for sanity checks, compute per-page checksums and reject corrupt pages on read, and reserve strong cryptographic hashes for tamper detection rather than CRCs/checksums."
+   },
+   {
+    "idx": 208,
+    "statement": "Validate and checksum any content exchanged between nodes so corruption cannot be replicated over good data."
+   }
+  ]
+ },
+ {
+  "group": 128,
+  "members": [
+   {
+    "idx": 188,
+    "statement": "Exploit known write patterns: use right-only-append/fastpath optimizations for monotonically increasing keys and bottom-up bulk loading for presorted data to avoid splits and merges, and rebalance to raise node occupancy."
+   },
+   {
+    "idx": 225,
+    "statement": "Partition by a routing key sized to load and value distribution, prefer consistent hashing (which relocates only ~K/n keys on a cluster change) over modulo placement, and relocate data before updating routing metadata."
+   }
+  ]
+ },
+ {
+  "group": 137,
+  "members": [
+   {
+    "idx": 199,
+    "statement": "Select a concurrency-control family by conflict rate: optimistic (validate before commit) when conflicts are rare and retries affordable, multiversion for read-heavy snapshot isolation, and pessimistic/locking otherwise."
+   },
+   {
+    "idx": 202,
+    "statement": "Handle deadlocks by detection (cycles in a waits-for graph), avoidance (wait-die/wound-wait by timestamp priority), or timeouts/conservative 2PL."
+   },
+   {
+    "idx": 224,
+    "statement": "Prefer consensus-based distributed transactions (Calvin's deterministic up-front ordering, or Spanner's two-phase commit over per-shard Paxos groups with TrueTime) over bare two-phase commit for better fault tolerance."
+   },
+   {
+    "idx": 226,
+    "statement": "Reduce coordination where it is provably safe: snapshot isolation for efficient first-committer-wins reads (still allowing write skew), invariant-confluent coordination avoidance, and RAMP read-atomic isolation."
+   }
+  ]
+ },
+ {
+  "group": 140,
+  "members": [
+   {
+    "idx": 204,
+    "statement": "Guard against the fsync error-handling pitfall: a checkpointer that does not keep files open can miss I/O errors after cleared dirty flags and silently lose data, so test every failure path of the durability mechanism."
+   },
+   {
+    "idx": 209,
+    "statement": "Design for partial failures and network partitions (which can yield conflicting results and asymmetric links) and verify resilience by injecting partitions, latency, clock drift, and bit rot."
+   }
+  ]
+ },
+ {
+  "group": 163,
+  "members": [
+   {
+    "idx": 232,
+    "statement": "Select the index type from the (data type, operator) pair the query uses: the combination determines which index type can serve the predicate, so match operator semantics to an index that supports them."
+   },
+   {
+    "idx": 244,
+    "statement": "Drive index design from the query workload in order: evaluate the required data types and operators first, then pick the index type, then decide whether an advanced index (multi-column, expression, partial) is warranted."
+   }
+  ]
+ },
+ {
+  "group": 164,
+  "members": [
+   {
+    "idx": 233,
+    "statement": "Default to a B-tree index for equality and range predicates on common scalar data types; for these operators B-tree is the right choice the overwhelming majority of the time."
+   },
+   {
+    "idx": 261,
+    "statement": "Order index columns equality-first then range: a single B-tree supports only one range condition as an access predicate, and a leading range column leaves later predicates unable to narrow the scan."
+   }
+  ]
+ },
+ {
+  "group": 165,
+  "members": [
+   {
+    "idx": 235,
+    "statement": "Keep the number of indexes minimal: every index must be maintained on each insert/update/delete and adds WAL writes, so unused or redundant indexes are a write-performance tax to be consolidated away."
+   },
+   {
+    "idx": 280,
+    "statement": "Keep the number of indexes small to protect write performance — insert cost is dominated by index count and the first index already costs the most — and consider dropping non-essential indexes during large bulk loads."
+   }
+  ]
+ },
+ {
+  "group": 166,
+  "members": [
+   {
+    "idx": 239,
+    "statement": "Create an expression index on the function/expression a query filters by (e.g. lower(column)) when the query applies a function to the column, since an index on the bare column cannot serve such a query."
+   },
+   {
+    "idx": 264,
+    "statement": "Never wrap an indexed column in a function, arithmetic, or implicit type conversion in the where clause; convert the search term instead, or add a function-based index on the exact expression, because the optimizer treats any column-side function as an opaque black box."
+   }
+  ]
+ },
+ {
+  "group": 167,
+  "members": [
+   {
+    "idx": 240,
+    "statement": "Use a partial index (an index with a WHERE clause) for workloads that consistently filter on the same constant predicate to get a smaller, faster index, but do not create hundreds or thousands of partial indexes because that slows down planning."
+   },
+   {
+    "idx": 256,
+    "statement": "Add an index on the filtered column to eliminate a sequential scan, and promote it to a covering index (INCLUDE on Postgres 11+, or a multicolumn index on older versions) when you want an Index Only Scan that avoids heap reads."
+   },
+   {
+    "idx": 262,
+    "statement": "Keep the scanned index range as small as possible and read the predicate information to separate access predicates (which narrow the range) from filter predicates (which do not); a filter predicate is the dominant cause of poor scaling."
+   },
+   {
+    "idx": 271,
+    "statement": "Use partial/filtered indexes for common predicates on constant values so the index stays small — potentially constant-size as the table grows — using only deterministic functions in the index predicate."
+   }
+  ]
+ },
+ {
+  "group": 170,
+  "members": [
+   {
+    "idx": 247,
+    "statement": "Exploit a B-tree's presorted leaf pages to avoid a separate Sort step for ORDER BY and LIMIT queries and to implement keyset-based pagination efficiently."
+   },
+   {
+    "idx": 279,
+    "statement": "Implement top-N and pagination with a pipelined order by and tell the database you need only N rows; prefer the seek (keyset) method over offset for deep paging, and always page on a deterministic sort order."
+   }
+  ]
+ },
+ {
+  "group": 180,
+  "members": [
+   {
+    "idx": 267,
+    "statement": "Use bind parameters by default — they prevent SQL injection and enable execution-plan-cache reuse — and supply a literal only for the rare value that should deliberately steer the plan (skewed predicate, partition key, LIKE pattern)."
+   },
+   {
+    "idx": 269,
+    "statement": "Reject the 'smart logic' optional-filter anti-pattern (col = :p OR :p IS NULL); build dynamic SQL containing only the filters needed right now, still using bind parameters, because the catch-all form forces a full table scan under a shared plan cache."
+   }
+  ]
+ }
+]
