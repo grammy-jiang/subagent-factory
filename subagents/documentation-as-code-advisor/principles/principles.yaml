@@ -1,0 +1,1128 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: 'Use Diátaxis as a guide to process, not a plan: work iteratively in
+    small steps, publish or commit every improvement immediately, do not chase the
+    big picture, never create empty type structures, and let good structure grow organically
+    from within — documentation is never finished but can always be complete.'
+  derived_from_claims:
+  - C00006
+  - C00007
+  - C00052
+  - C00053
+  - C00054
+  - C00055
+  - C00056
+  - C00057
+  - C00058
+  - C00061
+  - C00062
+  - C00096
+  confidence: high
+  applies_when:
+  - a team is beginning to adopt Diátaxis or improve existing documentation
+  - planning how to improve or maintain a documentation set over time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Write reference as austere, neutral, authoritative description led by
+    the product it describes: describe and only describe, resist instruction/explanation/opinion
+    (link out instead), keep examples illustrative without sliding into explanation,
+    adopt consistent standard patterns placed where users expect, mirror the structure
+    of the machinery, and state facts, lists, and warnings plainly.'
+  derived_from_claims:
+  - C00074
+  - C00083
+  - C00085
+  - C00086
+  - C00087
+  - C00088
+  - C00090
+  - C00091
+  - C00092
+  - C00093
+  - C00094
+  - C00095
+  confidence: high
+  applies_when:
+  - writing technical reference material
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Author and structure documentation around the four Diátaxis types — tutorials,
+    how-to guides, reference, and explanation — each serving a distinct user need
+    that arises from the two axes of craft (action vs cognition, acquisition vs application),
+    which is why there are exactly four.
+  derived_from_claims:
+  - C00001
+  - C00002
+  - C00003
+  - C00004
+  - C00005
+  - C00014
+  - C00029
+  - C00030
+  - C00031
+  - C00032
+  - C00033
+  confidence: high
+  applies_when:
+  - creating or restructuring technical documentation for a product, tool, or skill
+    domain
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Understand a tutorial as a lesson in which the learner learns by doing
+    something meaningful toward an achievable goal, where the value lies in what the
+    learner gains rather than what they produce, the contract puts nearly all responsibility
+    on the author/teacher, and the instructor is condemned to be absent and must be
+    present through written instruction alone — which also makes tutorials costly
+    to write and maintain.
+  derived_from_claims:
+  - C00097
+  - C00098
+  - C00105
+  - C00106
+  - C00107
+  - C00108
+  - C00110
+  - C00125
+  confidence: high
+  applies_when:
+  - writing or planning a tutorial / learning-oriented documentation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: 'Write explanation as bounded, understanding-oriented discussion: anchor
+    it to a real or imagined ''why'' question, make connections to related ideas,
+    give context and reasons (design decisions, history, constraints), frame each
+    piece as being ''about'' a topic, weigh alternatives and admit perspective, and
+    keep instruction and technical description out.'
+  derived_from_claims:
+  - C00021
+  - C00022
+  - C00023
+  - C00024
+  - C00025
+  - C00026
+  - C00027
+  - C00028
+  confidence: medium
+  applies_when:
+  - writing explanation or conceptual/background documentation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: Classify a piece of content with the Diátaxis compass by asking whether
+    it informs action or cognition and whether it serves acquisition or application
+    of skill; use it especially when intuition is uncertain to decide the correct
+    documentation type.
+  derived_from_claims:
+  - C00008
+  - C00009
+  - C00010
+  - C00011
+  - C00012
+  - C00013
+  - C00100
+  confidence: high
+  applies_when:
+  - deciding what type of documentation a page is or should be
+  - reviewing documentation for misplacement
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: 'Use proven tutorial techniques to sustain the learner: show them where
+    they are going from the start (not ''you will learn...''), deliver visible meaningful
+    results early and often, maintain a narrative of the expected with real/expected
+    output and warnings, point out what they should notice, target the feeling of
+    doing, permit repetition, and use first-person-plural, unambiguous language with
+    confirming clues.'
+  derived_from_claims:
+  - C00112
+  - C00113
+  - C00114
+  - C00115
+  - C00116
+  - C00117
+  - C00124
+  confidence: medium
+  applies_when:
+  - writing the moment-to-moment content of a tutorial
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Keep the four documentation forms distinct and never let their forms
+    and purposes muddle together, since neighbouring forms share affinities and naturally
+    tend to blur, and conflation (especially of tutorials and how-to guides) is the
+    root of many documentation problems.
+  derived_from_claims:
+  - C00015
+  - C00039
+  - C00063
+  - C00064
+  - C00065
+  - C00066
+  confidence: high
+  applies_when:
+  - writing or editing any documentation page
+  - diagnosing structural problems in a documentation set
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: 'Follow the first rule of teaching — don''t try to teach: ruthlessly
+    minimise explanation in tutorials (give minimal inline rationale and link out),
+    provide explanation only when the user wants it, ignore options and alternatives,
+    and keep the learner moving from one concrete action and result to the next.'
+  derived_from_claims:
+  - C00099
+  - C00111
+  - C00118
+  - C00119
+  - C00120
+  - C00121
+  confidence: high
+  applies_when:
+  - writing the prose and steps of a tutorial
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Introduce a long name's short form (for an acronym, spell out the full
+    term with the acronym in parentheses, both in boldface) once on first use, then
+    use the short form consistently; define an acronym only when it is significantly
+    shorter than the full term and appears many times.
+  derived_from_claims:
+  - C00131
+  - C00132
+  - C00133
+  - C00134
+  - C00135
+  - C00136
+  confidence: high
+  applies_when:
+  - a long term or acronym recurs within a document or section
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Write the vast majority of sentences in active voice (actor + verb +
+    target) so each names who does what to whom; reserve passive voice for rare cases,
+    and do not mistake imperative sentences for passive.
+  derived_from_claims:
+  - C00153
+  - C00154
+  - C00155
+  - C00156
+  - C00157
+  - C00158
+  confidence: high
+  applies_when:
+  - composing or revising sentences
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Use static-site metadata and templates to preserve simple Markdown authoring
+    while supporting shared content, product-specific pages, and build-time includes.
+  derived_from_claims:
+  - C00312
+  - C00313
+  - C00314
+  - C00319
+  - C00320
+  - C00321
+  confidence: medium
+  applies_when:
+  - Writers need Markdown simplicity but the site must reuse content across product
+    versions or variants.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: 'Start a long document with a structured outline that groups topics:
+    explain why before each task, limit each step to one concept or task, introduce
+    information when it is most relevant (deferring background such as project history),
+    and share the outline with contributors before drafting.'
+  derived_from_claims:
+  - C00228
+  - C00229
+  - C00230
+  - C00231
+  - C00233
+  confidence: high
+  applies_when:
+  - planning a long document
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: 'Use a pronoun only when its referent is unambiguous: introduce the noun
+    first, keep the pronoun within about five words of its noun, reuse the noun if
+    another noun intervenes, and avoid vague ''this'' or ''that''.'
+  derived_from_claims:
+  - C00137
+  - C00138
+  - C00139
+  - C00140
+  - C00141
+  confidence: high
+  applies_when:
+  - a sentence uses a pronoun such as it, they, this, or that
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: Distinguish functional quality (objective, measurable, mutually independent
+    standards such as accuracy, completeness, consistency) from deep quality (subjective,
+    interdependent characteristics such as flow and fitting human needs), and remember
+    deep quality is conditional on functional quality being met first.
+  derived_from_claims:
+  - C00067
+  - C00068
+  - C00069
+  - C00070
+  - C00071
+  confidence: medium
+  applies_when:
+  - assessing or reasoning about documentation quality
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Use Diátaxis to expose lapses in functional quality and to create the
+    conditions for deep quality — fitting user needs and preserving flow by preventing
+    rhythm-breaking digressions — while recognising it cannot by itself supply functional
+    quality or guarantee deep quality.
+  derived_from_claims:
+  - C00072
+  - C00073
+  - C00075
+  - C00076
+  - C00079
+  confidence: medium
+  applies_when:
+  - using Diátaxis to diagnose or improve documentation quality
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Select or extend API documentation tooling so generated reference output
+    can coexist with narrative integration documentation and any required schema metadata.
+  derived_from_claims:
+  - C00324
+  - C00325
+  - C00326
+  - C00329
+  - C00330
+  confidence: medium
+  applies_when:
+  - The default API documentation UI is insufficient for tutorials, Markdown content,
+    or downstream framework requirements.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: 'Disclose information progressively: introduce new terms next to the
+    instructions that use them, break walls of text with tables, lists, and headings,
+    split long step lists into sub-tasks, and move from simple to complex.'
+  derived_from_claims:
+  - C00239
+  - C00240
+  - C00241
+  - C00242
+  - C00243
+  confidence: medium
+  applies_when:
+  - a longer document introduces many new concepts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: Define each how-to guide by a specific real-world goal or problem for
+    an already-competent user, recognising that how-to guides are more than linear
+    procedures (they fork, branch, and need judgement) and that a rich list of them
+    signals what the product can do.
+  derived_from_claims:
+  - C00034
+  - C00035
+  - C00038
+  - C00040
+  confidence: high
+  applies_when:
+  - planning or writing how-to / task-oriented guides
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Separate tutorials from how-to guides by the need they serve — study
+    versus work — not by basic versus advanced (how-to guides may cover basic procedures
+    and tutorials may teach advanced skills); get this distinction right because conflating
+    them is easy and especially harmful to the newcomers you hope to retain.
+  derived_from_claims:
+  - C00101
+  - C00102
+  - C00103
+  - C00104
+  confidence: high
+  applies_when:
+  - deciding whether a learning-oriented or task-oriented document is needed
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: 'Tell reference from explanation by remembering both are theory (cognition):
+    reference serves work (application) and explanation serves study (acquisition);
+    apply the decisive test ''would the reader turn to this while working, or after
+    stepping away to think?'' and the rules of thumb (lists/tables that are boring
+    to read are reference; what you could read away from the work is explanation).'
+  derived_from_claims:
+  - C00080
+  - C00081
+  - C00082
+  - C00084
+  confidence: high
+  applies_when:
+  - deciding whether content belongs in reference or explanation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Keep list items parallel in grammar, logical category, capitalization,
+    and punctuation (the first item sets the pattern); start each item with a capital
+    letter and end full-sentence items with punctuation, and consider starting each
+    numbered step with an imperative verb.
+  derived_from_claims:
+  - C00169
+  - C00170
+  - C00171
+  - C00172
+  confidence: high
+  applies_when:
+  - authoring or reviewing a list
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Use commas for natural pauses, the serial (Oxford) comma in embedded
+    lists, and between a condition and its consequence; never splice two independent
+    thoughts with a comma — use a period.
+  derived_from_claims:
+  - C00184
+  - C00185
+  - C00186
+  - C00187
+  confidence: high
+  applies_when:
+  - punctuating a sentence with commas
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: 'Adopt a style guide for consistency (its highlights may suffice for
+    small projects) and follow its core conventions: write in the second person, place
+    conditions before instructions, and format code-related text in code font.'
+  derived_from_claims:
+  - C00217
+  - C00218
+  - C00219
+  - C00220
+  confidence: high
+  applies_when:
+  - a team or project produces documentation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: In a generation prompt, specify a role (whoever could best teach the
+    topic to the audience), the target audience, the document type, and the document's
+    goal.
+  derived_from_claims:
+  - C00269
+  - C00270
+  - C00271
+  - C00273
+  confidence: medium
+  applies_when:
+  - prompting an LLM to generate a draft
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: If documentation source lives inside product code, give writers the same
+    practical workflow access needed for code exploration, code review, build validation,
+    and version control.
+  derived_from_claims:
+  - C00292
+  - C00295
+  - C00296
+  - C00297
+  confidence: medium
+  applies_when:
+  - Documentation is stored as comments or source files inside a product code repository.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Write documentation about the product as it is for the user — from their
+    real-world project and need — not from the operations the machinery can perform,
+    and omit obvious machine-motion steps a competent user already knows.
+  derived_from_claims:
+  - C00020
+  - C00036
+  - C00037
+  confidence: high
+  applies_when:
+  - writing how-to guides or any user-facing task documentation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: 'Hold a tutorial to high construction standards: each exercise must be
+    meaningful, successful (completable), logical, and usefully complete; aspire to
+    perfect reliability so it works for every user every time (confidence is built
+    layer by layer and easily shaken); and discover flaws through extensive testing
+    and observation of real users.'
+  derived_from_claims:
+  - C00109
+  - C00122
+  - C00123
+  confidence: high
+  applies_when:
+  - building, testing, or revising a tutorial
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Recognize terms unfamiliar to the audience and either link to an existing
+    explanation or define them; if a document introduces many terms, collect the definitions
+    into a glossary.
+  derived_from_claims:
+  - C00126
+  - C00127
+  - C00128
+  confidence: high
+  applies_when:
+  - writing or editing a document that uses domain-specific terms
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: 'Convert prose to lists where it helps: use a bulleted list for unordered
+    items and a numbered list for ordered items (numbered whenever reordering would
+    change the meaning), and avoid embedded run-in lists.'
+  derived_from_claims:
+  - C00166
+  - C00167
+  - C00168
+  confidence: high
+  applies_when:
+  - prose contains a set or sequence of items
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Choose precise, strong verbs and reduce weak generic ones (forms of 'be',
+    'occur', 'happen'); treat a generic verb as a signal of a missing actor or passive
+    voice, but keep a form of 'be' when it is genuinely the best verb.
+  derived_from_claims:
+  - C00160
+  - C00161
+  - C00162
+  confidence: high
+  applies_when:
+  - a sentence relies on a weak or generic verb
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: List everything the audience must learn to reach their goal, respect
+    prerequisite task ordering, and match vocabulary to the audience, explaining more
+    as the audience widens.
+  derived_from_claims:
+  - C00199
+  - C00200
+  - C00201
+  confidence: high
+  applies_when:
+  - planning content for a defined audience
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Keep writing culturally neutral and free of idioms for international
+    audiences, because idioms are a form of the curse of knowledge and translation
+    software handles plain English far better.
+  derived_from_claims:
+  - C00204
+  - C00205
+  - C00206
+  confidence: high
+  applies_when:
+  - writing for an international or translated audience
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Begin a document by stating its scope and its non-scope (only non-scope
+    items a reasonable reader would expect); when drafting drifts outside the scope,
+    refocus the document or revise the scope statement and delete off-scope sections.
+  derived_from_claims:
+  - C00207
+  - C00208
+  - C00209
+  confidence: high
+  applies_when:
+  - starting or revising a document's framing
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: 'Treat reaching a final document as iterative: budget time to refine
+    drafts, set work aside and return with fresh eyes, and change the review context
+    to spot improvements.'
+  derived_from_claims:
+  - C00216
+  - C00223
+  - C00224
+  confidence: high
+  applies_when:
+  - editing your own draft
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Provide navigation and signposting (introduction and summary, logical
+    flow, headings, a table of contents, and related/next links); prefer task-based
+    headings over jargon, give each heading a brief introduction, and do not stack
+    a level-three heading directly under a level-two heading.
+  derived_from_claims:
+  - C00236
+  - C00237
+  - C00238
+  confidence: high
+  applies_when:
+  - structuring headings and navigation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: 'Make sample code correct, concise, understandable, and reusable with
+    minimal side effects: it must build, perform its claimed task, be as production-ready
+    as possible (no security vulnerabilities), follow language conventions, and model
+    the team''s best way to do the task.'
+  derived_from_claims:
+  - C00252
+  - C00253
+  - C00254
+  confidence: high
+  applies_when:
+  - writing sample code for documentation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Test and maintain sample code like production code; do not repurpose
+    unit tests as samples (their goals differ), and prefer full sample programs over
+    snippets, which are tested less and degrade over time.
+  derived_from_claims:
+  - C00255
+  - C00256
+  - C00257
+  confidence: high
+  applies_when:
+  - maintaining sample code over time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Structure a how-to guide as a meaningful sequence ordered in time — imposed
+    where necessity dictates, otherwise placing first the step that sets up later
+    ones — and ground the order in the user's activities and thinking so the guide
+    acquires flow.
+  derived_from_claims:
+  - C00045
+  - C00046
+  - C00047
+  confidence: medium
+  applies_when:
+  - ordering the steps of a how-to guide
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: In US English, use 'that' for an essential clause and 'which' (preceded
+    by a comma) for a nonessential clause; a read-aloud pause before the clause signals
+    'which'.
+  derived_from_claims:
+  - C00150
+  - C00151
+  - C00152
+  confidence: medium
+  applies_when:
+  - writing subordinate clauses in US English
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Give every table column a meaningful header, keep cell text short (if
+    a cell holds more than two sentences, use another format), and keep each column
+    internally parallel.
+  derived_from_claims:
+  - C00173
+  - C00174
+  - C00175
+  confidence: medium
+  applies_when:
+  - presenting data in a table
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Use a semicolon only to join two highly related independent clauses where
+    each side is a complete sentence and the two could be flipped; place a comma after
+    a transition word that follows a semicolon.
+  derived_from_claims:
+  - C00188
+  - C00189
+  - C00190
+  confidence: medium
+  applies_when:
+  - joining closely related independent clauses
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Use a pair of em dashes to set off a digression; do not use en dashes
+    (per the Google style guide); and consult a dictionary, glossary, or style guide
+    when unsure how to hyphenate a compound term.
+  derived_from_claims:
+  - C00191
+  - C00192
+  - C00193
+  confidence: medium
+  applies_when:
+  - choosing dash or hyphen punctuation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: 'Make samples readable (descriptive names, no hard-to-decipher tricks,
+    no deep nesting, judicious highlighting) and well-commented: short comments that
+    favor clarity, explaining non-obvious parts and, for experts, why rather than
+    what; put notes that belong with pasted code in code comments and lengthy explanations
+    in the surrounding text.'
+  derived_from_claims:
+  - C00260
+  - C00261
+  - C00262
+  confidence: medium
+  applies_when:
+  - writing or commenting sample code
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: Make samples reusable (provide all dependencies and setup, allow extension,
+    and account for integration side effects), show an anti-example when teaching
+    a constraint, and provide a set spanning simple to complex, starting with a basic
+    example.
+  derived_from_claims:
+  - C00263
+  - C00264
+  - C00265
+  confidence: medium
+  applies_when:
+  - assembling a set of sample programs
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: Prompt for a specific subset rather than a whole long document, choose
+    the response style (overriding the default or mimicking a style or style guide
+    as needed), and instruct the model to abbreviate, since responses tend to run
+    long.
+  derived_from_claims:
+  - C00272
+  - C00274
+  - C00275
+  confidence: medium
+  applies_when:
+  - controlling the shape of an LLM response
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: 'Use the LLM for layered editing passes: copy-edit for grammar, punctuation,
+    and spelling; find and fix style problems such as passive voice; and find logical
+    inconsistencies, assigning a reviewer role to sharpen its focus.'
+  derived_from_claims:
+  - C00284
+  - C00285
+  - C00286
+  confidence: medium
+  applies_when:
+  - editing a draft with an LLM
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: When summarizing with an LLM, specify the summary's style, audience,
+    and purpose (and optionally tone), pass exemplar summaries when the required style
+    is not in a style guide, and consider a non-text summary when it would be more
+    memorable.
+  derived_from_claims:
+  - C00288
+  - C00289
+  - C00290
+  confidence: medium
+  applies_when:
+  - using an LLM to summarize a document
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Before adopting a docs-in-code workflow, plan for writer capacity, backup
+    ownership, load balancing, and the cost of moving between developer and documentation
+    toolchains.
+  derived_from_claims:
+  - C00305
+  - C00306
+  - C00307
+  confidence: medium
+  applies_when:
+  - A team expects writers to work inside developer tools for a meaningful portion
+    of documentation work.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Use the organization's normal collaboration platform for documentation
+    when it improves internal alignment, lowers contribution friction, and supports
+    visible external contributor credit.
+  derived_from_claims:
+  - C00331
+  - C00332
+  - C00334
+  confidence: medium
+  applies_when:
+  - The documentation project benefits from the same workflow used by engineers or
+    from external partner contributions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Continuously deliver documentation only when CI can build and test accepted
+    commits, block production on failures, and provide branch previews for review.
+  derived_from_claims:
+  - C00335
+  - C00339
+  - C00340
+  confidence: medium
+  applies_when:
+  - Documentation publishes from a default branch and CI can deploy staging or production
+    environments.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: 'Apply Diátaxis as a repeating improvement cycle: choose any piece of
+    documentation (even at random), assess it critically against Diátaxis standards
+    (what user need it serves, how well, what to add/move/remove/change, whether its
+    language and logic fit its mode), decide the single next action that yields an
+    immediate improvement, do it, and repeat.'
+  derived_from_claims:
+  - C00059
+  - C00060
+  confidence: high
+  applies_when:
+  - doing day-to-day documentation improvement work
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: 'Keep how-to guides focused on the goal: exclude teaching, explanation,
+    and reference completeness (link out to them instead), and assume a competent
+    user who knows what they want and can follow instructions.'
+  derived_from_claims:
+  - C00041
+  - C00042
+  confidence: high
+  applies_when:
+  - writing a how-to guide
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: Use one unambiguous term per concept and apply it consistently throughout
+    the document; never rename a concept partway through, because readers read apparent
+    synonyms as a deliberate distinction.
+  derived_from_claims:
+  - C00129
+  - C00130
+  confidence: high
+  applies_when:
+  - a concept, component, or product is referred to more than once
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Prefer shorter documentation and shorter sentences, because they read
+    faster, are easier to maintain, and are usually clearer.
+  derived_from_claims:
+  - C00142
+  - C00143
+  confidence: high
+  applies_when:
+  - drafting or revising for length
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Focus each sentence on a single idea, and split off any subordinate clause
+    that branches into a separate idea.
+  derived_from_claims:
+  - C00144
+  - C00149
+  confidence: high
+  applies_when:
+  - a sentence carries more than one idea
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Keep each paragraph focused on a single topic as an independent unit
+    of logic, and cut or move any sentence that drifts to a past or future topic.
+  derived_from_claims:
+  - C00179
+  - C00180
+  confidence: high
+  applies_when:
+  - a paragraph covers more than one topic
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Cut filler words and replace bloated verb phrases with a single precise
+    verb.
+  derived_from_claims:
+  - C00147
+  - C00148
+  confidence: high
+  applies_when:
+  - a sentence contains filler words or a multi-word verb phrase
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: Lead each paragraph with an opening sentence that states its central
+    point, because readers focus on (and may read only) the first sentence.
+  derived_from_claims:
+  - C00177
+  - C00178
+  confidence: high
+  applies_when:
+  - writing a paragraph
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: Summarize key points at the start so the opening answers readers' essential
+    questions, and be prepared to revise that opening page many times.
+  derived_from_claims:
+  - C00211
+  - C00212
+  confidence: high
+  applies_when:
+  - writing the start of a document
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Define the audience by role and by proximity to the knowledge (related
+    versus unrelated work, and knowledge that fades over time), because role alone
+    is insufficient.
+  derived_from_claims:
+  - C00197
+  - C00198
+  confidence: high
+  applies_when:
+  - scoping a document's audience
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: Counter the curse of knowledge by not assuming novices share your expertise,
+    and prefer simple words, since many technical readers are not native English speakers.
+  derived_from_claims:
+  - C00202
+  - C00203
+  confidence: high
+  applies_when:
+  - an expert writes for a less-expert or international audience
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: Determine content by answering who the audience is, their goal, what
+    they know before reading, and what they should know or do after; then organize
+    the document to deliver exactly that.
+  derived_from_claims:
+  - C00214
+  - C00215
+  confidence: high
+  applies_when:
+  - planning a document's content and structure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: Give the document an introduction stating what it covers, the expected
+    prior knowledge, and what it does not cover (without trying to cover everything),
+    then check the finished draft against that overview as a form of documentation
+    QA.
+  derived_from_claims:
+  - C00234
+  - C00235
+  confidence: high
+  applies_when:
+  - introducing and then reviewing a document
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
