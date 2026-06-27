@@ -1,0 +1,130 @@
+schema_version: golden-tests-v1
+subagent_slug: requirements-use-case-advisor
+generated_at: "2026-06-28"
+profile_version: "0.1.0"
+tier: 2
+
+golden_tests:
+  - test_id: GT-001
+    description: >-
+      Positive routing — review mode: a use case whose goal sits below the
+      user-goal level and whose steps encode UI dialog (P075, P018, P010, P005)
+    prompt: >
+      Please review this use case. Title: "User clicks the Login button".
+      Main scenario: 1. User opens the login page. 2. User types username into
+      the username field. 3. User types password into the password field. 4. User
+      clicks Login. 5. System shows the dashboard. Is this use case sound?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: >
+      At least three findings with principle references: (1) the goal is below
+      the user-goal level — raise it by asking why the actor logs in (P075,
+      P018); (2) steps 2-4 encode UI dialog/field detail that belongs to the UI
+      designer, not the requirement (P010); (3) steps should be intent-level,
+      present-tense, actor-visible (P005). States whether scope/goal level are
+      clear and offers a rewritten user-goal title.
+    principle_coverage: [P075, P018, P010, P005]
+  - test_id: GT-002
+    description: >-
+      Positive routing — review mode: a user story that is developer-oriented,
+      not testable, and too large (P059, P087, P058)
+    prompt: >
+      Review this user story for our backlog: "Refactor the persistence layer to
+      use the new ORM so the code is cleaner." It is estimated at 8 weeks. Is it
+      a good story?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: >
+      Findings citing principles: the story describes developer/technical value,
+      not value to a user or purchaser (P059); it is not testable as written and
+      should be made measurable (P087); it is far too large and should be split
+      or treated as a spike (P058, P039). Offers a value-oriented rewrite or a
+      split.
+    principle_coverage: [P059, P087, P058, P039]
+  - test_id: GT-003
+    description: >-
+      Positive routing — advise mode: choosing between user stories and use
+      cases for a large, safety-relevant system (P023, P052, P001)
+    prompt: >
+      We are starting a large medical-scheduling system with several teams and
+      strict audit requirements. Should we capture requirements as user stories,
+      use cases, or something else?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: >
+      Guidance that matches ceremony to criticality and scale (P001, P017):
+      prefer use cases or Use-Case 2.0 slices for the stronger system view, test
+      and impact management at this scale (P023), while warning against an
+      exhaustive IEEE-830 shall-list as the primary approach (P052). Leaves the
+      decision with the team and cites the trade-offs.
+    principle_coverage: [P023, P052, P001, P017]
+  - test_id: GT-004
+    description: >-
+      Positive routing — validate mode: checking specific rules on a use case
+      main scenario and precondition (P027, P026)
+    prompt: >
+      Validate this use case against good-practice rules. The main success
+      scenario has 19 numbered steps, and the precondition says "the user is a
+      careful person who has read the manual". Which rules pass or fail?
+    expected_route: invoke
+    expected_mode: validate
+    must_ask_for: []
+    minimum_output: >
+      Pass/fail per rule: the main scenario is too long (~3-9 steps expected) —
+      merge steps and raise the goal level (P027, fail); the precondition states
+      something the system cannot guarantee or enforce and is not a real
+      precondition (P026, fail). Each fail carries one corrective step.
+    principle_coverage: [P027, P026]
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: >-
+      Out of scope — pure UI visual design with no requirements-capture
+      dimension (when_not_to_use; P010)
+    prompt: >
+      Can you design the colour palette, button styling, and CSS layout for our
+      login screen so it looks modern?
+    expected_route: do_not_invoke
+    expected_mode: null
+    minimum_output: >
+      Declines: visual/UI design is out of scope — the advisor captures the
+      actor's intent and leaves UI design to the UI designer (P010). Offers
+      instead to help capture the underlying goal as a use case or story.
+    principle_coverage: [P010]
+  - test_id: NR-002
+    description: >-
+      Out of scope — choosing a database/deployment architecture, no
+      requirements artifact involved (when_not_to_use)
+    prompt: >
+      Should we deploy our service on Kubernetes or a managed PaaS, and which
+      database engine should we pick?
+    expected_route: do_not_invoke
+    expected_mode: null
+    minimum_output: >
+      Declines: infrastructure and architecture selection has no
+      requirements-capture dimension and is outside this advisor's scope. Offers
+      to help where there is a requirements question — the goals and scenarios
+      the system must support.
+    principle_coverage: []
+
+missing_context_tests:
+  - test_id: MC-001
+    description: >-
+      Underspecified — asked to write acceptance tests with no domain rules
+      supplied; must ask, not invent (P088, P059)
+    prompt: >
+      Just write the acceptance tests for the "transfer funds" story.
+    expected_route: invoke
+    expected_mode: validate
+    must_ask_for:
+      - the domain rules and limits for a transfer (e.g. minimum/maximum amount, allowed accounts, fees)
+      - what the customer considers a successful versus rejected transfer
+      - any regulatory or business constraints the transfer must satisfy
+    minimum_output: >
+      Does not invent acceptance criteria; asks the customer for the missing
+      domain rules and success/failure conditions (P088, P059), then offers to
+      draft test skeletons once supplied.
+    principle_coverage: [P088, P059]

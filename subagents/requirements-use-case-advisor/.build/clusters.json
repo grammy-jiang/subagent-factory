@@ -1,0 +1,701 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Prefer writing too little over too much: a readable approximate use case is valuable, diminishing returns set in fast (the first draft yields about two-thirds of the value and writing costs roughly 100 times reading), and the use case mainly serves as a marker to remind the team."
+   },
+   {
+    "idx": 1,
+    "statement": "Optimize every use case for human readability and communication, since that is its ultimate purpose; you may trade some precision and accuracy for readability but only so far before it stops serving its purpose."
+   },
+   {
+    "idx": 2,
+    "statement": "Keep the use case in its text: prefer plain prose over diagrams and formal notations (which only augment the text and cut off untrained readers), because prose handles complex parallel, optional, and exceptional sequencing best."
+   }
+  ]
+ },
+ {
+  "group": 1,
+  "members": [
+   {
+    "idx": 3,
+    "statement": "Provide no single best template; instead match the template density (casual vs fully dressed), tolerance, and ceremony — and your evaluation of quality — to each project's criticality, size, and communication, choosing project by project and knowing the cost of mistakes."
+   },
+   {
+    "idx": 21,
+    "statement": "Adopt the fully dressed template fields and Cockburn's preferred one-column, numbered, plain-prose, full-sentence format, while treating format as a project choice since all forms carry the same information (a one-paragraph brief is the lightest form and scope/level icons are optional)."
+   },
+   {
+    "idx": 50,
+    "statement": "Select a use-case standard fit to the situation from the five nominated standards, letting the project's forces tune the formality — for business modeling, casual drafting for sizing, and fast elicitation that still retains the stakeholders and interests."
+   }
+  ]
+ },
+ {
+  "group": 4,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Brainstorm the actors (human and non-human) as a structured way to find all the goals — it is the goals, not the actor names, that matter — and err toward over-listing actors early because missing one is far costlier than having too many."
+   },
+   {
+    "idx": 7,
+    "statement": "Produce the key requirements artifacts: the Actor-Goal List of blue goals and their primary actors (the negotiating point among users, sponsors, and developers) and, optionally, an Actor List characterizing each actor type's skills."
+   },
+   {
+    "idx": 24,
+    "statement": "Recognize that primary actors and job titles matter most at a project's start and end and are relatively unimportant in the middle, so do not fuss over exact actor names during detailed writing."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 8,
+    "statement": "Treat the use case as a contract that reconciles the possibly conflicting interests of all stakeholders, and make the system behavior protect the interests of stakeholders who are not present to defend their own."
+   },
+   {
+    "idx": 13,
+    "statement": "Apply the Stakeholders and Interests model: briefly list the stakeholders and their interests and use that list as a cheap check that every interest is satisfied at success or protected at failure — a check that catches omitted steps and otherwise turns up later as change requests."
+   },
+   {
+    "idx": 17,
+    "statement": "Define a use case as the primary actor's goal toward the system's responsibilities plus the set of interaction scenarios (both goal-achieving and goal-failing) between the system under discussion and its external actors; together the use cases form one ever-unfolding story."
+   },
+   {
+    "idx": 18,
+    "statement": "Treat the system under discussion as an unopened black box whenever use cases serve as functional requirements, and open it into a white-box use case only to document how its internal parts deliver the externally visible behavior."
+   },
+   {
+    "idx": 43,
+    "statement": "Apply use cases equally to business processes, writing the organization black-box then white-box; because the business design does not imply the system specification (technology is usually only a conduit), prefer writing the business without technology and then contextualize it inside the system use case, while guarding against business-versus-system level confusion."
+   },
+   {
+    "idx": 179,
+    "statement": "Keep the Use-Case 2.0 model linked: use cases express goals and related requirements, slices scope independently workable value, and stories explore stakeholder needs."
+   },
+   {
+    "idx": 186,
+    "statement": "Apply use cases to any system or business process with observable usage behavior, including embedded, machine-interaction, process-control, and business-process contexts."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 10,
+    "statement": "Write each step as a forward-moving succeeding goal in a single sentence style — present tense, active voice, simple grammar, the actor visible and clearly holding the ball — avoiding the missing-actor and no-real-goal anti-patterns and rereading each sentence for the actor's real goal."
+   },
+   {
+    "idx": 12,
+    "statement": "Keep the main success scenario short — about 3 to 11 steps, typically 3 to 8 — and when it runs long, merge steps and raise the goal level by asking why the actor is doing each step."
+   }
+  ]
+ },
+ {
+  "group": 9,
+  "members": [
+   {
+    "idx": 14,
+    "statement": "Treat the extension conditions as where the most interesting requirements live: brainstorm all failures and alternative successes using a failure checklist that includes internal failures, then reduce the list by explicit criteria, and when in doubt include a condition."
+   },
+   {
+    "idx": 22,
+    "statement": "Brainstorm the complete list of failure and extension conditions before writing any failure handling, because handling consumes the energy needed to list them and writing the recovery steps — the hardest part — surfaces hidden business policy, new actors, and new goals."
+   },
+   {
+    "idx": 35,
+    "statement": "Choose one typical, failure-free main success scenario as the base and build all other scenarios as extensions onto it, telling the simple story first and adding complications afterward (and expect the main scenario to look trivial)."
+   },
+   {
+    "idx": 38,
+    "statement": "Do not write if/then/else statements in the scenario; put all alternative and failure behavior in the Extensions or Alternate Courses section after the main success scenario."
+   }
+  ]
+ },
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 15,
+    "statement": "Write each failure-handling scenario fragment in the same style as the main scenario, starting at the named step; it ends one of three ways, usually needs no explicit 'go to step', and any new validation it reveals belongs back in the main success scenario."
+   },
+   {
+    "idx": 16,
+    "statement": "Manage a failure within a failure by indentation, delay breaking a fragment into its own use case (which costs tracking and maintenance) until about three pages or four indent levels, handle the failure of every called sub-use case, and rely on failure roll-up to avoid a scenario explosion."
+   },
+   {
+    "idx": 27,
+    "statement": "Treat every use case as having two exits, success and failure: write the Success End Condition and the Failed End Protection against all stakeholders before the main scenario, apply their pass/fail tests, and let writing the failure protection reveal the logging the main scenario needs."
+   },
+   {
+    "idx": 30,
+    "statement": "Write every scenario step as one of exactly three action kinds — an interaction, a validation, or an internal state change, using the core sentence forms — where validations and state changes exist to protect a stakeholder's interest."
+   }
+  ]
+ },
+ {
+  "group": 11,
+  "members": [
+   {
+    "idx": 19,
+    "statement": "Write scenarios in generified form using placeholders for actor identities and values, and reserve a concrete (fully named) scenario for a brief, motive-rich system-in-use story used as a warm-up to use-case writing."
+   },
+   {
+    "idx": 134,
+    "statement": "Understand how stories relate to use cases and interaction-design scenarios—a story is roughly one scenario and (with its tests) approximates a use case, but is smaller-scoped, more transient, less UI-laden, and meant to initiate rather than document analysis—and prefer essential use cases when use cases are used."
+   }
+  ]
+ },
+ {
+  "group": 12,
+  "members": [
+   {
+    "idx": 20,
+    "statement": "Recognize that use cases are only the functional portion (about chapter two, roughly a quarter) of the requirements and act as a hub linking the rest; do not force non-interaction requirements into them, and attach each use case's secondary information in a sortable table."
+   },
+   {
+    "idx": 44,
+    "statement": "Keep data descriptions out of the use case and manage them in three precision levels — information nicknames in the use-case text, with field lists and field details/checks linked separately in the requirements file."
+   },
+   {
+    "idx": 52,
+    "statement": "Use the use-case list as the planning and tracking structure (a planning table, or Kent Beck's cost-first Planning Game), manage scale through lower precision, relevance selection, clustering, and layering, and ship the highlighted parts of a use case per incremental release."
+   },
+   {
+    "idx": 178,
+    "statement": "Start use-case work products at the bare-essential level and increase detail only when team context, communication needs, criticality, contractual constraints, or handoff model justify it."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 23,
+    "statement": "Use the actor types correctly: name the primary actor as the stakeholder whose goal the use case serves, collect secondary actors to identify external interfaces (secondary does not mean unimportant), handle time-based triggers, and remember an element's classification is relative to the chosen scope."
+   },
+   {
+    "idx": 26,
+    "statement": "Write at least one wide corporate or strategic use case by finding the outermost primary actor; these few high-level use cases serve as context and index and pay for themselves, but the functional requirements still reside in the blue (user-goal) use cases."
+   },
+   {
+    "idx": 46,
+    "statement": "Avoid the hazards of the generalizes relation — do not combine specialization of actors with specialization of use cases — by simply listing the kinds of operation in prose, keeping any general use case empty, and following the drawing conventions if you must diagram."
+   }
+  ]
+ },
+ {
+  "group": 28,
+  "members": [
+   {
+    "idx": 47,
+    "statement": "Use the use cases downstream as ready design scenarios (especially with responsibility-based CRC design) and as a ready-made functional test suite (at least one test per extension, derived from the stakeholders); derive the development task list from them informally on projects up to about fifty people, and estimate with algorithmic complexity, infrastructure, and staff capability in mind (a rough yardstick of about eight use cases per programmer-year)."
+   },
+   {
+    "idx": 168,
+    "statement": "Use use-case slices as cross-lifecycle units that connect requirements to architecture, design, implementation, tests, planning, business modeling, and reuse."
+   },
+   {
+    "idx": 175,
+    "statement": "Structure use-case narratives into the simplest successful path plus variants or problem paths, then use that flow structure to derive tests."
+   }
+  ]
+ },
+ {
+  "group": 29,
+  "members": [
+   {
+    "idx": 48,
+    "statement": "Regard a domain class or component as complete only with respect to the delivered use cases, and design each release as well as practical while accepting that a new use case will force change."
+   },
+   {
+    "idx": 167,
+    "statement": "Use Use-Case 2.0 as a lightweight use-case-driven practice that structures selected management, engineering, and delivery practices without dictating them."
+   }
+  ]
+ },
+ {
+  "group": 34,
+  "members": [
+   {
+    "idx": 55,
+    "statement": "Write use cases through an effective collaborative process — start as a group, draft in pairs, circulate for peer comment, review with a designer and a usage expert, hold a group review, then baseline and change only for found mistakes — and gather review comments in one batch rather than editing suggestion by suggestion."
+   },
+   {
+    "idx": 171,
+    "statement": "Adopt use cases through six habits: simple stories, a maintained system view, value focus, sliced work, incremental delivery, and adaptation to the team."
+   }
+  ]
+ },
+ {
+  "group": 36,
+  "members": [
+   {
+    "idx": 57,
+    "statement": "Treat software requirements as a shared communication problem and prevent either the business or the technical side from dominating; make resource allocation a jointly-owned concern."
+   },
+   {
+    "idx": 187,
+    "statement": "Capture nonfunctional and cross-cutting technical requirements as use-case-related concerns, using infrastructure use cases when the concern drives shared architecture."
+   }
+  ]
+ },
+ {
+  "group": 38,
+  "members": [
+   {
+    "idx": 59,
+    "statement": "Favour frequent conversation over heavy written specification, writing documents only when they help deliver working software."
+   },
+   {
+    "idx": 135,
+    "statement": "Shift requirements from written documents to conversation, because writing moves focus to a shared document away from shared understanding and customers otherwise receive the developers' interpretation of imprecise, ambiguous words."
+   }
+  ]
+ },
+ {
+  "group": 39,
+  "members": [
+   {
+    "idx": 60,
+    "statement": "Model every user story as Card, Conversation, and Confirmation—just enough written text to remember, estimate, and plan, with details in conversation and tests."
+   },
+   {
+    "idx": 61,
+    "statement": "Require every story to be valuable to a user or a purchaser, and phrase it so the customer can recognise and prioritise that value."
+   },
+   {
+    "idx": 62,
+    "statement": "Treat a story card as a reminder to converse, not a contract; keep annotations light and record settled decisions as tests."
+   },
+   {
+    "idx": 136,
+    "statement": "Aim not for documenting every detail or 'perfect requirements' (perfect parts do not sum to a perfect whole) but for adequate placeholder stories augmented by frequent conversation."
+   }
+  ]
+ },
+ {
+  "group": 40,
+  "members": [
+   {
+    "idx": 63,
+    "statement": "Prefer many small stories over large ones: size each so one or a pair of programmers can finish it in roughly half a day to two weeks, split epics, and avoid hierarchical over-decomposition."
+   },
+   {
+    "idx": 73,
+    "statement": "Treat each story as a discrete, single-setting piece of functionality and exploit stories' iterability—write a placeholder epic now and refine it into smaller stories only when needed—so detail is deferred until the feature is certain."
+   },
+   {
+    "idx": 78,
+    "statement": "Size stories to be usable in planning—not too large or too small—judged against the team, its capabilities, and the technologies, and use placeholder epics with rough estimates for deliberately deferred areas."
+   },
+   {
+    "idx": 79,
+    "statement": "Split a compound epic into end-to-end constituent stories (grouping or splitting along data boundaries) without over-splitting; split a complex/uncertain epic into a timeboxed investigative spike plus a development story, ideally in separate iterations, so research can be prioritised on its own."
+   },
+   {
+    "idx": 80,
+    "statement": "Combine stories that are too small (such as bug reports and minor UI tweaks) into a single named story of roughly half a day to several days, and schedule it like any other."
+   }
+  ]
+ },
+ {
+  "group": 42,
+  "members": [
+   {
+    "idx": 65,
+    "statement": "Capture a story's expectations as short, incomplete, evolving acceptance tests rather than exhaustive specifications."
+   },
+   {
+    "idx": 71,
+    "statement": "Verify each story against the customer's intent with acceptance tests written early in the iteration, and put a skilled tester on the customer team for technical testing."
+   },
+   {
+    "idx": 72,
+    "statement": "Capture important decisions in frequently-run automated acceptance tests rather than in documents unlikely to be read."
+   },
+   {
+    "idx": 81,
+    "statement": "Write every story to be testable—passing its tests proves it is done—and rewrite vague, especially non-functional, stories into measurable form, avoiding absolutes like 'never' or 'always'."
+   },
+   {
+    "idx": 99,
+    "statement": "Use acceptance tests (not 'the system shall' statements) to record conversation details and customer assumptions, treating testing as two steps—jot test notes on cards anytime, then turn them into full tests that prove the story is correctly and fully done—so tests also define when a story is complete."
+   }
+  ]
+ },
+ {
+  "group": 43,
+  "members": [
+   {
+    "idx": 66,
+    "statement": "Form a customer team (which may include testers, a product manager, real users, and interaction designers) because no single omniscient customer exists."
+   },
+   {
+    "idx": 98,
+    "statement": "Build the customer team by adding real users first, naming a single project champion for one consistent customer voice, identifying the project's critical success factors, and supplementing with proxies whose strengths balance others' weaknesses."
+   }
+  ]
+ },
+ {
+  "group": 44,
+  "members": [
+   {
+    "idx": 67,
+    "statement": "Keep customers and users actively involved throughout the project, including writing the stories themselves, rather than only at the start and end."
+   },
+   {
+    "idx": 70,
+    "statement": "Let the customer prioritise stories—using user value and cohesion and weighing each story's story-point cost—while taking developer input on risk and complementarity."
+   },
+   {
+    "idx": 83,
+    "statement": "Model user roles before writing stories—aggregating individuals into roles—rather than writing every story from a single user's perspective, which makes the team miss whole classes of users."
+   },
+   {
+    "idx": 85,
+    "statement": "Write stories around value to a user or purchaser—not to developers—keeping user-interface and technology assumptions out; the surest way to achieve this is to have the customer write the stories."
+   },
+   {
+    "idx": 89,
+    "statement": "Gather stories with lightweight, continuous techniques—user interviews across roles, questionnaires, observation, and story-writing workshops—and combine methods rather than relying on one."
+   },
+   {
+    "idx": 91,
+    "statement": "Use questionnaires only to gather information or prioritisation about existing stories from a large user base, not as a primary way to trawl for new stories."
+   },
+   {
+    "idx": 93,
+    "statement": "Run a story-writing workshop (developers, users, customer) before each release as the fastest way to trawl: combine brainstorming with low-fidelity paper prototyping of conceptual workflows, walk it depth-first, prompt for missing stories, favour quantity over quality without judging ideas, then discard the prototype within days."
+   },
+   {
+    "idx": 103,
+    "statement": "Start story identification from each user role's goals, and when splitting a large story write end-to-end 'slice of cake' stories spanning all architectural layers rather than splitting along horizontal technical layers."
+   },
+   {
+    "idx": 104,
+    "statement": "Write closed stories that finish with a meaningful, satisfying goal, balanced against staying small enough to estimate and schedule yet large enough to defer detail."
+   },
+   {
+    "idx": 108,
+    "statement": "Keep story cards brief reminders of a conversation, do not number them (use short titles instead), and keep the customer—not developers—responsible for writing them so she understands them well enough to prioritise."
+   },
+   {
+    "idx": 125,
+    "statement": "Disaggregate stories into developer tasks to share work and surface forgotten effort (remembering stories are user-value units, not to-do lists), separating hard-to-estimate or parallelisable or independently-valuable parts."
+   },
+   {
+    "idx": 126,
+    "statement": "Give each task one responsible owner while the whole team shares completion and keeps assignments fluid; after covering the top velocity-worth of stories, have each developer estimate her tasks in ideal time and confirm the load is realistic, handing off or dropping work if over-committed."
+   },
+   {
+    "idx": 137,
+    "statement": "Keep stories terse and value-oriented so both business and developers comprehend them (people recall story-organised information better, including inferred actions), and sized just right for planning, programming, and testing without further aggregation."
+   },
+   {
+    "idx": 141,
+    "statement": "Use stories to drive participatory design (engaging jargon-free users as active design participants rather than mere study subjects) and to build tacit team knowledge through face-to-face conversation."
+   },
+   {
+    "idx": 142,
+    "statement": "Manage stories' drawbacks: on large projects use roles and high-level stories to keep relationships clear, add lightweight supplementary docs when traceability is mandated, and write some information down on very large teams where conversation does not scale; know why you chose your technique and switch to a use case or scenario when you cannot reach shared understanding."
+   },
+   {
+    "idx": 143,
+    "statement": "Read story 'smells' and act: too-small or interdependent stories should be combined (and re-split as end-to-end slices); curb goldplating by keeping developers on prioritised stories and raising task visibility via daily meetings, demos, and QA."
+   },
+   {
+    "idx": 145,
+    "statement": "Treat frequent story-splitting during planning as a smell to pre-split remaining stories; when a customer cannot prioritise, fix oversized stories or rewrite them to express business value (ideally having her write them); and when a customer avoids responsibility, give her a safe, sometimes private way to express opinions while you own final decisions."
+   },
+   {
+    "idx": 157,
+    "statement": "When real customers are external, appoint an internal proxy customer, and run a story-writing workshop (any order or role-by-role) to seed the backlog without trying to think of every story up front, since new stories can later be swapped in for equal removed work."
+   }
+  ]
+ },
+ {
+  "group": 46,
+  "members": [
+   {
+    "idx": 69,
+    "statement": "Plan releases by velocity: allocate stories into iterations in priority order up to the team's velocity, treat the first velocity as a guess, and re-plan mid-course using actuals."
+   },
+   {
+    "idx": 113,
+    "statement": "Use one iteration's measured velocity to forecast future iterations of the same length, valid when productivity was normal, estimates were consistent, and stories were independent (justified because summing independent estimates is approximately normal)."
+   },
+   {
+    "idx": 120,
+    "statement": "Convert total story points to duration via velocity, obtaining an initial velocity from historical values, then an initial iteration, then a reasoned guess (roughly one-third to one-half of available developer-days when a point is an ideal day), refining after a few iterations."
+   },
+   {
+    "idx": 121,
+    "statement": "Build the release plan by allocating highest-priority stories into iterations up to velocity, but hold it loosely: it gives an approximate duration, not a fixed date, so use it to set then continually reset expectations as velocity is measured and stories re-estimated."
+   },
+   {
+    "idx": 127,
+    "statement": "Count only fully completed stories toward velocity at full value (exclude partials, which hide last-10% complexity and signal oversized stories or weak teamwork), using pre-iteration estimates without retroactive change, and finish one story before starting the next."
+   },
+   {
+    "idx": 128,
+    "statement": "Plan the next iteration's velocity at no more than the last, avoid over-reacting to a single volatile iteration (wait two or three), and track planned-versus-actual velocity and cumulative story points together."
+   },
+   {
+    "idx": 129,
+    "statement": "Read an iteration burndown chart knowing it reflects both completed work and added/re-estimated scope, so pair it with a velocity or cumulative chart to see the team's true speed, and start without a complete up-front spec expecting stories to be added, dropped, resized, and re-prioritised."
+   },
+   {
+    "idx": 158,
+    "statement": "Create a release plan in four steps—select iteration length, estimate velocity, prioritise stories, allocate to iterations—using short iterations against a fixed near-term deadline so real velocity can be measured before committing the rest; when a story's interpretation could swing its estimate, clarify with the customer (who may not estimate or react to estimates) before sizing it."
+   }
+  ]
+ },
+ {
+  "group": 48,
+  "members": [
+   {
+    "idx": 75,
+    "statement": "Keep stories independent and developable in any order; when a harmful dependency exists, combine the stories, split along a different dimension, or place two conditional estimates on the card."
+   },
+   {
+    "idx": 76,
+    "statement": "Keep stories negotiable: a card is a short description whose details are settled in conversation, so add only the important known details as brief annotations and avoid over-detailing."
+   }
+  ]
+ },
+ {
+  "group": 51,
+  "members": [
+   {
+    "idx": 84,
+    "statement": "Run user-role modelling as four steps—brainstorm (no discussion), organise by spatial overlap, consolidate equivalents and drop unimportant roles, then refine with attributes—keeping each role a single individual and people-focused over systems."
+   },
+   {
+    "idx": 86,
+    "statement": "Refine important roles with attributes and, only for one or two vital roles, create a concrete persona (name, face, detail); write stories in terms of a specific role or persona instead of the generic 'the user'."
+   }
+  ]
+ },
+ {
+  "group": 52,
+  "members": [
+   {
+    "idx": 87,
+    "statement": "Do user-role modelling even when real on-site users exist, and optionally use extreme characters to surface overlooked stories, treating such advanced techniques as optional."
+   },
+   {
+    "idx": 107,
+    "statement": "Write stories that name the user role, for one user, in the active voice—optionally using the 'As a (role) I want (function) so that (value)' template—to keep real users in mind and surface ambiguities."
+   },
+   {
+    "idx": 170,
+    "statement": "Use user stories alone only when domain experts are readily available, escaped requirements errors are low severity, and the system is expected to remain in that context."
+   }
+  ]
+ },
+ {
+  "group": 53,
+  "members": [
+   {
+    "idx": 88,
+    "statement": "Treat requirements as 'trawled', not 'captured': they come in different sizes, evolve over time, and need skill to find; make an initial up-front pass writing the stories you can, looking out about one release with detail decreasing over the horizon."
+   },
+   {
+    "idx": 105,
+    "statement": "Record a must-obey requirement as a 'Constraint' card—unscheduled but tracked, with an automated test where feasible—and keep the user interface out of stories as long as possible to avoid binding requirement to solution."
+   },
+   {
+    "idx": 106,
+    "statement": "Size stories to their implementation horizon (near-term small and precise, distant large and rough), and use a non-story format for requirements such as UI guidelines or system interfaces when it expresses them better."
+   },
+   {
+    "idx": 109,
+    "statement": "Estimate stories in team-defined relative story points (ideally an ideal day of work) using an approach that tolerates imprecision, revises with new information, works for epics and small stories, and supports release planning."
+   },
+   {
+    "idx": 138,
+    "statement": "Do not write two requirement items separately if they cannot be prioritised or developed separately (write the tests directly instead), and exploit stories' fit with iterative development by writing some, coding and testing them, and splitting epics progressively."
+   },
+   {
+    "idx": 139,
+    "statement": "Prefer stories because, unlike IEEE 830 (which makes missing requirements indistinguishable from unwritten ones) or template-driven 'completist' use cases, stories support progressive levels of detail with no mandatory fields."
+   },
+   {
+    "idx": 140,
+    "statement": "Accept that software cannot be built strictly top-down (users do not fully know needs, details emerge while building, changes occur, people err) and that developers work opportunistically, so use stories that are easily written and rewritten at any detail level to support that reality."
+   },
+   {
+    "idx": 144,
+    "statement": "Treat over-detailing, premature UI detail, and 'thinking too far ahead' (templates, finer-precision estimates, unjustified tooling) as smells of over-valuing documentation and upfront requirements; respond with smaller cards, goal-phrased stories, and a refresher on why stories were adopted."
+   },
+   {
+    "idx": 153,
+    "statement": "Do not force every requirement into a story: handle non-functional requirements as 'Constraint' cards with an automated daily compliance test where feasible, and express more complex needs in whatever additional format (e.g. a data dictionary) suits them."
+   },
+   {
+    "idx": 156,
+    "statement": "Retain completed stories (archive cards or keep the software/report) rather than discarding them, since retained requirements repeatedly prove useful for audits, rewrites, and contracts; treat a bug as its own story when it is story-sized and bundle quick bugs into one story, with colour-coding optional."
+   },
+   {
+    "idx": 182,
+    "statement": "Keep stories complete and goal-related by tracing coherent flow paths through flows, special requirements, and tests."
+   }
+  ]
+ },
+ {
+  "group": 56,
+  "members": [
+   {
+    "idx": 94,
+    "statement": "Always prefer a real user on the customer team; when forced to use proxies, choose them deliberately by weighing each proxy type's background, motives, and characteristic biases."
+   },
+   {
+    "idx": 95,
+    "statement": "Recognise each proxy type's bias and compensate: the users' manager and development manager have conflicting goals or atypical usage; salespeople over-index on the last lost sale but are great conduits to users; domain experts suit domain models not workflows; marketing understands markets not users; former users must be recent and aligned; trainers/support bias toward trainability/supportability; analysts must actually talk to users."
+   },
+   {
+    "idx": 97,
+    "statement": "When real users are limited or absent, establish a real-user task force as a sounding board, use multiple differing proxy types, study competitors for stories, and release early to expose proxy/real-user mismatches—never assuming developers can substitute for users."
+   }
+  ]
+ },
+ {
+  "group": 58,
+  "members": [
+   {
+    "idx": 100,
+    "statement": "Have the customer specify acceptance tests before coding (developers/testers may add more), treat testing as part of development rather than an after-coding phase, and discover tests by asking what programmers need to know, what is assumed, what varies, and what can go wrong."
+   },
+   {
+    "idx": 101,
+    "statement": "Write acceptance tests only while they clarify the story (no redundant cases), let unit tests cover low-level cases, run all prior iterations' acceptance tests with the customer at least each iteration, and automate them—using tools like FIT/FitNesse—to contain the growing cost."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 110,
+    "statement": "Own story estimates collectively as a team, involving as many developers as practical, using an iterative Wideband-Delphi process where developers reveal private estimates simultaneously and the customer only answers questions."
+   },
+   {
+    "idx": 123,
+    "statement": "Hold an iteration planning meeting with the whole team (customer plus all developers) that plans one level deeper than the release plan, in the sequence discuss-disaggregate-accept-estimate, with the customer reading stories in priority order and details deferred to keep it efficient."
+   }
+  ]
+ },
+ {
+  "group": 62,
+  "members": [
+   {
+    "idx": 112,
+    "statement": "Triangulate estimates by comparing each story against already-estimated stories so the meaning of a story point stays stable."
+   },
+   {
+    "idx": 114,
+    "statement": "Treat story points as team-relative and not comparable across teams, unaffected by pair programming, and constrain them to a coarse non-linear scale because precision falls as size grows; sub-estimates of a split story need not sum to the parent."
+   },
+   {
+    "idx": 115,
+    "statement": "Have developers define story points usably, stick to that definition consistently, give honest estimates under pressure, estimate as a team, and keep estimates consistent across comparable stories."
+   }
+  ]
+ },
+ {
+  "group": 65,
+  "members": [
+   {
+    "idx": 118,
+    "statement": "Favour the highest-value 'juicy bits' first while still weighing risk (the customer, informed by the team, decides whether to pull risky work forward); flag work cheap to defer now but costly later, and surface implicit infrastructural needs as user-facing stories the customer can prioritise."
+   },
+   {
+    "idx": 122,
+    "statement": "Prioritise stories into a precise sequence (not coarse buckets), have the customer give honest unpadded deadlines, and build the plan on realistic estimates with an appropriately sized buffer while resisting inflating infrastructural priority."
+   }
+  ]
+ },
+ {
+  "group": 67,
+  "members": [
+   {
+    "idx": 124,
+    "statement": "Resist changing story priorities mid-iteration to avoid whipsawing the team, preferring an adequate working solution over a hypothetically better rebuild."
+   },
+   {
+    "idx": 131,
+    "statement": "Add a task mid-iteration only when a forgotten task is needed to finish a story already in the iteration; post charts big and visible, chart defects per story point to catch quality erosion, and prioritise genuinely new work into a later iteration."
+   }
+  ]
+ },
+ {
+  "group": 71,
+  "members": [
+   {
+    "idx": 146,
+    "statement": "Apply user stories beyond XP to other agile processes such as Scrum, understanding that both are iterative (refining a whole) and incremental (delivering complete, tested pieces)."
+   },
+   {
+    "idx": 152,
+    "statement": "A reported rewrite suggests Scrum-with-stories can be far more productive than waterfall (about 54 versus 540 person-months), but this is single-case evidence and should be treated cautiously."
+   },
+   {
+    "idx": 169,
+    "statement": "Prefer use cases and use-case slices over standalone user stories when the context needs scalable structure, stronger system view, test-asset management, impact analysis, scope control, or missing-functionality detection."
+   },
+   {
+    "idx": 172,
+    "statement": "Use stories to align stakeholders and developers on goals, required behavior, successful paths, problem handling, and implementation-driving slices."
+   }
+  ]
+ },
+ {
+  "group": 72,
+  "members": [
+   {
+    "idx": 147,
+    "statement": "Run Scrum in fixed-length sprints with a self-organising 4-7 developer team (collective ownership, no fixed role labels) supported by a product owner who owns and prioritises a growing product backlog and a servant-leader ScrumMaster who removes obstacles."
+   },
+   {
+    "idx": 148,
+    "statement": "Hold a sprint planning meeting where the product owner presents top-priority items and the team alone commits to a sprint goal; once the sprint starts only the team may add work and the organisation must not change the sprint's contents (abort and re-plan if a major change is truly needed)."
+   },
+   {
+    "idx": 151,
+    "statement": "Constrain the Scrum product backlog to user stories that each describe user or product-owner value—stocking it initially by user role—because this makes the backlog easier to prioritise, sprint planning faster, and sprint reviews and daily scrums clearer and customer-focused."
+   }
+  ]
+ },
+ {
+  "group": 78,
+  "members": [
+   {
+    "idx": 160,
+    "statement": "Adopt XP's twelve practices together as a synergistic whole (deferring customisation until experienced), delivering each feature fully within a short, firm-timeboxed iteration chosen as short as possible while still delivering business value."
+   },
+   {
+    "idx": 166,
+    "statement": "Live by XP's values (communication favouring face-to-face, simplicity, immediate feedback, courage) and its five principles (rapid feedback, assume simplicity, incremental change, embrace change, quality work), which define doing XP even if a practice or two is missing."
+   }
+  ]
+ },
+ {
+  "group": 89,
+  "members": [
+   {
+    "idx": 181,
+    "statement": "Treat each slice as the work item that carries selected stories through design, implementation, and verification."
+   },
+   {
+    "idx": 188,
+    "statement": "In backlog-driven development, make use-case slices the primary backlog items because their structure supports independence, value, testability, estimation, negotiation, and further slicing."
+   }
+  ]
+ }
+]

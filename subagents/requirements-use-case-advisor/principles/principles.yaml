@@ -1,0 +1,1664 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Provide no single best template; instead match the template density (casual
+    vs fully dressed), tolerance, and ceremony — and your evaluation of quality —
+    to each project's criticality, size, and communication, choosing project by project
+    and knowing the cost of mistakes.
+  derived_from_claims:
+  - C00004
+  - C00037
+  - C00038
+  - C00039
+  - C00040
+  - C00041
+  - C00042
+  - C00043
+  - C00044
+  - C00123
+  - C00199
+  - C00210
+  - C00238
+  - C00273
+  - C00274
+  - C00275
+  - C00276
+  confidence: high
+  applies_when:
+  - the appropriate ceremony and template depend on project criticality, size, and
+    internal communication
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Get the design scope clear and label every use case with its scope and
+    level: name and broadcast the scope levels (corporate, system, subsystem), distinguish
+    business from system scope, and use an in/out list to resolve ambiguity.'
+  derived_from_claims:
+  - C00007
+  - C00011
+  - C00059
+  - C00060
+  - C00061
+  - C00062
+  - C00063
+  - C00064
+  - C00065
+  - C00164
+  - C00224
+  - C00225
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: 'Treat the extension conditions as where the most interesting requirements
+    live: brainstorm all failures and alternative successes using a failure checklist
+    that includes internal failures, then reduce the list by explicit criteria, and
+    when in doubt include a condition.'
+  derived_from_claims:
+  - C00018
+  - C00035
+  - C00036
+  - C00135
+  - C00137
+  - C00138
+  - C00139
+  - C00140
+  - C00141
+  - C00142
+  - C00215
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: 'Run elicitation workshops well: get the right people in the room (too
+    many beats too few, scheduled via a kick-off), cap sessions at half a workday,
+    use a silent scribe, unblock writer''s block with daily-work stories, separate
+    role from job title with concrete devices, keep an assumptions list and post use
+    cases on the walls, and keep discussion on intentions rather than screens.'
+  derived_from_claims:
+  - C00261
+  - C00262
+  - C00263
+  - C00264
+  - C00265
+  - C00267
+  - C00268
+  - C00269
+  - C00270
+  - C00271
+  - C00272
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Write each step as a forward-moving succeeding goal in a single sentence
+    style — present tense, active voice, simple grammar, the actor visible and clearly
+    holding the ball — avoiding the missing-actor and no-real-goal anti-patterns and
+    rereading each sentence for the actor's real goal.
+  derived_from_claims:
+  - C00014
+  - C00108
+  - C00111
+  - C00112
+  - C00113
+  - C00124
+  - C00125
+  - C00216
+  - C00218
+  - C00244
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: 'Prefer writing too little over too much: a readable approximate use
+    case is valuable, diminishing returns set in fast (the first draft yields about
+    two-thirds of the value and writing costs roughly 100 times reading), and the
+    use case mainly serves as a marker to remind the team.'
+  derived_from_claims:
+  - C00001
+  - C00211
+  - C00212
+  - C00213
+  - C00234
+  - C00252
+  - C00253
+  - C00254
+  - C00256
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: 'Keep the use case in its text: prefer plain prose over diagrams and
+    formal notations (which only augment the text and cut off untrained readers),
+    because prose handles complex parallel, optional, and exceptional sequencing best.'
+  derived_from_claims:
+  - C00003
+  - C00130
+  - C00131
+  - C00132
+  - C00133
+  - C00134
+  - C00240
+  - C00241
+  - C00250
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: 'Treat every use case as having two exits, success and failure: write
+    the Success End Condition and the Failed End Protection against all stakeholders
+    before the main scenario, apply their pass/fail tests, and let writing the failure
+    protection reveal the logging the main scenario needs.'
+  derived_from_claims:
+  - C00068
+  - C00069
+  - C00099
+  - C00100
+  - C00101
+  - C00102
+  - C00103
+  - C00228
+  - C00231
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: Apply use cases equally to business processes, writing the organization
+    black-box then white-box; because the business design does not imply the system
+    specification (technology is usually only a conduit), prefer writing the business
+    without technology and then contextualize it inside the system use case, while
+    guarding against business-versus-system level confusion.
+  derived_from_claims:
+  - C00161
+  - C00162
+  - C00163
+  - C00165
+  - C00166
+  - C00167
+  - C00168
+  - C00169
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Capture the actor's intent (the semantics) rather than the user-interface
+    dialog, and keep the user interface out of the requirements entirely — that is
+    the UI designer's job and dialog is brittle — using GUI snapshots, screen-flow
+    diagrams, and form sketches only as non-requirement aids.
+  derived_from_claims:
+  - C00015
+  - C00115
+  - C00116
+  - C00188
+  - C00189
+  - C00190
+  - C00237
+  - C00242
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: 'Recognise each proxy type''s bias and compensate: the users'' manager
+    and development manager have conflicting goals or atypical usage; salespeople
+    over-index on the last lost sale but are great conduits to users; domain experts
+    suit domain models not workflows; marketing understands markets not users; former
+    users must be recent and aligned; trainers/support bias toward trainability/supportability;
+    analysts must actually talk to users.'
+  derived_from_claims:
+  - C00385
+  - C00386
+  - C00387
+  - C00388
+  - C00389
+  - C00390
+  - C00392
+  - C00393
+  confidence: medium
+  applies_when:
+  - evaluating a specific user proxy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: 'Apply the Stakeholders and Interests model: briefly list the stakeholders
+    and their interests and use that list as a cheap check that every interest is
+    satisfied at success or protected at failure — a check that catches omitted steps
+    and otherwise turns up later as change requests.'
+  derived_from_claims:
+  - C00017
+  - C00077
+  - C00079
+  - C00081
+  - C00219
+  - C00220
+  - C00247
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Define a use case as the primary actor's goal toward the system's responsibilities
+    plus the set of interaction scenarios (both goal-achieving and goal-failing) between
+    the system under discussion and its external actors; together the use cases form
+    one ever-unfolding story.
+  derived_from_claims:
+  - C00022
+  - C00025
+  - C00067
+  - C00071
+  - C00074
+  - C00080
+  - C00160
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: 'Use the actor types correctly: name the primary actor as the stakeholder
+    whose goal the use case serves, collect secondary actors to identify external
+    interfaces (secondary does not mean unimportant), handle time-based triggers,
+    and remember an element''s classification is relative to the chosen scope.'
+  derived_from_claims:
+  - C00045
+  - C00047
+  - C00048
+  - C00049
+  - C00050
+  - C00226
+  - C00246
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: Understand how stories relate to use cases and interaction-design scenarios—a
+    story is roughly one scenario and (with its tests) approximates a use case, but
+    is smaller-scoped, more transient, less UI-laden, and meant to initiate rather
+    than document analysis—and prefer essential use cases when use cases are used.
+  derived_from_claims:
+  - C00501
+  - C00502
+  - C00503
+  - C00504
+  - C00505
+  - C00506
+  - C00507
+  confidence: medium
+  applies_when:
+  - comparing stories to use cases or scenarios
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: 'Build the release plan by allocating highest-priority stories into iterations
+    up to velocity, but hold it loosely: it gives an approximate duration, not a fixed
+    date, so use it to set then continually reset expectations as velocity is measured
+    and stories re-estimated.'
+  derived_from_claims:
+  - C00309
+  - C00310
+  - C00311
+  - C00312
+  - C00463
+  - C00464
+  - C00465
+  confidence: medium
+  applies_when:
+  - building or revising a release plan
+  - creating and maintaining a release plan
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Manage writing energy by working breadth-first and from low to high precision
+    in staged passes (actors and goals, then the main scenario, then failure conditions,
+    then handling), getting the goal list accurate before elaborating, and remembering
+    that precision is not accuracy.
+  derived_from_claims:
+  - C00006
+  - C00031
+  - C00032
+  - C00033
+  - C00034
+  - C00214
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Work with three goal levels — user-goal (blue), strategic (white), and
+    subfunction (indigo, with black for too-low) — anchoring on the user-goal level
+    (one person, one place, one sitting of about 2–20 minutes) and respecting how
+    the levels nest.
+  derived_from_claims:
+  - C00082
+  - C00083
+  - C00089
+  - C00090
+  - C00091
+  - C00221
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: Adopt the fully dressed template fields and Cockburn's preferred one-column,
+    numbered, plain-prose, full-sentence format, while treating format as a project
+    choice since all forms carry the same information (a one-paragraph brief is the
+    lightest form and scope/level icons are optional).
+  derived_from_claims:
+  - C00030
+  - C00095
+  - C00126
+  - C00127
+  - C00128
+  - C00279
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Use acceptance tests (not 'the system shall' statements) to record conversation
+    details and customer assumptions, treating testing as two steps—jot test notes
+    on cards anytime, then turn them into full tests that prove the story is correctly
+    and fully done—so tests also define when a story is complete.
+  derived_from_claims:
+  - C00301
+  - C00302
+  - C00319
+  - C00399
+  - C00400
+  - C00401
+  confidence: medium
+  applies_when:
+  - recording what a story must do
+  - deciding where to record agreed details
+  - recording the details a story must satisfy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: 'Run a story-writing workshop (developers, users, customer) before each
+    release as the fastest way to trawl: combine brainstorming with low-fidelity paper
+    prototyping of conceptual workflows, walk it depth-first, prompt for missing stories,
+    favour quantity over quality without judging ideas, then discard the prototype
+    within days.'
+  derived_from_claims:
+  - C00376
+  - C00377
+  - C00378
+  - C00379
+  - C00380
+  - C00381
+  confidence: medium
+  applies_when:
+  - generating an initial or release-level set of stories
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Run user-role modelling as four steps—brainstorm (no discussion), organise
+    by spatial overlap, consolidate equivalents and drop unimportant roles, then refine
+    with attributes—keeping each role a single individual and people-focused over
+    systems.
+  derived_from_claims:
+  - C00354
+  - C00355
+  - C00356
+  - C00357
+  - C00358
+  - C00359
+  confidence: medium
+  applies_when:
+  - identifying and refining the project's user roles
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Prefer use cases and use-case slices over standalone user stories when
+    the context needs scalable structure, stronger system view, test-asset management,
+    impact analysis, scope control, or missing-functionality detection.
+  derived_from_claims:
+  - C00600
+  - C00636
+  - C00637
+  - C00639
+  - C00640
+  - C00641
+  confidence: medium
+  applies_when:
+  - Systems are larger, teams are larger, development is complex, expert access is
+    limited, escaped requirements errors are severe, or future complexity may grow.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: Brainstorm the actors (human and non-human) as a structured way to find
+    all the goals — it is the goals, not the actor names, that matter — and err toward
+    over-listing actors early because missing one is far costlier than having too
+    many.
+  derived_from_claims:
+  - C00008
+  - C00010
+  - C00051
+  - C00053
+  - C00266
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Treat the system under discussion as an unopened black box whenever use
+    cases serve as functional requirements, and open it into a white-box use case
+    only to document how its internal parts deliver the externally visible behavior.
+  derived_from_claims:
+  - C00023
+  - C00046
+  - C00170
+  - C00235
+  - C00257
+  confidence: high
+  applies_when:
+  - the use case is a functional requirements specification
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Put into a precondition only what the system can guarantee and will never
+    re-check, do not overstate it with conditions that are not requirements or cannot
+    be enforced, detect precondition errors, and record merely-usual context in the
+    Context-of-use section instead.
+  derived_from_claims:
+  - C00013
+  - C00097
+  - C00098
+  - C00229
+  - C00230
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Keep the main success scenario short — about 3 to 11 steps, typically
+    3 to 8 — and when it runs long, merge steps and raise the goal level by asking
+    why the actor is doing each step.
+  derived_from_claims:
+  - C00016
+  - C00109
+  - C00110
+  - C00223
+  - C00243
+  confidence: high
+  applies_when:
+  - the length guideline applies to the main success scenario
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Write each failure-handling scenario fragment in the same style as the
+    main scenario, starting at the named step; it ends one of three ways, usually
+    needs no explicit 'go to step', and any new validation it reveals belongs back
+    in the main success scenario.
+  derived_from_claims:
+  - C00019
+  - C00020
+  - C00146
+  - C00147
+  - C00148
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Manage a failure within a failure by indentation, delay breaking a fragment
+    into its own use case (which costs tracking and maintenance) until about three
+    pages or four indent levels, handle the failure of every called sub-use case,
+    and rely on failure roll-up to avoid a scenario explosion.
+  derived_from_claims:
+  - C00021
+  - C00149
+  - C00150
+  - C00152
+  - C00156
+  confidence: high
+  applies_when:
+  - break out a sub-use case once inline handling exceeds about three pages or four
+    indent levels
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Recognize that use cases are only the functional portion (about chapter
+    two, roughly a quarter) of the requirements and act as a hub linking the rest;
+    do not force non-interaction requirements into them, and attach each use case's
+    secondary information in a sortable table.
+  derived_from_claims:
+  - C00028
+  - C00029
+  - C00171
+  - C00172
+  - C00173
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Write at least one wide corporate or strategic use case by finding the
+    outermost primary actor; these few high-level use cases serve as context and index
+    and pay for themselves, but the functional requirements still reside in the blue
+    (user-goal) use cases.
+  derived_from_claims:
+  - C00066
+  - C00086
+  - C00087
+  - C00088
+  - C00249
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Treat step order as a partial ordering rather than a strict sequence,
+    and express repetition, arbitrary ordering, optional timing, and cross-actor control
+    entirely in plain prose and idioms rather than in any loop or formal notation.
+  derived_from_claims:
+  - C00070
+  - C00073
+  - C00117
+  - C00118
+  - C00119
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Write each extension condition as a short 'what is different' phrase
+    in a grammar distinct from action steps, apply the numbering conventions (letter
+    and colon, step ranges, asterisk for any-time), and flatten loops into named conditions
+    rather than nesting them.
+  derived_from_claims:
+  - C00143
+  - C00144
+  - C00145
+  - C00217
+  - C00255
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Use the 'includes' relation — naming the sub-use case in a step, the
+    familiar subroutine call — as the default link between use cases, reserving extends
+    and generalizes for rare exceptions, because writing readable text makes the relations
+    come naturally.
+  derived_from_claims:
+  - C00155
+  - C00179
+  - C00180
+  - C00191
+  - C00232
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: Reserve standalone extension use cases for the rare case of many asynchronous
+    services that leave the main flow undisturbed (the base use case stays ignorant
+    of them), and treat UML extension points as a mistake that must never be exposed
+    in a diagram.
+  derived_from_claims:
+  - C00157
+  - C00158
+  - C00181
+  - C00182
+  - C00183
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Use the use cases downstream as ready design scenarios (especially with
+    responsibility-based CRC design) and as a ready-made functional test suite (at
+    least one test per extension, derived from the stakeholders); derive the development
+    task list from them informally on projects up to about fifty people, and estimate
+    with algorithmic complexity, infrastructure, and staff capability in mind (a rough
+    yardstick of about eight use cases per programmer-year).
+  derived_from_claims:
+  - C00192
+  - C00193
+  - C00194
+  - C00197
+  - C00277
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Treat software requirements as a shared communication problem and prevent
+    either the business or the technical side from dominating; make resource allocation
+    a jointly-owned concern.
+  derived_from_claims:
+  - C00280
+  - C00281
+  - C00282
+  - C00283
+  - C00284
+  confidence: medium
+  applies_when:
+  - framing how a team gathers and negotiates requirements
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Model every user story as Card, Conversation, and Confirmation—just enough
+    written text to remember, estimate, and plan, with details in conversation and
+    tests.
+  derived_from_claims:
+  - C00289
+  - C00291
+  - C00292
+  - C00293
+  - C00300
+  confidence: medium
+  applies_when:
+  - writing or reviewing a user story
+  - writing or annotating story cards
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Split a compound epic into end-to-end constituent stories (grouping or
+    splitting along data boundaries) without over-splitting; split a complex/uncertain
+    epic into a timeboxed investigative spike plus a development story, ideally in
+    separate iterations, so research can be prioritised on its own.
+  derived_from_claims:
+  - C00340
+  - C00341
+  - C00342
+  - C00343
+  - C00344
+  confidence: medium
+  applies_when:
+  - breaking up an epic that is too large
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Ensure every story is estimatable; when it is not, fix the specific cause—discuss
+    with the customer for missing domain knowledge, run a timeboxed spike for missing
+    technical knowledge, or disaggregate a too-big story.
+  derived_from_claims:
+  - C00333
+  - C00334
+  - C00335
+  - C00336
+  - C00337
+  confidence: medium
+  applies_when:
+  - a story cannot be estimated
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: 'Do not force every requirement into a story: handle non-functional requirements
+    as ''Constraint'' cards with an automated daily compliance test where feasible,
+    and express more complex needs in whatever additional format (e.g. a data dictionary)
+    suits them.'
+  derived_from_claims:
+  - C00419
+  - C00421
+  - C00557
+  - C00558
+  - C00559
+  confidence: medium
+  applies_when:
+  - handling constraints and avoiding premature UI detail
+  - expressing non-functional or hard-to-storyify requirements
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Write acceptance tests only while they clarify the story (no redundant
+    cases), let unit tests cover low-level cases, run all prior iterations' acceptance
+    tests with the customer at least each iteration, and automate them—using tools
+    like FIT/FitNesse—to contain the growing cost.
+  derived_from_claims:
+  - C00406
+  - C00407
+  - C00408
+  - C00409
+  - C00410
+  confidence: medium
+  applies_when:
+  - managing the acceptance-test suite over time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Prioritise with MoSCoW and sort by technical factors (completion risk,
+    deferral impact) and customer factors (broad and key-user desirability, cohesion);
+    when sequence is disputed the customer decides, using estimates because cost changes
+    priority, and splits a story she cannot prioritise.
+  derived_from_claims:
+  - C00450
+  - C00451
+  - C00452
+  - C00453
+  - C00454
+  confidence: medium
+  applies_when:
+  - ordering stories for a release
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: Constrain the Scrum product backlog to user stories that each describe
+    user or product-owner value—stocking it initially by user role—because this makes
+    the backlog easier to prioritise, sprint planning faster, and sprint reviews and
+    daily scrums clearer and customer-focused.
+  derived_from_claims:
+  - C00551
+  - C00552
+  - C00553
+  - C00554
+  - C00555
+  confidence: medium
+  applies_when:
+  - combining user stories with Scrum
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: Make the use-case slice the primary unit of work — the backlog item that
+    carries its selected stories through design, implementation, and verification
+    — because a slice's structure gives it independence, value, testability, estimability,
+    negotiability, and further sliceability.
+  derived_from_claims:
+  - C00617
+  - C00619
+  - C00625
+  - C00630
+  - C00635
+  confidence: medium
+  applies_when:
+  - Scrum-like or other backlog-driven iterative approaches.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: Optimize every use case for human readability and communication, since
+    that is its ultimate purpose; you may trade some precision and accuracy for readability
+    but only so far before it stops serving its purpose.
+  derived_from_claims:
+  - C00002
+  - C00005
+  - C00024
+  - C00233
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: Treat the use case as a contract that reconciles the possibly conflicting
+    interests of all stakeholders, and make the system behavior protect the interests
+    of stakeholders who are not present to defend their own.
+  derived_from_claims:
+  - C00012
+  - C00055
+  - C00057
+  - C00076
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: Choose one typical, failure-free main success scenario as the base and
+    build all other scenarios as extensions onto it, telling the simple story first
+    and adding complications afterward (and expect the main scenario to look trivial).
+  derived_from_claims:
+  - C00104
+  - C00105
+  - C00136
+  - C00248
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Keep data descriptions out of the use case and manage them in three precision
+    levels — information nicknames in the use-case text, with field lists and field
+    details/checks linked separately in the requirements file.
+  derived_from_claims:
+  - C00174
+  - C00175
+  - C00176
+  - C00177
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Follow the overall writing recipe — the 12-step process and the complementary
+    top-down and middle-out work orders — and use the within-use-case pass/fail checklist,
+    the readability habits, and the set-level quality checks.
+  derived_from_claims:
+  - C00206
+  - C00207
+  - C00208
+  - C00209
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Favour frequent face-to-face conversation over heavy written specification,
+    writing documents only when they help deliver working software, because writing
+    shifts focus to the document and away from the shared understanding the customer
+    needs.
+  derived_from_claims:
+  - C00287
+  - C00288
+  - C00508
+  - C00509
+  confidence: high
+  applies_when:
+  - deciding how much requirement detail to write down
+  - deciding the medium for expressing requirements
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: Reject IEEE 830 'the system shall' specifications as a primary requirements
+    approach—they are tedious, unread, obscure the big picture, hide each requirement's
+    cost until the whole document exists, and provoke document-rewriting blame games—because
+    it is impossible to fully specify a non-trivial system up front.
+  derived_from_claims:
+  - C00494
+  - C00495
+  - C00496
+  - C00499
+  confidence: high
+  applies_when:
+  - choosing or evaluating a requirements approach
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: 'Keep the Use-Case 2.0 model linked: use cases express goals and related
+    requirements, slices scope independently workable value, and stories explore stakeholder
+    needs.'
+  derived_from_claims:
+  - C00612
+  - C00613
+  - C00614
+  - C00615
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: Use the use-case list as the planning and tracking structure (a planning
+    table, or Kent Beck's cost-first Planning Game), manage scale through lower precision,
+    relevance selection, clustering, and layering, and ship the highlighted parts
+    of a use case per incremental release.
+  derived_from_claims:
+  - C00202
+  - C00203
+  - C00204
+  - C00205
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Avoid the hazards of the generalizes relation — do not combine specialization
+    of actors with specialization of use cases — by simply listing the kinds of operation
+    in prose, keeping any general use case empty, and following the drawing conventions
+    if you must diagram.
+  derived_from_claims:
+  - C00184
+  - C00185
+  - C00186
+  - C00187
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Use use-case slices as cross-lifecycle units that connect requirements
+    to architecture, design, implementation, tests, planning, business modeling, and
+    reuse.
+  derived_from_claims:
+  - C00597
+  - C00599
+  - C00609
+  - C00617
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Use Use-Case 2.0 as a lightweight use-case-driven practice that structures
+    selected management, engineering, and delivery practices without dictating them.
+  derived_from_claims:
+  - C00596
+  - C00598
+  - C00642
+  - C00643
+  confidence: medium
+  applies_when:
+  - A team needs a requirements/development coordination practice that can work across
+    agile, lean, engineering, management, formal, or waterfall contexts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: 'Prefer many small stories over large ones: size each so one or a pair
+    of programmers can finish it in roughly half a day to two weeks, split epics,
+    and avoid hierarchical over-decomposition.'
+  derived_from_claims:
+  - C00295
+  - C00296
+  - C00297
+  - C00298
+  confidence: medium
+  applies_when:
+  - deciding story granularity
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: Write stories around value to a user or purchaser—not to developers—keeping
+    user-interface and technology assumptions out; the surest way to achieve this
+    is to have the customer write the stories.
+  derived_from_claims:
+  - C00329
+  - C00330
+  - C00331
+  - C00332
+  confidence: medium
+  applies_when:
+  - writing stories or reviewing them for business value
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: 'Manage stories'' drawbacks: on large projects use roles and high-level
+    stories to keep relationships clear, add lightweight supplementary docs when traceability
+    is mandated, and write some information down on very large teams where conversation
+    does not scale; know why you chose your technique and switch to a use case or
+    scenario when you cannot reach shared understanding.'
+  derived_from_claims:
+  - C00524
+  - C00525
+  - C00526
+  - C00527
+  confidence: medium
+  applies_when:
+  - scaling or supplementing the story approach
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: 'Read story ''smells'' and act: too-small or interdependent stories should
+    be combined (and re-split as end-to-end slices); curb goldplating by keeping developers
+    on prioritised stories and raising task visibility via daily meetings, demos,
+    and QA.'
+  derived_from_claims:
+  - C00528
+  - C00529
+  - C00530
+  - C00531
+  confidence: medium
+  applies_when:
+  - diagnosing problems in how stories are used
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: Use one iteration's measured velocity to forecast future iterations of
+    the same length, valid when productivity was normal, estimates were consistent,
+    and stories were independent (justified because summing independent estimates
+    is approximately normal).
+  derived_from_claims:
+  - C00440
+  - C00441
+  - C00442
+  - C00479
+  confidence: medium
+  applies_when:
+  - forecasting how much the team will complete
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: Count only fully completed stories toward velocity at full value (exclude
+    partials, which hide last-10% complexity and signal oversized stories or weak
+    teamwork), using pre-iteration estimates without retroactive change, and finish
+    one story before starting the next.
+  derived_from_claims:
+  - C00480
+  - C00481
+  - C00482
+  - C00493
+  confidence: medium
+  applies_when:
+  - calculating velocity and sequencing work within an iteration
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: Create a release plan in four steps—select iteration length, estimate
+    velocity, prioritise stories, allocate to iterations—using short iterations against
+    a fixed near-term deadline so real velocity can be measured before committing
+    the rest; when a story's interpretation could swing its estimate, clarify with
+    the customer (who may not estimate or react to estimates) before sizing it.
+  derived_from_claims:
+  - C00572
+  - C00573
+  - C00574
+  - C00575
+  confidence: medium
+  applies_when:
+  - producing a release plan and estimating under a deadline
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: Refine important roles with attributes and, only for one or two vital
+    roles, create a concrete persona (name, face, detail); write stories in terms
+    of a specific role or persona instead of the generic 'the user'.
+  derived_from_claims:
+  - C00360
+  - C00362
+  - C00363
+  - C00364
+  confidence: medium
+  applies_when:
+  - deciding how richly to characterise users
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: Write stories that name the user role, for one user, in the active voice—optionally
+    using the 'As a (role) I want (function) so that (value)' template—to keep real
+    users in mind and surface ambiguities.
+  derived_from_claims:
+  - C00423
+  - C00424
+  - C00425
+  - C00426
+  confidence: medium
+  applies_when:
+  - phrasing an individual story
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: When real users are limited or absent, establish a real-user task force
+    as a sounding board, use multiple differing proxy types, study competitors for
+    stories, and release early to expose proxy/real-user mismatches—never assuming
+    developers can substitute for users.
+  derived_from_claims:
+  - C00394
+  - C00395
+  - C00396
+  - C00397
+  confidence: medium
+  applies_when:
+  - access to real users is blocked or impossible
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: Have the customer specify acceptance tests before coding (developers/testers
+    may add more), treat testing as part of development rather than an after-coding
+    phase, and discover tests by asking what programmers need to know, what is assumed,
+    what varies, and what can go wrong.
+  derived_from_claims:
+  - C00402
+  - C00403
+  - C00404
+  - C00405
+  confidence: medium
+  applies_when:
+  - planning and authoring a story's acceptance tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: Own story estimates collectively as a team, involving as many developers
+    as practical, using an iterative Wideband-Delphi process where developers reveal
+    private estimates simultaneously and the customer only answers questions.
+  derived_from_claims:
+  - C00433
+  - C00434
+  - C00435
+  - C00437
+  confidence: medium
+  applies_when:
+  - running a story-estimation session
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Hold an iteration planning meeting with the whole team (customer plus
+    all developers) that plans one level deeper than the release plan, in the sequence
+    discuss-disaggregate-accept-estimate, with the customer reading stories in priority
+    order and details deferred to keep it efficient.
+  derived_from_claims:
+  - C00469
+  - C00470
+  - C00471
+  - C00472
+  confidence: medium
+  applies_when:
+  - planning the work of an upcoming iteration
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: Hold a short daily scrum where members answer the three questions and
+    commit to peers, keep it to those questions (resolving issues afterward), use
+    its snapshot to rebalance assignments, and generally prefer the least time-consuming,
+    least-intrusive information-sharing method.
+  derived_from_claims:
+  - C00547
+  - C00548
+  - C00549
+  - C00550
+  confidence: medium
+  applies_when:
+  - running daily coordination
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: 'Staff XP roles clearly: the customer writes, prioritises, and tests
+    stories (need not be a user); multiple customers speak with one voice via a ''first
+    among equals''; programmers share responsibilities and unit-test everything; a
+    coach guards the practices and a leader-style manager removes obstacles.'
+  derived_from_claims:
+  - C00576
+  - C00577
+  - C00578
+  - C00579
+  confidence: medium
+  applies_when:
+  - organising roles on an XP-style team
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: 'Produce the key requirements artifacts: the Actor-Goal List of blue
+    goals and their primary actors (the negotiating point among users, sponsors, and
+    developers) and, optionally, an Actor List characterizing each actor type''s skills.'
+  derived_from_claims:
+  - C00009
+  - C00058
+  - C00096
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: Write every scenario step as one of exactly three action kinds — an interaction,
+    a validation, or an internal state change, using the core sentence forms — where
+    validations and state changes exist to protect a stakeholder's interest.
+  derived_from_claims:
+  - C00078
+  - C00106
+  - C00107
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: Do not write or read below-sea-level (indigo/subfunction) use cases except
+    as needed; because getting goal levels right is the single hardest thing about
+    use cases, raise an under-level use case by asking what the actor really wants
+    or why they are doing the step.
+  derived_from_claims:
+  - C00072
+  - C00085
+  - C00222
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: Justify the system by the list of blue (user-goal) use cases it supports
+    — the shortest summary of its function and the basis for planning — spend most
+    energy detecting them, and consider the use cases done when every primary actor's
+    blue goals are written.
+  derived_from_claims:
+  - C00084
+  - C00092
+  - C00159
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Write use cases through an effective collaborative process — start as
+    a group, draft in pairs, circulate for peer comment, review with a designer and
+    a usage expert, hold a group review, then baseline and change only for found mistakes
+    — and gather review comments in one batch rather than editing suggestion by suggestion.
+  derived_from_claims:
+  - C00258
+  - C00259
+  - C00260
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: Keep stories terse and value-oriented so both business and developers
+    comprehend them (people recall story-organised information better, including inferred
+    actions), and sized just right for planning, programming, and testing without
+    further aggregation.
+  derived_from_claims:
+  - C00512
+  - C00513
+  - C00514
+  confidence: high
+  applies_when:
+  - judging story comprehensibility and planning size
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: Focus on the user's goals rather than a checklist of system behaviours,
+    reject the 'change of scope' framing for evolving requirements, and ask 'how and
+    why will this feature be used?'—turning feature lists into scenarios to reveal
+    unneeded features.
+  derived_from_claims:
+  - C00497
+  - C00498
+  - C00500
+  confidence: high
+  applies_when:
+  - framing what the software must do
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: Recognize that primary actors and job titles matter most at a project's
+    start and end and are relatively unimportant in the middle, so do not fuss over
+    exact actor names during detailed writing.
+  derived_from_claims:
+  - C00052
+  - C00054
+  - C00227
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: Write scenarios in generified form using placeholders for actor identities
+    and values, and reserve a concrete (fully named) scenario for a brief, motive-rich
+    system-in-use story used as a warm-up to use-case writing.
+  derived_from_claims:
+  - C00026
+  - C00027
+  - C00278
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: Start use-case work products at the bare-essential level and increase
+    detail only when team context, communication needs, criticality, contractual constraints,
+    or handoff model justify it.
+  derived_from_claims:
+  - C00611
+  - C00621
+  - C00633
+  confidence: medium
+  applies_when:
+  - Team context, risk, distribution, formality, communication difficulty, or handoff
+    constraints require more precision.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: Let the writer choose how much of Jacobson's four-part transaction to
+    fold into one step — defer to that preference in review while preferring to separate
+    validations and state changes from the response — and treat step numbers as reference
+    labels only, optional per project.
+  derived_from_claims:
+  - C00120
+  - C00121
+  - C00122
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: Regard a domain class or component as complete only with respect to the
+    delivered use cases, and design each release as well as practical while accepting
+    that a new use case will force change.
+  derived_from_claims:
+  - C00195
+  - C00196
+  - C00239
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: Treat each story as a discrete, single-setting piece of functionality
+    and exploit stories' iterability—write a placeholder epic now and refine it into
+    smaller stories only when needed—so detail is deferred until the feature is certain.
+  derived_from_claims:
+  - C00320
+  - C00321
+  - C00322
+  confidence: medium
+  applies_when:
+  - writing stories and deciding when to add detail
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: Verify each story against the customer's intent with acceptance tests
+    written early in the iteration, and put a skilled tester on the customer team
+    for technical testing.
+  derived_from_claims:
+  - C00316
+  - C00317
+  - C00318
+  confidence: medium
+  applies_when:
+  - planning and writing acceptance tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: Write every story to be testable—passing its tests proves it is done—and
+    rewrite vague, especially non-functional, stories into measurable form, avoiding
+    absolutes like 'never' or 'always'.
+  derived_from_claims:
+  - C00346
+  - C00347
+  - C00350
+  confidence: medium
+  applies_when:
+  - writing or reviewing a story for testability
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: Keep customers and users actively involved throughout the project, including
+    writing the stories themselves, rather than only at the start and end.
+  derived_from_claims:
+  - C00304
+  - C00305
+  - C00306
+  confidence: medium
+  applies_when:
+  - running any story-driven or agile project
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P089
+  statement: Let the customer prioritise stories—using user value and cohesion and
+    weighing each story's story-point cost—while taking developer input on risk and
+    complementarity.
+  derived_from_claims:
+  - C00313
+  - C00314
+  - C00315
+  confidence: medium
+  applies_when:
+  - ordering stories for a release
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: Gather stories with lightweight, continuous techniques—user interviews
+    across roles, questionnaires, observation, and story-writing workshops—and combine
+    methods rather than relying on one.
+  derived_from_claims:
+  - C00370
+  - C00371
+  - C00382
+  confidence: medium
+  applies_when:
+  - choosing how to elicit stories
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []

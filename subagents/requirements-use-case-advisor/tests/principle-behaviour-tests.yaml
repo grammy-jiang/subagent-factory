@@ -1,0 +1,1528 @@
+# Behavioural tests for the Requirements Use-Case & User-Story Advisor.
+# One test per principle (P001-P090), keyed by principle_id; every high-confidence
+# principle is exercised (validate_principle_test_coverage). Prompts are paraphrased
+# review scenarios grounded in Cockburn (2001), Cohn (2004), Jacobson et al. (2011),
+# all distillation-only: never quoted verbatim.
+
+schema_version: principle-behaviour-tests-v1
+subagent_slug: requirements-use-case-advisor
+principle_behaviour_tests:
+- test_id: PB-001
+  principle_id: P001
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Provide no single best template; instead match the template
+    density (casual vs fully dressed), tolerance, and ceremony — and your evaluation of quality — to each
+    project''s criticality, size… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P001 (Provide no single best template; instead match the template
+    density…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P001
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-002
+  principle_id: P002
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Get the design scope clear and label every use case
+    with its scope and level: name and broadcast the scope levels (corporate, system, subsystem), distinguish
+    business from system scope… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P002 (Get the design scope clear and label every use case
+    with its scope…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P002
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-003
+  principle_id: P003
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Treat the extension conditions as where the most interesting
+    requirements live: brainstorm all failures and alternative successes using a failure checklist that
+    includes internal failures… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P003 (Treat the extension conditions as where the most interesting
+    requireme…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P003
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-004
+  principle_id: P004
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Run elicitation workshops well: get the right people
+    in the room (too many beats too few, scheduled via a kick-off), cap sessions at half a workday, use
+    a silent scribe… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P004 (Run elicitation workshops well: get the right people
+    in the room (too…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P004
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-005
+  principle_id: P005
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Write each step as a forward-moving succeeding goal
+    in a single sentence style — present tense, active voice, simple grammar… They ask you to review it
+    and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P005 (Write each step as a forward-moving succeeding goal
+    in a single…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P005
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-006
+  principle_id: P006
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Prefer writing too little over too much: a readable
+    approximate use case is valuable… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P006 (Prefer writing too little over too much: a readable
+    approximate use…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P006
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-007
+  principle_id: P007
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Keep the use case in its text: prefer plain prose over
+    diagrams and formal notations (which only augment the text and cut off untrained readers), because
+    prose handles complex parallel, optional… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P007 (Keep the use case in its text: prefer plain prose over
+    diagrams and…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P007
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-008
+  principle_id: P008
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Treat every use case as having two exits, success and
+    failure: write the Success End Condition and the Failed End Protection against all stakeholders before
+    the main scenario… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P008 (Treat every use case as having two exits, success and
+    failure: write…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P008
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-009
+  principle_id: P009
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Apply use cases equally to business processes, writing
+    the organization black-box then white-box… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P009 (Apply use cases equally to business processes, writing
+    the organizatio…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P009
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-010
+  principle_id: P010
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Capture the actor''s intent (the semantics) rather than
+    the user-interface dialog… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P010 (Capture the actor's intent (the semantics) rather than
+    the user-interf…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P010
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-011
+  principle_id: P011
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Recognise each proxy type''s bias and compensate: the
+    users'' manager and development manager have conflicting goals or atypical usage… They ask you to
+    review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P011 (Recognise each proxy type''s bias and compensate: the
+    users'' manager…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P011
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-012
+  principle_id: P012
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Apply the Stakeholders and Interests model: briefly
+    list the stakeholders and their interests and use that list as a cheap check that every interest is
+    satisfied at success or protected at failure —… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P012 (Apply the Stakeholders and Interests model: briefly
+    list the stakehold…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P012
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-013
+  principle_id: P013
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Define a use case as the primary actor''s goal toward
+    the system''s responsibilities plus the set of interaction scenarios (both goal-achieving and goal-failing)
+    between the system under discussion and… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P013 (Define a use case as the primary actor's goal toward
+    the system's…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P013
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-014
+  principle_id: P014
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Use the actor types correctly: name the primary actor
+    as the stakeholder whose goal the use case serves… They ask you to review it and say whether it is
+    sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P014 (Use the actor types correctly: name the primary actor
+    as the stakehold…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P014
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-015
+  principle_id: P015
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Understand how stories relate to use cases and interaction-design
+    scenarios—a story is roughly one scenario and (with its tests) approximates a use case, but is smaller-scoped,
+    more transient… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P015 (Understand how stories relate to use cases and interaction-design…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P015
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-016
+  principle_id: P016
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Build the release plan by allocating highest-priority
+    stories into iterations up to velocity, but hold it loosely: it gives an approximate duration, not
+    a fixed date… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P016 (Build the release plan by allocating highest-priority
+    stories into…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P016
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-017
+  principle_id: P017
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Manage writing energy by working breadth-first and from
+    low to high precision in staged passes (actors and goals, then the main scenario, then failure conditions,
+    then handling)… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P017 (Manage writing energy by working breadth-first and from
+    low to high…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P017
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-018
+  principle_id: P018
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Work with three goal levels — user-goal (blue), strategic
+    (white), and subfunction (indigo, with black for too-low) — anchoring on the user-goal level (one
+    person, one place… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P018 (Work with three goal levels — user-goal (blue), strategic
+    (white)…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P018
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-019
+  principle_id: P019
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Adopt the fully dressed template fields and Cockburn''s
+    preferred one-column, numbered, plain-prose, full-sentence format… They ask you to review it and say
+    whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P019 (Adopt the fully dressed template fields and Cockburn's
+    preferred…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P019
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-020
+  principle_id: P020
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Use acceptance tests (not ''the system shall'' statements)
+    to record conversation details and customer assumptions, treating testing as two steps—jot test notes
+    on cards anytime… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P020 (Use acceptance tests (not 'the system shall' statements)
+    to record…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P020
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-021
+  principle_id: P021
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Run a story-writing workshop (developers, users, customer)
+    before each release as the fastest way to trawl: combine brainstorming with low-fidelity paper prototyping
+    of conceptual workflows… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P021 (Run a story-writing workshop (developers, users, customer)
+    before…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P021
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-022
+  principle_id: P022
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Run user-role modelling as four steps—brainstorm (no
+    discussion), organise by spatial overlap, consolidate equivalents and drop unimportant roles… They
+    ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P022 (Run user-role modelling as four steps—brainstorm (no
+    discussion)…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P022
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-023
+  principle_id: P023
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Prefer use cases and use-case slices over standalone
+    user stories when the context needs scalable structure, stronger system view, test-asset management,
+    impact analysis, scope control… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P023 (Prefer use cases and use-case slices over standalone
+    user stories…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P023
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-024
+  principle_id: P024
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Brainstorm the actors (human and non-human) as a structured
+    way to find all the goals — it is the goals, not the actor names… They ask you to review it and say
+    whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P024 (Brainstorm the actors (human and non-human) as a structured
+    way to…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P024
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-025
+  principle_id: P025
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Treat the system under discussion as an unopened black
+    box whenever use cases serve as functional requirements… They ask you to review it and say whether
+    it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P025 (Treat the system under discussion as an unopened black
+    box whenever…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P025
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-026
+  principle_id: P026
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Put into a precondition only what the system can guarantee
+    and will never re-check, do not overstate it with conditions that are not requirements or cannot be
+    enforced, detect precondition errors… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P026 (Put into a precondition only what the system can guarantee
+    and will…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P026
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-027
+  principle_id: P027
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Keep the main success scenario short — about 3 to 11
+    steps, typically 3 to 8 — and when it runs long, merge steps and raise the goal level by asking why
+    the actor is doing each step. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P027 (Keep the main success scenario short — about 3 to 11
+    steps, typically…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P027
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-028
+  principle_id: P028
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Write each failure-handling scenario fragment in the
+    same style as the main scenario, starting at the named step… They ask you to review it and say whether
+    it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P028 (Write each failure-handling scenario fragment in the
+    same style as…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P028
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-029
+  principle_id: P029
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Manage a failure within a failure by indentation, delay
+    breaking a fragment into its own use case (which costs tracking and maintenance) until about three
+    pages or four indent levels… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P029 (Manage a failure within a failure by indentation, delay
+    breaking a…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P029
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-030
+  principle_id: P030
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Recognize that use cases are only the functional portion
+    (about chapter two, roughly a quarter) of the requirements and act as a hub linking the rest… They
+    ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P030 (Recognize that use cases are only the functional portion
+    (about…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P030
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-031
+  principle_id: P031
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Write at least one wide corporate or strategic use case
+    by finding the outermost primary actor… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P031 (Write at least one wide corporate or strategic use case
+    by finding…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P031
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-032
+  principle_id: P032
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Treat step order as a partial ordering rather than a
+    strict sequence, and express repetition, arbitrary ordering, optional timing… They ask you to review
+    it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P032 (Treat step order as a partial ordering rather than a
+    strict sequence…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P032
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-033
+  principle_id: P033
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Write each extension condition as a short ''what is
+    different'' phrase in a grammar distinct from action steps, apply the numbering conventions (letter
+    and colon, step ranges, asterisk for any-time)… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P033 (Write each extension condition as a short 'what is different'
+    phrase…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P033
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-034
+  principle_id: P034
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Use the ''includes'' relation — naming the sub-use case
+    in a step, the familiar subroutine call — as the default link between use cases, reserving extends
+    and generalizes for rare exceptions… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P034 (Use the 'includes' relation — naming the sub-use case
+    in a step…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P034
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-035
+  principle_id: P035
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Reserve standalone extension use cases for the rare
+    case of many asynchronous services that leave the main flow undisturbed (the base use case stays ignorant
+    of them)… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P035 (Reserve standalone extension use cases for the rare
+    case of many…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P035
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-036
+  principle_id: P036
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Use the use cases downstream as ready design scenarios
+    (especially with responsibility-based CRC design) and as a ready-made functional test suite (at least
+    one test per extension… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P036 (Use the use cases downstream as ready design scenarios
+    (especially…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P036
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-037
+  principle_id: P037
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Treat software requirements as a shared communication
+    problem and prevent either the business or the technical side from dominating; make resource allocation
+    a jointly-owned concern. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P037 (Treat software requirements as a shared communication
+    problem and…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P037
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-038
+  principle_id: P038
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Model every user story as Card, Conversation, and Confirmation—just
+    enough written text to remember, estimate, and plan, with details in conversation and tests. They
+    ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P038 (Model every user story as Card, Conversation, and Confirmation—just…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P038
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-039
+  principle_id: P039
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Split a compound epic into end-to-end constituent stories
+    (grouping or splitting along data boundaries) without over-splitting… They ask you to review it and
+    say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P039 (Split a compound epic into end-to-end constituent stories
+    (grouping…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P039
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-040
+  principle_id: P040
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Ensure every story is estimatable; when it is not, fix
+    the specific cause—discuss with the customer for missing domain knowledge, run a timeboxed spike for
+    missing technical knowledge… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P040 (Ensure every story is estimatable; when it is not, fix
+    the specific…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P040
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-041
+  principle_id: P041
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Do not force every requirement into a story: handle
+    non-functional requirements as ''Constraint'' cards with an automated daily compliance test where
+    feasible… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P041 (Do not force every requirement into a story: handle
+    non-functional…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P041
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-042
+  principle_id: P042
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Write acceptance tests only while they clarify the story
+    (no redundant cases), let unit tests cover low-level cases… They ask you to review it and say whether
+    it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P042 (Write acceptance tests only while they clarify the story
+    (no redundant…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P042
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-043
+  principle_id: P043
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Prioritise with MoSCoW and sort by technical factors
+    (completion risk, deferral impact) and customer factors (broad and key-user desirability, cohesion)…
+    They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P043 (Prioritise with MoSCoW and sort by technical factors
+    (completion…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P043
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-044
+  principle_id: P044
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Constrain the Scrum product backlog to user stories
+    that each describe user or product-owner value—stocking it initially by user role—because this makes
+    the backlog easier to prioritise… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P044 (Constrain the Scrum product backlog to user stories
+    that each…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P044
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-045
+  principle_id: P045
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Make the use-case slice the primary unit of work — the
+    backlog item that carries its selected stories through design, implementation… They ask you to review
+    it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P045 (Make the use-case slice the primary unit of work — the
+    backlog item…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P045
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-046
+  principle_id: P046
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Optimize every use case for human readability and communication,
+    since that is its ultimate purpose… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P046 (Optimize every use case for human readability and communication…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P046
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-047
+  principle_id: P047
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Treat the use case as a contract that reconciles the
+    possibly conflicting interests of all stakeholders… They ask you to review it and say whether it is
+    sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P047 (Treat the use case as a contract that reconciles the
+    possibly…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P047
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-048
+  principle_id: P048
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Choose one typical, failure-free main success scenario
+    as the base and build all other scenarios as extensions onto it… They ask you to review it and say
+    whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P048 (Choose one typical, failure-free main success scenario
+    as the base…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P048
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-049
+  principle_id: P049
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Keep data descriptions out of the use case and manage
+    them in three precision levels — information nicknames in the use-case text… They ask you to review
+    it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P049 (Keep data descriptions out of the use case and manage
+    them in three…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P049
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-050
+  principle_id: P050
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Follow the overall writing recipe — the 12-step process
+    and the complementary top-down and middle-out work orders — and use the within-use-case pass/fail
+    checklist, the readability habits… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P050 (Follow the overall writing recipe — the 12-step process
+    and the…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P050
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-051
+  principle_id: P051
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Favour frequent face-to-face conversation over heavy
+    written specification, writing documents only when they help deliver working software… They ask you
+    to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P051 (Favour frequent face-to-face conversation over heavy
+    written specifica…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P051
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-052
+  principle_id: P052
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Reject IEEE 830 ''the system shall'' specifications
+    as a primary requirements approach—they are tedious, unread, obscure the big picture, hide each requirement''s
+    cost until the whole document exists… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P052 (Reject IEEE 830 'the system shall' specifications as
+    a primary…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P052
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-053
+  principle_id: P053
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Keep the Use-Case 2.0 model linked: use cases express
+    goals and related requirements, slices scope independently workable value, and stories explore stakeholder
+    needs. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P053 (Keep the Use-Case 2.0 model linked: use cases express
+    goals and…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P053
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-054
+  principle_id: P054
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Use the use-case list as the planning and tracking structure
+    (a planning table, or Kent Beck''s cost-first Planning Game), manage scale through lower precision,
+    relevance selection, clustering… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P054 (Use the use-case list as the planning and tracking structure
+    (a…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P054
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-055
+  principle_id: P055
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Avoid the hazards of the generalizes relation — do not
+    combine specialization of actors with specialization of use cases — by simply listing the kinds of
+    operation in prose… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P055 (Avoid the hazards of the generalizes relation — do not
+    combine…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P055
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-056
+  principle_id: P056
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Use use-case slices as cross-lifecycle units that connect
+    requirements to architecture, design, implementation, tests, planning, business modeling, and reuse.
+    They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P056 (Use use-case slices as cross-lifecycle units that connect
+    requirements…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P056
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-057
+  principle_id: P057
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Use Use-Case 2.0 as a lightweight use-case-driven practice
+    that structures selected management, engineering, and delivery practices without dictating them. They
+    ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P057 (Use Use-Case 2.0 as a lightweight use-case-driven practice
+    that…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P057
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-058
+  principle_id: P058
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Prefer many small stories over large ones: size each
+    so one or a pair of programmers can finish it in roughly half a day to two weeks, split epics, and
+    avoid hierarchical over-decomposition. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P058 (Prefer many small stories over large ones: size each
+    so one or a pair…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P058
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-059
+  principle_id: P059
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Write stories around value to a user or purchaser—not
+    to developers—keeping user-interface and technology assumptions out; the surest way to achieve this
+    is to have the customer write the stories. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P059 (Write stories around value to a user or purchaser—not
+    to developers—ke…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P059
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-060
+  principle_id: P060
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Manage stories'' drawbacks: on large projects use roles
+    and high-level stories to keep relationships clear, add lightweight supplementary docs when traceability
+    is mandated… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P060 (Manage stories'' drawbacks: on large projects use roles
+    and high-level…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P060
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-061
+  principle_id: P061
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Read story ''smells'' and act: too-small or interdependent
+    stories should be combined (and re-split as end-to-end slices)… They ask you to review it and say
+    whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P061 (Read story ''smells'' and act: too-small or interdependent
+    stories…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P061
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-062
+  principle_id: P062
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Use one iteration''s measured velocity to forecast future
+    iterations of the same length, valid when productivity was normal, estimates were consistent… They
+    ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P062 (Use one iteration's measured velocity to forecast future
+    iterations…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P062
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-063
+  principle_id: P063
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Count only fully completed stories toward velocity at
+    full value (exclude partials, which hide last-10% complexity and signal oversized stories or weak
+    teamwork)… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P063 (Count only fully completed stories toward velocity at
+    full value…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P063
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-064
+  principle_id: P064
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Create a release plan in four steps—select iteration
+    length, estimate velocity, prioritise stories… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P064 (Create a release plan in four steps—select iteration
+    length, estimate…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P064
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-065
+  principle_id: P065
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Refine important roles with attributes and, only for
+    one or two vital roles, create a concrete persona (name, face, detail)… They ask you to review it
+    and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P065 (Refine important roles with attributes and, only for
+    one or two vital…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P065
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-066
+  principle_id: P066
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Write stories that name the user role, for one user,
+    in the active voice—optionally using the ''As a (role) I want (function) so that (value)'' template—to
+    keep real users in mind and surface… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P066 (Write stories that name the user role, for one user,
+    in the active…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P066
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-067
+  principle_id: P067
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: When real users are limited or absent, establish a real-user
+    task force as a sounding board, use multiple differing proxy types, study competitors for stories…
+    They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P067 (When real users are limited or absent, establish a real-user
+    task…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P067
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-068
+  principle_id: P068
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Have the customer specify acceptance tests before coding
+    (developers/testers may add more), treat testing as part of development rather than an after-coding
+    phase… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P068 (Have the customer specify acceptance tests before coding
+    (developers/t…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P068
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-069
+  principle_id: P069
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Own story estimates collectively as a team, involving
+    as many developers as practical… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P069 (Own story estimates collectively as a team, involving
+    as many…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P069
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-070
+  principle_id: P070
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Hold an iteration planning meeting with the whole team
+    (customer plus all developers) that plans one level deeper than the release plan, in the sequence
+    discuss-disaggregate-accept-estimate… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P070 (Hold an iteration planning meeting with the whole team
+    (customer plus…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P070
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-071
+  principle_id: P071
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Hold a short daily scrum where members answer the three
+    questions and commit to peers, keep it to those questions (resolving issues afterward), use its snapshot
+    to rebalance assignments… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P071 (Hold a short daily scrum where members answer the three
+    questions and…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P071
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-072
+  principle_id: P072
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Staff XP roles clearly: the customer writes, prioritises,
+    and tests stories (need not be a user); multiple customers speak with one voice via a ''first among
+    equals''… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P072 (Staff XP roles clearly: the customer writes, prioritises,
+    and tests…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P072
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-073
+  principle_id: P073
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Produce the key requirements artifacts: the Actor-Goal
+    List of blue goals and their primary actors (the negotiating point among users, sponsors, and developers)
+    and, optionally… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the artifact does not follow P073 (Produce the key requirements artifacts: the Actor-Goal
+    List of blue…)'
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P073
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-074
+  principle_id: P074
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Write every scenario step as one of exactly three action
+    kinds — an interaction, a validation, or an internal state change… They ask you to review it and say
+    whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P074 (Write every scenario step as one of exactly three action
+    kinds — an…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P074
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-075
+  principle_id: P075
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Do not write or read below-sea-level (indigo/subfunction)
+    use cases except as needed… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P075 (Do not write or read below-sea-level (indigo/subfunction)
+    use cases…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P075
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-076
+  principle_id: P076
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Justify the system by the list of blue (user-goal) use
+    cases it supports — the shortest summary of its function and the basis for planning — spend most energy
+    detecting them… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P076 (Justify the system by the list of blue (user-goal) use
+    cases it…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P076
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-077
+  principle_id: P077
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Write use cases through an effective collaborative process
+    — start as a group, draft in pairs, circulate for peer comment, review with a designer and a usage
+    expert, hold a group review… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P077 (Write use cases through an effective collaborative process
+    — start as…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P077
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-078
+  principle_id: P078
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Keep stories terse and value-oriented so both business
+    and developers comprehend them (people recall story-organised information better, including inferred
+    actions)… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P078 (Keep stories terse and value-oriented so both business
+    and developers…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P078
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-079
+  principle_id: P079
+  confidence: high
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Focus on the user''s goals rather than a checklist of
+    system behaviours, reject the ''change of scope'' framing for evolving requirements… They ask you
+    to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P079 (Focus on the user's goals rather than a checklist of
+    system behaviours…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P079
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-080
+  principle_id: P080
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Recognize that primary actors and job titles matter
+    most at a project''s start and end and are relatively unimportant in the middle, so do not fuss over
+    exact actor names during detailed writing. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P080 (Recognize that primary actors and job titles matter
+    most at a…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P080
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-081
+  principle_id: P081
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Write scenarios in generified form using placeholders
+    for actor identities and values, and reserve a concrete (fully named) scenario for a brief… They ask
+    you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P081 (Write scenarios in generified form using placeholders
+    for actor…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P081
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-082
+  principle_id: P082
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Start use-case work products at the bare-essential level
+    and increase detail only when team context, communication needs, criticality, contractual constraints,
+    or handoff model justify it. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P082 (Start use-case work products at the bare-essential level
+    and increase…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P082
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-083
+  principle_id: P083
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Let the writer choose how much of Jacobson''s four-part
+    transaction to fold into one step — defer to that preference in review while preferring to separate
+    validations and state changes from the… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P083 (Let the writer choose how much of Jacobson's four-part
+    transaction to…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P083
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-084
+  principle_id: P084
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Regard a domain class or component as complete only
+    with respect to the delivered use cases, and design each release as well as practical while accepting
+    that a new use case will force change. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P084 (Regard a domain class or component as complete only
+    with respect to…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P084
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-085
+  principle_id: P085
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Treat each story as a discrete, single-setting piece
+    of functionality and exploit stories'' iterability—write a placeholder epic now and refine it into
+    smaller stories only when needed—so detail is… They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P085 (Treat each story as a discrete, single-setting piece
+    of functionality…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P085
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-086
+  principle_id: P086
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Verify each story against the customer''s intent with
+    acceptance tests written early in the iteration, and put a skilled tester on the customer team for
+    technical testing. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P086 (Verify each story against the customer's intent with
+    acceptance tests…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P086
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-087
+  principle_id: P087
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Write every story to be testable—passing its tests proves
+    it is done—and rewrite vague, especially non-functional, stories into measurable form, avoiding absolutes
+    like ''never'' or ''always''. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P087 (Write every story to be testable—passing its tests proves
+    it is…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P087
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-088
+  principle_id: P088
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Keep customers and users actively involved throughout
+    the project, including writing the stories themselves, rather than only at the start and end. They
+    ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P088 (Keep customers and users actively involved throughout
+    the project…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P088
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-089
+  principle_id: P089
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Let the customer prioritise stories—using user value
+    and cohesion and weighing each story''s story-point cost—while taking developer input on risk and
+    complementarity. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P089 (Let the customer prioritise stories—using user value
+    and cohesion and…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P089
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
+- test_id: PB-090
+  principle_id: P090
+  confidence: medium
+  prompt: 'A team submits a use case, user story, or requirements artifact for review. The current artifact
+    does not follow the guidance that you should: Gather stories with lightweight, continuous techniques—user
+    interviews across roles, questionnaires, observation, and story-writing workshops—and combine methods
+    rather than relying on one. They ask you to review it and say whether it is sound.'
+  expected_behaviour:
+  - flags that the artifact does not follow P090 (Gather stories with lightweight, continuous techniques—user
+    interviews…)
+  - explains, in requirements-capture terms, why this matters for the submitted artifact
+  - gives one concrete corrective step grounded in the principle
+  - cites P090
+  must_not:
+  - approves the artifact without naming the missing requirements practice
+  - answers with generic advice that never references the specific element under review
+  - invents domain facts or acceptance criteria not supplied by the caller
