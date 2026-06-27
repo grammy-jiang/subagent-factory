@@ -17,10 +17,10 @@ provenance:
   - E00164
   - E00165
   source_anchors:
-  - 705fce793a41-c0000
-  - 705fce793a41-c0001
-  - fbd95667ee10-c0000
-  authored_from_digest: 711343b12419ccacc70552b11780762955558e5564b1879a2882137bfa9972b0
+  - 760c81171459-c0022
+  - 760c81171459-c0025
+  - 8afa2d6eafa0-c0005
+  authored_from_digest: b698e2d7c96f2f64f41411b24f53ec144e55fde627486c0b0cdbb87c98996be3
 ---
 
 # Observability for scale review

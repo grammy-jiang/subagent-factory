@@ -1,615 +1,1194 @@
 schema_version: principles-v1
 principles:
 - principle_id: P001
-  statement: Actively maintain modularity and govern accidental coupling (such as cyclic dependencies)
-    with automated fitness functions wired into the build, since code reviews catch it too late.
+  statement: 'Adopt chaos engineering: treat failure as a matter of when not if, and
+    deliberately inject faults into the running system in a controlled, monitored
+    way (for example randomly killing processes, as with Chaos Monkey) to continually
+    exercise the recovery machinery and build confidence that real faults are handled,
+    especially where emergent behavior makes full testing impossible.'
   derived_from_claims:
-  - C00027
-  - C00066
-  - C00128
-  - C00129
-  - C00130
-  - C00131
-  - C00614
-  - C00617
-  - C00618
-  - C00619
-  - C00622
-  - C00623
+  - C01228
+  - C02639
+  - C03577
   confidence: high
   applies_when:
-  - fitness functions exist for the system
-  - important principles risk being skipped under schedule pressure
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P002
-  statement: Use the architecture quantum — an independently deployable artifact with high functional
-    cohesion, high static coupling, and synchronous dynamic coupling — as the unit and shared language
-    for coupling and granularity analysis.
-  derived_from_claims:
-  - C00135
-  - C00136
-  - C00140
-  - C00262
-  - C00641
-  - C00642
-  - C00650
-  - C00651
-  - C00652
-  - C00653
-  confidence: high
-  applies_when:
-  - delimiting boundaries in distributed or microservice architectures
+  - operating a distributed system in production
+  - the system is designed to be fault-tolerant
+  - complex adaptive systems with emergent behavior
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P003
-  statement: 'Design for horizontal scalability from the outset: build for current demand but architect
-    so that growth needs no application or architectural redesign — scale out, not up.'
+- principle_id: P002
+  statement: 'Scale out, not up: prefer horizontal scaling by adding more of the same
+    commodity hardware, and reserve vertical scaling for problems with no horizontally-scalable
+    solution.'
   derived_from_claims:
-  - C01875
-  - C01882
-  - C01897
-  - C02007
-  - C02056
-  - C02191
-  - C02249
+  - C02083
+  - C02084
+  - C02085
+  - C02086
+  - C02087
+  - C02088
+  - C02089
+  - C02090
+  - C02091
+  - C02092
+  - C02225
+  - C02227
   - C02250
   - C02251
-  - C02252
+  - C02337
+  - C02352
+  - C02414
+  - C02419
+  - C02486
   confidence: high
   applies_when:
-  - building or reviewing an internet-facing architecture expected to grow
+  - hyper-growth or rapidly growing production environments
+  - choosing how to add capacity to a system
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Record every meaningful architecture decision as an Architecture Decision
+    Record capturing Context (problem and alternatives), Decision (stated affirmatively,
+    with its justification and emphasizing why over how), and Consequences (impacts
+    and trade-offs considered), plus governance/compliance; keep each ADR as its own
+    linked record and use an RFC-with-deadline to avoid analysis paralysis.
+  derived_from_claims:
+  - C01407
+  - C01408
+  - C01409
+  - C01410
+  - C01411
+  - C01412
+  - C01413
+  - C01414
+  - C01415
+  - C01416
+  - C01417
+  - C02579
+  - C02580
+  confidence: high
+  applies_when:
+  - documenting an architecture decision or standard
+  - a consequential architecture decision has been made and needs durable rationale
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: 'Make architecture governance an automated, continuous responsibility:
+    codify governance rules as fitness functions / automated architecture tests (e.g.
+    ArchUnit, NetArchTest) built into the CI pipeline rather than relying on error-prone
+    manual reviews, so important-but-not-urgent concerns like cyclic dependencies
+    are caught automatically.'
+  derived_from_claims:
+  - C01221
+  - C01222
+  - C01223
+  - C01224
+  - C01225
+  - C01226
+  - C01227
+  - C01229
+  - C02582
+  - C02583
+  - C02584
+  - C02585
+  confidence: high
+  applies_when:
+  - enforcing architectural rules as the system evolves
+  - governing layered or modular boundaries
+  - design or quality principles must be enforced continuously across teams
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Adopt the space-based architecture (replicated in-memory data grids,
+    no central database, dynamically started/stopped processing units) for extreme
+    and variable concurrent load, structuring it as processing units plus virtualized
+    middleware and splitting into multiple processing units by functional area for
+    larger applications.
+  derived_from_claims:
+  - C01350
+  - C01351
+  - C01352
+  - C01353
+  - C01354
+  - C01355
+  - C01356
+  - C01366
+  - C01367
+  - C01573
+  - C01574
+  - C01575
+  confidence: high
+  applies_when:
+  - a system faces extreme or variable scalability and concurrency
+  - the application needs near-linear scaling under variable, unpredictable load
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: Make reducing complexity a primary design goal because complexity raises
+    the risk of bugs when changing the system, and remove accidental complexity (that
+    which arises only from the implementation, not the problem) chiefly through good,
+    reusable abstractions that hide implementation detail.
+  derived_from_claims:
+  - C02035
+  - C02036
+  - C02037
+  - C02040
+  - C02047
+  - C02048
+  - C02050
+  - C02051
+  - C02682
+  - C02683
+  - C02684
+  - C02685
+  confidence: high
+  applies_when:
+  - designing any large or complex system or project
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: 'Do not try to make a remote service look like a local object, because
+    the RPC ideal of location transparency is fundamentally flawed: a network request
+    can be lost, time out leaving the outcome unknown, be silently duplicated by retries,
+    have wildly variable latency, and cross language boundaries, which is why newer
+    RPC frameworks are explicit about a remote call being different (using futures
+    and streams).'
+  derived_from_claims:
+  - C00622
+  - C00623
+  - C00624
+  - C00625
+  - C00685
+  - C00686
+  - C00687
+  - C00688
+  - C02803
+  - C02804
+  - C02805
+  confidence: high
+  applies_when:
+  - one application invokes functionality in another across a network
+  - choosing or reviewing an RPC-style integration
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Use the layered (n-tier) architecture for small, simple, budget-constrained
+    apps or as a temporary starting point, keeping closed layers of isolation, documenting
+    which layers are open/closed and why, keeping reuse low and inheritance shallow,
+    and watching for the architecture-sinkhole anti-pattern (apply the 80-20 rule).
+  derived_from_claims:
+  - C01279
+  - C01280
+  - C01281
+  - C01282
+  - C01283
+  - C01284
+  - C01285
+  - C01500
+  - C01501
+  - C01502
+  confidence: high
+  applies_when:
+  - choosing or implementing a layered monolith
+  - designing or reviewing a layered architecture
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: 'Design distributed systems for network reality rather than as if they
+    were a single in-process application: explicitly counter the fallacies of distributed
+    computing — the network is unreliable (use timeouts/circuit breakers), latency
+    is non-zero (track average and tail latency), bandwidth is finite (minimize data,
+    avoid stamp coupling), the network is insecure (secure every endpoint), the topology
+    changes, and platforms are heterogeneous.'
+  derived_from_claims:
+  - C00569
+  - C00570
+  - C01267
+  - C01268
+  - C01269
+  - C01270
+  - C01271
+  - C01272
+  - C01273
+  - C01274
+  confidence: high
+  applies_when:
+  - components communicate across a network
+  - designing or reviewing any distributed architecture
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Design concurrency by creating isolated zones where programmers need
+    not think about concurrency and pushing as much code as possible into them, leaning
+    on isolation (only one agent touches a piece of data) and immutability (unchanging
+    data needs no control); share immutable data widely and route read-only apps to
+    copied data sources.
+  derived_from_claims:
+  - C00055
+  - C00056
+  - C00057
+  - C00058
+  - C00059
+  - C00063
+  - C01705
+  - C01706
+  - C01707
+  confidence: high
+  applies_when:
+  - the system runs across multiple threads or processors
+  - designing a concurrency strategy for an application
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: 'Use asynchronous, queue-based pipelines to raise throughput by decoupling
+    producer and consumer: parallelize the slowest stage with Competing Consumers
+    on a Point-to-Point Channel, parallelize only stateless filters, and preserve
+    ordering when it is critical with a single instance, a Resequencer, or a correlation
+    identifier to match out-of-order results.'
+  derived_from_claims:
+  - C00713
+  - C00714
+  - C00715
+  - C00716
+  - C00717
+  - C04200
+  - C04201
+  - C04202
+  - C04203
+  confidence: high
+  applies_when:
+  - scaling a multi-stage processing pipeline
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: 'Use the right storage tool for the data: reserve RDBMS for ACID/relationship
+    needs and choose file systems or NoSQL otherwise, recognizing relationships trade
+    flexibility against scale.'
+  derived_from_claims:
+  - C02102
+  - C02103
+  - C02104
+  - C02105
+  - C02106
+  - C02107
+  - C02531
+  - C02535
+  - C02541
+  confidence: high
+  applies_when:
+  - introducing new data or data structures into a system
+  - a feature whose data is short-lived or non-transactional
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Treat mutable state and an append-only log of immutable events as two
+    sides of the same coin and the log as the source of truth from which state is
+    derived, gaining accounting-ledger-style auditability (correcting mistakes with
+    compensating events rather than erasing) and capturing more information than the
+    current state alone, such as a cart item that was added and later removed.
+  derived_from_claims:
+  - C00436
+  - C00439
+  - C00440
+  - C00441
+  - C00469
+  - C03158
+  - C03159
+  - C03160
+  confidence: high
+  applies_when:
+  - traceability, auditability, or recovery from corruption are important
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Deliberately design and evaluate the architecture rather than letting
+    it be chosen by trial and error, because every system has an architecture whether
+    or not it is known, and the architecture can support or hinder the system's important
+    requirements.
+  derived_from_claims:
+  - C03259
+  - C03260
+  - C03265
+  - C03270
+  - C03271
+  - C04009
+  - C04010
+  confidence: high
+  applies_when:
+  - any non-trivial software system
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: 'Treat large-scale change as sociotechnical: changing technology (e.g.
+    breaking up a monolith) is not enough on its own, so deliberately evolve organizational
+    structure, processes, and culture alongside software and data, recognizing the
+    architect''s role now includes designing the organization.'
+  derived_from_claims:
+  - C00454
+  - C00455
+  - C00456
+  - C00457
+  - C04499
+  - C04500
+  - C04501
+  confidence: high
+  applies_when:
+  - designing systems that span multiple teams or departments
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: 'Route messages that cannot be processed to a dedicated channel rather
+    than blocking the flow: send messages a receiver cannot process (e.g. schema-valid
+    but semantically invalid or unreadable) to an Invalid Message / error channel
+    so processing continues and they can be reprocessed later, and rely on the platform''s
+    Dead Letter Channel for undeliverable messages.'
+  derived_from_claims:
+  - C00531
+  - C00532
+  - C00757
+  - C00758
+  - C00759
+  - C00760
+  - C00761
+  confidence: high
+  applies_when:
+  - a poison or corrupt message could otherwise stall a consumer
+  - a message cannot be delivered or cannot be processed
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: 'Define architecture characteristics as objective, measurable values:
+    decompose composite characteristics (such as agility) into measurable contributors,
+    measure maxima not just averages, set budgets grounded in statistics, and treat
+    unmeasurability as a sign of a vague definition.'
+  derived_from_claims:
+  - C01212
+  - C01213
+  - C01214
+  - C01215
+  - C02586
+  - C02587
+  - C02588
+  confidence: high
+  applies_when:
+  - making an architecture characteristic measurable and governable
+  - specifying an architecture characteristic to be governed or tested
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: 'Avoid obsessing over the one true design and shun the Big Ball of Mud:
+    favor simple designs as a defense against unforeseeable long-term consequences,
+    choosing among many least-worst options.'
+  derived_from_claims:
+  - C01260
+  - C01264
+  - C01265
+  - C02559
+  - C02564
+  - C02565
+  - C02566
+  confidence: high
+  applies_when:
+  - weighing competing designs
+  - making a consequential or hard-to-reverse architecture decision
+  - no single option dominates on every architecture characteristic
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: 'Make service-component granularity the central microservices design
+    decision: avoid too-coarse components (which lose the pattern''s benefits) and
+    too-fine components (which force orchestration and drift toward heavyweight SOA);
+    treat UI/API-layer orchestration or inter-service calls to serve one request as
+    a signal of wrong granularity or partitioning.'
+  derived_from_claims:
+  - C01376
+  - C01377
+  - C01378
+  - C01381
+  - C01554
+  - C01561
+  - C01562
+  confidence: high
+  applies_when:
+  - determining microservice boundaries and the role of the API layer
+  - designing or reviewing microservices service-component boundaries
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: 'Treat every architecture choice as a trade-off: there are no universally
+    right answers, only trade-offs, so analyze the good, bad, and ugly of each option
+    (including its downsides) instead of making value judgements about technologies.'
+  derived_from_claims:
+  - C01110
+  - C01111
+  - C01137
+  - C01138
+  - C04489
+  - C04490
+  confidence: high
+  applies_when:
+  - evaluating or recommending any architecture or technology option
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: 'Treat meetings as costly synchronization points and protect the team''s
+    focus time: avoid meetings as the default interaction, control the ones you call
+    (qualify invites with a why and agenda, distribute material beforehand, attend
+    only the relevant parts), avoid standing status meetings, and respect developer
+    flow.'
+  derived_from_claims:
+  - C01486
+  - C01487
+  - C01488
+  - C04388
+  - C04389
+  - C04390
+  confidence: high
+  applies_when:
+  - managing an architect's schedule and presence
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Recognize that a timeout is the only sure way to detect a node fault
+    yet has no simple right value (too long delays recovery, too short falsely declares
+    slow nodes dead), that prematurely declaring a live node dead is harmful (double-executed
+    actions and load that can cascade), and that real asynchronous networks are unbounded
+    so a transient round-trip spike can mislead a low timeout.
+  derived_from_claims:
+  - C02964
+  - C02965
+  - C02966
+  - C03657
+  - C03658
+  - C03659
+  confidence: high
+  applies_when:
+  - distributed systems detecting failure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Do not build distributed coordination or consensus yourself — two-phase
+    commit and consensus algorithms like Paxos are notoriously hard to implement correctly
+    — but use a proven coordination service such as ZooKeeper, Consul, or etcd (which
+    run a small fixed quorum voting among themselves while serving many clients) for
+    small, slow-changing coordination data such as which node leads a partition, not
+    for fast-changing application state; note that service discovery alone does not
+    require consensus (DNS suffices).
+  derived_from_claims:
+  - C03073
+  - C03074
+  - C03075
+  - C03076
+  - C03675
+  - C03676
+  confidence: high
+  applies_when:
+  - coordinating shared data across distributed machines
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: 'Keep architects hands-on without becoming a bottleneck: never own critical-path/framework
+    code; instead implement business functionality a few iterations downstream, or
+    stay hands-on via POCs, tech-debt stories, bug fixes, tooling, and code reviews,
+    writing POC code to production quality.'
+  derived_from_claims:
+  - C00140
+  - C01153
+  - C01154
+  - C01155
+  - C01156
+  confidence: high
+  applies_when:
+  - balancing an architect's coding involvement with the team
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Use the architecture quantum, an independently deployable artifact with
+    high functional cohesion, high static coupling, and synchronous dynamic coupling,
+    as the unit for reasoning about deployability; a monolith deployed as a single
+    unit is by definition a single quantum.
+  derived_from_claims:
+  - C01233
+  - C01234
+  - C01261
+  - C02627
+  - C02630
+  confidence: high
+  applies_when:
+  - determining deployment boundaries and monolith-vs-distributed
+  - reasoning about deployment boundaries and cohesion in a distributed architecture
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: 'Use transactions as an abstraction that reduces a large class of concurrency
+    problems and faults to a retryable abort, and select the isolation level by the
+    anomaly you must prevent: read committed stops dirty reads and writes, snapshot
+    isolation stops read skew, snapshot isolation or an explicit lock stops lost updates,
+    only serializable isolation stops write skew, and index-range locks or serializable
+    isolation stop write-skew phantoms.'
+  derived_from_claims:
+  - C01723
+  - C01724
+  - C01725
+  - C02962
+  - C02963
+  confidence: high
+  applies_when:
+  - choosing a database isolation level
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Focus architecture effort on decision-making and trade-off reasoning
+    rather than implementation details, because the foundational structural decisions
+    are the ones hardest to change later.
+  derived_from_claims:
+  - C01109
+  - C01139
+  - C02569
+  - C02570
+  confidence: high
+  applies_when:
+  - documenting or reviewing architecture decisions
+  - choosing structural or foundational architecture options
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: 'Favour immutable, deterministically rederivable views over long-lived
+    mutated databases: keep the immutable event log separate from mutable state and
+    derive read-optimized views from it, so a new view can be built alongside existing
+    ones and views recreated from the log when moving between environments instead
+    of doing in-place migrations or copying database files.'
+  derived_from_claims:
+  - C00479
+  - C00480
+  - C00488
+  - C03161
+  confidence: high
+  applies_when:
+  - promoting data or views across development, test, and production environments
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Choose an architecture from the specific problems of the system at hand;
+    distrust any blanket 'always do this' advice because no single architecture fits
+    all enterprise applications.
+  derived_from_claims:
+  - C01589
+  - C01602
+  - C02567
+  - C02568
+  confidence: high
+  applies_when:
+  - making or reviewing a top-level architecture decision
+  - the problem conflates your organization's specific environment and constraints
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: 'Never treat a common data representation as common semantics: integrating
+    heterogeneous systems brings semantic and conceptual dissonance where the same
+    field means different things across divisions, so explicitly resolve semantic
+    differences and plan reconciliation as a combined business and technical task
+    rather than assuming shared meaning.'
+  derived_from_claims:
+  - C00613
+  - C01598
+  - C01599
+  confidence: high
+  applies_when:
+  - systems exchange shared concepts with differing meaning
+  - integrating with external or legacy systems
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: 'Use the ''does it require domain knowledge?'' litmus test to separate
+    architecture characteristics from domain criteria: an architecture characteristic
+    is abstract and reusable across applications, whereas anything needing domain
+    knowledge to interpret belongs to the domain — so validate characteristics with
+    fitness functions and validate domain criteria with unit and functional tests.'
+  derived_from_claims:
+  - C01239
+  - C02592
+  - C02593
+  confidence: high
+  applies_when:
+  - deciding whether a requirement is a domain concern or an architecture characteristic
+  - deciding how to validate an architectural versus a domain requirement
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: 'Match each tool to the problem rather than defaulting to the tool already
+    at hand: define the size and scope of the problem before building a solution,
+    pick the smallest set of tools you can, and recognize that a tool built for a
+    different kind of application can hinder more than help.'
+  derived_from_claims:
+  - C01605
+  - C02529
+  - C02530
+  confidence: high
+  applies_when:
+  - selecting frameworks, persistence, or platform tooling
+  - adding a feature or choosing a component
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Prefer coarse-grained, self-contained remote interfaces over fine-grained
+    ones — bundling work into fewer, bulkier calls to minimize round trips, synchronization
+    overhead, and coupling — keeping this remote interface distinct from a fine-grained
+    local interface, while balancing against interfaces so coarse they limit flexibility.
+  derived_from_claims:
+  - C00665
+  - C01756
+  confidence: high
+  applies_when:
+  - designing the granularity of an integration interface
+  - designing an object that is called remotely
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Cache in depth — CDN, page cache, application cache, object cache — using
+    HTTP headers (not meta tags) and monitoring hit ratios.
+  derived_from_claims:
+  - C02122
+  - C02123
+  - C02124
+  - C02125
+  - C02126
+  - C02127
+  - C02128
+  - C02129
+  - C02130
+  - C02131
+  - C02132
+  - C02133
+  - C02134
+  - C02135
+  - C02136
+  - C02137
+  - C02138
+  - C02139
+  confidence: high
+  applies_when:
+  - any system with repetitive queries, computations, or servable content
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: Put the database behind a data-access interface owned by the business
+    rules so the database depends on the business rules and can be deferred or swapped,
+    and treat both the database and the UI as irrelevant, replaceable plugins to the
+    core model, with the less-relevant GUI depending on the business rules.
+  derived_from_claims:
+  - C00046
+  - C00047
+  - C00051
+  - C00052
+  - C00053
+  - C00180
+  - C00181
+  - C00182
+  - C00183
+  - C00184
+  - C00185
+  - C00186
+  - C00187
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: 'Use connascence to guide refactoring: prefer static over dynamic forms,
+    convert strong forms to weaker ones, and as elements move apart use weaker connascence
+    — minimizing connascence across encapsulation boundaries while maximizing it within
+    them.'
+  derived_from_claims:
+  - C01170
+  - C01171
+  - C01172
+  - C01173
+  - C01174
+  - C01175
+  - C01176
+  - C01177
+  - C01178
+  - C01179
+  - C01180
+  - C01181
+  - C01182
+  confidence: high
+  applies_when:
+  - refactoring to reduce coupling between components
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: 'Handle large data as a Message Sequence robustly: mark each part with
+    sequence, position, and size-or-end fields, send even single messages as sequences
+    when the receiver expects them, transmit on a single-consumer channel inside a
+    Transactional Client, reroute incomplete sequences to the Invalid Message Channel,
+    and use a Claim Check when both sides share a datastore.'
+  derived_from_claims:
+  - C00790
+  - C00791
+  - C00811
+  - C00812
+  - C00813
+  - C00814
+  - C00815
+  - C00816
+  - C00817
+  - C00819
+  - C00820
+  - C00821
+  confidence: high
+  applies_when:
+  - oversized or time-limited message payloads
+  - transmitting data too large for one message
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: 'Make communication two-way with a pair of Request-Reply messages: have
+    the requestor specify a Return Address in the request header so the replier need
+    not hard-code channels, and carry a Correlation Identifier (set to the request''s
+    message ID) on the reply so the requestor can match each reply to its request.'
+  derived_from_claims:
+  - C00787
+  - C00788
+  - C00789
+  - C00800
+  - C00801
+  - C00806
+  - C00807
+  - C00808
+  - C00809
+  - C00810
+  - C00823
+  confidence: high
+  applies_when:
+  - a sender needs a response from the receiver
+  - any request-reply messaging
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Map between domain objects and messages with a separate Messaging Mapper
+    that neither the domain objects nor the messaging infrastructure know about (messages
+    carry only scalar data, not references or inheritance), since embedding mapping
+    in the domain object couples it to messaging and blocks reuse; invoke it through
+    events, reduce its boilerplate with reflection or code generation, and pair it
+    with a Message Translator that handles structural mapping to the Canonical Data
+    Model.
+  derived_from_claims:
+  - C00995
+  - C00996
+  - C00997
+  - C00998
+  - C00999
+  - C01000
+  - C01001
+  - C01002
+  - C01003
+  - C01004
+  - C01005
+  confidence: high
+  applies_when:
+  - message content is derived from application domain objects
+  - mapping domain objects to and from canonical messages
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: 'Document the three structure categories appropriately: include at least
+    one module view (static implementation units with is-part-of/depends-on/is-a relations
+    whose responsibilities trace to requirements), use C&C views for runtime reasoning
+    (components and connectors related by attachment, with documented interaction
+    protocols and analysis-supporting properties), and use allocation views (allocated-to
+    mappings), documenting dynamic allocation changes when they occur.'
+  derived_from_claims:
+  - C03819
+  - C03820
+  - C03821
+  - C03822
+  - C03823
+  - C03824
+  - C03825
+  - C03826
+  - C03827
+  - C03829
+  - C03830
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Understand architecture as the shape of the system (its components, their
+    arrangement, and how they communicate) whose primary purpose is to facilitate
+    development, deployment, operation, and maintenance rather than merely to make
+    the system work, ultimately to minimize lifetime cost and maximize programmer
+    productivity.
+  derived_from_claims:
+  - C00002
+  - C00006
+  - C00007
+  - C00011
+  - C00012
+  - C00141
+  - C00142
+  - C00143
+  - C00144
+  - C00158
+  confidence: high
+  applies_when:
+  - evaluating or justifying an architecture decision
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: 'Treat reuse as double-edged: avoid sharing databases or a single domain
+    model across services, and recognise that clean encapsulation breaks down once
+    requirements crosscut service boundaries and force several services to change
+    together.'
+  derived_from_claims:
+  - C00351
+  - C00352
+  - C00353
+  - C00361
+  - C00363
+  - C00458
+  - C00459
+  - C00460
+  - C00461
+  - C00462
+  confidence: high
+  applies_when:
+  - multiple services or teams need access to the same business data
+  - services must be able to change and deploy independently
+  - deciding what to share between services
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Use event-driven architecture for distributed asynchronous, decoupled
+    event processing, choosing the broker topology for high responsiveness/scale with
+    simple flows and the mediator topology when you need workflow control, error handling,
+    recoverability, and restart.
+  derived_from_claims:
+  - C01318
+  - C01319
+  - C01320
+  - C01321
+  - C01324
+  - C01325
+  - C01329
+  - C01330
+  - C01331
+  - C01332
+  confidence: high
+  applies_when:
+  - selecting an event-driven topology for a workflow
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: 'Use the AKF Scale Cube as the framework for scaling: clone (X) for transactions,
+    split different things (Y) by function/resource, split similar things (Z) by customer.'
+  derived_from_claims:
+  - C02064
+  - C02065
+  - C02066
+  - C02067
+  - C02068
+  - C02075
+  - C02076
+  - C02077
+  - C02080
+  - C02081
+  confidence: high
+  applies_when:
   - any system, service, or database expected to grow rapidly
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - replication
-- principle_id: P004
-  statement: Document and justify every architecture decision in an ADR with Context, Decision, and Consequences,
-    stating the decision affirmatively and recording the why, the trade-offs, and the business value.
+- principle_id: P045
+  statement: 'Use the microkernel (plug-in) style to isolate volatile, frequently
+    changing rules: keep only the happy path in a minimal core, make plug-ins standalone
+    and mutually independent, route them through a registry with domain-standard contracts
+    (adapting third-party contracts), and keep plug-ins off the shared database (the
+    core passes data).'
   derived_from_claims:
-  - C00263
-  - C00268
-  - C00271
-  - C00272
-  - C00273
-  - C00277
-  - C00604
-  - C00605
-  - C00606
+  - C01291
+  - C01292
+  - C01293
+  - C01294
+  - C01295
+  - C01296
+  - C01297
+  - C01298
+  - C01299
+  - C01300
   confidence: high
   applies_when:
-  - a consequential architecture decision is made and must be recorded
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P005
-  statement: 'Treat service-component granularity as the central microservices design decision: right-size
-    components to avoid both coarse-grained loss of benefits and fine-grained orchestration; needing UI/API
-    orchestration or inter-service calls to satisfy one request signals components that are too fine-grained
-    or mis-partitioned.'
-  derived_from_claims:
-  - C00242
-  - C00243
-  - C00246
-  - C00247
-  - C00248
-  - C01179
-  - C01181
-  - C01194
-  - C01195
-  confidence: high
-  applies_when:
-  - designing a microservices architecture
-  - decomposing or reviewing a microservices application
+  - a product or app has customizable or frequently changing rules
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P006
-  statement: 'Treat every architecture choice as a trade-off: never present an option as the single right
-    answer, and if something appears not to be a trade-off, keep looking until the trade-off is identified.'
+- principle_id: P046
+  statement: Measure modularity with cohesion, coupling, and connascence, remembering
+    metrics are blunt and require interpretation (e.g., LCOM finds only structural
+    cohesion; cyclomatic complexity cannot separate essential from accidental complexity).
   derived_from_claims:
-  - C00033
-  - C00034
-  - C00055
-  - C00114
-  - C00117
-  - C00593
-  - C00594
-  - C00596
-  confidence: high
-  applies_when:
-  - a novel or consequential architecture decision with competing forces
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P007
-  statement: In event-driven design pick the mediator topology when an event needs multi-step orchestration
-    through a central mediator, and the broker topology when events can be chained without central orchestration.
-  derived_from_claims:
-  - C00204
-  - C00207
-  - C00208
-  - C00210
-  - C00251
-  - C01124
-  - C01125
-  - C01126
-  confidence: high
-  applies_when:
-  - designing an event-driven architecture
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P008
-  statement: 'Reject silver-bullet solutions and blanket ''decouple everything'' advice: no single technique
-    gives order-of-magnitude gains, and over-decoupling yields systems that cannot communicate — apply
-    coupling appropriately instead.'
-  derived_from_claims:
-  - C00595
-  - C00635
-  - C00636
-  - C01302
-  - C01303
-  - C01308
-  - C01480
-  confidence: high
-  applies_when:
-  - evaluating a proposed universal rule or 'always X' guidance
-  - deciding what to share across service boundaries
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - replication
-- principle_id: P009
-  statement: Treat all performance advice as unproven until measured on your own configuration; measure
-    before and after every optimization, redo optimizations after a significant configuration change,
-    and minimize remote calls.
-  derived_from_claims:
-  - C00668
-  - C00670
-  - C00671
-  - C00672
-  - C01950
-  - C01951
-  - C02189
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P010
-  statement: 'Adopt ''design to be monitored'' as an architectural principle: instrument transactions,
-    and monitor from business metrics first (Is there a problem?) before application (Where?) and system
-    tools (What?), using week-over-week comparison.'
-  derived_from_claims:
-  - C01899
-  - C01933
-  - C01934
-  - C02159
-  - C02407
-  - C02408
-  - C02409
-  confidence: high
-  applies_when:
-  - adding or changing modules of the code base
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - replication
-- principle_id: P011
-  statement: Deploy page caches (reverse proxy caches) in front of web servers - especially for dynamic
-    content - and use ETags with conditional GETs to maximize cacheability across proxies.
-  derived_from_claims:
-  - C02015
-  - C02029
-  - C02031
-  - C02040
-  - C02315
-  - C02316
-  confidence: high
-  applies_when:
-  - serving dynamic or static web content
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - replication
-- principle_id: P012
-  statement: When session data is unavoidable, prefer keeping it in the user's browser via small cookies
-    so any server in the pool can serve the request, and protect the authorization cookie over HTTPS against
-    sidejacking.
-  derived_from_claims:
-  - C02012
-  - C02013
-  - C02014
-  - C02379
-  - C02380
-  - C02381
+  - C01160
+  - C01161
+  - C01162
+  - C01163
+  - C01164
+  - C01165
+  - C01166
+  - C01167
+  - C01168
+  - C01169
   confidence: medium
   applies_when:
-  - session data is needed and can be held client-side
+  - analyzing or governing code structure with metrics
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P013
-  statement: Do not build transactions across microservice boundaries; fix the service granularity instead,
-    and use the saga pattern only sparingly for unavoidable cross-service coordination.
+- principle_id: P047
+  statement: Use asynchronous messaging for reliable, decoupled, retryable communication
+    via store-and-forward and automatic retry, accepting the added event-driven design
+    complexity as a deliberate trade-off.
   derived_from_claims:
-  - C00254
-  - C00255
-  - C00601
-  - C00639
-  confidence: high
-  applies_when:
-  - designing a microservices architecture
-  - designing microservices with per-service data ownership
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P014
-  statement: 'Choose between concurrency controls by the frequency and severity of conflicts: make Optimistic
-    Offline Lock (conflict detection) the default because it gives better liveness and is easier, and
-    use Pessimistic Offline Lock (conflict prevention) when conflicts are likely or their cost is unacceptable.'
-  derived_from_claims:
-  - C00770
-  - C01016
-  - C01415
-  - C01416
-  confidence: high
-  applies_when:
-  - conflict probability is low (optimistic) versus high or costly (pessimistic)
-  - logically mutable entities that may be updated concurrently
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P015
-  statement: Define each architecture characteristic objectively and measurably before testing it, decomposing
-    composite characteristics (e.g., agility) into measurable contributors.
-  derived_from_claims:
-  - C00101
-  - C00119
-  - C00608
-  - C00609
-  confidence: medium
-  applies_when:
-  - specifying an architecture characteristic to govern or test
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-    downgrades:
-    - indirectness
-- principle_id: P016
-  statement: 'Keep the business rules pristine and central: model enterprise-wide rules as Entities and
-    application-specific rules as Use Cases, with use cases depending on entities and neither knowing
-    about the UI, database, or frameworks.'
-  derived_from_claims:
-  - C00364
-  - C00442
-  - C00443
-  - C00466
-  - C00474
-  - C00475
-  - C00492
-  - C00493
-  - C00495
-  - C00498
-  - C00501
-  - C00562
   - C00563
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P017
-  statement: 'Scale transactions with X-axis cloning: duplicate stateless services and read replicas behind
-    a load balancer; start with an object cache before database replication.'
-  derived_from_claims:
-  - C02235
-  - C02236
-  - C02237
-  - C02238
-  - C02239
-  - C02240
-  - C02241
-  - C02242
-  - C02243
+  - C00564
+  - C00566
+  - C00578
+  - C00579
+  - C00580
+  - C00581
+  - C00585
+  - C00588
   confidence: high
   applies_when:
-  - databases with a high read-to-write ratio (~5:1+) or systems where transaction growth exceeds data
-    growth
+  - communication must survive partial outages and tolerate independent component
+    availability
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P018
-  statement: Design for testability by applying the Humble Object pattern to split hard-to-test from easy-to-test
-    behavior, and never depend on volatile things such as the GUI when testing business rules.
+- principle_id: P048
+  statement: Understand Kafka exactly-once as broker idempotence plus an atomic commit
+    that ties output messages and consumer-offset commits together; it covers only
+    the Kafka parts of the system and, with the Kafka Streams API, is enabled rather
+    than hand-coded.
   derived_from_claims:
+  - C00511
+  - C00512
+  - C00513
   - C00514
   - C00515
+  - C00516
   - C00517
-  - C00538
-  - C00539
-  - C00540
-  - C00541
-  - C00542
+  - C00518
+  - C00519
   confidence: high
-  applies_when: []
+  applies_when:
+  - a consume-process-produce pipeline must not duplicate or lose messages
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P019
-  statement: Make Ajax calls cacheable via Last-Modified/Cache-Control/Expires headers, set Cache-Control
-    public for non-private data, and reference objects by stable atomic IDs rather than relative offsets.
+- principle_id: P049
+  statement: 'Design notification channels to deliver only what observers need without
+    channel explosion: keep one message type per channel, group similar notifications
+    going to the same audience onto a shared channel, separate unrelated audiences,
+    and use Selective Consumers rather than forcing observers to monitor many channels.'
   derived_from_claims:
-  - C02307
-  - C02308
-  - C02309
-  - C02310
-  - C02311
-  - C02312
-  - C02313
-  - C02314
+  - C00826
+  - C00827
+  - C00834
+  - C00835
+  - C00836
+  - C00837
+  - C00838
+  - C00839
+  - C00840
   confidence: high
   applies_when:
-  - serving any cacheable object type
-  - Ajax calls that do not strictly require just-updated real-time data
+  - designing the channel set for many subjects and observers
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P020
-  statement: 'Choose the storage tool by the data''s needs (relationships, growth, read/write ratio, monetization):
-    use an RDBMS only when ACID integrity or relationships are required, and prefer file systems or NoSQL
-    otherwise.'
+- principle_id: P050
+  statement: Default to the layered (n-tier) architecture as a general-purpose starting
+    point when the best-fit pattern is still unknown, but expect a monolithic tendency
+    with low agility, deployment ease, performance, and scalability.
   derived_from_claims:
-  - C02268
-  - C02269
-  - C02270
-  - C02271
-  - C02272
-  - C02273
-  - C02274
-  confidence: high
+  - C01497
+  - C01509
+  - C01510
+  - C01511
+  - C01512
+  - C01513
+  - C01514
+  - C01515
+  - C01516
+  confidence: medium
   applies_when:
-  - introducing new data or data structures into a system's architecture
+  - the best-fit architecture pattern is not yet known
+  - a conventional business application is being started
+  - testability and developer familiarity outweigh performance/scalability/deployment-cadence
+    needs
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P021
-  statement: Select an architecture style by context, treating each style as a known set of trade-offs;
-    there is no universal best style.
+- principle_id: P051
+  statement: 'Trim work the browser must do: reduce DNS lookups and page objects,
+    balanced against the browser''s per-domain connection cap, and verify by testing.'
   derived_from_claims:
-  - C00038
-  - C00039
-  - C00156
-  - C00157
-  - C00258
-  - C00259
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P022
-  statement: Classify a concern as an architecture characteristic only when it specifies a nondomain consideration,
-    influences structure, is critical to success, and needs special structural support.
-  derived_from_claims:
-  - C00091
-  - C00093
-  - C00095
-  - C00102
-  - C00103
-  - C00104
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P023
-  statement: 'Account for the eight fallacies of distributed computing: assume the network is unreliable,
-    know average and tail latency, pass minimal data, secure every endpoint, and budget for higher cost.'
-  derived_from_claims:
-  - C00163
-  - C00164
-  - C00165
-  - C00166
-  - C00167
-  - C00170
-  confidence: high
-  applies_when:
-  - designing or reviewing a distributed architecture
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P024
-  statement: Compose services through events rather than chains of commands and queries whenever loose
-    coupling matters, using events for both notification and state transfer.
-  derived_from_claims:
-  - C01295
-  - C01297
-  - C01302
-  - C01303
-  - C01306
-  - C01309
-  confidence: high
-  applies_when:
-  - multiteam or cross-deployment-boundary systems
-  - the event stream is useful to more than one service
-  - data must be replicated between services
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P025
-  statement: Use one operational definition of coupling — a change in one part may force a change in another
-    — and analyze static (wiring) coupling separately from dynamic (runtime call) coupling.
-  derived_from_claims:
-  - C00626
-  - C00633
-  - C00634
-  - C00644
-  - C00645
-  - C00647
-  confidence: high
-  applies_when:
-  - analyzing dependencies or change impact in a distributed architecture
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P026
-  statement: Use Kafka transactions for exactly-once across Kafka-only chains, tying state-store writes
-    to message sends, but do not expect them to cover external systems or to roll back after commit.
-  derived_from_claims:
-  - C01413
-  - C01414
-  - C01422
-  - C01429
-  - C01432
-  - C01433
-  confidence: high
-  applies_when:
-  - both input and output of a step go through Kafka
-  - read-process-(save)-send service chains that must avoid duplicates
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P027
-  statement: Achieve reliable delivery with store-and-forward plus automatic retry, and persist messages
-    to disk with Guaranteed Delivery when message loss is unacceptable, accepting the performance cost.
-  derived_from_claims:
-  - C01500
-  - C01503
-  - C01508
-  - C01648
-  - C01649
-  - C01650
-  confidence: high
-  applies_when:
-  - message loss would harm the business
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P028
-  statement: Reduce and combine the number of objects on a page (e.g., sprites, combined CSS/JS), balanced
-    against parallel per-domain connections, and verify every change by testing across browsers and connection
-    speeds.
-  derived_from_claims:
-  - C02227
-  - C02228
-  - C02229
-  - C02230
-  - C02231
-  - C02232
-  confidence: high
+  - C02052
+  - C02053
+  - C02054
+  - C02055
+  - C02056
+  - C02057
+  - C02058
+  - C02059
+  - C02060
+  confidence: medium
   applies_when:
   - web pages where performance matters
   operational_mapping:
@@ -617,823 +1196,1263 @@ principles:
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P029
-  statement: Relax temporal constraints rather than enforcing object state between user actions; under
-    CAP, adopt eventual consistency (BASE), lock inventory at add-to-cart on the master (not on view),
-    and tolerate brief transfer delays.
+- principle_id: P052
+  statement: Design for three or more live data centers and leverage the cloud for
+    spiky demand, rather than a two-site hot/cold pair.
   derived_from_claims:
-  - C02297
-  - C02298
-  - C02299
-  - C02300
-  - C02301
-  - C02302
-  confidence: high
+  - C02093
+  - C02094
+  - C02095
+  - C02096
+  - C02097
+  - C02098
+  - C02099
+  - C02100
+  - C02101
+  confidence: medium
   applies_when:
-  - considering a constraint that an item must hold a certain state between a user's actions
+  - a rapidly growing business planning disaster recovery or spiky-demand capacity
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P030
-  statement: Value technical breadth over depth and actively maintain it through habits such as the 20-minute
-    rule, a personal technology radar, and treating the technology portfolio like a diversified financial
-    portfolio.
+- principle_id: P053
+  statement: Decouple architecture from development process, choosing top-level partitioning
+    deliberately (technical vs domain) with full awareness of Conway's Law and the
+    Inverse Conway Maneuver.
   derived_from_claims:
+  - C01244
+  - C01245
+  - C01246
+  - C01247
+  - C01248
+  - C01249
+  - C01250
+  - C01251
+  confidence: high
+  applies_when:
+  - choosing how to partition a system and align teams
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: 'Do not marry a framework: a framework is not an architecture and adopting
+    one is an asymmetric marriage carrying real risk, so keep it at arm''s length
+    as an outer-circle detail and never let it into the inner circles, refuse to derive
+    your business objects from its base classes (derive proxies in plugin components
+    instead), use a framework such as Spring only in the Main component without scattering
+    its annotations through business objects, and marry only the unavoidable frameworks
+    such as the standard library, and only as a conscious decision.'
+  derived_from_claims:
+  - C00303
+  - C00304
+  - C00305
+  - C00306
+  - C00307
+  - C00308
+  - C00309
+  - C00310
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Exploit the log-structured design (append-only, sequential IO, zero-copy,
+    O(1) partition reads/writes) for cheap retention and high throughput, and size
+    clusters knowing replication overhead roughly divides ingest throughput by three.
+  derived_from_claims:
+  - C00376
+  - C00377
+  - C00378
+  - C00379
+  - C00380
+  - C00381
+  - C00382
+  - C00387
+  confidence: high
+  applies_when:
+  - estimating Kafka capacity or reasoning about its performance characteristics
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Use the single writer principle — including the Command Topic and single-writer-per-transition
+    variants enforced through topic permissions — to create local points of consistency
+    connected by the stream, instead of forcing a global consistency model; recognise
+    these are useful patterns, not universal solutions.
+  derived_from_claims:
+  - C00492
+  - C00493
+  - C00494
+  - C00495
+  - C00496
+  - C00497
+  - C00503
+  - C00504
+  confidence: high
+  applies_when:
+  - concurrent updates to the same entity must avoid collisions without a shared global
+    database
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: 'Choose the channel kind by delivery intent: a Point-to-Point Channel
+    for exactly-once consumption (scaled by Competing Consumers, with Request-Reply
+    over channel pairs for messaging RPC) and a Publish-Subscribe Channel to deliver
+    a copy to every interested receiver, as Event Messages typically require.'
+  derived_from_claims:
+  - C00746
+  - C00747
+  - C00748
+  - C00749
+  - C00750
+  - C00751
+  - C00755
+  - C00756
+  confidence: high
+  applies_when:
+  - deciding single-consumer versus broadcast delivery
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Apply transformation at the correct layer (transport, data representation,
+    data types, data structures) and chain one Message Translator per layer with Pipes
+    and Filters for reuse and interchangeability, since channels and routers leave
+    applications coupled by format until a translator removes that dependency.
+  derived_from_claims:
+  - C00733
+  - C00734
+  - C00735
+  - C00736
+  - C00737
+  - C00738
+  - C00739
+  - C00740
+  confidence: high
+  applies_when:
+  - resolving differences in message formats across layers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: Adopt a Message Bus — a common data model, common command set, and messaging
+    infrastructure — to form a distributable service-oriented architecture, preferring
+    it over point-to-point spaghetti or a single intermediary that becomes a bottleneck,
+    and require every participant to share the Canonical Data Model.
+  derived_from_claims:
+  - C00779
+  - C00780
+  - C00781
+  - C00782
+  - C00783
+  - C00784
+  - C00785
+  - C00786
+  confidence: high
+  applies_when:
+  - many applications must coordinate as a unified, evolvable system
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: Use a Routing Slip for a predetermined linear sequence such as binary
+    validations, stateless transforms, or data gathering, preferring a hard-wired
+    Pipes and Filters chain when reconfiguration is not needed and escalating to a
+    Process Manager once branching, forks, joins, or intermediate-result decisions
+    are required.
+  derived_from_claims:
+  - C00902
+  - C00903
+  - C00904
+  - C00905
+  - C00906
+  - C00907
+  - C00908
+  - C00909
+  confidence: high
+  applies_when:
+  - routing a message through a sequence of steps
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: 'Sustain a career through continuous learning: apply the 20-minute rule
+    first thing daily, avoid technology bubbles, maintain a technology radar (hold/assess/trial/adopt),
+    diversify the technology portfolio, leverage weak links, and build skill through
+    deliberate practice — remembering there are only trade-offs, not right answers.'
+  derived_from_claims:
+  - C01489
+  - C01490
+  - C01491
+  - C01492
+  - C01493
+  - C01494
+  - C01495
+  - C01496
+  confidence: high
+  applies_when:
+  - developing an architect's long-term skills and technology breadth
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: 'Match the domain-logic pattern to complexity: Transaction Script for
+    simple logic (its cost multiplies exponentially as logic grows), a Domain Model
+    for genuinely complex logic (needs real skill and brings a messy relational connection),
+    and Table Module as a relational-friendly middle ground (especially strong on
+    .NET).'
+  derived_from_claims:
+  - C01636
+  - C01637
+  - C01638
+  - C01641
+  - C01766
+  - C01767
+  - C01768
+  - C01769
+  confidence: high
+  applies_when:
+  - choosing how to organize business logic
+  - choosing how to organize domain logic
+  - selecting among Transaction Script, Domain Model, and Table Module
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: 'Design fault-isolative swimlanes along Y/Z boundaries: share nothing,
+    allow no synchronous cross-swimlane calls, limit async ones, and keep swimlanes
+    on physical boundaries.'
+  derived_from_claims:
+  - C02171
+  - C02172
+  - C02173
+  - C02174
+  - C02175
+  - C02176
+  - C02177
+  - C02178
+  confidence: high
+  applies_when:
+  - splitting databases or services to scale, and seeking fault isolation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: Manage energy through its three tactic categories — resource monitoring
+    (metering, static and dynamic classification), resource allocation, and reducing
+    resource demand — starting with monitoring because you cannot manage what you
+    cannot measure, and offload mobile computation to the cloud only when communication
+    energy is less than the computation energy saved.
+  derived_from_claims:
+  - C03434
+  - C03435
+  - C03436
+  - C03437
+  - C03438
+  - C03439
+  - C03440
+  - C03441
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: Model integration difficulty as a function of size (number of potential
+    dependencies) and distance (difficulty of resolving each), and account for dependencies
+    invisible to syntax — temporal, shared-resource, and semantic coupling — because
+    these undocumented couplings are a major source of integration cost and risk.
+  derived_from_claims:
+  - C03443
+  - C03444
+  - C03445
+  - C03446
+  - C03447
+  - C03448
+  - C03449
+  - C03450
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: Develop your own balanced, product-neutral IT world map plotted by function
+    and relationships, since each landscape is unique, vendor maps are distorted by
+    their middle-kingdom context, and IT architecture is about how pieces connect
+    — the lines, not the boxes.
+  derived_from_claims:
+  - C03976
+  - C03977
+  - C04187
+  - C04189
+  - C04190
+  - C04191
+  - C04192
+  - C04193
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: 'Choose between event notification and event-carried state transfer by
+    architecture size: emphasise notification for small/lightweight systems and replication
+    for large systems that need service autonomy; blend both within bounded contexts.'
+  derived_from_claims:
+  - C00410
+  - C00411
+  - C00412
+  - C00413
+  - C00414
+  - C00419
+  - C00420
+  - C00421
+  confidence: medium
+  applies_when:
+  - deciding whether a consumer should query the source or hold a local replica
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: 'Recognize the breadth of architect duties (technical: creating, evaluating,
+    documenting, transforming systems, managing requirements, assessing technology;
+    and nontechnical: project management, people, organization, business, leadership,
+    team building), valuing abstraction as perhaps the most important skill, while
+    distinguishing genuinely architectural duties from helpful non-architectural ones.'
+  derived_from_claims:
+  - C03915
+  - C03916
+  - C03917
+  - C03918
+  - C03919
+  - C03920
+  - C03921
+  - C03922
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: Choose the fewest architecture characteristics a system needs and aim
+    for the least-worst architecture, because characteristics interact and over-specifying
+    is as damaging as under-specifying.
+  derived_from_claims:
+  - C01187
+  - C01188
+  - C01192
+  - C01193
+  - C01198
+  - C01208
+  - C01210
+  confidence: high
+  applies_when:
+  - selecting the set of characteristics an architecture will support
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Make architecture decisions deliberately — gather information, justify
+    technically and for the business, document, and communicate — overcoming the Covering-Your-Assets
+    (decide at the last responsible moment, collaborate to confirm implementability),
+    Groundhog-Day (record technical + business justification), and Email-Driven (single
+    linked system of record, notify only the impacted) anti-patterns; treat a technology
+    choice as an architecture decision when it supports a characteristic.
+  derived_from_claims:
+  - C01401
+  - C01402
+  - C01403
+  - C01404
+  - C01405
+  - C01406
+  - C01418
+  confidence: high
+  applies_when:
+  - making and communicating an architecture decision
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: Improve organizational architecture competence — the ability to grow,
+    use, and sustain architecture-centric practices at acceptable cost aligned with
+    business goals — through personnel practices (career track, prestige, mentoring,
+    training), process practices (organization-wide practices, clear authority, a
+    review board, milestones, quality tracking, life-cycle influence), and technology
+    practices (repositories of reusable architectures, design concepts, and tools),
+    and probe these when interviewing.
+  derived_from_claims:
+  - C03923
+  - C03924
+  - C03925
+  - C03926
+  - C03927
+  - C03928
+  - C03929
+  confidence: high
+  applies_when:
+  - organizations producing architectures
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: 'Treat communication as critical to architect success and diagram with
+    discipline: apply representational consistency, use low-fidelity ephemeral artifacts
+    early to avoid Irrational Artifact Attachment, master tool features, follow conventions
+    (solid=sync, dotted=async; UML for class/sequence; C4 for monoliths), and always
+    include a key when shapes are ambiguous.'
+  derived_from_claims:
+  - C01432
+  - C01433
+  - C01434
+  - C01435
+  - C01436
+  - C01437
+  - C01438
+  confidence: high
+  applies_when:
+  - diagramming or communicating an architecture
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: 'Use the three structure categories for their intended reasoning: module
+    structures for modifiability, component-and-connector structures for runtime qualities
+    (performance, security, availability), and allocation structures for deployment-related
+    qualities; no single structure is the architecture.'
+  derived_from_claims:
+  - C03273
+  - C03274
+  - C03275
+  - C03276
+  - C03277
+  - C03280
+  - C03282
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: 'Treat the database as a detail that must not pollute the architecture:
+    distinguish the architecturally significant data model from the non-significant
+    database, restrict knowledge of tabular structure to the outermost utility functions,
+    never pass database rows or tables around as objects (which couples use cases,
+    business rules, and the UI to the relational structure), encapsulate data-storage
+    performance behind low-level access mechanisms, and when a non-engineering requirement
+    forces a particular database, bolt it on the side behind a narrow, safe data-access
+    channel while keeping the core data in the form most convenient to the application.'
+  derived_from_claims:
+  - C00290
+  - C00291
+  - C00292
+  - C00293
+  - C00295
+  - C00296
+  - C00297
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: 'Separate business logic from hardware and platform: intermingling software
+    and firmware is an anti-pattern (burying SQL or spreading platform dependencies
+    is writing firmware), so firm the boundary with a Hardware Abstraction Layer whose
+    API is tailored to the software and hides how the hardware works, layering the
+    hardware at the bottom so an inevitable hardware change is not a bigger job than
+    necessary.'
+  derived_from_claims:
+  - C00274
+  - C00275
+  - C00276
+  - C00277
+  - C00278
+  - C00279
+  - C00280
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: 'Manage leftover and stuck messages: use a Correlation Identifier to
+    detect a stale reply, remember that transactions do not fix programming errors
+    that strand messages, and use a Channel Purger to clear all or selected messages
+    (storing them for inspection or replay), with temporary channels or removing a
+    poison message to restore a crashing recipient.'
+  derived_from_claims:
+  - C01063
+  - C01064
+  - C01065
+  - C01066
+  - C01067
+  - C01068
+  - C01069
+  confidence: high
+  applies_when:
+  - debugging or recovering a system with extraneous or poison messages
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: 'Plan channels deliberately: they are created through administration
+    tools and fixed at deployment, so dedicate one message type per channel, provide
+    an Invalid Message Channel, and recognize that a well-designed channel set forms
+    a Message Bus.'
+  derived_from_claims:
+  - C00697
+  - C00698
+  - C00700
+  - C00701
+  - C00703
+  - C00704
+  - C00705
+  confidence: high
+  applies_when:
+  - designing the set of channels for a solution
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: Choose between predictive routing (a Content-Based Router) and reactive
+    filtering (a Publish-Subscribe Channel with Message Filters) by who should control
+    routing, whether multiple recipients must process a message, network topology,
+    and data sensitivity — routers suit business transactions and sensitive data,
+    filter arrays suit event notifications.
+  derived_from_claims:
+  - C00724
+  - C00725
+  - C00846
+  - C00862
+  - C00863
+  - C00864
+  - C00865
+  confidence: high
+  applies_when:
+  - the set of routing destinations changes often
+  - deciding how messages reach the right recipients
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: Use a Content Filter to remove, simplify, or flatten data for security
+    and manageability — stripping unauthorized or irrelevant fields and flattening
+    over-nested or database-adapter structures — and pair an enricher on the way out
+    with a filter on the way in at external-party boundaries.
+  derived_from_claims:
+  - C00938
+  - C00939
+  - C00940
+  - C00941
+  - C00942
+  - C00943
+  - C00944
+  confidence: high
+  applies_when:
+  - messages carry more or more deeply nested data than needed
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: Actively monitor live components by injecting Test Messages — generated,
+    tagged in the header rather than by overloading application fields, separated,
+    and verified — understanding that active monitoring tests deeper than passive
+    logs but adds load, may cost money for metered services, and pollutes stateful
+    components that cannot distinguish test from real data.
+  derived_from_claims:
+  - C01042
+  - C01057
+  - C01058
+  - C01059
+  - C01060
+  - C01061
+  - C01062
+  confidence: high
+  applies_when:
+  - verifying a running solution's health, especially external services
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: Identify driving characteristics early by extracting from domain concerns,
+    requirements, and implicit domain knowledge, translating stakeholder language
+    into engineering terms (e.g., 'millions of users' implies scalability; time-to-market
+    = agility+testability+deployability).
+  derived_from_claims:
+  - C01152
+  - C01195
+  - C01196
+  - C01200
+  - C01201
+  - C01202
+  - C01206
+  confidence: high
+  applies_when:
+  - deriving the characteristics a system must support
+  - beginning a design or validating an existing architecture
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: 'Exploit asynchronous communication to improve responsiveness (distinct
+    from performance) when the user needs only an acknowledgement, but design for
+    its hard error handling: use the workflow event pattern (delegate-and-continue,
+    programmatic repair, dashboard fallback) and accept out-of-order reprocessing.'
+  derived_from_claims:
+  - C01333
+  - C01334
+  - C01335
+  - C01336
+  - C01337
+  - C01338
+  - C01339
+  confidence: high
+  applies_when:
+  - a workflow can be processed asynchronously
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: 'Use Data Mapper to let the database schema and object model evolve independently
+    (most commonly with a Domain Model, so you can ignore the database while designing
+    and testing the model); because its price is an extra layer, gate on complexity:
+    simple logic needs neither Domain Model nor Data Mapper, never use Data Mapper
+    without a Domain Model, but a simple Domain Model over a developer-controlled
+    database may use Active Record and refactor to a mapping layer as complexity grows.'
+  derived_from_claims:
+  - C01653
+  - C01654
+  - C01655
+  - C01773
+  - C01831
+  - C01832
+  - C01833
+  confidence: high
+  applies_when:
+  - choosing an object-relational persistence approach
+  - mapping a Domain Model to the database
+  - deciding whether to introduce Data Mapper
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: 'Eliminate single points of failure and avoid components in series: strive
+    for active/active and add parallel redundancy, especially at the database and
+    network layers.'
+  derived_from_claims:
+  - C02179
+  - C02180
+  - C02181
+  - C02182
+  - C02183
+  - C02184
+  - C02185
+  confidence: high
+  applies_when:
+  - architecture reviews and new designs
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: Strive for statelessness; if state is required, push it to the browser,
+    and otherwise use a distributed cache without affinity or replication.
+  derived_from_claims:
+  - C02188
+  - C02189
+  - C02190
+  - C02191
+  - C02192
+  - C02193
+  - C02194
+  confidence: high
+  applies_when:
+  - designing or redesigning any multi-tenant system
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: 'Distinguish OLTP from OLAP because they call for different engines:
+    OLTP looks up a few records by key with interactive low-latency writes while OLAP
+    scans many records reading few columns to compute aggregates, and although SQL
+    serves both, analytics is run on a separate data warehouse rather than on the
+    transaction-processing system.'
+  derived_from_claims:
+  - C02758
+  - C02759
+  - C02760
+  - C02761
+  - C02762
+  - C02763
+  - C02764
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: Match the store to the relationship profile (document databases for self-contained
+    data with rare relationships, graph databases when anything may relate to everything,
+    relational in between), use the right specialized system rather than awkwardly
+    emulating one model in another, remember that schema-free document and graph stores
+    still rely on an implicit schema, and accept that some needs require purpose-built
+    systems.
+  derived_from_claims:
+  - C02708
+  - C02709
+  - C02710
+  - C02732
+  - C02733
+  - C02734
+  - C02735
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: 'Improve testability with controllability/observability tactics: provide
+    specialized test interfaces (set/get, report-state, reset, verbose) kept separate
+    from functional interfaces, use record/playback to recreate hard-to-reproduce
+    faults, localize state storage, abstract data sources to substitute test data,
+    sandbox to isolate experiments, and place executable assertions to embed the oracle.'
+  derived_from_claims:
+  - C03579
+  - C03580
+  - C03581
+  - C03582
+  - C03583
+  - C03584
+  - C03585
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P089
+  statement: Identify the real stakeholders for the project and tailor documentation
+    to each one's needs (managers, developers, testers/integrators, maintainers, end
+    users, future architects), knowing the golden rule is to know your reader and
+    that a project can spend roughly half its effort in testing.
+  derived_from_claims:
+  - C03850
+  - C03851
+  - C03852
+  - C03853
+  - C03854
+  - C03855
+  - C03866
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: Build individual architect competence on the duties-skills-knowledge
+    triad (skills and knowledge serve the duties, which define competence), improving
+    it by gaining experience through apprenticeship, developing nontechnical skills,
+    and continuously mastering a fast-moving body of knowledge, while investing in
+    the architect's many nontechnical duties.
+  derived_from_claims:
+  - C03908
+  - C03909
+  - C03910
+  - C03911
+  - C03912
+  - C03913
+  - C03914
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: 'Treat quality as an enabler of speed rather than a tax on it: dispel
+    the belief that speed opposes quality or that quality can be added later, because
+    poor quality and developer fear slow delivery and cause code rot — instead build
+    internal quality in from the start and automate to gain speed and quality together,
+    judging test coverage by whether teams can change confidently rather than by line
+    percentage.'
+  derived_from_claims:
+  - C04005
+  - C04006
+  - C04007
+  - C04008
+  - C04339
+  - C04340
+  - C04341
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: Build IT pyramids from the top down — starting from an application that
+    delivers customer value and letting common components sift down — because bottom-up
+    base layers deliver little value, negate use-before-reuse, ignore build-measure-learn,
+    and 'reusable' often means unused.
+  derived_from_claims:
+  - C04361
+  - C04362
+  - C04363
+  - C04364
+  - C04365
+  - C04366
+  - C04367
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: Apply each programming paradigm for its architectural role — polymorphism
+    to cross architectural boundaries, functional discipline to govern the location
+    of and access to data, and structured programming as the algorithmic foundation
+    of modules — understanding that each paradigm restricts rather than adds capability.
+  derived_from_claims:
+  - C00029
+  - C00030
+  - C00031
+  - C00032
+  - C00033
+  - C00034
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: 'Never trade structure for short-term speed: making messes is always
+    slower at every time scale and the cleanup-later promise never comes true, so
+    the only way to go fast is to keep the code clean and well-structured.'
+  derived_from_claims:
+  - C00003
+  - C00009
+  - C00013
+  - C00014
+  - C00015
   - C00016
-  - C00046
-  - C00049
+  confidence: high
+  applies_when:
+  - under schedule pressure to cut corners
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: 'Enforce architectural rules mechanically rather than by fallible discipline
+    or slow post-compilation tooling: prefer to let the compiler enforce the architecture,
+    applying access modifiers deliberately so only interfaces with inbound cross-package
+    dependencies are public and implementation classes stay package-protected, because
+    making all types public reduces packages to mere organization, collapses every
+    architectural style to the same thing, and lets code instantiate concrete implementations
+    directly in violation of the design.'
+  derived_from_claims:
+  - C00321
+  - C00322
   - C00325
   - C00326
   - C00327
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-  grade:
-    source_type: classic
-    downgrades:
-    - indirectness
-- principle_id: P031
-  statement: For product-based applications that ship features over time and need per-user feature control,
-    make the microkernel (plug-in) pattern the first-choice starting architecture, leveraging its support
-    for incremental, evolutionary development.
-  derived_from_claims:
-  - C01150
-  - C01155
-  - C01156
-  - C01157
-  - C01166
-  - C01167
-  confidence: medium
-  applies_when:
-  - building a product-based or pluggable application that releases features over time
-  - designing a microkernel/plug-in architecture
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P032
-  statement: Never read back data you just wrote to validate it; act on the write's error code instead,
-    protect against corruption with high availability and multiple data copies, and cache recently written
-    data locally if it will be reused.
-  derived_from_claims:
-  - C02285
-  - C02286
-  - C02287
-  - C02288
-  - C02289
-  - C02290
-  confidence: medium
-  applies_when:
-  - a write whose success is already reported by the write operation's error code
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P033
-  statement: Push caching toward the client and the network edge where possible — the user's cookie and
-    Anycast-directed nearest cluster — securing cookie data with encryption and a message digest.
-  derived_from_claims:
-  - C02048
-  - C02049
-  - C02052
-  - C02087
-  - C02088
-  - C02089
-  confidence: medium
+  - C00328
+  confidence: high
   applies_when: []
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P034
-  statement: Design for three or more live data centers (not a two-site hot/cold pair) to lower cost,
-    raise availability, and provide disaster recovery, reusing idle capacity for tests and demand spikes.
+- principle_id: P096
+  statement: Apply the Dependency Inversion Principle so source-code dependencies
+    refer only to abstractions, reducing it to concrete rules — do not refer to, derive
+    from, or override volatile concrete classes, and never name anything concrete
+    and volatile — while tolerating stable concretions such as String and OS facilities,
+    keeping interfaces stable by extending implementations, using an Abstract Factory
+    to create volatile concretes, and using inheritance sparingly as the most rigid
+    relationship.
   derived_from_claims:
-  - C02258
-  - C02259
-  - C02260
-  - C02261
-  - C02262
-  - C02263
-  confidence: medium
-  applies_when:
-  - a rapidly growing business considering disaster-recovery capacity
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P035
-  statement: Plan the data model carefully up front, because relationships dictate how a database can
-    be split and a broken model costs ~100x to fix later; treat normalization level as a scale tradeoff
-    and review queries with a DBA before production.
-  derived_from_claims:
-  - C02343
-  - C02344
-  - C02345
-  - C02346
-  - C02347
-  - C02348
-  confidence: medium
-  applies_when:
-  - designing the data model, adding tables/columns, or writing queries
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P036
-  statement: Choose the fewest architecture characteristics needed, keeping the driving list short; over-specifying
-    is as damaging as under-specifying because each characteristic adds complexity.
-  derived_from_claims:
+  - C00092
+  - C00093
   - C00094
-  - C00099
-  - C00103
-  - C00113
-  - C00118
+  - C00095
+  - C00096
+  - C00097
   confidence: high
   applies_when: []
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P037
-  statement: Select an architecture pattern deliberately by matching each pattern's known characteristic
-    ratings (agility, deployment, testability, performance, scalability, ease of development) to the application's
-    priority qualities and constraints, and justify the choice explicitly — the decision is high-impact
-    and very expensive to reverse once implemented.
-  derived_from_claims:
-  - C01089
-  - C01090
-  - C01091
-  - C01244
-  - C01245
-  confidence: high
-  applies_when:
-  - selecting or reviewing a top-level application architecture pattern
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P038
-  statement: Minimize connascence that crosses encapsulation boundaries and maximize connascence within
-    them; minimize overall connascence by encapsulating elements.
+- principle_id: P097
+  statement: 'Apply the Single Responsibility Principle so that a module is responsible
+    to exactly one actor (not merely doing one thing): separate the code that different
+    actors depend on, because co-locating it causes one actor''s change to silently
+    break another''s behavior and invites risky merges, optionally separating data
+    from functions behind a Facade.'
   derived_from_claims:
+  - C00067
+  - C00068
+  - C00069
+  - C00070
+  - C00071
+  - C00072
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: 'Apply the Liskov Substitution Principle at every level: make subtypes
+    substitutable for their base type so any program written against the base behaves
+    unchanged, treating it as a general rule about interchangeable implementations
+    of any interface, and avoid embedding concrete identifiers in branching code (insulate
+    variation behind configuration), because a single substitutability violation pollutes
+    the architecture with extra mechanism.'
+  derived_from_claims:
+  - C00082
   - C00083
+  - C00084
   - C00085
   - C00086
-  - C00088
-  - C00089
+  - C00087
   confidence: high
   applies_when: []
   operational_mapping:
     profile_rule: true
+    skill: null
+    reference: null
     test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P039
-  statement: Communicate asynchronously wherever possible to decouple services and tiers (synchronous
-    chains multiply failure and bug risk); apply async selectively to external/third-party, long-running,
-    error-prone, and no-temporal-constraint calls, with timeouts on remaining sync calls.
+- principle_id: P099
+  statement: Place high-level policy in stable components and volatile software in
+    unstable ones, keeping the stable policy components abstract (interfaces and abstract
+    classes) so per the OCP they stay extensible despite their stability — the Stable
+    Abstractions Principle that a component should be as abstract as it is stable,
+    which with the SDP forms the DIP for components so dependencies run toward abstraction.
   derived_from_claims:
-  - C02386
-  - C02387
-  - C02388
-  - C02389
-  - C02390
+  - C00128
+  - C00129
+  - C00130
+  - C00131
+  - C00132
+  - C00133
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: Keep components on or near the Main Sequence (from stable-and-abstract
+    to unstable-and-concrete), keeping volatile software out of the Zone of Pain (stable
+    and concrete, e.g. a volatile database schema) and avoiding the Zone of Uselessness
+    (abstract with no dependents); compute A = Na/Nc and the distance D = |A + I -
+    1|, restructure components whose D is far from zero, and track D over time to
+    catch drift, while treating these metrics as imperfect aids rather than absolutes.
+  derived_from_claims:
+  - C00134
+  - C00135
+  - C00136
+  - C00137
+  - C00138
+  - C00139
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: Follow the first rule of design — do not depend on volatile things —
+    by testing business rules without the volatile GUI through a dedicated testing
+    API (a superset of the interactors and interface adapters) that bypasses security
+    and expensive resources and forces testable states, whose purpose is to decouple
+    the structure of the tests from the structure of the application; avoid structural
+    coupling (a test class and method per production class and method), hide the application
+    structure so tests and production code evolve independently, and keep a dangerous
+    testing API in a separate deployable component.
+  derived_from_claims:
+  - C00268
+  - C00269
+  - C00270
+  - C00271
+  - C00272
+  - C00273
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: Recognise the data dichotomy — databases expose data while services hide
+    it — and that core data coupling is unavoidable; manage it deliberately to avoid
+    the God Service, REST-to-ETL polling, and proliferating mutable copies that drive
+    data divergence.
+  derived_from_claims:
+  - C00463
+  - C00464
+  - C00465
+  - C00466
+  - C00467
+  - C00468
   confidence: high
   applies_when:
-  - calls between services and tiers
+  - services depend on one another's datasets
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P040
-  statement: 'Enforce the Dependency Rule: point all source-code dependencies inward toward higher-level
-    policy, and let nothing in an inner circle name anything in an outer circle.'
+- principle_id: P103
+  statement: Use a replayable, retentive log (e.g. Kafka) as the shared source of
+    truth — a middle ground between ephemeral messaging and a queryable database —
+    so services stay decoupled yet have a durable store to fall back to and replay
+    from.
   derived_from_claims:
-  - C00473
-  - C00477
-  - C00488
-  - C00506
-  - C00590
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P041
-  statement: Depend on abstractions rather than concretions, inverting dependencies with interfaces so
-    source-code dependencies oppose the flow of control.
-  derived_from_claims:
+  - C00354
+  - C00358
   - C00359
-  - C00394
-  - C00395
-  - C00481
-  - C00510
+  - C00360
+  - C00364
+  - C00372
   confidence: high
-  applies_when: []
+  applies_when:
+  - data must be shared across an organization while keeping producers and consumers
+    loosely coupled
+  - consumers need historical data, not just the latest message
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P042
-  statement: Give each module one and only one reason to change by making it responsible to a single actor,
-    and separate the code that serves different actors.
+- principle_id: P104
+  statement: Use a Message Store, populated asynchronously via a Wire Tap in fire-and-forget
+    mode, to capture message data centrally for reporting, balancing stored detail
+    against traffic and storage, choosing a per-type or generic-XML schema by reporting
+    needs, purging growth, and combining wire taps to analyze relationships between
+    messages.
   derived_from_claims:
-  - C00374
-  - C00375
-  - C00376
-  - C00378
-  - C00379
+  - C01050
+  - C01051
+  - C01052
+  - C01053
+  - C01054
+  - C01055
   confidence: high
-  applies_when: []
+  applies_when:
+  - reporting on or analyzing message traffic over time
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P043
-  statement: Compose components for cohesion by grouping classes that change together and are reused together
-    (REP, CCP, CRP), balancing the inclusive/exclusive tension for the team's current concerns.
+- principle_id: P105
+  statement: For correct concurrent state mutation, wrap the critical section in a
+    Kafka transaction and partition the work by the relevant business key; otherwise
+    a failure leaves the system in an unknown state and parallel instances bottleneck
+    on a shared database.
   derived_from_claims:
+  - C00545
+  - C00546
+  - C00547
+  - C00548
+  - C00549
+  - C00550
+  confidence: high
+  applies_when:
+  - a stateful operation must run atomically and scale across threads or machines
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: 'Choose retention-based versus compacted topics by use case: retention/regular
+    topics for audit and Event Sourcing, compacted topics for keyed latest-value state,
+    and the latest-versioned pattern to combine both; remember compaction is asynchronous
+    so superseded records may linger.'
+  derived_from_claims:
+  - C00397
+  - C00398
+  - C00399
+  - C00400
+  - C00401
   - C00402
-  - C00403
-  - C00404
-  - C00407
-  - C00409
   confidence: high
   applies_when:
-  - the project's maturity and the relative weight of develop-ability versus reuse are taken into account,
-    since the balance shifts over time
+  - deciding how a topic should retain or compact its data
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P044
-  statement: Manage component coupling by keeping the dependency graph acyclic (ADP), depending in the
-    direction of stability (SDP), and making each component as abstract as it is stable (SAP).
+- principle_id: P107
+  statement: 'Practise lean data: pull only the fields a service needs, keep views
+    small and read-optimized, and rederive them from the log rather than storing them
+    reliably or running schema migrations.'
   derived_from_claims:
-  - C00411
-  - C00416
-  - C00418
-  - C00420
-  - C00422
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P045
-  statement: 'Manage database locks to maximize concurrency: match lock granularity to the write, initially
-    trust the optimizer then override it from production monitoring, reduce contention via AKF splits,
-    and choose an engine with flexible lock types.'
-  derived_from_claims:
-  - C02349
-  - C02350
-  - C02351
-  - C02352
-  - C02353
+  - C00477
+  - C00478
+  - C00481
+  - C00482
+  - C00483
+  - C00489
   confidence: high
   applies_when:
-  - employing a relational database
+  - a service maintains a local view derived from a shared log
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P046
-  statement: In a layered architecture keep layers closed by default to preserve layers-of-isolation,
-    open a layer only as a deliberate decision, and always document which layers are open or closed and
-    why.
+- principle_id: P108
+  statement: Delete data by expiry or delete markers in the normal case to preserve
+    versioned history; for regulatory physical deletion (e.g. GDPR) use compacted-topic
+    tombstones, composite keys when the delete key differs from the partition key,
+    and CDC connectors to propagate deletes to downstream sinks.
   derived_from_claims:
-  - C01100
-  - C01101
-  - C01102
-  - C01104
-  - C01107
+  - C00533
+  - C00534
+  - C00535
+  - C00536
+  - C00537
+  - C00538
   confidence: high
   applies_when:
-  - designing or reviewing a layered architecture
+  - retained data must be corrected, redacted, or physically removed
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P047
-  statement: Share 'data on the outside' through a replayable log (part messaging, part database), not
-    through a shared database or ephemeral messaging.
+- principle_id: P109
+  statement: Deliberately remove the four coupling assumptions — platform representation,
+    location, time, and data format — using self-describing platform-independent formats,
+    addressable channels, request queuing, and in-channel transformation.
   derived_from_claims:
-  - C01254
-  - C01255
-  - C01374
-  - C01375
-  - C01377
+  - C00626
+  - C00627
+  - C00628
+  - C00629
+  - C00630
+  - C00631
   confidence: high
   applies_when:
-  - core business datasets must be shared across many services or teams
-  - long-term retention and event-driven reaction are both required
+  - building a loosely coupled connection between systems
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P048
-  statement: 'Apply the single writer principle: assign responsibility for propagating each data type
-    (or each state transition) to exactly one owning service.'
+- principle_id: P110
+  statement: Connect applications through Channel Adapters at the appropriate layer
+    — preferring a stable business-logic API over brittle screen-scraping or risky
+    direct database writes — and combine each adapter with a Message Translator to
+    produce Canonical Data Model messages.
   derived_from_claims:
-  - C01407
-  - C01408
-  - C01409
-  - C01411
-  - C01412
+  - C00769
+  - C00770
+  - C00771
+  - C00772
+  - C00773
+  - C00774
   confidence: high
   applies_when:
-  - concurrent mutation of the same entity must be prevented
-  - versioning, consistency checks, and clear dataset ownership are needed
-  - domains with complex business rules such as finance
+  - connecting a packaged or legacy application to messaging
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P049
-  statement: 'Apply CQRS: separate write and read models linked by an asynchronous channel so each is
-    optimised independently, and collapse read-your-writes with a blocking read where needed.'
-  derived_from_claims:
-  - C01336
-  - C01346
-  - C01347
-  - C01348
-  - C01470
-  confidence: high
-  applies_when:
-  - read and write workloads have different scaling or shape needs
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P050
-  statement: Manage schema evolution with a compatibility-validating format such as Avro plus a Schema
-    Registry, and handle breaking changes with the Dual Schema Upgrade Window.
-  derived_from_claims:
-  - C01438
-  - C01440
-  - C01441
-  - C01446
-  - C01447
-  confidence: high
-  applies_when:
-  - independently changing services share message schemas
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P051
-  statement: 'Do not design an integration the way you would a single application: remote calls are orders
-    of magnitude slower than local calls and can fail, so account for latency, partial failure, and heterogeneity.'
-  derived_from_claims:
-  - C01485
-  - C01486
-  - C01542
-  - C01577
-  - C01579
-  confidence: high
-  applies_when:
-  - communication crosses a process or network boundary
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P052
-  statement: Make messaging two-way with Request-Reply, giving the request a Return Address for the reply
-    channel and the reply a Correlation Identifier to match it to its request.
-  derived_from_claims:
-  - C01663
-  - C01675
-  - C01679
-  - C01682
-  - C01683
-  confidence: high
-  applies_when:
-  - a sender needs a response
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P053
-  statement: Isolate the application from messaging behind a Message Endpoint designed as a Messaging
-    Gateway, and use a Messaging Mapper so domain objects remain unaware that messaging exists.
-  derived_from_claims:
-  - C01622
-  - C01624
-  - C01789
-  - C01797
-  - C01800
-  confidence: high
-  applies_when:
-  - connecting application code to a messaging system
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P054
-  statement: 'Decouple high availability from load balancing: they are orthogonal concerns (resilience
-    versus combining resources for load) and must be designed and reasoned about separately.'
-  derived_from_claims:
-  - C01898
-  - C01929
-  - C01932
-  - C01962
-  - C01963
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P055
-  statement: Guard against overly complex (overengineered) solutions during design; test understandability
-    by having engineers explain the design to peers of varying experience.
-  derived_from_claims:
-  - C02209
-  - C02210
-  - C02211
-  - C02212
-  - C02213
-  confidence: high
-  applies_when:
-  - designing any system, especially large or complex systems
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P056
-  statement: 'Always design every release to be rollback-capable: make database changes additive only,
-    script and test rollback under load, add a wire-on/wire-off feature framework, and disambiguate SQL
-    (no SELECT *, named UPDATE columns).'
-  derived_from_claims:
-  - C02334
-  - C02335
-  - C02336
-  - C02337
-  - C02338
-  confidence: high
-  applies_when:
-  - preparing any code release
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P057
-  statement: 'Design fault-isolative swimlanes: split along Y/Z axes so each domain shares nothing (never
-    databases/servers), allows no synchronous calls across its boundary, limits async calls, and toggles
-    cross-boundary async with timeouts.'
-  derived_from_claims:
-  - C02360
-  - C02361
-  - C02362
-  - C02363
-  - C02364
-  confidence: high
-  applies_when:
-  - beginning to split databases or services to scale
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-    upgrades:
-    - corroborated
-- principle_id: P058
-  statement: Design architecture to be as iterative as possible and expect unknown unknowns, ensuring
-    the architectural style and engineering practices form a symbiotic mesh.
-  derived_from_claims:
-  - C00023
-  - C00024
-  - C00025
-  - C00026
-  - C00100
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-  grade:
-    source_type: classic
-    downgrades:
-    - indirectness
-- principle_id: P059
-  statement: 'Stay hands-on while architecting: avoid the bottleneck trap by delegating critical-path
-    code, and write production-quality proof-of-concept code, since breadth still requires some depth.'
-  derived_from_claims:
-  - C00061
-  - C00062
-  - C00063
-  - C00064
-  - C00065
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-  grade:
-    source_type: classic
-    downgrades:
-    - indirectness
-- principle_id: P060
-  statement: Treat data as a first-class, long-lived architectural concern and keep operational (OLTP)
-    data distinct from analytical data when designing boundaries.
-  derived_from_claims:
-  - C00600
-  - C00601
-  - C00602
-  - C00603
-  - C00640
-  confidence: medium
-  applies_when:
-  - designing or decomposing systems whose data outlives the architecture
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-    downgrades:
-    - indirectness
-- principle_id: P061
-  statement: When scalability or high/variable concurrency is the dominant driver, prefer a distributed
-    pattern (event-driven, microservices, or space-based) over the layered pattern; for extreme and variable
-    load specifically, solve it architecturally with space-based rather than retrofitting caching or scaling
-    a central database.
-  derived_from_claims:
-  - C01121
-  - C01176
-  - C01215
-  - C01216
-  - C01242
-  confidence: medium
-  applies_when:
-  - scalability or concurrency is the primary architectural concern
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P062
-  statement: Build logging as a reliable, real-time, multi-subscriber stream (e.g. reliable IP multicast)
-    and turn it into business-level monitors that trigger immediately rather than via 24-hour roll-ups.
-  derived_from_claims:
-  - C02143
-  - C02148
-  - C02149
-  - C02150
-  - C02152
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P063
-  statement: Actively aggregate, monitor (with automated threshold alerts), and act on application/web-server
-    log files via a defined process, logging asynchronously and purging by value to control cost.
-  derived_from_claims:
-  - C02279
-  - C02280
-  - C02281
-  - C02282
-  - C02283
-  confidence: medium
-  applies_when:
-  - operating an application with web/app server logs
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P064
-  statement: 'Apply the Design-Implement-Deploy (D-I-D) approach to scale just-in-time: design for ~20x
-    capacity, implement for ~3x, and deploy for ~1.5x (more for hyper-growth), deferring costly assets
-    until just before need.'
-  derived_from_claims:
-  - C02214
-  - C02215
-  - C02216
-  - C02217
-  - C02218
-  confidence: medium
-  applies_when:
-  - planning scalability on any project
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P065
-  statement: Simplify in three passes - scope (apply Pareto/80-20 to cut features), design, and implementation
-    (reuse proven open-source/third-party/internal solutions before building your own).
-  derived_from_claims:
-  - C02219
-  - C02220
-  - C02221
-  - C02222
-  - C02223
-  confidence: medium
-  applies_when:
-  - designing complex systems where engineering or computational resources are limited
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P066
-  statement: Build on small, inexpensive commodity systems treated as disposable, rather than a few large
-    high-margin servers; verify total cost of ownership yourself against independent benchmarks.
-  derived_from_claims:
-  - C02253
-  - C02254
-  - C02255
-  - C02256
-  - C02257
-  confidence: medium
-  applies_when:
-  - production environments going through hyper-growth
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P067
-  statement: Avoid redirects where possible (they delay users, consume compute, and are error-prone);
-    when necessary prefer server-configuration redirects over HTML/code redirects and replace some with
-    lighter techniques.
-  derived_from_claims:
-  - C02292
-  - C02293
-  - C02294
-  - C02295
-  - C02296
-  confidence: medium
-  applies_when:
-  - a redirect is genuinely required
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: expert-book
-- principle_id: P068
-  statement: Architect to leave as many options open as possible for as long as possible, maximizing the
-    number of decisions not yet made.
-  derived_from_claims:
-  - C00430
-  - C00441
-  - C00445
-  - C00447
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic
-- principle_id: P069
-  statement: Use Messaging when independent applications must exchange data or invoke behaviour frequently,
-    reliably, and asynchronously in small units.
-  derived_from_claims:
-  - C01494
-  - C01496
-  - C01580
-  - C01581
-  confidence: high
-  applies_when:
-  - applications are independent and need timely, reliable, decoupled collaboration
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-  grade:
-    source_type: classic

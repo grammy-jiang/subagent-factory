@@ -1,0 +1,440 @@
+{
+ "52": {
+  "action": "confirm",
+  "canonical": "Separate business logic from hardware and platform: intermingling software and firmware is an anti-pattern (burying SQL or spreading platform dependencies is writing firmware), so firm the boundary with a Hardware Abstraction Layer whose API is tailored to the software and hides how the hardware works, layering the hardware at the bottom so an inevitable hardware change is not a bigger job than necessary."
+ },
+ "55": {
+  "action": "split",
+  "subgroups": [
+   [
+    86
+   ],
+   [
+    95
+   ]
+  ]
+ },
+ "56": {
+  "action": "split",
+  "subgroups": [
+   [
+    88
+   ],
+   [
+    90
+   ]
+  ]
+ },
+ "57": {
+  "action": "split",
+  "subgroups": [
+   [
+    91
+   ],
+   [
+    1111
+   ]
+  ]
+ },
+ "58": {
+  "action": "split",
+  "subgroups": [
+   [
+    96,
+    124
+   ],
+   [
+    125
+   ],
+   [
+    126
+   ]
+  ]
+ },
+ "59": {
+  "action": "split",
+  "subgroups": [
+   [
+    97
+   ],
+   [
+    152
+   ],
+   [
+    219
+   ],
+   [
+    225
+   ],
+   [
+    227
+   ],
+   [
+    269
+   ]
+  ]
+ },
+ "60": {
+  "action": "split",
+  "subgroups": [
+   [
+    98
+   ],
+   [
+    122
+   ],
+   [
+    282
+   ]
+  ]
+ },
+ "61": {
+  "action": "split",
+  "subgroups": [
+   [
+    99
+   ],
+   [
+    117
+   ],
+   [
+    1039
+   ]
+  ]
+ },
+ "62": {
+  "action": "split",
+  "subgroups": [
+   [
+    100,
+    146
+   ],
+   [
+    116
+   ],
+   [
+    133
+   ],
+   [
+    135
+   ],
+   [
+    142
+   ],
+   [
+    144
+   ]
+  ]
+ },
+ "63": {
+  "action": "split",
+  "subgroups": [
+   [
+    101
+   ],
+   [
+    114
+   ]
+  ]
+ },
+ "64": {
+  "action": "split",
+  "subgroups": [
+   [
+    102,
+    110
+   ],
+   [
+    147
+   ],
+   [
+    929
+   ],
+   [
+    935
+   ],
+   [
+    989
+   ]
+  ]
+ },
+ "65": {
+  "action": "split",
+  "subgroups": [
+   [
+    103
+   ],
+   [
+    909
+   ]
+  ]
+ },
+ "66": {
+  "action": "split",
+  "subgroups": [
+   [
+    104
+   ],
+   [
+    1029
+   ]
+  ]
+ },
+ "67": {
+  "action": "split",
+  "subgroups": [
+   [
+    105
+   ],
+   [
+    917
+   ],
+   [
+    1062
+   ]
+  ]
+ },
+ "72": {
+  "action": "split",
+  "subgroups": [
+   [
+    111
+   ],
+   [
+    170
+   ],
+   [
+    203
+   ],
+   [
+    294
+   ],
+   [
+    900
+   ]
+  ]
+ },
+ "73": {
+  "action": "split",
+  "subgroups": [
+   [
+    112
+   ],
+   [
+    355
+   ],
+   [
+    400
+   ]
+  ]
+ },
+ "74": {
+  "action": "split",
+  "subgroups": [
+   [
+    113
+   ],
+   [
+    367
+   ],
+   [
+    412
+   ],
+   [
+    414
+   ],
+   [
+    417
+   ],
+   [
+    1054
+   ]
+  ]
+ },
+ "76": {
+  "action": "split",
+  "subgroups": [
+   [
+    118,
+    1034
+   ],
+   [
+    1069
+   ]
+  ]
+ },
+ "78": {
+  "action": "split",
+  "subgroups": [
+   [
+    120
+   ],
+   [
+    143
+   ]
+  ]
+ },
+ "79": {
+  "action": "split",
+  "subgroups": [
+   [
+    121
+   ],
+   [
+    361
+   ],
+   [
+    404
+   ],
+   [
+    1036
+   ],
+   [
+    1044
+   ]
+  ]
+ },
+ "80": {
+  "action": "confirm",
+  "canonical": "Treat large-scale change as sociotechnical: changing technology (e.g. breaking up a monolith) is not enough on its own, so deliberately evolve organizational structure, processes, and culture alongside software and data, recognizing the architect's role now includes designing the organization."
+ },
+ "82": {
+  "action": "confirm",
+  "canonical": "Favour immutable, deterministically rederivable views over long-lived mutated databases: keep the immutable event log separate from mutable state and derive read-optimized views from it, so a new view can be built alongside existing ones and views recreated from the log when moving between environments instead of doing in-place migrations or copying database files."
+ },
+ "86": {
+  "action": "split",
+  "subgroups": [
+   [
+    459,
+    569
+   ],
+   [
+    669,
+    670
+   ],
+   [
+    1064,
+    1078
+   ],
+   [
+    132
+   ],
+   [
+    136
+   ],
+   [
+    489
+   ],
+   [
+    926
+   ],
+   [
+    941
+   ],
+   [
+    942
+   ],
+   [
+    946
+   ],
+   [
+    949
+   ],
+   [
+    1049
+   ]
+  ]
+ },
+ "87": {
+  "action": "split",
+  "subgroups": [
+   [
+    137
+   ],
+   [
+    863
+   ]
+  ]
+ },
+ "88": {
+  "action": "split",
+  "subgroups": [
+   [
+    138
+   ],
+   [
+    862
+   ]
+  ]
+ },
+ "89": {
+  "action": "confirm",
+  "canonical": "Route messages that cannot be processed to a dedicated channel rather than blocking the flow: send messages a receiver cannot process (e.g. schema-valid but semantically invalid or unreadable) to an Invalid Message / error channel so processing continues and they can be reprocessed later, and rely on the platform's Dead Letter Channel for undeliverable messages."
+ },
+ "92": {
+  "action": "split",
+  "subgroups": [
+   [
+    145
+   ],
+   [
+    702
+   ],
+   [
+    866
+   ],
+   [
+    933
+   ],
+   [
+    954
+   ],
+   [
+    1010
+   ],
+   [
+    1489
+   ]
+  ]
+ },
+ "95": {
+  "action": "split",
+  "subgroups": [
+   [
+    150
+   ],
+   [
+    255
+   ]
+  ]
+ },
+ "97": {
+  "action": "split",
+  "subgroups": [
+   [
+    153
+   ],
+   [
+    272
+   ],
+   [
+    293
+   ],
+   [
+    512
+   ]
+  ]
+ },
+ "98": {
+  "action": "split",
+  "subgroups": [
+   [
+    154
+   ],
+   [
+    723
+   ]
+  ]
+ }
+}
