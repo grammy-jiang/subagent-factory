@@ -20,6 +20,8 @@ CLAUDE_BIN="${CLAUDE_BIN:-$HOME/.local/bin/claude}"
 COPILOT_BIN="${COPILOT_BIN:-$HOME/.local/bin/copilot}"
 COPILOT_MODEL="${COPILOT_MODEL:-claude-opus-4.8}"   # Copilot's opus id (dot, not dash)
 COPILOT_EFFORT="${COPILOT_EFFORT:-high}"            # Copilot max effort is "high"
+CODEX_BIN="${CODEX_BIN:-$HOME/.local/bin/codex}"
+CODEX_MODEL="${CODEX_MODEL:-gpt-5.5}"               # Codex (OpenAI); SMALL 5h budget — small books only
 MODEL="${MODEL:-${ANTHROPIC_DEFAULT_OPUS_MODEL:-${ANTHROPIC_MODEL:-claude-opus-4-8}}}"
 EFFORT="${EFFORT:-max}"; RUN_TIMEOUT="${RUN_TIMEOUT:-7200}"
 CACHE="$REPO/cache/book-extracts"
@@ -93,6 +95,10 @@ echo "[map] chunks=$(grep -c . "$MODULE/chunks.jsonl")"
 # case is a genuinely different invocation, so it is its own small array.
 if [ "$ENGINE" = "copilot" ]; then
   engine_argv=("$COPILOT_BIN" -p "$(cat "$promptfile")" --model "$COPILOT_MODEL" --effort "$COPILOT_EFFORT" --allow-all)
+elif [ "$ENGINE" = "codex" ]; then
+  # Codex non-interactive: prompt as arg (like copilot). workspace-write lets it write the
+  # module dir under $REPO (cache/book-extracts/...); never prompts for approval.
+  engine_argv=("$CODEX_BIN" exec --model "$CODEX_MODEL" --sandbox workspace-write --skip-git-repo-check "$(cat "$promptfile")")
 else
   build_claude_argv engine_argv "$MODEL" "$EFFORT" "$REPO"
   engine_argv[0]="$CLAUDE_BIN"   # contract is `claude -p ...`; use the configured binary path
@@ -101,7 +107,7 @@ fi
 if [ "$DRYRUN" -eq 1 ]; then
   echo "[map] DRY-RUN; prompt: $promptfile"
   echo "[map] command that would run (cwd=$REPO):"
-  if [ "$ENGINE" = "copilot" ]; then
+  if [ "$ENGINE" = "copilot" ] || [ "$ENGINE" = "codex" ]; then
     echo "    timeout $RUN_TIMEOUT $(claude_argv_str "${engine_argv[@]}") > $log 2>&1"
   else
     echo "    timeout $RUN_TIMEOUT $(claude_argv_str "${engine_argv[@]}") < $promptfile > $log 2>&1"
@@ -117,7 +123,7 @@ run_driver() {
   cd "$REPO" || return 1
   sleep $((RANDOM % 4))  # jitter: avoid simultaneous-launch empty-log collision
   local rc=0
-  if [ "$ENGINE" = "copilot" ]; then
+  if [ "$ENGINE" = "copilot" ] || [ "$ENGINE" = "codex" ]; then
     timeout "$RUN_TIMEOUT" "${engine_argv[@]}" > "$log" 2>&1 || rc=$?
   else
     timeout "$RUN_TIMEOUT" "${engine_argv[@]}" < "$promptfile" > "$log" 2>&1 || rc=$?
