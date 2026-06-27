@@ -103,6 +103,32 @@ jobs:
       - run: python -m pip install -e ".[dev,convert]"
       - run: make test
 
+  validate-packages:
+    name: Validate subagent packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Need history to diff a PR against its base ref.
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - run: python -m pip install -e ".[dev,convert]"
+      # On a PR, validate only the packages changed vs the base branch (fast).
+      # On a push to main/master, validate every tracked package (thorough).
+      - name: Validate changed packages
+        run: |
+          if [ -n "${{ github.base_ref }}" ]; then
+            git fetch -q origin "${{ github.base_ref }}"
+            make validate-changed BASE="origin/${{ github.base_ref }}"
+          else
+            make validate-packages
+          fi
+
   # --- Informational gate (does not block merges) --------------------------
   # pip-audit surfaces CVEs in dependencies. An upstream CVE is not the
   # contributor's fault, so keep it informational rather than blocking PRs;

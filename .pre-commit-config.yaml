@@ -22,3 +22,48 @@ repos:
       - id: detect-secrets
         args: ["--baseline", ".secrets.baseline"]
         exclude: ^(subagents/.*/sources/|\.secrets\.baseline$)
+
+  # Block stray binaries (e.g. a source PDF/ePUB committed by mistake). 4 MB
+  # clears the largest tracked distilled layer (software-architecture
+  # claims.jsonl ~3 MB) while still catching source documents.
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=4096"]
+
+  # --- Generated subagent package guards (factory-specific) ---------------
+  - repo: local
+    hooks:
+      # Tier 1 (commit, sub-second): copyrighted source trees must never be
+      # committed — only sources/{anchors,metadata,reports} are tracked. The
+      # `files:` regex IS the detector; the hook only runs when a forbidden
+      # path is staged, then fails with the list.
+      - id: subagent-source-leak-guard
+        name: block copyrighted source trees (original/markdown/assets)
+        entry: tools/precommit/forbid_staged.sh
+        language: script
+        files: ^subagents/.*/sources/(original|markdown|assets)/
+        pass_filenames: true
+
+      # Tier 1 (commit, sub-second): generated adapters must carry the
+      # DO-NOT-EDIT marker — a file there without it was hand-written, not
+      # produced by `cli export`.
+      - id: subagent-adapter-edit-guard
+        name: forbid hand-editing generated adapters (re-export instead)
+        entry: python tools/precommit/check_adapter_edit.py
+        language: system
+        files: ^(\.claude/agents/generated/.*\.md|subagents/[^/]+/adapters/.*\.md)$
+        pass_filenames: true
+
+      # Tier 2 (push, minutes): full package validation of every touched
+      # package. Pre-push, not pre-commit — `cli validate` chains ~50 leaf
+      # checks and is too slow to run on every commit.
+      - id: subagent-validate
+        name: validate generated subagent package(s)
+        entry: python tools/precommit/validate_subagents.py
+        language: system
+        files: ^subagents/[^/]+/
+        exclude: ^subagents/\.backups/
+        pass_filenames: true
+        stages: [pre-push]
