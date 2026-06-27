@@ -1,0 +1,810 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: documentation-as-code-advisor
+generated_at: '2026-06-28'
+principle_behaviour_tests:
+- test_id: PB-001
+  principle_id: P001
+  mode: classify
+  prompt: In a documentation task where a team is beginning to adopt Diátaxis or improve existing documentation,
+    what should I do?
+  expected_behaviour:
+  - 'Applies P001: Use Diátaxis as a guide to process, not a plan'
+  - Grounds the advice in the source rather than taste
+  - Cites P001
+  must_not:
+  - Give advice that contradicts P001
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-002
+  principle_id: P002
+  mode: classify
+  prompt: In a documentation task where writing technical reference material, what should I do?
+  expected_behaviour:
+  - 'Applies P002: Write reference as austere, neutral, authoritative description led by the product it
+    describes'
+  - Grounds the advice in the source rather than taste
+  - Cites P002
+  must_not:
+  - Give advice that contradicts P002
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-003
+  principle_id: P003
+  mode: classify
+  prompt: In a documentation task where creating or restructuring technical documentation for a product,
+    tool, or skill domain, what should I do?
+  expected_behaviour:
+  - 'Applies P003: Author and structure documentation around the four Diátaxis types — tutorials, how-to
+    guides, reference, and explanation — each serving a distinct user need that arises from the two axes
+    of craft (action vs cognition, acquisition vs application), which is why there are exactly four.'
+  - Grounds the advice in the source rather than taste
+  - Cites P003
+  must_not:
+  - Give advice that contradicts P003
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-004
+  principle_id: P004
+  mode: classify
+  prompt: In a documentation task where writing or planning a tutorial / learning-oriented documentation,
+    what should I do?
+  expected_behaviour:
+  - 'Applies P004: Understand a tutorial as a lesson in which the learner learns by doing something meaningful
+    toward an achievable goal, where the value lies in what the learner gains rather than what they produce,
+    the contract puts nearly all responsibility on the author/teacher, and the instructor is condemned
+    to be absent and must be present through written instruction alone — which also makes tutorials costly
+    to write and maintain.'
+  - Grounds the advice in the source rather than taste
+  - Cites P004
+  must_not:
+  - Give advice that contradicts P004
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-005
+  principle_id: P005
+  mode: classify
+  prompt: In a documentation task where writing explanation or conceptual/background documentation, what
+    should I do?
+  expected_behaviour:
+  - 'Applies P005: Write explanation as bounded, understanding-oriented discussion'
+  - Grounds the advice in the source rather than taste
+  - Cites P005
+  must_not:
+  - Give advice that contradicts P005
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-006
+  principle_id: P006
+  mode: classify
+  prompt: In a documentation task where deciding what type of documentation a page is or should be, what
+    should I do?
+  expected_behaviour:
+  - 'Applies P006: Classify a piece of content with the Diátaxis compass by asking whether it informs
+    action or cognition and whether it serves acquisition or application of skill; use it especially when
+    intuition is uncertain to decide the correct documentation type.'
+  - Grounds the advice in the source rather than taste
+  - Cites P006
+  must_not:
+  - Give advice that contradicts P006
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-007
+  principle_id: P007
+  mode: classify
+  prompt: In a documentation task where writing the moment-to-moment content of a tutorial, what should
+    I do?
+  expected_behaviour:
+  - 'Applies P007: Use proven tutorial techniques to sustain the learner'
+  - Grounds the advice in the source rather than taste
+  - Cites P007
+  must_not:
+  - Give advice that contradicts P007
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-008
+  principle_id: P008
+  mode: classify
+  prompt: In a documentation task where writing or editing any documentation page, what should I do?
+  expected_behaviour:
+  - 'Applies P008: Keep the four documentation forms distinct and never let their forms and purposes muddle
+    together, since neighbouring forms share affinities and naturally tend to blur, and conflation (especially
+    of tutorials and how-to guides) is the root of many documentation problems.'
+  - Grounds the advice in the source rather than taste
+  - Cites P008
+  must_not:
+  - Give advice that contradicts P008
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-009
+  principle_id: P009
+  mode: classify
+  prompt: In a documentation task where writing the prose and steps of a tutorial, what should I do?
+  expected_behaviour:
+  - 'Applies P009: Follow the first rule of teaching — don''t try to teach'
+  - Grounds the advice in the source rather than taste
+  - Cites P009
+  must_not:
+  - Give advice that contradicts P009
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-010
+  principle_id: P010
+  mode: review
+  prompt: In a documentation task where a long term or acronym recurs within a document or section, what
+    should I do?
+  expected_behaviour:
+  - 'Applies P010: Introduce a long name''s short form (for an acronym, spell out the full term with the
+    acronym in parentheses, both in boldface) once on first use, then use the short form consistently;
+    define an acronym only when it is significantly shorter than the full term and appears many times.'
+  - Grounds the advice in the source rather than taste
+  - Cites P010
+  must_not:
+  - Give advice that contradicts P010
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-011
+  principle_id: P011
+  mode: review
+  prompt: In a documentation task where composing or revising sentences, what should I do?
+  expected_behaviour:
+  - 'Applies P011: Write the vast majority of sentences in active voice (actor + verb + target) so each
+    names who does what to whom; reserve passive voice for rare cases, and do not mistake imperative sentences
+    for passive.'
+  - Grounds the advice in the source rather than taste
+  - Cites P011
+  must_not:
+  - Give advice that contradicts P011
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-012
+  principle_id: P012
+  mode: advise
+  prompt: In a documentation task where Writers need Markdown simplicity but the site must reuse content
+    across product versions or variants., what should I do?
+  expected_behaviour:
+  - 'Applies P012: Use static-site metadata and templates to preserve simple Markdown authoring while
+    supporting shared content, product-specific pages, and build-time includes.'
+  - Grounds the advice in the source rather than taste
+  - Cites P012
+  must_not:
+  - Give advice that contradicts P012
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-013
+  principle_id: P013
+  mode: review
+  prompt: In a documentation task where planning a long document, what should I do?
+  expected_behaviour:
+  - 'Applies P013: Start a long document with a structured outline that groups topics'
+  - Grounds the advice in the source rather than taste
+  - Cites P013
+  must_not:
+  - Give advice that contradicts P013
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-014
+  principle_id: P014
+  mode: review
+  prompt: In a documentation task where a sentence uses a pronoun such as it, they, this, or that, what
+    should I do?
+  expected_behaviour:
+  - 'Applies P014: Use a pronoun only when its referent is unambiguous'
+  - Grounds the advice in the source rather than taste
+  - Cites P014
+  must_not:
+  - Give advice that contradicts P014
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-015
+  principle_id: P015
+  mode: classify
+  prompt: In a documentation task where assessing or reasoning about documentation quality, what should
+    I do?
+  expected_behaviour:
+  - 'Applies P015: Distinguish functional quality (objective, measurable, mutually independent standards
+    such as accuracy, completeness, consistency) from deep quality (subjective, interdependent characteristics
+    such as flow and fitting human needs), and remember deep quality is conditional on functional quality
+    being met first.'
+  - Grounds the advice in the source rather than taste
+  - Cites P015
+  must_not:
+  - Give advice that contradicts P015
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-016
+  principle_id: P016
+  mode: classify
+  prompt: In a documentation task where using Diátaxis to diagnose or improve documentation quality, what
+    should I do?
+  expected_behaviour:
+  - 'Applies P016: Use Diátaxis to expose lapses in functional quality and to create the conditions for
+    deep quality — fitting user needs and preserving flow by preventing rhythm-breaking digressions —
+    while recognising it cannot by itself supply functional quality or guarantee deep quality.'
+  - Grounds the advice in the source rather than taste
+  - Cites P016
+  must_not:
+  - Give advice that contradicts P016
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-017
+  principle_id: P017
+  mode: advise
+  prompt: In a documentation task where The default API documentation UI is insufficient for tutorials,
+    Markdown content, or downstream framework requirements., what should I do?
+  expected_behaviour:
+  - 'Applies P017: Select or extend API documentation tooling so generated reference output can coexist
+    with narrative integration documentation and any required schema metadata.'
+  - Grounds the advice in the source rather than taste
+  - Cites P017
+  must_not:
+  - Give advice that contradicts P017
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-018
+  principle_id: P018
+  mode: review
+  prompt: In a documentation task where a longer document introduces many new concepts, what should I
+    do?
+  expected_behaviour:
+  - 'Applies P018: Disclose information progressively'
+  - Grounds the advice in the source rather than taste
+  - Cites P018
+  must_not:
+  - Give advice that contradicts P018
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-019
+  principle_id: P019
+  mode: classify
+  prompt: In a documentation task where planning or writing how-to / task-oriented guides, what should
+    I do?
+  expected_behaviour:
+  - 'Applies P019: Define each how-to guide by a specific real-world goal or problem for an already-competent
+    user, recognising that how-to guides are more than linear procedures (they fork, branch, and need
+    judgement) and that a rich list of them signals what the product can do.'
+  - Grounds the advice in the source rather than taste
+  - Cites P019
+  must_not:
+  - Give advice that contradicts P019
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-020
+  principle_id: P020
+  mode: classify
+  prompt: In a documentation task where deciding whether a learning-oriented or task-oriented document
+    is needed, what should I do?
+  expected_behaviour:
+  - 'Applies P020: Separate tutorials from how-to guides by the need they serve — study versus work —
+    not by basic versus advanced (how-to guides may cover basic procedures and tutorials may teach advanced
+    skills); get this distinction right because conflating them is easy and especially harmful to the
+    newcomers you hope to retain.'
+  - Grounds the advice in the source rather than taste
+  - Cites P020
+  must_not:
+  - Give advice that contradicts P020
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-021
+  principle_id: P021
+  mode: classify
+  prompt: In a documentation task where deciding whether content belongs in reference or explanation,
+    what should I do?
+  expected_behaviour:
+  - 'Applies P021: Tell reference from explanation by remembering both are theory (cognition)'
+  - Grounds the advice in the source rather than taste
+  - Cites P021
+  must_not:
+  - Give advice that contradicts P021
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-022
+  principle_id: P022
+  mode: review
+  prompt: In a documentation task where authoring or reviewing a list, what should I do?
+  expected_behaviour:
+  - 'Applies P022: Keep list items parallel in grammar, logical category, capitalization, and punctuation
+    (the first item sets the pattern); start each item with a capital letter and end full-sentence items
+    with punctuation, and consider starting each numbered step with an imperative verb.'
+  - Grounds the advice in the source rather than taste
+  - Cites P022
+  must_not:
+  - Give advice that contradicts P022
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-023
+  principle_id: P023
+  mode: review
+  prompt: In a documentation task where punctuating a sentence with commas, what should I do?
+  expected_behaviour:
+  - 'Applies P023: Use commas for natural pauses, the serial (Oxford) comma in embedded lists, and between
+    a condition and its consequence; never splice two independent thoughts with a comma — use a period.'
+  - Grounds the advice in the source rather than taste
+  - Cites P023
+  must_not:
+  - Give advice that contradicts P023
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-024
+  principle_id: P024
+  mode: review
+  prompt: In a documentation task where a team or project produces documentation, what should I do?
+  expected_behaviour:
+  - 'Applies P024: Adopt a style guide for consistency (its highlights may suffice for small projects)
+    and follow its core conventions'
+  - Grounds the advice in the source rather than taste
+  - Cites P024
+  must_not:
+  - Give advice that contradicts P024
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-025
+  principle_id: P025
+  mode: review
+  prompt: In a documentation task where prompting an LLM to generate a draft, what should I do?
+  expected_behaviour:
+  - 'Applies P025: In a generation prompt, specify a role (whoever could best teach the topic to the audience),
+    the target audience, the document type, and the document''s goal.'
+  - Grounds the advice in the source rather than taste
+  - Cites P025
+  must_not:
+  - Give advice that contradicts P025
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-026
+  principle_id: P026
+  mode: advise
+  prompt: In a documentation task where Documentation is stored as comments or source files inside a product
+    code repository., what should I do?
+  expected_behaviour:
+  - 'Applies P026: If documentation source lives inside product code, give writers the same practical
+    workflow access needed for code exploration, code review, build validation, and version control.'
+  - Grounds the advice in the source rather than taste
+  - Cites P026
+  must_not:
+  - Give advice that contradicts P026
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-027
+  principle_id: P027
+  mode: classify
+  prompt: In a documentation task where writing how-to guides or any user-facing task documentation, what
+    should I do?
+  expected_behaviour:
+  - 'Applies P027: Write documentation about the product as it is for the user — from their real-world
+    project and need — not from the operations the machinery can perform, and omit obvious machine-motion
+    steps a competent user already knows.'
+  - Grounds the advice in the source rather than taste
+  - Cites P027
+  must_not:
+  - Give advice that contradicts P027
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-028
+  principle_id: P028
+  mode: classify
+  prompt: In a documentation task where building, testing, or revising a tutorial, what should I do?
+  expected_behaviour:
+  - 'Applies P028: Hold a tutorial to high construction standards'
+  - Grounds the advice in the source rather than taste
+  - Cites P028
+  must_not:
+  - Give advice that contradicts P028
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-029
+  principle_id: P029
+  mode: review
+  prompt: In a documentation task where writing or editing a document that uses domain-specific terms,
+    what should I do?
+  expected_behaviour:
+  - 'Applies P029: Recognize terms unfamiliar to the audience and either link to an existing explanation
+    or define them; if a document introduces many terms, collect the definitions into a glossary.'
+  - Grounds the advice in the source rather than taste
+  - Cites P029
+  must_not:
+  - Give advice that contradicts P029
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-030
+  principle_id: P030
+  mode: review
+  prompt: In a documentation task where prose contains a set or sequence of items, what should I do?
+  expected_behaviour:
+  - 'Applies P030: Convert prose to lists where it helps'
+  - Grounds the advice in the source rather than taste
+  - Cites P030
+  must_not:
+  - Give advice that contradicts P030
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-031
+  principle_id: P031
+  mode: review
+  prompt: In a documentation task where a sentence relies on a weak or generic verb, what should I do?
+  expected_behaviour:
+  - 'Applies P031: Choose precise, strong verbs and reduce weak generic ones (forms of ''be'', ''occur'',
+    ''happen''); treat a generic verb as a signal of a missing actor or passive voice, but keep a form
+    of ''be'' when it is genuinely the best verb.'
+  - Grounds the advice in the source rather than taste
+  - Cites P031
+  must_not:
+  - Give advice that contradicts P031
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-032
+  principle_id: P032
+  mode: review
+  prompt: In a documentation task where planning content for a defined audience, what should I do?
+  expected_behaviour:
+  - 'Applies P032: List everything the audience must learn to reach their goal, respect prerequisite task
+    ordering, and match vocabulary to the audience, explaining more as the audience widens.'
+  - Grounds the advice in the source rather than taste
+  - Cites P032
+  must_not:
+  - Give advice that contradicts P032
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-033
+  principle_id: P033
+  mode: review
+  prompt: In a documentation task where writing for an international or translated audience, what should
+    I do?
+  expected_behaviour:
+  - 'Applies P033: Keep writing culturally neutral and free of idioms for international audiences, because
+    idioms are a form of the curse of knowledge and translation software handles plain English far better.'
+  - Grounds the advice in the source rather than taste
+  - Cites P033
+  must_not:
+  - Give advice that contradicts P033
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-034
+  principle_id: P034
+  mode: review
+  prompt: In a documentation task where starting or revising a document's framing, what should I do?
+  expected_behaviour:
+  - 'Applies P034: Begin a document by stating its scope and its non-scope (only non-scope items a reasonable
+    reader would expect); when drafting drifts outside the scope, refocus the document or revise the scope
+    statement and delete off-scope sections.'
+  - Grounds the advice in the source rather than taste
+  - Cites P034
+  must_not:
+  - Give advice that contradicts P034
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-035
+  principle_id: P035
+  mode: review
+  prompt: In a documentation task where editing your own draft, what should I do?
+  expected_behaviour:
+  - 'Applies P035: Treat reaching a final document as iterative'
+  - Grounds the advice in the source rather than taste
+  - Cites P035
+  must_not:
+  - Give advice that contradicts P035
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-036
+  principle_id: P036
+  mode: review
+  prompt: In a documentation task where structuring headings and navigation, what should I do?
+  expected_behaviour:
+  - 'Applies P036: Provide navigation and signposting (introduction and summary, logical flow, headings,
+    a table of contents, and related/next links); prefer task-based headings over jargon, give each heading
+    a brief introduction, and do not stack a level-three heading directly under a level-two heading.'
+  - Grounds the advice in the source rather than taste
+  - Cites P036
+  must_not:
+  - Give advice that contradicts P036
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-037
+  principle_id: P037
+  mode: review
+  prompt: In a documentation task where writing sample code for documentation, what should I do?
+  expected_behaviour:
+  - 'Applies P037: Make sample code correct, concise, understandable, and reusable with minimal side effects'
+  - Grounds the advice in the source rather than taste
+  - Cites P037
+  must_not:
+  - Give advice that contradicts P037
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-038
+  principle_id: P038
+  mode: review
+  prompt: In a documentation task where maintaining sample code over time, what should I do?
+  expected_behaviour:
+  - 'Applies P038: Test and maintain sample code like production code; do not repurpose unit tests as
+    samples (their goals differ), and prefer full sample programs over snippets, which are tested less
+    and degrade over time.'
+  - Grounds the advice in the source rather than taste
+  - Cites P038
+  must_not:
+  - Give advice that contradicts P038
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-039
+  principle_id: P039
+  mode: classify
+  prompt: In a documentation task where ordering the steps of a how-to guide, what should I do?
+  expected_behaviour:
+  - 'Applies P039: Structure a how-to guide as a meaningful sequence ordered in time — imposed where necessity
+    dictates, otherwise placing first the step that sets up later ones — and ground the order in the user''s
+    activities and thinking so the guide acquires flow.'
+  - Grounds the advice in the source rather than taste
+  - Cites P039
+  must_not:
+  - Give advice that contradicts P039
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-040
+  principle_id: P040
+  mode: review
+  prompt: In a documentation task where writing subordinate clauses in US English, what should I do?
+  expected_behaviour:
+  - 'Applies P040: In US English, use ''that'' for an essential clause and ''which'' (preceded by a comma)
+    for a nonessential clause; a read-aloud pause before the clause signals ''which''.'
+  - Grounds the advice in the source rather than taste
+  - Cites P040
+  must_not:
+  - Give advice that contradicts P040
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-041
+  principle_id: P041
+  mode: review
+  prompt: In a documentation task where presenting data in a table, what should I do?
+  expected_behaviour:
+  - 'Applies P041: Give every table column a meaningful header, keep cell text short (if a cell holds
+    more than two sentences, use another format), and keep each column internally parallel.'
+  - Grounds the advice in the source rather than taste
+  - Cites P041
+  must_not:
+  - Give advice that contradicts P041
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-042
+  principle_id: P042
+  mode: review
+  prompt: In a documentation task where joining closely related independent clauses, what should I do?
+  expected_behaviour:
+  - 'Applies P042: Use a semicolon only to join two highly related independent clauses where each side
+    is a complete sentence and the two could be flipped; place a comma after a transition word that follows
+    a semicolon.'
+  - Grounds the advice in the source rather than taste
+  - Cites P042
+  must_not:
+  - Give advice that contradicts P042
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-043
+  principle_id: P043
+  mode: review
+  prompt: In a documentation task where choosing dash or hyphen punctuation, what should I do?
+  expected_behaviour:
+  - 'Applies P043: Use a pair of em dashes to set off a digression; do not use en dashes (per the Google
+    style guide); and consult a dictionary, glossary, or style guide when unsure how to hyphenate a compound
+    term.'
+  - Grounds the advice in the source rather than taste
+  - Cites P043
+  must_not:
+  - Give advice that contradicts P043
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-044
+  principle_id: P044
+  mode: review
+  prompt: In a documentation task where writing or commenting sample code, what should I do?
+  expected_behaviour:
+  - 'Applies P044: Make samples readable (descriptive names, no hard-to-decipher tricks, no deep nesting,
+    judicious highlighting) and well-commented'
+  - Grounds the advice in the source rather than taste
+  - Cites P044
+  must_not:
+  - Give advice that contradicts P044
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-045
+  principle_id: P045
+  mode: review
+  prompt: In a documentation task where assembling a set of sample programs, what should I do?
+  expected_behaviour:
+  - 'Applies P045: Make samples reusable (provide all dependencies and setup, allow extension, and account
+    for integration side effects), show an anti-example when teaching a constraint, and provide a set
+    spanning simple to complex, starting with a basic example.'
+  - Grounds the advice in the source rather than taste
+  - Cites P045
+  must_not:
+  - Give advice that contradicts P045
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-046
+  principle_id: P046
+  mode: review
+  prompt: In a documentation task where controlling the shape of an LLM response, what should I do?
+  expected_behaviour:
+  - 'Applies P046: Prompt for a specific subset rather than a whole long document, choose the response
+    style (overriding the default or mimicking a style or style guide as needed), and instruct the model
+    to abbreviate, since responses tend to run long.'
+  - Grounds the advice in the source rather than taste
+  - Cites P046
+  must_not:
+  - Give advice that contradicts P046
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-047
+  principle_id: P047
+  mode: review
+  prompt: In a documentation task where editing a draft with an LLM, what should I do?
+  expected_behaviour:
+  - 'Applies P047: Use the LLM for layered editing passes'
+  - Grounds the advice in the source rather than taste
+  - Cites P047
+  must_not:
+  - Give advice that contradicts P047
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-048
+  principle_id: P048
+  mode: review
+  prompt: In a documentation task where using an LLM to summarize a document, what should I do?
+  expected_behaviour:
+  - 'Applies P048: When summarizing with an LLM, specify the summary''s style, audience, and purpose (and
+    optionally tone), pass exemplar summaries when the required style is not in a style guide, and consider
+    a non-text summary when it would be more memorable.'
+  - Grounds the advice in the source rather than taste
+  - Cites P048
+  must_not:
+  - Give advice that contradicts P048
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-049
+  principle_id: P049
+  mode: advise
+  prompt: In a documentation task where A team expects writers to work inside developer tools for a meaningful
+    portion of documentation work., what should I do?
+  expected_behaviour:
+  - 'Applies P049: Before adopting a docs-in-code workflow, plan for writer capacity, backup ownership,
+    load balancing, and the cost of moving between developer and documentation toolchains.'
+  - Grounds the advice in the source rather than taste
+  - Cites P049
+  must_not:
+  - Give advice that contradicts P049
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-050
+  principle_id: P050
+  mode: advise
+  prompt: In a documentation task where The documentation project benefits from the same workflow used
+    by engineers or from external partner contributions., what should I do?
+  expected_behaviour:
+  - 'Applies P050: Use the organization''s normal collaboration platform for documentation when it improves
+    internal alignment, lowers contribution friction, and supports visible external contributor credit.'
+  - Grounds the advice in the source rather than taste
+  - Cites P050
+  must_not:
+  - Give advice that contradicts P050
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-051
+  principle_id: P051
+  mode: advise
+  prompt: In a documentation task where Documentation publishes from a default branch and CI can deploy
+    staging or production environments., what should I do?
+  expected_behaviour:
+  - 'Applies P051: Continuously deliver documentation only when CI can build and test accepted commits,
+    block production on failures, and provide branch previews for review.'
+  - Grounds the advice in the source rather than taste
+  - Cites P051
+  must_not:
+  - Give advice that contradicts P051
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-052
+  principle_id: P052
+  mode: classify
+  prompt: In a documentation task where doing day-to-day documentation improvement work, what should I
+    do?
+  expected_behaviour:
+  - 'Applies P052: Apply Diátaxis as a repeating improvement cycle'
+  - Grounds the advice in the source rather than taste
+  - Cites P052
+  must_not:
+  - Give advice that contradicts P052
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-053
+  principle_id: P053
+  mode: classify
+  prompt: In a documentation task where writing a how-to guide, what should I do?
+  expected_behaviour:
+  - 'Applies P053: Keep how-to guides focused on the goal'
+  - Grounds the advice in the source rather than taste
+  - Cites P053
+  must_not:
+  - Give advice that contradicts P053
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-054
+  principle_id: P054
+  mode: review
+  prompt: In a documentation task where a concept, component, or product is referred to more than once,
+    what should I do?
+  expected_behaviour:
+  - 'Applies P054: Use one unambiguous term per concept and apply it consistently throughout the document;
+    never rename a concept partway through, because readers read apparent synonyms as a deliberate distinction.'
+  - Grounds the advice in the source rather than taste
+  - Cites P054
+  must_not:
+  - Give advice that contradicts P054
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-055
+  principle_id: P055
+  mode: review
+  prompt: In a documentation task where drafting or revising for length, what should I do?
+  expected_behaviour:
+  - 'Applies P055: Prefer shorter documentation and shorter sentences, because they read faster, are easier
+    to maintain, and are usually clearer.'
+  - Grounds the advice in the source rather than taste
+  - Cites P055
+  must_not:
+  - Give advice that contradicts P055
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-056
+  principle_id: P056
+  mode: review
+  prompt: In a documentation task where a sentence carries more than one idea, what should I do?
+  expected_behaviour:
+  - 'Applies P056: Focus each sentence on a single idea, and split off any subordinate clause that branches
+    into a separate idea.'
+  - Grounds the advice in the source rather than taste
+  - Cites P056
+  must_not:
+  - Give advice that contradicts P056
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-057
+  principle_id: P057
+  mode: review
+  prompt: In a documentation task where a paragraph covers more than one topic, what should I do?
+  expected_behaviour:
+  - 'Applies P057: Keep each paragraph focused on a single topic as an independent unit of logic, and
+    cut or move any sentence that drifts to a past or future topic.'
+  - Grounds the advice in the source rather than taste
+  - Cites P057
+  must_not:
+  - Give advice that contradicts P057
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-058
+  principle_id: P058
+  mode: review
+  prompt: In a documentation task where a sentence contains filler words or a multi-word verb phrase,
+    what should I do?
+  expected_behaviour:
+  - 'Applies P058: Cut filler words and replace bloated verb phrases with a single precise verb.'
+  - Grounds the advice in the source rather than taste
+  - Cites P058
+  must_not:
+  - Give advice that contradicts P058
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-059
+  principle_id: P059
+  mode: review
+  prompt: In a documentation task where writing a paragraph, what should I do?
+  expected_behaviour:
+  - 'Applies P059: Lead each paragraph with an opening sentence that states its central point, because
+    readers focus on (and may read only) the first sentence.'
+  - Grounds the advice in the source rather than taste
+  - Cites P059
+  must_not:
+  - Give advice that contradicts P059
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-060
+  principle_id: P060
+  mode: review
+  prompt: In a documentation task where writing the start of a document, what should I do?
+  expected_behaviour:
+  - 'Applies P060: Summarize key points at the start so the opening answers readers'' essential questions,
+    and be prepared to revise that opening page many times.'
+  - Grounds the advice in the source rather than taste
+  - Cites P060
+  must_not:
+  - Give advice that contradicts P060
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-061
+  principle_id: P061
+  mode: review
+  prompt: In a documentation task where scoping a document's audience, what should I do?
+  expected_behaviour:
+  - 'Applies P061: Define the audience by role and by proximity to the knowledge (related versus unrelated
+    work, and knowledge that fades over time), because role alone is insufficient.'
+  - Grounds the advice in the source rather than taste
+  - Cites P061
+  must_not:
+  - Give advice that contradicts P061
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-062
+  principle_id: P062
+  mode: review
+  prompt: In a documentation task where an expert writes for a less-expert or international audience,
+    what should I do?
+  expected_behaviour:
+  - 'Applies P062: Counter the curse of knowledge by not assuming novices share your expertise, and prefer
+    simple words, since many technical readers are not native English speakers.'
+  - Grounds the advice in the source rather than taste
+  - Cites P062
+  must_not:
+  - Give advice that contradicts P062
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-063
+  principle_id: P063
+  mode: review
+  prompt: In a documentation task where planning a document's content and structure, what should I do?
+  expected_behaviour:
+  - 'Applies P063: Determine content by answering who the audience is, their goal, what they know before
+    reading, and what they should know or do after; then organize the document to deliver exactly that.'
+  - Grounds the advice in the source rather than taste
+  - Cites P063
+  must_not:
+  - Give advice that contradicts P063
+  - Invent a documentation rule or type beyond the sources
+- test_id: PB-064
+  principle_id: P064
+  mode: review
+  prompt: In a documentation task where introducing and then reviewing a document, what should I do?
+  expected_behaviour:
+  - 'Applies P064: Give the document an introduction stating what it covers, the expected prior knowledge,
+    and what it does not cover (without trying to cover everything), then check the finished draft against
+    that overview as a form of documentation QA.'
+  - Grounds the advice in the source rather than taste
+  - Cites P064
+  must_not:
+  - Give advice that contradicts P064
+  - Invent a documentation rule or type beyond the sources
