@@ -17,11 +17,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-comprehension-style
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P001
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P002
   statement: Prefer a generator expression (parentheses) over a list comprehension
     when you only iterate the result, for large memory and performance wins, remembering
@@ -39,10 +38,9 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-comprehension-style
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P002
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P003
   statement: Implement container behavior with the container special methods (__len__,
     __getitem__, __setitem__, __delitem__, __contains__), where slicing passes a slice
@@ -60,11 +58,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
-    reference: python-special-methods-reference
-    test_cases:
-    - PB-P003
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P004
   statement: 'Adopt gradual typing: add type hints incrementally where they pay off
     (public APIs, complex data shapes), run a static checker such as Mypy in CI, and
@@ -81,11 +78,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-duck-typing-and-protocols
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P004
+    test_cases: []
 - principle_id: P005
   statement: 'Understand the Method Resolution Order (__mro__): a linear search order
     computed by C3 linearization in which a child precedes its parents and parents
@@ -103,11 +99,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-inheritance-and-composition
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P005
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P006
   statement: 'Treat multiple inheritance as a specialized tool for organizing type
     and interface relations or mixins rather than combining unrelated classes: name
@@ -127,10 +122,9 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-inheritance-and-composition
+    skill: null
     reference: null
-    test_cases:
-    - PB-P006
+    test_cases: []
 - principle_id: P007
   statement: 'Exploit Python''s slicing semantics deliberately: slices exclude the
     stop index (so ranges line up and split cleanly), slice objects can be named and
@@ -146,11 +140,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P007
+    test_cases: []
 - principle_id: P008
   statement: Handle text at I/O boundaries by decoding all input and encoding all
     output with an explicit encoding such as 'utf-8', selecting an errors policy ('strict'
@@ -167,10 +160,9 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-resource-and-exception-handling
+    skill: null
     reference: null
-    test_cases:
-    - PB-P008
+    test_cases: []
 - principle_id: P009
   statement: Normalize Unicode (for example to NFC) before comparing, indexing, keying,
     or storing user-supplied text, and use str.casefold for case-insensitive matching,
@@ -187,10 +179,9 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-resource-and-exception-handling
+    skill: null
     reference: null
-    test_cases:
-    - PB-P009
+    test_cases: []
 - principle_id: P010
   statement: Compare values with == (which calls __eq__) and identity with is / is
     not, reserving is for singletons such as None; since x == y can be true while
@@ -206,11 +197,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-equality-identity-and-copies
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P010
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P011
   statement: Understand that assignment creates a new reference (not a copy) and a
     shallow copy such as list(a) still shares the nested mutable objects, so use copy.deepcopy
@@ -228,10 +218,9 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-equality-identity-and-copies
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P011
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P012
   statement: Do not rely on __del__ for resource cleanup, since objects are reclaimed
     by reference counting plus cyclic GC at times you do not control (a reference
@@ -248,10 +237,9 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-resource-and-exception-handling
+    skill: null
     reference: null
-    test_cases:
-    - PB-P012
+    test_cases: []
 - principle_id: P013
   statement: Treat functions as first-class objects — pass them as arguments, return
     them, and store them — and use higher-order functions and closures (a function
@@ -267,11 +255,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-class-design-smells
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P013
+    test_cases: []
 - principle_id: P014
   statement: Replace map/filter with list or generator comprehensions and replace
     functools.reduce with purpose-built built-ins (sum, any, all, math.prod) for readability,
@@ -287,11 +274,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-comprehension-style
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P014
+    test_cases: []
 - principle_id: P015
   statement: Use __slots__ (listing the fixed instance attribute names) to replace
     the per-instance __dict__ with a compact layout for substantial memory savings
@@ -308,11 +294,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-slots-and-memory
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P015
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P016
   statement: 'Implement __iter__ as a generator function (a function containing yield)
     instead of writing a separate iterator class with __next__: the generator is a
@@ -327,11 +312,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
-    reference: python-special-methods-reference
-    test_cases:
-    - PB-P016
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P017
   statement: Use a property to intercept attribute access through getter, setter,
     and deleter methods for validation or computation without changing code that uses
@@ -349,10 +333,9 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-encapsulation-and-properties
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P017
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P018
   statement: Use a descriptor (a class-level object implementing __get__, __set__,
     or __delete__, with __set_name__ for its attribute name) to reuse attribute-access
@@ -369,11 +352,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-inheritance-and-composition
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P018
+    test_cases: []
 - principle_id: P019
   statement: Recognize that a class is itself an object created by a metaclass (type
     by default, selected with the metaclass keyword or inherited from the first base's
@@ -392,10 +374,9 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-class-design-smells
+    skill: null
     reference: null
-    test_cases:
-    - PB-P019
+    test_cases: []
 - principle_id: P020
   statement: Always implement __repr__ to give a developer-facing, unambiguous representation
     (ideally one that looks like a constructor call that recreates the object), and
@@ -411,10 +392,6 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-special-methods-and-data-model
-    reference: python-special-methods-reference
-    test_cases:
-    - PB-P020
 - principle_id: P021
   statement: 'Handle missing dictionary keys intentionally rather than with try/except
     or pre-checks: use dict.get(key, default) for reads, dict.setdefault for insert-or-update
@@ -429,11 +406,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-resource-and-exception-handling
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P021
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P022
   statement: 'Remember that dict and set are backed by hash tables: keys and members
     must be hashable, lookups and membership tests are fast, iteration follows insertion
@@ -448,11 +424,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-slots-and-memory
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P022
+    test_cases: []
 - principle_id: P023
   statement: Never use a mutable object (list, dict, set) as a default parameter value,
     because the single default is shared across all calls and accumulates state; use
@@ -468,10 +443,6 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-mutable-default-arguments
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P023
 - principle_id: P024
   statement: Do not subclass the built-in types dict, list, or str directly, because
     their C-level methods bypass your overridden special methods; subclass collections.UserDict,
@@ -487,10 +458,6 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-inheritance-and-composition
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P024
 - principle_id: P025
   statement: Manage paired setup and teardown with the with statement and the context-manager
     protocol (__enter__/__exit__), build a context manager from a single-yield generator
@@ -506,11 +473,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-resource-and-exception-handling
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P025
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P026
   statement: Do not build repeated or nested sequences with the * operator when the
     elements are mutable, because s*n duplicates references to the SAME object so
@@ -524,11 +490,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-mutable-default-arguments
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P026
+    test_cases: []
 - principle_id: P027
   statement: Understand that augmented assignment (+=, *=) mutates a mutable target
     in place (via __iadd__/__imul__) so every other reference observes the change,
@@ -542,11 +507,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-equality-identity-and-copies
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P027
+    test_cases: []
 - principle_id: P028
   statement: Treat dict views (keys(), values(), items()) as live windows over the
     dict that also support set-like operations; iterate them directly rather than
@@ -559,11 +523,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-encapsulation-and-properties
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P028
+    test_cases: []
 - principle_id: P029
   statement: Use yield from to delegate iteration to a sub-iterable (handy for recursively
     flattening nested iterables), but rewrite a deeply recursive generator with an
@@ -576,11 +539,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-comprehension-style
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P029
+    test_cases: []
 - principle_id: P030
   statement: Use __getattr__ (invoked only when normal lookup fails) to build read-only
     façades over nested data and to compute attributes on demand, but raise AttributeError
@@ -597,11 +559,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-encapsulation-and-properties
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P030
+    test_cases: []
 - principle_id: P031
   statement: Read and write files knowing read()/readline() signal EOF with an empty
     string (readline keeps the newline), write()/writelines() add no newline, and
@@ -618,11 +579,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-resource-and-exception-handling
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P031
+    test_cases: []
 - principle_id: P032
   statement: Build a package as a directory with an __init__.py that runs on import
     (a missing __init__ makes a rarely-wanted namespace package, so always include
@@ -641,10 +601,9 @@ principles:
   applies_when: []
   operational_mapping:
     profile_rule: true
-    skill: review-inheritance-and-composition
+    skill: null
     reference: null
-    test_cases:
-    - PB-P032
+    test_cases: []
 - principle_id: P033
   statement: Recognize that I/O is fundamentally blocking (a call waits while nothing
     else runs), so achieve concurrency with nonblocking I/O (setblocking(False) raising
@@ -660,11 +619,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-resource-and-exception-handling
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P033
+    test_cases: []
 - principle_id: P034
   statement: Integrate user-defined types with the Python Data Model by implementing
     the special ("dunder") methods the interpreter and built-ins call, rather than
@@ -682,10 +640,6 @@ principles:
     object.
   operational_mapping:
     profile_rule: true
-    skill: review-special-methods-and-data-model
-    reference: python-special-methods-reference
-    test_cases:
-    - PB-P034
 - principle_id: P035
   statement: Make custom collections honor the Collection API by implementing the
     abstract behaviours of Sized, Iterable, and Container (__len__, __iter__, __contains__)
@@ -698,11 +652,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
-    reference: python-special-methods-reference
-    test_cases:
-    - PB-P035
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P036
   statement: 'Choose the sequence type deliberately along two axes: container sequences
     (hold references, can mix types) versus flat sequences (store packed values of
@@ -716,11 +669,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P036
+    test_cases: []
 - principle_id: P037
   statement: 'Learn the standard generator toolkit before writing your own: itertools
     supplies filtering, mapping, merging, and combinatoric generators, and you must
@@ -734,11 +686,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-comprehension-style
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P037
+    test_cases: []
 - principle_id: P038
   statement: Emulate numeric types with the arithmetic and comparison special methods
     (__add__, __mul__, __abs__, __bool__, etc.) so instances work with operators and
@@ -752,11 +703,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
-    reference: python-special-methods-reference
-    test_cases:
-    - PB-P038
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P039
   statement: 'Use tuples for two distinct purposes and make the intent clear: as immutable
     records where position carries meaning, and as immutable lists that are safer
@@ -770,11 +720,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P039
+    test_cases: []
 - principle_id: P040
   statement: Unpack sequences and iterables with parallel assignment, nested unpacking,
     and the star target to grab excess items, instead of indexing element by element;
@@ -788,11 +737,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P040
+    test_cases: []
 - principle_id: P041
   statement: Use match/case structural pattern matching to destructure and dispatch
     on the shape of sequences and mappings (and class instances), which is clearer
@@ -806,11 +754,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P041
+    test_cases: []
 - principle_id: P042
   statement: Sort in place with list.sort (which returns None, signalling mutation)
     and build a new sorted list from any iterable with the sorted built-in; control
@@ -824,11 +771,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P042
+    test_cases: []
 - principle_id: P043
   statement: 'Reach for the specialised sequence types when a plain list is the wrong
     tool: array.array for large homogeneous numeric data, memoryview for zero-copy
@@ -842,11 +788,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P043
+    test_cases: []
 - principle_id: P044
   statement: 'Use the right dict variant for the job: collections.Counter for tallying,
     ChainMap for layered namespaces, OrderedDict only when order-sensitive equality
@@ -861,11 +806,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-resource-and-exception-handling
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P044
+    test_cases: []
 - principle_id: P045
   statement: Use set operations (union |, intersection &, difference -, symmetric
     difference ^) and set/frozenset literals or comprehensions for fast membership
@@ -879,11 +823,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-comprehension-style
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P045
+    test_cases: []
 - principle_id: P046
   statement: Always pass an explicit encoding when opening text files or calling encode/decode
     (default to UTF-8), and decide deliberately how to handle errors (the errors=
@@ -897,11 +840,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-resource-and-exception-handling
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P046
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P047
   statement: 'Prefer a data class builder over a hand-written boilerplate class when
     an object is mostly a bundle of named fields: typing.NamedTuple or collections.namedtuple
@@ -915,11 +857,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-class-design-smells
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P047
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P048
   statement: When using @dataclass, supply mutable field defaults only through field(default_factory=...)
     (never a bare mutable default, which would be shared across instances), and put
@@ -932,11 +873,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-mutable-default-arguments
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P048
+    test_cases: []
 - principle_id: P049
   statement: Build small callables for sort keys and callbacks with the operator module
     (itemgetter, attrgetter, methodcaller) and functools.partial to freeze arguments,
@@ -949,11 +889,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-class-design-smells
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P049
+    test_cases: []
 - principle_id: P050
   statement: 'Understand decorator and closure mechanics: a decorator runs at import
     or definition time and wraps or replaces the decorated function; a closure captures
@@ -967,11 +906,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-class-design-smells
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P050
+    test_cases: []
 - principle_id: P051
   statement: Memoize pure, expensive functions with functools.cache or functools.lru_cache,
     build configurable decorators as decorator factories (a function returning a decorator),
@@ -985,11 +923,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-class-design-smells
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P051
+    test_cases: []
 - principle_id: P052
   statement: Spell optional values as X | None (or Optional[X]) and avoid Any except
     at genuine dynamic boundaries, since Any silently disables type checking; reach
@@ -1002,11 +939,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-duck-typing-and-protocols
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P052
+    test_cases: []
 - principle_id: P053
   statement: Parameterise generic containers and functions with TypeVar (bounded or
     constrained where appropriate) instead of Any, so the type checker can relate
@@ -1020,11 +956,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-duck-typing-and-protocols
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P053
+    test_cases: []
 - principle_id: P054
   statement: Define structural interfaces with typing.Protocol (static duck typing)
     when you care about an object's behaviour rather than its base class, and mark
@@ -1038,11 +973,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-duck-typing-and-protocols
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P054
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P055
   statement: 'Program defensively and fail fast: validate inputs at the boundaries
     and raise early with clear errors rather than letting bad data propagate to a
@@ -1056,11 +990,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-duck-typing-and-protocols
-    reference: pythonic-review-checklist
-    test_cases:
-    - PB-P055
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P056
   statement: Give every value object a useful __repr__ (plus __str__, __bytes__, and
     __format__ where relevant), and provide alternative constructors as classmethods
@@ -1074,11 +1007,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
-    reference: python-special-methods-reference
-    test_cases:
-    - PB-P056
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P057
   statement: 'Make a type hashable only when it is effectively immutable: implement
     __hash__ and __eq__ consistently so that equal objects hash equal, base the hash
@@ -1091,11 +1023,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-equality-identity-and-copies
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P057
+    test_cases: []
 - principle_id: P058
   statement: Implement rich comparison consistently — pair __eq__ with __hash__ and
     define ordering through __lt__ and friends — and use augmented-assignment dunders
@@ -1109,11 +1040,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-equality-identity-and-copies
+    profile_rule: false
+    skill: null
     reference: null
-    test_cases:
-    - PB-P058
+    test_cases: []
 - principle_id: P059
   statement: 'Overload operators only between meaningful operand types and keep them
     well-behaved: return NotImplemented (do not raise) for unsupported operands so
@@ -1128,11 +1058,10 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
-    profile_rule: true
-    skill: review-special-methods-and-data-model
-    reference: python-special-methods-reference
-    test_cases:
-    - PB-P059
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P060
   statement: 'Keep iterables and iterators distinct: an iterable''s __iter__ must
     return a fresh independent iterator on each call, while an iterator is consumed
@@ -1147,8 +1076,1304 @@ principles:
   confidence: high
   applies_when: []
   operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Prefer EAFP (try/except, easier to ask forgiveness) over LBYL (look before
+    you leap) for Pythonic and race-free code, and use the else clause on for, while,
+    and try statements with its then-semantics (it runs only if the loop finished
+    without break or the try raised nothing) to express intent and keep try blocks
+    minimal.
+  derived_from_claims:
+  - C00521
+  - C00523
+  - C00524
+  - C00525
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: 'Distinguish concurrency from parallelism and choose the execution unit
+    accordingly: threads and processes use preemptive multitasking, while coroutines
+    use cooperative multitasking on a single event-loop thread — so never put a blocking
+    call inside a coroutine, because it stalls the whole loop.'
+  derived_from_claims:
+  - C00528
+  - C00529
+  - C00530
+  - C00531
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: 'Respect the GIL: only one thread executes Python bytecode at a time,
+    so use threading or asyncio for I/O-bound work (I/O releases the GIL) and use
+    multiprocessing or ProcessPoolExecutor for CPU-bound work to exploit multiple
+    cores; for pure computation, sequential code is faster than contended threads.'
+  derived_from_claims:
+  - C00532
+  - C00533
+  - C00534
+  - C00535
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: 'Prefer the high-level concurrent.futures executors (ThreadPoolExecutor
+    and ProcessPoolExecutor) which manage worker pools and queues for you: use executor.map
+    for results in submission order and submit plus as_completed for results as they
+    finish, and never instantiate Future objects yourself — the framework does.'
+  derived_from_claims:
+  - C00550
+  - C00556
+  - C00558
+  - C00560
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: 'Follow safe network-client practices: set sensible timeouts, raise on
+    non-2XX responses (raise_for_status), bound concurrency with an explicit cap,
+    throttle requests against public servers or test against a local server to avoid
+    a denial-of-service, and map each future to its context for error reporting.'
+  derived_from_claims:
+  - C00552
+  - C00555
+  - C00561
+  - C00565
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: 'Know the attribute-access machinery: __getattribute__ handles reads
+    (checking properties and descriptors, the instance __dict__, and the class dicts
+    along the MRO, then falling back to __getattr__ or raising AttributeError) while
+    __setattr__ and __delattr__ handle writes and deletes, and a class overriding
+    any of these must call the super() default so properties and descriptors still
+    work.'
+  derived_from_claims:
+  - C00844
+  - C00845
+  - C00970
+  - C00971
+  confidence: high
+  applies_when: []
+  operational_mapping:
     profile_rule: true
-    skill: review-special-methods-and-data-model
-    reference: python-special-methods-reference
-    test_cases:
-    - PB-P060
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: Remember that break and continue affect only the innermost loop and Python
+    has no goto, so escape deeply nested loops by raising and catching an exception,
+    and use continue to flatten deeply nested code by reversing a test.
+  derived_from_claims:
+  - C00666
+  - C00667
+  - C00773
+  - C00774
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: 'Understand scoping: each call has a local namespace where assigned names
+    are local and free variables resolve in the defining module''s globals; a name''s
+    local-or-global status is fixed at definition by whether it is assigned anywhere
+    in the body, so reading it before that assignment raises UnboundLocalError (even
+    with a same-named global), and referencing an undefined name raises NameError.'
+  derived_from_claims:
+  - C00700
+  - C00867
+  - C00868
+  - C00869
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: Treat a single leading underscore as a non-enforced convention marking
+    a name as internal/protected (Python has no real data hiding, and a subclass may
+    still use it), and a double leading underscore as triggering name mangling to
+    _Classname__name; do not overthink privacy beyond this.
+  derived_from_claims:
+  - C00711
+  - C00942
+  - C00943
+  - C00944
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: 'Understand the import mechanism: importing locates the source (raising
+    ImportError if missing), creates and executes a module-namespace object, and binds
+    the module name in the caller, running all top-level statements as a side effect,
+    with the file required on sys.path and named without the .py suffix.'
+  derived_from_claims:
+  - C00715
+  - C00716
+  - C00983
+  - C00984
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: Drive an enhanced generator (yield used as an expression) with send()
+    after priming it with send(None), shut it down with close() (which raises GeneratorExit,
+    and sending afterward raises StopIteration), and inject exceptions with throw();
+    such a generator can encapsulate a worker faster than an equivalent class thanks
+    to fast local-variable access.
+  derived_from_claims:
+  - C00910
+  - C00911
+  - C00912
+  - C00914
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: Implement behaviour-parameterising patterns such as Strategy and Command
+    with plain first-class functions rather than one-method classes, and discover
+    the available strategies dynamically through module introspection (globals() and
+    getattr) instead of hard-coding a registry.
+  derived_from_claims:
+  - C00298
+  - C00301
+  - C00304
+  - C00305
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: Use goose typing — explicit ABCs with isinstance and ABC.register — only
+    when you genuinely need to assert a type contract; prefer the ABCs in collections.abc
+    and numbers over concrete classes, and register virtual subclasses to claim ABC
+    membership without inheritance.
+  derived_from_claims:
+  - C00359
+  - C00360
+  - C00361
+  - C00362
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: Support positional class patterns by declaring __match_args__, and treat
+    the single-underscore prefix as a protected convention and the double-underscore
+    name-mangling as private — both are conventions for communicating intent, not
+    enforced access control.
+  derived_from_claims:
+  - C00408
+  - C00409
+  - C00410
+  - C00411
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: 'Use the asynchronous protocol consistently: async with for asynchronous
+    context managers (__aenter__/__aexit__), async for over asynchronous iterables
+    (__aiter__/__anext__), async generators (async def with yield), and contextlib.asynccontextmanager
+    to build an async context manager from a single-yield async generator.'
+  derived_from_claims:
+  - C00574
+  - C00586
+  - C00587
+  - C00589
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: 'Treat Python source as UTF-8 .py text where # begins a to-end-of-line
+    comment, an optional #! first line selects the interpreter, and the interpreter
+    executes top-level statements in order until the file ends.'
+  derived_from_claims:
+  - C00650
+  - C00651
+  - C00652
+  - C00653
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Build and combine mappings concisely with dict comprehensions and the
+    modern merge operators | and |= (Python 3.9+), and unpack mappings with **; prefer
+    these to manual loops that copy and update keys.
+  derived_from_claims:
+  - C00121
+  - C00122
+  - C00123
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: 'Implement object protocols correctly: truth testing uses __bool__ then
+    __len__ (else True), value equality uses __eq__ (whose default is identity, with
+    __ne__ rarely needed), and comparison methods may return any type and should return
+    the NotImplemented object when a comparison is undefined.'
+  derived_from_claims:
+  - C00832
+  - C00833
+  - C00835
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: Use a set as an unordered collection of unique, immutable elements that
+    cannot be indexed and whose iteration order is unpredictable and may vary between
+    runs, so never put a list in a set or depend on set ordering.
+  derived_from_claims:
+  - C00685
+  - C00686
+  - C00687
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: 'Treat Python variables as labels bound to objects, not boxes holding
+    values: assignment and argument passing share references (call by sharing), so
+    a function that mutates a mutable argument changes the caller''s object — design
+    APIs with that in mind.'
+  derived_from_claims:
+  - C00221
+  - C00233
+  - C00234
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: Design flexible signatures using positional parameters, *args, keyword-only
+    parameters, and **kwargs, and prefer keyword-only parameters for optional flags
+    so call sites read clearly and cannot pass them positionally by accident.
+  derived_from_claims:
+  - C00265
+  - C00266
+  - C00267
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: Know that stacked decorators apply innermost-first and their order can
+    matter (for example @classmethod or @staticmethod usually must be outermost),
+    that a decorator taking arguments is a factory you call once and reuse, and that
+    a decorator may simply register a function rather than replace it.
+  derived_from_claims:
+  - C00887
+  - C00888
+  - C00889
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: Think of a type hint as the set of operations a value must support, not
+    as a rigid class identity, because Python blends nominal and structural (duck)
+    typing; annotate to the most abstract type that supports what the code actually
+    does with the value.
+  derived_from_claims:
+  - C00314
+  - C00315
+  - C00316
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: 'Be liberal in what you accept and strict in what you return: annotate
+    parameters with abstract collection types (Iterable, Mapping, Sequence) to accept
+    the widest range of inputs, and annotate returns with concrete types so callers
+    know exactly what they get.'
+  derived_from_claims:
+  - C00331
+  - C00332
+  - C00333
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: Use a weak reference (weakref.ref, called like a function to get the
+    object or None) to reference an object without keeping it alive, which suits caches
+    that should not grow without bound, remembering that built-in types and classes
+    using __slots__ or named tuples need an added __weakref__ attribute to support
+    weak references.
+  derived_from_claims:
+  - C00966
+  - C00967
+  - C00968
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: 'Favour laziness: generators and generator expressions produce values
+    on demand, so prefer them to building intermediate lists for large or streaming
+    data (for example re.finditer over re.findall), and chain generators into pipelines
+    that consume little memory.'
+  derived_from_claims:
+  - C00440
+  - C00485
+  - C00492
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: 'Structure asyncio programs around native coroutines (async def) driven
+    by an event loop: drive the top-level coroutine with asyncio.run, schedule concurrent
+    work with asyncio.create_task (which returns immediately and need not be awaited
+    if you do not need its result), and await a coroutine only when you need its result
+    before proceeding.'
+  derived_from_claims:
+  - C00567
+  - C00568
+  - C00571
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: 'Never block the event loop: do not call time.sleep or other blocking
+    functions inside a coroutine — use await asyncio.sleep — and delegate unavoidable
+    blocking work (file I/O, CPU-bound computation, legacy code) to a thread or process
+    with asyncio.to_thread or loop.run_in_executor.'
+  derived_from_claims:
+  - C00569
+  - C00574
+  - C00581
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+- principle_id: P089
+  statement: Throttle concurrent coroutines with an asyncio.Semaphore used as an asynchronous
+    context manager (so only the waiting coroutine suspends at the limit, not the
+    whole program), and hold locks and semaphores for the shortest possible time.
+  derived_from_claims:
+  - C00573
+  - C00576
+  - C00578
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: 'Coordinate and terminate workers with messages, not by killing them:
+    there is no API to stop a thread, so signal completion with threading.Event or
+    a queue, end worker loops with a poison-pill sentinel value, and tag each result
+    with an identifier because results arrive out of submission order.'
+  derived_from_claims:
+  - C00536
+  - C00543
+  - C00544
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: Know that an async def function returns a coroutine that never runs on
+    its own and needs an event loop such as asyncio.run, that it otherwise evaluates
+    normally with await (valid only inside an async function) required to drive another
+    async function, and that an async function cannot be called from non-async code,
+    with async with and async for provided for the protocol cases.
+  derived_from_claims:
+  - C00898
+  - C00899
+  - C00900
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: Replace repeated near-identical getter/setter pairs with abstraction
+    — a property factory (a closure returning property(getter, setter)) or, more flexibly,
+    a descriptor class — and prefer the built-in property for simple read-only or
+    validated attributes.
+  derived_from_claims:
+  - C00609
+  - C00610
+  - C00616
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: 'Apply the correct division semantics: / always yields a float (even
+    on integers), // is floor/truncating division on ints and floats, and % returns
+    the (possibly floating-point) remainder.'
+  derived_from_claims:
+  - C00655
+  - C00656
+  - C00657
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: Know that and/or short-circuit and return one of their operands (not
+    a strict boolean), and that a value is false only if it is False, None, numeric
+    zero, or empty and true otherwise.
+  derived_from_claims:
+  - C00660
+  - C00661
+  - C00741
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: Use triple-quoted strings for multi-line literals (single/double quotes
+    must stay on one logical line), rely on automatic concatenation of adjacent literals,
+    and use f-strings to embed evaluated expressions.
+  derived_from_claims:
+  - C00670
+  - C00671
+  - C00672
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
+  statement: 'Manage file I/O details: files are buffered by default (buffering=0
+    is unbuffered binary, 1 is line-buffered, and flush() or unbuffering avoids inter-process
+    deadlock), text mode takes explicit encoding and errors arguments (specify the
+    encoding even when it matches the system default), and universal newline mode
+    normalizes line endings unless overridden via the newline argument.'
+  derived_from_claims:
+  - C01017
+  - C01018
+  - C01019
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: 'Understand the namespace functions: globals() exposes the global namespace
+    while locals() returns a collected copy whose edits do not affect real locals,
+    and exec(string) runs code in the caller''s namespaces (where its local edits
+    also have no effect) or in explicit dictionaries, underpinning namedtuple and
+    @dataclass.'
+  derived_from_claims:
+  - C00895
+  - C00896
+  - C00897
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: Chain exceptions deliberately with 'raise New(...) from e' (which sets
+    __cause__ for an anticipated failure), suppress the chain with 'from None', and
+    recognize that an unexpected exception raised while handling another is recorded
+    in __context__ (set in both cases) rather than __cause__.
+  derived_from_claims:
+  - C00796
+  - C00797
+  - C00798
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: Operate on instance attributes through getting, setting, and deleting
+    (attributes can be added dynamically), using getattr/setattr/delattr/hasattr for
+    string-named access (getattr taking an optional default), and remember that accessing
+    a method yields a bound method that automatically passes the instance as self.
+  derived_from_claims:
+  - C00918
+  - C00919
+  - C00920
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: Know that from-import still loads and caches the whole module (no efficiency
+    gain) and does not change an imported function's scoping (it uses its defining
+    module's globals), and that reassigning a from-imported name rebinds only the
+    local, so reference module.name to share mutable global state.
+  derived_from_claims:
+  - C00988
+  - C00989
+  - C00990
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: Catch only exceptions you can actually recover from at that location
+    and let unrecoverable ones propagate to code that can handle them, since an unmatched
+    exception propagates outward and aborts the program if it reaches the top level
+    uncaught; unlike error-code languages, Python expects failing operations to raise
+    rather than be checked everywhere.
+  derived_from_claims:
+  - C00776
+  - C00777
+  - C00800
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: Define custom exceptions as classes inheriting from Exception, organized
+    into a hierarchy so a base class catches a whole family (use type(e) to identify
+    the subclass), passing raise values as constructor arguments and, when overriding
+    __init__, assigning them to self.args so traceback messages stay informative.
+  derived_from_claims:
+  - C00793
+  - C00794
+  - C00795
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P103
+  statement: 'Understand the control-flow exceptions: SystemExit exits the program
+    (an integer becomes the exit code, a string is printed to stderr with code 1),
+    KeyboardInterrupt is raised asynchronously on Ctrl-C and is controllable via the
+    signal module, and StopIteration signals the end of iteration.'
+  derived_from_claims:
+  - C00790
+  - C00791
+  - C00792
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P104
+  statement: Implement a context manager with __enter__ and __exit__, which run regardless
+    of how the block exits to guarantee resource release, where __exit__ returning
+    True suppresses the in-flight exception and None/False lets it propagate, and
+    'with obj as var' binds var to __enter__'s return value (commonly obj itself).
+  derived_from_claims:
+  - C00803
+  - C00804
+  - C00805
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P105
+  statement: Defer evaluation with a zero-argument lambda (a thunk) or pre-bind arguments
+    with functools.partial to match an expected signature, noting that partial binds
+    its arguments at definition time (a lambda binds them when it runs) and that partial
+    objects are picklable across processes whereas lambdas are not.
+  derived_from_claims:
+  - C00880
+  - C00881
+  - C00882
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: 'Use function introspection for debugging and metaprogramming: attributes
+    such as __name__, __doc__, __annotations__, and __closure__; arbitrary attached
+    metadata (function tagging, as @abstractmethod does); and inspect.signature, which
+    is comparable for conformance and overridable via __signature__.'
+  derived_from_claims:
+  - C00892
+  - C00893
+  - C00894
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
+  statement: Remember a generator stops at return or end by raising StopIteration
+    (a non-None return value lands on StopIteration.value, reachable only by driving
+    it manually), runs only once (make __iter__ a generator for repeated iteration),
+    and must place any cleanup in a try-finally or context manager, which is guaranteed
+    to run even if the generator is abandoned.
+  derived_from_claims:
+  - C00904
+  - C00905
+  - C00906
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P108
+  statement: Format values with the common specifier [[fill][align]][sign][0][width][,][.precision][type]
+    shared by format(), f-strings, and str.format, using f-strings for arbitrary and
+    nested expressions (with a trailing = to echo the expression and !r/!s for repr/str),
+    and the C-sprintf-style % operator for bytes and bytearray, which reject text
+    and back the logging module's lazy formatting.
+  derived_from_claims:
+  - C01010
+  - C01011
+  - C01012
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
+  statement: Keep a sorted sequence and use the bisect module to search it in logarithmic
+    time and bisect.insort to insert while preserving order, instead of repeatedly
+    re-sorting after each insertion.
+  derived_from_claims:
+  - C00116
+  - C00118
+  - C00119
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
+  statement: 'Avoid property and descriptor recursion by reading and writing the backing
+    value through the instance __dict__ directly, and know the attribute machinery:
+    special methods are looked up on the type, __getattribute__ runs on every read,
+    and direct __dict__ access bypasses these hooks.'
+  derived_from_claims:
+  - C00604
+  - C00614
+  - C00615
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P111
+  statement: 'Keep text and binary data on clearly separate paths: str and bytes share
+    many method names but differ in behaviour, and APIs such as re and os accept both,
+    so mixing them silently invites encoding bugs.'
+  derived_from_claims:
+  - C00193
+  - C00194
+  - C00195
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P112
+  statement: Sort and compare non-ASCII text with locale-aware collation or the pyuca
+    Unicode Collation Algorithm, not the default code-point ordering, whenever the
+    result is shown to humans.
+  derived_from_claims:
+  - C00187
+  - C00188
+  - C00189
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P113
+  statement: Recognise that a class which is only data with no behaviour can be a
+    code smell when it should have methods, but data classes are legitimate as data
+    transfer objects, intermediate representations, and pattern-matching targets;
+    judge by whether behaviour belongs with the data.
+  derived_from_claims:
+  - C00213
+  - C00214
+  - C00215
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P114
+  statement: Know the call protocol — functions, classes, bound methods, and instances
+    with __call__ are all callable — and make an instance callable by implementing
+    __call__ when it represents an invocable action that also needs to carry state.
+  derived_from_claims:
+  - C00262
+  - C00263
+  - C00264
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P115
+  statement: 'Use monkey-patching and other runtime modification sparingly and locally:
+    it is a powerful way to adapt third-party or legacy code, but it makes behaviour
+    hard to trace and should be confined to well-documented, narrow situations.'
+  derived_from_claims:
+  - C00354
+  - C00355
+  - C00356
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P116
+  statement: 'Keep generators (which produce data for iteration) conceptually separate
+    from classic coroutines (which consume data via .send()), and annotate accordingly:
+    an iterator-style generator as Iterator[T] and a coroutine as Generator[YieldType,
+    SendType, ReturnType], priming a coroutine with next() or .send(None) before sending
+    real values.'
+  derived_from_claims:
+  - C00504
+  - C00505
+  - C00507
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P117
+  statement: 'Reduce concurrency bugs by reducing shared mutable state: the great
+    weakness of the threads-and-locks model is its lack of constraints, so favour
+    message-passing and actor-style designs, and offload slow request-time work to
+    a distributed task queue (Celery, RQ) to keep services responsive and scale horizontally.'
+  derived_from_claims:
+  - C00547
+  - C00549
+  - C00550
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P118
+  statement: Understand overriding versus nonoverriding descriptors (whether __set__
+    is defined) and that functions are nonoverriding descriptors which is how methods
+    bind self; for most attribute-management needs prefer properties or descriptors
+    over the harder-to-get-right __getattribute__ and __setattr__.
+  derived_from_claims:
+  - C00622
+  - C00623
+  - C00627
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P119
+  statement: Know the class-creation order (metaclass __prepare__, the class body,
+    metaclass __new__, __set_name__, __init_subclass__, then any class decorator,
+    then name binding) and that only a metaclass __new__ can configure __slots__,
+    because it runs before type.__new__ whereas __init_subclass__ and class decorators
+    run after the class already exists.
+  derived_from_claims:
+  - C00634
+  - C00637
+  - C00643
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P120
+  statement: Recognize that object behavior is defined by dynamically-dispatched special
+    (dunder) methods, so Python verifies nothing in advance and an object works wherever
+    the operations it implements are supported, failing only at runtime with TypeError
+    on unsupported combinations (duck typing).
+  derived_from_claims:
+  - C00824
+  - C00825
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P121
+  statement: Rarely define __del__ (it fires at garbage collection, not at a del that
+    merely decrements the count), and by convention have __repr__ return an expression
+    string that recreates the object, falling back to an angle-bracketed <...> form.
+  derived_from_claims:
+  - C00827
+  - C00828
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P122
+  statement: Treat a tuple as an immutable object (no replace, delete, or append)
+    that still supports indexing, slicing, and concatenation, writing a one-element
+    tuple with a trailing comma and an empty tuple as ().
+  derived_from_claims:
+  - C00683
+  - C00684
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P123
+  statement: Replace manual counters and parallel indexing with enumerate (yielding
+    (index, value) with an optional start) and zip (iterating iterables in parallel,
+    stopping at the shortest), materializing zip's one-pass iterator with list() when
+    needed.
+  derived_from_claims:
+  - C00771
+  - C00772
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P124
+  statement: Treat lists as ordered, mutable, zero-indexed collections, and remember
+    that slice assignment can replace a region and change the list's length.
+  derived_from_claims:
+  - C00680
+  - C00681
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P125
+  statement: Know that slice assignment can grow or shrink a list whereas a strided
+    slice assignment requires an exactly-matching right-hand length (else ValueError),
+    and that third-party types such as numpy arrays may define different slicing semantics.
+  derived_from_claims:
+  - C00753
+  - C00754
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P126
+  statement: Avoid side effects (functions that mutate their inputs or external state)
+    because they cause subtle bugs as programs grow and interact poorly with concurrency;
+    by convention a side-effecting function returns None (as list.sort() does), so
+    a missing return value signals one.
+  derived_from_claims:
+  - C00861
+  - C00863
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P127
+  statement: Match a call's argument count and order to the function's signature (otherwise
+    a TypeError is raised), making any default-valued parameter and those after it
+    optional, and never placing a non-default parameter after a default one.
+  derived_from_claims:
+  - C00847
+  - C00848
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P128
+  statement: Use the reducing built-ins (sum, any, all, min, max, functools.reduce)
+    for fold operations; all and any short-circuit as soon as the result is determined,
+    and all of these only terminate on iterables that eventually stop.
+  derived_from_claims:
+  - C00500
+  - C00501
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P129
+  statement: 'Prefer isinstance(value, type-or-tuple) when a type check is needed
+    because it is subtype-aware, but recognize that explicit type checking is often
+    less useful than it appears: it costs performance and misses duck-typed objects
+    that share an interface without inheriting from the type (such as collections.deque
+    versus list).'
+  derived_from_claims:
+  - C00810
+  - C00811
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P130
+  statement: Specify an interface either with a plain base class whose methods raise
+    NotImplementedError (usable for type hints or defensive isinstance checks) or,
+    better, with an abstract base class (abc.ABC plus @abstractmethod) that cannot
+    be instantiated until every abstract method is implemented, so a missing or misnamed
+    method is caught early at instantiation.
+  derived_from_claims:
+  - C00951
+  - C00952
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P131
+  statement: Expect standard operators to be overloaded by type (+ concatenates sequences,
+    * replicates them, % formats strings) and mixed-type numeric operations to follow
+    the numeric hierarchy, while some type combinations such as Fraction with Decimal
+    still raise TypeError.
+  derived_from_claims:
+  - C00732
+  - C00733
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P132
+  statement: 'Know binary-operator dispatch: x + y tries x.__add__(y) first (or y.__radd__(x)
+    first when y subtypes x), falls back to the reversed method when one returns NotImplemented,
+    then fails; in-place methods such as __iadd__ back += and may mutate in place,
+    falling back to a = a + b when undefined.'
+  derived_from_claims:
+  - C00829
+  - C00830
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P133
+  statement: Build a proxy or delegation (an alternative to inheritance) by forwarding
+    attribute lookups through __getattr__ to an inner object, but remember this does
+    not cover operators mapped to special methods, so explicitly implement the needed
+    dunders such as __len__ and __getitem__.
+  derived_from_claims:
+  - C00972
+  - C00973
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P134
+  statement: 'Recognize that a function containing yield is a generator: calling it
+    runs none of its code but returns a generator object that executes only as it
+    is iterated, advancing to each yield and suspending with all local state intact
+    until resumed.'
+  derived_from_claims:
+  - C00902
+  - C00903
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P135
+  statement: 'Combine awaitables with the right primitive: asyncio.gather waits for
+    all and returns results in submission order (pass return_exceptions=True so one
+    failure does not abort the whole batch), while asyncio.as_completed yields results
+    as each finishes, which is what you want for progress reporting.'
+  derived_from_claims:
+  - C00572
+  - C00591
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P136
+  statement: 'Treat asyncio as all-or-nothing: replace every I/O function on the hot
+    path with an awaitable version because one blocking call stalls everything, and
+    remember there is no such thing as an I/O-bound system — only I/O-bound functions
+    — so plan from the start to offload the inevitable CPU-bound parts to a process
+    pool or task queue.'
+  derived_from_claims:
+  - C00575
+  - C00595
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P137
+  statement: 'Honour Bertrand Meyer''s Uniform Access Principle: expose computed values
+    through the same obj.attr interface as stored data using @property (or __getattr__
+    for virtual attributes), so client code does not need to know whether a value
+    is stored or computed.'
+  derived_from_claims:
+  - C00596
+  - C00602
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P138
+  statement: 'Treat classes as first-class objects: the type built-in constructs a
+    class at runtime from a name, bases tuple, and namespace dict, type is the default
+    metaclass of all classes, and you can introspect classes through __mro__, __bases__,
+    __subclasses__(), and __qualname__.'
+  derived_from_claims:
+  - C00629
+  - C00630
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P139
+  statement: 'Understand class definition: the body runs as a script into a fresh
+    namespace (any statement allowed) that becomes the class __dict__ but is not a
+    variable scope, so qualify names used in methods, and a class can be built without
+    the class statement via types.new_class, which is preferred over type() because
+    it respects metaclass machinery.'
+  derived_from_claims:
+  - C00978
+  - C00979
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P140
+  statement: 'Treat variable, parameter, and return type annotations as readability
+    hints only: they are ignored at runtime and never prevent assigning or passing
+    a value of a different type, so do not rely on them for enforcement or safety.'
+  derived_from_claims:
+  - C00654
+  - C00697
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P141
+  statement: Because plain assignment is a statement, not an expression, use the walrus
+    assignment expression := (wrapped in parentheses) to combine evaluation and assignment,
+    typically inside an if or while test.
+  derived_from_claims:
+  - C00665
+  - C00731
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P142
+  statement: Use range(i, j[, step]) as a lazy, memory-efficient integer sequence
+    from i up to but not including j (start defaulting to 0, step possibly negative)
+    even over very large ranges.
+  derived_from_claims:
+  - C00694
+  - C00695
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
