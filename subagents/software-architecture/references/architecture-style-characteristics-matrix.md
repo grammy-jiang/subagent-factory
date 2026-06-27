@@ -17,8 +17,9 @@ provenance:
   - E00173
   - E00174
   source_anchors:
-  - 8afbdb74139c-c0000
-  authored_from_digest: 655990fa9fc09a2632e5b224bd2ba5f2e5b654f8e0b417661ae5bca30fa40bff
+  - 8afa2d6eafa0-c0046
+  - 8afa2d6eafa0-c0047
+  authored_from_digest: 0d230753a2dbf563ec6ee42715b467747bd92e6859da04807252c5924e42382b
 ---
 
 # Architecture style → characteristics matrix

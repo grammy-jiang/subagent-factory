@@ -29,11 +29,12 @@ provenance:
   - E00238
   - E00239
   source_anchors:
-  - be84e4ec4c9d-c0000
-  - be84e4ec4c9d-c0003
-  - be84e4ec4c9d-c0004
-  - be84e4ec4c9d-c0002
-  authored_from_digest: 05f5b2bbce91c3a00997d8087086f1d9da2319e07d9f0ce9784b1fd7ccdadd38
+  - d95ad6b6daba-c0025
+  - 760c81171459-c0003
+  - 760c81171459-c0004
+  - 760c81171459-c0002
+  - 4bc1908bad03-c0000
+  authored_from_digest: 2dd0daaf61f1e50efbf8f2b2b45f7a1b2a067a749f3db134601d2cd1b811d54c
 ---
 
 # Enterprise and integration patterns map

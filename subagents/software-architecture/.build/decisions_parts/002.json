@@ -1,0 +1,337 @@
+{
+ "99": {
+  "action": "split",
+  "subgroups": [
+   [
+    155
+   ],
+   [
+    221
+   ],
+   [
+    1491
+   ]
+  ]
+ },
+ "100": {
+  "action": "split",
+  "subgroups": [
+   [
+    156
+   ],
+   [
+    177
+   ]
+  ]
+ },
+ "101": {
+  "action": "split",
+  "subgroups": [
+   [
+    157
+   ],
+   [
+    183
+   ],
+   [
+    192
+   ],
+   [
+    359
+   ],
+   [
+    364
+   ],
+   [
+    783
+   ]
+  ]
+ },
+ "102": {
+  "action": "split",
+  "subgroups": [
+   [
+    158
+   ],
+   [
+    1150
+   ]
+  ]
+ },
+ "103": {
+  "action": "split",
+  "subgroups": [
+   [
+    159
+   ],
+   [
+    172
+   ],
+   [
+    187
+   ],
+   [
+    207
+   ],
+   [
+    795
+   ]
+  ]
+ },
+ "104": {
+  "action": "split",
+  "subgroups": [
+   [
+    160,
+    174
+   ],
+   [
+    169
+   ],
+   [
+    178
+   ],
+   [
+    204
+   ],
+   [
+    212
+   ],
+   [
+    213
+   ],
+   [
+    251
+   ]
+  ]
+ },
+ "105": {
+  "action": "confirm",
+  "canonical": "Design distributed systems for network reality rather than as if they were a single in-process application: explicitly counter the fallacies of distributed computing \u2014 the network is unreliable (use timeouts/circuit breakers), latency is non-zero (track average and tail latency), bandwidth is finite (minimize data, avoid stamp coupling), the network is insecure (secure every endpoint), the topology changes, and platforms are heterogeneous."
+ },
+ "108": {
+  "action": "confirm",
+  "canonical": "Never treat a common data representation as common semantics: integrating heterogeneous systems brings semantic and conceptual dissonance where the same field means different things across divisions, so explicitly resolve semantic differences and plan reconciliation as a combined business and technical task rather than assuming shared meaning."
+ },
+ "112": {
+  "action": "split",
+  "subgroups": [
+   [
+    168,
+    190,
+    898
+   ],
+   [
+    437
+   ]
+  ]
+ },
+ "113": {
+  "action": "split",
+  "subgroups": [
+   [
+    171
+   ],
+   [
+    175
+   ]
+  ]
+ },
+ "114": {
+  "action": "split",
+  "subgroups": [
+   [
+    173
+   ],
+   [
+    188
+   ],
+   [
+    286
+   ]
+  ]
+ },
+ "115": {
+  "action": "split",
+  "subgroups": [
+   [
+    176
+   ],
+   [
+    228
+   ],
+   [
+    276
+   ],
+   [
+    288
+   ]
+  ]
+ },
+ "116": {
+  "action": "confirm",
+  "canonical": "Design every Aggregator around three explicit decisions \u2014 correlation (by a unique per-transaction identifier rather than a shared attribute), a completeness condition, and an aggregation algorithm \u2014 keeping the aggregation logic in strongly-typed domain objects independent of the messaging API."
+ },
+ "118": {
+  "action": "split",
+  "subgroups": [
+   [
+    181,
+    189
+   ],
+   [
+    1057
+   ]
+  ]
+ },
+ "119": {
+  "action": "split",
+  "subgroups": [
+   [
+    182
+   ],
+   [
+    283
+   ]
+  ]
+ },
+ "120": {
+  "action": "confirm",
+  "canonical": "Use a Message Filter so each system receives only the messages matching its criteria, dropping unwanted messages from a channel; run it stateless for parallelism or stateful when it must remember history such as for de-duplication."
+ },
+ "121": {
+  "action": "confirm",
+  "canonical": "Prefer coarse-grained, self-contained remote interfaces over fine-grained ones \u2014 bundling work into fewer, bulkier calls to minimize round trips, synchronization overhead, and coupling \u2014 keeping this remote interface distinct from a fine-grained local interface, while balancing against interfaces so coarse they limit flexibility."
+ },
+ "123": {
+  "action": "split",
+  "subgroups": [
+   [
+    191
+   ],
+   [
+    320
+   ]
+  ]
+ },
+ "124": {
+  "action": "split",
+  "subgroups": [
+   [
+    193
+   ],
+   [
+    220,
+    223
+   ],
+   [
+    285
+   ],
+   [
+    289
+   ]
+  ]
+ },
+ "125": {
+  "action": "split",
+  "subgroups": [
+   [
+    194
+   ],
+   [
+    195
+   ]
+  ]
+ },
+ "126": {
+  "action": "confirm",
+  "canonical": "Use asynchronous, queue-based pipelines to raise throughput by decoupling producer and consumer: parallelize the slowest stage with Competing Consumers on a Point-to-Point Channel, parallelize only stateless filters, and preserve ordering when it is critical with a single instance, a Resequencer, or a correlation identifier to match out-of-order results."
+ },
+ "127": {
+  "action": "confirm",
+  "canonical": "Make production filters transactional so a failure before the output is sent does not lose the message: open a transaction before consuming the input and commit only after publishing the output, aborting on any exception to roll back both and return the input to the queue."
+ },
+ "128": {
+  "action": "split",
+  "subgroups": [
+   [
+    198,
+    233
+   ],
+   [
+    199,
+    230
+   ]
+  ]
+ },
+ "129": {
+  "action": "split",
+  "subgroups": [
+   [
+    200,
+    231
+   ],
+   [
+    234
+   ],
+   [
+    238
+   ],
+   [
+    277
+   ]
+  ]
+ },
+ "131": {
+  "action": "split",
+  "subgroups": [
+   [
+    202
+   ],
+   [
+    235
+   ]
+  ]
+ },
+ "135": {
+  "action": "split",
+  "subgroups": [
+   [
+    210
+   ],
+   [
+    358
+   ]
+  ]
+ },
+ "136": {
+  "action": "confirm",
+  "canonical": "On a Publish-Subscribe Channel a subscriber only receives messages published while it is actively subscribed, so subscribe before messages of interest are published and use a Durable Subscriber when an observer must receive messages published while it was temporarily disconnected."
+ },
+ "137": {
+  "action": "split",
+  "subgroups": [
+   [
+    214
+   ],
+   [
+    215
+   ]
+  ]
+ },
+ "138": {
+  "action": "confirm",
+  "canonical": "Make communication two-way with a pair of Request-Reply messages: have the requestor specify a Return Address in the request header so the replier need not hard-code channels, and carry a Correlation Identifier (set to the request's message ID) on the reply so the requestor can match each reply to its request."
+ },
+ "142": {
+  "action": "split",
+  "subgroups": [
+   [
+    226
+   ],
+   [
+    273
+   ]
+  ]
+ }
+}

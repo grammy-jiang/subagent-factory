@@ -1,0 +1,444 @@
+{
+ "253": {
+  "action": "confirm",
+  "canonical": "Prefer a web/HTML browser presentation and adopt a rich client only when you must, because web front ends avoid client-deployment problems and are increasingly capable; treat presentation as relatively independent of the lower layers, with Model-View-Controller underneath, and choose controllers and views (Page vs Front Controller, Template vs Transform View) by the site's nature and team tooling."
+ },
+ "254": {
+  "action": "split",
+  "subgroups": [
+   [
+    446
+   ],
+   [
+    641
+   ]
+  ]
+ },
+ "255": {
+  "action": "confirm",
+  "canonical": "Keep all classes in a single process and do not separate layers into distinct processes unless you absolutely must, because distribution degrades performance and forces extra patterns like Remote Facade and Data Transfer Object; to use multiple processors, prefer clustering \u2014 run multiple copies of the single-process application across nodes so every call stays local and fine-grained."
+ },
+ "256": {
+  "action": "split",
+  "subgroups": [
+   [
+    448
+   ],
+   [
+    833
+   ],
+   [
+    848
+   ]
+  ]
+ },
+ "257": {
+  "action": "split",
+  "subgroups": [
+   [
+    449,
+    520,
+    521
+   ],
+   [
+    452,
+    539
+   ],
+   [
+    450
+   ],
+   [
+    453
+   ],
+   [
+    534
+   ]
+  ]
+ },
+ "258": {
+  "action": "split",
+  "subgroups": [
+   [
+    451,
+    529
+   ],
+   [
+    523
+   ],
+   [
+    546
+   ],
+   [
+    547
+   ],
+   [
+    557
+   ],
+   [
+    697
+   ]
+  ]
+ },
+ "259": {
+  "action": "split",
+  "subgroups": [
+   [
+    454
+   ],
+   [
+    550
+   ]
+  ]
+ },
+ "261": {
+  "action": "split",
+  "subgroups": [
+   [
+    456,
+    525,
+    566
+   ],
+   [
+    472
+   ],
+   [
+    559
+   ]
+  ]
+ },
+ "263": {
+  "action": "split",
+  "subgroups": [
+   [
+    458
+   ],
+   [
+    465
+   ],
+   [
+    475
+   ],
+   [
+    619
+   ]
+  ]
+ },
+ "264": {
+  "action": "split",
+  "subgroups": [
+   [
+    460
+   ],
+   [
+    585
+   ]
+  ]
+ },
+ "266": {
+  "action": "confirm",
+  "canonical": "Minimize database round-trips when reading: pull back multiple rows at once and load related tables with a single multitable join rather than issuing repeated or per-association queries (the N+1 problem, e.g. 101 queries for 100 employees and their skills), checking the Identity Map first so an already-loaded object is reused; because the join optimization is awkward and joins degrade past about three or four per query, apply it where the queries are slow and important."
+ },
+ "267": {
+  "action": "confirm",
+  "canonical": "Prefer separate finder objects over static find methods so database operations stay polymorphic and substitutable (for example replaceable by a Service Stub in tests or across different data sources), and run queries at the start of a unit of work since finders see committed database state, not unsaved in-memory objects."
+ },
+ "269": {
+  "action": "split",
+  "subgroups": [
+   [
+    467
+   ],
+   [
+    886
+   ]
+  ]
+ },
+ "270": {
+  "action": "split",
+  "subgroups": [
+   [
+    468,
+    572
+   ],
+   [
+    1063
+   ],
+   [
+    1065
+   ]
+  ]
+ },
+ "272": {
+  "action": "split",
+  "subgroups": [
+   [
+    470,
+    606
+   ],
+   [
+    604
+   ],
+   [
+    605
+   ],
+   [
+    607
+   ]
+  ]
+ },
+ "273": {
+  "action": "split",
+  "subgroups": [
+   [
+    471
+   ],
+   [
+    608
+   ]
+  ]
+ },
+ "275": {
+  "action": "split",
+  "subgroups": [
+   [
+    476
+   ],
+   [
+    485
+   ],
+   [
+    492
+   ],
+   [
+    493
+   ],
+   [
+    524
+   ]
+  ]
+ },
+ "280": {
+  "action": "split",
+  "subgroups": [
+   [
+    481
+   ],
+   [
+    623
+   ],
+   [
+    632
+   ]
+  ]
+ },
+ "281": {
+  "action": "confirm",
+  "canonical": "Add an Application Controller only when the machine controls screen flow \u2014 there are definite rules about the order pages are visited and state-dependent view choices \u2014 and skip it when the user is free to reach any screen in any order; the signal to introduce one is having to make similar flow changes in many places."
+ },
+ "282": {
+  "action": "confirm",
+  "canonical": "Keep programming logic out of the page in a Template View by delegating to a regular helper object, because embedded scriptlet logic makes pages messy and unmaintainable, blocks designers from editing them, and tends to mingle layers and duplicate domain logic; use a Transform View instead when the domain data is XML, and Two Step View only when screens share a common logical structure."
+ },
+ "284": {
+  "action": "split",
+  "subgroups": [
+   [
+    488,
+    664
+   ],
+   [
+    491
+   ],
+   [
+    657
+   ],
+   [
+    916
+   ]
+  ]
+ },
+ "286": {
+  "action": "split",
+  "subgroups": [
+   [
+    494,
+    960
+   ],
+   [
+    938,
+    944
+   ],
+   [
+    958,
+    959
+   ],
+   [
+    499
+   ],
+   [
+    656
+   ],
+   [
+    937
+   ],
+   [
+    939
+   ],
+   [
+    945
+   ],
+   [
+    950
+   ],
+   [
+    951
+   ],
+   [
+    952
+   ],
+   [
+    955
+   ],
+   [
+    1058
+   ]
+  ]
+ },
+ "287": {
+  "action": "split",
+  "subgroups": [
+   [
+    495
+   ],
+   [
+    497
+   ]
+  ]
+ },
+ "288": {
+  "action": "split",
+  "subgroups": [
+   [
+    496
+   ],
+   [
+    668
+   ]
+  ]
+ },
+ "290": {
+  "action": "split",
+  "subgroups": [
+   [
+    500
+   ],
+   [
+    655
+   ],
+   [
+    658
+   ],
+   [
+    659
+   ],
+   [
+    662
+   ],
+   [
+    716
+   ],
+   [
+    956
+   ]
+  ]
+ },
+ "292": {
+  "action": "split",
+  "subgroups": [
+   [
+    503
+   ],
+   [
+    504
+   ],
+   [
+    505
+   ]
+  ]
+ },
+ "293": {
+  "action": "split",
+  "subgroups": [
+   [
+    510,
+    511
+   ],
+   [
+    506
+   ],
+   [
+    507
+   ],
+   [
+    508
+   ],
+   [
+    673
+   ],
+   [
+    674
+   ],
+   [
+    676
+   ],
+   [
+    677
+   ],
+   [
+    678
+   ],
+   [
+    763
+   ]
+  ]
+ },
+ "294": {
+  "action": "split",
+  "subgroups": [
+   [
+    509
+   ],
+   [
+    762
+   ]
+  ]
+ },
+ "297": {
+  "action": "split",
+  "subgroups": [
+   [
+    517
+   ],
+   [
+    648
+   ]
+  ]
+ },
+ "298": {
+  "action": "split",
+  "subgroups": [
+   [
+    528
+   ],
+   [
+    552
+   ],
+   [
+    643
+   ],
+   [
+    646
+   ]
+  ]
+ }
+}
