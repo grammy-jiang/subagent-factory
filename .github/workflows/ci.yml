@@ -118,15 +118,19 @@ jobs:
           cache: pip
           cache-dependency-path: pyproject.toml
       - run: python -m pip install -e ".[dev,convert]"
-      # On a PR, validate only the packages changed vs the base branch (fast).
-      # On a push to main/master, validate every tracked package (thorough).
+      # Validate only the packages changed by this event, so CI stays fast and
+      # scales as packages accumulate:
+      #   * PR   -> changed vs the base branch
+      #   * push -> changed vs the first parent (the merged delta)
+      # A full sweep of every package is available on demand as
+      # `make validate-packages` (too slow to run on every push).
       - name: Validate changed packages
         run: |
           if [ -n "${{ github.base_ref }}" ]; then
             git fetch -q origin "${{ github.base_ref }}"
             make validate-changed BASE="origin/${{ github.base_ref }}"
           else
-            make validate-packages
+            make validate-changed BASE="HEAD^"
           fi
 
   # --- Informational gate (does not block merges) --------------------------
