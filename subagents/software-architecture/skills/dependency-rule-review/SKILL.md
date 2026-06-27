@@ -17,10 +17,10 @@ provenance:
   - E00079
   - E00086
   source_anchors:
-  - a547bab6dbc6-c0002
-  - a547bab6dbc6-c0000
-  - a547bab6dbc6-c0001
-  authored_from_digest: 5d66ca9d2a12a6503969d1fa94d476abea29cdd1263e3947714d70b48775ad17
+  - 91e37e1ca511-c0006
+  - 91e37e1ca511-c0001
+  - 91e37e1ca511-c0002
+  authored_from_digest: 0aec8def0c546b24875afbdb6bb734b136b281485f0894d3a9ffa6cd16f9b395
 ---
 
 # Dependency Rule review

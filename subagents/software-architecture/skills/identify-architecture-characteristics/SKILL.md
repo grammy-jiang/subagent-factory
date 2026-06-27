@@ -17,9 +17,9 @@ provenance:
   - E00007
   - E00008
   source_anchors:
-  - 6b15bd8cd9ba-c0001
-  - 6b15bd8cd9ba-c0000
-  authored_from_digest: c9127aad60808a74db174d84d9f46b8670401526f526cd3c0b4b70d797ec5cc8
+  - 508117177502-c0004
+  - 508117177502-c0001
+  authored_from_digest: 21b5cc3c765f443ac40ec2ece1503df92ac62adee8d20db8689c8ba33a4965b7
 ---
 
 # Identify architecture characteristics

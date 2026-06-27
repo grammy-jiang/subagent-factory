@@ -29,11 +29,12 @@ provenance:
   - E00246
   - E00247
   source_anchors:
-  - be84e4ec4c9d-c0000
-  - be84e4ec4c9d-c0003
-  - be84e4ec4c9d-c0004
-  - be84e4ec4c9d-c0002
-  authored_from_digest: 9e4e5ca2aa1756c4eceab5503fdbaa6b389abd275fdded23fcbbdfb9dbfa5aa6
+  - d95ad6b6daba-c0025
+  - 760c81171459-c0003
+  - 760c81171459-c0004
+  - 4bc1908bad03-c0000
+  - 760c81171459-c0002
+  authored_from_digest: dca135420404308d719fb7460c8f8d695e4732cb41efb4f74e998d33578901f9
 ---
 
 # Messaging integration review

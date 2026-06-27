@@ -2,7 +2,7 @@ schema_version: portable-profile-v1
 slug: software-architecture
 display_name: >-
   Software Architecture Reviewer
-agent_version: "1.2.0"
+agent_version: "1.3.0"
 status: ready
 tier: 2
 multisource_synthesis: deferred
@@ -231,75 +231,99 @@ examples:
       implementation and product decision back to the owning engineering team (handoff rule).
 
 sources:
-  - source_id: fundamentals-of-soft-6b15bd8c
-    title: >-
-      Fundamentals of Software Architecture
-    author: >-
-      Mark Richards, Neal Ford
-    year: 2020
-    rights_status: distillation-only
-    sha256: "6b15bd8cd9bacbf14042cbf3c638369ee2cfbe96aec51f060858832c0e3ed00a"
-  - source_id: book-clean-architect-a547bab6
+  - source_id: book-clean-architect-50811717
     title: >-
       Clean Architecture
     author: >-
       Robert C. Martin
     year: 2018
     rights_status: distillation-only
-    sha256: "a547bab6dbc6992604b89cdfb1903451d3ea8133a2d1b1358e726b5bfe9b6845"
-  - source_id: software-architectur-1c336f5c
-    title: >-
-      Software Architecture: The Hard Parts
-    author: >-
-      Neal Ford, Mark Richards, Pramod Sadalage, Zhamak Dehghani
-    year: 2021
-    rights_status: distillation-only
-    sha256: "1c336f5c12ec94bb32eac968afbb0e31cea8c9280d4825fe68989575a5a278e4"
-  - source_id: patterns-of-enterpri-fbd95667
-    title: >-
-      Patterns of Enterprise Application Architecture
-    author: >-
-      Martin Fowler
-    year: 2002
-    rights_status: distillation-only
-    sha256: "fbd95667ee10f52c67a3805bce9b8e203fd797b38a129db1026204084b2b674a"
-  - source_id: mark-richards-softwa-8afbdb74
-    title: >-
-      Software Architecture Patterns
-    author: >-
-      Mark Richards
-    year: 2015
-    rights_status: distillation-only
-    sha256: "8afbdb74139cb52b4e58cf56b7873ed3e4a16e102a4ecc761edcc0e6ff9f0d51"
-  - source_id: designing-event-driv-ddde058a
+    sha256: "5081171775022016c6d523d50733bc28dbc93ed6f115677b4122e6403a79e8e9"
+  - source_id: designing-event-driv-91e37e1c
     title: >-
       Designing Event-Driven Systems
     author: >-
       Ben Stopford
     year: 2018
     rights_status: distillation-only
-    sha256: "ddde058a4a9e074f89635692680496e996a998138b604081393f02efd25c16ea"
-  - source_id: enterprise-integrati-be84e4ec
+    sha256: "91e37e1ca511aac741f337af5d23e04e16a8d55e35801e612b50558007fc159a"
+  - source_id: enterprise-integrati-8afa2d6e
     title: >-
       Enterprise Integration Patterns
     author: >-
       Gregor Hohpe, Bobby Woolf
     year: 2003
     rights_status: distillation-only
-    sha256: "be84e4ec4c9d645c9933523290680f06b8916cbeb7d9fa43d9174855f59ae1fd"
-  - source_id: scalable-architectur-705fce79
+    sha256: "8afa2d6eafa0bdec3aeee8fda8dca59e76011fd3582042bdd8023efaf5fe767c"
+  - source_id: fundamentals-of-soft-d95ad6b6
     title: >-
-      Scalable Internet Architectures
+      Fundamentals of Software Architecture
     author: >-
-      Theo Schlossnagle
-    year: 2006
+      Mark Richards, Neal Ford
+    year: 2020
     rights_status: distillation-only
-    sha256: "705fce793a41d366d17cf4253f0b739372c457bc8c7b27c922cc060c95c1b5d2"
-  - source_id: scalability-rules-745dee44
+    sha256: "d95ad6b6dabaa7a724e93cb381ed8593d408808425737f46b30fcee0756af621"
+  - source_id: mark-richards-softwa-4bc1908b
+    title: >-
+      Software Architecture Patterns
+    author: >-
+      Mark Richards
+    year: 2015
+    rights_status: distillation-only
+    sha256: "4bc1908bad036111c3357e3517c2ea948d7ef3dd54034820abcca9331fd99265"
+  - source_id: patterns-of-enterpri-760c8117
+    title: >-
+      Patterns of Enterprise Application Architecture
+    author: >-
+      Martin Fowler
+    year: 2002
+    rights_status: distillation-only
+    sha256: "760c8117145954392528a21eb97b61572b76a0bd3530c5766eb918ab853a1285"
+  - source_id: scalability-rules-67c60e37
     title: >-
       Scalability Rules: 50 Principles for Scaling Web Sites
     author: >-
       Martin L. Abbott, Michael T. Fisher
     year: 2011
     rights_status: distillation-only
-    sha256: "745dee448a5d324d9f8d3b07b16173217ff49ded8bd7b4e9b18bbfb5f59d1eec"
+    sha256: "67c60e378753c0ba6d223084ed739f37451e3e5289c533c93e430d22154524d0"
+  - source_id: scalable-internet-ar-a6c7e769
+    title: >-
+      Scalable Internet Architectures
+    author: >-
+      Theo Schlossnagle
+    year: 2006
+    rights_status: distillation-only
+    sha256: "a6c7e769c07281de15399e2fa33a2d3ceaf1edfcc47eae4aa74e29d7d41b487f"
+  - source_id: software-architectur-8e56ab27
+    title: >-
+      Software Architecture: The Hard Parts
+    author: >-
+      Neal Ford, Mark Richards, Pramod Sadalage, Zhamak Dehghani
+    year: 2021
+    rights_status: distillation-only
+    sha256: "8e56ab27687eb75c9703aef12dff562e1d67c5fce37bd8e73ca8e5997f2c7938"
+  - source_id: designing-data-inten-4dd93d8a
+    title: >-
+      Designing Data-Intensive Applications
+    author: >-
+      Martin Kleppmann
+    year: 2017
+    rights_status: distillation-only
+    sha256: "4dd93d8a852e2ebc9a8629bb967c0ff49bd6816ae8512a99330fa8c760ecb373"
+  - source_id: software-architect-e-db4fccde
+    title: >-
+      The Software Architect Elevator
+    author: >-
+      Gregor Hohpe
+    year: 2020
+    rights_status: distillation-only
+    sha256: "db4fccde25b4f20def67accb0b9e28faaf67eced5d702e5f0ee021c629ccda86"
+  - source_id: software-architectur-6c7e6dd8
+    title: >-
+      Software Architecture in Practice
+    author: >-
+      Len Bass, Paul Clements, Rick Kazman
+    year: 2021
+    rights_status: distillation-only
+    sha256: "6c7e6dd887b4188bf8441091fafd7ddc0837a353fc34f7935bc871d7f51c09af"

@@ -22,10 +22,11 @@ provenance:
   - E00395
   - E00396
   source_anchors:
-  - 705fce793a41-c0000
-  - 745dee448a5d-c0000
-  - 745dee448a5d-c0003
-  authored_from_digest: 25cbb9b2f119efeb172b16690d03e03f33202968e20a85d255ac9e6c9403fb15
+  - 760c81171459-c0017
+  - 760c81171459-c0019
+  - a6c7e769c072-c0000
+  - a6c7e769c072-c0002
+  authored_from_digest: 94899d51d05036a1bdb97dd7b9dca29e94e8b691628237f71b60921460e4a2c2
 ---
 
 # The AKF Scale Cube

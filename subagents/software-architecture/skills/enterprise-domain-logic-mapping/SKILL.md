@@ -17,10 +17,10 @@ provenance:
   - E00080
   - E00100
   source_anchors:
-  - 1c336f5c12ec-c0000
-  - a547bab6dbc6-c0000
-  - a547bab6dbc6-c0002
-  authored_from_digest: b38eb847469203b1ba4bcf2aaa063d4dba87c7b3154bcd4dc0630778ae985089
+  - 8afa2d6eafa0-c0002
+  - 91e37e1ca511-c0001
+  - 91e37e1ca511-c0004
+  authored_from_digest: 6fa6337fc60f3a47ed67e9b35425c654e6908b316e12eb93a268a27b525369d6
 ---
 
 # Enterprise domain-logic mapping

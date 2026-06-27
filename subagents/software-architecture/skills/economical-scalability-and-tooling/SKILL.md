@@ -27,11 +27,12 @@ provenance:
   - E00379
   - E00380
   source_anchors:
-  - 6b15bd8cd9ba-c0000
-  - 6b15bd8cd9ba-c0001
-  - 745dee448a5d-c0000
-  - 745dee448a5d-c0002
-  authored_from_digest: 2c282cee968a1e6f7c28815c1f066722c0d752a8c0cb8e6e3f50bddf41e155a9
+  - 508117177502-c0001
+  - 508117177502-c0002
+  - 67c60e378753-c0004
+  - a6c7e769c072-c0000
+  - a6c7e769c072-c0002
+  authored_from_digest: e49e50e1ad1657fbca0353e478e18a9bf28575525ee89ebb7d3b34cafaf33899
 ---
 
 # Economical scalability and storage-tool fit

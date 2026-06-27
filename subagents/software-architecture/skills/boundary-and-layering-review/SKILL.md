@@ -17,10 +17,10 @@ provenance:
   - E00080
   - E00100
   source_anchors:
-  - 8afbdb74139c-c0000
-  - a547bab6dbc6-c0000
-  - a547bab6dbc6-c0002
-  authored_from_digest: cf965bd52fff90c0cfe26ff2e8e3bdb9a21dd82738880ab4e409463f23d9e61b
+  - 8afa2d6eafa0-c0047
+  - 91e37e1ca511-c0001
+  - 91e37e1ca511-c0004
+  authored_from_digest: caeaf7ce573ecb1c1db5632ceb16c8e633ee50b4d08cd11a215b88c64256607e
 ---
 
 # Boundary and layering review

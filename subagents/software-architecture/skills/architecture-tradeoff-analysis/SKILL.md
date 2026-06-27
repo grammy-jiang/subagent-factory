@@ -12,8 +12,8 @@ provenance:
   - E00007
   - E00008
   source_anchors:
-  - 6b15bd8cd9ba-c0000
-  authored_from_digest: 096592defcaae34a617eaffc4a3cf15bbecef23c54715ff88115204602e39914
+  - 508117177502-c0001
+  authored_from_digest: a69c75eb5be9c5133fe55bb67cf4505c6a15643c5a3e07446821a2f38139a99d
 ---
 
 # Architecture trade-off analysis

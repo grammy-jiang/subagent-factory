@@ -22,11 +22,12 @@ provenance:
   - E00403
   - E00404
   source_anchors:
-  - 705fce793a41-c0000
-  - 705fce793a41-c0001
-  - 745dee448a5d-c0001
-  - 745dee448a5d-c0003
-  authored_from_digest: 6892502a1c69e6f2b60ecacf097b681311dd731e38626105eed4d84a162c9eac
+  - 760c81171459-c0022
+  - 760c81171459-c0025
+  - a6c7e769c072-c0000
+  - a6c7e769c072-c0001
+  - a6c7e769c072-c0003
+  authored_from_digest: 0cb15319e2b9c7d923d7144614c28d5a72c2611cf512fc4fe1567d13a74b5aa4
 ---
 
 # High availability vs load balancing review

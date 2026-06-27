@@ -22,10 +22,10 @@ provenance:
   - E00148
   - E00149
   source_anchors:
-  - 6b15bd8cd9ba-c0002
-  - 6b15bd8cd9ba-c0003
-  - 1c336f5c12ec-c0000
-  authored_from_digest: 9574c70874e2769f27655e43aed102c2bc9f84d4cb61f75598d7e958b64a1527
+  - 508117177502-c0006
+  - 508117177502-c0007
+  - 8afa2d6eafa0-c0004
+  authored_from_digest: e60e37f7083525dc10418300ab67cf1f517ed9e82d0b2270c70db81643a0699b
 ---
 
 # Distributed coupling analysis
