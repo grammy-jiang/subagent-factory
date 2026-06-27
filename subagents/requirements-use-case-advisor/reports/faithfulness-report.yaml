@@ -1,0 +1,252 @@
+# Faithfulness review — Tier 2, evidence-based (authored 2026-06-28).
+# Sources: Cockburn, "Writing Effective Use Cases" (2001); Cohn, "User Stories
+# Applied" (2004); Jacobson et al., "Use-Case 2.0" (2011). rights_status:
+# distillation-only. Scope: every operative profile rule (role, when_to_use,
+# when_not_to_use, quality_bar, forbidden_behaviours, outputs.modes,
+# minimum_useful_output). Each rule_ref resolves to a profile path. No rule is
+# graded stronger than its evidence; no SCOPE_BROADENED/HEDGING_REMOVED/CONTRADICTED
+# findings. source_anchors are intentionally omitted; provenance is carried by the
+# cited principle IDs (each resolves into principles.yaml -> claims.jsonl -> anchors).
+
+schema_version: faithfulness-report-v1
+subagent_slug: requirements-use-case-advisor
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P002, P017, P038 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). Scopes the advisor to use-case + user-story requirements capture across the three named
+    sources; a faithful summary of their shared remit. WITHIN_SCOPE.
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P002, P017, P027, P046 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). Review trigger entails reviewing scope, goal level, scenario and readability — all source
+    practices, no broadening. WITHIN_SCOPE.
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P002, P018, P073, P076 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). In/out list, actor-goal list and level assessment are direct source devices for clarifying
+    scope. WITHIN_SCOPE.
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P038, P058, P059, P087 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). Story value-orientation, INVEST sizing, testability and epic-splitting are Cohn practices,
+    restated as triggers. WITHIN_SCOPE.
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P004, P021, P022, P069, P064 (Cockburn 2001 / Cohn 2004
+    / Jacobson et al. 2011). Workshops, user-role modelling, estimation and release planning are source
+    elicitation/planning practices. WITHIN_SCOPE.
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P023, P052, P060, P053 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). Artifact choice (stories vs use cases vs slices) is a source decision; trigger does
+    not assert one is always better. WITHIN_SCOPE.
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P017 (Cockburn 2001 / Cohn 2004 / Jacobson et al. 2011).
+    Review needs an artifact to critique; a conservative scoping that follows from the sources, no over-claim.
+    WITHIN_SCOPE.
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P041, P010, P049 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). Non-functional/data/UI detail is handled outside use-case/story text per the sources;
+    faithful exclusion. WITHIN_SCOPE.
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P043, P089 (Cockburn 2001 / Cohn 2004 / Jacobson et al.
+    2011). Keeping PM/architecture/priority decisions with the team mirrors the customer-decides stance;
+    advisor-not-decider boundary. WITHIN_SCOPE.
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P046 (Cockburn 2001 / Cohn 2004 / Jacobson et al. 2011).
+    Naming the specific element is an operational entailment of the readability/communication purpose;
+    reviewer obligation, not a stronger claim. WITHIN_SCOPE.
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P002, P018, P075 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). Explicit scope labelling and anchoring at the user-goal level restate the source guidance
+    directly. EXACT_SUPPORT.
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P001, P017 (Cockburn 2001 / Cohn 2004 / Jacobson et al.
+    2011). Matching ceremony/template density to criticality and size is stated near-verbatim in Cockburn;
+    no broadening. EXACT_SUPPORT.
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P058, P059, P087 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). Judging stories on user value, INVEST and testability follows Cohn; turned into a review
+    bar without inflation. WITHIN_SCOPE.
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P051, P088 (Cockburn 2001 / Cohn 2004 / Jacobson et al.
+    2011). Keep-the-decision-with-the-team and cite-the-principle are entailments of the customer-ownership
+    stance. WITHIN_SCOPE.
+- rule_ref: forbidden_behaviours[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P010 (Cockburn 2001 / Cohn 2004 / Jacobson et al. 2011).
+    Keep UI dialog out of requirements is stated directly by Cockburn and Cohn; faithful prohibition.
+    EXACT_SUPPORT.
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P052 (Cockburn 2001 / Cohn 2004 / Jacobson et al. 2011).
+    Rejecting IEEE-830 shall-lists as the PRIMARY approach matches Cohn's argument; scoped to 'primary',
+    not all use. WITHIN_SCOPE.
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P059, P088 (Cockburn 2001 / Cohn 2004 / Jacobson et al.
+    2011). Do-not-invent-requirements and customer-writes-stories are explicit source guidance. EXACT_SUPPORT.
+- rule_ref: forbidden_behaviours[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P041, P049 (Cockburn 2001 / Cohn 2004 / Jacobson et al.
+    2011). Not forcing every requirement into a story/use case mirrors the constraint-card and data-handling
+    guidance. WITHIN_SCOPE.
+- rule_ref: forbidden_behaviours[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P043, P089 (Cockburn 2001 / Cohn 2004 / Jacobson et al.
+    2011). Customer prioritises and owns the result; the advisor does not make the call — faithful to
+    Cohn. WITHIN_SCOPE.
+- rule_ref: outputs.modes[review].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P002, P017, P027, P046 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). Review output (element + principle + severity + corrective step) is an operational format;
+    no claim beyond the practices. WITHIN_SCOPE.
+- rule_ref: outputs.modes[advise].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P001, P023, P051 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). Advise output cites trade-offs and leaves the decision with the team; faithful to the
+    source stance. WITHIN_SCOPE.
+- rule_ref: outputs.modes[validate].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P026, P027, P087 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). Pass/fail-per-rule with evidence is a presentation of the source's own quality checks.
+    WITHIN_SCOPE.
+- rule_ref: outputs.modes[draft].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P005, P003, P059 (Cockburn 2001 / Cohn 2004 / Jacobson
+    et al. 2011). Draft output is a team-owned skeleton; explicitly forbids inventing domain facts, matching
+    the sources. WITHIN_SCOPE.
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational entailment of principle(s) P046, P002 (Cockburn 2001 / Cohn 2004 / Jacobson et al.
+    2011). Three concrete findings naming element + principle + step is an operational floor consistent
+    with the review practice. WITHIN_SCOPE.
