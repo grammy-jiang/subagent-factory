@@ -1,0 +1,2824 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Use an index-only scan (covering index) to skip table access for read-heavy
+    aggregating queries, but add select-clause columns to an index only when needed
+    (memory and update cost), and avoid SELECT * so a slim covering index suffices.
+  derived_from_claims:
+  - C00330
+  - C01346
+  - C01399
+  - C01574
+  - C01575
+  - C01576
+  - C01578
+  - C01580
+  - C01581
+  - C01582
+  confidence: high
+  applies_when:
+  - A hot query selects only columns that can fit in an index
+  - a query's returned columns can be served entirely from the index
+  - a query reads many rows but few columns
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Select the index method to fit the data and operators: B-Tree as the
+    general default, GiST for spatial/full-text/exclusion (lossy), GIN for jsonb/full-text
+    (faster reads, slower writes), and avoid legacy hash indexes (not WAL-logged,
+    unusable in replication).'
+  derived_from_claims:
+  - C00337
+  - C00338
+  - C00339
+  - C00340
+  - C00342
+  - C00508
+  - C00657
+  - C00658
+  - C00659
+  - C00660
+  - C00661
+  confidence: high
+  applies_when:
+  - choosing an index type
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Do not trust that an index is 'used' — verify access-versus-filter predicates
+    in the predicate information, since the optimizer picks an index only because
+    it beats a full scan, which does not make it optimal.
+  derived_from_claims:
+  - C01429
+  - C01430
+  - C01442
+  - C01443
+  - C01444
+  - C01445
+  - C01446
+  - C01483
+  - C01550
+  - C01616
+  confidence: high
+  applies_when:
+  - analyzing why a specific query is slow
+  - confirming whether an index actually optimizes a query
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Back up with pg_dump for selective day-to-day backups (compressed/TAR/directory
+    formats enable parallel restore) and run pg_dumpall --globals-only daily to capture
+    roles and tablespaces.
+  derived_from_claims:
+  - C00472
+  - C00476
+  - C00478
+  - C00484
+  - C00485
+  - C00486
+  - C00587
+  - C00588
+  - C00589
+  - C00592
+  confidence: high
+  applies_when:
+  - designing a backup routine
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Choose a concatenated index's column order from how the application queries
+    the data (leftmost-prefix usability), not from per-column selectivity; a non-leading
+    column alone cannot use the index tree.
+  derived_from_claims:
+  - C00331
+  - C01471
+  - C01472
+  - C01475
+  - C01476
+  - C01477
+  - C01506
+  - C01512
+  - C01515
+  confidence: high
+  applies_when:
+  - designing or reviewing a multi-column index
+  - deciding between one composite index and several single-column indexes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: Choose the isolation level by the anomalies you must prevent (dirty/nonrepeatable/phantom
+    reads, lost update/dirty write/write skew), remembering snapshot isolation prevents
+    lost updates but not write skew and that serializability requires coordination.
+  derived_from_claims:
+  - C00298
+  - C00299
+  - C00300
+  - C00301
+  - C00302
+  - C01114
+  - C01115
+  - C01116
+  - C01117
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P007
+  statement: Never wrap an indexed column in a function, arithmetic, or implicit type
+    conversion in the where clause; convert the search term instead, or add a function-based
+    index on the exact expression, because the optimizer treats any column-side function
+    as an opaque black box.
+  derived_from_claims:
+  - C01402
+  - C01403
+  - C01485
+  - C01486
+  - C01527
+  - C01528
+  - C01530
+  - C01532
+  - C01543
+  confidence: high
+  applies_when:
+  - queries filter on a function or expression of a column rather than the bare column
+  - a where-clause predicate transforms the indexed column
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Implement top-N and pagination with a pipelined order by and tell the
+    database you need only N rows; prefer the seek (keyset) method over offset for
+    deep paging, and always page on a deterministic sort order.
+  derived_from_claims:
+  - C01372
+  - C01373
+  - C01374
+  - C01595
+  - C01596
+  - C01597
+  - C01598
+  - C01599
+  - C01600
+  confidence: high
+  applies_when:
+  - a query needs ordered output, especially combined with LIMIT or keyset pagination
+  - retrieving only the first rows or paging through a result set
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: Use pg_stat_statements to find the most expensive queries, ordering by
+    total cumulative time, and reset its statistics when you need a clean measurement
+    window.
+  derived_from_claims:
+  - C00383
+  - C00384
+  - C00518
+  - C01420
+  - C01421
+  - C01423
+  - C01424
+  - C01425
+  confidence: high
+  applies_when:
+  - identifying which queries to optimize first
+  - pg_stat_statements is installed or can be enabled
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Manage roles with CREATE ROLE (not the deprecated CREATE USER/GROUP),
+    keep group roles login-less, state INHERIT/NOINHERIT explicitly, and rely on SET
+    ROLE for the never-inherited superuser rights.
+  derived_from_claims:
+  - C00455
+  - C00456
+  - C00457
+  - C00458
+  - C00568
+  - C00569
+  - C00570
+  - C00571
+  confidence: high
+  applies_when:
+  - creating or organizing database roles
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Mark function volatility correctly (IMMUTABLE/STABLE/VOLATILE) so the
+    planner can optimize, apply STRICT cautiously (it can block index use), and prefer
+    SQL functions for planner inlining while using PL/pgSQL when control flow or dynamic
+    SQL is needed.
+  derived_from_claims:
+  - C00424
+  - C00439
+  - C00440
+  - C00442
+  - C00696
+  - C00697
+  - C00707
+  - C00708
+  confidence: high
+  applies_when:
+  - writing database functions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Treat missing or wrong indexing as the first suspect for bad PostgreSQL
+    performance; verify the expected indexes exist before tuning memory or hardware,
+    and watch for over-indexing that slows writes.
+  derived_from_claims:
+  - C00313
+  - C00320
+  - C00378
+  - C00519
+  - C01414
+  - C01418
+  - C01447
+  confidence: high
+  applies_when:
+  - Diagnosing a slow query or slow system
+  - a query is slow or scans far more rows than it returns
+  - triaging a newly reported performance regression
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: 'Drive tuning with EXPLAIN: use EXPLAIN (ANALYZE[, BUFFERS, VERBOSE]),
+    wrap data-changing EXPLAIN ANALYZE in BEGIN/ROLLBACK, compare costs only on the
+    same server, and read a large estimate-vs-actual row gap as a sign of stale statistics.'
+  derived_from_claims:
+  - C00314
+  - C00329
+  - C00402
+  - C00712
+  - C00713
+  - C00714
+  - C00715
+  confidence: high
+  applies_when:
+  - Investigating why a specific query is slow
+  - analyzing a query plan
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Grant USAGE on a schema or table/function grants are inert; do not assume
+    database ownership grants access to all objects; and consider revoking risky PUBLIC
+    defaults (CONNECT, EXECUTE, etc.).
+  derived_from_claims:
+  - C00460
+  - C00461
+  - C00465
+  - C00579
+  - C00580
+  - C00581
+  - C00582
+  confidence: high
+  applies_when:
+  - assigning object privileges
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: Plan replication for availability and read scalability with one master
+    and read-only slaves shipping WAL; choose synchronous (waits for a slave) versus
+    asynchronous (lower latency but possible lag/loss); use streaming/cascading to
+    reduce coupling; and note all servers must share the same version and unlogged
+    tables are excluded.
+  derived_from_claims:
+  - C00498
+  - C00499
+  - C00735
+  - C00736
+  - C00737
+  - C00738
+  - C00739
+  confidence: high
+  applies_when:
+  - Data-loss tolerance must be minimized for some or all transactions
+  - designing a replication topology
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Reserve index-organized / clustered-index tables for tables that need
+    a single index; a secondary index on an index-organized table requires two tree
+    traversals per row and is very inefficient, so multi-index tables usually fare
+    better as heap tables.
+  derived_from_claims:
+  - C01042
+  - C01043
+  - C01044
+  - C01045
+  - C01046
+  - C01585
+  - C01586
+  confidence: high
+  applies_when:
+  - write-heavy workload with multiple secondary indexes (favour indirection)
+  - choosing between a heap table and an index-organized/clustered-index table
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Avoid LIKE patterns with a leading wildcard; only the prefix before the
+    first wildcard is an access predicate, and a leading wildcard forces a full table
+    scan unless another access predicate exists — use a dedicated full-text index
+    instead.
+  derived_from_claims:
+  - C00344
+  - C00345
+  - C00346
+  - C00347
+  - C01508
+  - C01510
+  confidence: high
+  applies_when:
+  - a query uses a LIKE filter
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Run space-reclamation maintenance (vacuum/compaction) as an asynchronous
+    background process and persist the free-page list so free space survives crashes
+    and is not leaked.
+  derived_from_claims:
+  - C00305
+  - C00306
+  - C00307
+  - C01037
+  - C01084
+  - C01087
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P019
+  statement: Prefer jsonb (binary, faster, GIN-indexable, key-deduping) over json
+    unless you must preserve exact text, whitespace, key order, or duplicate keys;
+    index containment queries with @> plus a GIN index.
+  derived_from_claims:
+  - C00638
+  - C00639
+  - C00640
+  - C01356
+  - C01357
+  - C01390
+  confidence: high
+  applies_when:
+  - storing/querying JSON in PostgreSQL
+  - queries use the JSONB key-exists/containment operators
+  - the workload is full-text search
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Keep the number of indexes small to protect write performance — insert
+    cost is dominated by index count and the first index already costs the most —
+    and consider dropping non-essential indexes during large bulk loads.
+  derived_from_claims:
+  - C01333
+  - C01339
+  - C01351
+  - C01601
+  - C01602
+  - C01603
+  confidence: high
+  applies_when:
+  - a table carries indexes that are rarely or never used by the planner
+  - write throughput matters for the workload
+  - a table is write-heavy or undergoes bulk loading
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Use functional indexes for case-insensitive or expression searches (always
+    querying with the same function) and partial indexes for hot subsets (WHERE must
+    be IMMUTABLE and the query's WHERE must be a superset of the index condition).
+  derived_from_claims:
+  - C00332
+  - C00333
+  - C00665
+  - C00666
+  - C00667
+  confidence: high
+  applies_when:
+  - indexing computed values or row subsets
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Use a partial index (an index with a WHERE clause) for workloads that
+    consistently filter on the same constant predicate to get a smaller, faster index,
+    but do not create hundreds or thousands of partial indexes because that slows
+    down planning.
+  derived_from_claims:
+  - C01404
+  - C01405
+  - C01406
+  - C01518
+  - C01519
+  confidence: high
+  applies_when:
+  - the workload repeatedly filters with the same constant predicate (e.g. deleted_at
+    IS NULL)
+  - a frequent query filters on a constant value (e.g. a status flag)
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: 'Terminate connections sparingly: pg_cancel_backend cancels a query without
+    dropping the connection, pg_terminate_backend kills it; clear affected connections
+    before a backup or restore.'
+  derived_from_claims:
+  - C00373
+  - C00565
+  - C00566
+  - C00567
+  confidence: high
+  applies_when:
+  - cancelling runaway queries or preparing for restore
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: 'Never delete files from the data cluster folder to reclaim space: pg_log
+    may be purged, but deleting pg_xlog''s root or pg_clog destroys data and deleting
+    archived WAL breaks point-in-time recovery and slave catch-up.'
+  derived_from_claims:
+  - C00481
+  - C00491
+  - C00599
+  confidence: high
+  applies_when:
+  - disk space is low on a PostgreSQL data volume
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Understand storage classes and type affinity - SQLite has five storage
+    classes, a column may hold mixed classes across rows, sort order is NULL then
+    numbers then TEXT then BLOB, and each column has NUMERIC/INTEGER/TEXT/NONE affinity
+    derived from its declared type (an unrecognized type defaults to NUMERIC, no type
+    gives NONE).
+  derived_from_claims:
+  - C00766
+  - C00826
+  - C00890
+  - C00891
+  - C00892
+  - C00893
+  - C00894
+  - C00895
+  - C00896
+  - C00897
+  - C00898
+  - C00899
+  - C00900
+  - C00901
+  - C00903
+  - C00982
+  - C00983
+  confidence: high
+  applies_when:
+  - Reasoning about what data a column can actually hold, or enforcing strict typing.
+  - Predicting how SQLite stores, converts, compares, or sorts column values.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Define views to work with related tables, reflect current data, customize
+    output, enforce integrity (validation view), and restrict access; a multitable
+    view requires its base tables to be related, and views may carry calculated fields,
+    filters, and must be documented.
+  derived_from_claims:
+  - C00243
+  - C00244
+  - C00245
+  - C00246
+  - C00247
+  - C00248
+  - C00249
+  - C00250
+  - C00251
+  - C00252
+  - C00253
+  - C00254
+  confidence: medium
+  applies_when:
+  - providing controlled, combined, or summarized data access
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Give every relation a primary key that uniquely identifies its rows (no
+    duplicate rows) and normalize to remove duplication - 1NF atomic values, 2NF dependence
+    on the whole key, 3NF no transitive dependencies - decomposing tables so implicit
+    relationships become explicit and enforceable.
+  derived_from_claims:
+  - C00803
+  - C00804
+  - C00811
+  - C00812
+  - C00813
+  - C00815
+  - C00816
+  - C00817
+  - C00818
+  - C00882
+  confidence: high
+  applies_when:
+  - Designing or reviewing a relational schema for keys and normalization.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Define business rules from how the organization uses its data; establish
+    database-oriented rules in the logical design (field-specific via field-spec elements,
+    relationship-specific via relationship characteristics) and record every rule
+    on a Business Rule Specifications sheet.
+  derived_from_claims:
+  - C00229
+  - C00230
+  - C00231
+  - C00232
+  - C00234
+  - C00235
+  - C00236
+  - C00237
+  - C00238
+  - C00239
+  confidence: high
+  applies_when:
+  - imposing organization-specific constraints
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Enforce data integrity through schema constraints, not application code
+    - cover domain, entity, referential, and user-defined integrity using NOT NULL
+    (paired with DEFAULT), UNIQUE, CHECK, and COLLATE on columns or tables, defined
+    once in the database.
+  derived_from_claims:
+  - C00807
+  - C00808
+  - C00809
+  - C00827
+  - C00828
+  - C00829
+  - C00884
+  - C00886
+  - C00887
+  - C00889
+  confidence: high
+  applies_when:
+  - Deciding where and how to enforce data validity and relationships.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Select a database/storage engine by simulating the real anticipated workload
+    and measuring the metrics that matter, not by comparing components, popularity
+    rank, or implementation language; treat the choice as hard to reverse.
+  derived_from_claims:
+  - C01016
+  - C01017
+  - C01018
+  - C01019
+  - C01021
+  - C01022
+  - C01024
+  - C01028
+  - C01029
+  - C01224
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P031
+  statement: Prefer explicit JOIN ... ON syntax with table-qualified column names,
+    avoid NATURAL JOIN (whose results silently change when columns are added or removed),
+    and remember SQLite implements no RIGHT or FULL OUTER JOIN - rewrite them with
+    a reversed LEFT JOIN or compound queries.
+  derived_from_claims:
+  - C00779
+  - C00821
+  - C00848
+  - C00849
+  - C00851
+  - C00852
+  - C00853
+  - C00854
+  - C00855
+  confidence: high
+  applies_when:
+  - Writing or reviewing multi-table joins in SQLite.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: 'Conduct the design interviews deliberately: prepare questions, favour
+    open-ended questions, interview users and management separately, keep the group
+    small, maintain control, and record each interview.'
+  derived_from_claims:
+  - C00020
+  - C00050
+  - C00051
+  - C00052
+  - C00053
+  - C00054
+  - C00055
+  - C00056
+  - C00057
+  confidence: medium
+  applies_when:
+  - gathering requirements from people
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Perform a final modular data-integrity review against the table-, field-,
+    relationship-, and business-rule checklists, then assemble the RDBMS-independent
+    design documentation as the implementation blueprint.
+  derived_from_claims:
+  - C00182
+  - C00255
+  - C00256
+  - C00257
+  - C00258
+  - C00259
+  - C00260
+  - C00261
+  confidence: high
+  applies_when:
+  - the design is otherwise complete
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Give every table a primary key chosen from candidate keys that conform
+    to the Elements of a Candidate Key (no multipart, unique, non-null, no privacy
+    breach, non-optional, minimal fields, exclusively identifies each record, rarely
+    changes).
+  derived_from_claims:
+  - C00064
+  - C00099
+  - C00168
+  - C00169
+  - C00170
+  - C00173
+  - C00174
+  - C00176
+  confidence: high
+  applies_when:
+  - assigning keys to a table
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: 'Set the logical specification elements to enforce value integrity: no
+    nulls for keys/required fields (never blanks for meaning), required value yes
+    for primary keys, meaningful default values only, an explicit range of values
+    (never Other/Miscellaneous), an edit rule, and allowed comparisons/operations.'
+  derived_from_claims:
+  - C00101
+  - C00102
+  - C00198
+  - C00199
+  - C00200
+  - C00201
+  - C00202
+  - C00203
+  confidence: high
+  applies_when:
+  - specifying a field's value rules
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Understand the four types of data integrity (table-, field-, relationship-level,
+    and business rules) and the three relationship characteristics (type, participation
+    type, degree) as the integrity framework the whole methodology builds.
+  derived_from_claims:
+  - C00067
+  - C00068
+  - C00073
+  - C00074
+  - C00075
+  - C00076
+  - C00080
+  - C00273
+  confidence: high
+  applies_when:
+  - orienting to the integrity model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Diagnose performance from the execution plan including its predicate
+    information, knowing each database's access/filter labels; never run PostgreSQL
+    EXPLAIN ANALYZE on a data-modifying statement without a transaction and rollback.
+  derived_from_claims:
+  - C01607
+  - C01608
+  - C01609
+  - C01610
+  - C01611
+  - C01612
+  - C01614
+  - C01615
+  confidence: high
+  applies_when:
+  - reading an execution plan to find the cause of a slow statement
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Use the slotted-page layout (cells on one side, sorted offset pointers
+    on the other) to store variable-size records, allow binary search without relocating
+    cells, and reclaim space via an availability list, defragmentation, and overflow
+    pages.
+  derived_from_claims:
+  - C01063
+  - C01064
+  - C01065
+  - C01066
+  - C01073
+  - C01075
+  - C01085
+  - C01086
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P039
+  statement: 'Manage the page cache deliberately: pin hot upper-tree pages, choose
+    a recency/frequency-aware replacement policy (a bigger cache alone can worsen
+    evictions via Bélády''s anomaly), prefetch range scans, and flush dirty pages
+    before eviction.'
+  derived_from_claims:
+  - C01092
+  - C01093
+  - C01094
+  - C01095
+  - C01096
+  - C01097
+  - C01098
+  - C01099
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P040
+  statement: Repair replica divergence with the anti-entropy mechanism that matches
+    the need — read-repair and hinted handoff for scope, bitmap version vectors for
+    recency, Merkle trees for completeness — and use gossip for reliable large-scale
+    dissemination.
+  derived_from_claims:
+  - C01256
+  - C01257
+  - C01258
+  - C01259
+  - C01260
+  - C01261
+  - C01262
+  - C01269
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P041
+  statement: 'For multi-partition atomicity use atomic commitment (no commit unless
+    all participants vote yes; it fails under Byzantine faults): 2PC is simple but
+    blocks on coordinator failure (mitigate with durable decision logs and a backup
+    coordinator), while 3PC is non-blocking yet splits under network partitions.'
+  derived_from_claims:
+  - C01270
+  - C01271
+  - C01272
+  - C01274
+  - C01276
+  - C01277
+  - C01278
+  - C01279
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P042
+  statement: Use a consensus algorithm (Paxos, Multi-Paxos, Raft) for agreement under
+    crash failures with majority quorums (2f+1 tolerate f, and quorum overlap gives
+    safety), a distinguished leader to skip the propose phase, and random backoff
+    against livelock; once a value is accepted future proposers must keep it.
+  derived_from_claims:
+  - C01296
+  - C01297
+  - C01298
+  - C01299
+  - C01300
+  - C01301
+  - C01313
+  - C01315
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P043
+  statement: 'Drive index design from the query workload in order: evaluate the required
+    data types and operators first, then pick the index type, then decide whether
+    an advanced index (multi-column, expression, partial) is warranted.'
+  derived_from_claims:
+  - C01330
+  - C01353
+  - C01354
+  - C01355
+  - C01356
+  - C01357
+  - C01393
+  - C01409
+  confidence: high
+  applies_when:
+  - designing or reviewing an index for a known query predicate
+  - the query's data type and operator are identifiable from the WHERE clause
+  - starting index design or a workload-level index review
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: Name each table with a unique, descriptive, single-subject, plural name,
+    avoiding physical-characteristic words, acronyms/abbreviations, data-restricting
+    proper names, and multi-subject names.
+  derived_from_claims:
+  - C00131
+  - C00132
+  - C00133
+  - C00134
+  - C00135
+  - C00136
+  - C00137
+  - C00138
+  confidence: medium
+  applies_when:
+  - naming a table
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: Use subqueries and compound queries knowing relational closure lets operations
+    nest; a correlated subquery re-evaluates per outer row while an uncorrelated one
+    runs once; compound queries (UNION/INTERSECT/EXCEPT) require equal column counts
+    and a single trailing ORDER BY; UNION removes duplicates while UNION ALL keeps
+    them; and pushing aggregation into a subquery before a join can cut the rows the
+    join must match.
+  derived_from_claims:
+  - C00832
+  - C00857
+  - C00858
+  - C00860
+  - C00861
+  - C00862
+  - C01004
+  - C01005
+  confidence: medium
+  applies_when:
+  - Composing nested, compound, or aggregating queries, or optimizing them.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: Begin every design by defining a mission statement (the database's purpose)
+    and mission objectives (single-task statements the data must support), and let
+    them drive the table, field, relationship, view, integrity, and business-rule
+    decisions.
+  derived_from_claims:
+  - C00031
+  - C00032
+  - C00033
+  - C00034
+  - C00035
+  - C00036
+  - C00038
+  confidence: high
+  applies_when:
+  - starting a new database design
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: Keep the logical design separate from and prior to physical implementation,
+    and design it without regard to any specific RDBMS so the structure is driven
+    by information requirements rather than tool constraints.
+  derived_from_claims:
+  - C00106
+  - C00107
+  - C00124
+  - C00125
+  - C00126
+  - C00265
+  - C00266
+  confidence: high
+  applies_when:
+  - deciding when to involve the RDBMS
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: 'Establish relationships explicitly: a copied primary key as a foreign
+    key for one-to-one and one-to-many, and a linking table (composite primary key)
+    for many-to-many — never embed repeated or single copies of one table''s fields
+    in the other.'
+  derived_from_claims:
+  - C00083
+  - C00084
+  - C00117
+  - C00208
+  - C00213
+  - C00214
+  - C00216
+  confidence: high
+  applies_when:
+  - connecting two related tables
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: When migrating to PostgreSQL, rewrite non-portable SQL (LIMIT/OFFSET,
+    Oracle (+)/dual/sysdate) and clean data-integrity violations from non-strict MySQL;
+    use oracle_fdw/ora2pg/orafce or pg_chameleon/mysql_fdw and port stored procedures
+    manually.
+  derived_from_claims:
+  - C00527
+  - C00529
+  - C00531
+  - C00532
+  - C00533
+  - C00534
+  - C00535
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Declaring a column INTEGER PRIMARY KEY makes it an alias for the table's
+    64-bit ROWID with auto-generated keys and is the one column whose type is enforced;
+    default ROWIDs may be recycled and non-monotonic after deletes, so add AUTOINCREMENT
+    only when the application truly needs never-reused, strictly increasing keys.
+  derived_from_claims:
+  - C00791
+  - C00877
+  - C00878
+  - C00879
+  - C00880
+  - C00881
+  - C00970
+  confidence: high
+  applies_when:
+  - Designing primary keys or relying on key-generation behavior.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Reach for SQLite as an embedded, in-process, zero-configuration, single-file
+    relational engine for small-to-medium applications; it is not a universal drop-in
+    for a large-scale server RDBMS.
+  derived_from_claims:
+  - C00749
+  - C00750
+  - C00758
+  - C00759
+  - C00760
+  - C00764
+  - C00773
+  confidence: high
+  applies_when:
+  - Choosing a data store for an embedded, on-device, or small-to-medium application.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: Handle NULL deliberately - NULL is the absence of a value (not zero,
+    empty string, true, or false); test it with IS NULL / IS NOT NULL (never = NULL),
+    expect it to propagate through expressions and three-valued logic, know that it
+    is dropped by WHERE and ignored by aggregates, and use COALESCE to supply defaults
+    in nullable expressions.
+  derived_from_claims:
+  - C00810
+  - C00864
+  - C00865
+  - C00866
+  - C00867
+  - C00868
+  - C00869
+  confidence: high
+  applies_when:
+  - Writing predicates or aggregates over columns that can contain NULL.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: Accept the failure-detector trade-offs (false positives versus negatives;
+    accuracy versus speed cannot both be maximized), tune ping frequency and timeout,
+    and use outsourced heartbeats, phi-accrual, or gossip for indirect-reachability-aware
+    detection.
+  derived_from_claims:
+  - C01210
+  - C01211
+  - C01212
+  - C01213
+  - C01214
+  - C01215
+  - C01216
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P054
+  statement: Pick a consistency model by required guarantees against synchronization
+    cost — linearizability (strongest, composable, expensive, implemented via consensus),
+    then sequential, causal, and PRAM — recognizing strict consistency is impossible.
+  derived_from_claims:
+  - C01236
+  - C01237
+  - C01238
+  - C01239
+  - C01240
+  - C01241
+  - C01242
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P055
+  statement: 'Index for the join algorithm: for nested loops, index the join predicates
+    of the inner table plus the driving filter; for hash and sort-merge joins, index
+    only the independent where predicates because indexing the join predicates does
+    not help and indexing is symmetric in join order.'
+  derived_from_claims:
+  - C01559
+  - C01560
+  - C01562
+  - C01567
+  - C01568
+  - C01569
+  - C01572
+  confidence: high
+  applies_when:
+  - tuning indexes for a join
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Ensure every field holds a single value, represents one distinct characteristic,
+    and conforms to the Elements of the Ideal Field (single value, indivisible, no
+    calculated/concatenated value, unique except relationship fields).
+  derived_from_claims:
+  - C00063
+  - C00091
+  - C00092
+  - C00146
+  - C00153
+  - C00257
+  confidence: high
+  applies_when:
+  - defining or reviewing a field
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: 'Set each relationship''s characteristics: a deletion rule (default Restrict,
+    set from the parent perspective, guarding orphans), a participation type (mandatory/optional),
+    and a degree of participation (min,max).'
+  derived_from_claims:
+  - C00223
+  - C00224
+  - C00225
+  - C00226
+  - C00227
+  - C00228
+  confidence: high
+  applies_when:
+  - defining how tables relate
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Partition very large tables (declarative PARTITION BY in PostgreSQL 10,
+    or inheritance plus CHECK constraints for constraint exclusion), index each partition
+    separately, and drop a child table for instant data cleanup.
+  derived_from_claims:
+  - C00414
+  - C00415
+  - C00416
+  - C00417
+  - C00418
+  - C00419
+  confidence: high
+  applies_when:
+  - A table is so large that management or query pruning becomes a problem
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: Add an index only when a specific, measured performance gain justifies
+    it - an index scan is logarithmic versus a linear sequential scan, but indexes
+    cost storage and slow writes; design multicolumn indexes left-to-right with at
+    most one trailing inequality, and run ANALYZE so the optimizer has statistics.
+  derived_from_claims:
+  - C00919
+  - C00920
+  - C00921
+  - C00922
+  - C00923
+  - C00998
+  confidence: high
+  applies_when:
+  - Deciding whether and how to add an index, or diagnosing a slow query.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: 'Do not over-index: each index adds insert/delete/update cost and function-based
+    indexes breed redundant ones, so unify access paths, index the original column
+    data, and use the same case-folding function throughout the application.'
+  derived_from_claims:
+  - C01490
+  - C01491
+  - C01492
+  - C01493
+  - C01601
+  - C01603
+  confidence: high
+  applies_when:
+  - deciding whether to add an index
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Capture slow query text and parameters through the Postgres logging system
+    using log_min_duration_statement, and avoid log_statement = all on production
+    because its overhead on fast queries can take the system down.
+  derived_from_claims:
+  - C01432
+  - C01433
+  - C01434
+  - C01435
+  - C01436
+  - C01437
+  confidence: high
+  applies_when:
+  - you need full query text and bind values from production
+  - configuring slow-query logging
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: 'Design triggers by timing and scope: BEFORE to modify NEW, AFTER for
+    logging/replication, INSTEAD OF for views; choose row vs statement level; and
+    recall each trigger has one reusable function, multiple triggers fire alphabetically,
+    and a rollback in any unwinds the others.'
+  derived_from_claims:
+  - C00699
+  - C00700
+  - C00701
+  - C00702
+  - C00703
+  - C00704
+  confidence: high
+  applies_when:
+  - designing triggers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: Treat the database file as the security boundary - SQLite has no GRANT/REVOKE
+    or user-level access control; keep database files out of public web directories,
+    and build all SQL from user input with bound parameters or %q-style escaping,
+    optionally restricting untrusted SQL with an authorizer.
+  derived_from_claims:
+  - C00781
+  - C00944
+  - C00946
+  - C00975
+  - C00992
+  - C01014
+  confidence: high
+  applies_when:
+  - Securing a SQLite database against unauthorized access or SQL injection, especially
+    in web or multi-user contexts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: 'Design on-disk structures for the fewest disk accesses: high fanout
+    and low height, block-aligned access, strong key locality, and minimal out-of-page
+    pointers.'
+  derived_from_claims:
+  - C01049
+  - C01050
+  - C01051
+  - C01052
+  - C01055
+  - C01060
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P065
+  statement: 'Version on-disk formats and verify integrity: record each file''s version,
+    place magic numbers for sanity checks, compute per-page checksums and reject corrupt
+    pages on read, and reserve strong cryptographic hashes for tamper detection rather
+    than CRCs/checksums.'
+  derived_from_claims:
+  - C01067
+  - C01068
+  - C01069
+  - C01070
+  - C01071
+  - C01196
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P066
+  statement: 'Apply buffering and immutability deliberately: in-memory buffering reduces
+    write amplification, while immutability improves concurrency and space amplification
+    at the cost of deferred (compaction-time) write amplification.'
+  derived_from_claims:
+  - C01047
+  - C01048
+  - C01129
+  - C01130
+  - C01132
+  - C01180
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P067
+  statement: Reconcile multi-source LSM reads by timestamp (insert/update are upserts;
+    highest timestamp wins) using a min-heap merge-iteration, and manage read/write/space
+    amplification as the three-way RUM trade-off.
+  derived_from_claims:
+  - C01147
+  - C01148
+  - C01149
+  - C01155
+  - C01156
+  - C01158
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P068
+  statement: Use a leader to cut coordination but guarantee liveness and require a
+    majority of votes to avoid split brain, partition data into per-leader replica
+    sets to avoid a single-leader bottleneck, and combine election with failure detection.
+  derived_from_claims:
+  - C01218
+  - C01219
+  - C01220
+  - C01225
+  - C01227
+  - C01307
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P069
+  statement: Add an index on the filtered column to eliminate a sequential scan, and
+    promote it to a covering index (INCLUDE on Postgres 11+, or a multicolumn index
+    on older versions) when you want an Index Only Scan that avoids heap reads.
+  derived_from_claims:
+  - C01447
+  - C01449
+  - C01450
+  - C01451
+  - C01452
+  - C01456
+  confidence: high
+  applies_when:
+  - a query filters on a column that has no supporting index
+  - you want to avoid heap fetches for a hot read query
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Name each field with a unique, descriptive, singular name that identifies
+    exactly one characteristic, prefixing generic names with the table name and using
+    abbreviations only judiciously.
+  derived_from_claims:
+  - C00147
+  - C00148
+  - C00149
+  - C00150
+  - C00151
+  - C00152
+  confidence: medium
+  applies_when:
+  - naming a field
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: 'Tune memory deliberately: shared_buffers around 25% of RAM (diminishing
+    returns past ~8 GB and never near total RAM), effective_cache_size at half or
+    more of RAM on a dedicated server, work_mem low when many users run simple queries,
+    and maintenance_work_mem no higher than ~1 GB.'
+  derived_from_claims:
+  - C00549
+  - C00550
+  - C00551
+  - C00552
+  - C00601
+  - C00729
+  confidence: medium
+  applies_when:
+  - sizing PostgreSQL memory settings
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: Use CTEs for readable/reusable subqueries (writable CTEs for atomic cross-table
+    moves, recursive CTEs for tree structures) and LATERAL to reference left-side
+    columns or limit joined rows, writing the LATERAL keyword explicitly.
+  derived_from_claims:
+  - C00689
+  - C00690
+  - C00691
+  - C00692
+  - C00693
+  - C00694
+  confidence: medium
+  applies_when:
+  - structuring complex queries with CTEs or lateral joins
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: Use SQLite conflict resolution to control constraint-violation handling
+    - choose among REPLACE, IGNORE, FAIL, ABORT (the default), and ROLLBACK per statement
+    (which overrides a table or index default); know that REPLACE skips delete triggers,
+    and prefer IGNORE over FAIL when you want all processable rows changed since processing
+    order is nondeterministic.
+  derived_from_claims:
+  - C00767
+  - C00907
+  - C00908
+  - C00909
+  - C00910
+  - C00911
+  confidence: medium
+  applies_when:
+  - A statement may hit a constraint violation and you want non-default handling.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: Ensure every table represents exactly one subject and conforms to the
+    Elements of the Ideal Table (single subject, primary key, no multipart/multivalued
+    fields, no calculated fields, no unnecessary duplicate fields, minimal redundant
+    data).
+  derived_from_claims:
+  - C00062
+  - C00088
+  - C00114
+  - C00137
+  - C00162
+  confidence: high
+  applies_when:
+  - defining or reviewing a table structure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: Define a complete field specification (general, physical, logical elements)
+    for every field to establish field-level integrity and form the database's data
+    dictionary; the data's accuracy is proportional to how completely the specifications
+    are defined.
+  derived_from_claims:
+  - C00184
+  - C00185
+  - C00186
+  - C00187
+  - C00188
+  confidence: high
+  applies_when:
+  - after table structures and keys are set
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: 'Keep planner statistics accurate: run/rely on ANALYZE, index expressions
+    to gain expression-level statistics, and use CREATE STATISTICS for correlated
+    columns, because bad estimates cause bad plans.'
+  derived_from_claims:
+  - C00279
+  - C00327
+  - C00403
+  - C00404
+  - C00405
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Apply fine-grained access with column-level grants (GRANT SELECT(col))
+    and row-level security policies (ENABLE ROW LEVEL SECURITY plus USING/WITH CHECK
+    policies) for multi-tenant data, and stop using SELECT *.
+  derived_from_claims:
+  - C00464
+  - C00466
+  - C00467
+  - C00468
+  - C00469
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: Restore plain-text backups with psql (use --set ON_ERROR_STOP=on to abort
+    on error) and compressed/TAR/directory backups with a pg_restore whose version
+    is at least the pg_dump that made them; supply credentials via ~/.pgpass or PGPASSWORD.
+  derived_from_claims:
+  - C00591
+  - C00594
+  - C00595
+  - C00596
+  - C00614
+  confidence: high
+  applies_when:
+  - restoring a database
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: 'Install the contrib modules and use the right extension for the job:
+    postgres_fdw/file_fdw (with push-down and IMPORT FOREIGN SCHEMA) for foreign data,
+    pg_buffercache/pg_prewarm for the cache, and pgcrypto for encryption.'
+  derived_from_claims:
+  - C00507
+  - C00509
+  - C00511
+  - C00513
+  - C00514
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: Install extensions per-database on an as-needed basis into a dedicated
+    schema added to search_path, prune unused ones, and remember most (C-based) extensions
+    require a superuser to install.
+  derived_from_claims:
+  - C00539
+  - C00540
+  - C00584
+  - C00585
+  - C00586
+  confidence: high
+  applies_when:
+  - installing or managing extensions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: Load data with \copy by first creating a matching table (no type inference),
+    treating the import as one transaction that aborts on any error; stage messy data
+    in lenient types then recast, and distinguish client-side \copy from server-side
+    COPY.
+  derived_from_claims:
+  - C00606
+  - C00607
+  - C00608
+  - C00609
+  - C00610
+  confidence: high
+  applies_when:
+  - importing delimited data
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: 'Prefer timestamptz for date-time data: it stores UTC (no zone marker)
+    and displays per session/user/database/server, giving automatic DST handling;
+    anticipate display shifts on a cross-time-zone server move and enter dates in
+    ISO Y-M-D.'
+  derived_from_claims:
+  - C00627
+  - C00628
+  - C00629
+  - C00630
+  - C00631
+  confidence: high
+  applies_when:
+  - modeling date/time columns
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: Encapsulate repeated queries in views; prefer INSTEAD OF triggers over
+    rules for updatable/multi-table views; rely on auto-updatable single-table+PK
+    views; and add WITH CHECK OPTION to keep rows within the view's scope.
+  derived_from_claims:
+  - C00541
+  - C00672
+  - C00673
+  - C00674
+  - C00675
+  confidence: high
+  applies_when:
+  - designing or updating through views
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: 'Use materialized views for slow queries with tolerable staleness: index
+    them, schedule REFRESH (CONCURRENTLY requires a unique index), and remember they
+    cannot be changed with CREATE OR REPLACE.'
+  derived_from_claims:
+  - C00676
+  - C00677
+  - C00678
+  - C00679
+  - C00680
+  confidence: high
+  applies_when:
+  - caching slow query results
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: 'Win performance first through well-written SQL: avoid SELECT *, replace
+    overused correlated subqueries with joins plus aggregation, and use CASE or FILTER
+    for conditional aggregation so the table is scanned once.'
+  derived_from_claims:
+  - C00685
+  - C00730
+  - C00732
+  - C00733
+  - C00734
+  confidence: high
+  applies_when:
+  - writing or reviewing query SQL
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: When multiple connections write to the same database, start each writer
+    with BEGIN IMMEDIATE (or BEGIN EXCLUSIVE) to serialize writers and avoid deadlock;
+    on a write SQLITE_BUSY do not brute-force retry step() in autocommit (the state
+    is indeterminate) - restart with BEGIN IMMEDIATE and use a busy handler or busy_timeout
+    to wait for locks.
+  derived_from_claims:
+  - C00914
+  - C00915
+  - C00916
+  - C00956
+  - C00957
+  confidence: high
+  applies_when:
+  - Several connections concurrently write to one database.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: Choose a B-Tree (in-place update, read-optimized) versus an LSM Tree
+    (append-only, write-optimized) by the read/write ratio; LSM Trees suit write-heavy
+    workloads because writes never have to locate records on disk.
+  derived_from_claims:
+  - C01138
+  - C01139
+  - C01140
+  - C01141
+  - C01159
+  confidence: high
+  applies_when:
+  - write-heavy workload (favour LSM)
+  - read-heavy workload (favour B-Tree)
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P088
+  statement: Distinguish locks (logical integrity, taken on keys, held for the whole
+    transaction) from latches (physical integrity, taken on pages, held briefly);
+    hold latches for the shortest time and use latch crabbing or Blink-Trees to cut
+    contention.
+  derived_from_claims:
+  - C01122
+  - C01123
+  - C01124
+  - C01125
+  - C01126
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P089
+  statement: 'Apply CAP/PACELC honestly: under a partition choose consistency or availability
+    (partition tolerance is not optional); otherwise trade latency against consistency;
+    and remember CAP consistency is not ACID consistency and CAP availability is not
+    high availability.'
+  derived_from_claims:
+  - C01230
+  - C01231
+  - C01232
+  - C01233
+  - C01234
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P090
+  statement: Configure tunable consistency with R + W > N to always read the latest
+    write, raising R/W for consistency and lowering for availability; a quorum is
+    ⌊N/2⌋+1 tolerating f of 2f+1 nodes, and witness replicas cut storage cost while
+    preserving the invariant.
+  derived_from_claims:
+  - C01247
+  - C01248
+  - C01249
+  - C01250
+  - C01251
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P091
+  statement: 'Use Byzantine-fault-tolerant consensus (PBFT: n = 3f + 1, cross-validated
+    three-phase protocol, signed digests, encrypted links) only in adversarial or
+    untrusted environments, accepting its N-squared message cost.'
+  derived_from_claims:
+  - C01320
+  - C01321
+  - C01322
+  - C01323
+  - C01324
+  confidence: high
+  applies_when:
+  - nodes are untrusted or potentially adversarial
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P092
+  statement: Default to a B-tree index for equality and range predicates on common
+    scalar data types; for these operators B-tree is the right choice the overwhelming
+    majority of the time.
+  derived_from_claims:
+  - C01337
+  - C01355
+  - C01364
+  - C01370
+  - C01371
+  confidence: high
+  applies_when:
+  - the query filters with =, <, <=, >=, or > on a common scalar type
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: Use bind parameters by default — they prevent SQL injection and enable
+    execution-plan-cache reuse — and supply a literal only for the rare value that
+    should deliberately steer the plan (skewed predicate, partition key, LIKE pattern).
+  derived_from_claims:
+  - C01494
+  - C01495
+  - C01496
+  - C01498
+  - C01561
+  confidence: high
+  applies_when:
+  - passing values into a SQL statement from application code
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: Provide a pipelined order by / group by by making the index that serves
+    the where clause also deliver the required order; match ASC/DESC modifiers in
+    the index when the order by mixes directions.
+  derived_from_claims:
+  - C01589
+  - C01591
+  - C01592
+  - C01593
+  - C01594
+  confidence: high
+  applies_when:
+  - a query has an order by or group by you want pipelined
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: 'Treat proper indexing — not bigger or more hardware — as the primary
+    lever for query response time: hardware and horizontal scaling raise throughput,
+    but response time depends on an efficient search tree and round-trip count.'
+  derived_from_claims:
+  - C01547
+  - C01552
+  - C01553
+  - C01554
+  - C01556
+  confidence: high
+  applies_when:
+  - a slow query is blamed on hardware or proposed to be fixed by scaling out
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
+  statement: Derive tables from subjects and fields from characteristics using the
+    subject- and characteristic-identification techniques, building a preliminary
+    field list of the organization's fundamental data requirements.
+  derived_from_claims:
+  - C00004
+  - C00005
+  - C00021
+  - C00022
+  - C00023
+  confidence: medium
+  applies_when:
+  - turning requirements into an initial structure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: Views are read-only stored relational expressions evaluated on each use
+    and are useful for naming a frequent query or preserving an original logical shape
+    after restructuring; to make a view writable, define an INSTEAD OF trigger that
+    maps changes to the base tables.
+  derived_from_claims:
+  - C00777
+  - C00800
+  - C00801
+  - C00917
+  - C00918
+  confidence: medium
+  applies_when:
+  - Designing views or needing to write through a view.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: Bend or break the design rules only for an analytical database or, as
+    a last resort, for performance — design properly first, weigh the data-integrity
+    cost, exhaust other performance options, and document every rule broken.
+  derived_from_claims:
+  - C00268
+  - C00269
+  - C00270
+  - C00271
+  - C00272
+  confidence: medium
+  applies_when:
+  - tempted to denormalize or break a rule
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: Treat data and information as distinct (data is stored, information is
+    processed/retrieved) and remember the relational model's mathematical foundation
+    (set theory and predicate logic) is what lets it guarantee accurate information.
+  derived_from_claims:
+  - C00003
+  - C00108
+  - C00115
+  - C00121
+  - C00122
+  confidence: medium
+  applies_when:
+  - reasoning about why the methodology works
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: 'Query external data through foreign data wrappers as foreign tables
+    (file_fdw and postgres_fdw built in, updatable since 9.3): a foreign table can
+    map a column subset and is updatable by default, connection-option changes take
+    effect only in a new session, and a user mapping grants no rights (still GRANT;
+    the mapped role must exist on the remote).'
+  derived_from_claims:
+  - C00744
+  - C00745
+  - C00746
+  - C00747
+  - C00748
+  confidence: medium
+  applies_when:
+  - integrating external data sources
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: Watch the data-modification gotchas - INSERT value order must match the
+    column list (or the CREATE TABLE order), CREATE TABLE AS SELECT copies data but
+    drops constraints and indexes, UPDATE evaluates all right-hand sides before assigning,
+    and very large BLOBs spill onto overflow pages so may be better kept in an external
+    file.
+  derived_from_claims:
+  - C00871
+  - C00874
+  - C00961
+  - C00997
+  - C01009
+  confidence: medium
+  applies_when:
+  - Writing INSERT/UPDATE statements, copying tables, or storing large blobs.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: Use collations to control text comparison and ordering - the built-ins
+    are BINARY, NOCASE, and REVERSE, and a custom collation (a comparison function
+    returning negative/zero/positive) handles locales or formats the defaults miss;
+    ISO dates already sort both lexicographically and chronologically, whereas formats
+    like Oracle DD-MON-YY need a custom date collation.
+  derived_from_claims:
+  - C00889
+  - C00949
+  - C00984
+  - C00985
+  - C00987
+  confidence: medium
+  applies_when:
+  - Sorting or comparing text where default byte comparison is inadequate.
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P103
+  statement: 'Exploit known write patterns: use right-only-append/fastpath optimizations
+    for monotonically increasing keys and bottom-up bulk loading for presorted data
+    to avoid splits and merges, and rebalance to raise node occupancy.'
+  derived_from_claims:
+  - C01059
+  - C01077
+  - C01078
+  - C01079
+  - C01080
+  confidence: medium
+  applies_when:
+  - monotonically increasing keys with low update/delete ratio
+  - presorted bulk load
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P104
+  statement: Follow the complete database-design process from start to finish; the
+    structural and data integrity achieved is in direct proportion to how thoroughly
+    the process is followed, and an incomplete design is a poor design.
+  derived_from_claims:
+  - C00028
+  - C00029
+  - C00065
+  - C00112
+  confidence: high
+  applies_when:
+  - designing or reviewing a database structure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P105
+  statement: Do not adopt an existing, legacy, or vendor-sample structure as the basis
+    for a new database, because copying it transfers its hidden problems; design the
+    new logical structure explicitly.
+  derived_from_claims:
+  - C00030
+  - C00060
+  - C00061
+  - C00128
+  confidence: high
+  applies_when:
+  - an old, legacy, or sample database exists
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: Analyze the current database before designing the new one — reviewing
+    how data is collected, how information is presented, and interviewing staff —
+    to surface requirements and deficiencies.
+  derived_from_claims:
+  - C00016
+  - C00017
+  - C00058
+  - C00059
+  confidence: high
+  applies_when:
+  - an organization already manages the data somehow
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
+  statement: Resolve read-modify-write races with SELECT FOR UPDATE, use SKIP LOCKED
+    for worker queues and NOWAIT/lock_timeout to bound waits, and watch for foreign-key
+    lock contention.
+  derived_from_claims:
+  - C00293
+  - C00294
+  - C00295
+  - C00296
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P108
+  statement: Optimize the query first, then size work_mem (per-operation) to keep
+    hash aggregation and sorts in memory, and use maintenance_work_mem for CREATE
+    INDEX/VACUUM/ALTER TABLE.
+  derived_from_claims:
+  - C00420
+  - C00421
+  - C00422
+  - C00423
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
+  statement: Authenticate remote connections with scram-sha-256 (never trust/md5/plaintext
+    password), order pg_hba.conf rules carefully since the first match wins, and enable
+    SSL verified via pg_stat_ssl.
+  derived_from_claims:
+  - C00275
+  - C00452
+  - C00453
+  - C00454
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
+  statement: Use triggers with their deterministic firing order (BEFORE alphabetically,
+    then the row op, then AFTER) and NEW/OLD plus TG_* context variables, and use
+    PostgreSQL 10 transition tables for statement-level changed rows.
+  derived_from_claims:
+  - C00435
+  - C00436
+  - C00437
+  - C00438
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P111
+  statement: Know which configuration settings need a full service restart (postmaster
+    context, which drops active connections) versus only a reload (user context);
+    after editing, confirm pg_settings.setting equals reset_val, and remember postgresql.auto.conf
+    (ALTER SYSTEM) overrides postgresql.conf on 9.4+.
+  derived_from_claims:
+  - C00546
+  - C00547
+  - C00548
+  - C00557
+  confidence: high
+  applies_when:
+  - changing PostgreSQL server configuration
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P112
+  statement: 'Treat a wrong index as worse than none: verify indexes are actually
+    used (pg_stat_user_indexes, EXPLAIN) and ensure the query form matches the index''s
+    operator class (e.g. an && index will not serve = ANY(array)).'
+  derived_from_claims:
+  - C00646
+  - C00721
+  - C00722
+  - C00723
+  confidence: high
+  applies_when:
+  - adding indexes or diagnosing unused ones
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P113
+  statement: Minimize random writes to match the medium — HDD head seeks and SSD garbage-collection
+    penalties — by writing full blocks and batching writes, and respect the SSD page-write/block-erase
+    asymmetry.
+  derived_from_claims:
+  - C01051
+  - C01053
+  - C01054
+  - C01130
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P114
+  statement: Respect SQLite's write-concurrency and size limits - coarse-grained single-writer
+    locking and per-transaction overhead that grows with database size; for high write
+    concurrency that is time-critical, or very large databases, test empirically and
+    consider another database.
+  derived_from_claims:
+  - C00769
+  - C00770
+  - C00772
+  - C00774
+  confidence: high
+  applies_when:
+  - Sizing a SQLite deployment or estimating its concurrency and scale headroom.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P115
+  statement: Filter rows with WHERE and groups with HAVING - aggregates compute over
+    the WHERE-selected rows (filter first, then aggregate), and GROUP BY splits those
+    rows into groups before aggregates apply per group.
+  derived_from_claims:
+  - C00835
+  - C00843
+  - C00844
+  - C00845
+  confidence: high
+  applies_when:
+  - Writing or reviewing grouped or aggregate queries.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P116
+  statement: Wrap interdependent writes in one explicit BEGIN..COMMIT transaction
+    rather than relying on per-statement autocommit, so they succeed or fail together
+    and another connection cannot change the database between them.
+  derived_from_claims:
+  - C00904
+  - C00905
+  - C00906
+  - C00954
+  confidence: high
+  applies_when:
+  - Performing multiple writes that depend on each other or on shared state.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P117
+  statement: Execute commands as prepared statements (prepare, step, finalize) and
+    bind values to positional or named parameters instead of building SQL strings
+    - binding escapes values to prevent injection, an unbound parameter defaults to
+    NULL, reusing a statement via reset avoids recompilation, and bound TEXT/BLOB
+    needs SQLITE_TRANSIENT when its buffer may change versus SQLITE_STATIC for stable
+    memory.
+  derived_from_claims:
+  - C00935
+  - C00937
+  - C00938
+  - C00968
+  confidence: high
+  applies_when:
+  - Executing parameterized or repeated SQL from application code.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P118
+  statement: Choose row- versus column-oriented layout by access pattern — records
+    consumed whole with point/range queries favour row-oriented, large scans or aggregates
+    over few columns favour column-oriented — and do not conflate column stores with
+    wide-column stores.
+  derived_from_claims:
+  - C01038
+  - C01039
+  - C01040
+  - C01041
+  confidence: high
+  applies_when:
+  - choosing physical data layout for a known query workload
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P119
+  statement: Compress page-wise rather than whole-file, trading compression ratio
+    against CPU/RAM and access speed, and evaluate compression libraries on memory
+    overhead, compression speed, decompression speed, and ratio.
+  derived_from_claims:
+  - C01081
+  - C01082
+  - C01083
+  - C01167
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P120
+  statement: Partition by a routing key sized to load and value distribution, prefer
+    consistent hashing (which relocates only ~K/n keys on a cluster change) over modulo
+    placement, and relocate data before updating routing metadata.
+  derived_from_claims:
+  - C01283
+  - C01284
+  - C01285
+  - C01286
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P121
+  statement: In an LSM Tree record deletes explicitly as tombstones and retain them
+    through compaction until no older record for the same key can exist anywhere,
+    otherwise deleted data is resurrected.
+  derived_from_claims:
+  - C01145
+  - C01146
+  - C01148
+  - C01151
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P122
+  statement: When stacking log-structured layers (application, filesystem, SSD FTL),
+    align partitions and writes to the underlying page/erase size and keep the log
+    on a separate device, to avoid reintroducing write amplification and fragmentation.
+  derived_from_claims:
+  - C01172
+  - C01173
+  - C01174
+  - C01175
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P123
+  statement: 'Enforce the write-ahead-log invariant: durably log every state change
+    before modifying its page, force the log to the commit-record LSN before acknowledging
+    a commit, and keep log trimming in lockstep with checkpoints and flushes.'
+  derived_from_claims:
+  - C01100
+  - C01101
+  - C01102
+  - C01103
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P124
+  statement: Choose steal/force page-cache policies for the recovery scheme you need
+    — no-steal enables redo-only recovery, no-force enables deferred buffering, force
+    removes redo work at higher commit latency — using ARIES (steal/no-force) as the
+    reference design.
+  derived_from_claims:
+  - C01105
+  - C01106
+  - C01107
+  - C01108
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P125
+  statement: 'Treat the fallacies of distributed computing as defaults to defend against:
+    the network is unreliable, latency is nonzero, bandwidth and queues are finite,
+    the topology changes, and there is no single authority.'
+  derived_from_claims:
+  - C01184
+  - C01185
+  - C01186
+  - C01187
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P126
+  statement: Design node-local and cluster-wide subsystems holistically, since the
+    storage engine drives local performance while the cluster-communication subsystem
+    drives scalability.
+  derived_from_claims:
+  - C01325
+  - C01326
+  - C01327
+  - C01328
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P127
+  statement: An in-memory store is not a disk store with a large page cache (serialization/layout
+    overhead limits its optimizations), its growth is bounded by RAM volatility and
+    cost, and it still needs a write-ahead log plus checkpointing for durability.
+  derived_from_claims:
+  - C01033
+  - C01034
+  - C01035
+  - C01036
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P128
+  statement: 'Order index columns equality-first then range: a single B-tree supports
+    only one range condition as an access predicate, and a leading range column leaves
+    later predicates unable to narrow the scan.'
+  derived_from_claims:
+  - C01501
+  - C01504
+  - C01505
+  - C01513
+  confidence: high
+  applies_when:
+  - a query combines equality and range predicates
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P129
+  statement: Keep the scanned index range as small as possible and read the predicate
+    information to separate access predicates (which narrow the range) from filter
+    predicates (which do not); a filter predicate is the dominant cause of poor scaling.
+  derived_from_claims:
+  - C01502
+  - C01503
+  - C01547
+  - C01548
+  confidence: high
+  applies_when:
+  - tuning or reviewing index usage for a query
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P130
+  statement: Reserve BRIN indexes for large append-only tables whose physical row
+    order correlates with the indexed value; avoid BRIN where many updates/deletes
+    break that correlation, since performance then degrades toward a full table scan.
+  derived_from_claims:
+  - C01379
+  - C01383
+  - C01384
+  - C01385
+  confidence: high
+  applies_when:
+  - the table is append-only and indexed values increase with physical row order
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P131
+  statement: Enable auto_explain to capture execution plans automatically at the moment
+    slow queries run, rather than reconstructing plans later from logs, since a plan
+    reproduced later can differ from the one that actually occurred.
+  derived_from_claims:
+  - C01438
+  - C01439
+  - C01440
+  - C01441
+  confidence: high
+  applies_when:
+  - you need representative execution plans for intermittently slow queries
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P132
+  statement: Reject the 'smart logic' optional-filter anti-pattern (col = :p OR :p
+    IS NULL); build dynamic SQL containing only the filters needed right now, still
+    using bind parameters, because the catch-all form forces a full table scan under
+    a shared plan cache.
+  derived_from_claims:
+  - C01537
+  - C01539
+  - C01540
+  - C01541
+  confidence: high
+  applies_when:
+  - a query supports optional/combinable search filters
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P133
+  statement: Execute joins in the database rather than ORM per-row nested selects
+    (the N+1 problem), control fetch/eager behavior at runtime instead of statically,
+    and enable SQL logging in development to review the generated statements.
+  derived_from_claims:
+  - C01563
+  - C01564
+  - C01565
+  - C01566
+  confidence: high
+  applies_when:
+  - fetching related rows through an ORM
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P134
+  statement: Write a table description that both defines the table's subject and states
+    why it matters to the organization, kept clear, succinct, self-contained, free
+    of implementation detail and examples.
+  derived_from_claims:
+  - C00139
+  - C00140
+  - C00142
+  - C00143
+  confidence: medium
+  applies_when:
+  - documenting a table
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P135
+  statement: 'Choose the right field-specification type: Unique for a one-off or primary-key
+    field, Generic as a reusable template for same-meaning fields, and Replica for
+    a field based on a generic field or serving as a foreign key.'
+  derived_from_claims:
+  - C00189
+  - C00190
+  - C00191
+  - C00192
+  confidence: medium
+  applies_when:
+  - standardizing field definitions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P136
+  statement: 'Apply compound-index judgment: a leading-column query already uses the
+    compound index (no separate single-column index needed), let the planner combine
+    single-column indexes via bitmap scan when query patterns are unpredictable, exploit
+    index-only scans, and don''t overload an index with columns.'
+  derived_from_claims:
+  - C00668
+  - C00669
+  - C00670
+  - C00671
+  confidence: medium
+  applies_when:
+  - designing multicolumn indexes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P137
+  statement: 'Diagnose from data: set up monitoring first, then check pg_stat_activity
+    for active/idle/idle-in-transaction counts, long-running transactions, and ungranted
+    locks.'
+  derived_from_claims:
+  - C00369
+  - C00370
+  - C00515
+  - C00516
+  confidence: medium
+  applies_when:
+  - Approaching an unfamiliar or misbehaving database
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P138
+  statement: 'Operate replication carefully: start slaves before the master, clone
+    a running master with pg_basebackup, promote a slave one-way via its trigger_file,
+    and reach for third-party tools (Slony/Bucardo) only when you need table-level,
+    mixed-version, or multimaster replication (trigger-based, DDL-limited).'
+  derived_from_claims:
+  - C00740
+  - C00741
+  - C00742
+  - C00743
+  confidence: medium
+  applies_when:
+  - setting up or promoting replicas
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P139
+  statement: Recover a server that won't start by reading the last line of the latest
+    log file; the usual culprits are shared_buffers set too high, a stale postmaster/postgresql.pid
+    (safe to delete), or the port already in use.
+  derived_from_claims:
+  - C00553
+  - C00554
+  - C00556
+  - C00602
+  confidence: medium
+  applies_when:
+  - a PostgreSQL server fails to start or restart
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P140
+  statement: Model intervals with range types plus a GiST index instead of separate
+    start/end columns; understand [ ]/( ) bounds and discrete-range canonicalization
+    to [), and always pass the explicit bound argument to range constructors.
+  derived_from_claims:
+  - C00633
+  - C00634
+  - C00635
+  - C00636
+  confidence: medium
+  applies_when:
+  - modeling value or temporal ranges
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P141
+  statement: A foreign key relates a child column to a parent table's primary key;
+    because the documented SQLite version parses but does not enforce foreign keys,
+    emulate referential integrity with BEFORE INSERT/UPDATE triggers on the child
+    and a BEFORE DELETE trigger on the parent.
+  derived_from_claims:
+  - C00782
+  - C00805
+  - C00806
+  - C00926
+  confidence: medium
+  applies_when:
+  - Relying on foreign-key relationships in a SQLite version that does not enforce
+    them.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P142
+  statement: Understand SQLite's lock-escalation states (unlocked, shared, reserved,
+    pending, exclusive) - multiple readers coexist with one writer because the writer
+    works in RESERVED using a page cache and enters EXCLUSIVE only to flush; size
+    cache_size so most work stays in RESERVED and the EXCLUSIVE lock is held only
+    briefly, maximizing concurrency.
+  derived_from_claims:
+  - C00912
+  - C00951
+  - C00952
+  - C00953
+  confidence: medium
+  applies_when:
+  - Tuning concurrency or reasoning about who can read or write when.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P143
+  statement: 'Reduce coordination where it is provably safe: snapshot isolation for
+    efficient first-committer-wins reads (still allowing write skew), invariant-confluent
+    coordination avoidance, and RAMP read-atomic isolation.'
+  derived_from_claims:
+  - C01287
+  - C01288
+  - C01289
+  - C01290
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    test_cases: []
+- principle_id: P144
+  statement: Verify the actual SQL produced by new feature code against realistic
+    data before trusting that it is index-efficient, because ORM-generated SQL and
+    missing indexes often go unnoticed in code review and until data volume grows.
+  derived_from_claims:
+  - C01415
+  - C01416
+  - C01417
+  - C01419
+  confidence: medium
+  applies_when:
+  - shipping a feature that adds new queries
+  - reviewing a pull request that uses an ORM
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P145
+  statement: Resolve a multivalued field by moving it into a new table related back
+    to the original — decomposing a multivalued field yields a new table, never flattened
+    numbered fields.
+  derived_from_claims:
+  - C00155
+  - C00157
+  - C00218
+  confidence: high
+  applies_when:
+  - a field stores multiple instances of the same value
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P146
+  statement: Keep redundant data to an absolute minimum; redundancy is acceptable
+    only when it results from a field that relates two tables, because redundancy
+    enables inconsistent entry and inaccurate information.
+  derived_from_claims:
+  - C00115
+  - C00158
+  - C00159
+  confidence: high
+  applies_when:
+  - reviewing any structure for redundancy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P147
+  statement: Remove unnecessary duplicate fields; the only necessary duplicate field
+    is one that relates two tables, and reference fields should be replaced by a view
+    that assembles report data.
+  derived_from_claims:
+  - C00160
+  - C00161
+  - C00274
+  confidence: high
+  applies_when:
+  - a field appears in more than one table
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P148
+  statement: Verify the primary key exclusively identifies the value of every other
+    field in a record (load sample data and test each field); remove any field it
+    does not exclusively identify.
+  derived_from_claims:
+  - C00175
+  - C00178
+  - C00179
+  confidence: high
+  applies_when:
+  - finalizing a primary key
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P149
+  statement: 'Make every foreign key conform to the Elements of a Foreign Key: same
+    name as its source primary key (except self-referencing), a replica of its specification,
+    and values drawn only from existing primary-key values.'
+  derived_from_claims:
+  - C00100
+  - C00221
+  - C00222
+  confidence: high
+  applies_when:
+  - a relationship has been established
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P150
+  statement: Avoid flat-file and spreadsheet 'databases'; a spreadsheet is not a relational
+    database, and both produce multipart/multivalued/duplicate fields, redundancy,
+    and weak integrity.
+  derived_from_claims:
+  - C00262
+  - C00263
+  - C00264
+  confidence: high
+  applies_when:
+  - evaluating a non-relational data store
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
