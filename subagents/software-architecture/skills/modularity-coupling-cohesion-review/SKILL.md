@@ -27,9 +27,11 @@ provenance:
   - E00093
   - E00094
   source_anchors:
-  - 1c336f5c12ec-c0000
-  - a547bab6dbc6-c0001
-  authored_from_digest: 63fb886068a2050d85227e0811591989605b933a32a389460e35a39b3e1fa2de
+  - 8afa2d6eafa0-c0004
+  - 91e37e1ca511-c0002
+  - 91e37e1ca511-c0001
+  - 91e37e1ca511-c0003
+  authored_from_digest: 3b9e03bd5731fa6258919cdc82a80df33dd9f6e96f296730f45b85cd2a42a08d
 ---
 
 # Modularity: coupling and cohesion review

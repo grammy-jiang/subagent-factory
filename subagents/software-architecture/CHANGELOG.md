@@ -2,6 +2,29 @@
 
 All notable changes to this generated subagent package are recorded here.
 
+## 1.3.0 — 2026-06-27
+
+**Map→reduce rebuild reconciliation.** The map→reduce build re-assembled the distilled layer
+(`analysis/claims.jsonl`, `evidence/evidence-records.yaml`, `principles/principles.yaml` — now 110
+principles) and emitted chunk anchors for a **12-source** corpus (the prior 9 books plus *Designing
+Data-Intensive Applications*, *The Software Architect Elevator*, and *Software Architecture in
+Practice*), but left the source-pack index stale. This release reconciles the authored layer to the
+rebuilt spine.
+
+### Changed
+
+- **`source-pack.manifest.yaml`** — upserted the 12 content-addressed `source_id`s the rebuilt
+  claims/evidence reference (every claim/evidence `source_id` now resolves). For the 9 recoverable
+  sources, re-ingested markdown from the converter cache and wrote `sources/markdown/<id>.md` +
+  `sources/metadata/<id>.metadata.json`; the 3 sources whose bytes were not retained are recorded as
+  anchors-only manifest entries (their claims/anchors already resolve). Distilled content
+  (claims/principles/evidence/anchors) left byte-for-byte unchanged.
+- **`tests/behaviour-tests.yaml` + `tests/principle-behaviour-tests.yaml`** — added golden +
+  principle-behaviour coverage for the 41 newly high-confidence principles (P070–P110) so every
+  high-confidence principle is exercised by both coverage gates.
+- **Adapter** — re-exported so the `## Operating invariants (must hold)` layer covers every current
+  must-hold principle. `agent_version` `1.2.0` → `1.3.0`.
+
 ## 1.2.0 — 2026-06-24
 
 - Added the Step-7 **C-track principle graph**: `principles/principle-clusters.json` (6 cross-source

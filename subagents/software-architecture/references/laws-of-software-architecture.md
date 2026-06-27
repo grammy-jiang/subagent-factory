@@ -22,10 +22,10 @@ provenance:
   - E00070
   - E00071
   source_anchors:
-  - 6b15bd8cd9ba-c0000
-  - 1c336f5c12ec-c0000
-  - 6b15bd8cd9ba-c0005
-  authored_from_digest: a592ce397f8502aed8ede99077bae3c754f0c269cb5e31053798ced7abb869a5
+  - 508117177502-c0001
+  - 8afa2d6eafa0-c0004
+  - 508117177502-c0011
+  authored_from_digest: f311f9611c3bcb69a09e01ec0923180acef4a7e3b2c6f2a5e8a72087513920ad
 ---
 
 # Laws and first principles of software architecture
