@@ -1,0 +1,106 @@
+schema_version: faithfulness-report-v1
+subagent_slug: documentation-as-code-advisor
+# v1 review: each gradable profile rule checked against evidence/evidence-records.yaml and the
+# chunk anchors behind them in sources/anchors/*.anchors.jsonl. No rule is stronger than its
+# evidence; no CONTRADICTED or unsupported findings. All three sources are distillation-only —
+# no verbatim quotation. source_anchors cite only real chunk-anchor ids (<sha12>-cNNNN).
+findings:
+  - rule_ref: "quality_bar[0]"
+    triplet: {head: "documentation", relation: "classified before writing by", tail: "the Diátaxis compass; one type per page"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [7065cb6e73a0-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Four-types framework, the two-axis compass, and keeping forms distinct are the core of Diátaxis (principles P003, P006, P008; claims C00001-C00005, C00008-C00012, C00015)."
+
+  - rule_ref: "quality_bar[1]"
+    triplet: {head: "each documentation form", relation: "advised in", tail: "its own register (tutorial/how-to/reference/explanation)"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [7065cb6e73a0-c0003]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Reference is austere product-led description; tutorials teach by doing with minimal explanation; how-to serves a competent user's goal; explanation is bounded understanding (principles P002, P004, P009, P019, P005)."
+
+  - rule_ref: "quality_bar[2]"
+    triplet: {head: "clarity advice", relation: "is", tail: "concrete and audience-grounded (active voice, short sentences, parallel lists, consistent terms)"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [3ae5f96ea0cd-c0001]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Active voice, short single-idea sentences, parallel lists, one consistent term, and a stated audience are direct Google technical-writing guidance (principles P011, P056, P022, P054, P063)."
+
+  - rule_ref: "quality_bar[3]"
+    triplet: {head: "sample code", relation: "required to be", tail: "correct, concise, tested, maintained like production code"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [3ae5f96ea0cd-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Samples must build and behave correctly, be concise and reusable, and be tested and maintained like production code — never repurposed unit tests (principles P037, P038; claims C00252-C00257)."
+
+  - rule_ref: "quality_bar[4]"
+    triplet: {head: "docs-as-code advice", relation: "plans for", tail: "writer capacity, review, and a build/test gate before continuous delivery"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [9b3c3a535ed6-c0001]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Docs Like Code stresses planning writer capacity and gating continuous delivery on a passing build/test (principles P049, P051; claims C00305-C00307, C00335, C00339-C00340)."
+
+  - rule_ref: "forbidden_behaviours[0]"
+    triplet: {head: "advisor", relation: "must not endorse", tail: "a page that muddles the four forms"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [7065cb6e73a0-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Keeping the four forms from muddling together is a stated rule of the framework (principles P008, P003)."
+
+  - rule_ref: "forbidden_behaviours[1]"
+    triplet: {head: "advisor", relation: "must not allow", tail: "a form to drift from the need it serves"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [7065cb6e73a0-c0003]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Reference resists instruction/explanation/opinion and links out; how-to excludes teaching and reference completeness (principles P002, P053, P009)."
+
+  - rule_ref: "forbidden_behaviours[2]"
+    triplet: {head: "advisor", relation: "must not approve", tail: "untested or repurposed-unit-test sample code"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [3ae5f96ea0cd-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Do not repurpose unit tests as samples; test and maintain samples like production code (principles P037, P038)."
+
+  - rule_ref: "forbidden_behaviours[3]"
+    triplet: {head: "advisor", relation: "must not invent", tail: "rules, types, or conventions beyond the sources"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [7065cb6e73a0-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Scope-limiting guardrail: the advisor stays within the four types and the clarity/workflow guidance the three sources teach; it claims no more than the sources support."
+
+  - rule_ref: "when_not_to_use[0]"
+    triplet: {head: "advisor", relation: "does not", tail: "write the product's documentation set end to end"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [7065cb6e73a0-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Role boundary consistent with an advisory grounding in the frameworks: it guides structure, clarity, and workflow rather than authoring the content (principle P001 — iterate the docs, owned by the team)."

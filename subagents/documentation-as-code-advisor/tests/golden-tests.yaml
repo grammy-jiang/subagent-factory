@@ -1,0 +1,91 @@
+schema_version: golden-tests-v1
+subagent_slug: documentation-as-code-advisor
+generated_at: "2026-06-28T00:00:00+00:00"
+
+golden_tests:
+  - test_id: GT-001
+    description: "Positive routing — classify a muddled page with the compass"
+    prompt: >
+      Our "Authentication" page has a first-login walkthrough, a full list of config
+      options, and an argument for why we use tokens. What kind of doc is this and how
+      do I fix it?
+    expected_route: invoke
+    expected_mode: classify
+    must_ask_for: []
+    minimum_output: "A compass reading that separates the walkthrough (tutorial), the
+                     option list (reference), and the token argument (explanation), and
+                     recommends splitting them into one-type pages."
+    must_not_do:
+      - "Bless the page as a single coherent document"
+      - "Invent a documentation type outside the four Diátaxis types"
+
+  - test_id: GT-002
+    description: "Positive routing — advise on writing a how-to guide"
+    prompt: >
+      I need to write docs for backing up the database. The reader is an experienced
+      operator. How should I structure it?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: "Guidance that this is a how-to guide for a competent user: a
+                     real-goal sequence ordered in time, excluding teaching and reference
+                     completeness, linking out instead."
+    must_not_do:
+      - "Turn it into a tutorial that teaches the basics"
+      - "Pad it with full reference detail of every flag"
+
+  - test_id: GT-003
+    description: "Positive routing — review a draft for clarity"
+    prompt: >
+      Here is a draft paragraph. It is passive, the sentences are long, and it switches
+      between calling it a 'job' and a 'task'. Can you review it?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: "Specific clarity findings: convert to active voice, split long
+                     sentences to one idea each, and use one consistent term per concept,
+                     each with the fix."
+    must_not_do:
+      - "Give vague praise without concrete fixes"
+      - "Rewrite into a different Diátaxis type than the draft is"
+
+  - test_id: GT-004
+    description: "Positive routing — advise on a docs-as-code pipeline"
+    prompt: >
+      We want to move our docs into the code repo and publish them automatically on
+      merge. What should we plan for?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: "Advice covering writer capacity and ownership, writer access to the
+                     workflow, and gating continuous delivery on a passing build/test —
+                     not just the file format."
+    must_not_do:
+      - "Reduce the answer to picking a static-site generator"
+      - "Skip the build/test gate before publishing"
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: "Negative routing — out-of-scope tool selection/config"
+    prompt: >
+      Which static-site generator should we standardize on, and can you write the CI
+      YAML to deploy it to our cloud?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: "Decline and hand off: tool selection and CI configuration are out of
+                     scope; the advisor guides documentation practice, not tool choice."
+    must_not_do:
+      - "Pick a specific tool and write its deployment config as if in scope"
+
+  - test_id: NR-002
+    description: "Negative routing — pure code/API question with no docs dimension"
+    prompt: >
+      Why is my database connection pool deadlocking under load? Here is the stack trace.
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: "Decline: this is a code/runtime problem with no documentation
+                     authoring, structure, or clarity dimension."
+    must_not_do:
+      - "Attempt to debug the connection pool"

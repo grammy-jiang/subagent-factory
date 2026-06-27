@@ -1,0 +1,411 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Author and structure documentation around the four Diátaxis types — tutorials, how-to guides, reference, and explanation — each serving a distinct user need that arises from the two axes of craft (action vs cognition, acquisition vs application), which is why there are exactly four."
+   },
+   {
+    "idx": 1,
+    "statement": "Classify a piece of content with the Diátaxis compass by asking whether it informs action or cognition and whether it serves acquisition or application of skill; use it especially when intuition is uncertain to decide the correct documentation type."
+   }
+  ]
+ },
+ {
+  "group": 1,
+  "members": [
+   {
+    "idx": 2,
+    "statement": "Keep the four documentation forms distinct and never let their forms and purposes muddle together, since neighbouring forms share affinities and naturally tend to blur, and conflation (especially of tutorials and how-to guides) is the root of many documentation problems."
+   },
+   {
+    "idx": 5,
+    "statement": "Treat the reader's experience as the primary measure of documentation success, and allow the documentation structure to be as complex as it genuinely needs to be as long as it stays logical and fits user needs."
+   }
+  ]
+ },
+ {
+  "group": 2,
+  "members": [
+   {
+    "idx": 3,
+    "statement": "Adopt Diátaxis pragmatically: start applying it immediately to something small rather than waiting to understand it fully, and iterate continually between doing documentation work and reflecting on it."
+   },
+   {
+    "idx": 14,
+    "statement": "Use Diátaxis as a guide to process, not a plan: work iteratively in small steps, publish or commit every improvement immediately, do not chase the big picture, never create empty type structures, and let good structure grow organically from within — documentation is never finished but can always be complete."
+   },
+   {
+    "idx": 15,
+    "statement": "Apply Diátaxis as a repeating improvement cycle: choose any piece of documentation (even at random), assess it critically against Diátaxis standards (what user need it serves, how well, what to add/move/remove/change, whether its language and logic fit its mode), decide the single next action that yields an immediate improvement, do it, and repeat."
+   }
+  ]
+ },
+ {
+  "group": 3,
+  "members": [
+   {
+    "idx": 4,
+    "statement": "Make contents and landing pages read like overviews that introduce their contents rather than bare lists of links, and break tables of contents into smaller lists because lists beyond about seven items are hard to read unless they have an inherent order."
+   },
+   {
+    "idx": 108,
+    "statement": "Make generated list and landing pages data-driven with ordering metadata, template logic, balanced layouts, and naming conventions instead of hard-coded links and assets."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 7,
+    "statement": "Write explanation as bounded, understanding-oriented discussion: anchor it to a real or imagined 'why' question, make connections to related ideas, give context and reasons (design decisions, history, constraints), frame each piece as being 'about' a topic, weigh alternatives and admit perspective, and keep instruction and technical description out."
+   },
+   {
+    "idx": 69,
+    "statement": "Start a long document with a structured outline that groups topics: explain why before each task, limit each step to one concept or task, introduce information when it is most relevant (deferring background such as project history), and share the outline with contributors before drafting."
+   }
+  ]
+ },
+ {
+  "group": 6,
+  "members": [
+   {
+    "idx": 8,
+    "statement": "Define each how-to guide by a specific real-world goal or problem for an already-competent user, recognising that how-to guides are more than linear procedures (they fork, branch, and need judgement) and that a rich list of them signals what the product can do."
+   },
+   {
+    "idx": 9,
+    "statement": "Keep how-to guides focused on the goal: exclude teaching, explanation, and reference completeness (link out to them instead), and assume a competent user who knows what they want and can follow instructions."
+   },
+   {
+    "idx": 10,
+    "statement": "Make how-to guides adaptable to a range of real-world cases rather than one narrow path, and favour practical usability over completeness — starting and ending at reasonable points and letting readers join the guide to their own work."
+   },
+   {
+    "idx": 11,
+    "statement": "Structure a how-to guide as a meaningful sequence ordered in time — imposed where necessity dictates, otherwise placing first the step that sets up later ones — and ground the order in the user's activities and thinking so the guide acquires flow."
+   },
+   {
+    "idx": 23,
+    "statement": "Separate tutorials from how-to guides by the need they serve — study versus work — not by basic versus advanced (how-to guides may cover basic procedures and tutorials may teach advanced skills); get this distinction right because conflating them is easy and especially harmful to the newcomers you hope to retain."
+   }
+  ]
+ },
+ {
+  "group": 11,
+  "members": [
+   {
+    "idx": 18,
+    "statement": "Develop your own trained sense of what makes documentation good — able to recognise what is good, not merely that it is good — and understand how users will feel using it, because users reliably sense quality even when they cannot articulate it."
+   },
+   {
+    "idx": 123,
+    "statement": "Treat findability and content freshness as joint success criteria for centralized technical documentation."
+   },
+   {
+    "idx": 125,
+    "statement": "Maintain documentation quality at scale through a closed feedback loop that captures reader input, routes it to owning teams, motivates fixes, and reports back when resolved."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 20,
+    "statement": "Auto-generate reference such as API documentation from the source where possible to keep it faithfully accurate to the code, but do not treat auto-generated reference as the whole of the documentation a product needs."
+   },
+   {
+    "idx": 99,
+    "statement": "For SDK-style API documentation, pair generated reference output with integration guidance, generated interface artifacts, and heavily reviewed annotated code samples."
+   },
+   {
+    "idx": 103,
+    "statement": "Automate generated documentation builds when release packages consume the generated output, while accounting for manual components that automation will not keep current."
+   },
+   {
+    "idx": 109,
+    "statement": "Use a proof of concept to validate generated API documentation, then manage generator dependencies explicitly inside the API project."
+   },
+   {
+    "idx": 110,
+    "statement": "Select or extend API documentation tooling so generated reference output can coexist with narrative integration documentation and any required schema metadata."
+   },
+   {
+    "idx": 111,
+    "statement": "Generate the API specification during the build and keep it with the code so documentation reflects current API changes and can be rendered by external tools."
+   }
+  ]
+ },
+ {
+  "group": 15,
+  "members": [
+   {
+    "idx": 22,
+    "statement": "Understand a tutorial as a lesson in which the learner learns by doing something meaningful toward an achievable goal, where the value lies in what the learner gains rather than what they produce, the contract puts nearly all responsibility on the author/teacher, and the instructor is condemned to be absent and must be present through written instruction alone — which also makes tutorials costly to write and maintain."
+   },
+   {
+    "idx": 25,
+    "statement": "Follow the first rule of teaching — don't try to teach: ruthlessly minimise explanation in tutorials (give minimal inline rationale and link out), provide explanation only when the user wants it, ignore options and alternatives, and keep the learner moving from one concrete action and result to the next."
+   },
+   {
+    "idx": 26,
+    "statement": "Use proven tutorial techniques to sustain the learner: show them where they are going from the start (not 'you will learn...'), deliver visible meaningful results early and often, maintain a narrative of the expected with real/expected output and warnings, point out what they should notice, target the feeling of doing, permit repetition, and use first-person-plural, unambiguous language with confirming clues."
+   }
+  ]
+ },
+ {
+  "group": 17,
+  "members": [
+   {
+    "idx": 27,
+    "statement": "Recognize terms unfamiliar to the audience and either link to an existing explanation or define them; if a document introduces many terms, collect the definitions into a glossary."
+   },
+   {
+    "idx": 28,
+    "statement": "Use one unambiguous term per concept and apply it consistently throughout the document; never rename a concept partway through, because readers read apparent synonyms as a deliberate distinction."
+   }
+  ]
+ },
+ {
+  "group": 20,
+  "members": [
+   {
+    "idx": 31,
+    "statement": "Prefer shorter documentation and shorter sentences, because they read faster, are easier to maintain, and are usually clearer."
+   },
+   {
+    "idx": 37,
+    "statement": "In technical writing, clarity takes precedence over every other stylistic rule."
+   },
+   {
+    "idx": 68,
+    "statement": "Choose a single long document or a set of shorter linked documents by content type and reader experience (shorter for newcomers and overviews; longer for experienced readers, tutorials, and reference), remembering that many long documents are scanned rather than read in one sitting."
+   }
+  ]
+ },
+ {
+  "group": 21,
+  "members": [
+   {
+    "idx": 32,
+    "statement": "Focus each sentence on a single idea, and split off any subordinate clause that branches into a separate idea."
+   },
+   {
+    "idx": 46,
+    "statement": "Keep each paragraph focused on a single topic as an independent unit of logic, and cut or move any sentence that drifts to a past or future topic."
+   }
+  ]
+ },
+ {
+  "group": 22,
+  "members": [
+   {
+    "idx": 33,
+    "statement": "Refactor a long sentence that contains the conjunction 'or' or an embedded series of items or tasks into a bulleted or numbered list."
+   },
+   {
+    "idx": 41,
+    "statement": "Convert prose to lists where it helps: use a bulleted list for unordered items and a numbered list for ordered items (numbered whenever reordering would change the meaning), and avoid embedded run-in lists."
+   },
+   {
+    "idx": 42,
+    "statement": "Keep list items parallel in grammar, logical category, capitalization, and punctuation (the first item sets the pattern); start each item with a capital letter and end full-sentence items with punctuation, and consider starting each numbered step with an imperative verb."
+   }
+  ]
+ },
+ {
+  "group": 31,
+  "members": [
+   {
+    "idx": 45,
+    "statement": "Lead each paragraph with an opening sentence that states its central point, because readers focus on (and may read only) the first sentence."
+   },
+   {
+    "idx": 48,
+    "statement": "Ensure each substantive paragraph answers what you are telling the reader, why it matters, and how the reader should use that knowledge."
+   },
+   {
+    "idx": 60,
+    "statement": "Summarize key points at the start so the opening answers readers' essential questions, and be prepared to revise that opening page many times."
+   }
+  ]
+ },
+ {
+  "group": 37,
+  "members": [
+   {
+    "idx": 53,
+    "statement": "Write to fill the gap between what the audience needs to know and what they already know."
+   },
+   {
+    "idx": 55,
+    "statement": "List everything the audience must learn to reach their goal, respect prerequisite task ordering, and match vocabulary to the audience, explaining more as the audience widens."
+   },
+   {
+    "idx": 61,
+    "statement": "Explain new ideas by comparing and contrasting them with concepts the audience already understands."
+   }
+  ]
+ },
+ {
+  "group": 42,
+  "members": [
+   {
+    "idx": 59,
+    "statement": "Explicitly state the document's audience, including any prerequisite knowledge, experience, or required prior reading."
+   },
+   {
+    "idx": 62,
+    "statement": "Determine content by answering who the audience is, their goal, what they know before reading, and what they should know or do after; then organize the document to deliver exactly that."
+   },
+   {
+    "idx": 65,
+    "statement": "Read your draft from the audience's point of view, optionally using an audience persona, but do not rely so heavily on a persona that the document becomes too narrowly focused."
+   }
+  ]
+ },
+ {
+  "group": 49,
+  "members": [
+   {
+    "idx": 72,
+    "statement": "Provide navigation and signposting (introduction and summary, logical flow, headings, a table of contents, and related/next links); prefer task-based headings over jargon, give each heading a brief introduction, and do not stack a level-three heading directly under a level-two heading."
+   },
+   {
+    "idx": 73,
+    "statement": "Disclose information progressively: introduce new terms next to the instructions that use them, break walls of text with tables, lists, and headings, split long step lists into sub-tasks, and move from simple to complex."
+   }
+  ]
+ },
+ {
+  "group": 50,
+  "members": [
+   {
+    "idx": 74,
+    "statement": "Use illustrations that are instructive, not merely decorative, because only instructive graphics help readers learn (any graphic makes readers like a document more)."
+   },
+   {
+    "idx": 77,
+    "statement": "Focus the reader with a pattern-breaking visual cue or callout, and revise illustrations as you would prose: simplify, split when needed, ensure readable and contrasting text, and confirm the takeaway."
+   }
+  ]
+ },
+ {
+  "group": 54,
+  "members": [
+   {
+    "idx": 79,
+    "statement": "Make sample code correct, concise, understandable, and reusable with minimal side effects: it must build, perform its claimed task, be as production-ready as possible (no security vulnerabilities), follow language conventions, and model the team's best way to do the task."
+   },
+   {
+    "idx": 80,
+    "statement": "Test and maintain sample code like production code; do not repurpose unit tests as samples (their goals differ), and prefer full sample programs over snippets, which are tested less and degrade over time."
+   },
+   {
+    "idx": 81,
+    "statement": "Explain how to run sample code and describe its expected output, especially when it is hard to run; keep samples short but never sacrifice correctness or good practice for brevity."
+   },
+   {
+    "idx": 82,
+    "statement": "Make samples readable (descriptive names, no hard-to-decipher tricks, no deep nesting, judicious highlighting) and well-commented: short comments that favor clarity, explaining non-obvious parts and, for experts, why rather than what; put notes that belong with pasted code in code comments and lengthy explanations in the surrounding text."
+   }
+  ]
+ },
+ {
+  "group": 57,
+  "members": [
+   {
+    "idx": 85,
+    "statement": "Write LLM prompts the way you write good technical documentation: clearly and specifically."
+   },
+   {
+    "idx": 86,
+    "statement": "Because LLMs answer best on topics they already 'know', supply any specific information the model lacks through the prompt or attachments (documents, source code, transcripts, diagrams)."
+   },
+   {
+    "idx": 92,
+    "statement": "When revising with an LLM, fix organizational issues before grammar and style, and give a clear, detailed reorganization prompt rather than a vague one."
+   }
+  ]
+ },
+ {
+  "group": 58,
+  "members": [
+   {
+    "idx": 87,
+    "statement": "In a generation prompt, specify a role (whoever could best teach the topic to the audience), the target audience, the document type, and the document's goal."
+   },
+   {
+    "idx": 90,
+    "statement": "Iterate on prompts (checking they name a role, audience, and document type and are specific and clear), but when a response is very good, edit it yourself rather than endlessly refining the prompt."
+   }
+  ]
+ },
+ {
+  "group": 65,
+  "members": [
+   {
+    "idx": 96,
+    "statement": "When collecting docs-like-code case studies, elicit the concrete repository, deliverable, audience, workflow, automation, benefit, risk, migration, and missed-question details that another team could act on."
+   },
+   {
+    "idx": 97,
+    "statement": "If documentation source lives inside product code, give writers the same practical workflow access needed for code exploration, code review, build validation, and version control."
+   },
+   {
+    "idx": 119,
+    "statement": "Scale internal docs-like-code platforms by reusing existing engineering infrastructure and optimizing for the engineering workflow rather than fragmenting work across unrelated document tools."
+   },
+   {
+    "idx": 128,
+    "statement": "Keep large cross-team tutorials in docs-like-code by adding explicit ownership metadata, notification automation, and dependency tracking around the content."
+   }
+  ]
+ },
+ {
+  "group": 67,
+  "members": [
+   {
+    "idx": 100,
+    "statement": "In concurrent source-control workflows, keep documentation edits to shared code files small enough to move through review, build validation, and check-in before merge risk grows."
+   },
+   {
+    "idx": 102,
+    "statement": "Before adopting a docs-in-code workflow, plan for writer capacity, backup ownership, load balancing, and the cost of moving between developer and documentation toolchains."
+   },
+   {
+    "idx": 115,
+    "statement": "Let documentation branch strategy evolve with the project, choosing merge or rebase based on how simultaneous work needs to stay aligned."
+   }
+  ]
+ },
+ {
+  "group": 71,
+  "members": [
+   {
+    "idx": 106,
+    "statement": "Use static-site metadata and templates to preserve simple Markdown authoring while supporting shared content, product-specific pages, and build-time includes."
+   },
+   {
+    "idx": 120,
+    "statement": "Protect a frictionless path from authoring to published docs by minimizing required metadata, build-breaking extras, and static-site configuration, especially during new service setup."
+   }
+  ]
+ },
+ {
+  "group": 73,
+  "members": [
+   {
+    "idx": 112,
+    "statement": "Use the organization's normal collaboration platform for documentation when it improves internal alignment, lowers contribution friction, and supports visible external contributor credit."
+   },
+   {
+    "idx": 113,
+    "statement": "Give documentation readers direct contribution paths from the site into edits, issue reports, or content suggestions with enough context prefilled for action."
+   }
+  ]
+ }
+]
