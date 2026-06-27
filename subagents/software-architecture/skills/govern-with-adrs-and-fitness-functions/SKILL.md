@@ -17,10 +17,10 @@ provenance:
   - E00006
   - E00019
   source_anchors:
-  - 6b15bd8cd9ba-c0005
-  - 6b15bd8cd9ba-c0000
-  - 6b15bd8cd9ba-c0001
-  authored_from_digest: acae6d946b8a59fbebb037dc657223f58e983c70a917fcd19825c4662dff4ada
+  - 508117177502-c0011
+  - 508117177502-c0001
+  - 508117177502-c0003
+  authored_from_digest: 75916a987bfa8203f7ea238503c936f910793ed0281fb93f7e06bb43e807d79b
 ---
 
 # Govern with ADRs and fitness functions

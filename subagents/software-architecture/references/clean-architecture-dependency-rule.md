@@ -29,10 +29,11 @@ provenance:
   - E00081
   - E00082
   source_anchors:
-  - a547bab6dbc6-c0002
-  - a547bab6dbc6-c0000
-  - a547bab6dbc6-c0001
-  authored_from_digest: e83cb00ea35d16aa68181bb0c24f0d62db15223851b0a117f3e7d6a8ca8a8fa3
+  - 91e37e1ca511-c0006
+  - 91e37e1ca511-c0001
+  - 91e37e1ca511-c0002
+  - 91e37e1ca511-c0004
+  authored_from_digest: b6a94cb6f41308561979e338a799ec5b05bbd92440445a348daa1782f663d214
 ---
 
 # Clean Architecture: the Dependency Rule and details-as-plugins

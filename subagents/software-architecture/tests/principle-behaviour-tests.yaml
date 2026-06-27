@@ -7,8 +7,8 @@ principle_behaviour_tests:
   mode: advise
   prompt: How do we stop our key architecture characteristics from eroding over time?
   expected_behaviour:
-  - Recommends governing characteristics with fitness functions as objective integrity checks, with developers
-    understanding their purpose.
+  - Recommends governing characteristics with fitness functions as objective integrity
+    checks, with developers understanding their purpose.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P001.
   must_not:
@@ -16,11 +16,11 @@ principle_behaviour_tests:
 - test_id: PB-P002
   principle_id: P002
   mode: review
-  prompt: We're drawing service boundaries by team org chart. What unit should we actually reason about
-    for coupling and granularity?
+  prompt: We're drawing service boundaries by team org chart. What unit should we
+    actually reason about for coupling and granularity?
   expected_behaviour:
-  - Anchors the analysis on the architecture quantum (independently deployable, cohesive, statically coupled)
-    as the unit for boundaries and granularity.
+  - Anchors the analysis on the architecture quantum (independently deployable, cohesive,
+    statically coupled) as the unit for boundaries and granularity.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P002.
   must_not:
@@ -28,9 +28,11 @@ principle_behaviour_tests:
 - test_id: PB-P003
   principle_id: P003
   mode: advise
-  prompt: Our design assumes one big server but we expect 10x growth. How should we architect for that?
+  prompt: Our design assumes one big server but we expect 10x growth. How should we
+    architect for that?
   expected_behaviour:
-  - Recommends designing to scale out horizontally from the outset so growth needs no architectural redesign.
+  - Recommends designing to scale out horizontally from the outset so growth needs
+    no architectural redesign.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P003.
   must_not:
@@ -40,8 +42,8 @@ principle_behaviour_tests:
   mode: advise
   prompt: We made a major architecture decision verbally. How should we record it?
   expected_behaviour:
-  - Recommends an ADR stating the decision affirmatively with Context, Decision, Consequences, recording
-    the why, trade-offs, and business value.
+  - Recommends an ADR stating the decision affirmatively with Context, Decision, Consequences,
+    recording the why, trade-offs, and business value.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P004.
   must_not:
@@ -49,21 +51,24 @@ principle_behaviour_tests:
 - test_id: PB-P005
   principle_id: P005
   mode: review
-  prompt: We split the system into 200 nano-services, one per function. Review the granularity.
+  prompt: We split the system into 200 nano-services, one per function. Review the
+    granularity.
   expected_behaviour:
-  - Weighs granularity in both directions — too fine forces transaction/orchestration and inter-service
-    calls; right-sizes to forces.
+  - Weighs granularity in both directions — too fine forces transaction/orchestration
+    and inter-service calls; right-sizes to forces.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P005.
   must_not:
-  - Endorse extreme fine granularity without weighing transaction and orchestration cost.
+  - Endorse extreme fine granularity without weighing transaction and orchestration
+    cost.
 - test_id: PB-P006
   principle_id: P006
   mode: advise
-  prompt: Just tell me the single best architecture for our new system — one answer, no caveats.
+  prompt: Just tell me the single best architecture for our new system — one answer,
+    no caveats.
   expected_behaviour:
-  - Declines a universal best and frames the choice as a trade-off, naming what each option gains and
-    sacrifices.
+  - Declines a universal best and frames the choice as a trade-off, naming what each
+    option gains and sacrifices.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P006.
   must_not:
@@ -71,11 +76,11 @@ principle_behaviour_tests:
 - test_id: PB-P007
   principle_id: P007
   mode: advise
-  prompt: We're building event-driven order processing that needs multi-step orchestration. Mediator or
-    broker topology?
+  prompt: We're building event-driven order processing that needs multi-step orchestration.
+    Mediator or broker topology?
   expected_behaviour:
-  - Recommends the mediator topology for central multi-step orchestration (broker when events chain without
-    it).
+  - Recommends the mediator topology for central multi-step orchestration (broker
+    when events chain without it).
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P007.
   must_not:
@@ -83,10 +88,12 @@ principle_behaviour_tests:
 - test_id: PB-P008
   principle_id: P008
   mode: review
-  prompt: 'We are making an architecture decision where this could apply (context: evaluating a proposed
-    universal rule or ''always X'' guidance). Give your guidance and name the principle at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    evaluating a proposed universal rule or ''always X'' guidance). Give your guidance
+    and name the principle at stake.'
   expected_behaviour:
-  - 'Applies the principle: Reject silver-bullet solutions and blanket ''decouple everything'' advice.'
+  - 'Applies the principle: Reject silver-bullet solutions and blanket ''decouple
+    everything'' advice.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P008.
   must_not:
@@ -94,10 +101,11 @@ principle_behaviour_tests:
 - test_id: PB-P009
   principle_id: P009
   mode: advise
-  prompt: The app feels slow so the team wants to rewrite the hot loop. What should we do first?
+  prompt: The app feels slow so the team wants to rewrite the hot loop. What should
+    we do first?
   expected_behaviour:
-  - Insists on profiling on our own configuration to find the true bottleneck and measuring before and
-    after any change.
+  - Insists on profiling on our own configuration to find the true bottleneck and
+    measuring before and after any change.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P009.
   must_not:
@@ -107,8 +115,8 @@ principle_behaviour_tests:
   mode: review
   prompt: We only have host CPU and memory dashboards. Review our monitoring.
   expected_behaviour:
-  - Calls for multi-level monitoring led by business metrics top-down plus systems/app metrics bottom-up,
-    evolving with the architecture.
+  - Calls for multi-level monitoring led by business metrics top-down plus systems/app
+    metrics bottom-up, evolving with the architecture.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P010.
   must_not:
@@ -116,11 +124,13 @@ principle_behaviour_tests:
 - test_id: PB-P011
   principle_id: P011
   mode: advise
-  prompt: 'We are making an architecture decision where this could apply (context: serving dynamic or
-    static web content). Give your guidance and name the principle at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    serving dynamic or static web content). Give your guidance and name the principle
+    at stake.'
   expected_behaviour:
-  - 'Applies the principle: Deploy page caches (reverse proxy caches) in front of web servers - especially
-    for dynamic content - and use ETags with conditional GETs to maximize cacheability across proxies.'
+  - 'Applies the principle: Deploy page caches (reverse proxy caches) in front of
+    web servers - especially for dynamic content - and use ETags with conditional
+    GETs to maximize cacheability across proxies.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P011.
   must_not:
@@ -130,8 +140,8 @@ principle_behaviour_tests:
   mode: review
   prompt: We pin each user to one server to keep session state in local memory. Review.
   expected_behaviour:
-  - Prefers keeping unavoidable session data in the user's browser via small cookies so any pooled server
-    can serve, secured over HTTPS.
+  - Prefers keeping unavoidable session data in the user's browser via small cookies
+    so any pooled server can serve, secured over HTTPS.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P012.
   must_not:
@@ -139,8 +149,9 @@ principle_behaviour_tests:
 - test_id: PB-P013
   principle_id: P013
   mode: compare
-  prompt: 'We are making an architecture decision where this could apply (context: designing a microservices
-    architecture). Give your guidance and name the principle at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    designing a microservices architecture). Give your guidance and name the principle
+    at stake.'
   expected_behaviour:
   - 'Applies the principle: Do not build transactions across microservice boundaries.'
   - States the trade-off or consequence, not a one-sided answer.
@@ -152,8 +163,8 @@ principle_behaviour_tests:
   mode: review
   prompt: We detect concurrent edits by comparing a last-modified timestamp. Review.
   expected_behaviour:
-  - Recommends Optimistic Offline Lock on a per-record version count, acquired in the same transaction
-    that commits.
+  - Recommends Optimistic Offline Lock on a per-record version count, acquired in
+    the same transaction that commits.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P014.
   must_not:
@@ -161,11 +172,12 @@ principle_behaviour_tests:
 - test_id: PB-P015
   principle_id: P015
   mode: advise
-  prompt: 'We are making an architecture decision where this could apply (context: specifying an architecture
-    characteristic to govern or test). Give your guidance and name the principle at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    specifying an architecture characteristic to govern or test). Give your guidance
+    and name the principle at stake.'
   expected_behaviour:
-  - 'Applies the principle: Define each architecture characteristic objectively and measurably before
-    testing it, decomposing composite characteristics (e.'
+  - 'Applies the principle: Define each architecture characteristic objectively and
+    measurably before testing it, decomposing composite characteristics (e.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P015.
   must_not:
@@ -173,10 +185,11 @@ principle_behaviour_tests:
 - test_id: PB-P016
   principle_id: P016
   mode: review
-  prompt: Our core business rules import the ORM and call the web framework directly. Review.
+  prompt: Our core business rules import the ORM and call the web framework directly.
+    Review.
   expected_behaviour:
-  - Separates policy (business rules) from details (IO, DB, web, frameworks), keeps details out of the
-    core, and defers detail decisions.
+  - Separates policy (business rules) from details (IO, DB, web, frameworks), keeps
+    details out of the core, and defers detail decisions.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P016.
   must_not:
@@ -184,10 +197,11 @@ principle_behaviour_tests:
 - test_id: PB-P017
   principle_id: P017
   mode: advise
-  prompt: Read traffic is ~10x writes and the single database is saturating. How do we scale transactions?
+  prompt: Read traffic is ~10x writes and the single database is saturating. How do
+    we scale transactions?
   expected_behaviour:
-  - Recommends X-axis cloning of stateless services and read replicas behind a load balancer, starting
-    with an object cache.
+  - Recommends X-axis cloning of stateless services and read replicas behind a load
+    balancer, starting with an object cache.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P017.
   must_not:
@@ -195,12 +209,12 @@ principle_behaviour_tests:
 - test_id: PB-P018
   principle_id: P018
   mode: review
-  prompt: We are making an architecture decision where this could apply. Give your guidance and name the
-    principle at stake.
+  prompt: We are making an architecture decision where this could apply. Give your
+    guidance and name the principle at stake.
   expected_behaviour:
-  - 'Applies the principle: Design for testability by applying the Humble Object pattern to split hard-to-test
-    from easy-to-test behavior, and never depend on volatile things such as the GUI when testing business
-    rules.'
+  - 'Applies the principle: Design for testability by applying the Humble Object pattern
+    to split hard-to-test from easy-to-test behavior, and never depend on volatile
+    things such as the GUI when testing business rules.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P018.
   must_not:
@@ -208,12 +222,13 @@ principle_behaviour_tests:
 - test_id: PB-P019
   principle_id: P019
   mode: advise
-  prompt: 'We are making an architecture decision where this could apply (context: serving any cacheable
-    object type). Give your guidance and name the principle at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    serving any cacheable object type). Give your guidance and name the principle
+    at stake.'
   expected_behaviour:
-  - 'Applies the principle: Make Ajax calls cacheable via Last-Modified/Cache-Control/Expires headers,
-    set Cache-Control public for non-private data, and reference objects by stable atomic IDs rather than
-    relative offsets.'
+  - 'Applies the principle: Make Ajax calls cacheable via Last-Modified/Cache-Control/Expires
+    headers, set Cache-Control public for non-private data, and reference objects
+    by stable atomic IDs rather than relative offsets.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P019.
   must_not:
@@ -223,8 +238,8 @@ principle_behaviour_tests:
   mode: review
   prompt: We put logs, sessions, and analytics all in our relational database. Review.
   expected_behaviour:
-  - Chooses storage by the data's needs, reserving an RDBMS for ACID/relationships and preferring file
-    systems or NoSQL otherwise.
+  - Chooses storage by the data's needs, reserving an RDBMS for ACID/relationships
+    and preferring file systems or NoSQL otherwise.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P020.
   must_not:
@@ -232,11 +247,11 @@ principle_behaviour_tests:
 - test_id: PB-P021
   principle_id: P021
   mode: compare
-  prompt: We are making an architecture decision where this could apply. Give your guidance and name the
-    principle at stake.
+  prompt: We are making an architecture decision where this could apply. Give your
+    guidance and name the principle at stake.
   expected_behaviour:
-  - 'Applies the principle: Select an architecture style by context, treating each style as a known set
-    of trade-offs.'
+  - 'Applies the principle: Select an architecture style by context, treating each
+    style as a known set of trade-offs.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P021.
   must_not:
@@ -244,12 +259,12 @@ principle_behaviour_tests:
 - test_id: PB-P022
   principle_id: P022
   mode: advise
-  prompt: We are making an architecture decision where this could apply. Give your guidance and name the
-    principle at stake.
+  prompt: We are making an architecture decision where this could apply. Give your
+    guidance and name the principle at stake.
   expected_behaviour:
-  - 'Applies the principle: Classify a concern as an architecture characteristic only when it specifies
-    a nondomain consideration, influences structure, is critical to success, and needs special structural
-    support.'
+  - 'Applies the principle: Classify a concern as an architecture characteristic only
+    when it specifies a nondomain consideration, influences structure, is critical
+    to success, and needs special structural support.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P022.
   must_not:
@@ -257,10 +272,11 @@ principle_behaviour_tests:
 - test_id: PB-P023
   principle_id: P023
   mode: review
-  prompt: Our distributed design assumes the network is reliable and latency is zero. Review.
+  prompt: Our distributed design assumes the network is reliable and latency is zero.
+    Review.
   expected_behaviour:
-  - Applies the eight fallacies of distributed computing: unreliable network, real latency, minimal data,
-      secured endpoints, higher cost.
+  - Applies the eight fallacies of distributed computing: unreliable network, real
+      latency, minimal data, secured endpoints, higher cost.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P023.
   must_not:
@@ -268,10 +284,11 @@ principle_behaviour_tests:
 - test_id: PB-P024
   principle_id: P024
   mode: advise
-  prompt: Services call each other in long synchronous request chains across teams. How do we loosen coupling?
+  prompt: Services call each other in long synchronous request chains across teams.
+    How do we loosen coupling?
   expected_behaviour:
-  - Recommends composing services through events (notification and state transfer) rather than chains
-    of commands and queries.
+  - Recommends composing services through events (notification and state transfer)
+    rather than chains of commands and queries.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P024.
   must_not:
@@ -279,10 +296,11 @@ principle_behaviour_tests:
 - test_id: PB-P025
   principle_id: P025
   mode: review
-  prompt: A change in one service keeps forcing changes in three others. Analyze the coupling.
+  prompt: A change in one service keeps forcing changes in three others. Analyze the
+    coupling.
   expected_behaviour:
-  - Uses one coupling definition (a change forces a change) and separates static (wiring) from dynamic
-    (runtime call) coupling.
+  - Uses one coupling definition (a change forces a change) and separates static (wiring)
+    from dynamic (runtime call) coupling.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P025.
   must_not:
@@ -290,21 +308,24 @@ principle_behaviour_tests:
 - test_id: PB-P026
   principle_id: P026
   mode: advise
-  prompt: A read-process-send step runs entirely through Kafka and must not emit duplicates. How?
+  prompt: A read-process-send step runs entirely through Kafka and must not emit duplicates.
+    How?
   expected_behaviour:
-  - Recommends Kafka transactions tying state-store writes to sends for exactly-once within Kafka-only
-    chains, not across external systems.
+  - Recommends Kafka transactions tying state-store writes to sends for exactly-once
+    within Kafka-only chains, not across external systems.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P026.
   must_not:
-  - Claim Kafka transactions give exactly-once across external systems or post-commit rollback.
+  - Claim Kafka transactions give exactly-once across external systems or post-commit
+    rollback.
 - test_id: PB-P027
   principle_id: P027
   mode: advise
-  prompt: We cannot afford to lose payment messages if a broker restarts. How do we deliver reliably?
+  prompt: We cannot afford to lose payment messages if a broker restarts. How do we
+    deliver reliably?
   expected_behaviour:
-  - Recommends store-and-forward with automatic retry and Guaranteed Delivery persisting messages to disk,
-    accepting the performance cost.
+  - Recommends store-and-forward with automatic retry and Guaranteed Delivery persisting
+    messages to disk, accepting the performance cost.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P027.
   must_not:
@@ -312,10 +333,11 @@ principle_behaviour_tests:
 - test_id: PB-P028
   principle_id: P028
   mode: review
-  prompt: Our web page loads 120 separate CSS, JS, and image requests. Review for performance.
+  prompt: Our web page loads 120 separate CSS, JS, and image requests. Review for
+    performance.
   expected_behaviour:
-  - Reduces and combines page objects (sprites, combined CSS/JS), balanced against parallel connections,
-    verified across browsers/speeds.
+  - Reduces and combines page objects (sprites, combined CSS/JS), balanced against
+    parallel connections, verified across browsers/speeds.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P028.
   must_not:
@@ -323,11 +345,11 @@ principle_behaviour_tests:
 - test_id: PB-P029
   principle_id: P029
   mode: advise
-  prompt: We want to guarantee an item stays reserved between viewing and checkout across the cluster.
-    How?
+  prompt: We want to guarantee an item stays reserved between viewing and checkout
+    across the cluster. How?
   expected_behaviour:
-  - Relaxes the temporal constraint, adopts eventual consistency (BASE), and locks inventory at add-to-cart
-    on the master, not on view.
+  - Relaxes the temporal constraint, adopts eventual consistency (BASE), and locks
+    inventory at add-to-cart on the master, not on view.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P029.
   must_not:
@@ -337,8 +359,8 @@ principle_behaviour_tests:
   mode: advise
   prompt: How should an architect keep their technology knowledge current?
   expected_behaviour:
-  - Values technical breadth over depth, maintained via habits like the 20-minute rule and a personal
-    technology radar/portfolio.
+  - Values technical breadth over depth, maintained via habits like the 20-minute
+    rule and a personal technology radar/portfolio.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P030.
   must_not:
@@ -346,13 +368,14 @@ principle_behaviour_tests:
 - test_id: PB-P031
   principle_id: P031
   mode: compare
-  prompt: 'We are making an architecture decision where this could apply (context: building a product-based
-    or pluggable application that releases features over time). Give your guidance and name the principle
-    at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    building a product-based or pluggable application that releases features over
+    time). Give your guidance and name the principle at stake.'
   expected_behaviour:
-  - 'Applies the principle: For product-based applications that ship features over time and need per-user
-    feature control, make the microkernel (plug-in) pattern the first-choice starting architecture, leveraging
-    its support for incremental, evolutionary development.'
+  - 'Applies the principle: For product-based applications that ship features over
+    time and need per-user feature control, make the microkernel (plug-in) pattern
+    the first-choice starting architecture, leveraging its support for incremental,
+    evolutionary development.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P031.
   must_not:
@@ -362,8 +385,8 @@ principle_behaviour_tests:
   mode: review
   prompt: After every write we read the row back to confirm it saved. Review.
   expected_behaviour:
-  - Acts on the write's error code instead of reading back, protects with HA and multiple copies, and
-    caches written data locally if reused.
+  - Acts on the write's error code instead of reading back, protects with HA and multiple
+    copies, and caches written data locally if reused.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P032.
   must_not:
@@ -371,10 +394,11 @@ principle_behaviour_tests:
 - test_id: PB-P033
   principle_id: P033
   mode: advise
-  prompt: Users worldwide repeatedly hit our origin for the same content. How do we cut latency and load?
+  prompt: Users worldwide repeatedly hit our origin for the same content. How do we
+    cut latency and load?
   expected_behaviour:
-  - Pushes caching toward the client and network edge (cookie, Anycast nearest cluster), securing cookie
-    data with encryption and a digest.
+  - Pushes caching toward the client and network edge (cookie, Anycast nearest cluster),
+    securing cookie data with encryption and a digest.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P033.
   must_not:
@@ -384,8 +408,8 @@ principle_behaviour_tests:
   mode: advise
   prompt: We run a costly hot/cold two-site DR pair. Is there a better topology?
   expected_behaviour:
-  - Recommends three or more live data centers to lower cost, raise availability, and provide DR, reusing
-    idle capacity.
+  - Recommends three or more live data centers to lower cost, raise availability,
+    and provide DR, reusing idle capacity.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P034.
   must_not:
@@ -395,8 +419,8 @@ principle_behaviour_tests:
   mode: review
   prompt: We'll design the schema later and refactor as we go. Review that plan.
   expected_behaviour:
-  - Plans the data model up front because relationships dictate splitting and a broken model costs ~100x;
-    reviews queries with a DBA.
+  - Plans the data model up front because relationships dictate splitting and a broken
+    model costs ~100x; reviews queries with a DBA.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P035.
   must_not:
@@ -406,8 +430,8 @@ principle_behaviour_tests:
   mode: review
   prompt: Our spec lists 15 must-have architecture characteristics. Review.
   expected_behaviour:
-  - Keeps the driving characteristics list short, warning that over-specifying adds complexity just as
-    damaging as under-specifying.
+  - Keeps the driving characteristics list short, warning that over-specifying adds
+    complexity just as damaging as under-specifying.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P036.
   must_not:
@@ -415,10 +439,11 @@ principle_behaviour_tests:
 - test_id: PB-P037
   principle_id: P037
   mode: compare
-  prompt: 'Choose our top-level architecture pattern: layered vs microservices vs event-driven.'
+  prompt: 'Choose our top-level architecture pattern: layered vs microservices vs
+    event-driven.'
   expected_behaviour:
-  - Matches each pattern's characteristic ratings to the app's prioritized qualities and justifies the
-    choice as expensive to reverse.
+  - Matches each pattern's characteristic ratings to the app's prioritized qualities
+    and justifies the choice as expensive to reverse.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P037.
   must_not:
@@ -426,11 +451,11 @@ principle_behaviour_tests:
 - test_id: PB-P038
   principle_id: P038
   mode: advise
-  prompt: We are making an architecture decision where this could apply. Give your guidance and name the
-    principle at stake.
+  prompt: We are making an architecture decision where this could apply. Give your
+    guidance and name the principle at stake.
   expected_behaviour:
-  - 'Applies the principle: Minimize connascence that crosses encapsulation boundaries and maximize connascence
-    within them.'
+  - 'Applies the principle: Minimize connascence that crosses encapsulation boundaries
+    and maximize connascence within them.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P038.
   must_not:
@@ -440,8 +465,8 @@ principle_behaviour_tests:
   mode: review
   prompt: Every service-to-service call in our request path is synchronous. Review.
   expected_behaviour:
-  - Communicates asynchronously wherever possible to decouple services, applying async to external/long-running/error-prone
-    calls with timeouts on the rest.
+  - Communicates asynchronously wherever possible to decouple services, applying async
+    to external/long-running/error-prone calls with timeouts on the rest.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P039.
   must_not:
@@ -451,8 +476,8 @@ principle_behaviour_tests:
   mode: review
   prompt: Our inner domain code imports the web-controller package. Review.
   expected_behaviour:
-  - Enforces the Dependency Rule: all source-code dependencies point inward toward higher-level policy;
-      nothing inner names anything outer.
+  - Enforces the Dependency Rule: all source-code dependencies point inward toward
+      higher-level policy; nothing inner names anything outer.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P040.
   must_not:
@@ -460,10 +485,11 @@ principle_behaviour_tests:
 - test_id: PB-P041
   principle_id: P041
   mode: review
-  prompt: High-level policy classes instantiate concrete low-level classes directly. Review.
+  prompt: High-level policy classes instantiate concrete low-level classes directly.
+    Review.
   expected_behaviour:
-  - Recommends depending on abstractions, inverting dependencies with interfaces so source dependencies
-    oppose the flow of control.
+  - Recommends depending on abstractions, inverting dependencies with interfaces so
+    source dependencies oppose the flow of control.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P041.
   must_not:
@@ -473,8 +499,8 @@ principle_behaviour_tests:
   mode: review
   prompt: One class serves accounting, operations, and DBA reporting at once. Review.
   expected_behaviour:
-  - Gives each module one reason to change by making it responsible to a single actor, separating code
-    that serves different actors.
+  - Gives each module one reason to change by making it responsible to a single actor,
+    separating code that serves different actors.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P042.
   must_not:
@@ -484,8 +510,8 @@ principle_behaviour_tests:
   mode: advise
   prompt: How should we group our classes into components and packages?
   expected_behaviour:
-  - Composes for cohesion via REP/CCP/CRP — grouping classes that change and are reused together — balancing
-    the tension for current concerns.
+  - Composes for cohesion via REP/CCP/CRP — grouping classes that change and are reused
+    together — balancing the tension for current concerns.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P043.
   must_not:
@@ -493,10 +519,11 @@ principle_behaviour_tests:
 - test_id: PB-P044
   principle_id: P044
   mode: review
-  prompt: Our package dependency graph has cycles and stable packages depend on volatile ones. Review.
+  prompt: Our package dependency graph has cycles and stable packages depend on volatile
+    ones. Review.
   expected_behaviour:
-  - Keeps the dependency graph acyclic (ADP), depends toward stability (SDP), and makes each component
-    as abstract as it is stable (SAP).
+  - Keeps the dependency graph acyclic (ADP), depends toward stability (SDP), and
+    makes each component as abstract as it is stable (SAP).
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P044.
   must_not:
@@ -504,10 +531,11 @@ principle_behaviour_tests:
 - test_id: PB-P045
   principle_id: P045
   mode: advise
-  prompt: Lock contention is killing throughput on our relational database. How do we manage locks?
+  prompt: Lock contention is killing throughput on our relational database. How do
+    we manage locks?
   expected_behaviour:
-  - Matches lock granularity to the write, trusts then overrides the optimizer from production monitoring,
-    reduces contention via AKF splits.
+  - Matches lock granularity to the write, trusts then overrides the optimizer from
+    production monitoring, reduces contention via AKF splits.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P045.
   must_not:
@@ -517,8 +545,8 @@ principle_behaviour_tests:
   mode: review
   prompt: Our layered app lets any layer call any other layer. Review.
   expected_behaviour:
-  - Keeps layers closed by default for layers-of-isolation, opening a layer only as a deliberate, documented
-    decision.
+  - Keeps layers closed by default for layers-of-isolation, opening a layer only as
+    a deliberate, documented decision.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P046.
   must_not:
@@ -526,10 +554,11 @@ principle_behaviour_tests:
 - test_id: PB-P047
   principle_id: P047
   mode: advise
-  prompt: Many services and teams need the same core dataset. How should we share it?
+  prompt: Many services and teams need the same core dataset. How should we share
+    it?
   expected_behaviour:
-  - Shares 'data on the outside' through a replayable log (part messaging, part database), not a shared
-    database or ephemeral messaging.
+  - Shares 'data on the outside' through a replayable log (part messaging, part database),
+    not a shared database or ephemeral messaging.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P047.
   must_not:
@@ -537,10 +566,11 @@ principle_behaviour_tests:
 - test_id: PB-P048
   principle_id: P048
   mode: advise
-  prompt: Multiple services update the same entity concurrently. How do we prevent conflicts?
+  prompt: Multiple services update the same entity concurrently. How do we prevent
+    conflicts?
   expected_behaviour:
-  - Applies the single writer principle: exactly one owning service propagates each data type or state
-      transition.
+  - Applies the single writer principle: exactly one owning service propagates each
+      data type or state transition.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P048.
   must_not:
@@ -548,11 +578,11 @@ principle_behaviour_tests:
 - test_id: PB-P049
   principle_id: P049
   mode: advise
-  prompt: Our read and write workloads have very different shapes and scaling needs. How do we optimize
-    both?
+  prompt: Our read and write workloads have very different shapes and scaling needs.
+    How do we optimize both?
   expected_behaviour:
-  - Applies CQRS: separate write and read models linked asynchronously, each optimized independently,
-      with a blocking read for read-your-writes.
+  - Applies CQRS: separate write and read models linked asynchronously, each optimized
+      independently, with a blocking read for read-your-writes.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P049.
   must_not:
@@ -560,10 +590,11 @@ principle_behaviour_tests:
 - test_id: PB-P050
   principle_id: P050
   mode: advise
-  prompt: Independently deployed services share message schemas that will change. How do we evolve safely?
+  prompt: Independently deployed services share message schemas that will change.
+    How do we evolve safely?
   expected_behaviour:
-  - Manages schema evolution with a compatibility-validating format (Avro) plus a Schema Registry, handling
-    breaks via a Dual Schema Upgrade Window.
+  - Manages schema evolution with a compatibility-validating format (Avro) plus a
+    Schema Registry, handling breaks via a Dual Schema Upgrade Window.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P050.
   must_not:
@@ -573,8 +604,8 @@ principle_behaviour_tests:
   mode: review
   prompt: We designed our remote service calls just like local method calls. Review.
   expected_behaviour:
-  - Treats integration unlike a single app: remote calls are far slower and can fail, so it accounts for
-      latency, partial failure, heterogeneity.
+  - Treats integration unlike a single app: remote calls are far slower and can fail,
+      so it accounts for latency, partial failure, heterogeneity.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P051.
   must_not:
@@ -584,8 +615,8 @@ principle_behaviour_tests:
   mode: advise
   prompt: A sender needs a response back over messaging. How should we design it?
   expected_behaviour:
-  - Uses Request-Reply with a Return Address for the reply channel and a Correlation Identifier matching
-    reply to request.
+  - Uses Request-Reply with a Return Address for the reply channel and a Correlation
+    Identifier matching reply to request.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P052.
   must_not:
@@ -593,11 +624,11 @@ principle_behaviour_tests:
 - test_id: PB-P053
   principle_id: P053
   mode: advise
-  prompt: How do we connect our application and domain code to the messaging system without coupling them
-    to it?
+  prompt: How do we connect our application and domain code to the messaging system
+    without coupling them to it?
   expected_behaviour:
-  - Isolates the app behind a Message Endpoint built as a Messaging Gateway, using a Messaging Mapper
-    so domain objects stay unaware of messaging.
+  - Isolates the app behind a Message Endpoint built as a Messaging Gateway, using
+    a Messaging Mapper so domain objects stay unaware of messaging.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P053.
   must_not:
@@ -605,10 +636,11 @@ principle_behaviour_tests:
 - test_id: PB-P054
   principle_id: P054
   mode: compare
-  prompt: We added a load balancer over two nodes, so we have high availability now, right?
+  prompt: We added a load balancer over two nodes, so we have high availability now,
+    right?
   expected_behaviour:
-  - Decouples high availability (resilience) from load balancing (combining resources for load) as orthogonal
-    concerns designed separately.
+  - Decouples high availability (resilience) from load balancing (combining resources
+    for load) as orthogonal concerns designed separately.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P054.
   must_not:
@@ -618,8 +650,8 @@ principle_behaviour_tests:
   mode: review
   prompt: This design has nine layers and six message buses for a small app. Review.
   expected_behaviour:
-  - Guards against overengineering and tests understandability by having engineers explain the design
-    to peers of varying experience.
+  - Guards against overengineering and tests understandability by having engineers
+    explain the design to peers of varying experience.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P055.
   must_not:
@@ -629,8 +661,8 @@ principle_behaviour_tests:
   mode: advise
   prompt: How do we make every release safely reversible?
   expected_behaviour:
-  - Designs every release rollback-capable: additive-only DB changes, scripted/tested rollback under load,
-      wire-on/off flags, disambiguated SQL.
+  - Designs every release rollback-capable: additive-only DB changes, scripted/tested
+      rollback under load, wire-on/off flags, disambiguated SQL.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P056.
   must_not:
@@ -640,8 +672,8 @@ principle_behaviour_tests:
   mode: advise
   prompt: How do we split services and databases so one failure can't cascade?
   expected_behaviour:
-  - Designs fault-isolative swimlanes splitting along Y/Z axes, sharing nothing, allowing no synchronous
-    cross-boundary calls, limiting async.
+  - Designs fault-isolative swimlanes splitting along Y/Z axes, sharing nothing, allowing
+    no synchronous cross-boundary calls, limiting async.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P057.
   must_not:
@@ -649,11 +681,12 @@ principle_behaviour_tests:
 - test_id: PB-P058
   principle_id: P058
   mode: compare
-  prompt: We are making an architecture decision where this could apply. Give your guidance and name the
-    principle at stake.
+  prompt: We are making an architecture decision where this could apply. Give your
+    guidance and name the principle at stake.
   expected_behaviour:
-  - 'Applies the principle: Design architecture to be as iterative as possible and expect unknown unknowns,
-    ensuring the architectural style and engineering practices form a symbiotic mesh.'
+  - 'Applies the principle: Design architecture to be as iterative as possible and
+    expect unknown unknowns, ensuring the architectural style and engineering practices
+    form a symbiotic mesh.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P058.
   must_not:
@@ -661,8 +694,8 @@ principle_behaviour_tests:
 - test_id: PB-P059
   principle_id: P059
   mode: advise
-  prompt: We are making an architecture decision where this could apply. Give your guidance and name the
-    principle at stake.
+  prompt: We are making an architecture decision where this could apply. Give your
+    guidance and name the principle at stake.
   expected_behaviour:
   - 'Applies the principle: Stay hands-on while architecting.'
   - States the trade-off or consequence, not a one-sided answer.
@@ -672,10 +705,11 @@ principle_behaviour_tests:
 - test_id: PB-P060
   principle_id: P060
   mode: review
-  prompt: We run heavy analytics queries against the same tables serving live transactions. Review.
+  prompt: We run heavy analytics queries against the same tables serving live transactions.
+    Review.
   expected_behaviour:
-  - Treats data as a first-class, long-lived architectural concern and keeps operational (OLTP) data distinct
-    from analytical data.
+  - Treats data as a first-class, long-lived architectural concern and keeps operational
+    (OLTP) data distinct from analytical data.
   - States the trade-off or consequence rather than giving a one-sided answer.
   - Cites P060.
   must_not:
@@ -683,11 +717,13 @@ principle_behaviour_tests:
 - test_id: PB-P061
   principle_id: P061
   mode: advise
-  prompt: 'We are making an architecture decision where this could apply (context: scalability or concurrency
-    is the primary architectural concern). Give your guidance and name the principle at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    scalability or concurrency is the primary architectural concern). Give your guidance
+    and name the principle at stake.'
   expected_behaviour:
-  - 'Applies the principle: When scalability or high/variable concurrency is the dominant driver, prefer
-    a distributed pattern (event-driven, microservices, or space-based) over the layered pattern.'
+  - 'Applies the principle: When scalability or high/variable concurrency is the dominant
+    driver, prefer a distributed pattern (event-driven, microservices, or space-based)
+    over the layered pattern.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P061.
   must_not:
@@ -695,10 +731,11 @@ principle_behaviour_tests:
 - test_id: PB-P062
   principle_id: P062
   mode: advise
-  prompt: We are making an architecture decision where this could apply. Give your guidance and name the
-    principle at stake.
+  prompt: We are making an architecture decision where this could apply. Give your
+    guidance and name the principle at stake.
   expected_behaviour:
-  - 'Applies the principle: Build logging as a reliable, real-time, multi-subscriber stream (e.'
+  - 'Applies the principle: Build logging as a reliable, real-time, multi-subscriber
+    stream (e.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P062.
   must_not:
@@ -706,12 +743,13 @@ principle_behaviour_tests:
 - test_id: PB-P063
   principle_id: P063
   mode: advise
-  prompt: 'We are making an architecture decision where this could apply (context: operating an application
-    with web/app server logs). Give your guidance and name the principle at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    operating an application with web/app server logs). Give your guidance and name
+    the principle at stake.'
   expected_behaviour:
-  - 'Applies the principle: Actively aggregate, monitor (with automated threshold alerts), and act on
-    application/web-server log files via a defined process, logging asynchronously and purging by value
-    to control cost.'
+  - 'Applies the principle: Actively aggregate, monitor (with automated threshold
+    alerts), and act on application/web-server log files via a defined process, logging
+    asynchronously and purging by value to control cost.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P063.
   must_not:
@@ -719,10 +757,12 @@ principle_behaviour_tests:
 - test_id: PB-P064
   principle_id: P064
   mode: advise
-  prompt: 'We are making an architecture decision where this could apply (context: planning scalability
-    on any project). Give your guidance and name the principle at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    planning scalability on any project). Give your guidance and name the principle
+    at stake.'
   expected_behaviour:
-  - 'Applies the principle: Apply the Design-Implement-Deploy (D-I-D) approach to scale just-in-time.'
+  - 'Applies the principle: Apply the Design-Implement-Deploy (D-I-D) approach to
+    scale just-in-time.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P064.
   must_not:
@@ -730,12 +770,13 @@ principle_behaviour_tests:
 - test_id: PB-P065
   principle_id: P065
   mode: advise
-  prompt: 'We are making an architecture decision where this could apply (context: designing complex systems
-    where engineering or computational resources are limited). Give your guidance and name the principle
-    at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    designing complex systems where engineering or computational resources are limited).
+    Give your guidance and name the principle at stake.'
   expected_behaviour:
-  - 'Applies the principle: Simplify in three passes - scope (apply Pareto/80-20 to cut features), design,
-    and implementation (reuse proven open-source/third-party/internal solutions before building your own).'
+  - 'Applies the principle: Simplify in three passes - scope (apply Pareto/80-20 to
+    cut features), design, and implementation (reuse proven open-source/third-party/internal
+    solutions before building your own).'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P065.
   must_not:
@@ -743,11 +784,12 @@ principle_behaviour_tests:
 - test_id: PB-P066
   principle_id: P066
   mode: review
-  prompt: 'We are making an architecture decision where this could apply (context: production environments
-    going through hyper-growth). Give your guidance and name the principle at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    production environments going through hyper-growth). Give your guidance and name
+    the principle at stake.'
   expected_behaviour:
-  - 'Applies the principle: Build on small, inexpensive commodity systems treated as disposable, rather
-    than a few large high-margin servers.'
+  - 'Applies the principle: Build on small, inexpensive commodity systems treated
+    as disposable, rather than a few large high-margin servers.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P066.
   must_not:
@@ -755,11 +797,12 @@ principle_behaviour_tests:
 - test_id: PB-P067
   principle_id: P067
   mode: advise
-  prompt: 'We are making an architecture decision where this could apply (context: a redirect is genuinely
-    required). Give your guidance and name the principle at stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    a redirect is genuinely required). Give your guidance and name the principle at
+    stake.'
   expected_behaviour:
-  - 'Applies the principle: Avoid redirects where possible (they delay users, consume compute, and are
-    error-prone).'
+  - 'Applies the principle: Avoid redirects where possible (they delay users, consume
+    compute, and are error-prone).'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P067.
   must_not:
@@ -767,11 +810,11 @@ principle_behaviour_tests:
 - test_id: PB-P068
   principle_id: P068
   mode: advise
-  prompt: We are making an architecture decision where this could apply. Give your guidance and name the
-    principle at stake.
+  prompt: We are making an architecture decision where this could apply. Give your
+    guidance and name the principle at stake.
   expected_behaviour:
-  - 'Applies the principle: Architect to leave as many options open as possible for as long as possible,
-    maximizing the number of decisions not yet made.'
+  - 'Applies the principle: Architect to leave as many options open as possible for
+    as long as possible, maximizing the number of decisions not yet made.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P068.
   must_not:
@@ -779,13 +822,539 @@ principle_behaviour_tests:
 - test_id: PB-P069
   principle_id: P069
   mode: review
-  prompt: 'We are making an architecture decision where this could apply (context: applications are independent
-    and need timely, reliable, decoupled collaboration). Give your guidance and name the principle at
-    stake.'
+  prompt: 'We are making an architecture decision where this could apply (context:
+    applications are independent and need timely, reliable, decoupled collaboration).
+    Give your guidance and name the principle at stake.'
   expected_behaviour:
-  - 'Applies the principle: Use Messaging when independent applications must exchange data or invoke behaviour
-    frequently, reliably, and asynchronously in small units.'
+  - 'Applies the principle: Use Messaging when independent applications must exchange
+    data or invoke behaviour frequently, reliably, and asynchronously in small units.'
   - States the trade-off or consequence, not a one-sided answer.
   - Cites P069.
   must_not:
   - Give generic advice that ignores the principle or omits its trade-off.
+- test_id: PB-P070
+  principle_id: P070
+  mode: advise
+  prompt: We are making and communicating an architecture decision. What do you advise
+    here, and why?
+  expected_behaviour:
+  - Make architecture decisions deliberately — gather information, justify technically
+    and for the business, document, and communicate — overcoming the Covering-Your-Assets
+    (decide....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P070.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P071
+  principle_id: P071
+  mode: advise
+  prompt: We are organizations producing architectures. What do you advise here, and
+    why?
+  expected_behaviour:
+  - Improve organizational architecture competence — the ability to grow, use, and
+    sustain architecture-centric practices at acceptable cost aligned with business
+    goals — through pe....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P071.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P072
+  principle_id: P072
+  mode: advise
+  prompt: We are diagramming or communicating an architecture. What do you advise
+    here, and why?
+  expected_behaviour:
+  - 'Treat communication as critical to architect success and diagram with discipline:
+    apply representational consistency, use low-fidelity ephemeral artifacts early
+    to avoid Irratio....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P072.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P073
+  principle_id: P073
+  mode: advise
+  prompt: 'How should we approach: Use the three structure categories for their intended
+    reason?'
+  expected_behaviour:
+  - 'Use the three structure categories for their intended reasoning: module structures
+    for modifiability, component-and-connector structures for runtime qualities (performance,
+    secu....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P073.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P074
+  principle_id: P074
+  mode: advise
+  prompt: 'How should we approach: Treat the database as a detail that must not pollute
+    the arc?'
+  expected_behaviour:
+  - 'Treat the database as a detail that must not pollute the architecture: distinguish
+    the architecturally significant data model from the non-significant database,
+    restrict knowled....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P074.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P075
+  principle_id: P075
+  mode: advise
+  prompt: 'How should we approach: Separate business logic from hardware and platform:
+    intermin?'
+  expected_behaviour:
+  - 'Separate business logic from hardware and platform: intermingling software and
+    firmware is an anti-pattern (burying SQL or spreading platform dependencies is
+    writing firmware),....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P075.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P076
+  principle_id: P076
+  mode: advise
+  prompt: We are debugging or recovering a system with extraneous or poison messages.
+    What do you advise here, and why?
+  expected_behaviour:
+  - 'Manage leftover and stuck messages: use a Correlation Identifier to detect a
+    stale reply, remember that transactions do not fix programming errors that strand
+    messages, and use....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P076.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P077
+  principle_id: P077
+  mode: advise
+  prompt: We are designing the set of channels for a solution. What do you advise
+    here, and why?
+  expected_behaviour:
+  - 'Plan channels deliberately: they are created through administration tools and
+    fixed at deployment, so dedicate one message type per channel, provide an Invalid
+    Message Channel,....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P077.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P078
+  principle_id: P078
+  mode: advise
+  prompt: We are the set of routing destinations changes often. What do you advise
+    here, and why?
+  expected_behaviour:
+  - Choose between predictive routing (a Content-Based Router) and reactive filtering
+    (a Publish-Subscribe Channel with Message Filters) by who should control routing,
+    whether multi....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P078.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P079
+  principle_id: P079
+  mode: advise
+  prompt: We are messages carry more or more deeply nested data than needed. What
+    do you advise here, and why?
+  expected_behaviour:
+  - Use a Content Filter to remove, simplify, or flatten data for security and manageability
+    — stripping unauthorized or irrelevant fields and flattening over-nested or database-ada....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P079.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P080
+  principle_id: P080
+  mode: advise
+  prompt: We are verifying a running solution's health, especially external services.
+    What do you advise here, and why?
+  expected_behaviour:
+  - Actively monitor live components by injecting Test Messages — generated, tagged
+    in the header rather than by overloading application fields, separated, and verified
+    — understand....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P080.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P081
+  principle_id: P081
+  mode: advise
+  prompt: We are deriving the characteristics a system must support. What do you advise
+    here, and why?
+  expected_behaviour:
+  - Identify driving characteristics early by extracting from domain concerns, requirements,
+    and implicit domain knowledge, translating stakeholder language into engineering
+    terms (....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P081.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P082
+  principle_id: P082
+  mode: advise
+  prompt: We are a workflow can be processed asynchronously. What do you advise here,
+    and why?
+  expected_behaviour:
+  - 'Exploit asynchronous communication to improve responsiveness (distinct from performance)
+    when the user needs only an acknowledgement, but design for its hard error handling:
+    use....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P082.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P083
+  principle_id: P083
+  mode: advise
+  prompt: We are choosing an object-relational persistence approach. What do you advise
+    here, and why?
+  expected_behaviour:
+  - Use Data Mapper to let the database schema and object model evolve independently
+    (most commonly with a Domain Model, so you can ignore the database while designing
+    and testing t....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P083.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P084
+  principle_id: P084
+  mode: advise
+  prompt: We are architecture reviews and new designs. What do you advise here, and
+    why?
+  expected_behaviour:
+  - 'Eliminate single points of failure and avoid components in series: strive for
+    active/active and add parallel redundancy, especially at the database and network
+    layers.'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P084.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P085
+  principle_id: P085
+  mode: advise
+  prompt: We are designing or redesigning any multi-tenant system. What do you advise
+    here, and why?
+  expected_behaviour:
+  - Strive for statelessness; if state is required, push it to the browser, and otherwise
+    use a distributed cache without affinity or replication.
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P085.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P086
+  principle_id: P086
+  mode: advise
+  prompt: 'How should we approach: Distinguish OLTP from OLAP because they call for
+    different e?'
+  expected_behaviour:
+  - 'Distinguish OLTP from OLAP because they call for different engines: OLTP looks
+    up a few records by key with interactive low-latency writes while OLAP scans many
+    records reading....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P086.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P087
+  principle_id: P087
+  mode: advise
+  prompt: 'How should we approach: Match the store to the relationship profile (document
+    databa?'
+  expected_behaviour:
+  - Match the store to the relationship profile (document databases for self-contained
+    data with rare relationships, graph databases when anything may relate to everything,
+    relation....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P087.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P088
+  principle_id: P088
+  mode: advise
+  prompt: 'How should we approach: Improve testability with controllability/observability
+    tacti?'
+  expected_behaviour:
+  - 'Improve testability with controllability/observability tactics: provide specialized
+    test interfaces (set/get, report-state, reset, verbose) kept separate from functional
+    interfa....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P088.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P089
+  principle_id: P089
+  mode: advise
+  prompt: 'How should we approach: Identify the real stakeholders for the project
+    and tailor do?'
+  expected_behaviour:
+  - Identify the real stakeholders for the project and tailor documentation to each
+    one's needs (managers, developers, testers/integrators, maintainers, end users,
+    future architects....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P089.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P090
+  principle_id: P090
+  mode: advise
+  prompt: 'How should we approach: Build individual architect competence on the duties-skills-k?'
+  expected_behaviour:
+  - Build individual architect competence on the duties-skills-knowledge triad (skills
+    and knowledge serve the duties, which define competence), improving it by gaining
+    experience t....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P090.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P091
+  principle_id: P091
+  mode: advise
+  prompt: 'How should we approach: Treat quality as an enabler of speed rather than
+    a tax on it?'
+  expected_behaviour:
+  - 'Treat quality as an enabler of speed rather than a tax on it: dispel the belief
+    that speed opposes quality or that quality can be added later, because poor quality
+    and developer....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P091.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P092
+  principle_id: P092
+  mode: advise
+  prompt: 'How should we approach: Build IT pyramids from the top down — starting
+    from an appli?'
+  expected_behaviour:
+  - Build IT pyramids from the top down — starting from an application that delivers
+    customer value and letting common components sift down — because bottom-up base
+    layers deliver l....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P092.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P093
+  principle_id: P093
+  mode: advise
+  prompt: 'How should we approach: Apply each programming paradigm for its architectural
+    role —?'
+  expected_behaviour:
+  - Apply each programming paradigm for its architectural role — polymorphism to cross
+    architectural boundaries, functional discipline to govern the location of and
+    access to data,....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P093.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P094
+  principle_id: P094
+  mode: advise
+  prompt: We are under schedule pressure to cut corners. What do you advise here,
+    and why?
+  expected_behaviour:
+  - 'Never trade structure for short-term speed: making messes is always slower at
+    every time scale and the cleanup-later promise never comes true, so the only way
+    to go fast is to k....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P094.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P095
+  principle_id: P095
+  mode: advise
+  prompt: 'How should we approach: Enforce architectural rules mechanically rather
+    than by fall?'
+  expected_behaviour:
+  - 'Enforce architectural rules mechanically rather than by fallible discipline or
+    slow post-compilation tooling: prefer to let the compiler enforce the architecture,
+    applying acces....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P095.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P096
+  principle_id: P096
+  mode: advise
+  prompt: 'How should we approach: Apply the Dependency Inversion Principle so source-code
+    depe?'
+  expected_behaviour:
+  - Apply the Dependency Inversion Principle so source-code dependencies refer only
+    to abstractions, reducing it to concrete rules — do not refer to, derive from,
+    or override volati....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P096.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P097
+  principle_id: P097
+  mode: advise
+  prompt: 'How should we approach: Apply the Single Responsibility Principle so that
+    a module i?'
+  expected_behaviour:
+  - 'Apply the Single Responsibility Principle so that a module is responsible to
+    exactly one actor (not merely doing one thing): separate the code that different
+    actors depend on, b....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P097.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P098
+  principle_id: P098
+  mode: advise
+  prompt: 'How should we approach: Apply the Liskov Substitution Principle at every
+    level: make?'
+  expected_behaviour:
+  - 'Apply the Liskov Substitution Principle at every level: make subtypes substitutable
+    for their base type so any program written against the base behaves unchanged,
+    treating it as....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P098.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P099
+  principle_id: P099
+  mode: advise
+  prompt: 'How should we approach: Place high-level policy in stable components and
+    volatile so?'
+  expected_behaviour:
+  - Place high-level policy in stable components and volatile software in unstable
+    ones, keeping the stable policy components abstract (interfaces and abstract classes)
+    so per the O....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P099.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P100
+  principle_id: P100
+  mode: advise
+  prompt: 'How should we approach: Keep components on or near the Main Sequence (from
+    stable-an?'
+  expected_behaviour:
+  - Keep components on or near the Main Sequence (from stable-and-abstract to unstable-and-concrete),
+    keeping volatile software out of the Zone of Pain (stable and concrete, e.g.
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P100.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P101
+  principle_id: P101
+  mode: advise
+  prompt: 'How should we approach: Follow the first rule of design — do not depend
+    on volatile ?'
+  expected_behaviour:
+  - Follow the first rule of design — do not depend on volatile things — by testing
+    business rules without the volatile GUI through a dedicated testing API (a superset
+    of the intera....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P101.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P102
+  principle_id: P102
+  mode: advise
+  prompt: We are services depend on one another's datasets. What do you advise here,
+    and why?
+  expected_behaviour:
+  - Recognise the data dichotomy — databases expose data while services hide it —
+    and that core data coupling is unavoidable; manage it deliberately to avoid the
+    God Service, REST-t....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P102.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P103
+  principle_id: P103
+  mode: advise
+  prompt: We are data must be shared across an organization while keeping producers
+    and consumers loosely coupled. What do you advise here, and why?
+  expected_behaviour:
+  - Use a replayable, retentive log (e.g.
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P103.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P104
+  principle_id: P104
+  mode: advise
+  prompt: We are reporting on or analyzing message traffic over time. What do you
+    advise here, and why?
+  expected_behaviour:
+  - Use a Message Store, populated asynchronously via a Wire Tap in fire-and-forget
+    mode, to capture message data centrally for reporting, balancing stored detail
+    against traffic an....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P104.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P105
+  principle_id: P105
+  mode: advise
+  prompt: We are a stateful operation must run atomically and scale across threads
+    or machines. What do you advise here, and why?
+  expected_behaviour:
+  - For correct concurrent state mutation, wrap the critical section in a Kafka transaction
+    and partition the work by the relevant business key; otherwise a failure leaves
+    the syste....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P105.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P106
+  principle_id: P106
+  mode: advise
+  prompt: We are deciding how a topic should retain or compact its data. What do you
+    advise here, and why?
+  expected_behaviour:
+  - 'Choose retention-based versus compacted topics by use case: retention/regular
+    topics for audit and Event Sourcing, compacted topics for keyed latest-value state,
+    and the latest-....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P106.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P107
+  principle_id: P107
+  mode: advise
+  prompt: We are a service maintains a local view derived from a shared log. What
+    do you advise here, and why?
+  expected_behaviour:
+  - 'Practise lean data: pull only the fields a service needs, keep views small and
+    read-optimized, and rederive them from the log rather than storing them reliably
+    or running schema....'
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P107.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P108
+  principle_id: P108
+  mode: advise
+  prompt: We are retained data must be corrected, redacted, or physically removed.
+    What do you advise here, and why?
+  expected_behaviour:
+  - Delete data by expiry or delete markers in the normal case to preserve versioned
+    history; for regulatory physical deletion (e.g.
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P108.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P109
+  principle_id: P109
+  mode: advise
+  prompt: We are building a loosely coupled connection between systems. What do you
+    advise here, and why?
+  expected_behaviour:
+  - Deliberately remove the four coupling assumptions — platform representation, location,
+    time, and data format — using self-describing platform-independent formats, addressable
+    ch....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P109.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.
+- test_id: PB-P110
+  principle_id: P110
+  mode: advise
+  prompt: We are connecting a packaged or legacy application to messaging. What do
+    you advise here, and why?
+  expected_behaviour:
+  - Connect applications through Channel Adapters at the appropriate layer — preferring
+    a stable business-logic API over brittle screen-scraping or risky direct database
+    writes — an....
+  - States the trade-off or consequence rather than giving a one-sided answer.
+  - Cites P110.
+  must_not:
+  - Ignore the principle and give generic advice unsupported by the source.

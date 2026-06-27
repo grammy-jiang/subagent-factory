@@ -28,11 +28,11 @@ provenance:
   - E00363
   - E00364
   source_anchors:
-  - 705fce793a41-c0002
-  - 705fce793a41-c0003
-  - be84e4ec4c9d-c0000
-  - 745dee448a5d-c0001
-  authored_from_digest: fa61e2453fa8d40385b5220c3a237f5ea8c8851287dc18e7303f9baa3aa61a38
+  - 760c81171459-c0034
+  - 67c60e378753-c0000
+  - 4bc1908bad03-c0000
+  - a6c7e769c072-c0001
+  authored_from_digest: 3a35395b3d2bfa5036dce631481aa1c5202ca8d94ce6998c8e13620b7f52a510
 ---
 
 # Statelessness and caching for scale

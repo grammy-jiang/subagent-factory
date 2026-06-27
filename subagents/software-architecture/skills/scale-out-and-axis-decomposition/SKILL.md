@@ -27,11 +27,12 @@ provenance:
   - E00059
   - E00060
   source_anchors:
-  - 705fce793a41-c0000
-  - 745dee448a5d-c0000
-  - 745dee448a5d-c0003
-  - 6b15bd8cd9ba-c0005
-  authored_from_digest: 98197644a546acb91a0ece88fad44b3dd22c0a77a225dfa5a8ae12f2c1836406
+  - 760c81171459-c0017
+  - 760c81171459-c0019
+  - a6c7e769c072-c0000
+  - a6c7e769c072-c0002
+  - 508117177502-c0010
+  authored_from_digest: 21a4e3b3aab2a3651139405fb458420654520da0841ef3824193934d427b617f
 ---
 
 # Scale out, and decompose load along the AKF Scale Cube

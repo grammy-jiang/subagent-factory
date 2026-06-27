@@ -27,11 +27,11 @@ provenance:
   - E00168
   - E00169
   source_anchors:
-  - 745dee448a5d-c0001
-  - 745dee448a5d-c0002
-  - fbd95667ee10-c0001
-  - fbd95667ee10-c0008
-  authored_from_digest: 67bc1a048a9b8602fd12ba66cae92c1a09612b8b000876a164b289b06aa1e2e4
+  - a6c7e769c072-c0001
+  - a6c7e769c072-c0002
+  - 8afa2d6eafa0-c0011
+  - 8afa2d6eafa0-c0038
+  authored_from_digest: e7eb526a9baf7b07b04e4e532fc0b3db805ed402ccf91b9256bf46142938c816
 ---
 
 # Persistence mapping review

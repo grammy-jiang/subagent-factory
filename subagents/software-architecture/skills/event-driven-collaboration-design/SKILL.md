@@ -27,10 +27,13 @@ provenance:
   - E00198
   - E00199
   source_anchors:
-  - 6b15bd8cd9ba-c0004
-  - ddde058a4a9e-c0000
-  - ddde058a4a9e-c0001
-  authored_from_digest: 4e5b9a2d7628145ae7dd3d74bb69a2d5eef3331b0cc86e34bfac79a64a6927d8
+  - 508117177502-c0008
+  - 508117177502-c0009
+  - d95ad6b6daba-c0012
+  - d95ad6b6daba-c0014
+  - d95ad6b6daba-c0015
+  - d95ad6b6daba-c0009
+  authored_from_digest: 4d735c274671f70169dc590a117b74514102bc83291365207abc38dbedadffca
 ---
 
 # Event-driven collaboration design

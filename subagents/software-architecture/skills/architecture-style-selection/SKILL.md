@@ -12,8 +12,8 @@ provenance:
   - E00170
   - E00171
   source_anchors:
-  - 8afbdb74139c-c0000
-  authored_from_digest: ca6e716e115cf59caa6f11b8b6de095032cbef6539815c1f2cf5026f13b80463
+  - 8afa2d6eafa0-c0046
+  authored_from_digest: 1938e3cf75a69f3c157f8b563dce1251f4bbe5f9953cfd662ced302a089bfd82
 ---
 
 # Architecture style selection
