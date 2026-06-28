@@ -1,0 +1,1437 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: devops-sre-advisor
+principle_behaviour_tests:
+- test_id: PBT-P001
+  principle_id: P001
+  prompt: writing the root-cause and analysis sections of a postmortem. What do you advise, and why?
+  expected_behaviour: Keep postmortems blameless by attributing failure to systemic and process causes
+    (e.g
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P002
+  principle_id: P002
+  prompt: Keep all configuration (system and application) in version control, not just application code,
+    since configuration in version control correlates more strongly with performance.. What do you advise,
+    and why?
+  expected_behaviour: Keep all configuration (system and application) in version control, not just application
+    code, since configuration in version control correlates more strongly with performance.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P003
+  principle_id: P003
+  prompt: shaping team culture or responding to incidents. What do you advise, and why?
+  expected_behaviour: Build a generative (Westrum) culture of trust, information flow, shared risk, and
+    inquiry-not-blame, because it predicts delivery performance, organizational performance, and job satisfaction.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P004
+  principle_id: P004
+  prompt: deployments are feared, manual, or must run outside business hours. What do you advise, and
+    why?
+  expected_behaviour: Treat deployment pain as a leading signal of poor performance and reduce it through
+    technical practices, deployable system design, automation, and reproducible-from-version-control environments.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P005
+  principle_id: P005
+  prompt: Operating an application in production or staging where user-facing failures can appear after
+    deployment.. What do you advise, and why?
+  expected_behaviour: Build observability — white-box metrics and structured logs — into every component
+    from the ground up, and design well-understood, observable interfaces between components, to make
+    troubleshooting faster.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P006
+  principle_id: P006
+  prompt: adding security and quality inspection to a CI pipeline. What do you advise, and why?
+  expected_behaviour: Add code-quality analysis as gates within CI so a component failing the checks goes
+    no further even if its build and tests pass, building your own analysis where mainstream tools do
+    not cover your stack.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P007
+  principle_id: P007
+  prompt: adding code-quality checks to a pipeline. What do you advise, and why?
+  expected_behaviour: Lint code in the pipeline and let lint failures break the build (fixing or configuring
+    rules rather than ignoring them), and publish coverage reports that fail the build when missing.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P008
+  principle_id: P008
+  prompt: responding to or reviewing a failure. What do you advise, and why?
+  expected_behaviour: Adopt a blame-slow, learn-quickly culture
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P009
+  principle_id: P009
+  prompt: applying SLO alerting to a low-traffic service. What do you advise, and why?
+  expected_behaviour: Recognize that burn-rate alerting over-pages low-traffic services (one failure in
+    ten requests is a 10% error rate, a 1,000x burn against 99.9%) and handle them by generating artificial
+    traffic, combining related services that share a failure domain, or changing the product so a single
+    failure carries less weight or takes more requests to qualify.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P010
+  principle_id: P010
+  prompt: choosing a reliability target. What do you advise, and why?
+  expected_behaviour: Set the SLO as the target level of reliability for customers (above it almost all
+    users are happy, below it they complain or leave) and do not chase extra nines, because each additional
+    nine costs more for marginal utility approaching zero, customers never experience your internal 100%,
+    and change is the number one source of outages.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P011
+  principle_id: P011
+  prompt: choosing which signals an SLO framework standardizes on. What do you advise, and why?
+  expected_behaviour: Base the SLO framework on the small consistent signal set services already monitor
+    — volume, availability, latency, errors, and tickets (VALET, aligned with the Four Golden Signals)
+    — and standardize their naming and measurement across services.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P012
+  principle_id: P012
+  prompt: standardizing postmortems for trend analysis and prioritization. What do you advise, and why?
+  expected_behaviour: Use a standard postmortem template that consistently captures the incident root
+    cause and trigger, because doing so enables trend analysis that targets improvements against systemic
+    root-cause types such as faulty software interface design or immature change deployment planning —
+    and prioritize accordingly given that across thousands of Google postmortems (2010-2017) the top outage
+    triggers were binary pushes (37%) and configuration pushes (31%), together about 68%, followed by
+    user-behavior change, processing pipeline, service-provider change, performance decay, capacity management,
+    and hardware, while the top contributing root-cause categories were software (~41%), development-process
+    failure (~20%), complex system behaviors (~17%), deployment planning (~7%), and network failure (~3%).
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P013
+  principle_id: P013
+  prompt: rolling out a new version safely. What do you advise, and why?
+  expected_behaviour: Build a canary process with three parts — a way to deploy the change to a subset
+    of the population, an evaluation deciding good or bad, and integration of those evaluations into the
+    release process — deploying to a small labeled production segment that receives only a small portion
+    of traffic (split via application versions, load-balancer backend weights, proxy configs, or round-robin
+    DNS), so it demonstrates value by detecting bad candidates with high confidence and identifying good
+    releases without false positives.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P014
+  principle_id: P014
+  prompt: Prefer simple releases of small batches over large simultaneous batches, because the impact
+    of a single change is far easier to measure and attribute than that of many changes released at once..
+    What do you advise, and why?
+  expected_behaviour: Prefer simple releases of small batches over large simultaneous batches, because
+    the impact of a single change is far easier to measure and attribute than that of many changes released
+    at once.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P015
+  principle_id: P015
+  prompt: organizing teams that build and run a service. What do you advise, and why?
+  expected_behaviour: Break down organizational silos between development and operations rather than relying
+    on tooling alone, because separate teams and siloed incentives, not tools, are the root of delivery
+    pain.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P016
+  principle_id: P016
+  prompt: designing a change and release process. What do you advise, and why?
+  expected_behaviour: Make changes small and frequent — splitting large changes into smaller pieces and
+    supporting them with automated testing and reliable rollback — because small changes carry small risk
+    while infrequent large releases carry large risk.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P017
+  principle_id: P017
+  prompt: a new service or major change is being designed. What do you advise, and why?
+  expected_behaviour: Engage SRE as early as the design phase, because the earlier the engagement the
+    lower the cost to onboard and the more reliable the service is out of the gate, since you avoid spending
+    time unwinding suboptimal design and implementation.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P018
+  principle_id: P018
+  prompt: ops and dev must jointly decide reliability vs feature velocity. What do you advise, and why?
+  expected_behaviour: Use the error-budget/SLO model as a shared, fact-based language that removes subjectivity
+    so ops and dev reach the same decision from the same data, embracing the differences between the disciplines
+    rather than converting one into the other.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P019
+  principle_id: P019
+  prompt: setting or measuring latency SLOs. What do you advise, and why?
+  expected_behaviour: Treat latency and most other metrics as distributions and report percentiles (such
+    as the 90th, 95th, or 99th) rather than arithmetic averages, because a mean masks long-tail behaviour
+    like a slow tail of requests.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P020
+  principle_id: P020
+  prompt: designing automation for an operational workflow. What do you advise, and why?
+  expected_behaviour: When automating toil, do not transcribe the human workflow verbatim or let automation
+    erase human understanding of failures; instead decompose documented manual work into separable, well-defined,
+    reusable, composable software components that other automation can reuse across system generations.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P021
+  principle_id: P021
+  prompt: designing or evaluating a system for reliability. What do you advise, and why?
+  expected_behaviour: Pursue simplicity as a primary reliability lever
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P022
+  principle_id: P022
+  prompt: balancing operational and project work and sizing rotations. What do you advise, and why?
+  expected_behaviour: Protect engineering capacity
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P023
+  principle_id: P023
+  prompt: a team's operational load is too low. What do you advise, and why?
+  expected_behaviour: Guard against operational underload as well as overload
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P024
+  principle_id: P024
+  prompt: supporting and compensating on-call engineers. What do you advise, and why?
+  expected_behaviour: Support on-call engineers with psychological safety and fair incentives
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P025
+  principle_id: P025
+  prompt: deciding what should page and how fast it must be answered. What do you advise, and why?
+  expected_behaviour: Set response-time expectations by severity rather than demanding an immediate response
+    to everything (e.g
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P026
+  principle_id: P026
+  prompt: defining reliability commitments. What do you advise, and why?
+  expected_behaviour: Recognize for operational decisions
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P027
+  principle_id: P027
+  prompt: assigning incident-response roles. What do you advise, and why?
+  expected_behaviour: Organize incident response into three roles — Incident Commander (leads/coordinates
+    and assumes any undelegated role), Operations Lead (applies operational tools to mitigate and resolve),
+    and Communications Lead (public face giving periodic stakeholder updates) — with the person who declares
+    the incident typically becoming the Incident Commander.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P028
+  principle_id: P028
+  prompt: designing DNS-based load balancing. What do you advise, and why?
+  expected_behaviour: Use DNS as the first and simplest layer of load balancing, but treat it as insufficient
+    on its own because it depends on client cooperation to expire and refetch records and gives weak control
+    over client behaviour (the authoritative server sees the recursive resolver, not the user).
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P029
+  principle_id: P029
+  prompt: gracefully removing or updating backends. What do you advise, and why?
+  expected_behaviour: Health-check backends and give each an explicit 'lame-duck' state in which it keeps
+    serving in-flight requests but asks clients to stop sending new ones (propagated to active and, via
+    periodic health checks, inactive clients), so backends can be drained, removed, or updated without
+    disrupting user requests.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P030
+  principle_id: P030
+  prompt: setting RPC timeouts and cancellation. What do you advise, and why?
+  expected_behaviour: Set deliberate deadlines on RPC requests — without one a process holds resources
+    for every in-flight request up to a large default, raising latency and risking exhaustion and crashes
+    — having servers terminate over-long requests and clients cancel requests no longer useful to them.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P031
+  principle_id: P031
+  prompt: decoupling feature launches from binary releases. What do you advise, and why?
+  expected_behaviour: Separate components that change at different rates — binaries, runtime environment,
+    libraries, service config, feature config, and user config — and use feature-flag or experiment frameworks
+    to separate feature launches from binary releases, so you can enable features one at a time and selectively
+    disable a misbehaving feature without waiting for the next build-and-release cycle.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P032
+  principle_id: P032
+  prompt: Automate security tests inside developer workflows and pipelines with actionable feedback and
+    false-positive management.. What do you advise, and why?
+  expected_behaviour: Automate security tests inside developer workflows and pipelines with actionable
+    feedback and false-positive management.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Security failures appear in CI or developer tools with enough context for the responsible team
+    to fix them.
+  principle_id: P032
+  prompt: 'Review this against the principle: Security failures appear in CI or developer tools with enough
+    context for the responsible team to fix them.'
+  expected_behaviour: 'Confirms or flags whether: Security failures appear in CI or developer tools with
+    enough context for the responsible team to fix them.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P033
+  principle_id: P033
+  prompt: Integrate security telemetry into production observability so hostile behavior is visible to
+    the teams that design and run services.. What do you advise, and why?
+  expected_behaviour: Integrate security telemetry into production observability so hostile behavior is
+    visible to the teams that design and run services.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Security dashboards appear beside operational dashboards and include alerts for application
+    and environment indicators.
+  principle_id: P033
+  prompt: 'Review this against the principle: Security dashboards appear beside operational dashboards
+    and include alerts for application and environment indicators.'
+  expected_behaviour: 'Confirms or flags whether: Security dashboards appear beside operational dashboards
+    and include alerts for application and environment indicators.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P034
+  principle_id: P034
+  prompt: Make approved standards, policies, and security assets (libraries, configurations, images, secrets
+    patterns, services) reusable by converting them from static prose into executable blueprints and components
+    in shared repositories and platforms.. What do you advise, and why?
+  expected_behaviour: Make approved standards, policies, and security assets (libraries, configurations,
+    images, secrets patterns, services) reusable by converting them from static prose into executable
+    blueprints and components in shared repositories and platforms.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Teams can implement common auth, logging, encryption, and base-image controls from approved
+    reusable assets.
+  principle_id: P034
+  prompt: 'Review this against the principle: Teams can implement common auth, logging, encryption, and
+    base-image controls from approved reusable assets.'
+  expected_behaviour: 'Confirms or flags whether: Teams can implement common auth, logging, encryption,
+    and base-image controls from approved reusable assets.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P035
+  principle_id: P035
+  prompt: Design audit evidence with auditors from actual regulations and expose it through telemetry,
+    logs, and documentation linked to controls.. What do you advise, and why?
+  expected_behaviour: Design audit evidence with auditors from actual regulations and expose it through
+    telemetry, logs, and documentation linked to controls.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: An auditor can self-serve evidence for a control and trace it to the regulatory requirement.
+  principle_id: P035
+  prompt: 'Review this against the principle: An auditor can self-serve evidence for a control and trace
+    it to the regulatory requirement.'
+  expected_behaviour: 'Confirms or flags whether: An auditor can self-serve evidence for a control and
+    trace it to the regulatory requirement.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P036
+  principle_id: P036
+  prompt: instrumenting or benchmarking a delivery process. What do you advise, and why?
+  expected_behaviour: Measure software delivery performance with four global-outcome metrics (delivery
+    lead time from commit to production, deployment frequency, time to restore service, change fail rate)
+    to avoid pitting functions against each other.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P037
+  principle_id: P037
+  prompt: Apply Lean, Agile, continuous delivery, and constraints thinking through small batches, deployable
+    states, daily improvement, and fast feedback.. What do you advise, and why?
+  expected_behaviour: Apply Lean, Agile, continuous delivery, and constraints thinking through small batches,
+    deployable states, daily improvement, and fast feedback.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Work policies reduce WIP, preserve deployability, and include daily scientific improvement
+    routines.
+  principle_id: P037
+  prompt: 'Review this against the principle: Work policies reduce WIP, preserve deployability, and include
+    daily scientific improvement routines.'
+  expected_behaviour: 'Confirms or flags whether: Work policies reduce WIP, preserve deployability, and
+    include daily scientific improvement routines.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P038
+  principle_id: P038
+  prompt: Modernize regulated platforms through customer-centered slices, standardized tools, and CI/CD
+    controls that can block noncompliant releases.. What do you advise, and why?
+  expected_behaviour: Modernize regulated platforms through customer-centered slices, standardized tools,
+    and CI/CD controls that can block noncompliant releases.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Each modernization slice identifies user need, compliance controls, pipeline checks, and rollout
+    criteria.
+  principle_id: P038
+  prompt: 'Review this against the principle: Each modernization slice identifies user need, compliance
+    controls, pipeline checks, and rollout criteria.'
+  expected_behaviour: 'Confirms or flags whether: Each modernization slice identifies user need, compliance
+    controls, pipeline checks, and rollout criteria.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P039
+  principle_id: P039
+  prompt: assessing the health of a scaling delivery process. What do you advise, and why?
+  expected_behaviour: Watch for the slow, often-unnoticed symptoms of delivery decay as an organization
+    scales
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P040
+  principle_id: P040
+  prompt: deploying Jenkins or build infrastructure on a cloud network. What do you advise, and why?
+  expected_behaviour: Harden build VMs by disabling password authentication in favor of SSH keys and placing
+    them in private subnets reachable only through a bastion (using a managed bastion service where available,
+    restricting its ingress).
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P041
+  principle_id: P041
+  prompt: Protect CI/CD infrastructure as a production-critical attack surface with hardening, review,
+    suspicious-test detection, isolation, and read-only credentials.. What do you advise, and why?
+  expected_behaviour: Protect CI/CD infrastructure as a production-critical attack surface with hardening,
+    review, suspicious-test detection, isolation, and read-only credentials.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: CI jobs run in isolated fresh environments and cannot write to source control using CI credentials.
+  principle_id: P041
+  prompt: 'Review this against the principle: CI jobs run in isolated fresh environments and cannot write
+    to source control using CI credentials.'
+  expected_behaviour: 'Confirms or flags whether: CI jobs run in isolated fresh environments and cannot
+    write to source control using CI credentials.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P042
+  principle_id: P042
+  prompt: Satisfy separation-of-duty intent through review, pair work, inspection, and telemetry while
+    avoiding low-trust controls that destroy visibility.. What do you advise, and why?
+  expected_behaviour: Satisfy separation-of-duty intent through review, pair work, inspection, and telemetry
+    while avoiding low-trust controls that destroy visibility.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: A control design shows who reviewed the change and how production monitoring detects fraud
+    or errors.
+  principle_id: P042
+  prompt: 'Review this against the principle: A control design shows who reviewed the change and how production
+    monitoring detects fraud or errors.'
+  expected_behaviour: 'Confirms or flags whether: A control design shows who reviewed the change and how
+    production monitoring detects fraud or errors.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P043
+  principle_id: P043
+  prompt: choosing how to assess and improve a technology organization. What do you advise, and why?
+  expected_behaviour: Drive improvement through a capabilities model selected by research evidence, not
+    through maturity models or vendor/consultant bias.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P044
+  principle_id: P044
+  prompt: Measure developer productivity holistically across well-being, performance, activity, collaboration,
+    and flow instead of relying on activity counts.. What do you advise, and why?
+  expected_behaviour: Measure developer productivity holistically across well-being, performance, activity,
+    collaboration, and flow instead of relying on activity counts.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: A productivity dashboard combines at least three dimensions and flags sustainability tradeoffs.
+  principle_id: P044
+  prompt: 'Review this against the principle: A productivity dashboard combines at least three dimensions
+    and flags sustainability tradeoffs.'
+  expected_behaviour: 'Confirms or flags whether: A productivity dashboard combines at least three dimensions
+    and flags sustainability tradeoffs.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P045
+  principle_id: P045
+  prompt: planning an organizational transformation. What do you advise, and why?
+  expected_behaviour: Do not buy, copy, outsource, or 'implement' culture change; develop your own coaches,
+    lead by example, and proceed with discipline and patience, because high performance must be grown
+    for your context.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P046
+  principle_id: P046
+  prompt: addressing team exhaustion, cynicism, or attrition. What do you advise, and why?
+  expected_behaviour: Prevent burnout by fixing the work environment (Maslach's six risk factors) rather
+    than the person, since the causes are organizational factors management controls.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P047
+  principle_id: P047
+  prompt: Invest in people and identity, because engagement and satisfaction drive loyalty, reduce burnout,
+    and predict profitability, productivity, and market share.. What do you advise, and why?
+  expected_behaviour: Invest in people and identity, because engagement and satisfaction drive loyalty,
+    reduce burnout, and predict profitability, productivity, and market share.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P048
+  principle_id: P048
+  prompt: building a strong team culture. What do you advise, and why?
+  expected_behaviour: Support team culture through the three highly-correlated levers
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P049
+  principle_id: P049
+  prompt: designing surveys or system metrics. What do you advise, and why?
+  expected_behaviour: Design measurement well
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P050
+  principle_id: P050
+  prompt: assessing perceptions, culture, or whether a practice is truly followed. What do you advise,
+    and why?
+  expected_behaviour: Use surveys to capture perceptions and feelings, collect anonymously and for improvement,
+    measure the core behaviors of a practice rather than its label, and avoid weak proxies like turnover
+    and biased question forms.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P051
+  principle_id: P051
+  prompt: Postmortem actions must be owned, prioritized, incremental, and tied to prevention, faster detection,
+    or faster recovery metrics.. What do you advise, and why?
+  expected_behaviour: Postmortem actions must be owned, prioritized, incremental, and tied to prevention,
+    faster detection, or faster recovery metrics.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Every top-priority postmortem action has an owner, metric impact, and incremental implementation
+    path.
+  principle_id: P051
+  prompt: 'Review this against the principle: Every top-priority postmortem action has an owner, metric
+    impact, and incremental implementation path.'
+  expected_behaviour: 'Confirms or flags whether: Every top-priority postmortem action has an owner, metric
+    impact, and incremental implementation path.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P052
+  principle_id: P052
+  prompt: Reserve explicit time and community structures for improvement, learning, and debt reduction
+    across Development, Operations, and Security.. What do you advise, and why?
+  expected_behaviour: Reserve explicit time and community structures for improvement, learning, and debt
+    reduction across Development, Operations, and Security.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Improvement blitzes, learning time, or communities of practice have calendar capacity and visible
+    outputs.
+  principle_id: P052
+  prompt: 'Review this against the principle: Improvement blitzes, learning time, or communities of practice
+    have calendar capacity and visible outputs.'
+  expected_behaviour: 'Confirms or flags whether: Improvement blitzes, learning time, or communities of
+    practice have calendar capacity and visible outputs.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P053
+  principle_id: P053
+  prompt: Shift security into daily value-stream work through automation, pipeline integration, and early
+    feature-team engagement.. What do you advise, and why?
+  expected_behaviour: Shift security into daily value-stream work through automation, pipeline integration,
+    and early feature-team engagement.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Security feedback appears before late release review and is visible in the same workflow as
+    delivery work.
+  principle_id: P053
+  prompt: 'Review this against the principle: Security feedback appears before late release review and
+    is visible in the same workflow as delivery work.'
+  expected_behaviour: 'Confirms or flags whether: Security feedback appears before late release review
+    and is visible in the same workflow as delivery work.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P054
+  principle_id: P054
+  prompt: Sustained improvement requires psychological safety, resources, learning capacity, and continuous
+    reevaluation of the current bottleneck.. What do you advise, and why?
+  expected_behaviour: Sustained improvement requires psychological safety, resources, learning capacity,
+    and continuous reevaluation of the current bottleneck.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Improvement planning includes explicit capacity, safety for experimentation, and a current-friction
+    review.
+  principle_id: P054
+  prompt: 'Review this against the principle: Improvement planning includes explicit capacity, safety
+    for experimentation, and a current-friction review.'
+  expected_behaviour: 'Confirms or flags whether: Improvement planning includes explicit capacity, safety
+    for experimentation, and a current-friction review.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P055
+  principle_id: P055
+  prompt: building reusable machine images for build infrastructure. What do you advise, and why?
+  expected_behaviour: Bake immutable golden machine images with Packer, keeping secrets out of the template
+    via runtime variables, selecting the newest base image dynamically, and giving each image a unique
+    name.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P056
+  principle_id: P056
+  prompt: selecting metrics to evaluate software teams or developers. What do you advise, and why?
+  expected_behaviour: Define a valid, reliable, outcome-focused, global measure of delivery performance
+    before improving it, and reject output-based vanity metrics such as lines of code, velocity-as-productivity,
+    and maximized utilization.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P057
+  principle_id: P057
+  prompt: building constructs from survey or system data. What do you advise, and why?
+  expected_behaviour: Validate that survey measures pass convergent validity, divergent/discriminant validity,
+    and reliability checks before running any correlation or prediction analysis on them.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P058
+  principle_id: P058
+  prompt: adopting or assessing continuous delivery. What do you advise, and why?
+  expected_behaviour: Implement continuous delivery as five principles
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P059
+  principle_id: P059
+  prompt: documenting an SLO and error budget policy. What do you advise, and why?
+  expected_behaviour: Structure an SLO document with metadata (status, author, reviewers, approvers, approval
+    date, and revisit date), a service overview, a precise definition of each SLI including its exact
+    measurement formula and SLO target, a rationale, and a clarifications-and-caveats section, documenting
+    when the numbers are not strongly evidence-based so future readers understand it and can decide whether
+    collecting more evidence is worth the investment, and give each SLO objective a separate error budget
+    defined as 100% minus that objective's goal, enacting the error budget policy when any one objective
+    has exhausted its budget.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P060
+  principle_id: P060
+  prompt: Collect centralized events, logs, and metrics across business logic, applications, infrastructure,
+    and customer-impact periods.. What do you advise, and why?
+  expected_behaviour: Collect centralized events, logs, and metrics across business logic, applications,
+    infrastructure, and customer-impact periods.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Dashboards include actionable business metrics and relevant business calendar context, not
+    only host health.
+  principle_id: P060
+  prompt: 'Review this against the principle: Dashboards include actionable business metrics and relevant
+    business calendar context, not only host health.'
+  expected_behaviour: 'Confirms or flags whether: Dashboards include actionable business metrics and relevant
+    business calendar context, not only host health.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P061
+  principle_id: P061
+  prompt: configuring how IaC authenticates to a cloud provider. What do you advise, and why?
+  expected_behaviour: Supply cloud credentials through environment variables, managed identities, or instance
+    metadata, never hardcoded in templates or configuration.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P062
+  principle_id: P062
+  prompt: running build or test steps that need a specific runtime. What do you advise, and why?
+  expected_behaviour: Run tests inside Docker containers so the execution environment is consistent across
+    all workers, avoiding installation of each service's language runtime on every worker, and auto-clean
+    containers with the --rm flag.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P063
+  principle_id: P063
+  prompt: writing or reviewing a Dockerfile for a production image. What do you advise, and why?
+  expected_behaviour: Harden Dockerfiles with official, version-pinned, up-to-date base images, pinned
+    dependencies, instruction ordering that exploits layer caching, and multistage builds that keep build
+    tooling out of the final image.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P064
+  principle_id: P064
+  prompt: Reduce functional-silo queues by moving scarce operations knowledge into self-service platforms,
+    embedded engineers, or liaisons.. What do you advise, and why?
+  expected_behaviour: Reduce functional-silo queues by moving scarce operations knowledge into self-service
+    platforms, embedded engineers, or liaisons.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: A product team can obtain routine operational work without serial escalation across many specialist
+    groups.
+  principle_id: P064
+  prompt: 'Review this against the principle: A product team can obtain routine operational work without
+    serial escalation across many specialist groups.'
+  expected_behaviour: 'Confirms or flags whether: A product team can obtain routine operational work without
+    serial escalation across many specialist groups.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P065
+  principle_id: P065
+  prompt: Diagnosing production bugs, exceptions, or reliability failures.. What do you advise, and why?
+  expected_behaviour: Do not rely on searchable logs as the only diagnostic source when runtime state
+    may be absent, noisy, or impossible to reproduce.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P066
+  principle_id: P066
+  prompt: deploying applications to Kubernetes. What do you advise, and why?
+  expected_behaviour: Package Kubernetes manifests with Helm using overridable values, store secrets in
+    Kubernetes Secrets and non-sensitive config in ConfigMaps, and inject build and commit IDs as deployment
+    annotations for traceability.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P067
+  principle_id: P067
+  prompt: Build CD metrics into the tooling (deployment count, release-candidate-to-production time, commit-to-production
+    time, release-candidate count, components released, unique components), summarize them simply on office
+    screens to open discussion, include financial data such as cost per release, and keep all metrics
+    highly visible and unrestricted including bad news.. What do you advise, and why?
+  expected_behaviour: Build CD metrics into the tooling (deployment count, release-candidate-to-production
+    time, commit-to-production time, release-candidate count, components released, unique components),
+    summarize them simply on office screens to open discussion, include financial data such as cost per
+    release, and keep all metrics highly visible and unrestricted including bad news.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P068
+  principle_id: P068
+  prompt: integrating information security into delivery. What do you advise, and why?
+  expected_behaviour: Shift security left by building it into developers' daily work with preapproved
+    libraries and integrated infosec feedback, which improves both delivery performance and security quality
+    and makes security everyone's responsibility.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P069
+  principle_id: P069
+  prompt: services can genuinely be tested and deployed independently. What do you advise, and why?
+  expected_behaviour: Form cross-functional teams and apply the inverse Conway maneuver, evolving org
+    structure to produce a loosely coupled architecture that lets the organization scale productivity.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P070
+  principle_id: P070
+  prompt: designing a product development process. What do you advise, and why?
+  expected_behaviour: Run Lean product development as four capabilities (small batches/MVPs, visible value-stream
+    flow, active customer feedback, team authority over specifications), forming a virtuous cycle with
+    delivery performance.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P071
+  principle_id: P071
+  prompt: Build delivery around visible flow, fast feedback, automated tests, and production-like environments
+    so changes stay deployable.. What do you advise, and why?
+  expected_behaviour: Build delivery around visible flow, fast feedback, automated tests, and production-like
+    environments so changes stay deployable.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Every commit triggers automated validation in an environment equivalent enough to catch deployment-impacting
+    errors.
+  principle_id: P071
+  prompt: 'Review this against the principle: Every commit triggers automated validation in an environment
+    equivalent enough to catch deployment-impacting errors.'
+  expected_behaviour: 'Confirms or flags whether: Every commit triggers automated validation in an environment
+    equivalent enough to catch deployment-impacting errors.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P072
+  principle_id: P072
+  prompt: interpreting data or making evidence-based claims. What do you advise, and why?
+  expected_behaviour: Apply research literacy
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P073
+  principle_id: P073
+  prompt: Gather data from deep within the software itself, not just external observation, harvesting
+    existing logs as a head start while preferring components that push their own metrics to a platform
+    such as Graphite over a pull-based health-checker that is API-limited and a single point of failure..
+    What do you advise, and why?
+  expected_behaviour: Gather data from deep within the software itself, not just external observation,
+    harvesting existing logs as a head start while preferring components that push their own metrics to
+    a platform such as Graphite over a pull-based health-checker that is API-limited and a single point
+    of failure.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P074
+  principle_id: P074
+  prompt: Run retrospectives as the inspect half of inspect-and-adapt, using time-boxed game-based exercises
+    such as the timeline game or StoStaKee, with the explicit end goal of concrete action points feeding
+    an improvement plan.. What do you advise, and why?
+  expected_behaviour: Run retrospectives as the inspect half of inspect-and-adapt, using time-boxed game-based
+    exercises such as the timeline game or StoStaKee, with the explicit end goal of concrete action points
+    feeding an improvement plan.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P075
+  principle_id: P075
+  prompt: choosing and applying a change-management model. What do you advise, and why?
+  expected_behaviour: Select change-management models by fit rather than standardizing on one, since none
+    is universally applicable
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P076
+  principle_id: P076
+  prompt: Treat recruitment as a priority as reputation grows, hiring for the new way of working rather
+    than the unhelpful job-spec phrase experience in CD and DevOps, repeatedly educating recruiters, using
+    an emotionally framed interview question to test cultural fit, and taking time to pick innovators
+    and followers over laggards.. What do you advise, and why?
+  expected_behaviour: Treat recruitment as a priority as reputation grows, hiring for the new way of working
+    rather than the unhelpful job-spec phrase experience in CD and DevOps, repeatedly educating recruiters,
+    using an emotionally framed interview question to test cultural fit, and taking time to pick innovators
+    and followers over laggards.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P077
+  principle_id: P077
+  prompt: defining action items in a postmortem. What do you advise, and why?
+  expected_behaviour: Write postmortem action items that prevent as well as mitigate, preferring fixes
+    to automated systems and processes over changing human behavior (humans stay fallible), assign each
+    a priority and an owner with precise, measurable, verifiable language (avoid vague 'improve'/'make
+    better'), file a tracking bug for every one, and group action items by theme for large incidents to
+    ease assigning owners and priorities.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P078
+  principle_id: P078
+  prompt: documenting context and impact in a postmortem. What do you advise, and why?
+  expected_behaviour: Give a postmortem the context to be understood beyond the immediate team
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P079
+  principle_id: P079
+  prompt: combining multiple load-management mechanisms. What do you advise, and why?
+  expected_behaviour: As systems grow, combine load balancing, load-based autoscaling, and load shedding
+    (which all serve the same goal and are not independent) deliberately
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P080
+  principle_id: P080
+  prompt: deciding how many configuration knobs to expose. What do you advise, and why?
+  expected_behaviour: Design configuration user-centrically around a particular set of use cases for your
+    key audience (requiring user research), recognizing that limited options can yield better adoption
+    than highly versatile software because onboarding effort is far lower and the software mostly works
+    out of the box, that an infrastructure-centric system can become more user-centric as it matures by
+    progressively removing knobs, and that questions should be asked close to the user's goals so users
+    describe high-level needs in their own terms while the system evolves how it implements them.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P081
+  principle_id: P081
+  prompt: Fix problems where they are found and use telemetry plus decoupled platforms to keep local work
+    aligned with global goals.. What do you advise, and why?
+  expected_behaviour: Fix problems where they are found and use telemetry plus decoupled platforms to
+    keep local work aligned with global goals.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: When a defect or signal appears, the team either fixes it immediately or escalates to protect
+    the system goal.
+  principle_id: P081
+  prompt: 'Review this against the principle: When a defect or signal appears, the team either fixes it
+    immediately or escalates to protect the system goal.'
+  expected_behaviour: 'Confirms or flags whether: When a defect or signal appears, the team either fixes
+    it immediately or escalates to protect the system goal.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P082
+  principle_id: P082
+  prompt: Use Information Security expertise early and continuously, including demonstrations, shared
+    issue tracking, and postmortems.. What do you advise, and why?
+  expected_behaviour: Use Information Security expertise early and continuously, including demonstrations,
+    shared issue tracking, and postmortems.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Security issues are prioritized in the normal Dev/Ops work tracker and reviewed after incidents.
+  principle_id: P082
+  prompt: 'Review this against the principle: Security issues are prioritized in the normal Dev/Ops work
+    tracker and reviewed after incidents.'
+  expected_behaviour: 'Confirms or flags whether: Security issues are prioritized in the normal Dev/Ops
+    work tracker and reviewed after incidents.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P083
+  principle_id: P083
+  prompt: Manage software supply-chain risk with vulnerability-aware component selection, dependency currency,
+    automated remediation, and centralized artifact evidence.. What do you advise, and why?
+  expected_behaviour: Manage software supply-chain risk with vulnerability-aware component selection,
+    dependency currency, automated remediation, and centralized artifact evidence.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Dependency governance includes SCA, automated update paths, artifact records, and deployed-artifact
+    scanning.
+  principle_id: P083
+  prompt: 'Review this against the principle: Dependency governance includes SCA, automated update paths,
+    artifact records, and deployed-artifact scanning.'
+  expected_behaviour: 'Confirms or flags whether: Dependency governance includes SCA, automated update
+    paths, artifact records, and deployed-artifact scanning.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P084
+  principle_id: P084
+  prompt: Automate change records and RFC evidence while keeping traceability lightweight enough not to
+    disrupt engineering flow.. What do you advise, and why?
+  expected_behaviour: Automate change records and RFC evidence while keeping traceability lightweight
+    enough not to disrupt engineering flow.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: A deployment record links planning items, commits, build manifests, tests, scripts, and dry-run
+    evidence without per-commit paperwork.
+  principle_id: P084
+  prompt: 'Review this against the principle: A deployment record links planning items, commits, build
+    manifests, tests, scripts, and dry-run evidence without per-commit paperwork.'
+  expected_behaviour: 'Confirms or flags whether: A deployment record links planning items, commits, build
+    manifests, tests, scripts, and dry-run evidence without per-commit paperwork.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P085
+  principle_id: P085
+  prompt: designing the test strategy for a CI pipeline. What do you advise, and why?
+  expected_behaviour: Treat automated testing as the cornerstone of delivery by keeping unit tests small
+    and fast, add integration/end-to-end tests with a clean, in-memory database state, and automate whatever
+    testing is feasible.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P086
+  principle_id: P086
+  prompt: The application serves users at meaningful scale or ships regularly.. What do you advise, and
+    why?
+  expected_behaviour: For high-scale or frequently released production systems, connect detection to deployment
+    and runtime instrumentation so new errors are surfaced fast enough for remediation.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P087
+  principle_id: P087
+  prompt: Choosing, auditing, or revising production monitoring tools.. What do you advise, and why?
+  expected_behaviour: Build the monitoring stack by failure domain
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P088
+  principle_id: P088
+  prompt: Investigating staging or production exceptions where reproduction is difficult or expensive..
+    What do you advise, and why?
+  expected_behaviour: Root-cause analysis should capture failure-time source context, runtime state, and
+    variable values so engineers do not have to reconstruct conditions later.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P089
+  principle_id: P089
+  prompt: Exception volume or frequency may affect performance, cost, or user experience.. What do you
+    advise, and why?
+  expected_behaviour: Prioritize exception work by rate and overhead, not raw presence alone; frequent
+    or resource-costly exceptions should trigger root-cause investigation.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P090
+  principle_id: P090
+  prompt: provisioning or managing cloud infrastructure for the CI system. What do you advise, and why?
+  expected_behaviour: Provision infrastructure as code with Terraform, store state in a remote backend,
+    split configuration modularly per component, and parameterize with variables instead of hardcoded
+    values.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P091
+  principle_id: P091
+  prompt: configuring how source changes trigger builds. What do you advise, and why?
+  expected_behaviour: Trigger builds via webhooks, secured with a request secret and signature validation;
+    fall back to poll-SCM only when Jenkins is unreachable by inbound hooks or commits are frequent and
+    builds long.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P092
+  principle_id: P092
+  prompt: choosing an orchestration platform for larger or growing workloads. What do you advise, and
+    why?
+  expected_behaviour: For larger scale move to a managed Kubernetes service (EKS, AKS, or GKE) with a
+    multi-AZ control plane and least-privilege managed IAM policies, exposing services via a TLS-terminating
+    load balancer.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P093
+  principle_id: P093
+  prompt: deciding whether to slow delivery to protect stability or vice versa. What do you advise, and
+    why?
+  expected_behaviour: Treat delivery speed and stability as complementary rather than a trade-off, and
+    pursue both by building quality in instead of choosing one over the other.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P094
+  principle_id: P094
+  prompt: Expect continuous delivery to improve delivery performance and quality (lower change fail rate,
+    less unplanned work and rework) while strengthening culture and reducing burnout.. What do you advise,
+    and why?
+  expected_behaviour: Expect continuous delivery to improve delivery performance and quality (lower change
+    fail rate, less unplanned work and rework) while strengthening culture and reducing burnout.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P095
+  principle_id: P095
+  prompt: systems and teams can be changed, tested, and deployed independently. What do you advise, and
+    why?
+  expected_behaviour: Achieve high performance with any system type, including legacy and mainframe, by
+    ensuring systems and teams are loosely coupled rather than by chasing a particular technology.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P096
+  principle_id: P096
+  prompt: WIP limits are combined with visual displays and a monitoring feedback loop. What do you advise,
+    and why?
+  expected_behaviour: Practice Lean management as WIP limits plus visual displays plus a production-monitoring
+    feedback loop together, since WIP limits alone do not improve performance.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P097
+  principle_id: P097
+  prompt: governing changes to production. What do you advise, and why?
+  expected_behaviour: Replace external change-approval boards with a lightweight peer-review process (pair
+    programming or intrateam review) plus a deployment pipeline, because external approval lowers performance
+    and is worse than no process.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P098
+  principle_id: P098
+  prompt: building and retaining teams. What do you advise, and why?
+  expected_behaviour: Pursue both diversity and inclusion, recruiting and retaining women, underrepresented
+    minorities, and people with disabilities and countering harassment, microaggressions, and unequal
+    pay.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P099
+  principle_id: P099
+  prompt: 'As an organization scales, deliberately preserve small-software-house strengths: low Dev/Ops
+    barriers, a shared focus on fast delivery, swarming on failures, and small incremental releases..
+    What do you advise, and why?'
+  expected_behaviour: As an organization scales, deliberately preserve small-software-house strengths
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P100
+  principle_id: P100
+  prompt: under deadline pressure. What do you advise, and why?
+  expected_behaviour: Do not let deadline pressure erode engineering discipline; protect source control,
+    testing, and sound design even when time is short.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P101
+  principle_id: P101
+  prompt: Tailor the evangelism message to the audience, be patient and use the slowest adopters as a
+    yardstick, keep it consistent with the agreed language, goal, and vision, route new ideas to the backlog,
+    and do not waste effort on those who refuse to listen.. What do you advise, and why?
+  expected_behaviour: Tailor the evangelism message to the audience, be patient and use the slowest adopters
+    as a yardstick, keep it consistent with the agreed language, goal, and vision, route new ideas to
+    the backlog, and do not waste effort on those who refuse to listen.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P102
+  principle_id: P102
+  prompt: Recognize that the real constraint on delivery is often the release process rather than the
+    architecture, since a legacy monolith released as one bundle restricts CD even though tightly coupled
+    platforms are still made of small components.. What do you advise, and why?
+  expected_behaviour: Recognize that the real constraint on delivery is often the release process rather
+    than the architecture, since a legacy monolith released as one bundle restricts CD even though tightly
+    coupled platforms are still made of small components.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P103
+  principle_id: P103
+  prompt: 'Treat CD tooling as critical: it may be scarce so consider building your own to fit and future-proof,
+    make it excellent and ideally one-click, treat in-house tooling as an internally open shared product,
+    and record an audit of what was deployed, when, and by whom.. What do you advise, and why?'
+  expected_behaviour: Treat CD tooling as critical
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P104
+  principle_id: P104
+  prompt: Share code rather than hoarding it and review every change through peer review that includes
+    Operations and covers operations configuration changes, because more eyes reduce risk and a change
+    failing review fails fast before reaching production.. What do you advise, and why?
+  expected_behaviour: Share code rather than hoarding it and review every change through peer review that
+    includes Operations and covers operations configuration changes, because more eyes reduce risk and
+    a change failing review fails fast before reaching production.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P105
+  principle_id: P105
+  prompt: Hold internal and labor-saving tooling to production quality and demand consistent, repeatable
+    results, because inconsistent automation erodes trust, while repeatable results both let differing
+    results reliably signal a problem and enable useful metrics such as a stable deploy time.. What do
+    you advise, and why?
+  expected_behaviour: Hold internal and labor-saving tooling to production quality and demand consistent,
+    repeatable results, because inconsistent automation erodes trust, while repeatable results both let
+    differing results reliably signal a problem and enable useful metrics such as a stable deploy time.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P106
+  principle_id: P106
+  prompt: 'Do not go overboard on environments: two (development and production) is a viable minimum and
+    a lean set of development, CI, pre-production, and production is sufficient, because the hard part
+    is keeping many environments aligned on versions, patches, and configuration.. What do you advise,
+    and why?'
+  expected_behaviour: Do not go overboard on environments
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P107
+  principle_id: P107
+  prompt: Develop against a like-live environment holding the live versions of code so production dependencies
+    are validated, rather than against production (outage risk) or CI versions (unknown go-live order);
+    the like-live environment need only match software and infrastructure versions and is deployed to
+    only after a successful production deployment.. What do you advise, and why?
+  expected_behaviour: Develop against a like-live environment holding the live versions of code so production
+    dependencies are validated, rather than against production (outage risk) or CI versions (unknown go-live
+    order); the like-live environment need only match software and infrastructure versions and is deployed
+    to only after a successful production deployment.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P108
+  principle_id: P108
+  prompt: Monitor everything across all environments and make the monitoring visible to everyone, aggregating
+    disparate tools into a single coherent view and marking deployments on time-series graphs to confirm
+    or rule out a change's impact.. What do you advise, and why?
+  expected_behaviour: Monitor everything across all environments and make the monitoring visible to everyone,
+    aggregating disparate tools into a single coherent view and marking deployments on time-series graphs
+    to confirm or rule out a change's impact.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P109
+  principle_id: P109
+  prompt: Foster grassroots innovation as worthwhile rather than risky, giving everyone (not just architects)
+    room and a forum to contribute ideas, while making clear that with the freedom to innovate comes ownership
+    and accountability.. What do you advise, and why?
+  expected_behaviour: Foster grassroots innovation as worthwhile rather than risky, giving everyone (not
+    just architects) room and a forum to contribute ideas, while making clear that with the freedom to
+    innovate comes ownership and accountability.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P110
+  principle_id: P110
+  prompt: Do not reward failure such as a release that missed scope or caused downtime; reward delivering
+    what is needed when or before it is needed as a group reward, reserve special rewards for genuinely
+    exceptional effort, and as releases become continuous shift rewards to business milestones.. What
+    do you advise, and why?
+  expected_behaviour: Do not reward failure such as a release that missed scope or caused downtime; reward
+    delivering what is needed when or before it is needed as a group reward, reserve special rewards for
+    genuinely exceptional effort, and as releases become continuous shift rewards to business milestones.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P111
+  principle_id: P111
+  prompt: Extend communication and visibility beyond the immediate team to the wider organization through
+    internal comms and PR, because in larger organizations most people are outsiders who can unknowingly
+    obstruct the work, and good PR can win senior recognition and sway dissenters.. What do you advise,
+    and why?
+  expected_behaviour: Extend communication and visibility beyond the immediate team to the wider organization
+    through internal comms and PR, because in larger organizations most people are outsiders who can unknowingly
+    obstruct the work, and good PR can win senior recognition and sway dissenters.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P112
+  principle_id: P112
+  prompt: Work with the owners of regulatory, SLA, change-management, and auditability rules to find wriggle
+    room and adapt them rather than ignoring or breaking them, recognizing the rules provide a real safety
+    gate and audit record, that some are overkill, and that defensive owners need help understanding what
+    they can safely change.. What do you advise, and why?
+  expected_behaviour: Work with the owners of regulatory, SLA, change-management, and auditability rules
+    to find wriggle room and adapt them rather than ignoring or breaking them, recognizing the rules provide
+    a real safety gate and audit record, that some are overkill, and that defensive owners need help understanding
+    what they can safely change.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P113
+  principle_id: P113
+  prompt: Never forget the original goal and vision, refining direction as you are sidetracked, and as
+    you near the goal expect original issues to be replaced by new smaller ones, treating their surfacing
+    as positive progress and inspecting and adapting the goal rather than starting over or declaring failure..
+    What do you advise, and why?
+  expected_behaviour: Never forget the original goal and vision, refining direction as you are sidetracked,
+    and as you near the goal expect original issues to be replaced by new smaller ones, treating their
+    surfacing as positive progress and inspecting and adapting the goal rather than starting over or declaring
+    failure.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P114
+  principle_id: P114
+  prompt: advising on whether and how SRE fits an organization. What do you advise, and why?
+  expected_behaviour: Treat SRE as an opinionated, concrete implementation of DevOps that is complementary
+    to it (not in conflict) and applicable at any scale, not only at Google's scale or culture.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P115
+  principle_id: P115
+  prompt: establishing an error budget policy. What do you advise, and why?
+  expected_behaviour: Derive an error budget from the SLO and write a policy specifying the actions to
+    take and who takes them when the budget is exhausted; getting that policy approved by the product
+    manager, developers, and SREs tests whether the SLO is fit for purpose, and everyone must understand
+    that lowering the SLO also lowers the number of situations to which SREs respond.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P116
+  principle_id: P116
+  prompt: deciding which data source drives alerting versus diagnosis. What do you advise, and why?
+  expected_behaviour: Treat metrics and structured logging as the two primary monitoring data sources
+    for distinct jobs
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P117
+  principle_id: P117
+  prompt: choosing an SLO alerting window. What do you advise, and why?
+  expected_behaviour: Do not alert simply when a short-window error rate exceeds the SLO threshold (good
+    recall and detection but poor precision — up to 144 alerts/day while still meeting SLO), and do not
+    lengthen the window naively, since longer windows worsen reset time and cost more memory and I/O.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P118
+  principle_id: P118
+  prompt: hardening automation against its own failures. What do you advise, and why?
+  expected_behaviour: Make destructive automation idempotent and guard it with sanity checks and rate
+    limits, since a bug treating an empty filter list as 'act on all' rather than 'act on none', combined
+    with weak rate limits, disk-erased every machine globally; and defend destructive operations with
+    layered safety patterns — a separate safety-check/approval service, rejecting operations that omit
+    an expected-present constraint, disallowing one operation from spanning namespace/class boundaries,
+    capping affected nodes, an emergency-stop 'big red button', workflow rate limits, and alerting when
+    more than a set percentage of machines are removed.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P119
+  principle_id: P119
+  prompt: deprecating, decommissioning, or migrating off a legacy system. What do you advise, and why?
+  expected_behaviour: Deprecate and retire legacy systems data-driven and low-touch
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P120
+  principle_id: P120
+  prompt: preparing incident communication and declaration criteria in advance. What do you advise, and
+    why?
+  expected_behaviour: Decide and rehearse the single incident communication channel beforehand (preferably
+    a familiar one) so the Incident Commander never chooses it mid-incident, prepare two or three ready-to-use
+    public-announcement templates with a known send path and an agreed draft/review/approve/release flow,
+    prepare distribution lists for an 'all hands on deck' call, and establish explicit criteria — derived
+    from past outages and high-risk areas — for when an issue is truly an incident.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P121
+  principle_id: P121
+  prompt: training teams for incident response. What do you advise, and why?
+  expected_behaviour: Practice incident management with regular drills — controlled customer-safe emergencies
+    (company-wide disaster-recovery testing), Wheel-of-Misfortune role-plays, or deliberately escalating
+    a minor problem — using real tools as much as possible, follow each with a report of what went well,
+    poorly, and how to improve, and establish and rehearse procedures while the world is not on fire to
+    build the muscle memory to stay calm, securing leadership support for dedicated practice time.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P122
+  principle_id: P122
+  prompt: introducing or sustaining a postmortem practice. What do you advise, and why?
+  expected_behaviour: Adopt a blameless postmortem culture as a cultural as much as technical change
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P123
+  principle_id: P123
+  prompt: choosing language and tone in a postmortem. What do you advise, and why?
+  expected_behaviour: Keep postmortems blameless and factual
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P124
+  principle_id: P124
+  prompt: placing TCP/SSL termination and managing backend connections. What do you advise, and why?
+  expected_behaviour: Terminate TCP/TLS at a Layer 7 reverse-proxy or edge front end as close to the user
+    as possible — keeping long-lived, pre-warmed encrypted connections to backends — to minimise handshake
+    round-trip latency and to absorb low-level attacks (e.g
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P125
+  principle_id: P125
+  prompt: preventing and repairing data corruption. What do you advise, and why?
+  expected_behaviour: Plan for the eventuality that even with the best practices a software or config
+    bug will corrupt data, by ensuring you can quickly reprocess and restore (recovery is labor-intensive
+    and hard to automate), and treat application or configuration errors as the most common cause of pipeline
+    outages — responding by rolling back the binary/config, cherry-picking a fix, repairing permissions,
+    or restructuring bad data, and preventing them by validating new binaries and configs in a non-production
+    environment before full deployment.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P126
+  principle_id: P126
+  prompt: separating configuration interface from data representation. What do you advise, and why?
+  expected_behaviour: Make configuration both code and data but keep them separate
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P127
+  principle_id: P127
+  prompt: designing a configuration language. What do you advise, and why?
+  expected_behaviour: Treat configuration as a programming-language problem from the start
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P128
+  principle_id: P128
+  prompt: choosing canary metrics and acceptance thresholds. What do you advise, and why?
+  expected_behaviour: Select canary metrics that indicate actual user-perceivable problems, starting from
+    your SLIs (which have strong attribution to service health and reuse SLO-compliance work) and avoiding
+    metrics like CPU usage whose increase does not necessarily impact users, because a flaky or noisy
+    canary process gets disabled or ignored — defeating its purpose — and define acceptable behavior for
+    each metric carefully (too strict yields false positives, too loose lets bad canaries through), reevaluating
+    these expectations regularly as the service evolves.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P129
+  principle_id: P129
+  prompt: the same helper logic is duplicated across multiple pipelines. What do you advise, and why?
+  expected_behaviour: Centralize reusable pipeline helper code in a versioned Jenkins shared library and
+    reference it from all pipelines instead of copying functions into each Jenkinsfile.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P130
+  principle_id: P130
+  prompt: granting permissions to a user, tool, or pipeline. What do you advise, and why?
+  expected_behaviour: Enforce least privilege for all automation identities, never use the cloud root
+    account except for billing, create dedicated users/roles with only the permissions needed, and store
+    generated access keys securely.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P131
+  principle_id: P131
+  prompt: architecting a build cluster for resilience. What do you advise, and why?
+  expected_behaviour: Spread workers and subnets across multiple availability zones and make workers immutable
+    and disposable via Auto Scaling groups for high availability and fault tolerance.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P132
+  principle_id: P132
+  prompt: operating a Jenkins server that holds important configuration and history. What do you advise,
+    and why?
+  expected_behaviour: Back up $JENKINS_HOME regularly (via a backup plugin or a scheduled cron job) to
+    remote or external storage so Jenkins can be restored after data corruption or human error.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P133
+  principle_id: P133
+  prompt: publishing build artifacts to a container registry. What do you advise, and why?
+  expected_behaviour: Store built images in a private registry and authenticate with a least-privilege
+    scoped token or instance profile rather than admin credentials.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P134
+  principle_id: P134
+  prompt: validating a deployment within the pipeline. What do you advise, and why?
+  expected_behaviour: Run post-deployment smoke tests that go beyond a 200 response, computing the environment
+    URL from the branch and asserting the deployed version matches the expected build so you confirm the
+    new version is actually live.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P135
+  principle_id: P135
+  prompt: configuring authentication and authorization for Jenkins. What do you advise, and why?
+  expected_behaviour: Control Jenkins access with role-based authorization and delegate authentication
+    to an OAuth provider (GitHub, GitLab, Google, OpenID) following least privilege, instead of managing
+    per-user permissions and passwords by hand.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P136
+  principle_id: P136
+  prompt: leadership provides consistent time, actions, and resources and the team commits. What do you
+    advise, and why?
+  expected_behaviour: Assume meaningful improvement is achievable for any team in any industry or stack,
+    but only when leadership gives consistent support and the team commits to the work.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P137
+  principle_id: P137
+  prompt: designing organizational structure and management cadence. What do you advise, and why?
+  expected_behaviour: Use visual management (an Obeya) tying each objective measurably to enterprise strategy,
+    organize along value streams into small self-steering cross-functional teams, and let structure emerge
+    and coaches multiply through coaching the coaches.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P138
+  principle_id: P138
+  prompt: Use the measured performance benchmarks (e.g., high performers' higher market-cap growth, the
+    rework and manual-work J-curves) as evidence that capability gaps carry real business cost.. What
+    do you advise, and why?
+  expected_behaviour: Use the measured performance benchmarks (e.g., high performers' higher market-cap
+    growth, the rework and manual-work J-curves) as evidence that capability gaps carry real business
+    cost.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P139
+  principle_id: P139
+  prompt: A team operates shared production services or multiple people own different application areas..
+    What do you advise, and why?
+  expected_behaviour: Assign and route alerts to the accountable owner before or as incidents occur so
+    response does not depend on improvised coordination during an outage.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P140
+  principle_id: P140
+  prompt: Exceptions are frequent enough to require team-level workflow management.. What do you advise,
+    and why?
+  expected_behaviour: Manage exceptions with an explicit processing workflow
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P141
+  principle_id: P141
+  prompt: Sustain DevOps transformation through cross-functional coalitions and small teams that can independently
+    validate and safely deploy code.. What do you advise, and why?
+  expected_behaviour: Sustain DevOps transformation through cross-functional coalitions and small teams
+    that can independently validate and safely deploy code.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Transformation sponsorship includes business, product, development, QA, operations, security,
+    and affected delivery teams.
+  principle_id: P141
+  prompt: 'Review this against the principle: Transformation sponsorship includes business, product, development,
+    QA, operations, security, and affected delivery teams.'
+  expected_behaviour: 'Confirms or flags whether: Transformation sponsorship includes business, product,
+    development, QA, operations, security, and affected delivery teams.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P142
+  principle_id: P142
+  prompt: refining SLOs after initial measurement. What do you advise, and why?
+  expected_behaviour: Continuously improve SLO targets
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P143
+  principle_id: P143
+  prompt: a team is deciding between monolithic, microservices, or cloud-native architecture. What do
+    you advise, and why?
+  expected_behaviour: Match the architecture choice (monolith, microservices, cloud-native, serverless)
+    to the team's automation maturity, because microservices and cloud-native add operational complexity
+    that demands heavy automation and a DevOps/Agile culture.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P144
+  principle_id: P144
+  prompt: Use automated resilience, latency, conformity, security, health, and cleanup checks to exercise
+    and maintain cloud systems continuously.. What do you advise, and why?
+  expected_behaviour: Use automated resilience, latency, conformity, security, health, and cleanup checks
+    to exercise and maintain cloud systems continuously.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: Automated checks can simulate degradation and remove or flag nonconforming resources.
+  principle_id: P144
+  prompt: 'Review this against the principle: Automated checks can simulate degradation and remove or
+    flag nonconforming resources.'
+  expected_behaviour: 'Confirms or flags whether: Automated checks can simulate degradation and remove
+    or flag nonconforming resources.'
+  must_not:
+  - Ignore the stated criterion
+- test_id: PBT-P145
+  principle_id: P145
+  prompt: defining the branching and promotion workflow. What do you advise, and why?
+  expected_behaviour: Choose a branching model that fits team size (GitFlow for large teams, a simpler
+    3-branch model for small ones) and provide a dedicated hotfix path merged back to both develop and
+    master.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P146
+  principle_id: P146
+  prompt: provisioning build infrastructure. What do you advise, and why?
+  expected_behaviour: Tag all cloud resources for cost tracking and size instance/disk types to the project's
+    actual build workload.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P147
+  principle_id: P147
+  prompt: deploying a self-managed Swarm cluster. What do you advise, and why?
+  expected_behaviour: When orchestrating with Docker Swarm, automate node joining via a shared token store,
+    use an odd number of managers for quorum, order resource creation so managers come up first, and spread
+    nodes across availability zones.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P148
+  principle_id: P148
+  prompt: adding result notifications to a pipeline. What do you advise, and why?
+  expected_behaviour: Wrap pipeline stages in try/catch/finally (or a declarative post block) so notifications
+    run on every outcome, and limit heavy notifications such as email to the production branch to avoid
+    spamming developers.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P149
+  principle_id: P149
+  prompt: Treat software delivery capability as a competitive advantage, since high performers are about
+    twice as likely to exceed commercial and non-commercial goals.. What do you advise, and why?
+  expected_behaviour: Treat software delivery capability as a competitive advantage, since high performers
+    are about twice as likely to exceed commercial and non-commercial goals.
+  must_not:
+  - Give advice that contradicts this principle
+- test_id: PBT-P150
+  principle_id: P150
+  prompt: Measure as many aspects of the delivery process as possible and start early to establish a baseline,
+    without cutting corners on monitoring and reporting, because most of it is long-lived and a poor solution
+    erodes trust.. What do you advise, and why?
+  expected_behaviour: Measure as many aspects of the delivery process as possible and start early to establish
+    a baseline, without cutting corners on monitoring and reporting, because most of it is long-lived
+    and a poor solution erodes trust.
+  must_not:
+  - Give advice that contradicts this principle
