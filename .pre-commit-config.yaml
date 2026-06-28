@@ -1,8 +1,11 @@
 # Pre-commit hooks for the subagent factory. Mirrors `make verify`.
 # Install: pip install pre-commit && pre-commit install
 repos:
+  # Keep this rev in lockstep with the pinned `ruff==` in pyproject.toml's [lint] extra, so the
+  # commit-time format matches what `make verify` and CI enforce (ruff format output drifts between
+  # releases; a stale pin here passes locally then fails CI's format check).
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.5.7
+    rev: v0.15.20
     hooks:
       - id: ruff
         args: [--fix]
