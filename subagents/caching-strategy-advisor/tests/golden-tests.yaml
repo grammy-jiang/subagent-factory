@@ -1,0 +1,153 @@
+schema_version: golden-tests-v1
+subagent_slug: caching-strategy-advisor
+generated_at: "2026-06-12"
+
+golden_tests:
+  - test_id: GT-001
+    description: >-
+      Advise mode — standard caching viability request with bell-curve access
+      distribution, known service latency, no side effects, and explicit
+      consistency tolerance. Tests P001 (viability gate), P005 (eviction by
+      distribution), P009 (break-even), P003/P004 (consistency), P010 (pattern
+      ownership).
+    prompt: >-
+      We have a product-catalogue lookup service. Each lookup hits a PostgreSQL
+      database and takes about 80ms. The data changes at most once per hour.
+      Access follows a bell-curve distribution — about 20% of products get 80%
+      of the traffic. There are no side effects; the operation is read-only.
+      Our application can tolerate up to 5 minutes of stale data. Should we
+      cache this, and if so, what pattern and eviction policy should we use?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: >-
+      A viability verdict confirming all five cache-suitability conditions hold
+      (P001), a caching-pattern recommendation with explicit consistency ownership
+      assessment (P010 — cache-aside or write-through with rationale), LRU eviction
+      justified by the bell-curve/recency-skewed distribution (P005), TTL up to
+      5 minutes with invalidation-on-update (P003, P004), and either the break-even
+      hit rate or a prompt for Cache_Check and Cache_Write values (P009).
+    must_not_do:
+      - >-
+        Recommend random eviction in production.
+      - >-
+        Emit a production-ready Redis configuration file or runnable script.
+      - >-
+        Claim Active-Active Geo-Distribution is available in open-source Redis.
+      - >-
+        Select a caching pattern without stating who owns consistency.
+
+  - test_id: GT-002
+    description: >-
+      Validate mode — proposed cache design fails the side-effects condition (P002);
+      advisor must decline to endorse and explain the risk. Also exercises P001
+      (viability gate fails at the side-effects condition).
+    prompt: >-
+      We want to cache the result of our checkout service endpoint. The endpoint
+      charges the payment instrument, decrements inventory, and sends a
+      confirmation email, then returns an order confirmation object. We think
+      caching the confirmation object for 10 minutes will reduce load. Is this
+      a valid caching use case?
+    expected_route: invoke
+    expected_mode: validate
+    must_ask_for: []
+    minimum_output: >-
+      A validation failure naming the side effects (payment charge, inventory
+      decrement, email send) and the duplicate-charge / incorrect-inventory /
+      duplicate-email risks (P002), an explicit refusal to endorse the design in
+      its current form, and a statement that a complete side-effect handling
+      design is required before caching can be considered (P001 fails at
+      condition 4: unmanaged side effects).
+    must_not_do:
+      - >-
+        State that caching this endpoint is safe or appropriate without a
+        side-effect audit.
+      - >-
+        Recommend a pattern or eviction policy for this endpoint before the
+        side-effect issue is resolved.
+
+  - test_id: GT-003
+    description: >-
+      Compare mode — comparison of cache scaling options when both storage and
+      write throughput are bottlenecks across two geographic regions. Tests P006
+      (storage vs resource bottleneck diagnosis) and P007 (topology selection).
+    prompt: >-
+      Our Redis cache is running out of storage and write latency from our
+      EU region to our US-based master is too high (150ms round-trip). We are
+      considering three options: (1) vertical scaling of the US master, (2)
+      adding read replicas in EU, and (3) Active-Active multi-master with
+      nodes in both regions. Compare these options and recommend the best fit.
+    expected_route: invoke
+    expected_mode: compare
+    must_ask_for: []
+    minimum_output: >-
+      A side-by-side comparison of the three options diagnosing both the storage
+      limit and the write-latency (resource) constraint (P006): vertical scaling
+      addresses storage but not EU write latency; read replicas distribute reads
+      but EU writes still travel to the US master; Active-Active resolves write
+      latency locally but adds conflict risk and requires Redis Enterprise CRDTs
+      (P007) — with a ranked recommendation of Active-Active and the Enterprise
+      requirement made explicit.
+    must_not_do:
+      - >-
+        Claim Active-Active Geo-Distribution is available in open-source Redis.
+      - >-
+        Recommend an option that ignores the write-latency constraint.
+      - >-
+        Conflate storage-limit and resource-limit bottlenecks without diagnosing
+        which is binding for each option.
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: >-
+      Negative routing — request for a production Redis configuration file is
+      out of scope; advisor must decline to produce executable artefacts.
+    prompt: >-
+      Based on our conversation, can you write me a complete redis.conf file
+      with maxmemory-policy set to allkeys-lru, AOF enabled with appendfsync
+      everysec, and replication configured for two read replicas? We want to
+      copy-paste this directly into production.
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >-
+      A refusal to produce a production-ready redis.conf or any runnable
+      configuration file (outputs are advisory, not executable), an advisory
+      explanation of the requested trade-offs (LRU eviction, AOF everysec
+      durability, read replicas), and a handoff to the engineering team plus a
+      pointer to redis.io/docs for current configuration syntax.
+    must_not_do:
+      - >-
+        Emit a complete redis.conf file or any snippet presented as ready for
+        production copy-paste use.
+      - >-
+        Claim the configuration is production-validated without the engineering
+        team's benchmarking and review.
+
+missing_context_tests:
+  - test_id: MC-001
+    description: >-
+      Missing required input — caching request with no access-pattern or
+      side-effect information; advisor must warn and request the inputs.
+      Tests P001 (cannot evaluate viability without distribution) and P009
+      (cannot calculate break-even without Service_Call_Time).
+    prompt: >-
+      Should we put a cache in front of our orders service to make it faster?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for:
+      - >-
+        Data-access pattern: frequency, distribution shape, and whether the data
+        changes after being written.
+      - >-
+        Whether the operation has side effects, and if so which.
+    minimum_output: >-
+      A clear statement that a viability verdict cannot be given without the
+      access-pattern, side-effect, and backing-cost inputs, and a request for
+      those inputs referencing the five viability conditions (P001) and the
+      break-even formula inputs (P009).
+    must_not_do:
+      - >-
+        Proceed as if the access pattern and side-effect status were provided.
+      - >-
+        Fabricate hit-rate or latency numbers to force a recommendation.
