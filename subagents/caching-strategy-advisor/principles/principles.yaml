@@ -209,3 +209,461 @@ principles:
     skill: null
     reference: null
     test_cases: []
+- principle_id: P011
+  statement: 'Choose the deployment model deliberately and own its security: managed
+    cloud Redis (AWS/Google/Azure/IBM, or Redis Enterprise Cloud with built-in HA
+    and Active-Active) is easy and secure by default and suits dev/test/autoscaled
+    production, whereas self-hosting Redis makes you responsible for correct security
+    settings, valid certificates, and ongoing security maintenance.'
+  derived_from_claims:
+  - C00106
+  - C00107
+  - C00108
+  - C00109
+  confidence: medium
+  applies_when:
+  - deciding between managed and self-hosted Redis
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: 'Introduce a cache only when all of the value-preconditions hold: the
+    backing operation is slow or resource-intensive, the cache can serve the result
+    faster and more cheaply than the source, and the same data is reused more than
+    once. Decline caching when the backing operation is cheap or the data is needed
+    only once.'
+  derived_from_claims:
+  - C00003
+  - C00004
+  - C00007
+  confidence: high
+  applies_when:
+  - deciding whether to introduce a cache in front of an operation or data source
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Never cache a side-effecting operation without explicitly handling its
+    side effects; an operation that modifies state outside its local environment must
+    have those effects preserved, because improperly caching side effects is a common
+    cause of failures and outages.
+  derived_from_claims:
+  - C00006
+  - C00018
+  - C00019
+  confidence: high
+  applies_when:
+  - the operation being cached modifies state outside its own local environment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: 'Decide cache-aside versus inline by who should own consistency: in cache-aside
+    the application owns consistency and accesses cache and store independently; in
+    an inline (read/write-through) cache the cache itself owns consistency because
+    the store is accessed through it.'
+  derived_from_claims:
+  - C00027
+  - C00028
+  - C00029
+  confidence: high
+  applies_when:
+  - choosing how data flows through a cache
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: 'Treat cache consistency as a first-class design concern — it is one
+    of the greatest challenges of operating a cache — and choose the caching pattern
+    accordingly, knowing the three ways a cache becomes inconsistent: the underlying
+    data changes without a cache update, a delay in updating cached results, and divergence
+    across cached nodes.'
+  derived_from_claims:
+  - C00097
+  - C00098
+  - C00099
+  confidence: high
+  applies_when:
+  - designing or reviewing a cache's consistency behavior
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: In a cache-aside pattern, restore consistency when the underlying value
+    changes by updating the cached entry to the new value or removing it so the next
+    read reloads from the store; keep the update-delay window as short as possible
+    and judge its acceptability against the use case.
+  derived_from_claims:
+  - C00100
+  - C00101
+  - C00102
+  confidence: high
+  applies_when:
+  - the underlying data behind a cache-aside cache can change
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Use a write-behind (write-back) cache only when a bounded inconsistency
+    window is acceptable and reads do not bypass the cache, because write-behind returns
+    immediately and updates the store asynchronously, leaving the store stale until
+    the flush completes.
+  derived_from_claims:
+  - C00036
+  - C00037
+  - C00038
+  confidence: high
+  applies_when:
+  - write latency must be minimized and the application tolerates a temporary inconsistency
+    window
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: 'Use TTL (time-to-live) expiry to bound how long a cached value lives
+    or may be stale: give each value a per-key lifetime after which it is removed
+    regardless of capacity (in Redis, TTL is set at the key level). Apply it both
+    to time-sensitive or session data (e.g., a session TTL refreshed on each interaction)
+    and to dynamically changing data to cap staleness by re-reading from the store
+    at intervals, accepting the residual inconsistency only where some inaccuracy
+    is acceptable for the use case.'
+  derived_from_claims:
+  - C00046
+  - C00047
+  - C00103
+  confidence: high
+  applies_when:
+  - cached values must expire after a known time, e.g. sessions or time-sensitive
+    data
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: 'When using Active-Active (multi-master) replication to scale both reads
+    and writes and improve availability, you must handle write conflicts and data
+    lag: concurrent updates to the same key on different masters conflict, and a conflict-resolution
+    scheme is required (CRDTs provide strong eventual consistency), but the application
+    must still be written to tolerate lag and conflicts.'
+  derived_from_claims:
+  - C00091
+  - C00092
+  - C00094
+  confidence: high
+  applies_when:
+  - scaling write throughput or serving writes in multiple locations with multiple
+    masters
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: 'Use cache terminology precisely when reasoning about correctness: cache
+    consistency means the cache returns a correct result versus the source (concerning
+    how external requests to a key are ordered), distinct from cache coherency (reads/writes
+    behave as if no cache existed); account for data lag (the time a change takes
+    to propagate to all servers); and use a cache flush to empty all data, after which
+    requests miss until the cache is repopulated.'
+  derived_from_claims:
+  - C00121
+  - C00122
+  - C00123
+  confidence: medium
+  applies_when:
+  - reasoning or communicating about cache correctness, propagation, or clearing
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: 'Place Redis in a microservices architecture by role: as an asynchronous
+    communication channel (a Lists-based FIFO queue between services) and as a cache
+    in several placements — server-side internal cache, distributed cache-aside fronting
+    a slower store, client-side interim-result cache, or network-level HTTP cache
+    (managed via Cache-Control/Expires/Last-Modified through reverse proxies).'
+  derived_from_claims:
+  - C00069
+  - C00070
+  - C00071
+  confidence: medium
+  applies_when:
+  - deciding where and how to use Redis in a microservices system
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: 'Choose volatile versus persistent cache storage by recovery needs and
+    provide a rehydration path: persistence keeps contents across outages/reboots,
+    and a persistent cache built on volatile memory must make redundant backups to
+    persistent storage and rehydrate from a backup or the backing store after a wipe.'
+  derived_from_claims:
+  - C00058
+  - C00059
+  - C00060
+  confidence: medium
+  applies_when:
+  - deciding whether cache contents must survive restarts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: 'Treat caching as a deliberate tradeoff, not a default: it can add no
+    value and in some cases degrades performance, so before caching evaluate the three
+    risks of suppressed side effects, cache inconsistency, and poor cache performance.'
+  derived_from_claims:
+  - C00016
+  - C00017
+  confidence: high
+  applies_when:
+  - proposing or reviewing a new cache
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: 'Plan for eviction up front: because a cache holds only a subset of the
+    underlying data, define an eviction policy for when it fills, or explicitly choose
+    a no-eviction (All-In) policy and delegate eviction to the application.'
+  derived_from_claims:
+  - C00039
+  - C00040
+  confidence: high
+  applies_when:
+  - sizing or configuring a cache that is smaller than its data store
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: 'Follow the standard cache read-path: check the cache first; on a hit
+    serve from the cache; on a miss fetch from the underlying store and then populate
+    the cache so subsequent reads are served from it.'
+  derived_from_claims:
+  - C00026
+  - C00030
+  confidence: high
+  applies_when:
+  - implementing or reviewing cache read logic
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: 'Do not mistake SSD-backed Redis on Flash for a persistent cache: RoF
+    stores values across RAM and SSD to enlarge capacity cost-effectively but keeps
+    keys in RAM, so AOF and/or RDB backups are still required for true persistence.'
+  derived_from_claims:
+  - C00066
+  - C00067
+  confidence: high
+  applies_when:
+  - using Redis on Flash (RAM+SSD) to scale cache capacity
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: 'Use read replicas to scale read throughput and availability but not
+    writes: each replica holds a full copy and serves reads, writes go to the master
+    and are propagated to replicas, a failed replica''s load shifts to others, and
+    a replica can be promoted to master on failure.'
+  derived_from_claims:
+  - C00085
+  - C00086
+  confidence: high
+  applies_when:
+  - read load dominates and write throughput is adequate on a single master
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: 'Account for cross-node eventual consistency in distributed or edge caches:
+    while an update propagates, different nodes hold different values (data lag),
+    so the result depends on which node serves the request; design application-specific
+    strategies for content replicated across many or geographically distributed nodes.'
+  derived_from_claims:
+  - C00104
+  - C00105
+  confidence: high
+  applies_when:
+  - a cache is replicated across multiple or geographically distributed nodes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: When using Redis as a cache, default to a cache-aside strategy with the
+    cache-management logic in the application, leveraging Redis's in-memory speed
+    as a front end for a slower permanent store.
+  derived_from_claims:
+  - C00053
+  - C00054
+  confidence: medium
+  applies_when:
+  - using open-source Redis as an application cache
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: 'Configure Redis eviction explicitly via maxmemory-policy rather than
+    relying on the default (which rejects writes when full): use allkeys-* to evict
+    across all keys or volatile-* to evict only keys with an expiration, and remember
+    Redis LRU/LFU are sampled approximations of the true policy.'
+  derived_from_claims:
+  - C00055
+  - C00056
+  confidence: medium
+  applies_when:
+  - operating a Redis cache that may fill to its memory limit
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Warm a cache before serving traffic to avoid cold-start misses and poor
+    initial performance, especially for static-data caches; a cold (empty) cache yields
+    all misses until it warms up.
+  derived_from_claims:
+  - C00051
+  - C00052
+  confidence: medium
+  applies_when:
+  - a cache starts empty and serves latency-sensitive traffic, particularly static
+    data
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: 'Design the system to survive cache loss: a volatile (in-memory) cache
+    can be wiped on power loss or restart, so the application must remain functional
+    — possibly with reduced performance — without it, and must never assume cached
+    contents are available.'
+  derived_from_claims:
+  - C00057
+  confidence: high
+  applies_when:
+  - relying on a volatile in-memory cache
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Diagnose cache thrashing — repeated eviction and re-fetching that churns
+    the cache and cuts efficiency — as a symptom of a full cache running an eviction
+    policy ill-suited to the use case, and fix it by changing the eviction algorithm
+    or increasing the cache size.
+  derived_from_claims:
+  - C00049
+  confidence: high
+  applies_when:
+  - a cache shows low hit rates with heavy eviction churn
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Exploit cache locality where future access is predictable from past access
+    by pre-loading the inferable data (as CPU and memory caches do with spatially
+    nearby locations), to raise the hit rate.
+  derived_from_claims:
+  - C00120
+  confidence: medium
+  applies_when:
+  - access patterns let future needed data be inferred from recent accesses
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: 'Gauge cache payoff against the data-access distribution: caching is
+    most effective under a skewed or normal (bell-curve) access distribution and least
+    effective under a flat, uniform distribution.'
+  derived_from_claims:
+  - C00008
+  confidence: medium
+  applies_when:
+  - estimating whether a cache will be effective for a workload
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Use a no-eviction (persistent/permanent) cache that never evicts only
+    when the cache is large enough to hold the entire dataset; otherwise a full no-eviction
+    cache rejects new data and effectively drops the newest entries.
+  derived_from_claims:
+  - C00048
+  confidence: medium
+  applies_when:
+  - considering a no-eviction policy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Consider in-cache function execution (e.g., RedisGears running Python)
+    to push processing into the cache and implement complex mechanisms such as write-through
+    and write-behind patterns.
+  derived_from_claims:
+  - C00068
+  confidence: medium
+  applies_when:
+  - complex caching logic could run inside the cache rather than in the application
+    tier
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Select a cache-scaling technique from the application's architecture
+    and requirements and the organization's goals; there is no single best technique,
+    and the valid choice may be to add none.
+  derived_from_claims:
+  - C00095
+  confidence: medium
+  applies_when:
+  - choosing among read replicas, sharding, and Active-Active
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
