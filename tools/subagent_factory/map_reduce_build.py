@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 from collections.abc import Callable, Sequence
 from pathlib import Path
 
@@ -27,6 +28,8 @@ import yaml
 
 from tools.subagent_factory._common import atomic_write_text
 from tools.subagent_factory.emit_chunk_anchors import emit_anchors
+from tools.subagent_factory.generate_manifest import generate_manifest
+from tools.subagent_factory.generate_metadata import generate_metadata
 from tools.subagent_factory.reduce_principles import (
     _embed_minilm,
     apply_decisions,
@@ -282,6 +285,140 @@ def evidence_records(principles: list[dict], claims_by_id: dict[str, dict]) -> l
     return recs
 
 
+_SOURCE_SUBDIRS = ("markdown", "metadata", "anchors", "reports")
+
+
+def _source_id_of(filename: str) -> str:
+    """`<source_id>.<ext>` -> `<source_id>` for files under sources/{markdown,metadata,anchors,reports}."""
+    for suffix in (".metadata.json", ".anchors.jsonl", ".conversion-report.md", ".md"):
+        if filename.endswith(suffix):
+            return filename[: -len(suffix)]
+    return Path(filename).stem
+
+
+def _sync_source_layer(
+    slug: str, pkg: Path, modules: list[dict], source_paths: Sequence[str | Path]
+) -> None:
+    """Make sources/ + the manifest reflect EXACTLY the current modules' content-sha source ids.
+
+    The map-reduce path assigns each book a CONTENT-sha source id (``<stem>-<sha8>``), which differs
+    from the timestamp id a prior classic ingest used. Without this, rebuilding map-reduce *over an
+    existing* package leaves a second, stale source identity (old markdown/metadata/anchors plus a
+    profile.sources that points at it) that still validates but is incoherent. So assemble — the
+    deterministic owner of the distilled layer — also owns the source layer: write each current id's
+    markdown/metadata/report, prune any file whose id is not a current module, and rewrite the
+    manifest to the current ids only. The LLM finish step then authors profile/skills/adapter against
+    a single coherent identity instead of (unreliably) synthesising source files itself.
+
+    Predecessor fields (title/author/year/rights/original_filename/file_type) are carried from an
+    existing metadata file matched by the input markdown's stem, so re-MAPping over an existing
+    package preserves provenance rather than degrading to stem-derived defaults.
+    """
+    import hashlib
+
+    sources_root = pkg / "sources"
+    for sub in _SOURCE_SUBDIRS:
+        (sources_root / sub).mkdir(parents=True, exist_ok=True)
+
+    # Snapshot predecessor metadata (keyed by input-markdown stem) BEFORE pruning, to carry provenance.
+    sha_to_input = {
+        hashlib.sha256(Path(sp).read_bytes()).hexdigest(): Path(sp) for sp in source_paths
+    }
+    predecessors: dict[str, dict] = {}
+    for f in (sources_root / "metadata").glob("*.metadata.json"):
+        try:
+            predecessors[f.name[: -len(".metadata.json")]] = json.loads(
+                f.read_text(encoding="utf-8")
+            )
+        except (OSError, json.JSONDecodeError):
+            continue
+
+    cur_ids = {m["source_id"] for m in modules}
+    records: list[dict] = []
+    for m in modules:
+        sid = m["source_id"]
+        src_md = m["dir"] / "source.md"
+        input_path = sha_to_input.get(m["dir"].name)
+        pred = predecessors.get(input_path.stem) if input_path else None
+        text = src_md.read_text(encoding="utf-8") if src_md.exists() else ""
+
+        if src_md.exists():
+            atomic_write_text(sources_root / "markdown" / f"{sid}.md", text)
+
+        anchors_file = sources_root / "anchors" / f"{sid}.anchors.jsonl"
+        n_anchors = (
+            sum(1 for ln in anchors_file.read_text(encoding="utf-8").splitlines() if ln.strip())
+            if anchors_file.exists()
+            else 0
+        )
+        mj = json.loads((m["dir"] / "module.json").read_text(encoding="utf-8"))
+        meta = generate_metadata(
+            original_path=src_md,
+            source_id=sid,
+            file_type=(pred or {}).get("file_type") or "md",
+            conversion_result={
+                "conversion_status": "ok",
+                "stats": {
+                    "word_count": len(text.split()) or None,
+                    "page_count": (pred or {}).get("page_count"),
+                },
+                "converter_used": (pred or {}).get("converter_used"),
+                "warnings": [],
+            },
+            output_path=sources_root / "metadata" / f"{sid}.metadata.json",
+            title=(pred or {}).get("title") or mj.get("title"),
+            author=(pred or {}).get("author"),
+            year=(pred or {}).get("year"),
+            original_url=(pred or {}).get("original_url"),
+            authority=(pred or {}).get("authority", "secondary"),
+            rights_status=(pred or {}).get("rights_status", "distillation-only"),
+            anchor_count=n_anchors,
+            notes=(pred or {}).get("notes"),
+        )
+        atomic_write_text(
+            sources_root / "reports" / f"{sid}.conversion-report.md",
+            f"# Conversion report: {sid}\n\n"
+            f"- source_id: {sid}\n- sha256: {meta['sha256']}\n"
+            f"- word_count: {meta['word_count']}\n- anchor_count: {n_anchors}\n"
+            f"- converter: {(pred or {}).get('converter_used') or 'map-reduce (pre-chunked markdown)'}\n",
+        )
+        records.append(
+            {
+                "source_id": sid,
+                "original_filename": (pred or {}).get("original_filename")
+                or (input_path.name if input_path else f"{sid}.md"),
+                "sha256": meta["sha256"],
+                "conversion_status": "ok",
+                "metadata_path": f"sources/metadata/{sid}.metadata.json",
+                "markdown_path": f"sources/markdown/{sid}.md",
+                "anchors_path": f"sources/anchors/{sid}.anchors.jsonl",
+                "assets_path": None,
+            }
+        )
+
+    # Prune any source file whose id is not a current module — the stale prior identity.
+    for sub in _SOURCE_SUBDIRS:
+        d = sources_root / sub
+        if not d.exists():
+            continue
+        for f in d.iterdir():
+            if f.is_file() and _source_id_of(f.name) not in cur_ids:
+                f.unlink()
+
+    # A map-reduce package does not carry classic-pipeline artifacts. When rebuilding over a classic
+    # ingest these would otherwise linger keyed to the now-dead source id, so drop them.
+    for vestige in ("interrogation-records.yaml", "analysis/claim-importance-scores.yaml"):
+        (pkg / vestige).unlink(missing_ok=True)
+    maps_dir = sources_root / "maps"
+    if maps_dir.exists():
+        shutil.rmtree(maps_dir)
+
+    # Rewrite the manifest to exactly the current ids (generate_manifest merges -> start clean).
+    manifest_path = pkg / "source-pack.manifest.yaml"
+    manifest_path.unlink(missing_ok=True)
+    generate_manifest(pkg, slug, records)
+
+
 def assemble(
     slug: str,
     source_paths: Sequence[str | Path],
@@ -367,6 +504,10 @@ def assemble(
                 pkg / "sources" / "anchors" / f"{m['source_id']}.anchors.jsonl",
                 anchors.read_text(encoding="utf-8"),
             )
+    # Own the source layer too: synth markdown/metadata/report for the current content-sha ids,
+    # prune any stale prior identity, and rewrite the manifest — so the package has ONE coherent
+    # source identity before the LLM finish step authors profile.sources against it.
+    _sync_source_layer(slug, pkg, modules, source_paths)
     return {
         "books": len(modules),
         "claims": len(claims),
