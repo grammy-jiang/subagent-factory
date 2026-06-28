@@ -20,40 +20,50 @@ principles, and the cache-performance formula.
 ## Distilled spine (deterministic, not hand-edited)
 
 - `analysis/claims.jsonl` — 123 atomic claims (`C#####`), globally renumbered by the build.
-- `evidence/evidence-records.yaml` — one record per claim backing a kept principle; `source_ids`
-  resolve to the manifest, `source_anchors` to the chunk-anchor index.
-- `principles/principles.yaml` — 10 principles (`P001–P010`; 6 high-confidence, 4 medium), each
-  `derived_from_claims` resolving into `claims.jsonl`.
+- `evidence/evidence-records.yaml` — 119 records, one per claim backing a kept principle;
+  `source_ids` resolve to the manifest, `source_anchors` to the chunk-anchor index.
+- `principles/principles.yaml` — 38 principles (`P001–P038`; 22 high-confidence, 16 medium),
+  each `derived_from_claims` resolving into `claims.jsonl`.
 - `sources/anchors/caching-at-scale-wit-11ebbc81.anchors.jsonl` — chunk (paragraph) anchors,
   shape `<sha12>-cNNNN` (e.g. `11ebbc818b96-c0000`).
 
-## Field → source traceability
+## Field → principle traceability
 
 Every profile rule cites the principle IDs it is grounded in (`quality_bar`,
 `forbidden_behaviours`, `modes`, and `knowledge_partition.always_on` carry `P###` references),
 and each principle resolves through `derived_from_claims` → `claims.jsonl` → `source_anchors`.
 The faithfulness report (`reports/faithfulness-report.yaml`) grades each gradable profile rule
-against the evidence and records the supporting chunk anchors. No profile field is an orphan:
+against the evidence and records the supporting chunk anchors. No profile field is an orphan.
+The 38-principle spine refines the headline rules into finer sub-rules; the profile cites the
+headline IDs and the adapter's must-hold invariant layer enforces every high-confidence,
+profile-rule principle:
 
-- Cache viability / break-even and metric discipline — P001, P010.
-- Caching pattern and consistency by data volatility — P002, P009.
-- Eviction policy selection and thrashing remedy — P003.
-- Redis value data types — P005; persistence (AOF/RDB) — P006.
-- Scaling by limit type (vertical, replicas, sharding) — P004, P008.
-- Multi-region / Active-Active and the open-source-vs-Enterprise boundary — P007.
+- Cache viability, value-preconditions, and break-even — P001, P012, P010, P035.
+- Caching as a deliberate tradeoff and its three risks — P023; standard read-path — P025.
+- Side-effect handling for cached operations — P013.
+- Consistency as a first-class concern and the write-side mechanism — P002, P014, P015, P016;
+  write-behind bounds — P017; TTL expiry — P018; cross-node eventual consistency — P028.
+- Eviction policy selection, up-front planning, and thrashing remedy — P003, P024, P033, P036.
+- Pattern and usage by data volatility — P009; Redis value data types — P005.
+- Persistence (AOF/RDB) and the Redis-on-Flash caveat — P006, P022, P026, P032.
+- Scaling by limit type: vertical, read replicas, sharding — P004, P008, P027, P038.
+- Multi-region and the open-source-vs-Enterprise boundary; Active-Active conflict handling —
+  P007, P019.
 
 The side-effect caution carried in `knowledge_partition.always_on` and `forbidden_behaviours` is
-source-grounded (book) but not promoted to a numbered principle; it is recorded here so the rule
-is not an orphan.
+now a promoted principle (P013); it remains recorded here so the rule is not an orphan.
 
 ## Version history
 
-- **0.5.2** — Restored the package bookkeeping layer: re-created `provenance-ledger.md` and
-  `CHANGELOG.md` (both lost when a fresh map→reduce rebuild overwrote `subagents/<slug>/`). No
-  change to the distilled spine, principles, profile rules, skills, references, or tests; adapter
-  re-exported to carry the new version. Faithfulness and grounding unchanged.
-- **0.5.1** — Map→reduce rebuilt baseline over *Caching at Scale With Redis*: distilled spine
-  (123 claims, 10 principles `P001–P010`), profile with `advise`/`compare`/`validate` modes,
-  faithfulness report, five skills, three references, behaviour and golden tests, and the Claude
-  Code adapter — all derived from the spine. Earlier 0.x line predates this rebuild; its
-  per-version detail was not preserved across the overwrite.
+- **0.6.0** — Re-authored the LLM layer over a deeper map→reduce spine: the distilled spine was
+  rebuilt from *Caching at Scale With Redis* to 123 claims and **38 principles** (`P001–P038`;
+  22 high-confidence, 16 medium) with 119 evidence records, superseding the earlier 10-principle
+  (`P001–P010`) spine. Regenerated the behaviour-test suite (golden coverage for every
+  high-confidence principle), the per-principle behaviour tests (one citing test per
+  high-confidence principle), the golden scenario tests (re-aligned to the new principle IDs),
+  this provenance ledger, and the `CHANGELOG`; re-exported the adapter so its must-hold invariant
+  layer covers all 22 high-confidence profile-rule principles. Profile rules, skills, references,
+  and the faithfulness report were verified consistent with the new spine; grounding unchanged.
+- **0.5.x** — Earlier map→reduce baseline over the same source with a 10-principle (`P001–P010`)
+  spine. Its per-version bookkeeping was not preserved across the rebuild that produced the
+  current 38-principle spine.
