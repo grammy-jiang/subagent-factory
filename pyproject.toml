@@ -33,7 +33,11 @@ dev = [
     "pytest-cov>=4.0",
 ]
 lint = [
-    "ruff>=0.5",
+    # Pin ruff exactly: `ruff format` output can change between releases, so an unpinned `>=`
+    # lets CI float to a newer ruff than local/pre-commit and fail the format check on code that
+    # was "already formatted" locally. Keep this in lockstep with the ruff-pre-commit rev in
+    # .pre-commit-config.yaml so commit-time, `make verify`, and CI all format identically.
+    "ruff==0.15.20",
     "bandit>=1.7",
     "pip-audit>=2.7",
     "mypy>=1.8",

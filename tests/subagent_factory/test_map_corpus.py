@@ -516,7 +516,7 @@ def test_main_reports_failure(tmp_path, monkeypatch, capsys):
     b = mkbook(repo, "a")
     # force the real runner to "error" so the book fails, without shelling out
     monkeypatch.setattr(
-        mc, "make_map_book_runner", lambda *a, **k: (lambda book, eng: EngineRun(2, False))
+        mc, "make_map_book_runner", lambda *a, **k: lambda book, eng: EngineRun(2, False)
     )
     rc = mc.main(["--book", str(b), "--repo", str(repo), "--cache", str(repo / "c")])
     assert rc == 1
