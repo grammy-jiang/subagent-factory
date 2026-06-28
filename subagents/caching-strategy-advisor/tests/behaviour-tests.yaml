@@ -1,0 +1,272 @@
+schema_version: golden-tests-v1
+subagent_slug: caching-strategy-advisor
+generated_at: '2026-06-14'
+golden_tests:
+- test_id: GT-001
+  prompt: Any request to evaluate whether caching is appropriate for an operation. What do you advise,
+    and why?
+  principle_coverage:
+  - P001
+  expected_route: invoke
+  minimum_output: 'Before recommending a cache, verify all five suitability conditions: the backing operation
+    is slow or resource-intensive; the cache returns the result faster with fewer resources; data is stable
+    or staleness is acceptable; the operation has no unmanaged side effects; and the data is needed more
+    than once. If any condition fails, decline rather than proceed'
+- test_id: GT-002
+  prompt: The operation under consideration has any observable mutation of state outside its local context.
+    What do you advise, and why?
+  principle_coverage:
+  - P002
+  expected_route: invoke
+  minimum_output: Never recommend caching an operation that modifies external state (writes to a database,
+    charges a payment instrument, decrements inventory, sends a message) unless the side effects are either
+    idempotent or have an explicit replay design. Caching side-effecting operations without this guard
+    is a common source of software bugs and outages when side effects are not explicitly handled or safeguarded
+- test_id: GT-003
+  prompt: Any cache design where inconsistency or stale-data risk is a concern. What do you advise, and
+    why?
+  principle_coverage:
+  - P003
+  expected_route: invoke
+  minimum_output: 'Cache inconsistency has three root causes that each require a distinct mitigation:
+    (1) the backing data changes without the cache being updated — mitigate with explicit invalidation
+    on write or write-through; (2) update propagation lag — mitigate with TTL expiry bounded to the acceptable
+    staleness window; (3) distributed nodes temporarily holding different values — mitigate with CRDT-based
+    Active-Active replication. Naming the root cause is required before selecting the mitigation'
+- test_id: GT-004
+  prompt: Slowly-changing data where the caller has stated an explicit maximum staleness tolerance. What
+    do you advise, and why?
+  principle_coverage:
+  - P004
+  expected_route: invoke
+  minimum_output: TTL expiry bounds the staleness window but does not eliminate inconsistency; it is appropriate
+    when approximate freshness is acceptable (for example, social media counters). For operations requiring
+    strong consistency (for example, financial balances or inventory counts), TTL alone is insufficient
+    and explicit invalidation or write-through must be used instead
+- test_id: GT-005
+  prompt: Cache memory is bounded and eviction is required. What do you advise, and why?
+  principle_coverage:
+  - P005
+  expected_route: invoke
+  minimum_output: 'LRU is the default eviction choice for recency-skewed access distributions; LFU is
+    preferred when access is frequency-skewed and the same items recur over long windows; TTL is the right
+    choice when data has a natural expiry independent of access recency or frequency. The optimal choice
+    depends on the observed access-pattern distribution and may require measurement or trial; never default
+    to random eviction in production. Redis exposes these as maxmemory-policy values: allkeys-lru, allkeys-lfu,
+    volatile-lru, volatile-lfu, and per-key EXPIRE for TTL'
+- test_id: GT-006
+  prompt: A cache node or cluster is exhibiting degraded performance or is approaching capacity limits.
+    What do you advise, and why?
+  principle_coverage:
+  - P006
+  expected_route: invoke
+  minimum_output: 'Diagnose which of the two scaling limits is binding before recommending a remedy: a
+    storage limit (cache too small for the working dataset) requires vertical scaling or sharding to add
+    capacity; a resource limit (CPU or network saturation) requires read replicas or additional shards
+    to distribute load. Conflating the two leads to remedies that do not address the bottleneck'
+- test_id: GT-007
+  prompt: A scaling or multi-region topology decision is being made. What do you advise, and why?
+  principle_coverage:
+  - P007
+  expected_route: invoke
+  minimum_output: 'Match the scaling topology to the dominant constraint: read replicas improve read throughput
+    only — writes still go to a single primary; sharding partitions data across nodes to scale both capacity
+    and write throughput but requires tuning; Active-Active multi-master allows any node to accept writes
+    with local latency, making it the correct choice for multi-region low-latency write requirements,
+    but it requires Redis Enterprise for CRDT-based conflict resolution. Open-source Redis supports only
+    a single master; multi-region write performance requires Redis Enterprise'
+- test_id: GT-008
+  prompt: The cache holds data that must survive a crash or process restart. What do you advise, and why?
+  principle_coverage:
+  - P008
+  expected_route: invoke
+  minimum_output: AOF with APPENDFSYNC always is the only Redis persistence mode that guarantees the full
+    cache state is durable at all times; APPENDFSYNC everysec risks up to one second of data loss on crash;
+    RDB snapshots provide scheduled point-in-time backups but lose writes between snapshots. Use AOF alone
+    when crash safety is the only requirement; combine AOF and RDB when both crash safety and historical
+    backup capability are required
+- test_id: GT-009
+  prompt: Evaluating whether a proposed cache provides a net performance benefit. What do you advise,
+    and why?
+  principle_coverage:
+  - P009
+  expected_route: invoke
+  minimum_output: 'Calculate cache effectiveness before deployment using the break-even formula: minimum
+    viable hit rate = Cache_Overhead / (Service_Call_Time + Cache_Overhead). At hit rates above this threshold
+    the cache reduces average latency; below it, the cache degrades performance versus the uncached baseline.
+    The higher the Service_Call_Time relative to Cache_Overhead, the lower the break-even hit rate and
+    the more dramatic the latency reduction at high hit rates. Do not fabricate values; require actual
+    or estimated Service_Call_Time and Cache_Check time before applying the formula'
+- test_id: GT-010
+  prompt: A caching pattern must be selected for a new or existing data-access path. What do you advise,
+    and why?
+  principle_coverage:
+  - P010
+  expected_route: invoke
+  minimum_output: 'Choose the caching pattern based on who must own consistency: in a cache-aside pattern
+    the application owns cache checks, miss handling, and population — stale reads can occur between a
+    source update and the next invalidation; in a write-through inline cache the cache owns consistency
+    by synchronously propagating writes to the data store, eliminating stale reads at the cost of slower
+    write latency; in a write-behind (write-back) cache writes return immediately and the store is updated
+    asynchronously, reducing write latency but creating a temporary inconsistency window. Select the pattern
+    whose consistency guarantee matches the stated staleness tolerance and write-latency budget'
+negative_routing_tests:
+- test_id: NR-001
+  prompt: Cache is already deployed and the question is limited to tuning within an accepted design. Can
+    you handle this for us?
+  principle_coverage:
+  - P001
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-002
+  prompt: The operation is read-only with no external mutation. Can you handle this for us?
+  principle_coverage:
+  - P002
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-003
+  prompt: Immutable or append-only data where the backing value never changes. Can you handle this for
+    us?
+  principle_coverage:
+  - P003
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-004
+  prompt: Strong-consistency requirements where any stale read is unacceptable. Can you handle this for
+    us?
+  principle_coverage:
+  - P004
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-005
+  prompt: No-eviction (permanent) cache where the full working dataset fits in available memory. Can you
+    handle this for us?
+  principle_coverage:
+  - P005
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-006
+  prompt: A new cache deployment where neither limit has been reached. Can you handle this for us?
+  principle_coverage:
+  - P006
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-007
+  prompt: Single-region deployments with read-heavy workloads where read replicas are sufficient. Can
+    you handle this for us?
+  principle_coverage:
+  - P007
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-008
+  prompt: A purely volatile cache where data loss on restart is acceptable and the cache is simply rehydrated
+    from the backing store. Can you handle this for us?
+  principle_coverage:
+  - P008
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-009
+  prompt: Cache is deployed solely for availability (serving results when the backing store is down) rather
+    than for latency reduction. Can you handle this for us?
+  principle_coverage:
+  - P009
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-010
+  prompt: The data access path is read-only with no writes flowing through the cache layer. Can you handle
+    this for us?
+  principle_coverage:
+  - P010
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+missing_context_tests:
+- test_id: MC-001
+  prompt: Any request to evaluate whether caching is appropriate for an operation. (Key specifics are
+    not stated.) Give me your recommendation.
+  principle_coverage:
+  - P001
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-002
+  prompt: The operation under consideration has any observable mutation of state outside its local context.
+    (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P002
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-003
+  prompt: Any cache design where inconsistency or stale-data risk is a concern. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P003
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-004
+  prompt: Slowly-changing data where the caller has stated an explicit maximum staleness tolerance. (Key
+    specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P004
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-005
+  prompt: Cache memory is bounded and eviction is required. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P005
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-006
+  prompt: A cache node or cluster is exhibiting degraded performance or is approaching capacity limits.
+    (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P006
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-007
+  prompt: A scaling or multi-region topology decision is being made. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P007
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-008
+  prompt: The cache holds data that must survive a crash or process restart. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P008
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-009
+  prompt: Evaluating whether a proposed cache provides a net performance benefit. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P009
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-010
+  prompt: A caching pattern must be selected for a new or existing data-access path. (Key specifics are
+    not stated.) Give me your recommendation.
+  principle_coverage:
+  - P010
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated

@@ -1,0 +1,211 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: A cache is justified only when it is measurably effective. In cache-aside
+    terms it is worthwhile only when the cost to check and fill the cache is significantly
+    smaller than the backing operation and cache hits significantly outnumber misses.
+    Quantitatively, the cache helps only when total request time over all requests
+    is lower than without it, which requires the hit rate to exceed a break-even point
+    set by the overhead-to-service-time ratio; effectiveness rises with both a higher
+    hit rate and a larger service-call-time-to-overhead ratio, so the costlier the
+    un-cached operation, the more a given hit rate pays off. If cache manipulation
+    costs more than the backing operation, or hits are rare, do not deploy the cache.
+  derived_from_claims:
+  - C00022
+  - C00023
+  - C00024
+  - C00113
+  - C00114
+  - C00115
+  - C00116
+  - C00117
+  - C00118
+  - C00119
+  confidence: high
+  applies_when:
+  - deciding whether a cache-aside cache will improve performance
+  - estimating whether a cache improves overall request time
+  - deciding whether to add a cache to a specific operation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: Maintain consistency with an explicit write-side mechanism — invalidate-on-write
+    (remove the stale key so the next read reloads from the store) or write-through
+    (synchronously update cache and store together) — because inconsistency arises
+    whenever the underlying data changes and the cache is not updated, and is otherwise
+    easy to introduce.
+  derived_from_claims:
+  - C00020
+  - C00021
+  - C00031
+  - C00032
+  - C00033
+  - C00034
+  - C00035
+  confidence: high
+  applies_when:
+  - designing how cached values are updated on writes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: 'Choose an eviction policy from the workload''s access pattern: LRU (evict
+    least-recently-accessed) or LFU (evict least-frequently-accessed) are usually
+    best, oldest-stored/FIFO is uncommon, and random eviction is unsuitable for production
+    because it evicts still-needed data and causes extra misses; analyze access patterns
+    or test to pick between LRU and LFU.'
+  derived_from_claims:
+  - C00041
+  - C00042
+  - C00043
+  - C00044
+  - C00045
+  - C00050
+  confidence: high
+  applies_when:
+  - configuring eviction for a cache that is smaller than its dataset
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: 'Plan cache scaling against two distinct limit types — storage limits
+    (space for cached data) and resource limits (bandwidth/CPU to serve it, which
+    even a single hot key can exhaust) — and scale by raising those limits through
+    vertical scaling (a bigger node: more RAM eases storage, more CPU/bandwidth eases
+    resource) or horizontal scaling (more nodes, which can also raise availability).'
+  derived_from_claims:
+  - C00079
+  - C00080
+  - C00081
+  - C00082
+  - C00083
+  - C00084
+  confidence: high
+  applies_when:
+  - a cache is approaching its capacity or throughput limits
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: 'Match the Redis value data type to the caching use case: Lists for FIFO
+    queues and scheduling, Sets for uniqueness and existence tests, Hashes for structured
+    objects, and RedisJSON for JSON documents; remember Redis can serve as both a
+    cache and a primary NoSQL database.'
+  derived_from_claims:
+  - C00073
+  - C00074
+  - C00075
+  - C00076
+  - C00077
+  - C00078
+  confidence: medium
+  applies_when:
+  - modeling cached values in Redis beyond simple strings
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: For a Redis cache that must not lose data on a crash, use AOF persistence
+    with APPENDFSYNC always; use everysec or no only when some loss is tolerable,
+    combine AOF (crash recovery) with RDB (consistent point-in-time snapshots for
+    history/recovery), and automate BGREWRITEAOF to keep the AOF compact.
+  derived_from_claims:
+  - C00061
+  - C00062
+  - C00063
+  - C00064
+  - C00065
+  confidence: high
+  applies_when:
+  - Redis must act as a durable persistent cache or survive process/system crashes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: 'Respect the open-source-versus-Enterprise boundary for multi-region
+    Redis: open-source Redis allows only one master, so remote regions can scale reads
+    via local replicas but writes bottleneck at the single master; cross-region read-and-write
+    performance requires Redis Enterprise Active-Active (which can keep serving even
+    when most regions are down), and no major cloud provider offers native multi-region
+    Active-Active or cross-provider deployments.'
+  derived_from_claims:
+  - C00093
+  - C00096
+  - C00110
+  - C00111
+  - C00112
+  confidence: medium
+  applies_when:
+  - designing a multi-region or multicloud Redis deployment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Use sharding to raise both storage and resource limits by partitioning
+    data across shards via a deterministic shard selector on the key (so a given key
+    always maps to one shard); expect to tune for balanced traffic and to manage the
+    reduced availability from added instance dependencies, and prefer Redis Clustering
+    (CRC16 routing, re-sharding, failover) to simplify it.
+  derived_from_claims:
+  - C00087
+  - C00088
+  - C00089
+  - C00090
+  confidence: high
+  applies_when:
+  - a single cache node cannot hold the data or serve the load
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: 'Choose the cache usage pattern from data volatility: distinguish static
+    (read-only) from dynamic (read/write) caches and prefer caching data that does
+    not change between requests, since unchanging data caches more reliably and changing
+    data requires explicit handling.'
+  derived_from_claims:
+  - C00005
+  - C00009
+  - C00010
+  - C00011
+  confidence: medium
+  applies_when:
+  - selecting a cache pattern for a given dataset
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Name the specific benefit a cache is meant to deliver — reduced latency,
+    improved scalability, lower resource use, or higher availability — rather than
+    caching for its own sake.
+  derived_from_claims:
+  - C00012
+  - C00013
+  - C00014
+  - C00015
+  confidence: medium
+  applies_when:
+  - justifying a cache in a design or review
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
