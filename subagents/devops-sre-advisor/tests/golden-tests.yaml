@@ -1,0 +1,142 @@
+schema_version: golden-tests-v1
+subagent_slug: devops-sre-advisor
+generated_at: "2026-06-20"
+
+golden_tests:
+  - test_id: GT-001
+    description: >-
+      Positive routing — advise mode: a team causing outages while shipping fast asks how to
+      balance feature work and reliability.
+    prompt: >-
+      We deploy several times a day but keep causing production incidents, and our devs and
+      ops team disagree about whether we should slow down. What should we do?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: >-
+      A named recommendation to define an SLO and an error-budget policy that gates feature
+      work when the budget is exhausted, with the shared budget framed as the arbiter and a
+      reference to the underlying principle.
+    must_not_do:
+      - >-
+        Recommend trading reliability for speed (or the reverse) as a necessary trade-off.
+      - >-
+        Recommend pursuing 100% reliability or omit any error-budget mechanism.
+      - >-
+        Present tool or vendor specifics as stable fact without a directive to verify current
+        documentation.
+
+  - test_id: GT-002
+    description: >-
+      Positive routing — validate mode: production-readiness review of a manual, single-stage
+      deployment process.
+    prompt: >-
+      We deploy by hand from a long-lived release branch, run tests manually before release,
+      and have no rollback plan beyond redeploying the previous build. Is this production-ready?
+    expected_route: invoke
+    expected_mode: validate
+    must_ask_for: []
+    minimum_output: >-
+      A gap-oriented assessment naming the missing automated pipeline, early automated
+      testing, trunk-based/small-batch integration, decoupled deploy-from-release, and a
+      tested rollback path, each tied to a principle and a concrete remediation.
+    must_not_do:
+      - >-
+        Approve the manual, untested, end-gated process as production-ready.
+      - >-
+        Omit rollback and progressive-delivery as readiness criteria.
+
+  - test_id: GT-003
+    description: >-
+      Positive routing — review mode: critique of a noisy cause-based alerting and on-call setup.
+    prompt: >-
+      Our on-call pages on every CPU spike and disk-usage threshold across all hosts, and the
+      team is burning out from the volume. Can you review our alerting approach?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: >-
+      Findings that the alerting should move to user-facing symptoms and SLO burn rate, that
+      chronic pager load signals reliability debt warranting engineering investment, and that
+      toil should be capped — each naming the principle and a remediation.
+    must_not_do:
+      - >-
+        Endorse cause-based, per-host alerting as sufficient.
+      - >-
+        Treat unsustainable on-call load as normal rather than a systemic signal.
+
+  - test_id: GT-004
+    description: >-
+      Positive routing — compare mode: branching strategy choice for faster, safer integration.
+    prompt: >-
+      We use long-lived feature branches and our merges are painful. Should we keep that or
+      move to trunk-based development?
+    expected_route: invoke
+    expected_mode: compare
+    must_ask_for: []
+    minimum_output: >-
+      A comparison favouring trunk-based development with short-lived branches and small,
+      frequent integration, grounded in delivery-performance evidence, with the trade-offs
+      and the conditions under which it applies.
+    must_not_do:
+      - >-
+        Recommend long-lived branches as the path to higher delivery performance.
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: >-
+      Negative routing — application feature development is out of scope.
+    prompt: >-
+      Here is our checkout service code; please implement the new discount-code feature and
+      fix the failing unit test in the pricing module.
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >-
+      A statement that feature development and debugging are out of scope and a handoff to the
+      development team, optionally offering delivery or reliability guidance instead.
+    must_not_do:
+      - >-
+        Write or debug the application feature code.
+      - >-
+        Expand scope into feature development.
+
+  - test_id: NR-002
+    description: >-
+      Negative routing — accountable regulatory/legal sign-off is not this advisor's decision.
+    prompt: >-
+      Just tell us definitively that our deployment process satisfies our SOC 2 audit so we
+      can sign off and skip the auditor.
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >-
+      A statement that contractual and audit sign-off rests with accountable owners and
+      qualified professionals, while offering to advise on the underlying delivery and
+      reliability practices.
+    must_not_do:
+      - >-
+        Issue a compliance or audit sign-off.
+      - >-
+        Present a definitive legal or contractual judgement.
+
+missing_context_tests:
+  - test_id: MC-001
+    description: >-
+      Missing required input — request the delivery/reliability question and system context.
+    prompt: >-
+      Can you make our DevOps better?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for:
+      - >-
+        The specific delivery or reliability question in scope and context on the system and
+        team — architecture, team size and on-call model, and how they deploy, test, and
+        handle incidents today.
+    minimum_output: >-
+      A clear statement of what context is needed before useful advice can be given.
+    must_not_do:
+      - >-
+        Proceed with concrete recommendations as if the context had been provided.
+      - >-
+        Invent the team's current practices.
