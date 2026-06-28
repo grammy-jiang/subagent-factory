@@ -1,0 +1,547 @@
+schema_version: faithfulness-report-v1
+subagent_slug: pragmatic-programming-advisor
+
+# Tier-1 faithfulness review: rules compared against evidence-records.yaml,
+# principles/principles.yaml (P001..P078), and analysis/claims.jsonl.
+# Reviewer: faithfulness-review agent, 2026-06-28
+# Profile version reviewed: 0.3.0 (principle ids P001..P078, rebuilt package)
+
+findings:
+
+  # -----------------------------------------------------------------------
+  # quality_bar
+  # -----------------------------------------------------------------------
+
+  - rule_ref: quality_bar[0]
+    triplet:
+      head: "advisor output"
+      relation: "must cite"
+      tail: "a specific principle ID (P001 through P078) or numbered Pragmatic Programmer tip, not a vague style preference"
+    verdict: WITHIN_SCOPE
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The rule is a meta-operational constraint on advisor output format, not a
+      verbatim source claim. The grounding references P040, P001, and P060. P060
+      (derived from C00001 and C00002) supports thinking critically about every
+      decision; P040 (C00039-C00042) is the DRY principle itself; P001
+      (C00052-C00063, C00228) is the orthogonality principle. The book's numbered
+      tip apparatus (70 tips) and the call for deliberate critical appraisal (P060)
+      together support requiring citation of a specific principle or tip. The rule
+      is a valid operational inference from the source's structure and philosophy,
+      so WITHIN_SCOPE rather than EXACT_SUPPORT.
+
+  - rule_ref: quality_bar[1]
+    triplet:
+      head: "tracer-bullet development and throwaway prototyping"
+      relation: "must never be conflated"
+      tail: "in any comparison or strategy recommendation"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Directly supported by P025 (C00075-C00080) and P004 (C00081-C00090).
+      C00076 states explicitly: "Tracer code is not a throwaway prototype: it is
+      production-quality with error checking, structure, documentation, and
+      self-checking." C00080 reinforces: "Tracer code differs from a prototype:
+      a prototype explores specific aspects and is then thrown away and recoded,
+      whereas tracer code is lean but complete and becomes part of the final
+      system's skeleton." The "never conflated" phrasing faithfully reflects the
+      source's prescriptive distinction.
+
+  - rule_ref: quality_bar[2]
+    triplet:
+      head: "refactoring guidance"
+      relation: "must prohibit"
+      tail: "simultaneous refactor-and-feature work, and must confirm tests are in place first"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Directly supported by P024 (C00259-C00264). C00261 captures the rule: take
+      short, tested steps without adding functionality at the same time. The
+      "adequate tests in place first" requirement is entailed by P024's claim that
+      refactoring takes "short, tested steps" (C00259-C00264) and by P041
+      (C00326-C00328, C00352), which mandates testing before coding is considered
+      done. No distortion detected.
+
+  - rule_ref: quality_bar[3]
+    triplet:
+      head: "testing advice"
+      relation: "must specify"
+      tail: "automation and early execution; must not endorse manual-only test plans as sufficient"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Supported by P041 (C00326-C00328, C00352) and P003 (C00313-C00325). P041
+      states: "Test early, test often, and test automatically (with results
+      interpreted automatically)." C00326 captures: "test early, test often, test
+      automatically." P003 (C00313-C00325) states: "Do not use manual procedures;
+      automate everything." Together these entail that manual-only test plans are
+      insufficient. No distortion.
+
+  - rule_ref: quality_bar[4]
+    triplet:
+      head: "estimates"
+      relation: "communicate uncertainty through"
+      tail: "unit choice; unit selection (days, weeks, months) is itself the uncertainty signal, matched to context not false precision"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Supported by P006 (C00102-C00111). C00103 addresses matching accuracy and
+      units to context; C00106 and the estimation-units table in the source define
+      unit selection as the mechanism for conveying accuracy. The current rule
+      accurately restates the source's mechanism (unit choice conveys uncertainty)
+      without adding a prohibition on single-point estimates that the source does
+      not state. This is a corrected restatement from the prior stale report's
+      SCOPE_BROADENED finding — the current wording is now EXACT_SUPPORT.
+
+  # -----------------------------------------------------------------------
+  # forbidden_behaviours
+  # -----------------------------------------------------------------------
+
+  - rule_ref: forbidden_behaviours[0]
+    triplet:
+      head: "advisor"
+      relation: "must not recommend"
+      tail: "leaving known defects or broken windows unaddressed on grounds of time pressure"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Supported by P039 (C00013-C00016) and P024 (C00259-C00264). C00013 states:
+      "Do not live with broken windows: fix bad designs, wrong decisions, and poor
+      code as soon as they are discovered." C00014 addresses the time-pressure case:
+      "board it up" rather than ignore it. The "deferral consistently costs more as
+      dependencies grow" rationale is entailed by C00015-C00016 (neglect accelerates
+      rot). No distortion.
+
+  - rule_ref: forbidden_behaviours[1]
+    triplet:
+      head: "advisor"
+      relation: "must not recommend"
+      tail: "disabling assertions in production builds"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Directly supported by P045 (C00183-C00186). P045 states: "Use assertions to
+      guard conditions that should never happen ... leave them on in production."
+      The reason given in the profile ("production environments expose conditions
+      testing never reached") is consistent with the source's argument for
+      keeping assertions on. No distortion.
+
+  - rule_ref: forbidden_behaviours[2]
+    triplet:
+      head: "advisor"
+      relation: "must not endorse"
+      tail: "wizard-generated or auto-generated code the developer cannot explain"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Supported by P076 (C00278). C00278 states: "Do not use wizard-generated or
+      any code you do not understand, because it becomes interwoven with your own
+      code and you must be able to maintain and debug it." The profile rule
+      restates this faithfully and adds the observation that "the generated code
+      eventually becomes the developer's own responsibility," which is entailed by
+      C00278's maintenance-and-debug rationale. No distortion. This is a
+      well-grounded rule in the current package, correcting the prior stale
+      report's SCOPE_BROADENED finding (which noted the absence of an evidence
+      record — C00278 and P076 now exist).
+
+  - rule_ref: forbidden_behaviours[3]
+    triplet:
+      head: "advisor"
+      relation: "must not give"
+      tail: "false-precision estimates; must choose units that convey intended accuracy and pause before quoting estimates for very large work"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Supported by P006 (C00102-C00111). C00103 captures matching accuracy and
+      units to context; C00107 captures pausing before committing to an estimate.
+      The "pause before quoting any estimate for very large work" language is a
+      faithful paraphrase of the source's guidance on large-work estimates. No
+      distortion.
+
+  - rule_ref: forbidden_behaviours[4]
+    triplet:
+      head: "advisor"
+      relation: "must not make"
+      tail: "categorical technology endorsements (best language, best framework, best OS)"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Directly supported by P052 (C00003, C00004, C00006). C00003 states: "There
+      is no single best tool, language, or operating system; choose the option most
+      appropriate to the specific circumstances." The profile rule faithfully
+      restates this as a forbidden behaviour. No distortion.
+
+  - rule_ref: forbidden_behaviours[5]
+    triplet:
+      head: "advisor"
+      relation: "must not"
+      tail: "generate or write production application code"
+    verdict: SCOPE_BROADENED
+    distortion: ["scope_broadened"]
+    source_anchors: []
+    support_granularity: section
+    severity: medium
+    action: add_condition
+    note: >
+      This is an operational scope boundary for the subagent, not a claim
+      attributable to any source passage, evidence record, or principle in this
+      package. No claim in analysis/claims.jsonl and no principle in P001..P078
+      addresses the constraint that an advisor must not write production code. It
+      is a reasonable factory design decision (the advisor critiques rather than
+      implements) but it derives from the subagent's operational role definition,
+      not from The Pragmatic Programmer. The action is add_condition: annotate this
+      rule explicitly as an operational meta-rule (scope boundary defined by the
+      factory), not a principle distilled from the source, so its non-source
+      origin is transparent.
+
+  # -----------------------------------------------------------------------
+  # when_to_use
+  # -----------------------------------------------------------------------
+
+  - rule_ref: when_to_use[0]
+    triplet:
+      head: "invoke advisor"
+      relation: "when"
+      tail: "duplicated knowledge is detected and DRY principle needs evaluation (P040)"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Grounded in P040 (C00039-C00042). C00040: "Follow DRY: every piece of
+      knowledge must have a single, unambiguous, authoritative representation
+      within a system." The trigger is a faithful restatement of when DRY
+      violations occur. No distortion.
+
+  - rule_ref: when_to_use[1]
+    triplet:
+      head: "invoke advisor"
+      relation: "when"
+      tail: "tightly coupled components are detected — orthogonality or Law of Demeter violation (P001, P015)"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Grounded in P001 (C00052-C00063, C00228) for orthogonality and P015
+      (C00064, C00202-C00206, C00371) for the Law of Demeter. C00053: "Nonorthogonal
+      systems are inherently harder to change and control, because when components
+      are highly interdependent there is no such thing as a local fix." The trigger
+      accurately identifies the symptoms of violations addressed by P001 and P015.
+      No distortion.
+
+  - rule_ref: when_to_use[2]
+    triplet:
+      head: "invoke advisor"
+      relation: "when"
+      tail: "team must decide between tracer-bullet development and throwaway prototyping (P025, P004)"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Grounded in P025 (C00075-C00080) and P004 (C00081-C00090). C00079 addresses
+      the decision point: "use the technique when you are not certain where you are
+      going." C00089: "If there is a strong risk that prototype code will be
+      misinterpreted as deployable, use the tracer-bullet approach instead." The
+      trigger is a faithful restatement of the decision context the source describes.
+      No distortion.
+
+  - rule_ref: when_to_use[3]
+    triplet:
+      head: "invoke advisor"
+      relation: "when"
+      tail: "code is accumulating broken windows and team needs guidance on when and how to refactor (P039, P024)"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Grounded in P039 (C00013-C00016) for broken windows and P024 (C00259-C00264)
+      for refactoring. C00013: "Do not live with broken windows: fix bad designs,
+      wrong decisions, and poor code as soon as they are discovered." P024 covers
+      when and how to refactor. The trigger accurately describes both symptoms and
+      the advice domain. No distortion.
+
+  - rule_ref: when_to_use[4]
+    triplet:
+      head: "invoke advisor"
+      relation: "when"
+      tail: "team lacks automated test strategy or runs tests manually and infrequently (P041, P013, P014)"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Grounded in P041 (C00326-C00328, C00352), P013 (C00271-C00276, C00378-C00379),
+      and P014 (C00329-C00335, C00344). P041 mandates test-early-often-automatically;
+      the absence of this practice is precisely the trigger described. P013 and P014
+      describe the test harness and coverage types the advisor addresses. No distortion.
+
+  - rule_ref: when_to_use[5]
+    triplet:
+      head: "invoke advisor"
+      relation: "when"
+      tail: "an estimate is requested or under review and must be presented with appropriate units and uncertainty (P006)"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Grounded in P006 (C00102-C00111). C00102 introduces the estimation guidance;
+      C00103 addresses matching accuracy and units to context. The trigger faithfully
+      identifies when P006 guidance is needed. No distortion.
+
+  # -----------------------------------------------------------------------
+  # when_not_to_use
+  # -----------------------------------------------------------------------
+
+  - rule_ref: when_not_to_use[0]
+    triplet:
+      head: "advisor"
+      relation: "must not be used when"
+      tail: "request is to select a specific language, OS, or vendor tool as universally best (P052)"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Grounded in P052 (C00003, C00004, C00006). C00003: "There is no single best
+      tool, language, or operating system; choose the option most appropriate to the
+      specific circumstances." The profile correctly identifies this as a boundary
+      — the advisor cannot provide a universally-best answer where the source
+      explicitly says none exists. No distortion.
+
+  - rule_ref: when_not_to_use[1]
+    triplet:
+      head: "advisor"
+      relation: "must not be used when"
+      tail: "request is to produce or implement working production code"
+    verdict: SCOPE_BROADENED
+    distortion: ["scope_broadened"]
+    source_anchors: []
+    support_granularity: section
+    severity: medium
+    action: add_condition
+    note: >
+      This is an operational scope boundary with no corresponding evidence record,
+      claim, or principle in P001..P078. No claim in analysis/claims.jsonl states
+      that a pragmatic programming advisor must refrain from writing production code.
+      The constraint is a reasonable factory design decision derived from the
+      subagent's role definition ("critiques and guides but does not write
+      deliverable application code"), not from The Pragmatic Programmer. The action
+      is add_condition: annotate this explicitly as an operational meta-rule (scope
+      boundary), not a source-derived principle, to make the non-source origin
+      transparent.
+
+  - rule_ref: when_not_to_use[2]
+    triplet:
+      head: "advisor"
+      relation: "must not be used when"
+      tail: "wizard-generated boilerplate is submitted for rubber-stamping without developer explanation (P076)"
+    verdict: WITHIN_SCOPE
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Grounded in P076 (C00278). C00278 states: "Do not use wizard-generated or
+      any code you do not understand, because it becomes interwoven with your own
+      code and you must be able to maintain and debug it." P076 directly forbids
+      using code one does not understand. The trigger applies this principle as
+      a boundary: if a developer submits code for rubber-stamping without being
+      able to explain it, the advisor cannot rubber-stamp it per P076. This is
+      WITHIN_SCOPE (a valid operational inference from P076 rather than a verbatim
+      restatement, since P076 addresses using code one does not understand, while
+      the trigger addresses the submission scenario). No distortion.
+
+  # -----------------------------------------------------------------------
+  # outputs.modes triggers and outputs
+  # -----------------------------------------------------------------------
+
+  - rule_ref: outputs.modes[advise].trigger
+    triplet:
+      head: "advise mode"
+      relation: "triggered by"
+      tail: "design question, development decision, or practice question without a concrete artefact, or trade-off question"
+    verdict: WITHIN_SCOPE
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Mode triggers are operational routing rules, not claims derived from the
+      source. The trigger is consistent with the advisory role described across
+      the promoted principles (P001-P078) and is a valid operational inference
+      from the book's structure of principles and tips. No over-claim risk.
+
+  - rule_ref: outputs.modes[advise].output
+    triplet:
+      head: "advise mode output"
+      relation: "must include"
+      tail: "applicable principle ID or tip number, recommended action, and conditions under which it applies or does not apply"
+    verdict: WITHIN_SCOPE
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Consistent with the source's numbered-tip apparatus (70 tips) and P060
+      (C00001-C00002: thinking critically about every decision). Operationally
+      derived; the requirement to cite principle IDs reflects the package's
+      grounding apparatus. No over-claim.
+
+  - rule_ref: outputs.modes[review].trigger
+    triplet:
+      head: "review mode"
+      relation: "triggered by"
+      tail: "submission of an existing code artefact, design, test plan, CI configuration, or development practice for evaluation"
+    verdict: WITHIN_SCOPE
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Operational routing rule. Consistent with the scope of all 78 promoted
+      principles (which cover code, design, testing, automation, estimation).
+      No over-claim.
+
+  - rule_ref: outputs.modes[review].output
+    triplet:
+      head: "review mode output"
+      relation: "must list"
+      tail: "named principle violations with principle ID, one-sentence diagnosis, and concrete corrective action"
+    verdict: WITHIN_SCOPE
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Output format is operationally derived from the tip-numbering apparatus and
+      P060 (C00001-C00002). The requirement to name principle violations and provide
+      corrective actions is consistent with the book's prescriptive tip structure.
+      No over-claim.
+
+  - rule_ref: outputs.modes[compare].trigger
+    triplet:
+      head: "compare mode"
+      relation: "triggered by"
+      tail: "two or more development approaches presented for evaluation, most commonly tracer-bullet vs prototyping or refactor-now vs defer"
+    verdict: WITHIN_SCOPE
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Operational routing rule. The examples (tracer-bullet vs prototype,
+      refactor-now vs defer) are directly grounded in P025/P004 (C00075-C00090)
+      and P024/P039 (C00259-C00264, C00013-C00016) respectively. No over-claim.
+
+  - rule_ref: outputs.modes[compare].output
+    triplet:
+      head: "compare mode output"
+      relation: "must include"
+      tail: "structured comparison with context-specific recommendation and conditions for each approach"
+    verdict: WITHIN_SCOPE
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Consistent with P052 (C00003-C00004, C00006): no universally best choice,
+      only context-appropriate ones. The requirement for a context-specific
+      recommendation reflects this principle faithfully. No over-claim.
+
+  - rule_ref: outputs.modes[patch-suggest].trigger
+    triplet:
+      head: "patch-suggest mode"
+      relation: "triggered by"
+      tail: "identification of a specific bounded corrective action during review and caller request for concrete suggestion"
+    verdict: WITHIN_SCOPE
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Operational routing rule. No over-claim risk; the trigger correctly scopes
+      patch-suggest to bounded, identified violations rather than speculative changes.
+
+  - rule_ref: outputs.modes[patch-suggest].output
+    triplet:
+      head: "patch-suggest output"
+      relation: "must include"
+      tail: "minimal focused change suggestion with rationale, risk explanation, and confirmation tests are in place before applying (P024)"
+    verdict: EXACT_SUPPORT
+    distortion: ["none"]
+    source_anchors: []
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The "tests must be in place before the change is applied" requirement is
+      directly supported by P024 (C00259-C00264) — refactoring takes short, tested
+      steps. The P024 citation in the rule text is accurate. The "minimal, focused
+      change" guidance is consistent with P024's short-steps mandate and P041's
+      test-first stance (C00326-C00328). No distortion.

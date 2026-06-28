@@ -1,0 +1,238 @@
+schema_version: golden-tests-v1
+subagent_slug: pragmatic-programming-advisor
+generated_at: '2026-06-28'
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — review/advise triggered by a situation governed by P001.
+  prompt: 'Here is our situation: Design and keep components orthogonal, decoupled, and single-responsibility.
+    Please review it against pragmatic principles and tell us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P001
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P001) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-002
+  description: Positive routing — review/advise triggered by a situation governed by P003.
+  prompt: 'Here is our situation: Do not use manual procedures; automate everything the team does (builds.
+    Please review it against pragmatic principles and tell us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P003
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P003) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-003
+  description: Positive routing — review/advise triggered by a situation governed by P010.
+  prompt: 'Here is our situation: Program deliberately, not by coincidence: rely only on documented, reliable
+    behavior, do not depend on unguaranteed context, remove spurious calls, and document and test your
+    assumptions, because coding is design work that demands thought.. Please review it against pragmatic
+    principles and tell us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P010
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P010) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-004
+  description: Positive routing — review/advise triggered by a situation governed by P015.
+  prompt: 'Here is our situation: Write shy code and obey the Law of Demeter (call methods only on objects
+    you own. Please review it against pragmatic principles and tell us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P015
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P015) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-005
+  description: Positive routing — review/advise triggered by a situation governed by P016.
+  prompt: 'Here is our situation: Configure, don''t integrate: drive deeply ingrained choices and volatile
+    business rules from metadata kept in plain text, putting abstractions in the code and details outside
+    the compiled code base.. Please review it against pragmatic principles and tell us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P016
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P016) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-006
+  description: Positive routing — review/advise triggered by a situation governed by P020.
+  prompt: 'Here is our situation: Keep knowledge in human-readable plain text, which is self-describing,
+    tool-friendly, and outlives the applications that created it. Please review it against pragmatic principles
+    and tell us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P020
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P020) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-007
+  description: Positive routing — review/advise triggered by a situation governed by P030.
+  prompt: 'Here is our situation: Always use source code control for everything. Please review it against
+    pragmatic principles and tell us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P030
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P030) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-008
+  description: Positive routing — review/advise triggered by a situation governed by P031.
+  prompt: 'Here is our situation: Crash early: treat every error as information. Please review it against
+    pragmatic principles and tell us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P031
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P031) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-009
+  description: Positive routing — review/advise triggered by a situation governed by P039.
+  prompt: 'Here is our situation: Do not live with broken windows: fix bad designs. Please review it against
+    pragmatic principles and tell us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P039
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P039) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-010
+  description: Positive routing — review/advise triggered by a situation governed by P040.
+  prompt: 'Here is our situation: Apply DRY: every piece of knowledge must have a single. Please review
+    it against pragmatic principles and tell us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P040
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P040) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-011
+  description: Positive routing — review/advise triggered by a situation governed by P041.
+  prompt: 'Here is our situation: Test early, test often, and test automatically (with results interpreted
+    automatically), writing test code at the same time as or before the production code, because coding
+    is not done until all the tests run.. Please review it against pragmatic principles and tell us what
+    to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P041
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P041) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-012
+  description: Positive routing — review/advise triggered by a situation governed by P059.
+  prompt: 'Here is our situation: Accept that you cannot write perfect software and code defensively.
+    Please review it against pragmatic principles and tell us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P059
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P059) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+- test_id: GT-013
+  description: Positive routing — review/advise triggered by a situation governed by P068.
+  prompt: 'Here is our situation: Find bugs once: when a bug is found, add an automated test so that a
+    human never has to find that same bug again.. Please review it against pragmatic principles and tell
+    us what to do.'
+  expected_route: invoke
+  expected_mode: review
+  principle_id: P068
+  must_ask_for: []
+  minimum_output: At least one named principle violation or recommendation (P068) with a one-sentence
+    corrective action citing the principle ID or tip number.
+  must_not_do:
+  - Approve the artefact without naming the applicable principle.
+  - Produce working replacement production code.
+negative_routing_tests:
+- test_id: NR-001
+  description: Hard negative — out of scope; advisor should decline or reframe (P052).
+  prompt: Can you pick the single best programming language and framework for all our future projects,
+    full stop?
+  expected_route: do_not_invoke
+  principle_id: P052
+  must_not_do:
+  - Answer as if the request were in scope when it is not.
+  - Endorse a single universally-best technology or write deliverable production code.
+- test_id: NR-002
+  description: Hard negative — out of scope; advisor should decline or reframe (P052).
+  prompt: Please just write and hand us the finished production microservice code, ready to deploy.
+  expected_route: do_not_invoke
+  principle_id: P052
+  must_not_do:
+  - Answer as if the request were in scope when it is not.
+  - Endorse a single universally-best technology or write deliverable production code.
+- test_id: NR-003
+  description: Hard negative — out of scope; advisor should decline or reframe (P076).
+  prompt: Rubber-stamp this wizard-generated module for us; we don't need to understand it, just approve
+    it.
+  expected_route: do_not_invoke
+  principle_id: P076
+  must_not_do:
+  - Answer as if the request were in scope when it is not.
+  - Endorse a single universally-best technology or write deliverable production code.
+missing_context_tests:
+- test_id: MC-001
+  description: Missing context — decision-relevant detail omitted; advisor should ask before answering
+    (P040).
+  prompt: We think we have a DRY problem and want your recommendation.
+  expected_route: invoke
+  principle_id: P040
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+  must_not_do:
+  - Commit to a firm recommendation without the missing context.
+- test_id: MC-002
+  description: Missing context — decision-relevant detail omitted; advisor should ask before answering
+    (P024).
+  prompt: Should we refactor now or later? Tell us what to do.
+  expected_route: invoke
+  principle_id: P024
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+  must_not_do:
+  - Commit to a firm recommendation without the missing context.
+- test_id: MC-003
+  description: Missing context — decision-relevant detail omitted; advisor should ask before answering
+    (P006).
+  prompt: Give us an estimate for this work.
+  expected_route: invoke
+  principle_id: P006
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+  must_not_do:
+  - Commit to a firm recommendation without the missing context.
