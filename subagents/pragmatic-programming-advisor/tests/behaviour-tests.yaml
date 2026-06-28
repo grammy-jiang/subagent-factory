@@ -1,0 +1,785 @@
+schema_version: golden-tests-v1
+subagent_slug: pragmatic-programming-advisor
+generated_at: '2026-06-28'
+golden_tests:
+- test_id: GT-001
+  prompt: Design and keep components orthogonal, decoupled, and single-responsibility — using layering,
+    an orthogonality test (a single requirement change should affect one module), and isolation of third-party
+    tools behind abstract interfaces — to localize change, enable reuse, and reduce fragility by eliminating
+    effects between unrelated things. What do you advise, and why?
+  principle_coverage:
+  - P001
+  expected_route: invoke
+  minimum_output: Design and keep components orthogonal, decoupled, and single-responsibility — using
+    layering, an orthogonality test (a single requirement change should affect one module), and isolation
+    of third-party tools behind abstract interfaces — to localize change, enable reuse, and reduce fragility
+    by eliminating effects between unrelated things
+- test_id: GT-002
+  prompt: Eliminate duplication by generating all derived forms from one authoritative source with an
+    active code generator wired into the build, normalizing data, using calculated fields, accessor functions,
+    and generating tests from the specification; keep simple input formats and remember generators need
+    not produce code. What do you advise, and why?
+  principle_coverage:
+  - P002
+  expected_route: invoke
+  minimum_output: Eliminate duplication by generating all derived forms from one authoritative source
+    with an active code generator wired into the build, normalizing data, using calculated fields, accessor
+    functions, and generating tests from the specification; keep simple input formats and remember generators
+    need not produce code
+- test_id: GT-003
+  prompt: Do not use manual procedures; automate everything the team does (builds, tests, web publishing,
+    administrivia) with scripted, repeatable tools kept under source control and scheduling, and let the
+    computer do the repetitious, mundane work. What do you advise, and why?
+  principle_coverage:
+  - P003
+  expected_route: invoke
+  minimum_output: Do not use manual procedures; automate everything the team does (builds, tests, web
+    publishing, administrivia) with scripted, repeatable tools kept under source control and scheduling,
+    and let the computer do the repetitious, mundane work
+- test_id: GT-004
+  prompt: 'Prototype to learn: build cheap, disposable prototypes (even non-code) of anything risky, ignoring
+    inessential details and using a high-level language, set disposability expectations clearly, and switch
+    to tracer bullets if the prototype may be mistaken for a deliverable. What do you advise, and why?'
+  principle_coverage:
+  - P004
+  expected_route: invoke
+  minimum_output: 'Prototype to learn: build cheap, disposable prototypes (even non-code) of anything
+    risky, ignoring inessential details and using a high-level language, set disposability expectations
+    clearly, and switch to tracer bullets if the prototype may be mistaken for a deliverable'
+- test_id: GT-005
+  prompt: Program close to the problem domain using its vocabulary (backed by a glossary) and mini-languages,
+    which enable domain-specific validation and can serve each class of user; a mini-language can grow
+    from a non-executable specification into executable code, and embedding it lets behavior change without
+    recompiling. What do you advise, and why?
+  principle_coverage:
+  - P005
+  expected_route: invoke
+  minimum_output: Program close to the problem domain using its vocabulary (backed by a glossary) and
+    mini-languages, which enable domain-specific validation and can serve each class of user; a mini-language
+    can grow from a non-executable specification into executable code, and embedding it lets behavior
+    change without recompiling
+- test_id: GT-006
+  prompt: 'Estimate to avoid surprises: match accuracy and units to context, build and decompose a model,
+    focus on high-impact parameters, beware estimates built on sub-estimates, record and learn from estimates,
+    and ask someone who has done it before. What do you advise, and why?'
+  principle_coverage:
+  - P006
+  expected_route: invoke
+  minimum_output: 'Estimate to avoid surprises: match accuracy and units to context, build and decompose
+    a model, focus on high-impact parameters, beware estimates built on sub-estimates, record and learn
+    from estimates, and ask someone who has done it before'
+- test_id: GT-007
+  prompt: 'Master your basic tools, since tools amplify talent: treat the command shell as a workbench,
+    know one editor deeply and use it everywhere, and do not confine yourself to a single IDE. What do
+    you advise, and why?'
+  principle_coverage:
+  - P007
+  expected_route: invoke
+  minimum_output: 'Master your basic tools, since tools amplify talent: treat the command shell as a workbench,
+    know one editor deeply and use it everywhere, and do not confine yourself to a single IDE'
+- test_id: GT-008
+  prompt: 'Design with contracts: specify each routine''s preconditions, postconditions, and class invariants,
+    keep contracts abstract, be strict in what you accept and promise as little as possible, and do not
+    use preconditions for user-input validation. What do you advise, and why?'
+  principle_coverage:
+  - P008
+  expected_route: invoke
+  minimum_output: 'Design with contracts: specify each routine''s preconditions, postconditions, and class
+    invariants, keep contracts abstract, be strict in what you accept and promise as little as possible,
+    and do not use preconditions for user-input validation'
+- test_id: GT-009
+  prompt: 'Finish what you start: the routine or object that allocates a resource frees it; free on every
+    exit path, nest allocations (free in reverse order, acquire in a consistent order to avoid deadlock),
+    encapsulate resources, avoid global handles, and verify resources are actually freed. What do you
+    advise, and why?'
+  principle_coverage:
+  - P009
+  expected_route: invoke
+  minimum_output: 'Finish what you start: the routine or object that allocates a resource frees it; free
+    on every exit path, nest allocations (free in reverse order, acquire in a consistent order to avoid
+    deadlock), encapsulate resources, avoid global handles, and verify resources are actually freed'
+- test_id: GT-010
+  prompt: 'Program deliberately, not by coincidence: rely only on documented, reliable behavior, do not
+    depend on unguaranteed context, remove spurious calls, and document and test your assumptions, because
+    coding is design work that demands thought. What do you advise, and why?'
+  principle_coverage:
+  - P010
+  expected_route: invoke
+  minimum_output: 'Program deliberately, not by coincidence: rely only on documented, reliable behavior,
+    do not depend on unguaranteed context, remove spurious calls, and document and test your assumptions,
+    because coding is design work that demands thought'
+- test_id: GT-011
+  prompt: Continuously invest small daily effort in a diversified, regularly rebalanced knowledge portfolio
+    (learn new languages and read widely, learn emerging tech early, broaden beyond your stack), treating
+    your knowledge as an expiring asset. What do you advise, and why?
+  principle_coverage:
+  - P011
+  expected_route: invoke
+  minimum_output: Continuously invest small daily effort in a diversified, regularly rebalanced knowledge
+    portfolio (learn new languages and read widely, learn emerging tech early, broaden beyond your stack),
+    treating your knowledge as an expiring asset
+- test_id: GT-012
+  prompt: 'Treat documentation as code (English as another programming language) and build it in rather
+    than bolt it on: it mirrors the code, so comment why not how, choose meaningful and non-misleading
+    names, keep tool-maintained information out of comments, record authorship, and use executable documents
+    with a single presentation-independent source. What do you advise, and why?'
+  principle_coverage:
+  - P012
+  expected_route: invoke
+  minimum_output: 'Treat documentation as code (English as another programming language) and build it
+    in rather than bolt it on: it mirrors the code, so comment why not how, choose meaningful and non-misleading
+    names, keep tool-maintained information out of comments, record authorship, and use executable documents
+    with a single presentation-independent source'
+- test_id: GT-013
+  prompt: Make tests easy to find and ship them with the code, run them often, build a composable test
+    harness (reusing a framework such as xUnit), formalize ad hoc tests into the suite, and build a test
+    window into deployed software; internal test drivers are worth building even when no requirement asks
+    for them, and tests should return exit codes so they compose. What do you advise, and why?
+  principle_coverage:
+  - P013
+  expected_route: invoke
+  minimum_output: Make tests easy to find and ship them with the code, run them often, build a composable
+    test harness (reusing a framework such as xUnit), formalize ad hoc tests into the suite, and build
+    a test window into deployed software; internal test drivers are worth building even when no requirement
+    asks for them, and tests should return exit codes so they compose
+- test_id: GT-014
+  prompt: 'Cover the major testing types: unit testing as the foundation, integration testing of contracts
+    (often the single largest source of bugs), validation and verification against the real need, resource-exhaustion
+    and graceful-failure testing, performance and load testing, and usability testing with real users.
+    What do you advise, and why?'
+  principle_coverage:
+  - P014
+  expected_route: invoke
+  minimum_output: 'Cover the major testing types: unit testing as the foundation, integration testing
+    of contracts (often the single largest source of bugs), validation and verification against the real
+    need, resource-exhaustion and graceful-failure testing, performance and load testing, and usability
+    testing with real users'
+- test_id: GT-015
+  prompt: Write shy code and obey the Law of Demeter (call methods only on objects you own, were passed,
+    or created, and ask the owning object for what you need) to minimize coupling, because larger response
+    sets are empirically more error-prone. What do you advise, and why?
+  principle_coverage:
+  - P015
+  expected_route: invoke
+  minimum_output: Write shy code and obey the Law of Demeter (call methods only on objects you own, were
+    passed, or created, and ask the owning object for what you need) to minimize coupling, because larger
+    response sets are empirically more error-prone
+- test_id: GT-016
+  prompt: 'Configure, don''t integrate: drive deeply ingrained choices and volatile business rules from
+    metadata kept in plain text, putting abstractions in the code and details outside the compiled code
+    base. What do you advise, and why?'
+  principle_coverage:
+  - P016
+  expected_route: invoke
+  minimum_output: 'Configure, don''t integrate: drive deeply ingrained choices and volatile business rules
+    from metadata kept in plain text, putting abstractions in the code and details outside the compiled
+    code base'
+- test_id: GT-017
+  prompt: 'Communicate effectively as a core professional skill: plan what to say, know and tailor to
+    your audience, choose the moment and style, mind presentation, make it two-way, and treat email as
+    permanent. What do you advise, and why?'
+  principle_coverage:
+  - P017
+  expected_route: invoke
+  minimum_output: 'Communicate effectively as a core professional skill: plan what to say, know and tailor
+    to your audience, choose the moment and style, mind presentation, make it two-way, and treat email
+    as permanent'
+- test_id: GT-018
+  prompt: Separate views from models (Model-View-Controller as a general technique), use events and publish/subscribe
+    so senders need no knowledge of receivers, and build model-viewer networks for flexibility. What do
+    you advise, and why?
+  principle_coverage:
+  - P018
+  expected_route: invoke
+  minimum_output: Separate views from models (Model-View-Controller as a general technique), use events
+    and publish/subscribe so senders need no knowledge of receivers, and build model-viewer networks for
+    flexibility
+- test_id: GT-019
+  prompt: Test state coverage rather than mere code coverage, using both real and synthetic data, decoupling
+    application logic from the GUI, analyzing design metrics comparatively across modules, and using saboteurs
+    to verify the tests actually catch bugs. What do you advise, and why?
+  principle_coverage:
+  - P019
+  expected_route: invoke
+  minimum_output: Test state coverage rather than mere code coverage, using both real and synthetic data,
+    decoupling application logic from the GUI, analyzing design metrics comparatively across modules,
+    and using saboteurs to verify the tests actually catch bugs
+- test_id: GT-020
+  prompt: Keep knowledge in human-readable plain text, which is self-describing, tool-friendly, and outlives
+    the applications that created it; binary formats are no more secure, so encrypt or checksum sensitive
+    values instead. What do you advise, and why?
+  principle_coverage:
+  - P020
+  expected_route: invoke
+  minimum_output: Keep knowledge in human-readable plain text, which is self-describing, tool-friendly,
+    and outlives the applications that created it; binary formats are no more secure, so encrypt or checksum
+    sensitive values instead
+- test_id: GT-021
+  prompt: Take responsibility for your work; when you err, admit it and provide options to salvage the
+    situation rather than excuses or blame, and anticipate uncontrolled risks with contingency plans while
+    rehearsing bad news with concrete alternatives. What do you advise, and why?
+  principle_coverage:
+  - P021
+  expected_route: invoke
+  minimum_output: Take responsibility for your work; when you err, admit it and provide options to salvage
+    the situation rather than excuses or blame, and anticipate uncontrolled risks with contingency plans
+    while rehearsing bad news with concrete alternatives
+- test_id: GT-022
+  prompt: Organize teams orthogonally around functionality rather than job functions, with cohesive self-contained
+    groups, no siloed phases, and two heads (one technical, one administrative) for responsible self-direction.
+    What do you advise, and why?
+  principle_coverage:
+  - P022
+  expected_route: invoke
+  minimum_output: Organize teams orthogonally around functionality rather than job functions, with cohesive
+    self-contained groups, no siloed phases, and two heads (one technical, one administrative) for responsible
+    self-direction
+- test_id: GT-023
+  prompt: 'Treat decisions as reversible: abstract third-party products behind interfaces, treat the deployment
+    model as configuration, maintain flexibility in architecture and vendor integration, and keep change-injection
+    mechanisms reversible, because anything you rely on heavily will change. What do you advise, and why?'
+  principle_coverage:
+  - P023
+  expected_route: invoke
+  minimum_output: 'Treat decisions as reversible: abstract third-party products behind interfaces, treat
+    the deployment model as configuration, maintain flexibility in architecture and vendor integration,
+    and keep change-injection mechanisms reversible, because anything you rely on heavily will change'
+- test_id: GT-024
+  prompt: Treat software as gardening and refactor early and often (when you find duplication, nonorthogonality,
+    drift, or a performance need), taking short, tested steps without adding functionality at the same
+    time and breaking the build on incompatible interface changes. What do you advise, and why?
+  principle_coverage:
+  - P024
+  expected_route: invoke
+  minimum_output: Treat software as gardening and refactor early and often (when you find duplication,
+    nonorthogonality, drift, or a performance need), taking short, tested steps without adding functionality
+    at the same time and breaking the build on incompatible interface changes
+- test_id: GT-025
+  prompt: Use tracer bullets (a thin, production-quality, end-to-end skeleton fleshed out incrementally)
+    to find the target under uncertainty, adjusting aim from early misses; tracer code is lean but complete,
+    not a throwaway prototype. What do you advise, and why?
+  principle_coverage:
+  - P025
+  expected_route: invoke
+  minimum_output: Use tracer bullets (a thin, production-quality, end-to-end skeleton fleshed out incrementally)
+    to find the target under uncertainty, adjusting aim from early misses; tracer code is lean but complete,
+    not a throwaway prototype
+- test_id: GT-026
+  prompt: Estimate the order of your algorithms from their structure and address bad orders with divide-and-conquer,
+    but choose algorithms pragmatically since the asymptotically fastest is not always best. What do you
+    advise, and why?
+  principle_coverage:
+  - P026
+  expected_route: invoke
+  minimum_output: Estimate the order of your algorithms from their structure and address bad orders with
+    divide-and-conquer, but choose algorithms pragmatically since the asymptotically fastest is not always
+    best
+- test_id: GT-027
+  prompt: Use a blackboard combined with a rules engine to coordinate workflow among anonymous, asynchronous,
+    heterogeneous participants, especially when data arrives in unpredictable order or feedback is involved,
+    and partition the blackboard as it grows. What do you advise, and why?
+  principle_coverage:
+  - P027
+  expected_route: invoke
+  minimum_output: Use a blackboard combined with a rules engine to coordinate workflow among anonymous,
+    asynchronous, heterogeneous participants, especially when data arrives in unpredictable order or feedback
+    is involved, and partition the blackboard as it grows
+- test_id: GT-028
+  prompt: 'Design to test: design each module''s contract and its tests together and write the tests before
+    the code, test against the contract over boundary conditions, and test subcomponents before the modules
+    that depend on them. What do you advise, and why?'
+  principle_coverage:
+  - P028
+  expected_route: invoke
+  minimum_output: 'Design to test: design each module''s contract and its tests together and write the
+    tests before the code, test against the contract over boundary conditions, and test subcomponents
+    before the modules that depend on them'
+- test_id: GT-029
+  prompt: 'Apply defensive coding idioms: never use gets(), do not rely on overlapping-string strcpy,
+    set pointers and object references to null after freeing to catch reuse and aid garbage collection,
+    check the runtime environment dynamically, and do not bury user interaction in a library routine.
+    What do you advise, and why?'
+  principle_coverage:
+  - P029
+  expected_route: invoke
+  minimum_output: 'Apply defensive coding idioms: never use gets(), do not rely on overlapping-string
+    strcpy, set pointers and object references to null after freeing to catch reuse and aid garbage collection,
+    check the runtime environment dynamically, and do not bury user interaction in a library routine'
+- test_id: GT-030
+  prompt: Always use source code control for everything, even solo or throwaway work, because it is a
+    project-wide time machine that enables change tracking, branching, concurrent work, and automatic
+    repeatable builds. What do you advise, and why?
+  principle_coverage:
+  - P030
+  expected_route: invoke
+  minimum_output: Always use source code control for everything, even solo or throwaway work, because
+    it is a project-wide time machine that enables change tracking, branching, concurrent work, and automatic
+    repeatable builds
+- test_id: GT-031
+  prompt: 'Crash early: treat every error as information, and when something impossible happens terminate
+    the program promptly, because a dead program does far less damage than a crippled one. What do you
+    advise, and why?'
+  principle_coverage:
+  - P031
+  expected_route: invoke
+  minimum_output: 'Crash early: treat every error as information, and when something impossible happens
+    terminate the program promptly, because a dead program does far less damage than a crippled one'
+- test_id: GT-032
+  prompt: 'Treat debugging as blame-free problem solving: do not panic, fix the root cause rather than
+    the symptom, and start from cleanly compiling, warning-free code. What do you advise, and why?'
+  principle_coverage:
+  - P032
+  expected_route: invoke
+  minimum_output: 'Treat debugging as blame-free problem solving: do not panic, fix the root cause rather
+    than the symptom, and start from cleanly compiling, warning-free code'
+- test_id: GT-033
+  prompt: 'Gather accurate debugging data: reproduce a bug with a single command, observe accurately (interview
+    the reporter), visualize the data, use consistent tracing, and inspect memory around a corrupt variable.
+    What do you advise, and why?'
+  principle_coverage:
+  - P033
+  expected_route: invoke
+  minimum_output: 'Gather accurate debugging data: reproduce a bug with a single command, observe accurately
+    (interview the reporter), visualize the data, use consistent tracing, and inspect memory around a
+    corrupt variable'
+- test_id: GT-034
+  prompt: Assume a bug is in your own code rather than the OS, compiler, or library, and that a single
+    recent change is the likely cause; do not assume but prove it in context, and after a surprising bug
+    strengthen the tests so it cannot recur. What do you advise, and why?
+  principle_coverage:
+  - P034
+  expected_route: invoke
+  minimum_output: Assume a bug is in your own code rather than the OS, compiler, or library, and that
+    a single recent change is the likely cause; do not assume but prove it in context, and after a surprising
+    bug strengthen the tests so it cannot recur
+- test_id: GT-035
+  prompt: Use exceptions only for exceptional problems (verify by checking whether the code would still
+    run with all handlers removed) to keep error handling in one place; do not use them in normal flow,
+    where they create spaghetti and break encapsulation, and consider error handlers as an alternative.
+    What do you advise, and why?
+  principle_coverage:
+  - P035
+  expected_route: invoke
+  minimum_output: Use exceptions only for exceptional problems (verify by checking whether the code would
+    still run with all handlers removed) to keep error handling in one place; do not use them in normal
+    flow, where they create spaghetti and break encapsulation, and consider error handlers as an alternative
+- test_id: GT-036
+  prompt: 'Always design for concurrency: protect shared and global state, keep objects in a valid state
+    whenever they could be called, and avoid hidden inter-call state for cleaner, thread-safe interfaces.
+    What do you advise, and why?'
+  principle_coverage:
+  - P036
+  expected_route: invoke
+  minimum_output: 'Always design for concurrency: protect shared and global state, keep objects in a valid
+    state whenever they could be called, and avoid hidden inter-call state for cleaner, thread-safe interfaces'
+- test_id: GT-037
+  prompt: Invest in abstractions over details because abstractions live longer, capture requirements as
+    abstract use cases without being a slave to any notation, and maintain a shared project glossary and
+    hyperlinked documentation. What do you advise, and why?
+  principle_coverage:
+  - P037
+  expected_route: invoke
+  minimum_output: Invest in abstractions over details because abstractions live longer, capture requirements
+    as abstract use cases without being a slave to any notation, and maintain a shared project glossary
+    and hyperlinked documentation
+- test_id: GT-038
+  prompt: Choose error handling by how exceptional a condition is and reduce recursion footprint by sharing
+    one buffer across calls; recognize that object technology can be more orthogonal but is easier to
+    abuse, and modeless designs tend to be more orthogonal than modal ones. What do you advise, and why?
+  principle_coverage:
+  - P038
+  expected_route: invoke
+  minimum_output: Choose error handling by how exceptional a condition is and reduce recursion footprint
+    by sharing one buffer across calls; recognize that object technology can be more orthogonal but is
+    easier to abuse, and modeless designs tend to be more orthogonal than modal ones
+- test_id: GT-039
+  prompt: 'Do not live with broken windows: fix bad designs, wrong decisions, and poor code as soon as
+    they are found, or board them up, because neglect and the broken-window effect accelerate software
+    rot. What do you advise, and why?'
+  principle_coverage:
+  - P039
+  expected_route: invoke
+  minimum_output: 'Do not live with broken windows: fix bad designs, wrong decisions, and poor code as
+    soon as they are found, or board them up, because neglect and the broken-window effect accelerate
+    software rot'
+- test_id: GT-040
+  prompt: 'Apply DRY: every piece of knowledge must have a single, unambiguous, authoritative representation
+    within a system, because duplicated knowledge guarantees eventual inconsistency, and maintenance is
+    continuous throughout development. What do you advise, and why?'
+  principle_coverage:
+  - P040
+  expected_route: invoke
+  minimum_output: 'Apply DRY: every piece of knowledge must have a single, unambiguous, authoritative
+    representation within a system, because duplicated knowledge guarantees eventual inconsistency, and
+    maintenance is continuous throughout development'
+- test_id: GT-041
+  prompt: Test early, test often, and test automatically (with results interpreted automatically), writing
+    test code at the same time as or before the production code, because coding is not done until all
+    the tests run. What do you advise, and why?
+  principle_coverage:
+  - P041
+  expected_route: invoke
+  minimum_output: Test early, test often, and test automatically (with results interpreted automatically),
+    writing test code at the same time as or before the production code, because coding is not done until
+    all the tests run
+- test_id: GT-042
+  prompt: Make quality an explicit requirements issue and involve users in the trade-off; deliver good
+    software early for feedback rather than chasing perfection, and know when to stop refining. What do
+    you advise, and why?
+  principle_coverage:
+  - P042
+  expected_route: invoke
+  minimum_output: Make quality an explicit requirements issue and involve users in the trade-off; deliver
+    good software early for feedback rather than chasing perfection, and know when to stop refining
+- test_id: GT-043
+  prompt: 'Do not be a slave to formal methods or expensive tools: fit techniques to your team''s practices,
+    prefer prototypes users can actually check, account for the real cost of adopting new methods, and
+    remember expensive tools do not produce better designs. What do you advise, and why?'
+  principle_coverage:
+  - P043
+  expected_route: invoke
+  minimum_output: 'Do not be a slave to formal methods or expensive tools: fit techniques to your team''s
+    practices, prefer prototypes users can actually check, account for the real cost of adopting new methods,
+    and remember expensive tools do not produce better designs'
+- test_id: GT-044
+  prompt: Honor the Liskov Substitution Principle and put a contract once in the base class so subtypes
+    preserve method meaning; recognize that assertions only partially emulate Design by Contract, so prefer
+    languages or tools with real DBC support. What do you advise, and why?
+  principle_coverage:
+  - P044
+  expected_route: invoke
+  minimum_output: Honor the Liskov Substitution Principle and put a contract once in the base class so
+    subtypes preserve method meaning; recognize that assertions only partially emulate Design by Contract,
+    so prefer languages or tools with real DBC support
+- test_id: GT-045
+  prompt: Use assertions to guard conditions that should never happen, keep their evaluation side-effect-free,
+    leave them on in production, and never substitute them for real error handling. What do you advise,
+    and why?
+  principle_coverage:
+  - P045
+  expected_route: invoke
+  minimum_output: Use assertions to guard conditions that should never happen, keep their evaluation side-effect-free,
+    leave them on in production, and never substitute them for real error handling
+- test_id: GT-046
+  prompt: 'Treat time, both concurrency and ordering, as a design element: analyze workflow to find parallelism
+    and decouple time and order dependencies for flexibility. What do you advise, and why?'
+  principle_coverage:
+  - P046
+  expected_route: invoke
+  minimum_output: 'Treat time, both concurrency and ordering, as a design element: analyze workflow to
+    find parallelism and decouple time and order dependencies for flexibility'
+- test_id: GT-047
+  prompt: 'Separate requirements (need) from policy and architecture and keep requirements abstract without
+    overspecifying: capture semantic invariants as requirements, restate fixed values as configurability,
+    and translate surface behaviors into underlying needs. What do you advise, and why?'
+  principle_coverage:
+  - P047
+  expected_route: invoke
+  minimum_output: 'Separate requirements (need) from policy and architecture and keep requirements abstract
+    without overspecifying: capture semantic invariants as requirements, restate fixed values as configurability,
+    and translate surface behaviors into underlying needs'
+- test_id: GT-048
+  prompt: detailed specifications are warranted for life-critical systems and for interfaces or libraries
+    used by others. What do you advise, and why?
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  minimum_output: 'Avoid the specification trap: some things are better done than described, reserve detailed
+    specifications for life-critical systems or shared interfaces, and treat requirements, design, and
+    implementation as one feedback-driven process'
+- test_id: GT-049
+  prompt: detailed specifications are warranted for life-critical systems and for interfaces or libraries
+    used by others. (Every decision-relevant specific is provided.) What do you advise?
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  minimum_output: 'Avoid the specification trap: some things are better done than described, reserve detailed
+    specifications for life-critical systems or shared interfaces, and treat requirements, design, and
+    implementation as one feedback-driven process'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-001
+- test_id: GT-050
+  prompt: 'Measure project success by how well it meets users'' expectations: communicate expectations
+    throughout development, then gently exceed them with low-cost delight without breaking the system.
+    What do you advise, and why?'
+  principle_coverage:
+  - P049
+  expected_route: invoke
+  minimum_output: 'Measure project success by how well it meets users'' expectations: communicate expectations
+    throughout development, then gently exceed them with low-cost delight without breaking the system'
+- test_id: GT-051
+  prompt: Treat quality as a team issue with no broken windows and every member contributing, keep the
+    team vigilant against creeping change, communicate to the outside as one voice, and give each member
+    room to shine. What do you advise, and why?
+  principle_coverage:
+  - P050
+  expected_route: invoke
+  minimum_output: Treat quality as a team issue with no broken windows and every member contributing,
+    keep the team vigilant against creeping change, communicate to the outside as one voice, and give
+    each member room to shine
+- test_id: GT-052
+  prompt: 'Reduce coupling and improve structure with concrete refactorings: forward-declare in headers
+    instead of including full headers, replace type-code switches with subclasses, prefer delegation (has-a)
+    over inheritance (is-a), and replace polling reports with listener or observer designs. What do you
+    advise, and why?'
+  principle_coverage:
+  - P051
+  expected_route: invoke
+  minimum_output: 'Reduce coupling and improve structure with concrete refactorings: forward-declare in
+    headers instead of including full headers, replace type-code switches with subclasses, prefer delegation
+    (has-a) over inheritance (is-a), and replace polling reports with listener or observer designs'
+- test_id: GT-053
+  prompt: Choose tools, languages, and approaches by their fit to the specific circumstances rather than
+    committing to a single best technology, and keep a broad computer-science grounding and wide practical
+    experience so you can choose well; the core techniques are universal across code, design, docs, and
+    teams. What do you advise, and why?
+  principle_coverage:
+  - P052
+  expected_route: invoke
+  minimum_output: Choose tools, languages, and approaches by their fit to the specific circumstances rather
+    than committing to a single best technology, and keep a broad computer-science grounding and wide
+    practical experience so you can choose well; the core techniques are universal across code, design,
+    docs, and teams
+- test_id: GT-054
+  prompt: Make finding and reusing existing code easier than rewriting it, and prevent interdeveloper
+    duplication with clear design, frequent communication, a project librarian, and shared utilities.
+    What do you advise, and why?
+  principle_coverage:
+  - P053
+  expected_route: invoke
+  minimum_output: Make finding and reusing existing code easier than rewriting it, and prevent interdeveloper
+    duplication with clear design, frequent communication, a project librarian, and shared utilities
+- test_id: GT-055
+  prompt: Test your estimates against production reality (plotting runs and profiling) and avoid premature
+    optimization until a bottleneck is confirmed. What do you advise, and why?
+  principle_coverage:
+  - P054
+  expected_route: invoke
+  minimum_output: Test your estimates against production reality (plotting runs and profiling) and avoid
+    premature optimization until a bottleneck is confirmed
+- test_id: GT-056
+  prompt: Use loop and semantic invariants to pin boundary conditions and inviolate requirements, and
+    design a piece of software's contract whenever you design the software. What do you advise, and why?
+  principle_coverage:
+  - P055
+  expected_route: invoke
+  minimum_output: Use loop and semantic invariants to pin boundary conditions and inviolate requirements,
+    and design a piece of software's contract whenever you design the software
+- test_id: GT-057
+  prompt: Design using independent, concurrent services behind well-defined, consistent interfaces, communicating
+    through asynchronous work queues and using a hungry-consumer model for load balancing. What do you
+    advise, and why?
+  principle_coverage:
+  - P056
+  expected_route: invoke
+  minimum_output: Design using independent, concurrent services behind well-defined, consistent interfaces,
+    communicating through asynchronous work queues and using a hungry-consumer model for load balancing
+- test_id: GT-058
+  prompt: Dig for requirements rather than gather them, discover the underlying reason a user does something,
+    and work alongside a user to think like one. What do you advise, and why?
+  principle_coverage:
+  - P057
+  expected_route: invoke
+  minimum_output: Dig for requirements rather than gather them, discover the underlying reason a user
+    does something, and work alongside a user to think like one
+- test_id: GT-059
+  prompt: Solve hard problems by finding the real constraints and the degrees of freedom you actually
+    have, enumerating and disproving every avenue, and asking whether and why the thing must be done at
+    all. What do you advise, and why?
+  principle_coverage:
+  - P058
+  expected_route: invoke
+  minimum_output: Solve hard problems by finding the real constraints and the degrees of freedom you actually
+    have, enumerating and disproving every avenue, and asking whether and why the thing must be done at
+    all
+- test_id: GT-060
+  prompt: Accept that you cannot write perfect software and code defensively, validating inputs and distrusting
+    even your own code. What do you advise, and why?
+  principle_coverage:
+  - P059
+  expected_route: invoke
+  minimum_output: Accept that you cannot write perfect software and code defensively, validating inputs
+    and distrusting even your own code
+- test_id: GT-061
+  prompt: Care about your craft and think critically about every decision in real time rather than running
+    on autopilot. What do you advise, and why?
+  principle_coverage:
+  - P060
+  expected_route: invoke
+  minimum_output: Care about your craft and think critically about every decision in real time rather
+    than running on autopilot
+- test_id: GT-062
+  prompt: Be a catalyst for change by building something reasonable and demonstrable when you cannot get
+    approval for the whole, and keep the big picture in view, since most disasters and overruns accumulate
+    gradually. What do you advise, and why?
+  principle_coverage:
+  - P061
+  expected_route: invoke
+  minimum_output: Be a catalyst for change by building something reasonable and demonstrable when you
+    cannot get approval for the whole, and keep the big picture in view, since most disasters and overruns
+    accumulate gradually
+- test_id: GT-063
+  prompt: Recognize that nonorthogonal systems have no local fix, and use the difficulty of building a
+    module's unit test as a probe for poor decoupling. What do you advise, and why?
+  principle_coverage:
+  - P062
+  expected_route: invoke
+  minimum_output: Recognize that nonorthogonal systems have no local fix, and use the difficulty of building
+    a module's unit test as a probe for poor decoupling
+- test_id: GT-064
+  prompt: Avoid global data and near-identical functions (refactor them via patterns such as Strategy),
+    since both increase coupling. What do you advise, and why?
+  principle_coverage:
+  - P063
+  expected_route: invoke
+  minimum_output: Avoid global data and near-identical functions (refactor them via patterns such as Strategy),
+    since both increase coupling
+- test_id: GT-065
+  prompt: Iterate the schedule with the code through incremental development, and answer on-the-spot estimate
+    requests with a commitment to get back to them after working the steps. What do you advise, and why?
+  principle_coverage:
+  - P064
+  expected_route: invoke
+  minimum_output: Iterate the schedule with the code through incremental development, and answer on-the-spot
+    estimate requests with a commitment to get back to them after working the steps
+- test_id: GT-066
+  prompt: Learn a text-manipulation language and write code that writes code, because both multiply your
+    productivity at a one-time cost. What do you advise, and why?
+  principle_coverage:
+  - P065
+  expected_route: invoke
+  minimum_output: Learn a text-manipulation language and write code that writes code, because both multiply
+    your productivity at a one-time cost
+- test_id: GT-067
+  prompt: Start when you are ready by heeding nagging doubts, and distinguish good judgment from procrastination
+    by prototyping the doubtful area as a proof of concept. What do you advise, and why?
+  principle_coverage:
+  - P066
+  expected_route: invoke
+  minimum_output: Start when you are ready by heeding nagging doubts, and distinguish good judgment from
+    procrastination by prototyping the doubtful area as a proof of concept
+- test_id: GT-068
+  prompt: Run a full nightly build that executes all available tests so regressions are caught close to
+    their cause, and be wary of recursive make's dependency blind spots. What do you advise, and why?
+  principle_coverage:
+  - P067
+  expected_route: invoke
+  minimum_output: Run a full nightly build that executes all available tests so regressions are caught
+    close to their cause, and be wary of recursive make's dependency blind spots
+- test_id: GT-069
+  prompt: 'Find bugs once: when a bug is found, add an automated test so that a human never has to find
+    that same bug again. What do you advise, and why?'
+  principle_coverage:
+  - P068
+  expected_route: invoke
+  minimum_output: 'Find bugs once: when a bug is found, add an automated test so that a human never has
+    to find that same bug again'
+- test_id: GT-070
+  prompt: Critically analyze what you read and hear so your knowledge stays accurate and free of vendor
+    or media hype. What do you advise, and why?
+  principle_coverage:
+  - P069
+  expected_route: invoke
+  minimum_output: Critically analyze what you read and hear so your knowledge stays accurate and free
+    of vendor or media hype
+- test_id: GT-071
+  prompt: a measured performance need, such as caching, justifies it. What do you advise, and why?
+  principle_coverage:
+  - P070
+  expected_route: invoke
+  minimum_output: You may deliberately break DRY for performance, such as caching, but localize the violation
+    behind the owning module's interface
+- test_id: GT-072
+  prompt: a measured performance need, such as caching, justifies it. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P070
+  expected_route: invoke
+  minimum_output: You may deliberately break DRY for performance, such as caching, but localize the violation
+    behind the owning module's interface
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-002
+- test_id: GT-073
+  prompt: Resist impatient copy-paste duplication under deadline pressure, because shortcuts taken now
+    cost more later. What do you advise, and why?
+  principle_coverage:
+  - P071
+  expected_route: invoke
+  minimum_output: Resist impatient copy-paste duplication under deadline pressure, because shortcuts taken
+    now cost more later
+- test_id: GT-074
+  prompt: Balance the Law of Demeter against its wrapper-method overhead, reversing it to tightly couple
+    modules only for a well-known, acceptable performance trade-off. What do you advise, and why?
+  principle_coverage:
+  - P072
+  expected_route: invoke
+  minimum_output: Balance the Law of Demeter against its wrapper-method overhead, reversing it to tightly
+    couple modules only for a well-known, acceptable performance trade-off
+- test_id: GT-075
+  prompt: Make logical and physical design proceed in tandem, avoiding cyclic dependencies among files,
+    directories, and libraries, which are extremely hard to undo. What do you advise, and why?
+  principle_coverage:
+  - P073
+  expected_route: invoke
+  minimum_output: Make logical and physical design proceed in tandem, avoiding cyclic dependencies among
+    files, directories, and libraries, which are extremely hard to undo
+- test_id: GT-076
+  prompt: Prefer programs that can reload their configuration while running for long-lived processes,
+    weighing the added complexity. What do you advise, and why?
+  principle_coverage:
+  - P074
+  expected_route: invoke
+  minimum_output: Prefer programs that can reload their configuration while running for long-lived processes,
+    weighing the added complexity
+- test_id: GT-077
+  prompt: Retest the whole system after upgrading third-party software such as the OS, compiler, or database,
+    weighing the timing of the upgrade. What do you advise, and why?
+  principle_coverage:
+  - P075
+  expected_route: invoke
+  minimum_output: Retest the whole system after upgrading third-party software such as the OS, compiler,
+    or database, weighing the timing of the upgrade
+- test_id: GT-078
+  prompt: Do not use wizard-generated or any code you do not understand, because it becomes interwoven
+    with your own code and you must be able to maintain and debug it. What do you advise, and why?
+  principle_coverage:
+  - P076
+  expected_route: invoke
+  minimum_output: Do not use wizard-generated or any code you do not understand, because it becomes interwoven
+    with your own code and you must be able to maintain and debug it
+- test_id: GT-079
+  prompt: Manage requirements creep by actively tracking requirements and showing sponsors each new feature's
+    impact on the schedule. What do you advise, and why?
+  principle_coverage:
+  - P077
+  expected_route: invoke
+  minimum_output: Manage requirements creep by actively tracking requirements and showing sponsors each
+    new feature's impact on the schedule
+- test_id: GT-080
+  prompt: 'Sign your work: take pride and responsibility in what you build, keeping code owned individually
+    or communally with supporting practices. What do you advise, and why?'
+  principle_coverage:
+  - P078
+  expected_route: invoke
+  minimum_output: 'Sign your work: take pride and responsibility in what you build, keeping code owned
+    individually or communally with supporting practices'
+negative_routing_tests: []
+missing_context_tests:
+- test_id: MC-001
+  prompt: detailed specifications are warranted for life-critical systems and for interfaces or libraries
+    used by others. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-002
+  prompt: a measured performance need, such as caching, justifies it. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P070
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated

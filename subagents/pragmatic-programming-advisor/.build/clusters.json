@@ -1,0 +1,110 @@
+[
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 10,
+    "statement": "Eliminate duplication by generating all derived forms from one authoritative source with an active code generator wired into the build, normalizing data, using calculated fields, accessor functions, and generating tests from the specification; keep simple input formats and remember generators need not produce code."
+   },
+   {
+    "idx": 11,
+    "statement": "Make finding and reusing existing code easier than rewriting it, and prevent interdeveloper duplication with clear design, frequent communication, a project librarian, and shared utilities."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 14,
+    "statement": "Design orthogonal, decoupled components that each have a single, well-defined responsibility, to gain productivity (localized change, M-by-N reuse) and reduce risk (isolation, less fragility); eliminate effects between unrelated things."
+   },
+   {
+    "idx": 15,
+    "statement": "Keep systems orthogonal with layering, an orthogonality test (a single requirement change should affect one module), and isolation of third-party tools behind abstract interfaces; do not rely on properties of things you cannot control."
+   }
+  ]
+ },
+ {
+  "group": 20,
+  "members": [
+   {
+    "idx": 22,
+    "statement": "Treat decisions as reversible: abstract third-party products behind interfaces, treat the deployment model as configuration, maintain flexibility in architecture and vendor integration, and keep change-injection mechanisms reversible, because anything you rely on heavily will change."
+   },
+   {
+    "idx": 54,
+    "statement": "Treat software as gardening and refactor early and often (when you find duplication, nonorthogonality, drift, or a performance need), taking short, tested steps without adding functionality at the same time and breaking the build on incompatible interface changes."
+   }
+  ]
+ },
+ {
+  "group": 24,
+  "members": [
+   {
+    "idx": 26,
+    "statement": "Prototype to learn: build cheap, disposable prototypes (even non-code) of anything risky, ignoring inessential details and using a high-level language, set disposability expectations clearly, and switch to tracer bullets if the prototype may be mistaken for a deliverable."
+   },
+   {
+    "idx": 65,
+    "statement": "Do not be a slave to formal methods or expensive tools: fit techniques to your team's practices, prefer prototypes users can actually check, account for the real cost of adopting new methods, and remember expensive tools do not produce better designs."
+   }
+  ]
+ },
+ {
+  "group": 32,
+  "members": [
+   {
+    "idx": 34,
+    "statement": "Always use source code control for everything, even solo or throwaway work, because it is a project-wide time machine that enables change tracking, branching, concurrent work, and automatic repeatable builds."
+   },
+   {
+    "idx": 66,
+    "statement": "Do not use manual procedures; automate everything the team does (builds, tests, web publishing, administrivia) with scripted, repeatable tools kept under source control and scheduling, and let the computer do the repetitious, mundane work."
+   }
+  ]
+ },
+ {
+  "group": 36,
+  "members": [
+   {
+    "idx": 38,
+    "statement": "Assume a bug is in your own code rather than the OS, compiler, or library, and that a single recent change is the likely cause; do not assume but prove it in context, and after a surprising bug strengthen the tests so it cannot recur."
+   },
+   {
+    "idx": 39,
+    "statement": "Retest the whole system after upgrading third-party software such as the OS, compiler, or database, weighing the timing of the upgrade."
+   }
+  ]
+ },
+ {
+  "group": 52,
+  "members": [
+   {
+    "idx": 56,
+    "statement": "Make tests easy to find and ship them with the code, run them often, build a composable test harness (reusing a framework such as xUnit), formalize ad hoc tests into the suite, and build a test window into deployed software; internal test drivers are worth building even when no requirement asks for them, and tests should return exit codes so they compose."
+   },
+   {
+    "idx": 70,
+    "statement": "Test state coverage rather than mere code coverage, using both real and synthetic data, decoupling application logic from the GUI, analyzing design metrics comparatively across modules, and using saboteurs to verify the tests actually catch bugs."
+   }
+  ]
+ },
+ {
+  "group": 55,
+  "members": [
+   {
+    "idx": 59,
+    "statement": "Separate requirements (need) from policy and architecture and keep requirements abstract without overspecifying: capture semantic invariants as requirements, restate fixed values as configurability, and translate surface behaviors into underlying needs."
+   },
+   {
+    "idx": 60,
+    "statement": "Invest in abstractions over details because abstractions live longer, capture requirements as abstract use cases without being a slave to any notation, and maintain a shared project glossary and hyperlinked documentation."
+   },
+   {
+    "idx": 64,
+    "statement": "Avoid the specification trap: some things are better done than described, reserve detailed specifications for life-critical systems or shared interfaces, and treat requirements, design, and implementation as one feedback-driven process."
+   }
+  ]
+ }
+]
