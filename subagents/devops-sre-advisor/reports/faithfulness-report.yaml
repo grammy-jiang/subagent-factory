@@ -1,0 +1,446 @@
+# v1 faithfulness review: each generated profile rule checked against the distilled,
+# evidence-backed claims (evidence/evidence-records.yaml) and their chunk anchors. Verdicts
+# use the five-level claim-strength scale. Distillation-only sources: anchors cite chunk
+# sections; no verbatim text is reproduced. No rule was found stronger than its support.
+
+schema_version: faithfulness-report-v1
+subagent_slug: devops-sre-advisor
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P036, P012; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9d4b1cf206e5-c0002
+  - 9d4b1cf206e5-c0003
+  - 9fe26df35c80-c0035
+  support_granularity: section
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P120, P143; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0017
+  - 7f54213fedb8-c0001
+  support_granularity: section
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P059, P023; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0006
+  - 9fe26df35c80-c0035
+  - 9fe26df35c80-c0013
+  support_granularity: section
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P036, P019; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9d4b1cf206e5-c0002
+  - 9d4b1cf206e5-c0003
+  - 9fe26df35c80-c0007
+  support_granularity: section
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P009, P117; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0009
+  - 0bea4daa68ab-c0011
+  support_granularity: section
+- rule_ref: quality_bar[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P016, P023; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 50b64948b031-c0006
+  - 9fe26df35c80-c0004
+  - 9fe26df35c80-c0013
+  support_granularity: section
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P001, P012; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0017
+  - 9fe26df35c80-c0018
+  - 0bea4daa68ab-c0003
+  support_granularity: section
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P010, P015; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0005
+  - 0bea4daa68ab-c0003
+  - 50b64948b031-c0001
+  support_granularity: section
+- rule_ref: quality_bar[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P011, P128; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0007
+  - 0bea4daa68ab-c0007
+  - 9fe26df35c80-c0027
+  support_granularity: section
+- rule_ref: quality_bar[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P027, P120; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0016
+  - 0bea4daa68ab-c0015
+  - 9fe26df35c80-c0017
+  support_granularity: section
+- rule_ref: quality_bar[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P009, P026; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0009
+  - 0bea4daa68ab-c0011
+  - 9fe26df35c80-c0005
+  support_granularity: section
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P093, P138; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9d4b1cf206e5-c0000
+  - 9d4b1cf206e5-c0011
+  support_granularity: section
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P010, P059; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0005
+  - 0bea4daa68ab-c0003
+  - 9fe26df35c80-c0006
+  support_granularity: section
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P001, P008; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0017
+  - 9fe26df35c80-c0018
+  - 0bea4daa68ab-c0003
+  support_granularity: section
+- rule_ref: forbidden_behaviours[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P097, P013; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9d4b1cf206e5-c0004
+  - 9fe26df35c80-c0019
+  - 9fe26df35c80-c0027
+  support_granularity: section
+- rule_ref: forbidden_behaviours[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P023, P070; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0013
+  - 0bea4daa68ab-c0012
+  - 9d4b1cf206e5-c0004
+  support_granularity: section
+- rule_ref: forbidden_behaviours[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P116, P010; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0008
+  - 9fe26df35c80-c0005
+  - 0bea4daa68ab-c0003
+  support_granularity: section
+- rule_ref: outputs.modes[advise]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P021, P070; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0012
+  - 0bea4daa68ab-c0010
+  - 9d4b1cf206e5-c0004
+  support_granularity: section
+- rule_ref: outputs.modes[review]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P012, P078; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0035
+  - 0bea4daa68ab-c0040
+  - 9fe26df35c80-c0018
+  support_granularity: section
+- rule_ref: outputs.modes[validate]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P012, P023; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0035
+  - 0bea4daa68ab-c0040
+  - 9fe26df35c80-c0013
+  support_granularity: section
+- rule_ref: outputs.modes[compare]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P075, P070; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0033
+  - 9d4b1cf206e5-c0004
+  - 9d4b1cf206e5-c0005
+  support_granularity: section
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P036, P012; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9d4b1cf206e5-c0002
+  - 9d4b1cf206e5-c0003
+  - 9fe26df35c80-c0035
+  support_granularity: section
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P013, P053; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0019
+  - 9fe26df35c80-c0027
+  - 0bea4daa68ab-c0017
+  support_granularity: section
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P142, P022; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0006
+  - 9fe26df35c80-c0013
+  - 0bea4daa68ab-c0039
+  support_granularity: section
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P048, P001; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9d4b1cf206e5-c0007
+  - 9fe26df35c80-c0017
+  - 9fe26df35c80-c0018
+  support_granularity: section
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P016, P076; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 50b64948b031-c0006
+  - 9fe26df35c80-c0004
+  - 50b64948b031-c0007
+  support_granularity: section
+- rule_ref: when_to_use[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P023, P120; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0013
+  - 0bea4daa68ab-c0012
+  - 9fe26df35c80-c0017
+  support_granularity: section
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P015, P002; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 50b64948b031-c0001
+  - 9fe26df35c80-c0004
+  - 9d4b1cf206e5-c0003
+  support_granularity: section
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P070, P073; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9d4b1cf206e5-c0004
+  - 9d4b1cf206e5-c0005
+  - 50b64948b031-c0008
+  support_granularity: section
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P112, P018; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 50b64948b031-c0006
+  - 9fe26df35c80-c0006
+  - 9fe26df35c80-c0007
+  support_granularity: section
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P057, P070; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9d4b1cf206e5-c0002
+  - 9d4b1cf206e5-c0012
+  - 9d4b1cf206e5-c0004
+  support_granularity: section
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P023, P070; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0013
+  - 0bea4daa68ab-c0012
+  - 9d4b1cf206e5-c0004
+  support_granularity: section
+- rule_ref: handoff_rules[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P023, P073; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 9fe26df35c80-c0013
+  - 0bea4daa68ab-c0012
+  - 50b64948b031-c0008
+  support_granularity: section
+- rule_ref: handoff_rules[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Rule is grounded in distilled, evidence-backed principle(s) P112, P077; advisory framing stays
+    within source scope (no claim stronger than its evidence).
+  source_anchors:
+  - 50b64948b031-c0006
+  - 9fe26df35c80-c0018
+  support_granularity: section
