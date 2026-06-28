@@ -1,0 +1,1193 @@
+# One behavioural test per promoted principle P001..P078.
+# Each references its principle via principle_id so coverage is checkable by
+# tools.subagent_factory.validate_principle_test_coverage.
+schema_version: principle-behaviour-tests-v1
+subagent_slug: pragmatic-programming-advisor
+generated_at: '2026-06-28'
+principle_behaviour_tests:
+- test_id: PB-001
+  principle_id: P001
+  mode: review
+  prompt: 'On our project we are facing this directly: Design and keep components orthogonal, decoupled,
+    and single-responsibility. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P001.
+  - 'States the recommended practice: Design and keep components orthogonal, decoupled, and single-responsibility
+    — using layering, an orthogonality test (a single requirement change should affect one module), and
+    isolation of third-party tools behind abstract interfaces — t...'
+  - Names the principle (P001) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-002
+  principle_id: P002
+  mode: review
+  prompt: 'On our project we are facing this directly: Eliminate duplication by generating all derived
+    forms from one authoritative source with an active code generator wired into the build, normalizing
+    data, using calculated fields, accessor functions, and generating tests from the specification. We
+    want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P002.
+  - 'States the recommended practice: Eliminate duplication by generating all derived forms from one authoritative
+    source with an active code generator wired into the build, normalizing data, using calculated fields,
+    accessor functions, and generating tests from the specific...'
+  - Names the principle (P002) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-003
+  principle_id: P003
+  mode: review
+  prompt: 'On our project we are facing this directly: Do not use manual procedures; automate everything
+    the team does (builds. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P003.
+  - 'States the recommended practice: Do not use manual procedures; automate everything the team does
+    (builds, tests, web publishing, administrivia) with scripted, repeatable tools kept under source control
+    and scheduling, and let the computer do the repetitious, mundane work.'
+  - Names the principle (P003) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-004
+  principle_id: P004
+  mode: review
+  prompt: 'On our project we are facing this directly: Prototype to learn: build cheap, disposable prototypes
+    (even non-code) of anything risky, ignoring inessential details and using a high-level language, set
+    disposability expectations clearly, and switch to tracer bullets if the prototype may be mistaken
+    for a deliverable.. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P004.
+  - 'States the recommended practice: Prototype to learn: build cheap, disposable prototypes (even non-code)
+    of anything risky, ignoring inessential details and using a high-level language, set disposability
+    expectations clearly, and switch to tracer bullets if the prototype...'
+  - Names the principle (P004) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-005
+  principle_id: P005
+  mode: review
+  prompt: 'On our project we are facing this directly: Program close to the problem domain using its vocabulary
+    (backed by a glossary) and mini-languages, which enable domain-specific validation and can serve each
+    class of user. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P005.
+  - 'States the recommended practice: Program close to the problem domain using its vocabulary (backed
+    by a glossary) and mini-languages, which enable domain-specific validation and can serve each class
+    of user; a mini-language can grow from a non-executable specification in...'
+  - Names the principle (P005) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-006
+  principle_id: P006
+  mode: review
+  prompt: 'On our project we are facing this directly: Estimate to avoid surprises: match accuracy and
+    units to context. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P006.
+  - 'States the recommended practice: Estimate to avoid surprises: match accuracy and units to context,
+    build and decompose a model, focus on high-impact parameters, beware estimates built on sub-estimates,
+    record and learn from estimates, and ask someone who has done it bef...'
+  - Names the principle (P006) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-007
+  principle_id: P007
+  mode: review
+  prompt: 'On our project we are facing this directly: Master your basic tools, since tools amplify talent:
+    treat the command shell as a workbench, know one editor deeply and use it everywhere, and do not confine
+    yourself to a single IDE.. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P007.
+  - 'States the recommended practice: Master your basic tools, since tools amplify talent: treat the command
+    shell as a workbench, know one editor deeply and use it everywhere, and do not confine yourself to
+    a single IDE.'
+  - Names the principle (P007) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-008
+  principle_id: P008
+  mode: review
+  prompt: 'On our project we are facing this directly: Design with contracts: specify each routine''s
+    preconditions. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P008.
+  - 'States the recommended practice: Design with contracts: specify each routine''s preconditions, postconditions,
+    and class invariants, keep contracts abstract, be strict in what you accept and promise as little
+    as possible, and do not use preconditions for user-input valid...'
+  - Names the principle (P008) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-009
+  principle_id: P009
+  mode: review
+  prompt: 'On our project we are facing this directly: Finish what you start: the routine or object that
+    allocates a resource frees it. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P009.
+  - 'States the recommended practice: Finish what you start: the routine or object that allocates a resource
+    frees it; free on every exit path, nest allocations (free in reverse order, acquire in a consistent
+    order to avoid deadlock), encapsulate resources, avoid global hand...'
+  - Names the principle (P009) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-010
+  principle_id: P010
+  mode: review
+  prompt: 'On our project we are facing this directly: Program deliberately, not by coincidence: rely
+    only on documented, reliable behavior, do not depend on unguaranteed context, remove spurious calls,
+    and document and test your assumptions, because coding is design work that demands thought.. We want
+    a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P010.
+  - 'States the recommended practice: Program deliberately, not by coincidence: rely only on documented,
+    reliable behavior, do not depend on unguaranteed context, remove spurious calls, and document and
+    test your assumptions, because coding is design work that demands thought.'
+  - Names the principle (P010) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-011
+  principle_id: P011
+  mode: review
+  prompt: 'On our project we are facing this directly: Continuously invest small daily effort in a diversified.
+    We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P011.
+  - 'States the recommended practice: Continuously invest small daily effort in a diversified, regularly
+    rebalanced knowledge portfolio (learn new languages and read widely, learn emerging tech early, broaden
+    beyond your stack), treating your knowledge as an expiring asset.'
+  - Names the principle (P011) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-012
+  principle_id: P012
+  mode: review
+  prompt: 'On our project we are facing this directly: Treat documentation as code (English as another
+    programming language) and build it in rather than bolt it on: it mirrors the code. We want a review
+    of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P012.
+  - 'States the recommended practice: Treat documentation as code (English as another programming language)
+    and build it in rather than bolt it on: it mirrors the code, so comment why not how, choose meaningful
+    and non-misleading names, keep tool-maintained information out o...'
+  - Names the principle (P012) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-013
+  principle_id: P013
+  mode: review
+  prompt: 'On our project we are facing this directly: Make tests easy to find and ship them with the
+    code, run them often, build a composable test harness (reusing a framework such as xUnit), formalize
+    ad hoc tests into the suite, and build a test window into deployed software. We want a review of how
+    we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P013.
+  - 'States the recommended practice: Make tests easy to find and ship them with the code, run them often,
+    build a composable test harness (reusing a framework such as xUnit), formalize ad hoc tests into the
+    suite, and build a test window into deployed software; internal tes...'
+  - Names the principle (P013) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-014
+  principle_id: P014
+  mode: review
+  prompt: 'On our project we are facing this directly: Cover the major testing types: unit testing as
+    the foundation. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P014.
+  - 'States the recommended practice: Cover the major testing types: unit testing as the foundation, integration
+    testing of contracts (often the single largest source of bugs), validation and verification against
+    the real need, resource-exhaustion and graceful-failure testin...'
+  - Names the principle (P014) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-015
+  principle_id: P015
+  mode: review
+  prompt: 'On our project we are facing this directly: Write shy code and obey the Law of Demeter (call
+    methods only on objects you own. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P015.
+  - 'States the recommended practice: Write shy code and obey the Law of Demeter (call methods only on
+    objects you own, were passed, or created, and ask the owning object for what you need) to minimize
+    coupling, because larger response sets are empirically more error-prone.'
+  - Names the principle (P015) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-016
+  principle_id: P016
+  mode: review
+  prompt: 'On our project we are facing this directly: Configure, don''t integrate: drive deeply ingrained
+    choices and volatile business rules from metadata kept in plain text, putting abstractions in the
+    code and details outside the compiled code base.. We want a review of how we are handling it and what
+    to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P016.
+  - 'States the recommended practice: Configure, don''t integrate: drive deeply ingrained choices and
+    volatile business rules from metadata kept in plain text, putting abstractions in the code and details
+    outside the compiled code base.'
+  - Names the principle (P016) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-017
+  principle_id: P017
+  mode: review
+  prompt: 'On our project we are facing this directly: Communicate effectively as a core professional
+    skill: plan what to say. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P017.
+  - 'States the recommended practice: Communicate effectively as a core professional skill: plan what
+    to say, know and tailor to your audience, choose the moment and style, mind presentation, make it
+    two-way, and treat email as permanent.'
+  - Names the principle (P017) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-018
+  principle_id: P018
+  mode: review
+  prompt: 'On our project we are facing this directly: Separate views from models (Model-View-Controller
+    as a general technique). We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P018.
+  - 'States the recommended practice: Separate views from models (Model-View-Controller as a general technique),
+    use events and publish/subscribe so senders need no knowledge of receivers, and build model-viewer
+    networks for flexibility.'
+  - Names the principle (P018) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-019
+  principle_id: P019
+  mode: review
+  prompt: 'On our project we are facing this directly: Test state coverage rather than mere code coverage.
+    We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P019.
+  - 'States the recommended practice: Test state coverage rather than mere code coverage, using both real
+    and synthetic data, decoupling application logic from the GUI, analyzing design metrics comparatively
+    across modules, and using saboteurs to verify the tests actually ca...'
+  - Names the principle (P019) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-020
+  principle_id: P020
+  mode: review
+  prompt: 'On our project we are facing this directly: Keep knowledge in human-readable plain text, which
+    is self-describing, tool-friendly, and outlives the applications that created it. We want a review
+    of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P020.
+  - 'States the recommended practice: Keep knowledge in human-readable plain text, which is self-describing,
+    tool-friendly, and outlives the applications that created it; binary formats are no more secure, so
+    encrypt or checksum sensitive values instead.'
+  - Names the principle (P020) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-021
+  principle_id: P021
+  mode: review
+  prompt: 'On our project we are facing this directly: Take responsibility for your work; when you err.
+    We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P021.
+  - 'States the recommended practice: Take responsibility for your work; when you err, admit it and provide
+    options to salvage the situation rather than excuses or blame, and anticipate uncontrolled risks with
+    contingency plans while rehearsing bad news with concrete alterna...'
+  - Names the principle (P021) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-022
+  principle_id: P022
+  mode: review
+  prompt: 'On our project we are facing this directly: Organize teams orthogonally around functionality
+    rather than job functions. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P022.
+  - 'States the recommended practice: Organize teams orthogonally around functionality rather than job
+    functions, with cohesive self-contained groups, no siloed phases, and two heads (one technical, one
+    administrative) for responsible self-direction.'
+  - Names the principle (P022) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-023
+  principle_id: P023
+  mode: review
+  prompt: 'On our project we are facing this directly: Treat decisions as reversible: abstract third-party
+    products behind interfaces. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P023.
+  - 'States the recommended practice: Treat decisions as reversible: abstract third-party products behind
+    interfaces, treat the deployment model as configuration, maintain flexibility in architecture and
+    vendor integration, and keep change-injection mechanisms reversible, be...'
+  - Names the principle (P023) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-024
+  principle_id: P024
+  mode: review
+  prompt: 'On our project we are facing this directly: Treat software as gardening and refactor early
+    and often (when you find duplication. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P024.
+  - 'States the recommended practice: Treat software as gardening and refactor early and often (when you
+    find duplication, nonorthogonality, drift, or a performance need), taking short, tested steps without
+    adding functionality at the same time and breaking the build on inco...'
+  - Names the principle (P024) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-025
+  principle_id: P025
+  mode: review
+  prompt: 'On our project we are facing this directly: Use tracer bullets (a thin, production-quality,
+    end-to-end skeleton fleshed out incrementally) to find the target under uncertainty, adjusting aim
+    from early misses. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P025.
+  - 'States the recommended practice: Use tracer bullets (a thin, production-quality, end-to-end skeleton
+    fleshed out incrementally) to find the target under uncertainty, adjusting aim from early misses;
+    tracer code is lean but complete, not a throwaway prototype.'
+  - Names the principle (P025) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-026
+  principle_id: P026
+  mode: review
+  prompt: 'On our project we are facing this directly: Estimate the order of your algorithms from their
+    structure and address bad orders with divide-and-conquer. We want a review of how we are handling
+    it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P026.
+  - 'States the recommended practice: Estimate the order of your algorithms from their structure and address
+    bad orders with divide-and-conquer, but choose algorithms pragmatically since the asymptotically fastest
+    is not always best.'
+  - Names the principle (P026) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-027
+  principle_id: P027
+  mode: review
+  prompt: 'On our project we are facing this directly: Use a blackboard combined with a rules engine to
+    coordinate workflow among anonymous. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P027.
+  - 'States the recommended practice: Use a blackboard combined with a rules engine to coordinate workflow
+    among anonymous, asynchronous, heterogeneous participants, especially when data arrives in unpredictable
+    order or feedback is involved, and partition the blackboard as ...'
+  - Names the principle (P027) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-028
+  principle_id: P028
+  mode: review
+  prompt: 'On our project we are facing this directly: Design to test: design each module''s contract
+    and its tests together and write the tests before the code. We want a review of how we are handling
+    it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P028.
+  - 'States the recommended practice: Design to test: design each module''s contract and its tests together
+    and write the tests before the code, test against the contract over boundary conditions, and test
+    subcomponents before the modules that depend on them.'
+  - Names the principle (P028) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-029
+  principle_id: P029
+  mode: review
+  prompt: 'On our project we are facing this directly: Apply defensive coding idioms: never use gets().
+    We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P029.
+  - 'States the recommended practice: Apply defensive coding idioms: never use gets(), do not rely on
+    overlapping-string strcpy, set pointers and object references to null after freeing to catch reuse
+    and aid garbage collection, check the runtime environment dynamically, and...'
+  - Names the principle (P029) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-030
+  principle_id: P030
+  mode: review
+  prompt: 'On our project we are facing this directly: Always use source code control for everything.
+    We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P030.
+  - 'States the recommended practice: Always use source code control for everything, even solo or throwaway
+    work, because it is a project-wide time machine that enables change tracking, branching, concurrent
+    work, and automatic repeatable builds.'
+  - Names the principle (P030) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-031
+  principle_id: P031
+  mode: review
+  prompt: 'On our project we are facing this directly: Crash early: treat every error as information.
+    We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P031.
+  - 'States the recommended practice: Crash early: treat every error as information, and when something
+    impossible happens terminate the program promptly, because a dead program does far less damage than
+    a crippled one.'
+  - Names the principle (P031) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-032
+  principle_id: P032
+  mode: review
+  prompt: 'On our project we are facing this directly: Treat debugging as blame-free problem solving:
+    do not panic. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P032.
+  - 'States the recommended practice: Treat debugging as blame-free problem solving: do not panic, fix
+    the root cause rather than the symptom, and start from cleanly compiling, warning-free code.'
+  - Names the principle (P032) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-033
+  principle_id: P033
+  mode: review
+  prompt: 'On our project we are facing this directly: Gather accurate debugging data: reproduce a bug
+    with a single command. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P033.
+  - 'States the recommended practice: Gather accurate debugging data: reproduce a bug with a single command,
+    observe accurately (interview the reporter), visualize the data, use consistent tracing, and inspect
+    memory around a corrupt variable.'
+  - Names the principle (P033) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-034
+  principle_id: P034
+  mode: review
+  prompt: 'On our project we are facing this directly: Assume a bug is in your own code rather than the
+    OS, compiler, or library, and that a single recent change is the likely cause. We want a review of
+    how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P034.
+  - 'States the recommended practice: Assume a bug is in your own code rather than the OS, compiler, or
+    library, and that a single recent change is the likely cause; do not assume but prove it in context,
+    and after a surprising bug strengthen the tests so it cannot recur.'
+  - Names the principle (P034) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-035
+  principle_id: P035
+  mode: review
+  prompt: 'On our project we are facing this directly: Use exceptions only for exceptional problems (verify
+    by checking whether the code would still run with all handlers removed) to keep error handling in
+    one place. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P035.
+  - 'States the recommended practice: Use exceptions only for exceptional problems (verify by checking
+    whether the code would still run with all handlers removed) to keep error handling in one place; do
+    not use them in normal flow, where they create spaghetti and break encap...'
+  - Names the principle (P035) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-036
+  principle_id: P036
+  mode: review
+  prompt: 'On our project we are facing this directly: Always design for concurrency: protect shared and
+    global state. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P036.
+  - 'States the recommended practice: Always design for concurrency: protect shared and global state,
+    keep objects in a valid state whenever they could be called, and avoid hidden inter-call state for
+    cleaner, thread-safe interfaces.'
+  - Names the principle (P036) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-037
+  principle_id: P037
+  mode: review
+  prompt: 'On our project we are facing this directly: Invest in abstractions over details because abstractions
+    live longer. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P037.
+  - 'States the recommended practice: Invest in abstractions over details because abstractions live longer,
+    capture requirements as abstract use cases without being a slave to any notation, and maintain a shared
+    project glossary and hyperlinked documentation.'
+  - Names the principle (P037) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-038
+  principle_id: P038
+  mode: review
+  prompt: 'On our project we are facing this directly: Choose error handling by how exceptional a condition
+    is and reduce recursion footprint by sharing one buffer across calls. We want a review of how we are
+    handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P038.
+  - 'States the recommended practice: Choose error handling by how exceptional a condition is and reduce
+    recursion footprint by sharing one buffer across calls; recognize that object technology can be more
+    orthogonal but is easier to abuse, and modeless designs tend to be mo...'
+  - Names the principle (P038) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-039
+  principle_id: P039
+  mode: review
+  prompt: 'On our project we are facing this directly: Do not live with broken windows: fix bad designs.
+    We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P039.
+  - 'States the recommended practice: Do not live with broken windows: fix bad designs, wrong decisions,
+    and poor code as soon as they are found, or board them up, because neglect and the broken-window effect
+    accelerate software rot.'
+  - Names the principle (P039) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-040
+  principle_id: P040
+  mode: review
+  prompt: 'On our project we are facing this directly: Apply DRY: every piece of knowledge must have a
+    single. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P040.
+  - 'States the recommended practice: Apply DRY: every piece of knowledge must have a single, unambiguous,
+    authoritative representation within a system, because duplicated knowledge guarantees eventual inconsistency,
+    and maintenance is continuous throughout development.'
+  - Names the principle (P040) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-041
+  principle_id: P041
+  mode: review
+  prompt: 'On our project we are facing this directly: Test early, test often, and test automatically
+    (with results interpreted automatically), writing test code at the same time as or before the production
+    code, because coding is not done until all the tests run.. We want a review of how we are handling
+    it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P041.
+  - 'States the recommended practice: Test early, test often, and test automatically (with results interpreted
+    automatically), writing test code at the same time as or before the production code, because coding
+    is not done until all the tests run.'
+  - Names the principle (P041) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-042
+  principle_id: P042
+  mode: review
+  prompt: 'On our project we are facing this directly: Make quality an explicit requirements issue and
+    involve users in the trade-off. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P042.
+  - 'States the recommended practice: Make quality an explicit requirements issue and involve users in
+    the trade-off; deliver good software early for feedback rather than chasing perfection, and know when
+    to stop refining.'
+  - Names the principle (P042) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-043
+  principle_id: P043
+  mode: review
+  prompt: 'On our project we are facing this directly: Do not be a slave to formal methods or expensive
+    tools: fit techniques to your team''s practices. We want a review of how we are handling it and what
+    to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P043.
+  - 'States the recommended practice: Do not be a slave to formal methods or expensive tools: fit techniques
+    to your team''s practices, prefer prototypes users can actually check, account for the real cost of
+    adopting new methods, and remember expensive tools do not produce b...'
+  - Names the principle (P043) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-044
+  principle_id: P044
+  mode: review
+  prompt: 'On our project we are facing this directly: Honor the Liskov Substitution Principle and put
+    a contract once in the base class so subtypes preserve method meaning. We want a review of how we
+    are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P044.
+  - 'States the recommended practice: Honor the Liskov Substitution Principle and put a contract once
+    in the base class so subtypes preserve method meaning; recognize that assertions only partially emulate
+    Design by Contract, so prefer languages or tools with real DBC support.'
+  - Names the principle (P044) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-045
+  principle_id: P045
+  mode: review
+  prompt: 'On our project we are facing this directly: Use assertions to guard conditions that should
+    never happen. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P045.
+  - 'States the recommended practice: Use assertions to guard conditions that should never happen, keep
+    their evaluation side-effect-free, leave them on in production, and never substitute them for real
+    error handling.'
+  - Names the principle (P045) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-046
+  principle_id: P046
+  mode: review
+  prompt: 'On our project we are facing this directly: Treat time, both concurrency and ordering, as a
+    design element: analyze workflow to find parallelism and decouple time and order dependencies for
+    flexibility.. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P046.
+  - 'States the recommended practice: Treat time, both concurrency and ordering, as a design element:
+    analyze workflow to find parallelism and decouple time and order dependencies for flexibility.'
+  - Names the principle (P046) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-047
+  principle_id: P047
+  mode: review
+  prompt: 'On our project we are facing this directly: Separate requirements (need) from policy and architecture
+    and keep requirements abstract without overspecifying: capture semantic invariants as requirements.
+    We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P047.
+  - 'States the recommended practice: Separate requirements (need) from policy and architecture and keep
+    requirements abstract without overspecifying: capture semantic invariants as requirements, restate
+    fixed values as configurability, and translate surface behaviors into u...'
+  - Names the principle (P047) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-048
+  principle_id: P048
+  mode: review
+  prompt: 'On our project we are facing this directly: Avoid the specification trap: some things are better
+    done than described. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P048.
+  - 'States the recommended practice: Avoid the specification trap: some things are better done than described,
+    reserve detailed specifications for life-critical systems or shared interfaces, and treat requirements,
+    design, and implementation as one feedback-driven process.'
+  - Names the principle (P048) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-049
+  principle_id: P049
+  mode: review
+  prompt: 'On our project we are facing this directly: Measure project success by how well it meets users''
+    expectations: communicate expectations throughout development. We want a review of how we are handling
+    it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P049.
+  - 'States the recommended practice: Measure project success by how well it meets users'' expectations:
+    communicate expectations throughout development, then gently exceed them with low-cost delight without
+    breaking the system.'
+  - Names the principle (P049) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-050
+  principle_id: P050
+  mode: review
+  prompt: 'On our project we are facing this directly: Treat quality as a team issue with no broken windows
+    and every member contributing. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P050.
+  - 'States the recommended practice: Treat quality as a team issue with no broken windows and every member
+    contributing, keep the team vigilant against creeping change, communicate to the outside as one voice,
+    and give each member room to shine.'
+  - Names the principle (P050) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-051
+  principle_id: P051
+  mode: review
+  prompt: 'On our project we are facing this directly: Reduce coupling and improve structure with concrete
+    refactorings: forward-declare in headers instead of including full headers. We want a review of how
+    we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P051.
+  - 'States the recommended practice: Reduce coupling and improve structure with concrete refactorings:
+    forward-declare in headers instead of including full headers, replace type-code switches with subclasses,
+    prefer delegation (has-a) over inheritance (is-a), and replace po...'
+  - Names the principle (P051) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-052
+  principle_id: P052
+  mode: review
+  prompt: 'On our project we are facing this directly: Choose tools, languages, and approaches by their
+    fit to the specific circumstances rather than committing to a single best technology, and keep a broad
+    computer-science grounding and wide practical experience so you can choose well. We want a review
+    of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P052.
+  - 'States the recommended practice: Choose tools, languages, and approaches by their fit to the specific
+    circumstances rather than committing to a single best technology, and keep a broad computer-science
+    grounding and wide practical experience so you can choose well; the ...'
+  - Names the principle (P052) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-053
+  principle_id: P053
+  mode: review
+  prompt: 'On our project we are facing this directly: Make finding and reusing existing code easier than
+    rewriting it. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P053.
+  - 'States the recommended practice: Make finding and reusing existing code easier than rewriting it,
+    and prevent interdeveloper duplication with clear design, frequent communication, a project librarian,
+    and shared utilities.'
+  - Names the principle (P053) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-054
+  principle_id: P054
+  mode: review
+  prompt: 'On our project we are facing this directly: Test your estimates against production reality
+    (plotting runs and profiling) and avoid premature optimization until a bottleneck is confirmed.. We
+    want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P054.
+  - 'States the recommended practice: Test your estimates against production reality (plotting runs and
+    profiling) and avoid premature optimization until a bottleneck is confirmed.'
+  - Names the principle (P054) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-055
+  principle_id: P055
+  mode: review
+  prompt: 'On our project we are facing this directly: Use loop and semantic invariants to pin boundary
+    conditions and inviolate requirements. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P055.
+  - 'States the recommended practice: Use loop and semantic invariants to pin boundary conditions and
+    inviolate requirements, and design a piece of software''s contract whenever you design the software.'
+  - Names the principle (P055) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-056
+  principle_id: P056
+  mode: review
+  prompt: 'On our project we are facing this directly: Design using independent, concurrent services behind
+    well-defined, consistent interfaces, communicating through asynchronous work queues and using a hungry-consumer
+    model for load balancing.. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P056.
+  - 'States the recommended practice: Design using independent, concurrent services behind well-defined,
+    consistent interfaces, communicating through asynchronous work queues and using a hungry-consumer
+    model for load balancing.'
+  - Names the principle (P056) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-057
+  principle_id: P057
+  mode: review
+  prompt: 'On our project we are facing this directly: Dig for requirements rather than gather them. We
+    want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P057.
+  - 'States the recommended practice: Dig for requirements rather than gather them, discover the underlying
+    reason a user does something, and work alongside a user to think like one.'
+  - Names the principle (P057) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-058
+  principle_id: P058
+  mode: review
+  prompt: 'On our project we are facing this directly: Solve hard problems by finding the real constraints
+    and the degrees of freedom you actually have. We want a review of how we are handling it and what
+    to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P058.
+  - 'States the recommended practice: Solve hard problems by finding the real constraints and the degrees
+    of freedom you actually have, enumerating and disproving every avenue, and asking whether and why
+    the thing must be done at all.'
+  - Names the principle (P058) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-059
+  principle_id: P059
+  mode: review
+  prompt: 'On our project we are facing this directly: Accept that you cannot write perfect software and
+    code defensively. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P059.
+  - 'States the recommended practice: Accept that you cannot write perfect software and code defensively,
+    validating inputs and distrusting even your own code.'
+  - Names the principle (P059) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-060
+  principle_id: P060
+  mode: review
+  prompt: 'On our project we are facing this directly: Care about your craft and think critically about
+    every decision in real time rather than running on autopilot.. We want a review of how we are handling
+    it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P060.
+  - 'States the recommended practice: Care about your craft and think critically about every decision
+    in real time rather than running on autopilot.'
+  - Names the principle (P060) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-061
+  principle_id: P061
+  mode: review
+  prompt: 'On our project we are facing this directly: Be a catalyst for change by building something
+    reasonable and demonstrable when you cannot get approval for the whole. We want a review of how we
+    are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P061.
+  - 'States the recommended practice: Be a catalyst for change by building something reasonable and demonstrable
+    when you cannot get approval for the whole, and keep the big picture in view, since most disasters
+    and overruns accumulate gradually.'
+  - Names the principle (P061) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-062
+  principle_id: P062
+  mode: review
+  prompt: 'On our project we are facing this directly: Recognize that nonorthogonal systems have no local
+    fix. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P062.
+  - 'States the recommended practice: Recognize that nonorthogonal systems have no local fix, and use
+    the difficulty of building a module''s unit test as a probe for poor decoupling.'
+  - Names the principle (P062) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-063
+  principle_id: P063
+  mode: review
+  prompt: 'On our project we are facing this directly: Avoid global data and near-identical functions
+    (refactor them via patterns such as Strategy). We want a review of how we are handling it and what
+    to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P063.
+  - 'States the recommended practice: Avoid global data and near-identical functions (refactor them via
+    patterns such as Strategy), since both increase coupling.'
+  - Names the principle (P063) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-064
+  principle_id: P064
+  mode: review
+  prompt: 'On our project we are facing this directly: Iterate the schedule with the code through incremental
+    development. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P064.
+  - 'States the recommended practice: Iterate the schedule with the code through incremental development,
+    and answer on-the-spot estimate requests with a commitment to get back to them after working the steps.'
+  - Names the principle (P064) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-065
+  principle_id: P065
+  mode: review
+  prompt: 'On our project we are facing this directly: Learn a text-manipulation language and write code
+    that writes code. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P065.
+  - 'States the recommended practice: Learn a text-manipulation language and write code that writes code,
+    because both multiply your productivity at a one-time cost.'
+  - Names the principle (P065) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-066
+  principle_id: P066
+  mode: review
+  prompt: 'On our project we are facing this directly: Start when you are ready by heeding nagging doubts.
+    We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P066.
+  - 'States the recommended practice: Start when you are ready by heeding nagging doubts, and distinguish
+    good judgment from procrastination by prototyping the doubtful area as a proof of concept.'
+  - Names the principle (P066) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-067
+  principle_id: P067
+  mode: review
+  prompt: 'On our project we are facing this directly: Run a full nightly build that executes all available
+    tests so regressions are caught close to their cause. We want a review of how we are handling it and
+    what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P067.
+  - 'States the recommended practice: Run a full nightly build that executes all available tests so regressions
+    are caught close to their cause, and be wary of recursive make''s dependency blind spots.'
+  - Names the principle (P067) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-068
+  principle_id: P068
+  mode: review
+  prompt: 'On our project we are facing this directly: Find bugs once: when a bug is found, add an automated
+    test so that a human never has to find that same bug again.. We want a review of how we are handling
+    it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P068.
+  - 'States the recommended practice: Find bugs once: when a bug is found, add an automated test so that
+    a human never has to find that same bug again.'
+  - Names the principle (P068) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-069
+  principle_id: P069
+  mode: review
+  prompt: 'On our project we are facing this directly: Critically analyze what you read and hear so your
+    knowledge stays accurate and free of vendor or media hype.. We want a review of how we are handling
+    it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P069.
+  - 'States the recommended practice: Critically analyze what you read and hear so your knowledge stays
+    accurate and free of vendor or media hype.'
+  - Names the principle (P069) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-070
+  principle_id: P070
+  mode: review
+  prompt: 'On our project we are facing this directly: You may deliberately break DRY for performance.
+    We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P070.
+  - 'States the recommended practice: You may deliberately break DRY for performance, such as caching,
+    but localize the violation behind the owning module''s interface.'
+  - Names the principle (P070) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-071
+  principle_id: P071
+  mode: review
+  prompt: 'On our project we are facing this directly: Resist impatient copy-paste duplication under deadline
+    pressure. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P071.
+  - 'States the recommended practice: Resist impatient copy-paste duplication under deadline pressure,
+    because shortcuts taken now cost more later.'
+  - Names the principle (P071) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-072
+  principle_id: P072
+  mode: review
+  prompt: 'On our project we are facing this directly: Balance the Law of Demeter against its wrapper-method
+    overhead. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P072.
+  - 'States the recommended practice: Balance the Law of Demeter against its wrapper-method overhead,
+    reversing it to tightly couple modules only for a well-known, acceptable performance trade-off.'
+  - Names the principle (P072) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-073
+  principle_id: P073
+  mode: review
+  prompt: 'On our project we are facing this directly: Make logical and physical design proceed in tandem.
+    We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P073.
+  - 'States the recommended practice: Make logical and physical design proceed in tandem, avoiding cyclic
+    dependencies among files, directories, and libraries, which are extremely hard to undo.'
+  - Names the principle (P073) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-074
+  principle_id: P074
+  mode: review
+  prompt: 'On our project we are facing this directly: Prefer programs that can reload their configuration
+    while running for long-lived processes. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P074.
+  - 'States the recommended practice: Prefer programs that can reload their configuration while running
+    for long-lived processes, weighing the added complexity.'
+  - Names the principle (P074) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-075
+  principle_id: P075
+  mode: review
+  prompt: 'On our project we are facing this directly: Retest the whole system after upgrading third-party
+    software such as the OS. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P075.
+  - 'States the recommended practice: Retest the whole system after upgrading third-party software such
+    as the OS, compiler, or database, weighing the timing of the upgrade.'
+  - Names the principle (P075) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-076
+  principle_id: P076
+  mode: review
+  prompt: 'On our project we are facing this directly: Do not use wizard-generated or any code you do
+    not understand. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P076.
+  - 'States the recommended practice: Do not use wizard-generated or any code you do not understand, because
+    it becomes interwoven with your own code and you must be able to maintain and debug it.'
+  - Names the principle (P076) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-077
+  principle_id: P077
+  mode: review
+  prompt: 'On our project we are facing this directly: Manage requirements creep by actively tracking
+    requirements and showing sponsors each new feature''s impact on the schedule.. We want a review of
+    how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P077.
+  - 'States the recommended practice: Manage requirements creep by actively tracking requirements and
+    showing sponsors each new feature''s impact on the schedule.'
+  - Names the principle (P077) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
+- test_id: PB-078
+  principle_id: P078
+  mode: review
+  prompt: 'On our project we are facing this directly: Sign your work: take pride and responsibility in
+    what you build. We want a review of how we are handling it and what to change.'
+  expected_behaviour:
+  - Engages and gives concrete, pragmatic guidance grounded in principle P078.
+  - 'States the recommended practice: Sign your work: take pride and responsibility in what you build,
+    keeping code owned individually or communally with supporting practices.'
+  - Names the principle (P078) or the corresponding Pragmatic Programmer tip rather than offering vague
+    style preference.
+  must_not:
+  - Dismiss the concern or answer with vague advice that cites no pragmatic principle.
+  - Produce deliverable production application code instead of advisory guidance.
