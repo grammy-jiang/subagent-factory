@@ -1,0 +1,430 @@
+schema_version: faithfulness-report-v1
+subagent_slug: caching-strategy-advisor
+findings:
+- rule_ref: quality_bar[0]
+  triplet:
+    head: caching recommendation
+    relation: requires all five viability conditions
+    tail: none skippable (P001)
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: c003 enumerates all five conditions and frames them as requirements; c010 adds the performance-degradation
+    risk when conditions are not met.  The "none skippable" operationalization is a valid strict reading
+    of both claims.  No distortion.
+- rule_ref: quality_bar[1]
+  triplet:
+    head: pattern selection
+    relation: requires trade-off statement before choosing among
+    tail: cache-aside / write-through / write-behind (P010)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0001
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: The source describes the three patterns and their consistency/latency trade-offs; it does not
+    explicitly prescribe that trade-offs must be "stated before selecting."  The procedural requirement
+    is a valid within-scope operationalization of P010 and does not add new claims. No distortion.
+- rule_ref: quality_bar[2]
+  triplet:
+    head: eviction policy
+    relation: chosen from observed distribution with explicit hedge
+    tail: situation-dependent, may require trial/measurement (P005)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0001
+  - 11ebbc818b96-c0002
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The rule reads: "Eviction policy chosen from observed access distribution, not defaulted: LRU
+    or LFU depending on whether access is recency- or frequency-skewed (situation-dependent, may require
+    trial/measurement); TTL for time-bounded validity; random avoided in production (P005)."  The parenthetical
+    restores the source hedge from c026 (certainty: hedged; "typically requires analyzing data-access
+    distributions, and sometimes trial and error").  LRU and LFU are presented as distribution-guided
+    defaults contingent on measurement, not definitive rules.  Within scope of the partially-supported
+    evidence.'
+- rule_ref: quality_bar[3]
+  triplet:
+    head: break-even hit rate
+    relation: computed from formula
+    tail: Cache_Overhead / (Service_Call_Time + Cache_Overhead) (P009)
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: The break-even formula is directly entailed by c068 (research-grade evidence, strong, entailed).  c071
+    requires calculation with actual or estimated values.  No distortion.
+- rule_ref: quality_bar[4]
+  triplet:
+    head: consistency risks
+    relation: named by root cause and matched to mitigation
+    tail: missed invalidation / update lag / staleness (P003, P004)
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0001
+  - 11ebbc818b96-c0002
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: c055 directly enumerates all three root causes.  c057 and c058 supply the TTL mitigation and its
+    insufficiency for strong consistency. No distortion.
+- rule_ref: quality_bar[5]
+  triplet:
+    head: scaling advice
+    relation: distinguishes storage-limit vs resource-limit before recommending
+    tail: technique matched to dominant constraint (P006, P007)
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0001
+  - 11ebbc818b96-c0002
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: c046 explicitly establishes the two distinct scaling limits.  c048 and c049 supply the corresponding
+    remedies.  No distortion.
+- rule_ref: forbidden_behaviours[0]
+  triplet:
+    head: side-effecting operations
+    relation: never cache without explicit handling or safeguard
+    tail: a common source of bugs and outages if not explicitly handled (P002)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0001
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Rule reads: "Never recommend caching operations with side effects unless those side effects are
+    explicitly handled or safeguarded — a common source of application bugs and outages if not explicitly
+    handled (P002)."  The phrase "a common source … if not explicitly handled" preserves both the "common"
+    qualifier and the conditionality present in c008 ("a common source of application bugs and outages
+    if the side effects are not explicitly handled").  Within scope of the evidence.'
+- rule_ref: forbidden_behaviours[1]
+  triplet:
+    head: caching where overhead meets or exceeds backing cost
+    relation: never recommend — reject rather than proceed
+    tail: cache overhead meets or exceeds backing cost and hit rate cannot offset it (P001)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Rule reads: "Never recommend caching where cache overhead meets or exceeds the backing-operation
+    cost and the hit rate cannot offset it — reject rather than proceed (P001)."  Uses the language of
+    c010 ("cache overhead exceeds the cost of the backing operation") which is directly backed by e007
+    (strong, entailed).  No distortion.'
+- rule_ref: forbidden_behaviours[2]
+  triplet:
+    head: hit-rate or latency numbers
+    relation: never fabricate — require actual inputs
+    tail: Cache_Check and Service_Call_Time (P009)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: c071 explicitly requires "actual or estimated service-call times and projected hit rates."  The
+    prohibition against fabrication is a valid within-scope operationalization.  No distortion.
+- rule_ref: forbidden_behaviours[3]
+  triplet:
+    head: Redis Enterprise features
+    relation: never claim available in open-source Redis
+    tail: Active-Active / Redis on Flash / proxy-sharding (P007)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0002
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: c064 (strong, entailed) asserts open-source Redis supports only a single master and that multi-region
+    write performance requires Redis Enterprise. c052 confirms Active-Active CRDT resolution is a Redis
+    Enterprise feature. c049 discusses the proxy in the Redis Enterprise sharding context.  The rule is
+    a correct within-scope boundary derived from these claims.
+- rule_ref: forbidden_behaviours[4]
+  triplet:
+    head: advisor
+    relation: never produce
+    tail: executable configuration files / scripts / production code
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: This is an operating-mode scope restriction with no corresponding domain claim — it restricts
+    the agent's output type rather than asserting anything about caching.  Faithfulness review does not
+    apply to self-limiting operational-boundary rules; they cannot be over-claimed against the source.  No
+    evidence anchor required.
+- rule_ref: forbidden_behaviours[5]
+  triplet:
+    head: pattern selection
+    relation: never skip consistency-ownership assessment
+    tail: conflating cache-aside and write-through causes stale-read acceptance (P010)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0001
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: c012 describes cache-aside with application-owned consistency; c015 describes write-through as
+    synchronously eliminating stale reads.  The inference that "conflating the two causes stale-read acceptance"
+    follows directly from both claims taken together and is within scope.
+- rule_ref: knowledge_partition.always_on[0]
+  triplet:
+    head: cache viability conditions (P001)
+    relation: five conditions enumerated as requirements
+    tail: slow/resource-intensive, faster/fewer-resources, stable/acceptable-stale, no side effects, needed
+      more than once
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: The five conditions are enumerated exactly in c003 (strong, entailed). c010 adds the performance-degradation
+    condition.  No distortion.
+- rule_ref: knowledge_partition.always_on[1]
+  triplet:
+    head: performance formula and break-even analysis (P009)
+    relation: Request_Time_With_Cache formula and minimum viable hit rate derivation
+    tail: from Cache_Check and Service_Call_Time
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: The formula components are directly entailed by c066, c067, and c068 (all research-grade evidence,
+    strong, entailed).  No distortion.
+- rule_ref: knowledge_partition.always_on[2]
+  triplet:
+    head: caching pattern ownership rule (P010)
+    relation: cache-aside vs write-through vs write-behind consistency guarantees
+    tail: select pattern matching staleness tolerance and write-latency budget
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: c012 (cache-aside), c015 (write-through), c016 (write-behind) each directly entail the corresponding
+    guarantee descriptions.  The selection criterion is a valid within-scope operationalization.  No distortion.
+- rule_ref: knowledge_partition.always_on[3]
+  triplet:
+    head: eviction policy selection (P005)
+    relation: choice is situation-dependent; LRU/LFU as starting points, not definitive rules
+    tail: may require measuring distribution or trial (P005)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0001
+  - 11ebbc818b96-c0002
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Rule reads: "Eviction policy selection (P005): choice is situation-dependent and may require
+    measuring the observed access distribution or trial; LRU is a starting point for recency-skewed workloads,
+    LFU for frequency-skewed workloads, TTL for time-bounded validity; avoid random eviction in production."  The
+    "situation-dependent … may require measuring … or trial" qualifier leads the statement, with LRU and
+    LFU framed as "starting point" rather than definitive choices.  This preserves the source hedge from
+    c026 (certainty: hedged; "typically requires analyzing data-access distributions, and sometimes trial
+    and error").  Within scope of the partially-supported evidence.'
+- rule_ref: knowledge_partition.always_on[4]
+  triplet:
+    head: cache consistency failure modes (P003, P004)
+    relation: three root causes enumerated with mitigations
+    tail: TTL alone insufficient for strong consistency
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0001
+  - 11ebbc818b96-c0002
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: c055 enumerates the three root causes; c057 and c058 provide the TTL mitigation and its insufficiency
+    for strong consistency; c059 addresses cross-node inconsistency.  No distortion.
+- rule_ref: knowledge_partition.always_on[5]
+  triplet:
+    head: cache scaling approaches (P006, P007)
+    relation: diagnose storage-limit vs resource-limit before recommending technique
+    tail: Active-Active requires Redis Enterprise for CRDT conflict resolution
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0001
+  - 11ebbc818b96-c0002
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: c046 establishes the two scaling limits; c048/c049 supply remedies; c052 (strong, entailed) confirms
+    Active-Active CRDT requires Redis Enterprise.  No distortion.
+- rule_ref: knowledge_partition.always_on[6]
+  triplet:
+    head: side-effect rule (P002)
+    relation: verifying idempotency or explicit replay before caching
+    tail: a common source of software bugs and outages when side effects are not explicitly handled
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0001
+  - 11ebbc818b96-c0002
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'RESOLVED from prior HEDGING_REMOVED finding.  The corrected rule now reads: "Side-effect rule
+    (P002): never cache a side-effecting operation without verifying side effects are idempotent or explicitly
+    replayed; unhandled side effects are a common source of software bugs and outages when side effects
+    are not explicitly handled."  The phrase "common source … when side effects are not explicitly handled"
+    restores both the "common" qualifier and the conditionality present in c008 ("a common source of application
+    bugs and outages if the side effects are not explicitly handled").  The companion P002 principle statement
+    was also corrected to the same effect.  The rule is now within scope of the evidence.  No distortion
+    remains.'
+- rule_ref: knowledge_partition.always_on[7]
+  triplet:
+    head: Redis persistence options (P008)
+    relation: AOF for crash-safe; RDB for historical backups; combine when both required
+    tail: APPENDFSYNC always guarantees crash-safe persistence
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0002
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: c033, c034, and c037 are all strong, entailed, and directly support the AOF/RDB trade-off and
+    the APPENDFSYNC always guarantee.  No distortion.
+- rule_ref: knowledge_partition.always_on[8]
+  triplet:
+    head: cloud deployment options
+    relation: Active-Active multi-region requires Redis Enterprise (not open-source Redis)
+    tail: for CRDT-based conflict resolution (e030/c064)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0001
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Rule asserts only what e030/c064 directly supports: open-source Redis does not support Active-Active;
+    Redis Enterprise is required for CRDT-based conflict resolution.  The explicit citation (e030/c064)
+    in the rule text confirms correct grounding.  No distortion.'
+- rule_ref: knowledge_partition.always_on[9]
+  triplet:
+    head: cache thrashing
+    relation: caused by full cache with inappropriate eviction policy
+    tail: remedy is adjust algorithm or increase cache size (P005)
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0002
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: c025 directly describes cache thrashing and states adjusting eviction policy or increasing cache
+    size typically resolves it.  No distortion.
+- rule_ref: outputs.modes[0].trigger
+  triplet:
+    head: advise mode
+    relation: triggered when caller asks about
+    tail: whether to cache / pattern / tuning (P001, P009, P005, P003, P004)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0001
+  - 11ebbc818b96-c0002
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Mode-trigger is an operational routing decision; all cited principles are grounded.  No distortion.
+- rule_ref: outputs.modes[1].trigger
+  triplet:
+    head: compare mode
+    relation: triggered when caller asks for trade-off comparison
+    tail: strategies / eviction / scaling / deployment (P006, P007, P003)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0001
+  - 11ebbc818b96-c0002
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Mode-trigger is operational routing; no domain claim is made.  No distortion.
+- rule_ref: outputs.modes[2].trigger
+  triplet:
+    head: validate mode
+    relation: triggered when caller describes a cache design
+    tail: suitability / hit-rate break-even (P001, P009)
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - 11ebbc818b96-c0000
+  - 11ebbc818b96-c0003
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Mode-trigger is operational routing; no domain claim is made.  No distortion.

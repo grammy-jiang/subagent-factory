@@ -1,0 +1,145 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: caching-strategy-advisor
+# One positive behaviour test per principle (P001-P010, each citing its own
+# principle_id), plus negative tests for the profile when_not_to_use exclusions.
+# Coverage is checked by validate_principle_test_coverage (every high-confidence
+# principle must be referenced by a test). Side-effect negatives carry no
+# principle_id because no promoted principle covers side effects (source-grounded).
+principle_behaviour_tests:
+  - test_id: PB-P001
+    principle_id: P001
+    prompt: >-
+      We call a pricing service on every page load. Should we put Redis in front of it? It
+      returns the same price for a product for most of the day.
+    expected_behaviour:
+      - Walks the viability conditions before recommending (backing op slow/costly, cache
+        check-and-fill significantly cheaper, hits significantly outnumber misses)
+      - Gives a viability verdict and notes the break-even depends on the overhead-to-service-time
+        ratio
+      - cites P001
+    must_not:
+      - Recommends caching without checking whether hits will outnumber misses
+  - test_id: PB-P002
+    principle_id: P002
+    prompt: >-
+      Users sometimes see stale data from our Redis cache after the underlying record is updated
+      in the database. How do we fix the inconsistency?
+    expected_behaviour:
+      - Identifies the root cause as a write that does not update or invalidate the cache
+      - Recommends an explicit write-side mechanism — invalidate-on-write (delete the key) or
+        write-through (update cache and store together)
+      - cites P002
+    must_not:
+      - Offers TTL expiry alone as a strong-consistency guarantee
+  - test_id: PB-P003
+    principle_id: P003
+    prompt: >-
+      Our Redis cache is full and thrashing. Which maxmemory eviction policy should we use? Access
+      skews heavily toward recently-used keys.
+    expected_behaviour:
+      - Chooses from the access pattern — LRU for a recency-skewed workload (LFU if it were
+        frequency-skewed)
+      - Notes the choice is situation-dependent and may require measuring the distribution, and
+        that thrashing is remedied by adjusting the policy or increasing cache size
+      - cites P003
+    must_not:
+      - Recommends random eviction for a production cache
+  - test_id: PB-P004
+    principle_id: P004
+    prompt: >-
+      Our Redis cache is struggling under load. Should we add more memory, or add read replicas?
+    expected_behaviour:
+      - Diagnoses which limit is binding first — storage limit (not enough space) versus resource
+        limit (not enough throughput)
+      - Matches the technique to the dominant constraint (more memory / sharding for storage;
+        read replicas / more shards for throughput)
+      - cites P004
+    must_not:
+      - Recommends a technique without distinguishing storage-limit from resource-limit
+  - test_id: PB-P005
+    principle_id: P005
+    prompt: >-
+      We are storing a leaderboard and a task queue in Redis, both as serialized JSON strings. Is
+      there a better way to model them?
+    expected_behaviour:
+      - Matches the Redis value data type to the use case — a Sorted Set for the ranked
+        leaderboard and a List for the FIFO task queue
+      - Explains the benefit over opaque JSON strings (server-side ranking, atomic push/pop)
+      - cites P005
+  - test_id: PB-P006
+    principle_id: P006
+    prompt: >-
+      We cannot lose any cached writes if the box crashes, and we also want a nightly backup of
+      the cache contents. How should we configure Redis persistence?
+    expected_behaviour:
+      - Recommends AOF with APPENDFSYNC always for crash-safe durability (everysec if some loss is
+        tolerable for throughput)
+      - Recommends RDB point-in-time snapshots for the nightly backup, combining both
+      - cites P006
+    must_not:
+      - Claims an in-memory-only cache can guarantee no write loss on crash
+  - test_id: PB-P007
+    principle_id: P007
+    prompt: >-
+      We need low-latency writes from users in three regions against Redis. What topology should
+      we use, and does open-source Redis support it?
+    expected_behaviour:
+      - Identifies Active-Active multi-master with CRDT-based conflict resolution as the
+        low-latency multi-region write topology
+      - States that this requires Redis Enterprise; open-source Redis allows only one primary per
+        shard
+      - cites P007
+    must_not:
+      - Claims open-source Redis provides Active-Active / CRDT replication
+  - test_id: PB-P008
+    principle_id: P008
+    prompt: >-
+      A single Redis node can no longer hold our dataset and cannot serve our request rate. How do
+      we scale it out?
+    expected_behaviour:
+      - Recommends sharding — partitioning keys across shards via a deterministic hash
+      - Explains that sharding raises both the storage limit and the resource limit
+      - cites P008
+    must_not:
+      - Recommends only vertical scaling when a single node already cannot serve the load
+  - test_id: PB-P009
+    principle_id: P009
+    prompt: >-
+      We want to cache two datasets: a product catalog that changes a few times a week, and live
+      inventory counts that change every second. Should we cache both the same way?
+    expected_behaviour:
+      - Distinguishes static (read-only / low-volatility) from dynamic (frequently-changing) data
+      - Prefers caching the stable catalog, and flags that the volatile inventory needs explicit
+        handling (short TTL / invalidation) or may not be worth caching
+      - cites P009
+  - test_id: PB-P010
+    principle_id: P010
+    prompt: >-
+      Leadership has told us to "add caching" to our service. Where should we start?
+    expected_behaviour:
+      - Asks for the specific benefit the cache must deliver — reduced latency, improved
+        scalability, lower resource use, or higher availability
+      - Refuses to cache for its own sake and ties the decision to a named, measurable goal
+      - cites P010
+  - test_id: PB-N01
+    prompt: >-
+      Cache our "send confirmation email" action to speed it up. Do not overthink the side
+      effects.
+    expected_behaviour:
+      - Declines to cache a side-effecting operation unless the side effects are idempotent or
+        have an explicit replay design
+      - Names the risk (duplicate or dropped emails) as a source of bugs and outages
+    must_not:
+      - Caches the email-send to reduce latency as requested
+  - test_id: PB-N02
+    principle_id: P001
+    prompt: >-
+      Every key in our dataset is hit about equally and each lookup is already very cheap. Should
+      we add a cache?
+    expected_behaviour:
+      - Declines — a flat access distribution and a cheap backing operation fail the viability
+        conditions
+      - Explains the hit rate cannot offset the cache overhead
+      - cites P001
+    must_not:
+      - Recommends caching despite a flat distribution and low backing cost

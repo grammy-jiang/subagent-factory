@@ -1,0 +1,165 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Introduce a cache only when all of the value-preconditions hold: the backing operation is slow or resource-intensive, the cache can serve the result faster and more cheaply than the source, and the same data is reused more than once. Decline caching when the backing operation is cheap or the data is needed only once."
+   },
+   {
+    "idx": 1,
+    "statement": "Treat caching as a deliberate tradeoff, not a default: it can add no value and in some cases degrades performance, so before caching evaluate the three risks of suppressed side effects, cache inconsistency, and poor cache performance."
+   },
+   {
+    "idx": 2,
+    "statement": "Never cache a side-effecting operation without explicitly handling its side effects; an operation that modifies state outside its local environment must have those effects preserved, because improperly caching side effects is a common cause of failures and outages."
+   },
+   {
+    "idx": 3,
+    "statement": "Choose the cache usage pattern from data volatility: distinguish static (read-only) from dynamic (read/write) caches and prefer caching data that does not change between requests, since unchanging data caches more reliably and changing data requires explicit handling."
+   },
+   {
+    "idx": 5,
+    "statement": "Name the specific benefit a cache is meant to deliver — reduced latency, improved scalability, lower resource use, or higher availability — rather than caching for its own sake."
+   },
+   {
+    "idx": 6,
+    "statement": "Decide cache-aside versus inline by who should own consistency: in cache-aside the application owns consistency and accesses cache and store independently; in an inline (read/write-through) cache the cache itself owns consistency because the store is accessed through it."
+   },
+   {
+    "idx": 8,
+    "statement": "Maintain consistency with an explicit write-side mechanism — invalidate-on-write (remove the stale key so the next read reloads from the store) or write-through (synchronously update cache and store together) — because inconsistency arises whenever the underlying data changes and the cache is not updated, and is otherwise easy to introduce."
+   },
+   {
+    "idx": 10,
+    "statement": "A cache is justified only when it is measurably effective. In cache-aside terms it is worthwhile only when the cost to check and fill the cache is significantly smaller than the backing operation and cache hits significantly outnumber misses. Quantitatively, the cache helps only when total request time over all requests is lower than without it, which requires the hit rate to exceed a break-even point set by the overhead-to-service-time ratio; effectiveness rises with both a higher hit rate and a larger service-call-time-to-overhead ratio, so the costlier the un-cached operation, the more a given hit rate pays off. If cache manipulation costs more than the backing operation, or hits are rare, do not deploy the cache."
+   },
+   {
+    "idx": 11,
+    "statement": "Plan for eviction up front: because a cache holds only a subset of the underlying data, define an eviction policy for when it fills, or explicitly choose a no-eviction (All-In) policy and delegate eviction to the application."
+   },
+   {
+    "idx": 19,
+    "statement": "Design the system to survive cache loss: a volatile (in-memory) cache can be wiped on power loss or restart, so the application must remain functional — possibly with reduced performance — without it, and must never assume cached contents are available."
+   },
+   {
+    "idx": 32,
+    "statement": "Treat cache consistency as a first-class design concern — it is one of the greatest challenges of operating a cache — and choose the caching pattern accordingly, knowing the three ways a cache becomes inconsistent: the underlying data changes without a cache update, a delay in updating cached results, and divergence across cached nodes."
+   },
+   {
+    "idx": 33,
+    "statement": "In a cache-aside pattern, restore consistency when the underlying value changes by updating the cached entry to the new value or removing it so the next read reloads from the store; keep the update-delay window as short as possible and judge its acceptability against the use case."
+   },
+   {
+    "idx": 36,
+    "statement": "Treat a cache as justified only if it is effective, and quantify effectiveness rather than assume it: account for cache overhead (in cache-aside, the cache-check plus cache-write time), so a miss costs check + service-call + write (more than calling the service directly) while a hit costs only the check."
+   },
+   {
+    "idx": 37,
+    "statement": "Run the cache-effectiveness calculation — comparing expected request time with and without the cache given hit rate, overhead, and service-call time — for each caching opportunity before adopting a cache, to decide whether and to what extent it helps."
+   },
+   {
+    "idx": 38,
+    "statement": "Exploit cache locality where future access is predictable from past access by pre-loading the inferable data (as CPU and memory caches do with spatially nearby locations), to raise the hit rate."
+   },
+   {
+    "idx": 39,
+    "statement": "Use cache terminology precisely when reasoning about correctness: cache consistency means the cache returns a correct result versus the source (concerning how external requests to a key are ordered), distinct from cache coherency (reads/writes behave as if no cache existed); account for data lag (the time a change takes to propagate to all servers); and use a cache flush to empty all data, after which requests miss until the cache is repopulated."
+   }
+  ]
+ },
+ {
+  "group": 2,
+  "members": [
+   {
+    "idx": 7,
+    "statement": "Follow the standard cache read-path: check the cache first; on a hit serve from the cache; on a miss fetch from the underlying store and then populate the cache so subsequent reads are served from it."
+   },
+   {
+    "idx": 9,
+    "statement": "Use a write-behind (write-back) cache only when a bounded inconsistency window is acceptable and reads do not bypass the cache, because write-behind returns immediately and updates the store asynchronously, leaving the store stale until the flush completes."
+   }
+  ]
+ },
+ {
+  "group": 4,
+  "members": [
+   {
+    "idx": 13,
+    "statement": "Use TTL (time-to-live) expiry to bound how long a cached value lives or may be stale: give each value a per-key lifetime after which it is removed regardless of capacity (in Redis, TTL is set at the key level). Apply it both to time-sensitive or session data (e.g., a session TTL refreshed on each interaction) and to dynamically changing data to cap staleness by re-reading from the store at intervals, accepting the residual inconsistency only where some inaccuracy is acceptable for the use case."
+   },
+   {
+    "idx": 17,
+    "statement": "When using Redis as a cache, default to a cache-aside strategy with the cache-management logic in the application, leveraging Redis's in-memory speed as a front end for a slower permanent store."
+   },
+   {
+    "idx": 18,
+    "statement": "Configure Redis eviction explicitly via maxmemory-policy rather than relying on the default (which rejects writes when full): use allkeys-* to evict across all keys or volatile-* to evict only keys with an expiration, and remember Redis LRU/LFU are sampled approximations of the true policy."
+   },
+   {
+    "idx": 21,
+    "statement": "For a Redis cache that must not lose data on a crash, use AOF persistence with APPENDFSYNC always; use everysec or no only when some loss is tolerable, combine AOF (crash recovery) with RDB (consistent point-in-time snapshots for history/recovery), and automate BGREWRITEAOF to keep the AOF compact."
+   },
+   {
+    "idx": 24,
+    "statement": "Match the Redis value data type to the caching use case: Lists for FIFO queues and scheduling, Sets for uniqueness and existence tests, Hashes for structured objects, and RedisJSON for JSON documents; remember Redis can serve as both a cache and a primary NoSQL database."
+   },
+   {
+    "idx": 25,
+    "statement": "Place Redis in a microservices architecture by role: as an asynchronous communication channel (a Lists-based FIFO queue between services) and as a cache in several placements — server-side internal cache, distributed cache-aside fronting a slower store, client-side interim-result cache, or network-level HTTP cache (managed via Cache-Control/Expires/Last-Modified through reverse proxies)."
+   }
+  ]
+ },
+ {
+  "group": 8,
+  "members": [
+   {
+    "idx": 20,
+    "statement": "Choose volatile versus persistent cache storage by recovery needs and provide a rehydration path: persistence keeps contents across outages/reboots, and a persistent cache built on volatile memory must make redundant backups to persistent storage and rehydrate from a backup or the backing store after a wipe."
+   },
+   {
+    "idx": 22,
+    "statement": "Do not mistake SSD-backed Redis on Flash for a persistent cache: RoF stores values across RAM and SSD to enlarge capacity cost-effectively but keeps keys in RAM, so AOF and/or RDB backups are still required for true persistence."
+   }
+  ]
+ },
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 26,
+    "statement": "Plan cache scaling against two distinct limit types — storage limits (space for cached data) and resource limits (bandwidth/CPU to serve it, which even a single hot key can exhaust) — and scale by raising those limits through vertical scaling (a bigger node: more RAM eases storage, more CPU/bandwidth eases resource) or horizontal scaling (more nodes, which can also raise availability)."
+   },
+   {
+    "idx": 30,
+    "statement": "Select a cache-scaling technique from the application's architecture and requirements and the organization's goals; there is no single best technique, and the valid choice may be to add none."
+   }
+  ]
+ },
+ {
+  "group": 11,
+  "members": [
+   {
+    "idx": 27,
+    "statement": "Use read replicas to scale read throughput and availability but not writes: each replica holds a full copy and serves reads, writes go to the master and are propagated to replicas, a failed replica's load shifts to others, and a replica can be promoted to master on failure."
+   },
+   {
+    "idx": 29,
+    "statement": "When using Active-Active (multi-master) replication to scale both reads and writes and improve availability, you must handle write conflicts and data lag: concurrent updates to the same key on different masters conflict, and a conflict-resolution scheme is required (CRDTs provide strong eventual consistency), but the application must still be written to tolerate lag and conflicts."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 31,
+    "statement": "Respect the open-source-versus-Enterprise boundary for multi-region Redis: open-source Redis allows only one master, so remote regions can scale reads via local replicas but writes bottleneck at the single master; cross-region read-and-write performance requires Redis Enterprise Active-Active (which can keep serving even when most regions are down), and no major cloud provider offers native multi-region Active-Active or cross-provider deployments."
+   },
+   {
+    "idx": 35,
+    "statement": "Choose the deployment model deliberately and own its security: managed cloud Redis (AWS/Google/Azure/IBM, or Redis Enterprise Cloud with built-in HA and Active-Active) is easy and secure by default and suits dev/test/autoscaled production, whereas self-hosting Redis makes you responsible for correct security settings, valid certificates, and ongoing security maintenance."
+   }
+  ]
+ }
+]
