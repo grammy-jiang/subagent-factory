@@ -129,6 +129,117 @@ def test_assemble_merges_and_resolves(tmp_path):
     assert (pkg / "sources" / "anchors" / "alpha-0001.anchors.jsonl").exists()
 
 
+# --- source-layer ownership: coherent single identity, prune stale, carry provenance --------------
+
+
+def _assemble_demo(repo, slug, sources):
+    return assemble(
+        slug,
+        sources,
+        repo=repo,
+        embedder=_fake_embedder,
+        cos=0.5,
+        decisions={0: {"action": "confirm"}},
+        select=0,
+    )
+
+
+def test_assemble_writes_full_source_layer(tmp_path):
+    # assemble owns the source layer: each current id gets markdown + metadata + anchors + report,
+    # and the manifest lists exactly those ids — so the LLM finish step never has to synth them.
+    sources = _fixture(tmp_path)
+    _assemble_demo(tmp_path, "demo-src", sources)
+    pkg = tmp_path / "subagents" / "demo-src"
+    for sid in ("alpha-0001", "beta-0002"):
+        assert (pkg / "sources" / "markdown" / f"{sid}.md").exists()
+        assert (pkg / "sources" / "metadata" / f"{sid}.metadata.json").exists()
+        assert (pkg / "sources" / "anchors" / f"{sid}.anchors.jsonl").exists()
+        assert (pkg / "sources" / "reports" / f"{sid}.conversion-report.md").exists()
+        meta = json.loads((pkg / "sources" / "metadata" / f"{sid}.metadata.json").read_text())
+        assert meta["schema_version"] == "source-metadata-v1"
+        assert meta["source_id"] == sid
+    manifest = yaml.safe_load((pkg / "source-pack.manifest.yaml").read_text())
+    assert {s["source_id"] for s in manifest["sources"]} == {"alpha-0001", "beta-0002"}
+
+
+def test_assemble_prunes_stale_source_identity(tmp_path):
+    # Rebuilding map-reduce OVER an existing package must not leave a second, stale source identity.
+    # Pre-seed the package with a foreign id's source files + manifest; assemble must purge them.
+    sources = _fixture(tmp_path)
+    pkg = tmp_path / "subagents" / "demo-stale-src"
+    for sub in ("markdown", "metadata", "anchors", "reports"):
+        (pkg / "sources" / sub).mkdir(parents=True, exist_ok=True)
+    stale = "caching-old-20260612101948"
+    (pkg / "sources" / "markdown" / f"{stale}.md").write_text("stale")
+    (pkg / "sources" / "metadata" / f"{stale}.metadata.json").write_text("{}")
+    (pkg / "sources" / "anchors" / f"{stale}.anchors.jsonl").write_text("{}\n")
+    (pkg / "sources" / "reports" / f"{stale}.conversion-report.md").write_text("# stale")
+
+    _assemble_demo(tmp_path, "demo-stale-src", sources)
+
+    # The stale identity is gone from every subdir...
+    for sub, ext in (
+        ("markdown", ".md"),
+        ("metadata", ".metadata.json"),
+        ("anchors", ".anchors.jsonl"),
+        ("reports", ".conversion-report.md"),
+    ):
+        assert not (pkg / "sources" / sub / f"{stale}{ext}").exists()
+    # ...and only the current ids remain, in the manifest too.
+    manifest = yaml.safe_load((pkg / "source-pack.manifest.yaml").read_text())
+    assert {s["source_id"] for s in manifest["sources"]} == {"alpha-0001", "beta-0002"}
+
+
+def test_assemble_drops_classic_vestiges(tmp_path):
+    # A map-reduce package carries none of the classic-pipeline artifacts; rebuilding over a classic
+    # ingest must drop them rather than leave them keyed to the now-dead source id.
+    sources = _fixture(tmp_path)
+    pkg = tmp_path / "subagents" / "demo-vestige"
+    (pkg / "analysis").mkdir(parents=True, exist_ok=True)
+    (pkg / "sources" / "maps").mkdir(parents=True, exist_ok=True)
+    (pkg / "interrogation-records.yaml").write_text("q1: stale")
+    (pkg / "analysis" / "claim-importance-scores.yaml").write_text("old-id: 0.5")
+    (pkg / "sources" / "maps" / "caching-old.source-map.yaml").write_text("stale: map")
+
+    _assemble_demo(tmp_path, "demo-vestige", sources)
+
+    assert not (pkg / "interrogation-records.yaml").exists()
+    assert not (pkg / "analysis" / "claim-importance-scores.yaml").exists()
+    assert not (pkg / "sources" / "maps").exists()
+    # the real distilled layer is untouched
+    assert (pkg / "analysis" / "claims.jsonl").exists()
+
+
+def test_assemble_carries_predecessor_metadata(tmp_path):
+    # A prior ingest's metadata (matched by the input markdown stem) is carried onto the new id,
+    # so re-MAPping preserves title/rights/author instead of degrading to stem-derived defaults.
+    sources = _fixture(tmp_path)
+    pkg = tmp_path / "subagents" / "demo-carry"
+    md_dir = pkg / "sources" / "metadata"
+    md_dir.mkdir(parents=True, exist_ok=True)
+    (md_dir / "alpha-0001.metadata.json").write_text(
+        json.dumps(
+            {
+                "source_id": "alpha-0001",
+                "title": "The Real Caching Book",
+                "author": "A. Author",
+                "rights_status": "open",
+                "file_type": "pdf",
+                "original_filename": "real-caching.pdf",
+            }
+        )
+    )
+    _assemble_demo(tmp_path, "demo-carry", sources)
+    meta = json.loads((md_dir / "alpha-0001.metadata.json").read_text())
+    assert meta["title"] == "The Real Caching Book"
+    assert meta["author"] == "A. Author"
+    assert meta["rights_status"] == "open"
+    assert meta["file_type"] == "pdf"
+    manifest = yaml.safe_load((pkg / "source-pack.manifest.yaml").read_text())
+    rec = next(s for s in manifest["sources"] if s["source_id"] == "alpha-0001")
+    assert rec["original_filename"] == "real-caching.pdf"
+
+
 # --- single-producer group-index contract (fix #1) + group-key validation (fix #2) ----------------
 
 
