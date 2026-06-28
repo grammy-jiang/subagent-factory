@@ -25,6 +25,27 @@ def _yaml_scalar(value: str) -> str:
     return json.dumps("" if value is None else str(value), ensure_ascii=False)
 
 
+def render_adapter(profile: dict, subagent_path: Path) -> str:
+    """Render the Claude Code adapter Markdown from a loaded profile. Pure (no file I/O).
+
+    Shared by export_claude_agent (the factory-installed adapter) and export_deployable
+    (a self-contained bundle for another repo), so both render through one code path.
+    """
+    ctx = _build_template_context(profile)
+    # A3/A5: compile must-hold principles into a distinct enforced invariant layer, traceable to
+    # each principle_id. Baseline-gated: a profile may set `attach_invariants: false` to omit it.
+    from tools.subagent_factory.compile_invariants import compile_invariants, load_principles
+
+    if profile.get("attach_invariants", True):
+        ctx["invariants"] = compile_invariants(load_principles(subagent_path))
+    else:
+        ctx["invariants"] = []
+
+    # Markdown (not HTML) from trusted profile data; HTML autoescape would corrupt punctuation.
+    env = Environment(loader=FileSystemLoader(str(_TEMPLATES_DIR)), autoescape=False)  # nosec B701
+    return env.get_template("claude-agent-adapter.md.j2").render(**ctx)
+
+
 def export_claude_agent(subagent_dir: str | Path) -> dict:
     """
     Read subagents/<slug>/profile.yaml and generate two adapter files:
@@ -67,23 +88,7 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
 
     result["slug"] = slug
 
-    ctx = _build_template_context(profile)
-    # A3/A5: compile must-hold (high-confidence profile-rule) principles into a distinct enforced
-    # invariant layer, traceable to each principle_id. Empty when no principles / none must-hold.
-    # Baseline-gated: a profile may set `attach_invariants: false` (when its no-invariant replay
-    # baseline is strong — see invariant_policy.recommend_invariants) to omit the layer; default True.
-    from tools.subagent_factory.compile_invariants import compile_invariants, load_principles
-
-    if profile.get("attach_invariants", True):
-        ctx["invariants"] = compile_invariants(load_principles(subagent_path))
-    else:
-        ctx["invariants"] = []
-
-    # Renders a Markdown adapter (not HTML) from trusted profile data;
-    # HTML autoescape would corrupt Markdown punctuation in the output.
-    env = Environment(loader=FileSystemLoader(str(_TEMPLATES_DIR)), autoescape=False)  # nosec B701
-    tmpl = env.get_template("claude-agent-adapter.md.j2")
-    rendered = tmpl.render(**ctx)
+    rendered = render_adapter(profile, subagent_path)
 
     # Write canonical adapter inside package (atomically — temp file + os.replace).
     adapter_dir = subagent_path / "adapters" / "claude-code"

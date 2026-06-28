@@ -188,6 +188,24 @@ def cmd_export(slug):
     console.print(f"[green]Installed:[/green] {result['installed_path']}")
 
 
+@click.command("export-deployable")
+@click.argument("slug")
+@click.option("--dest", required=True, help="Target repo root (where .claude/ should live)")
+def cmd_export_deployable(slug, dest):
+    """Export a subagent as a self-contained deployable bundle into another repo's .claude/."""
+    from tools.subagent_factory.export_deployable import export_deployable
+
+    result = export_deployable(subagent_path(slug), dest)
+    if result.get("error"):
+        console.print(f"[red]ERROR:[/red] {result['error']}")
+        sys.exit(1)
+    console.print(f"[green]Deployable adapter:[/green] {result['adapter_path']}")
+    console.print(f"[green]Skills copied:[/green] {', '.join(result['skills_copied']) or '(none)'}")
+    console.print(
+        f"[green]References inlined:[/green] {', '.join(result['references_inlined']) or '(none)'}"
+    )
+
+
 @click.command("validate")
 @click.argument("slug")
 def cmd_validate(slug):
@@ -220,5 +238,6 @@ COMMANDS = [
     cmd_stubs,
     cmd_selfcheck,
     cmd_export,
+    cmd_export_deployable,
     cmd_validate,
 ]
