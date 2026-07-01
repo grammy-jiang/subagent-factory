@@ -1,6 +1,6 @@
 schema_version: golden-tests-v1
 subagent_slug: software-design
-generated_at: '2026-06-24'
+generated_at: '2026-07-02'
 golden_tests:
 - test_id: GT-001
   prompt: a system that will undergo ongoing change and refactoring. What do you advise, and why?
@@ -265,7 +265,9 @@ golden_tests:
   - Ask for more information when the context is already sufficient
   twin_of: MC-013
 - test_id: GT-027
-  prompt: Reviewing comments or commented-out code in a change. What do you advise, and why?
+  prompt: 'Keep surviving comments truthful, brief, and local: delete redundant, mandated, noise, obsolete,
+    journal, and authorship comments and all commented-out code, and let source control hold history;
+    reserve comments for technical notes the code cannot express. What do you advise, and why?'
   principle_coverage:
   - P014
   expected_route: invoke
@@ -273,18 +275,6 @@ golden_tests:
     obsolete, journal, and authorship comments and all commented-out code, and let source control hold
     history; reserve comments for technical notes the code cannot express'
 - test_id: GT-028
-  prompt: Reviewing comments or commented-out code in a change. (Every decision-relevant specific is provided.)
-    What do you advise?
-  principle_coverage:
-  - P014
-  expected_route: invoke
-  minimum_output: 'Keep surviving comments truthful, brief, and local: delete redundant, mandated, noise,
-    obsolete, journal, and authorship comments and all commented-out code, and let source control hold
-    history; reserve comments for technical notes the code cannot express'
-  must_not_do:
-  - Ask for more information when the context is already sufficient
-  twin_of: MC-014
-- test_id: GT-029
   prompt: A function interacts with another module's data more than its own, or modules trade too much
     detail. What do you advise, and why?
   principle_coverage:
@@ -294,7 +284,7 @@ golden_tests:
     move a function or field to the data it most references, and reduce excessive chatting between modules
     (feature envy, message chains, middle man, insider trading) with moves, delegation hiding, or a shared
     module'
-- test_id: GT-030
+- test_id: GT-029
   prompt: A function interacts with another module's data more than its own, or modules trade too much
     detail. (Every decision-relevant specific is provided.) What do you advise?
   principle_coverage:
@@ -306,8 +296,8 @@ golden_tests:
     module'
   must_not_do:
   - Ask for more information when the context is already sufficient
-  twin_of: MC-015
-- test_id: GT-031
+  twin_of: MC-014
+- test_id: GT-030
   prompt: Restructuring existing, working code under a test suite. What do you advise, and why?
   principle_coverage:
   - P016
@@ -315,7 +305,7 @@ golden_tests:
   minimum_output: Refactor in tiny behavior-preserving steps, compiling and running the tests after each
     step and committing after each success; when a step breaks the tests and the cause is not obvious,
     revert to the last green commit and redo with smaller steps
-- test_id: GT-032
+- test_id: GT-031
   prompt: Restructuring existing, working code under a test suite. (Every decision-relevant specific is
     provided.) What do you advise?
   principle_coverage:
@@ -326,48 +316,28 @@ golden_tests:
     revert to the last green commit and redo with smaller steps
   must_not_do:
   - Ask for more information when the context is already sufficient
-  twin_of: MC-016
+  twin_of: MC-015
+- test_id: GT-032
+  prompt: Apply one agreed team formatting style enforced by a tool, keep source files small, and structure
+    each file newspaper-style with high-level concepts first, vertical openness between concepts, vertical
+    closeness of related code, and short lines. What do you advise, and why?
+  principle_coverage:
+  - P017
+  expected_route: invoke
+  minimum_output: Apply one agreed team formatting style enforced by a tool, keep source files small,
+    and structure each file newspaper-style with high-level concepts first, vertical openness between
+    concepts, vertical closeness of related code, and short lines
 - test_id: GT-033
-  prompt: Reviewing source-file formatting, size, or vertical layout. What do you advise, and why?
+  prompt: Keep classes small and single-responsibility (exactly one reason to change), measured by counting
+    responsibilities; prefer many small, highly cohesive classes over a few large ones, and split a class
+    when its cohesion drops. What do you advise, and why?
   principle_coverage:
-  - P017
+  - P018
   expected_route: invoke
-  minimum_output: Apply one agreed team formatting style enforced by a tool, keep source files small,
-    and structure each file newspaper-style with high-level concepts first, vertical openness between
-    concepts, vertical closeness of related code, and short lines
+  minimum_output: Keep classes small and single-responsibility (exactly one reason to change), measured
+    by counting responsibilities; prefer many small, highly cohesive classes over a few large ones, and
+    split a class when its cohesion drops
 - test_id: GT-034
-  prompt: Reviewing source-file formatting, size, or vertical layout. (Every decision-relevant specific
-    is provided.) What do you advise?
-  principle_coverage:
-  - P017
-  expected_route: invoke
-  minimum_output: Apply one agreed team formatting style enforced by a tool, keep source files small,
-    and structure each file newspaper-style with high-level concepts first, vertical openness between
-    concepts, vertical closeness of related code, and short lines
-  must_not_do:
-  - Ask for more information when the context is already sufficient
-  twin_of: MC-017
-- test_id: GT-035
-  prompt: Reviewing a class that may have more than one reason to change. What do you advise, and why?
-  principle_coverage:
-  - P018
-  expected_route: invoke
-  minimum_output: Keep classes small and single-responsibility (exactly one reason to change), measured
-    by counting responsibilities; prefer many small, highly cohesive classes over a few large ones, and
-    split a class when its cohesion drops
-- test_id: GT-036
-  prompt: Reviewing a class that may have more than one reason to change. (Every decision-relevant specific
-    is provided.) What do you advise?
-  principle_coverage:
-  - P018
-  expected_route: invoke
-  minimum_output: Keep classes small and single-responsibility (exactly one reason to change), measured
-    by counting responsibilities; prefer many small, highly cohesive classes over a few large ones, and
-    split a class when its cohesion drops
-  must_not_do:
-  - Ask for more information when the context is already sufficient
-  twin_of: MC-018
-- test_id: GT-037
   prompt: Data is mutable and accessed beyond a very small scope. What do you advise, and why?
   principle_coverage:
   - P019
@@ -375,7 +345,7 @@ golden_tests:
   minimum_output: 'Minimize and encapsulate mutable and global data: route access through functions, restrict
     scope, prefer immutability, remove setters for fields that should not change, and replace derived
     variables with queries'
-- test_id: GT-038
+- test_id: GT-035
   prompt: Data is mutable and accessed beyond a very small scope. (Every decision-relevant specific is
     provided.) What do you advise?
   principle_coverage:
@@ -386,8 +356,8 @@ golden_tests:
     variables with queries'
   must_not_do:
   - Ask for more information when the context is already sufficient
-  twin_of: MC-019
-- test_id: GT-039
+  twin_of: MC-016
+- test_id: GT-036
   prompt: A group of functions share data, a class does too much, or a primitive needs behavior beyond
     printing. What do you advise, and why?
   principle_coverage:
@@ -395,7 +365,7 @@ golden_tests:
   expected_route: invoke
   minimum_output: Form classes or transforms around a common body of data, split classes that have grown
     too big, and create first-class domain types for primitives that have gained behavior
-- test_id: GT-040
+- test_id: GT-037
   prompt: A group of functions share data, a class does too much, or a primitive needs behavior beyond
     printing. (Every decision-relevant specific is provided.) What do you advise?
   principle_coverage:
@@ -405,15 +375,15 @@ golden_tests:
     too big, and create first-class domain types for primitives that have gained behavior
   must_not_do:
   - Ask for more information when the context is already sufficient
-  twin_of: MC-020
-- test_id: GT-041
+  twin_of: MC-017
+- test_id: GT-038
   prompt: selecting a library, language, database, or other dependency. What do you advise, and why?
   principle_coverage:
   - P021
   expected_route: invoke
   minimum_output: Evaluate any technology for survival potential, interoperability, and attention to quality,
     preferring broadly adopted, standard-based options to avoid lock-in
-- test_id: GT-042
+- test_id: GT-039
   prompt: selecting a library, language, database, or other dependency. (Every decision-relevant specific
     is provided.) What do you advise?
   principle_coverage:
@@ -423,68 +393,38 @@ golden_tests:
     preferring broadly adopted, standard-based options to avoid lock-in
   must_not_do:
   - Ask for more information when the context is already sufficient
-  twin_of: MC-021
+  twin_of: MC-018
+- test_id: GT-040
+  prompt: Prefer throwing exceptions to returning error codes, write the try-catch-finally scope first,
+    give every exception enough context to locate and log it, classify exceptions by how they are caught,
+    and prefer unchecked exceptions in general application code. What do you advise, and why?
+  principle_coverage:
+  - P022
+  expected_route: invoke
+  minimum_output: Prefer throwing exceptions to returning error codes, write the try-catch-finally scope
+    first, give every exception enough context to locate and log it, classify exceptions by how they are
+    caught, and prefer unchecked exceptions in general application code
+- test_id: GT-041
+  prompt: 'Keep test code as clean as production code: readable above all, one concept per test with minimal
+    asserts, built-operate-check structure, a domain-specific testing language, and F.I.R.S.T. (fast,
+    independent, repeatable, self-validating, timely). What do you advise, and why?'
+  principle_coverage:
+  - P023
+  expected_route: invoke
+  minimum_output: 'Keep test code as clean as production code: readable above all, one concept per test
+    with minimal asserts, built-operate-check structure, a domain-specific testing language, and F.I.R.S.T.
+    (fast, independent, repeatable, self-validating, timely)'
+- test_id: GT-042
+  prompt: 'Optimize for readability, since code is read far more than it is written: make intent visible
+    with good names, small functions, explanatory variables, and conditionals encapsulated in intent-revealing
+    positive predicates. What do you advise, and why?'
+  principle_coverage:
+  - P024
+  expected_route: invoke
+  minimum_output: 'Optimize for readability, since code is read far more than it is written: make intent
+    visible with good names, small functions, explanatory variables, and conditionals encapsulated in
+    intent-revealing positive predicates'
 - test_id: GT-043
-  prompt: Reviewing error-handling or exception design in a change. What do you advise, and why?
-  principle_coverage:
-  - P022
-  expected_route: invoke
-  minimum_output: Prefer throwing exceptions to returning error codes, write the try-catch-finally scope
-    first, give every exception enough context to locate and log it, classify exceptions by how they are
-    caught, and prefer unchecked exceptions in general application code
-- test_id: GT-044
-  prompt: Reviewing error-handling or exception design in a change. (Every decision-relevant specific
-    is provided.) What do you advise?
-  principle_coverage:
-  - P022
-  expected_route: invoke
-  minimum_output: Prefer throwing exceptions to returning error codes, write the try-catch-finally scope
-    first, give every exception enough context to locate and log it, classify exceptions by how they are
-    caught, and prefer unchecked exceptions in general application code
-  must_not_do:
-  - Ask for more information when the context is already sufficient
-  twin_of: MC-022
-- test_id: GT-045
-  prompt: Reviewing test code for readability and structure. What do you advise, and why?
-  principle_coverage:
-  - P023
-  expected_route: invoke
-  minimum_output: 'Keep test code as clean as production code: readable above all, one concept per test
-    with minimal asserts, built-operate-check structure, a domain-specific testing language, and F.I.R.S.T.
-    (fast, independent, repeatable, self-validating, timely)'
-- test_id: GT-046
-  prompt: Reviewing test code for readability and structure. (Every decision-relevant specific is provided.)
-    What do you advise?
-  principle_coverage:
-  - P023
-  expected_route: invoke
-  minimum_output: 'Keep test code as clean as production code: readable above all, one concept per test
-    with minimal asserts, built-operate-check structure, a domain-specific testing language, and F.I.R.S.T.
-    (fast, independent, repeatable, self-validating, timely)'
-  must_not_do:
-  - Ask for more information when the context is already sufficient
-  twin_of: MC-023
-- test_id: GT-047
-  prompt: Reviewing code that is hard to read or follow. What do you advise, and why?
-  principle_coverage:
-  - P024
-  expected_route: invoke
-  minimum_output: 'Optimize for readability, since code is read far more than it is written: make intent
-    visible with good names, small functions, explanatory variables, and conditionals encapsulated in
-    intent-revealing positive predicates'
-- test_id: GT-048
-  prompt: Reviewing code that is hard to read or follow. (Every decision-relevant specific is provided.)
-    What do you advise?
-  principle_coverage:
-  - P024
-  expected_route: invoke
-  minimum_output: 'Optimize for readability, since code is read far more than it is written: make intent
-    visible with good names, small functions, explanatory variables, and conditionals encapsulated in
-    intent-revealing positive predicates'
-  must_not_do:
-  - Ask for more information when the context is already sufficient
-  twin_of: MC-024
-- test_id: GT-049
   prompt: selecting, communicating, or refactoring toward a design solution for a recurring problem. What
     do you advise, and why?
   principle_coverage:
@@ -493,7 +433,7 @@ golden_tests:
   minimum_output: Treat patterns as a shared vocabulary and as targets for refactoring; classify a recurring
     problem by purpose (creational/structural/behavioral) and scope (class/object) to narrow the candidate
     patterns
-- test_id: GT-050
+- test_id: GT-044
   prompt: selecting, communicating, or refactoring toward a design solution for a recurring problem. (Every
     decision-relevant specific is provided.) What do you advise?
   principle_coverage:
@@ -504,35 +444,25 @@ golden_tests:
     patterns
   must_not_do:
   - Ask for more information when the context is already sufficient
-  twin_of: MC-025
-- test_id: GT-051
-  prompt: Cleaning up or restructuring working-but-messy code. What do you advise, and why?
+  twin_of: MC-019
+- test_id: GT-045
+  prompt: 'Write clean code by successive refinement under a covering test suite: first make it work,
+    then make it right, refactoring in many tiny verified steps and stopping to fix the structure before
+    a mess grows too large, never via a big-bang rewrite. What do you advise, and why?'
   principle_coverage:
   - P026
   expected_route: invoke
   minimum_output: 'Write clean code by successive refinement under a covering test suite: first make it
     work, then make it right, refactoring in many tiny verified steps and stopping to fix the structure
     before a mess grows too large, never via a big-bang rewrite'
-- test_id: GT-052
-  prompt: Cleaning up or restructuring working-but-messy code. (Every decision-relevant specific is provided.)
-    What do you advise?
-  principle_coverage:
-  - P026
-  expected_route: invoke
-  minimum_output: 'Write clean code by successive refinement under a covering test suite: first make it
-    work, then make it right, refactoring in many tiny verified steps and stopping to fix the structure
-    before a mess grows too large, never via a big-bang rewrite'
-  must_not_do:
-  - Ask for more information when the context is already sufficient
-  twin_of: MC-026
-- test_id: GT-053
+- test_id: GT-046
   prompt: the software will be maintained over a long lifetime. What do you advise, and why?
   principle_coverage:
   - P027
   expected_route: invoke
   minimum_output: Optimize design to minimize long-term maintenance effort rather than implementation
     effort, since over a system's lifetime maintenance dominates the desirability of changes
-- test_id: GT-054
+- test_id: GT-047
   prompt: the software will be maintained over a long lifetime. (Every decision-relevant specific is provided.)
     What do you advise?
   principle_coverage:
@@ -542,15 +472,15 @@ golden_tests:
     effort, since over a system's lifetime maintenance dominates the desirability of changes
   must_not_do:
   - Ask for more information when the context is already sufficient
-  twin_of: MC-027
-- test_id: GT-055
+  twin_of: MC-020
+- test_id: GT-048
   prompt: a part of the system has become hard to change or extend. What do you advise, and why?
   principle_coverage:
   - P028
   expected_route: invoke
   minimum_output: When complexity appears, look for the underlying design error, redesign pieces in small
     steps without adding complexity, and hide truly unfixable complexity behind a simple wrapper
-- test_id: GT-056
+- test_id: GT-049
   prompt: a part of the system has become hard to change or extend. (Every decision-relevant specific
     is provided.) What do you advise?
   principle_coverage:
@@ -560,48 +490,28 @@ golden_tests:
     steps without adding complexity, and hide truly unfixable complexity behind a simple wrapper
   must_not_do:
   - Ask for more information when the context is already sufficient
-  twin_of: MC-028
-- test_id: GT-057
-  prompt: Reviewing a function with a long or flag-laden parameter list. What do you advise, and why?
+  twin_of: MC-021
+- test_id: GT-050
+  prompt: Minimize function arguments (zero, then one, then two; avoid three or more), forbid flag/boolean
+    arguments by splitting the function, avoid output arguments by mutating the owning object, and wrap
+    groups of related arguments in a class. What do you advise, and why?
   principle_coverage:
   - P029
   expected_route: invoke
   minimum_output: Minimize function arguments (zero, then one, then two; avoid three or more), forbid
     flag/boolean arguments by splitting the function, avoid output arguments by mutating the owning object,
     and wrap groups of related arguments in a class
-- test_id: GT-058
-  prompt: Reviewing a function with a long or flag-laden parameter list. (Every decision-relevant specific
-    is provided.) What do you advise?
-  principle_coverage:
-  - P029
-  expected_route: invoke
-  minimum_output: Minimize function arguments (zero, then one, then two; avoid three or more), forbid
-    flag/boolean arguments by splitting the function, avoid output arguments by mutating the owning object,
-    and wrap groups of related arguments in a class
-  must_not_do:
-  - Ask for more information when the context is already sufficient
-  twin_of: MC-029
-- test_id: GT-059
-  prompt: Deciding whether to leave touched code cleaner than found. What do you advise, and why?
+- test_id: GT-051
+  prompt: It is not enough for code to work; keep it clean continuously and leave every module cleaner
+    than you found it (the Boy Scout Rule), because deferred cleanup never happens and bad code rots into
+    a weight that drags the team down. What do you advise, and why?
   principle_coverage:
   - P030
   expected_route: invoke
   minimum_output: It is not enough for code to work; keep it clean continuously and leave every module
     cleaner than you found it (the Boy Scout Rule), because deferred cleanup never happens and bad code
     rots into a weight that drags the team down
-- test_id: GT-060
-  prompt: Deciding whether to leave touched code cleaner than found. (Every decision-relevant specific
-    is provided.) What do you advise?
-  principle_coverage:
-  - P030
-  expected_route: invoke
-  minimum_output: It is not enough for code to work; keep it clean continuously and leave every module
-    cleaner than you found it (the Boy Scout Rule), because deferred cleanup never happens and bad code
-    rots into a weight that drags the team down
-  must_not_do:
-  - Ask for more information when the context is already sufficient
-  twin_of: MC-030
-- test_id: GT-061
+- test_id: GT-052
   prompt: Improving the speed of a program. What do you advise, and why?
   principle_coverage:
   - P031
@@ -609,7 +519,7 @@ golden_tests:
   minimum_output: 'Pursue performance by writing well-factored, tunable code first and optimizing last:
     measure with a profiler instead of speculating, target the small fraction of hot-spot code, and tune
     in small measured steps, backing out changes that do not help'
-- test_id: GT-062
+- test_id: GT-053
   prompt: Improving the speed of a program. (Every decision-relevant specific is provided.) What do you
     advise?
   principle_coverage:
@@ -620,50 +530,28 @@ golden_tests:
     in small measured steps, backing out changes that do not help'
   must_not_do:
   - Ask for more information when the context is already sufficient
-  twin_of: MC-031
-- test_id: GT-063
-  prompt: Reviewing names that use encodings, prefixes, or gratuitous context. What do you advise, and
-    why?
+  twin_of: MC-022
+- test_id: GT-054
+  prompt: Avoid name encodings (Hungarian notation, member or interface prefixes) and gratuitous context,
+    size a name to its scope, name classes as nouns and methods as verbs, and rename freely with tools
+    when a better name appears. What do you advise, and why?
   principle_coverage:
   - P032
   expected_route: invoke
   minimum_output: Avoid name encodings (Hungarian notation, member or interface prefixes) and gratuitous
     context, size a name to its scope, name classes as nouns and methods as verbs, and rename freely with
     tools when a better name appears
-- test_id: GT-064
-  prompt: Reviewing names that use encodings, prefixes, or gratuitous context. (Every decision-relevant
-    specific is provided.) What do you advise?
-  principle_coverage:
-  - P032
-  expected_route: invoke
-  minimum_output: Avoid name encodings (Hungarian notation, member or interface prefixes) and gratuitous
-    context, size a name to its scope, name classes as nouns and methods as verbs, and rename freely with
-    tools when a better name appears
-  must_not_do:
-  - Ask for more information when the context is already sufficient
-  twin_of: MC-032
-- test_id: GT-065
-  prompt: Reviewing handling of nulls, currency, locking, or type constraints. What do you advise, and
-    why?
+- test_id: GT-055
+  prompt: 'Be precise and prefer structure to convention: handle nulls, currency, locking, and type constraints
+    deliberately, prefer nonstatic to static, keep interfaces minimal, avoid artificial coupling, and
+    delete dead code and clutter. What do you advise, and why?'
   principle_coverage:
   - P033
   expected_route: invoke
   minimum_output: 'Be precise and prefer structure to convention: handle nulls, currency, locking, and
     type constraints deliberately, prefer nonstatic to static, keep interfaces minimal, avoid artificial
     coupling, and delete dead code and clutter'
-- test_id: GT-066
-  prompt: Reviewing handling of nulls, currency, locking, or type constraints. (Every decision-relevant
-    specific is provided.) What do you advise?
-  principle_coverage:
-  - P033
-  expected_route: invoke
-  minimum_output: 'Be precise and prefer structure to convention: handle nulls, currency, locking, and
-    type constraints deliberately, prefer nonstatic to static, keep interfaces minimal, avoid artificial
-    coupling, and delete dead code and clutter'
-  must_not_do:
-  - Ask for more information when the context is already sufficient
-  twin_of: MC-033
-- test_id: GT-067
+- test_id: GT-056
   prompt: A function has a long parameter list or a flag/derivable argument. What do you advise, and why?
   principle_coverage:
   - P034
@@ -671,7 +559,7 @@ golden_tests:
   minimum_output: 'Keep parameter lists short and meaningful: combine data clumps into a parameter object,
     pass a whole record instead of several of its fields, replace a flag argument with explicit functions,
     and drop a parameter the function could compute itself'
-- test_id: GT-068
+- test_id: GT-057
   prompt: A function has a long parameter list or a flag/derivable argument. (Every decision-relevant
     specific is provided.) What do you advise?
   principle_coverage:
@@ -682,7 +570,530 @@ golden_tests:
     and drop a parameter the function could compute itself'
   must_not_do:
   - Ask for more information when the context is already sufficient
+  twin_of: MC-023
+- test_id: GT-058
+  prompt: Exposing a data structure or needing flexible construction or invocation. What do you advise,
+    and why?
+  principle_coverage:
+  - P035
+  expected_route: invoke
+  minimum_output: 'Encapsulate records, collections, and construction: hide collection internals behind
+    add/remove methods, prefer factory functions over constructors when you need flexibility, and use
+    a command object only when a plain function cannot provide a needed facility'
+- test_id: GT-059
+  prompt: Exposing a data structure or needing flexible construction or invocation. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P035
+  expected_route: invoke
+  minimum_output: 'Encapsulate records, collections, and construction: hide collection internals behind
+    add/remove methods, prefer factory functions over constructors when you need flexibility, and use
+    a command object only when a plain function cannot provide a needed facility'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-024
+- test_id: GT-060
+  prompt: choosing how flexible or generic to make a design. What do you advise, and why?
+  principle_coverage:
+  - P036
+  expected_route: invoke
+  minimum_output: Make design decisions from present, known information and keep code flexible for change,
+    without trying to predict specific future requirements
+- test_id: GT-061
+  prompt: choosing how flexible or generic to make a design. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P036
+  expected_route: invoke
+  minimum_output: Make design decisions from present, known information and keep code flexible for change,
+    without trying to predict specific future requirements
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-025
+- test_id: GT-062
+  prompt: Improving the design of code without changing what users observe. What do you advise, and why?
+  principle_coverage:
+  - P037
+  expected_route: invoke
+  minimum_output: 'Keep refactoring behavior-preserving and separate from other work: wear one hat at
+    a time (refactor vs add functionality), change only internal structure, and treat refactoring as distinct
+    from performance optimization, whose goals differ'
+- test_id: GT-063
+  prompt: Improving the design of code without changing what users observe. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P037
+  expected_route: invoke
+  minimum_output: 'Keep refactoring behavior-preserving and separate from other work: wear one hat at
+    a time (refactor vs add functionality), change only internal structure, and treat refactoring as distinct
+    from performance optimization, whose goals differ'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-026
+- test_id: GT-064
+  prompt: making product or feature decisions. What do you advise, and why?
+  principle_coverage:
+  - P038
+  expected_route: invoke
+  minimum_output: Define the software's purpose as helping people and use 'how much does this help?' as
+    the primary test for every design decision and feature priority
+- test_id: GT-065
+  prompt: making product or feature decisions. (Every decision-relevant specific is provided.) What do
+    you advise?
+  principle_coverage:
+  - P038
+  expected_route: invoke
+  minimum_output: Define the software's purpose as helping people and use 'how much does this help?' as
+    the primary test for every design decision and feature priority
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-027
+- test_id: GT-066
+  prompt: writing or reviewing any individual module, function, or piece. What do you advise, and why?
+  principle_coverage:
+  - P039
+  expected_route: invoke
+  minimum_output: Make each individual piece of the system as simple as possible and keep it that way,
+    since ease of maintenance is proportional to the simplicity of the pieces
+- test_id: GT-067
+  prompt: writing or reviewing any individual module, function, or piece. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P039
+  expected_route: invoke
+  minimum_output: Make each individual piece of the system as simple as possible and keep it that way,
+    since ease of maintenance is proportional to the simplicity of the pieces
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-028
+- test_id: GT-068
+  prompt: 'Keep a consistent, non-cute vocabulary: one word per concept, no puns, names drawn from the
+    solution or problem domain, and a name that reveals every effect of a function including its side
+    effects. What do you advise, and why?'
+  principle_coverage:
+  - P040
+  expected_route: invoke
+  minimum_output: 'Keep a consistent, non-cute vocabulary: one word per concept, no puns, names drawn
+    from the solution or problem domain, and a name that reveals every effect of a function including
+    its side effects'
+- test_id: GT-069
+  prompt: Isolate every third-party or not-yet-built boundary behind a wrapper or Adapter you control,
+    referenced in few places and supported by learning tests and boundary tests, so the external API can
+    change with minimal impact. What do you advise, and why?
+  principle_coverage:
+  - P041
+  expected_route: invoke
+  minimum_output: Isolate every third-party or not-yet-built boundary behind a wrapper or Adapter you
+    control, referenced in few places and supported by learning tests and boundary tests, so the external
+    API can change with minimal impact
+- test_id: GT-070
+  prompt: Grow architecture incrementally instead of Big Design Up Front, keeping domain logic in framework-free
+    POJOs with cross-cutting concerns applied noninvasively, and always use the simplest thing that can
+    possibly work. What do you advise, and why?
+  principle_coverage:
+  - P042
+  expected_route: invoke
+  minimum_output: Grow architecture incrementally instead of Big Design Up Front, keeping domain logic
+    in framework-free POJOs with cross-cutting concerns applied noninvasively, and always use the simplest
+    thing that can possibly work
+- test_id: GT-071
+  prompt: The only way to go fast is to keep the code clean at all times; as a professional, defend code
+    quality against schedule pressure, and remember these rules express a value system rather than a rote
+    checklist. What do you advise, and why?
+  principle_coverage:
+  - P043
+  expected_route: invoke
+  minimum_output: The only way to go fast is to keep the code clean at all times; as a professional, defend
+    code quality against schedule pressure, and remember these rules express a value system rather than
+    a rote checklist
+- test_id: GT-072
+  prompt: writing comments for declarations, methods, or implementation blocks. What do you advise, and
+    why?
+  principle_coverage:
+  - P044
+  expected_route: invoke
+  minimum_output: Use lower-level comments for precision and higher-level comments for intuition, and
+    separate interface comments from implementation comments
+- test_id: GT-073
+  prompt: writing comments for declarations, methods, or implementation blocks. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P044
+  expected_route: invoke
+  minimum_output: Use lower-level comments for precision and higher-level comments for intuition, and
+    separate interface comments from implementation comments
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-029
+- test_id: GT-074
+  prompt: naming a variable, method, class, or other entity. What do you advise, and why?
+  principle_coverage:
+  - P045
+  expected_route: invoke
+  minimum_output: Choose names that are precise, intuitive, and used consistently; treat a hard-to-name
+    entity as a design red flag
+- test_id: GT-075
+  prompt: naming a variable, method, class, or other entity. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P045
+  expected_route: invoke
+  minimum_output: Choose names that are precise, intuitive, and used consistently; treat a hard-to-name
+    entity as a design red flag
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-030
+- test_id: GT-076
+  prompt: 'Apply least-surprise structural heuristics: implement the behavior a reader would reasonably
+    expect, keep concepts at the right level of abstraction with base classes independent of derivatives,
+    put each responsibility where it is expected, and never override safeties. What do you advise, and
+    why?'
+  principle_coverage:
+  - P046
+  expected_route: invoke
+  minimum_output: 'Apply least-surprise structural heuristics: implement the behavior a reader would reasonably
+    expect, keep concepts at the right level of abstraction with base classes independent of derivatives,
+    put each responsibility where it is expected, and never override safeties'
+- test_id: GT-077
+  prompt: Working in a team where refactorings touch shared code or published interfaces. What do you
+    advise, and why?
+  principle_coverage:
+  - P047
+  expected_route: invoke
+  minimum_output: Favor continuous integration over long-lived feature branches, prefer team ownership
+    over fine-grained code ownership, and when changing a published interface keep the old declaration
+    as a deprecated pass-through until clients migrate
+- test_id: GT-078
+  prompt: Working in a team where refactorings touch shared code or published interfaces. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P047
+  expected_route: invoke
+  minimum_output: Favor continuous integration over long-lived feature branches, prefer team ownership
+    over fine-grained code ownership, and when changing a published interface keep the old declaration
+    as a deprecated pass-through until clients migrate
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-031
+- test_id: GT-079
+  prompt: Code contains unused, speculative, or needlessly indirect elements, or loops that obscure intent.
+    What do you advise, and why?
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  minimum_output: 'Remove what no longer pays its way: replace loops with collection pipelines, delete
+    dead code rather than commenting it out, strip speculative generality, and inline lazy elements that
+    add no value'
+- test_id: GT-080
+  prompt: Code contains unused, speculative, or needlessly indirect elements, or loops that obscure intent.
+    (Every decision-relevant specific is provided.) What do you advise?
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  minimum_output: 'Remove what no longer pays its way: replace loops with collection pipelines, delete
+    dead code rather than commenting it out, strip speculative generality, and inline lazy elements that
+    add no value'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-032
+- test_id: GT-081
+  prompt: 'Hide implementation behind abstractions: keep variables private, expose interfaces that manipulate
+    the essence of the data, and do not blindly add getters and setters, because exposing variables through
+    accessors still exposes implementation. What do you advise, and why?'
+  principle_coverage:
+  - P049
+  expected_route: invoke
+  minimum_output: 'Hide implementation behind abstractions: keep variables private, expose interfaces
+    that manipulate the essence of the data, and do not blindly add getters and setters, because exposing
+    variables through accessors still exposes implementation'
+- test_id: GT-082
+  prompt: a system is expected to grow and keep changing. What do you advise, and why?
+  principle_coverage:
+  - P050
+  expected_route: invoke
+  minimum_output: Invest in design continuously, because systems do not become simple on their own and
+    an undesigned growing system drifts into failing complexity
+- test_id: GT-083
+  prompt: a system is expected to grow and keep changing. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P050
+  expected_route: invoke
+  minimum_output: Invest in design continuously, because systems do not become simple on their own and
+    an undesigned growing system drifts into failing complexity
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-033
+- test_id: GT-084
+  prompt: deciding whether to change, fix, or optimize something. What do you advise, and why?
+  principle_coverage:
+  - P051
+  expected_route: invoke
+  minimum_output: Never fix or optimize without evidence that a real problem exists; treat a behavior
+    as a bug only when a significant number of users do, and optimize only proven hot spots
+- test_id: GT-085
+  prompt: deciding whether to change, fix, or optimize something. (Every decision-relevant specific is
+    provided.) What do you advise?
+  principle_coverage:
+  - P051
+  expected_route: invoke
+  minimum_output: Never fix or optimize without evidence that a real problem exists; treat a behavior
+    as a bug only when a significant number of users do, and optimize only proven hot spots
+  must_not_do:
+  - Ask for more information when the context is already sufficient
   twin_of: MC-034
+- test_id: GT-086
+  prompt: naming, structuring, or designing interfaces and behavior. What do you advise, and why?
+  principle_coverage:
+  - P052
+  expected_route: invoke
+  minimum_output: Do things the same way everywhere and make the program behave consistently internally;
+    when full simplicity is impossible, at least be consistent
+- test_id: GT-087
+  prompt: naming, structuring, or designing interfaces and behavior. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P052
+  expected_route: invoke
+  minimum_output: Do things the same way everywhere and make the program behave consistently internally;
+    when full simplicity is impossible, at least be consistent
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-035
+- test_id: GT-088
+  prompt: facing a very complex existing system and considering a rewrite. What do you advise, and why?
+  principle_coverage:
+  - P053
+  expected_route: invoke
+  minimum_output: Prefer incremental redesign to rewriting; rewrite only when all of the rare conditions
+    hold, and never stop maintaining a system in use to rewrite it
+- test_id: GT-089
+  prompt: facing a very complex existing system and considering a rewrite. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P053
+  expected_route: invoke
+  minimum_output: Prefer incremental redesign to rewriting; rewrite only when all of the rare conditions
+    hold, and never stop maintaining a system in use to rewrite it
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-036
+- test_id: GT-090
+  prompt: Treat comments as a last resort and a necessary evil; first try to express the intent in code,
+    since the code is the only reliable source of truth and comments decay into lies as they drift from
+    the code they describe. What do you advise, and why?
+  principle_coverage:
+  - P054
+  expected_route: invoke
+  minimum_output: Treat comments as a last resort and a necessary evil; first try to express the intent
+    in code, since the code is the only reliable source of truth and comments decay into lies as they
+    drift from the code they describe
+- test_id: GT-091
+  prompt: Follow the four rules of Simple Design in priority order - the design runs all the tests, contains
+    no duplication, expresses the programmer's intent, and minimizes the number of classes and methods
+    - treating entity-count reduction as the lowest priority. What do you advise, and why?
+  principle_coverage:
+  - P055
+  expected_route: invoke
+  minimum_output: Follow the four rules of Simple Design in priority order - the design runs all the tests,
+    contains no duplication, expresses the programmer's intent, and minimizes the number of classes and
+    methods - treating entity-count reduction as the lowest priority
+- test_id: GT-092
+  prompt: 'Treat concurrency as a hard, separate concern with its own reason to change: keep concurrency
+    code apart from other code, and reject the myths that it always improves performance, leaves design
+    unchanged, or is handled for you by a container. What do you advise, and why?'
+  principle_coverage:
+  - P056
+  expected_route: invoke
+  minimum_output: 'Treat concurrency as a hard, separate concern with its own reason to change: keep concurrency
+    code apart from other code, and reject the myths that it always improves performance, leaves design
+    unchanged, or is handled for you by a container'
+- test_id: GT-093
+  prompt: 'Manage locking deliberately: know the concurrency library and execution models, beware dependencies
+    between synchronized methods, and prefer server-based locking over client-based locking (wrapping
+    with an Adapter when you do not own the server). What do you advise, and why?'
+  principle_coverage:
+  - P057
+  expected_route: invoke
+  minimum_output: 'Manage locking deliberately: know the concurrency library and execution models, beware
+    dependencies between synchronized methods, and prefer server-based locking over client-based locking
+    (wrapping with an Adapter when you do not own the server)'
+- test_id: GT-094
+  prompt: 'Minimize and isolate shared mutable data: severely limit its scope, prefer copies and read-only
+    objects, make threads as independent as possible working from local data, and keep synchronized sections
+    as small as possible. What do you advise, and why?'
+  principle_coverage:
+  - P058
+  expected_route: invoke
+  minimum_output: 'Minimize and isolate shared mutable data: severely limit its scope, prefer copies and
+    read-only objects, make threads as independent as possible working from local data, and keep synchronized
+    sections as small as possible'
+- test_id: GT-095
+  prompt: responsibilities must be added at run time without subclassing. What do you advise, and why?
+  principle_coverage:
+  - P059
+  expected_route: invoke
+  minimum_output: Use Decorator to add or remove responsibilities to an object dynamically as a flexible
+    alternative to subclassing, keeping the component's interface unchanged
+- test_id: GT-096
+  prompt: responsibilities must be added at run time without subclassing. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P059
+  expected_route: invoke
+  minimum_output: Use Decorator to add or remove responsibilities to an object dynamically as a flexible
+    alternative to subclassing, keeping the component's interface unchanged
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-037
+- test_id: GT-097
+  prompt: designing or reviewing a class, module, subsystem, or service interface. What do you advise,
+    and why?
+  principle_coverage:
+  - P060
+  expected_route: invoke
+  minimum_output: 'Design modules to be deep: maximize functionality behind the simplest interface that
+    covers the common case'
+- test_id: GT-098
+  prompt: designing or reviewing a class, module, subsystem, or service interface. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P060
+  expected_route: invoke
+  minimum_output: 'Design modules to be deep: maximize functionality behind the simplest interface that
+    covers the common case'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-038
+- test_id: GT-099
+  prompt: decomposing a system into modules; deciding where a piece of knowledge should live. What do
+    you advise, and why?
+  principle_coverage:
+  - P061
+  expected_route: invoke
+  minimum_output: Encapsulate each design decision inside a single module so it does not appear in any
+    interface, and treat information leakage as a red flag
+- test_id: GT-100
+  prompt: decomposing a system into modules; deciding where a piece of knowledge should live. (Every decision-relevant
+    specific is provided.) What do you advise?
+  principle_coverage:
+  - P061
+  expected_route: invoke
+  minimum_output: Encapsulate each design decision inside a single module so it does not appear in any
+    interface, and treat information leakage as a red flag
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-039
+- test_id: GT-101
+  prompt: defining a public API for a class or service. What do you advise, and why?
+  principle_coverage:
+  - P062
+  expected_route: invoke
+  minimum_output: Design interfaces so the most common usage is as simple as possible, providing sensible
+    defaults and automatic behavior
+- test_id: GT-102
+  prompt: defining a public API for a class or service. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P062
+  expected_route: invoke
+  minimum_output: Design interfaces so the most common usage is as simple as possible, providing sensible
+    defaults and automatic behavior
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-040
+- test_id: GT-103
+  prompt: reviewing a layered design or class hierarchy. What do you advise, and why?
+  principle_coverage:
+  - P063
+  expected_route: invoke
+  minimum_output: Give adjacent layers different abstractions; treat pass-through methods, pass-through
+    variables, and API-duplicating decorators as red flags
+- test_id: GT-104
+  prompt: reviewing a layered design or class hierarchy. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P063
+  expected_route: invoke
+  minimum_output: Give adjacent layers different abstractions; treat pass-through methods, pass-through
+    variables, and API-duplicating decorators as red flags
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-041
+- test_id: GT-105
+  prompt: a module faces complexity related to its own functionality. What do you advise, and why?
+  principle_coverage:
+  - P064
+  expected_route: invoke
+  minimum_output: Absorb unavoidable complexity inside a module rather than exposing it to users, because
+    a simple interface matters more than a simple implementation
+- test_id: GT-106
+  prompt: a module faces complexity related to its own functionality. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P064
+  expected_route: invoke
+  minimum_output: Absorb unavoidable complexity inside a module rather than exposing it to users, because
+    a simple interface matters more than a simple implementation
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-042
+- test_id: GT-107
+  prompt: considering breaking up or merging a method. What do you advise, and why?
+  principle_coverage:
+  - P065
+  expected_route: invoke
+  minimum_output: Decide whether to split or join a method by whether it yields cleaner abstractions,
+    not by line count; each method should do one thing completely
+- test_id: GT-108
+  prompt: considering breaking up or merging a method. (Every decision-relevant specific is provided.)
+    What do you advise?
+  principle_coverage:
+  - P065
+  expected_route: invoke
+  minimum_output: Decide whether to split or join a method by whether it yields cleaner abstractions,
+    not by line count; each method should do one thing completely
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-043
+- test_id: GT-109
+  prompt: designing an API that could raise errors or special conditions. What do you advise, and why?
+  principle_coverage:
+  - P066
+  expected_route: invoke
+  minimum_output: Reduce the number of places exceptions must be handled, ideally by redefining operation
+    semantics so the normal case has no error to report
+- test_id: GT-110
+  prompt: designing an API that could raise errors or special conditions. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P066
+  expected_route: invoke
+  minimum_output: Reduce the number of places exceptions must be handled, ideally by redefining operation
+    semantics so the normal case has no error to report
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-044
+- test_id: GT-111
+  prompt: Deciding whether a given piece of code is worth refactoring now. What do you advise, and why?
+  principle_coverage:
+  - P067
+  expected_route: invoke
+  minimum_output: 'Do not over- or mis-apply refactoring: leave messy code you do not need to touch, keep
+    dedicated planned-refactoring episodes rare, occasionally rewrite instead of refactor, and justify
+    refactoring on economic grounds (faster delivery) rather than moral or aesthetic ones'
+- test_id: GT-112
+  prompt: Deciding whether a given piece of code is worth refactoring now. (Every decision-relevant specific
+    is provided.) What do you advise?
+  principle_coverage:
+  - P067
+  expected_route: invoke
+  minimum_output: 'Do not over- or mis-apply refactoring: leave messy code you do not need to touch, keep
+    dedicated planned-refactoring episodes rare, occasionally rewrite instead of refactor, and justify
+    refactoring on economic grounds (faster delivery) rather than moral or aesthetic ones'
+  must_not_do:
+  - Ask for more information when the context is already sufficient
+  twin_of: MC-045
 negative_routing_tests: []
 missing_context_tests:
 - test_id: MC-001
@@ -787,14 +1198,6 @@ missing_context_tests:
   must_ask_for:
   - the decision-relevant specifics the request leaves unstated
 - test_id: MC-014
-  prompt: Reviewing comments or commented-out code in a change. (Key specifics are not stated.) Give me
-    your recommendation.
-  principle_coverage:
-  - P014
-  expected_route: invoke
-  must_ask_for:
-  - the decision-relevant specifics the request leaves unstated
-- test_id: MC-015
   prompt: A function interacts with another module's data more than its own, or modules trade too much
     detail. (Key specifics are not stated.) Give me your recommendation.
   principle_coverage:
@@ -802,7 +1205,7 @@ missing_context_tests:
   expected_route: invoke
   must_ask_for:
   - the decision-relevant specifics the request leaves unstated
-- test_id: MC-016
+- test_id: MC-015
   prompt: Restructuring existing, working code under a test suite. (Key specifics are not stated.) Give
     me your recommendation.
   principle_coverage:
@@ -810,23 +1213,7 @@ missing_context_tests:
   expected_route: invoke
   must_ask_for:
   - the decision-relevant specifics the request leaves unstated
-- test_id: MC-017
-  prompt: Reviewing source-file formatting, size, or vertical layout. (Key specifics are not stated.)
-    Give me your recommendation.
-  principle_coverage:
-  - P017
-  expected_route: invoke
-  must_ask_for:
-  - the decision-relevant specifics the request leaves unstated
-- test_id: MC-018
-  prompt: Reviewing a class that may have more than one reason to change. (Key specifics are not stated.)
-    Give me your recommendation.
-  principle_coverage:
-  - P018
-  expected_route: invoke
-  must_ask_for:
-  - the decision-relevant specifics the request leaves unstated
-- test_id: MC-019
+- test_id: MC-016
   prompt: Data is mutable and accessed beyond a very small scope. (Key specifics are not stated.) Give
     me your recommendation.
   principle_coverage:
@@ -834,7 +1221,7 @@ missing_context_tests:
   expected_route: invoke
   must_ask_for:
   - the decision-relevant specifics the request leaves unstated
-- test_id: MC-020
+- test_id: MC-017
   prompt: A group of functions share data, a class does too much, or a primitive needs behavior beyond
     printing. (Key specifics are not stated.) Give me your recommendation.
   principle_coverage:
@@ -842,7 +1229,7 @@ missing_context_tests:
   expected_route: invoke
   must_ask_for:
   - the decision-relevant specifics the request leaves unstated
-- test_id: MC-021
+- test_id: MC-018
   prompt: selecting a library, language, database, or other dependency. (Key specifics are not stated.)
     Give me your recommendation.
   principle_coverage:
@@ -850,31 +1237,7 @@ missing_context_tests:
   expected_route: invoke
   must_ask_for:
   - the decision-relevant specifics the request leaves unstated
-- test_id: MC-022
-  prompt: Reviewing error-handling or exception design in a change. (Key specifics are not stated.) Give
-    me your recommendation.
-  principle_coverage:
-  - P022
-  expected_route: invoke
-  must_ask_for:
-  - the decision-relevant specifics the request leaves unstated
-- test_id: MC-023
-  prompt: Reviewing test code for readability and structure. (Key specifics are not stated.) Give me your
-    recommendation.
-  principle_coverage:
-  - P023
-  expected_route: invoke
-  must_ask_for:
-  - the decision-relevant specifics the request leaves unstated
-- test_id: MC-024
-  prompt: Reviewing code that is hard to read or follow. (Key specifics are not stated.) Give me your
-    recommendation.
-  principle_coverage:
-  - P024
-  expected_route: invoke
-  must_ask_for:
-  - the decision-relevant specifics the request leaves unstated
-- test_id: MC-025
+- test_id: MC-019
   prompt: selecting, communicating, or refactoring toward a design solution for a recurring problem. (Key
     specifics are not stated.) Give me your recommendation.
   principle_coverage:
@@ -882,15 +1245,7 @@ missing_context_tests:
   expected_route: invoke
   must_ask_for:
   - the decision-relevant specifics the request leaves unstated
-- test_id: MC-026
-  prompt: Cleaning up or restructuring working-but-messy code. (Key specifics are not stated.) Give me
-    your recommendation.
-  principle_coverage:
-  - P026
-  expected_route: invoke
-  must_ask_for:
-  - the decision-relevant specifics the request leaves unstated
-- test_id: MC-027
+- test_id: MC-020
   prompt: the software will be maintained over a long lifetime. (Key specifics are not stated.) Give me
     your recommendation.
   principle_coverage:
@@ -898,7 +1253,7 @@ missing_context_tests:
   expected_route: invoke
   must_ask_for:
   - the decision-relevant specifics the request leaves unstated
-- test_id: MC-028
+- test_id: MC-021
   prompt: a part of the system has become hard to change or extend. (Key specifics are not stated.) Give
     me your recommendation.
   principle_coverage:
@@ -906,50 +1261,191 @@ missing_context_tests:
   expected_route: invoke
   must_ask_for:
   - the decision-relevant specifics the request leaves unstated
-- test_id: MC-029
-  prompt: Reviewing a function with a long or flag-laden parameter list. (Key specifics are not stated.)
-    Give me your recommendation.
-  principle_coverage:
-  - P029
-  expected_route: invoke
-  must_ask_for:
-  - the decision-relevant specifics the request leaves unstated
-- test_id: MC-030
-  prompt: Deciding whether to leave touched code cleaner than found. (Key specifics are not stated.) Give
-    me your recommendation.
-  principle_coverage:
-  - P030
-  expected_route: invoke
-  must_ask_for:
-  - the decision-relevant specifics the request leaves unstated
-- test_id: MC-031
+- test_id: MC-022
   prompt: Improving the speed of a program. (Key specifics are not stated.) Give me your recommendation.
   principle_coverage:
   - P031
   expected_route: invoke
   must_ask_for:
   - the decision-relevant specifics the request leaves unstated
-- test_id: MC-032
-  prompt: Reviewing names that use encodings, prefixes, or gratuitous context. (Key specifics are not
-    stated.) Give me your recommendation.
-  principle_coverage:
-  - P032
-  expected_route: invoke
-  must_ask_for:
-  - the decision-relevant specifics the request leaves unstated
-- test_id: MC-033
-  prompt: Reviewing handling of nulls, currency, locking, or type constraints. (Key specifics are not
-    stated.) Give me your recommendation.
-  principle_coverage:
-  - P033
-  expected_route: invoke
-  must_ask_for:
-  - the decision-relevant specifics the request leaves unstated
-- test_id: MC-034
+- test_id: MC-023
   prompt: A function has a long parameter list or a flag/derivable argument. (Key specifics are not stated.)
     Give me your recommendation.
   principle_coverage:
   - P034
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-024
+  prompt: Exposing a data structure or needing flexible construction or invocation. (Key specifics are
+    not stated.) Give me your recommendation.
+  principle_coverage:
+  - P035
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-025
+  prompt: choosing how flexible or generic to make a design. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P036
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-026
+  prompt: Improving the design of code without changing what users observe. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P037
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-027
+  prompt: making product or feature decisions. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P038
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-028
+  prompt: writing or reviewing any individual module, function, or piece. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P039
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-029
+  prompt: writing comments for declarations, methods, or implementation blocks. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P044
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-030
+  prompt: naming a variable, method, class, or other entity. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P045
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-031
+  prompt: Working in a team where refactorings touch shared code or published interfaces. (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P047
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-032
+  prompt: Code contains unused, speculative, or needlessly indirect elements, or loops that obscure intent.
+    (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P048
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-033
+  prompt: a system is expected to grow and keep changing. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P050
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-034
+  prompt: deciding whether to change, fix, or optimize something. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P051
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-035
+  prompt: naming, structuring, or designing interfaces and behavior. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P052
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-036
+  prompt: facing a very complex existing system and considering a rewrite. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P053
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-037
+  prompt: responsibilities must be added at run time without subclassing. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P059
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-038
+  prompt: designing or reviewing a class, module, subsystem, or service interface. (Key specifics are
+    not stated.) Give me your recommendation.
+  principle_coverage:
+  - P060
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-039
+  prompt: decomposing a system into modules; deciding where a piece of knowledge should live. (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P061
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-040
+  prompt: defining a public API for a class or service. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P062
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-041
+  prompt: reviewing a layered design or class hierarchy. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P063
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-042
+  prompt: a module faces complexity related to its own functionality. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P064
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-043
+  prompt: considering breaking up or merging a method. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P065
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-044
+  prompt: designing an API that could raise errors or special conditions. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P066
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-045
+  prompt: Deciding whether a given piece of code is worth refactoring now. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P067
   expected_route: invoke
   must_ask_for:
   - the decision-relevant specifics the request leaves unstated

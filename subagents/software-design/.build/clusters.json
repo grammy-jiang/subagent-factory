@@ -1,0 +1,404 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Design modules to be deep: maximize functionality behind the simplest interface that covers the common case."
+   },
+   {
+    "idx": 1,
+    "statement": "Encapsulate each design decision inside a single module so it does not appear in any interface, and treat information leakage as a red flag."
+   },
+   {
+    "idx": 3,
+    "statement": "Design interfaces so the most common usage is as simple as possible, providing sensible defaults and automatic behavior."
+   },
+   {
+    "idx": 4,
+    "statement": "Make modules somewhat general-purpose: tie functionality to current needs but keep the interface general enough for multiple uses."
+   }
+  ]
+ },
+ {
+  "group": 3,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Add an interface, class, argument, or other infrastructure element only when it removes more complexity than it introduces."
+   },
+   {
+    "idx": 7,
+    "statement": "Absorb unavoidable complexity inside a module rather than exposing it to users, because a simple interface matters more than a simple implementation."
+   },
+   {
+    "idx": 36,
+    "statement": "Be only as generic as present known needs require; treat any design that adds complexity instead of removing it as overengineering."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 9,
+    "statement": "Combine code that is closely related (shared information, used together, conceptual overlap) and separate only components that are truly independent."
+   },
+   {
+    "idx": 40,
+    "statement": "Keep every piece of information and logic in exactly one place, and reuse code instead of copying and pasting."
+   }
+  ]
+ },
+ {
+  "group": 9,
+  "members": [
+   {
+    "idx": 13,
+    "statement": "Mask a low-level exception so higher levels need not handle it, where the exception information is not needed above the handling layer."
+   },
+   {
+    "idx": 14,
+    "statement": "Aggregate many exceptions into a single high-level handler positioned where it catches the most exceptions."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 18,
+    "statement": "Write interface comments before code so documentation drives the design, and read long comments as a canary for poor abstractions."
+   },
+   {
+    "idx": 19,
+    "statement": "Write comments to capture what is not obvious from the code, and never write comments that merely repeat the code."
+   },
+   {
+    "idx": 20,
+    "statement": "Use lower-level comments for precision and higher-level comments for intuition, and separate interface comments from implementation comments."
+   }
+  ]
+ },
+ {
+  "group": 16,
+  "members": [
+   {
+    "idx": 23,
+    "statement": "When modifying existing code, leave the design at least slightly better - ideally as if it had been designed with the change in mind from the start."
+   },
+   {
+    "idx": 115,
+    "statement": "Optimize for changeability: the real test of good code is how easily it can be changed, so favor clarity over brevity, write code primarily for the future human reader, and always leave the codebase healthier than you found it."
+   }
+  ]
+ },
+ {
+  "group": 18,
+  "members": [
+   {
+    "idx": 25,
+    "statement": "Write obvious code (good names, consistency, white space, conforming to expectations); judge obviousness by readers and design for reading rather than writing."
+   },
+   {
+    "idx": 42,
+    "statement": "Judge simplicity from the target audience's viewpoint, which for code is other programmers, and write for someone who knows nothing about the system."
+   },
+   {
+    "idx": 45,
+    "statement": "Make code easy to read using consistent, structure-revealing spacing and good names, since code is read more than written and readable code is easier to fix."
+   }
+  ]
+ },
+ {
+  "group": 19,
+  "members": [
+   {
+    "idx": 26,
+    "statement": "Develop in increments of abstractions, not features; once an abstraction is needed, design it cleanly and somewhat general-purpose all at once."
+   },
+   {
+    "idx": 33,
+    "statement": "Make design decisions from present, known information and keep code flexible for change, without trying to predict specific future requirements."
+   }
+  ]
+ },
+ {
+  "group": 20,
+  "members": [
+   {
+    "idx": 27,
+    "statement": "Use OO mechanisms, inheritance, and design patterns only where they reduce complexity; prefer composition over implementation inheritance and avoid exposing instance variables."
+   },
+   {
+    "idx": 66,
+    "statement": "Hide implementation behind abstractions: keep variables private, expose interfaces that manipulate the essence of the data, and do not blindly add getters and setters, because exposing variables through accessors still exposes implementation."
+   },
+   {
+    "idx": 121,
+    "statement": "Favour object composition over class inheritance for reuse, because composition is black-box, keeps encapsulation intact, and can be reconfigured at run time."
+   }
+  ]
+ },
+ {
+  "group": 21,
+  "members": [
+   {
+    "idx": 28,
+    "statement": "Maintain a good unit-test suite so refactoring is safe and the design can keep improving."
+   },
+   {
+    "idx": 72,
+    "statement": "Maintain an automated suite of covering unit tests, because tests are what keep a design flexible, maintainable, and reusable by removing the fear that blocks change and refactoring."
+   },
+   {
+    "idx": 88,
+    "statement": "Write clean code by successive refinement under a covering test suite: first make it work, then make it right, refactoring in many tiny verified steps and stopping to fix the structure before a mess grows too large, never via a big-bang rewrite."
+   },
+   {
+    "idx": 95,
+    "statement": "Keep refactoring behavior-preserving and separate from other work: wear one hat at a time (refactor vs add functionality), change only internal structure, and treat refactoring as distinct from performance optimization, whose goals differ."
+   },
+   {
+    "idx": 96,
+    "statement": "Treat a fast, self-checking, self-testing suite as a prerequisite for refactoring: automate the tests, make them check their own results, run them frequently, and confirm each test can fail when it should."
+   },
+   {
+    "idx": 99,
+    "statement": "Refactor when change demands it: refactor first to make a feature or bug fix easy (preparatory), refactor to understand unfamiliar code (comprehension), remove duplication by the rule of three, and fold refactoring opportunistically into everyday work because software is never done."
+   },
+   {
+    "idx": 100,
+    "statement": "Do not over- or mis-apply refactoring: leave messy code you do not need to touch, keep dedicated planned-refactoring episodes rare, occasionally rewrite instead of refactor, and justify refactoring on economic grounds (faster delivery) rather than moral or aesthetic ones."
+   },
+   {
+    "idx": 102,
+    "statement": "Refactor legacy code safely by first getting it under test through seams, then improving it in small pieces as you pass through, doing the most work in the areas you visit most."
+   }
+  ]
+ },
+ {
+  "group": 24,
+  "members": [
+   {
+    "idx": 31,
+    "statement": "Optimize design to minimize long-term maintenance effort rather than implementation effort, since over a system's lifetime maintenance dominates the desirability of changes."
+   },
+   {
+    "idx": 32,
+    "statement": "Prefer designs whose maintenance effort decreases over time toward zero, and reject changes whose maintenance grows faster than their value."
+   },
+   {
+    "idx": 37,
+    "statement": "Keep changes small to lower defect risk, enable real design on each change, and reduce maintenance effort."
+   }
+  ]
+ },
+ {
+  "group": 25,
+  "members": [
+   {
+    "idx": 34,
+    "statement": "Scale design effort to how long the system will keep helping people; when in doubt, assume a long life and invest in design accordingly."
+   },
+   {
+    "idx": 47,
+    "statement": "Invest in design continuously, because systems do not become simple on their own and an undesigned growing system drifts into failing complexity."
+   }
+  ]
+ },
+ {
+  "group": 26,
+  "members": [
+   {
+    "idx": 35,
+    "statement": "Do not write code until it is actually needed, and delete code that isn't being used."
+   },
+   {
+    "idx": 46,
+    "statement": "Write comments that explain why, not what; if what the code does isn't obvious, simplify the code instead of commenting it."
+   }
+  ]
+ },
+ {
+  "group": 27,
+  "members": [
+   {
+    "idx": 38,
+    "statement": "Build and redesign the system piece by piece, simplest part first, redesigning to make the next feature easy before implementing it."
+   },
+   {
+    "idx": 41,
+    "statement": "Make each individual piece of the system as simple as possible and keep it that way, since ease of maintenance is proportional to the simplicity of the pieces."
+   }
+  ]
+ },
+ {
+  "group": 37,
+  "members": [
+   {
+    "idx": 54,
+    "statement": "Name variables, functions, and classes with intention-revealing, unambiguous, pronounceable, searchable names that say why they exist, what they do, and how they are used; if a name needs a comment to be understood, it has failed."
+   },
+   {
+    "idx": 55,
+    "statement": "Keep a consistent, non-cute vocabulary: one word per concept, no puns, names drawn from the solution or problem domain, and a name that reveals every effect of a function including its side effects."
+   },
+   {
+    "idx": 56,
+    "statement": "Avoid name encodings (Hungarian notation, member or interface prefixes) and gratuitous context, size a name to its scope, name classes as nouns and methods as verbs, and rename freely with tools when a better name appears."
+   },
+   {
+    "idx": 107,
+    "statement": "Name variables, fields, and functions to reveal intent, and rename them freely as understanding improves; difficulty finding a good name often signals a deeper design problem."
+   }
+  ]
+ },
+ {
+  "group": 38,
+  "members": [
+   {
+    "idx": 57,
+    "statement": "Keep functions small and doing exactly one thing, with all statements at one level of abstraction one step below the function name, blocks reduced to a call, indentation shallow, and code ordered top-down by the stepdown rule."
+   },
+   {
+    "idx": 106,
+    "statement": "Prefer small, well-named functions that separate intention from implementation: extract a fragment into a function named after what it does whenever you would otherwise write a comment, and inline functions whose indirection no longer earns its keep."
+   },
+   {
+    "idx": 118,
+    "statement": "Move code to better boundaries as understanding grows: relocate statements into or out of functions, slide related statements together, and substitute a whole algorithm when a clearer one is found."
+   }
+  ]
+ },
+ {
+  "group": 41,
+  "members": [
+   {
+    "idx": 60,
+    "statement": "Use descriptive function names and prefer polymorphism to switch/if-else chains; tolerate a switch only when it appears once, creates polymorphic objects, and is hidden behind an inheritance relationship."
+   },
+   {
+    "idx": 110,
+    "statement": "Simplify conditional logic: decompose complex conditions into intention-named functions, use guard clauses for unusual cases, and replace type-code switching with polymorphism — but reserve polymorphism for type-based or base-plus-variant cases rather than converting all conditionals."
+   }
+  ]
+ },
+ {
+  "group": 44,
+  "members": [
+   {
+    "idx": 63,
+    "statement": "Treat comments as a last resort and a necessary evil; first try to express the intent in code, since the code is the only reliable source of truth and comments decay into lies as they drift from the code they describe."
+   },
+   {
+    "idx": 64,
+    "statement": "Keep surviving comments truthful, brief, and local: delete redundant, mandated, noise, obsolete, journal, and authorship comments and all commented-out code, and let source control hold history; reserve comments for technical notes the code cannot express."
+   }
+  ]
+ },
+ {
+  "group": 49,
+  "members": [
+   {
+    "idx": 70,
+    "statement": "Drive production code with the Three Laws of TDD - no production code without a failing test, no more test than fails, no more production code than passes - writing each unit test just before the code that makes it pass."
+   },
+   {
+    "idx": 71,
+    "statement": "Keep test code as clean as production code: readable above all, one concept per test with minimal asserts, built-operate-check structure, a domain-specific testing language, and F.I.R.S.T. (fast, independent, repeatable, self-validating, timely)."
+   }
+  ]
+ },
+ {
+  "group": 50,
+  "members": [
+   {
+    "idx": 73,
+    "statement": "Test everything that could break: use a coverage tool to find gaps, write a test for every boundary and corner case, test trivial cases, exhaustively test near a found bug, and read patterns of failure and coverage as diagnostic clues."
+   },
+   {
+    "idx": 97,
+    "statement": "Make testing risk-driven and bug-finding: concentrate tests on complex code and boundary conditions, start a bug fix by writing a failing test that exposes it, and judge a suite by confidence that a defect would trip a test rather than by coverage percentage."
+   }
+  ]
+ },
+ {
+  "group": 51,
+  "members": [
+   {
+    "idx": 74,
+    "statement": "Keep classes small and single-responsibility (exactly one reason to change), measured by counting responsibilities; prefer many small, highly cohesive classes over a few large ones, and split a class when its cohesion drops."
+   },
+   {
+    "idx": 116,
+    "statement": "Manage inheritance deliberately: pull common members up and push specific members down, remove subclasses that no longer earn their keep, and replace subclassing with delegation when you need more than one axis of variation or the subclass is not a true subtype — favoring composition over inheritance."
+   }
+  ]
+ },
+ {
+  "group": 53,
+  "members": [
+   {
+    "idx": 76,
+    "statement": "Separate constructing a system from using it: move object construction and dependency wiring into main, factories, or a dependency-injection container so application objects stay passive and unaware of how they were built."
+   },
+   {
+    "idx": 123,
+    "statement": "Use a creational pattern to decouple a system from how its objects are created, composed, and represented."
+   }
+  ]
+ },
+ {
+  "group": 57,
+  "members": [
+   {
+    "idx": 80,
+    "statement": "Eliminate duplication relentlessly, since every duplication is a missed abstraction: fold identical code into a method, repeated conditionals into polymorphism, and similar algorithms into a Template Method or Strategy."
+   },
+   {
+    "idx": 105,
+    "statement": "Eliminate duplicated knowledge so the system says everything once and only once, unifying repeated code with extraction, parameterization, or a shared function call."
+   }
+  ]
+ },
+ {
+  "group": 58,
+  "members": [
+   {
+    "idx": 81,
+    "statement": "Treat concurrency as a hard, separate concern with its own reason to change: keep concurrency code apart from other code, and reject the myths that it always improves performance, leaves design unchanged, or is handled for you by a container."
+   },
+   {
+    "idx": 83,
+    "statement": "Manage locking deliberately: know the concurrency library and execution models, beware dependencies between synchronized methods, and prefer server-based locking over client-based locking (wrapping with an Adapter when you do not own the server)."
+   }
+  ]
+ },
+ {
+  "group": 82,
+  "members": [
+   {
+    "idx": 120,
+    "statement": "Program to an interface, not an implementation: have client code depend on abstract types, not concrete classes, so implementations can change without breaking clients."
+   },
+   {
+    "idx": 130,
+    "statement": "Use Adapter to make a class with an incompatible interface usable by converting its interface to the one clients expect."
+   }
+  ]
+ },
+ {
+  "group": 86,
+  "members": [
+   {
+    "idx": 126,
+    "statement": "Use Factory Method to let subclasses decide which concrete class to instantiate when a class cannot anticipate the class of objects it must create."
+   },
+   {
+    "idx": 128,
+    "statement": "Use Prototype to create new objects by cloning a prototypical instance, e.g. when the classes to instantiate are specified at run time or to avoid a parallel factory hierarchy."
+   }
+  ]
+ }
+]

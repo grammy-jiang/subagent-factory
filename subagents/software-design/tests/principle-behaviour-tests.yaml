@@ -1,11 +1,14 @@
 schema_version: principle-behaviour-tests-v1
 subagent_slug: software-design
-generated_at: '2026-06-22'
+generated_at: '2026-07-02'
 principle_behaviour_tests:
 - test_id: PB-001
   principle_id: P001
   mode: review
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Treat a fast, self-checking, self-testing suite as a prerequisite for refactoring. (applies when: a system that will undergo ongoing change and refactoring) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Treat a fast, self-checking,
+    self-testing suite as a prerequisite for refactoring: automate the tests, make them check their own
+    results, run them frequently, and confirm each test can fail when it should. (applies when: a system
+    that will undergo ongoing change and refactoring) What should the reviewer do?'
   expected_behaviour:
   - Applies P001 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -16,7 +19,11 @@ principle_behaviour_tests:
 - test_id: PB-002
   principle_id: P002
   mode: validate
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Write for the reader, not the writer. (applies when: writing or reviewing code for readability) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Write for the reader,
+    not the writer: code is read far more than written, so judge clarity from the viewpoint of another
+    programmer who knows nothing about the system, and make code obvious with good names, consistency,
+    and structure-revealing whitespace. (applies when: writing or reviewing code for readability) What
+    should the reviewer do?'
   expected_behaviour:
   - Applies P002 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -27,7 +34,11 @@ principle_behaviour_tests:
 - test_id: PB-003
   principle_id: P003
   mode: advise
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Make testing risk-driven and bug-finding. (applies when: Deciding what and how much to test) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Make testing risk-driven
+    and bug-finding: concentrate tests on complex code and boundary/corner cases, start a bug fix by writing
+    a failing test that exposes it, and judge a suite by confidence that a defect would trip a test rather
+    than by coverage percentage. (applies when: Deciding what and how much to test) What should the reviewer
+    do?'
   expected_behaviour:
   - Applies P003 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -38,7 +49,10 @@ principle_behaviour_tests:
 - test_id: PB-004
   principle_id: P004
   mode: compare
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Name variables, functions, and classes with intention-revealing, unambiguous, pronounceable, searchable names that say why they exist, what they do, and how they are…. (applies when: any time you introduce or read a name in code) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Name variables, functions,
+    and classes with intention-revealing, unambiguous, pronounceable, searchable names that say why they
+    exist, what they do, and how they are used; if a name needs a comment to be understood, it has failed.
+    (applies when: any time you introduce or read a name in code) What should the reviewer do?'
   expected_behaviour:
   - Applies P004 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -49,7 +63,11 @@ principle_behaviour_tests:
 - test_id: PB-005
   principle_id: P005
   mode: patch-suggest
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Prefer small, well-named functions that separate intention from implementation. (applies when: A function is long, or a fragment needs a comment to be understood) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Prefer small, well-named
+    functions that separate intention from implementation: extract a fragment into a function named after
+    what it does whenever you would otherwise write a comment, and inline functions whose indirection
+    no longer earns its keep. (applies when: A function is long, or a fragment needs a comment to be understood)
+    What should the reviewer do?'
   expected_behaviour:
   - Applies P005 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -60,7 +78,10 @@ principle_behaviour_tests:
 - test_id: PB-006
   principle_id: P006
   mode: review
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Optimize for changeability and leave the codebase healthier than you found it. (applies when: fixing a bug or adding a feature in an existing code base) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Optimize for changeability
+    and leave the codebase healthier than you found it: the real test of good code is how easily it can
+    be changed, so favor clarity over brevity and write primarily for the future human reader. (applies
+    when: fixing a bug or adding a feature in an existing code base) What should the reviewer do?'
   expected_behaviour:
   - Applies P006 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -71,7 +92,12 @@ principle_behaviour_tests:
 - test_id: PB-007
   principle_id: P007
   mode: validate
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Simplify conditional logic. (applies when: Conditional logic is complex, or the same type-based switch is duplicated across functions) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Simplify conditional
+    logic: decompose complex conditions into intention-named functions, use guard clauses for unusual
+    cases, and replace type-code switching with polymorphism — reserving polymorphism for type-based or
+    base-plus-variant cases rather than converting every conditional. (applies when: Conditional logic
+    is complex, or the same type-based switch is duplicated across functions) What should the reviewer
+    do?'
   expected_behaviour:
   - Applies P007 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -82,7 +108,10 @@ principle_behaviour_tests:
 - test_id: PB-008
   principle_id: P008
   mode: advise
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Use OO mechanisms, inheritance, and design patterns only where they reduce complexity; prefer composition over implementation inheritance and avoid exposing instance…. (applies when: choosing OO structuring, inheritance, or a design pattern) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Use OO mechanisms,
+    inheritance, and design patterns only where they reduce complexity; prefer composition over implementation
+    inheritance and avoid exposing instance variables. (applies when: choosing OO structuring, inheritance,
+    or a design pattern) What should the reviewer do?'
   expected_behaviour:
   - Applies P008 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -93,7 +122,11 @@ principle_behaviour_tests:
 - test_id: PB-009
   principle_id: P009
   mode: compare
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Separate constructing a system from using it. (applies when: object creation must be independent of the concrete product classes) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Separate constructing
+    a system from using it: move object construction and dependency wiring into main, factories, or a
+    dependency-injection container so application objects stay passive and unaware of how they were built.
+    (applies when: object creation must be independent of the concrete product classes) What should the
+    reviewer do?'
   expected_behaviour:
   - Applies P009 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -104,7 +137,10 @@ principle_behaviour_tests:
 - test_id: PB-010
   principle_id: P010
   mode: patch-suggest
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Eliminate duplicated knowledge so the system says everything once and only once. (applies when: The same logic or structure appears in more than one place) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Eliminate duplicated
+    knowledge so the system says everything once and only once: fold identical code into a method, repeated
+    conditionals into polymorphism, and similar algorithms into a Template Method or Strategy. (applies
+    when: The same logic or structure appears in more than one place) What should the reviewer do?'
   expected_behaviour:
   - Applies P010 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -115,7 +151,9 @@ principle_behaviour_tests:
 - test_id: PB-011
   principle_id: P011
   mode: review
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Be only as generic as present known needs require; treat any design that adds complexity instead of removing it as overengineering. (applies when: introducing any new design element) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Be only as generic
+    as present known needs require; treat any design that adds complexity instead of removing it as overengineering.
+    (applies when: introducing any new design element) What should the reviewer do?'
   expected_behaviour:
   - Applies P011 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -126,7 +164,11 @@ principle_behaviour_tests:
 - test_id: PB-012
   principle_id: P012
   mode: validate
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Refactor when change demands it. (applies when: Adding a feature, fixing a bug, or trying to understand code) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Refactor when change
+    demands it: refactor first to make a feature or bug fix easy (preparatory), refactor to understand
+    unfamiliar code (comprehension), remove duplication by the rule of three, and fold refactoring opportunistically
+    into everyday work because software is never done. (applies when: Adding a feature, fixing a bug,
+    or trying to understand code) What should the reviewer do?'
   expected_behaviour:
   - Applies P012 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -137,7 +179,12 @@ principle_behaviour_tests:
 - test_id: PB-013
   principle_id: P013
   mode: advise
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Manage inheritance deliberately. (applies when: A class hierarchy has duplication, misused inheritance, or a subclass that refuses its parent''s interface) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Manage inheritance
+    deliberately: pull common members up and push specific members down, remove subclasses that no longer
+    earn their keep, and replace subclassing with delegation when you need more than one axis of variation
+    or the subclass is not a true subtype — favoring composition over inheritance. (applies when: A class
+    hierarchy has duplication, misused inheritance, or a subclass that refuses its parent''s interface)
+    What should the reviewer do?'
   expected_behaviour:
   - Applies P013 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -148,7 +195,10 @@ principle_behaviour_tests:
 - test_id: PB-014
   principle_id: P014
   mode: compare
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Keep surviving comments truthful, brief, and local. What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Keep surviving comments
+    truthful, brief, and local: delete redundant, mandated, noise, obsolete, journal, and authorship comments
+    and all commented-out code, and let source control hold history; reserve comments for technical notes
+    the code cannot express. What should the reviewer do?'
   expected_behaviour:
   - Applies P014 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -159,7 +209,12 @@ principle_behaviour_tests:
 - test_id: PB-015
   principle_id: P015
   mode: patch-suggest
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Co-locate behavior with the data it uses and cut inappropriate coupling between modules. (applies when: A function interacts with another module''s data more than its own, or modules trade too much detail) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Co-locate behavior
+    with the data it uses and cut inappropriate coupling between modules: move a function or field to
+    the data it most references, and reduce excessive chatting between modules (feature envy, message
+    chains, middle man, insider trading) with moves, delegation hiding, or a shared module. (applies when:
+    A function interacts with another module''s data more than its own, or modules trade too much detail)
+    What should the reviewer do?'
   expected_behaviour:
   - Applies P015 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -170,7 +225,11 @@ principle_behaviour_tests:
 - test_id: PB-016
   principle_id: P016
   mode: review
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Refactor in tiny behavior-preserving steps, compiling and running the tests after each step and committing after each success; when a step breaks the tests and the cause…. (applies when: Restructuring existing, working code under a test suite) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Refactor in tiny
+    behavior-preserving steps, compiling and running the tests after each step and committing after each
+    success; when a step breaks the tests and the cause is not obvious, revert to the last green commit
+    and redo with smaller steps. (applies when: Restructuring existing, working code under a test suite)
+    What should the reviewer do?'
   expected_behaviour:
   - Applies P016 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -181,7 +240,10 @@ principle_behaviour_tests:
 - test_id: PB-017
   principle_id: P017
   mode: validate
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Apply one agreed team formatting style enforced by a tool, keep source files small, and structure each file newspaper-style with high-level concepts first, vertical…. What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Apply one agreed
+    team formatting style enforced by a tool, keep source files small, and structure each file newspaper-style
+    with high-level concepts first, vertical openness between concepts, vertical closeness of related
+    code, and short lines. What should the reviewer do?'
   expected_behaviour:
   - Applies P017 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -192,7 +254,10 @@ principle_behaviour_tests:
 - test_id: PB-018
   principle_id: P018
   mode: advise
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Keep classes small and single-responsibility (exactly one reason to change), measured by counting responsibilities; prefer many small, highly cohesive classes over a few…. What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Keep classes small
+    and single-responsibility (exactly one reason to change), measured by counting responsibilities; prefer
+    many small, highly cohesive classes over a few large ones, and split a class when its cohesion drops.
+    What should the reviewer do?'
   expected_behaviour:
   - Applies P018 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -203,7 +268,10 @@ principle_behaviour_tests:
 - test_id: PB-019
   principle_id: P019
   mode: compare
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Minimize and encapsulate mutable and global data. (applies when: Data is mutable and accessed beyond a very small scope) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Minimize and encapsulate
+    mutable and global data: route access through functions, restrict scope, prefer immutability, remove
+    setters for fields that should not change, and replace derived variables with queries. (applies when:
+    Data is mutable and accessed beyond a very small scope) What should the reviewer do?'
   expected_behaviour:
   - Applies P019 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -214,7 +282,10 @@ principle_behaviour_tests:
 - test_id: PB-020
   principle_id: P020
   mode: patch-suggest
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Form classes or transforms around a common body of data, split classes that have grown too big, and create first-class domain types for primitives that have gained…. (applies when: A group of functions share data, a class does too much, or a primitive needs behavior beyond printing) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Form classes or transforms
+    around a common body of data, split classes that have grown too big, and create first-class domain
+    types for primitives that have gained behavior. (applies when: A group of functions share data, a
+    class does too much, or a primitive needs behavior beyond printing) What should the reviewer do?'
   expected_behaviour:
   - Applies P020 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -225,7 +296,10 @@ principle_behaviour_tests:
 - test_id: PB-021
   principle_id: P021
   mode: review
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Evaluate any technology for survival potential, interoperability, and attention to quality, preferring broadly adopted, standard-based options to avoid lock-in. (applies when: selecting a library, language, database, or other dependency) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Evaluate any technology
+    for survival potential, interoperability, and attention to quality, preferring broadly adopted, standard-based
+    options to avoid lock-in. (applies when: selecting a library, language, database, or other dependency)
+    What should the reviewer do?'
   expected_behaviour:
   - Applies P021 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -236,7 +310,10 @@ principle_behaviour_tests:
 - test_id: PB-022
   principle_id: P022
   mode: validate
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Prefer throwing exceptions to returning error codes, write the try-catch-finally scope first, give every exception enough context to locate and log it, classify…. What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Prefer throwing exceptions
+    to returning error codes, write the try-catch-finally scope first, give every exception enough context
+    to locate and log it, classify exceptions by how they are caught, and prefer unchecked exceptions
+    in general application code. What should the reviewer do?'
   expected_behaviour:
   - Applies P022 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -247,7 +324,10 @@ principle_behaviour_tests:
 - test_id: PB-023
   principle_id: P023
   mode: advise
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Keep test code as clean as production code. What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Keep test code as
+    clean as production code: readable above all, one concept per test with minimal asserts, built-operate-check
+    structure, a domain-specific testing language, and F.I.R.S.T. (fast, independent, repeatable, self-validating,
+    timely). What should the reviewer do?'
   expected_behaviour:
   - Applies P023 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -258,7 +338,10 @@ principle_behaviour_tests:
 - test_id: PB-024
   principle_id: P024
   mode: compare
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Optimize for readability, since code is read far more than it is written. What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Optimize for readability,
+    since code is read far more than it is written: make intent visible with good names, small functions,
+    explanatory variables, and conditionals encapsulated in intent-revealing positive predicates. What
+    should the reviewer do?'
   expected_behaviour:
   - Applies P024 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -269,7 +352,10 @@ principle_behaviour_tests:
 - test_id: PB-025
   principle_id: P025
   mode: patch-suggest
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Treat patterns as a shared vocabulary and as targets for refactoring; classify a recurring problem by purpose (creational/structural/behavioral) and scope (class/object)…. (applies when: selecting, communicating, or refactoring toward a design solution for a recurring problem) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Treat patterns as
+    a shared vocabulary and as targets for refactoring; classify a recurring problem by purpose (creational/structural/behavioral)
+    and scope (class/object) to narrow the candidate patterns. (applies when: selecting, communicating,
+    or refactoring toward a design solution for a recurring problem) What should the reviewer do?'
   expected_behaviour:
   - Applies P025 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -280,7 +366,10 @@ principle_behaviour_tests:
 - test_id: PB-026
   principle_id: P026
   mode: review
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Write clean code by successive refinement under a covering test suite. What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Write clean code
+    by successive refinement under a covering test suite: first make it work, then make it right, refactoring
+    in many tiny verified steps and stopping to fix the structure before a mess grows too large, never
+    via a big-bang rewrite. What should the reviewer do?'
   expected_behaviour:
   - Applies P026 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -291,7 +380,10 @@ principle_behaviour_tests:
 - test_id: PB-027
   principle_id: P027
   mode: validate
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Optimize design to minimize long-term maintenance effort rather than implementation effort, since over a system''s lifetime maintenance dominates the desirability of…. (applies when: the software will be maintained over a long lifetime) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Optimize design to
+    minimize long-term maintenance effort rather than implementation effort, since over a system''s lifetime
+    maintenance dominates the desirability of changes. (applies when: the software will be maintained
+    over a long lifetime) What should the reviewer do?'
   expected_behaviour:
   - Applies P027 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -302,7 +394,10 @@ principle_behaviour_tests:
 - test_id: PB-028
   principle_id: P028
   mode: advise
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: When complexity appears, look for the underlying design error, redesign pieces in small steps without adding complexity, and hide truly unfixable complexity behind a…. (applies when: a part of the system has become hard to change or extend) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: When complexity appears,
+    look for the underlying design error, redesign pieces in small steps without adding complexity, and
+    hide truly unfixable complexity behind a simple wrapper. (applies when: a part of the system has become
+    hard to change or extend) What should the reviewer do?'
   expected_behaviour:
   - Applies P028 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -313,7 +408,10 @@ principle_behaviour_tests:
 - test_id: PB-029
   principle_id: P029
   mode: compare
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Minimize function arguments (zero, then one, then two; avoid three or more), forbid flag/boolean arguments by splitting the function, avoid output arguments by mutating…. What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Minimize function
+    arguments (zero, then one, then two; avoid three or more), forbid flag/boolean arguments by splitting
+    the function, avoid output arguments by mutating the owning object, and wrap groups of related arguments
+    in a class. What should the reviewer do?'
   expected_behaviour:
   - Applies P029 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -324,7 +422,10 @@ principle_behaviour_tests:
 - test_id: PB-030
   principle_id: P030
   mode: patch-suggest
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: It is not enough for code to work; keep it clean continuously and leave every module cleaner than you found it (the Boy Scout Rule), because deferred cleanup never…. What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: It is not enough
+    for code to work; keep it clean continuously and leave every module cleaner than you found it (the
+    Boy Scout Rule), because deferred cleanup never happens and bad code rots into a weight that drags
+    the team down. What should the reviewer do?'
   expected_behaviour:
   - Applies P030 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -335,7 +436,11 @@ principle_behaviour_tests:
 - test_id: PB-031
   principle_id: P031
   mode: review
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Pursue performance by writing well-factored, tunable code first and optimizing last. (applies when: Improving the speed of a program) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Pursue performance
+    by writing well-factored, tunable code first and optimizing last: measure with a profiler instead
+    of speculating, target the small fraction of hot-spot code, and tune in small measured steps, backing
+    out changes that do not help. (applies when: Improving the speed of a program) What should the reviewer
+    do?'
   expected_behaviour:
   - Applies P031 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -346,7 +451,10 @@ principle_behaviour_tests:
 - test_id: PB-032
   principle_id: P032
   mode: validate
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Avoid name encodings (Hungarian notation, member or interface prefixes) and gratuitous context, size a name to its scope, name classes as nouns and methods as verbs, and…. What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Avoid name encodings
+    (Hungarian notation, member or interface prefixes) and gratuitous context, size a name to its scope,
+    name classes as nouns and methods as verbs, and rename freely with tools when a better name appears.
+    What should the reviewer do?'
   expected_behaviour:
   - Applies P032 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -357,7 +465,10 @@ principle_behaviour_tests:
 - test_id: PB-033
   principle_id: P033
   mode: advise
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Be precise and prefer structure to convention. What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Be precise and prefer
+    structure to convention: handle nulls, currency, locking, and type constraints deliberately, prefer
+    nonstatic to static, keep interfaces minimal, avoid artificial coupling, and delete dead code and
+    clutter. What should the reviewer do?'
   expected_behaviour:
   - Applies P033 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
@@ -368,11 +479,480 @@ principle_behaviour_tests:
 - test_id: PB-034
   principle_id: P034
   mode: compare
-  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Keep parameter lists short and meaningful. (applies when: A function has a long parameter list or a flag/derivable argument) What should the reviewer do?'
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Keep parameter lists
+    short and meaningful: combine data clumps into a parameter object, pass a whole record instead of
+    several of its fields, replace a flag argument with explicit functions, and drop a parameter the function
+    could compute itself. (applies when: A function has a long parameter list or a flag/derivable argument)
+    What should the reviewer do?'
   expected_behaviour:
   - Applies P034 and names the relevant red flag, smell, or principle.
   - Bounds the recommendation to present known requirements.
   - Cites P034.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-035
+  principle_id: P035
+  mode: patch-suggest
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Encapsulate records,
+    collections, and construction: hide collection internals behind add/remove methods, prefer factory
+    functions over constructors when you need flexibility, and use a command object only when a plain
+    function cannot provide a needed facility. (applies when: Exposing a data structure or needing flexible
+    construction or invocation) What should the reviewer do?'
+  expected_behaviour:
+  - Applies P035 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P035.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-036
+  principle_id: P036
+  mode: review
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Make design decisions
+    from present, known information and keep code flexible for change, without trying to predict specific
+    future requirements. (applies when: choosing how flexible or generic to make a design) What should
+    the reviewer do?'
+  expected_behaviour:
+  - Applies P036 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P036.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-037
+  principle_id: P037
+  mode: validate
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Keep refactoring
+    behavior-preserving and separate from other work: wear one hat at a time (refactor vs add functionality),
+    change only internal structure, and treat refactoring as distinct from performance optimization, whose
+    goals differ. (applies when: Improving the design of code without changing what users observe) What
+    should the reviewer do?'
+  expected_behaviour:
+  - Applies P037 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P037.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-038
+  principle_id: P038
+  mode: advise
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Define the software''s
+    purpose as helping people and use ''how much does this help?'' as the primary test for every design
+    decision and feature priority. (applies when: making product or feature decisions) What should the
+    reviewer do?'
+  expected_behaviour:
+  - Applies P038 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P038.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-039
+  principle_id: P039
+  mode: compare
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Make each individual
+    piece of the system as simple as possible and keep it that way, since ease of maintenance is proportional
+    to the simplicity of the pieces. (applies when: writing or reviewing any individual module, function,
+    or piece) What should the reviewer do?'
+  expected_behaviour:
+  - Applies P039 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P039.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-040
+  principle_id: P040
+  mode: patch-suggest
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Keep a consistent,
+    non-cute vocabulary: one word per concept, no puns, names drawn from the solution or problem domain,
+    and a name that reveals every effect of a function including its side effects. What should the reviewer
+    do?'
+  expected_behaviour:
+  - Applies P040 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P040.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-041
+  principle_id: P041
+  mode: review
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Isolate every third-party
+    or not-yet-built boundary behind a wrapper or Adapter you control, referenced in few places and supported
+    by learning tests and boundary tests, so the external API can change with minimal impact. What should
+    the reviewer do?'
+  expected_behaviour:
+  - Applies P041 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P041.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-042
+  principle_id: P042
+  mode: validate
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Grow architecture
+    incrementally instead of Big Design Up Front, keeping domain logic in framework-free POJOs with cross-cutting
+    concerns applied noninvasively, and always use the simplest thing that can possibly work. What should
+    the reviewer do?'
+  expected_behaviour:
+  - Applies P042 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P042.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-043
+  principle_id: P043
+  mode: advise
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: The only way to go
+    fast is to keep the code clean at all times; as a professional, defend code quality against schedule
+    pressure, and remember these rules express a value system rather than a rote checklist. What should
+    the reviewer do?'
+  expected_behaviour:
+  - Applies P043 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P043.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-044
+  principle_id: P044
+  mode: compare
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Use lower-level comments
+    for precision and higher-level comments for intuition, and separate interface comments from implementation
+    comments. (applies when: writing comments for declarations, methods, or implementation blocks) What
+    should the reviewer do?'
+  expected_behaviour:
+  - Applies P044 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P044.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-045
+  principle_id: P045
+  mode: patch-suggest
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Choose names that
+    are precise, intuitive, and used consistently; treat a hard-to-name entity as a design red flag. (applies
+    when: naming a variable, method, class, or other entity) What should the reviewer do?'
+  expected_behaviour:
+  - Applies P045 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P045.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-046
+  principle_id: P046
+  mode: review
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Apply least-surprise
+    structural heuristics: implement the behavior a reader would reasonably expect, keep concepts at the
+    right level of abstraction with base classes independent of derivatives, put each responsibility where
+    it is expected, and never override safeties. What should the reviewer do?'
+  expected_behaviour:
+  - Applies P046 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P046.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-047
+  principle_id: P047
+  mode: validate
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Favor continuous
+    integration over long-lived feature branches, prefer team ownership over fine-grained code ownership,
+    and when changing a published interface keep the old declaration as a deprecated pass-through until
+    clients migrate. (applies when: Working in a team where refactorings touch shared code or published
+    interfaces) What should the reviewer do?'
+  expected_behaviour:
+  - Applies P047 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P047.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-048
+  principle_id: P048
+  mode: advise
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Remove what no longer
+    pays its way: replace loops with collection pipelines, delete dead code rather than commenting it
+    out, strip speculative generality, and inline lazy elements that add no value. (applies when: Code
+    contains unused, speculative, or needlessly indirect elements, or loops that obscure intent) What
+    should the reviewer do?'
+  expected_behaviour:
+  - Applies P048 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P048.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-049
+  principle_id: P049
+  mode: compare
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Hide implementation
+    behind abstractions: keep variables private, expose interfaces that manipulate the essence of the
+    data, and do not blindly add getters and setters, because exposing variables through accessors still
+    exposes implementation. What should the reviewer do?'
+  expected_behaviour:
+  - Applies P049 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P049.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-050
+  principle_id: P050
+  mode: patch-suggest
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Invest in design
+    continuously, because systems do not become simple on their own and an undesigned growing system drifts
+    into failing complexity. (applies when: a system is expected to grow and keep changing) What should
+    the reviewer do?'
+  expected_behaviour:
+  - Applies P050 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P050.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-051
+  principle_id: P051
+  mode: review
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Never fix or optimize
+    without evidence that a real problem exists; treat a behavior as a bug only when a significant number
+    of users do, and optimize only proven hot spots. (applies when: deciding whether to change, fix, or
+    optimize something) What should the reviewer do?'
+  expected_behaviour:
+  - Applies P051 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P051.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-052
+  principle_id: P052
+  mode: validate
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Do things the same
+    way everywhere and make the program behave consistently internally; when full simplicity is impossible,
+    at least be consistent. (applies when: naming, structuring, or designing interfaces and behavior)
+    What should the reviewer do?'
+  expected_behaviour:
+  - Applies P052 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P052.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-053
+  principle_id: P053
+  mode: advise
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Prefer incremental
+    redesign to rewriting; rewrite only when all of the rare conditions hold, and never stop maintaining
+    a system in use to rewrite it. (applies when: facing a very complex existing system and considering
+    a rewrite) What should the reviewer do?'
+  expected_behaviour:
+  - Applies P053 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P053.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-054
+  principle_id: P054
+  mode: compare
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Treat comments as
+    a last resort and a necessary evil; first try to express the intent in code, since the code is the
+    only reliable source of truth and comments decay into lies as they drift from the code they describe.
+    What should the reviewer do?'
+  expected_behaviour:
+  - Applies P054 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P054.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-055
+  principle_id: P055
+  mode: patch-suggest
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Follow the four rules
+    of Simple Design in priority order - the design runs all the tests, contains no duplication, expresses
+    the programmer''s intent, and minimizes the number of classes and methods - treating entity-count
+    reduction as the lowest priority. What should the reviewer do?'
+  expected_behaviour:
+  - Applies P055 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P055.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-056
+  principle_id: P056
+  mode: review
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Treat concurrency
+    as a hard, separate concern with its own reason to change: keep concurrency code apart from other
+    code, and reject the myths that it always improves performance, leaves design unchanged, or is handled
+    for you by a container. What should the reviewer do?'
+  expected_behaviour:
+  - Applies P056 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P056.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-057
+  principle_id: P057
+  mode: validate
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Manage locking deliberately:
+    know the concurrency library and execution models, beware dependencies between synchronized methods,
+    and prefer server-based locking over client-based locking (wrapping with an Adapter when you do not
+    own the server). What should the reviewer do?'
+  expected_behaviour:
+  - Applies P057 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P057.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-058
+  principle_id: P058
+  mode: advise
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Minimize and isolate
+    shared mutable data: severely limit its scope, prefer copies and read-only objects, make threads as
+    independent as possible working from local data, and keep synchronized sections as small as possible.
+    What should the reviewer do?'
+  expected_behaviour:
+  - Applies P058 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P058.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-059
+  principle_id: P059
+  mode: compare
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Use Decorator to
+    add or remove responsibilities to an object dynamically as a flexible alternative to subclassing,
+    keeping the component''s interface unchanged. (applies when: responsibilities must be added at run
+    time without subclassing) What should the reviewer do?'
+  expected_behaviour:
+  - Applies P059 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P059.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-060
+  principle_id: P060
+  mode: patch-suggest
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Design modules to
+    be deep: maximize functionality behind the simplest interface that covers the common case. (applies
+    when: designing or reviewing a class, module, subsystem, or service interface) What should the reviewer
+    do?'
+  expected_behaviour:
+  - Applies P060 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P060.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-061
+  principle_id: P061
+  mode: review
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Encapsulate each
+    design decision inside a single module so it does not appear in any interface, and treat information
+    leakage as a red flag. (applies when: decomposing a system into modules; deciding where a piece of
+    knowledge should live) What should the reviewer do?'
+  expected_behaviour:
+  - Applies P061 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P061.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-062
+  principle_id: P062
+  mode: validate
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Design interfaces
+    so the most common usage is as simple as possible, providing sensible defaults and automatic behavior.
+    (applies when: defining a public API for a class or service) What should the reviewer do?'
+  expected_behaviour:
+  - Applies P062 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P062.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-063
+  principle_id: P063
+  mode: advise
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Give adjacent layers
+    different abstractions; treat pass-through methods, pass-through variables, and API-duplicating decorators
+    as red flags. (applies when: reviewing a layered design or class hierarchy) What should the reviewer
+    do?'
+  expected_behaviour:
+  - Applies P063 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P063.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-064
+  principle_id: P064
+  mode: compare
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Absorb unavoidable
+    complexity inside a module rather than exposing it to users, because a simple interface matters more
+    than a simple implementation. (applies when: a module faces complexity related to its own functionality)
+    What should the reviewer do?'
+  expected_behaviour:
+  - Applies P064 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P064.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-065
+  principle_id: P065
+  mode: patch-suggest
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Decide whether to
+    split or join a method by whether it yields cleaner abstractions, not by line count; each method should
+    do one thing completely. (applies when: considering breaking up or merging a method) What should the
+    reviewer do?'
+  expected_behaviour:
+  - Applies P065 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P065.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-066
+  principle_id: P066
+  mode: review
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Reduce the number
+    of places exceptions must be handled, ideally by redefining operation semantics so the normal case
+    has no error to report. (applies when: designing an API that could raise errors or special conditions)
+    What should the reviewer do?'
+  expected_behaviour:
+  - Applies P066 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P066.
+  must_not:
+  - Endorse added complexity, generality, or configuration with no present need.
+  - Give an ungrounded opinion with no principle cited.
+- test_id: PB-067
+  principle_id: P067
+  mode: validate
+  prompt: 'A reviewer is shown a design situation where the load-bearing concern is: Do not over- or mis-apply
+    refactoring: leave messy code you do not need to touch, keep dedicated planned-refactoring episodes
+    rare, occasionally rewrite instead of refactor, and justify refactoring on economic grounds (faster
+    delivery) rather than moral or aesthetic ones. (applies when: Deciding whether a given piece of code
+    is worth refactoring now) What should the reviewer do?'
+  expected_behaviour:
+  - Applies P067 and names the relevant red flag, smell, or principle.
+  - Bounds the recommendation to present known requirements.
+  - Cites P067.
   must_not:
   - Endorse added complexity, generality, or configuration with no present need.
   - Give an ungrounded opinion with no principle cited.
