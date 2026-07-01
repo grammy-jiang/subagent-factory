@@ -2,6 +2,39 @@
 
 All notable changes to this generated subagent package are recorded here.
 
+## [1.1.0] — 2026-07-02
+
+### Changed
+- **Map→reduce rebuild of the distilled spine** (67 principles, up from the calibrated
+  34) with the LLM-authored layer regenerated to match. The deterministic spine
+  (`analysis/claims.jsonl`, `principles/principles.yaml`, `evidence/evidence-records.yaml`,
+  `sources/anchors/*`) was assembled by the build and left untouched.
+- **Regenerated the behaviour-test layer** against the 67-principle spine:
+  `tests/behaviour-tests.yaml` (golden-tests-v1) rebuilt via `gen_behaviour_tests`
+  (112 golden / 45 missing-context cells, every high-confidence principle covered) and
+  `tests/principle-behaviour-tests.yaml` regenerated deterministically (67 entries, one
+  per principle, mode round-robin) so every high-confidence principle carries a
+  behavioural test.
+- **Re-exported the adapter** to recompile the must-hold invariant layer over the current
+  principle set.
+- **Committed the reduce provenance triple** (`.build/clusters.json`, `.build/decisions.json`,
+  `.build/groups.json`) so the distilled spine is deterministically rebuildable. The prior
+  package predated `groups.json`; without it a re-assemble recomputes the clustering and can
+  mis-map the group-indexed decisions. `--select 0.5` reused the byte-identical cached
+  `decisions.json` (clusters reproduced exactly), so no LLM precision-filter re-run was needed.
+
+### Fixed
+- **Preserved curated source provenance.** The assemble step re-synthesized
+  `sources/metadata/*.metadata.json` + `source-pack.manifest.yaml` from the staging markdown,
+  dropping curated `title`/`author`/`year`/`assets_path`; restored the hand-curated values from
+  the pre-rebuild package (identical source bytes — sha256 unchanged). No claim/anchor content changed.
+
+### Deferred
+- **Dropped the stale 34-era Step-7 synthesis** (`principle-clusters.json`, `principle-graph.json`,
+  `conflict-log.md`) rather than ship a graph covering only 34 of the 67 principles;
+  `multisource_synthesis: deferred` stands. Regenerate via the Step-7 C-track
+  (seed → LLM-confirm) when cross-source synthesis over the full set is wanted.
+
 ## [1.0.0] — 2026-06-24
 
 ### Changed
