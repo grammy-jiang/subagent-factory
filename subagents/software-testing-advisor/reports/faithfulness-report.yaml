@@ -1,0 +1,135 @@
+schema_version: faithfulness-report-v1
+subagent_slug: software-testing-advisor
+# v1 review: each generated profile rule checked against evidence/evidence-records.yaml and the
+# chunk anchors behind the cited principles in sources/anchors/*.anchors.jsonl. Every rule maps to
+# high-confidence principles distilled from the four sources; no rule is stronger than its evidence
+# and there are no CONTRADICTED or unsupported findings. Sources are distillation-only — no
+# verbatim quotation. source_anchors cite real chunk-anchor ids (<sha12>-cNNNN) from this package's
+# anchor index.
+findings:
+  - rule_ref: "quality_bar[0]"
+    triplet: {head: "test-design advice", relation: "models artifact + names", tail: "coverage criterion (input space / graph / logic / syntax)"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [140e06385751-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Ammann & Offutt teach modelling the artifact as one of four structures and reasoning via RIPR (principles P066, P058, P089; claims C00004, C00005). Rule restates this design discipline; hedged to test-design advice."
+  - rule_ref: "quality_bar[1]"
+    triplet: {head: "test-double advice", relation: "picks specific double + installs via", tail: "substitutable dependency"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [11f28a2119c7-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Meszaros distinguishes dummy/stub/mock/spy/fake and installs doubles through substitutable dependencies (DI preferred) (principles P001, P007, P024; claims C00591, C00597). Rule matches the source."
+  - rule_ref: "quality_bar[2]"
+    triplet: {head: "coverage-strength advice", relation: "respects", tail: "subsumption hierarchy + RIPR, chosen contextually"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [140e06385751-c0001]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Subsumption hierarchy and RIPR are Ammann & Offutt (P083, P058); contextual rigor (branch default, MC/DC for complex) is Aniche (P060). Rule blends both without over-claiming a universal target."
+  - rule_ref: "quality_bar[3]"
+    triplet: {head: "suite critique", relation: "classifies smell by failure mode +", tail: "targeted pattern-level repair"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [11f28a2119c7-c0001]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Meszaros classifies test smells by failure mode and prescribes pattern-level repair, and requires self-checking, isolated, one-condition tests (P022, P028, P036; claims C00550, C00558). Rule matches."
+  - rule_ref: "quality_bar[4]"
+    triplet: {head: "advisor", relation: "never claims", tail: "testing proves absence of bugs"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [a8da44b134be-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Aniche states testing raises the chance of finding bugs without guaranteeing bug-free software; Ammann & Offutt put quality first (P063, P096). Rule is a faithful non-over-claim guard."
+  - rule_ref: "forbidden_behaviours[0]"
+    triplet: {head: "advisor", relation: "must not", tail: "write code or configure a framework"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [11f28a2119c7-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Scope boundary derived from the advisory role: the sources teach test design and patterns, not code generation or framework selection. Recorded as a scope rule, not a source claim about testing itself."
+  - rule_ref: "forbidden_behaviours[1]"
+    triplet: {head: "advisor", relation: "must not promise", tail: "bug-free via any coverage level"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [a8da44b134be-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Directly from Aniche: no technique guarantees bug-free software (P063). Rule matches the source."
+  - rule_ref: "forbidden_behaviours[2]"
+    triplet: {head: "advisor", relation: "must not prefer interaction over", tail: "state verification when state is the behavior"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [11f28a2119c7-c0002]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Meszaros prefers state verification for observable end state, reserving behavior verification for indirect outputs; Aniche echoes state-vs-interaction (P026, P075). Rule is within scope."
+  - rule_ref: "forbidden_behaviours[3]"
+    triplet: {head: "advisor", relation: "must not change", tail: "production behavior/equality for test convenience"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [11f28a2119c7-c0003]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Meszaros: do not modify production behavior solely for tests and do not change production equality semantics for test convenience (P014, P050). Rule matches."
+  - rule_ref: "forbidden_behaviours[4]"
+    triplet: {head: "advisor", relation: "must not point tests at", tail: "production data / uncontrolled resources"}
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors: [11f28a2119c7-c0004]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Meszaros: run persistence tests in an isolated sandbox, never against production data, and keep tests repeatable by controlling external context (P049, P021). Rule matches."
+  - rule_ref: "outputs.modes[advise].output"
+    triplet: {head: "advise mode", relation: "produces", tail: "artifact model + criterion + cases + doubles, justified from source"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [140e06385751-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Composes the design workflow the sources teach — model+criterion (Ammann & Offutt P066), systematic cases (Aniche P089), doubles (Meszaros P001). A valid synthesis of the mode's deliverable."
+  - rule_ref: "outputs.modes[review].output"
+    triplet: {head: "review mode", relation: "produces", tail: "smell repair + verification style + coverage gaps"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [11f28a2119c7-c0001]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Review deliverable is grounded in Meszaros's smell diagnosis (P022) plus coverage-gap inspection (Aniche P073, P090); within scope of the sources."
+  - rule_ref: "outputs.modes[compare].output"
+    triplet: {head: "compare mode", relation: "contrasts by", tail: "cost/strength for the situation"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [140e06385751-c0002]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Cost/strength contrast reflects Ammann & Offutt's combination-strategy and subsumption trade-offs (P081, P083) and Meszaros's double-selection trade-offs (P039). Recommendation-ending framing is within scope."
+  - rule_ref: "when_not_to_use[0]"
+    triplet: {head: "advisor", relation: "declines", tail: "code authoring / framework config requests"}
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors: [11f28a2119c7-c0000]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: "Scope exclusion consistent with the advisory role; the sources are design/pattern references, not code generators. Recorded as a boundary, not a source claim."
