@@ -43,6 +43,9 @@
       ],
       [
         145
+      ],
+      [
+        248
       ]
     ]
   },
@@ -63,6 +66,15 @@
       ],
       [
         148
+      ],
+      [
+        162
+      ],
+      [
+        166
+      ],
+      [
+        247
       ]
     ]
   },
@@ -70,15 +82,14 @@
     "action": "split",
     "subgroups": [
       [
-        6
-      ],
-      [
+        6,
         88
       ],
       [
         132
       ]
-    ]
+    ],
+    "canonical": "Surface an implicit or varying business rule as an explicit Strategy/Policy object rather than scattered conditionals, so the policy concept is named, uniform, and testable."
   },
   "4": {
     "action": "split",
@@ -95,15 +106,8 @@
     ]
   },
   "9": {
-    "action": "split",
-    "subgroups": [
-      [
-        13
-      ],
-      [
-        14
-      ]
-    ]
+    "action": "confirm",
+    "canonical": "Write code in the same language used by the requirements and the team so the code faithfully reveals the model, keeping behavior, intent, and naming aligned even though names can mislead."
   },
   "10": {
     "action": "split",
@@ -123,7 +127,8 @@
     "action": "split",
     "subgroups": [
       [
-        16
+        16,
+        38
       ],
       [
         17
@@ -132,15 +137,19 @@
         34
       ],
       [
-        38
-      ],
-      [
         71
       ],
       [
         98
+      ],
+      [
+        161
+      ],
+      [
+        167
       ]
-    ]
+    ],
+    "canonical": "Maintain a literal, exact correspondence between each domain-model concept and its implementation element, treating a code change as a possible model change and revising code or model when the mapping breaks down."
   },
   "12": {
     "action": "split",
@@ -153,6 +162,17 @@
       ],
       [
         39
+      ]
+    ]
+  },
+  "13": {
+    "action": "split",
+    "subgroups": [
+      [
+        20
+      ],
+      [
+        151
       ]
     ]
   },
@@ -171,16 +191,14 @@
     "action": "split",
     "subgroups": [
       [
-        23
+        23,
+        59
       ],
       [
         35
       ],
       [
         53
-      ],
-      [
-        59
       ],
       [
         67
@@ -190,6 +208,24 @@
       ],
       [
         131
+      ],
+      [
+        179
+      ]
+    ],
+    "canonical": "Keep the application layer thin and enforce business rules in the domain layer, the heart of business software, rather than in the application layer."
+  },
+  "16": {
+    "action": "split",
+    "subgroups": [
+      [
+        25
+      ],
+      [
+        159
+      ],
+      [
+        178
       ]
     ]
   },
@@ -208,28 +244,39 @@
     "action": "split",
     "subgroups": [
       [
-        28
+        28,
+        30,
+        163
       ],
       [
         29
       ],
       [
-        30
-      ],
-      [
         31
       ]
-    ]
+    ],
+    "canonical": "Classify a domain object by whether its identity and continuity matter: model it as an Entity (identity primary, equality by a defined identifier) when they do, or as an immutable Value Object (equality over all its attributes) when only its attributes matter; the choice depends on the application's concerns."
   },
   "20": {
-    "action": "confirm",
-    "canonical": "Partition modules by cohesive, broad domain concepts that tell the story of the domain — never by design pattern or technical scheme (e.g. persistent-versus-transient) — give them names that enter the ubiquitous language, and refactor modules alongside the model and code, since cognitive overload (not merely technical concern) is the primary motivation for modularity."
+    "action": "split",
+    "subgroups": [
+      [
+        36,
+        57
+      ],
+      [
+        156
+      ]
+    ],
+    "canonical": "Partition modules along cohesive, broad domain concepts whose names enter the ubiquitous language and tell the domain's story, never by design pattern or technical scheme, and refactor modules alongside the model and code."
   },
   "22": {
     "action": "split",
     "subgroups": [
       [
-        42
+        42,
+        196,
+        197
       ],
       [
         43
@@ -239,8 +286,15 @@
       ],
       [
         47
+      ],
+      [
+        202
+      ],
+      [
+        204
       ]
-    ]
+    ],
+    "canonical": "Structure each Aggregate around a single root entity that encapsulates its members: allow outside objects to reference only the root, modify the aggregate only by loading the whole and invoking the root's methods, and make the root responsible for enforcing all invariants across its members at the completion of each transaction."
   },
   "26": {
     "action": "split",
@@ -277,7 +331,8 @@
       [
         104
       ]
-    ]
+    ],
+    "canonical": "Integrate an external or legacy system through an Anticorruption Layer that exposes it as services in your own model and translates conceptual objects in both directions (facades, adapters, and stateless translators), so external changes are confined to one place and their concepts are reabstracted into your domain terms."
   },
   "33": {
     "action": "split",
@@ -290,6 +345,20 @@
       ],
       [
         92
+      ]
+    ]
+  },
+  "36": {
+    "action": "split",
+    "subgroups": [
+      [
+        68
+      ],
+      [
+        257
+      ],
+      [
+        262
       ]
     ]
   },
@@ -306,7 +375,7 @@
   },
   "41": {
     "action": "confirm",
-    "canonical": "Separate commands from queries: place as much logic as possible in side-effect-free functions — refactoring a method that both calculates and modifies into a side-effect-free calculation plus a simple command that returns no domain data — eliminate side effects by deriving a new immutable value object instead of mutating state, avoid modifying arguments, and centralize complex calculation in immutable value objects with closed side-effect-free operations."
+    "canonical": "Separate side-effect-free calculations from state-changing commands: keep as much logic as possible in side-effect-free functions that return a new immutable value object instead of mutating state, restrict commands to simple operations that return no domain data, and centralize complex calculation in immutable value objects so client code reads declaratively."
   },
   "43": {
     "action": "split",
@@ -414,7 +483,7 @@
   },
   "66": {
     "action": "confirm",
-    "canonical": "Treat a large-scale structure as optional and keep it minimal and lightweight: impose one only when its costs and benefits favor it and a fitting structure — found through deep, iterative domain understanding — is available, since its most important contribution is conceptual coherence and manageability of the whole rather than regimentation, and an ill-fitting or over-restrictive structure is worse than none."
+    "canonical": "Treat a large-scale structure as optional and keep it minimal and lightweight: impose one only when cost and benefit favor it and a fitting structure emerges from deep, iterative domain understanding, valuing conceptual coherence over regimentation, since an ill-fitting or over-constricting structure is worse than none."
   },
   "67": {
     "action": "split",
@@ -438,6 +507,197 @@
       ],
       [
         140
+      ]
+    ]
+  },
+  "76": {
+    "action": "confirm",
+    "canonical": "Apply these DDD and event-driven patterns to monolithic architectures as well \u2014 aggregates, domain events, and dependency inversion predate and do not require microservices \u2014 so do not assume you need microservices to control complexity, though a well-modeled set of use cases is relatively easy to split into its own service later."
+  },
+  "79": {
+    "action": "split",
+    "subgroups": [
+      [
+        155
+      ],
+      [
+        170
+      ],
+      [
+        190
+      ],
+      [
+        210
+      ],
+      [
+        212
+      ],
+      [
+        245
+      ],
+      [
+        249
+      ]
+    ]
+  },
+  "80": {
+    "action": "confirm",
+    "canonical": "Model boundaries as ports and adapters \u2014 a port is the interface to whatever you abstract away and an adapter is the implementation behind it \u2014 and in Python treat that port as either an abstract base class or simply a duck type (a public API of method and argument names and types) that adapters conform to."
+  },
+  "85": {
+    "action": "split",
+    "subgroups": [
+      [
+        168
+      ],
+      [
+        192
+      ]
+    ]
+  },
+  "91": {
+    "action": "confirm",
+    "canonical": "Design for testability by declaring dependencies explicitly and separating responsibilities into small, focused, replaceable objects \u2014 pass in collaborators such as the unit of work or a send-mail callable rather than importing them implicitly \u2014 because monkeypatching and mock-based tests couple to implementation details and become brittle without improving the design; explicit, injected dependencies are an application of the dependency inversion principle."
+  },
+  "93": {
+    "action": "split",
+    "subgroups": [
+      [
+        180
+      ],
+      [
+        181
+      ],
+      [
+        182
+      ]
+    ]
+  },
+  "94": {
+    "action": "split",
+    "subgroups": [
+      [
+        183
+      ],
+      [
+        185
+      ],
+      [
+        186
+      ],
+      [
+        188
+      ],
+      [
+        189
+      ]
+    ]
+  },
+  "109": {
+    "action": "split",
+    "subgroups": [
+      [
+        208
+      ],
+      [
+        211
+      ],
+      [
+        216
+      ],
+      [
+        225
+      ],
+      [
+        226
+      ]
+    ]
+  },
+  "110": {
+    "action": "split",
+    "subgroups": [
+      [
+        209
+      ],
+      [
+        214
+      ],
+      [
+        217
+      ],
+      [
+        220
+      ],
+      [
+        224
+      ],
+      [
+        230
+      ]
+    ]
+  },
+  "116": {
+    "action": "split",
+    "subgroups": [
+      [
+        222
+      ],
+      [
+        223
+      ]
+    ]
+  },
+  "117": {
+    "action": "split",
+    "subgroups": [
+      [
+        227
+      ],
+      [
+        252
+      ]
+    ]
+  },
+  "121": {
+    "action": "split",
+    "subgroups": [
+      [
+        232
+      ],
+      [
+        235
+      ],
+      [
+        236
+      ]
+    ]
+  },
+  "123": {
+    "action": "split",
+    "subgroups": [
+      [
+        234
+      ],
+      [
+        250
+      ]
+    ]
+  },
+  "125": {
+    "action": "confirm",
+    "canonical": "Perform manual dependency injection in a single Composition Root (bootstrap script): compose each handler with its dependencies ahead of time using closures or functools.partial, declare default dependencies while allowing overrides, do one-time initialization such as ORM mapper start-up and logging, inject dependencies into the handlers, and return the configured message bus \u2014 reaching for a real DI framework only when you need DI at multiple levels or have chained dependencies."
+  },
+  "137": {
+    "action": "split",
+    "subgroups": [
+      [
+        260
+      ],
+      [
+        261
+      ],
+      [
+        263
       ]
     ]
   }

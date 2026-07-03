@@ -1,9 +1,9 @@
 # Behavioural tests for the Domain-Driven Design Reviewer.
-# One test per principle (P001-P050), keyed by principle_id; every high-confidence
-# principle is exercised (validate_principle_test_coverage). Prompts are paraphrased
-# review scenarios grounded in Eric Evans, Domain-Driven Design (distillation-only:
-# never quoted verbatim). expected_behaviour / must_not encode the reviewer behaviour
-# each principle should drive.
+# One test per principle, keyed by principle_id; every high-confidence principle is
+# exercised (validate_principle_test_coverage). Prompts are paraphrased review scenarios
+# grounded in Eric Evans, Domain-Driven Design + cosmic-python (distillation-only: never
+# quoted verbatim). expected_behaviour / must_not encode the reviewer behaviour each
+# principle should drive. Generated deterministically from principles/principles.yaml.
 
 schema_version: principle-behaviour-tests-v1
 subagent_slug: domain-driven-design-reviewer
@@ -11,15 +11,17 @@ principle_behaviour_tests:
 - test_id: PB-001
   principle_id: P001
   confidence: high
-  prompt: A team is interacting with a system built on a different model. Their current design ignores
-    the guidance that you should build an Anticorruption Layer that exposes the external system as services
-    in your own model and translates conceptual objects in both directions (not merely transporting messages),
-    implemented as facades, adapters, and lightweight stateless translators. They ask you to review the
-    design and say whether it is sound.
+  prompt: 'A team is an object must be tracked and distinguished across states and forms. Their current
+    design ignores the guidance that you should distinguish Value Objects from Entities: model a concept
+    that has data but no long-lived identity as an immutable Value Object whose equality is over all its
+    attributes (it may still carry behavior), and model a concept with long-lived identity as an Entity
+    with an explicitly defined identifier and equality based on that identity. They ask you to review
+    the design and say whether it is sound.'
   expected_behaviour:
-  - flags that the design does not follow P001 (Build an Anticorruption Layer that exposes the external
-    system as services in your own…)
-  - explains, in domain terms, why this matters when interacting with a system built on a different model
+  - 'flags that the design does not follow P001 (Distinguish Value Objects from Entities: model a concept
+    that has data but no……)'
+  - explains, in domain terms, why this matters when an object must be tracked and distinguished across
+    states and forms
   - gives one concrete corrective step grounded in the principle
   - cites P001
   must_not:
@@ -27,16 +29,18 @@ principle_behaviour_tests:
   - answers with generic advice that never references the specific model element
 - test_id: PB-002
   principle_id: P002
-  confidence: medium
-  prompt: 'A team is establishing shared terminology for design discussions and reviews. Their current
-    design ignores the guidance that you should apply the precise domain-driven vocabulary consistently
-    in the ubiquitous language: Entity (defined by identity/continuity) versus Value Object (no identity).
-    They ask you to review the design and say whether it is sound.'
+  confidence: high
+  prompt: 'A team is defining transactional consistency boundaries. Their current design ignores the guidance
+    that you should use aggregates to reconcile invariants with concurrency: maintaining an invariant
+    means preventing concurrent writes to the objects it covers while objects with no shared invariant
+    may change concurrently, an aggregate is a domain object containing others that is modified only by
+    loading the whole and calling its methods, and nominating some entities as the single entrypoint for
+    modifying their related objects puts one object in charge of consistency and makes the system easier
+    to reason about. They ask you to review the design and say whether it is sound.'
   expected_behaviour:
-  - 'flags that the design does not follow P002 (Apply the precise domain-driven vocabulary consistently
-    in the ubiquitous language: Entity (defined by identity/continuity)…)'
-  - explains, in domain terms, why this matters when establishing shared terminology for design discussions
-    and reviews
+  - 'flags that the design does not follow P002 (Use aggregates to reconcile invariants with concurrency:
+    maintaining an invariant means……)'
+  - explains, in domain terms, why this matters when defining transactional consistency boundaries
   - gives one concrete corrective step grounded in the principle
   - cites P002
   must_not:
@@ -45,13 +49,16 @@ principle_behaviour_tests:
 - test_id: PB-003
   principle_id: P003
   confidence: high
-  prompt: 'A team is designing operations that compute or change state. Their current design ignores the
-    guidance that you should separate commands from queries: place as much logic as possible in side-effect-free
-    functions . They ask you to review the design and say whether it is sound.'
+  prompt: A team is interacting with a system built on a different model. Their current design ignores
+    the guidance that you should build an Anticorruption Layer that exposes the external system as services
+    in your own model and translates conceptual objects in both directions (not merely transporting messages),
+    implemented as facades, adapters, and lightweight stateless translators; write the facade in the other
+    system's model, and never assume primitive data transported between systems carries the same meaning.
+    They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - 'flags that the design does not follow P003 (Separate commands from queries: place as much logic as
-    possible in side-effect-free functions —…)'
-  - explains, in domain terms, why this matters when designing operations that compute or change state
+  - flags that the design does not follow P003 (Build an Anticorruption Layer that exposes the external
+    system as services in your own……)
+  - explains, in domain terms, why this matters when interacting with a system built on a different model
   - gives one concrete corrective step grounded in the principle
   - cites P003
   must_not:
@@ -59,15 +66,19 @@ principle_behaviour_tests:
   - answers with generic advice that never references the specific model element
 - test_id: PB-004
   principle_id: P004
-  confidence: high
-  prompt: A team is establishing identity for an entity. Their current design ignores the guidance that
-    you should define each entity's identity from the domain with an operation guaranteed to produce a
-    unique, immutable identifier (never the language's memory-based identity). They ask you to review
-    the design and say whether it is sound.
+  confidence: medium
+  prompt: 'A team is establishing shared terminology for design discussions and reviews. Their current
+    design ignores the guidance that you should apply the precise domain-driven vocabulary consistently
+    in the ubiquitous language: Entity (defined by identity/continuity) versus Value Object (no identity);
+    stateless Service standing alone in the model; deep model versus supple design; assertion, invariant,
+    and side effect; conceptual contour; unification within a bounded context; model-driven design; standalone
+    class and whole value; and strategic design as team-level decisions affecting the whole project. They
+    ask you to review the design and say whether it is sound.'
   expected_behaviour:
-  - flags that the design does not follow P004 (Define each entity's identity from the domain with an
-    operation guaranteed to produce a…)
-  - explains, in domain terms, why this matters when establishing identity for an entity
+  - flags that the design does not follow P004 (Apply the precise domain-driven vocabulary consistently
+    in the ubiquitous language:……)
+  - explains, in domain terms, why this matters when establishing shared terminology for design discussions
+    and reviews
   - gives one concrete corrective step grounded in the principle
   - cites P004
   must_not:
@@ -75,15 +86,17 @@ principle_behaviour_tests:
   - answers with generic advice that never references the specific model element
 - test_id: PB-005
   principle_id: P005
-  confidence: medium
-  prompt: A team is choosing and mixing modeling paradigms. Their current design ignores the guidance
-    that you should use object-oriented technology as the core for most model-driven designs and avoid
-    esoteric paradigms the team or experts cannot grasp, recognizing a domain model need not be an object
-    model. They ask you to review the design and say whether it is sound.
+  confidence: high
+  prompt: 'A team is designing operations that compute or change state. Their current design ignores the
+    guidance that you should separate side-effect-free calculations from state-changing commands: keep
+    as much logic as possible in side-effect-free functions that return a new immutable value object instead
+    of mutating state, restrict commands to simple operations that return no domain data, and centralize
+    complex calculation in immutable value objects so client code reads declaratively. They ask you to
+    review the design and say whether it is sound.'
   expected_behaviour:
-  - flags that the design does not follow P005 (Use object-oriented technology as the core for most model-driven
-    designs and avoid esoteric paradigms…)
-  - explains, in domain terms, why this matters when choosing and mixing modeling paradigms
+  - 'flags that the design does not follow P005 (Separate side-effect-free calculations from state-changing
+    commands: keep as much logic……)'
+  - explains, in domain terms, why this matters when designing operations that compute or change state
   - gives one concrete corrective step grounded in the principle
   - cites P005
   must_not:
@@ -92,13 +105,16 @@ principle_behaviour_tests:
 - test_id: PB-006
   principle_id: P006
   confidence: high
-  prompt: A team is a design is awkward or the language outruns the model. Their current design ignores
-    the guidance that you should deepen a model by recognizing concepts only hinted at and representing
-    them explicitly. They ask you to review the design and say whether it is sound.
+  prompt: A team is establishing identity for an entity. Their current design ignores the guidance that
+    you should define each entity's identity from the domain with an operation guaranteed to produce a
+    unique, immutable identifier (never the language's memory-based identity); use a generated symbol
+    when no natural key exists, make users responsible for externally supplied IDs, and accept that meaningful
+    identity matching often needs human input. They ask you to review the design and say whether it is
+    sound.
   expected_behaviour:
-  - flags that the design does not follow P006 (Deepen a model by recognizing concepts only hinted at
-    and representing them explicitly; dig…)
-  - explains, in domain terms, why this matters when a design is awkward or the language outruns the model
+  - flags that the design does not follow P006 (Define each entity's identity from the domain with an
+    operation guaranteed to produce a……)
+  - explains, in domain terms, why this matters when establishing identity for an entity
   - gives one concrete corrective step grounded in the principle
   - cites P006
   must_not:
@@ -107,13 +123,17 @@ principle_behaviour_tests:
 - test_id: PB-007
   principle_id: P007
   confidence: high
-  prompt: A team is organizing the domain model into modules. Their current design ignores the guidance
-    that you should partition modules by cohesive, broad domain concepts that tell the story of the domain
-    . They ask you to review the design and say whether it is sound.
+  prompt: A team submits a domain design for review. Their current design ignores the guidance that you
+    should design for testability by declaring dependencies explicitly and separating responsibilities
+    into small, focused, replaceable objects — pass in collaborators such as the unit of work or a send-mail
+    callable rather than importing them implicitly — because monkeypatching and mock-based tests couple
+    to implementation details and become brittle without improving the design; explicit, injected dependencies
+    are an application of the dependency inversion principle. They ask you to review the design and say
+    whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P007 (Partition modules by cohesive, broad domain concepts that
-    tell the story of the domain…)
-  - explains, in domain terms, why this matters when organizing the domain model into modules
+  - flags that the design does not follow P007 (Design for testability by declaring dependencies explicitly
+    and separating……)
+  - explains, in domain terms, why this matters for the domain model
   - gives one concrete corrective step grounded in the principle
   - cites P007
   must_not:
@@ -122,13 +142,18 @@ principle_behaviour_tests:
 - test_id: PB-008
   principle_id: P008
   confidence: high
-  prompt: A team is defining transactional consistency boundaries. Their current design ignores the guidance
-    that you should define an Aggregate as a cluster with one root entity and a boundary. They ask you
-    to review the design and say whether it is sound.
+  prompt: 'A team is closures and functools.partial apply when working in Python. Their current design
+    ignores the guidance that you should perform manual dependency injection in a single Composition Root
+    (bootstrap script): compose each handler with its dependencies ahead of time using closures or functools.partial,
+    declare default dependencies while allowing overrides, do one-time initialization such as ORM mapper
+    start-up and logging, inject dependencies into the handlers, and return the configured message bus
+    — reaching for a real DI framework only when you need DI at multiple levels or have chained dependencies.
+    They ask you to review the design and say whether it is sound.'
   expected_behaviour:
-  - flags that the design does not follow P008 (Define an Aggregate as a cluster with one root entity
-    and a boundary; allow…)
-  - explains, in domain terms, why this matters when defining transactional consistency boundaries
+  - flags that the design does not follow P008 (Perform manual dependency injection in a single Composition
+    Root (bootstrap script):……)
+  - explains, in domain terms, why this matters when closures and functools.partial apply when working
+    in Python
   - gives one concrete corrective step grounded in the principle
   - cites P008
   must_not:
@@ -136,16 +161,17 @@ principle_behaviour_tests:
   - answers with generic advice that never references the specific model element
 - test_id: PB-009
   principle_id: P009
-  confidence: high
-  prompt: A team is a familiar analysis pattern matches the problem. Their current design ignores the
-    guidance that you should use analysis patterns as expressive starting points that carry cross-project
-    model insight, design direction, and implementation consequences, validating each borrowed concept
-    against your domain with an expert and discarding misfits. They ask you to review the design and say
-    whether it is sound.
+  confidence: medium
+  prompt: A team is choosing and mixing modeling paradigms. Their current design ignores the guidance
+    that you should use object-oriented technology as the core for most model-driven designs and avoid
+    esoteric paradigms the team or experts cannot grasp, recognizing a domain model need not be an object
+    model; mix in another paradigm only when major parts of the domain genuinely belong to it, after exhausting
+    the dominant paradigm, and only with an expressive implementation. They ask you to review the design
+    and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P009 (Use analysis patterns as expressive starting points that
-    carry cross-project model insight, design direction…)
-  - explains, in domain terms, why this matters when a familiar analysis pattern matches the problem
+  - flags that the design does not follow P009 (Use object-oriented technology as the core for most model-driven
+    designs and avoid……)
+  - explains, in domain terms, why this matters when choosing and mixing modeling paradigms
   - gives one concrete corrective step grounded in the principle
   - cites P009
   must_not:
@@ -154,14 +180,16 @@ principle_behaviour_tests:
 - test_id: PB-010
   principle_id: P010
   confidence: high
-  prompt: A team is relating two bounded contexts. Their current design ignores the guidance that you
-    should choose a context-relationship pattern based on the control you have over the other model, the
-    level of team cooperation, and the degree of integration. They ask you to review the design and say
-    whether it is sound.
+  prompt: A team is an important business rule is hidden in procedural or application code. Their current
+    design ignores the guidance that you should factor the varying part of a process into an explicit
+    Strategy (Policy) object that expresses a meaningful process or policy concept and replaces scattered
+    conditionals with uniform, testable behavior, gaining extra meaning when it corresponds to a real
+    business strategy. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P010 (Choose a context-relationship pattern based on the control
-    you have over the other model…)
-  - explains, in domain terms, why this matters when relating two bounded contexts
+  - flags that the design does not follow P010 (Factor the varying part of a process into an explicit
+    Strategy (Policy) object that……)
+  - explains, in domain terms, why this matters when an important business rule is hidden in procedural
+    or application code
   - gives one concrete corrective step grounded in the principle
   - cites P010
   must_not:
@@ -170,16 +198,16 @@ principle_behaviour_tests:
 - test_id: PB-011
   principle_id: P011
   confidence: high
-  prompt: A team is a subsystem is in high demand for integration by many parties. Their current design
-    ignores the guidance that you should when a subsystem must integrate with many others, define an Open
-    Host Service exposing it as a cohesive set of services and keep the shared protocol simple by handling
-    idiosyncratic needs with one-off translators. They ask you to review the design and say whether it
-    is sound.
+  prompt: A team is a design is awkward or the language outruns the model. Their current design ignores
+    the guidance that you should deepen a model by recognizing concepts only hinted at and representing
+    them explicitly; dig them out by digging in the most awkward part of the design, listening to the
+    team's language, scrutinizing contradictions, mining domain literature, and experimenting, treating
+    a term used in conversation but absent from the design as a warning and an opportunity. They ask you
+    to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P011 (When a subsystem must integrate with many others, define
-    an Open Host Service exposing…)
-  - explains, in domain terms, why this matters when a subsystem is in high demand for integration by
-    many parties
+  - flags that the design does not follow P011 (Deepen a model by recognizing concepts only hinted at
+    and representing them explicitly;……)
+  - explains, in domain terms, why this matters when a design is awkward or the language outruns the model
   - gives one concrete corrective step grounded in the principle
   - cites P011
   must_not:
@@ -188,16 +216,15 @@ principle_behaviour_tests:
 - test_id: PB-012
   principle_id: P012
   confidence: high
-  prompt: A team is communicating and protecting the core domain. Their current design ignores the guidance
-    that you should write a short Domain Vision Statement of the core's value proposition and make the
-    core easy to see (via a minimalist distillation document or by flagging core elements in the model
-    repository), using the distillation document as a process tool whereby a change forcing it to change
-    signals a core change needing team consultation. They ask you to review the design and say whether
-    it is sound.
+  prompt: A team is building the domain layer of a model-driven design. Their current design ignores the
+    guidance that you should design a portion of the software to reflect the domain model literally so
+    the mapping is obvious, treat the code as an expression of the model (a code change may be a model
+    change), and demand a literal, exact correspondence; when a model is impractical to implement or unfaithful
+    to the domain, search for a new one. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P012 (Write a short Domain Vision Statement of the core's value
-    proposition and make the…)
-  - explains, in domain terms, why this matters when communicating and protecting the core domain
+  - flags that the design does not follow P012 (Design a portion of the software to reflect the domain
+    model literally so the mapping……)
+  - explains, in domain terms, why this matters when building the domain layer of a model-driven design
   - gives one concrete corrective step grounded in the principle
   - cites P012
   must_not:
@@ -206,16 +233,15 @@ principle_behaviour_tests:
 - test_id: PB-013
   principle_id: P013
   confidence: high
-  prompt: A team is a large critical context's essential model is obscured by supporting capability. Their
-    current design ignores the guidance that you should create a Segregated Core by refactoring to separate
-    core concepts from supporting players (strengthening cohesion, reducing coupling, even splitting a
-    cohesive module), accepting the work and some obscured non-core relationships because the enterprise-specific
-    aspects add the most value. They ask you to review the design and say whether it is sound.
+  prompt: A team is organizing the domain model into modules. Their current design ignores the guidance
+    that you should choose modules to tell the story of the domain and contain cohesive concepts that
+    can be reasoned about independently, give them names that enter the ubiquitous language, and refactor
+    modules alongside the model and code, because cognitive overload, not just technical concern, is the
+    primary motivation for modularity. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P013 (Create a Segregated Core by refactoring to separate core
-    concepts from supporting players (strengthening…)
-  - explains, in domain terms, why this matters when a large critical context's essential model is obscured
-    by supporting capability
+  - flags that the design does not follow P013 (Choose modules to tell the story of the domain and contain
+    cohesive concepts that can……)
+  - explains, in domain terms, why this matters when organizing the domain model into modules
   - gives one concrete corrective step grounded in the principle
   - cites P013
   must_not:
@@ -224,15 +250,16 @@ principle_behaviour_tests:
 - test_id: PB-014
   principle_id: P014
   confidence: high
-  prompt: 'A team is deciding whether and how restrictively to adopt a large-scale structure. Their current
-    design ignores the guidance that you should treat a large-scale structure as optional and keep it
-    minimal and lightweight: impose one only when its costs and benefits favor it and a fitting structure
-    . They ask you to review the design and say whether it is sound.'
+  prompt: A team is a familiar analysis pattern matches the problem. Their current design ignores the
+    guidance that you should use analysis patterns as expressive starting points that carry cross-project
+    model insight, design direction, and implementation consequences, validating each borrowed concept
+    against your domain with an expert and discarding misfits; they reveal blind spots where application
+    code hides domain logic, and they are a kit of model fragments to adapt, not code to reuse. They ask
+    you to review the design and say whether it is sound.
   expected_behaviour:
-  - 'flags that the design does not follow P014 (Treat a large-scale structure as optional and keep it
-    minimal and lightweight: impose one…)'
-  - explains, in domain terms, why this matters when deciding whether and how restrictively to adopt a
-    large-scale structure
+  - flags that the design does not follow P014 (Use analysis patterns as expressive starting points that
+    carry cross-project model……)
+  - explains, in domain terms, why this matters when a familiar analysis pattern matches the problem
   - gives one concrete corrective step grounded in the principle
   - cites P014
   must_not:
@@ -241,16 +268,16 @@ principle_behaviour_tests:
 - test_id: PB-015
   principle_id: P015
   confidence: high
-  prompt: 'A team is an important operation does not fit any entity or value object. Their current design
-    ignores the guidance that you should model a significant domain operation that belongs to no entity
-    or value object as a Service: relate it to a real domain concept, define its interface in domain terms,
-    name it for an activity, and keep it stateless. They ask you to review the design and say whether
-    it is sound.'
+  prompt: A team is relating two bounded contexts. Their current design ignores the guidance that you
+    should choose a context-relationship pattern based on the control you have over the other model, the
+    level of team cooperation, and the degree of integration; yield to a separate context when a sub-team
+    needs a different conceptual organization, translate only the specific mappings needed via a dedicated
+    translator both teams maintain and test, and test the contact points thoroughly. They ask you to review
+    the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P015 (Model a significant domain operation that belongs to no
-    entity or value object as…)
-  - explains, in domain terms, why this matters when an important operation does not fit any entity or
-    value object
+  - flags that the design does not follow P015 (Choose a context-relationship pattern based on the control
+    you have over the other……)
+  - explains, in domain terms, why this matters when relating two bounded contexts
   - gives one concrete corrective step grounded in the principle
   - cites P015
   must_not:
@@ -259,15 +286,18 @@ principle_behaviour_tests:
 - test_id: PB-016
   principle_id: P016
   confidence: high
-  prompt: 'A team is organizing roles on a model-driven project. Their current design ignores the guidance
-    that you should treat programmers as modelers and keep modeling and implementation together: any technical
-    contributor must touch the code and learn to express the model through it, because if code writers
-    do not feel responsible for the model it becomes irrelevant. They ask you to review the design and
-    say whether it is sound.'
+  prompt: A team is a subsystem is in high demand for integration by many parties. Their current design
+    ignores the guidance that you should when a subsystem must integrate with many others, define an Open
+    Host Service exposing it as a cohesive set of services and keep the shared protocol simple by handling
+    idiosyncratic needs with one-off translators; use a well-documented Published Language as the interchange
+    medium rather than one application's internal model (which would freeze it), reusing an existing published
+    language and keeping it stable while still refactoring the host. They ask you to review the design
+    and say whether it is sound.
   expected_behaviour:
-  - 'flags that the design does not follow P016 (Treat programmers as modelers and keep modeling and implementation
-    together: any technical contributor must…)'
-  - explains, in domain terms, why this matters when organizing roles on a model-driven project
+  - flags that the design does not follow P016 (When a subsystem must integrate with many others, define
+    an Open Host Service exposing……)
+  - explains, in domain terms, why this matters when a subsystem is in high demand for integration by
+    many parties
   - gives one concrete corrective step grounded in the principle
   - cites P016
   must_not:
@@ -276,16 +306,16 @@ principle_behaviour_tests:
 - test_id: PB-017
   principle_id: P017
   confidence: high
-  prompt: A team is structuring a complex application around a domain model. Their current design ignores
-    the guidance that you should isolate the domain in its own layer within a layered architecture in
-    which each element depends only on its own or lower layers, since isolating the domain implementation
-    is a prerequisite for domain-driven design and isolated layers are cheaper to maintain. They ask you
-    to review the design and say whether it is sound.
+  prompt: A team is communicating and protecting the core domain. Their current design ignores the guidance
+    that you should write a short Domain Vision Statement of the core's value proposition and make the
+    core easy to see (via a minimalist distillation document or by flagging core elements in the model
+    repository), using the distillation document as a process tool whereby a change forcing it to change
+    signals a core change needing team consultation. They ask you to review the design and say whether
+    it is sound.
   expected_behaviour:
-  - flags that the design does not follow P017 (Isolate the domain in its own layer within a layered architecture
-    in which each…)
-  - explains, in domain terms, why this matters when structuring a complex application around a domain
-    model
+  - flags that the design does not follow P017 (Write a short Domain Vision Statement of the core's value
+    proposition and make the core……)
+  - explains, in domain terms, why this matters when communicating and protecting the core domain
   - gives one concrete corrective step grounded in the principle
   - cites P017
   must_not:
@@ -294,17 +324,18 @@ principle_behaviour_tests:
 - test_id: PB-018
   principle_id: P018
   confidence: high
-  prompt: A team is organizing packages and modules in a model-driven design. Their current design ignores
-    the guidance that you should use packaging to separate the domain layer but otherwise leave domain
-    developers free to package by their model, keep all code for a single conceptual object together (don't
-    let a framework fragment it across packages) unless genuinely distributing on different servers, and
-    adopt only minimal technical partitioning. They ask you to review the design and say whether it is
-    sound.
+  prompt: A team is a large critical context's essential model is obscured by supporting capability. Their
+    current design ignores the guidance that you should create a Segregated Core by refactoring to separate
+    core concepts from supporting players (strengthening cohesion, reducing coupling, even splitting a
+    cohesive module), accepting the work and some obscured non-core relationships because the enterprise-specific
+    aspects add the most value; move the whole team together with a joint decision process that keeps
+    one evolving definition of the core, identifying it from the vision statement and letting segregation
+    surface new insights. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P018 (Use packaging to separate the domain layer but otherwise
-    leave domain developers free to…)
-  - explains, in domain terms, why this matters when organizing packages and modules in a model-driven
-    design
+  - flags that the design does not follow P018 (Create a Segregated Core by refactoring to separate core
+    concepts from supporting……)
+  - explains, in domain terms, why this matters when a large critical context's essential model is obscured
+    by supporting capability
   - gives one concrete corrective step grounded in the principle
   - cites P018
   must_not:
@@ -313,15 +344,17 @@ principle_behaviour_tests:
 - test_id: PB-019
   principle_id: P019
   confidence: high
-  prompt: A team is sizing aggregates and handling concurrent access. Their current design ignores the
-    guidance that you should choose aggregate boundaries from the domain's change frequency so high-contention
-    points stay loose and strict invariants stay tight, make ownership reflect business practice, and
-    enforce whole-aggregate invariants by guarding at the aggregate level rather than locking single fine-grained
-    members. They ask you to review the design and say whether it is sound.
+  prompt: 'A team is deciding whether and how restrictively to adopt a large-scale structure. Their current
+    design ignores the guidance that you should treat a large-scale structure as optional and keep it
+    minimal and lightweight: impose one only when cost and benefit favor it and a fitting structure emerges
+    from deep, iterative domain understanding, valuing conceptual coherence over regimentation, since
+    an ill-fitting or over-constricting structure is worse than none. They ask you to review the design
+    and say whether it is sound.'
   expected_behaviour:
-  - flags that the design does not follow P019 (Choose aggregate boundaries from the domain's change frequency
-    so high-contention points stay loose and…)
-  - explains, in domain terms, why this matters when sizing aggregates and handling concurrent access
+  - 'flags that the design does not follow P019 (Treat a large-scale structure as optional and keep it
+    minimal and lightweight: impose……)'
+  - explains, in domain terms, why this matters when deciding whether and how restrictively to adopt a
+    large-scale structure
   - gives one concrete corrective step grounded in the principle
   - cites P019
   must_not:
@@ -330,15 +363,17 @@ principle_behaviour_tests:
 - test_id: PB-020
   principle_id: P020
   confidence: high
-  prompt: A team is designing public interfaces of domain elements. Their current design ignores the guidance
-    that you should give classes and operations intention-revealing names that describe effect and purpose
-    (not means) and conform to the ubiquitous language, state relationships and rules in public interfaces
-    without revealing how they are enforced, and drive interface design by writing the test the way a
-    client would want to use the object. They ask you to review the design and say whether it is sound.
+  prompt: 'A team is an important operation does not fit any entity or value object. Their current design
+    ignores the guidance that you should model a significant domain operation that belongs to no entity
+    or value object as a Service: relate it to a real domain concept, define its interface in domain terms,
+    name it for an activity, and keep it stateless; use services judiciously rather than forcing operations
+    into ill-fitting objects or slipping into procedural code. They ask you to review the design and say
+    whether it is sound.'
   expected_behaviour:
-  - flags that the design does not follow P020 (Give classes and operations intention-revealing names
-    that describe effect and purpose (not means) and…)
-  - explains, in domain terms, why this matters when designing public interfaces of domain elements
+  - flags that the design does not follow P020 (Model a significant domain operation that belongs to no
+    entity or value object as a……)
+  - explains, in domain terms, why this matters when an important operation does not fit any entity or
+    value object
   - gives one concrete corrective step grounded in the principle
   - cites P020
   must_not:
@@ -347,15 +382,15 @@ principle_behaviour_tests:
 - test_id: PB-021
   principle_id: P021
   confidence: high
-  prompt: A team is characterizing the behavior and integrity of a design. Their current design ignores
-    the guidance that you should state postconditions of operations and invariants of classes and aggregates
-    as assertions (capturing them as automated tests where the language cannot), seeking coherent concepts
-    that let developers infer the intended assertions, because state-based assertions are easier to analyze
-    than tracing delegated side effects. They ask you to review the design and say whether it is sound.
+  prompt: 'A team is organizing roles on a model-driven project. Their current design ignores the guidance
+    that you should treat programmers as modelers and keep modeling and implementation together: any technical
+    contributor must touch the code and learn to express the model through it, because if code writers
+    do not feel responsible for the model it becomes irrelevant; specialized roles are fine, separating
+    modeling from implementation is not. They ask you to review the design and say whether it is sound.'
   expected_behaviour:
-  - flags that the design does not follow P021 (State postconditions of operations and invariants of classes
-    and aggregates as assertions (capturing them…)
-  - explains, in domain terms, why this matters when characterizing the behavior and integrity of a design
+  - 'flags that the design does not follow P021 (Treat programmers as modelers and keep modeling and implementation
+    together: any……)'
+  - explains, in domain terms, why this matters when organizing roles on a model-driven project
   - gives one concrete corrective step grounded in the principle
   - cites P021
   must_not:
@@ -364,15 +399,15 @@ principle_behaviour_tests:
 - test_id: PB-022
   principle_id: P022
   confidence: high
-  prompt: A team is considering a published design pattern for the domain model. Their current design
-    ignores the guidance that you should use a design pattern in the domain only when it genuinely fits
-    a domain concept and says something about the conceptual domain (not merely solving a technical problem),
-    viewing it on two levels (technical pattern in code and conceptual pattern in the model), and apply
-    it only when actually needed. They ask you to review the design and say whether it is sound.
+  prompt: A team is structuring a complex application around a domain model. Their current design ignores
+    the guidance that you should isolate the domain in its own layer within a layered architecture in
+    which each element depends only on its own or lower layers, since isolating the domain implementation
+    is a prerequisite for domain-driven design and isolated layers are cheaper to maintain. They ask you
+    to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P022 (Use a design pattern in the domain only when it genuinely
-    fits a domain…)
-  - explains, in domain terms, why this matters when considering a published design pattern for the domain
+  - flags that the design does not follow P022 (Isolate the domain in its own layer within a layered architecture
+    in which each element……)
+  - explains, in domain terms, why this matters when structuring a complex application around a domain
     model
   - gives one concrete corrective step grounded in the principle
   - cites P022
@@ -382,15 +417,17 @@ principle_behaviour_tests:
 - test_id: PB-023
   principle_id: P023
   confidence: high
-  prompt: A team is one subsystem feeds another with one-way dependency. Their current design ignores
-    the guidance that you should for a one-directional upstream/downstream dependency, establish a Customer/Supplier
-    relationship in which the downstream plays customer in the upstream's planning, with jointly developed
-    automated acceptance tests in the upstream's CI suite (a change to which signals an interface change).
-    They ask you to review the design and say whether it is sound.
+  prompt: A team is organizing packages and modules in a model-driven design. Their current design ignores
+    the guidance that you should use packaging to separate the domain layer but otherwise leave domain
+    developers free to package by their model, keep all code for a single conceptual object together (don't
+    let a framework fragment it across packages) unless genuinely distributing on different servers, and
+    adopt only minimal technical partitioning; when conceptual clarity and low technical coupling conflict,
+    favor clarity. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P023 (For a one-directional upstream/downstream dependency,
-    establish a Customer/Supplier relationship in which the downstream plays…)
-  - explains, in domain terms, why this matters when one subsystem feeds another with one-way dependency
+  - flags that the design does not follow P023 (Use packaging to separate the domain layer but otherwise
+    leave domain developers free……)
+  - explains, in domain terms, why this matters when organizing packages and modules in a model-driven
+    design
   - gives one concrete corrective step grounded in the principle
   - cites P023
   must_not:
@@ -399,16 +436,16 @@ principle_behaviour_tests:
 - test_id: PB-024
   principle_id: P024
   confidence: high
-  prompt: A team is complex computation is swamping the expressive model. Their current design ignores
-    the guidance that you should when computations bloat the design, first seek a model that makes the
-    computation simple, then partition a conceptually coherent Cohesive Mechanism into a separate framework
-    behind an intention-revealing interface (watching for documented formalisms), distinguishing it from
-    a generic subdomain (a model proposes, a mechanism disposes). They ask you to review the design and
-    say whether it is sound.
+  prompt: A team is sizing aggregates and handling concurrent access. Their current design ignores the
+    guidance that you should choose aggregate boundaries from the domain's change frequency so high-contention
+    points stay loose and strict invariants stay tight, make ownership reflect business practice, and
+    enforce whole-aggregate invariants by guarding at the aggregate level rather than locking single fine-grained
+    members; loosen a high-contention dependency (e.g. copy a value) when its changes need not propagate
+    immediately. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P024 (When computations bloat the design, first seek a model
-    that makes the computation simple…)
-  - explains, in domain terms, why this matters when complex computation is swamping the expressive model
+  - flags that the design does not follow P024 (Choose aggregate boundaries from the domain's change frequency
+    so high-contention……)
+  - explains, in domain terms, why this matters when sizing aggregates and handling concurrent access
   - gives one concrete corrective step grounded in the principle
   - cites P024
   must_not:
@@ -416,16 +453,17 @@ principle_behaviour_tests:
   - answers with generic advice that never references the specific model element
 - test_id: PB-025
   principle_id: P025
-  confidence: medium
-  prompt: 'A team is refining or validating a model with domain experts. Their current design ignores
-    the guidance that you should refine the model by speaking it: explore scenarios out loud using model
-    elements, use ease versus awkwardness of expression as a quick viability test, and let domain experts
-    write use cases and acceptance tests in the model language. They ask you to review the design and
-    say whether it is sound.'
+  confidence: high
+  prompt: A team is designing public interfaces of domain elements. Their current design ignores the guidance
+    that you should give classes and operations intention-revealing names that describe effect and purpose
+    (not means) and conform to the ubiquitous language, state relationships and rules in public interfaces
+    without revealing how they are enforced, and drive interface design by writing the test the way a
+    client would want to use the object; if a developer must read the implementation to use a component,
+    the value of encapsulation is lost. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - 'flags that the design does not follow P025 (Refine the model by speaking it: explore scenarios out
-    loud using model elements, use…)'
-  - explains, in domain terms, why this matters when refining or validating a model with domain experts
+  - flags that the design does not follow P025 (Give classes and operations intention-revealing names
+    that describe effect and purpose……)
+  - explains, in domain terms, why this matters when designing public interfaces of domain elements
   - gives one concrete corrective step grounded in the principle
   - cites P025
   must_not:
@@ -433,16 +471,18 @@ principle_behaviour_tests:
   - answers with generic advice that never references the specific model element
 - test_id: PB-026
   principle_id: P026
-  confidence: medium
-  prompt: A team is roles and relationships among entities must be configured at install or runtime. Their
-    current design ignores the guidance that you should when configurable behavior is needed, neither
-    a fully general nor a highly customized model serves users. They ask you to review the design and
-    say whether it is sound.
+  confidence: high
+  prompt: A team is characterizing the behavior and integrity of a design. Their current design ignores
+    the guidance that you should state postconditions of operations and invariants of classes and aggregates
+    as assertions (capturing them as automated tests where the language cannot), seeking coherent concepts
+    that let developers infer the intended assertions, because state-based assertions are easier to analyze
+    than tracing delegated side effects; when a logically consistent model proves unsuitable for requirements,
+    treat the awkwardness as a sign of missing concepts. They ask you to review the design and say whether
+    it is sound.
   expected_behaviour:
-  - flags that the design does not follow P026 (When configurable behavior is needed, neither a fully
-    general nor a highly customized model…)
-  - explains, in domain terms, why this matters when roles and relationships among entities must be configured
-    at install or runtime
+  - flags that the design does not follow P026 (State postconditions of operations and invariants of classes
+    and aggregates as……)
+  - explains, in domain terms, why this matters when characterizing the behavior and integrity of a design
   - gives one concrete corrective step grounded in the principle
   - cites P026
   must_not:
@@ -450,6 +490,137 @@ principle_behaviour_tests:
   - answers with generic advice that never references the specific model element
 - test_id: PB-027
   principle_id: P027
+  confidence: high
+  prompt: A team is considering a published design pattern for the domain model. Their current design
+    ignores the guidance that you should use a design pattern in the domain only when it genuinely fits
+    a domain concept and says something about the conceptual domain (not merely solving a technical problem),
+    viewing it on two levels (technical pattern in code and conceptual pattern in the model), and apply
+    it only when actually needed. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P027 (Use a design pattern in the domain only when it genuinely
+    fits a domain concept and……)
+  - explains, in domain terms, why this matters when considering a published design pattern for the domain
+    model
+  - gives one concrete corrective step grounded in the principle
+  - cites P027
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-028
+  principle_id: P028
+  confidence: high
+  prompt: A team is one subsystem feeds another with one-way dependency. Their current design ignores
+    the guidance that you should for a one-directional upstream/downstream dependency, establish a Customer/Supplier
+    relationship in which the downstream plays customer in the upstream's planning, with jointly developed
+    automated acceptance tests in the upstream's CI suite (a change to which signals an interface change);
+    its two essentials are that the customer's needs are paramount and that the test suite frees each
+    team from monitoring the other, succeeding best under shared management. They ask you to review the
+    design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P028 (For a one-directional upstream/downstream dependency,
+    establish a Customer/Supplier……)
+  - explains, in domain terms, why this matters when one subsystem feeds another with one-way dependency
+  - gives one concrete corrective step grounded in the principle
+  - cites P028
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-029
+  principle_id: P029
+  confidence: high
+  prompt: A team is complex computation is swamping the expressive model. Their current design ignores
+    the guidance that you should when computations bloat the design, first seek a model that makes the
+    computation simple, then partition a conceptually coherent Cohesive Mechanism into a separate framework
+    behind an intention-revealing interface (watching for documented formalisms), distinguishing it from
+    a generic subdomain (a model proposes, a mechanism disposes); remove mechanisms from the core except
+    a proprietary one that is itself key value. They ask you to review the design and say whether it is
+    sound.
+  expected_behaviour:
+  - flags that the design does not follow P029 (When computations bloat the design, first seek a model
+    that makes the computation……)
+  - explains, in domain terms, why this matters when complex computation is swamping the expressive model
+  - gives one concrete corrective step grounded in the principle
+  - cites P029
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-030
+  principle_id: P030
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should follow rules of thumb for the mix of test types and avoid the inverted ice-cream-cone pyramid:
+    aim for one end-to-end test per feature to prove the moving parts are glued together, write the bulk
+    of tests against the service layer with faked I/O to exhaustively cover business-logic edge cases,
+    keep only a small brittle high-feedback core of domain-model tests and delete them once covered higher
+    up, and treat error handling as a feature handled uniformly at the entrypoints so you test one happy
+    path per feature plus one end-to-end test for all unhappy paths. They ask you to review the design
+    and say whether it is sound.'
+  expected_behaviour:
+  - flags that the design does not follow P030 (Follow rules of thumb for the mix of test types and avoid
+    the inverted ice-cream-cone……)
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P030
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-031
+  principle_id: P031
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should recover from errors deliberately: rely on logs, writing a line recording what you are about
+    to do before handling each message, use dataclass message types whose printed summary you can replay
+    or reproduce, retry transient failures such as network hiccups, deadlocks, and deployment downtime
+    with exponential back-off (probably the single best resilience move, safe because each attempt starts
+    from a consistent Unit of Work), and accept that at some point you must give up because reliable distributed
+    messaging is hard. They ask you to review the design and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P031 (Recover from errors deliberately: rely on logs, writing
+    a line recording what you are……)'
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P031
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-032
+  principle_id: P032
+  confidence: medium
+  prompt: 'A team is refining or validating a model with domain experts. Their current design ignores
+    the guidance that you should refine the model by speaking it: explore scenarios out loud using model
+    elements, use ease versus awkwardness of expression as a quick viability test, and let domain experts
+    write use cases and acceptance tests in the model language. They ask you to review the design and
+    say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P032 (Refine the model by speaking it: explore scenarios out
+    loud using model elements, use……)'
+  - explains, in domain terms, why this matters when refining or validating a model with domain experts
+  - gives one concrete corrective step grounded in the principle
+  - cites P032
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-033
+  principle_id: P033
+  confidence: medium
+  prompt: A team is roles and relationships among entities must be configured at install or runtime. Their
+    current design ignores the guidance that you should when configurable behavior is needed, neither
+    a fully general nor a highly customized model serves users; make a field that has come to represent
+    a policy-enforcing concept an explicit type object, and apply a Knowledge Level (built of ordinary
+    domain objects, not language reflection) sparingly where customization is crucial, since its indirection
+    adds obscurity and burdens the designer. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P033 (When configurable behavior is needed, neither a fully
+    general nor a highly customized……)
+  - explains, in domain terms, why this matters when roles and relationships among entities must be configured
+    at install or runtime
+  - gives one concrete corrective step grounded in the principle
+  - cites P033
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-034
+  principle_id: P034
   confidence: medium
   prompt: A team is working a model through to a practical design. Their current design ignores the guidance
     that you should keep application-layer classes as coordinators that delegate answers to the domain
@@ -458,31 +629,34 @@ principle_behaviour_tests:
     organization's existing identifier and placing a borrowed-identity entity inside its owner's aggregate.
     They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P027 (Keep application-layer classes as coordinators that delegate
-    answers to the domain layer, abstract goals…)
+  - flags that the design does not follow P034 (Keep application-layer classes as coordinators that delegate
+    answers to the domain……)
   - explains, in domain terms, why this matters when working a model through to a practical design
   - gives one concrete corrective step grounded in the principle
-  - cites P027
+  - cites P034
   must_not:
   - approves the design without naming the missing DDD practice
   - answers with generic advice that never references the specific model element
-- test_id: PB-028
-  principle_id: P028
+- test_id: PB-035
+  principle_id: P035
   confidence: medium
   prompt: A team is designing the factory itself. Their current design ignores the guidance that you should
     make each factory method atomic and invariant-enforcing (producing only consistent objects) and abstracted
-    to the desired type. They ask you to review the design and say whether it is sound.
+    to the desired type; place a factory on the aggregate root or a closely related object, or use a standalone
+    factory when no natural host exists, and let it delegate invariant checking to the product except
+    where rules span the aggregate or never apply after creation. They ask you to review the design and
+    say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P028 (Make each factory method atomic and invariant-enforcing
-    (producing only consistent objects) and abstracted to…)
+  - flags that the design does not follow P035 (Make each factory method atomic and invariant-enforcing
+    (producing only consistent……)
   - explains, in domain terms, why this matters when designing the factory itself
   - gives one concrete corrective step grounded in the principle
-  - cites P028
+  - cites P035
   must_not:
   - approves the design without naming the missing DDD practice
   - answers with generic advice that never references the specific model element
-- test_id: PB-029
-  principle_id: P029
+- test_id: PB-036
+  principle_id: P036
   confidence: medium
   prompt: A team is implementing specification-based queries or generators against a model. Their current
     design ignores the guidance that you should keep the model in lockstep with the implementation while
@@ -492,124 +666,10 @@ principle_behaviour_tests:
     so the same specification validates the output. They ask you to review the design and say whether
     it is sound.
   expected_behaviour:
-  - flags that the design does not follow P029 (Keep the model in lockstep with the implementation while
-    remaining free to choose any…)
+  - flags that the design does not follow P036 (Keep the model in lockstep with the implementation while
+    remaining free to choose any……)
   - explains, in domain terms, why this matters when implementing specification-based queries or generators
     against a model
-  - gives one concrete corrective step grounded in the principle
-  - cites P029
-  must_not:
-  - approves the design without naming the missing DDD practice
-  - answers with generic advice that never references the specific model element
-- test_id: PB-030
-  principle_id: P030
-  confidence: medium
-  prompt: A team is seeking declarative, combinable model elements. Their current design ignores the guidance
-    that you should pursue a declarative style of design built from intention-revealing interfaces, side-effect-free
-    functions, and assertions (e.g. specifications combinable with AND/OR/NOT), while being wary of declarative-framework
-    pitfalls. They ask you to review the design and say whether it is sound.
-  expected_behaviour:
-  - flags that the design does not follow P030 (Pursue a declarative style of design built from intention-revealing
-    interfaces, side-effect-free functions, and assertions…)
-  - explains, in domain terms, why this matters when seeking declarative, combinable model elements
-  - gives one concrete corrective step grounded in the principle
-  - cites P030
-  must_not:
-  - approves the design without naming the missing DDD practice
-  - answers with generic advice that never references the specific model element
-- test_id: PB-031
-  principle_id: P031
-  confidence: medium
-  prompt: A team is transforming context boundaries on an existing project. Their current design ignores
-    the guidance that you should on a project already under way, define bounded contexts by the teams'
-    true current practice before changing them, then change boundaries in small pragmatic pieces. They
-    ask you to review the design and say whether it is sound.
-  expected_behaviour:
-  - flags that the design does not follow P031 (On a project already under way, define bounded contexts
-    by the teams' true current…)
-  - explains, in domain terms, why this matters when transforming context boundaries on an existing project
-  - gives one concrete corrective step grounded in the principle
-  - cites P031
-  must_not:
-  - approves the design without naming the missing DDD practice
-  - answers with generic advice that never references the specific model element
-- test_id: PB-032
-  principle_id: P032
-  confidence: medium
-  prompt: A team is relating to external systems and serving specialized user groups. Their current design
-    ignores the guidance that you should do not assume an external or legacy system is a coherent single
-    context (check whether its development is integrated). They ask you to review the design and say whether
-    it is sound.
-  expected_behaviour:
-  - flags that the design does not follow P032 (Do not assume an external or legacy system is a coherent
-    single context (check…)
-  - explains, in domain terms, why this matters when relating to external systems and serving specialized
-    user groups
-  - gives one concrete corrective step grounded in the principle
-  - cites P032
-  must_not:
-  - approves the design without naming the missing DDD practice
-  - answers with generic advice that never references the specific model element
-- test_id: PB-033
-  principle_id: P033
-  confidence: high
-  prompt: A team is a non-trivial business domain is being modeled. Their current design ignores the guidance
-    that you should build the domain model collaboratively between developers and domain experts (knowledge
-    crunching) rather than handing specifications down a chain. They ask you to review the design and
-    say whether it is sound.
-  expected_behaviour:
-  - flags that the design does not follow P033 (Build the domain model collaboratively between developers
-    and domain experts (knowledge crunching) rather than…)
-  - explains, in domain terms, why this matters when a non-trivial business domain is being modeled
-  - gives one concrete corrective step grounded in the principle
-  - cites P033
-  must_not:
-  - approves the design without naming the missing DDD practice
-  - answers with generic advice that never references the specific model element
-- test_id: PB-034
-  principle_id: P034
-  confidence: high
-  prompt: A team is choosing between Smart UI and model-driven design at project start. Their current
-    design ignores the guidance that you should reserve domain-driven design for ambitious projects with
-    strong skills and design model-driven from the outset. They ask you to review the design and say whether
-    it is sound.
-  expected_behaviour:
-  - flags that the design does not follow P034 (Reserve domain-driven design for ambitious projects with
-    strong skills and design model-driven from the…)
-  - explains, in domain terms, why this matters when choosing between Smart UI and model-driven design
-    at project start
-  - gives one concrete corrective step grounded in the principle
-  - cites P034
-  must_not:
-  - approves the design without naming the missing DDD practice
-  - answers with generic advice that never references the specific model element
-- test_id: PB-035
-  principle_id: P035
-  confidence: high
-  prompt: A team is deciding how finely to break down model elements. Their current design ignores the
-    guidance that you should decompose design elements into cohesive units along the domain's conceptual
-    contours rather than by cookbook granularity rules, implementing operations at the whole-value level
-    and clumping detail users do not dissect. They ask you to review the design and say whether it is
-    sound.
-  expected_behaviour:
-  - flags that the design does not follow P035 (Decompose design elements into cohesive units along the
-    domain's conceptual contours rather than by…)
-  - explains, in domain terms, why this matters when deciding how finely to break down model elements
-  - gives one concrete corrective step grounded in the principle
-  - cites P035
-  must_not:
-  - approves the design without naming the missing DDD practice
-  - answers with generic advice that never references the specific model element
-- test_id: PB-036
-  principle_id: P036
-  confidence: high
-  prompt: A team is a team shares a domain model. Their current design ignores the guidance that you should
-    cultivate a single ubiquitous language grounded in the domain model and use it relentlessly in speech,
-    code, diagrams, documents, and tests. They ask you to review the design and say whether it is sound.
-  expected_behaviour:
-  - flags that the design does not follow P036 (Cultivate a single ubiquitous language grounded in the
-    domain model and use it relentlessly…)
-  - explains, in domain terms, why this matters when a team shares a domain model
   - gives one concrete corrective step grounded in the principle
   - cites P036
   must_not:
@@ -617,17 +677,17 @@ principle_behaviour_tests:
   - answers with generic advice that never references the specific model element
 - test_id: PB-037
   principle_id: P037
-  confidence: high
-  prompt: A team is communicating or documenting a model. Their current design ignores the guidance that
-    you should use simple, informal diagrams of a few central objects to anchor discussion rather than
-    comprehensive diagrams, recognizing that a diagram cannot convey concept meaning or object intent
-    (fill that in with natural language), and that the model is not the diagram while the code is the
-    authoritative repository of design detail. They ask you to review the design and say whether it is
-    sound.
+  confidence: medium
+  prompt: A team is seeking declarative, combinable model elements. Their current design ignores the guidance
+    that you should pursue a declarative style of design built from intention-revealing interfaces, side-effect-free
+    functions, and assertions (e.g. specifications combinable with AND/OR/NOT), while being wary of declarative-framework
+    pitfalls; the greatest value comes from a narrowly scoped framework automating a tedious aspect, and
+    a declarative approach is corrupted whenever developers bypass it. They ask you to review the design
+    and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P037 (Use simple, informal diagrams of a few central objects
-    to anchor discussion rather than…)
-  - explains, in domain terms, why this matters when communicating or documenting a model
+  - flags that the design does not follow P037 (Pursue a declarative style of design built from intention-revealing
+    interfaces,……)
+  - explains, in domain terms, why this matters when seeking declarative, combinable model elements
   - gives one concrete corrective step grounded in the principle
   - cites P037
   must_not:
@@ -635,15 +695,18 @@ principle_behaviour_tests:
   - answers with generic advice that never references the specific model element
 - test_id: PB-038
   principle_id: P038
-  confidence: high
-  prompt: A team is committing to model-driven design. Their current design ignores the guidance that
-    you should use one model as the single foundation for implementation, design, and communication, discarding
-    the analysis-model/design-model dichotomy. They ask you to review the design and say whether it is
+  confidence: medium
+  prompt: A team is transforming context boundaries on an existing project. Their current design ignores
+    the guidance that you should on a project already under way, define bounded contexts by the teams'
+    true current practice before changing them, then change boundaries in small pragmatic pieces; breaking
+    up contexts is easy but merging is hard, so move Separate Ways toward a Shared Kernel in planned steps,
+    defer merging jargon-specialized models until a deep model supersedes both, and let deployment feasibility
+    feed back into where boundaries are drawn. They ask you to review the design and say whether it is
     sound.
   expected_behaviour:
-  - flags that the design does not follow P038 (Use one model as the single foundation for implementation,
-    design, and communication, discarding the…)
-  - explains, in domain terms, why this matters when committing to model-driven design
+  - flags that the design does not follow P038 (On a project already under way, define bounded contexts
+    by the teams' true current……)
+  - explains, in domain terms, why this matters when transforming context boundaries on an existing project
   - gives one concrete corrective step grounded in the principle
   - cites P038
   must_not:
@@ -651,16 +714,18 @@ principle_behaviour_tests:
   - answers with generic advice that never references the specific model element
 - test_id: PB-039
   principle_id: P039
-  confidence: high
-  prompt: A team is organizing models and making implicit concepts explicit. Their current design ignores
-    the guidance that you should apply only one model to a given part of the system across all activities
-    (different subsystems may differ), and make domain concepts explicit in the model rather than inferring
-    them through incidental mechanisms such as naming conventions. They ask you to review the design and
-    say whether it is sound.
+  confidence: medium
+  prompt: A team is relating to external systems and serving specialized user groups. Their current design
+    ignores the guidance that you should do not assume an external or legacy system is a coherent single
+    context (check whether its development is integrated); choose Conformist only for a peripheral extension
+    to a dominant system, keep roughly one team per context, and weigh the costs and risks of catering
+    to specialized jargon with distinct models, knowing you cannot plan on a deep unifying model and must
+    seize it when it emerges. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P039 (Apply only one model to a given part of the system across
-    all activities…)
-  - explains, in domain terms, why this matters when organizing models and making implicit concepts explicit
+  - flags that the design does not follow P039 (Do not assume an external or legacy system is a coherent
+    single context (check whether……)
+  - explains, in domain terms, why this matters when relating to external systems and serving specialized
+    user groups
   - gives one concrete corrective step grounded in the principle
   - cites P039
   must_not:
@@ -668,16 +733,20 @@ principle_behaviour_tests:
   - answers with generic advice that never references the specific model element
 - test_id: PB-040
   principle_id: P040
-  confidence: high
-  prompt: A team is building the domain layer of a model-driven design. Their current design ignores the
-    guidance that you should design a portion of the software to reflect the domain model literally so
-    the mapping is obvious, treat the code as an expression of the model (a code change may be a model
-    change), and demand a literal, exact correspondence. They ask you to review the design and say whether
-    it is sound.
+  confidence: medium
+  prompt: 'A team is working with Django. Their current design ignores the guidance that you should apply
+    the patterns carefully in Django, which is harder because its ORM has no classical-mapper equivalent
+    so the ActiveRecord and domain model cannot be the same object and need a manual translation layer,
+    and which suits easy CRUD but hinders once the app is non-CRUD (its admin becomes dangerous by bypassing
+    complex state-change rules): in an existing Django app adopt Repository and Unit of Work mainly for
+    faster tests and decoupling if migrating and the Service Layer when views duplicate, do DDD via fat
+    models only while the app stays simple (extracting a domain layer between views/forms and models once
+    fat models hit scalability limits), and put a logic module in every Django app from day one. They
+    ask you to review the design and say whether it is sound.'
   expected_behaviour:
-  - flags that the design does not follow P040 (Design a portion of the software to reflect the domain
-    model literally so the…)
-  - explains, in domain terms, why this matters when building the domain layer of a model-driven design
+  - flags that the design does not follow P040 (Apply the patterns carefully in Django, which is harder
+    because its ORM has no……)
+  - explains, in domain terms, why this matters when working with Django
   - gives one concrete corrective step grounded in the principle
   - cites P040
   must_not:
@@ -686,14 +755,15 @@ principle_behaviour_tests:
 - test_id: PB-041
   principle_id: P041
   confidence: high
-  prompt: A team is giving a global view of contexts and their relationships. Their current design ignores
-    the guidance that you should maintain a Context Map that identifies and names each model (including
-    non-OO subsystems) in the ubiquitous language and describes the points of contact and explicit translation.
-    They ask you to review the design and say whether it is sound.
+  prompt: A team is a non-trivial business domain is being modeled. Their current design ignores the guidance
+    that you should build the domain model collaboratively between developers and domain experts (knowledge
+    crunching) rather than handing specifications down a chain; the waterfall hand-off and feature-by-feature
+    iteration without abstraction both fail to accumulate domain knowledge. They ask you to review the
+    design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P041 (Maintain a Context Map that identifies and names each
-    model (including non-OO subsystems) in…)
-  - explains, in domain terms, why this matters when giving a global view of contexts and their relationships
+  - flags that the design does not follow P041 (Build the domain model collaboratively between developers
+    and domain experts (knowledge……)
+  - explains, in domain terms, why this matters when a non-trivial business domain is being modeled
   - gives one concrete corrective step grounded in the principle
   - cites P041
   must_not:
@@ -702,15 +772,16 @@ principle_behaviour_tests:
 - test_id: PB-042
   principle_id: P042
   confidence: high
-  prompt: A team is designing associations between domain objects. Their current design ignores the guidance
-    that you should provide a software mechanism with the same properties for every traversable association,
-    and constrain associations as much as possible (impose a traversal direction, add a qualifier to reduce
-    multiplicity, or eliminate nonessential ones), embedding each discovered constraint in both model
-    and implementation. They ask you to review the design and say whether it is sound.
+  prompt: A team is choosing between Smart UI and model-driven design at project start. Their current
+    design ignores the guidance that you should reserve domain-driven design for ambitious projects with
+    strong skills and design model-driven from the outset; use the Smart-UI approach only for simple data-entry
+    projects with few rules and unskilled teams, recognizing it is mutually exclusive with DDD and offers
+    no graceful growth path. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P042 (Provide a software mechanism with the same properties
-    for every traversable association, and constrain…)
-  - explains, in domain terms, why this matters when designing associations between domain objects
+  - flags that the design does not follow P042 (Reserve domain-driven design for ambitious projects with
+    strong skills and design……)
+  - explains, in domain terms, why this matters when choosing between Smart UI and model-driven design
+    at project start
   - gives one concrete corrective step grounded in the principle
   - cites P042
   must_not:
@@ -719,16 +790,17 @@ principle_behaviour_tests:
 - test_id: PB-043
   principle_id: P043
   confidence: high
-  prompt: A team is an object must be tracked and distinguished across states and forms. Their current
-    design ignores the guidance that you should classify an object whose continuity and identity matter
-    as an Entity, make identity primary to its definition, and keep it spare around the characteristics
-    that identify it, because a mistaken identity in software leads to data corruption. They ask you to
-    review the design and say whether it is sound.
+  prompt: A team is deciding how finely to break down model elements. Their current design ignores the
+    guidance that you should decompose design elements into cohesive units along the domain's conceptual
+    contours rather than by cookbook granularity rules, implementing operations at the whole-value level
+    and clumping detail users do not dissect; treat localized refactoring as a sign of model fit and a
+    requirement forcing extensive restructuring as a signal the domain understanding needs refinement,
+    since contour-aligned design accommodates unanticipated change. They ask you to review the design
+    and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P043 (Classify an object whose continuity and identity matter
-    as an Entity, make identity primary…)
-  - explains, in domain terms, why this matters when an object must be tracked and distinguished across
-    states and forms
+  - flags that the design does not follow P043 (Decompose design elements into cohesive units along the
+    domain's conceptual contours……)
+  - explains, in domain terms, why this matters when deciding how finely to break down model elements
   - gives one concrete corrective step grounded in the principle
   - cites P043
   must_not:
@@ -737,14 +809,15 @@ principle_behaviour_tests:
 - test_id: PB-044
   principle_id: P044
   confidence: high
-  prompt: 'A team is modeling a descriptive aspect of the domain. Their current design ignores the guidance
-    that you should classify an object you care about only for its attributes as a Value Object: give
-    it no identity, treat it as immutable, and make its attributes form a conceptual whole. They ask you
-    to review the design and say whether it is sound.'
+  prompt: A team is a team shares a domain model. Their current design ignores the guidance that you should
+    cultivate a single ubiquitous language grounded in the domain model and use it relentlessly in speech,
+    code, diagrams, documents, and tests; its vocabulary includes class names, operations, explicit rules,
+    organizing structures, and pattern names. They ask you to review the design and say whether it is
+    sound.
   expected_behaviour:
-  - flags that the design does not follow P044 (Classify an object you care about only for its attributes
-    as a Value Object…)
-  - explains, in domain terms, why this matters when modeling a descriptive aspect of the domain
+  - flags that the design does not follow P044 (Cultivate a single ubiquitous language grounded in the
+    domain model and use it……)
+  - explains, in domain terms, why this matters when a team shares a domain model
   - gives one concrete corrective step grounded in the principle
   - cites P044
   must_not:
@@ -753,16 +826,16 @@ principle_behaviour_tests:
 - test_id: PB-045
   principle_id: P045
   confidence: high
-  prompt: A team is managing copying, sharing, and mutability of value objects. Their current design ignores
-    the guidance that you should design value objects as immutable so they can be shared safely, pass
-    an immutable object or a copy when handing out an attribute, and restrict sharing to immutable objects
-    where space saving is critical and communication overhead is low. They ask you to review the design
-    and say whether it is sound.
+  prompt: A team is communicating or documenting a model. Their current design ignores the guidance that
+    you should use simple, informal diagrams of a few central objects to anchor discussion rather than
+    comprehensive diagrams, recognizing that a diagram cannot convey concept meaning or object intent
+    (fill that in with natural language), and that the model is not the diagram while the code is the
+    authoritative repository of design detail. They ask you to review the design and say whether it is
+    sound.
   expected_behaviour:
-  - flags that the design does not follow P045 (Design value objects as immutable so they can be shared
-    safely, pass an immutable…)
-  - explains, in domain terms, why this matters when managing copying, sharing, and mutability of value
-    objects
+  - flags that the design does not follow P045 (Use simple, informal diagrams of a few central objects
+    to anchor discussion rather than……)
+  - explains, in domain terms, why this matters when communicating or documenting a model
   - gives one concrete corrective step grounded in the principle
   - cites P045
   must_not:
@@ -771,14 +844,15 @@ principle_behaviour_tests:
 - test_id: PB-046
   principle_id: P046
   confidence: high
-  prompt: A team is a persistent aggregate root must be found globally. Their current design ignores the
-    guidance that you should create a Repository for each aggregate root that needs global access, giving
-    the illusion of an in-memory collection that encapsulates storage and query technology. They ask you
-    to review the design and say whether it is sound.
+  prompt: A team is committing to model-driven design. Their current design ignores the guidance that
+    you should use one model as the single foundation for implementation, design, and communication, discarding
+    the analysis-model/design-model dichotomy; a model on paper that does not aid running software is
+    of little value, and a separate analysis model gets abandoned once coding starts. They ask you to
+    review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P046 (Create a Repository for each aggregate root that needs
-    global access, giving the illusion…)
-  - explains, in domain terms, why this matters when a persistent aggregate root must be found globally
+  - flags that the design does not follow P046 (Use one model as the single foundation for implementation,
+    design, and communication,……)
+  - explains, in domain terms, why this matters when committing to model-driven design
   - gives one concrete corrective step grounded in the principle
   - cites P046
   must_not:
@@ -787,15 +861,15 @@ principle_behaviour_tests:
 - test_id: PB-047
   principle_id: P047
   confidence: high
-  prompt: A team is object or aggregate creation is complex or exposes internal structure. Their current
-    design ignores the guidance that you should encapsulate complex creation of an object or aggregate
-    in a Factory that does not require the client to reference concrete classes, treating creation as
-    a domain-layer responsibility. They ask you to review the design and say whether it is sound.
+  prompt: A team is organizing models and making implicit concepts explicit. Their current design ignores
+    the guidance that you should apply only one model to a given part of the system across all activities
+    (different subsystems may differ), and make domain concepts explicit in the model rather than inferring
+    them through incidental mechanisms such as naming conventions; an incisive design emerges only over
+    several iterations. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P047 (Encapsulate complex creation of an object or aggregate
-    in a Factory that does not…)
-  - explains, in domain terms, why this matters when object or aggregate creation is complex or exposes
-    internal structure
+  - flags that the design does not follow P047 (Apply only one model to a given part of the system across
+    all activities (different……)
+  - explains, in domain terms, why this matters when organizing models and making implicit concepts explicit
   - gives one concrete corrective step grounded in the principle
   - cites P047
   must_not:
@@ -804,16 +878,15 @@ principle_behaviour_tests:
 - test_id: PB-048
   principle_id: P048
   confidence: high
-  prompt: A team is persistent defects or escalating complexity suggest a model flaw. Their current design
-    ignores the guidance that you should expect returns from refactoring to be non-linear, recognize a
-    breakthrough to a deeper model as an event to act on, and look to remove an inappropriate constraint
-    that the model imposed but the business does not, since doing so can collapse layers of special-case
-    logic. They ask you to review the design and say whether it is sound.
+  prompt: A team is giving a global view of contexts and their relationships. Their current design ignores
+    the guidance that you should maintain a Context Map that identifies and names each model (including
+    non-OO subsystems) in the ubiquitous language and describes the points of contact and explicit translation;
+    map the terrain as it actually is, avoid code reuse between contexts, and until the map is unambiguous
+    change only the outright contradictions. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P048 (Expect returns from refactoring to be non-linear, recognize
-    a breakthrough to a deeper model…)
-  - explains, in domain terms, why this matters when persistent defects or escalating complexity suggest
-    a model flaw
+  - flags that the design does not follow P048 (Maintain a Context Map that identifies and names each
+    model (including non-OO……)
+  - explains, in domain terms, why this matters when giving a global view of contexts and their relationships
   - gives one concrete corrective step grounded in the principle
   - cites P048
   must_not:
@@ -822,14 +895,16 @@ principle_behaviour_tests:
 - test_id: PB-049
   principle_id: P049
   confidence: high
-  prompt: A team is a business rule overwhelms an entity or value object. Their current design ignores
-    the guidance that you should create an explicit predicate-like Specification value object to test
-    whether an object satisfies criteria, keeping the rule in the domain layer. They ask you to review
-    the design and say whether it is sound.
+  prompt: A team is assigning responsibilities across UI, application, domain, and infrastructure layers.
+    Their current design ignores the guidance that you should enforce business rules in the domain layer
+    rather than the application layer, and assign responsibility for deriving a value to the object that
+    knows the rules (splitting them into a Strategy when they vary by purpose) rather than the object
+    that merely holds the data. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P049 (Create an explicit predicate-like Specification value
-    object to test whether an object satisfies criteria…)
-  - explains, in domain terms, why this matters when a business rule overwhelms an entity or value object
+  - flags that the design does not follow P049 (Enforce business rules in the domain layer rather than
+    the application layer, and……)
+  - explains, in domain terms, why this matters when assigning responsibilities across UI, application,
+    domain, and infrastructure layers
   - gives one concrete corrective step grounded in the principle
   - cites P049
   must_not:
@@ -838,6 +913,168 @@ principle_behaviour_tests:
 - test_id: PB-050
   principle_id: P050
   confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should apply the Dependency Inversion Principle: high-level modules dealing with real-world business
+    concepts and low-level technical details should both depend on abstractions (where depends-on means
+    knows-about or needs, not merely imports), placing an abstraction between business logic and infrastructure
+    so the two change independently. They ask you to review the design and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P050 (Apply the Dependency Inversion Principle: high-level
+    modules dealing with real-world……)'
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P050
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-051
+  principle_id: P051
+  confidence: high
+  prompt: A team is designing associations between domain objects. Their current design ignores the guidance
+    that you should provide a software mechanism with the same properties for every traversable association,
+    and constrain associations as much as possible (impose a traversal direction, add a qualifier to reduce
+    multiplicity, or eliminate nonessential ones), embedding each discovered constraint in both model
+    and implementation. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P051 (Provide a software mechanism with the same properties
+    for every traversable……)
+  - explains, in domain terms, why this matters when designing associations between domain objects
+  - gives one concrete corrective step grounded in the principle
+  - cites P051
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-052
+  principle_id: P052
+  confidence: high
+  prompt: A team is managing copying, sharing, and mutability of value objects. Their current design ignores
+    the guidance that you should design value objects as immutable so they can be shared safely, pass
+    an immutable object or a copy when handing out an attribute, and restrict sharing to immutable objects
+    where space saving is critical and communication overhead is low; allow a mutable, non-shared value
+    only for performance. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P052 (Design value objects as immutable so they can be shared
+    safely, pass an immutable……)
+  - explains, in domain terms, why this matters when managing copying, sharing, and mutability of value
+    objects
+  - gives one concrete corrective step grounded in the principle
+  - cites P052
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-053
+  principle_id: P053
+  confidence: high
+  prompt: A team submits a domain design for review. Their current design ignores the guidance that you
+    should encapsulate behavior behind well-named abstractions and design code in terms of behavior (roles
+    and responsibilities) rather than data or algorithms, since this makes code more expressive, testable,
+    and maintainable and each added layer of indirection lets modules change independently. They ask you
+    to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P053 (Encapsulate behavior behind well-named abstractions and
+    design code in terms of……)
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P053
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-054
+  principle_id: P054
+  confidence: high
+  prompt: A team is a persistent aggregate root must be found globally. Their current design ignores the
+    guidance that you should create a Repository for each aggregate root that needs global access, giving
+    the illusion of an in-memory collection that encapsulates storage and query technology; provide repositories
+    only for roots that genuinely need direct access, since most objects should not be reachable by global
+    search and direct database access from clients tempts developers to bypass aggregates and reduce entities
+    to data containers. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P054 (Create a Repository for each aggregate root that needs
+    global access, giving the……)
+  - explains, in domain terms, why this matters when a persistent aggregate root must be found globally
+  - gives one concrete corrective step grounded in the principle
+  - cites P054
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-055
+  principle_id: P055
+  confidence: high
+  prompt: A team submits a domain design for review. Their current design ignores the guidance that you
+    should implement optimistic concurrency by forcing concurrent transactions to also bump a version
+    number on the aggregate so only one can commit and the world stays consistent; version numbers are
+    one option (SERIALIZABLE isolation is another, often at severe performance cost) and what matters
+    is that the aggregate's row is modified on every change, so putting the version in the domain and
+    having the aggregate increment it is often the cleanest choice. They ask you to review the design
+    and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P055 (Implement optimistic concurrency by forcing concurrent
+    transactions to also bump a……)
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P055
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-056
+  principle_id: P056
+  confidence: high
+  prompt: A team is object or aggregate creation is complex or exposes internal structure. Their current
+    design ignores the guidance that you should encapsulate complex creation of an object or aggregate
+    in a Factory that does not require the client to reference concrete classes, treating creation as
+    a domain-layer responsibility; do not overload a complex object or its client with its own creation,
+    which would breach encapsulation and couple the client to internals. They ask you to review the design
+    and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P056 (Encapsulate complex creation of an object or aggregate
+    in a Factory that does not……)
+  - explains, in domain terms, why this matters when object or aggregate creation is complex or exposes
+    internal structure
+  - gives one concrete corrective step grounded in the principle
+  - cites P056
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-057
+  principle_id: P057
+  confidence: high
+  prompt: A team is persistent defects or escalating complexity suggest a model flaw. Their current design
+    ignores the guidance that you should expect returns from refactoring to be non-linear, recognize a
+    breakthrough to a deeper model as an event to act on, and look to remove an inappropriate constraint
+    that the model imposed but the business does not, since doing so can collapse layers of special-case
+    logic; be suspicious of a model concept that is not a real domain term and that experts do not understand.
+    They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P057 (Expect returns from refactoring to be non-linear, recognize
+    a breakthrough to a deeper……)
+  - explains, in domain terms, why this matters when persistent defects or escalating complexity suggest
+    a model flaw
+  - gives one concrete corrective step grounded in the principle
+  - cites P057
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-058
+  principle_id: P058
+  confidence: high
+  prompt: A team is a business rule overwhelms an entity or value object. Their current design ignores
+    the guidance that you should create an explicit predicate-like Specification value object to test
+    whether an object satisfies criteria, keeping the rule in the domain layer; use it to unify validation,
+    selection, and building-to-order, configure it (often via a factory) with needed information, and
+    avoid a full general logic-programming implementation in favor of specialized predicates. They ask
+    you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P058 (Create an explicit predicate-like Specification value
+    object to test whether an object……)
+  - explains, in domain terms, why this matters when a business rule overwhelms an entity or value object
+  - gives one concrete corrective step grounded in the principle
+  - cites P058
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-059
+  principle_id: P059
+  confidence: high
   prompt: A team is complexity in a crucial part is holding back progress. Their current design ignores
     the guidance that you should aim for a supple design that serves both the client developer (revealing
     a deep model through loosely coupled concepts with predictable results) and the developer changing
@@ -845,11 +1082,953 @@ principle_behaviour_tests:
     and hone the most crucial intricate parts to suppleness rather than expecting the whole system to
     be supple. They ask you to review the design and say whether it is sound.
   expected_behaviour:
-  - flags that the design does not follow P050 (Aim for a supple design that serves both the client developer
-    (revealing a deep…)
+  - flags that the design does not follow P059 (Aim for a supple design that serves both the client developer
+    (revealing a deep model……)
   - explains, in domain terms, why this matters when complexity in a crucial part is holding back progress
   - gives one concrete corrective step grounded in the principle
-  - cites P050
+  - cites P059
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-060
+  principle_id: P060
+  confidence: high
+  prompt: A team is a large system spans multiple teams and subsystems. Their current design ignores the
+    guidance that you should accept that total unification of a large enterprise model is not feasible
+    and do not overreach trying to force all software under one model; recognize that model divergence
+    is as much political and organizational as technical, and instead explicitly define the Bounded Context
+    within which each model applies and is kept consistent. They ask you to review the design and say
+    whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P060 (Accept that total unification of a large enterprise model
+    is not feasible and do not……)
+  - explains, in domain terms, why this matters when a large system spans multiple teams and subsystems
+  - gives one concrete corrective step grounded in the principle
+  - cites P060
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-061
+  principle_id: P061
+  confidence: high
+  prompt: A team is deciding how to draw and size bounded contexts. Their current design ignores the guidance
+    that you should base context-boundary decisions on the cost-benefit of independent team action versus
+    rich integration (acknowledging political reality), weighing the forces that favor larger contexts
+    (smoother flow, one model, hard translation, shared language) against those favoring smaller ones
+    (less communication overhead, easier CI, scarce skills, specialized jargon), and accept that deep
+    integration between contexts is impractical. They ask you to review the design and say whether it
+    is sound.
+  expected_behaviour:
+  - flags that the design does not follow P061 (Base context-boundary decisions on the cost-benefit of
+    independent team action versus……)
+  - explains, in domain terms, why this matters when deciding how to draw and size bounded contexts
+  - gives one concrete corrective step grounded in the principle
+  - cites P061
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-062
+  principle_id: P062
+  confidence: high
+  prompt: A team is a large system needs an organizing principle across many parts. Their current design
+    ignores the guidance that you should introduce a Large-Scale Structure (high-level concepts or rules)
+    that lets each part's role in the whole be understood without detailed knowledge and usually spans
+    multiple contexts, complementing distillation; do not impose it up front but let it evolve, since
+    architectures that freeze many decisions become a straitjacket. They ask you to review the design
+    and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P062 (Introduce a Large-Scale Structure (high-level concepts
+    or rules) that lets each part's……)
+  - explains, in domain terms, why this matters when a large system needs an organizing principle across
+    many parts
+  - gives one concrete corrective step grounded in the principle
+  - cites P062
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-063
+  principle_id: P063
+  confidence: high
+  prompt: A team is making modeling decisions under an adopted layered structure. Their current design
+    ignores the guidance that you should once a structure is adopted, make subsequent decisions respect
+    it and reject an otherwise appealing design that violates it (or modify the structure if it forces
+    many awkward choices); look for storytelling, conceptual dependency, and conceptual contours in good
+    layers, keep operational objects referencing potential objects but never the reverse, and exploit
+    that lower layers can exist without higher ones. They ask you to review the design and say whether
+    it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P063 (Once a structure is adopted, make subsequent decisions
+    respect it and reject an……)
+  - explains, in domain terms, why this matters when making modeling decisions under an adopted layered
+    structure
+  - gives one concrete corrective step grounded in the principle
+  - cites P063
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-064
+  principle_id: P064
+  confidence: high
+  prompt: A team is organizing who makes and applies strategic-design decisions. Their current design
+    ignores the guidance that you should make the strategic-design decision process absorb feedback through
+    a tight loop with the application teams (who alone have the depth of knowledge), let the plan allow
+    for evolution rather than setting top-level decisions in stone, and do not let architecture teams
+    siphon off all the best developers, ensuring strong designers on every application team and domain
+    knowledge on any strategic-design team. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P064 (Make the strategic-design decision process absorb feedback
+    through a tight loop with……)
+  - explains, in domain terms, why this matters when organizing who makes and applies strategic-design
+    decisions
+  - gives one concrete corrective step grounded in the principle
+  - cites P064
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-065
+  principle_id: P065
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should recognize and avoid the Big Ball of Mud: a sameness of function where components mix domain
+    logic, I/O, logging, and where business logic is spread across layers so that pervasive coupling makes
+    any change risky; systems drift toward this entropy without deliberate effort and direction. They
+    ask you to review the design and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P065 (Recognize and avoid the Big Ball of Mud: a sameness of
+    function where components mix……)'
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P065
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-066
+  principle_id: P066
+  confidence: high
+  prompt: A team submits a domain design for review. Their current design ignores the guidance that you
+    should treat every architectural pattern as a trade-off that adds local complexity and maintenance
+    even when it reduces overall complexity, and adopt these extra layers only when the app and domain
+    are complex enough to be worth it — a simple CRUD wrapper around a database needs no domain model
+    or repository, while a more complex domain repays the investment in decoupling. They ask you to review
+    the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P066 (Treat every architectural pattern as a trade-off that
+    adds local complexity and……)
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P066
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-067
+  principle_id: P067
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should adopt these techniques incrementally rather than all at once: in an existing system first build
+    a service layer to consolidate orchestration (which then makes it easier to push logic into the model
+    and edge concerns out to the entrypoints), extract use cases by copying tangled code to a clean new
+    place then replacing and deleting the old (accepting short-term duplication), treat CQRS as optional
+    since view-builder objects over repositories are fine (rewrite one to custom queries or raw SQL only
+    on a performance problem), and move handler-invokes-handler interactions onto a message bus so a finished
+    use case raises an event that a handler in another subdomain runs. They ask you to review the design
+    and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P067 (Adopt these techniques incrementally rather than all
+    at once: in an existing system……)'
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P067
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-068
+  principle_id: P068
+  confidence: high
+  prompt: 'A team is classical-mapping detail applies when using SQLAlchemy. Their current design ignores
+    the guidance that you should achieve persistence ignorance by inverting the ORM dependency: instead
+    of inheriting model classes from ORM base classes, make the ORM depend on the model (with SQLAlchemy,
+    use classical mapping — a separately defined schema plus an explicit mapper) so the model stays pure
+    and swappable, and keep the domain on the inside with dependencies flowing inward (onion architecture).
+    They ask you to review the design and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P068 (Achieve persistence ignorance by inverting the ORM dependency:
+    instead of inheriting……)'
+  - explains, in domain terms, why this matters when classical-mapping detail applies when using SQLAlchemy
+  - gives one concrete corrective step grounded in the principle
+  - cites P068
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-069
+  principle_id: P069
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should apply ''don''t mock what you don''t own'': wrap a messy third-party subsystem such as the SQLAlchemy
+    Session in a simpler abstraction and fake that abstraction, because coupling to the full third-party
+    interface spreads data-access code across the codebase; narrow the ORM-to-code interface with a thin
+    Unit of Work abstraction that the service layer depends on with the concrete implementation attached
+    at the edge, and keep the session and transaction lifecycle external to the working code. They ask
+    you to review the design and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P069 (Apply ''don''t mock what you don''t own'': wrap a messy
+    third-party subsystem such as the……)'
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P069
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-070
+  principle_id: P070
+  confidence: high
+  prompt: A team submits a domain design for review. Their current design ignores the guidance that you
+    should do not tightly couple domain logic to I/O, which makes tests slow and the code hard to extend;
+    separate what to do from how to do it by having the core emit actions as data, and adopt Functional
+    Core, Imperative Shell — a dependency-free core that takes and returns simple data structures, wrapped
+    by a thin imperative shell that gathers inputs, calls the logic, and applies outputs. They ask you
+    to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P070 (Do not tightly couple domain logic to I/O, which makes
+    tests slow and the code hard to……)
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P070
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-071
+  principle_id: P071
+  confidence: high
+  prompt: A team submits a domain design for review. Their current design ignores the guidance that you
+    should keep infrastructural side effects such as sending email out of the web controllers, the domain
+    model, and the service layer — since the mess in a codebase usually comes from the goop around the
+    edges like reporting, permissions, and cross-cutting workflows — because the domain's job is to know
+    a fact such as being out of stock while alerting belongs elsewhere; you should be able to toggle a
+    notification or switch email to SMS without changing domain rules, so apply the dependency inversion
+    principle to notifications and have the service layer depend on an abstraction. They ask you to review
+    the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P071 (Keep infrastructural side effects such as sending email
+    out of the web controllers, the……)
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P071
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-072
+  principle_id: P072
+  confidence: high
+  prompt: A team submits a domain design for review. Their current design ignores the guidance that you
+    should integrate systems with asynchronous messaging rather than temporally coupled HTTP calls — receiving
+    external messages from upstream systems and publishing events for downstream ones — because this lets
+    systems fail independently and reduces coupling so you can change the order of operations locally;
+    a message broker delivers messages from publishers to subscribers (Event Store, Kafka, RabbitMQ, or
+    a lightweight Redis pub/sub), and an event consumer or publisher is a thin adapter like the web framework,
+    deserializing JSON into a command for the service layer or converting internal domain events into
+    public messages. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P072 (Integrate systems with asynchronous messaging rather than
+    temporally coupled HTTP calls……)
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P072
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-073
+  principle_id: P073
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should distinguish commands from events: both are dumb-data messages handled similarly, but a command
+    is sent to one recipient, named with an imperative verb phrase, captures intent, and needs error information
+    back on failure, whereas an event is broadcast to all interested listeners, named in the past tense,
+    and its sender should not care whether receivers succeeded — and events are how you spread knowledge
+    about successful commands. They ask you to review the design and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P073 (Distinguish commands from events: both are dumb-data
+    messages handled similarly, but a……)'
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P073
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-074
+  principle_id: P074
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should treat distributed messaging as hard and guard against its footguns: reliable messaging is hard
+    and Redis pub/sub is not reliable for general use because you cannot have exactly-once delivery; small
+    independently-failing transactions need monitoring and event-replay tooling (eased by a transaction-log
+    broker like Kafka or EventStore, or the Outbox pattern); make handlers idempotent so repeated messages
+    do not repeat state changes and safe retries become possible; and document and share your event schemas
+    since events change over time. They ask you to review the design and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P074 (Treat distributed messaging as hard and guard against
+    its footguns: reliable messaging……)'
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P074
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-075
+  principle_id: P075
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should avoid the distributed big ball of mud that a microservice-per-database-table with CRUD HTTP
+    APIs over anemic models degrades into: things that must change together are coupled, a failure cascade
+    where every part must work for any part to work is temporal coupling that worsens as the system grows,
+    and connascence names coupling types so you should aim for strong connascence locally and weak connascence
+    at a distance — swapping RPC-style Connascence of Execution and Timing for the weaker Connascence
+    of Name — while accepting that the goal is to avoid inappropriate coupling rather than all coupling.
+    They ask you to review the design and say whether it is sound.'
+  expected_behaviour:
+  - flags that the design does not follow P075 (Avoid the distributed big ball of mud that a microservice-per-database-table
+    with CRUD……)
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P075
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-076
+  principle_id: P076
+  confidence: high
+  prompt: A team submits a domain design for review. Their current design ignores the guidance that you
+    should segregate read (query) responsibilities from write (command) responsibilities, because the
+    two differ fundamentally — reads are simple, highly cacheable, and can be stale while writes carry
+    complex business logic, are uncacheable, and must be transactionally consistent — so the write-side
+    machinery of service layer, unit of work, and domain model buys nothing for reads, and you can make
+    reads eventually consistent to perform better. They ask you to review the design and say whether it
+    is sound.
+  expected_behaviour:
+  - flags that the design does not follow P076 (Segregate read (query) responsibilities from write (command)
+    responsibilities, because……)
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P076
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-077
+  principle_id: P077
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should address read performance and scale deliberately: watch for the SELECT N+1 problem where a list
+    query issues one query for IDs then a query per object (especially with foreign keys); a fully normalized
+    schema prevents write corruption but its joins can be slow, so it is common to add denormalized views,
+    read replicas, or caching, and once indexes are exhausted a denormalized read-optimized copy is reasonable
+    because databases burn CPU on joins while single-key lookups are fastest; read-only stores scale out
+    horizontally since reads have no concurrency limit (unlike writes needing locks), so if a complex
+    store is hard to scale, ask whether a simpler read model would help. They ask you to review the design
+    and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P077 (Address read performance and scale deliberately: watch
+    for the SELECT N+1 problem where……)'
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P077
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-078
+  principle_id: P078
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should keep packaging and build hygiene: in a Dockerfile install things in order of how frequently
+    they change (system dependencies, then Python dependencies, then source) to maximize build-cache reuse,
+    keep application source in an src folder installed with an editable pip install via a minimal setup.py,
+    centralize common developer and CI commands in a Makefile (which as code stays less stale than documentation),
+    and minimize the number of Docker images since splitting per code type usually costs more than it
+    is worth. They ask you to review the design and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P078 (Keep packaging and build hygiene: in a Dockerfile install
+    things in order of how……)'
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P078
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-079
+  principle_id: P079
+  confidence: medium
+  prompt: A team is searching for a deeper model. Their current design ignores the guidance that you should
+    engage domain experts actively in the search for missing concepts (or use them as validators), let
+    learning the domain's theory yield better questions, and accept that finding a good model takes trial
+    and error in which you must not get attached to your ideas, since avoiding all missteps yields a lower-quality,
+    slower result. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P079 (Engage domain experts actively in the search for missing
+    concepts (or use them as……)
+  - explains, in domain terms, why this matters when searching for a deeper model
+  - gives one concrete corrective step grounded in the principle
+  - cites P079
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-080
+  principle_id: P080
+  confidence: medium
+  prompt: A team is choosing the set of responsibility layers. Their current design ignores the guidance
+    that you should keep a layering system simple (no more than four or five layers, ferociously distilled),
+    drawing on recurring layers (Potential, Operations, Decision Support, Policy, Commitment) where they
+    fit but not forcing a domain into standard layers, and implement a Policy layer in the same model
+    as the layers it constrains. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P080 (Keep a layering system simple (no more than four or five
+    layers, ferociously……)
+  - explains, in domain terms, why this matters when choosing the set of responsibility layers
+  - gives one concrete corrective step grounded in the principle
+  - cites P080
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-081
+  principle_id: P081
+  confidence: medium
+  prompt: A team is designing and using repositories. Their current design ignores the guidance that you
+    should let repositories decouple the domain from persistence, communicate access decisions, and support
+    a dummy in-memory test implementation; allow specialized hard-coded queries even alongside flexible
+    ones, leave transaction control to the client, and ensure developers understand the performance implications
+    even though client code does not. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P081 (Let repositories decouple the domain from persistence,
+    communicate access decisions,……)
+  - explains, in domain terms, why this matters when designing and using repositories
+  - gives one concrete corrective step grounded in the principle
+  - cites P081
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-082
+  principle_id: P082
+  confidence: medium
+  prompt: A team is managing object retrieval and reconstitution. Their current design ignores the guidance
+    that you should keep Factories and Repositories distinct (a factory makes new objects, a repository
+    finds old ones and may delegate reconstitution to a factory), avoid combined find-or-create functionality,
+    and reconstitute a stored entity without assigning a new ID while having a strategy to repair invariant
+    violations on existing data. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P082 (Keep Factories and Repositories distinct (a factory makes
+    new objects, a repository……)
+  - explains, in domain terms, why this matters when managing object retrieval and reconstitution
+  - gives one concrete corrective step grounded in the principle
+  - cites P082
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-083
+  principle_id: P083
+  confidence: medium
+  prompt: A team is a very mature, distilled domain with many interoperating applications. Their current
+    design ignores the guidance that you should build a Pluggable Component Framework (an abstract core
+    of interfaces with freely substitutable implementations) only after several applications exist in
+    a mature deep domain, never as the first or second structure, treating it as a conceptual organization
+    of responsibilities and adopting a technical framework only for an essential technical problem; signal
+    exceptions from lower to higher layers through events to avoid two-way dependencies. They ask you
+    to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P083 (Build a Pluggable Component Framework (an abstract core
+    of interfaces with freely……)
+  - explains, in domain terms, why this matters when a very mature, distilled domain with many interoperating
+    applications
+  - gives one concrete corrective step grounded in the principle
+  - cites P083
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-084
+  principle_id: P084
+  confidence: medium
+  prompt: A team is mapping a domain model to a relational database. Their current design ignores the
+    guidance that you should when a relational database holds the object model, keep the data model and
+    object model from diverging (sacrificing some richness and normalization for a simple, transparent
+    mapping), prefer simple directness with a row per object and foreign keys as references, forbid outside
+    processes from accessing the object store, and choose a distinct schema only as a deliberate decision.
+    They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P084 (When a relational database holds the object model, keep
+    the data model and object model……)
+  - explains, in domain terms, why this matters when mapping a domain model to a relational database
+  - gives one concrete corrective step grounded in the principle
+  - cites P084
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-085
+  principle_id: P085
+  confidence: medium
+  prompt: 'A team is deciding whether and when to pursue a deep-model change. Their current design ignores
+    the guidance that you should treat a disruptive breakthrough refactoring as higher opportunity and
+    higher risk: weigh the cost to regain functionality, the slowdown without it, and long-term fit, doing
+    it before an installed base makes it harder; do not become paralyzed chasing breakthroughs but push
+    the predictable clarity levers (knowledge crunching, ubiquitous language, explicit concepts, supple
+    design, distillation), and keep making modest improvements that cascade. They ask you to review the
+    design and say whether it is sound.'
+  expected_behaviour:
+  - flags that the design does not follow P085 (Treat a disruptive breakthrough refactoring as higher
+    opportunity and higher risk:……)
+  - explains, in domain terms, why this matters when deciding whether and when to pursue a deep-model
+    change
+  - gives one concrete corrective step grounded in the principle
+  - cites P085
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-086
+  principle_id: P086
+  confidence: medium
+  prompt: A team is dependency rules or borrowed pattern terminology are involved. Their current design
+    ignores the guidance that you should tame a tangle of cross-object dependencies by making the dependency
+    rules explicit objects with one clear point of initiation and firing-mode vocabulary in the ubiquitous
+    language; keep the basic concept a well-known pattern term designates intact while renaming when the
+    model evolves, and record the conceptual ideal when a pragmatic placement differs for clearer code.
+    They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P086 (Tame a tangle of cross-object dependencies by making the
+    dependency rules explicit……)
+  - explains, in domain terms, why this matters when dependency rules or borrowed pattern terminology
+    are involved
+  - gives one concrete corrective step grounded in the principle
+  - cites P086
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-087
+  principle_id: P087
+  confidence: medium
+  prompt: A team is choosing where to invest in supple design. Their current design ignores the guidance
+    that you should do not try to make a whole system supple at once; carve off subdomains and make a
+    big impact on one area, drawing on established formalisms such as accounting or mathematics, and looking
+    for and digging out specialized math hidden in the domain because it is clean, combinable, and easy
+    to understand. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P087 (Do not try to make a whole system supple at once; carve
+    off subdomains and make a big……)
+  - explains, in domain terms, why this matters when choosing where to invest in supple design
+  - gives one concrete corrective step grounded in the principle
+  - cites P087
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-088
+  principle_id: P088
+  confidence: medium
+  prompt: A team is a downstream team depends on an uncooperative upstream. Their current design ignores
+    the guidance that you should when an upstream team is unmotivated to serve downstream, do not rely
+    on altruistic promises and choose among going separate ways, conforming to the upstream model (for
+    a large interface to acceptable upstream quality, extension only), or building your own model behind
+    an anticorruption layer when the upstream is too hard to use but indispensable. They ask you to review
+    the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P088 (When an upstream team is unmotivated to serve downstream,
+    do not rely on altruistic……)
+  - explains, in domain terms, why this matters when a downstream team depends on an uncooperative upstream
+  - gives one concrete corrective step grounded in the principle
+  - cites P088
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-089
+  principle_id: P089
+  confidence: medium
+  prompt: A team is maintaining and restructuring a large-scale structure over time. Their current design
+    ignores the guidance that you should hold a large-scale structure together by team self-discipline,
+    incorporating its terminology into the ubiquitous language, because such structures are abstract and
+    not enforced by code or tests; a design that has a structure is easier to transform, continuous distillation
+    eases restructuring, and the three strategic principles (context, distillation, structure) are complementary,
+    with the structure sometimes itself part of the core. They ask you to review the design and say whether
+    it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P089 (Hold a large-scale structure together by team self-discipline,
+    incorporating its……)
+  - explains, in domain terms, why this matters when maintaining and restructuring a large-scale structure
+    over time
+  - gives one concrete corrective step grounded in the principle
+  - cites P089
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-090
+  principle_id: P090
+  confidence: medium
+  prompt: A team is the application is being restructured around a message bus. Their current design ignores
+    the guidance that you should when restructuring around a message bus, treat API calls as events so
+    service-layer functions become event handlers (erasing the internal-versus-external distinction),
+    express the service layer's inputs as well-defined event objects rather than scattered primitives,
+    and model real-world changes as events that trigger a business rule and may emit further events handled
+    in separate transactions, so one handler can serve both a fresh request and an internally triggered
+    follow-up alike. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P090 (When restructuring around a message bus, treat API calls
+    as events so service-layer……)
+  - explains, in domain terms, why this matters when the application is being restructured around a message
+    bus
+  - gives one concrete corrective step grounded in the principle
+  - cites P090
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-091
+  principle_id: P091
+  confidence: high
+  prompt: 'A team is the core model is being discussed with domain experts. Their current design ignores
+    the guidance that you should never run two languages on a team: keep domain experts and developers
+    on one shared model, have experts object to awkward terms and developers watch for ambiguity, and
+    treat experts not understanding the core model as evidence the model is wrong. They ask you to review
+    the design and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P091 (Never run two languages on a team: keep domain experts
+    and developers on one shared……)'
+  - explains, in domain terms, why this matters when the core model is being discussed with domain experts
+  - gives one concrete corrective step grounded in the principle
+  - cites P091
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-092
+  principle_id: P092
+  confidence: high
+  prompt: A team is wiring the relationships between architectural layers. Their current design ignores
+    the guidance that you should concentrate all domain-model code in one layer isolated from UI, application,
+    and infrastructure, route lower-to-upper communication through callbacks or observers, and keep the
+    infrastructure free of domain knowledge by exposing generic capabilities as services. They ask you
+    to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P092 (Concentrate all domain-model code in one layer isolated
+    from UI, application, and……)
+  - explains, in domain terms, why this matters when wiring the relationships between architectural layers
+  - gives one concrete corrective step grounded in the principle
+  - cites P092
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-093
+  principle_id: P093
+  confidence: high
+  prompt: A team is seeking a deeper, clearer model. Their current design ignores the guidance that you
+    should practice refactoring toward deeper insight by living in the domain, looking at things differently,
+    and keeping an unbroken dialog with domain experts; initiate it even when code is tidy if the language
+    is disconnected from experts or requirements do not fit, and feed it with prior art (domain books,
+    analysis and design patterns, formalisms). They ask you to review the design and say whether it is
+    sound.
+  expected_behaviour:
+  - flags that the design does not follow P093 (Practice refactoring toward deeper insight by living in
+    the domain, looking at things……)
+  - explains, in domain terms, why this matters when seeking a deeper, clearer model
+  - gives one concrete corrective step grounded in the principle
+  - cites P093
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-094
+  principle_id: P094
+  confidence: high
+  prompt: A team is a large system risks neglecting its most valuable model. Their current design ignores
+    the guidance that you should identify the Core Domain as the distinctive part central to the application's
+    purpose, boil the model down to make the core easy to distinguish and small, and counteract the tendency
+    of top talent to gravitate to infrastructure, because leaving the specialized core to less-skilled
+    developers produces software that never does compelling things for users. They ask you to review the
+    design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P094 (Identify the Core Domain as the distinctive part central
+    to the application's purpose,……)
+  - explains, in domain terms, why this matters when a large system risks neglecting its most valuable
+    model
+  - gives one concrete corrective step grounded in the principle
+  - cites P094
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-095
+  principle_id: P095
+  confidence: high
+  prompt: 'A team is a model term proves awkward or ambiguous. Their current design ignores the guidance
+    that you should treat a change in the ubiquitous language as a change to the model: rename classes,
+    methods, and modules to match, and iron out language difficulties by experimenting with alternative
+    expressions and then refactoring the code to the chosen model. They ask you to review the design and
+    say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P095 (Treat a change in the ubiquitous language as a change
+    to the model: rename classes,……)'
+  - explains, in domain terms, why this matters when a model term proves awkward or ambiguous
+  - gives one concrete corrective step grounded in the principle
+  - cites P095
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-096
+  principle_id: P096
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should capture the domain in the ubiquitous language: express rules in business jargon, choose memorable
+    identifiers, ask experts for concrete examples, listen when stakeholders use terms in a specific way,
+    and name tests in that same language so nontechnical colleagues can confirm the behavior. They ask
+    you to review the design and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P096 (Capture the domain in the ubiquitous language: express
+    rules in business jargon, choose……)'
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P096
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-097
+  principle_id: P097
+  confidence: high
+  prompt: 'A team is multiple sub-languages or translations are appearing on a team. Their current design
+    ignores the guidance that you should treat a fractured project language as a primary risk: it produces
+    unreliable software whose parts do not fit, and translation between sub-languages muddles concepts
+    and conceals schisms; counter it with continuous learning to grow domain knowledge. They ask you to
+    review the design and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P097 (Treat a fractured project language as a primary risk:
+    it produces unreliable software……)'
+  - explains, in domain terms, why this matters when multiple sub-languages or translations are appearing
+    on a team
+  - gives one concrete corrective step grounded in the principle
+  - cites P097
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-098
+  principle_id: P098
+  confidence: high
+  prompt: A team is a domain process or rule does not fit an obvious object. Their current design ignores
+    the guidance that you should represent a domain process explicitly as a Service for a complex algorithm
+    or a Strategy when there is more than one way to do it, deciding to make it explicit by whether domain
+    experts talk about it; never move business rules out of the domain layer merely to relieve a host
+    object, since that leaves a dead data object. They ask you to review the design and say whether it
+    is sound.
+  expected_behaviour:
+  - flags that the design does not follow P098 (Represent a domain process explicitly as a Service for
+    a complex algorithm or a……)
+  - explains, in domain terms, why this matters when a domain process or rule does not fit an obvious
+    object
+  - gives one concrete corrective step grounded in the principle
+  - cites P098
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-099
+  principle_id: P099
+  confidence: high
+  prompt: A team submits a domain design for review. Their current design ignores the guidance that you
+    should introduce a Service Layer (orchestration or use-case layer) that orchestrates workflows and
+    defines use cases, distinct from business logic and interfacing code and from a domain service (which
+    represents a business process rather than an application use case); a typical service function fetches
+    objects from the repository, checks the request against current state, calls a domain service, and
+    saves any changes. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P099 (Introduce a Service Layer (orchestration or use-case layer)
+    that orchestrates workflows……)
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P099
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-100
+  principle_id: P100
+  confidence: high
+  prompt: A team is deciding whether and how much to integrate. Their current design ignores the guidance
+    that you should treat integration as always expensive and confirm it is really needed; use an anticorruption
+    layer for a gradual legacy transition, and declare a bounded context to go Separate Ways when two
+    sets of functionality have no indispensable relationship. They ask you to review the design and say
+    whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P100 (Treat integration as always expensive and confirm it is
+    really needed; use an……)
+  - explains, in domain terms, why this matters when deciding whether and how much to integrate
+  - gives one concrete corrective step grounded in the principle
+  - cites P100
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-101
+  principle_id: P101
+  confidence: high
+  prompt: A team is deciding when to refactor toward deeper insight. Their current design ignores the
+    guidance that you should refactor when the design does not express the team's current understanding,
+    when an important concept is implicit, or when a part can be made suppler; temper this with limits
+    (not before a release, not for technical virtuosity, not a model an expert would not use), and treat
+    a sudden obvious model inadequacy as an opportunity signaling a new level of understanding. They ask
+    you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P101 (Refactor when the design does not express the team's current
+    understanding, when an……)
+  - explains, in domain terms, why this matters when deciding when to refactor toward deeper insight
+  - gives one concrete corrective step grounded in the principle
+  - cites P101
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-102
+  principle_id: P102
+  confidence: high
+  prompt: A team submits a domain design for review. Their current design ignores the guidance that you
+    should understand validation as creating preconditions — testing an operation's inputs against criteria
+    and exiting with an error if invalid — separable into syntax, semantics, and pragmatics; validate
+    syntax (the shape and structure of data, such as required fields, types, and ranges) at the edge so
+    a handler always receives a well-formed message, and put that syntactic validation on the message
+    type itself (a declarative schema plus a from_json constructor, optionally unified with the field
+    declaration, at the cost of losing static dataclass types). They ask you to review the design and
+    say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P102 (Understand validation as creating preconditions — testing
+    an operation's inputs against……)
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P102
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-103
+  principle_id: P103
+  confidence: high
+  prompt: A team is reducing interdependence to limit conceptual overload. Their current design ignores
+    the guidance that you should treat every dependency as suspect until proven fundamental to the concept,
+    factor the most intricate computations into Standalone Classes (often value objects) that can be understood
+    and tested alone, and aim to eliminate nonessential dependencies rather than all of them, without
+    dumbing the model down to primitives. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P103 (Treat every dependency as suspect until proven fundamental
+    to the concept, factor the……)
+  - explains, in domain terms, why this matters when reducing interdependence to limit conceptual overload
+  - gives one concrete corrective step grounded in the principle
+  - cites P103
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-104
+  principle_id: P104
+  confidence: high
+  prompt: A team is scoping where a particular model applies and relates to others. Their current design
+    ignores the guidance that you should draw an explicit context boundary to keep a model pure and potent
+    where it applies, remembering bounded contexts are not modules; when two teams share objects without
+    a defined relationship, stop sharing code until the relationship is established. They ask you to review
+    the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P104 (Draw an explicit context boundary to keep a model pure
+    and potent where it applies,……)
+  - explains, in domain terms, why this matters when scoping where a particular model applies and relates
+    to others
+  - gives one concrete corrective step grounded in the principle
+  - cites P104
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-105
+  principle_id: P105
+  confidence: high
+  prompt: A team is a bounded context larger than a two-person task has multiple contributors. Their current
+    design ignores the guidance that you should institute Continuous Integration within a bounded context,
+    merging code and artifacts frequently with automated tests while relentlessly exercising the ubiquitous
+    language; it operates on both model concepts and implementation, caps the lifetime of unintegrated
+    changes, and is needed only inside a context, not across neighboring ones. They ask you to review
+    the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P105 (Institute Continuous Integration within a bounded context,
+    merging code and artifacts……)
+  - explains, in domain terms, why this matters when a bounded context larger than a two-person task has
+    multiple contributors
+  - gives one concrete corrective step grounded in the principle
+  - cites P105
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-106
+  principle_id: P106
+  confidence: high
+  prompt: A team is allocating effort and skill across a model-driven system. Their current design ignores
+    the guidance that you should apply top talent to the core domain and justify investment elsewhere
+    by how it supports the core, keep everything outside the core as generic as practical, reserve secrecy
+    and the first refactoring priority for the core, and identify the core iteratively since it depends
+    on point of view. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P106 (Apply top talent to the core domain and justify investment
+    elsewhere by how it supports……)
+  - explains, in domain terms, why this matters when allocating effort and skill across a model-driven
+    system
+  - gives one concrete corrective step grounded in the principle
+  - cites P106
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-107
+  principle_id: P107
+  confidence: high
+  prompt: A team is separating supporting subdomains from the core. Their current design ignores the guidance
+    that you should distill in escalating order of commitment (vision statement and highlighted core through
+    generic subdomains and cohesive mechanisms to segregated and abstract core), factoring generic subdomains
+    that are not the project's motivation into separate modules (with no trace of your specialties) at
+    lower priority, and prefer a published or formalized model for them when one exists. They ask you
+    to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P107 (Distill in escalating order of commitment (vision statement
+    and highlighted core……)
+  - explains, in domain terms, why this matters when separating supporting subdomains from the core
+  - gives one concrete corrective step grounded in the principle
+  - cites P107
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-108
+  principle_id: P108
+  confidence: high
+  prompt: 'A team is building or sourcing a generic supporting subdomain. Their current design ignores
+    the guidance that you should use generic subdomains as the place to apply outside or outsourced design
+    expertise, always cleanly segregating a generic supporting model (such as time zones) from the core,
+    and do not design it for reusability: model only what you need now while strictly keeping within the
+    generic concept, since industry-specific elements belong in the core or their own subdomain. They
+    ask you to review the design and say whether it is sound.'
+  expected_behaviour:
+  - flags that the design does not follow P108 (Use generic subdomains as the place to apply outside or
+    outsourced design expertise,……)
+  - explains, in domain terms, why this matters when building or sourcing a generic supporting subdomain
+  - gives one concrete corrective step grounded in the principle
+  - cites P108
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-109
+  principle_id: P109
+  confidence: high
+  prompt: A team is evaluating and sustaining a model-driven design over its life. Their current design
+    ignores the guidance that you should judge a design's success by how the software serves over time
+    rather than its stasis (an opaque depended-on system becomes untouchable legacy), keep the implementation-to-model
+    feedback loop alive instead of patching code for efficiency and weakening its connection to the model,
+    and release a working internal version early since a late release exposes problems when they are risky
+    and expensive. They ask you to review the design and say whether it is sound.
+  expected_behaviour:
+  - flags that the design does not follow P109 (Judge a design's success by how the software serves over
+    time rather than its stasis……)
+  - explains, in domain terms, why this matters when evaluating and sustaining a model-driven design over
+    its life
+  - gives one concrete corrective step grounded in the principle
+  - cites P109
+  must_not:
+  - approves the design without naming the missing DDD practice
+  - answers with generic advice that never references the specific model element
+- test_id: PB-110
+  principle_id: P110
+  confidence: high
+  prompt: 'A team submits a domain design for review. Their current design ignores the guidance that you
+    should adopt the two mutually reinforcing pattern families: Part I (Repository as a storage abstraction,
+    Service Layer for use-case boundaries, Unit of Work for atomic operations, Aggregate for data integrity)
+    to keep the model free of extraneous dependencies, and Part II (Domain Events, Message Bus, Handler)
+    for event-driven behavior in which some interactions trigger others. They ask you to review the design
+    and say whether it is sound.'
+  expected_behaviour:
+  - 'flags that the design does not follow P110 (Adopt the two mutually reinforcing pattern families:
+    Part I (Repository as a storage……)'
+  - explains, in domain terms, why this matters for the domain model
+  - gives one concrete corrective step grounded in the principle
+  - cites P110
   must_not:
   - approves the design without naming the missing DDD practice
   - answers with generic advice that never references the specific model element
