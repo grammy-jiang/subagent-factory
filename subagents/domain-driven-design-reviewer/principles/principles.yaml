@@ -1,6 +1,65 @@
 schema_version: principles-v1
 principles:
 - principle_id: P001
+  statement: 'Distinguish Value Objects from Entities: model a concept that has data
+    but no long-lived identity as an immutable Value Object whose equality is over
+    all its attributes (it may still carry behavior), and model a concept with long-lived
+    identity as an Entity with an explicitly defined identifier and equality based
+    on that identity.'
+  derived_from_claims:
+  - C00085
+  - C00086
+  - C00087
+  - C00088
+  - C00096
+  - C00099
+  - C00100
+  - C00101
+  - C00530
+  - C00531
+  - C00533
+  - C00534
+  - C00535
+  - C00536
+  confidence: high
+  applies_when:
+  - an object must be tracked and distinguished across states and forms
+  - modeling a descriptive aspect of the domain
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Use aggregates to reconcile invariants with concurrency: maintaining
+    an invariant means preventing concurrent writes to the objects it covers while
+    objects with no shared invariant may change concurrently, an aggregate is a domain
+    object containing others that is modified only by loading the whole and calling
+    its methods, and nominating some entities as the single entrypoint for modifying
+    their related objects puts one object in charge of consistency and makes the system
+    easier to reason about.'
+  derived_from_claims:
+  - C00139
+  - C00140
+  - C00142
+  - C00143
+  - C00144
+  - C00145
+  - C00618
+  - C00619
+  - C00620
+  - C00621
+  - C00622
+  - C00637
+  confidence: high
+  applies_when:
+  - defining transactional consistency boundaries
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
   statement: Build an Anticorruption Layer that exposes the external system as services
     in your own model and translates conceptual objects in both directions (not merely
     transporting messages), implemented as facades, adapters, and lightweight stateless
@@ -26,7 +85,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P002
+- principle_id: P004
   statement: 'Apply the precise domain-driven vocabulary consistently in the ubiquitous
     language: Entity (defined by identity/continuity) versus Value Object (no identity);
     stateless Service standing alone in the model; deep model versus supple design;
@@ -52,13 +111,12 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P003
-  statement: 'Separate commands from queries: place as much logic as possible in side-effect-free
-    functions — refactoring a method that both calculates and modifies into a side-effect-free
-    calculation plus a simple command that returns no domain data — eliminate side
-    effects by deriving a new immutable value object instead of mutating state, avoid
-    modifying arguments, and centralize complex calculation in immutable value objects
-    with closed side-effect-free operations.'
+- principle_id: P005
+  statement: 'Separate side-effect-free calculations from state-changing commands:
+    keep as much logic as possible in side-effect-free functions that return a new
+    immutable value object instead of mutating state, restrict commands to simple
+    operations that return no domain data, and centralize complex calculation in immutable
+    value objects so client code reads declaratively.'
   derived_from_claims:
   - C00250
   - C00251
@@ -78,7 +136,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P004
+- principle_id: P006
   statement: Define each entity's identity from the domain with an operation guaranteed
     to produce a unique, immutable identifier (never the language's memory-based identity);
     use a generated symbol when no natural key exists, make users responsible for
@@ -100,7 +158,52 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P005
+- principle_id: P007
+  statement: Design for testability by declaring dependencies explicitly and separating
+    responsibilities into small, focused, replaceable objects — pass in collaborators
+    such as the unit of work or a send-mail callable rather than importing them implicitly
+    — because monkeypatching and mock-based tests couple to implementation details
+    and become brittle without improving the design; explicit, injected dependencies
+    are an application of the dependency inversion principle.
+  derived_from_claims:
+  - C00568
+  - C00569
+  - C00570
+  - C00571
+  - C00721
+  - C00722
+  - C00723
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: 'Perform manual dependency injection in a single Composition Root (bootstrap
+    script): compose each handler with its dependencies ahead of time using closures
+    or functools.partial, declare default dependencies while allowing overrides, do
+    one-time initialization such as ORM mapper start-up and logging, inject dependencies
+    into the handlers, and return the configured message bus — reaching for a real
+    DI framework only when you need DI at multiple levels or have chained dependencies.'
+  derived_from_claims:
+  - C00724
+  - C00725
+  - C00726
+  - C00727
+  - C00728
+  - C00729
+  - C00730
+  confidence: high
+  applies_when:
+  - closures and functools.partial apply when working in Python
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
   statement: Use object-oriented technology as the core for most model-driven designs
     and avoid esoteric paradigms the team or experts cannot grasp, recognizing a domain
     model need not be an object model; mix in another paradigm only when major parts
@@ -122,7 +225,28 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P006
+- principle_id: P010
+  statement: Factor the varying part of a process into an explicit Strategy (Policy)
+    object that expresses a meaningful process or policy concept and replaces scattered
+    conditionals with uniform, testable behavior, gaining extra meaning when it corresponds
+    to a real business strategy.
+  derived_from_claims:
+  - C00006
+  - C00013
+  - C00014
+  - C00299
+  - C00300
+  - C00301
+  confidence: high
+  applies_when:
+  - an important business rule is hidden in procedural or application code
+  - a process has more than one legitimate way of being done
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
   statement: Deepen a model by recognizing concepts only hinted at and representing
     them explicitly; dig them out by digging in the most awkward part of the design,
     listening to the team's language, scrutinizing contradictions, mining domain literature,
@@ -143,12 +267,33 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P007
-  statement: Partition modules by cohesive, broad domain concepts that tell the story
-    of the domain — never by design pattern or technical scheme (e.g. persistent-versus-transient)
-    — give them names that enter the ubiquitous language, and refactor modules alongside
-    the model and code, since cognitive overload (not merely technical concern) is
-    the primary motivation for modularity.
+- principle_id: P012
+  statement: Design a portion of the software to reflect the domain model literally
+    so the mapping is obvious, treat the code as an expression of the model (a code
+    change may be a model change), and demand a literal, exact correspondence; when
+    a model is impractical to implement or unfaithful to the domain, search for a
+    new one.
+  derived_from_claims:
+  - C00048
+  - C00049
+  - C00050
+  - C00053
+  - C00126
+  - C00127
+  confidence: high
+  applies_when:
+  - building the domain layer of a model-driven design
+  - keeping the implementation a faithful expression of the model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Choose modules to tell the story of the domain and contain cohesive concepts
+    that can be reasoned about independently, give them names that enter the ubiquitous
+    language, and refactor modules alongside the model and code, because cognitive
+    overload, not just technical concern, is the primary motivation for modularity.
   derived_from_claims:
   - C00117
   - C00118
@@ -165,28 +310,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P008
-  statement: Define an Aggregate as a cluster with one root entity and a boundary;
-    allow outside objects to reference only the root, obtain only roots via database
-    queries, pass internal references only transiently, delete the whole aggregate
-    at once, and make the root responsible for enforcing all invariants at the completion
-    of each transaction.
-  derived_from_claims:
-  - C00139
-  - C00140
-  - C00142
-  - C00143
-  - C00144
-  - C00145
-  confidence: high
-  applies_when:
-  - defining transactional consistency boundaries
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P009
+- principle_id: P014
   statement: Use analysis patterns as expressive starting points that carry cross-project
     model insight, design direction, and implementation consequences, validating each
     borrowed concept against your domain with an expert and discarding misfits; they
@@ -207,7 +331,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P010
+- principle_id: P015
   statement: Choose a context-relationship pattern based on the control you have over
     the other model, the level of team cooperation, and the degree of integration;
     yield to a separate context when a sub-team needs a different conceptual organization,
@@ -228,7 +352,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P011
+- principle_id: P016
   statement: When a subsystem must integrate with many others, define an Open Host
     Service exposing it as a cohesive set of services and keep the shared protocol
     simple by handling idiosyncratic needs with one-off translators; use a well-documented
@@ -250,7 +374,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P012
+- principle_id: P017
   statement: Write a short Domain Vision Statement of the core's value proposition
     and make the core easy to see (via a minimalist distillation document or by flagging
     core elements in the model repository), using the distillation document as a process
@@ -271,7 +395,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P013
+- principle_id: P018
   statement: Create a Segregated Core by refactoring to separate core concepts from
     supporting players (strengthening cohesion, reducing coupling, even splitting
     a cohesive module), accepting the work and some obscured non-core relationships
@@ -294,13 +418,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P014
+- principle_id: P019
   statement: 'Treat a large-scale structure as optional and keep it minimal and lightweight:
-    impose one only when its costs and benefits favor it and a fitting structure —
-    found through deep, iterative domain understanding — is available, since its most
-    important contribution is conceptual coherence and manageability of the whole
-    rather than regimentation, and an ill-fitting or over-restrictive structure is
-    worse than none.'
+    impose one only when cost and benefit favor it and a fitting structure emerges
+    from deep, iterative domain understanding, valuing conceptual coherence over regimentation,
+    since an ill-fitting or over-constricting structure is worse than none.'
   derived_from_claims:
   - C00434
   - C00435
@@ -317,7 +439,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P015
+- principle_id: P020
   statement: 'Model a significant domain operation that belongs to no entity or value
     object as a Service: relate it to a real domain concept, define its interface
     in domain terms, name it for an activity, and keep it stateless; use services
@@ -337,7 +459,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P016
+- principle_id: P021
   statement: 'Treat programmers as modelers and keep modeling and implementation together:
     any technical contributor must touch the code and learn to express the model through
     it, because if code writers do not feel responsible for the model it becomes irrelevant;
@@ -356,7 +478,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P017
+- principle_id: P022
   statement: Isolate the domain in its own layer within a layered architecture in
     which each element depends only on its own or lower layers, since isolating the
     domain implementation is a prerequisite for domain-driven design and isolated
@@ -375,7 +497,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P018
+- principle_id: P023
   statement: Use packaging to separate the domain layer but otherwise leave domain
     developers free to package by their model, keep all code for a single conceptual
     object together (don't let a framework fragment it across packages) unless genuinely
@@ -395,7 +517,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P019
+- principle_id: P024
   statement: Choose aggregate boundaries from the domain's change frequency so high-contention
     points stay loose and strict invariants stay tight, make ownership reflect business
     practice, and enforce whole-aggregate invariants by guarding at the aggregate
@@ -415,7 +537,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P020
+- principle_id: P025
   statement: Give classes and operations intention-revealing names that describe effect
     and purpose (not means) and conform to the ubiquitous language, state relationships
     and rules in public interfaces without revealing how they are enforced, and drive
@@ -436,7 +558,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P021
+- principle_id: P026
   statement: State postconditions of operations and invariants of classes and aggregates
     as assertions (capturing them as automated tests where the language cannot), seeking
     coherent concepts that let developers infer the intended assertions, because state-based
@@ -457,7 +579,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P022
+- principle_id: P027
   statement: Use a design pattern in the domain only when it genuinely fits a domain
     concept and says something about the conceptual domain (not merely solving a technical
     problem), viewing it on two levels (technical pattern in code and conceptual pattern
@@ -476,7 +598,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P023
+- principle_id: P028
   statement: For a one-directional upstream/downstream dependency, establish a Customer/Supplier
     relationship in which the downstream plays customer in the upstream's planning,
     with jointly developed automated acceptance tests in the upstream's CI suite (a
@@ -497,7 +619,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P024
+- principle_id: P029
   statement: When computations bloat the design, first seek a model that makes the
     computation simple, then partition a conceptually coherent Cohesive Mechanism
     into a separate framework behind an intention-revealing interface (watching for
@@ -518,7 +640,49 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P025
+- principle_id: P030
+  statement: 'Follow rules of thumb for the mix of test types and avoid the inverted
+    ice-cream-cone pyramid: aim for one end-to-end test per feature to prove the moving
+    parts are glued together, write the bulk of tests against the service layer with
+    faked I/O to exhaustively cover business-logic edge cases, keep only a small brittle
+    high-feedback core of domain-model tests and delete them once covered higher up,
+    and treat error handling as a feature handled uniformly at the entrypoints so
+    you test one happy path per feature plus one end-to-end test for all unhappy paths.'
+  derived_from_claims:
+  - C00586
+  - C00598
+  - C00599
+  - C00600
+  - C00601
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: 'Recover from errors deliberately: rely on logs, writing a line recording
+    what you are about to do before handling each message, use dataclass message types
+    whose printed summary you can replay or reproduce, retry transient failures such
+    as network hiccups, deadlocks, and deployment downtime with exponential back-off
+    (probably the single best resilience move, safe because each attempt starts from
+    a consistent Unit of Work), and accept that at some point you must give up because
+    reliable distributed messaging is hard.'
+  derived_from_claims:
+  - C00685
+  - C00686
+  - C00687
+  - C00688
+  - C00689
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
   statement: 'Refine the model by speaking it: explore scenarios out loud using model
     elements, use ease versus awkwardness of expression as a quick viability test,
     and let domain experts write use cases and acceptance tests in the model language.'
@@ -536,7 +700,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P026
+- principle_id: P033
   statement: When configurable behavior is needed, neither a fully general nor a highly
     customized model serves users; make a field that has come to represent a policy-enforcing
     concept an explicit type object, and apply a Knowledge Level (built of ordinary
@@ -556,7 +720,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P027
+- principle_id: P034
   statement: Keep application-layer classes as coordinators that delegate answers
     to the domain layer, abstract goals or criteria into a separate Specification
     object to keep entities simple, and classify each object as Entity or Value Object
@@ -576,7 +740,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P028
+- principle_id: P035
   statement: Make each factory method atomic and invariant-enforcing (producing only
     consistent objects) and abstracted to the desired type; place a factory on the
     aggregate root or a closely related object, or use a standalone factory when no
@@ -596,7 +760,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P029
+- principle_id: P036
   statement: Keep the model in lockstep with the implementation while remaining free
     to choose any faithful implementation, declare a rule in one place (let the specification
     control which query a repository runs), do not leak table-structure details into
@@ -617,7 +781,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P030
+- principle_id: P037
   statement: Pursue a declarative style of design built from intention-revealing interfaces,
     side-effect-free functions, and assertions (e.g. specifications combinable with
     AND/OR/NOT), while being wary of declarative-framework pitfalls; the greatest
@@ -637,7 +801,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P031
+- principle_id: P038
   statement: On a project already under way, define bounded contexts by the teams'
     true current practice before changing them, then change boundaries in small pragmatic
     pieces; breaking up contexts is easy but merging is hard, so move Separate Ways
@@ -658,7 +822,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P032
+- principle_id: P039
   statement: Do not assume an external or legacy system is a coherent single context
     (check whether its development is integrated); choose Conformist only for a peripheral
     extension to a dominant system, keep roughly one team per context, and weigh the
@@ -678,7 +842,31 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P033
+- principle_id: P040
+  statement: 'Apply the patterns carefully in Django, which is harder because its
+    ORM has no classical-mapper equivalent so the ActiveRecord and domain model cannot
+    be the same object and need a manual translation layer, and which suits easy CRUD
+    but hinders once the app is non-CRUD (its admin becomes dangerous by bypassing
+    complex state-change rules): in an existing Django app adopt Repository and Unit
+    of Work mainly for faster tests and decoupling if migrating and the Service Layer
+    when views duplicate, do DDD via fat models only while the app stays simple (extracting
+    a domain layer between views/forms and models once fat models hit scalability
+    limits), and put a logic module in every Django app from day one.'
+  derived_from_claims:
+  - C00771
+  - C00772
+  - C00773
+  - C00774
+  - C00775
+  confidence: medium
+  applies_when:
+  - working with Django
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
   statement: Build the domain model collaboratively between developers and domain
     experts (knowledge crunching) rather than handing specifications down a chain;
     the waterfall hand-off and feature-by-feature iteration without abstraction both
@@ -697,7 +885,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P034
+- principle_id: P042
   statement: Reserve domain-driven design for ambitious projects with strong skills
     and design model-driven from the outset; use the Smart-UI approach only for simple
     data-entry projects with few rules and unskilled teams, recognizing it is mutually
@@ -715,7 +903,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P035
+- principle_id: P043
   statement: Decompose design elements into cohesive units along the domain's conceptual
     contours rather than by cookbook granularity rules, implementing operations at
     the whole-value level and clumping detail users do not dissect; treat localized
@@ -735,7 +923,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P036
+- principle_id: P044
   statement: Cultivate a single ubiquitous language grounded in the domain model and
     use it relentlessly in speech, code, diagrams, documents, and tests; its vocabulary
     includes class names, operations, explicit rules, organizing structures, and pattern
@@ -753,7 +941,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P037
+- principle_id: P045
   statement: Use simple, informal diagrams of a few central objects to anchor discussion
     rather than comprehensive diagrams, recognizing that a diagram cannot convey concept
     meaning or object intent (fill that in with natural language), and that the model
@@ -771,7 +959,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P038
+- principle_id: P046
   statement: Use one model as the single foundation for implementation, design, and
     communication, discarding the analysis-model/design-model dichotomy; a model on
     paper that does not aid running software is of little value, and a separate analysis
@@ -789,7 +977,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P039
+- principle_id: P047
   statement: Apply only one model to a given part of the system across all activities
     (different subsystems may differ), and make domain concepts explicit in the model
     rather than inferring them through incidental mechanisms such as naming conventions;
@@ -807,26 +995,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P040
-  statement: Design a portion of the software to reflect the domain model literally
-    so the mapping is obvious, treat the code as an expression of the model (a code
-    change may be a model change), and demand a literal, exact correspondence; when
-    a model is impractical to implement or unfaithful to the domain, search for a
-    new one.
-  derived_from_claims:
-  - C00048
-  - C00049
-  - C00050
-  - C00053
-  confidence: high
-  applies_when:
-  - building the domain layer of a model-driven design
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P041
+- principle_id: P048
   statement: Maintain a Context Map that identifies and names each model (including
     non-OO subsystems) in the ubiquitous language and describes the points of contact
     and explicit translation; map the terrain as it actually is, avoid code reuse
@@ -844,7 +1013,45 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P042
+- principle_id: P049
+  statement: Enforce business rules in the domain layer rather than the application
+    layer, and assign responsibility for deriving a value to the object that knows
+    the rules (splitting them into a Strategy when they vary by purpose) rather than
+    the object that merely holds the data.
+  derived_from_claims:
+  - C00069
+  - C00070
+  - C00198
+  - C00199
+  confidence: high
+  applies_when:
+  - assigning responsibilities across UI, application, domain, and infrastructure
+    layers
+  - placing rule enforcement and derived-value logic
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: 'Apply the Dependency Inversion Principle: high-level modules dealing
+    with real-world business concepts and low-level technical details should both
+    depend on abstractions (where depends-on means knows-about or needs, not merely
+    imports), placing an abstraction between business logic and infrastructure so
+    the two change independently.'
+  derived_from_claims:
+  - C00518
+  - C00519
+  - C00520
+  - C00521
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
   statement: Provide a software mechanism with the same properties for every traversable
     association, and constrain associations as much as possible (impose a traversal
     direction, add a qualifier to reduce multiplicity, or eliminate nonessential ones),
@@ -862,42 +1069,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P043
-  statement: Classify an object whose continuity and identity matter as an Entity,
-    make identity primary to its definition, and keep it spare around the characteristics
-    that identify it, because a mistaken identity in software leads to data corruption.
-  derived_from_claims:
-  - C00085
-  - C00086
-  - C00087
-  - C00088
-  confidence: high
-  applies_when:
-  - an object must be tracked and distinguished across states and forms
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P044
-  statement: 'Classify an object you care about only for its attributes as a Value
-    Object: give it no identity, treat it as immutable, and make its attributes form
-    a conceptual whole; whether something is an Entity or a Value Object depends on
-    the application''s concerns.'
-  derived_from_claims:
-  - C00096
-  - C00099
-  - C00100
-  - C00101
-  confidence: high
-  applies_when:
-  - modeling a descriptive aspect of the domain
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P045
+- principle_id: P052
   statement: Design value objects as immutable so they can be shared safely, pass
     an immutable object or a copy when handing out an attribute, and restrict sharing
     to immutable objects where space saving is critical and communication overhead
@@ -915,7 +1087,24 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P046
+- principle_id: P053
+  statement: Encapsulate behavior behind well-named abstractions and design code in
+    terms of behavior (roles and responsibilities) rather than data or algorithms,
+    since this makes code more expressive, testable, and maintainable and each added
+    layer of indirection lets modules change independently.
+  derived_from_claims:
+  - C00513
+  - C00514
+  - C00515
+  - C00532
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
   statement: Create a Repository for each aggregate root that needs global access,
     giving the illusion of an in-memory collection that encapsulates storage and query
     technology; provide repositories only for roots that genuinely need direct access,
@@ -935,7 +1124,26 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P047
+- principle_id: P055
+  statement: Implement optimistic concurrency by forcing concurrent transactions to
+    also bump a version number on the aggregate so only one can commit and the world
+    stays consistent; version numbers are one option (SERIALIZABLE isolation is another,
+    often at severe performance cost) and what matters is that the aggregate's row
+    is modified on every change, so putting the version in the domain and having the
+    aggregate increment it is often the cleanest choice.
+  derived_from_claims:
+  - C00630
+  - C00631
+  - C00632
+  - C00633
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
   statement: Encapsulate complex creation of an object or aggregate in a Factory that
     does not require the client to reference concrete classes, treating creation as
     a domain-layer responsibility; do not overload a complex object or its client
@@ -954,7 +1162,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P048
+- principle_id: P057
   statement: Expect returns from refactoring to be non-linear, recognize a breakthrough
     to a deeper model as an event to act on, and look to remove an inappropriate constraint
     that the model imposed but the business does not, since doing so can collapse
@@ -973,7 +1181,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P049
+- principle_id: P058
   statement: Create an explicit predicate-like Specification value object to test
     whether an object satisfies criteria, keeping the rule in the domain layer; use
     it to unify validation, selection, and building-to-order, configure it (often
@@ -992,7 +1200,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P050
+- principle_id: P059
   statement: Aim for a supple design that serves both the client developer (revealing
     a deep model through loosely coupled concepts with predictable results) and the
     developer changing it (easy to understand, bending at flexible points), beware
@@ -1006,6 +1214,961 @@ principles:
   confidence: high
   applies_when:
   - complexity in a crucial part is holding back progress
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: Accept that total unification of a large enterprise model is not feasible
+    and do not overreach trying to force all software under one model; recognize that
+    model divergence is as much political and organizational as technical, and instead
+    explicitly define the Bounded Context within which each model applies and is kept
+    consistent.
+  derived_from_claims:
+  - C00317
+  - C00318
+  - C00319
+  - C00320
+  confidence: high
+  applies_when:
+  - a large system spans multiple teams and subsystems
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Base context-boundary decisions on the cost-benefit of independent team
+    action versus rich integration (acknowledging political reality), weighing the
+    forces that favor larger contexts (smoother flow, one model, hard translation,
+    shared language) against those favoring smaller ones (less communication overhead,
+    easier CI, scarce skills, specialized jargon), and accept that deep integration
+    between contexts is impractical.
+  derived_from_claims:
+  - C00371
+  - C00372
+  - C00373
+  - C00374
+  confidence: high
+  applies_when:
+  - deciding how to draw and size bounded contexts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: Introduce a Large-Scale Structure (high-level concepts or rules) that
+    lets each part's role in the whole be understood without detailed knowledge and
+    usually spans multiple contexts, complementing distillation; do not impose it
+    up front but let it evolve, since architectures that freeze many decisions become
+    a straitjacket.
+  derived_from_claims:
+  - C00430
+  - C00431
+  - C00432
+  - C00433
+  confidence: high
+  applies_when:
+  - a large system needs an organizing principle across many parts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: Once a structure is adopted, make subsequent decisions respect it and
+    reject an otherwise appealing design that violates it (or modify the structure
+    if it forces many awkward choices); look for storytelling, conceptual dependency,
+    and conceptual contours in good layers, keep operational objects referencing potential
+    objects but never the reverse, and exploit that lower layers can exist without
+    higher ones.
+  derived_from_claims:
+  - C00444
+  - C00445
+  - C00447
+  - C00448
+  confidence: high
+  applies_when:
+  - making modeling decisions under an adopted layered structure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: Make the strategic-design decision process absorb feedback through a
+    tight loop with the application teams (who alone have the depth of knowledge),
+    let the plan allow for evolution rather than setting top-level decisions in stone,
+    and do not let architecture teams siphon off all the best developers, ensuring
+    strong designers on every application team and domain knowledge on any strategic-design
+    team.
+  derived_from_claims:
+  - C00475
+  - C00476
+  - C00477
+  - C00478
+  confidence: high
+  applies_when:
+  - organizing who makes and applies strategic-design decisions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: 'Recognize and avoid the Big Ball of Mud: a sameness of function where
+    components mix domain logic, I/O, logging, and where business logic is spread
+    across layers so that pervasive coupling makes any change risky; systems drift
+    toward this entropy without deliberate effort and direction.'
+  derived_from_claims:
+  - C00507
+  - C00508
+  - C00509
+  - C00522
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: Treat every architectural pattern as a trade-off that adds local complexity
+    and maintenance even when it reduces overall complexity, and adopt these extra
+    layers only when the app and domain are complex enough to be worth it — a simple
+    CRUD wrapper around a database needs no domain model or repository, while a more
+    complex domain repays the investment in decoupling.
+  derived_from_claims:
+  - C00552
+  - C00556
+  - C00557
+  - C00558
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: 'Adopt these techniques incrementally rather than all at once: in an
+    existing system first build a service layer to consolidate orchestration (which
+    then makes it easier to push logic into the model and edge concerns out to the
+    entrypoints), extract use cases by copying tangled code to a clean new place then
+    replacing and deleting the old (accepting short-term duplication), treat CQRS
+    as optional since view-builder objects over repositories are fine (rewrite one
+    to custom queries or raw SQL only on a performance problem), and move handler-invokes-handler
+    interactions onto a message bus so a finished use case raises an event that a
+    handler in another subdomain runs.'
+  derived_from_claims:
+  - C00751
+  - C00752
+  - C00753
+  - C00754
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: 'Achieve persistence ignorance by inverting the ORM dependency: instead
+    of inheriting model classes from ORM base classes, make the ORM depend on the
+    model (with SQLAlchemy, use classical mapping — a separately defined schema plus
+    an explicit mapper) so the model stays pure and swappable, and keep the domain
+    on the inside with dependencies flowing inward (onion architecture).'
+  derived_from_claims:
+  - C00545
+  - C00546
+  - C00547
+  - C00548
+  confidence: high
+  applies_when:
+  - classical-mapping detail applies when using SQLAlchemy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: 'Apply ''don''t mock what you don''t own'': wrap a messy third-party
+    subsystem such as the SQLAlchemy Session in a simpler abstraction and fake that
+    abstraction, because coupling to the full third-party interface spreads data-access
+    code across the codebase; narrow the ORM-to-code interface with a thin Unit of
+    Work abstraction that the service layer depends on with the concrete implementation
+    attached at the edge, and keep the session and transaction lifecycle external
+    to the working code.'
+  derived_from_claims:
+  - C00608
+  - C00609
+  - C00610
+  - C00611
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Do not tightly couple domain logic to I/O, which makes tests slow and
+    the code hard to extend; separate what to do from how to do it by having the core
+    emit actions as data, and adopt Functional Core, Imperative Shell — a dependency-free
+    core that takes and returns simple data structures, wrapped by a thin imperative
+    shell that gathers inputs, calls the logic, and applies outputs.
+  derived_from_claims:
+  - C00562
+  - C00563
+  - C00564
+  - C00565
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: Keep infrastructural side effects such as sending email out of the web
+    controllers, the domain model, and the service layer — since the mess in a codebase
+    usually comes from the goop around the edges like reporting, permissions, and
+    cross-cutting workflows — because the domain's job is to know a fact such as being
+    out of stock while alerting belongs elsewhere; you should be able to toggle a
+    notification or switch email to SMS without changing domain rules, so apply the
+    dependency inversion principle to notifications and have the service layer depend
+    on an abstraction.
+  derived_from_claims:
+  - C00640
+  - C00641
+  - C00642
+  - C00644
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: Integrate systems with asynchronous messaging rather than temporally
+    coupled HTTP calls — receiving external messages from upstream systems and publishing
+    events for downstream ones — because this lets systems fail independently and
+    reduces coupling so you can change the order of operations locally; a message
+    broker delivers messages from publishers to subscribers (Event Store, Kafka, RabbitMQ,
+    or a lightweight Redis pub/sub), and an event consumer or publisher is a thin
+    adapter like the web framework, deserializing JSON into a command for the service
+    layer or converting internal domain events into public messages.
+  derived_from_claims:
+  - C00697
+  - C00698
+  - C00699
+  - C00700
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: 'Distinguish commands from events: both are dumb-data messages handled
+    similarly, but a command is sent to one recipient, named with an imperative verb
+    phrase, captures intent, and needs error information back on failure, whereas
+    an event is broadcast to all interested listeners, named in the past tense, and
+    its sender should not care whether receivers succeeded — and events are how you
+    spread knowledge about successful commands.'
+  derived_from_claims:
+  - C00673
+  - C00674
+  - C00675
+  - C00676
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: 'Treat distributed messaging as hard and guard against its footguns:
+    reliable messaging is hard and Redis pub/sub is not reliable for general use because
+    you cannot have exactly-once delivery; small independently-failing transactions
+    need monitoring and event-replay tooling (eased by a transaction-log broker like
+    Kafka or EventStore, or the Outbox pattern); make handlers idempotent so repeated
+    messages do not repeat state changes and safe retries become possible; and document
+    and share your event schemas since events change over time.'
+  derived_from_claims:
+  - C00758
+  - C00759
+  - C00760
+  - C00761
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: 'Avoid the distributed big ball of mud that a microservice-per-database-table
+    with CRUD HTTP APIs over anemic models degrades into: things that must change
+    together are coupled, a failure cascade where every part must work for any part
+    to work is temporal coupling that worsens as the system grows, and connascence
+    names coupling types so you should aim for strong connascence locally and weak
+    connascence at a distance — swapping RPC-style Connascence of Execution and Timing
+    for the weaker Connascence of Name — while accepting that the goal is to avoid
+    inappropriate coupling rather than all coupling.'
+  derived_from_claims:
+  - C00691
+  - C00692
+  - C00693
+  - C00694
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: Segregate read (query) responsibilities from write (command) responsibilities,
+    because the two differ fundamentally — reads are simple, highly cacheable, and
+    can be stale while writes carry complex business logic, are uncacheable, and must
+    be transactionally consistent — so the write-side machinery of service layer,
+    unit of work, and domain model buys nothing for reads, and you can make reads
+    eventually consistent to perform better.
+  derived_from_claims:
+  - C00703
+  - C00704
+  - C00705
+  - C00706
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: 'Address read performance and scale deliberately: watch for the SELECT
+    N+1 problem where a list query issues one query for IDs then a query per object
+    (especially with foreign keys); a fully normalized schema prevents write corruption
+    but its joins can be slow, so it is common to add denormalized views, read replicas,
+    or caching, and once indexes are exhausted a denormalized read-optimized copy
+    is reasonable because databases burn CPU on joins while single-key lookups are
+    fastest; read-only stores scale out horizontally since reads have no concurrency
+    limit (unlike writes needing locks), so if a complex store is hard to scale, ask
+    whether a simpler read model would help.'
+  derived_from_claims:
+  - C00713
+  - C00714
+  - C00715
+  - C00716
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: 'Keep packaging and build hygiene: in a Dockerfile install things in
+    order of how frequently they change (system dependencies, then Python dependencies,
+    then source) to maximize build-cache reuse, keep application source in an src
+    folder installed with an editable pip install via a minimal setup.py, centralize
+    common developer and CI commands in a Makefile (which as code stays less stale
+    than documentation), and minimize the number of Docker images since splitting
+    per code type usually costs more than it is worth.'
+  derived_from_claims:
+  - C00764
+  - C00766
+  - C00768
+  - C00769
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: Engage domain experts actively in the search for missing concepts (or
+    use them as validators), let learning the domain's theory yield better questions,
+    and accept that finding a good model takes trial and error in which you must not
+    get attached to your ideas, since avoiding all missteps yields a lower-quality,
+    slower result.
+  derived_from_claims:
+  - C00216
+  - C00219
+  - C00220
+  - C00221
+  confidence: medium
+  applies_when:
+  - searching for a deeper model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: Keep a layering system simple (no more than four or five layers, ferociously
+    distilled), drawing on recurring layers (Potential, Operations, Decision Support,
+    Policy, Commitment) where they fit but not forcing a domain into standard layers,
+    and implement a Policy layer in the same model as the layers it constrains.
+  derived_from_claims:
+  - C00446
+  - C00449
+  - C00450
+  - C00451
+  confidence: medium
+  applies_when:
+  - choosing the set of responsibility layers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: Let repositories decouple the domain from persistence, communicate access
+    decisions, and support a dummy in-memory test implementation; allow specialized
+    hard-coded queries even alongside flexible ones, leave transaction control to
+    the client, and ensure developers understand the performance implications even
+    though client code does not.
+  derived_from_claims:
+  - C00169
+  - C00170
+  - C00171
+  - C00172
+  confidence: medium
+  applies_when:
+  - designing and using repositories
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: Keep Factories and Repositories distinct (a factory makes new objects,
+    a repository finds old ones and may delegate reconstitution to a factory), avoid
+    combined find-or-create functionality, and reconstitute a stored entity without
+    assigning a new ID while having a strategy to repair invariant violations on existing
+    data.
+  derived_from_claims:
+  - C00161
+  - C00162
+  - C00173
+  - C00174
+  confidence: medium
+  applies_when:
+  - managing object retrieval and reconstitution
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: Build a Pluggable Component Framework (an abstract core of interfaces
+    with freely substitutable implementations) only after several applications exist
+    in a mature deep domain, never as the first or second structure, treating it as
+    a conceptual organization of responsibilities and adopting a technical framework
+    only for an essential technical problem; signal exceptions from lower to higher
+    layers through events to avoid two-way dependencies.
+  derived_from_claims:
+  - C00460
+  - C00461
+  - C00462
+  - C00463
+  confidence: medium
+  applies_when:
+  - a very mature, distilled domain with many interoperating applications
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: When a relational database holds the object model, keep the data model
+    and object model from diverging (sacrificing some richness and normalization for
+    a simple, transparent mapping), prefer simple directness with a row per object
+    and foreign keys as references, forbid outside processes from accessing the object
+    store, and choose a distinct schema only as a deliberate decision.
+  derived_from_claims:
+  - C00176
+  - C00177
+  - C00178
+  - C00179
+  confidence: medium
+  applies_when:
+  - mapping a domain model to a relational database
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: 'Treat a disruptive breakthrough refactoring as higher opportunity and
+    higher risk: weigh the cost to regain functionality, the slowdown without it,
+    and long-term fit, doing it before an installed base makes it harder; do not become
+    paralyzed chasing breakthroughs but push the predictable clarity levers (knowledge
+    crunching, ubiquitous language, explicit concepts, supple design, distillation),
+    and keep making modest improvements that cascade.'
+  derived_from_claims:
+  - C00206
+  - C00207
+  - C00208
+  - C00209
+  confidence: medium
+  applies_when:
+  - deciding whether and when to pursue a deep-model change
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: Tame a tangle of cross-object dependencies by making the dependency rules
+    explicit objects with one clear point of initiation and firing-mode vocabulary
+    in the ubiquitous language; keep the basic concept a well-known pattern term designates
+    intact while renaming when the model evolves, and record the conceptual ideal
+    when a pragmatic placement differs for clearer code.
+  derived_from_claims:
+  - C00291
+  - C00292
+  - C00293
+  - C00296
+  confidence: medium
+  applies_when:
+  - dependency rules or borrowed pattern terminology are involved
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: Do not try to make a whole system supple at once; carve off subdomains
+    and make a big impact on one area, drawing on established formalisms such as accounting
+    or mathematics, and looking for and digging out specialized math hidden in the
+    domain because it is clean, combinable, and easy to understand.
+  derived_from_claims:
+  - C00276
+  - C00277
+  - C00278
+  - C00279
+  confidence: medium
+  applies_when:
+  - choosing where to invest in supple design
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: When an upstream team is unmotivated to serve downstream, do not rely
+    on altruistic promises and choose among going separate ways, conforming to the
+    upstream model (for a large interface to acceptable upstream quality, extension
+    only), or building your own model behind an anticorruption layer when the upstream
+    is too hard to use but indispensable.
+  derived_from_claims:
+  - C00347
+  - C00348
+  - C00349
+  - C00350
+  confidence: medium
+  applies_when:
+  - a downstream team depends on an uncooperative upstream
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P089
+  statement: Hold a large-scale structure together by team self-discipline, incorporating
+    its terminology into the ubiquitous language, because such structures are abstract
+    and not enforced by code or tests; a design that has a structure is easier to
+    transform, continuous distillation eases restructuring, and the three strategic
+    principles (context, distillation, structure) are complementary, with the structure
+    sometimes itself part of the core.
+  derived_from_claims:
+  - C00468
+  - C00469
+  - C00470
+  - C00471
+  confidence: medium
+  applies_when:
+  - maintaining and restructuring a large-scale structure over time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: When restructuring around a message bus, treat API calls as events so
+    service-layer functions become event handlers (erasing the internal-versus-external
+    distinction), express the service layer's inputs as well-defined event objects
+    rather than scattered primitives, and model real-world changes as events that
+    trigger a business rule and may emit further events handled in separate transactions,
+    so one handler can serve both a fresh request and an internally triggered follow-up
+    alike.
+  derived_from_claims:
+  - C00656
+  - C00658
+  - C00659
+  - C00660
+  confidence: medium
+  applies_when:
+  - the application is being restructured around a message bus
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: 'Never run two languages on a team: keep domain experts and developers
+    on one shared model, have experts object to awkward terms and developers watch
+    for ambiguity, and treat experts not understanding the core model as evidence
+    the model is wrong.'
+  derived_from_claims:
+  - C00027
+  - C00028
+  - C00029
+  confidence: high
+  applies_when:
+  - the core model is being discussed with domain experts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: Concentrate all domain-model code in one layer isolated from UI, application,
+    and infrastructure, route lower-to-upper communication through callbacks or observers,
+    and keep the infrastructure free of domain knowledge by exposing generic capabilities
+    as services.
+  derived_from_claims:
+  - C00071
+  - C00073
+  - C00074
+  confidence: high
+  applies_when:
+  - wiring the relationships between architectural layers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: Practice refactoring toward deeper insight by living in the domain, looking
+    at things differently, and keeping an unbroken dialog with domain experts; initiate
+    it even when code is tidy if the language is disconnected from experts or requirements
+    do not fit, and feed it with prior art (domain books, analysis and design patterns,
+    formalisms).
+  derived_from_claims:
+  - C00307
+  - C00308
+  - C00310
+  confidence: high
+  applies_when:
+  - seeking a deeper, clearer model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: Identify the Core Domain as the distinctive part central to the application's
+    purpose, boil the model down to make the core easy to distinguish and small, and
+    counteract the tendency of top talent to gravitate to infrastructure, because
+    leaving the specialized core to less-skilled developers produces software that
+    never does compelling things for users.
+  derived_from_claims:
+  - C00389
+  - C00390
+  - C00391
+  confidence: high
+  applies_when:
+  - a large system risks neglecting its most valuable model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: 'Treat a change in the ubiquitous language as a change to the model:
+    rename classes, methods, and modules to match, and iron out language difficulties
+    by experimenting with alternative expressions and then refactoring the code to
+    the chosen model.'
+  derived_from_claims:
+  - C00024
+  - C00025
+  - C00026
+  confidence: high
+  applies_when:
+  - a model term proves awkward or ambiguous
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
+  statement: 'Capture the domain in the ubiquitous language: express rules in business
+    jargon, choose memorable identifiers, ask experts for concrete examples, listen
+    when stakeholders use terms in a specific way, and name tests in that same language
+    so nontechnical colleagues can confirm the behavior.'
+  derived_from_claims:
+  - C00526
+  - C00527
+  - C00529
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: 'Treat a fractured project language as a primary risk: it produces unreliable
+    software whose parts do not fit, and translation between sub-languages muddles
+    concepts and conceals schisms; counter it with continuous learning to grow domain
+    knowledge.'
+  derived_from_claims:
+  - C00017
+  - C00018
+  - C00019
+  confidence: high
+  applies_when:
+  - multiple sub-languages or translations are appearing on a team
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: Represent a domain process explicitly as a Service for a complex algorithm
+    or a Strategy when there is more than one way to do it, deciding to make it explicit
+    by whether domain experts talk about it; never move business rules out of the
+    domain layer merely to relieve a host object, since that leaves a dead data object.
+  derived_from_claims:
+  - C00224
+  - C00225
+  - C00226
+  confidence: high
+  applies_when:
+  - a domain process or rule does not fit an obvious object
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: Introduce a Service Layer (orchestration or use-case layer) that orchestrates
+    workflows and defines use cases, distinct from business logic and interfacing
+    code and from a domain service (which represents a business process rather than
+    an application use case); a typical service function fetches objects from the
+    repository, checks the request against current state, calls a domain service,
+    and saves any changes.
+  derived_from_claims:
+  - C00541
+  - C00576
+  - C00577
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: Treat integration as always expensive and confirm it is really needed;
+    use an anticorruption layer for a gradual legacy transition, and declare a bounded
+    context to go Separate Ways when two sets of functionality have no indispensable
+    relationship.
+  derived_from_claims:
+  - C00358
+  - C00359
+  - C00360
+  confidence: high
+  applies_when:
+  - deciding whether and how much to integrate
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: Refactor when the design does not express the team's current understanding,
+    when an important concept is implicit, or when a part can be made suppler; temper
+    this with limits (not before a release, not for technical virtuosity, not a model
+    an expert would not use), and treat a sudden obvious model inadequacy as an opportunity
+    signaling a new level of understanding.
+  derived_from_claims:
+  - C00312
+  - C00313
+  - C00314
+  confidence: high
+  applies_when:
+  - deciding when to refactor toward deeper insight
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: Understand validation as creating preconditions — testing an operation's
+    inputs against criteria and exiting with an error if invalid — separable into
+    syntax, semantics, and pragmatics; validate syntax (the shape and structure of
+    data, such as required fields, types, and ranges) at the edge so a handler always
+    receives a well-formed message, and put that syntactic validation on the message
+    type itself (a declarative schema plus a from_json constructor, optionally unified
+    with the field declaration, at the cost of losing static dataclass types).
+  derived_from_claims:
+  - C00776
+  - C00777
+  - C00778
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P103
+  statement: Treat every dependency as suspect until proven fundamental to the concept,
+    factor the most intricate computations into Standalone Classes (often value objects)
+    that can be understood and tested alone, and aim to eliminate nonessential dependencies
+    rather than all of them, without dumbing the model down to primitives.
+  derived_from_claims:
+  - C00263
+  - C00264
+  - C00265
+  confidence: high
+  applies_when:
+  - reducing interdependence to limit conceptual overload
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P104
+  statement: Draw an explicit context boundary to keep a model pure and potent where
+    it applies, remembering bounded contexts are not modules; when two teams share
+    objects without a defined relationship, stop sharing code until the relationship
+    is established.
+  derived_from_claims:
+  - C00321
+  - C00322
+  - C00323
+  confidence: high
+  applies_when:
+  - scoping where a particular model applies and relates to others
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P105
+  statement: Institute Continuous Integration within a bounded context, merging code
+    and artifacts frequently with automated tests while relentlessly exercising the
+    ubiquitous language; it operates on both model concepts and implementation, caps
+    the lifetime of unintegrated changes, and is needed only inside a context, not
+    across neighboring ones.
+  derived_from_claims:
+  - C00326
+  - C00327
+  - C00328
+  confidence: high
+  applies_when:
+  - a bounded context larger than a two-person task has multiple contributors
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: Apply top talent to the core domain and justify investment elsewhere
+    by how it supports the core, keep everything outside the core as generic as practical,
+    reserve secrecy and the first refactoring priority for the core, and identify
+    the core iteratively since it depends on point of view.
+  derived_from_claims:
+  - C00392
+  - C00393
+  - C00394
+  confidence: high
+  applies_when:
+  - allocating effort and skill across a model-driven system
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
+  statement: Distill in escalating order of commitment (vision statement and highlighted
+    core through generic subdomains and cohesive mechanisms to segregated and abstract
+    core), factoring generic subdomains that are not the project's motivation into
+    separate modules (with no trace of your specialties) at lower priority, and prefer
+    a published or formalized model for them when one exists.
+  derived_from_claims:
+  - C00398
+  - C00399
+  - C00400
+  confidence: high
+  applies_when:
+  - separating supporting subdomains from the core
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P108
+  statement: 'Use generic subdomains as the place to apply outside or outsourced design
+    expertise, always cleanly segregating a generic supporting model (such as time
+    zones) from the core, and do not design it for reusability: model only what you
+    need now while strictly keeping within the generic concept, since industry-specific
+    elements belong in the core or their own subdomain.'
+  derived_from_claims:
+  - C00401
+  - C00402
+  - C00403
+  confidence: high
+  applies_when:
+  - building or sourcing a generic supporting subdomain
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
+  statement: Judge a design's success by how the software serves over time rather
+    than its stasis (an opaque depended-on system becomes untouchable legacy), keep
+    the implementation-to-model feedback loop alive instead of patching code for efficiency
+    and weakening its connection to the model, and release a working internal version
+    early since a late release exposes problems when they are risky and expensive.
+  derived_from_claims:
+  - C00484
+  - C00485
+  - C00487
+  confidence: high
+  applies_when:
+  - evaluating and sustaining a model-driven design over its life
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
+  statement: 'Adopt the two mutually reinforcing pattern families: Part I (Repository
+    as a storage abstraction, Service Layer for use-case boundaries, Unit of Work
+    for atomic operations, Aggregate for data integrity) to keep the model free of
+    extraneous dependencies, and Part II (Domain Events, Message Bus, Handler) for
+    event-driven behavior in which some interactions trigger others.'
+  derived_from_claims:
+  - C00511
+  - C00512
+  - C00524
+  confidence: high
+  applies_when: []
   operational_mapping:
     profile_rule: true
     skill: null

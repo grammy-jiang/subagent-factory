@@ -2,6 +2,38 @@
 
 All notable changes to this subagent are documented here.
 
+## [0.6.0] — 2026-07-04
+
+### Added
+
+- **Second source: *Architecture Patterns with Python* (Percival & Gregory, "Cosmic Python").**
+  Folds concrete Python DDD tactical patterns (repository, unit-of-work, aggregates, service
+  layer, domain events, message bus) alongside Evans's concepts. Chosen over software-architecture
+  as the lower-redundancy home (PoEAA already covers the patterns there).
+
+### Changed
+
+- **Rebuilt as a 2-book package and tuned `--select` 50 → 110 principles** (pool of 248 from
+  Evans 149 + cosmic 115). The prior Evans-only `--select 50` was too thin for the density of the
+  DDD domain; 110 matches the software-architecture tier.
+
+### Fixed
+
+- **Regenerated the behaviour-test layer to match the current 110-principle spine.** The
+  distilled spine had been rebuilt by the per-book map→reduce pipeline to 110 principles from
+  two sources (`ddd-evans-full-9e0c1e6c` + `cosmic-python-989d68cc`), but the LLM-authored
+  test layer was stale at the prior 50-principle scheme, so the principle→test and golden
+  coverage gates failed for P051–P110 (96 failures):
+  - `tests/behaviour-tests.yaml` regenerated with `gen_behaviour_tests` — 197 golden +
+    87 missing-context cells, every high-confidence principle carries a golden `principle_coverage`.
+  - `tests/principle-behaviour-tests.yaml` regenerated — one `principle_id`-keyed test per
+    principle (all 110), so every high-confidence principle is referenced.
+- Corrected `sources/metadata/{ddd-evans-full-9e0c1e6c,cosmic-python-989d68cc}.metadata.json`
+  `source_type` from the invalid `md` to the schema enum `markdown` (2 metadata failures).
+- Re-exported the Claude Code adapter; the invariant layer now carries all must-hold
+  principles P001–P110.
+- Bumped `agent_version` 0.5.0 → 0.5.1. Package validates with 0 failures.
+
 ## [0.5.0] — 2026-06-27
 
 ### Changed
