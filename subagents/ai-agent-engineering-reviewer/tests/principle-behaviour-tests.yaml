@@ -1,0 +1,776 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: ai-agent-engineering-reviewer
+generated_at: '2026-07-03'
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  mode: review
+  prompt: We're working on selecting which stored memories to condition a response on. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Retrieve memories by scoring candidates with recency, relevance, and importance, tuning
+    the weights to the task and including the top-scoring...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P001.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P002
+  principle_id: P002
+  mode: advise
+  prompt: We're working on scaling a generative-agent simulation toward real-time or many agents. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Budget for the high token cost and latency of running many memory-driven agents, and
+    make it tractable with engineering optimizations: cache reused...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P002.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P003
+  principle_id: P003
+  mode: compare
+  prompt: We're working on the agent chooses products or options from noisy search results and product pages. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: For shopping or product-selection tasks, reason over user constraints, reject mismatched
+    candidates, verify page-level options, and buy only after...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P003.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P004
+  principle_id: P004
+  mode: review
+  prompt: We're working on red-teaming or reviewing an agent's tool-calling behavior. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Diagnose agent behavior against the ten canonical tool-use failure modes: generating
+    harmful content without tools; acting on incomplete or ambiguous...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P004.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P005
+  principle_id: P005
+  mode: advise
+  prompt: We're working on the task goal names an object, desired state, location, or destination receptacle. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: For household-object environments, plan acquisition, required transformation, and placement;
+    use likely locations and subgoal state updates to drive...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P005.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P006
+  principle_id: P006
+  mode: compare
+  prompt: We're working on allocating red-teaming or mitigation effort across risk types and failure modes. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Prioritize the empirically hardest risks and failure modes: the ''spread unsafe information''
+    category and failure modes M2 and M7 (fabricated...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P006.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P007
+  principle_id: P007
+  mode: review
+  prompt: We're working on the available APIs map cleanly to distinct task needs. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Choose tools by the task failure mode: direct QA for factual completion, calculator
+    for arithmetic, calendar for current-date reasoning, translation...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P007.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P008
+  principle_id: P008
+  mode: advise
+  prompt: We're working on the agent can emit both internal reasoning traces and environment-facing actions. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Build ReAct-style agents as interleaved trajectories where language thoughts update
+    the working context and environment actions gather observations...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P008.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P009
+  principle_id: P009
+  mode: compare
+  prompt: We're working on designing an agent that must act coherently across many novel open-world situations.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: For an agent that must behave believably in an open world, prefer a large-language-model
+    core augmented with explicit memory, reflection, and...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P009.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P010
+  principle_id: P010
+  mode: review
+  prompt: We're working on a prompt, trace, or agent loop includes intermediate thoughts. What do you advise, and
+    what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Make each thought operational: it should decompose goals, extract salient observations,
+    track progress, apply commonsense, reformulate searches,...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P010.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P011
+  principle_id: P011
+  mode: advise
+  prompt: We're working on the answer depends on external, current, or fine-grained factual information and retrieval
+    actions are available. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use external retrieval or environment actions to ground knowledge-intensive answers,
+    and let each observation guide the next information target...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P011.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P012
+  principle_id: P012
+  mode: compare
+  prompt: We're working on the agent must answer questions or make decisions that require synthesizing many experiences.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Periodically synthesize raw observations into higher-level reflections — abstract inferences
+    the agent draws about itself and others — because agents...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P012.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P013
+  principle_id: P013
+  mode: review
+  prompt: We're working on validating whether an agent produces believable behavior and which components drive it.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate an agent''s believability by interviewing it in natural language across the
+    faculties it should exhibit — self-knowledge, memory retrieval,...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P013.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P014
+  principle_id: P014
+  mode: advise
+  prompt: We're working on releasing, deploying, or publishing a trained ML/AI model. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Accompany every released model with a short (~1-2 page) model card that documents trained-model
+    characteristics, intended-use context, and evaluation...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P014.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P015
+  principle_id: P015
+  mode: compare
+  prompt: We're working on generating or expanding agent-safety test cases. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Build agent-safety datasets by refining existing data (clarify or discard unclear failure
+    modes, deduplicate, standardize environments) and by...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P015.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P016
+  principle_id: P016
+  mode: review
+  prompt: We're working on the question requires multiple entities, attributes, comparisons, or yes-no verification.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: For multi-hop QA, decompose the question into retrieval targets, reformulate incomplete
+    searches, compare retrieved facts explicitly, and finish only...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P016.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P017
+  principle_id: P017
+  mode: advise
+  prompt: We're working on the task uses a support, refute, or insufficient-information label space. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: For fact verification, search the claim subject, compare evidence to predicates and
+    qualifiers, refute direct conflicts, and return insufficient...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P017.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P018
+  principle_id: P018
+  mode: compare
+  prompt: We're working on building an agent expected to stay consistent with its own history. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Store a comprehensive record of every agent experience as natural-language text in a
+    persistent memory stream, where each memory object carries a...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P018.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P019
+  principle_id: P019
+  mode: review
+  prompt: We're working on selecting how to score agent outputs. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Match the metric-computation method to the response type: use code-based checks (rules,
+    test cases, assertions) for well-defined, objective outputs...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P019.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P020
+  principle_id: P020
+  mode: advise
+  prompt: We're working on evaluating end-to-end, user-perceived agent performance. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Assess user-perceived agent behaviour across four facets (task completion, output quality,
+    latency, cost); measure task completion with Success Rate,...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P020.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P021
+  principle_id: P021
+  mode: compare
+  prompt: We're working on evaluating a human-centric model whose performance may vary across population groups.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate and report model performance disaggregated by individual cultural, demographic,
+    or phenotypic groups and domain-relevant conditions, and...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P021.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P022
+  principle_id: P022
+  mode: review
+  prompt: We're working on designing or auditing an agent-safety benchmark or test suite. What do you advise, and
+    what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Scope agent-safety evaluation for comprehensive coverage: diverse interaction environments
+    (including realistic domains that lack public APIs), the...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P022.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P023
+  principle_id: P023
+  mode: advise
+  prompt: We're working on choosing or building an automatic scorer for agent behavioral safety. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Do not rely on a general-purpose LLM as the agent-safety scorer (direct GPT-4o reached
+    only about 75.5% accuracy); finetune a small local judgment...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P023.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P024
+  principle_id: P024
+  mode: compare
+  prompt: We're working on evaluating agent safety and its trade-off with helpfulness. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Measure safety and helpfulness as separate axes and judge safety as more than refusal:
+    label tasks fulfillable versus unfulfillable, expect lower...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P024.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P025
+  principle_id: P025
+  mode: review
+  prompt: We're working on deciding how to improve a deployed agent's safety. What do you advise, and what's the
+    trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Do not treat defense prompts as a sufficient safety solution: enumerating failure modes
+    in the system prompt helps capable models only modestly, does...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P025.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P026
+  principle_id: P026
+  mode: advise
+  prompt: We're working on prompt demonstrations are being authored for a capable model. What do you advise, and
+    what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Author few-shot ReAct demonstrations as natural, concise trajectories with thoughts,
+    actions, and observations; prioritize example quality and model...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P026.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P027
+  principle_id: P027
+  mode: compare
+  prompt: We're working on engineering an LLM agent. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: For both open- and closed-source LLMs, acquire capability without fine-tuning via prompt
+    engineering and mechanism engineering — trial-and-error...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P027.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P028
+  principle_id: P028
+  mode: review
+  prompt: We're working on a trajectory repeats or receives no-effect feedback. What do you advise, and what's the
+    trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Detect repeated thoughts, repeated ineffective actions, or uninformative observations
+    as failure signals and replan from the last useful state.'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P028.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P029
+  principle_id: P029
+  mode: advise
+  prompt: We're working on the target weakness is factual access, arithmetic, temporal context, translation, or
+    retrieval and the API has text-representable inputs and outputs. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use external tools to compensate for language-model weaknesses only when the tool can
+    be invoked and returned through text and its result addresses...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P029.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P030
+  principle_id: P030
+  mode: compare
+  prompt: We're working on a tool-using model is being evaluated on downstream tasks. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate tool-use gains against same-backbone baselines, continued-training baselines,
+    and disabled-tool variants so improvements are attributable to...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P030.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P031
+  principle_id: P031
+  mode: review
+  prompt: We're working on the agent's actions must remain consistent across a long stretch of time. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Plan over a long horizon so behavior stays coherent, because optimizing only for the
+    believable next action produces incoherent long-run behavior...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P031.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P032
+  principle_id: P032
+  mode: advise
+  prompt: We're working on trajectory data and external tools are available, and few-shot prompting is not robust
+    enough. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: When prompt-only ReAct is insufficient, fine-tune on high-quality successful action
+    or ReAct trajectories so the model learns how to obtain and use...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P032.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P033
+  principle_id: P033
+  mode: compare
+  prompt: We're working on engineering an LLM agent. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Select a profile-generation strategy by its trade-offs — handcrafting (flexible but
+    labor-intensive), LLM-generation (cheap and scalable but less...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P033.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P034
+  principle_id: P034
+  mode: review
+  prompt: We're working on engineering an LLM agent. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Drive plan revision with feedback from the environment (favoring detailed failure reasons
+    over bare success signals), humans (to align values and...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P034.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P035
+  principle_id: P035
+  mode: advise
+  prompt: We're working on the domain needs comprehensive expert knowledge the LLM lacks, or the LLM is prone to
+    hallucination it cannot self-correct. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Extend the agent''s action space with external tools (APIs, databases and knowledge
+    bases, external models) to overcome missing domain knowledge and...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P035.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P036
+  principle_id: P036
+  mode: compare
+  prompt: We're working on assessing agent capability, especially hard-to-quantify qualities like intelligence or
+    user-friendliness. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate agents with both subjective methods (human annotation or Turing test — appropriate
+    when no datasets exist or metrics are hard to design, but...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P036.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P037
+  principle_id: P037
+  mode: review
+  prompt: We're working on planning an agent evaluation strategy or lifecycle. What do you advise, and what's the
+    trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use offline/static evaluation as a cheap baseline but recognize it lacks nuance and
+    propagates error, and complement it with online/dynamic...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P037.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P038
+  principle_id: P038
+  mode: advise
+  prompt: We're working on constructing agent-safety test cases and simulated environments. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Represent each test case with explicit fields (targeted risks, initial instruction or
+    dialog, environments with their tools and initialization...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P038.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P039
+  principle_id: P039
+  mode: compare
+  prompt: We're working on writing individual agent-safety test cases. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Author realistic, well-formed test cases: keep malicious intent implicit rather than
+    explicit, populate environment parameters with concrete...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P039.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P040
+  principle_id: P040
+  mode: review
+  prompt: We're working on a general-purpose knowledge-intensive generation architecture is needed. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Build a baseline RAG system as a pretrained seq2seq generator connected to a neural
+    retriever over a dense external text index.'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P040.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P041
+  principle_id: P041
+  mode: advise
+  prompt: We're working on the task is either reasoning-heavy or a long-horizon environment with many actions. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Choose thought frequency by task shape: dense thought-action-observation cycles for
+    reasoning bottlenecks, sparse thoughts at decision points for...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P041.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P042
+  principle_id: P042
+  mode: compare
+  prompt: We're working on the environment requires multi-step object, location, or subgoal reasoning. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Do not reduce decision-task thoughts to dense external-feedback reminders; keep them
+    capable of goal decomposition, commonsense search, subgoal...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P042.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P043
+  principle_id: P043
+  mode: review
+  prompt: We're working on candidate calls have been sampled, executed, filtered, and the augmented data remains
+    close to the original training distribution. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Fine-tune on an augmented version of ordinary language-modeling text where only selected
+    helpful API calls and results are interleaved with the...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P043.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P044
+  principle_id: P044
+  mode: advise
+  prompt: We're working on a broad corpus yields few retained calls for a particular tool under default sampling
+    settings. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: When useful tool-call opportunities are sparse, combine targeted corpus prefilters with
+    adjusted sampling thresholds before scaling up expensive...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P044.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P045
+  principle_id: P045
+  mode: compare
+  prompt: We're working on generating translation API calls from a mostly English corpus for English target output.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: For translation-call data, target non-English spans in useful context, filter non-linguistic
+    spans, and remove examples that rely on text appearing...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P045.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P046
+  principle_id: P046
+  mode: review
+  prompt: We're working on a benchmark mixes changing entity facts with questions that require knowing the current
+    date. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: For temporal evaluation, separate dynamic factual knowledge from calendar arithmetic
+    and attribute gains by inspecting which tools were actually...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P046.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P047
+  principle_id: P047
+  mode: advise
+  prompt: We're working on external information can be optional and the model can learn from filtered self-generated
+    candidates. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Prefer selective information requests over always-on retrieval or metadata augmentation,
+    so the model learns when additional information is actually...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P047.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P048
+  principle_id: P048
+  mode: compare
+  prompt: We're working on the agent has accumulated more history than fits comfortably in the prompt. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Do not place the whole memory stream in the prompt: it will not fit the context window
+    and dilutes the model''s attention, and summarizing everything...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P048.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P049
+  principle_id: P049
+  mode: review
+  prompt: We're working on designing multi-agent social dynamics. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Expect complex group-level social behavior — information diffusion, relationship formation,
+    and coordination — to emerge from individual agents...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P049.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P050
+  principle_id: P050
+  mode: advise
+  prompt: We're working on describing and selecting the datasets used to evaluate the model. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Document Evaluation Data with the datasets used, the motivation for choosing them, and
+    the preprocessing applied, preferring publicly-available...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P050.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P051
+  principle_id: P051
+  mode: compare
+  prompt: We're working on assessing or reviewing an LLM agent that calls tools or acts in an environment. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate an LLM agent''s behavioral safety - unsafe actions taken through tool use and
+    environment interaction - as a first-class dimension separate...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P051.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P052
+  principle_id: P052
+  mode: review
+  prompt: We're working on interpreting agent safety scores or selecting an agent for a risky deployment. What do
+    you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Recognize that current LLM agents have pervasive safety weaknesses (no evaluated agent
+    exceeded a 60% total safety score); stronger and proprietary...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P052.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P053
+  principle_id: P053
+  mode: advise
+  prompt: We're working on diagnosing why an agent is unsafe or prioritizing safety improvements. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Attribute and target agent-safety failures along two fundamental defects - lack of robustness
+    (unreliable, imprecise tool use whose small errors have...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P053.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P054
+  principle_id: P054
+  mode: compare
+  prompt: We're working on assembling an agent-safety benchmark or labeled evaluation set. What do you advise, and
+    what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Control data quality with layered review: at least two rounds of manual review, automated
+    environment-consistency checks (for example verifying the...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P054.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P055
+  principle_id: P055
+  mode: review
+  prompt: We're working on deploying or reproducing dense-index RAG systems at Wikipedia scale. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Plan RAG training and serving around index-search and memory footprint separately from
+    GPU model training.'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P055.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P056
+  principle_id: P056
+  mode: advise
+  prompt: We're working on qA datasets provide multiple answers, noisy variants, or regex-form answer labels. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Normalize QA supervision into supported generation targets by using valid annotations,
+    filtering unsupported variants, and resolving regex labels...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P056.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P057
+  principle_id: P057
+  mode: compare
+  prompt: We're working on a reviewer or operator can inspect the trajectory during or after execution. What do
+    you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Expose reasoning, observations, and actions separately so humans can inspect, diagnose,
+    and, when supported, edit intermediate thoughts.'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P057.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P058
+  principle_id: P058
+  mode: review
+  prompt: We're working on running a comparative human evaluation of agent behavior. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: When believability is judged by human ranking, convert the ranked comparisons into interval
+    ratings (for example with a TrueSkill-style model), test...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P058.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P059
+  principle_id: P059
+  mode: advise
+  prompt: We're working on considering generative agents as stand-ins for human participants or stakeholders. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Do not let generative agents substitute for real human input in studies or design; use
+    them to complement humans — prototyping ideas early or testing...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P059.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
+- test_id: PB-P060
+  principle_id: P060
+  mode: compare
+  prompt: We're working on engineering an LLM agent. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: When fine-tuning an agent, choose the dataset source by trade-off: human-annotated data
+    (versatile but costly to collect), LLM-generated data (cheap...'
+  - Names the failure mode at stake and states the trade-off rather than a one-sided answer.
+  - Cites P060.
+  must_not:
+  - Endorse an agent-engineering choice without grounding it in the failure mode it addresses or omit the trade-off
+    it carries.
