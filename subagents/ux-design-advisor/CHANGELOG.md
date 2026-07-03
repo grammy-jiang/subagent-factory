@@ -1,0 +1,31 @@
+# Changelog — ux-design-advisor
+
+All notable changes to this generated subagent package are recorded here. The canonical source of
+truth is `profile.yaml`; the installed adapter is a derived artifact.
+
+## [0.1.0] — 2026-07-03
+
+### Added
+
+- Authored the LLM layer over the deterministic map→reduce distilled spine (1469 claims, 540
+  evidence records, 70 principles / 28 high-confidence, chunk anchors).
+- `profile.yaml` — UX-design advisor role, when-to-use / when-not-to-use, three modes
+  (review / advise / compare), five evidence-citing quality-bar checks, forbidden behaviours,
+  handoff and source-of-truth policy, and a seven-group `knowledge_partition.always_on` covering all
+  70 principles.
+- `reports/faithfulness-report.yaml` — per-rule claim-strength findings; no profile rule is stronger
+  than its principle evidence.
+- Seven skills grounded in their principles, claims, evidence, and source anchors:
+  `information-architecture-foundations`, `navigation-search-and-findability`,
+  `usability-and-self-evident-design`, `usability-testing-and-evaluation`, `user-research-methods`,
+  `conversational-and-chatbot-design`, `ia-strategy-and-deliverables`.
+- Two references: `references/ux-design-principles-index.md` (all 70 principles grouped by skill) and
+  `references/conversational-ux-evidence-notes.md` (conversational/chatbot practices and their
+  user-outcome evidence base).
+- `tests/principle-behaviour-tests.yaml` (one behaviour test per principle) and
+  `tests/golden-tests.yaml` (routing + negative-routing golden tests).
+
+### Fixed
+
+- Corrected the seven source metadata records' `source_type` from the invalid `md` to `markdown`
+  (schema enum) so the source-metadata validation passes; source content is unchanged.
