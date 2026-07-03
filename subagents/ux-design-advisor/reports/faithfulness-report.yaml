@@ -14,8 +14,8 @@ findings:
   action: accept_with_note
   note: 'The role restates the sources'' framing — UX as self-evident, user-researched, well-architected,
     genuinely conversational design — and narrows scope to advice/review (no code, no UI, no decision).
-    A narrowing, not an over-claim. Grounded in principle(s): P037 (claims C01048/C01049); P035 (claims
-    C00718/C00719); P017 (claims C00031/C00032); P033 (claims C00838/C00839).'
+    A narrowing, not an over-claim. Grounded in principle(s): P041 (claims C01048/C01049); P039 (claims
+    C00718/C00719); P017 (claims C00031/C00032); P037 (claims C00838/C00839).'
 - rule_ref: outputs.primary_format
   verdict: WITHIN_SCOPE
   distortion:
@@ -25,8 +25,8 @@ findings:
   action: accept_with_note
   note: 'Output shape (name the user need, apply principles, surface assumptions to test, state each trade-off,
     flag anti-patterns) follows the sources'' user-centered, testable, trade-off-aware guidance; no claim
-    stronger than the evidence. Grounded in principle(s): P037 (claims C01048/C01049); P017 (claims C00031/C00032);
-    P011 (claims C00415/C00416).'
+    stronger than the evidence. Grounded in principle(s): P041 (claims C01048/C01049); P017 (claims C00031/C00032);
+    P010 (claims C00415/C00416).'
 - rule_ref: minimum_useful_output
   verdict: WITHIN_SCOPE
   distortion:
@@ -36,7 +36,7 @@ findings:
   action: accept_with_note
   note: 'The minimum bar (name the user need, apply a named principle, state the trade-off) is a floor
     drawn from the analyze-in-context and test-before-commit principles; strictly within scope. Grounded
-    in principle(s): P017 (claims C00031/C00032); P011 (claims C00415/C00416).'
+    in principle(s): P017 (claims C00031/C00032); P010 (claims C00415/C00416).'
 - rule_ref: outputs.modes[review].trigger
   verdict: WITHIN_SCOPE
   distortion:
@@ -46,7 +46,7 @@ findings:
   action: accept_with_note
   note: 'The review mode trigger is a routing condition consistent with the sources'' problem-in-context
     and stage-matched guidance; not a substantive claim. Grounded in principle(s): P017 (claims C00031/C00032);
-    P034 (claims C00590/C00591).'
+    P038 (claims C00590/C00591).'
 - rule_ref: outputs.modes[advise].trigger
   verdict: WITHIN_SCOPE
   distortion:
@@ -56,7 +56,7 @@ findings:
   action: accept_with_note
   note: 'The advise mode trigger is a routing condition consistent with the sources'' problem-in-context
     and stage-matched guidance; not a substantive claim. Grounded in principle(s): P017 (claims C00031/C00032);
-    P034 (claims C00590/C00591).'
+    P038 (claims C00590/C00591).'
 - rule_ref: outputs.modes[compare].trigger
   verdict: WITHIN_SCOPE
   distortion:
@@ -66,7 +66,7 @@ findings:
   action: accept_with_note
   note: 'The compare mode trigger is a routing condition consistent with the sources'' problem-in-context
     and stage-matched guidance; not a substantive claim. Grounded in principle(s): P017 (claims C00031/C00032);
-    P034 (claims C00590/C00591).'
+    P038 (claims C00590/C00591).'
 - rule_ref: quality_bar[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -75,8 +75,8 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The quality-bar check restates its cited principles as an acceptance criterion; it condenses
-    but does not strengthen them. Grounded in principle(s): P037 (claims C01048/C01049); P003 (claims
-    C00767/C00768); P057 (claims C01101/C01102); P005 (claims C01058/C01059); P058 (claims C01095/C01096).'
+    but does not strengthen them. Grounded in principle(s): P041 (claims C01048/C01049); P003 (claims
+    C00767/C00768); P062 (claims C01101/C01102); P005 (claims C01058/C01059); P063 (claims C01095/C01096).'
 - rule_ref: quality_bar[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -85,8 +85,8 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The quality-bar check restates its cited principles as an acceptance criterion; it condenses
-    but does not strengthen them. Grounded in principle(s): P035 (claims C00718/C00719); P034 (claims
-    C00590/C00591); P018 (claims C00043/C00044); P051 (claims C00679/C00680); P002 (claims C00366/C00367).'
+    but does not strengthen them. Grounded in principle(s): P039 (claims C00718/C00719); P038 (claims
+    C00590/C00591); P018 (claims C00043/C00044); P056 (claims C00679/C00680); P002 (claims C00366/C00367).'
 - rule_ref: quality_bar[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -95,8 +95,8 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The quality-bar check restates its cited principles as an acceptance criterion; it condenses
-    but does not strengthen them. Grounded in principle(s): P017 (claims C00031/C00032); P015 (claims
-    C01107/C01108); P019 (claims C00081/C00082); P064 (claims C00201/C00202); P029 (claims C00220/C00221).'
+    but does not strengthen them. Grounded in principle(s): P017 (claims C00031/C00032); P014 (claims
+    C01107/C01108); P019 (claims C00081/C00082); P069 (claims C00201/C00202); P033 (claims C00220/C00221).'
 - rule_ref: quality_bar[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -105,8 +105,8 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The quality-bar check restates its cited principles as an acceptance criterion; it condenses
-    but does not strengthen them. Grounded in principle(s): P033 (claims C00838/C00839); P001 (claims
-    C01367/C01368); P063 (claims C01383/C01384); P016 (claims C01253/C01272); P024 (claims C01270/C01289).'
+    but does not strengthen them. Grounded in principle(s): P037 (claims C00838/C00839); P001 (claims
+    C01367/C01368); P068 (claims C01383/C01384); P015 (claims C01253/C01272); P027 (claims C01270/C01289).'
 - rule_ref: quality_bar[4]
   verdict: WITHIN_SCOPE
   distortion:
@@ -115,8 +115,8 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The quality-bar check restates its cited principles as an acceptance criterion; it condenses
-    but does not strengthen them. Grounded in principle(s): P011 (claims C00415/C00416); P050 (claims
-    C01074/C01075); P004 (claims C00780/C00781); P059 (claims C01187/C01188); P017 (claims C00031/C00032).'
+    but does not strengthen them. Grounded in principle(s): P010 (claims C00415/C00416); P055 (claims
+    C01074/C01075); P004 (claims C00780/C00781); P064 (claims C01187/C01188); P017 (claims C00031/C00032).'
 - rule_ref: forbidden_behaviours[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -144,7 +144,7 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The forbidden behaviour is the negation of its cited principles (or a scope boundary); a constraint
-    drawn from the source, not an over-claim. Grounded in principle(s): P033 (claims C00838/C00839); P024
+    drawn from the source, not an over-claim. Grounded in principle(s): P037 (claims C00838/C00839); P027
     (claims C01270/C01289).'
 - rule_ref: when_to_use[0]
   verdict: WITHIN_SCOPE
@@ -154,7 +154,7 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The routing trigger names a situation the cited principles govern; a scoping statement, not a
-    substantive claim. Grounded in principle(s): P037 (claims C01048/C01049); P005 (claims C01058/C01059).'
+    substantive claim. Grounded in principle(s): P041 (claims C01048/C01049); P005 (claims C01058/C01059).'
 - rule_ref: when_to_use[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -172,7 +172,7 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The routing trigger names a situation the cited principles govern; a scoping statement, not a
-    substantive claim. Grounded in principle(s): P034 (claims C00590/C00591); P052 (claims C00618/C00619).'
+    substantive claim. Grounded in principle(s): P038 (claims C00590/C00591); P057 (claims C00618/C00619).'
 - rule_ref: when_to_use[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -181,7 +181,7 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The routing trigger names a situation the cited principles govern; a scoping statement, not a
-    substantive claim. Grounded in principle(s): P033 (claims C00838/C00839); P016 (claims C01253/C01272).'
+    substantive claim. Grounded in principle(s): P037 (claims C00838/C00839); P015 (claims C01253/C01272).'
 - rule_ref: when_to_use[4]
   verdict: WITHIN_SCOPE
   distortion:
@@ -190,7 +190,7 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The routing trigger names a situation the cited principles govern; a scoping statement, not a
-    substantive claim. Grounded in principle(s): P011 (claims C00415/C00416); P056 (claims C00798/C00799).'
+    substantive claim. Grounded in principle(s): P010 (claims C00415/C00416); P061 (claims C00798/C00799).'
 - rule_ref: when_not_to_use[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -226,7 +226,7 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The handoff rule defers ownership to the team/specialist, consistent with the sources'' business-
-    and role-aware stance; a narrowing. Grounded in principle(s): P051 (claims C00679/C00680); P017 (claims
+    and role-aware stance; a narrowing. Grounded in principle(s): P056 (claims C00679/C00680); P017 (claims
     C00031/C00032).'
 - rule_ref: handoff_rules[1]
   verdict: WITHIN_SCOPE
@@ -236,5 +236,5 @@ findings:
   severity: low
   action: accept_with_note
   note: 'The handoff rule defers ownership to the team/specialist, consistent with the sources'' business-
-    and role-aware stance; a narrowing. Grounded in principle(s): P051 (claims C00679/C00680); P017 (claims
+    and role-aware stance; a narrowing. Grounded in principle(s): P056 (claims C00679/C00680); P017 (claims
     C00031/C00032).'
