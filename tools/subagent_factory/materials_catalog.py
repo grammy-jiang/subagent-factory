@@ -67,7 +67,9 @@ def collect() -> dict[str, dict]:
             sha = s.get("sha256")
             if not sha:
                 continue
-            md = _load_json(pkg / "sources" / "metadata" / f"{s.get('source_id', '')}.metadata.json")
+            md = _load_json(
+                pkg / "sources" / "metadata" / f"{s.get('source_id', '')}.metadata.json"
+            )
             e = by_sha.setdefault(
                 sha,
                 {
@@ -89,8 +91,8 @@ def collect() -> dict[str, dict]:
     for mj in sorted(CACHE.glob("*/module.json")):
         d = _load_json(mj)
         sha = d.get("sha") or mj.parent.name
-        e = by_sha.get(sha)
-        if e is None:
+        existing = by_sha.get(sha)
+        if existing is None:
             by_sha[sha] = {
                 "sha256": sha,
                 "title": d.get("title"),
@@ -104,7 +106,7 @@ def collect() -> dict[str, dict]:
                 "status": "mapped-not-built",
             }
         else:
-            e["map_principles"] = d.get("n_principles")
+            existing["map_principles"] = d.get("n_principles")
     return by_sha
 
 
@@ -142,7 +144,9 @@ def build() -> int:
         )
     CAT_MD.parent.mkdir(parents=True, exist_ok=True)
     CAT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"catalog: {len(entries)} materials -> {CAT_YAML.relative_to(REPO)} + {CAT_MD.relative_to(REPO)}")
+    print(
+        f"catalog: {len(entries)} materials -> {CAT_YAML.relative_to(REPO)} + {CAT_MD.relative_to(REPO)}"
+    )
     return 0
 
 
@@ -161,7 +165,9 @@ def check(target: str) -> int:
     if sha:
         for full, e in by_sha.items():
             if full == sha or full.startswith(sha) or (len(sha) == 64 and sha.startswith(full)):
-                print(f"  ⛔ EXACT DUP (sha256) — already processed: '{e['title']}'  feeds={e['feeds'] or e['status']}")
+                print(
+                    f"  ⛔ EXACT DUP (sha256) — already processed: '{e['title']}'  feeds={e['feeds'] or e['status']}"
+                )
                 return 0
     # same-book / topic overlap by title tokens
     tt = _norm(title)
