@@ -1,0 +1,271 @@
+# Faithfulness review — product-design-advisor
+# Per-rule claim-strength check of load-bearing profile rules against the promoted
+# principles and their backing claims/evidence. No rule is stronger than its evidence;
+# source_anchors are omitted deliberately (provenance carried in each note via principle+claim IDs).
+schema_version: faithfulness-report-v1
+subagent_slug: product-design-advisor
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The role restates the sources'' framing — product management as outcome-driven discovery of valuable/usable/feasible
+    products, led by influence — and narrows scope to advice/review (no code, no UI, no decision). A narrowing,
+    not an over-claim. Principle(s): P002 (claims C00438/C00439); P057 (claims C00737/C00738); P010 (claims
+    C00003/C01342); P021 (claims C00171/C00784).'
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Output shape (name the outcome, surface assumptions as hypotheses, apply principles, state each
+    trade-off, flag anti-patterns) follows the sources'' problem-first, hypothesis-driven, trade-off-centric
+    guidance; no claim stronger than the evidence. Principle(s): P044 (claims C00802/C00803); P093 (claims
+    C01725/C01728); P106 (claims C01646/C01647).'
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The minimum bar (name outcome + assumption, apply a named principle, state the trade-off) is
+    a floor drawn from the hypothesis-framing and trade-off principles; strictly within scope. Principle(s):
+    P093 (claims C01725/C01728); P106 (claims C01646/C01647).'
+- rule_ref: outputs.modes[review].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Review mode reflects the sources'' review/reflection and test-with-real-users practices; a supported
+    use, not an over-claim. Principle(s): P045 (claims C01334/C01444); P099 (claims C01300/C01301).'
+- rule_ref: outputs.modes[advise].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Advise mode reflects the sources'' guidance to diagnose the problem/goal before prescribing;
+    within scope. Principle(s): P044 (claims C00802/C00803); P094 (claims C00788/C00789).'
+- rule_ref: outputs.modes[compare].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Compare mode reflects the sources'' explicit trade-off comparisons (e.g. prototype fidelity levels,
+    reversibility of decisions); within scope. Principle(s): P030 (claims C01811/C01812); P080 (claims
+    C00567/C00568).'
+- rule_ref: quality_bar[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reframing work around a specific outcome and the assumption it tests, never a feature for its
+    own sake, is a direct restatement of the output-to-outcome and hypothesis principles. Principle(s):
+    P002 (claims C00438/C00439); P057 (claims C00737/C00738); P059 (claims C01156/C01161); P093 (claims
+    C01725/C01728).'
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Grounding decisions in real-user evidence and small validated bets rather than opinion or market
+    research restates the discovery, direct-user-contact, and MVP principles; within scope. Principle(s):
+    P046 (claims C00198/C00199); P088 (claims C00195/C00196); P003 (claims C00968/C00969); P085 (claims
+    C01165/C01166).'
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring every option to state its trade-off tied to appetite, never universally best, directly
+    restates the appetite, compare-to-baseline, and build-less principles. Principle(s): P038 (claims
+    C01466/C01492); P106 (claims C01646/C01647); P069 (claims C01114/C01115).'
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Picking fidelity by the risk retired and validating with real users before build restates the
+    prototyping principles; within scope. Principle(s): P030 (claims C01811/C01812); P031 (claims C00241/C00242);
+    P033 (claims C00009/C00010); P099 (claims C01300/C01301).'
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Keeping meaningful human control, efficient invoke/terminate, and evaluation by human outcomes
+    restates the human-centered-AI principles; within scope. Principle(s): P001 (claims C02050/C02051);
+    P026 (claims C01946/C02017); P005 (claims C02105/C02106); P052 (claims C02087/C02088).'
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Refusing to produce production code/UI/build instructions is a scope narrowing consistent with
+    the advisory role the sources describe; not an over-claim. Principle(s): P010 (claims C00003/C01342);
+    P021 (claims C00171/C00784).'
+- rule_ref: forbidden_behaviours[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Refusing to recommend a feature/roadmap without tying it to an outcome and the assumption it
+    tests directly restates the build-trap warning and the "don''t be an order-taking waiter" principle.
+    Principle(s): P004 (claims C00400/C00401); P094 (claims C00788/C00789).'
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding presentation of a benefit while omitting its trade-off follows the compare-to-baseline
+    / trade-off discipline; within scope. Principle(s): P106 (claims C01646/C01647).'
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Handing the decision, roadmap, and implementation back to the team and its leadership restates
+    lead-by-influence and produce-value-not-push-ideas; within scope. Principle(s): P021 (claims C00171/C00784);
+    P089 (claims C00786/C00787).'
+- rule_ref: source_of_truth_policy.precedence
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Letting the caller''s prioritized outcome and appetite govern when they conflict with a generic
+    preference reflects the problem-first and decision-classification principles; within scope. Principle(s):
+    P044 (claims C00802/C00803); P080 (claims C00567/C00568).'
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The output-to-outcome / escape-the-build-trap rule aggregates its cited high-confidence principles
+    without exceeding any of them. Principle(s): P002 (claims C00438/C00439); P004 (claims C00400/C00401);
+    P044 (claims C00802/C00803); P057 (claims C00737/C00738); P059 (claims C01156/C01161); P069 (claims
+    C01114/C01115); P097 (claims C01012/C01013).'
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The continuous-discovery rule aggregates the discovery principles (direct user contact, behaviour
+    over stated preference, opportunity solution tree, no market research) faithfully. Principle(s): P084
+    (claims C01400/C01401); P088 (claims C00195/C00196); P079 (claims C00480/C00481); P025 (claims C00115/C01181);
+    P040 (claims C00421/C00422); P046 (claims C00198/C00199).'
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The hypothesis/MVP rule aggregates the experimentation principles faithfully; MVP "need not be
+    code" is taken verbatim from P003. Principle(s): P003 (claims C00968/C00969); P093 (claims C01725/C01728);
+    P092 (claims C00633/C00634); P085 (claims C01165/C01166); P073 (claims C01827/C01828).'
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The prototyping rule aggregates the fidelity, prototype-as-spec, and test-with-real-users principles
+    without over-claim. Principle(s): P030 (claims C01811/C01812); P036 (claims C00015/C00016); P031 (claims
+    C00241/C00242); P099 (claims C01300/C01301); P033 (claims C00009/C00010).'
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The story-mapping rule aggregates the backbone, story-template, and story-size principles; the
+    template is a conversation-starter per P070. Principle(s): P050 (claims C01147/C01148); P011 (claims
+    C00610/C00611); P070 (claims C01262/C01263); P034 (claims C01122/C01123).'
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The shaping/betting rule aggregates the appetite, shaping-abstraction, pitch, and baseline principles
+    faithfully. Principle(s): P038 (claims C01466/C01492); P063 (claims C01475/C01476); P105 (claims C01535/C01536);
+    P106 (claims C01646/C01647).'
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The empowered-teams rule aggregates lead-by-influence, outcome-structured teams, autonomy-to-intent,
+    and product-review principles without over-claim. Principle(s): P021 (claims C00171/C00784); P082
+    (claims C00835/C00836); P019 (claims C00867/C00871); P045 (claims C01334/C01444); P103 (claims C01450/C01451).'
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The human-centered-AI rule aggregates the control-vs-automation, invoke/terminate, Prometheus,
+    mixed-initiative, and human-outcome principles; each is stated at or below its evidence strength.
+    Principle(s): P001 (claims C02050/C02051); P026 (claims C01946/C02017); P052 (claims C02087/C02088);
+    P110 (claims C02030/C02031); P005 (claims C02105/C02106).'
+- rule_ref: examples[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The happy-path example applies the outcome-reframing and build-trap principles to a roadmap-prioritization
+    request; illustrative, no over-claim. Principle(s): P002 (claims C00438/C00439); P004 (claims C00400/C00401);
+    P059 (claims C01156/C01161); P069 (claims C01114/C01115).'
+- rule_ref: examples[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The failure-recovery example declines out-of-scope UI/stack work and offers in-scope discovery/prototyping
+    help; consistent with the forbidden behaviours. Principle(s): P030 (claims C01811/C01812); P003 (claims
+    C00968/C00969).'
