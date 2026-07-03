@@ -1,0 +1,20 @@
+{
+  "66": {"action": "confirm", "canonical": "Treat a large-scale structure as optional and keep it minimal and lightweight: impose one only when cost and benefit favor it and a fitting structure emerges from deep, iterative domain understanding, valuing conceptual coherence over regimentation, since an ill-fitting or over-constricting structure is worse than none."},
+  "67": {"action": "split", "subgroups": [[128],[130]]},
+  "69": {"action": "split", "subgroups": [[138],[139],[140]]},
+  "76": {"action": "confirm", "canonical": "Apply these DDD and event-driven patterns to monolithic architectures as well — aggregates, domain events, and dependency inversion predate and do not require microservices — so do not assume you need microservices to control complexity, though a well-modeled set of use cases is relatively easy to split into its own service later."},
+  "79": {"action": "split", "subgroups": [[155],[170],[190],[210],[212],[245],[249]]},
+  "80": {"action": "confirm", "canonical": "Model boundaries as ports and adapters — a port is the interface to whatever you abstract away and an adapter is the implementation behind it — and in Python treat that port as either an abstract base class or simply a duck type (a public API of method and argument names and types) that adapters conform to."},
+  "85": {"action": "split", "subgroups": [[168],[192]]},
+  "91": {"action": "confirm", "canonical": "Design for testability by declaring dependencies explicitly and separating responsibilities into small, focused, replaceable objects — pass in collaborators such as the unit of work or a send-mail callable rather than importing them implicitly — because monkeypatching and mock-based tests couple to implementation details and become brittle without improving the design; explicit, injected dependencies are an application of the dependency inversion principle."},
+  "93": {"action": "split", "subgroups": [[180],[181],[182]]},
+  "94": {"action": "split", "subgroups": [[183],[185],[186],[188],[189]]},
+  "109": {"action": "split", "subgroups": [[208],[211],[216],[225],[226]]},
+  "110": {"action": "split", "subgroups": [[209],[214],[217],[220],[224],[230]]},
+  "116": {"action": "split", "subgroups": [[222],[223]]},
+  "117": {"action": "split", "subgroups": [[227],[252]]},
+  "121": {"action": "split", "subgroups": [[232],[235],[236]]},
+  "123": {"action": "split", "subgroups": [[234],[250]]},
+  "125": {"action": "confirm", "canonical": "Perform manual dependency injection in a single Composition Root (bootstrap script): compose each handler with its dependencies ahead of time using closures or functools.partial, declare default dependencies while allowing overrides, do one-time initialization such as ORM mapper start-up and logging, inject dependencies into the handlers, and return the configured message bus — reaching for a real DI framework only when you need DI at multiple levels or have chained dependencies."},
+  "137": {"action": "split", "subgroups": [[260],[261],[263]]}
+}

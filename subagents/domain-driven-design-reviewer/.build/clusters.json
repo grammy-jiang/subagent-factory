@@ -57,6 +57,10 @@
    {
     "idx": 145,
     "statement": "Make understanding the target domain and incorporating it into the software the defining priority of domain-driven design, cultivating the language, staying dissatisfied with the model, treating continuous refinement as opportunity and an ill-fitting model as risk, and taking design skill seriously."
+   },
+   {
+    "idx": 248,
+    "statement": "Model collaboratively to keep engineering and business aligned: years of hacks on a broken model eventually force a rewrite and a bizarre rule signals that stakeholders have drifted into different languages, so use interactive techniques like event storming, CRC modeling, and event modeling to reach a shared ubiquitous language, and treat a domain problem as a TDD kata, workshop, or spike to demonstrate the value of modeling before arguing to structure the project around it."
    }
   ]
  },
@@ -82,6 +86,18 @@
    {
     "idx": 148,
     "statement": "Apply the precise domain-driven vocabulary consistently in the ubiquitous language: Entity (defined by identity/continuity) versus Value Object (no identity); stateless Service standing alone in the model; deep model versus supple design; assertion, invariant, and side effect; conceptual contour; unification within a bounded context; model-driven design; standalone class and whole value; and strategic design as team-level decisions affecting the whole project."
+   },
+   {
+    "idx": 162,
+    "statement": "Capture the domain in the ubiquitous language: express rules in business jargon, choose memorable identifiers, ask experts for concrete examples, listen when stakeholders use terms in a specific way, and name tests in that same language so nontechnical colleagues can confirm the behavior."
+   },
+   {
+    "idx": 166,
+    "statement": "Express domain semantics with Python idioms: implement magic methods such as comparison operators so models work with constructs like sorted(), and raise domain-specific exceptions named in the ubiquitous language just as you name entities, value objects, and services."
+   },
+   {
+    "idx": 247,
+    "statement": "Recommend domain modeling as the first step when carving a new system out of an overgrown one, since in such systems engineers, product owners, and customers no longer share a language, while remembering that these patterns are broad-brush building blocks rather than battle-hardened code and give new ways to shoot yourself in the foot, so apply them with care."
    }
   ]
  },
@@ -175,6 +191,14 @@
    {
     "idx": 98,
     "statement": "Maintain a Context Map that identifies and names each model (including non-OO subsystems) in the ubiquitous language and describes the points of contact and explicit translation; map the terrain as it actually is, avoid code reuse between contexts, and until the map is unambiguous change only the outright contradictions."
+   },
+   {
+    "idx": 161,
+    "statement": "Treat the domain model as the encoded map that business owners have of their business, and per DDD prioritize the model's usefulness as software's most important property — the right model delivers value while the wrong model becomes an obstacle to work around."
+   },
+   {
+    "idx": 167,
+    "statement": "Treat the domain-model code as closest to the business, the most likely to change, and where the most value is delivered, so make it especially easy to understand and modify."
    }
   ]
  },
@@ -192,6 +216,19 @@
    {
     "idx": 39,
     "statement": "Use object-oriented technology as the core for most model-driven designs and avoid esoteric paradigms the team or experts cannot grasp, recognizing a domain model need not be an object model; mix in another paradigm only when major parts of the domain genuinely belong to it, after exhausting the dominant paradigm, and only with an expressive implementation."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 20,
+    "statement": "Do not superimpose on the UI a model different from the domain model, reveal the model's bones to users for consistent and predictable behavior, and never quietly change or discard user data."
+   },
+   {
+    "idx": 151,
+    "statement": "Keep the domain model free of infrastructure concerns and make specific technology choices such as the web framework, ORM, and database minor implementation details, so the model stays easy to change."
    }
   ]
  },
@@ -238,6 +275,27 @@
    {
     "idx": 131,
     "statement": "Keep a layering system simple (no more than four or five layers, ferociously distilled), drawing on recurring layers (Potential, Operations, Decision Support, Policy, Commitment) where they fit but not forcing a domain into standard layers, and implement a Policy layer in the same model as the layers it constrains."
+   },
+   {
+    "idx": 179,
+    "statement": "Introduce a Service Layer (orchestration or use-case layer) that orchestrates workflows and defines use cases, distinct from business logic and interfacing code and from a domain service (which represents a business process rather than an application use case); a typical service function fetches objects from the repository, checks the request against current state, calls a domain service, and saves any changes."
+   }
+  ]
+ },
+ {
+  "group": 16,
+  "members": [
+   {
+    "idx": 25,
+    "statement": "Apply an architectural framework selectively to solve only the hard technical problems rather than as a one-size-fits-all solution, because judicious minimal use keeps coupling low and business objects readable."
+   },
+   {
+    "idx": 159,
+    "statement": "Apply the Dependency Inversion Principle: high-level modules dealing with real-world business concepts and low-level technical details should both depend on abstractions (where depends-on means knows-about or needs, not merely imports), placing an abstraction between business logic and infrastructure so the two change independently."
+   },
+   {
+    "idx": 178,
+    "statement": "To find the right abstraction, ask which familiar data structure can represent the messy system's state, where you can carve a seam to insert the abstraction, how to divide responsibilities into components, and what is core business logic versus dependency."
    }
   ]
  },
@@ -272,6 +330,10 @@
    {
     "idx": 31,
     "statement": "Do not assign artificial identity to all objects, because tracking identity that is not needed hurts performance, adds analytical work, and muddles the model; software design is a constant battle with complexity, so make distinctions so special handling applies only where necessary."
+   },
+   {
+    "idx": 163,
+    "statement": "Distinguish Value Objects from Entities: model a concept that has data but no long-lived identity as an immutable Value Object whose equality is over all its attributes (it may still carry behavior), and model a concept with long-lived identity as an Entity with an explicitly defined identifier and equality based on that identity."
    }
   ]
  },
@@ -285,6 +347,10 @@
    {
     "idx": 57,
     "statement": "Partition modules by cohesive broad domain concepts whose names tell the story and enter the ubiquitous language, never by design pattern or technical scheme such as persistent-versus-transient."
+   },
+   {
+    "idx": 156,
+    "statement": "Encapsulate behavior behind well-named abstractions and design code in terms of behavior (roles and responsibilities) rather than data or algorithms, since this makes code more expressive, testable, and maintainable and each added layer of indirection lets modules change independently."
    }
   ]
  },
@@ -306,6 +372,22 @@
    {
     "idx": 47,
     "statement": "Create a Repository for each aggregate root that needs global access, giving the illusion of an in-memory collection that encapsulates storage and query technology; provide repositories only for roots that genuinely need direct access, since most objects should not be reachable by global search and direct database access from clients tempts developers to bypass aggregates and reduce entities to data containers."
+   },
+   {
+    "idx": 196,
+    "statement": "Use aggregates to reconcile invariants with concurrency: maintaining an invariant means preventing concurrent writes to the objects it covers while objects with no shared invariant may change concurrently, an aggregate is a domain object containing others that is modified only by loading the whole and calling its methods, and nominating some entities as the single entrypoint for modifying their related objects puts one object in charge of consistency and makes the system easier to reason about."
+   },
+   {
+    "idx": 197,
+    "statement": "Structure an aggregate around a root entity that encapsulates access to its members, so the rest of the system refers to the aggregate only as an indivisible whole; treat aggregates as the public classes of your model and the other entities and value objects as private, with the aggregate in charge of enforcing invariants across its members and rejecting changes that would break the rules."
+   },
+   {
+    "idx": 202,
+    "statement": "Implement optimistic concurrency by forcing concurrent transactions to also bump a version number on the aggregate so only one can commit and the world stays consistent; version numbers are one option (SERIALIZABLE isolation is another, often at severe performance cost) and what matters is that the aggregate's row is modified on every change, so putting the version in the domain and having the aggregate increment it is often the cleanest choice."
+   },
+   {
+    "idx": 204,
+    "statement": "Modify only one aggregate per database transaction, since each aggregate is a single consistency boundary responsible for its own invariants and there is usually no use case for changing several at once."
    }
   ]
  },
@@ -370,6 +452,23 @@
    {
     "idx": 92,
     "statement": "Refactor when the design does not express the team's current understanding, when an important concept is implicit, or when a part can be made suppler; temper this with limits (not before a release, not for technical virtuosity, not a model an expert would not use), and treat a sudden obvious model inadequacy as an opportunity signaling a new level of understanding."
+   }
+  ]
+ },
+ {
+  "group": 36,
+  "members": [
+   {
+    "idx": 68,
+    "statement": "Create an explicit predicate-like Specification value object to test whether an object satisfies criteria, keeping the rule in the domain layer; use it to unify validation, selection, and building-to-order, configure it (often via a factory) with needed information, and avoid a full general logic-programming implementation in favor of specialized predicates."
+   },
+   {
+    "idx": 257,
+    "statement": "Understand validation as creating preconditions — testing an operation's inputs against criteria and exiting with an error if invalid — separable into syntax, semantics, and pragmatics; validate syntax (the shape and structure of data, such as required fields, types, and ranges) at the edge so a handler always receives a well-formed message, and put that syntactic validation on the message type itself (a declarative schema plus a from_json constructor, optionally unified with the field declaration, at the cost of losing static dataclass types)."
+   },
+   {
+    "idx": 262,
+    "statement": "Keep business logic out of precondition checks: as a rule of thumb, if a rule can be tested inside the domain model, then it should be tested in the domain model."
    }
   ]
  },
@@ -566,6 +665,273 @@
    {
     "idx": 140,
     "statement": "Practice minimalism and humility in strategic design, paring organizing principles to nothing that does not significantly improve clarity (since almost every element gets in someone's way), and make objects specialists with narrow responsibilities while letting developers be generalists who cross into each other's areas."
+   }
+  ]
+ },
+ {
+  "group": 76,
+  "members": [
+   {
+    "idx": 152,
+    "statement": "Apply these patterns, including much of the event-driven material, to monolithic architectures as well; they are not limited to microservices."
+   },
+   {
+    "idx": 251,
+    "statement": "Do not assume you need microservices: aggregates, domain events, and dependency inversion predate microservices and are ways to control complexity in large systems, so microservices are not required, though a well-modeled set of use cases is relatively easy to move to its own service later."
+   }
+  ]
+ },
+ {
+  "group": 79,
+  "members": [
+   {
+    "idx": 155,
+    "statement": "Adopt the two mutually reinforcing pattern families: Part I (Repository as a storage abstraction, Service Layer for use-case boundaries, Unit of Work for atomic operations, Aggregate for data integrity) to keep the model free of extraneous dependencies, and Part II (Domain Events, Message Bus, Handler) for event-driven behavior in which some interactions trigger others."
+   },
+   {
+    "idx": 170,
+    "statement": "Treat every architectural pattern as a trade-off that adds local complexity and maintenance even when it reduces overall complexity, and adopt these extra layers only when the app and domain are complex enough to be worth it — a simple CRUD wrapper around a database needs no domain model or repository, while a more complex domain repays the investment in decoupling."
+   },
+   {
+    "idx": 190,
+    "statement": "Use the Unit of Work pattern as an abstraction over atomic operations that fully decouples the service layer from the data layer: it is a single entrypoint to persistent storage that tracks loaded objects, giving a stable database snapshot, all-at-once persistence so a failure never leaves an inconsistent state, and a place to obtain a repository, and it is idiomatically implemented in Python as a context manager that visually groups an atomic block."
+   },
+   {
+    "idx": 210,
+    "statement": "Wire events through the Unit of Work: have it collect events from the aggregates the repository has seen and publish them to the message bus after commit, which keeps the service layer free of event-handling, and have the repository track the aggregates it has loaded in a 'seen' set so the Unit of Work can find their events."
+   },
+   {
+    "idx": 212,
+    "statement": "Weigh the costs of event-driven design: having the Unit of Work raise events is neat but magic because it is not obvious that commit also sends email and the synchronous handlers delay the service function (risking performance surprises), and event workflows can be confusing because behavior split across a handler chain has no single place showing how a request is fulfilled and can create circular dependencies or infinite loops."
+   },
+   {
+    "idx": 245,
+    "statement": "Break apart a highly connected object graph by identifying aggregates and replacing direct object references with identifiers, and have each use case update a single aggregate — one handler fetches one aggregate, modifies it, and raises resulting events, using a read model for data from elsewhere; if two aggregates would need to update atomically in one transaction the boundary is wrong (consider a new aggregate wrapping what changes together), if the second is only read that is fine or can use a read model, and if the two updates need not share a transaction split them into two handlers linked by a domain event."
+   },
+   {
+    "idx": 249,
+    "statement": "Adopt these techniques incrementally rather than all at once: in an existing system first build a service layer to consolidate orchestration (which then makes it easier to push logic into the model and edge concerns out to the entrypoints), extract use cases by copying tangled code to a clean new place then replacing and deleting the old (accepting short-term duplication), treat CQRS as optional since view-builder objects over repositories are fine (rewrite one to custom queries or raw SQL only on a performance problem), and move handler-invokes-handler interactions onto a message bus so a finished use case raises an event that a handler in another subdomain runs."
+   }
+  ]
+ },
+ {
+  "group": 80,
+  "members": [
+   {
+    "idx": 157,
+    "statement": "In Python, treat an abstraction or port as a duck type or public API (a function name plus its argument names and types) rather than necessarily an abstract base class or interface."
+   },
+   {
+    "idx": 172,
+    "statement": "Model boundaries as ports and adapters: a port is the interface to whatever you abstract away and an adapter is the implementation behind it; in Python the port is either an abstract base class or simply the duck type — method and argument names and types — that adapters conform to."
+   }
+  ]
+ },
+ {
+  "group": 85,
+  "members": [
+   {
+    "idx": 168,
+    "statement": "Achieve persistence ignorance by inverting the ORM dependency: instead of inheriting model classes from ORM base classes, make the ORM depend on the model (with SQLAlchemy, use classical mapping — a separately defined schema plus an explicit mapper) so the model stays pure and swappable, and keep the domain on the inside with dependencies flowing inward (onion architecture)."
+   },
+   {
+    "idx": 192,
+    "statement": "Apply 'don't mock what you don't own': wrap a messy third-party subsystem such as the SQLAlchemy Session in a simpler abstraction and fake that abstraction, because coupling to the full third-party interface spreads data-access code across the codebase; narrow the ORM-to-code interface with a thin Unit of Work abstraction that the service layer depends on with the concrete implementation attached at the edge, and keep the session and transaction lifecycle external to the working code."
+   }
+  ]
+ },
+ {
+  "group": 91,
+  "members": [
+   {
+    "idx": 176,
+    "statement": "Prefer separating responsibilities into small, focused objects that are easy to replace with a test double, and be wary of mocking frameworks and monkeypatching, because patching makes code testable without improving its design, mock-based tests couple to implementation details and become brittle, and designing for testability is really designing for extensibility."
+   },
+   {
+    "idx": 238,
+    "statement": "Declare a handler's dependencies explicitly, passing in the unit of work or a send-mail callable rather than importing them implicitly, because implicit import plus monkeypatching forces a mock.patch in every test that could trigger the side effect and couples tests to the import path; explicit dependencies are strictly unnecessary and marginally more complex but buy tests that are easier to write and manage and are an application of the dependency inversion principle."
+   }
+  ]
+ },
+ {
+  "group": 93,
+  "members": [
+   {
+    "idx": 180,
+    "statement": "Put sanity checks such as whether an identifier exists at the service or database layer before invoking the domain (which need not know about them), make the service layer depend on the repository abstraction so the same function uses a fake repository in tests and the real one in production, and keep the web framework responsible only for web concerns while orchestration lives in the service layer and domain logic in the domain."
+   },
+   {
+    "idx": 181,
+    "statement": "Let the service layer define a clear API of use cases and entrypoints that any adapter (web API, CLI, or tests) can drive without knowing the domain model classes, leaving you free to refactor the domain as long as the same use cases are delivered; the application service handles outside requests and orchestrates, distinct from a domain service, which is model logic that does not fit inside a stateful entity or value object."
+   },
+   {
+    "idx": 182,
+    "statement": "Avoid the Anemic Domain anti-pattern of over-stuffing the service layer: introduce the service layer only once orchestration logic starts creeping into your controllers, gain many rich-model benefits by pushing logic down to the model (fat models, thin controllers) without an extra layer, and, for a purely web app, allow the controllers or view functions to be the single home for the use cases."
+   }
+  ]
+ },
+ {
+  "group": 94,
+  "members": [
+   {
+    "idx": 183,
+    "statement": "Test against the service-layer API rather than piling low-level tests on the domain model: tests exist to enforce that a property does not change while you work, so too many domain-model tests break in the tens or hundreds on a design change, testing the service API avoids touching private members, and every test line is glue that holds the system in a shape."
+   },
+   {
+    "idx": 185,
+    "statement": "Shift testing gears deliberately: for features or bug fixes that need no domain change, write higher-level service-layer tests for lower coupling, and drop down to domain-model tests when starting a project or facing a gnarly problem to get better design feedback and executable documentation."
+   },
+   {
+    "idx": 186,
+    "statement": "Fully decouple service-layer tests from the domain by expressing the service-layer API in primitive types such as strings and ints rather than domain objects, and keep any remaining test dependencies on the domain inside fixture or factory functions so a later refactor changes the tests in only one place."
+   },
+   {
+    "idx": 188,
+    "statement": "Read test-suite signals: needing to do domain-layer work directly in service-layer tests may indicate an incomplete service layer, but do not add a new service solely to remove test dependencies unless the application would need that service anyway."
+   },
+   {
+    "idx": 189,
+    "statement": "Follow rules of thumb for the mix of test types and avoid the inverted ice-cream-cone pyramid: aim for one end-to-end test per feature to prove the moving parts are glued together, write the bulk of tests against the service layer with faked I/O to exhaustively cover business-logic edge cases, keep only a small brittle high-feedback core of domain-model tests and delete them once covered higher up, and treat error handling as a feature handled uniformly at the entrypoints so you test one happy path per feature plus one end-to-end test for all unhappy paths."
+   }
+  ]
+ },
+ {
+  "group": 109,
+  "members": [
+   {
+    "idx": 208,
+    "statement": "Have the domain model record events, meaning facts about things that have happened, and use a message bus to respond to them and invoke new operations; treat an event as a value object with pure data and no behavior, named in the language of the domain and part of the model, and do not use exceptions for control flow — in particular, do not raise an exception to describe the same concept a domain event already captures."
+   },
+   {
+    "idx": 211,
+    "statement": "Use domain events to capture requirements that experts express causally or temporally as 'When X, then Y', since first-class events make the code more testable and observable and isolate concerns, and when a request must change multiple transactionally-isolated aggregates, make them eventually consistent with events (for example an order-cancellation event that removes that order's allocations from the affected products)."
+   },
+   {
+    "idx": 216,
+    "statement": "Use event and message classes as the interface to the outside world: coupling to them is sensible because they are part of the domain yet vary less than domain objects and let a use case be invoked with a single message class rather than a combination of primitives, and they are a good place for input validation — while remembering that primitive obsession, wrapping every primitive in a value class, causes unnecessary complexity when mindlessly applied."
+   },
+   {
+    "idx": 225,
+    "statement": "Make the requests a system responds to explicit by giving each a name and its own data structure: events are simple dataclasses defining input and internal-message structures that translate well to business language and are supported by the event storming practice for requirements gathering and domain-model elaboration."
+   },
+   {
+    "idx": 226,
+    "statement": "Design error handling around commands and events: model a user's request as a command that modifies a single aggregate and succeeds or fails in totality, doing other bookkeeping, cleanup, and notification via events whose handlers need not succeed for the command to succeed, which lets things fail in isolation and improves reliability because only the command handler the customer cares about must complete; align transactional boundaries to the start and end of business processes and match code names and handlers to business jargon and acceptance criteria."
+   }
+  ]
+ },
+ {
+  "group": 110,
+  "members": [
+   {
+    "idx": 209,
+    "statement": "Understand the message bus as a simple publish-subscribe system mapping each event type to its subscribed handler functions (usually a dictionary); an in-process bus that runs one handler at a time provides no concurrency, its purpose being to separate tasks conceptually and keep each unit of work small so the recipe for each use case lives in a single place."
+   },
+   {
+    "idx": 214,
+    "statement": "When restructuring around a message bus, treat API calls as events so service-layer functions become event handlers (erasing the internal-versus-external distinction), express the service layer's inputs as well-defined event objects rather than scattered primitives, and model real-world changes as events that trigger a business rule and may emit further events handled in separate transactions, so one handler can serve both a fresh request and an internally triggered follow-up alike."
+   },
+   {
+    "idx": 217,
+    "statement": "Make the message bus explicitly responsible for collecting and processing new events by managing a queue, so the Unit of Work only makes its events available and the dependency runs one way, and once the application is structured around the bus write tests by putting messages on it rather than calling service-layer functions directly."
+   },
+   {
+    "idx": 220,
+    "statement": "Aim for the overriding objective of making an application's complexity grow more slowly than its size: going all in on the message bus costs architectural complexity but then handles almost arbitrarily complex requirements with no further conceptual change, since each new requirement is just new events, handlers, and adapters — existing categories — and handlers react to events by calling the model or external services, can be multiple per event, and can raise further events, keeping each one granular and SRP-adherent."
+   },
+   {
+    "idx": 224,
+    "statement": "Weigh the costs of the message-bus approach: there will be duplication of fields and structure between model objects and messages that carries a maintenance cost, and a message bus is unpredictable from a web point of view because you do not know in advance when processing will end."
+   },
+   {
+    "idx": 230,
+    "statement": "Integrate systems with asynchronous messaging rather than temporally coupled HTTP calls — receiving external messages from upstream systems and publishing events for downstream ones — because this lets systems fail independently and reduces coupling so you can change the order of operations locally; a message broker delivers messages from publishers to subscribers (Event Store, Kafka, RabbitMQ, or a lightweight Redis pub/sub), and an event consumer or publisher is a thin adapter like the web framework, deserializing JSON into a command for the service layer or converting internal domain events into public messages."
+   }
+  ]
+ },
+ {
+  "group": 116,
+  "members": [
+   {
+    "idx": 222,
+    "statement": "Distinguish commands from events: both are dumb-data messages handled similarly, but a command is sent to one recipient, named with an imperative verb phrase, captures intent, and needs error information back on failure, whereas an event is broadcast to all interested listeners, named in the past tense, and its sender should not care whether receivers succeeded — and events are how you spread knowledge about successful commands."
+   },
+   {
+    "idx": 223,
+    "statement": "Dispatch events and commands differently: an event may have multiple handlers and a failing handler should be caught and logged without interrupting processing, while a command has exactly one handler whose exceptions should fail fast and bubble up to the sender, and modeling an input as a command fixes the wart of treating an API POST as a past-tense 'created' event."
+   }
+  ]
+ },
+ {
+  "group": 117,
+  "members": [
+   {
+    "idx": 227,
+    "statement": "Recover from errors deliberately: rely on logs, writing a line recording what you are about to do before handling each message, use dataclass message types whose printed summary you can replay or reproduce, retry transient failures such as network hiccups, deadlocks, and deployment downtime with exponential back-off (probably the single best resilience move, safe because each attempt starts from a consistent Unit of Work), and accept that at some point you must give up because reliable distributed messaging is hard."
+   },
+   {
+    "idx": 252,
+    "statement": "Treat distributed messaging as hard and guard against its footguns: reliable messaging is hard and Redis pub/sub is not reliable for general use because you cannot have exactly-once delivery; small independently-failing transactions need monitoring and event-replay tooling (eased by a transaction-log broker like Kafka or EventStore, or the Outbox pattern); make handlers idempotent so repeated messages do not repeat state changes and safe retries become possible; and document and share your event schemas since events change over time."
+   }
+  ]
+ },
+ {
+  "group": 121,
+  "members": [
+   {
+    "idx": 232,
+    "statement": "Segregate read (query) responsibilities from write (command) responsibilities, because the two differ fundamentally — reads are simple, highly cacheable, and can be stale while writes carry complex business logic, are uncacheable, and must be transactionally consistent — so the write-side machinery of service layer, unit of work, and domain model buys nothing for reads, and you can make reads eventually consistent to perform better."
+   },
+   {
+    "idx": 235,
+    "statement": "Recognize that a domain model designed for writes is awkward to reuse for reads, forcing extra helpers and Python-side looping the database could do far better: for a simple CRUD app you need neither a domain model nor CQRS, but a more complex domain likely needs both, and when reads act on the same conceptual objects as the write model, using the ORM, adding read methods to repositories, and using domain classes for reads is fine — reach for a separate read store only when the read entities are conceptually different."
+   },
+   {
+    "idx": 236,
+    "statement": "Address read performance and scale deliberately: watch for the SELECT N+1 problem where a list query issues one query for IDs then a query per object (especially with foreign keys); a fully normalized schema prevents write corruption but its joins can be slow, so it is common to add denormalized views, read replicas, or caching, and once indexes are exhausted a denormalized read-optimized copy is reasonable because databases burn CPU on joins while single-key lookups are fastest; read-only stores scale out horizontally since reads have no concurrency limit (unlike writes needing locks), so if a complex store is hard to scale, ask whether a simpler read model would help."
+   }
+  ]
+ },
+ {
+  "group": 123,
+  "members": [
+   {
+    "idx": 234,
+    "statement": "Test a view with at least one integration test whose setup goes through the public entrypoint, the message bus, so the test stays decoupled from any implementation detail of how the data is stored."
+   },
+   {
+    "idx": 250,
+    "statement": "Recognize that view models can carry complex logic such as permissions and authorization and sometimes need extensive unit tests, so split a view builder that is easy to test with mocked data from a view fetcher."
+   }
+  ]
+ },
+ {
+  "group": 125,
+  "members": [
+   {
+    "idx": 239,
+    "statement": "Use a Composition Root — a single bootstrap script — to perform manual dependency injection rather than loading the responsibility for passing dependencies to each handler onto the message bus (which would violate the single responsibility principle), composing a handler with its dependencies ahead of time using closures or functools.partial so it can be called later with them already injected, while noting that closures use late binding of variables which can confuse if a dependency is mutable."
+   },
+   {
+    "idx": 240,
+    "statement": "Give the bootstrap script clear responsibilities: declare default dependencies while allowing overrides, perform one-time initialization such as ORM mapper start-up and logging configuration, inject dependencies into the handlers, and return the configured message bus; use its argument defaults as the single place for production defaults (defaulting a dependency to None when its construction has side effects), keep dependency injection in the single place of the handler functions, and reach for a real DI framework only when you need DI at multiple levels or have chained dependencies."
+   }
+  ]
+ },
+ {
+  "group": 137,
+  "members": [
+   {
+    "idx": 260,
+    "statement": "Validate at the edge so requests are known to be valid before the domain model or use-case handlers see them, keeping the domain free of defensive checks, because invalid data wandering through the system is a time bomb that does more damage the deeper it gets; the message bus is a good home for this cross-cutting validation, with entrypoints only receiving a message and reporting success or failure while the bus validates and routes and handlers focus on use-case logic, and since an invalid message usually leaves little to do but log and continue, count messages received, processed, skipped, and invalid and alert on spikes of bad ones."
+   },
+   {
+    "idx": 261,
+    "statement": "Validate semantics — the meaningfulness of a message — at the message-handler or service layer using contract-based preconditions gathered in an ensure module, which keeps the main flow clean and declarative, and apply messages idempotently with a precondition that uses the same Unit of Work as the main logic (to avoid concurrency bugs), raising a SkipMessage for a message that cannot be processed but represents no incorrect behavior, such as a duplicate create."
+   },
+   {
+    "idx": 263,
+    "statement": "Locate each type of validation in its right place — syntax on the message classes, semantics in the service layer or on the message bus, and pragmatics in the domain model where context-dependent business rules such as having enough stock naturally live — being clear about which of the three kinds you mean, and invest in declarative helpers for validation and preconditions because making this otherwise-boring code clean and easy to maintain pays off."
    }
   ]
  }
