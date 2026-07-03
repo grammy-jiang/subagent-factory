@@ -3,6 +3,28 @@
 All notable changes to this generated subagent package are recorded here. The canonical source of
 truth is `profile.yaml`; the installed adapter is a derived artifact.
 
+## [0.2.0] — 2026-07-03
+
+### Changed
+
+- Re-synced the LLM-authored layer to a rebuilt map→reduce distilled spine, which renumbered
+  principles from 70 to 85 (15 new IA / navigation / research / strategy principles) and appended
+  242 claims (1711 total; existing claim IDs preserved). Applied a statement-preserving principle-ID
+  remap across `profile.yaml`, all seven skills, both references, the faithfulness report, and both
+  test suites so every citation resolves to the correct current principle.
+- `knowledge_partition.always_on` now covers all 85 principles (added P021, P024, P025, P029, P054,
+  P076–P085 to their topical groups).
+- `tests/principle-behaviour-tests.yaml` — added one behaviour test per new principle (85 total), so
+  every principle is exercised by a test that references it.
+- Re-stamped skill / reference drift baselines to the current grounding and re-exported the Claude
+  Code adapter so its must-hold operating-invariant layer covers the current high-confidence
+  principles.
+
+### Fixed
+
+- Reverted the rebuild's regression of the eight source metadata records' `source_type`
+  (`md` → `markdown`) so source-metadata schema validation passes; source content is unchanged.
+
 ## [0.1.0] — 2026-07-03
 
 ### Added
