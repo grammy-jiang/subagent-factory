@@ -1,0 +1,1177 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Retrieve memories by scoring candidates with recency, relevance, and
+    importance, tuning the weights to the task and including the top-scoring memories
+    that fit the context window.
+  derived_from_claims:
+  - C00254
+  - C00285
+  - C00286
+  - C00287
+  - C00288
+  - C00289
+  - C00350
+  - C00351
+  - C00352
+  confidence: medium
+  applies_when:
+  - selecting which stored memories to condition a response on
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Budget for the high token cost and latency of running many memory-driven
+    agents, and make it tractable with engineering optimizations: cache reused summaries,
+    decompose plans just in time rather than fully up front, batch generation where
+    possible, and parallelize agents; expect the architectural basics of memory, planning,
+    and reflection to persist as base models improve.'
+  derived_from_claims:
+  - C00280
+  - C00320
+  - C00327
+  - C00329
+  - C00330
+  - C00331
+  - C00415
+  confidence: medium
+  applies_when:
+  - scaling a generative-agent simulation toward real-time or many agents
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: For shopping or product-selection tasks, reason over user constraints,
+    reject mismatched candidates, verify page-level options, and buy only after all
+    critical attributes match.
+  derived_from_claims:
+  - C00109
+  - C00110
+  - C00113
+  - C00114
+  - C00145
+  - C00146
+  - C00147
+  - C00148
+  - C00159
+  - C00160
+  - C00161
+  confidence: high
+  applies_when:
+  - The agent chooses products or options from noisy search results and product pages.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: 'Diagnose agent behavior against the ten canonical tool-use failure modes:
+    generating harmful content without tools; acting on incomplete or ambiguous information;
+    acting before gathering obtainable constraints; ignoring known constraints; ignoring
+    implicit risks; using wrong parameters; using flagged or unverified tools; failing
+    to call a needed tool; over-trusting tool output; and unsafe selection among returned
+    options.'
+  derived_from_claims:
+  - C00539
+  - C00540
+  - C00541
+  - C00542
+  - C00543
+  - C00544
+  - C00545
+  - C00546
+  - C00547
+  - C00548
+  - C00558
+  confidence: high
+  applies_when:
+  - red-teaming or reviewing an agent's tool-calling behavior
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: For household-object environments, plan acquisition, required transformation,
+    and placement; use likely locations and subgoal state updates to drive each next
+    action.
+  derived_from_claims:
+  - C00105
+  - C00106
+  - C00107
+  - C00111
+  - C00112
+  - C00150
+  - C00151
+  - C00152
+  - C00153
+  confidence: high
+  applies_when:
+  - The task goal names an object, desired state, location, or destination receptacle.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: 'Prioritize the empirically hardest risks and failure modes: the ''spread
+    unsafe information'' category and failure modes M2 and M7 (fabricated parameters
+    under missing information; using dangerous or flagged tools), M9 (not validating
+    a single available option), M3 and M8 (ignoring necessary tools), and M4 and M5
+    (bypassing explicit or implicit constraints); expect content-style ''produce''
+    risks and multi-choice cases to be comparatively well handled.'
+  derived_from_claims:
+  - C00571
+  - C00572
+  - C00573
+  - C00574
+  - C00575
+  - C00576
+  - C00577
+  - C00578
+  confidence: high
+  applies_when:
+  - allocating red-teaming or mitigation effort across risk types and failure modes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: 'Choose tools by the task failure mode: direct QA for factual completion,
+    calculator for arithmetic, calendar for current-date reasoning, translation for
+    English answers from other languages, and retrieval when broad evidence is needed.'
+  derived_from_claims:
+  - C00187
+  - C00188
+  - C00189
+  - C00190
+  - C00198
+  - C00199
+  - C00203
+  - C00204
+  confidence: medium
+  applies_when:
+  - The available APIs map cleanly to distinct task needs.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Build ReAct-style agents as interleaved trajectories where language thoughts
+    update the working context and environment actions gather observations for later
+    reasoning.
+  derived_from_claims:
+  - C00074
+  - C00075
+  - C00076
+  - C00079
+  - C00085
+  - C00119
+  - C00140
+  confidence: high
+  applies_when:
+  - The agent can emit both internal reasoning traces and environment-facing actions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: For an agent that must behave believably in an open world, prefer a large-language-model
+    core augmented with explicit memory, reflection, and planning mechanisms over
+    hand-authored rule systems (finite-state machines, behavior trees), reward-driven
+    reinforcement learning, or classic symbolic cognitive architectures, none of which
+    scale to the breadth of open-world behavior on their own.
+  derived_from_claims:
+  - C00256
+  - C00257
+  - C00258
+  - C00259
+  - C00260
+  - C00276
+  - C00277
+  confidence: high
+  applies_when:
+  - designing an agent that must act coherently across many novel open-world situations
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: 'Make each thought operational: it should decompose goals, extract salient
+    observations, track progress, apply commonsense, reformulate searches, transition
+    plans, or handle exceptions.'
+  derived_from_claims:
+  - C00080
+  - C00090
+  - C00107
+  - C00116
+  - C00118
+  - C00148
+  - C00149
+  confidence: high
+  applies_when:
+  - A prompt, trace, or agent loop includes intermediate thoughts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Use external retrieval or environment actions to ground knowledge-intensive
+    answers, and let each observation guide the next information target before answering.
+  derived_from_claims:
+  - C00077
+  - C00088
+  - C00095
+  - C00096
+  - C00099
+  - C00130
+  - C00131
+  confidence: high
+  applies_when:
+  - The answer depends on external, current, or fine-grained factual information and
+    retrieval actions are available.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Periodically synthesize raw observations into higher-level reflections
+    — abstract inferences the agent draws about itself and others — because agents
+    given only raw observational memory struggle to generalize; trigger reflection
+    when the summed importance of recent events crosses a threshold, generate salient
+    questions from recent memories, retrieve for each, and have the model produce
+    insights that cite the specific supporting records.
+  derived_from_claims:
+  - C00268
+  - C00290
+  - C00291
+  - C00292
+  - C00293
+  - C00294
+  - C00314
+  confidence: high
+  applies_when:
+  - the agent must answer questions or make decisions that require synthesizing many
+    experiences
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Evaluate an agent's believability by interviewing it in natural language
+    across the faculties it should exhibit — self-knowledge, memory retrieval, planning,
+    reacting, and reflecting — and establish that each architectural component matters
+    by ablating memory, reflection, and planning and showing believability degrades
+    as each is removed.
+  derived_from_claims:
+  - C00268
+  - C00302
+  - C00303
+  - C00305
+  - C00309
+  - C00310
+  - C00314
+  confidence: high
+  applies_when:
+  - validating whether an agent produces believable behavior and which components
+    drive it
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Accompany every released model with a short (~1-2 page) model card that
+    documents trained-model characteristics, intended-use context, and evaluation
+    procedures, complementing dataset documentation and written to inform the range
+    of stakeholders who rely on the model.
+  derived_from_claims:
+  - C00481
+  - C00483
+  - C00484
+  - C00485
+  - C00487
+  - C00491
+  - C00532
+  confidence: high
+  applies_when:
+  - releasing, deploying, or publishing a trained ML/AI model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: 'Build agent-safety datasets by refining existing data (clarify or discard
+    unclear failure modes, deduplicate, standardize environments) and by controlled
+    LLM augmentation: force fresh distinct environment names fed back to prevent duplication,
+    generate expected risky-behavior sequences via in-context learning to raise quality,
+    and specify the target risk category to control distribution.'
+  derived_from_claims:
+  - C00551
+  - C00552
+  - C00553
+  - C00554
+  - C00555
+  - C00597
+  - C00598
+  confidence: medium
+  applies_when:
+  - generating or expanding agent-safety test cases
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: For multi-hop QA, decompose the question into retrieval targets, reformulate
+    incomplete searches, compare retrieved facts explicitly, and finish only when
+    evidence is sufficient.
+  derived_from_claims:
+  - C00135
+  - C00136
+  - C00137
+  - C00138
+  - C00139
+  - C00141
+  confidence: high
+  applies_when:
+  - The question requires multiple entities, attributes, comparisons, or yes-no verification.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: For fact verification, search the claim subject, compare evidence to
+    predicates and qualifiers, refute direct conflicts, and return insufficient information
+    when decisive evidence is missing.
+  derived_from_claims:
+  - C00142
+  - C00143
+  - C00144
+  - C00162
+  - C00163
+  - C00164
+  confidence: high
+  applies_when:
+  - The task uses a support, refute, or insufficient-information label space.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Store a comprehensive record of every agent experience as natural-language
+    text in a persistent memory stream, where each memory object carries a natural-language
+    description, a creation timestamp, and a most-recent-access timestamp, and the
+    base unit is an observation of a directly perceived event.
+  derived_from_claims:
+  - C00251
+  - C00252
+  - C00260
+  - C00279
+  - C00282
+  - C00283
+  confidence: high
+  applies_when:
+  - building an agent expected to stay consistent with its own history
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: 'Match the metric-computation method to the response type: use code-based
+    checks (rules, test cases, assertions) for well-defined, objective outputs where
+    they are deterministic and reproducible but inflexible; use human-in-the-loop
+    as the gold standard for subjective or safety-critical judgments while budgeting
+    for its cost and poor scalability; and use LLM-as-a-Judge or Agent-as-a-Judge
+    for scalable scoring of subjective, nuanced tasks.'
+  derived_from_claims:
+  - C00460
+  - C00461
+  - C00462
+  - C00463
+  - C00464
+  - C00465
+  confidence: high
+  applies_when:
+  - selecting how to score agent outputs
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Assess user-perceived agent behaviour across four facets (task completion,
+    output quality, latency, cost); measure task completion with Success Rate, Task
+    Goal Completion, or pass@k/pass^k but treat it as coarse because it hides failure
+    detail when success rates are low, and score output quality (accuracy, relevance,
+    clarity, coherence, spec-adherence) separately because an agent can complete a
+    task yet still give a poor experience, especially in multi-turn conversations.
+  derived_from_claims:
+  - C00423
+  - C00424
+  - C00425
+  - C00426
+  - C00427
+  - C00428
+  confidence: high
+  applies_when:
+  - evaluating end-to-end, user-perceived agent performance
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Evaluate and report model performance disaggregated by individual cultural,
+    demographic, or phenotypic groups and domain-relevant conditions, and also intersectionally
+    across two or more groups, rather than relying on aggregate or unitary metrics
+    alone, since disaggregation surfaces disparities that aggregate numbers hide.
+  derived_from_claims:
+  - C00482
+  - C00488
+  - C00492
+  - C00511
+  - C00516
+  - C00518
+  confidence: high
+  applies_when:
+  - evaluating a human-centric model whose performance may vary across population
+    groups
+  - reporting quantitative evaluation results in a model card
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: 'Scope agent-safety evaluation for comprehensive coverage: diverse interaction
+    environments (including realistic domains that lack public APIs), the eight agent-safety
+    risk categories - using a finer taxonomy for behavior-level (tool and environment)
+    risks and a coarser one for content-level risks, and noting the harmful-or-vulnerable-code
+    category spans both - and explicit failure-mode annotation.'
+  derived_from_claims:
+  - C00535
+  - C00536
+  - C00537
+  - C00538
+  - C00592
+  - C00593
+  confidence: high
+  applies_when:
+  - designing or auditing an agent-safety benchmark or test suite
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Do not rely on a general-purpose LLM as the agent-safety scorer (direct
+    GPT-4o reached only about 75.5% accuracy); finetune a small local judgment model
+    on human-labeled interaction records to emit both a safe/unsafe label and a structured
+    analysis (about 91.5%, roughly 15% better), using a capable LLM given gold labels
+    to generate the analysis targets and a near-balanced safe/unsafe training mix.
+  derived_from_claims:
+  - C00559
+  - C00560
+  - C00561
+  - C00606
+  - C00607
+  - C00608
+  confidence: high
+  applies_when:
+  - choosing or building an automatic scorer for agent behavioral safety
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: 'Measure safety and helpfulness as separate axes and judge safety as
+    more than refusal: label tasks fulfillable versus unfulfillable, expect lower
+    safety on unfulfillable tasks, and recognize that strong-safety agents stay helpful
+    on fulfillable tasks while deliberately withholding help on unfulfillable ones.'
+  derived_from_claims:
+  - C00581
+  - C00582
+  - C00583
+  - C00584
+  - C00585
+  - C00615
+  confidence: high
+  applies_when:
+  - evaluating agent safety and its trade-off with helpfulness
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: 'Do not treat defense prompts as a sufficient safety solution: enumerating
+    failure modes in the system prompt helps capable models only modestly, does not
+    help weaker models, plateaus below target safety, and adds context cost - pursue
+    stronger methods such as finetuning.'
+  derived_from_claims:
+  - C00564
+  - C00587
+  - C00588
+  - C00589
+  - C00590
+  - C00591
+  confidence: high
+  applies_when:
+  - deciding how to improve a deployed agent's safety
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Author few-shot ReAct demonstrations as natural, concise trajectories
+    with thoughts, actions, and observations; prioritize example quality and model
+    capability over simply adding more examples.
+  derived_from_claims:
+  - C00083
+  - C00084
+  - C00091
+  - C00103
+  - C00120
+  - C00121
+  confidence: medium
+  applies_when:
+  - Prompt demonstrations are being authored for a capable model.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: For both open- and closed-source LLMs, acquire capability without fine-tuning
+    via prompt engineering and mechanism engineering — trial-and-error critic loops,
+    multi-agent debate/crowd-sourcing, experience accumulation and skill libraries,
+    and self-driven evolution — while respecting the limited context window and the
+    very large prompt/mechanism design space.
+  derived_from_claims:
+  - C00387
+  - C00388
+  - C00389
+  - C00390
+  - C00391
+  - C00393
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Detect repeated thoughts, repeated ineffective actions, or uninformative
+    observations as failure signals and replan from the last useful state.
+  derived_from_claims:
+  - C00097
+  - C00098
+  - C00099
+  - C00155
+  - C00156
+  confidence: high
+  applies_when:
+  - A trajectory repeats or receives no-effect feedback.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Use external tools to compensate for language-model weaknesses only when
+    the tool can be invoked and returned through text and its result addresses the
+    model weakness at hand.
+  derived_from_claims:
+  - C00170
+  - C00171
+  - C00185
+  - C00186
+  - C00187
+  confidence: high
+  applies_when:
+  - The target weakness is factual access, arithmetic, temporal context, translation,
+    or retrieval and the API has text-representable inputs and outputs.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Evaluate tool-use gains against same-backbone baselines, continued-training
+    baselines, and disabled-tool variants so improvements are attributable to tool
+    use rather than unrelated fine-tuning.
+  derived_from_claims:
+  - C00194
+  - C00195
+  - C00198
+  - C00199
+  - C00202
+  confidence: high
+  applies_when:
+  - A tool-using model is being evaluated on downstream tasks.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Plan over a long horizon so behavior stays coherent, because optimizing
+    only for the believable next action produces incoherent long-run behavior (such
+    as eating lunch repeatedly); create plans top-down — a broad daily agenda derived
+    from the agent's summary and previous day — then recursively decompose the near
+    future into finer-grained timed actions.
+  derived_from_claims:
+  - C00255
+  - C00275
+  - C00295
+  - C00296
+  - C00297
+  confidence: high
+  applies_when:
+  - the agent's actions must remain consistent across a long stretch of time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: When prompt-only ReAct is insufficient, fine-tune on high-quality successful
+    action or ReAct trajectories so the model learns how to obtain and use information.
+  derived_from_claims:
+  - C00101
+  - C00102
+  - C00103
+  - C00122
+  - C00134
+  confidence: medium
+  applies_when:
+  - Trajectory data and external tools are available, and few-shot prompting is not
+    robust enough.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Select a profile-generation strategy by its trade-offs — handcrafting
+    (flexible but labor-intensive), LLM-generation (cheap and scalable but less controllable),
+    dataset alignment (realistic) — and combine strategies when it adds value.
+  derived_from_claims:
+  - C00337
+  - C00338
+  - C00339
+  - C00340
+  - C00341
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Drive plan revision with feedback from the environment (favoring detailed
+    failure reasons over bare success signals), humans (to align values and reduce
+    hallucination), and models (self-refine loops, preferring verbal over scalar feedback),
+    and combine these feedback sources.
+  derived_from_claims:
+  - C00364
+  - C00365
+  - C00366
+  - C00367
+  - C00368
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: Extend the agent's action space with external tools (APIs, databases
+    and knowledge bases, external models) to overcome missing domain knowledge and
+    hallucination; train or fine-tune tool use so the LLM emits precise call arguments,
+    and otherwise fall back on the LLM's internal planning, conversation, and common-sense
+    capabilities.
+  derived_from_claims:
+  - C00374
+  - C00375
+  - C00376
+  - C00377
+  - C00378
+  confidence: medium
+  applies_when:
+  - the domain needs comprehensive expert knowledge the LLM lacks, or the LLM is prone
+    to hallucination it cannot self-correct
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Evaluate agents with both subjective methods (human annotation or Turing
+    test — appropriate when no datasets exist or metrics are hard to design, but costly
+    and biased) and objective quantitative methods, and combine the two for a comprehensive
+    assessment; consider LLM-as-evaluator to reduce subjective-evaluation cost.
+  derived_from_claims:
+  - C00401
+  - C00402
+  - C00403
+  - C00404
+  - C00408
+  confidence: medium
+  applies_when:
+  - assessing agent capability, especially hard-to-quantify qualities like intelligence
+    or user-friendliness
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Use offline/static evaluation as a cheap baseline but recognize it lacks
+    nuance and propagates error, and complement it with online/dynamic evaluation
+    (simulations, real interactions, live monitoring) to catch what static tests miss;
+    adopt Evaluation-Driven Development so evaluation is continuous across development
+    and deployment, especially for agents that learn or evolve.
+  derived_from_claims:
+  - C00450
+  - C00451
+  - C00452
+  - C00454
+  - C00455
+  confidence: medium
+  applies_when:
+  - planning an agent evaluation strategy or lifecycle
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Represent each test case with explicit fields (targeted risks, initial
+    instruction or dialog, environments with their tools and initialization parameters,
+    anticipated failure modes) and implement environments as a dual layer - a standards-aligned
+    JSON tool schema plus a Python class with a shared base class - allowing one primary
+    risk category and multiple failure-mode labels per case.
+  derived_from_claims:
+  - C00549
+  - C00550
+  - C00594
+  - C00595
+  - C00596
+  confidence: medium
+  applies_when:
+  - constructing agent-safety test cases and simulated environments
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: 'Author realistic, well-formed test cases: keep malicious intent implicit
+    rather than explicit, populate environment parameters with concrete real-world
+    content, supply enough information for the agent to call its tools, use consistent
+    lowercase-underscore tool names and valid JSON, and use a simplified no-environment
+    path for tool-free (mostly code) risks.'
+  derived_from_claims:
+  - C00599
+  - C00600
+  - C00601
+  - C00602
+  - C00603
+  confidence: medium
+  applies_when:
+  - writing individual agent-safety test cases
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Build a baseline RAG system as a pretrained seq2seq generator connected
+    to a neural retriever over a dense external text index.
+  derived_from_claims:
+  - C00004
+  - C00010
+  - C00011
+  - C00018
+  confidence: high
+  applies_when:
+  - A general-purpose knowledge-intensive generation architecture is needed.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: 'Choose thought frequency by task shape: dense thought-action-observation
+    cycles for reasoning bottlenecks, sparse thoughts at decision points for long
+    action horizons.'
+  derived_from_claims:
+  - C00081
+  - C00082
+  - C00104
+  - C00107
+  confidence: high
+  applies_when:
+  - The task is either reasoning-heavy or a long-horizon environment with many actions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Do not reduce decision-task thoughts to dense external-feedback reminders;
+    keep them capable of goal decomposition, commonsense search, subgoal completion
+    detection, and next-subgoal choice.
+  derived_from_claims:
+  - C00116
+  - C00117
+  - C00118
+  - C00153
+  confidence: high
+  applies_when:
+  - The environment requires multi-step object, location, or subgoal reasoning.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Fine-tune on an augmented version of ordinary language-modeling text
+    where only selected helpful API calls and results are interleaved with the original
+    corpus.
+  derived_from_claims:
+  - C00179
+  - C00180
+  - C00181
+  - C00192
+  confidence: high
+  applies_when:
+  - Candidate calls have been sampled, executed, filtered, and the augmented data
+    remains close to the original training distribution.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: When useful tool-call opportunities are sparse, combine targeted corpus
+    prefilters with adjusted sampling thresholds before scaling up expensive annotation.
+  derived_from_claims:
+  - C00228
+  - C00233
+  - C00236
+  - C00249
+  confidence: high
+  applies_when:
+  - A broad corpus yields few retained calls for a particular tool under default sampling
+    settings.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: For translation-call data, target non-English spans in useful context,
+    filter non-linguistic spans, and remove examples that rely on text appearing only
+    after the call.
+  derived_from_claims:
+  - C00238
+  - C00239
+  - C00240
+  - C00248
+  confidence: high
+  applies_when:
+  - Generating translation API calls from a mostly English corpus for English target
+    output.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: For temporal evaluation, separate dynamic factual knowledge from calendar
+    arithmetic and attribute gains by inspecting which tools were actually called.
+  derived_from_claims:
+  - C00206
+  - C00207
+  - C00208
+  - C00209
+  confidence: high
+  applies_when:
+  - A benchmark mixes changing entity facts with questions that require knowing the
+    current date.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: Prefer selective information requests over always-on retrieval or metadata
+    augmentation, so the model learns when additional information is actually useful.
+  derived_from_claims:
+  - C00222
+  - C00223
+  - C00224
+  - C00231
+  confidence: high
+  applies_when:
+  - External information can be optional and the model can learn from filtered self-generated
+    candidates.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: 'Do not place the whole memory stream in the prompt: it will not fit
+    the context window and dilutes the model''s attention, and summarizing everything
+    yields generic answers; instead run a retrieval function that returns only the
+    compact subset of memories relevant to the agent''s current situation.'
+  derived_from_claims:
+  - C00256
+  - C00278
+  - C00281
+  - C00284
+  confidence: high
+  applies_when:
+  - the agent has accumulated more history than fits comfortably in the prompt
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Expect complex group-level social behavior — information diffusion, relationship
+    formation, and coordination — to emerge from individual agents seeded with only
+    minimal intent, so such collective behavior need not be scripted; agents remember
+    and reference prior interactions, letting a single seeded intention propagate
+    through a community.
+  derived_from_claims:
+  - C00271
+  - C00272
+  - C00273
+  - C00274
+  confidence: high
+  applies_when:
+  - designing multi-agent social dynamics
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Document Evaluation Data with the datasets used, the motivation for choosing
+    them, and the preprocessing applied, preferring publicly-available datasets, and
+    evaluate on both typical and anticipated/challenging scenarios; synthetic data
+    may cover populations otherwise unrepresented, but note that synthetic sets are
+    narrow and non-comprehensive.
+  derived_from_claims:
+  - C00512
+  - C00513
+  - C00514
+  - C00527
+  confidence: high
+  applies_when:
+  - describing and selecting the datasets used to evaluate the model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Evaluate an LLM agent's behavioral safety - unsafe actions taken through
+    tool use and environment interaction - as a first-class dimension separate from
+    content safety, and expect it to be markedly weaker than content safety.
+  derived_from_claims:
+  - C00533
+  - C00534
+  - C00565
+  - C00570
+  confidence: high
+  applies_when:
+  - assessing or reviewing an LLM agent that calls tools or acts in an environment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: Recognize that current LLM agents have pervasive safety weaknesses (no
+    evaluated agent exceeded a 60% total safety score); stronger and proprietary agents
+    tend to be safer, but capability alone does not solve safety, so treat high capability
+    as necessary but not sufficient.
+  derived_from_claims:
+  - C00562
+  - C00567
+  - C00568
+  - C00569
+  confidence: high
+  applies_when:
+  - interpreting agent safety scores or selecting an agent for a risky deployment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: Attribute and target agent-safety failures along two fundamental defects
+    - lack of robustness (unreliable, imprecise tool use whose small errors have outsized
+    impact) and lack of risk awareness (overlooking implicit risks even with correct
+    parameters); robust precise tool use is necessary but not sufficient, so risk
+    awareness must be improved alongside it.
+  derived_from_claims:
+  - C00563
+  - C00579
+  - C00580
+  - C00586
+  confidence: high
+  applies_when:
+  - diagnosing why an agent is unsafe or prioritizing safety improvements
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: 'Control data quality with layered review: at least two rounds of manual
+    review, automated environment-consistency checks (for example verifying the JSON
+    tool schema matches the Python class), and cross-validation of both test cases
+    and safety labels by a second independent annotator.'
+  derived_from_claims:
+  - C00556
+  - C00557
+  - C00604
+  - C00605
+  confidence: high
+  applies_when:
+  - assembling an agent-safety benchmark or labeled evaluation set
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Plan RAG training and serving around index-search and memory footprint
+    separately from GPU model training.
+  derived_from_claims:
+  - C00055
+  - C00056
+  - C00057
+  - C00070
+  confidence: medium
+  applies_when:
+  - Deploying or reproducing dense-index RAG systems at Wikipedia scale.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Normalize QA supervision into supported generation targets by using valid
+    annotations, filtering unsupported variants, and resolving regex labels before
+    training.
+  derived_from_claims:
+  - C00059
+  - C00060
+  - C00061
+  - C00062
+  confidence: medium
+  applies_when:
+  - QA datasets provide multiple answers, noisy variants, or regex-form answer labels.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Expose reasoning, observations, and actions separately so humans can
+    inspect, diagnose, and, when supported, edit intermediate thoughts.
+  derived_from_claims:
+  - C00086
+  - C00087
+  - C00132
+  - C00133
+  confidence: medium
+  applies_when:
+  - A reviewer or operator can inspect the trajectory during or after execution.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: When believability is judged by human ranking, convert the ranked comparisons
+    into interval ratings (for example with a TrueSkill-style model), test significance
+    with a non-parametric method plus multiple-comparison correction, and include
+    a human-authored baseline so the conditions are grounded against real behavior
+    rather than only against each other.
+  derived_from_claims:
+  - C00304
+  - C00306
+  - C00307
+  - C00308
+  confidence: medium
+  applies_when:
+  - running a comparative human evaluation of agent behavior
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: Do not let generative agents substitute for real human input in studies
+    or design; use them to complement humans — prototyping ideas early or testing
+    theories that are hard or risky to test with real participants — and follow established
+    human-AI design best practices to understand how agent errors reach the user.
+  derived_from_claims:
+  - C00269
+  - C00318
+  - C00324
+  - C00326
+  confidence: medium
+  applies_when:
+  - considering generative agents as stand-ins for human participants or stakeholders
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: 'When fine-tuning an agent, choose the dataset source by trade-off: human-annotated
+    data (versatile but costly to collect), LLM-generated data (cheap and scalable
+    but lower quality), and real-world data (strong for domain-specific tasks such
+    as web navigation or text-to-SQL).'
+  derived_from_claims:
+  - C00382
+  - C00383
+  - C00384
+  - C00385
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
