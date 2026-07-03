@@ -1,0 +1,2328 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Treat human control and computer automation as independent design dimensions,
+    and deliberately look for high-automation designs that still preserve meaningful
+    human control.
+  derived_from_claims:
+  - C02050
+  - C02051
+  - C02052
+  - C02066
+  - C02111
+  - C02112
+  - C02113
+  - C02153
+  - C02154
+  - C02155
+  - C02156
+  confidence: high
+  applies_when:
+  - framing or reviewing an AI/automation system's overall control model
+  - someone argues that more automation must mean less human control
+  - when choosing or critiquing an automation strategy
+  - Selecting an automation strategy or deciding how much authority an AI system should
+    have.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Shift the organization from output to outcomes: measure success by progress
+    toward specific outcomes (a leadership activity), empower teams to decide which
+    features create the required outcomes, propagate the feature-to-outcome conversation
+    to the highest levels, and replace product roadmaps with hypothesis backlogs prioritized
+    by risk, feasibility, and potential success while retraining managers to grant
+    latitude to experiment.'
+  derived_from_claims:
+  - C00438
+  - C00439
+  - C00860
+  - C01900
+  - C01901
+  - C01902
+  confidence: high
+  applies_when:
+  - deciding how to direct a product team's work
+  - a solution is well underway but may not fit the strategy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: 'Treat every design as a testable hypothesis and validate it as efficiently
+    as possible with customer feedback before investing further: build the smallest
+    possible MVP (which need not be code, and may be sketches, prototypes, copy, or
+    visual design) inside a build-measure-learn loop, run experiments whose outcomes
+    tell you whether to pursue, refine, or abandon the direction, and treat the MVP
+    as a disposable learning tool while clarifying whether it is built to learn or
+    to deliver value.'
+  derived_from_claims:
+  - C00968
+  - C00969
+  - C00970
+  - C00971
+  - C00972
+  - C01686
+  - C01706
+  - C01707
+  - C01708
+  - C01801
+  - C01802
+  - C01803
+  - C01809
+  - C01810
+  confidence: high
+  applies_when:
+  - planning an experiment or defining an MVP
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Avoid the build trap of measuring success by outputs (features shipped)
+    rather than the outcomes and value they produce, because a solution-first mindset
+    produces output but rarely outcomes and customers do not care about most feature
+    releases; product strategy lives in the opportunity space and emerges from decisions
+    about which outcomes, customers, and opportunities to pursue, not from prioritizing
+    features.
+  derived_from_claims:
+  - C00400
+  - C00401
+  - C00413
+  - C00552
+  - C00553
+  - C00554
+  - C01081
+  - C01106
+  - C01109
+  - C01113
+  confidence: high
+  applies_when:
+  - defining what success means for a team or initiative
+  - setting product strategy or measuring success
+  - prioritizing work
+  - defining success metrics
+  - a team measures success by features shipped or velocity
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Evaluate AI designs by human outcomes such as self-efficacy, creativity,
+    clear accountability, social participation, privacy, security, fairness, reliability,
+    safety, and trustworthiness.
+  derived_from_claims:
+  - C02105
+  - C02106
+  - C02107
+  - C02108
+  - C02109
+  - C02134
+  - C02136
+  - C02140
+  - C02169
+  confidence: medium
+  applies_when:
+  - when defining success criteria for an AI-enabled product or service
+  - Defining success criteria, acceptance criteria, review rubrics, or product goals
+    for HCAI systems.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: 'Manage stakeholders and dependencies with proactive communication, because
+    outcome-focused teams plan only small batches (which unsettles managers who want
+    a long plan) and abandoning the roadmap removes a coordination tool: proactively
+    tell owners and executives how the work is going, what you tried and learned,
+    and what is next (framed on outcomes); reach out to uninvolved parts of the organization
+    (support, marketing, parallel units, sales) so they stay informed and less resistant
+    and you learn their plans; and give dependent departments and customers advance
+    notice of significant changes, letting customers opt out at least temporarily.'
+  derived_from_claims:
+  - C00708
+  - C01895
+  - C01896
+  - C01897
+  - C01898
+  - C01931
+  - C01932
+  - C01933
+  confidence: high
+  applies_when:
+  - keeping stakeholders engaged over time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: Reject the automation-versus-augmentation false choice; integrate AI
+    algorithms with interface design so the system amplifies, augments, and empowers
+    people.
+  derived_from_claims:
+  - C02081
+  - C02082
+  - C02135
+  - C02136
+  - C02137
+  - C02140
+  - C02169
+  - C02170
+  confidence: medium
+  applies_when:
+  - someone frames a design decision as automate-or-augment
+  - Designing or reviewing an AI-enabled product, service, workflow, or agent behavior.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: 'Support distributed collaboration deliberately: physical distance is
+    a major obstacle, but persistent group video, shared documents, wikis, and camera
+    phones make it effective, so mimic the co-located Design Studio and affinity mapping
+    remotely (shared-spreadsheet columns sorted into themes, dual monitors, and photographed
+    sketches) so everyone can present, critique, and converge together.'
+  derived_from_claims:
+  - C01286
+  - C01287
+  - C01288
+  - C01797
+  - C01798
+  - C01799
+  - C01800
+  confidence: high
+  applies_when:
+  - collaborating in person or remotely
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: Translate AI ethics commitments into concrete governance across engineering
+    reliability, management safety culture, independent oversight, and public regulation.
+  derived_from_claims:
+  - C02126
+  - C02127
+  - C02128
+  - C02129
+  - C02130
+  - C02164
+  - C02168
+  confidence: medium
+  applies_when:
+  - when moving from AI values or ethics statements to accountable practice
+  - Turning HCAI values or AI ethics commitments into implementation and oversight
+    practices.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Aim for a product that is valuable (to company and customers), usable
+    (by its users), and feasible (to build with the time and tools available) — the
+    intersection of all three — and find that sweet spot with a small cross-functional
+    discovery team (two to four people led by a product owner, including someone who
+    knows users and can prototype the UI and a senior engineer who knows the architecture);
+    this 'triad' is named for the three concerns, not three bodies, the most innovative
+    solutions often come from an engineer given business and user insight, and the
+    team must coordinate with the development team, stakeholders, subject-matter experts,
+    and users.
+  derived_from_claims:
+  - C00003
+  - C01342
+  - C01343
+  - C01344
+  - C01345
+  - C01346
+  confidence: high
+  applies_when:
+  - forming a discovery team
+  - deciding who decides what to build
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Story-map an idea by assuming the solution already exists and mapping
+    what end-users do to get value (not what it takes to implement), identifying every
+    actor who must interact (including the software or interface itself) and sequencing
+    their steps along the successful path; map the best solution you can from what
+    you know today and refine it as you test.
+  derived_from_claims:
+  - C00610
+  - C00611
+  - C00612
+  - C00613
+  - C01083
+  - C01084
+  confidence: high
+  applies_when:
+  - aligning the trio on what an idea means
+  - a team needs to see the big picture of a product or feature
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Learning you were wrong after a couple of days is excellent news versus
+    after weeks of building, so celebrate what you learn rather than fear being wrong
+    — failing to learn is frequently the biggest failure — and use stories faster
+    and less formally in discovery (prototypes in hours, code prototypes in days),
+    expecting most ideas to fail or need adjustment.
+  derived_from_claims:
+  - C01045
+  - C01046
+  - C01047
+  - C01048
+  - C01417
+  - C01418
+  confidence: high
+  applies_when:
+  - a failure occurs or a team fears failing
+  - a team fears being wrong or over-formalizes discovery
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: 'Build lightweight personas (and, for organizational buyers, ''orgzonas'')
+    together as a team to create shared understanding and empathy — assembled from
+    facts and honestly labeled assumptions, filtering out noise — and do not just
+    shout guesses: discuss what you know and observed, involve people with firsthand
+    user experience, and bring in any research.'
+  derived_from_claims:
+  - C01375
+  - C01376
+  - C01377
+  - C01752
+  - C01753
+  - C01754
+  confidence: high
+  applies_when:
+  - creating personas or customer profiles
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Prevent excessive-control mistakes with well-designed interlocks, guards,
+    and software range-checking that bound unsafe or irreversible actions.
+  derived_from_claims:
+  - C02076
+  - C02077
+  - C02080
+  - C02155
+  - C02156
+  - C02157
+  confidence: high
+  applies_when:
+  - users can trigger actions with unsafe or irreversible consequences
+  - Designing systems where harm can result from either excessive automation or excessive
+    human discretion.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: 'Choose interaction modalities by task demands: use speech when hands
+    or eyes are unavailable, and prefer persistent information-rich visual displays
+    for dense, spatial, comparative, or ongoing status information.'
+  derived_from_claims:
+  - C02096
+  - C02147
+  - C02149
+  - C02161
+  - C02163
+  confidence: high
+  applies_when:
+  - choosing the interaction modality for expressing intent and receiving feedback
+  - Designing interfaces for AI assistants, robots, control systems, or machine-learning
+    inspection tools.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: 'Adopt a customer-centric mindset that elevates customer value to a peer
+    goal of business value: profit should not come at the customer''s expense, because
+    serving customer needs is how the company generates profit, and a trio can otherwise
+    hit an outcome by shortcuts that create business value at the customer''s expense.'
+  derived_from_claims:
+  - C00402
+  - C00412
+  - C00415
+  - C01111
+  - C01112
+  confidence: medium
+  applies_when:
+  - pursuing a business outcome
+  - justifying an investment
+  - balancing user value against business value
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Design computers to support people (reducing workload, raising performance,
+    ensuring safety), not as teammates, partners, or companions that endear themselves
+    emotionally.
+  derived_from_claims:
+  - C02059
+  - C02084
+  - C02145
+  - C02146
+  - C02148
+  confidence: medium
+  applies_when:
+  - framing the human-computer relationship or the system's persona
+  - Assigning roles, responsibility language, decision explanations, or workflow authority
+    in AI systems.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: When it is hard to reach customers, get creative (trace the real rule,
+    use friends-of-friends, or enlist sales and account managers as research proxies),
+    and in research back up from proposed solutions to ask why, because it is your
+    job, not the customer job, to ask the right questions.
+  derived_from_claims:
+  - C00725
+  - C00734
+  - C00958
+  - C00959
+  confidence: high
+  applies_when:
+  - customer access is limited or seemingly not allowed
+  - access to customers is limited or customers propose solutions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: 'Grant capable teams the autonomy to explore solutions and adjust to
+    data as long as they are aligned to the strategic intents: align every level around
+    the why and let the next layer figure out the how, and when there are too many
+    unknowns give teams room to experiment rather than a detailed plan.'
+  derived_from_claims:
+  - C00867
+  - C00871
+  - C00872
+  - C01713
+  confidence: high
+  applies_when:
+  - deciding how much to prescribe to a team versus letting it decide
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Scale design in a large organization by empowering developers with reusable
+    templates, guidelines, assets, and code snippets so teams create good user experiences
+    themselves without waiting for design assistance or approval, rather than trying
+    to scale by hiring designers or reviewing every project.
+  derived_from_claims:
+  - C01247
+  - C01783
+  - C01784
+  - C01785
+  confidence: high
+  applies_when:
+  - rolling a practice out organization-wide
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: 'Lead as a product manager through influence, not authority: a product
+    manager is not a mini-CEO, and acting like one breeds arrogance, demotivates the
+    team, and produces things no one adopts.'
+  derived_from_claims:
+  - C00171
+  - C00784
+  - C00785
+  confidence: high
+  applies_when:
+  - a product manager tries to dictate to the team or is described as the CEO of the
+    product
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Maintain a working memory of recent interactions so users can make natural,
+    efficient references to their shared short-term context.
+  derived_from_claims:
+  - C01951
+  - C01994
+  - C02022
+  confidence: high
+  applies_when:
+  - the user's task spans multiple related turns or requests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Make work visible on a big, transparent wall of sticky notes (for example
+    left-to-right by time, top-to-bottom by priority, color-coded by activity) to
+    bridge developers and stakeholders who will not use the tracking tools and let
+    everyone participate, and expect stakeholders to distrust incremental delivery
+    until they see the product improve week over week.
+  derived_from_claims:
+  - C01435
+  - C01436
+  - C01720
+  confidence: medium
+  applies_when:
+  - stakeholders resist incremental delivery
+  - bridging tool-averse stakeholders
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: At the industry or public-stakeholder level, use independent oversight
+    such as regulation, external audits, insurance accountability, civil-society input,
+    and professional standards to strengthen trust.
+  derived_from_claims:
+  - C02057
+  - C02058
+  - C02167
+  confidence: medium
+  applies_when:
+  - establishing external review, certification, or regulatory posture for a system
+  - Deploying HCAI systems whose consequences extend beyond a single team or organization.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: 'Be wary of what people say they want: showing lots of cool ideas makes
+    people love everything and their stated preferences are guesses; the real proof
+    is whether they choose to use the product every day.'
+  derived_from_claims:
+  - C00115
+  - C01181
+  confidence: high
+  applies_when:
+  - interpreting user feedback or feature requests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Give users efficient, always-available means to directly invoke and to
+    terminate automated services.
+  derived_from_claims:
+  - C01946
+  - C02017
+  confidence: high
+  applies_when:
+  - the user may want to trigger the AI service on demand
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: 'Engineer safety through open management that builds a culture of safety:
+    leadership commitment, channels to report problems, internal review of failures
+    and near misses, and public failure reporting.'
+  derived_from_claims:
+  - C02056
+  - C02166
+  confidence: high
+  applies_when:
+  - establishing the organizational practices around a safety-relevant system
+  - Managing organizations that develop or deploy HCAI systems.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Stop perfecting documents and get together to tell stories to reach a
+    solution and build shared understanding; the shared goal is to understand the
+    problem and find the best solution, not to write and understand requirements correctly
+    — you are telling a story well when you generate energy, interest, and vision
+    in the listener, and if you are not having rich discussions you are not really
+    using stories.
+  derived_from_claims:
+  - C01075
+  - C01076
+  - C01080
+  - C01085
+  - C01089
+  - C01094
+  - C01095
+  - C01096
+  - C01097
+  - C01098
+  - C01099
+  - C01100
+  - C01105
+  - C01252
+  - C01253
+  - C01254
+  - C01257
+  confidence: high
+  applies_when:
+  - reviewing how a team uses user stories, requirements, or backlogs
+  - a team equates good stories with well-written requirements documents
+  - a team treats stories as a documentation or hand-off artifact
+  - someone claims stories do not apply because the product has no direct users
+  - facilitating a requirements, design, or planning discussion
+  - a team replaced requirements with story-writing but is not talking
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: 'Run a lightweight opportunity assessment before building: do not decide
+    by intuition or a customer''s special, answer the ten problem-focused questions,
+    size conservatively, and get an explicit go or no-go from management even when
+    the product is mandated from above.'
+  derived_from_claims:
+  - C00014
+  - C00137
+  - C00138
+  - C00139
+  - C00140
+  - C00141
+  - C00142
+  - C00146
+  - C00147
+  - C00148
+  - C00149
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: 'Choose prototype fidelity by the tradeoffs of each level: paper (fast,
+    cheap, high-level flow only, good for touch), clickable wireframes (real click
+    and tap insight into workflow and findability but readable as unfinished), mid-
+    and high-fidelity (near-final visuals and interactions but limited versus native
+    and costly to keep in sync), and coded prototypes (highest realism and, in live-data
+    form, real analytics and A/B testing, but slow to build and tempting to over-perfect);
+    trial several tools because no list is comprehensive.'
+  derived_from_claims:
+  - C01811
+  - C01812
+  - C01813
+  - C01814
+  - C01815
+  - C01816
+  - C01817
+  - C01818
+  - C01819
+  - C01820
+  confidence: high
+  applies_when:
+  - 'tailor prototype fidelity to the audience: lower for informed engineers, higher
+    for less-familiar stakeholders'
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: 'Succeed with Waterfall by addressing its fatal flaw of late validation:
+    prototype and test the product and resolve feasibility risks before design and
+    implementation, weigh the follow-on-release cost when deferring a change, and
+    recognize its predictability is illusory except on very small projects.'
+  derived_from_claims:
+  - C00241
+  - C00242
+  - C00243
+  - C00244
+  - C00247
+  - C00301
+  - C00302
+  - C00303
+  - C00304
+  - C00305
+  confidence: high
+  applies_when:
+  - the team uses a waterfall process
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Get things done in a large company by learning how decisions are really
+    made and embracing the culture, building relationships before you need them, showing
+    a working prototype over a slide, doing whatever it takes, picking your battles,
+    building consensus before decision meetings, triaging meetings to protect high-value
+    time, sharing information freely, putting your manager to work, and continuously
+    evangelizing.
+  derived_from_claims:
+  - C00321
+  - C00322
+  - C00323
+  - C00324
+  - C00325
+  - C00326
+  - C00327
+  - C00328
+  - C00329
+  - C00330
+  confidence: medium
+  applies_when:
+  - the company is large
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Define the minimal product up front as a high-fidelity prototype with
+    engineer estimates, validate it with real users, and then do not cut further;
+    when a feature runs long, slip the schedule rather than cut, stop adding requirements
+    once underway, and deliver the spec as one whole product.
+  derived_from_claims:
+  - C00009
+  - C00010
+  - C00234
+  - C00235
+  - C00236
+  - C00237
+  - C00238
+  - C00239
+  - C00240
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: 'There is no single right story size — the right size is the one relevant
+    to the current conversation: need-sized for users, a few days to build-and-test
+    for developers, and a business-outcome bundle for the business (which should release
+    smaller and more frequently); big stories contain smaller ones, conversation is
+    the best tool to break them down, so keep size language deliberately imprecise.'
+  derived_from_claims:
+  - C01122
+  - C01123
+  - C01124
+  - C01315
+  - C01316
+  - C01317
+  - C01318
+  - C01319
+  - C01320
+  confidence: high
+  applies_when:
+  - estimating or splitting a story
+  - debating how big a story should be
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: 'Improve enterprise products with strong product management: invest in
+    the neglected user experience, ensure the product actually works as promised,
+    avoid specials, listen to many customers through a charter program without letting
+    any one dictate requirements, design for the sales channel, and distinguish the
+    customer who buys from the users who use.'
+  derived_from_claims:
+  - C00113
+  - C00367
+  - C00368
+  - C00369
+  - C00370
+  - C00371
+  - C00372
+  - C00373
+  confidence: high
+  applies_when:
+  - the product is enterprise software
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Use a tested high-fidelity prototype as the product spec, because paper
+    specs are slow, unread, and give false comfort; a good spec covers the full user
+    experience, serves all its consumers, has one master representation, prototypes
+    everything, simulates the backend, and is supplemented with what a prototype cannot
+    show.
+  derived_from_claims:
+  - C00015
+  - C00016
+  - C00218
+  - C00219
+  - C00220
+  - C00221
+  - C00222
+  - C00223
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Use a charter user program to gain deep customer insight and secure at
+    least six live, happy reference customers, refusing prepayment, capping it at
+    about ten, and ensuring members come from your true target market; difficulty
+    recruiting them signals the problem may not matter.
+  derived_from_claims:
+  - C00187
+  - C00188
+  - C00189
+  - C00190
+  - C00191
+  - C00192
+  - C00193
+  - C00194
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: 'Scope by appetite, not estimate: fix the time an idea is worth (a budget
+    for a standard team size), treat time as fixed and scope as variable, and use
+    the appetite as a creative constraint, since a fixed deadline is what forces time/quality/scope
+    trade-offs and ''good'' is only relative to the time spent.'
+  derived_from_claims:
+  - C01466
+  - C01492
+  - C01493
+  - C01495
+  - C01496
+  - C01497
+  - C01498
+  - C01499
+  confidence: high
+  applies_when:
+  - deciding how much to invest in an idea and what solution to design
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: 'Manage up deliberately: measure and plan for churn, adapt to your manager''s
+    communication style, bring recommendations rather than problems, use your manager
+    for access, do your homework, keep emails short, evangelize, and be a low-maintenance
+    employee.'
+  derived_from_claims:
+  - C00127
+  - C00128
+  - C00130
+  - C00131
+  - C00132
+  - C00133
+  - C00135
+  - C00136
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Use an opportunity solution tree to structure discovery, with the desired
+    outcome as the root, the opportunity space beneath it, the solution space below
+    that, and assumption tests at the bottom; filter the opportunity space to only
+    customer opportunities that can drive the business outcome, and break large opportunities
+    into smaller ones solved one at a time so small continuous solutions add up to
+    the bigger opportunity.
+  derived_from_claims:
+  - C00421
+  - C00422
+  - C00423
+  - C00426
+  - C00524
+  - C00525
+  - C00526
+  - C00527
+  confidence: medium
+  applies_when:
+  - organizing what a team is learning and deciding what to pursue
+  - organizing the opportunities discovered for an outcome
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: 'Before treating a guideline set as authoritative, validate it empirically:
+    run a heuristic-evaluation-style study in which experienced practitioners find
+    both applications and violations of each guideline across a maximum-variance sample
+    of real products, after familiarizing them with one application and one violation
+    per guideline and rating each guideline''s clarity.'
+  derived_from_claims:
+  - C01963
+  - C01964
+  - C01973
+  - C01974
+  - C01975
+  - C01976
+  - C01977
+  - C01998
+  confidence: medium
+  applies_when:
+  - proposing or adopting a new set of design guidelines or heuristics
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: 'Hire product managers for hard-to-teach traits, since skills can be
+    learned: product passion, customer empathy, intelligence, work ethic, integrity,
+    and confidence.'
+  derived_from_claims:
+  - C00067
+  - C00068
+  - C00069
+  - C00070
+  - C00072
+  - C00073
+  - C00074
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: 'Use personas to make the hard product choices: the product manager must
+    co-create and prioritize them early, focus each release on a single primary persona,
+    verify personas with real users, and test with a range of users.'
+  derived_from_claims:
+  - C00211
+  - C00212
+  - C00213
+  - C00214
+  - C00215
+  - C00216
+  - C00217
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: 'Start with the problem and the why before any solution: anchor on the
+    vision and an aligned business goal, ask why you are building something and how
+    you will mitigate its risks, and fight the bias in all solution ideas by learning
+    from users and experimenting, because dictating solutions without goals removes
+    the ability to detect and correct a failing direction.'
+  derived_from_claims:
+  - C00802
+  - C00803
+  - C00806
+  - C00807
+  - C00808
+  - C00809
+  - C00810
+  confidence: high
+  applies_when:
+  - a project or feature is proposed
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: 'After a cycle, hold a team-only product review and reflection first
+    (a safe space before widening the audience) covering three things: the product
+    (try all of it and grade user-experience, functional, and code quality, writing
+    stories for issues), the plan (which stories are done gives velocity, incomplete
+    ones are overhang, and check whether the discovery-time budget was used well,
+    against a shared definition of done), and the process (a retrospective that keeps
+    or kills last cycle''s changes and tries a few small new ones).'
+  derived_from_claims:
+  - C01334
+  - C01444
+  - C01445
+  - C01446
+  - C01447
+  - C01448
+  - C01449
+  confidence: high
+  applies_when:
+  - running an end-of-cycle review or retrospective
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: Do not rely on market research to decide what to build, because no winning
+    product comes from it; winning products come from a deep understanding of user
+    needs combined with what is just now possible, and research is for refining an
+    existing product rather than conceiving a new one.
+  derived_from_claims:
+  - C00198
+  - C00199
+  - C00200
+  - C00204
+  - C00205
+  - C00206
+  - C00207
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: Treat strategy as a deployable decision-making framework, not a detailed
+    plan, that connects company vision and economic outcomes down to the portfolio,
+    initiatives, and options; never commit to a vision or feature set without validation,
+    since even expensive consultancy roadmaps do not guarantee the right features.
+  derived_from_claims:
+  - C00854
+  - C00855
+  - C00856
+  - C00857
+  - C00858
+  - C00859
+  - C00861
+  confidence: high
+  applies_when:
+  - creating, reviewing, or committing to a strategy
+  - writing or reviewing a strategy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: Tell strategy as stories at the right time scale for each level and set
+    goals that are neither too prescriptive nor too broad, so appropriately constrained
+    teams feel safe to act; understanding what makes a good framework matters more
+    than which deployment method you pick.
+  derived_from_claims:
+  - C00887
+  - C00888
+  - C00889
+  - C00890
+  - C00891
+  - C00892
+  - C00893
+  confidence: high
+  applies_when:
+  - communicating and aligning strategy across levels
+  - setting the level and specificity of goals for each layer
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Close the knowledge, alignment, and effects gaps by communicating strategic
+    intent (the business outcomes) and granting autonomy rather than by demanding
+    ever more detailed information, passing feature requests down, or adding controls.
+  derived_from_claims:
+  - C00864
+  - C00865
+  - C00866
+  - C00868
+  - C00869
+  - C00874
+  - C00875
+  confidence: high
+  applies_when:
+  - leadership reacts to underperformance by demanding detail or adding controls
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Organize a map with a backbone — the row of big steps across the top,
+    read left-to-right as the narrative flow and summarized at a second level when
+    long — and place persona thumbnails above it to track who you are discussing (backend
+    services can be personas too); keep size terminology loose ('big things and little
+    things').
+  derived_from_claims:
+  - C01147
+  - C01148
+  - C01149
+  - C01228
+  - C01229
+  - C01230
+  - C01231
+  confidence: high
+  applies_when:
+  - structuring a large map
+  - organizing or sharing a large map
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Organize work by the structure of the project into scopes (integrated
+    front-end and back-end slices that can be finished independently), not by person
+    or role, capturing granular tasks first and factoring them into scopes (tracked
+    as to-do lists) only after real work reveals the true interdependencies; scopes
+    then become the project's shared language.
+  derived_from_claims:
+  - C01615
+  - C01616
+  - C01617
+  - C01618
+  - C01619
+  - C01620
+  - C01621
+  confidence: high
+  applies_when:
+  - structuring and tracking the work of a project
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: 'Apply the Prometheus Principles as the core interface rules for human
+    control over automation: (1) consistent interfaces so users can form, express,
+    and revise intent; (2) continuous visual display of the objects and actions of
+    interest; (3) rapid, incremental, and reversible actions; (4) informative feedback
+    acknowledging each action; (5) progress indicators; and (6) completion reports
+    confirming accomplishment.'
+  derived_from_claims:
+  - C02087
+  - C02088
+  - C02089
+  - C02090
+  - C02091
+  - C02092
+  - C02093
+  confidence: high
+  applies_when:
+  - designing the fine structure of a user interface over an automated process
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: 'Administer tests well: get to the prototype fast, tell the subject you
+    are testing the prototype not them, keep users in use mode not critique mode,
+    stay quiet and avoid leading, note the three task outcomes, parrot the user, and
+    find where the software''s model conflicts with the user''s mental model.'
+  derived_from_claims:
+  - C00264
+  - C00265
+  - C00266
+  - C00267
+  - C00268
+  - C00269
+  - C00270
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: Succeed with Agile in product software by keeping the product manager
+    a deeply involved product owner, still planning, staying one or two sprints ahead
+    with design done before the sprint, chunking design around the minimal product,
+    attending every standup, demoing each sprint, and getting product-savvy Agile
+    training.
+  derived_from_claims:
+  - C00290
+  - C00291
+  - C00292
+  - C00293
+  - C00295
+  - C00296
+  - C00297
+  confidence: medium
+  applies_when:
+  - the team uses Agile methods
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Synthesize as you go using a one-page interview snapshot per interview,
+    because continuous interviewing has no natural stopping point and memory is unreliable;
+    make the snapshot visual with a participant photo (with permission), lead with
+    a memorable verbatim quote that acts as a memory key, and record quick facts about
+    the customer's segment and behavioral traits.
+  derived_from_claims:
+  - C00495
+  - C00496
+  - C00497
+  - C00498
+  - C00499
+  - C00520
+  - C00521
+  confidence: medium
+  applies_when:
+  - capturing and indexing what you learn from interviews
+  - communicating interview findings to the team
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Do not default to human-like agents, teammates, or robots; first consider
+    tool-like, tele-operated, supervisory, or appliance-like designs that exploit
+    machine strengths.
+  derived_from_claims:
+  - C02141
+  - C02142
+  - C02143
+  - C02144
+  - C02158
+  - C02159
+  - C02160
+  confidence: medium
+  applies_when:
+  - Choosing metaphors, interaction patterns, embodiments, or autonomy models for
+    useful AI applications.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Measure, judge, and reward a product team and organization by outcomes
+    (the value produced for customers and the business), not by outputs (features
+    shipped); optimizing for output volume is the build trap.
+  derived_from_claims:
+  - C00737
+  - C00738
+  - C00740
+  - C00750
+  - C00756
+  - C00757
+  confidence: high
+  applies_when:
+  - defining or reviewing how a product team or organization measures success
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Make product decisions by first framing them and aligning the team on
+    the exact problem, the persona, the goals, and an explicit priority ordering,
+    being fully transparent in your reasoning and welcoming debate while driving to
+    everyone being on board rather than escalation.
+  derived_from_claims:
+  - C00172
+  - C00173
+  - C00174
+  - C00175
+  - C00176
+  - C00177
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: 'Prioritize by specific target outcomes, not features: decide what to
+    build inside the system by the outcome you want outside it, and remember that
+    behind each outcome are specific behavior changes for specific people — so choosing
+    an outcome means choosing whom to serve first, and without target outcomes prioritization
+    is nearly impossible.'
+  derived_from_claims:
+  - C01156
+  - C01161
+  - C01162
+  - C01163
+  - C01393
+  - C01394
+  confidence: high
+  applies_when:
+  - prioritizing a backlog or release
+  - a team prioritizes features without stated outcomes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: 'Do not equate launch with success: schedule a rapid-response phase at
+    launch for its high return, expect issues discoverable only when live, define
+    success and failure metrics in advance, respond at least daily, and be on-site
+    for enterprise go-lives.'
+  derived_from_claims:
+  - C00284
+  - C00285
+  - C00286
+  - C00287
+  - C00288
+  - C00289
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Target the users' most acute frustration and anger, since high latent
+    frustration marks the best opportunities and the intense early-adopter Irrationals
+    reveal true value and carry a product across the chasm while technology-loving
+    Lovers mislead; tap deep human emotions and treat emotional groups as distinct
+    from demographics.
+  derived_from_claims:
+  - C00349
+  - C00350
+  - C00351
+  - C00352
+  - C00353
+  - C00354
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: 'When finding solution elements, move fast and explore many directions
+    with the right people (alone or one trusted same-background partner), and use
+    words-not-pictures notation to stay at the right abstraction: breadboard flows
+    as places, affordances, and connection lines, and use fat marker sketches when
+    the idea is fundamentally visual.'
+  derived_from_claims:
+  - C01511
+  - C01512
+  - C01513
+  - C01514
+  - C01515
+  - C01517
+  confidence: high
+  applies_when:
+  - sketching a solution during shaping
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: 'Keep shaping at the right level of abstraction: avoid wireframes or
+    high-fidelity mockups that over-specify too early (harder to estimate, no room
+    for creativity, and they freeze variable scope), and equally avoid a few vague
+    words that leave the team unable to make trade-offs or know what is out of scope.'
+  derived_from_claims:
+  - C01475
+  - C01476
+  - C01477
+  - C01478
+  - C01479
+  - C01480
+  confidence: high
+  applies_when:
+  - describing a problem or solution during shaping or in a pitch
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: Treat value as the outcome a product produces for the customer and the
+    business, not the artifact itself; tie every feature and initiative back to a
+    business outcome, and never treat feature count as evidence of value.
+  derived_from_claims:
+  - C00739
+  - C00741
+  - C00751
+  - C00752
+  - C00753
+  - C00754
+  confidence: high
+  applies_when:
+  - prioritizing work, justifying an initiative, or defining what value means
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: Re-evaluate reward structures to incentivize the right behavior, because
+    scorecards full of items to deliver drive box-checking and tying livelihoods to
+    shipping forces even good product managers into the build trap and stifles innovation;
+    align incentives with the new behavior you want.
+  derived_from_claims:
+  - C00744
+  - C00745
+  - C00755
+  - C01036
+  - C01037
+  - C01038
+  confidence: high
+  applies_when:
+  - designing incentives or rolling out new product-management practices
+  - designing or auditing incentives during a transformation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: 'Diagnose whether a company is product-led with a set of probing questions:
+    who came up with the last feature (healthy teams discover how to reach management
+    goals, and being unable to say why is a red flag), what was last killed (never
+    killing signals commitments to customers, must-spend budgets, or fear of pushback),
+    how often the team talks to customers (a healthy org encourages it), whether the
+    product manager can state a clear outcome-oriented goal and speaks more about
+    problems than solutions, and whether product managers are respected as leaders
+    rather than dictators or weak order-takers.'
+  derived_from_claims:
+  - C01015
+  - C01068
+  - C01069
+  - C01070
+  - C01071
+  - C01072
+  confidence: high
+  applies_when:
+  - assessing whether a company is product-led
+  - evaluating whether a company or team is product-led, including during interviews
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: 'Eliminate Big Design Up Front and put speed first, aesthetics second:
+    do not hand engineering a fixed, complete up-front specification (it cannot adapt
+    when it proves unworkable, when markets change, or when lab concepts lack commercial
+    appeal), do not require complete mockups and specs before building, use whatever
+    early artifact is fastest to create and communicate (treating it as transient),
+    and reserve polish for the visual-design refinement stage, because over-polishing
+    early artifacts wastes time and reduces willingness to rework.'
+  derived_from_claims:
+  - C01695
+  - C01696
+  - C01914
+  - C01915
+  - C01916
+  - C01917
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: Keep the vision stable while letting strategic intents change with maturity;
+    align intents to the current state, keep the list very small (about one for a
+    small company, about three for a large one), and have the C-suite set high-level,
+    whole-company intents rather than dictating feature-level solutions.
+  derived_from_claims:
+  - C00900
+  - C00901
+  - C00902
+  - C00903
+  - C00904
+  - C00905
+  confidence: high
+  applies_when:
+  - setting the company current areas of strategic focus
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: Because there is always more to build than time and money allow, make
+    it your job to build less — minimize output while maximizing outcome and impact
+    — and focus first on thrilling a single chosen user; faster output is never by
+    itself the solution, and building only a fraction of what is nominally 'required'
+    can still delight people.
+  derived_from_claims:
+  - C01114
+  - C01115
+  - C01118
+  - C01120
+  - C01134
+  - C01135
+  confidence: high
+  applies_when:
+  - scoping a product or release
+  - a team is trying to build everything or to just go faster
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Use the template 'As a [type of user], I want to [do something], so that
+    I can [get some benefit]' to start conversations (it forces who/what/why, and
+    a feature name alone does not help find the right people), but treat it as a learning-stage
+    snowplow and only a conversation starter — never a specification — and beware
+    'template zombies' who let the template drive the work or think something is not
+    a story unless templated; the value is in telling the story, not the written form.
+  derived_from_claims:
+  - C01262
+  - C01263
+  - C01264
+  - C01265
+  - C01266
+  - C01267
+  confidence: high
+  applies_when:
+  - a team writes or debates story templates
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: Crowds do not collaborate — conversations get harder with too many people,
+    especially uninterested ones — so let members opt in (and invite complainers next
+    time), and if everyone wants in use a fishbowl pattern (three to five at the board,
+    others observing, an outsider jumping in only as an insider jumps out); planning
+    meetings can host these conversations only if the team already collaborates well,
+    and replacing multi-page narrative documents with visual elaboration that includes
+    business and delivery teams on a grooming cadence turns disengagement into real
+    conversations.
+  derived_from_claims:
+  - C01294
+  - C01295
+  - C01422
+  - C01423
+  - C01424
+  - C01425
+  confidence: high
+  applies_when:
+  - conversations are bloated with too many attendees
+  - conversations are bloated or planning is torturous
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: 'After launch, continuously harness organization-wide customer intelligence:
+    mine customer-service agents (ask what they hear, hold monthly trend meetings,
+    include them in design, and embed hypotheses in call scripts), onsite feedback
+    channels (forms, forums, and communities, noting they skew to engaged customers),
+    search logs (findability signals, validated via test pages), and site analytics
+    and funnel analyses (usage, drop-off, and unbiased measurement of a launched experiment''s
+    outcome).'
+  derived_from_claims:
+  - C01863
+  - C01864
+  - C01865
+  - C01866
+  - C01867
+  - C01868
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: 'Use lightweight non-prototype MVP techniques to test demand and value:
+    email (open, click-through, and completion rates), Google AdWords (which language
+    resonates and how much click interest exists), a landing-page facade with one
+    clear call-to-action (each completed action counts as validation), and a ''button
+    to nowhere'' (clicks signal desire while you explain and capture feedback).'
+  derived_from_claims:
+  - C01827
+  - C01828
+  - C01829
+  - C01830
+  - C01831
+  - C01832
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: Keep product management and project management as separate roles — even
+    though project-management skill benefits a product manager — because Internet-service
+    release trains otherwise thrash.
+  derived_from_claims:
+  - C00032
+  - C00033
+  - C00034
+  - C00035
+  - C00036
+  - C00037
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: Establish a small, cross-functional product council to make timely product
+    decisions and provide oversight without micromanaging or designing products, reviewing
+    each effort at four go or no-go milestones and keeping it out of design sessions.
+  derived_from_claims:
+  - C00178
+  - C00179
+  - C00180
+  - C00181
+  - C00182
+  - C00183
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: Innovate through the twenty-percent rule for bottom-up ideas, skunk works
+    that prove an idea before asking permission, observation of real users struggling,
+    ideal-user-experience thinking, and acquisition, remembering that innovation is
+    usually solving an existing problem in a new way.
+  derived_from_claims:
+  - C00313
+  - C00314
+  - C00315
+  - C00316
+  - C00317
+  - C00319
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Design consumer Internet services for high availability from the start,
+    minimal customer-support cost while keeping a great experience, early privacy
+    and data protection, built-in viral sharing, localization from the start, and
+    top-priority community management.
+  derived_from_claims:
+  - C00361
+  - C00362
+  - C00363
+  - C00364
+  - C00365
+  - C00366
+  confidence: medium
+  applies_when:
+  - the product is a consumer Internet service
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: 'Avoid the opportunity anti-patterns: company-perspective framing (reframe
+    in the customer''s voice and verify it was heard in interviews), vertical single-child
+    chains (dedup duplicates or fill in missing siblings), opportunities with multiple
+    parents (too broad, so make them specific per moment), themes/guidelines/sentiment
+    (not specific enough), solutions in disguise (a stated opportunity with only one
+    way to address it is a solution, so find the implied opportunity that admits more
+    than one solution), and feelings captured as opportunities (capture the underlying
+    cause, since feelings cannot be fixed directly).'
+  derived_from_claims:
+  - C00546
+  - C00547
+  - C00548
+  - C00549
+  - C00550
+  - C00551
+  confidence: medium
+  applies_when:
+  - reviewing a drafted opportunity solution tree
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: Do not ask direct, factual, or generalized questions, because people
+    report their ideal or perceived behavior and construct coherent but not necessarily
+    true stories; instead ask them to share specific stories about recent concrete
+    instances, since memories of recent specific instances are more reliable than
+    generalizations.
+  derived_from_claims:
+  - C00480
+  - C00481
+  - C00482
+  - C00483
+  - C00484
+  - C00488
+  confidence: medium
+  applies_when:
+  - eliciting information about customer behavior
+  - designing interview questions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: 'Classify decisions by reversibility and act accordingly: one-way-door
+    decisions (hard to reverse) warrant slow, cautious, data-driven deliberation,
+    while two-way-door decisions (easy to reverse, like choosing a target opportunity
+    to explore) warrant deciding fast and learning by acting; time-box reversible
+    prioritization decisions (an hour or two, at most a day or two), use all four
+    factor lenses rather than over-relying on one, and enter the assessment with an
+    open mind rather than working backward from a foregone conclusion, because framing
+    a decision as reversible keeps people critically evaluating it and avoids confirmation
+    bias.'
+  derived_from_claims:
+  - C00567
+  - C00568
+  - C00569
+  - C00570
+  - C00571
+  - C00572
+  confidence: medium
+  applies_when:
+  - making a prioritization or discovery decision
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: Let product strategy lead rather than being sales-led, visionary-led,
+    or technology-led; each alternative risks the build trap unless deliberately bounded,
+    and technology must never drive product strategy.
+  derived_from_claims:
+  - C00765
+  - C00766
+  - C00767
+  - C00768
+  - C00769
+  - C00770
+  confidence: medium
+  applies_when:
+  - assessing what drives a company product direction
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: Structure product teams around value streams or strategic goals rather
+    than around technical components or individual features, because component and
+    feature structures create make-work and an output-oriented mindset; monitor stable
+    features and move on to strategic work, balancing team coverage against goals.
+  derived_from_claims:
+  - C00835
+  - C00836
+  - C00837
+  - C00838
+  - C00839
+  confidence: high
+  applies_when:
+  - deciding how to organize product teams
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: 'Run discovery first in startups and new products: line up product management,
+    interaction design, and prototyping, build and validate a high-fidelity prototype
+    before hiring an engineering team, and figure out the right product before burning
+    through seed funding.'
+  derived_from_claims:
+  - C00165
+  - C00306
+  - C00307
+  - C00308
+  - C00309
+  confidence: high
+  applies_when:
+  - the company is a startup or a new product effort
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: 'Apply design thinking end to end: empathize (talk directly to users
+    and experience their challenges firsthand, since hands-off research gives data
+    not empathy); define and focus (make sense of learnings and choose a few specific
+    problems); ideate (generate multiple solutions past the obvious first, using a
+    pains-and-joys map as backdrop); prototype (simple or paper, to think through
+    and filter, fidelity only enough to evaluate); and test (real users doing a real
+    task — not bug-checking, selling, or show-and-tell — expecting to iterate).'
+  derived_from_claims:
+  - C01400
+  - C01401
+  - C01402
+  - C01403
+  - C01404
+  confidence: high
+  applies_when:
+  - running discovery or validated learning
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: Define the minimum viable product or solution as the smallest release
+    that achieves its desired outcomes — not the crappiest thing you could ship —
+    and treat 'minimum' as subjective to your customers and users (ask what is minimal
+    to them), never decided by the highest-paid person's opinion.
+  derived_from_claims:
+  - C01165
+  - C01166
+  - C01167
+  - C01168
+  - C01169
+  confidence: high
+  applies_when:
+  - a team debates what 'MVP' means or scopes an MVP
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: Treat product management as a career and discipline built through experience
+    with a real career path, and stop conflating it with the Scrum product-owner role,
+    which is only a tactical piece and cannot on its own ensure the team builds the
+    right thing.
+  derived_from_claims:
+  - C00776
+  - C00779
+  - C00811
+  - C00812
+  - C00813
+  confidence: high
+  applies_when:
+  - defining roles, titles, or career paths for product people
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: Treat software projects as having two stages, discovery to find what
+    to build and execution to build it right, and shift decisively into an execution
+    mindset when engineering starts, or the product manager becomes the source of
+    churn.
+  derived_from_claims:
+  - C00054
+  - C00055
+  - C00056
+  - C00157
+  - C00158
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: Require the product manager to have direct, personal contact with users
+    — attending every interview, site visit, and usability test — and treat second-hand
+    summaries as no substitute; if forbidden to talk to users, change the policy or
+    leave.
+  derived_from_claims:
+  - C00195
+  - C00196
+  - C00197
+  - C00250
+  - C00386
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P089
+  statement: 'Make the product manager job to produce value rather than push personal
+    ideas: stay humble, listen to the team, leverage its expertise instead of acting
+    as a lone wolf, treat your own beliefs as assumptions to validate, and prefer
+    concrete data over opinion.'
+  derived_from_claims:
+  - C00786
+  - C00787
+  - C00796
+  - C00797
+  - C00798
+  confidence: high
+  applies_when:
+  - a product manager is deciding what to build or defending an idea
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: Run tests wherever is convenient without a formal lab, treat remote testing
+    as a supplement not a substitute, have the product manager attend every test with
+    one administrator and one note-taker, and trust that good product managers can
+    test their own product objectively.
+  derived_from_claims:
+  - C00259
+  - C00260
+  - C00261
+  - C00262
+  - C00263
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: Organize teams around outcome goals with clear ownership and the freedom
+    to work across products, keeping the number of teams small enough to force ruthless
+    prioritization and create knowledge redundancy, and give each product manager
+    the scope to make measurable impact on a whole goal.
+  derived_from_claims:
+  - C00840
+  - C00841
+  - C00842
+  - C00850
+  - C00851
+  confidence: high
+  applies_when:
+  - assigning ownership and team scope
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: 'Do not rush into experiments: before running a test, define what you
+    are trying to learn and collect data about what people actually do in a specific
+    context (not what they say they do in general); a strong test simulates the minimal
+    right moment that gives the participant a real chance to behave in line with the
+    assumption or not, so you can iterate quickly.'
+  derived_from_claims:
+  - C00633
+  - C00634
+  - C00635
+  - C00636
+  - C00637
+  confidence: high
+  applies_when:
+  - designing an assumption test
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: 'Frame the work as testable hypotheses about outcomes: start from explicitly
+    declared assumptions rather than requirements, refocus stakeholder conversations
+    from artifacts to outcomes, and express beliefs as hypotheses, which removes much
+    of the subjective and political conversation from decision-making.'
+  derived_from_claims:
+  - C01725
+  - C01728
+  - C01729
+  - C01731
+  - C01746
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: 'Do not be an order-taking waiter: without a clear goal, prioritization
+    becomes a popularity contest, so push back on requested solutions and diagnose
+    the underlying problem rather than building whatever stakeholders or customers
+    ask for.'
+  derived_from_claims:
+  - C00788
+  - C00789
+  - C00790
+  - C00791
+  - C00792
+  confidence: high
+  applies_when:
+  - stakeholders or customers hand over feature requests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: Maintain a coherent product vision that communicates why you build and
+    the customer value proposition (for example an Amazon-style one-page press release);
+    let it emerge from experimentation before scaling, and keep it about capabilities
+    rather than every feature so it does not stifle growth.
+  derived_from_claims:
+  - C00909
+  - C00910
+  - C00911
+  - C00912
+  - C00913
+  confidence: high
+  applies_when:
+  - defining or refining a product vision
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
+  statement: Reach a product vision by iterating through experimentation rather than
+    dictating features early; give the team shared context with an evolving North
+    Star document (problem, solution, make-or-break factors, outcomes, but not an
+    action plan), use story mapping to break down and prioritize the first release,
+    and always anchor scaling back to a Version 1 on that North Star.
+  derived_from_claims:
+  - C00999
+  - C01000
+  - C01001
+  - C01002
+  - C01003
+  confidence: high
+  applies_when:
+  - aligning a team to build and prioritize a first version
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: 'Recognize that escaping the build trap requires organizational support
+    (culture, policies, and structure), not just process and strategy: teams succeed
+    only when the environment lets them talk to customers, orients them around outcomes,
+    and gives them space to decide how, because process and frameworks take you only
+    so far.'
+  derived_from_claims:
+  - C01012
+  - C01013
+  - C01014
+  - C01060
+  - C01061
+  confidence: high
+  applies_when:
+  - assessing whether an environment can sustain good product management
+  - planning or setting expectations for a product transformation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: Secure leadership buy-in to outcomes, because the main reason transformations
+    fail is leaders who say they want results but still measure features; be patient
+    enough to let outcomes emerge and communicate progress at every level, tailored
+    to each audience.
+  derived_from_claims:
+  - C01019
+  - C01020
+  - C01021
+  - C01062
+  - C01063
+  confidence: high
+  applies_when:
+  - leading or sustaining a shift to outcome orientation
+  - a leader is driving or resisting a transformation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: 'Because the builders are usually not the users, take the software to
+    real users and test it (not show-and-tell): watch them accomplish a real goal
+    on a regular cadence, never letting more than a couple of weeks pass without observing
+    a genuine user; not everyone need attend, but attending builds empathy, so those
+    who watch should retell what they saw.'
+  derived_from_claims:
+  - C01300
+  - C01301
+  - C01302
+  - C01303
+  - C01335
+  confidence: high
+  applies_when:
+  - validating built software with users
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: If a solution is too expensive, step back to the problem and find a cheaper
+    alternative; if it is affordable but big, still break it into small deliverable
+    'cupcakes' with small plans (not big frontend-then-backend plans) so you can taste,
+    measure, and learn sooner.
+  derived_from_claims:
+  - C01310
+  - C01311
+  - C01312
+  - C01313
+  - C01314
+  confidence: high
+  applies_when:
+  - a story or solution is too big or too expensive
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: 'Run story workshops well: announce the stories ahead and let people
+    opt in; keep it to three to five, including a user/UI person, one or two developers
+    who know the codebase, and a tester; dive into exactly who, how they use it, what
+    it looks like, and how it behaves, plus roughly how to build; agree what confirms
+    it is done and how to demo it; speak in examples and split-and-thin oversized
+    stories — and recognize it is failing when one person dictates, when you chase
+    only acceptance criteria without the who/what/why, or when you skip functional
+    and technical options.'
+  derived_from_claims:
+  - C01330
+  - C01331
+  - C01419
+  - C01420
+  - C01421
+  confidence: high
+  applies_when:
+  - running a story workshop
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: Use an opportunity canvas — a big spatial view a group fills collaboratively
+    with sticky notes (recording assumptions where answers are missing and iterating
+    as you learn) — to see all the concerns and their dependencies at once; it covers
+    problems and solution ideas, users and customers, how users solve the problem
+    today, user value, user metrics, adoption strategy, the business problem, business
+    metrics, and budget, and is a set of topics to discuss (not a form), with the
+    go/no-go decision resting with the product owner leveraging the team.
+  derived_from_claims:
+  - C01353
+  - C01354
+  - C01358
+  - C01359
+  - C01360
+  confidence: high
+  applies_when:
+  - evaluating a product opportunity
+  - structuring an opportunity assessment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P103
+  statement: After the team review, widen to a stakeholder product review (whole team
+    present) that connects the work back to the bigger picture and covers both discovery
+    and delivery — treat reviewing discovery as critical because the best time for
+    feedback is before heavy investment, review delivery at the minimum-viable-solution
+    level (reminding stakeholders of target customers and outcomes and why in-progress
+    work looks incomplete), remember that a cold hard fact trumps an executive opinion
+    so show real lessons from putting things in front of users, and respectfully redirect
+    off-target suggestions to the target and outcome.
+  derived_from_claims:
+  - C01450
+  - C01451
+  - C01452
+  - C01453
+  - C01454
+  confidence: high
+  applies_when:
+  - reviewing progress with business stakeholders
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P104
+  statement: Before writing up a pitch, walk the concept past technical experts framed
+    as 'just an idea', ask 'is this possible within the appetite?' rather than 'is
+    this possible?', actively hunt for time bombs, and keep the concept malleable
+    by rebuilding it live and inviting radical simplifications.
+  derived_from_claims:
+  - C01530
+  - C01531
+  - C01532
+  - C01533
+  - C01534
+  confidence: high
+  applies_when:
+  - verifying uncertain assumptions before pitching
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P105
+  statement: 'Write every pitch with the five ingredients (problem, appetite, solution,
+    rabbit holes, and no-gos), always pairing a problem with its solution: never pitch
+    a solution with no problem (no fitness test) and never bet on a problem with no
+    solution (unshaped work), and define the problem as a single specific story of
+    why the status quo fails.'
+  derived_from_claims:
+  - C01535
+  - C01536
+  - C01537
+  - C01539
+  - C01540
+  confidence: high
+  applies_when:
+  - packaging a shaped concept for the betting table
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: 'Decide when to stop by comparing down to the baseline, not up to an
+    ideal: shipping on time means shipping something imperfect, so judge good-enough
+    by whether the work already beats how customers cope today, framing the call as
+    customer value (''better than what they have now'') rather than personal perfection,
+    while still not lowering standards.'
+  derived_from_claims:
+  - C01646
+  - C01647
+  - C01648
+  - C01649
+  - C01650
+  confidence: high
+  applies_when:
+  - deciding whether work is good enough to ship
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
+  statement: 'Integrate Lean UX into Scrum''s structure by using its events as mileposts
+    so the whole team works on the same thing at once: write user stories as end-user
+    benefits, actively groom the prioritized backlog as the primary tool for staying
+    agile, and run end-of-sprint retrospectives to iterate the process as much as
+    the product.'
+  derived_from_claims:
+  - C01873
+  - C01874
+  - C01875
+  - C01876
+  - C01880
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P108
+  statement: 'Expand the designer''s role to whole-team facilitation and leadership:
+    treat product design as a business-wide, whole-team discipline in which the designer
+    opens up and facilitates the process (for example leading a Design Studio) and
+    non-designers are invited to use design methods, rather than plugging designers
+    into a waterfall ''design phase'' to produce wireframes and specs, which narrows
+    their scope and reinforces silos.'
+  derived_from_claims:
+  - C01687
+  - C01691
+  - C01703
+  - C01905
+  - C01906
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
+  statement: 'Ensure the style guide is accessible, continually improved, and actionable:
+    findable, distributable, searchable, and usable; kept malleably up to date; and
+    functioning as a ''widget factory'' that offers each element on demand as code
+    plus graphical and wireframe assets, serving developers (via code snippets) as
+    well as designers.'
+  derived_from_claims:
+  - C01788
+  - C01789
+  - C01790
+  - C01792
+  - C01795
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
+  statement: Derive an action threshold p* by equating the expected utilities of acting
+    and not acting (from the four goal-by-action outcome utilities); at run time simply
+    compare the inferred goal probability against that threshold, acting above it
+    and refraining below it.
+  derived_from_claims:
+  - C02030
+  - C02031
+  - C02032
+  - C02033
+  - C02034
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
