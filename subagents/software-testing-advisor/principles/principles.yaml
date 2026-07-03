@@ -1,0 +1,3935 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: 'Choose the right kind of double: dummies only fill unused parameters,
+    fakes simplify real behavior, stubs return fixed data, mocks verify interactions,
+    and spies record real-object interactions.'
+  derived_from_claims:
+  - C00591
+  - C00597
+  - C00626
+  - C00643
+  - C00648
+  - C00649
+  - C00650
+  - C00656
+  - C00658
+  - C00660
+  - C00662
+  - C00668
+  - C00691
+  - C00696
+  - C00699
+  - C00708
+  - C00714
+  - C00754
+  - C00771
+  - C00772
+  - C00794
+  - C00795
+  - C00796
+  - C00797
+  - C00798
+  - C00799
+  - C00800
+  - C00801
+  - C00802
+  - C00803
+  - C00804
+  - C00805
+  - C00806
+  - C00807
+  - C00808
+  - C00809
+  - C00810
+  - C00812
+  - C00815
+  - C00817
+  - C00818
+  - C00820
+  - C00821
+  - C00822
+  - C00840
+  - C00841
+  - C00849
+  - C00850
+  - C00851
+  - C00859
+  - C00868
+  - C00871
+  - C00874
+  - C00884
+  - C00907
+  - C00908
+  - C00910
+  - C00916
+  - C00917
+  - C00922
+  - C00924
+  - C00928
+  - C00929
+  - C00953
+  - C00979
+  - C00981
+  - C00989
+  - C00990
+  - C00994
+  - C01076
+  - C01078
+  - C01079
+  - C01080
+  - C01081
+  - C01082
+  - C01155
+  - C01156
+  - C01157
+  - C01158
+  - C01159
+  - C01160
+  - C01161
+  - C01162
+  - C01163
+  - C01164
+  - C01165
+  - C01166
+  - C01167
+  - C01168
+  - C01169
+  - C01171
+  - C01172
+  - C01173
+  - C01174
+  - C01177
+  - C01179
+  - C01180
+  - C01181
+  - C01184
+  - C01185
+  - C01186
+  - C01187
+  - C01188
+  - C01189
+  - C01190
+  - C01191
+  - C01192
+  - C01193
+  - C01194
+  - C01195
+  - C01196
+  - C01197
+  - C01198
+  - C01199
+  - C01200
+  - C01201
+  - C01202
+  - C01203
+  - C01204
+  - C01205
+  - C01206
+  - C01207
+  - C01208
+  - C01209
+  - C01212
+  - C01213
+  - C01215
+  - C01216
+  - C01217
+  - C01218
+  - C01219
+  - C01220
+  - C01221
+  - C01225
+  - C01226
+  - C01227
+  - C01228
+  - C01229
+  - C01230
+  - C01231
+  - C01232
+  - C01234
+  - C01236
+  - C01237
+  - C01238
+  - C01240
+  - C01241
+  - C01242
+  - C01244
+  - C01252
+  - C01253
+  - C01254
+  - C01255
+  - C01257
+  - C01258
+  - C01259
+  - C01261
+  - C01263
+  - C01265
+  - C01275
+  - C01276
+  - C01285
+  - C01323
+  - C01378
+  - C01440
+  - C01442
+  - C01444
+  - C01445
+  - C01452
+  - C01453
+  - C01455
+  - C01456
+  - C01469
+  - C01480
+  - C01488
+  - C01496
+  - C01498
+  - C01501
+  - C01507
+  - C01534
+  - C01535
+  - C01536
+  - C01537
+  - C01538
+  - C01539
+  - C01542
+  - C01543
+  - C01544
+  - C01551
+  - C01559
+  - C01560
+  - C01567
+  - C01568
+  - C01575
+  - C01584
+  - C01586
+  - C01990
+  - C01991
+  - C01992
+  - C01993
+  - C01994
+  - C01995
+  confidence: high
+  applies_when:
+  - A real collaborator is slow, unavailable, nondeterministic, hard to configure,
+    or must be observed indirectly.
+  - selecting a test double style
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: Prefer specific, cohesive fixtures that each test fully uses over large
+    shared fixtures that force tests to filter irrelevant data.
+  derived_from_claims:
+  - C00566
+  - C00607
+  - C00616
+  - C00651
+  - C00688
+  - C00696
+  - C00698
+  - C00738
+  - C00739
+  - C00740
+  - C00770
+  - C00773
+  - C00808
+  - C00839
+  - C00856
+  - C00857
+  - C00919
+  - C00951
+  - C00955
+  - C00956
+  - C00965
+  - C00970
+  - C00977
+  - C01025
+  - C01026
+  - C01036
+  - C01037
+  - C01242
+  - C01264
+  - C01307
+  - C01524
+  - C01548
+  - C01556
+  - C01557
+  - C01565
+  - C01583
+  - C02439
+  confidence: high
+  applies_when:
+  - The setup contains more objects, rows, attributes, or hidden resources than the
+    assertion needs.
+  - designing fixture data for a group of tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Use parameterized tests only when they reduce harmful duplication without
+    making the suite harder for the team to read.
+  derived_from_claims:
+  - C00679
+  - C00689
+  - C00723
+  - C00780
+  - C00781
+  - C00872
+  - C00900
+  - C00939
+  - C00941
+  - C00942
+  - C00943
+  - C00944
+  - C00945
+  - C00946
+  - C00948
+  - C00949
+  - C01065
+  - C01092
+  - C01312
+  - C01320
+  - C01321
+  - C01322
+  - C01323
+  - C01324
+  - C01325
+  - C01327
+  - C01328
+  - C01329
+  - C01330
+  - C01331
+  - C01332
+  - C01512
+  - C01769
+  - C01770
+  confidence: high
+  applies_when:
+  - The same setup, exercise, and verification logic applies across multiple input
+    or expected-output rows.
+  - multiple cases share setup and assertions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Make external-resource dependencies explicit — set up, verify availability,
+    and clean them up in the test, or replace their access with a test double — rather
+    than relying on hidden mystery-guest resources.
+  derived_from_claims:
+  - C00566
+  - C00616
+  - C00770
+  - C00808
+  - C00839
+  - C00856
+  - C00896
+  - C00956
+  - C00977
+  - C01025
+  - C01026
+  - C01037
+  - C01127
+  - C01242
+  - C01264
+  - C01548
+  - C01549
+  - C01550
+  - C01551
+  - C01564
+  - C01565
+  - C01566
+  - C02435
+  - C02436
+  - C02438
+  confidence: high
+  applies_when:
+  - A test depends on a file, directory, database row, server, or external object
+    not visible in the test.
+  - a test depends on databases, files, servers, or services
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Design classes to be loosely coupled and highly cohesive with explicit
+    substitutable dependencies, since only such classes are easy to unit-test; when
+    a test grows large or is hard to write, treat it as a design signal to split the
+    class or introduce abstractions.
+  derived_from_claims:
+  - C02150
+  - C02151
+  - C02152
+  - C02153
+  - C02154
+  - C02155
+  - C02156
+  - C02533
+  - C02534
+  - C02535
+  - C02536
+  confidence: high
+  applies_when:
+  - one unit accumulates too many responsibilities or variants
+  - designing a class or finding a unit test awkward to write
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: 'Test each fault at the level where it is cheapest to detect: catch faults
+    at the unit level where they are trivial rather than letting them surface in expensive
+    system testing, and re-analyze and re-test any reused component in its new context.'
+  derived_from_claims:
+  - C00024
+  - C00025
+  - C00026
+  - C00057
+  - C01656
+  - C01657
+  - C01658
+  - C01661
+  - C01662
+  - C01663
+  confidence: high
+  applies_when:
+  - deciding at which level to target a class of faults
+  - reusing a component in a new context
+  - choosing among unit, integration, and system coverage
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: 'Use test doubles to replace components that are unimplemented, perform
+    unrecoverable actions, depend on unreliable resources, or are slow: a stub returns
+    canned values while a mock also verifies the calls made to it, enabling interaction-based
+    testing (obtain doubles, specify expected interactions, act, verify) that checks
+    how objects communicate rather than only their state.'
+  derived_from_claims:
+  - C00509
+  - C00510
+  - C00511
+  - C00512
+  - C00513
+  - C00514
+  - C01983
+  - C01984
+  - C01985
+  - C01986
+  confidence: high
+  applies_when:
+  - isolating a component under test from its dependencies
+  - testing a unit with difficult collaborators
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Use mocks when the behavior under test is an interaction protocol with
+    a collaborator, including call arguments, counts, and no-work cases.
+  derived_from_claims:
+  - C02009
+  - C02010
+  - C02011
+  - C02012
+  - C02505
+  confidence: medium
+  applies_when:
+  - observable behavior is a command interaction or side effect
+  - unit-testing an object's interactions with its collaborators
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: 'Choose teardown by resource lifecycle: automatic cleanup for in-memory
+    objects, guaranteed teardown for explicit resources, and suite cleanup for suite-owned
+    fixtures.'
+  derived_from_claims:
+  - C00564
+  - C00565
+  - C00566
+  - C00567
+  - C00569
+  - C00595
+  - C00599
+  - C00633
+  - C00640
+  - C00676
+  - C00692
+  - C00700
+  - C00702
+  - C00743
+  - C00747
+  - C00748
+  - C00749
+  - C00750
+  - C00751
+  - C00752
+  - C00753
+  - C00759
+  - C00760
+  - C00845
+  - C00867
+  - C00871
+  - C00892
+  - C00893
+  - C00895
+  - C00897
+  - C00898
+  - C00918
+  - C00950
+  - C00960
+  - C00963
+  - C00971
+  - C00977
+  - C00999
+  - C01000
+  - C01038
+  - C01042
+  - C01043
+  - C01044
+  - C01045
+  - C01047
+  - C01048
+  - C01050
+  - C01052
+  - C01060
+  - C01064
+  - C01124
+  - C01127
+  - C01128
+  - C01129
+  - C01130
+  - C01131
+  - C01132
+  - C01133
+  - C01134
+  - C01135
+  - C01136
+  - C01137
+  - C01138
+  - C01139
+  - C01140
+  - C01141
+  - C01142
+  - C01143
+  - C01144
+  - C01145
+  - C01146
+  - C01147
+  - C01148
+  - C01149
+  - C01150
+  - C01151
+  - C01152
+  - C01153
+  - C01154
+  - C01211
+  - C01312
+  - C01319
+  - C01375
+  - C01405
+  - C01406
+  - C01407
+  - C01408
+  - C01409
+  - C01410
+  - C01411
+  - C01412
+  - C01413
+  - C01414
+  - C01415
+  - C01416
+  - C01417
+  - C01418
+  - C01419
+  - C01420
+  - C01421
+  - C01422
+  - C01423
+  - C01424
+  - C01425
+  - C01426
+  - C01428
+  - C01429
+  - C01431
+  - C01436
+  - C01437
+  - C01438
+  - C01439
+  - C01555
+  - C01569
+  - C01585
+  confidence: high
+  applies_when:
+  - A test creates objects, files, connections, records, or suite-level resources.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Extract intent-revealing test helpers to cut repetitive setup and noise,
+    but only when they reduce duplication without hiding the test's intent.
+  derived_from_claims:
+  - C00558
+  - C00563
+  - C00576
+  - C00587
+  - C00595
+  - C00617
+  - C00620
+  - C00637
+  - C00638
+  - C00640
+  - C00659
+  - C00672
+  - C00675
+  - C00698
+  - C00724
+  - C00726
+  - C00727
+  - C00728
+  - C00733
+  - C00736
+  - C00738
+  - C00740
+  - C00751
+  - C00756
+  - C00762
+  - C00773
+  - C00777
+  - C00778
+  - C00783
+  - C00784
+  - C00786
+  - C00787
+  - C00788
+  - C00831
+  - C00832
+  - C00852
+  - C00854
+  - C00855
+  - C00856
+  - C00858
+  - C00859
+  - C00860
+  - C00863
+  - C00864
+  - C00876
+  - C00877
+  - C00878
+  - C00879
+  - C00892
+  - C00918
+  - C00922
+  - C00933
+  - C00934
+  - C00935
+  - C00950
+  - C00951
+  - C00965
+  - C00974
+  - C00977
+  - C00979
+  - C00992
+  - C01009
+  - C01010
+  - C01024
+  - C01026
+  - C01028
+  - C01029
+  - C01030
+  - C01033
+  - C01037
+  - C01046
+  - C01048
+  - C01052
+  - C01136
+  - C01187
+  - C01213
+  - C01231
+  - C01245
+  - C01300
+  - C01301
+  - C01302
+  - C01303
+  - C01306
+  - C01308
+  - C01313
+  - C01314
+  - C01315
+  - C01316
+  - C01317
+  - C01318
+  - C01322
+  - C01329
+  - C01342
+  - C01355
+  - C01364
+  - C01365
+  - C01366
+  - C01367
+  - C01368
+  - C01369
+  - C01370
+  - C01371
+  - C01376
+  - C01377
+  - C01378
+  - C01379
+  - C01413
+  - C01532
+  - C01536
+  - C01566
+  - C01571
+  - C01583
+  confidence: high
+  applies_when:
+  - A reader cannot quickly see the setup relevance, exercised behavior, or expected
+    outcome.
+  - Several tests share nontrivial setup, exercise, or verification code.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Prefer fresh fixtures for independent tests; introduce shared fixtures
+    only for a measured setup cost and isolate mutable state.
+  derived_from_claims:
+  - C00566
+  - C00567
+  - C00577
+  - C00589
+  - C00590
+  - C00592
+  - C00607
+  - C00609
+  - C00610
+  - C00614
+  - C00632
+  - C00651
+  - C00665
+  - C00666
+  - C00688
+  - C00692
+  - C00693
+  - C00694
+  - C00695
+  - C00696
+  - C00700
+  - C00702
+  - C00724
+  - C00725
+  - C00726
+  - C00730
+  - C00738
+  - C00739
+  - C00740
+  - C00741
+  - C00743
+  - C00744
+  - C00753
+  - C00755
+  - C00756
+  - C00758
+  - C00759
+  - C00761
+  - C00762
+  - C00769
+  - C00773
+  - C00820
+  - C00839
+  - C00840
+  - C00851
+  - C00856
+  - C00857
+  - C00861
+  - C00871
+  - C00889
+  - C00890
+  - C00894
+  - C00896
+  - C00897
+  - C00898
+  - C00902
+  - C00906
+  - C00917
+  - C00919
+  - C00925
+  - C00951
+  - C00954
+  - C00955
+  - C00956
+  - C00958
+  - C00959
+  - C00960
+  - C00962
+  - C00963
+  - C00964
+  - C00965
+  - C00966
+  - C00969
+  - C00972
+  - C01014
+  - C01029
+  - C01033
+  - C01035
+  - C01038
+  - C01039
+  - C01043
+  - C01046
+  - C01050
+  - C01051
+  - C01056
+  - C01059
+  - C01060
+  - C01062
+  - C01064
+  - C01114
+  - C01117
+  - C01125
+  - C01128
+  - C01131
+  - C01306
+  - C01307
+  - C01331
+  - C01356
+  - C01376
+  - C01377
+  - C01388
+  - C01406
+  - C01409
+  - C01422
+  - C01463
+  - C01464
+  - C01550
+  - C01557
+  - C01585
+  confidence: high
+  applies_when:
+  - Fixture state can be created cheaply or safely before each test.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Use automated tests as a refactoring safety net, and refactor test code
+    conservatively because tests rarely have their own tests.
+  derived_from_claims:
+  - C00556
+  - C00557
+  - C00560
+  - C00574
+  - C00617
+  - C00629
+  - C00638
+  - C00639
+  - C00650
+  - C00656
+  - C00671
+  - C00672
+  - C00678
+  - C00710
+  - C00712
+  - C00727
+  - C00728
+  - C00734
+  - C00765
+  - C00769
+  - C00773
+  - C00778
+  - C00782
+  - C00784
+  - C00816
+  - C00834
+  - C00847
+  - C00855
+  - C00863
+  - C00864
+  - C00873
+  - C00877
+  - C00878
+  - C00883
+  - C00900
+  - C00904
+  - C00914
+  - C00920
+  - C00922
+  - C00923
+  - C00924
+  - C00927
+  - C00930
+  - C00932
+  - C00934
+  - C00935
+  - C00941
+  - C00943
+  - C00950
+  - C00980
+  - C00996
+  - C01001
+  - C01010
+  - C01024
+  - C01025
+  - C01026
+  - C01037
+  - C01054
+  - C01065
+  - C01078
+  - C01085
+  - C01090
+  - C01103
+  - C01116
+  - C01153
+  - C01243
+  - C01244
+  - C01285
+  - C01303
+  - C01317
+  - C01327
+  - C01352
+  - C01359
+  - C01360
+  - C01424
+  - C01433
+  - C01436
+  - C01449
+  - C01466
+  - C01486
+  - C01506
+  - C01544
+  - C01573
+  - C01586
+  confidence: high
+  applies_when:
+  - Changing implementation structure while preserving behavior, or cleaning up test
+    code.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Use spies or mocks for indirect outputs, and configure expected behavior
+    only to the level required by the contract.
+  derived_from_claims:
+  - C00597
+  - C00650
+  - C00656
+  - C00691
+  - C00708
+  - C00771
+  - C00772
+  - C00796
+  - C00797
+  - C00798
+  - C00801
+  - C00802
+  - C00803
+  - C00806
+  - C00807
+  - C00818
+  - C00822
+  - C00848
+  - C00874
+  - C00884
+  - C00908
+  - C00910
+  - C00929
+  - C00990
+  - C01078
+  - C01079
+  - C01080
+  - C01081
+  - C01082
+  - C01169
+  - C01184
+  - C01185
+  - C01186
+  - C01187
+  - C01188
+  - C01189
+  - C01190
+  - C01191
+  - C01192
+  - C01193
+  - C01194
+  - C01195
+  - C01196
+  - C01197
+  - C01199
+  - C01200
+  - C01201
+  - C01202
+  - C01203
+  - C01204
+  - C01205
+  - C01206
+  - C01207
+  - C01208
+  - C01209
+  - C01210
+  - C01211
+  - C01212
+  - C01213
+  - C01218
+  - C01221
+  - C01236
+  - C01240
+  - C01241
+  - C01253
+  - C01254
+  - C01378
+  - C01488
+  - C01496
+  - C01498
+  - C01537
+  - C01560
+  - C01567
+  - C01584
+  confidence: high
+  applies_when:
+  - The only observable outcome is that the SUT sends messages to another object.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Avoid modifying production behavior solely for tests; any testability
+    hook must be isolated, controlled, and unable to corrupt production semantics.
+  derived_from_claims:
+  - C00555
+  - C00596
+  - C00609
+  - C00618
+  - C00624
+  - C00625
+  - C00638
+  - C00639
+  - C00641
+  - C00642
+  - C00660
+  - C00663
+  - C00668
+  - C00673
+  - C00707
+  - C00709
+  - C00710
+  - C00775
+  - C00776
+  - C00810
+  - C00813
+  - C00814
+  - C00816
+  - C00817
+  - C00833
+  - C00834
+  - C00836
+  - C00841
+  - C00855
+  - C00869
+  - C00880
+  - C00881
+  - C00882
+  - C00883
+  - C00884
+  - C00914
+  - C01003
+  - C01069
+  - C01076
+  - C01150
+  - C01165
+  - C01174
+  - C01188
+  - C01267
+  - C01268
+  - C01269
+  - C01270
+  - C01278
+  - C01279
+  - C01280
+  - C01284
+  - C01285
+  - C01286
+  - C01287
+  - C01290
+  - C01291
+  - C01293
+  - C01294
+  - C01433
+  - C01443
+  - C01460
+  - C01466
+  - C01482
+  - C01504
+  - C01505
+  - C01506
+  - C01507
+  - C01508
+  - C01509
+  - C01542
+  - C01575
+  - C01581
+  - C01586
+  confidence: high
+  applies_when:
+  - Testability pressure tempts changes to production APIs, equality, control flow,
+    or dependency behavior.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: Organize testcase classes by class, feature, fixture, or story according
+    to the fixture and behavior boundaries readers use.
+  derived_from_claims:
+  - C00601
+  - C00675
+  - C00735
+  - C00745
+  - C00757
+  - C00759
+  - C00760
+  - C00788
+  - C00826
+  - C00827
+  - C00828
+  - C00832
+  - C00833
+  - C00892
+  - C00926
+  - C00955
+  - C00962
+  - C00971
+  - C00974
+  - C00977
+  - C00999
+  - C01010
+  - C01011
+  - C01013
+  - C01014
+  - C01016
+  - C01019
+  - C01020
+  - C01027
+  - C01032
+  - C01035
+  - C01036
+  - C01042
+  - C01046
+  - C01047
+  - C01049
+  - C01052
+  - C01062
+  - C01063
+  - C01243
+  - C01252
+  - C01257
+  - C01260
+  - C01296
+  - C01315
+  - C01335
+  - C01336
+  - C01337
+  - C01338
+  - C01339
+  - C01342
+  - C01343
+  - C01344
+  - C01345
+  - C01346
+  - C01347
+  - C01349
+  - C01350
+  - C01351
+  - C01352
+  - C01356
+  - C01357
+  - C01358
+  - C01359
+  - C01360
+  - C01362
+  - C01363
+  - C01364
+  - C01370
+  - C01374
+  - C01557
+  confidence: high
+  applies_when:
+  - Choosing where new tests live or refactoring a growing test suite.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Structure executable tests as setup, exercise, verification, and teardown
+    phases in that order.
+  derived_from_claims:
+  - C00561
+  - C00577
+  - C00640
+  - C00676
+  - C00702
+  - C00727
+  - C00728
+  - C00733
+  - C00747
+  - C00759
+  - C00760
+  - C00762
+  - C00770
+  - C00780
+  - C00796
+  - C00809
+  - C00820
+  - C00826
+  - C00856
+  - C00859
+  - C00860
+  - C00885
+  - C00893
+  - C00896
+  - C00904
+  - C00914
+  - C00915
+  - C00962
+  - C00971
+  - C01023
+  - C01035
+  - C01042
+  - C01044
+  - C01045
+  - C01047
+  - C01048
+  - C01053
+  - C01060
+  - C01077
+  - C01086
+  - C01087
+  - C01110
+  - C01157
+  - C01164
+  - C01176
+  - C01201
+  - C01202
+  - C01203
+  - C01229
+  - C01247
+  - C01284
+  - C01304
+  - C01312
+  - C01321
+  - C01328
+  - C01340
+  - C01361
+  - C01374
+  - C01395
+  - C01416
+  - C01421
+  - C01436
+  - C01515
+  - C01517
+  - C01548
+  - C01558
+  confidence: high
+  applies_when:
+  - A test method directly exercises the SUT and verifies its outcome.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Use custom assertions or verification methods for repeated, domain-specific,
+    or noisy checks.
+  derived_from_claims:
+  - C00561
+  - C00563
+  - C00596
+  - C00637
+  - C00677
+  - C00765
+  - C00769
+  - C00773
+  - C00774
+  - C00775
+  - C00776
+  - C00777
+  - C00778
+  - C00779
+  - C00788
+  - C00832
+  - C00860
+  - C00863
+  - C00867
+  - C00869
+  - C00877
+  - C00884
+  - C00903
+  - C00904
+  - C00978
+  - C01001
+  - C01003
+  - C01074
+  - C01076
+  - C01083
+  - C01084
+  - C01085
+  - C01086
+  - C01087
+  - C01088
+  - C01090
+  - C01091
+  - C01092
+  - C01093
+  - C01094
+  - C01095
+  - C01096
+  - C01097
+  - C01098
+  - C01099
+  - C01100
+  - C01101
+  - C01102
+  - C01103
+  - C01104
+  - C01107
+  - C01108
+  - C01109
+  - C01188
+  - C01209
+  - C01224
+  - C01290
+  - C01291
+  - C01311
+  - C01316
+  - C01321
+  - C01328
+  - C01371
+  - C01419
+  - C01581
+  - C01584
+  confidence: high
+  applies_when:
+  - Several tests need the same comparison logic or the raw assertions obscure the
+    domain intent.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Prefer standard xUnit framework discovery, runners, and fixtures over
+    custom runners or ad hoc main programs.
+  derived_from_claims:
+  - C00569
+  - C00628
+  - C00683
+  - C00686
+  - C00687
+  - C00688
+  - C00716
+  - C00722
+  - C00723
+  - C00752
+  - C00753
+  - C00886
+  - C00889
+  - C00890
+  - C00896
+  - C00898
+  - C00899
+  - C00930
+  - C00940
+  - C00947
+  - C00948
+  - C00950
+  - C00955
+  - C00960
+  - C00965
+  - C00992
+  - C01006
+  - C01010
+  - C01012
+  - C01013
+  - C01014
+  - C01015
+  - C01016
+  - C01017
+  - C01018
+  - C01020
+  - C01021
+  - C01042
+  - C01044
+  - C01045
+  - C01047
+  - C01051
+  - C01057
+  - C01062
+  - C01102
+  - C01122
+  - C01126
+  - C01149
+  - C01196
+  - C01213
+  - C01322
+  - C01326
+  - C01330
+  - C01373
+  - C01381
+  - C01383
+  - C01384
+  - C01385
+  - C01407
+  - C01409
+  - C01439
+  - C01488
+  - C01569
+  confidence: high
+  applies_when:
+  - Automated tests need to run consistently across developers, builds, and reports.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: Use creation methods, finder methods, and delegated setup to make fixture
+    construction readable and reusable.
+  derived_from_claims:
+  - C00570
+  - C00573
+  - C00637
+  - C00675
+  - C00726
+  - C00728
+  - C00729
+  - C00730
+  - C00731
+  - C00732
+  - C00733
+  - C00742
+  - C00750
+  - C00751
+  - C00756
+  - C00757
+  - C00809
+  - C00827
+  - C00856
+  - C00859
+  - C00861
+  - C00863
+  - C00877
+  - C00885
+  - C00892
+  - C00903
+  - C00904
+  - C00924
+  - C00953
+  - C00962
+  - C00965
+  - C00974
+  - C01023
+  - C01024
+  - C01026
+  - C01027
+  - C01028
+  - C01029
+  - C01030
+  - C01031
+  - C01032
+  - C01033
+  - C01034
+  - C01041
+  - C01048
+  - C01049
+  - C01059
+  - C01075
+  - C01294
+  - C01304
+  - C01306
+  - C01307
+  - C01308
+  - C01309
+  - C01319
+  - C01339
+  - C01340
+  - C01342
+  - C01375
+  - C01520
+  - C01524
+  - C01558
+  confidence: high
+  applies_when:
+  - Fixture setup repeats object construction, varies only a few attributes, or obscures
+    the business meaning of values.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Use stubs for indirect inputs and configure their responses before exercising
+    the SUT.
+  derived_from_claims:
+  - C00597
+  - C00648
+  - C00663
+  - C00668
+  - C00699
+  - C00789
+  - C00792
+  - C00794
+  - C00795
+  - C00798
+  - C00800
+  - C00801
+  - C00804
+  - C00806
+  - C00807
+  - C00812
+  - C00822
+  - C00841
+  - C00849
+  - C00850
+  - C00874
+  - C00907
+  - C00916
+  - C00928
+  - C00982
+  - C00990
+  - C00994
+  - C01157
+  - C01159
+  - C01165
+  - C01166
+  - C01167
+  - C01168
+  - C01169
+  - C01170
+  - C01173
+  - C01174
+  - C01177
+  - C01179
+  - C01180
+  - C01181
+  - C01182
+  - C01191
+  - C01205
+  - C01210
+  - C01216
+  - C01218
+  - C01221
+  - C01230
+  - C01240
+  - C01244
+  - C01257
+  - C01537
+  - C01551
+  - C01560
+  - C01567
+  confidence: high
+  applies_when:
+  - The SUT asks a collaborator for data, status, or an exception path needed by the
+    scenario.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Keep automated tests repeatable by controlling external context, data,
+    time, order, and resource dependencies.
+  derived_from_claims:
+  - C00551
+  - C00566
+  - C00571
+  - C00590
+  - C00609
+  - C00612
+  - C00616
+  - C00627
+  - C00631
+  - C00632
+  - C00633
+  - C00668
+  - C00702
+  - C00730
+  - C00746
+  - C00758
+  - C00759
+  - C00761
+  - C00789
+  - C00824
+  - C00836
+  - C00839
+  - C00850
+  - C00866
+  - C00883
+  - C00888
+  - C00897
+  - C00899
+  - C00900
+  - C00913
+  - C00917
+  - C00919
+  - C00925
+  - C00940
+  - C00958
+  - C00960
+  - C00964
+  - C00965
+  - C00969
+  - C00972
+  - C01031
+  - C01039
+  - C01041
+  - C01050
+  - C01125
+  - C01135
+  - C01144
+  - C01389
+  - C01473
+  - C01526
+  - C01527
+  - C01528
+  - C01583
+  confidence: high
+  applies_when:
+  - A test result can vary with environment, clock, device, database state, another
+    application, random input, or prior tests.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Classify test smells by their failure mode and apply a targeted pattern-level
+    repair instead of a symptom patch.
+  derived_from_claims:
+  - C00550
+  - C00566
+  - C00586
+  - C00599
+  - C00604
+  - C00607
+  - C00614
+  - C00682
+  - C00690
+  - C00696
+  - C00727
+  - C00729
+  - C00738
+  - C00740
+  - C00753
+  - C00770
+  - C00808
+  - C00839
+  - C00851
+  - C00855
+  - C00856
+  - C00857
+  - C00862
+  - C00917
+  - C00918
+  - C00922
+  - C00924
+  - C00925
+  - C00951
+  - C00956
+  - C00966
+  - C00974
+  - C00977
+  - C00986
+  - C01025
+  - C01026
+  - C01027
+  - C01037
+  - C01135
+  - C01162
+  - C01242
+  - C01264
+  - C01270
+  - C01548
+  - C01565
+  - C01583
+  confidence: high
+  applies_when:
+  - A test is slow, obscure, fragile, erratic, interdependent, or expensive to maintain.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Extract hard-to-test framework, threading, transaction, or UI logic behind
+    a humble object and test the extracted logic synchronously.
+  derived_from_claims:
+  - C00600
+  - C00672
+  - C00711
+  - C00752
+  - C00845
+  - C00863
+  - C00875
+  - C00920
+  - C00930
+  - C00985
+  - C01424
+  - C01432
+  - C01465
+  - C01470
+  - C01471
+  - C01472
+  - C01473
+  - C01474
+  - C01475
+  - C01476
+  - C01477
+  - C01479
+  - C01480
+  - C01481
+  - C01482
+  - C01483
+  - C01484
+  - C01485
+  - C01486
+  - C01487
+  - C01488
+  - C01489
+  - C01490
+  - C01492
+  - C01494
+  - C01495
+  - C01496
+  - C01498
+  - C01499
+  - C01500
+  - C01501
+  - C01502
+  - C01503
+  - C01545
+  - C01552
+  - C01586
+  confidence: high
+  applies_when:
+  - Framework lifecycle, asynchronous execution, transactions, or UI code prevents
+    simple direct tests.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: Install doubles through substitutable dependencies; prefer dependency
+    injection, then dependency lookup, and use test hooks only as a last resort.
+  derived_from_claims:
+  - C00643
+  - C00660
+  - C00668
+  - C00673
+  - C00695
+  - C00697
+  - C00709
+  - C00710
+  - C00751
+  - C00810
+  - C00811
+  - C00812
+  - C00814
+  - C00815
+  - C00816
+  - C00868
+  - C00881
+  - C01164
+  - C01194
+  - C01207
+  - C01225
+  - C01277
+  - C01288
+  - C01440
+  - C01441
+  - C01442
+  - C01443
+  - C01444
+  - C01454
+  - C01456
+  - C01457
+  - C01458
+  - C01459
+  - C01460
+  - C01461
+  - C01463
+  - C01466
+  - C01468
+  - C01504
+  - C01506
+  - C01508
+  - C01559
+  - C01575
+  - C01586
+  confidence: high
+  applies_when:
+  - A test needs to replace or configure a depended-on component.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: 'Keep test values meaningful: use symbolic constants, role-describing
+    generated values, and dummy values that satisfy the callee contract.'
+  derived_from_claims:
+  - C00574
+  - C00746
+  - C00756
+  - C00798
+  - C00799
+  - C00859
+  - C00861
+  - C00897
+  - C00935
+  - C00953
+  - C00963
+  - C01040
+  - C01043
+  - C01050
+  - C01389
+  - C01391
+  - C01510
+  - C01511
+  - C01512
+  - C01515
+  - C01516
+  - C01524
+  - C01526
+  - C01527
+  - C01528
+  - C01529
+  - C01530
+  - C01531
+  - C01532
+  - C01534
+  - C01535
+  - C01536
+  - C01537
+  - C01538
+  - C01539
+  - C01540
+  - C01541
+  - C01542
+  - C01543
+  - C01544
+  - C01567
+  confidence: high
+  applies_when:
+  - A value appears in setup or assertions and a reader needs to know whether it is
+    essential, arbitrary, invalid, or unique.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Prefer state verification for observable end state; reserve behavior
+    verification for indirect outputs and collaboration obligations.
+  derived_from_claims:
+  - C00597
+  - C00650
+  - C00656
+  - C00657
+  - C00763
+  - C00764
+  - C00765
+  - C00771
+  - C00772
+  - C00791
+  - C00796
+  - C00798
+  - C00801
+  - C00802
+  - C00848
+  - C00929
+  - C00990
+  - C01067
+  - C01068
+  - C01070
+  - C01071
+  - C01072
+  - C01073
+  - C01078
+  - C01079
+  - C01080
+  - C01081
+  - C01159
+  - C01169
+  - C01184
+  - C01191
+  - C01198
+  - C01199
+  - C01200
+  - C01212
+  - C01221
+  - C01271
+  - C01537
+  - C01560
+  - C01567
+  - C01584
+  confidence: high
+  applies_when:
+  - The outcome can be observed through public state or return values, or the obligation
+    is a call to another component.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Use test-specific subclasses to expose control or observation points
+    when subclassing is safer than changing the production class.
+  derived_from_claims:
+  - C00660
+  - C00663
+  - C00668
+  - C00705
+  - C00706
+  - C00707
+  - C00709
+  - C00775
+  - C00813
+  - C00882
+  - C00884
+  - C01003
+  - C01069
+  - C01076
+  - C01159
+  - C01267
+  - C01268
+  - C01269
+  - C01270
+  - C01271
+  - C01272
+  - C01273
+  - C01278
+  - C01279
+  - C01280
+  - C01284
+  - C01285
+  - C01286
+  - C01287
+  - C01289
+  - C01290
+  - C01292
+  - C01294
+  - C01433
+  - C01443
+  - C01482
+  - C01542
+  - C01575
+  - C01586
+  confidence: high
+  applies_when:
+  - Private state transitions, callbacks, or protected behavior block direct setup
+    or verification.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Make tests self-checking so a clean automated run requires no human interpretation.
+  derived_from_claims:
+  - C00596
+  - C00612
+  - C00627
+  - C00628
+  - C00723
+  - C00752
+  - C00753
+  - C00761
+  - C00784
+  - C00876
+  - C00886
+  - C00896
+  - C00898
+  - C00899
+  - C00913
+  - C00915
+  - C00925
+  - C00930
+  - C00940
+  - C01001
+  - C01006
+  - C01012
+  - C01013
+  - C01016
+  - C01017
+  - C01021
+  - C01039
+  - C01053
+  - C01102
+  - C01302
+  - C01323
+  - C01373
+  - C01381
+  - C01383
+  - C01384
+  - C01385
+  - C01407
+  - C01409
+  confidence: high
+  applies_when:
+  - A test verifies behavior in an automated build, local development loop, or regression
+    suite.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Keep test methods linear; replace conditional verification with guard
+    assertions or separate tests.
+  derived_from_claims:
+  - C00559
+  - C00562
+  - C00615
+  - C00617
+  - C00659
+  - C00703
+  - C00721
+  - C00762
+  - C00782
+  - C00783
+  - C00787
+  - C00865
+  - C00867
+  - C00869
+  - C00872
+  - C00876
+  - C00899
+  - C00900
+  - C00969
+  - C01001
+  - C01005
+  - C01087
+  - C01110
+  - C01111
+  - C01112
+  - C01113
+  - C01115
+  - C01116
+  - C01117
+  - C01251
+  confidence: high
+  applies_when:
+  - Branches in the test would change what behavior is actually verified.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Use suites to compose meaningful runs, with special-purpose or smoke
+    suites for targeted feedback.
+  derived_from_claims:
+  - C00581
+  - C00583
+  - C00613
+  - C00702
+  - C00760
+  - C00829
+  - C00830
+  - C00891
+  - C00893
+  - C00926
+  - C00968
+  - C01012
+  - C01015
+  - C01016
+  - C01017
+  - C01018
+  - C01020
+  - C01021
+  - C01022
+  - C01050
+  - C01052
+  - C01126
+  - C01295
+  - C01296
+  - C01297
+  - C01299
+  - C01343
+  - C01351
+  - C01529
+  - C01582
+  confidence: high
+  applies_when:
+  - Teams need to run subsets by purpose, speed, risk, ownership, or setup requirement.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Move reusable test helpers to the narrowest scope that serves their users
+    and respects domain visibility.
+  derived_from_claims:
+  - C00617
+  - C00663
+  - C00692
+  - C00733
+  - C00737
+  - C00741
+  - C00744
+  - C00783
+  - C00784
+  - C00788
+  - C00802
+  - C00831
+  - C00867
+  - C00877
+  - C00954
+  - C00959
+  - C00960
+  - C00965
+  - C01011
+  - C01014
+  - C01039
+  - C01053
+  - C01055
+  - C01229
+  - C01257
+  - C01315
+  - C01316
+  - C01318
+  - C01364
+  - C01439
+  confidence: high
+  applies_when:
+  - Helper logic is needed by multiple classes, packages, or subsystems.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Use expected objects, delta assertions, or fuzzy equality when they express
+    result state more clearly than field-by-field checks.
+  derived_from_claims:
+  - C00561
+  - C00596
+  - C00753
+  - C00765
+  - C00769
+  - C00773
+  - C00774
+  - C00775
+  - C00776
+  - C00860
+  - C00867
+  - C00869
+  - C00884
+  - C00906
+  - C01002
+  - C01003
+  - C01004
+  - C01043
+  - C01074
+  - C01094
+  - C01103
+  - C01105
+  - C01106
+  - C01107
+  - C01108
+  - C01109
+  - C01410
+  - C01584
+  confidence: high
+  applies_when:
+  - The expected result is an object graph, a changed collection, a numeric approximation,
+    or a before-and-after delta.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Separate transaction control from business logic so tests can manage
+    commits, rollbacks, and verification deterministically.
+  derived_from_claims:
+  - C00718
+  - C00752
+  - C00845
+  - C00921
+  - C00925
+  - C00944
+  - C00946
+  - C01349
+  - C01406
+  - C01420
+  - C01421
+  - C01422
+  - C01423
+  - C01424
+  - C01425
+  - C01426
+  - C01427
+  - C01428
+  - C01429
+  - C01430
+  - C01431
+  - C01432
+  - C01434
+  - C01436
+  - C01437
+  - C01476
+  - C01477
+  confidence: high
+  applies_when:
+  - Business logic normally executes inside database or framework-managed transactions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Use a fixture registry or suite setup only when ordinary per-test setup
+    cannot share required objects cleanly.
+  derived_from_claims:
+  - C00702
+  - C00741
+  - C00757
+  - C00758
+  - C00759
+  - C00760
+  - C00892
+  - C00893
+  - C00894
+  - C00971
+  - C01041
+  - C01042
+  - C01043
+  - C01044
+  - C01045
+  - C01046
+  - C01047
+  - C01048
+  - C01049
+  - C01050
+  - C01051
+  - C01052
+  - C01060
+  - C01372
+  - C01373
+  - C01374
+  confidence: high
+  applies_when:
+  - Tests in different locations need access to the same expensive fixture or suite-owned
+    objects.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: Use unique generated or partitioning values when tests create persistent
+    resources in a shared namespace.
+  derived_from_claims:
+  - C00572
+  - C00730
+  - C00746
+  - C00857
+  - C00861
+  - C00897
+  - C00906
+  - C00959
+  - C00963
+  - C01031
+  - C01040
+  - C01043
+  - C01386
+  - C01388
+  - C01389
+  - C01391
+  - C01408
+  - C01515
+  - C01524
+  - C01526
+  - C01527
+  - C01528
+  - C01529
+  - C01530
+  - C01531
+  - C01532
+  confidence: high
+  applies_when:
+  - Tests create records, files, accounts, keys, or named resources that can collide
+    across runs or workers.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Keep each test focused on one condition and one exercise path so failures
+    localize the broken behavior.
+  derived_from_claims:
+  - C00587
+  - C00594
+  - C00622
+  - C00636
+  - C00649
+  - C00670
+  - C00674
+  - C00675
+  - C00676
+  - C00677
+  - C00732
+  - C00824
+  - C00872
+  - C00885
+  - C00910
+  - C00911
+  - C00930
+  - C00948
+  - C00996
+  - C01032
+  - C01117
+  - C01324
+  - C01332
+  - C01521
+  - C01577
+  confidence: high
+  applies_when:
+  - A behavior can be decomposed into independent input or state cases.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Use fake objects for complex or slow collaborators when a simplified
+    implementation gives deterministic behavior without encoding call-order expectations.
+  derived_from_claims:
+  - C00591
+  - C00658
+  - C00798
+  - C00804
+  - C00820
+  - C00851
+  - C00917
+  - C00979
+  - C00989
+  - C01076
+  - C01215
+  - C01216
+  - C01217
+  - C01218
+  - C01219
+  - C01220
+  - C01221
+  - C01225
+  - C01226
+  - C01227
+  - C01228
+  - C01538
+  - C01560
+  - C01567
+  confidence: high
+  applies_when:
+  - A collaborator has rich behavior that many tests need but real access is slow,
+    unavailable, or hard to set up.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Use coverage and smell diagnosis to find missing tests, but let risk
+    and behavior guide what to add.
+  derived_from_claims:
+  - C00566
+  - C00580
+  - C00592
+  - C00602
+  - C00603
+  - C00604
+  - C00607
+  - C00614
+  - C00643
+  - C00727
+  - C00824
+  - C00839
+  - C00855
+  - C00862
+  - C00922
+  - C00923
+  - C00924
+  - C00955
+  - C00977
+  - C01026
+  - C01449
+  - C01579
+  - C01583
+  confidence: high
+  applies_when:
+  - Assessing whether a codebase or test suite is adequate.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Choose between hard-coded, configurable, generated, and dynamic doubles
+    according to reuse, variation, language support, and readability.
+  derived_from_claims:
+  - C00807
+  - C00808
+  - C00979
+  - C01163
+  - C01188
+  - C01204
+  - C01214
+  - C01229
+  - C01230
+  - C01231
+  - C01232
+  - C01234
+  - C01236
+  - C01237
+  - C01242
+  - C01244
+  - C01248
+  - C01252
+  - C01253
+  - C01254
+  - C01255
+  - C01263
+  - C01455
+  confidence: high
+  applies_when:
+  - Several tests need similar doubles, or collaborator behavior varies across scenarios.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Bypass unstable user-interface layers when testing business logic; target
+    a stable service, facade, or public API instead.
+  derived_from_claims:
+  - C00548
+  - C00588
+  - C00598
+  - C00639
+  - C00707
+  - C00713
+  - C00714
+  - C00827
+  - C00846
+  - C00862
+  - C00929
+  - C00933
+  - C00973
+  - C00976
+  - C00985
+  - C00986
+  - C00988
+  - C01168
+  - C01224
+  - C01432
+  - C01457
+  - C01570
+  confidence: high
+  applies_when:
+  - The behavior under test is business logic or workflow beneath the UI.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Partition persistent fixture data by developer, runner, test, or schema
+    to prevent interaction in shared databases.
+  derived_from_claims:
+  - C00633
+  - C00692
+  - C00700
+  - C00906
+  - C00959
+  - C00963
+  - C00972
+  - C01040
+  - C01124
+  - C01137
+  - C01150
+  - C01380
+  - C01383
+  - C01384
+  - C01385
+  - C01386
+  - C01387
+  - C01388
+  - C01389
+  - C01408
+  - C01409
+  - C01495
+  confidence: high
+  applies_when:
+  - Multiple tests, developers, or parallel runners share a database instance.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Use direct failure calls and assertion messages to make failures diagnosable
+    at the point of failure.
+  derived_from_claims:
+  - C00559
+  - C00608
+  - C00703
+  - C00721
+  - C00767
+  - C00768
+  - C00786
+  - C00886
+  - C00901
+  - C00902
+  - C00918
+  - C01003
+  - C01009
+  - C01058
+  - C01089
+  - C01101
+  - C01104
+  - C01192
+  - C01193
+  - C01291
+  confidence: high
+  applies_when:
+  - Multiple checks or helper layers could otherwise make the failing condition ambiguous.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: 'Choose database cleanup based on transaction behavior: rollback for
+    uncommitted changes, truncation for committed state, and explicit teardown when
+    neither applies.'
+  derived_from_claims:
+  - C00752
+  - C00845
+  - C01405
+  - C01406
+  - C01407
+  - C01408
+  - C01409
+  - C01411
+  - C01412
+  - C01417
+  - C01420
+  - C01421
+  - C01422
+  - C01423
+  - C01424
+  - C01425
+  - C01428
+  - C01429
+  - C01431
+  - C01436
+  confidence: high
+  applies_when:
+  - Database tests create or modify persistent rows.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: Keep each test double API-compatible with the collaborator while implementing
+    only the behavior required by the test.
+  derived_from_claims:
+  - C00643
+  - C00695
+  - C00709
+  - C00814
+  - C00815
+  - C00821
+  - C00868
+  - C00881
+  - C00997
+  - C01016
+  - C01156
+  - C01164
+  - C01194
+  - C01207
+  - C01225
+  - C01275
+  - C01444
+  - C01563
+  - C01575
+  confidence: high
+  applies_when:
+  - The SUT must not know whether it is collaborating with a real object or a double.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: Avoid record-and-playback tests as a primary strategy; use them only
+    as short-lived regression capture before replacing brittle scripts.
+  derived_from_claims:
+  - C00549
+  - C00550
+  - C00586
+  - C00682
+  - C00727
+  - C00729
+  - C00862
+  - C00932
+  - C00934
+  - C00936
+  - C00939
+  - C00974
+  - C00986
+  - C01027
+  - C01037
+  - C01162
+  - C01270
+  - C01583
+  confidence: medium
+  applies_when:
+  - A tool records UI interactions or object traffic after the SUT already exists.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: Keep at least one integration path with the real collaborator when most
+    tests use doubles.
+  derived_from_claims:
+  - C00583
+  - C00608
+  - C00767
+  - C00910
+  - C00913
+  - C00946
+  - C01160
+  - C01177
+  - C01207
+  - C01218
+  - C01227
+  - C01442
+  - C01444
+  - C01445
+  - C01450
+  - C01452
+  - C01454
+  confidence: high
+  applies_when:
+  - A double stands in for infrastructure, persistence, remote services, or another
+    team-owned component.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: 'Use layered database tests intentionally: round-trip tests for normal
+    behavior and a small number of layer-crossing checks for mapping or persistence
+    details.'
+  derived_from_claims:
+  - C00593
+  - C00657
+  - C00708
+  - C00709
+  - C00772
+  - C00840
+  - C00841
+  - C00843
+  - C00844
+  - C00845
+  - C00908
+  - C00973
+  - C00975
+  - C00978
+  - C00987
+  - C00989
+  - C01398
+  confidence: high
+  applies_when:
+  - Testing repositories, mappers, or data access components.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: Use setup methods for essential irrelevant setup only; keep behavior-significant
+    setup visible in the test or its named helpers.
+  derived_from_claims:
+  - C00577
+  - C00726
+  - C00734
+  - C00735
+  - C00737
+  - C00738
+  - C00739
+  - C00742
+  - C01026
+  - C01035
+  - C01036
+  - C01038
+  - C01042
+  - C01243
+  - C01356
+  - C01566
+  confidence: high
+  applies_when:
+  - Many tests in a testcase class need the same background fixture.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Run persistence tests in an isolated database sandbox; never point automated
+    tests at production data.
+  derived_from_claims:
+  - C00752
+  - C00838
+  - C00843
+  - C00846
+  - C00857
+  - C00898
+  - C00905
+  - C00959
+  - C01040
+  - C01222
+  - C01295
+  - C01380
+  - C01390
+  - C01407
+  - C01420
+  - C01578
+  confidence: high
+  applies_when:
+  - Tests read or write persistent database state.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Do not change production equality semantics for test convenience; put
+    test-specific comparisons in assertions or comparison objects.
+  derived_from_claims:
+  - C00596
+  - C00774
+  - C00775
+  - C00776
+  - C00869
+  - C00884
+  - C01003
+  - C01074
+  - C01076
+  - C01100
+  - C01188
+  - C01214
+  - C01290
+  - C01291
+  - C01581
+  confidence: high
+  applies_when:
+  - Tests need looser, deeper, or domain-specific equality than production uses.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Treat stored procedures as production code that needs automated tests
+    close to its execution environment and readable call wrappers.
+  derived_from_claims:
+  - C00841
+  - C00843
+  - C01392
+  - C01393
+  - C01394
+  - C01395
+  - C01396
+  - C01397
+  - C01398
+  - C01399
+  - C01400
+  - C01401
+  - C01402
+  - C01403
+  - C01404
+  confidence: high
+  applies_when:
+  - Business rules or database-side behavior live in stored procedures.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: Return fixture objects explicitly from setup helpers unless storing them
+    in test instance state makes the test clearer.
+  derived_from_claims:
+  - C00736
+  - C00745
+  - C00960
+  - C01000
+  - C01038
+  - C01046
+  - C01124
+  - C01198
+  - C01308
+  - C01356
+  - C01360
+  - C01376
+  - C01379
+  - C01558
+  confidence: high
+  applies_when:
+  - A helper creates or finds objects used by the test body.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: Preserve encapsulation by testing through public interfaces unless a
+    layer-crossing or subclass technique is explicitly justified by testability risk.
+  derived_from_claims:
+  - C00593
+  - C00597
+  - C00657
+  - C00708
+  - C00709
+  - C00772
+  - C00844
+  - C00908
+  - C00929
+  - C00975
+  - C00987
+  - C00989
+  - C01068
+  - C01284
+  confidence: high
+  applies_when:
+  - A test wants to inspect internals or drive private state.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: Avoid complex teardown by reducing created resources, delegating cleanup,
+    or using sandbox rollback instead of mirroring construction manually.
+  derived_from_claims:
+  - C00565
+  - C00752
+  - C00867
+  - C00871
+  - C01405
+  - C01406
+  - C01407
+  - C01408
+  - C01409
+  - C01411
+  - C01412
+  - C01417
+  - C01436
+  confidence: high
+  applies_when:
+  - Cleanup logic grows proportionally with fixture complexity or becomes harder to
+    trust than the test.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Start cross-functional tests early enough to influence architecture,
+    not after all functional work is complete.
+  derived_from_claims:
+  - C00669
+  - C00683
+  - C00684
+  - C00732
+  - C00755
+  - C00825
+  - C00856
+  - C00882
+  - C00900
+  - C01088
+  - C01261
+  - C01262
+  - C01330
+  confidence: medium
+  applies_when:
+  - Performance, scalability, reliability, or other system qualities depend on architectural
+    choices.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Depend on roles (interfaces) rather than concrete classes and mock roles,
+    not objects — reserving mocking of concrete classes as a last resort — and prefer
+    composition and dependency injection over getters added only to enable testing.
+  derived_from_claims:
+  - C02736
+  - C02740
+  - C02748
+  - C02749
+  - C02750
+  - C02751
+  - C02752
+  - C02753
+  - C02842
+  - C02843
+  - C02844
+  - C02845
+  confidence: high
+  applies_when:
+  - deciding what to mock and how to depend on collaborators
+  - designing for testability and using mocks to drive design
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Separate infrastructure and UI/framework code from domain code — using
+    ports and adapters so the domain depends on technology-agnostic interfaces while
+    adapters hold infrastructure detail — so business rules can be tested without
+    external-system concerns.
+  derived_from_claims:
+  - C02085
+  - C02086
+  - C02087
+  - C02089
+  - C02092
+  - C02093
+  - C02094
+  - C02095
+  - C02096
+  - C02097
+  - C02099
+  - C02105
+  confidence: medium
+  applies_when:
+  - domain behavior depends on databases, web services, files, UI, or frameworks
+  - domain workflows need external information or effects
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: 'Reason about every coverage criterion through the RIPR model: input-space
+    criteria require none of reachability/infection/propagation, graph criteria require
+    reachability, logic criteria add infection, and mutation adds propagation, while
+    revealability depends on the oracle examining the affected output.'
+  derived_from_claims:
+  - C00004
+  - C00005
+  - C00006
+  - C00007
+  - C00008
+  - C00009
+  - C00047
+  - C00048
+  - C00049
+  - C00094
+  - C00105
+  confidence: high
+  applies_when:
+  - explaining why a test did or did not detect a fault
+  - comparing the fault-detecting power of coverage criteria
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: 'Use test-first and regression-first workflows: make the intended test
+    fail before changing production code.'
+  derived_from_claims:
+  - C00555
+  - C00584
+  - C00641
+  - C00644
+  - C00653
+  - C00787
+  - C00819
+  - C00874
+  - C00911
+  - C00927
+  - C01580
+  confidence: high
+  applies_when:
+  - You are adding behavior, fixing a bug, or using tests as design feedback.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: 'Choose coverage rigor contextually: branch coverage as a pragmatic default,
+    branch-plus-condition for complicated expressions, and MC/DC for very complex
+    expressions that cannot be simplified.'
+  derived_from_claims:
+  - C01787
+  - C01790
+  - C01791
+  - C01792
+  - C01794
+  - C01796
+  - C01835
+  - C01836
+  - C01837
+  - C01838
+  - C01840
+  confidence: medium
+  applies_when:
+  - testing complex conditional expressions
+  - selecting structural coverage criteria
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Recognize Implicant Coverage as weak (it subsumes Predicate Coverage
+    but no ACC criterion), and build up through the DNF fault-detecting criteria -
+    MUTP (detects Literal Insertion and seven of nine fault classes but only true
+    points), CUTPNFP (adds Literal Omission and subsumes RACC), and MNFP - combining
+    all three as MUMCUT to detect the entire fault hierarchy even under partial infeasibility.
+  derived_from_claims:
+  - C00365
+  - C00366
+  - C00369
+  - C00370
+  - C00371
+  - C00372
+  - C00373
+  - C00374
+  - C00375
+  - C00376
+  confidence: high
+  applies_when:
+  - designing syntactic (DNF) logic tests for fault detection
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: Name tests systematically so package, class, and method names reveal
+    the SUT, scenario, and expected outcome.
+  derived_from_claims:
+  - C00828
+  - C00830
+  - C00933
+  - C01019
+  - C01022
+  - C01266
+  - C01297
+  - C01337
+  - C01352
+  - C01360
+  confidence: high
+  applies_when:
+  - A reader sees a failing test in a report or navigates the test tree.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: Expect that testing from multiple angles raises the chance of finding
+    bugs without guaranteeing bug-free software; complement techniques with domain
+    knowledge and treat automated generation or fuzzing as augmenting, not replacing,
+    human test design.
+  derived_from_claims:
+  - C01635
+  - C01636
+  - C01639
+  - C01640
+  - C01641
+  - C01642
+  - C01643
+  - C02449
+  - C02450
+  - C02451
+  confidence: medium
+  applies_when:
+  - building a project-level testing strategy
+  - setting expectations for systematic testing of complex systems
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: Refactor production code toward dependency injection when internal construction
+    prevents tests from replacing collaborators.
+  derived_from_claims:
+  - C01999
+  - C02000
+  - C02001
+  - C02003
+  - C02004
+  - C02065
+  - C02113
+  - C02114
+  - C02115
+  - C02128
+  confidence: medium
+  applies_when:
+  - a class constructs concrete dependencies itself
+  - using test doubles in unit tests
+  - collaborators affect behavior or external effects
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: 'Maintain test code actively like production code: keep tests fast, readable,
+    focused, independent, and worth their maintenance cost.'
+  derived_from_claims:
+  - C02025
+  - C02026
+  - C02392
+  - C02393
+  - C02396
+  - C02397
+  - C02398
+  - C02401
+  - C02421
+  - C02422
+  confidence: medium
+  applies_when:
+  - test setup is repetitive or unclear
+  - reviewing test-code quality
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: Design tests by modeling the software artifact as one of four abstract
+    structures (input space, graphs, logic expressions, syntax) and applying a formal
+    coverage criterion to that model, keeping test design independent of any particular
+    artifact so the same criteria transfer across code, designs, and specifications.
+  derived_from_claims:
+  - C00001
+  - C00002
+  - C00010
+  - C00028
+  - C00040
+  - C00050
+  - C00067
+  - C00077
+  - C00078
+  confidence: high
+  applies_when:
+  - planning what tests to write for any software artifact
+  - choosing a systematic, criteria-based testing approach
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: 'Keep the fault/error/failure vocabulary precise: a fault is a static
+    defect, an error is an incorrect internal state, and a failure is externally wrong
+    behavior; an executed fault may create an error state that never propagates to
+    output, so not every fault causes an observable failure.'
+  derived_from_claims:
+  - C00011
+  - C00012
+  - C00013
+  - C00016
+  - C00017
+  - C00018
+  - C00044
+  - C00045
+  - C00046
+  confidence: high
+  applies_when:
+  - diagnosing defects and communicating about them
+  - distinguishing testing from debugging
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: Turn use cases into test graphs (following the find-a-graph-then-cover-it
+    principle) by treating description steps as action-state nodes and alternatives
+    as branch nodes; apply Node and Edge Coverage (and Specified Path Coverage over
+    user scenarios), because use-case graphs have few loops and simple predicates
+    so logic and data flow criteria rarely apply, and start early since use cases
+    appear early.
+  derived_from_claims:
+  - C00317
+  - C00318
+  - C00319
+  - C00320
+  - C00321
+  - C00322
+  - C00323
+  - C00324
+  - C00325
+  confidence: high
+  applies_when:
+  - deriving tests from UML use cases
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: 'Focus integration testing on data flow couplings, which are complex
+    and fault-rich unlike simple control couplings: exercise parameter, shared-data,
+    and external-device coupling by touring coupling du-paths from each last-def to
+    its first-uses (All-Coupling-Def / All-Coupling-Use), considering only callee-relevant
+    variables and accounting for implicit initialization of class and global variables.'
+  derived_from_claims:
+  - C00285
+  - C00286
+  - C00287
+  - C00288
+  - C00289
+  - C00290
+  - C00291
+  - C00292
+  - C00293
+  confidence: high
+  applies_when:
+  - designing coupling-based integration tests between caller and callee
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: 'Test malformed-input rejection explicitly, and understand mutation as
+    applying operators to a ground string to make mutants: design the operator set
+    carefully (a well-chosen set is powerful, a poor one is useless), mutate one element
+    at a time, apply every applicable operation, and score by the ratio of killed
+    mutants, remembering mutation yields the most test requirements and is a high-end,
+    expensive criterion.'
+  derived_from_claims:
+  - C00422
+  - C00423
+  - C00424
+  - C00425
+  - C00426
+  - C00427
+  - C00428
+  - C00429
+  - C00430
+  confidence: high
+  applies_when:
+  - designing or applying mutation testing
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: Use saboteurs to force exceptional collaborator behavior that is hard
+    or unsafe to trigger with the real dependency.
+  derived_from_claims:
+  - C00800
+  - C00820
+  - C00849
+  - C00916
+  - C00957
+  - C01101
+  - C01171
+  - C01172
+  - C01569
+  confidence: high
+  applies_when:
+  - The SUT must handle errors from a collaborator or external system.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: Mock a third-party library only in rare, justified cases (e.g., simulating
+    hard-to-trigger behavior or a call sequence); when an adapter must call back into
+    the application, mock only the application-defined callback interfaces to verify
+    event translation, and isolate and translate third-party value types the same
+    way you isolate services.
+  derived_from_claims:
+  - C02637
+  - C02638
+  - C02639
+  - C02640
+  - C02641
+  - C02642
+  - C02643
+  - C02644
+  - C02645
+  confidence: high
+  applies_when:
+  - integrating standard APIs, libraries, or vendor products
+  - testing code at the boundary with a third-party library
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: Run coverage, inspect uncovered or partially covered code, decide consciously
+    whether new tests are needed, and iterate after each added test.
+  derived_from_claims:
+  - C01609
+  - C01610
+  - C01617
+  - C01779
+  - C01780
+  - C01781
+  - C01782
+  - C01783
+  - C01784
+  confidence: medium
+  applies_when:
+  - reviewing suite adequacy
+  - performing a coverage-guided pass
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: Ensure generated data covers the important partitions with reasonable
+    probability; measure or inspect generator output when distribution is uncertain.
+  derived_from_claims:
+  - C01939
+  - C01942
+  - C01944
+  - C01945
+  - C01951
+  - C01954
+  - C01955
+  - C01980
+  - C01981
+  confidence: medium
+  applies_when:
+  - random generation may not naturally hit key cases
+  - random generation may bias toward one outcome
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: Prefer state testing for value or state changes, and interaction testing
+    only when collaboration is the behavior that matters.
+  derived_from_claims:
+  - C02028
+  - C02038
+  - C02039
+  - C02040
+  - C02050
+  - C02064
+  - C02073
+  - C02074
+  - C02075
+  confidence: medium
+  applies_when:
+  - choosing between output assertions and interaction verification
+  - choosing assertion style
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: Justify TDD by its design feedback, steady progress, refactoring prompts,
+    and improved testability rather than as a way to completely test software.
+  derived_from_claims:
+  - C02199
+  - C02201
+  - C02202
+  - C02203
+  - C02204
+  - C02207
+  - C02208
+  - C02209
+  - C02485
+  confidence: medium
+  applies_when:
+  - a developer needs structured feedback during implementation
+  - explaining or motivating the use of TDD
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Do not treat TDD as mandatory or magical; use it pragmatically where
+    it improves learning, reflection, and productivity.
+  derived_from_claims:
+  - C02205
+  - C02206
+  - C02211
+  - C02212
+  - C02213
+  - C02214
+  - C02215
+  - C02219
+  - C02225
+  confidence: medium
+  applies_when:
+  - choosing a development workflow
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: Treat test flakiness as a trust and productivity problem, and diagnose
+    it first by checking external or unavailable resources, dirty shared or application
+    state, timeouts and asynchronous waits, concurrency, and test-order or mystery-guest
+    dependencies.
+  derived_from_claims:
+  - C02403
+  - C02404
+  - C02405
+  - C02406
+  - C02407
+  - C02408
+  - C02409
+  - C02488
+  - C02489
+  confidence: medium
+  applies_when:
+  - a test fails nondeterministically
+  - a test is intermittently failing or relies on an external prepared fixture
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: Model an artifact as a directed graph (nodes, non-empty initial and final
+    node sets, edges) to apply graph coverage, remembering the graph abstracts and
+    omits detail, that a test path runs from an initial to a final node and only models
+    a test case, and that a node/edge may be syntactically reachable yet semantically
+    unreachable.
+  derived_from_claims:
+  - C00222
+  - C00223
+  - C00224
+  - C00225
+  - C00226
+  - C00227
+  - C00228
+  - C00229
+  confidence: high
+  applies_when:
+  - extracting a graph model for coverage analysis
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: 'In agile and test-driven development treat high-quality tests as the
+    definition of behavior: write tests first, implement second, refactor third; add
+    functionality only in response to a failing test; and when someone wants different
+    behavior, express it as a new failing test.'
+  derived_from_claims:
+  - C00125
+  - C00126
+  - C00127
+  - C00128
+  - C00130
+  - C00137
+  - C00143
+  - C00144
+  confidence: high
+  applies_when:
+  - practising test-driven or agile development
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: 'Choose a combination strategy by cost/strength: All Combinations is
+    exponential and usually impractical; Each Choice is cheapest; Pair-Wise and T-Wise
+    combine values blindly across characteristics; and Base Choice builds a base test
+    then varies one characteristic at a time, which also cleanly isolates invalid
+    values.'
+  derived_from_claims:
+  - C00193
+  - C00194
+  - C00195
+  - C00196
+  - C00197
+  - C00198
+  - C00199
+  - C00200
+  confidence: high
+  applies_when:
+  - selecting how to combine input-domain blocks into tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: 'Prefer Prime Path Coverage for loop-bearing graphs: a prime path is
+    a maximal simple path, it keeps the number of test requirements low, and unlike
+    Complete Path Coverage it stays finite when the graph has cycles - but watch that
+    an infeasible prime path may contain feasible shorter subpaths that still need
+    covering.'
+  derived_from_claims:
+  - C00234
+  - C00235
+  - C00236
+  - C00237
+  - C00244
+  - C00245
+  - C00246
+  - C00247
+  confidence: high
+  applies_when:
+  - choosing a path-based coverage criterion for a graph with loops
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: 'Use the coverage-criteria subsumption hierarchy to choose strength:
+    Edge subsumes Node (but not vice versa), Prime Path subsumes Edge-Pair only without
+    self-loops, All-Uses subsumes All-Defs, All-du-Paths subsumes All-Uses, and Prime
+    Path Coverage subsumes all the data flow criteria while being simpler to compute
+    - so consider Prime Path Coverage in place of data flow, whose data-flow subsumptions
+    hold only under stated assumptions.'
+  derived_from_claims:
+  - C00257
+  - C00258
+  - C00259
+  - C00260
+  - C00261
+  - C00262
+  - C00263
+  - C00268
+  confidence: high
+  applies_when:
+  - comparing the strength and cost of graph and data flow criteria
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: 'Derive FSMs by modeling state variables rather than by combining control
+    flow graphs or mapping methods to states: state-variable modeling is repeatable
+    across testers, needs the design not the finished code, and requires grouping
+    variable values into semantically similar ranges to keep the state space tractable;
+    deriving an FSM at all tends to expose design flaws, and specification-derived
+    FSMs are cleanest.'
+  derived_from_claims:
+  - C00309
+  - C00310
+  - C00311
+  - C00312
+  - C00313
+  - C00314
+  - C00315
+  - C00316
+  confidence: high
+  applies_when:
+  - constructing an FSM model of existing or designed software
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: In program-based mutation seek a mutation-adequate test set that distinguishes
+    the program from its compilable mutants (count roughly proportional to variable
+    references times variables), design operators either to mimic programmer mistakes
+    or to force effective tests, and discard stillborn (uncompilable) mutants while
+    accepting that equivalent mutants can never be killed and detecting them is undecidable.
+  derived_from_claims:
+  - C00431
+  - C00432
+  - C00433
+  - C00434
+  - C00435
+  - C00436
+  - C00437
+  - C00438
+  confidence: high
+  applies_when:
+  - applying mutation testing to program source
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: Test malformed and invalid inputs deliberately as stress and security
+    testing (unhandled invalid inputs enable buffer-overflow and injection attacks)
+    by mutating the input grammar so the mutants are the tests; apply operators during
+    derivation to stay close to valid, screen out still-valid mutants with a recognizer,
+    and where a program accepts only a language subset, use strings valid in the full
+    grammar but not the subset as attack tests.
+  derived_from_claims:
+  - C00473
+  - C00474
+  - C00475
+  - C00476
+  - C00477
+  - C00478
+  - C00479
+  - C00480
+  confidence: high
+  applies_when:
+  - generating invalid-input and security stress tests from a grammar
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: Keep custom assertions pure, parameterized, and independently tested
+    when their logic is nontrivial.
+  derived_from_claims:
+  - C00620
+  - C00869
+  - C01084
+  - C01091
+  - C01099
+  - C01100
+  - C01101
+  - C01102
+  confidence: high
+  applies_when:
+  - A helper contains branching, comparison rules, or reusable diagnostic behavior.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: For end-to-end testing of asynchronous, event-based systems, cope with
+    asynchrony by polling for a visible effect (UI change or log entry) with a timeout,
+    controlling the application and stepping through the scenario (wait for an assertion,
+    then send the next event), and expect these tests to be slower and more brittle
+    so their failures may need interpretation.
+  derived_from_claims:
+  - C02651
+  - C02652
+  - C02653
+  - C02654
+  - C02718
+  - C02719
+  - C02720
+  - C02721
+  confidence: high
+  applies_when:
+  - writing end-to-end tests for asynchronous or event-driven systems
+  - testing and coordinating UI/threaded code and reasoning about structure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P089
+  statement: Engineer tests systematically from requirements, boundaries, corner cases,
+    invalid inputs, and structural gaps instead of relying on remembered examples
+    or intuition alone.
+  derived_from_claims:
+  - C01587
+  - C01590
+  - C01591
+  - C01592
+  - C01598
+  - C01610
+  - C01611
+  - C01612
+  confidence: medium
+  applies_when:
+  - designing developer tests for nontrivial behavior
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: Use structural testing after specification-based testing to reveal implementation
+    decisions, branches, or missing-code defects that requirements-derived cases missed.
+  derived_from_claims:
+  - C01722
+  - C01723
+  - C01733
+  - C01739
+  - C01743
+  - C01776
+  - C01777
+  - C01778
+  confidence: medium
+  applies_when:
+  - requirements-derived tests are already in place
+  - source code is available after specification-derived testing
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: Partition inputs and outputs into representative classes that are expected
+    to produce different behavior, including relationships among multiple inputs.
+  derived_from_claims:
+  - C01691
+  - C01692
+  - C01693
+  - C01694
+  - C01696
+  - C01698
+  - C01699
+  - C01706
+  confidence: medium
+  applies_when:
+  - full input-combination testing is infeasible
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: For each meaningful boundary, test the on point and nearest off point,
+    including both sides for equality boundaries, and discard duplicates already covered
+    by another case.
+  derived_from_claims:
+  - C01700
+  - C01701
+  - C01702
+  - C01703
+  - C01704
+  - C01705
+  - C02471
+  - C02475
+  confidence: medium
+  applies_when:
+  - testing transitions between partitions
+  - performing boundary analysis on conditions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: Use specification-based functional testing (no source code needed) with
+    equivalence partitioning to keep one representative per partition, only one case
+    for exceptional partitions, and justify why each chosen invalid case matters.
+  derived_from_claims:
+  - C01707
+  - C01708
+  - C01709
+  - C01730
+  - C02467
+  - C02468
+  - C02469
+  - C02470
+  confidence: medium
+  applies_when:
+  - partition combinations threaten suite size
+  - deriving tests from requirements or external behavior
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: 'Choose or blend TDD schools based on fit: inside-out classicist tests,
+    outside-in mockist tests, and hybrids all use tests to learn about design.'
+  derived_from_claims:
+  - C02231
+  - C02232
+  - C02233
+  - C02234
+  - C02235
+  - C02236
+  - C02237
+  - C02238
+  confidence: medium
+  applies_when:
+  - selecting a TDD style
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: Use fast setup APIs or helpers for prerequisite data that is not part
+    of the journey under test, but keep test-only APIs and reset backdoors out of
+    production.
+  derived_from_claims:
+  - C02363
+  - C02364
+  - C02365
+  - C02366
+  - C02368
+  - C02373
+  - C02374
+  - C02375
+  confidence: medium
+  applies_when:
+  - system-test setup would require long unrelated UI navigation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
+  statement: 'Institutionalize quality through ethics and artifact management: put
+    quality first and refuse to build what cannot be tested, regression-test every
+    change, place all test artifacts under version control while tracking each test''s
+    criteria-based source, and emphasize test-plan content over documentation form,
+    following IEEE 829''s Master and Level Test Plan structure with a traceability
+    matrix and explicit features-to-test and not-to-test.'
+  derived_from_claims:
+  - C00495
+  - C00496
+  - C00497
+  - C00498
+  - C00499
+  - C00500
+  - C00501
+  confidence: high
+  applies_when:
+  - establishing test governance, documentation, and plans
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: Use logic coverage to advance from reaching a location to infecting internal
+    state via truth-value combinations; prefer the semantic approach (same tests regardless
+    of how a predicate is written) for portability, but use the syntactic (DNF) approach
+    when detecting more faults justifies its extra complexity.
+  derived_from_claims:
+  - C00328
+  - C00329
+  - C00330
+  - C00331
+  - C00332
+  - C00333
+  - C00361
+  confidence: high
+  applies_when:
+  - choosing between semantic and syntactic logic coverage
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: 'Base data flow coverage on def-use pairs: a def stores a value and a
+    use reads it, a def reaches a use only along a def-clear path, and a du-path is
+    a simple def-clear path from def to use; require All-Defs (each def reaches one
+    use), All-Uses (each def reaches every use), or All-du-Paths (every du-path to
+    each use), touring with Best Effort.'
+  derived_from_claims:
+  - C00250
+  - C00251
+  - C00252
+  - C00253
+  - C00254
+  - C00255
+  - C00256
+  confidence: high
+  applies_when:
+  - applying data flow coverage criteria
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: Test sequencing constraints - rules on the order methods may be called
+    - by hunting for implicit as well as explicit constraints, treating 'must' violations
+    as faults and 'should' violations as potential faults, and checking them both
+    statically (prohibited/required paths in the client CFG) and dynamically via test
+    requirements that try to violate each constraint, which are infeasible in correct
+    programs but reveal a fault when one exists.
+  derived_from_claims:
+  - C00298
+  - C00299
+  - C00300
+  - C00301
+  - C00302
+  - C00303
+  - C00304
+  confidence: high
+  applies_when:
+  - testing that clients of a class respect its call-order rules
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: 'Prefer Correlated Active Clause Coverage as the most practical ACC flavor:
+    General ACC does not subsume Predicate Coverage, while Restricted ACC can be infeasible
+    or hard to satisfy exactly when clause constraints exist and gives no evidence
+    of better tests, whereas CACC subsumes Predicate Coverage.'
+  derived_from_claims:
+  - C00346
+  - C00347
+  - C00348
+  - C00349
+  - C00358
+  - C00359
+  - C00360
+  confidence: high
+  applies_when:
+  - choosing which Active Clause Coverage variant to apply
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []

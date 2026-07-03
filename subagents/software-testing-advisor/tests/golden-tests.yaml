@@ -1,0 +1,114 @@
+schema_version: golden-tests-v1
+subagent_slug: software-testing-advisor
+generated_at: "2026-07-03T00:00:00+00:00"
+
+golden_tests:
+  - test_id: GT-001
+    description: "Positive routing — advise on how to design tests for a unit with a dependency"
+    prompt: >
+      I have a PriceCalculator that reads exchange rates from an external HTTP service and
+      applies tiered discounts. How should I design tests for it?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: >
+      A test design: partition the discount tiers and pick on/off boundary points, isolate the
+      rate service with a stub (and a saboteur for its error path), and verify the result by state,
+      each named against its principle.
+    must_not_do:
+      - "Write the test classes or choose a specific test framework for the developer"
+      - "Claim the tests will prove the calculator is bug-free"
+      - "Recommend interaction verification when the observable result is what matters"
+
+  - test_id: GT-002
+    description: "Positive routing — review an existing test suite for smells and gaps"
+    prompt: >
+      Here is our test class: it has one giant shared fixture, several tests with multiple
+      assertions and if/else branches, and it talks to the real staging database. Is it good?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: >
+      A critique naming the smells (obscure/eager tests, conditional logic, shared fixture, tests
+      on a live database) and a targeted per-smell repair, plus whether verification and coverage
+      are adequate.
+    must_not_do:
+      - "Rewrite the suite for the developer"
+      - "Endorse pointing automated tests at shared or production data"
+      - "Approve conditional verification instead of guard assertions or separate tests"
+
+  - test_id: GT-003
+    description: "Positive routing — compare coverage criteria by cost and strength"
+    prompt: >
+      For a method with a loop and a compound boolean condition, should I aim for branch coverage,
+      MC/DC, or prime-path coverage?
+    expected_route: invoke
+    expected_mode: compare
+    must_ask_for: []
+    minimum_output: >
+      A contrast tied to the subsumption hierarchy and cost/strength — branch as a pragmatic
+      default, condition/MC-DC for the compound expression, prime-path for the loop — ending in a
+      contextual recommendation.
+    must_not_do:
+      - "Assert one criterion is universally correct regardless of the code"
+      - "Ignore the subsumption relationships between the criteria"
+
+  - test_id: GT-004
+    description: "Positive routing — choose the right kind of test double"
+    prompt: >
+      My service under test calls a payment gateway that is slow and sometimes returns errors.
+      Should I use a stub, a mock, a spy, or a fake?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: >
+      A recommendation distinguishing the doubles: a stub for fixed indirect input, a saboteur to
+      force the error path, and interaction verification only if the call protocol is the behaviour
+      — installed through a substitutable dependency.
+    must_not_do:
+      - "Recommend mocking a concrete class when a role/interface exists"
+      - "Verify interactions when state verification of the result is what the behaviour needs"
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: "Negative routing — request to write the production/test code and pick a framework"
+    prompt: >
+      Just write me the full JUnit test classes and pick a mocking framework for this repository.
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >
+      A decline with the scope reason: this advisor recommends test designs and reviews tests, and
+      does not write the code or choose frameworks; offer the design instead.
+    must_not_do:
+      - "Produce the test source code"
+      - "Select or configure a specific test framework"
+
+  - test_id: NR-002
+    description: "Negative routing — no test-design dimension"
+    prompt: >
+      Which cloud region and instance type should we deploy our service to for lowest latency?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >
+      A non-routing reason: this is an infrastructure/performance question with no unit- or
+      integration-level test-design dimension.
+    must_not_do:
+      - "Invent testing scope for an out-of-scope infrastructure question"
+
+missing_context_tests:
+  - test_id: MC-001
+    description: "Missing required input — no artifact or specification provided"
+    prompt: >
+      Can you review my tests?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for:
+      - "The tests or suite under review, the behaviour/specification they target, and the collaborators involved"
+    minimum_output: >
+      A clear statement of what is missing (the tests and the behaviour/spec they target) before a
+      review can proceed.
+    must_not_do:
+      - "Proceed as if a suite was provided"
+      - "Hallucinate the contents of tests that were not shown"
