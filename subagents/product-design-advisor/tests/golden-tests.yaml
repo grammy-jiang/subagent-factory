@@ -1,0 +1,198 @@
+schema_version: golden-tests-v1
+subagent_slug: product-design-advisor
+generated_at: '2026-07-03'
+profile_version: "0.1.0"
+tier: 2
+golden_tests:
+  - test_id: GT-001
+    description: Positive routing — reframe a feature roadmap around outcomes
+    prompt: >-
+      Our execs handed us a roadmap of features to ship next quarter and asked us to prioritize the
+      backlog. How should we approach it?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      A recommendation that reframes the features as outcomes and testable assumptions, names the
+      build trap, and states the trade-off of outcome goals versus a fixed feature list.
+    must_do:
+      - Ask what customer or business outcome each feature is meant to move
+      - Name the build trap of prioritizing outputs over outcomes
+      - State the trade-off of the recommended approach
+    must_not_do:
+      - Prioritize the feature list as given without questioning the outcome
+      - Produce production code or UI design
+    principle_coverage: [P002, P004, P059]
+  - test_id: GT-002
+    description: Positive routing — discovery when the team is disconnected from users
+    prompt: >-
+      We want to decide what to build next, but we haven't talked to a real user in months and are
+      leaning on a market-research report. What should we do?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      A recommendation to run continuous discovery with direct user contact over market research,
+      naming the trade-off.
+    must_do:
+      - Recommend direct, personal contact with real users
+      - Caution against deciding what to build from market research alone
+    must_not_do:
+      - Endorse building from the market-research report without user contact
+    principle_coverage: [P088, P046, P084]
+  - test_id: GT-003
+    description: Positive routing — validate a big feature before building
+    prompt: >-
+      We're about to commit an engineering quarter to a major new feature. How do we validate it
+      first?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      A recommendation to state the assumptions as hypotheses and test them with the smallest MVP or
+      experiment before build, with the trade-off named.
+    must_do:
+      - Turn the idea into testable assumptions or hypotheses
+      - Recommend the smallest experiment or MVP that could disprove it
+    must_not_do:
+      - Endorse building the full feature before any validation
+    principle_coverage: [P003, P085, P093]
+  - test_id: GT-004
+    description: Positive routing — choose prototype fidelity
+    prompt: >-
+      We need to test a new onboarding flow. Should we use paper prototypes, clickable wireframes, or
+      a high-fidelity prototype?
+    expected_route: invoke
+    expected_mode: compare
+    minimum_output: >-
+      A comparison of fidelities by the risk each retires and the cost each carries, ending in a
+      recommendation tied to what must be learned.
+    must_do:
+      - Pick fidelity by the risk being retired
+      - State the trade-off of each fidelity level
+    must_not_do:
+      - Recommend one fidelity as universally best with no trade-off
+    principle_coverage: [P030, P033, P036]
+  - test_id: GT-005
+    description: Positive routing — organize a release with a story map
+    prompt: >-
+      We have a long flat backlog of user stories but the team has no shared picture of the release.
+      How do we organize it?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      A recommendation to story-map along a backbone of user activities and slice thin end-to-end
+      releases toward an outcome, with the trade-off named.
+    must_do:
+      - Recommend mapping a left-to-right backbone of user activities
+      - Recommend slicing thin end-to-end releases toward an outcome
+    must_not_do:
+      - Leave the backlog as a flat list without a narrative structure
+    principle_coverage: [P050, P011, P034]
+  - test_id: GT-006
+    description: Positive routing — scope and pitch fixed-appetite work
+    prompt: >-
+      We keep blowing past our estimates and scope creeps every cycle. How should we scope and pitch
+      the next project?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A recommendation to set an appetite (fix time, vary scope), shape at the right abstraction, and
+      write a pitch with problem/appetite/solution/rabbit-holes/no-gos, with the trade-off named.
+    must_do:
+      - Recommend fixing time and varying scope (appetite over estimate)
+      - Recommend judging good-enough against a baseline, not an ideal
+    must_not_do:
+      - Recommend more detailed up-front estimates as the fix
+    principle_coverage: [P038, P105, P106]
+  - test_id: GT-007
+    description: Positive routing — lead an empowered product team
+    prompt: >-
+      As a new product manager, how should I lead a team that is currently organized around technical
+      components and takes orders from stakeholders?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      A recommendation to lead by influence, structure the team around outcomes, and grant autonomy
+      aligned to strategic intent, with the trade-off named.
+    must_do:
+      - Recommend leading through influence rather than authority
+      - Recommend organizing around outcomes or value streams
+    must_not_do:
+      - Advise acting as a mini-CEO issuing orders
+    principle_coverage: [P021, P082, P019]
+  - test_id: GT-008
+    description: Positive routing — review a human-AI interaction design
+    prompt: >-
+      We're adding an AI autocomplete that acts on the user's behalf. Review our interaction design
+      for human control.
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review that treats control and automation as independent dimensions, checks for efficient
+      invoke/terminate and meaningful human control, and evaluates by human outcomes.
+    must_do:
+      - Check that the user can efficiently invoke and terminate the automation
+      - Look for a high-automation design that still preserves human control
+    must_not_do:
+      - Assume more automation must mean less human control
+    principle_coverage: [P001, P026, P052]
+negative_routing_tests:
+  - test_id: NR-001
+    description: Out of scope — production code and UI design
+    prompt: >-
+      Write the production React components and CSS for our new checkout screen and hand me the code.
+    expected_route: do_not_invoke
+    must_not_do:
+      - Produce production code or UI/visual design deliverables
+    principle_coverage: []
+  - test_id: NR-002
+    description: Out of scope — vendor / tech-stack selection
+    prompt: >-
+      Which database and cloud provider should we standardize on for our backend?
+    expected_route: do_not_invoke
+    must_not_do:
+      - Prescribe a specific vendor, framework, or tech stack
+    principle_coverage: []
+  - test_id: NR-003
+    description: Out of scope — HR / legal decision
+    prompt: >-
+      Draft the employment contract and compensation package for the designer we are about to hire.
+    expected_route: do_not_invoke
+    must_not_do:
+      - Give people-management, HR, or legal/contract advice
+    principle_coverage: []
+missing_context_tests:
+  - test_id: MC-001
+    description: Underspecified — no outcome or user context
+    prompt: >-
+      Should we build this feature?
+    expected_route: invoke
+    must_ask_for:
+      - the customer or business outcome the feature should serve
+      - who the users are and what problem they have
+      - what is already known versus assumed
+  - test_id: MC-002
+    description: Underspecified — review request with no artifact
+    prompt: >-
+      Review our roadmap.
+    expected_route: invoke
+    must_ask_for:
+      - the roadmap or artifact itself
+      - the outcomes it is meant to move
+      - the appetite or timeline and constraints
+  - test_id: MC-003
+    description: Underspecified — prototype choice with no risk stated
+    prompt: >-
+      What prototype should we use?
+    expected_route: invoke
+    must_ask_for:
+      - the risk or question the test must retire
+      - who will be tested and the task they must complete
+      - the decision the test will inform
+  - test_id: MC-004
+    description: Underspecified — vague AI-feature help
+    prompt: >-
+      Help us with our AI feature.
+    expected_route: invoke
+    must_ask_for:
+      - what the feature does and the task context
+      - the human-control and initiative needs
+      - the human outcome it should be evaluated by
