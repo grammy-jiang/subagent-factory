@@ -1,0 +1,253 @@
+# Faithfulness review — application-security-reviewer
+# Per-rule claim-strength check of load-bearing profile rules against the promoted
+# principles and their backing claims/evidence. No rule is stronger than its evidence;
+# source_anchors are omitted deliberately (provenance carried in each note via
+# principle + claim IDs).
+schema_version: faithfulness-report-v1
+subagent_slug: application-security-reviewer
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The role restates the sources'' framing — full-stack web and API security review, identity-first
+    — and narrows scope to defensive advice/review (no offensive testing, no code, no decision). A narrowing,
+    not an over-claim. Grounded in principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the sources directly address; within scope. Grounded in
+    principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the sources directly address; within scope. Grounded in
+    principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the sources directly address; within scope. Grounded in
+    principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the sources directly address; within scope. Grounded in
+    principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the sources directly address; within scope. Grounded in
+    principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The exclusion is stronger-restrictive than the source, not stronger-permissive; a safe narrowing.
+    Grounded in principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The exclusion is stronger-restrictive than the source, not stronger-permissive; a safe narrowing.
+    Grounded in principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The exclusion is stronger-restrictive than the source, not stronger-permissive; a safe narrowing.
+    Grounded in principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The output shape (weakness, attack, countermeasure, trade-off, next step, no exploit) follows
+    the sources'' defensive, layered guidance. Grounded in principle(s): P001 (claims C00345/C00348);
+    P003 (claims C00371/C00372).'
+- rule_ref: outputs.modes[review].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The review mode restates review/advice behaviour the sources support; within scope. Grounded
+    in principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: outputs.modes[advise].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The advise mode restates review/advice behaviour the sources support; within scope. Grounded
+    in principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: outputs.modes[compare].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The compare mode restates review/advice behaviour the sources support; within scope. Grounded
+    in principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar is drawn directly from the cited principles and no rule is stronger than its
+    evidence. Grounded in principle(s): P003 (claims C00371/C00372); P001 (claims C00345/C00348); P010
+    (claims C00366/C00367); P046 (claims C00456/C00457).'
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar is drawn directly from the cited principles and no rule is stronger than its
+    evidence. Grounded in principle(s): P018 (claims C00024/C00027); P034 (claims C00008/C00009); P002
+    (claims C00012/C00013); P029 (claims C00415/C00416).'
+- rule_ref: quality_bar[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar is drawn directly from the cited principles and no rule is stronger than its
+    evidence. Grounded in principle(s): P016 (claims C00401/C00402); P022 (claims C00217/C00219); P008
+    (claims C00488/C00489); P031 (claims C00433/C00434).'
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar is drawn directly from the cited principles and no rule is stronger than its
+    evidence. Grounded in principle(s): P049 (claims C00018/C00019); P025 (claims C00465/C00466); P030
+    (claims C00460/C00461); P023 (claims C00427/C00428).'
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar is drawn directly from the cited principles and no rule is stronger than its
+    evidence. Grounded in principle(s): P006 (claims C00303/C00304); P039 (claims C00223/C00229); P015
+    (claims C00384/C00385); P004 (claims C00406/C00407).'
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The minimum bar (name the weakness+attack, apply a named principle, state the trade-off) is a
+    floor within the sources'' scope. Grounded in principle(s): P001 (claims C00345/C00348); P003 (claims
+    C00371/C00372).'
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The prohibition is more restrictive than the source (bans exploitation / trusting client data
+    / single-control claims); a safe narrowing, never an over-claim. Grounded in principle(s): P006 (claims
+    C00303/C00304); P039 (claims C00223/C00229).'
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The prohibition is more restrictive than the source (bans exploitation / trusting client data
+    / single-control claims); a safe narrowing, never an over-claim. Grounded in principle(s): P003 (claims
+    C00371/C00372); P023 (claims C00427/C00428); P025 (claims C00465/C00466).'
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The prohibition is more restrictive than the source (bans exploitation / trusting client data
+    / single-control claims); a safe narrowing, never an over-claim. Grounded in principle(s): P049 (claims
+    C00018/C00019); P024 (claims C00317/C00318); P030 (claims C00460/C00461).'
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The handoff keeps decision ownership with the team and hands out-of-scope concerns onward; within
+    scope. Grounded in principle(s): P004 (claims C00406/C00407); P036 (claims C00064/C00065).'
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The handoff keeps decision ownership with the team and hands out-of-scope concerns onward; within
+    scope. Grounded in principle(s): P032 (claims C00001/C00003); P026 (claims C00076/C00077).'
+- rule_ref: source_of_truth_policy.canonical_owner
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Canonical ownership sits with the engineering/security team; the sources are authority only for
+    principles. Within scope. Grounded in principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
+- rule_ref: source_of_truth_policy.precedence
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Precedence favours the caller''s threat model and never weakens a defence below source support;
+    within scope. Grounded in principle(s): P001 (claims C00345/C00348); P003 (claims C00371/C00372).'
