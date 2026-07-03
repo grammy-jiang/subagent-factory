@@ -1,0 +1,1112 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: product-design-advisor
+generated_at: '2026-07-03'
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  mode: review
+  prompt: 'Review our current approach: framing or reviewing an AI/automation system''s overall control
+    model. What''s wrong and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Treat human control and computer automation as independent design dimensions,
+    and deliberately look for high-automation designs that stil…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P001.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P002
+  principle_id: P002
+  mode: advise
+  prompt: We're deciding what to do about deciding how to direct a product team's work. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Shift the organization from output to outcomes:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P002.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P003
+  principle_id: P003
+  mode: advise
+  prompt: We're deciding what to do about planning an experiment or defining an MVP. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Treat every design as a testable hypothesis and validate it as efficiently
+    as possible with customer feedback before investing further:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P003.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P004
+  principle_id: P004
+  mode: advise
+  prompt: We're deciding what to do about defining what success means for a team or initiative. What do
+    you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Avoid the build trap of measuring success by outputs (features shipped) rather
+    than the outcomes and value they produce, because a soluti…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P004.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P006
+  principle_id: P006
+  mode: advise
+  prompt: We're deciding what to do about keeping stakeholders engaged over time. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Manage stakeholders and dependencies with proactive communication, because
+    outcome-focused teams plan only small batches (which unsettles…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P006.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P008
+  principle_id: P008
+  mode: advise
+  prompt: We're deciding what to do about collaborating in person or remotely. What do you advise, and
+    what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Support distributed collaboration deliberately:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P008.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P010
+  principle_id: P010
+  mode: advise
+  prompt: We're deciding what to do about forming a discovery team. What do you advise, and what's the
+    trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Aim for a product that is valuable (to company and customers), usable (by
+    its users), and feasible (to build with the time and tools avai…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P010.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P011
+  principle_id: P011
+  mode: advise
+  prompt: We're deciding what to do about aligning the trio on what an idea means. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Story-map an idea by assuming the solution already exists and mapping what
+    end-users do to get value (not what it takes to implement), id…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P011.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P012
+  principle_id: P012
+  mode: advise
+  prompt: We're deciding what to do about a failure occurs or a team fears failing. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Learning you were wrong after a couple of days is excellent news versus after
+    weeks of building, so celebrate what you learn rather than…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P012.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P013
+  principle_id: P013
+  mode: advise
+  prompt: We're deciding what to do about creating personas or customer profiles. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Build lightweight personas (and, for organizational buyers, ''orgzonas'')
+    together as a team to create shared understanding and empathy — a…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P013.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P014
+  principle_id: P014
+  mode: review
+  prompt: 'Review our current approach: users can trigger actions with unsafe or irreversible consequences.
+    What''s wrong and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Prevent excessive-control mistakes with well-designed interlocks, guards,
+    and software range-checking that bound unsafe or irreversible a…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P014.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P015
+  principle_id: P015
+  mode: review
+  prompt: 'Review our current approach: choosing the interaction modality for expressing intent and receiving
+    feedback. What''s wrong and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Choose interaction modalities by task demands:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P015.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P018
+  principle_id: P018
+  mode: advise
+  prompt: We're deciding what to do about customer access is limited or seemingly not allowed. What do
+    you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: When it is hard to reach customers, get creative (trace the real rule, use
+    friends-of-friends, or enlist sales and account managers as re…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P018.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P019
+  principle_id: P019
+  mode: advise
+  prompt: We're deciding what to do about deciding how much to prescribe to a team versus letting it decide.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Grant capable teams the autonomy to explore solutions and adjust to data as
+    long as they are aligned to the strategic intents:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P019.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P020
+  principle_id: P020
+  mode: advise
+  prompt: We're deciding what to do about rolling a practice out organization-wide. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Scale design in a large organization by empowering developers with reusable
+    templates, guidelines, assets, and code snippets so teams cre…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P020.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P021
+  principle_id: P021
+  mode: advise
+  prompt: We're deciding what to do about a product manager tries to dictate to the team or is described
+    as the CEO of the product. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Lead as a product manager through influence, not authority:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P021.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P022
+  principle_id: P022
+  mode: review
+  prompt: 'Review our current approach: the user''s task spans multiple related turns or requests. What''s
+    wrong and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Maintain a working memory of recent interactions so users can make natural,
+    efficient references to their shared short-term context.'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P022.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P025
+  principle_id: P025
+  mode: advise
+  prompt: We're deciding what to do about interpreting user feedback or feature requests. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Be wary of what people say they want:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P025.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P026
+  principle_id: P026
+  mode: review
+  prompt: 'Review our current approach: the user may want to trigger the AI service on demand. What''s
+    wrong and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Give users efficient, always-available means to directly invoke and to terminate
+    automated services.'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P026.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P027
+  principle_id: P027
+  mode: review
+  prompt: 'Review our current approach: establishing the organizational practices around a safety-relevant
+    system. What''s wrong and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Engineer safety through open management that builds a culture of safety:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P027.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P028
+  principle_id: P028
+  mode: advise
+  prompt: We're deciding what to do about reviewing how a team uses user stories, requirements, or backlogs.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Stop perfecting documents and get together to tell stories to reach a solution
+    and build shared understanding;'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P028.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P029
+  principle_id: P029
+  mode: advise
+  prompt: We're deciding what to do about run a lightweight opportunity assessment before building:. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Run a lightweight opportunity assessment before building:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P029.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P030
+  principle_id: P030
+  mode: compare
+  prompt: 'We''re weighing options for tailor prototype fidelity to the audience: lower for informed engineers,
+    higher for less-familiar stakeholders. Which fits and why, and what does each cost?'
+  expected_behaviour:
+  - 'Applies the principle: Choose prototype fidelity by the tradeoffs of each level:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P030.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P031
+  principle_id: P031
+  mode: compare
+  prompt: We're weighing options for the team uses a waterfall process. Which fits and why, and what does
+    each cost?
+  expected_behaviour:
+  - 'Applies the principle: Succeed with Waterfall by addressing its fatal flaw of late validation:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P031.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P033
+  principle_id: P033
+  mode: compare
+  prompt: We're weighing options for define the minimal product up front as a high-fidelity prototype
+    with engineer estimates, validate it with real users, and then do not cu…. Which fits and why, and
+    what does each cost?
+  expected_behaviour:
+  - 'Applies the principle: Define the minimal product up front as a high-fidelity prototype with engineer
+    estimates, validate it with real users, and then do not cu…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P033.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P034
+  principle_id: P034
+  mode: advise
+  prompt: We're deciding what to do about estimating or splitting a story. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: There is no single right story size — the right size is the one relevant to
+    the current conversation:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P034.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P035
+  principle_id: P035
+  mode: advise
+  prompt: We're deciding what to do about the product is enterprise software. What do you advise, and
+    what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Improve enterprise products with strong product management:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P035.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P036
+  principle_id: P036
+  mode: compare
+  prompt: We're weighing options for use a tested high-fidelity prototype as the product spec, because
+    paper specs are slow, unread, and give false comfort;. Which fits and why, and what does each cost?
+  expected_behaviour:
+  - 'Applies the principle: Use a tested high-fidelity prototype as the product spec, because paper specs
+    are slow, unread, and give false comfort;'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P036.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P037
+  principle_id: P037
+  mode: advise
+  prompt: We're deciding what to do about use a charter user program to gain deep customer insight and
+    secure at least six live, happy reference customers, refusing prepayment, ca…. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use a charter user program to gain deep customer insight and secure at least
+    six live, happy reference customers, refusing prepayment, ca…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P037.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P038
+  principle_id: P038
+  mode: review
+  prompt: 'Review our current approach: deciding how much to invest in an idea and what solution to design.
+    What''s wrong and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Scope by appetite, not estimate:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P038.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P042
+  principle_id: P042
+  mode: advise
+  prompt: We're deciding what to do about hire product managers for hard-to-teach traits, since skills
+    can be learned:. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Hire product managers for hard-to-teach traits, since skills can be learned:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P042.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P043
+  principle_id: P043
+  mode: advise
+  prompt: We're deciding what to do about use personas to make the hard product choices:. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use personas to make the hard product choices:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P043.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P044
+  principle_id: P044
+  mode: advise
+  prompt: We're deciding what to do about a project or feature is proposed. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Start with the problem and the why before any solution:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P044.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P045
+  principle_id: P045
+  mode: advise
+  prompt: We're deciding what to do about running an end-of-cycle review or retrospective. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: After a cycle, hold a team-only product review and reflection first (a safe
+    space before widening the audience) covering three things:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P045.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P046
+  principle_id: P046
+  mode: advise
+  prompt: We're deciding what to do about do not rely on market research to decide what to build, because
+    no winning product comes from it;. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Do not rely on market research to decide what to build, because no winning
+    product comes from it;'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P046.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P047
+  principle_id: P047
+  mode: advise
+  prompt: We're deciding what to do about creating, reviewing, or committing to a strategy. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Treat strategy as a deployable decision-making framework, not a detailed plan,
+    that connects company vision and economic outcomes down to…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P047.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P048
+  principle_id: P048
+  mode: advise
+  prompt: We're deciding what to do about communicating and aligning strategy across levels. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Tell strategy as stories at the right time scale for each level and set goals
+    that are neither too prescriptive nor too broad, so appropr…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P048.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P049
+  principle_id: P049
+  mode: advise
+  prompt: We're deciding what to do about leadership reacts to underperformance by demanding detail or
+    adding controls. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Close the knowledge, alignment, and effects gaps by communicating strategic
+    intent (the business outcomes) and granting autonomy rather t…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P049.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P050
+  principle_id: P050
+  mode: advise
+  prompt: We're deciding what to do about structuring a large map. What do you advise, and what's the
+    trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Organize a map with a backbone — the row of big steps across the top, read
+    left-to-right as the narrative flow and summarized at a second…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P050.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P051
+  principle_id: P051
+  mode: review
+  prompt: 'Review our current approach: structuring and tracking the work of a project. What''s wrong
+    and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Organize work by the structure of the project into scopes (integrated front-end
+    and back-end slices that can be finished independently),…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P051.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P052
+  principle_id: P052
+  mode: review
+  prompt: 'Review our current approach: designing the fine structure of a user interface over an automated
+    process. What''s wrong and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Apply the Prometheus Principles as the core interface rules for human control
+    over automation:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P052.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P057
+  principle_id: P057
+  mode: advise
+  prompt: We're deciding what to do about defining or reviewing how a product team or organization measures
+    success. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Measure, judge, and reward a product team and organization by outcomes (the
+    value produced for customers and the business), not by output…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P057.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P058
+  principle_id: P058
+  mode: advise
+  prompt: We're deciding what to do about make product decisions by first framing them and aligning the
+    team on the exact problem, the persona, the goals, and an explicit priority…. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Make product decisions by first framing them and aligning the team on the
+    exact problem, the persona, the goals, and an explicit priority…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P058.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P059
+  principle_id: P059
+  mode: advise
+  prompt: We're deciding what to do about prioritizing a backlog or release. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Prioritize by specific target outcomes, not features:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P059.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P060
+  principle_id: P060
+  mode: advise
+  prompt: We're deciding what to do about do not equate launch with success:. What do you advise, and
+    what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Do not equate launch with success:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P060.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P061
+  principle_id: P061
+  mode: advise
+  prompt: We're deciding what to do about target the users' most acute frustration and anger, since high
+    latent frustration marks the best opportunities and the intense early-adop…. What do you advise, and
+    what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Target the users'' most acute frustration and anger, since high latent frustration
+    marks the best opportunities and the intense early-adop…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P061.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P062
+  principle_id: P062
+  mode: review
+  prompt: 'Review our current approach: sketching a solution during shaping. What''s wrong and what should
+    we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: When finding solution elements, move fast and explore many directions with
+    the right people (alone or one trusted same-background partner…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P062.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P063
+  principle_id: P063
+  mode: review
+  prompt: 'Review our current approach: describing a problem or solution during shaping or in a pitch.
+    What''s wrong and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Keep shaping at the right level of abstraction:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P063.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P064
+  principle_id: P064
+  mode: advise
+  prompt: We're deciding what to do about prioritizing work, justifying an initiative, or defining what
+    value means. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Treat value as the outcome a product produces for the customer and the business,
+    not the artifact itself;'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P064.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P065
+  principle_id: P065
+  mode: advise
+  prompt: We're deciding what to do about designing incentives or rolling out new product-management practices.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Re-evaluate reward structures to incentivize the right behavior, because scorecards
+    full of items to deliver drive box-checking and tying…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P065.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P066
+  principle_id: P066
+  mode: advise
+  prompt: We're deciding what to do about assessing whether a company is product-led. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Diagnose whether a company is product-led with a set of probing questions:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P066.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P067
+  principle_id: P067
+  mode: review
+  prompt: 'Review our current approach: eliminate Big Design Up Front and put speed first, aesthetics
+    second:. What''s wrong and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Eliminate Big Design Up Front and put speed first, aesthetics second:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P067.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P068
+  principle_id: P068
+  mode: advise
+  prompt: We're deciding what to do about setting the company current areas of strategic focus. What do
+    you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Keep the vision stable while letting strategic intents change with maturity;'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P068.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P069
+  principle_id: P069
+  mode: advise
+  prompt: We're deciding what to do about scoping a product or release. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Because there is always more to build than time and money allow, make it your
+    job to build less — minimize output while maximizing outcom…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P069.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P070
+  principle_id: P070
+  mode: advise
+  prompt: We're deciding what to do about a team writes or debates story templates. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use the template ''As a [type of user], I want to [do something], so that
+    I can [get some benefit]'' to start conversations (it forces who/…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P070.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P071
+  principle_id: P071
+  mode: advise
+  prompt: We're deciding what to do about conversations are bloated with too many attendees. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Crowds do not collaborate — conversations get harder with too many people,
+    especially uninterested ones — so let members opt in (and invi…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P071.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P072
+  principle_id: P072
+  mode: advise
+  prompt: We're deciding what to do about after launch, continuously harness organization-wide customer
+    intelligence:. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: After launch, continuously harness organization-wide customer intelligence:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P072.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P073
+  principle_id: P073
+  mode: advise
+  prompt: We're deciding what to do about use lightweight non-prototype MVP techniques to test demand
+    and value:. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use lightweight non-prototype MVP techniques to test demand and value:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P073.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P082
+  principle_id: P082
+  mode: advise
+  prompt: We're deciding what to do about deciding how to organize product teams. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Structure product teams around value streams or strategic goals rather than
+    around technical components or individual features, because c…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P082.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P083
+  principle_id: P083
+  mode: advise
+  prompt: We're deciding what to do about the company is a startup or a new product effort. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Run discovery first in startups and new products:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P083.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P084
+  principle_id: P084
+  mode: advise
+  prompt: We're deciding what to do about running discovery or validated learning. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Apply design thinking end to end:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P084.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P085
+  principle_id: P085
+  mode: advise
+  prompt: We're deciding what to do about a team debates what 'MVP' means or scopes an MVP. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Define the minimum viable product or solution as the smallest release that
+    achieves its desired outcomes — not the crappiest thing you co…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P085.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P086
+  principle_id: P086
+  mode: advise
+  prompt: We're deciding what to do about defining roles, titles, or career paths for product people.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Treat product management as a career and discipline built through experience
+    with a real career path, and stop conflating it with the Scr…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P086.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P087
+  principle_id: P087
+  mode: advise
+  prompt: We're deciding what to do about treat software projects as having two stages, discovery to find
+    what to build and execution to build it right, and shift decisively into…. What do you advise, and
+    what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Treat software projects as having two stages, discovery to find what to build
+    and execution to build it right, and shift decisively into…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P087.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P088
+  principle_id: P088
+  mode: advise
+  prompt: We're deciding what to do about require the product manager to have direct, personal contact
+    with users — attending every interview, site visit, and usability test — and…. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Require the product manager to have direct, personal contact with users —
+    attending every interview, site visit, and usability test — and…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P088.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P089
+  principle_id: P089
+  mode: advise
+  prompt: We're deciding what to do about a product manager is deciding what to build or defending an
+    idea. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Make the product manager job to produce value rather than push personal ideas:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P089.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P090
+  principle_id: P090
+  mode: compare
+  prompt: We're weighing options for run tests wherever is convenient without a formal lab, treat remote
+    testing as a supplement not a substitute, have the product manager at…. Which fits and why, and what
+    does each cost?
+  expected_behaviour:
+  - 'Applies the principle: Run tests wherever is convenient without a formal lab, treat remote testing
+    as a supplement not a substitute, have the product manager at…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P090.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P091
+  principle_id: P091
+  mode: advise
+  prompt: We're deciding what to do about assigning ownership and team scope. What do you advise, and
+    what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Organize teams around outcome goals with clear ownership and the freedom to
+    work across products, keeping the number of teams small enoug…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P091.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P092
+  principle_id: P092
+  mode: advise
+  prompt: We're deciding what to do about designing an assumption test. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Do not rush into experiments:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P092.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P093
+  principle_id: P093
+  mode: advise
+  prompt: We're deciding what to do about frame the work as testable hypotheses about outcomes:. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Frame the work as testable hypotheses about outcomes:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P093.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P094
+  principle_id: P094
+  mode: advise
+  prompt: We're deciding what to do about stakeholders or customers hand over feature requests. What do
+    you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Do not be an order-taking waiter:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P094.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P095
+  principle_id: P095
+  mode: advise
+  prompt: We're deciding what to do about defining or refining a product vision. What do you advise, and
+    what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Maintain a coherent product vision that communicates why you build and the
+    customer value proposition (for example an Amazon-style one-pa…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P095.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P096
+  principle_id: P096
+  mode: advise
+  prompt: We're deciding what to do about aligning a team to build and prioritize a first version. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Reach a product vision by iterating through experimentation rather than dictating
+    features early;'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P096.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P097
+  principle_id: P097
+  mode: advise
+  prompt: We're deciding what to do about assessing whether an environment can sustain good product management.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Recognize that escaping the build trap requires organizational support (culture,
+    policies, and structure), not just process and strategy:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P097.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P098
+  principle_id: P098
+  mode: advise
+  prompt: We're deciding what to do about leading or sustaining a shift to outcome orientation. What do
+    you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Secure leadership buy-in to outcomes, because the main reason transformations
+    fail is leaders who say they want results but still measure…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P098.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P099
+  principle_id: P099
+  mode: compare
+  prompt: We're weighing options for validating built software with users. Which fits and why, and what
+    does each cost?
+  expected_behaviour:
+  - 'Applies the principle: Because the builders are usually not the users, take the software to real
+    users and test it (not show-and-tell):'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P099.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P100
+  principle_id: P100
+  mode: advise
+  prompt: We're deciding what to do about a story or solution is too big or too expensive. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: If a solution is too expensive, step back to the problem and find a cheaper
+    alternative;'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P100.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P101
+  principle_id: P101
+  mode: advise
+  prompt: We're deciding what to do about running a story workshop. What do you advise, and what's the
+    trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Run story workshops well:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P101.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P102
+  principle_id: P102
+  mode: advise
+  prompt: We're deciding what to do about evaluating a product opportunity. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use an opportunity canvas — a big spatial view a group fills collaboratively
+    with sticky notes (recording assumptions where answers are m…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P102.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P103
+  principle_id: P103
+  mode: advise
+  prompt: We're deciding what to do about reviewing progress with business stakeholders. What do you advise,
+    and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: After the team review, widen to a stakeholder product review (whole team present)
+    that connects the work back to the bigger picture and c…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P103.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P104
+  principle_id: P104
+  mode: review
+  prompt: 'Review our current approach: verifying uncertain assumptions before pitching. What''s wrong
+    and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Before writing up a pitch, walk the concept past technical experts framed
+    as ''just an idea'', ask ''is this possible within the appetite?''…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P104.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P105
+  principle_id: P105
+  mode: review
+  prompt: 'Review our current approach: packaging a shaped concept for the betting table. What''s wrong
+    and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Write every pitch with the five ingredients (problem, appetite, solution,
+    rabbit holes, and no-gos), always pairing a problem with its so…'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P105.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P106
+  principle_id: P106
+  mode: review
+  prompt: 'Review our current approach: deciding whether work is good enough to ship. What''s wrong and
+    what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Decide when to stop by comparing down to the baseline, not up to an ideal:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P106.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P107
+  principle_id: P107
+  mode: advise
+  prompt: We're deciding what to do about integrate Lean UX into Scrum's structure by using its events
+    as mileposts so the whole team works on the same thing at once:. What do you advise, and what's the
+    trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Integrate Lean UX into Scrum''s structure by using its events as mileposts
+    so the whole team works on the same thing at once:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P107.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P108
+  principle_id: P108
+  mode: advise
+  prompt: We're deciding what to do about expand the designer's role to whole-team facilitation and leadership:.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Expand the designer''s role to whole-team facilitation and leadership:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P108.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P109
+  principle_id: P109
+  mode: advise
+  prompt: We're deciding what to do about ensure the style guide is accessible, continually improved,
+    and actionable:. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Ensure the style guide is accessible, continually improved, and actionable:'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P109.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
+- test_id: PB-P110
+  principle_id: P110
+  mode: review
+  prompt: 'Review our current approach: derive an action threshold p* by equating the expected utilities
+    of acting and not acting (from the four goal-by-action outcome utilities);. What''s wrong and what
+    should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Derive an action threshold p* by equating the expected utilities of acting
+    and not acting (from the four goal-by-action outcome utilities);'
+  - Frames the work around the outcome and assumption, and states the trade-off rather than a one-sided
+    answer.
+  - Cites P110.
+  must_not:
+  - Recommend the practice while omitting its trade-off, cost, or the risk it leaves unretired.
