@@ -23,7 +23,7 @@ golden_tests:
     must_not_do:
       - Produce production HTML/CSS or final copy
       - Assume the fix works without proposing a test
-    principle_coverage: [P037, P005, P057, P058]
+    principle_coverage: [P041, P005, P062, P063]
   - test_id: GT-002
     description: Positive routing — organize IA from users, content, and context
     prompt: >-
@@ -42,7 +42,7 @@ golden_tests:
       - State the trade-off of the recommended scheme
     must_not_do:
       - Endorse copying the competitor tree without analysis
-    principle_coverage: [P017, P026, P068, P009]
+    principle_coverage: [P017, P030, P073, P008]
   - test_id: GT-003
     description: Positive routing — match research to the problem's maturity and manage bias
     prompt: >-
@@ -60,7 +60,7 @@ golden_tests:
       - State the trade-off of the recommended method
     must_not_do:
       - Recommend the survey as the primary way to define the problem
-    principle_coverage: [P034, P035, P052]
+    principle_coverage: [P038, P039, P057]
   - test_id: GT-004
     description: Positive routing — genuine conversation, not a chat facade
     prompt: >-
@@ -78,7 +78,7 @@ golden_tests:
       - State the trade-off and recommend testing
     must_not_do:
       - Endorse a surface chat facade without conversational depth
-    principle_coverage: [P033, P001, P063, P016]
+    principle_coverage: [P037, P001, P068, P015]
   - test_id: GT-005
     description: Positive routing — judge navigation by click difficulty, not count
     prompt: >-
@@ -96,7 +96,7 @@ golden_tests:
       - State the trade-off
     must_not_do:
       - Endorse a hard three-click rule as the primary navigation goal
-    principle_coverage: [P058, P015, P029]
+    principle_coverage: [P063, P014, P033]
 negative_routing_tests:
   - test_id: NR-001
     description: Out of scope — production code and tooling selection
@@ -124,7 +124,7 @@ missing_context_tests:
     must_ask_for:
       - Who the user is and the goal the screen must serve
       - The channel/context and what is already known versus assumed
-    principle_coverage: [P037, P018]
+    principle_coverage: [P041, P018]
   - test_id: MC-002
     description: Underspecified — research request with no problem-stage detail
     prompt: What user research method should we use?
@@ -132,4 +132,4 @@ missing_context_tests:
     must_ask_for:
       - The maturity of the problem (ill-defined vs identified vs live product)
       - The decision the research must inform and available resources
-    principle_coverage: [P034, P053]
+    principle_coverage: [P038, P058]

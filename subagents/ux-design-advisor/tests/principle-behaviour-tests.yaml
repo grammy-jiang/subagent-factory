@@ -5,895 +5,995 @@ principle_behaviour_tests:
 - test_id: PB-P001
   principle_id: P001
   mode: advise
-  prompt: We're working on designing an interface that is meant to feel recognizably conversational. What do you
-    advise, and what's the trade-off?
+  prompt: We're working on designing an interface that is meant to feel recognizably conversational. What do you advise, and
+    what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Design conversational interfaces as ordered interaction sequences grounded in human
-    conversation, not as response text or visual controls with lang...'
+  - 'Applies the principle: Design conversational interfaces as ordered interaction sequences grounded in human conversation,
+    not as response text or visual controls with lang...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P001.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P002
   principle_id: P002
   mode: compare
-  prompt: We're working on the goal is content or feature brainstorming with target audiences. What do you advise,
-    and what's the trade-off?
+  prompt: We're working on the goal is content or feature brainstorming with target audiences. What do you advise, and what's
+    the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Use focus groups for early planning or ideation, not as the primary way to validate
-    IA usability or architecture decisions.'
+  - 'Applies the principle: Use focus groups for early planning or ideation, not as the primary way to validate IA usability
+    or architecture decisions.'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P002.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P003
   principle_id: P003
   mode: review
   prompt: We're working on judging whether a design is good enough to ship. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Judge usability by the effortless-use test (an average or below-average user accomplishes
-    their goal without it being more trouble than it is worth...'
+  - 'Applies the principle: Judge usability by the effortless-use test (an average or below-average user accomplishes their
+    goal without it being more trouble than it is worth...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P003.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P004
   principle_id: P004
   mode: advise
   prompt: We're working on running a usability-test session. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Facilitate neutrally: choose a facilitator with the right temperament because a bad
-    one tanks the test, avoid leading or rescuing lost users and em...'
+  - 'Applies the principle: Facilitate neutrally: choose a facilitator with the right temperament because a bad one tanks
+    the test, avoid leading or rescuing lost users and em...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P004.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P005
   principle_id: P005
   mode: review
-  prompt: We're working on designing or reviewing web or app pages that users navigate under time pressure. What
-    do you advise, and what's the trade-off?
+  prompt: We're working on designing or reviewing web or app pages that users navigate under time pressure. What do you advise,
+    and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Design pages for scanning users: use conventions, clear hierarchy, obvious links, low
-    distraction, and scannable content so the first reasonable ch...'
+  - 'Applies the principle: Design pages for scanning users: use conventions, clear hierarchy, obvious links, low distraction,
+    and scannable content so the first reasonable ch...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P005.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P006
   principle_id: P006
   mode: review
-  prompt: We're working on designing or evaluating a product's high-level structure, first-level navigation, labeling,
-    or cross-channel identity. What do you advise, and what's the trade-off?
+  prompt: We're working on designing or evaluating a product's high-level structure, first-level navigation, labeling, or
+    cross-channel identity. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Treat information environments as places: use semantic cues, ordering, labels, typologies,
-    and familiar concepts to shape users'' understanding of w...'
+  - 'Applies the principle: Treat information environments as places: use semantic cues, ordering, labels, typologies, and
+    familiar concepts to shape users'' understanding of w...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P006.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P007
   principle_id: P007
-  mode: review
-  prompt: We're working on assessing whether a person, machine, or conversational agent understands a concept, topic,
-    or conversational action. What do you advise, and what's the trade-off?
+  mode: advise
+  prompt: We're working on creating labels where no ideal controlled vocabulary already exists. What do you advise, and what's
+    the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Evaluate claims of machine understanding by demonstrated performance across varied probing
-    and phrasing, and scope those claims to the domains wher...'
+  - 'Applies the principle: Generate candidate labels from content analysis, extraction tools, authors, SMEs, user advocates,
+    card sorting, free listing, and search logs, but ...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P007.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P008
   principle_id: P008
-  mode: advise
-  prompt: We're working on creating labels where no ideal controlled vocabulary already exists. What do you advise,
-    and what's the trade-off?
+  mode: compare
+  prompt: We're working on studying users' mental models for grouping, sorting, or labeling content and tasks. What do you
+    advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Generate candidate labels from content analysis, extraction tools, authors, SMEs, user
-    advocates, card sorting, free listing, and search logs, but ...'
+  - 'Applies the principle: Design card sorts to match the research goal, using open sorts for discovery, closed sorts for
+    validation, and careful analysis for qualitative ver...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P008.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P009
   principle_id: P009
   mode: compare
-  prompt: We're working on studying users' mental models for grouping, sorting, or labeling content and tasks. What
-    do you advise, and what's the trade-off?
+  prompt: We're working on moving from IA research toward strategy or defending research effort. What do you advise, and what's
+    the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Design card sorts to match the research goal, using open sorts for discovery, closed
-    sorts for validation, and careful analysis for qualitative ver...'
+  - 'Applies the principle: Treat research and strategy as connected work: the same team should carry hands-on learning into
+    strategy, record design ideas during research, and...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P009.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P010
   principle_id: P010
   mode: compare
-  prompt: We're working on moving from IA research toward strategy or defending research effort. What do you advise,
+  prompt: We're working on candidate organization, labeling, or hierarchy choices are ready for validation. What do you advise,
     and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Treat research and strategy as connected work: the same team should carry hands-on learning
-    into strategy, record design ideas during research, and...'
+  - 'Applies the principle: Test strategy before commitment with adapted research methods, closed card sorts, prototype task
+    tests, hierarchy tests, and simple wireframes.'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P010.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P011
   principle_id: P011
   mode: compare
-  prompt: We're working on candidate organization, labeling, or hierarchy choices are ready for validation. What
-    do you advise, and what's the trade-off?
+  prompt: We're working on creating textual or iconic labels for navigation, headings, links, or index terms. What do you
+    advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Test strategy before commitment with adapted research methods, closed card sorts, prototype
-    task tests, hierarchy tests, and simple wireframes.'
+  - 'Applies the principle: Design labels as compact representations that use user language, distinguish destinations, avoid
+    organizational jargon, and are tested in their act...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P011.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P012
   principle_id: P012
   mode: compare
-  prompt: We're working on creating textual or iconic labels for navigation, headings, links, or index terms. What
-    do you advise, and what's the trade-off?
+  prompt: We're working on creating or revising a label set rather than a single isolated label. What do you advise, and what's
+    the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Design labels as compact representations that use user language, distinguish destinations,
-    avoid organizational jargon, and are tested in their act...'
+  - 'Applies the principle: Design labels as a scoped, consistent system by managing style, presentation, syntax, granularity,
+    comprehensiveness, audience terminology, and mod...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P012.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P013
   principle_id: P013
   mode: compare
-  prompt: We're working on creating or revising a label set rather than a single isolated label. What do you advise,
-    and what's the trade-off?
+  prompt: We're working on designing automated or semi-automated links between content objects. What do you advise, and what's
+    the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Design labels as a scoped, consistent system by managing style, presentation, syntax,
-    granularity, comprehensiveness, audience terminology, and mod...'
+  - 'Applies the principle: Validate and improve content-model links with user research, gap analysis, entry-point identification,
+    and metadata-backed linking logic.'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P013.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P014
   principle_id: P014
-  mode: compare
-  prompt: We're working on designing automated or semi-automated links between content objects. What do you advise,
-    and what's the trade-off?
+  mode: advise
+  prompt: 'Review our approach here: treat navigation as effectively being the site. What''s wrong and what should we change,
+    with the trade-offs?'
   expected_behaviour:
-  - 'Applies the principle: Validate and improve content-model links with user research, gap analysis, entry-point
-    identification, and metadata-backed linking logic.'
+  - 'Applies the principle: Treat navigation as effectively being the site: since people will not use a site they cannot find
+    their way around, provide persistent (global) nav...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P014.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P015
   principle_id: P015
-  mode: advise
-  prompt: 'Review our approach here: treat navigation as effectively being the site. What''s wrong and what should
-    we change, with the trade-offs?'
-  expected_behaviour:
-  - 'Applies the principle: Treat navigation as effectively being the site: since people will not use a site they
-    cannot find their way around, provide persistent (global) nav...'
-  - Names the user need at stake and states the trade-off rather than a one-sided answer.
-  - Cites P015.
-  must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
-- test_id: PB-P016
-  principle_id: P016
   mode: advise
   prompt: We're working on designing the opening and everyday phrasing. What do you advise, and what's the trade-off?
   expected_behaviour:
   - 'Applies the principle: Apply naturalness practices - self-introduction, a welcoming opening that states capabilities
     and optionally collects the user''s name, addressing t...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P015.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P016
+  principle_id: P016
+  mode: review
+  prompt: We're working on assessing whether a person, machine, or conversational agent understands a concept, topic, or conversational
+    action. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate claims of machine understanding by demonstrated performance across varied probing and
+    phrasing, and scope those claims to the domains wher...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P016.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P017
   principle_id: P017
   mode: compare
-  prompt: We're working on choosing an IA solution, especially when the right answer depends on ownership, metadata,
-    channel constraints, business goals, or user variation. What do you advise, and what's the trade-off?
+  prompt: We're working on choosing an IA solution, especially when the right answer depends on ownership, metadata, channel
+    constraints, business goals, or user variation. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Analyze each architecture problem through users, content, and context instead of applying
-    generic best practices or competitor patterns uncritically.'
+  - 'Applies the principle: Analyze each architecture problem through users, content, and context instead of applying generic
+    best practices or competitor patterns uncritically.'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P017.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P018
   principle_id: P018
   mode: compare
-  prompt: We're working on prioritizing components, labels, navigation, search, or content access for a product.
-    What do you advise, and what's the trade-off?
+  prompt: We're working on prioritizing components, labels, navigation, search, or content access for a product. What do you
+    advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Start IA decisions from real users and their information needs, using field or behavioral
-    research rather than internal brainstorming alone.'
+  - 'Applies the principle: Start IA decisions from real users and their information needs, using field or behavioral research
+    rather than internal brainstorming alone.'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P018.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P019
   principle_id: P019
   mode: review
-  prompt: We're working on auditing, designing, or explaining what counts as information architecture. What do you
-    advise, and what's the trade-off?
+  prompt: We're working on auditing, designing, or explaining what counts as information architecture. What do you advise,
+    and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Evaluate IA through its component systems: organization, labeling, navigation, search,
-    content/task elements, and invisible metadata or vocabulary ...'
+  - 'Applies the principle: Evaluate IA through its component systems: organization, labeling, navigation, search, content/task
+    elements, and invisible metadata or vocabulary ...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P019.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P020
   principle_id: P020
   mode: compare
-  prompt: We're working on configuring search ranking, matching, stemming, spelling, fields, or expansion tools.
-    What do you advise, and what's the trade-off?
+  prompt: We're working on configuring search ranking, matching, stemming, spelling, fields, or expansion tools. What do you
+    advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Choose retrieval algorithms, stemming, query builders, and structured-field search according
-    to the user''s recall-versus-precision needs.'
+  - 'Applies the principle: Choose retrieval algorithms, stemming, query builders, and structured-field search according to
+    the user''s recall-versus-precision needs.'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P020.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P021
   principle_id: P021
-  mode: compare
-  prompt: We're working on communicating IA strategy to stakeholders, clients, colleagues, or implementation teams.
-    What do you advise, and what's the trade-off?
+  mode: advise
+  prompt: We're working on designing a site's navigation systems and deciding how global, local, supplementary, and contextual
+    navigation should work together. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Use scenarios, stories, case studies, diagrams, sitemaps, wireframes, and reports to
-    make abstract IA strategy understandable and actionable for di...'
+  - 'Applies the principle: Use a portfolio of navigation systems with distinct roles: global, local, supplementary, contextual,
+    courtesy, and remote navigation where each suppor...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P021.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P022
   principle_id: P022
+  mode: compare
+  prompt: We're working on communicating IA strategy to stakeholders, clients, colleagues, or implementation teams. What do
+    you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use scenarios, stories, case studies, diagrams, sitemaps, wireframes, and reports to make abstract
+    IA strategy understandable and actionable for di...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P022.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P023
+  principle_id: P023
   mode: review
-  prompt: We're working on designing or reviewing any interface that uses words. What do you advise, and what's
-    the trade-off?
+  prompt: We're working on designing or reviewing any interface that uses words. What do you advise, and what's the trade-off?
   expected_behaviour:
   - 'Applies the principle: Never run verbal (writing) design on a separate track from visual and interaction design—splitting
     it produces an interface of boxes later filled w...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
-  - Cites P022.
-  must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
-- test_id: PB-P023
-  principle_id: P023
-  mode: advise
-  prompt: 'Review our approach here: treat usability as courtesy. What''s wrong and what should we change, with
-    the trade-offs?'
-  expected_behaviour:
-  - 'Applies the principle: Treat usability as courtesy: protect and build users'' limited goodwill by making key
-    tasks easy, being candid, saving steps, supporting recovery, a...'
-  - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P023.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P024
   principle_id: P024
-  mode: review
-  prompt: We're working on adding or reviewing a visual avatar or identity cue. What do you advise, and what's the
-    trade-off?
+  mode: compare
+  prompt: We're working on sequencing UX work across the strategy, scope, structure, skeleton, and surface planes. What do
+    you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Do not treat avatars as context-independent improvements: avatar gender and appearance
-    shape user impressions before any message, effects are incon...'
+  - 'Applies the principle: Respect the dependency chain from strategy through surface while allowing later-plane discoveries
+    to trigger lower-plane reevaluation before work is f...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P024.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P025
   principle_id: P025
-  mode: compare
-  prompt: We're working on the same information environment appears across web, mobile, device, voice, or other
-    channels. What do you advise, and what's the trade-off?
+  mode: review
+  prompt: We're working on when planning user research or usability evaluation. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Design cross-channel coherence from abstract semantic structures that can be expressed
-    differently in each channel while remaining recognizable and...'
+  - 'Applies the principle: Select research methods according to the type and depth of understanding needed, with awareness
+    of participant-depth trade-offs.'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P025.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P026
   principle_id: P026
+  mode: advise
+  prompt: 'Review our approach here: treat usability as courtesy. What''s wrong and what should we change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Treat usability as courtesy: protect and build users'' limited goodwill by making key tasks easy,
+    being candid, saving steps, supporting recovery, a...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P026.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P027
+  principle_id: P027
+  mode: review
+  prompt: We're working on adding or reviewing a visual avatar or identity cue. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Do not treat avatars as context-independent improvements: avatar gender and appearance shape user
+    impressions before any message, effects are incon...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P027.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P028
+  principle_id: P028
   mode: compare
-  prompt: We're working on designing a hierarchical or top-down organization structure. What do you advise, and
-    what's the trade-off?
+  prompt: We're working on the same information environment appears across web, mobile, device, voice, or other channels.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Design cross-channel coherence from abstract semantic structures that can be expressed differently
+    in each channel while remaining recognizable and...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P028.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P029
+  principle_id: P029
+  mode: advise
+  prompt: We're working on when the product depends on content features or existing content. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Define content requirements by purpose, type, approximate size, owner, maintenance needs, update
+    frequency, audience, and existing inventory.'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P029.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P030
+  principle_id: P030
+  mode: compare
+  prompt: We're working on designing a hierarchical or top-down organization structure. What do you advise, and what's the
+    trade-off?
   expected_behaviour:
   - 'Applies the principle: Begin architecture exploration with a hierarchy, then balance mutual exclusivity, cross-listing,
     breadth, depth, and expected growth through user t...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
-  - Cites P026.
-  must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
-- test_id: PB-P027
-  principle_id: P027
-  mode: compare
-  prompt: We're working on users may explore, refine, refind, research exhaustively, or enter through multiple paths.
-    What do you advise, and what's the trade-off?
-  expected_behaviour:
-  - 'Applies the principle: Support integrated, iterative finding behavior by letting users move fluidly among search,
-    browse, asking, similar-item paths, and subsite-level na...'
-  - Names the user need at stake and states the trade-off rather than a one-sided answer.
-  - Cites P027.
-  must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
-- test_id: PB-P028
-  principle_id: P028
-  mode: compare
-  prompt: We're working on iA recommendations affect content creation, governance, templates, metadata, or partner
-    distribution. What do you advise, and what's the trade-off?
-  expected_behaviour:
-  - 'Applies the principle: Include content-management implications in strategy work, aligning IA with content strategy,
-    rules, roles, resources, templates, metadata, and thes...'
-  - Names the user need at stake and states the trade-off rather than a one-sided answer.
-  - Cites P028.
-  must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
-- test_id: PB-P029
-  principle_id: P029
-  mode: compare
-  prompt: We're working on the system is large, hierarchical, complex, or supports varied finding needs. What do
-    you advise, and what's the trade-off?
-  expected_behaviour:
-  - 'Applies the principle: Provide supplemental navigation such as sitemaps, indexes, guides, configurators, and
-    search as backup paths because taxonomies and embedded naviga...'
-  - Names the user need at stake and states the trade-off rather than a one-sided answer.
-  - Cites P029.
-  must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
-- test_id: PB-P030
-  principle_id: P030
-  mode: compare
-  prompt: We're working on ordering or grouping retrieval results. What do you advise, and what's the trade-off?
-  expected_behaviour:
-  - 'Applies the principle: Select sorting, ranking, best bets, popularity, ratings, paid placement, or clustering
-    based on task, content heterogeneity, available metadata, an...'
-  - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P030.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P031
   principle_id: P031
-  mode: advise
-  prompt: We're working on cross-functional teams are resolving interface, navigation, architecture, and implementation
-    questions. What do you advise, and what's the trade-off?
+  mode: compare
+  prompt: We're working on users may explore, refine, refind, research exhaustively, or enter through multiple paths. What
+    do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Use sketches, wireframes, and prototypes to integrate IA with visual design, technical
-    feasibility, and team vocabulary before committing to code o...'
+  - 'Applies the principle: Support integrated, iterative finding behavior by letting users move fluidly among search, browse,
+    asking, similar-item paths, and subsite-level na...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P031.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P032
   principle_id: P032
   mode: compare
-  prompt: We're working on preparing architecture documentation for designers, developers, editors, or production
-    staff. What do you advise, and what's the trade-off?
+  prompt: We're working on iA recommendations affect content creation, governance, templates, metadata, or partner distribution.
+    What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Make implementation-stage sitemaps simple, modular, traceable, and production-ready
-    with condensed notation, unique IDs, hierarchy coverage, labels...'
+  - 'Applies the principle: Include content-management implications in strategy work, aligning IA with content strategy, rules,
+    roles, resources, templates, metadata, and thes...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P032.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P033
   principle_id: P033
   mode: compare
-  prompt: We're working on any human-centered interaction design task. What do you advise, and what's the trade-off?
+  prompt: We're working on the system is large, hierarchical, complex, or supports varied finding needs. What do you advise,
+    and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Make systems conversational at a deep level (cooperative, goal-oriented, context-aware,
-    fault-tolerant) rather than adding a surface chat or voice ...'
+  - 'Applies the principle: Provide supplemental navigation such as sitemaps, indexes, guides, configurators, and search as
+    backup paths because taxonomies and embedded naviga...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P033.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P034
   principle_id: P034
-  mode: review
-  prompt: We're working on choosing a research activity for the current project stage. What do you advise, and what's
-    the trade-off?
+  mode: compare
+  prompt: We're working on ordering or grouping retrieval results. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Match the type and openness of research to the maturity of the problem: use generative
-    or exploratory research to define an ill-defined problem, de...'
+  - 'Applies the principle: Select sorting, ranking, best bets, popularity, ratings, paid placement, or clustering based on
+    task, content heterogeneity, available metadata, an...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P034.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P035
   principle_id: P035
   mode: advise
-  prompt: We're working on planning research into the people a design serves. What do you advise, and what's the
-    trade-off?
+  prompt: We're working on cross-functional teams are resolving interface, navigation, architecture, and implementation questions.
+    What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Do user research to replace assumptions with patterns and genuine empathy, treating
-    user research as ethnography that understands how and why peopl...'
+  - 'Applies the principle: Use sketches, wireframes, and prototypes to integrate IA with visual design, technical feasibility,
+    and team vocabulary before committing to code o...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P035.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P036
   principle_id: P036
   mode: compare
-  prompt: We're working on diagnosing why a product feels disjointed, or structuring how a team collaborates. What
+  prompt: We're working on preparing architecture documentation for designers, developers, editors, or production staff. What
     do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Run the work culture on the same conversational principles as the interface—cooperative,
-    goal-oriented, context-aware, quick and clear, turn-based,...'
+  - 'Applies the principle: Make implementation-stage sitemaps simple, modular, traceable, and production-ready with condensed
+    notation, unique IDs, hierarchy coverage, labels...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P036.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P037
   principle_id: P037
-  mode: review
-  prompt: We're working on designing or reviewing any page, screen, or interactive element. What do you advise,
-    and what's the trade-off?
+  mode: compare
+  prompt: We're working on any human-centered interaction design task. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Make every page or screen self-evident so users understand what it is and how to use
-    it without conscious effort; when full self-evidence is imposs...'
+  - 'Applies the principle: Make systems conversational at a deep level (cooperative, goal-oriented, context-aware, fault-tolerant)
+    rather than adding a surface chat or voice ...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P037.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P038
   principle_id: P038
-  mode: compare
-  prompt: We're working on defining the scope or role of information architecture work. What do you advise, and
-    what's the trade-off?
+  mode: review
+  prompt: We're working on choosing a research activity for the current project stage. What do you advise, and what's the
+    trade-off?
   expected_behaviour:
-  - 'Applies the principle: Frame architecture work as technology-independent design of information environments,
-    not as guidance tied to one site, device, software package, o...'
+  - 'Applies the principle: Match the type and openness of research to the maturity of the problem: use generative or exploratory
+    research to define an ill-defined problem, de...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P038.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P039
   principle_id: P039
-  mode: compare
-  prompt: We're working on creating categories, labels, or taxonomies for contested, abstract, or stakeholder-owned
-    content. What do you advise, and what's the trade-off?
+  mode: advise
+  prompt: We're working on planning research into the people a design serves. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Design organization and labeling with awareness that classification shapes understanding,
-    reflects perspectives, and carries organizational politics.'
+  - 'Applies the principle: Do user research to replace assumptions with patterns and genuine empathy, treating user research
+    as ethnography that understands how and why peopl...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P039.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P040
   principle_id: P040
   mode: compare
-  prompt: We're working on creating in-content links, headings, or process-step labels. What do you advise, and
-    what's the trade-off?
+  prompt: We're working on diagnosing why a product feels disjointed, or structuring how a team collaborates. What do you
+    advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Design contextual links and headings around user expectations, surrounding context,
-    visual hierarchy, and process sequence rather than ad hoc autho...'
+  - 'Applies the principle: Run the work culture on the same conversational principles as the interface—cooperative, goal-oriented,
+    context-aware, quick and clear, turn-based,...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P040.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P041
   principle_id: P041
   mode: review
-  prompt: We're working on a controlled vocabulary needs richer semantic relationships than preferred and variant
-    terms alone. What do you advise, and what's the trade-off?
+  prompt: We're working on designing or reviewing any page, screen, or interactive element. What do you advise, and what's
+    the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Make every page or screen self-evident so users understand what it is and how to use it without
+    conscious effort; when full self-evidence is imposs...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P041.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P042
+  principle_id: P042
+  mode: compare
+  prompt: We're working on defining the scope or role of information architecture work. What do you advise, and what's the
+    trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Frame architecture work as technology-independent design of information environments, not as guidance
+    tied to one site, device, software package, o...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P042.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P043
+  principle_id: P043
+  mode: compare
+  prompt: We're working on creating categories, labels, or taxonomies for contested, abstract, or stakeholder-owned content.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Design organization and labeling with awareness that classification shapes understanding, reflects
+    perspectives, and carries organizational politics.'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P043.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P044
+  principle_id: P044
+  mode: compare
+  prompt: We're working on creating in-content links, headings, or process-step labels. What do you advise, and what's the
+    trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Design contextual links and headings around user expectations, surrounding context, visual hierarchy,
+    and process sequence rather than ad hoc autho...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P044.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P045
+  principle_id: P045
+  mode: review
+  prompt: We're working on a controlled vocabulary needs richer semantic relationships than preferred and variant terms alone.
+    What do you advise, and what's the trade-off?
   expected_behaviour:
   - 'Applies the principle: Design thesauri as semantic networks of equivalence, hierarchy, and associative relationships,
     using professional judgment and research rather than...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
-  - Cites P041.
-  must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
-- test_id: PB-P042
-  principle_id: P042
-  mode: compare
-  prompt: We're working on starting an IA project or redesign. What do you advise, and what's the trade-off?
-  expected_behaviour:
-  - 'Applies the principle: Begin context research with background materials, a shared IA kickoff, focused research
-    meetings, early IT engagement, and stakeholder interviews.'
-  - Names the user need at stake and states the trade-off rather than a one-sided answer.
-  - Cites P042.
-  must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
-- test_id: PB-P043
-  principle_id: P043
-  mode: compare
-  prompt: We're working on researching user needs, language, behavior, or satisfaction under practical constraints.
-    What do you advise, and what's the trade-off?
-  expected_behaviour:
-  - 'Applies the principle: Use multiple lightweight user-research approaches, because any real user evidence is
-    better than none and different methods reveal different parts ...'
-  - Names the user need at stake and states the trade-off rather than a one-sided answer.
-  - Cites P043.
-  must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
-- test_id: PB-P044
-  principle_id: P044
-  mode: compare
-  prompt: We're working on planning or running the transition from IA research to strategy. What do you advise,
-    and what's the trade-off?
-  expected_behaviour:
-  - 'Applies the principle: Start strategy hypotheses before research, test them during research, and shift from
-    discovery to strategy when learning plateaus and candidate str...'
-  - Names the user need at stake and states the trade-off rather than a one-sided answer.
-  - Cites P044.
-  must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
-- test_id: PB-P045
-  principle_id: P045
-  mode: compare
-  prompt: We're working on moving from strategy into design or implementation. What do you advise, and what's the
-    trade-off?
-  expected_behaviour:
-  - 'Applies the principle: Pair IA strategy with a project plan and presentations so recommendations become feasible,
-    sequenced, integrated with other teams, and understood b...'
-  - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P045.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P046
   principle_id: P046
   mode: compare
-  prompt: We're working on creating or presenting IA diagrams or nonvisual equivalents. What do you advise, and
-    what's the trade-off?
+  prompt: We're working on starting an IA project or redesign. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Treat IA diagrams as partial communication views; tailor each view to audience and need,
-    present it live when possible, and value usefulness over p...'
+  - 'Applies the principle: Begin context research with background materials, a shared IA kickoff, focused research meetings,
+    early IT engagement, and stakeholder interviews.'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P046.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P047
   principle_id: P047
   mode: compare
-  prompt: We're working on exploring or communicating broad architecture and navigation concepts. What do you advise,
-    and what's the trade-off?
+  prompt: We're working on researching user needs, language, behavior, or satisfaction under practical constraints. What do
+    you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Use high-level sitemaps as purpose-specific, selective discussion tools for exploring
-    organization, navigation, ownership, management, and access p...'
+  - 'Applies the principle: Use multiple lightweight user-research approaches, because any real user evidence is better than
+    none and different methods reveal different parts ...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P047.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P048
   principle_id: P048
   mode: compare
-  prompt: We're working on creating multiple wireframes or a wireframe set for clients or production teams. What
-    do you advise, and what's the trade-off?
+  prompt: We're working on planning or running the transition from IA research to strategy. What do you advise, and what's
+    the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Choose wireframe fidelity and production practices deliberately, maintaining consistency,
-    reusable templates, callouts, revision metadata, and team...'
+  - 'Applies the principle: Start strategy hypotheses before research, test them during research, and shift from discovery
+    to strategy when learning plateaus and candidate str...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P048.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P049
   principle_id: P049
-  mode: advise
-  prompt: We're working on writing a practitioner-facing design guide. What do you advise, and what's the trade-off?
+  mode: compare
+  prompt: We're working on moving from strategy into design or implementation. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Deliver guidance in simple, objective, and clear language with short explanations, concrete
-    per-practice examples, extended before-and-after exampl...'
+  - 'Applies the principle: Pair IA strategy with a project plan and presentations so recommendations become feasible, sequenced,
+    integrated with other teams, and understood b...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P049.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P050
   principle_id: P050
-  mode: advise
-  prompt: 'Review our approach here: follow established placement, behavior, and appearance conventions unless a
-    replacement is clearly better or adds eno.... What''s wrong and what should we change, with the trade-offs?'
+  mode: compare
+  prompt: We're working on creating or presenting IA diagrams or nonvisual equivalents. What do you advise, and what's the
+    trade-off?
   expected_behaviour:
-  - 'Applies the principle: Follow established placement, behavior, and appearance conventions unless a replacement
-    is clearly better or adds enough value to justify a learnin...'
+  - 'Applies the principle: Treat IA diagrams as partial communication views; tailor each view to audience and need, present
+    it live when possible, and value usefulness over p...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P050.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P051
   principle_id: P051
   mode: compare
-  prompt: We're working on starting work inside or for an organization. What do you advise, and what's the trade-off?
+  prompt: We're working on exploring or communicating broad architecture and navigation concepts. What do you advise, and
+    what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Research the organization as rigorously as its users: get out and talk to real people,
-    interview the stakeholders whose support the project needs (...'
+  - 'Applies the principle: Use high-level sitemaps as purpose-specific, selective discussion tools for exploring organization,
+    navigation, ownership, management, and access p...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P051.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P052
   principle_id: P052
   mode: compare
-  prompt: We're working on designing, running, or interpreting any study. What do you advise, and what's the trade-off?
+  prompt: We're working on creating multiple wireframes or a wireframe set for clients or production teams. What do you advise,
+    and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Name and manage bias in every study: assume bias is unavoidable and note it so you can
-    weight results appropriately using a bias checklist, keep in...'
+  - 'Applies the principle: Choose wireframe fidelity and production practices deliberately, maintaining consistency, reusable
+    templates, callouts, revision metadata, and team...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P052.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P053
   principle_id: P053
   mode: advise
-  prompt: We're working on structuring any research effort. What do you advise, and what's the trade-off?
+  prompt: We're working on writing a practitioner-facing design guide. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Follow a lightweight but explicit process: define the problem, select the approach (its
-    type from the problem statement and its specific method fro...'
+  - 'Applies the principle: Deliver guidance in simple, objective, and clear language with short explanations, concrete per-practice
+    examples, extended before-and-after exampl...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P053.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P054
   principle_id: P054
-  mode: advise
-  prompt: We're working on running an analysis session. What do you advise, and what's the trade-off?
+  mode: compare
+  prompt: We're working on when the product has customer, employee, revenue, conversion, or productivity goals. What do you
+    advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Analyze collaboratively and structurally: involve as many team members as possible,
-    follow an explicit analysis structure even for a two-person tea...'
+  - 'Applies the principle: Connect UX decisions to business and organizational outcomes such as loyalty, conversion, efficiency,
+    employee productivity, and satisfaction.'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P054.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P055
   principle_id: P055
-  mode: compare
-  prompt: We're working on writing a screener or selecting participants. What do you advise, and what's the trade-off?
+  mode: advise
+  prompt: 'Review our approach here: follow established placement, behavior, and appearance conventions unless a replacement
+    is clearly better or adds eno.... What''s wrong and what should we change, with the trade-offs?'
   expected_behaviour:
-  - 'Applies the principle: Recruit deliberately for representativeness: screen primarily for the behaviors that
-    matter (a good participant shares the target''s goals and key c...'
+  - 'Applies the principle: Follow established placement, behavior, and appearance conventions unless a replacement is clearly
+    better or adds enough value to justify a learnin...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P055.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P056
   principle_id: P056
   mode: compare
-  prompt: We're working on creating or using personas to guide design. What do you advise, and what's the trade-off?
+  prompt: We're working on starting work inside or for an organization. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Build and use personas as the users in user-centered design: create composites from
-    firsthand research, keep them as few as possible with multiple ...'
+  - 'Applies the principle: Research the organization as rigorously as its users: get out and talk to real people, interview
+    the stakeholders whose support the project needs (...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P056.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P057
   principle_id: P057
-  mode: advise
-  prompt: 'Review our approach here: omit needless words. What''s wrong and what should we change, with the trade-offs?'
+  mode: compare
+  prompt: We're working on designing, running, or interpreting any study. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Omit needless words: aim to cut about half the words (then half again as a discipline),
-    kill content-free ''happy talk'', and eliminate instructions ...'
+  - 'Applies the principle: Name and manage bias in every study: assume bias is unavoidable and note it so you can weight
+    results appropriately using a bias checklist, keep in...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P057.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P058
   principle_id: P058
-  mode: review
-  prompt: 'Review our approach here: judge navigation by how hard each click is rather than the raw count. What''s
-    wrong and what should we change, with the trade-offs?'
+  mode: advise
+  prompt: We're working on structuring any research effort. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Judge navigation by how hard each click is rather than the raw count: keep every click
-    a mindless, unambiguous choice with a strong ''scent of infor...'
+  - 'Applies the principle: Follow a lightweight but explicit process: define the problem, select the approach (its type from
+    the problem statement and its specific method fro...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P058.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P059
   principle_id: P059
   mode: advise
-  prompt: 'Review our approach here: debrief immediately and triage ruthlessly. What''s wrong and what should we
-    change, with the trade-offs?'
+  prompt: We're working on running an analysis session. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Debrief immediately and triage ruthlessly: fix the most serious problems first via a
-    collective list, top-ten selection, ranking, and an ordered fi...'
+  - 'Applies the principle: Analyze collaboratively and structurally: involve as many team members as possible, follow an
+    explicit analysis structure even for a two-person tea...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P059.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P060
   principle_id: P060
-  mode: advise
-  prompt: 'Review our approach here: manage small-screen space by prioritizing rather than sacrificing usability.
-    What''s wrong and what should we change, with the trade-offs?'
+  mode: compare
+  prompt: We're working on writing a screener or selecting participants. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Manage small-screen space by prioritizing rather than sacrificing usability: keep frequent
-    or urgent things close at hand, accept more tapping and ...'
+  - 'Applies the principle: Recruit deliberately for representativeness: screen primarily for the behaviors that matter (a
+    good participant shares the target''s goals and key c...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P060.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P061
   principle_id: P061
   mode: compare
-  prompt: We're working on synthesizing evidence for a practice. What do you advise, and what's the trade-off?
+  prompt: We're working on creating or using personas to guide design. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Base conversational guidance on primary, full research studies that measure user-centered
-    outcomes such as satisfaction and trust, excluding studie...'
+  - 'Applies the principle: Build and use personas as the users in user-centered design: create composites from firsthand
+    research, keep them as few as possible with multiple ...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P061.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P062
   principle_id: P062
   mode: advise
-  prompt: We're working on deciding how much emotional expressiveness the chatbot shows. What do you advise, and
-    what's the trade-off?
+  prompt: 'Review our approach here: omit needless words. What''s wrong and what should we change, with the trade-offs?'
   expected_behaviour:
-  - 'Applies the principle: Use emotionality practices - exclamatory feedback, graphical media (emoji, emoticons,
-    GIFs, memes), a social-oriented informal style, and humor - t...'
+  - 'Applies the principle: Omit needless words: aim to cut about half the words (then half again as a discipline), kill content-free
+    ''happy talk'', and eliminate instructions ...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P062.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P063
   principle_id: P063
-  mode: compare
-  prompt: We're working on the task involves multi-turn requests, incremental specification, references to earlier
-    turns, repair, or sequence closure. What do you advise, and what's the trade-off?
+  mode: review
+  prompt: 'Review our approach here: judge navigation by how hard each click is rather than the raw count. What''s wrong and
+    what should we change, with the trade-offs?'
   expected_behaviour:
-  - 'Applies the principle: Avoid a two-turn valid-query model when users need to build on prior turns; preserve
-    sequential context so follow-ups, references, repair, and clos...'
+  - 'Applies the principle: Judge navigation by how hard each click is rather than the raw count: keep every click a mindless,
+    unambiguous choice with a strong ''scent of infor...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P063.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P064
   principle_id: P064
-  mode: compare
-  prompt: We're working on users can arrive from search engines, deep links, or unfamiliar pages. What do you advise,
-    and what's the trade-off?
+  mode: advise
+  prompt: 'Review our approach here: debrief immediately and triage ruthlessly. What''s wrong and what should we change, with
+    the trade-offs?'
   expected_behaviour:
-  - 'Applies the principle: Respect established navigation conventions and provide clear place cues so users know
-    where they are, what the environment is, and where they can g...'
+  - 'Applies the principle: Debrief immediately and triage ruthlessly: fix the most serious problems first via a collective
+    list, top-ten selection, ranking, and an ordered fi...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P064.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P065
   principle_id: P065
-  mode: compare
-  prompt: We're working on maintaining or redesigning an information environment that must evolve over time. What
-    do you advise, and what's the trade-off?
+  mode: advise
+  prompt: 'Review our approach here: manage small-screen space by prioritizing rather than sacrificing usability. What''s
+    wrong and what should we change, with the trade-offs?'
   expected_behaviour:
-  - 'Applies the principle: Preserve stable semantic structures while allowing controlled adaptation, separating
-    fast-changing areas from slower architectural foundations.'
+  - 'Applies the principle: Manage small-screen space by prioritizing rather than sacrificing usability: keep frequent or
+    urgent things close at hand, accept more tapping and ...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P065.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P066
   principle_id: P066
   mode: compare
-  prompt: We're working on designing important, complex, unique, confusing, or template-setting pages and screens.
-    What do you advise, and what's the trade-off?
+  prompt: We're working on synthesizing evidence for a practice. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Use wireframes to connect IA with interaction design by clarifying page structure, visible
-    components, grouping, priority, responsive behavior, and...'
+  - 'Applies the principle: Base conversational guidance on primary, full research studies that measure user-centered outcomes
+    such as satisfaction and trust, excluding studie...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P066.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P067
   principle_id: P067
-  mode: compare
-  prompt: We're working on an information environment will be maintained, extended, or governed after launch. What
-    do you advise, and what's the trade-off?
+  mode: advise
+  prompt: We're working on deciding how much emotional expressiveness the chatbot shows. What do you advise, and what's the
+    trade-off?
   expected_behaviour:
-  - 'Applies the principle: Plan for IA maintenance after launch because content, people, and context keep changing
-    and the architecture must evolve intentionally.'
+  - 'Applies the principle: Use emotionality practices - exclamatory feedback, graphical media (emoji, emoticons, GIFs, memes),
+    a social-oriented informal style, and humor - t...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P067.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P068
   principle_id: P068
   mode: compare
-  prompt: We're working on choosing among alphabetical, chronological, geographical, topical, or other organization
-    schemes. What do you advise, and what's the trade-off?
+  prompt: We're working on the task involves multi-turn requests, incremental specification, references to earlier turns,
+    repair, or sequence closure. What do you advise, and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Select organization schemes by user knowledge and task: exact schemes support known-item
-    access, ambiguous schemes support exploration, and combina...'
+  - 'Applies the principle: Avoid a two-turn valid-query model when users need to build on prior turns; preserve sequential
+    context so follow-ups, references, repair, and clos...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P068.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P069
   principle_id: P069
   mode: compare
-  prompt: We're working on a large information environment contains mixed content types, structured collections,
-    or associative relationships. What do you advise, and what's the trade-off?
+  prompt: We're working on users can arrive from search engines, deep links, or unfamiliar pages. What do you advise, and
+    what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Use hierarchy, database-oriented structure, hypertext, and tagging as complementary
-    organization structures, selecting each for the part of the env...'
+  - 'Applies the principle: Respect established navigation conventions and provide clear place cues so users know where they
+    are, what the environment is, and where they can g...'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P069.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
 - test_id: PB-P070
   principle_id: P070
   mode: compare
-  prompt: We're working on a product depends on metadata-driven search, browse, indexing, or cross-system consistency.
-    What do you advise, and what's the trade-off?
+  prompt: We're working on maintaining or redesigning an information environment that must evolve over time. What do you advise,
+    and what's the trade-off?
   expected_behaviour:
-  - 'Applies the principle: Use controlled vocabularies and metadata as system glue, shifting from placing documents
-    in one taxonomy to describing them for navigation and retr...'
+  - 'Applies the principle: Preserve stable semantic structures while allowing controlled adaptation, separating fast-changing
+    areas from slower architectural foundations.'
   - Names the user need at stake and states the trade-off rather than a one-sided answer.
   - Cites P070.
   must_not:
-  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off
-    it carries.
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P071
+  principle_id: P071
+  mode: compare
+  prompt: We're working on designing important, complex, unique, confusing, or template-setting pages and screens. What do
+    you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use wireframes to connect IA with interaction design by clarifying page structure, visible components,
+    grouping, priority, responsive behavior, and...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P071.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P072
+  principle_id: P072
+  mode: compare
+  prompt: We're working on an information environment will be maintained, extended, or governed after launch. What do you
+    advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Plan for IA maintenance after launch because content, people, and context keep changing and the
+    architecture must evolve intentionally.'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P072.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P073
+  principle_id: P073
+  mode: compare
+  prompt: We're working on choosing among alphabetical, chronological, geographical, topical, or other organization schemes.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Select organization schemes by user knowledge and task: exact schemes support known-item access,
+    ambiguous schemes support exploration, and combina...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P073.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P074
+  principle_id: P074
+  mode: compare
+  prompt: We're working on a large information environment contains mixed content types, structured collections, or associative
+    relationships. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use hierarchy, database-oriented structure, hypertext, and tagging as complementary organization
+    structures, selecting each for the part of the env...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P074.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P075
+  principle_id: P075
+  mode: compare
+  prompt: We're working on a product depends on metadata-driven search, browse, indexing, or cross-system consistency. What
+    do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use controlled vocabularies and metadata as system glue, shifting from placing documents in one
+    taxonomy to describing them for navigation and retr...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P075.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P076
+  principle_id: P076
+  mode: review
+  prompt: We're working on creating indexes, navigation vocabularies, or metadata fields with variant terminology. What do
+    you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Define preferred terms through authority files to make indexing consistent, browsing manageable,
+    and variant terms useful as entry points.'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P076.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P077
+  principle_id: P077
+  mode: advise
+  prompt: We're working on defining labels, controlled vocabulary, thesaurus relationships, and metadata for a content system.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use user-language nomenclature, controlled vocabulary, thesaurus relationships, and consistent
+    metadata to improve navigation, automation, repurposing...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P077.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P078
+  principle_id: P078
+  mode: compare
+  prompt: We're working on considering advanced navigation approaches. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Treat personalization, customization, visualization, and social navigation as limited refinements
+    that require a strong shared navigation foundation.'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P078.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P079
+  principle_id: P079
+  mode: review
+  prompt: We're working on users may need to reformulate queries, act on results, save searches, or move between search and
+    browse. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Design search as an iterative finding process, not a one-shot query-to-answer exchange.'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P079.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P080
+  principle_id: P080
+  mode: advise
+  prompt: We're working on the content is large, heterogeneous, structured, or separable by content type, audience, topic,
+    date, or component. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use search zones and component-specific indexing to improve relevance, but avoid forcing extra
+    complexity onto first-pass searchers.'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P080.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P081
+  principle_id: P081
+  mode: compare
+  prompt: We're working on planning research, strategy, design, implementation, or administration of a complex information
+    environment. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Run IA work as an interdisciplinary, phased, iterative process that gives agile teams a shared
+    goal while still adapting to real-world conditions.'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P081.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P082
+  principle_id: P082
+  mode: review
+  prompt: We're working on redesigning an existing information environment. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: For redesigns, learn from the existing environment before replacing it, using heuristic evaluation,
+    content analysis, content maps, and technology gap...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P082.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P083
+  principle_id: P083
+  mode: advise
+  prompt: We're working on writing an IA strategy report. What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Structure strategy reports so busy stakeholders can understand context, evidence, recommendations,
+    and implications without losing the thread.'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P083.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P084
+  principle_id: P084
+  mode: compare
+  prompt: We're working on communicating architecture structure to designers, developers, clients, or maintainers. What do
+    you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Use diagrams and visual vocabularies to show structural components and connections, while documenting
+    semantics through other artifacts when sitemaps...'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P084.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
+- test_id: PB-P085
+  principle_id: P085
+  mode: review
+  prompt: We're working on content may be repurposed, independently indexed, or assembled into multiple pages or formats.
+    What do you advise, and what's the trade-off?
+  expected_behaviour:
+  - 'Applies the principle: Separate content chunks from page containers in documentation when reusable content or layout
+    flexibility matters.'
+  - Names the user need at stake and states the trade-off rather than a one-sided answer.
+  - Cites P085.
+  must_not:
+  - Recommend a pattern without grounding it in the specific users, content, and context, or omit the trade-off it carries.
