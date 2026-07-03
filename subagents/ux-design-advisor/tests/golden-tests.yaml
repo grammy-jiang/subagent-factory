@@ -1,0 +1,135 @@
+schema_version: golden-tests-v1
+subagent_slug: ux-design-advisor
+generated_at: '2026-07-03'
+profile_version: "0.1.0"
+tier: 2
+golden_tests:
+  - test_id: GT-001
+    description: Positive routing — make a dense page self-evident and scannable
+    prompt: >-
+      Our product landing page has a long intro paragraph and the sign-up button is buried below
+      the fold. Users bounce. How should we fix it?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A critique that names the user's goal, flags self-evidence and scannability gaps, recommends
+      cutting words and strengthening the primary action's scent of information, and states the
+      trade-off plus the need to test.
+    must_do:
+      - Identify the one task the page must make effortless
+      - Flag the intro as happy talk and recommend cutting roughly half the words
+      - Recommend a clear visual hierarchy and an obvious primary action
+      - State the trade-off and recommend usability-testing the change
+    must_not_do:
+      - Produce production HTML/CSS or final copy
+      - Assume the fix works without proposing a test
+    principle_coverage: [P037, P005, P057, P058]
+  - test_id: GT-002
+    description: Positive routing — organize IA from users, content, and context
+    prompt: >-
+      We're restructuring our help center's navigation. Someone suggested copying a competitor's
+      category tree. Is that a good idea?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Advice that rejects uncritical competitor copying, grounds the structure in this product's
+      users, content, and context, and recommends validating candidate schemes (e.g. card sorting)
+      before committing.
+    must_do:
+      - Warn against applying a competitor pattern uncritically
+      - Analyze the problem through users, content, and context
+      - Recommend testing candidate organization with a card sort or tree test
+      - State the trade-off of the recommended scheme
+    must_not_do:
+      - Endorse copying the competitor tree without analysis
+    principle_coverage: [P017, P026, P068, P009]
+  - test_id: GT-003
+    description: Positive routing — match research to the problem's maturity and manage bias
+    prompt: >-
+      We have a vague sense our onboarding is confusing but no data. We were going to run a survey.
+      What research should we do?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      A recommendation that matches research type to the ill-defined problem (generative/exploratory
+      over a survey), treats research as observing real behavior, and names bias to manage.
+    must_do:
+      - Note the problem is still ill-defined and needs generative/exploratory research
+      - Prefer observing representative users over opinion surveys
+      - Name at least one bias to manage and how
+      - State the trade-off of the recommended method
+    must_not_do:
+      - Recommend the survey as the primary way to define the problem
+    principle_coverage: [P034, P035, P052]
+  - test_id: GT-004
+    description: Positive routing — genuine conversation, not a chat facade
+    prompt: >-
+      We want to add a chatbot to our support site. The plan is a text box that answers one question
+      at a time. Any advice on the design?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Advice that designs cooperative, context-aware, sequential interaction rather than a two-turn
+      facade, applies naturalness as a baseline, and plans failure handling.
+    must_do:
+      - Warn against a two-turn valid-query model that drops prior context
+      - Recommend preserving sequential context for follow-ups, references, and repair
+      - Recommend naturalness practices and explicit failure handling
+      - State the trade-off and recommend testing
+    must_not_do:
+      - Endorse a surface chat facade without conversational depth
+    principle_coverage: [P033, P001, P063, P016]
+  - test_id: GT-005
+    description: Positive routing — judge navigation by click difficulty, not count
+    prompt: >-
+      Our analytics team wants to cut every task to three clicks or fewer. Is minimizing click count
+      the right goal for our navigation?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Advice that reframes the goal from click count to click difficulty and scent of information,
+      supports progressive disclosure, and states the trade-off.
+    must_do:
+      - Reframe the metric from raw click count to click difficulty
+      - Emphasize a strong scent of information and unambiguous choices
+      - Mention progressive disclosure to avoid overwhelming users
+      - State the trade-off
+    must_not_do:
+      - Endorse a hard three-click rule as the primary navigation goal
+    principle_coverage: [P058, P015, P029]
+negative_routing_tests:
+  - test_id: NR-001
+    description: Out of scope — production code and tooling selection
+    prompt: >-
+      Just write the production React components for this screen and pick the CSS component library
+      we should use.
+    expected_route: do_not_invoke
+    must_not_do:
+      - Produce production code
+      - Choose a specific framework or component library
+    principle_coverage: [P017]
+  - test_id: NR-002
+    description: Out of scope — security and legal review
+    prompt: >-
+      Can you do the security and legal/compliance review of our checkout flow's data handling?
+    expected_route: do_not_invoke
+    must_not_do:
+      - Perform a security or legal/compliance review outside the UX remit
+    principle_coverage: [P017]
+missing_context_tests:
+  - test_id: MC-001
+    description: Underspecified — no user, goal, or channel given
+    prompt: Make our app's home screen better.
+    expected_route: invoke
+    must_ask_for:
+      - Who the user is and the goal the screen must serve
+      - The channel/context and what is already known versus assumed
+    principle_coverage: [P037, P018]
+  - test_id: MC-002
+    description: Underspecified — research request with no problem-stage detail
+    prompt: What user research method should we use?
+    expected_route: invoke
+    must_ask_for:
+      - The maturity of the problem (ill-defined vs identified vs live product)
+      - The decision the research must inform and available resources
+    principle_coverage: [P034, P053]
