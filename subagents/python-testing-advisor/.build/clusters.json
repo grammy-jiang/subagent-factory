@@ -1,0 +1,764 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Adopt pytest as the Python test framework: it discovers, runs, and reports tests from the command line, lets you signal failure with a plain assert statement, works for unit through system/functional levels, and can even run existing unittest or nose suites."
+   },
+   {
+    "idx": 1,
+    "statement": "Install and run pytest inside a per-project virtual environment; because pytest is versioned separately from the interpreter you can run the latest pytest against legacy Pythons, and on Windows activate the environment with venv\\Scripts\\activate.bat."
+   },
+   {
+    "idx": 2,
+    "statement": "Follow pytest's naming conventions so tests are auto-discovered: name files test_<x>.py or <x>_test.py, functions and methods test_<x>, and classes Test<X>."
+   },
+   {
+    "idx": 7,
+    "statement": "Read pytest outcomes correctly and preserve the ERROR-vs-FAIL distinction: outcomes are PASSED, FAILED, SKIPPED, xfail, XPASS, and ERROR, where ERROR marks a failure outside the test body (in a fixture or hook)."
+   },
+   {
+    "idx": 8,
+    "statement": "Understand that every pytest test runs in three phases — setup, call, teardown — with setup and teardown supplied by fixtures."
+   },
+   {
+    "idx": 15,
+    "statement": "Write assertions as a plain 'assert <expression>' and rely on pytest's assert rewriting for detailed failure diagnostics (exact failing line and value diff); add -v to see the full diff when output is truncated."
+   },
+   {
+    "idx": 16,
+    "statement": "Test for expected exceptions with 'with pytest.raises(ExpectedException):' (the test fails if no or a different exception is raised) and capture the exception via 'as excinfo' to assert on its message or args."
+   },
+   {
+    "idx": 21,
+    "statement": "Declare a fixture with @pytest.fixture(); a test requests it by naming it as a parameter and pytest runs it before the test, and a fixture may both do work and return data."
+   },
+   {
+    "idx": 40,
+    "statement": "Assert on warnings issued by code under test with the recwarn fixture (a list of warnings exposing category/message/filename/lineno; recwarn.clear() to reset) or the equivalent pytest.warns() context manager."
+   },
+   {
+    "idx": 42,
+    "statement": "Package a pytest plugin as a minimal module plus setup.py, registered via the setuptools entry_points 'pytest11' group, implementing behaviour through hook functions (e.g. pytest_addoption, pytest_report_header, pytest_report_teststatus); include the required setup fields, use py_modules (or packages for multiple modules), and provide a README."
+   },
+   {
+    "idx": 43,
+    "statement": "Test plugins like any other code using the bundled pytester plugin: enable it (pytest_plugins='pytester'), generate example tests with testdir.makepyfile, run them via testdir.runpytest, and assert on result.stdout.fnmatch_lines and result.ret (0 pass / 1 fail); follow the make-example, run, examine-output, check-exit-code pattern, keep each test checking one thing, and install the plugin before running its tests."
+   },
+   {
+    "idx": 48,
+    "statement": "Measure code coverage with coverage.py via the pytest-cov plugin (pytest --cov=<src>, --cov-report=html for line detail), but treat 100% coverage as a heuristic rather than a goal — untested code may indicate a missing test or dead code, and coverage does not replace thinking."
+   },
+   {
+    "idx": 50,
+    "statement": "Choose mock tooling and strategy deliberately: monkeypatch plus the mock package (unittest.mock since Python 3.3, with pytest-mock as a convenient interface) cover test-double needs; because mock-based tests are white-box, decide up front what to mock and where — for example test functionality at the API layer and mock that layer when testing the CLI."
+   },
+   {
+    "idx": 55,
+    "statement": "Reach for the right execution plugin per need: pytest-repeat (--count) to reproduce flaky failures, pytest-xdist (-n) to parallelize independent tests (with overhead, so not a linear speedup, and run sequentially when a resource is single-access), and pytest-timeout to bound tests that may hang."
+   },
+   {
+    "idx": 56,
+    "statement": "Reach for the right reporting or analysis plugin per need: pytest-instafail and pytest-sugar for live failure output, pytest-html for filterable session reports, and static-analysis plugins (pytest-pycodestyle/--pep8, pytest-flake8/--flake8, flake8-docstrings) to surface style and lint failures as test failures."
+   },
+   {
+    "idx": 57,
+    "statement": "Use framework-specific plugins for web testing (pytest-selenium, pytest-django which replaces Django's unittest-based support, pytest-flask), and share your own code with the built-in packaging tools (a pip-installable project via a minimal setup.py, a source distribution, and a wheel) rather than emailing zipped directories."
+   },
+   {
+    "idx": 153,
+    "statement": "Prefer plain test functions over class-based tests for simple modules and when starting out, since pytest does not require class inheritance."
+   },
+   {
+    "idx": 157,
+    "statement": "Prefer pytest's single plain 'assert' with its rich data-structure diffs over unittest's many specialised assertion methods; use -v/-vv to reveal a withheld diff."
+   },
+   {
+    "idx": 158,
+    "statement": "Adopt pytest incrementally on legacy suites: it runs existing unittest.TestCase tests unchanged, so migration needs no rewrite."
+   },
+   {
+    "idx": 161,
+    "statement": "In xunit-style pytest tests, use setup_function/teardown_function and reset or delete per-test state so a mutation cannot make a later test pass or fail for the wrong reason."
+   },
+   {
+    "idx": 164,
+    "statement": "Measure coverage with pytest-cov as a signal for where tests are missing, not as a mandate for 100%."
+   },
+   {
+    "idx": 168,
+    "statement": "Debug with escalating tools: start with print statements, move to pdb.set_trace() when print is insufficient, and use pytest --pdb to break at a test failure."
+   },
+   {
+    "idx": 169,
+    "statement": "Use pytest fixtures to inject data and behaviour into tests by declaring the fixture name as an argument; leverage built-in fixtures (monkeypatch, capsys, tmpdir)."
+   },
+   {
+    "idx": 209,
+    "statement": "Test Jupyter notebooks as part of the suite with the pytest nbval plugin (which executes every cell), but be cautious with output-checking mode when cells produce nondeterministic or image output."
+   }
+  ]
+ },
+ {
+  "group": 2,
+  "members": [
+   {
+    "idx": 4,
+    "statement": "Tag subsets of tests with custom markers (@pytest.mark.<name>) and select them with -m marker expressions (which support and/or/not) so related tests run together even across files."
+   },
+   {
+    "idx": 17,
+    "statement": "Build runnable subsets such as smoke tests with markers: a test may carry many markers and a marker may tag many tests, and marked tests are selectable together (even across files) with -m."
+   },
+   {
+    "idx": 19,
+    "statement": "Run any subset by directory, file, class, method, node id, name expression, or marker, and run pytest -v to discover the exact node-id syntax for a specific target."
+   },
+   {
+    "idx": 20,
+    "statement": "Parametrize a test with @pytest.mark.parametrize(argnames, argvalues) to run it against many data sets (each reported separately, and applicable to a class); make case identifiers readable with the ids parameter or pytest.param(id=...), and quote a node id containing spaces, brackets, or parentheses when rerunning one case."
+   },
+   {
+    "idx": 29,
+    "statement": "Parametrize fixtures to multiply coverage: @pytest.fixture(params=[...]) runs every dependent test once per value (read via request.param), ids gives readable identifiers, and isolating an environment/backend choice in one parametrized fixture (e.g. ['tiny','mongo']) runs the whole suite against each option — remembering that fixture parametrization multiplies all dependent tests while test parametrization multiplies only that test."
+   },
+   {
+    "idx": 54,
+    "statement": "Migrate a legacy unittest suite incrementally under pytest: pytest runs unittest tests and both styles in one session, pytest markers can be applied to unittest tests, and rewriting to fixtures shrinks the files; watch for session-scope resource conflicts between a unittest tearDownModule and a pytest session fixture, resolving them by sharing the pytest session fixture on the TestCase via @pytest.mark.usefixtures (needed only for shared session-scope resources)."
+   },
+   {
+    "idx": 151,
+    "statement": "Follow pytest's discovery conventions: a plural 'tests' directory, 'test_' file prefix, 'test' function/method prefix, 'Test' class prefix, and no __init__ on test classes — otherwise tests are silently skipped."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 9,
+    "statement": "Customize pytest locally through conftest.py and ini files, introspect with -h/--markers/--fixtures, and remember that the available options, markers, and fixtures depend on the target path because conftest.py files are loaded along it."
+   },
+   {
+    "idx": 14,
+    "statement": "Use pytest.ini for project-wide configuration (at most one) and conftest.py as a local plugin for hooks and fixtures; put hooks/fixtures shared across subdirectories in tests/conftest.py, adding per-subdirectory conftest.py files as needed."
+   },
+   {
+    "idx": 23,
+    "statement": "Organize and share fixtures with conftest.py: pytest resolves a requested fixture by name first in the test module then in conftest.py; a lower-level conftest.py serves its directory and subdirectories; never import conftest.py, since pytest loads it automatically as a local plugin."
+   },
+   {
+    "idx": 28,
+    "statement": "Activate fixtures appropriately: request by parameter when you need the return value, use @pytest.mark.usefixtures for classes when you do not (it gives no return value), and reserve autouse=True for always-run code whose data tests do not depend on — otherwise prefer named fixtures; rename with name= for clarity."
+   },
+   {
+    "idx": 30,
+    "statement": "Use pytest's builtin fixtures for common needs (temporary files, CLI options, cross-session cache, output capture, environment variables, warnings); reusing common fixtures is valuable enough that pytest bundles them."
+   },
+   {
+    "idx": 33,
+    "statement": "Add and read custom command-line options via pytestconfig: register options with the pytest_addoption hook (only in a plugin or the top-level conftest.py, never a test subdirectory) and read them with pytestconfig.getoption; pytestconfig (a shortcut to request.config) can also be requested from other fixtures."
+   },
+   {
+    "idx": 41,
+    "statement": "Recognize that a top-level conftest.py is already a local plugin: find third-party plugins on PyPI, the pytest docs, and pytest-dev on GitHub, install with pip (pin with ==, install offline via --find-links, or from a Git repo), and prototype a hook-based behaviour change in conftest.py before packaging it."
+   },
+   {
+    "idx": 46,
+    "statement": "Store pytest configuration in pytest.ini, tox.ini, or setup.cfg (the format is largely the same) and enable xfail_strict; override discovery with python_files/python_classes/python_functions only for a strong reason such as migrating a large existing suite, doing so gradually by listing both old and new patterns."
+   },
+   {
+    "idx": 58,
+    "statement": "pytest supports xUnit-style setup/teardown fixtures at module, function, class, and method level (setup_module/teardown_module, setup_function/teardown_function, setup_class/teardown_class, setup_method/teardown_method), whose module/function/cls/method parameters are optional convention."
+   },
+   {
+    "idx": 59,
+    "statement": "Prefer normal pytest fixtures over xUnit fixtures and avoid mixing the two: xUnit fixtures do not appear in --setup-show/--setup-plan, have no session scope (module is widest), apply to every test in a class regardless of need, nest at most three levels, cannot be parametrized, and can only be optimized by grouping tests."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 11,
+    "statement": "Keep test code in a directory separate from the package source (tests/ vs src/) as a best practice."
+   },
+   {
+    "idx": 13,
+    "statement": "Make the package under test importable by installing it locally with pip (which needs a setup.py); use editable mode (pip install -e .) when you want to keep changing its source while it stays installed."
+   }
+  ]
+ },
+ {
+  "group": 8,
+  "members": [
+   {
+    "idx": 12,
+    "statement": "Separate functional tests from unit tests by directory so a subset can be run easily and failure signals stay meaningful: functional tests should break only on intentional functionality changes, while unit tests may break during refactoring."
+   },
+   {
+    "idx": 84,
+    "statement": "Organize Selenium functional tests with unittest.TestCase-style classes, descriptive test method names, framework assertions, and setUp/tearDown browser lifecycle management."
+   },
+   {
+    "idx": 152,
+    "statement": "Mirror the source layout in the tests directory and separate distinct test types (unit vs functional) into sub-directories so tests are easy to locate and run."
+   },
+   {
+    "idx": 160,
+    "statement": "Use object-oriented, class-based structure only where the paradigm fits; prefer a functional style for many unit tests."
+   },
+   {
+    "idx": 205,
+    "statement": "Cover a module with both isolated unit tests and end-to-end functional tests, and in class-based tests initialise shared state in setUp and release it in tearDown for clean, independent runs."
+   }
+  ]
+ },
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 22,
+    "statement": "Use fixtures rather than old xUnit setup/teardown for setup, teardown, and test data: in a yield fixture the code before yield is setup and after yield is teardown, and autouse=True applies it without being named."
+   },
+   {
+    "idx": 24,
+    "statement": "Treat fixtures as the separation of 'get ready' (setup) and 'clean up' (teardown) from tests: in a yield fixture the teardown after the yield is guaranteed to run, and fixtures can be consumed by tests or composed by other fixtures."
+   }
+  ]
+ },
+ {
+  "group": 11,
+  "members": [
+   {
+    "idx": 25,
+    "statement": "Push as much setup (the GIVEN) into fixtures as possible so a FAIL means the behaviour under test broke: an error inside a fixture is reported as ERROR rather than FAIL, so keeping setup in fixtures preserves that distinction; add GIVEN/WHEN/THEN comments when the test's intent is not obvious."
+   },
+   {
+    "idx": 26,
+    "statement": "Trace and introspect fixtures while developing them: use --setup-show to see setup/teardown order (F=function, S=session scope) and --fixtures to list the fixtures available to a test and where each is defined."
+   },
+   {
+    "idx": 27,
+    "statement": "Choose fixture scope deliberately: the scope parameter (function/class/module/session, default function) is fixed at the fixture's definition and sets setup/teardown frequency; a fixture may depend only on same-or-wider-scoped fixtures; do expensive setup once at session scope and reset state per test with a small function-scoped fixture."
+   },
+   {
+    "idx": 133,
+    "statement": "Verify production-like logging by provoking an error under DEBUG=False, ensuring tracebacks reach standard output, and restoring broken test fixtures afterward."
+   }
+  ]
+ },
+ {
+  "group": 12,
+  "members": [
+   {
+    "idx": 31,
+    "statement": "Use tmpdir for a per-test, auto-cleaned temporary directory (a py.path.local — wrap in str() for a path string); because it is function-scoped, use tmpdir_factory (with .mktemp) for class/module/session scope; pytest keeps only the most recent temp base directories, and --basetemp overrides the location."
+   },
+   {
+    "idx": 32,
+    "statement": "Create wider-scoped temporary directories by writing your own fixture (of the needed scope) that uses tmpdir_factory, and build a shared temporary data file once in a wider-scope fixture rather than recreating it per test."
+   }
+  ]
+ },
+ {
+  "group": 16,
+  "members": [
+   {
+    "idx": 37,
+    "statement": "Use monkeypatch to modify environment variables, attributes, and dictionary items for a test's duration with automatic undo: setenv/setattr/setitem and their del forms, syspath_prepend to shadow a module, chdir for cwd-dependent code, and the raising parameter; combine with unittest.mock for mock objects."
+   },
+   {
+    "idx": 177,
+    "statement": "Use monkeypatch's self-cleaning helpers (setattr/delattr, setitem/delitem, setenv/delenv, syspath_prepend, chdir) so patched state is restored after each test."
+   }
+  ]
+ },
+ {
+  "group": 18,
+  "members": [
+   {
+    "idx": 39,
+    "statement": "Test docstring examples with doctest: run them via --doctest-modules (each code-bearing docstring is a separate test) and inject shared symbols with the doctest_namespace fixture in an autouse top-level conftest.py so the docstrings stay uncluttered."
+   },
+   {
+    "idx": 204,
+    "statement": "Embed runnable examples as doctests in docstrings so documentation doubles as executable, coverage-counted tests."
+   }
+  ]
+ },
+ {
+  "group": 19,
+  "members": [
+   {
+    "idx": 44,
+    "statement": "Distribute a plugin by building a source distribution (python setup.py sdist) and installing it from a shared directory (upgrade with --upgrade); scaffold new distributable plugins with cookiecutter-pytest-plugin."
+   },
+   {
+    "idx": 172,
+    "statement": "Grow pytest plugins from simple functions into a packaged plugin only once functionality expands or multiple projects can reuse it."
+   }
+  ]
+ },
+ {
+  "group": 22,
+  "members": [
+   {
+    "idx": 49,
+    "statement": "Use mocks (test doubles) to swap out parts of the system and isolate the code under test."
+   },
+   {
+    "idx": 154,
+    "statement": "Use the reserved setup/teardown (and setupclass/teardownclass) methods to provide shared state and to clean up artifacts so tests do not pollute each other."
+   }
+  ]
+ },
+ {
+  "group": 24,
+  "members": [
+   {
+    "idx": 52,
+    "statement": "Test packages across multiple environments with tox: install and run it (it builds a source distribution, creates a virtualenv per target environment, installs dependencies, runs the suite, and prints a per-environment summary); adopt it whenever the package must run in multiple environments."
+   },
+   {
+    "idx": 53,
+    "statement": "Integrate pytest with CI (e.g. Jenkins) that runs the suite after each commit: emit results with --junit-xml (the only flag required; --junit-prefix and junit_suite_name refine naming), run inside a virtual environment installing the project first, keep build logic in a version-controlled script, and cover multiple environments via separate jobs or by calling tox."
+   },
+   {
+    "idx": 182,
+    "statement": "Use tox to run the test suite across multiple Python versions via a tox.ini with an envlist and a [testenv] section defining deps and commands."
+   }
+  ]
+ },
+ {
+  "group": 25,
+  "members": [
+   {
+    "idx": 60,
+    "statement": "Drive behavior with test-first, outside-in TDD: write an expected-failing test, make the smallest code change that moves the failure forward, and repeat until the user-level behavior passes."
+   },
+   {
+    "idx": 90,
+    "statement": "While learning rigorous TDD, write tests for even simple behavior so tests are already present when complexity grows."
+   }
+  ]
+ },
+ {
+  "group": 26,
+  "members": [
+   {
+    "idx": 61,
+    "statement": "Use functional tests for user-visible behavior and wiring confidence, and unit tests for implementation details, edge cases, and clean internal behavior."
+   },
+   {
+    "idx": 78,
+    "statement": "Write functional tests as readable user stories, using comments for intent and context rather than restating mechanics that should be clear from the code."
+   },
+   {
+    "idx": 108,
+    "statement": "For behavior-preserving redesigns, keep the old functional test as a regression test while a new functional test proves the new multi-user behavior and URL shape."
+   }
+  ]
+ },
+ {
+  "group": 29,
+  "members": [
+   {
+    "idx": 64,
+    "statement": "Debug browser tests with clear durable assertions and temporary inspection aids, replacing arbitrary waits with robust wait helpers when available."
+   },
+   {
+    "idx": 76,
+    "statement": "Use explicit Selenium polling waits that retry lookup and assertion failures, re-raise the final failure on timeout, and avoid premature generalization."
+   },
+   {
+    "idx": 93,
+    "statement": "Keep unit tests focused on logic, flow, configuration, and template selection; leave mostly constant HTML appearance to browser-level checks and templates."
+   }
+  ]
+ },
+ {
+  "group": 32,
+  "members": [
+   {
+    "idx": 67,
+    "statement": "For production static files, collect app assets into STATIC_ROOT, keep generated copies out of version control, configure a production serving strategy, and verify it with layout functional tests."
+   },
+   {
+    "idx": 119,
+    "statement": "Serve app static files through Django’s static URL prefix and use StaticLiveServerTestCase for functional tests that depend on staticfiles support."
+   }
+  ]
+ },
+ {
+  "group": 33,
+  "members": [
+   {
+    "idx": 68,
+    "statement": "Reduce deployment risk by running functional tests against container and staging environments, rerunning them after each fixed deployment layer because the next layer may fail independently."
+   },
+   {
+    "idx": 73,
+    "statement": "Automate deployment steps that affect correctness, while separating server provisioning from application deployment and keeping staging close enough to production to be meaningful."
+   },
+   {
+    "idx": 127,
+    "statement": "Commit the Dockerfile only after functional tests pass against the container with the intended ports, mounts, and runtime configuration."
+   },
+   {
+    "idx": 128,
+    "statement": "Productionize incrementally: start from a crude green container, then change one production concern at a time while functional tests guard behavior."
+   }
+  ]
+ },
+ {
+  "group": 36,
+  "members": [
+   {
+    "idx": 71,
+    "statement": "Drive environment-specific settings from runtime configuration, keeping secrets out of source and using persistent per-environment secret storage appropriate to deployment maturity."
+   },
+   {
+    "idx": 122,
+    "statement": "Ship a useful early version to learn from users, but treat deployment as a risk area covering networking, dependencies, database state, static files, and security settings."
+   }
+  ]
+ },
+ {
+  "group": 38,
+  "members": [
+   {
+    "idx": 74,
+    "statement": "For dynamic resource URLs, capture typed URL parameters, accept them in the view, and use them to select only the requested resource data."
+   },
+   {
+    "idx": 107,
+    "statement": "Use REST-inspired URL design pragmatically: GET resource pages, POST action endpoints, and resource URLs that reflect the data model without overfitting strict API rules."
+   }
+  ]
+ },
+ {
+  "group": 39,
+  "members": [
+   {
+    "idx": 75,
+    "statement": "For POST endpoints that create or update list resources, add route and view behavior under tests that separately check persistence and redirects to the relevant resource URL."
+   },
+   {
+    "idx": 102,
+    "statement": "Keep unit tests focused on one concern, splitting save behavior from response behavior and using assertRedirects for redirect-after-POST checks."
+   }
+  ]
+ },
+ {
+  "group": 42,
+  "members": [
+   {
+    "idx": 80,
+    "statement": "Set up each project in an isolated virtual environment with the expected Python, Django, Selenium, browser, and IDE interpreter configuration before running project work."
+   },
+   {
+    "idx": 82,
+    "statement": "Keep commands and paths anchored to the project directory that contains manage.py, and initialize Django so manage.py lands in that directory."
+   },
+   {
+    "idx": 83,
+    "statement": "Put the project under version control as soon as the first tested setup exists, and ignore generated or local-state files such as databases, virtualenvs, bytecode, and caches."
+   },
+   {
+    "idx": 143,
+    "statement": "Isolate each project's Python interpreter and dependencies in a virtual environment (or container), and install packages with pip only inside it — never into the system interpreter."
+   }
+  ]
+ },
+ {
+  "group": 44,
+  "members": [
+   {
+    "idx": 85,
+    "statement": "Use an explicit failing placeholder to mark the unfinished point in a functional test and interpret reaching it as progress through earlier behavior."
+   },
+   {
+    "idx": 91,
+    "statement": "When unsure what to do next, rerun the relevant tests and let the current failure define the next task."
+   },
+   {
+    "idx": 156,
+    "statement": "Write one behaviour per test with a descriptive name, and avoid bundling many unrelated assertions, so a failure message alone pinpoints the broken expectation."
+   }
+  ]
+ },
+ {
+  "group": 45,
+  "members": [
+   {
+    "idx": 86,
+    "statement": "Choose the testing framework pragmatically: use Django-compatible unittest tooling early and defer more complex live-server tooling until the workflow needs it."
+   },
+   {
+    "idx": 89,
+    "statement": "Use the Django test client and Django assertion helpers to test URL routing and response behavior through more of the Django stack, then remove redundant lower-level direct-call tests."
+   },
+   {
+    "idx": 101,
+    "statement": "Keep ORM-learning tests distinct from ideal production model tests, recognizing database-backed Django tests as integrated lower-level checks."
+   },
+   {
+    "idx": 103,
+    "statement": "Do not let tests interfere through persistent state; use Django-managed live-server tests or equivalent isolation instead of manual database cleanup."
+   },
+   {
+    "idx": 104,
+    "statement": "Run LiveServerTestCase-based functional tests through Django discovery, keep them in a separate package when workflows cross app boundaries, and use live_server_url instead of fixed localhost."
+   },
+   {
+    "idx": 118,
+    "statement": "Use Django template inheritance to remove shared boilerplate after comparing templates, defining blocks for variable regions, and rerunning functional tests after the refactor."
+   }
+  ]
+ },
+ {
+  "group": 49,
+  "members": [
+   {
+    "idx": 94,
+    "statement": "Move nontrivial HTML into Django templates and render them with Django render rather than building HTML in Python strings."
+   },
+   {
+    "idx": 97,
+    "statement": "Pass dynamic values to Django templates through render context dictionaries and test that the intended template path is still used."
+   }
+  ]
+ },
+ {
+  "group": 53,
+  "members": [
+   {
+    "idx": 99,
+    "statement": "Apply DRY cautiously in tests: tolerate early duplication, but refactor repeated patterns after the third similar occurrence."
+   },
+   {
+    "idx": 155,
+    "statement": "Extract repeated data into setup and repeated behaviour into non-test helper methods, and refactor/regroup test classes that grow too complex."
+   }
+  ]
+ },
+ {
+  "group": 58,
+  "members": [
+   {
+    "idx": 110,
+    "statement": "Treat trailing slashes and form action URLs as part of the tested contract because small mismatches can break routing after navigation changes."
+   },
+   {
+    "idx": 117,
+    "statement": "After a URL refactor passes, intentionally perturbing a route can confirm that tests would catch a broken mapping."
+   }
+  ]
+ },
+ {
+  "group": 59,
+  "members": [
+   {
+    "idx": 111,
+    "statement": "Introduce new URLs incrementally: point them at existing behavior first when possible, then split views, tests, and templates as responsibilities become distinct."
+   },
+   {
+    "idx": 112,
+    "statement": "After a responsibility moves to a new page or view, simplify the old template/view and remove tests for behavior that no longer belongs there."
+   }
+  ]
+ },
+ {
+  "group": 64,
+  "members": [
+   {
+    "idx": 120,
+    "statement": "Remove unused Django apps from production configuration when they add unnecessary static output or deployment surface."
+   },
+   {
+    "idx": 129,
+    "statement": "Do not use Django runserver for production; use a production WSGI server such as Gunicorn and address production ports and core Django settings."
+   }
+  ]
+ },
+ {
+  "group": 66,
+  "members": [
+   {
+    "idx": 123,
+    "statement": "Move production app source into a src directory once deployment work introduces project-level files outside the runtime application tree."
+   },
+   {
+    "idx": 190,
+    "statement": "Write down and run a deployment workflow manually before automating it, and store the pipeline/deploy definition as a checked-in config file versioned with the source."
+   }
+  ]
+ },
+ {
+  "group": 67,
+  "members": [
+   {
+    "idx": 124,
+    "statement": "Start Docker work with a minimal verified Docker setup and a first Dockerfile that chooses a Python base image, copies source, sets WORKDIR, and defines the default command."
+   },
+   {
+    "idx": 125,
+    "statement": "Install dependencies inside the image, preferably in an image-local virtual environment on PATH, and use rebuild-and-run loops plus Docker process commands to test and control each Dockerfile change."
+   }
+  ]
+ },
+ {
+  "group": 70,
+  "members": [
+   {
+    "idx": 131,
+    "statement": "Manage runtime dependencies with a pinned requirements file copied into the Docker build before source, excluding test-only dependencies from production installs."
+   },
+   {
+    "idx": 145,
+    "statement": "Declare dependencies in requirements.txt and, for deployable projects, pin them by freezing installed versions; pin test tooling into the environment for reproducibility."
+   }
+  ]
+ },
+ {
+  "group": 77,
+  "members": [
+   {
+    "idx": 139,
+    "statement": "Maintain an automated regression test suite for any project expected to change or grow, so that no change can silently break existing behaviour."
+   },
+   {
+    "idx": 162,
+    "statement": "Treat testing as the foundation of automation and run tests plus quality reports on every check-in to source control."
+   }
+  ]
+ },
+ {
+  "group": 78,
+  "members": [
+   {
+    "idx": 140,
+    "statement": "Treat writing tests as design pressure: if code is hard to test, refactor it to be more granular and modular rather than leaving it fragile."
+   },
+   {
+    "idx": 174,
+    "statement": "Treat hard-to-test or heavily-patched code as a design smell signalling insufficient modularity, and design new code for testability from the start."
+   },
+   {
+    "idx": 199,
+    "statement": "Recognise that without tests you cannot know software works, and that writing tests before or during implementation shapes code toward modular, maintainable structure."
+   },
+   {
+    "idx": 200,
+    "statement": "Control complexity as the essence of development: keep each method's cyclomatic complexity below ~10, since higher complexity correlates strongly with faults and is nearly impossible to cover with tests."
+   }
+  ]
+ },
+ {
+  "group": 80,
+  "members": [
+   {
+    "idx": 142,
+    "statement": "Put every project under version control (git) as a non-negotiable baseline of professional practice."
+   },
+   {
+    "idx": 207,
+    "statement": "Scaffold projects for quality from the start with a standard structure: a version-controlled repo, a CI config, a .gitignore, a README, a Makefile and a tests directory."
+   }
+  ]
+ },
+ {
+  "group": 89,
+  "members": [
+   {
+    "idx": 165,
+    "statement": "Make a linter a mandatory part of the process and fail the build on code that cannot execute; checking in non-executable code is never acceptable."
+   },
+   {
+    "idx": 206,
+    "statement": "Generally disallow linter errors in source, while allowing rare, documented exceptions (e.g. false positives from external libraries), and configure the linter to the project rather than accepting defaults blindly."
+   }
+  ]
+ },
+ {
+  "group": 92,
+  "members": [
+   {
+    "idx": 170,
+    "statement": "Keep unit tests contained and reproducible by substituting fakes/fixtures for external services rather than making real calls."
+   },
+   {
+    "idx": 171,
+    "statement": "Have fixtures return factory closures so tests construct objects at test time, and give new fixture/fake parameters defaults so existing tests are not disrupted."
+   }
+  ]
+ },
+ {
+  "group": 93,
+  "members": [
+   {
+    "idx": 173,
+    "statement": "Reach for monkeypatching only when a dependency with the desired behaviour cannot be passed in as an argument."
+   },
+   {
+    "idx": 176,
+    "statement": "Stub a dependency globally with an autouse fixture in conftest.py that uses monkeypatch, when it must be replaced across the whole session."
+   }
+  ]
+ },
+ {
+  "group": 95,
+  "members": [
+   {
+    "idx": 178,
+    "statement": "Cap the number of patches per test at roughly three; beyond that, refactor rather than accumulate brittle patches."
+   },
+   {
+    "idx": 181,
+    "statement": "For large, hard-to-test code, extract the specific functionality you need into a smaller testable unit rather than patching around a huge function."
+   }
+  ]
+ },
+ {
+  "group": 96,
+  "members": [
+   {
+    "idx": 179,
+    "statement": "Prefer dependency injection over patching: allow dependencies to be passed as arguments defaulting to the real one (e.g. def main(argv=None): argv = argv or sys.argv), so tests inject fakes with no patching."
+   },
+   {
+    "idx": 180,
+    "statement": "Never patch built-in modules such as os; inject the dependency or wrap the built-in call in a small function instead."
+   }
+  ]
+ },
+ {
+  "group": 110,
+  "members": [
+   {
+    "idx": 197,
+    "statement": "Rescue a legacy mess in order: establish a lint baseline, extract nested logic into tested functions, add logging, and use the debugger only as a last resort."
+   },
+   {
+    "idx": 203,
+    "statement": "Decompose logic into small, single-purpose, documented methods so the same behaviour becomes testable and readable instead of a monolithic function."
+   }
+  ]
+ },
+ {
+  "group": 113,
+  "members": [
+   {
+    "idx": 202,
+    "statement": "Use static-analysis tools (complexity, duplication, general quality) to measure quality objectively rather than by eye, and scope coverage reporting to the module/package under test."
+   },
+   {
+    "idx": 211,
+    "statement": "Remember that neither testing nor static analysis is a panacea: the goal is not merely to solve the problem but to build software you can prove works, so resist needless complexity and over-confident design."
+   }
+  ]
+ }
+]

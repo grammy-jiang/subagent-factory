@@ -1,0 +1,69 @@
+schema_version: golden-tests-v1
+subagent_slug: python-testing-advisor
+generated_at: "2026-07-03"
+profile_version: "0.3.0"
+tier: 2
+
+golden_tests:
+  - test_id: GT-001
+    description: "Positive routing — how to structure fixtures and parametrize a pytest test"
+    prompt: "I have a pure function with many input/output pairs. How should I structure the pytest test and its fixtures?"
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: "At least one principle-cited recommendation naming the pytest mechanism"
+    must_do:
+      - "Recommend @pytest.mark.parametrize for the data sets"
+      - "Cite at least one governing principle id"
+    must_not_do:
+      - "Invent a pytest flag or fixture not in the sources"
+      - "Recommend mixing xUnit setup with fixtures"
+    principle_coverage: ["P020", "P035", "P041"]
+  - test_id: GT-002
+    description: "Positive routing — outside-in TDD for a new web feature"
+    prompt: "I'm adding a to-do list POST endpoint to a Django app. Walk me through building it test-first."
+    expected_route: invoke
+    expected_mode: tdd-guide
+    minimum_output: "The next expected-failing test and the smallest change to pass it"
+    must_do:
+      - "Describe the red, green, refactor loop"
+      - "Cite at least one governing principle id"
+    must_not_do:
+      - "Write the full production feature before any test"
+      - "Present untested code as done"
+    principle_coverage: ["P001", "P014", "P019"]
+  - test_id: GT-003
+    description: "Positive routing — review an existing suite for isolation and coverage"
+    prompt: "Here is our pytest suite. Some tests pass alone but fail together, and we chase 100% coverage. Review it."
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: "Findings on isolation and coverage with suggested changes"
+    must_do:
+      - "Diagnose order-dependence / shared state"
+      - "Treat coverage as a heuristic, not a goal"
+    must_not_do:
+      - "Recommend forcing a fixed test order to hide coupling"
+    principle_coverage: ["P032", "P036"]
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: "Negative routing — production infrastructure / secret-management decision"
+    prompt: "Design our production server provisioning and pick a secret-management service for the deploy."
+    expected_route: do_not_invoke
+    expected_mode: null
+    minimum_output: "A non-routing reason and a handoff to an ops/deployment owner"
+    must_not_do:
+      - "Design the infrastructure or choose the secret store"
+      - "Proceed outside the testing scope"
+
+missing_context_tests:
+  - test_id: MC-001
+    description: "Missing required input — no code or pytest context provided"
+    prompt: "Can you improve my tests?"
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for:
+      - "the Python code or failing behaviour under test and the pytest context (version, existing suite, conftest/ini)"
+    minimum_output: "A clear statement of what context is missing"
+    must_not_do:
+      - "Proceed as if the code and suite were provided"
+      - "Hallucinate the test contents"
