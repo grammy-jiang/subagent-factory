@@ -1,0 +1,708 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Use retrieval-augmented generation for knowledge-intensive generation when parametric-only models need better factual access, updateability, or provenance."
+   },
+   {
+    "idx": 13,
+    "statement": "Prefer learned dense retrieval for open-domain QA and most generation tasks, while considering lexical retrieval for entity-centric verification tasks."
+   },
+   {
+    "idx": 16,
+    "statement": "Use one retrieval-augmented architecture across QA, fact verification, and generation when the tasks share a need for external knowledge access."
+   }
+  ]
+ },
+ {
+  "group": 1,
+  "members": [
+   {
+    "idx": 1,
+    "statement": "Build a baseline RAG system as a pretrained seq2seq generator connected to a neural retriever over a dense external text index."
+   },
+   {
+    "idx": 4,
+    "statement": "Reuse the seq2seq RAG formulation for classification by representing labels as short generated targets."
+   },
+   {
+    "idx": 5,
+    "statement": "Express suitable tasks as sequence-to-sequence learning and jointly adapt the retriever query encoder and generator."
+   },
+   {
+    "idx": 21,
+    "statement": "Use fast RAG-Sequence decoding for longer generation tasks when thorough decoding does not improve results."
+   }
+  ]
+ },
+ {
+  "group": 3,
+  "members": [
+   {
+    "idx": 3,
+    "statement": "Choose RAG-Sequence for outputs grounded by one passage and RAG-Token for outputs that may need evidence from different passages across the generation."
+   },
+   {
+    "idx": 8,
+    "statement": "Decode RAG-Token like a standard autoregressive model, but decode RAG-Sequence with passage-specific candidates and marginal rescoring or an explicit fast approximation."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 10,
+    "statement": "Evaluate open-domain QA RAG systems against both extractive open-book systems and closed-book generators, including cases where answers are not verbatim in retrieved text."
+   },
+   {
+    "idx": 20,
+    "statement": "Use larger retrieval depth and thorough marginal decoding for short-answer RAG-Sequence QA when the extra scoring cost is acceptable."
+   }
+  ]
+ },
+ {
+  "group": 9,
+  "members": [
+   {
+    "idx": 12,
+    "statement": "Use demanding factual generation tasks and pairwise human judgments to evaluate factuality and specificity beyond overlap metrics."
+   },
+   {
+    "idx": 22,
+    "statement": "For human generation evaluation, randomize presentation order, provide factuality guidance, permit verification, and filter annotators with gold controls."
+   }
+  ]
+ },
+ {
+  "group": 11,
+  "members": [
+   {
+    "idx": 15,
+    "statement": "Measure generation diversity with distinct n-gram ratios and verify whether retrieval improves diversity without special decoding changes."
+   },
+   {
+    "idx": 18,
+    "statement": "Ground generation in relevant reliable retrieval, but audit the corpus because retrieval can import source bias and inaccuracy."
+   }
+  ]
+ },
+ {
+  "group": 21,
+  "members": [
+   {
+    "idx": 30,
+    "statement": "Monitor learned retrieval for collapse on tasks with weak factual dependence or long targets, and fall back to generator-only baselines when retrieval is ignored."
+   },
+   {
+    "idx": 40,
+    "statement": "When evaluating reasoning-guided retrieval, keep retrieval actions constrained enough that success depends on explicit search planning rather than a strong retriever doing the task."
+   }
+  ]
+ },
+ {
+  "group": 22,
+  "members": [
+   {
+    "idx": 31,
+    "statement": "Build ReAct-style agents as interleaved trajectories where language thoughts update the working context and environment actions gather observations for later reasoning."
+   },
+   {
+    "idx": 38,
+    "statement": "Expose reasoning, observations, and actions separately so humans can inspect, diagnose, and, when supported, edit intermediate thoughts."
+   },
+   {
+    "idx": 42,
+    "statement": "Treat multi-task training and reinforcement learning as possible future extensions, not as established requirements of ReAct prompting."
+   },
+   {
+    "idx": 89,
+    "statement": "For an agent that must behave believably in an open world, prefer a large-language-model core augmented with explicit memory, reflection, and planning mechanisms over hand-authored rule systems (finite-state machines, behavior trees), reward-driven reinforcement learning, or classic symbolic cognitive architectures, none of which scale to the breadth of open-world behavior on their own."
+   },
+   {
+    "idx": 97,
+    "statement": "Ground a natural-language reasoning agent to a structured world by representing the environment as a containment tree, rendering the relevant portion into natural language for the prompt, and choosing an action's location by recursively traversing that tree from root to leaf (preferring the current area when the activity can be done there)."
+   }
+  ]
+ },
+ {
+  "group": 23,
+  "members": [
+   {
+    "idx": 32,
+    "statement": "Choose thought frequency by task shape: dense thought-action-observation cycles for reasoning bottlenecks, sparse thoughts at decision points for long action horizons."
+   },
+   {
+    "idx": 48,
+    "statement": "Do not reduce decision-task thoughts to dense external-feedback reminders; keep them capable of goal decomposition, commonsense search, subgoal completion detection, and next-subgoal choice."
+   }
+  ]
+ },
+ {
+  "group": 26,
+  "members": [
+   {
+    "idx": 35,
+    "statement": "Avoid action-only prompting when the next action depends on multi-step inference, working memory over observations, or subgoal state."
+   },
+   {
+    "idx": 37,
+    "statement": "Detect repeated thoughts, repeated ineffective actions, or uninformative observations as failure signals and replan from the last useful state."
+   },
+   {
+    "idx": 129,
+    "statement": "Produce agent actions either via memory recollection (retrieve recent, relevant, and important memories as the prompt) or via plan-following (execute a pre-generated plan unless a failure signal appears), and aim each action at a clear goal such as task completion, communication, or exploration."
+   }
+  ]
+ },
+ {
+  "group": 28,
+  "members": [
+   {
+    "idx": 39,
+    "statement": "Author few-shot ReAct demonstrations as natural, concise trajectories with thoughts, actions, and observations; prioritize example quality and model capability over simply adding more examples."
+   },
+   {
+    "idx": 41,
+    "statement": "When prompt-only ReAct is insufficient, fine-tune on high-quality successful action or ReAct trajectories so the model learns how to obtain and use information."
+   }
+  ]
+ },
+ {
+  "group": 41,
+  "members": [
+   {
+    "idx": 56,
+    "statement": "Use external tools to compensate for language-model weaknesses only when the tool can be invoked and returned through text and its result addresses the model weakness at hand."
+   },
+   {
+    "idx": 69,
+    "statement": "After tool-use fine-tuning, verify ordinary language-modeling quality with tools disabled because downstream tool-task gains do not by themselves prove the base model was preserved."
+   }
+  ]
+ },
+ {
+  "group": 46,
+  "members": [
+   {
+    "idx": 61,
+    "statement": "Fine-tune on an augmented version of ordinary language-modeling text where only selected helpful API calls and results are interleaved with the original corpus."
+   },
+   {
+    "idx": 76,
+    "statement": "When useful tool-call opportunities are sparse, combine targeted corpus prefilters with adjusted sampling thresholds before scaling up expensive annotation."
+   }
+  ]
+ },
+ {
+  "group": 48,
+  "members": [
+   {
+    "idx": 63,
+    "statement": "Use cheap dataset heuristics to focus expensive API-call generation on texts where a tool is likely to be useful, and discard examples where filtering removes every call."
+   },
+   {
+    "idx": 83,
+    "statement": "For translation-call data, target non-English spans in useful context, filter non-linguistic spans, and remove examples that rely on text appearing only after the call."
+   }
+  ]
+ },
+ {
+  "group": 49,
+  "members": [
+   {
+    "idx": 64,
+    "statement": "Evaluate tool-use gains against same-backbone baselines, continued-training baselines, and disabled-tool variants so improvements are attributable to tool use rather than unrelated fine-tuning."
+   },
+   {
+    "idx": 65,
+    "statement": "Disable or restrict tools during evaluation when a tool would create an unfair benchmark shortcut or leak task-specific specialization."
+   },
+   {
+    "idx": 153,
+    "statement": "Evaluate tool use as an ordered decision chain (decide whether a tool is needed, select the correct tool, identify required parameters, generate correct values, and for large toolsets retrieve the right tool), scoring with Invocation, Tool-Selection, and Retrieval Accuracy, MRR, NDCG, and parameter-name F1; prefer execution-based evaluation that actually runs the calls over AST-only validation, which confirms syntax but misses hallucinated or wrong parameter values, especially enum-constrained ones."
+   }
+  ]
+ },
+ {
+  "group": 51,
+  "members": [
+   {
+    "idx": 67,
+    "statement": "For temporal evaluation, separate dynamic factual knowledge from calendar arithmetic and attribute gains by inspecting which tools were actually called."
+   },
+   {
+    "idx": 82,
+    "statement": "For calendar-call training, derive the relevant current date from reliable document metadata and exclude examples where that temporal context cannot be recovered."
+   },
+   {
+    "idx": 87,
+    "statement": "Evaluate calendar tools with relative-date and holiday templates whose answers depend on a presumed current date, not only with static temporal facts."
+   }
+  ]
+ },
+ {
+  "group": 58,
+  "members": [
+   {
+    "idx": 75,
+    "statement": "Test API-call decisions for sensitivity to input wording before relying on a Toolformer-style model in production."
+   },
+   {
+    "idx": 88,
+    "statement": "Account for train-inference asymmetry whenever candidate generation can inspect more text than the deployed model will see before deciding to call a tool."
+   },
+   {
+    "idx": 158,
+    "statement": "Test robustness by applying input perturbations (paraphrased instructions, misleading or irrelevant context, typos, dialects) and measuring the resulting drop in task success or output quality, and for tool-using agents by injecting failures (API errors, null responses) and measuring the proportion the agent handles gracefully by retrying, switching tools, or explaining the issue."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 78,
+    "statement": "Include tool-dependent computational cost in API-call decision policies rather than optimizing only predictive usefulness."
+   },
+   {
+    "idx": 79,
+    "statement": "Set API-call sampling thresholds, candidate-position caps, and sampled-call caps as tunable parameters rather than fixed constants across all tools."
+   }
+  ]
+ },
+ {
+  "group": 66,
+  "members": [
+   {
+    "idx": 90,
+    "statement": "Store a comprehensive record of every agent experience as natural-language text in a persistent memory stream, where each memory object carries a natural-language description, a creation timestamp, and a most-recent-access timestamp, and the base unit is an observation of a directly perceived event."
+   },
+   {
+    "idx": 91,
+    "statement": "Do not place the whole memory stream in the prompt: it will not fit the context window and dilutes the model's attention, and summarizing everything yields generic answers; instead run a retrieval function that returns only the compact subset of memories relevant to the agent's current situation."
+   },
+   {
+    "idx": 93,
+    "statement": "Periodically synthesize raw observations into higher-level reflections — abstract inferences the agent draws about itself and others — because agents given only raw observational memory struggle to generalize; trigger reflection when the summed importance of recent events crosses a threshold, generate salient questions from recent memories, retrieve for each, and have the model produce insights that cite the specific supporting records."
+   },
+   {
+    "idx": 96,
+    "statement": "Write reflections and plans back into the same memory stream so they are retrieved alongside observations and shape the agent's future behavior, keeping a single unified memory substrate rather than separate stores."
+   },
+   {
+    "idx": 99,
+    "statement": "Initialize each agent from a concise natural-language identity description covering its role and relationships, and split that description into discrete seed memories rather than injecting it as one monolithic block, so the details participate in retrieval like any other memory."
+   },
+   {
+    "idx": 100,
+    "statement": "Maintain a cached agent summary (identity, motivations, current occupation and self-assessment) that is re-synthesized at intervals from retrieved self-descriptive memories and reused across the many prompts that need it, instead of regenerating it on every call."
+   },
+   {
+    "idx": 101,
+    "statement": "Have agents act and converse in natural language, and generate each dialogue turn by conditioning on the speaking agent's summarized memory of the other party and the conversation so far, continuing until an agent chooses to end it."
+   },
+   {
+    "idx": 103,
+    "statement": "Evaluate an agent's believability by interviewing it in natural language across the faculties it should exhibit — self-knowledge, memory retrieval, planning, reacting, and reflecting — and establish that each architectural component matters by ablating memory, reflection, and planning and showing believability degrades as each is removed."
+   },
+   {
+    "idx": 118,
+    "statement": "Give the agent a memory module that stores environmental perceptions and uses recorded memories to inform future actions, enabling experience accumulation and more consistent behavior."
+   }
+  ]
+ },
+ {
+  "group": 67,
+  "members": [
+   {
+    "idx": 92,
+    "statement": "Rank memories for retrieval by combining three signals — recency, importance, and relevance — for example recency as an exponential time-decay of last access, importance as a language-model-assigned poignancy score set when the memory is created, and relevance as embedding cosine similarity to the query, then include the top-scoring memories that fit the context window."
+   },
+   {
+    "idx": 121,
+    "statement": "Read memory by scoring candidates on recency, relevance, and importance (importance being query-independent) and tune the weighting to the task, so the agent surfaces the most useful past information."
+   }
+  ]
+ },
+ {
+  "group": 68,
+  "members": [
+   {
+    "idx": 94,
+    "statement": "Plan over a long horizon so behavior stays coherent, because optimizing only for the believable next action produces incoherent long-run behavior (such as eating lunch repeatedly); create plans top-down — a broad daily agenda derived from the agent's summary and previous day — then recursively decompose the near future into finer-grained timed actions."
+   },
+   {
+    "idx": 95,
+    "statement": "Run agents in a perceive-decide loop: at each step store new observations, prompt the model to decide whether to continue the current plan or react, and when the agent reacts regenerate its plan from the moment of the reaction rather than discarding the whole plan."
+   },
+   {
+    "idx": 123,
+    "statement": "Use a planning module to decompose complex tasks into simpler subtasks solved individually, which makes agent behavior more reasonable and reliable."
+   },
+   {
+    "idx": 124,
+    "statement": "Choose planning-with-feedback (revise plans using post-action feedback) for complex, long-horizon tasks where a flawless upfront plan is infeasible, and reserve simpler planning-without-feedback for short tasks needing only a few reasoning steps."
+   }
+  ]
+ },
+ {
+  "group": 72,
+  "members": [
+   {
+    "idx": 105,
+    "statement": "Anticipate and defend against the dominant memory failure modes: retrieving the wrong or an incomplete memory fragment, and hallucinated embellishment where the agent adds unsupported details or imports world knowledge from the base model; agents tend to acknowledge missing memories rather than fabricate wholesale, so verify recalled facts against the memory stream."
+   },
+   {
+    "idx": 108,
+    "statement": "Treat the robustness of a memory-driven agent as unproven and defend it deliberately: it may be vulnerable to prompt hacking and to memory hacking, where a crafted conversation convinces the agent of a past event that never occurred, as well as to ordinary hallucination."
+   }
+  ]
+ },
+ {
+  "group": 74,
+  "members": [
+   {
+    "idx": 107,
+    "statement": "Account for the base model's instruction-tuning artifacts: agents can be excessively formal, polite, and cooperative, rarely refusing others' suggestions, which can cause an agent's stated preferences to drift toward those of the agents around it over time."
+   },
+   {
+    "idx": 109,
+    "statement": "Remember that the agent inherits the imperfections and biases of its underlying language model — including weaker believability for under-represented subpopulations due to limited training data — so improving agent modules alone is not enough; fundamental fixes require improving and value-aligning the base model."
+   }
+  ]
+ },
+ {
+  "group": 75,
+  "members": [
+   {
+    "idx": 110,
+    "statement": "Budget for the high token cost and latency of running many memory-driven agents, and make it tractable with engineering optimizations: cache reused summaries, decompose plans just in time rather than fully up front, batch generation where possible, and parallelize agents; expect the architectural basics of memory, planning, and reflection to persist as base models improve."
+   },
+   {
+    "idx": 115,
+    "statement": "Structure an LLM-based autonomous agent as four cooperating modules — profiling, memory, planning, and action — and treat architecture design (the 'hardware') as separate from capability acquisition (the 'software')."
+   },
+   {
+    "idx": 146,
+    "statement": "Budget for LLM inference cost in agent design: because slow autoregressive LLMs are queried multiple times per action (memory extraction, planning, acting), agent throughput is dominated by inference speed, so minimize, batch, or cache LLM calls where possible."
+   }
+  ]
+ },
+ {
+  "group": 78,
+  "members": [
+   {
+    "idx": 113,
+    "statement": "Do not let generative agents substitute for real human input in studies or design; use them to complement humans — prototyping ideas early or testing theories that are hard or risky to test with real participants — and follow established human-AI design best practices to understand how agent errors reach the user."
+   },
+   {
+    "idx": 138,
+    "statement": "When agents simulate humans, distrust over-capable behavior: larger models can produce 'hyper-accuracy distortion' that diverges from real human variance, so validate simulated results against human baselines before relying on them downstream."
+   },
+   {
+    "idx": 144,
+    "statement": "Guard against confident hallucination in agents, which can yield incorrect or insecure code and ethical harms even on simple instructions; incorporate human correction feedback into the iterative human-agent interaction loop as a mitigation."
+   }
+  ]
+ },
+ {
+  "group": 81,
+  "members": [
+   {
+    "idx": 117,
+    "statement": "Select a profile-generation strategy by its trade-offs — handcrafting (flexible but labor-intensive), LLM-generation (cheap and scalable but less controllable), dataset alignment (realistic) — and combine strategies when it adds value."
+   },
+   {
+    "idx": 133,
+    "statement": "When fine-tuning an agent, choose the dataset source by trade-off: human-annotated data (versatile but costly to collect), LLM-generated data (cheap and scalable but lower quality), and real-world data (strong for domain-specific tasks such as web navigation or text-to-SQL)."
+   }
+  ]
+ },
+ {
+  "group": 85,
+  "members": [
+   {
+    "idx": 125,
+    "statement": "For planning without feedback, select the reasoning structure by cost versus exploration: single-path (Chain-of-Thought, one pass, cheap) for linear problems, multi-path (Tree/Graph-of-Thoughts, CoT-SC) to explore alternatives — accepting that multi-path methods issue more LLM calls per step."
+   },
+   {
+    "idx": 154,
+    "statement": "Evaluate planning by comparing predicted versus reference tool sets and, because order and dependency matter, with graph metrics (Node F1, Edge F1, Normalized Edit Distance); for plans emitted as multi-step programs use code-generation similarity and Step Success Rate; and in dynamic environments where planning and execution interleave (e.g. ReAct), use real-time decision metrics such as next-tool-call alignment and Progress Rate rather than static plan comparison."
+   }
+  ]
+ },
+ {
+  "group": 88,
+  "members": [
+   {
+    "idx": 128,
+    "statement": "Route the agent's decisions through an action module positioned most downstream and influenced by the profile, memory, and planning modules, and reason about each action across four perspectives: goal, production, space, and impact."
+   },
+   {
+    "idx": 130,
+    "statement": "Extend the agent's action space with external tools (APIs, databases and knowledge bases, external models) to overcome missing domain knowledge and hallucination; train or fine-tune tool use so the LLM emits precise call arguments, and otherwise fall back on the LLM's internal planning, conversation, and common-sense capabilities."
+   },
+   {
+    "idx": 131,
+    "statement": "Account for each action's impact along three axes — changes to the external environment, changes to the agent's own internal state (memory, plans, knowledge), and the triggering of follow-on actions — when designing the action loop."
+   }
+  ]
+ },
+ {
+  "group": 89,
+  "members": [
+   {
+    "idx": 132,
+    "statement": "Do not rely on architecture alone: deliberately acquire task-specific capability, choosing up front between fine-tuning the LLM and non-fine-tuning approaches (prompt engineering and mechanism engineering)."
+   },
+   {
+    "idx": 134,
+    "statement": "Apply fine-tuning only to open-source LLMs whose parameters can be adjusted; it incorporates large amounts of task-specific knowledge but is unavailable for closed-source models."
+   },
+   {
+    "idx": 135,
+    "statement": "For both open- and closed-source LLMs, acquire capability without fine-tuning via prompt engineering and mechanism engineering — trial-and-error critic loops, multi-agent debate/crowd-sourcing, experience accumulation and skill libraries, and self-driven evolution — while respecting the limited context window and the very large prompt/mechanism design space."
+   }
+  ]
+ },
+ {
+  "group": 91,
+  "members": [
+   {
+    "idx": 137,
+    "statement": "In high-stakes application domains (mental-health support, legal decision aid, scientific experimentation), guard against harmful output, hallucination, and misuse by grounding actions in retrieval/databases, flagging safety risks, and keeping a human in the loop; treat malicious-use potential as a first-class security concern requiring alignment measures."
+   },
+   {
+    "idx": 159,
+    "statement": "Treat safety and alignment (ethical adherence, harm/toxicity/bias avoidance, legal and policy compliance) as a mandatory evaluation dimension in high-stakes domains, using specialized prompt sets (e.g. RealToxicityPrompts) with automated or human scoring plus red-teaming with provocative inputs, and recognize that compliance testing is domain-specific and may require proprietary, policy-reflecting test cases."
+   }
+  ]
+ },
+ {
+  "group": 92,
+  "members": [
+   {
+    "idx": 139,
+    "statement": "Evaluate agents with both subjective methods (human annotation or Turing test — appropriate when no datasets exist or metrics are hard to design, but costly and biased) and objective quantitative methods, and combine the two for a comprehensive assessment; consider LLM-as-evaluator to reduce subjective-evaluation cost."
+   },
+   {
+    "idx": 140,
+    "statement": "Design objective agent metrics that reflect true agent quality and real-world human experience, spanning task-success, human-similarity, and efficiency, and pick an evaluation protocol (real-world simulation, social evaluation, multi-task, or software-testing) that matches the capability under test."
+   },
+   {
+    "idx": 147,
+    "statement": "When advising on evaluating an LLM agent, do not reuse deterministic software-testing or isolated-LLM evaluation methods unchanged: agents are probabilistic and act in dynamic environments, so combine NLP, HCI, and software-engineering perspectives and evaluate the whole agent (reasoning, planning, tool use, memory, collaboration, real-world effects), not just its text output."
+   },
+   {
+    "idx": 148,
+    "statement": "Structure an agent evaluation along two dimensions: evaluation objectives (what to evaluate: behaviour, capabilities, reliability, safety and alignment) and evaluation process (how to evaluate: interaction mode, data and benchmarks, metric computation, tooling, contexts); use this taxonomy as a coverage checklist to expose blind spots."
+   },
+   {
+    "idx": 163,
+    "statement": "Match the metric-computation method to the response type: use code-based checks (rules, test cases, assertions) for well-defined, objective outputs where they are deterministic and reproducible but inflexible; use human-in-the-loop as the gold standard for subjective or safety-critical judgments while budgeting for its cost and poor scalability; and use LLM-as-a-Judge or Agent-as-a-Judge for scalable scoring of subjective, nuanced tasks."
+   },
+   {
+    "idx": 171,
+    "statement": "Drive an agent evaluation program toward being realistic (enterprise-like, multi-user, RBAC, domain knowledge), holistic (multiple interdependent competencies at once rather than isolated metrics), automated and scalable (synthetic data, simulators, LLM- or agent-as-judge), and time- and cost-bounded so it can support iterative development."
+   }
+  ]
+ },
+ {
+  "group": 97,
+  "members": [
+   {
+    "idx": 149,
+    "statement": "Assess user-perceived agent behaviour across four facets (task completion, output quality, latency, cost); measure task completion with Success Rate, Task Goal Completion, or pass@k/pass^k but treat it as coarse because it hides failure detail when success rates are low, and score output quality (accuracy, relevance, clarity, coherence, spec-adherence) separately because an agent can complete a task yet still give a poor experience, especially in multi-turn conversations."
+   },
+   {
+    "idx": 151,
+    "statement": "When the agent grounds its answers with retrieval (RAG), add retrieval-quality metrics such as Response Relevance and Factual Correctness to the evaluation."
+   },
+   {
+    "idx": 152,
+    "statement": "Complement black-box behaviour metrics with process-oriented capability evaluation (tool use, planning and reasoning, memory and context retention, multi-agent collaboration) to localize an agent's specific strengths and weaknesses."
+   }
+  ]
+ },
+ {
+  "group": 102,
+  "members": [
+   {
+    "idx": 160,
+    "statement": "In enterprise deployments, explicitly evaluate the requirements generic benchmarks overlook: role-based access to data, reliability guarantees for audit and compliance, dynamic long-horizon interactions, and regulatory compliance."
+   },
+   {
+    "idx": 168,
+    "statement": "For enterprise or compliance use, require reliable, repeatable, and explainable behaviour rather than occasional success, and measure consistency by executing each task multiple times over a representative dataset while accepting the extra compute cost; note that strict pass^k evaluation (e.g. tau-bench) shows current agents struggle with consistency."
+   },
+   {
+    "idx": 170,
+    "statement": "In regulated or policy-governed domains, verify as part of evaluation that agent behaviour aligns with formal policy and legal constraints (approval workflows, data-retention, GDPR, HIPAA), because agents judged correct on task-success benchmarks may still fail in production through compliance violations."
+   }
+  ]
+ },
+ {
+  "group": 103,
+  "members": [
+   {
+    "idx": 161,
+    "statement": "Use offline/static evaluation as a cheap baseline but recognize it lacks nuance and propagates error, and complement it with online/dynamic evaluation (simulations, real interactions, live monitoring) to catch what static tests miss; adopt Evaluation-Driven Development so evaluation is continuous across development and deployment, especially for agents that learn or evolve."
+   },
+   {
+    "idx": 166,
+    "statement": "Choose the evaluation context by trading realism against cost and security and by the agent's edit access and blast radius: test low-risk, no-edit agents directly in their working environment, but evaluate agents that mutate many intertwined systems in a mocked API or sandbox, and escalate toward live deployment as performance and trustworthiness are established."
+   },
+   {
+    "idx": 172,
+    "statement": "Adopt evaluation frameworks and agent platforms that integrate evaluation into the development lifecycle to monitor performance, detect regressions, and adapt agents continuously."
+   }
+  ]
+ },
+ {
+  "group": 109,
+  "members": [
+   {
+    "idx": 173,
+    "statement": "Accompany every released model with a short (~1-2 page) model card that documents trained-model characteristics, intended-use context, and evaluation procedures, complementing dataset documentation and written to inform the range of stakeholders who rely on the model."
+   },
+   {
+    "idx": 174,
+    "statement": "A model card should contain the core sections — Model Details, Intended Use, Factors, Metrics, Evaluation Data, Training Data, Quantitative Analyses, Ethical Considerations, and Caveats and Recommendations — treated as a tailorable, non-exhaustive template that generalises across institutions, contexts, and stakeholders."
+   },
+   {
+    "idx": 180,
+    "statement": "Record complete Model Details — developing person/organisation, model date, version, type, training algorithms/parameters/fairness constraints/features, a reference, citation, licence, and a feedback contact — while not requiring disclosure of private or proprietary information."
+   },
+   {
+    "idx": 195,
+    "statement": "Treat the model card as one transparency tool among many and combine it with third-party algorithmic auditing (quantitative and qualitative), adversarial testing by technical and non-technical analysts, and inclusive user-feedback mechanisms, recognising that a card's usefulness and accuracy depend on the integrity of its creators."
+   }
+  ]
+ },
+ {
+  "group": 110,
+  "members": [
+   {
+    "idx": 175,
+    "statement": "Evaluate and report model performance disaggregated by individual cultural, demographic, or phenotypic groups and domain-relevant conditions, and also intersectionally across two or more groups, rather than relying on aggregate or unitary metrics alone, since disaggregation surfaces disparities that aggregate numbers hide."
+   },
+   {
+    "idx": 176,
+    "statement": "In the Quantitative Analyses, present both unitary results (per individual factor) and intersectional results (across factor intersections), report confidence intervals for the disaggregated metrics when possible, and show the metric variation (e.g., error bars)."
+   },
+   {
+    "idx": 193,
+    "statement": "Use the disaggregated results to drive decisions: identify the contexts a model is ill-suited for and apply targeted mitigation (e.g., fine-tuning on an under-performing group) to rebalance performance across groups, rather than treating the evaluation as a passive report."
+   }
+  ]
+ },
+ {
+  "group": 121,
+  "members": [
+   {
+    "idx": 188,
+    "statement": "Document Evaluation Data with the datasets used, the motivation for choosing them, and the preprocessing applied, preferring publicly-available datasets, and evaluate on both typical and anticipated/challenging scenarios; synthetic data may cover populations otherwise unrepresented, but note that synthetic sets are narrow and non-comprehensive."
+   },
+   {
+    "idx": 189,
+    "statement": "Document Training Data to the same standard as Evaluation Data where feasible; when full detail is infeasible (e.g., proprietary data or an NDA), still report the training-data distribution over groups and the details that inform which biases the model may have encoded."
+   }
+  ]
+ },
+ {
+  "group": 126,
+  "members": [
+   {
+    "idx": 196,
+    "statement": "Evaluate an LLM agent's behavioral safety - unsafe actions taken through tool use and environment interaction - as a first-class dimension separate from content safety, and expect it to be markedly weaker than content safety."
+   },
+   {
+    "idx": 197,
+    "statement": "Scope agent-safety evaluation for comprehensive coverage: diverse interaction environments (including realistic domains that lack public APIs), the eight agent-safety risk categories - using a finer taxonomy for behavior-level (tool and environment) risks and a coarser one for content-level risks, and noting the harmful-or-vulnerable-code category spans both - and explicit failure-mode annotation."
+   },
+   {
+    "idx": 199,
+    "statement": "Build agent-safety datasets by refining existing data (clarify or discard unclear failure modes, deduplicate, standardize environments) and by controlled LLM augmentation: force fresh distinct environment names fed back to prevent duplication, generate expected risky-behavior sequences via in-context learning to raise quality, and specify the target risk category to control distribution."
+   },
+   {
+    "idx": 201,
+    "statement": "Do not rely on a general-purpose LLM as the agent-safety scorer (direct GPT-4o reached only about 75.5% accuracy); finetune a small local judgment model on human-labeled interaction records to emit both a safe/unsafe label and a structured analysis (about 91.5%, roughly 15% better), using a capable LLM given gold labels to generate the analysis targets and a near-balanced safe/unsafe training mix."
+   },
+   {
+    "idx": 202,
+    "statement": "Recognize that current LLM agents have pervasive safety weaknesses (no evaluated agent exceeded a 60% total safety score); stronger and proprietary agents tend to be safer, but capability alone does not solve safety, so treat high capability as necessary but not sufficient."
+   },
+   {
+    "idx": 214,
+    "statement": "Communicate the coverage limits of a commonsense-based agent-safety benchmark: it does not cover advanced domain-specific safety, and high-quality cases still require expert authoring and revision because current LLMs cannot autonomously generate them and crowdworkers struggle to revise or label them."
+   }
+  ]
+ },
+ {
+  "group": 127,
+  "members": [
+   {
+    "idx": 198,
+    "statement": "Diagnose agent behavior against the ten canonical tool-use failure modes: generating harmful content without tools; acting on incomplete or ambiguous information; acting before gathering obtainable constraints; ignoring known constraints; ignoring implicit risks; using wrong parameters; using flagged or unverified tools; failing to call a needed tool; over-trusting tool output; and unsafe selection among returned options."
+   },
+   {
+    "idx": 203,
+    "statement": "Instruct a safe agent to treat tool outputs skeptically: validate and filter results before relying on them, avoid over-trusting or propagating unsafe or incorrect content, and make a safe deliberate choice when multiple options are returned."
+   },
+   {
+    "idx": 207,
+    "statement": "Attribute and target agent-safety failures along two fundamental defects - lack of robustness (unreliable, imprecise tool use whose small errors have outsized impact) and lack of risk awareness (overlooking implicit risks even with correct parameters); robust precise tool use is necessary but not sufficient, so risk awareness must be improved alongside it."
+   },
+   {
+    "idx": 211,
+    "statement": "Enforce tool-call discipline in the agent harness: one tool call at a time with waiting for its result, only tools whose definitions are provided, no redundant duplicate calls, and explicit surfacing of tool-derived answers to the user."
+   }
+  ]
+ },
+ {
+  "group": 128,
+  "members": [
+   {
+    "idx": 200,
+    "statement": "Control data quality with layered review: at least two rounds of manual review, automated environment-consistency checks (for example verifying the JSON tool schema matches the Python class), and cross-validation of both test cases and safety labels by a second independent annotator."
+   },
+   {
+    "idx": 205,
+    "statement": "Represent each test case with explicit fields (targeted risks, initial instruction or dialog, environments with their tools and initialization parameters, anticipated failure modes) and implement environments as a dual layer - a standards-aligned JSON tool schema plus a Python class with a shared base class - allowing one primary risk category and multiple failure-mode labels per case."
+   }
+  ]
+ },
+ {
+  "group": 129,
+  "members": [
+   {
+    "idx": 204,
+    "statement": "Run agent evaluations under a controlled harness: drive a multi-turn call-and-execute loop, score total safety as the fraction of cases labeled safe, set decoding temperature to 0 by default (falling back to 1 only for the under-1% invalid-format cases), and give weaker models a stricter tool-call format prompt."
+   },
+   {
+    "idx": 206,
+    "statement": "Author realistic, well-formed test cases: keep malicious intent implicit rather than explicit, populate environment parameters with concrete real-world content, supply enough information for the agent to call its tools, use consistent lowercase-underscore tool names and valid JSON, and use a simplified no-environment path for tool-free (mostly code) risks."
+   },
+   {
+    "idx": 216,
+    "statement": "Ship an agent-safety benchmark responsibly: use fabricated or public-only data with no real personal information, keep it as a sandbox, include warnings and responsible-use guidelines, and make it extensible so practitioners can add environments and cases with minimal effort (a Python class plus JSON tool descriptions)."
+   }
+  ]
+ },
+ {
+  "group": 133,
+  "members": [
+   {
+    "idx": 212,
+    "statement": "Instruct a safe agent to establish sufficient grounds before acting: seek clarification on ambiguous or incomplete information, proactively use available tools to gather the information a task requires, and respect known constraints and permissions from the instruction, tool descriptions, and prior results."
+   },
+   {
+    "idx": 213,
+    "statement": "Instruct a safe agent to reason about consequences: weigh implicit or potential risks before acting rather than following the literal instruction, and avoid invoking tools with known safety or legality issues."
+   }
+  ]
+ }
+]

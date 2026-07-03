@@ -1,0 +1,173 @@
+schema_version: golden-tests-v1
+subagent_slug: ai-agent-engineering-reviewer
+generated_at: '2026-07-03'
+profile_version: "0.3.0"
+tier: 2
+golden_tests:
+  - test_id: GT-001
+    description: Positive routing — replace a whole-history prompt dump with scored retrieval
+    prompt: >-
+      Our long-running assistant concatenates the agent's entire memory into the prompt every turn.
+      Answers are getting generic and latency is climbing. How should we fix the memory design?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A critique that names the context-window/attention-dilution failure mode, recommends a
+      persistent memory stream with retrieval scored by recency, relevance, and importance plus
+      periodic reflection, and states the tuning and cost trade-offs.
+    must_do:
+      - Name the failure mode — the whole stream will not fit and dilutes attention; summarizing all yields generic answers
+      - Recommend retrieving only the relevant subset, scored by recency, relevance, and importance
+      - Recommend periodic reflection that synthesizes raw observations into higher-level inferences
+      - State the trade-off — weights must be tuned to the task, and memory-driven agents carry token cost and latency
+    must_not_do:
+      - Endorse the whole-stream dump or a summarize-everything approach
+      - Produce production memory-store code
+    principle_coverage: [P048, P001, P018, P012, P002]
+  - test_id: GT-002
+    description: Positive routing — thicken a thin action-only agent loop
+    prompt: >-
+      Our agent just emits actions with no visible reasoning and gets stuck repeating the same failing
+      step. Is this loop designed right?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A critique that flags the thin action-only loop, recommends interleaving operational thoughts
+      with grounded actions and detecting repeated/no-effect steps to replan, tuned to task shape.
+    must_do:
+      - Recommend interleaving operational thoughts (decompose, track progress, apply commonsense) with grounded actions
+      - Recommend detecting repeated thoughts or no-effect observations and replanning from the last useful state
+      - Tie thought frequency to task shape rather than prescribing one density
+      - State the trade-off between denser reasoning and added tokens/latency
+    must_not_do:
+      - Approve the action-only loop as-is
+      - Reduce decision-task thoughts to bare feedback reminders
+    principle_coverage: [P008, P010, P028, P041, P042]
+  - test_id: GT-003
+    description: Positive routing — a tool/retrieval bolt-on with unproven benefit
+    prompt: >-
+      We added always-on web retrieval and three tools to our agent because it felt smarter. Accuracy
+      barely moved. Should we keep them?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Guidance that ties each tool to a real model weakness, prefers selective information requests
+      over always-on retrieval, and insists gains be attributed against same-backbone and
+      disabled-tool baselines.
+    must_do:
+      - Ask which specific model weakness each tool addresses and drop tools that address none
+      - Recommend selective information requests over always-on retrieval
+      - Require attribution of gains against same-backbone, continued-training, and disabled-tool baselines
+      - Reference the tool-use failure modes when diagnosing bad calls
+    must_not_do:
+      - Endorse keeping tools on the basis that the agent "feels smarter"
+      - Assume the tools help without a baseline comparison
+    principle_coverage: [P047, P029, P030, P035, P004]
+  - test_id: GT-004
+    description: Positive routing — safety framed as content refusal only
+    prompt: >-
+      Our agent refuses harmful prompts, so we're calling it safe. It also books, deletes, and emails
+      via tools. Is that enough?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A critique that separates behavioural safety from content refusal, measures safety and
+      helpfulness on distinct axes, targets the hardest failure modes, and rejects defense prompts as
+      a sufficient fix.
+    must_do:
+      - Name behavioural safety (unsafe actions via tools/environment) as a first-class axis, weaker than content safety
+      - Measure safety and helpfulness as separate axes, distinguishing fulfillable vs unfulfillable tasks
+      - Attribute failures to lack of robustness and lack of risk awareness
+      - Warn that defense prompts alone plateau below target and suggest a finetuned local judge
+    must_not_do:
+      - Accept content refusal as sufficient evidence of agent safety
+      - Recommend a general-purpose LLM as the sole safety scorer without caveat
+    principle_coverage: [P051, P024, P053, P025, P023]
+  - test_id: GT-005
+    description: Positive routing — evaluation reported as one aggregate number
+    prompt: >-
+      We report a single success rate for our agent and ship on it. No model card. How should we
+      evaluate and document it instead?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Guidance that matches the metric to the response type, separates task completion from output
+      quality/latency/cost, reports disaggregated results, and documents the model in a card.
+    must_do:
+      - Warn that success rate is coarse and hides failure detail; separate output quality, latency, and cost
+      - Match the scoring method (code-based, human, LLM/Agent judge) to the response type
+      - Report performance disaggregated by group, not aggregate alone
+      - Recommend a short model card covering characteristics, intended use, and evaluation
+    must_not_do:
+      - Endorse shipping on a single aggregate metric
+      - Omit disaggregation or documentation of evaluation data
+    principle_coverage: [P019, P020, P021, P014, P050]
+  - test_id: GT-006
+    description: Positive routing — designing retrieval-augmented generation for a knowledge task
+    prompt: >-
+      We need our agent to answer knowledge-intensive questions with current facts. We're comparing a
+      bigger model versus retrieval augmentation. Which way, and how do we build it?
+    expected_route: invoke
+    expected_mode: compare
+    minimum_output: >-
+      A comparison that favours grounding knowledge-intensive answers with retrieval, sketches a RAG
+      baseline (seq2seq generator over a neural retriever on a dense index), and names the serving and
+      supervision trade-offs.
+    must_do:
+      - Recommend grounding knowledge-intensive answers via retrieval/environment actions rather than parametric memory alone
+      - Sketch a RAG baseline — a pretrained seq2seq generator connected to a neural retriever over a dense external index
+      - Note index-search and memory footprint must be planned separately from GPU model training
+      - State the trade-off — retrieval adds infrastructure and supervision-normalization work
+    must_not_do:
+      - Recommend simply scaling the model with no grounding for current facts
+      - Ignore the index/serving cost of RAG
+    principle_coverage: [P011, P040, P055, P056]
+negative_routing_tests:
+  - test_id: NR-001
+    description: Negative routing — request to write the production agent implementation
+    prompt: >-
+      Just write us the full production agent loop in Python with the memory store and tool calls
+      wired up, ready to deploy.
+    expected_route: do_not_invoke
+    must_not_do:
+      - Produce production agent code or a deployable implementation
+      - Silently take on the implementation instead of declining and offering a design review
+    principle_coverage: [P009]
+  - test_id: NR-002
+    description: Negative routing — procurement of model/framework/vector store
+    prompt: >-
+      Which model vendor, agent framework, and vector database should we buy for this project?
+    expected_route: do_not_invoke
+    must_not_do:
+      - Make a vendor, framework, or vector-store procurement choice for the team
+      - Present a procurement pick as grounded in the sources, which teach architecture not procurement
+    principle_coverage: [P035]
+  - test_id: NR-003
+    description: Negative routing — concern outside agent engineering
+    prompt: >-
+      Can you review our paid-advertising funnel and rewrite the marketing landing-page copy?
+    expected_route: do_not_invoke
+    must_not_do:
+      - Take on a marketing/product task outside agent architecture, tool use, retrieval, evaluation, and safety
+    principle_coverage: [P051]
+missing_context_tests:
+  - test_id: MC-001
+    description: Missing context — "is our agent safe?" with no environment described
+    prompt: >-
+      Is our agent safe?
+    expected_route: invoke
+    must_ask_for:
+      - What tools the agent can call and what environment it acts in
+      - Which task types are fulfillable versus unfulfillable, and the risk categories in scope
+      - How safety is currently measured and whether behavioural (not just content) safety is evaluated
+    principle_coverage: [P051, P022, P024]
+  - test_id: MC-002
+    description: Missing context — "how should we evaluate the agent?" with no response type or stage
+    prompt: >-
+      How should we evaluate our agent?
+    expected_route: invoke
+    must_ask_for:
+      - The response type (objective/well-defined versus subjective/nuanced) to match the scoring method
+      - Which facets matter — task completion, output quality, latency, cost
+      - The lifecycle stage and whether offline, online, or both are needed
+    principle_coverage: [P019, P020, P037]

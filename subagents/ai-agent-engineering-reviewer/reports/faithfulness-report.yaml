@@ -1,0 +1,246 @@
+# Faithfulness review — ai-agent-engineering-reviewer
+# Per-rule claim-strength check of load-bearing profile rules against the promoted principles
+# and their backing claims/evidence. No rule is stronger than its evidence; source_anchors are
+# omitted deliberately (provenance carried in each note via principle + claim IDs).
+schema_version: faithfulness-report-v1
+subagent_slug: ai-agent-engineering-reviewer
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The role restates the sources'' framing — LLM-core agents engineered with memory/planning/tools
+    and evaluated for safety and quality — and narrows scope to advice/review (no code, no vendor choice,
+    no decision). A narrowing, not an over-claim. Grounded in principle(s): P009 (claims C00256/C00257);
+    P051 (claims C00533/C00534); P019 (claims C00460/C00461); P029 (claims C00170/C00171).'
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The output shape (name the failure mode, apply principles, surface assumptions to test, state
+    each trade-off, flag anti-patterns) follows the sources'' facet-based, method-matched, robustness-and-risk-aware
+    guidance; no claim stronger than the evidence. Grounded in principle(s): P020 (claims C00423/C00424);
+    P019 (claims C00460/C00461); P053 (claims C00563/C00579).'
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The minimum bar (name the failure mode, apply a named principle, state the trade-off) is a floor
+    drawn from the method-match and robustness/risk-awareness principles; strictly within scope. Grounded
+    in principle(s): P019 (claims C00460/C00461); P053 (claims C00563/C00579).'
+- rule_ref: outputs.modes[review].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The review trigger is a routing/scope condition consistent with the sources'' scope-the-evaluation
+    and failure-mode framing; not a substantive claim. Grounded in principle(s): P022 (claims C00535/C00536);
+    P004 (claims C00539/C00540).'
+- rule_ref: outputs.modes[advise].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The advise trigger is a routing/scope condition consistent with the sources'' strategy-by-trade-off
+    and feedback-driven revision framing; not a substantive claim. Grounded in principle(s): P033 (claims
+    C00337/C00338); P034 (claims C00364/C00365).'
+- rule_ref: outputs.modes[compare].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The compare trigger is a routing/scope condition consistent with the sources'' offline-vs-online
+    and method-selection framing; not a substantive claim. Grounded in principle(s): P037 (claims C00450/C00451);
+    P019 (claims C00460/C00461).'
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Memory-as-retrieval-not-dumps restates the retrieval-scoring, relevant-subset, reflection, and
+    memory-stream principles; within scope. Grounded in principle(s): P001 (claims C00254/C00285); P048
+    (claims C00256/C00278); P012 (claims C00268/C00290); P018 (claims C00251/C00252).'
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Interleaved reasoning-and-acting with operational thoughts, grounding, task-tuned frequency,
+    and replanning restates the ReAct-family principles; within scope. Grounded in principle(s): P008
+    (claims C00074/C00075); P010 (claims C00080/C00090); P011 (claims C00077/C00088); P041 (claims C00081/C00082);
+    P028 (claims C00097/C00098).'
+- rule_ref: quality_bar[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Add-tools-only-for-a-real-weakness with attributed gains restates the tool-augmentation and baseline-attribution
+    principles; within scope. Grounded in principle(s): P029 (claims C00170/C00171); P035 (claims C00374/C00375);
+    P040 (claims C00004/C00010); P047 (claims C00222/C00223); P030 (claims C00194/C00195).'
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Safety-as-first-class, separate-from-helpfulness, hardest-modes-first, not-defense-prompts-alone
+    restates the agent-safety findings; within scope. Grounded in principle(s): P051 (claims C00533/C00534);
+    P024 (claims C00581/C00582); P006 (claims C00571/C00572); P053 (claims C00563/C00579); P025 (claims
+    C00564/C00587).'
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Metric-matched, disaggregated, lifecycle-aware, honestly-documented evaluation restates the evaluation
+    and model-card principles; within scope. Grounded in principle(s): P019 (claims C00460/C00461); P020
+    (claims C00423/C00424); P021 (claims C00482/C00488); P037 (claims C00450/C00451); P014 (claims C00481/C00483).'
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding production code/impl is a scope narrowing consistent with the advisor framing; a narrowing,
+    not an over-claim. Grounded in principle(s): P009 (claims C00256/C00257).'
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding ungrounded memory/tool designs (raw dumps, always-on retrieval, unattributed gains)
+    restates the sources'' warnings; within scope. Grounded in principle(s): P048 (claims C00256/C00278);
+    P047 (claims C00222/C00223); P030 (claims C00194/C00195).'
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding refusal-only/defense-prompt-only safety claims restates the behavioural-safety, defense-prompt-insufficiency,
+    and pervasive-weakness findings; within scope. Grounded in principle(s): P051 (claims C00533/C00534);
+    P025 (claims C00564/C00587); P052 (claims C00562/C00567); P053 (claims C00563/C00579).'
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'A use trigger; a routing/scope condition consistent with the sources'' architecture framing,
+    not a substantive claim. Grounded in principle(s): P008 (claims C00074/C00075); P018 (claims C00251/C00252);
+    P031 (claims C00255/C00275).'
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'A use trigger; a routing/scope condition consistent with the sources'' tool-augmentation framing,
+    not a substantive claim. Grounded in principle(s): P029 (claims C00170/C00171); P035 (claims C00374/C00375);
+    P030 (claims C00194/C00195).'
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'A use trigger; a routing/scope condition consistent with the sources'' evaluation framing, not
+    a substantive claim. Grounded in principle(s): P019 (claims C00460/C00461); P020 (claims C00423/C00424);
+    P037 (claims C00450/C00451).'
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'A use trigger; a routing/scope condition consistent with the sources'' agent-safety framing,
+    not a substantive claim. Grounded in principle(s): P051 (claims C00533/C00534); P022 (claims C00535/C00536);
+    P006 (claims C00571/C00572).'
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'A use trigger; a routing/scope condition consistent with the sources'' documentation/transparency
+    framing, not a substantive claim. Grounded in principle(s): P014 (claims C00481/C00483); P021 (claims
+    C00482/C00488); P050 (claims C00512/C00513).'
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'An exclusion (no production code/impl); a scope boundary, not a substantive claim. Grounded in
+    principle(s): P009 (claims C00256/C00257).'
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'An exclusion (no vendor/framework procurement); the sources teach architecture and tool use,
+    not procurement — a scope boundary. Grounded in principle(s): P035 (claims C00374/C00375).'
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'An exclusion (concerns outside agent engineering); a scope boundary, not a substantive claim.
+    Grounded in principle(s): P009 (claims C00256/C00257).'
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Handoff to the engineering team for the decision and implementation restates the capability-not-sufficient
+    and LLM-core framing; within scope. Grounded in principle(s): P052 (claims C00562/C00567); P009 (claims
+    C00256/C00257).'
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Handoff of non-agent-engineering concerns is a scope boundary consistent with the advisor framing.
+    Grounded in principle(s): P051 (claims C00533/C00534).'
