@@ -1,0 +1,157 @@
+schema_version: golden-tests-v1
+subagent_slug: ui-design-advisor
+generated_at: '2026-07-03'
+profile_version: "0.1.0"
+tier: 2
+golden_tests:
+  - test_id: GT-001
+    description: Positive routing — establish visual hierarchy on a flat screen
+    prompt: >-
+      Our dashboard shows a dozen cards and every one looks the same weight — users say it feels
+      overwhelming and they can't tell what matters. How should we fix it?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A critique that names the primary task, flags the flat hierarchy, and recommends ranking
+      elements by importance and distinguishing them with size, weight, color, contrast, and spacing,
+      with the trade-off stated.
+    must_do:
+      - Identify the user's primary task and what matters most on the screen
+      - Recommend ranking elements into instantly-needed, secondary, and by-exception
+      - Recommend distinguishing levels with size, weight, color, contrast, spacing, and alignment
+      - Advise turning the less-important down rather than the important up, and state the trade-off
+    must_not_do:
+      - Produce production CSS or a finished visual design
+      - Assert one layout is universally best without a trade-off
+    principle_coverage: [P001, P099, P074, P100, P102]
+  - test_id: GT-002
+    description: Positive routing — reduce form effort and validation friction
+    prompt: >-
+      Our signup form has 18 fields and lots of people drop off. Some fields reject valid input like
+      phone numbers with spaces. What should we change?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Advice that cuts and defers questions, matches controls to the question, validates forgivingly,
+      and shows errors in context — with the trade-off named.
+    must_do:
+      - Recommend asking the fewest questions and deferring or removing optional fields
+      - Recommend forgiving formats and early, in-context validation
+      - Recommend marking only the minority (required or optional) status
+      - State the trade-off (e.g. deferred fields may need a later prompt)
+    must_not_do:
+      - Write the production form markup
+      - Recommend rejecting imperfect input at the point of entry
+    principle_coverage: [P006, P019, P031, P059, P060, P062]
+  - test_id: GT-003
+    description: Positive routing — cut excise and add feedback in an interaction
+    prompt: >-
+      Every time users save in our editor they get a confirmation dialog, and there's no undo. They
+      find it slow and scary. How should the save and undo behave?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Advice that removes needless confirmation excise, provides multilevel undo, and gives modeless
+      feedback, grounded in the user's mental model, with the trade-off named.
+    must_do:
+      - Recommend eliminating the needless confirmation dialog (excise)
+      - Recommend multilevel undo modeled on the user's mental model
+      - Recommend rich, modeless feedback for the save state
+      - State the trade-off and note it should be validated with users
+    must_not_do:
+      - Implement the undo stack in code
+      - Present the change as universally correct with no trade-off
+    principle_coverage: [P043, P013, P055, P044, P071]
+  - test_id: GT-004
+    description: Positive routing — choose typography and color to communicate
+    prompt: >-
+      Our marketing page uses six typefaces and bright colors everywhere. It looks busy and nothing
+      stands out. How should we approach type and color?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A critique that reduces noise, chooses typefaces by role, and uses contrast and similarity to
+      convey meaning and hierarchy, with the trade-off named.
+    must_do:
+      - Recommend reducing typefaces and choosing them by role
+      - Recommend using similarity and contrast to group and rank elements
+      - Tie color and type choices to communication and product personality, not decoration
+      - State the trade-off and recommend validating with the target audience
+    must_not_do:
+      - Deliver final brand assets or a finished style sheet
+      - Prescribe a single palette as universally best
+    principle_coverage: [P052, P053, P082, P102]
+  - test_id: GT-005
+    description: Positive routing — fit posture, platform, and mobile context
+    prompt: >-
+      We're porting our desktop admin tool to phones. Menus are deep and buttons are tiny. What
+      changes for the mobile context?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Advice that adapts posture to the mobile context — large touch targets, linear layout, quick
+      reentrant tasks — grounded in platform-first design, with the trade-off named.
+    must_do:
+      - Recommend large enough touch targets and a single-column linear layout
+      - Design for the distracted, reentrant mobile context
+      - Treat platform and posture as early design decisions
+      - State the trade-off between desktop density and mobile simplicity
+    must_not_do:
+      - Build the responsive layout in code
+      - Assume the desktop information architecture transfers unchanged
+    principle_coverage: [P103, P104, P105, P042, P039]
+  - test_id: GT-006
+    description: Positive routing — ground a decision in the user goal and persona
+    prompt: >-
+      Stakeholders want to add a wizard to our app because a competitor has one. Should we?
+    expected_route: invoke
+    expected_mode: compare
+    minimum_output: >-
+      A goal-directed comparison that rejects uncritical copying, grounds the choice in the user's
+      goal and persona, and states each option's trade-off.
+    must_do:
+      - Reframe around the user's goal and the primary persona rather than the competitor
+      - Compare a wizard against alternatives on effort, excise, and flexibility
+      - Recommend validating the choice with representative users
+      - State the trade-off of each option
+    must_not_do:
+      - Endorse copying the competitor pattern uncritically
+      - Present one option as universally correct
+    principle_coverage: [P009, P011, P096, P024]
+negative_routing_tests:
+  - test_id: NR-001
+    description: Out of scope — production code and tooling selection
+    prompt: >-
+      Just write the production React components and CSS for this screen and pick the UI component
+      library we should standardize on.
+    expected_route: do_not_invoke
+    must_not_do:
+      - Produce production code or a finished style sheet
+      - Choose a specific framework, component library, or design tool
+    principle_coverage: [P011]
+  - test_id: NR-002
+    description: Out of scope — backend and brand strategy
+    prompt: >-
+      Design our database schema and decide our company's brand voice and logo direction.
+    expected_route: do_not_invoke
+    must_not_do:
+      - Design backend or data models
+      - Decide brand strategy, voice, or logo
+    principle_coverage: [P032]
+missing_context_tests:
+  - test_id: MC-001
+    description: Underspecified — no user, goal, platform, or context given
+    prompt: Make our home screen look better.
+    expected_route: invoke
+    must_ask_for:
+      - Who the user or persona is and the goal the screen must serve
+      - The platform and posture, and what is already known versus assumed
+    principle_coverage: [P009, P042]
+  - test_id: MC-002
+    description: Underspecified — a form to fix but no purpose or audience
+    prompt: Our form is bad, fix it.
+    expected_route: invoke
+    must_ask_for:
+      - What the form is for and who fills it in
+      - Which fields are required, and where users struggle or drop off
+    principle_coverage: [P006, P019]

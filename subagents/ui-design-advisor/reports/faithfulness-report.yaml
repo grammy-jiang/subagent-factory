@@ -1,0 +1,266 @@
+# Faithfulness review — ui-design-advisor
+# Per-rule claim-strength check of load-bearing profile rules against the promoted principles
+# and their backing claims/evidence. No rule is stronger than its evidence; source_anchors are
+# omitted deliberately (provenance carried in each note via principle + claim IDs).
+schema_version: faithfulness-report-v1
+subagent_slug: ui-design-advisor
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The role restates the sources'' goal-directed, user-mental-model framing and narrows scope to advice/review
+    (no code, no UI assets, no decision) — a narrowing, not an over-claim. Grounded in principle(s): P009 (claims
+    C00175/C00176); P011 (claims C00910/C00937); P033 (claims C00964/C00965); P001 (claims C00023/C00024); P059
+    (claims C00637/C00638); P043 (claims C01248/C01249).'
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Trigger (hierarchy/grouping/spacing review) is a routing condition matching the visual-hierarchy principles;
+    not a substantive claim. Grounded in principle(s): P001 (claims C00023/C00024); P099 (claims C00385/C00386);
+    P074 (claims C01341/C01342).'
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Trigger (form/input review) routes to the form-effort and validation principles; a routing condition, within
+    scope. Grounded in principle(s): P006 (claims C00627/C00628); P019 (claims C00721/C00722); P059 (claims C00637/C00638).'
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Trigger (navigation/interaction) routes to navigation, excise, and feedback principles; a routing condition.
+    Grounded in principle(s): P004 (claims C00304/C00305); P043 (claims C01248/C01249); P071 (claims C01231/C01573).'
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Trigger (type/color/depth) routes to the visual-communication principles; a routing condition. Grounded
+    in principle(s): P052 (claims C00438/C00439); P053 (claims C01332/C01333); P082 (claims C00013/C00014).'
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Trigger (goal-directed decision) routes to goal, posture, and persona principles; a routing condition.
+    Grounded in principle(s): P009 (claims C00175/C00176); P042 (claims C01162/C01163); P011 (claims C00910/C00937).'
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Exclusion (no production code/assets/copy) enforces the sources'' advise-not-implement boundary; a scope
+    narrowing. Grounded in principle(s): P011 (claims C00910/C00937); P032 (claims C00908/C00909).'
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Exclusion (no tool/framework procurement) reflects that the sources teach design, not tool selection; within
+    scope. Grounded in principle(s): P024 (claims C00918/C00919); P042 (claims C01162/C01163).'
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Exclusion (out-of-UI concerns) is a scope boundary, not a claim about UI. Grounded in principle(s): P011
+    (claims C00910/C00937).'
+- rule_ref: inputs.required[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring user/goal/platform/context before advice is the goal-directed precondition the sources demand;
+    within scope. Grounded in principle(s): P009 (claims C00175/C00176); P011 (claims C00910/C00937); P042 (claims
+    C01162/C01163).'
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Output shape (name the goal, apply principles, surface assumptions, state trade-offs, flag anti-patterns)
+    follows the sources'' goal-directed, trade-off-aware guidance; no claim stronger than the evidence. Grounded
+    in principle(s): P009 (claims C00175/C00176); P001 (claims C00023/C00024); P024 (claims C00918/C00919).'
+- rule_ref: outputs.modes[review].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Review-mode output (findings keyed to hierarchy/form/excise/feedback gaps with trade-offs) is a critique
+    format consistent with the principles; not a substantive claim. Grounded in principle(s): P001 (claims C00023/C00024);
+    P059 (claims C00637/C00638); P043 (claims C01248/C01249).'
+- rule_ref: outputs.modes[advise].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Advise-mode output (recommendation naming principle, assumption, residual trade-off) follows the sources''
+    contextual-guideline stance; within scope. Grounded in principle(s): P009 (claims C00175/C00176); P024 (claims
+    C00918/C00919).'
+- rule_ref: outputs.modes[compare].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Compare-mode output (favours/costs then a context-weighted pick) reflects the trade-off-and-test stance;
+    within scope. Grounded in principle(s): P024 (claims C00918/C00919); P021 (claims C01031/C01032).'
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Naming the user goal/persona/context first is the core goal-directed rule; a faithful restatement. Grounded
+    in principle(s): P009 (claims C00175/C00176); P011 (claims C00910/C00937); P005 (claims C00169/C00172); P033
+    (claims C00964/C00965).'
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Establishing hierarchy and grouping via size/weight/color/contrast/spacing/alignment is directly stated
+    by the visual-hierarchy and Gestalt principles. Grounded in principle(s): P001 (claims C00023/C00024); P099
+    (claims C00385/C00386); P074 (claims C01341/C01342); P100 (claims C00390/C00391); P102 (claims C01355/C01356).'
+- rule_ref: quality_bar[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Minimizing form effort and preventing errors at the source (fewest questions, right controls, forgiving
+    validation, in-context messaging) restates the form principles. Grounded in principle(s): P006 (claims C00627/C00628);
+    P019 (claims C00721/C00722); P008 (claims C00673/C00676); P059 (claims C00637/C00638); P060 (claims C01419/C01420);
+    P062 (claims C00830/C00831).'
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reducing excise, respecting the mental model, giving feedback, reversible actions, and posture/platform
+    fit restate the interaction principles. Grounded in principle(s): P043 (claims C01248/C01249); P016 (claims
+    C01281/C01282); P055 (claims C00578/C00579); P071 (claims C01231/C01573); P039 (claims C01167/C01168); P042
+    (claims C01162/C01163).'
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Stating trade-offs and framing advice as testable, with principles as contextual guidelines, restates the
+    sources'' explicit stance; within scope. Grounded in principle(s): P024 (claims C00918/C00919); P021 (claims
+    C01031/C01032); P091 (claims C00161/C00162).'
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The floor (one finding naming the goal, a named principle, and its trade-off) is drawn from the goal-directed
+    and contextual-guideline principles; strictly within scope. Grounded in principle(s): P009 (claims C00175/C00176);
+    P024 (claims C00918/C00919).'
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding production code/assets/copy enforces the advise-not-implement boundary; a narrowing. Grounded
+    in principle(s): P011 (claims C00910/C00937); P032 (claims C00908/C00909).'
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding ungrounded, aesthetics-first patterns without a trade-off restates the sources'' warning against
+    assumption-driven design. Grounded in principle(s): P009 (claims C00175/C00176); P011 (claims C00910/C00937);
+    P024 (claims C00918/C00919).'
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding universal-rule claims restates the sources'' contextual-guideline and test-before-commit stance.
+    Grounded in principle(s): P024 (claims C00918/C00919); P021 (claims C01031/C01032).'
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Handing the decision/design/implementation to the team reflects the sources'' collaborative-but-bounded
+    stance; within scope. Grounded in principle(s): P011 (claims C00910/C00937); P032 (claims C00908/C00909).'
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Handing out-of-UI concerns to the owning specialist is a scope boundary, not a claim. Grounded in principle(s):
+    P011 (claims C00910/C00937).'
+- rule_ref: source_of_truth_policy.canonical_owner
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Naming the team as decision owner and the works as principle authority reflects the sources'' framing;
+    within scope. Grounded in principle(s): P011 (claims C00910/C00937); P032 (claims C00908/C00909).'
+- rule_ref: source_of_truth_policy.precedence
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Users/context governing over generic patterns, and platform/posture-fit tie-breaking, restates the contextual-guideline
+    and platform-first principles. Grounded in principle(s): P024 (claims C00918/C00919); P042 (claims C01162/C01163).'

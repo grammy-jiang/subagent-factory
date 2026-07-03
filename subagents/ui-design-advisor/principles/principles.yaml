@@ -1,0 +1,2152 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Establish a clear visual hierarchy by ranking controls and data from
+    scenarios into instantly-needed, secondary, and by-exception, then distinguishing
+    levels with hue, saturation, value, size, and position so the most important elements
+    are larger and higher-contrast; adjust with restraint (often one property suffices,
+    and prefer turning the less-important element down over turning the important
+    one up), knowing a good hierarchy goes unnoticed while its absence causes glaring
+    confusion.
+  derived_from_claims:
+  - C00023
+  - C00024
+  - C00030
+  - C00382
+  - C00383
+  - C00384
+  - C01337
+  - C01338
+  - C01339
+  - C01340
+  confidence: high
+  applies_when:
+  - Multiple UI elements compete for attention or the page feels noisy.
+  - laying out any screen
+  - laying out a screen with elements of differing importance
+  operational_mapping:
+    profile_rule: true
+- principle_id: P002
+  statement: Use smart defaults and prefills deliberately to reduce user work, deriving
+    them from context and choosing them in users' interests, but omit defaults for
+    sensitive choices or when no option fits most people.
+  derived_from_claims:
+  - C00667
+  - C00668
+  - C00669
+  - C00670
+  - C00704
+  - C00862
+  - C00863
+  - C00864
+  - C00865
+  - C00866
+  - C00867
+  confidence: high
+  applies_when:
+  - you can reasonably guess a field's value
+  - a field has an option that suits the majority
+  - a field has a likely majority answer
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Match selection and input controls to the question type, expected behavior,
+    and learned conventions, respecting the trade-offs of radio buttons, checkboxes,
+    drop-downs, list controls, and explicit commit actions.
+  derived_from_claims:
+  - C00781
+  - C00782
+  - C00783
+  - C00784
+  - C00785
+  - C00786
+  - C00787
+  - C01490
+  - C01491
+  - C01492
+  - C01493
+  confidence: high
+  applies_when:
+  - selecting an input control
+  - designing checkboxes, radio buttons, and toggles
+  operational_mapping:
+    profile_rule: true
+- principle_id: P004
+  statement: Support navigation and wayfinding with clear, consistent signposts such
+    as titles, breadcrumbs, progress indicators, menus, persistent objects, and labels
+    or terms that match users' mental models.
+  derived_from_claims:
+  - C00304
+  - C00305
+  - C00306
+  - C01267
+  - C01268
+  - C01269
+  - C01270
+  - C01271
+  confidence: high
+  applies_when:
+  - helping users know where they are and where to go
+  - helping users find their way and find controls
+  operational_mapping:
+    profile_rule: true
+- principle_id: P005
+  statement: Use empirical user research, especially qualitative observation and interviews,
+    to understand users' behavior, expectations, vocabulary, and mental models; use
+    quantitative methods for validation rather than as a substitute for design insight.
+  derived_from_claims:
+  - C00169
+  - C00172
+  - C00173
+  - C00179
+  - C00948
+  - C00995
+  - C00996
+  confidence: high
+  applies_when:
+  - you need to characterize an audience or validate assumptions about them
+  - choosing research methods to inform design
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: 'Design forms to respect the user''s time: make them short, minimize
+    and deduce inputs, make the purpose clear (why, how used, what the user gets),
+    minimize clutter, and confirm success with a clear next step.'
+  derived_from_claims:
+  - C00627
+  - C00628
+  - C00629
+  - C00630
+  - C00642
+  - C00695
+  - C00716
+  confidence: high
+  applies_when:
+  - designing a form that collects information
+  - any form design decision
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: Design software to behave like a considerate, supportive human colleague,
+    because people unconsciously treat interactive products as sentient and inconsiderate
+    products irritate regardless of features, and it is not substantially harder to
+    build, following the ideal division of labor in which the computer does the work
+    and the person does the thinking.
+  derived_from_claims:
+  - C00154
+  - C00156
+  - C01277
+  - C01278
+  - C01279
+  - C01280
+  confidence: high
+  applies_when:
+  - designing how a system responds to and communicates with the user
+  - setting the overall behavioral character of a product
+  operational_mapping:
+    profile_rule: true
+- principle_id: P008
+  statement: Solve input validation at the source by using bounded controls that communicate
+    the acceptable boundaries and make an invalid entry impossible (a drop-down of
+    months rather than requiring the user to spell February), rather than an unbounded
+    field that accepts anything only to reject it afterward with a rude error; and
+    where values are finite use a bounded numeric control such as a slider — good
+    for relative or zoom values by analogy of position but poor for precise numbers,
+    for which a spinner is better — or a list control, so users are not forced to
+    type.
+  derived_from_claims:
+  - C00673
+  - C00676
+  - C01501
+  - C01502
+  - C01503
+  - C01504
+  confidence: high
+  applies_when:
+  - a form has required fields or constrained inputs
+  - a field accepts a value from a known or bounded set
+  operational_mapping:
+    profile_rule: true
+- principle_id: P009
+  statement: Identify and prioritize user goals before tasks, and base the persona
+    hypothesis on likely behavior patterns and their differentiating factors rather
+    than purely on demographics, which should serve only as a proxy for behavior.
+  derived_from_claims:
+  - C00175
+  - C00176
+  - C01013
+  - C01014
+  confidence: high
+  applies_when:
+  - synthesizing research into a design-guiding model of the audience
+  - forming an initial model of who the users are
+  operational_mapping:
+    profile_rule: true
+- principle_id: P010
+  statement: Prevent data-loss interruptions by replacing destructive confirmation
+    or Save Changes dialogs with timely validation and Undo, so users can recover
+    changes in the context where they made them.
+  derived_from_claims:
+  - C00806
+  - C01403
+  - C01404
+  - C01405
+  confidence: high
+  applies_when:
+  - a form has a destructive action like Reset
+  - a design confronts users with saving or discarding changes
+  operational_mapping:
+    profile_rule: true
+- principle_id: P011
+  statement: Keep users' goals as the bedrock throughout the pressures of the development
+    cycle, treating features and functions as a limited way to define a product, because
+    a goal-directed process supplies a clear rationale that makes the design not guesswork
+    or personal preference.
+  derived_from_claims:
+  - C00910
+  - C00937
+  - C00938
+  - C00940
+  - C00941
+  - C00942
+  - C00943
+  - C00944
+  - C00946
+  - C00947
+  - C00961
+  - C00962
+  - C00963
+  - C01094
+  confidence: high
+  applies_when:
+  - defining or evaluating what a product should do
+  - choosing what to optimize a design around
+  - setting the design target for a productivity product
+  - maintaining design focus during development
+  - a design is being organized around organizational workflow
+  operational_mapping:
+    profile_rule: true
+- principle_id: P012
+  statement: Synthesize personas from observed behavior rather than fiction, keeping
+    detail no deeper than the research supports, inferring goals from behavioral connections
+    (about three to five end goals, zero or one life goal, zero to two experience
+    goals), making each persona distinct in at least one significant behavior, expanding
+    into a one-to-two-page narrative, and remembering personas are design tools, not
+    an end in themselves.
+  derived_from_claims:
+  - C01077
+  - C01078
+  - C01079
+  - C01080
+  - C01081
+  - C01082
+  - C01083
+  - C01084
+  - C01085
+  - C01086
+  - C01087
+  - C01088
+  confidence: high
+  applies_when:
+  - building a persona set from research
+  - fleshing out and documenting personas
+  operational_mapping:
+    profile_rule: true
+- principle_id: P013
+  statement: Avoid stopping the proceedings for normalcy, confirmations, or high-excise
+    reports; let software take a good-enough action, keep users informed with modeless
+    feedback, and make actions adjustable or reversible with Undo.
+  derived_from_claims:
+  - C01236
+  - C01237
+  - C01238
+  - C01254
+  - C01255
+  - C01256
+  - C01257
+  - C01568
+  - C01569
+  - C01570
+  - C01571
+  - C01572
+  confidence: high
+  applies_when:
+  - deciding whether to report an event or ask before acting
+  - reviewing interactions for needless interruption
+  - a design is tempted to ask for confirmation or show an alert
+  operational_mapping:
+    profile_rule: true
+- principle_id: P014
+  statement: 'Use interface metaphors sparingly: prefer idiomatic designs over implementation-centric
+    or metaphoric paradigms, and never bend or limit the interface to preserve a metaphor
+    unless a truly powerful one fits naturally.'
+  derived_from_claims:
+  - C01307
+  - C01308
+  - C01309
+  - C01310
+  - C01311
+  - C01312
+  - C01313
+  - C01317
+  - C01318
+  - C01319
+  - C01320
+  - C01321
+  confidence: high
+  applies_when:
+  - choosing the conceptual basis of an interface
+  - tempted to organize an interface around a real-world metaphor
+  operational_mapping:
+    profile_rule: true
+- principle_id: P015
+  statement: Use ethnographic interviews by observing and interviewing users in their
+    own context, avoiding fixed or leading questionnaires and solution proposals,
+    eliciting specific stories, keeping recording unobtrusive, and verifying interpretations
+    with users.
+  derived_from_claims:
+  - C00994
+  - C01007
+  - C01008
+  - C01009
+  - C01010
+  - C01012
+  - C01021
+  - C01022
+  - C01023
+  - C01024
+  - C01025
+  confidence: high
+  applies_when:
+  - gathering qualitative data about users
+  - conducting a user interview
+  operational_mapping:
+    profile_rule: true
+- principle_id: P016
+  statement: 'Make a product considerate by embodying the traits of a caring person:
+    take an interest and remember what the user tells it, defer and submit to the
+    user, be forthcoming, use common sense, be conscientious about the larger goal,
+    keep quiet about its own problems, be perceptive by remembering preferences, be
+    self-confident rather than asking Are you sure while staying ready to undo, fail
+    gracefully, know when to bend the rules with suspense states, and take responsibility
+    for the work it hands to other devices.'
+  derived_from_claims:
+  - C01281
+  - C01282
+  - C01283
+  - C01284
+  - C01285
+  - C01286
+  - C01287
+  - C01288
+  - C01289
+  - C01290
+  - C01291
+  confidence: high
+  applies_when:
+  - designing a product's behavior toward the user
+  operational_mapping:
+    profile_rule: true
+- principle_id: P017
+  statement: 'Design accessible forms by getting semantic content and structure right
+    first (so assistive tech can convey them) and following core rules: text alternatives
+    and labels for everything, unique meaningful links, never color alone, sufficient
+    contrast, full keyboard operability, no seizure-risk flashing, adjustable timing,
+    skip links, and naming objects by function—benefits reach all users.'
+  derived_from_claims:
+  - C00751
+  - C00752
+  - C00753
+  - C00754
+  - C00755
+  - C00756
+  - C00757
+  - C00758
+  - C00759
+  - C00760
+  confidence: high
+  applies_when:
+  - building any web form
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: 'Separate the storage system from the retrieval system rather than forcing
+    users to conform to a rigid relational schema: keep records in a database-like
+    digital soup that accepts any record and returns a token, build retrieval as an
+    unlimited number of attribute indices each keyed to one concept, fill those indices
+    both by automatic extraction and by easy manual pointers, and never demand that
+    users configure their information in advance, because they rarely can express
+    their needs ahead of time and often change their minds.'
+  derived_from_claims:
+  - C01372
+  - C01373
+  - C01374
+  - C01375
+  - C01376
+  - C01380
+  - C01381
+  - C01382
+  - C01383
+  - C01384
+  confidence: high
+  applies_when:
+  - designing how users locate their documents or data
+  - architecting how unpredictable or unstructured information is stored and found
+  operational_mapping:
+    profile_rule: true
+- principle_id: P019
+  statement: 'Ruthlessly minimize the questions you ask—fewer questions mean faster
+    completion: test every question (need it, infer it, better time), infer answers
+    where possible (e.g., card type from number), challenge legacy paper questions,
+    and apply Keep/Cut/Postpone/Explain.'
+  derived_from_claims:
+  - C00721
+  - C00722
+  - C00723
+  - C00724
+  - C00725
+  - C00726
+  - C00856
+  - C00857
+  - C00858
+  confidence: high
+  applies_when:
+  - deciding what to include on a form
+  - auditing a form's questions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Use inline validation only where users may need help, time feedback after
+    the answer is complete, and provide suggestions, reformatting, counters, or quality
+    indicators from data already given.
+  derived_from_claims:
+  - C00847
+  - C00848
+  - C00849
+  - C00850
+  - C00851
+  - C00852
+  - C00853
+  - C00854
+  - C00855
+  confidence: high
+  applies_when:
+  - answers are uncertain, formatted, or hard to get right
+  - implementing inline validation feedback
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: 'Use usability testing to evaluate a concrete candidate design, not to
+    create it: do qualitative research before ideation, test late enough to have something
+    real but early enough to change it, and make findings measurable and actionable.'
+  derived_from_claims:
+  - C01031
+  - C01032
+  - C01033
+  - C01034
+  - C01038
+  - C01141
+  - C01142
+  - C01143
+  - C01144
+  confidence: high
+  applies_when:
+  - deciding when and how to evaluate a design with users
+  - placing evaluation within the design process
+  operational_mapping:
+    profile_rule: true
+- principle_id: P022
+  statement: 'Treat visual interface design as a critical, unique communication discipline
+    conducted alongside interaction and industrial design, not as afterthought skinning:
+    place aesthetics within a functional framework driven by user-experience and business
+    goals, and match the visual structure to the logical structure of the users''
+    mental models and the program''s behavior so the display communicates behavior
+    clearly.'
+  derived_from_claims:
+  - C01115
+  - C01116
+  - C01117
+  - C01137
+  - C01327
+  - C01328
+  - C01329
+  - C01330
+  - C01331
+  confidence: high
+  applies_when:
+  - beginning to design a product's structure
+  - designing the visual layer of an interactive product
+  operational_mapping:
+    profile_rule: true
+- principle_id: P023
+  statement: Make transient-posture applications simple, clear, and obvious, limited
+    to a single window and view with instructions built into the surface and taking
+    no more space than needed, and give them a memory so they relaunch to their previous
+    size, position, and configuration; treat dialog boxes and the interactive parts
+    of daemonic applications as transient, showing a daemon icon only for continuous
+    useful status and providing a control panel plus inline access.
+  derived_from_claims:
+  - C01173
+  - C01174
+  - C01175
+  - C01176
+  - C01177
+  - C01178
+  - C01179
+  - C01180
+  - C01181
+  confidence: high
+  applies_when:
+  - designing transient or daemonic applications and dialog boxes
+  operational_mapping:
+    profile_rule: true
+- principle_id: P024
+  statement: 'Treat design principles and interface standards as contextual guidelines:
+    understand the actual target users, goals, and working conditions, follow a standard''s
+    spirit, and depart only when a clearly better idiom serves those users.'
+  derived_from_claims:
+  - C00918
+  - C00919
+  - C00945
+  - C01367
+  - C01368
+  - C01369
+  - C01370
+  - C01371
+  confidence: high
+  applies_when:
+  - evaluating whether a design is good
+  - deciding whether and how to follow an interface standard
+  operational_mapping:
+    profile_rule: true
+- principle_id: P025
+  statement: Run the five-step iterative Requirements Definition, connecting business
+    to usability in a problem and vision statement, brainstorming to clear preconceptions,
+    recording each persona's expectations, keeping context scenarios broad, shallow,
+    and textual, pretending the interface is magic in early stages, and extracting
+    requirements as objects, actions, and contexts.
+  derived_from_claims:
+  - C01105
+  - C01106
+  - C01107
+  - C01108
+  - C01109
+  - C01110
+  - C01111
+  - C01112
+  confidence: high
+  applies_when:
+  - turning models into requirements
+  operational_mapping:
+    profile_rule: true
+- principle_id: P026
+  statement: 'Design embedded systems by their guiding principles: do not think of
+    the product as a computer or bring desktop idioms to it, design the hardware and
+    software interface together from a goal-directed and ergonomic perspective, let
+    environmental context drive the design, use modes judiciously, limit the scope
+    to a specific set of tasks done well, balance navigation against display density,
+    and limit and simplify input.'
+  derived_from_claims:
+  - C01190
+  - C01191
+  - C01192
+  - C01193
+  - C01194
+  - C01195
+  - C01197
+  - C01198
+  confidence: high
+  applies_when:
+  - designing an appliance, kiosk, handheld, or other embedded device
+  operational_mapping:
+    profile_rule: true
+- principle_id: P027
+  statement: Provide multiple parallel command vectors — menus, toolbars, keyboard
+    accelerators, and direct manipulation — so users of different skill sets can command
+    the program the way that suits them, giving immediate vectors to the minimal working
+    set of frequently used functions identified from persona scenarios and pedagogic
+    vectors to beginners, and understanding that information in the world (menus,
+    dialogs) is dependable but slow while information in the head (accelerators) is
+    fast but must be learned, so beginners rely on world vectors and experts increasingly
+    on head vectors; as an exception, deny dangerous commands like Erase All easy
+    parallel vectors and protect them within menus and dialogs like hidden ejector-seat
+    levers.
+  derived_from_claims:
+  - C01517
+  - C01518
+  - C01519
+  - C01520
+  - C01577
+  - C01578
+  - C01579
+  - C01580
+  confidence: high
+  applies_when:
+  - designing an application's menu system
+  - deciding how functions can be invoked
+  operational_mapping:
+    profile_rule: true
+- principle_id: P028
+  statement: Size content and sections to their optimal width instead of stretching
+    them just because space exists; use grids as aids and prefer fixed or max-width
+    sizing where content has a natural width.
+  derived_from_claims:
+  - C00047
+  - C00048
+  - C00049
+  - C00050
+  - C00051
+  - C00052
+  - C00053
+  - C00054
+  confidence: medium
+  applies_when:
+  - A large viewport or canvas tempts the design to widen forms, text, or sections
+    unnecessarily.
+  - Column grids, fluid containers, sidebars, cards, forms, or responsive layouts
+    are being sized.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: 'Design kiosks for infrequent, often one-time public users without keyboards:
+    optimize for first-time use with a transient posture, distinguish transactional
+    kiosks that let users reach a specific goal fast from explorational kiosks that
+    must engage through an interesting experience, show process orientation and escape
+    hatches, plan placement and wayfinding with industrial design, and keep touch
+    targets large with sparing text input and no drag or scroll, keeping hardware-button
+    mappings consistent.'
+  derived_from_claims:
+  - C01204
+  - C01205
+  - C01206
+  - C01207
+  - C01208
+  - C01209
+  - C01210
+  - C01211
+  confidence: medium
+  applies_when:
+  - designing kiosk interfaces
+  operational_mapping:
+    profile_rule: true
+- principle_id: P030
+  statement: 'Prefer top-aligned labels for speed: eye-tracking (Penzo ~50ms vs ~500ms
+    left / ~240ms right) and live-site tests (>10% higher completion) show them fastest,
+    and they flex for long/localized labels—accepting more vertical space, and noting
+    the evidence is for familiar data.'
+  derived_from_claims:
+  - C00766
+  - C00767
+  - C00768
+  - C00769
+  - C00770
+  - C00771
+  - C00772
+  confidence: high
+  applies_when:
+  - completion speed is the priority and vertical space allows top labels
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Minimize optional fields, and when marking required/optional status indicate
+    only the minority case with clear text (not just an asterisk), placing indicators
+    next to labels for easy scanning.
+  derived_from_claims:
+  - C00706
+  - C00707
+  - C00790
+  - C00791
+  - C00792
+  - C00793
+  - C00794
+  confidence: high
+  applies_when:
+  - a form mixes required and optional fields
+  - a form has required and optional fields
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Involve the programming team intimately throughout Refinement and construction,
+    deliver a form and behavior specification detailed enough to code from, and stay
+    vigilant that the design vision is translated faithfully into the final product.
+  derived_from_claims:
+  - C00908
+  - C00909
+  - C00933
+  - C00934
+  - C01138
+  - C01139
+  - C01140
+  confidence: high
+  applies_when:
+  - framing the scope of a design effort
+  - carrying a design into implementation
+  operational_mapping:
+    profile_rule: true
+- principle_id: P033
+  statement: Design the represented model around the user's mental model rather than
+    the implementation model, keeping it simpler than the actual implementation because
+    it is the model designers most control.
+  derived_from_claims:
+  - C00964
+  - C00965
+  - C00966
+  - C00967
+  - C00968
+  - C00969
+  - C00970
+  confidence: high
+  applies_when:
+  - deciding how to present a product's workings to users
+  - designing how an interface represents the product's function
+  operational_mapping:
+    profile_rule: true
+- principle_id: P034
+  statement: 'Apply memory concretely: use the previous setting as the default and
+    remember options until manually changed without re-offering turned-off features,
+    remember file locations per file type and window position, remember repeated action
+    patterns, remember essentially everything since storage is cheap, remember deduced
+    information for silent reasonableness checks, persist the undo stack across sessions,
+    and auto-fill past entries to reduce errors.'
+  derived_from_claims:
+  - C01297
+  - C01298
+  - C01299
+  - C01300
+  - C01301
+  - C01302
+  - C01303
+  confidence: high
+  applies_when:
+  - implementing a product's memory
+  operational_mapping:
+    profile_rule: true
+- principle_id: P035
+  statement: 'Treat each window, pane, or dialog box as a separate room and do not
+    add one unless it serves a purpose existing windows cannot: put functions in the
+    window where they are used, so a task integral to the application''s purpose belongs
+    in the main window rather than a dialog (one of the most frequently violated UI
+    principles), reserve a separate room such as a dialog for functions performed
+    outside the user''s normal sequence (purging a database, importing clip art),
+    and avoid windows pollution from putting a single function in each dialog, since
+    a goal involves a series of functions whose connections many windows cannot show.'
+  derived_from_claims:
+  - C01479
+  - C01480
+  - C01481
+  - C01482
+  - C01536
+  - C01537
+  - C01538
+  confidence: high
+  applies_when:
+  - deciding where a function lives in the interface
+  - deciding what belongs in a dialog box
+  operational_mapping:
+    profile_rule: true
+- principle_id: P036
+  statement: 'Deliver application-quality interaction design when complex behavior
+    runs in a browser: know the Web spectrum of informational, transactional, and
+    application, set an informational site''s sovereign-versus-transient balance by
+    visit frequency, optimize for common display sizes, avoid forcing unnecessary
+    navigation since perceived load time tracks goal achievement more than actual
+    time, do not assume Web apps are easier to build or more usable for free, and
+    design sovereign Web applications like desktop applications.'
+  derived_from_claims:
+  - C01182
+  - C01183
+  - C01184
+  - C01185
+  - C01186
+  - C01187
+  - C01188
+  confidence: medium
+  applies_when:
+  - designing web sites and web applications
+  operational_mapping:
+    profile_rule: true
+- principle_id: P037
+  statement: 'Choose the right action affordance for the job: buttons and button groups
+    for always-visible related actions, links for low-emphasis actions, hover tools
+    for per-item mouse actions, and an Action Panel for discoverable, richly organized
+    commands; keep pop-up menus short and never use drop-downs for actions.'
+  derived_from_claims:
+  - C00539
+  - C00541
+  - C00542
+  - C00554
+  - C00555
+  - C00557
+  confidence: high
+  applies_when:
+  - deciding how to present actions on a screen
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: 'Serve minority needs with additional inputs that don''t burden the majority:
+    map inputs to prioritized use cases, expose extras via clearly worded user-activated
+    triggers with easy removal, keep the approach consistent, and minimize page jumping.'
+  derived_from_claims:
+  - C00868
+  - C00869
+  - C00870
+  - C00878
+  - C00879
+  - C00880
+  confidence: high
+  applies_when:
+  - a few options cover most users but some need more
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: 'Optimize sovereign applications, which monopolize the user''s attention
+    for long continuous full-screen periods, for perpetual intermediates: be generous
+    with screen real estate and default to maximized, use a conservative minimal visual
+    style, provide rich modeless feedback and rich input, map control placement to
+    frequency of use, and maximize document views by default.'
+  derived_from_claims:
+  - C01167
+  - C01168
+  - C01169
+  - C01170
+  - C01171
+  - C01172
+  confidence: high
+  applies_when:
+  - designing a sovereign-posture application
+  operational_mapping:
+    profile_rule: true
+- principle_id: P040
+  statement: 'Choose the selection-dependent pattern by scale: page-level for large
+    dependent sets, vertical tabs over horizontal, a drop-down list for more than
+    4–5 initial options, expose-within/below for only 1–3 dependents, and avoid exposed-inactive
+    and exposed-groups.'
+  derived_from_claims:
+  - C00887
+  - C00888
+  - C00889
+  - C00890
+  - C00891
+  - C00892
+  confidence: high
+  applies_when:
+  - selecting a selection-dependent input pattern
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Use design patterns to capture and generalize useful solutions, recording
+    each pattern's context, examples, common features, and rationale, but treat them
+    as neither recipes nor plug-and-play components since context is decisive and
+    a general style guide can never replace a context-specific solution; build a mental
+    catalog of interaction patterns to avoid reinventing the wheel.
+  derived_from_claims:
+  - C01156
+  - C01157
+  - C01158
+  - C01159
+  - C01160
+  - C01161
+  confidence: high
+  applies_when:
+  - capturing, choosing, or applying interaction design patterns
+  operational_mapping:
+    profile_rule: true
+- principle_id: P042
+  statement: 'Make platform and posture among the first design decisions: choose the
+    platform to balance persona needs against business and technical constraints,
+    and set the product''s posture, its behavioral stance reflecting how much attention
+    the user devotes, from the usage context rather than the designer''s taste, since
+    look-and-feel is a behavioral choice; define an overall posture plus per-feature
+    postures and make hardware platform decisions in concert with and after interaction
+    design.'
+  derived_from_claims:
+  - C01162
+  - C01163
+  - C01164
+  - C01165
+  - C01166
+  - C01217
+  confidence: high
+  applies_when:
+  - beginning the design of an interactive product
+  operational_mapping:
+    profile_rule: true
+- principle_id: P043
+  statement: 'Eliminate excise, the extra cognitive and physical work that serves
+    the tools or outside agents rather than the user''s goal: remove pure excise,
+    do not weld on training wheels, judge visual excise from over-reliance on metaphor
+    and ornament, and determine whether a function is excise by comparing it to persona
+    goals, while neither removing excise merely for power users nor forcing them to
+    pay the price of beginners'' help.'
+  derived_from_claims:
+  - C01248
+  - C01249
+  - C01250
+  - C01251
+  - C01252
+  - C01253
+  confidence: high
+  applies_when:
+  - finding and removing unnecessary user work
+  operational_mapping:
+    profile_rule: true
+- principle_id: P044
+  statement: 'Model Undo the least like its implementation and the most like the user''s
+    mental model, because Undo exists exclusively for humans, who make mistakes: treat
+    everything the user does as valid and reasonable rather than as error, recognize
+    that Undo''s primary purpose is to support exploration (reassuring users and encouraging
+    experimentation), and understand that it serves the necessary condition of trustworthiness
+    rather than directly advancing a goal.'
+  derived_from_claims:
+  - C01387
+  - C01388
+  - C01389
+  - C01390
+  - C01391
+  - C01392
+  confidence: high
+  applies_when:
+  - designing reversal, undo, and error-recovery behavior
+  - designing an Undo facility
+  operational_mapping:
+    profile_rule: true
+- principle_id: P045
+  statement: 'Implement document handling to match the unified model: save automatically
+    on close without a confirmation dialog and at intervals or in the background during
+    a session (keeping an optional manual save), provide an explicit Create a Copy
+    that quietly makes an independently named copy in the same directory, let users
+    rename in place by clicking the title-bar name and put new files somewhere findable
+    like the Desktop, treat storage format as a document property accessed through
+    Document Properties or Export rather than bundled into Save, provide an explicit
+    Abandon Changes or Revert rather than using the file system as a surrogate for
+    Undo, and drop the implementation-model File menu name in favor of the document
+    type or Document.'
+  derived_from_claims:
+  - C01411
+  - C01412
+  - C01413
+  - C01414
+  - C01415
+  - C01416
+  confidence: high
+  applies_when:
+  - building concrete file and document commands
+  operational_mapping:
+    profile_rule: true
+- principle_id: P046
+  statement: Build memorization and cross-vector support by showing consistent icons
+    across menus, toolbars, dialogs, and help, and by exposing complete keyboard accelerators
+    and mnemonics beside menu commands.
+  derived_from_claims:
+  - C01527
+  - C01528
+  - C01529
+  - C01530
+  - C01581
+  - C01582
+  confidence: high
+  applies_when:
+  - designing keyboard access and cross-vector consistency
+  - helping users graduate from beginner to expert command vectors
+  operational_mapping:
+    profile_rule: true
+- principle_id: P047
+  statement: Eliminate error messages where possible by making software immune to
+    bad input, accepting and reconciling imperfect entries with modeless feedback,
+    using bounded controls, and supplying known values automatically.
+  derived_from_claims:
+  - C01558
+  - C01559
+  - C01560
+  - C01561
+  - C01562
+  - C01563
+  confidence: high
+  applies_when:
+  - a design is tempted to show an error message
+  - preventing error conditions in a design
+  operational_mapping:
+    profile_rule: true
+- principle_id: P048
+  statement: Communicate raised or inset depth by choosing the intended surface profile
+    and applying subtle lightness, highlights, and shadows that preserve the visual
+    system.
+  derived_from_claims:
+  - C00098
+  - C00099
+  - C00100
+  - C00101
+  - C00107
+  - C00108
+  confidence: medium
+  applies_when:
+  - Styling buttons, wells, inputs, panels, or other surfaces that need depth cues.
+  - The design avoids soft shadows or realistic effects but still needs layering.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: 'Prefer personas over user roles, profiles, and market segments, and
+    augment them appropriately: create customer and served personas for non-users,
+    treat a user profile as a persona only if it is research-based, use market segments
+    merely to filter interview scope, and fall back to clearly labeled provisional
+    personas, drawn as sketches and documented, only when rigorous research is impossible.'
+  derived_from_claims:
+  - C01054
+  - C01055
+  - C01056
+  - C01057
+  - C01058
+  - C01059
+  confidence: medium
+  applies_when:
+  - choosing a user-modeling technique
+  operational_mapping:
+    profile_rule: true
+- principle_id: P050
+  statement: Support streamlined repetition by reducing repeated operations to as
+    few actions as possible and offering mechanisms such as command history, macros,
+    shortcuts, scripting, copy-paste, or find-and-replace where appropriate.
+  derived_from_claims:
+  - C00210
+  - C00211
+  - C00583
+  - C00584
+  - C00587
+  - C00588
+  confidence: medium
+  applies_when:
+  - users perform the same operation repeatedly
+  - users perform long, complex, or repeated command sequences
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Use persona-based scenarios, especially key path and validation scenarios,
+    to refine and validate interaction design, focusing on likely paths before necessary
+    variants and edge cases; use cases are mainly for late validation.
+  derived_from_claims:
+  - C01099
+  - C01100
+  - C01129
+  - C01130
+  - C01131
+  - C01132
+  confidence: medium
+  applies_when:
+  - choosing a technique to describe user-system interaction
+  - detailing and stress-testing the design
+  operational_mapping:
+    profile_rule: true
+- principle_id: P052
+  statement: Choose typefaces by role (serif for dense body text, sans serif for UI
+    and small sizes, display only for headlines, monospace for numeric/simple displays),
+    keep on-screen type at least 10pt with 12pt standard body, set adequate leading,
+    pair a serif with a sans serif, and left-align long text.
+  derived_from_claims:
+  - C00438
+  - C00439
+  - C00440
+  - C00441
+  - C00442
+  confidence: high
+  applies_when:
+  - selecting and setting type
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: 'Convey meaning through the similarity and contrast of visual properties
+    — users assume objects sharing properties are related and attend to the item of
+    greatest contrast — choosing the property deliberately: size reads automatically
+    as a hierarchy of importance and draws attention, shape best signals what an object
+    is but is costly to attend to, hue must be used with a limited palette (never
+    as the sole vector, given color-blindness), and texture is weak for differentiation
+    but a strong affordance cue.'
+  derived_from_claims:
+  - C01332
+  - C01333
+  - C01334
+  - C01335
+  - C01336
+  confidence: high
+  applies_when:
+  - encoding information and importance in a visual layout
+  operational_mapping:
+    profile_rule: true
+- principle_id: P054
+  statement: 'Use cohesive, consistent, and contextually appropriate imagery grounded
+    in the personas'' mental models and cultural/domain visual language: give similar
+    elements shared visual attributes and contrast only what differentiates meaning,
+    design function-oriented icons that show both the action and the object acted
+    upon, visually distinguish elements that behave differently with a consistent
+    symbol per object type, and keep icons simple and schematic rather than photorealistic.'
+  derived_from_claims:
+  - C01346
+  - C01347
+  - C01348
+  - C01349
+  - C01350
+  confidence: high
+  applies_when:
+  - designing icons and imagery for an interface
+  operational_mapping:
+    profile_rule: true
+- principle_id: P055
+  statement: Provide Multilevel Undo in highly interactive apps by modeling actions
+    as reversible operations on a 10-12+ item stack, making reversible anything that
+    could be permanent while leaving transient/view states untracked, defining operations
+    in the user's terms, and exposing them with Smart Menu Items.
+  derived_from_claims:
+  - C00578
+  - C00579
+  - C00580
+  - C00581
+  - C00582
+  confidence: high
+  applies_when:
+  - building a highly interactive editing application
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Choose the data's shape from its inherent structure and encode classes
+    and dimensions with preattentive variables (color, size, position, shape) and
+    layering, because preattentive features are found in near-constant time while
+    reading text is linear.
+  derived_from_claims:
+  - C00594
+  - C00595
+  - C00596
+  - C00597
+  - C00598
+  confidence: high
+  applies_when:
+  - choosing an organizational model and encoding for data
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Let users sort, rearrange, filter, and query data interactively (fast,
+    iterative, contextual, and supporting nuanced conditions), because placing points
+    next to each other reveals relationships and highlighting a subset keeps it in
+    context.
+  derived_from_claims:
+  - C00602
+  - C00603
+  - C00605
+  - C00606
+  - C00617
+  confidence: high
+  applies_when:
+  - users need to compare, subset, or interrogate a dataset
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Give a form strong vertical flow (aligned inputs, consistent spacing,
+    top-aligned labels for responsive designs), group long forms into titled sections
+    or show/hide sequences, and use descriptive labels and help while avoiding placeholder
+    text that looks pre-filled.
+  derived_from_claims:
+  - C00631
+  - C00632
+  - C00633
+  - C00635
+  - C00640
+  confidence: high
+  applies_when:
+  - laying out a form's fields and labels
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: 'Prevent input errors and validate as early as possible: accept forgiving
+    formats (echoing back the interpreted value) or structured-format fields for predictable
+    data, offer input hints, prompts, autocompletion, and good defaults, and give
+    actionable field-level validation before submission.'
+  derived_from_claims:
+  - C00637
+  - C00638
+  - C00647
+  - C00650
+  - C00660
+  confidence: high
+  applies_when:
+  - reducing input errors in a form
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: 'Prefer data immunity over data integrity: do not validate and reject
+    imperfect data at the point of entry (which puts the database''s needs before
+    the user''s and treats the user as working for the application), but build applications
+    smart enough to handle all permutations by looking before they leap, seeking help
+    elsewhere in the system, and annotating problems; assume the user entered what
+    he meant, and since incorrect input is often nearly correct, provide as much correction
+    assistance and visual feedback on suspect entries as possible.'
+  derived_from_claims:
+  - C01419
+  - C01420
+  - C01421
+  - C01431
+  - C01432
+  confidence: high
+  applies_when:
+  - handling user-entered data of uncertain validity
+  - the application reformats or corrects user input
+  operational_mapping:
+    profile_rule: true
+- principle_id: P061
+  statement: Organize questions into meaningful visual groups using the minimum visual
+    information needed—excess contrast and non-functional elements create noise that
+    impedes scanning—and use initial capitals for group titles.
+  derived_from_claims:
+  - C00733
+  - C00737
+  - C00738
+  - C00739
+  - C00740
+  confidence: high
+  applies_when:
+  - grouping and visually differentiating form content
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: Show form errors in context next to the responsible inputs with actionable
+    guidance and double visual emphasis; when multiple errors may occur, add a prominent
+    top-level summary that matches the per-input styling.
+  derived_from_claims:
+  - C00830
+  - C00831
+  - C00832
+  - C00838
+  - C00841
+  confidence: high
+  applies_when:
+  - displaying a field-level error
+  - a form can have several errors at once
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: Make success messages non-blocking and in-context, matching the completed
+    task, consider animated auto-removal when only confirmation is needed, and avoid
+    dead ends by offering relevant next steps.
+  derived_from_claims:
+  - C00842
+  - C00843
+  - C00844
+  - C00845
+  - C00846
+  confidence: high
+  applies_when:
+  - confirming a completed form
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: 'Use overlays to surface many options only when needed: give them useful
+    capacity, signal them and don''t cover the field, auto-display only when clearly
+    useful to most, and use a modal overlay when inputs need isolated attention—showing
+    the results back on the form.'
+  derived_from_claims:
+  - C00871
+  - C00872
+  - C00873
+  - C00874
+  - C00875
+  confidence: high
+  applies_when:
+  - a field benefits from a rich set of options on demand
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: 'Handle selection-dependent inputs with these tested core rules: hide
+    irrelevant controls until needed, keep initial options and their dependents in
+    close proximity, maintain a clear association to the trigger, and avoid page jumping—these
+    drive speed and satisfaction.'
+  derived_from_claims:
+  - C00882
+  - C00883
+  - C00884
+  - C00885
+  - C00886
+  confidence: high
+  applies_when:
+  - follow-up fields depend on an initial choice
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: 'Where possible eliminate the sign-up form via gradual engagement: let
+    people use the service first and defer account creation, which teaches value and
+    boosts adoption—give easy access to auto-created accounts, and don''t just split
+    a sign-up form across pages.'
+  derived_from_claims:
+  - C00894
+  - C00895
+  - C00896
+  - C00897
+  - C00898
+  confidence: high
+  applies_when:
+  - onboarding new users to a web service
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: Focus the design of each interface on a single primary persona, allowing
+    only one per interface and taking the absence of a clear primary as a sign the
+    product needs multiple interfaces or has too broad a scope; design first for the
+    primary and then adjust for secondary personas, and use negative personas to state
+    who the product is deliberately not for.
+  derived_from_claims:
+  - C01089
+  - C01090
+  - C01091
+  - C01092
+  - C01093
+  confidence: high
+  applies_when:
+  - choosing and prioritizing the design target
+  operational_mapping:
+    profile_rule: true
+- principle_id: P068
+  statement: Make every functional and data element a concrete representation that
+    responds to a specific earlier requirement, so that each aspect of the product
+    traces back to a usage scenario or business goal; comprehensively catalog the
+    data objects, expect one requirement to need several interface elements, and ground
+    the design in realistic business, brand, technical, and customer requirements.
+  derived_from_claims:
+  - C01113
+  - C01114
+  - C01120
+  - C01121
+  - C01122
+  confidence: high
+  applies_when:
+  - translating requirements into concrete interface elements
+  operational_mapping:
+    profile_rule: true
+- principle_id: P069
+  statement: Follow users' mental models by organizing and indexing information the
+    way the target user thinks, and pursue less is more by constantly reducing interface
+    elements without reducing capability and avoiding complex-but-not-powerful silos,
+    since minimalism depends on a clear understanding of purpose, though reduction
+    is a balancing act because excessive visual simplicity can create cognitive complexity.
+  derived_from_claims:
+  - C01223
+  - C01224
+  - C01225
+  - C01226
+  - C01227
+  confidence: high
+  applies_when:
+  - organizing information and reducing interface complexity
+  operational_mapping:
+    profile_rule: true
+- principle_id: P070
+  statement: 'Design toolbars to give experienced users fast, visible, immediate access
+    to frequently used functions rather than duplicating the descriptive menu: use
+    images on toolbars and text on menus deliberately, since text is precise but slow
+    (suiting teaching) while a pictograph is ambiguous until learned but then recognized
+    fast (suiting quick access); a butcon''s icon need only be recognizable once learned,
+    with its purpose taught through ToolTips (well-timed with about a one-second lag)
+    rather than by labeling it with both text and image, which costs too many pixels;
+    and disable inapplicable toolbar controls by graying them out rather than making
+    them disappear, because users remember toolbar layouts by position.'
+  derived_from_claims:
+  - C01531
+  - C01532
+  - C01533
+  - C01534
+  - C01535
+  confidence: high
+  applies_when:
+  - designing toolbars and butcons
+  operational_mapping:
+    profile_rule: true
+- principle_id: P071
+  statement: Keep users constantly informed with rich visual modeless feedback — information
+    about the status and attributes of processes and objects that is rich, visual,
+    and always displayed without a mode shift, the way a car dashboard is — to help
+    users avoid mistakes and all but eliminate dialogs; recognize that such feedback
+    is not for beginners because it takes work to discover and decode, so keep menus
+    and dialogs as support and make any feedback used to warn of serious trouble extraordinarily
+    clear; and prefer positive audible feedback (a success sound whose absence signals
+    a problem) over negative beeps that act as insulting public alarms.
+  derived_from_claims:
+  - C01231
+  - C01573
+  - C01574
+  - C01575
+  - C01576
+  confidence: high
+  applies_when:
+  - conveying status or the effect of an action
+  - providing ongoing feedback about state
+  operational_mapping:
+    profile_rule: true
+- principle_id: P072
+  statement: Improve navigation by reducing the number of places a user must go, keeping
+    windows, views, panes, and controls to the minimum needed, providing signposts
+    as persistent objects, overviews, appropriate control-to-function mapping, interface
+    inflection, and by avoiding hierarchies.
+  derived_from_claims:
+  - C01258
+  - C01259
+  - C01265
+  - C01266
+  - C01267
+  confidence: high
+  applies_when:
+  - structuring how users move through the interface
+  - improving the navigability of a product
+  operational_mapping:
+    profile_rule: true
+- principle_id: P073
+  statement: 'Avoid multi-window navigation schemes for moving between programs: the
+    overlapping-sheets window metaphor does not scale beyond about three applications
+    and causes lost-window confusion, and multiple windows sharing a small screen
+    (overlapping or tiled) is not a good general solution, so prefer full-screen applications
+    with a minimal switching mechanism such as a taskbar; inside a sovereign application,
+    however, multipaned windows that display related information in adjacent panes
+    reduce navigation and window-management excise to almost nil and are practically
+    a requirement.'
+  derived_from_claims:
+  - C01476
+  - C01477
+  - C01478
+  - C01483
+  - C01484
+  confidence: high
+  applies_when:
+  - choosing a windowing and navigation scheme
+  - choosing the window model for an application
+  operational_mapping:
+    profile_rule: true
+- principle_id: P074
+  statement: 'Group, align, and lay out with structure: group related elements by
+    proximity and whitespace rather than heavy bounding boxes, align every element
+    with as many others as possible on a modular grid whose spacing is multiples of
+    one atomic unit, structure an efficient top-to-bottom left-to-right path for the
+    eye with balanced visual weight, and use the squint test to reveal hierarchy,
+    grouping, and balance problems.'
+  derived_from_claims:
+  - C01341
+  - C01342
+  - C01343
+  - C01344
+  - C01345
+  confidence: high
+  applies_when:
+  - arranging elements on a screen or within a pane
+  operational_mapping:
+    profile_rule: true
+- principle_id: P075
+  statement: 'Present storage according to the user''s single-document mental model
+    rather than the file system''s implementation model of two copies (one in memory,
+    one on disk) that both belong to the application: hide the file system''s existence,
+    use a unified file model that treats the document as one thing and leaves disk/memory
+    writing to the file system, and avoid the Save As trap that conflates naming and
+    placing a file, cannot rename or relocate the current document, and can silently
+    discard recent changes.'
+  derived_from_claims:
+  - C01406
+  - C01407
+  - C01408
+  - C01409
+  - C01410
+  confidence: high
+  applies_when:
+  - designing how documents are saved, named, and located
+  operational_mapping:
+    profile_rule: true
+- principle_id: P076
+  statement: 'Give drag-and-drop precise, positive feedback: have each drop candidate
+    visually indicate its receptivity while the drag cursor identifies the source
+    object (never confusing the two by using the cursor to show drop candidacy), avoid
+    negative feedback like the Not-Permitted symbol that is easily misread as a warning
+    against releasing, drag a transparent outline or thumbnail so the object does
+    not obscure a small target and the cursor hotspot stays visible, show an insertion
+    target such as a caret bar when an object can drop between others, and give clear
+    completion feedback so it is obvious the drop occurred.'
+  derived_from_claims:
+  - C01454
+  - C01455
+  - C01456
+  - C01457
+  - C01458
+  confidence: high
+  applies_when:
+  - providing feedback during and after a drag
+  operational_mapping:
+    profile_rule: true
+- principle_id: P077
+  statement: 'Support precise object positioning and manipulation: dedicate a specific
+    area such as a title bar to repositioning so the object''s drag idiom stays free
+    for other functions (with explicit pliancy hinting), offer a meta-key constrained
+    drag that locks movement to a single axis, assist alignment with guides and dynamic
+    smart guides and snapping, and use resize handles that double as selection indicators
+    (vertex handles for polylines, Bezier handles for curves) — remembering that handles
+    obscure the object they mark, making them poor permanent controls best replaced
+    by frame or corner resizers for windows.'
+  derived_from_claims:
+  - C01466
+  - C01467
+  - C01468
+  - C01469
+  - C01470
+  confidence: high
+  applies_when:
+  - designing manipulation of graphical objects
+  operational_mapping:
+    profile_rule: true
+- principle_id: P078
+  statement: 'Make list controls efficient and manipulable: distinguish important
+    items with graphic icons so users find them faster than scanning text, use earmarking
+    (a check box per item) rather than disabling mutual exclusion for multiple selection
+    in a scrollable list, support drag-and-drop from and within lists with auto-scroll,
+    make items editable in place with a discoverable way to add a new entry (a perpetual
+    Click to Add Entry row), and never scroll text horizontally because it hides the
+    first letters of every line and destroys readability.'
+  derived_from_claims:
+  - C01494
+  - C01495
+  - C01496
+  - C01497
+  - C01498
+  confidence: high
+  applies_when:
+  - designing list and table controls
+  operational_mapping:
+    profile_rule: true
+- principle_id: P079
+  statement: 'Design menu structure and item behavior for clarity: use cascading hierarchical
+    menus only in sophisticated sovereign applications for rarely used functions or
+    as a secondary vector (with a wide movement threshold), avoid adaptive menus that
+    hide infrequent items (which studies show slow users down and which they overwhelmingly
+    dislike), avoid bang/immediate menus whose title executes a function (immediate
+    commands belong on toolbars), gray out inapplicable menu items to improve the
+    menu''s teaching value, and use a checkmark item that is clearly checked or unchecked
+    rather than a flip-flop item that shows the state not currently chosen.'
+  derived_from_claims:
+  - C01522
+  - C01523
+  - C01524
+  - C01525
+  - C01526
+  confidence: high
+  applies_when:
+  - designing menu hierarchy and item states
+  operational_mapping:
+    profile_rule: true
+- principle_id: P080
+  statement: Reduce reliance on documentation through good design and templates, and
+    treat online help as a reference for perpetual intermediates with strong indexing,
+    shortcuts, overviews, and ToolTips rather than as a beginner crutch.
+  derived_from_claims:
+  - C01589
+  - C01590
+  - C01591
+  - C01592
+  - C01593
+  confidence: high
+  applies_when:
+  - helping users get started and find reference information
+  - designing online help and reference material
+  operational_mapping:
+    profile_rule: true
+- principle_id: P081
+  statement: Design in short buildable cycles, ship the smallest useful version first,
+    and avoid representing future functionality as present capability.
+  derived_from_claims:
+  - C00008
+  - C00009
+  - C00010
+  - C00011
+  - C00012
+  confidence: medium
+  applies_when:
+  - A feature has uncertain implementation cost, interaction complexity, or edge cases.
+  - The design includes enhancements that may not fit the current release.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: &id001 []
+- principle_id: P082
+  statement: Define an intentional product personality and express it consistently
+    through typography, color, corner shape, and interface copy.
+  derived_from_claims:
+  - C00013
+  - C00014
+  - C00015
+  - C00016
+  - C00017
+  confidence: medium
+  applies_when:
+  - Establishing a product or feature visual direction.
+  - Choosing brand-adjacent UI primitives such as fonts, colors, radius, and tone.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P083
+  statement: Add polish by upgrading existing defaults such as bullets, quotes, links,
+    and form controls before adding unrelated decorative elements.
+  derived_from_claims:
+  - C00121
+  - C00122
+  - C00123
+  - C00124
+  - C00125
+  confidence: medium
+  applies_when:
+  - The interface structure works but feels plain or generic.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: &id002 []
+- principle_id: P084
+  statement: Challenge generic component conventions when richer structure better
+    communicates the choices or data, such as sectional dropdowns, hierarchical tables,
+    visual table content, or selectable-card radios.
+  derived_from_claims:
+  - C00138
+  - C00139
+  - C00140
+  - C00141
+  - C00142
+  confidence: medium
+  applies_when:
+  - A standard dropdown, table, or radio group feels limiting, generic, or insufficiently
+    expressive for important content.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id002
+- principle_id: P085
+  statement: For handhelds, integrate functionality to minimize navigation guided
+    by context scenarios, validate the form with weighted physical models, design
+    most data devices as satellites of a desktop, avoid floating and pop-up windows
+    in favor of a full-screen sovereign style, and treat phones as transient with
+    an arguably nonvisual best interface.
+  derived_from_claims:
+  - C01199
+  - C01200
+  - C01201
+  - C01202
+  - C01203
+  confidence: medium
+  applies_when:
+  - designing handheld and phone interfaces
+  operational_mapping:
+    profile_rule: true
+- principle_id: P086
+  statement: Build forms on rich semantic HTML (LABEL for a control, LEGEND/FIELDSET
+    for a group), use CSS for layout, decompose complex structures into simple ones,
+    avoid pixel-perfection across browsers, and separate a form's behavior from its
+    presentation.
+  derived_from_claims:
+  - C00901
+  - C00902
+  - C00903
+  - C00904
+  - C00906
+  confidence: medium
+  applies_when:
+  - implementing a form in HTML/CSS
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: 'Serve experts and perpetual intermediates to their distinct needs: give
+    experts fast shortcuts to their working set and new powerful features, and give
+    intermediates their frequently used working set front and center with ToolTips
+    and the reassurance that advanced features exist, remembering that experts disproportionately
+    influence prospective buyers.'
+  derived_from_claims:
+  - C00989
+  - C00990
+  - C00991
+  - C00992
+  - C00993
+  confidence: medium
+  applies_when:
+  - designing access to functions for different experience levels
+  operational_mapping:
+    profile_rule: true
+- principle_id: P088
+  statement: 'For television, automotive, appliance, and audible interfaces, match
+    the context: make TV interfaces readable across the room with simple five-way
+    navigation and organize multi-device control around user activities rather than
+    device functions; for cars minimize hands-off-wheel time with consistent layout,
+    direct labeled mappings, single-press mode switching, and non-distracting audible
+    feedback; make appliances transient and simple with familiar hardware controls;
+    and for audible interfaces organize by mental model with common options first,
+    signposting available functions and always offering a way back, to the top, and
+    to a human.'
+  derived_from_claims:
+  - C01212
+  - C01213
+  - C01214
+  - C01215
+  - C01216
+  confidence: medium
+  applies_when:
+  - designing television, automotive, appliance, or audible interfaces
+  operational_mapping:
+    profile_rule: true
+- principle_id: P089
+  statement: Use adjacent panes to reduce navigation, placing panes that support drag-and-drop
+    next to each other, avoid splitting one facility across tabbed panes since that
+    increases excise, reserve tabs for a multi-document work area or mutually exclusive
+    supporting panes, group frequently used tools spatially while reserving menus
+    for infrequent commands, and minimize scrolling.
+  derived_from_claims:
+  - C01260
+  - C01261
+  - C01262
+  - C01263
+  - C01264
+  confidence: medium
+  applies_when:
+  - arranging panes, tabs, tools, and menus
+  operational_mapping:
+    profile_rule: true
+- principle_id: P090
+  statement: Avoid secondary actions where possible; when they must stay, reduce their
+    prominence and visually distinguish them, and in wizards make forward a primary
+    Continue and Back a secondary action.
+  derived_from_claims:
+  - C00800
+  - C00801
+  - C00802
+  - C00804
+  confidence: high
+  applies_when:
+  - a form includes secondary actions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: 'Decide honestly whether most users will be perpetual beginners, occasional
+    users, or experts, and design accordingly: optimize occasional/one-time interfaces
+    for learnability (simplified, wizards, explained along the way) and frequent/expert
+    interfaces for efficient operation.'
+  derived_from_claims:
+  - C00161
+  - C00162
+  - C00163
+  - C00164
+  confidence: high
+  applies_when:
+  - setting the overall interaction style for an audience
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: Optimize the interface for perpetual intermediates, the large majority
+    of users, devoting the bulk of effort to them while still letting beginners and
+    experts be effective, with the threefold goal of moving beginners quickly into
+    intermediacy, not obstructing intermediates who want to become experts, and keeping
+    perpetual intermediates happy.
+  derived_from_claims:
+  - C00979
+  - C00980
+  - C00981
+  - C00982
+  confidence: high
+  applies_when:
+  - deciding which experience level to optimize a general product for
+  operational_mapping:
+    profile_rule: true
+- principle_id: P093
+  statement: 'Support beginners without penalizing others: make beginner help removable
+    rather than fixed in the interface, give beginners overview information such as
+    scope and a guided tour rather than reference, reflect the user''s mental model
+    so concepts are grasped quickly, and treat users as intelligent but very busy
+    by giving brief, targeted instruction plus cause-and-effect understanding.'
+  derived_from_claims:
+  - C00985
+  - C00986
+  - C00987
+  - C00988
+  confidence: high
+  applies_when:
+  - designing onboarding and first-use assistance
+  operational_mapping:
+    profile_rule: true
+- principle_id: P094
+  statement: 'Model three user-goal types, experience, end, and life goals, mapping
+    to Norman''s visceral, behavioral, and reflective levels: meet end goals for the
+    product to be worth users'' time and money, never egregiously violate experience
+    goals since that alone dooms the product, and address life goals to turn a satisfied
+    user into a loyal one.'
+  derived_from_claims:
+  - C01066
+  - C01067
+  - C01068
+  - C01069
+  confidence: high
+  applies_when:
+  - defining and prioritizing a persona's goals
+  operational_mapping:
+    profile_rule: true
+- principle_id: P095
+  statement: Use narrative and persona-based scenarios as a primary creative design
+    tool, with the persona serving as the tangible agent that keeps scenarios focused
+    on goals rather than only tasks, and keep early solutions at the level of sketchy
+    plot points.
+  derived_from_claims:
+  - C01095
+  - C01096
+  - C01097
+  - C01098
+  confidence: high
+  applies_when:
+  - imagining and communicating design solutions
+  operational_mapping:
+    profile_rule: true
+- principle_id: P096
+  statement: 'Expect users to change goals mid-task and defer choices: keep choices
+    available, do not lock users into a choice-poor environment without good reason,
+    support reentrance (resume without losing data), ask only the minimum upfront,
+    and let users return to deferred fields later.'
+  derived_from_claims:
+  - C00191
+  - C00192
+  - C00193
+  - C00195
+  confidence: high
+  applies_when:
+  - designing multi-step tasks, forms, or flows
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: Minimize page-to-page jumps by keeping the structure as flat as possible
+    with broad top-level (global) navigation, elevating frequently used actions for
+    direct access, and structuring the app so the most common 80% of tasks complete
+    on one screen without context switches.
+  derived_from_claims:
+  - C00318
+  - C00319
+  - C00320
+  - C00321
+  confidence: high
+  applies_when:
+  - designing navigation structure and task flows
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: Choose a navigational model to fit the content (hub-and-spoke, fully
+    connected, multilevel/tree, step-by-step, pyramid, pan-and-zoom, or flat), preferring
+    fully-connected short jumps, but switch to a minimal-navigation mode (Back/Next
+    plus an Escape Hatch) when full global navigation would only clutter and distract.
+  derived_from_claims:
+  - C00323
+  - C00324
+  - C00325
+  - C00330
+  confidence: high
+  applies_when:
+  - selecting the linking structure between screens
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: Control perceived importance with size, position, color, contrast, density,
+    and rhythm; make small but important items stand out by placement (top, left,
+    upper-right), contrast, and whitespace, remembering sought controls stand out
+    by meaning.
+  derived_from_claims:
+  - C00385
+  - C00386
+  - C00387
+  - C00388
+  confidence: high
+  applies_when:
+  - deciding what a viewer notices first on a screen
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: 'Apply the Gestalt principles deliberately: proximity and similarity
+    to group related items (and isolate distinct ones), continuity and closure to
+    imply relationships through alignment, applying uniform treatment only to genuinely
+    comparable things.'
+  derived_from_claims:
+  - C00390
+  - C00391
+  - C00392
+  - C00393
+  confidence: high
+  applies_when:
+  - grouping, aligning, or differentiating screen elements
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: Give controls clear affordance so an element looks or behaves like what
+    it does, keep the visual language consistent (same icon or word means the same
+    thing), and keep elements and text alignment stable from screen to screen.
+  derived_from_claims:
+  - C00430
+  - C00431
+  - C00432
+  - C00549
+  confidence: high
+  applies_when:
+  - designing controls and cross-screen consistency
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: 'Pursue visual simplicity and eliminate noise: avoid over-dimensional
+    elements, heavy separators, insufficient whitespace, and overuse of color, texture,
+    and contrast; use simple geometric forms, a restricted mostly-neutral palette
+    with a few high-contrast accents, and one or two typefaces at a few sizes; treat
+    unnecessary variation as the enemy by making near-equal sizes exactly equal and
+    justifying every visual difference; and test each element''s contribution by removing
+    things until the design breaks, then restoring the last one.'
+  derived_from_claims:
+  - C01355
+  - C01356
+  - C01357
+  - C01358
+  confidence: high
+  applies_when:
+  - refining the visual density and coherence of an interface
+  operational_mapping:
+    profile_rule: true
+- principle_id: P103
+  statement: Make mobile touch targets large enough to hit (about 48x48 dp Android
+    or 44x44 pt iOS with spacing, and make surrounding whitespace tappable), and minimize
+    typing with autocompletion, prefills, and numeric entry.
+  derived_from_claims:
+  - C00467
+  - C00468
+  - C00492
+  - C00493
+  confidence: high
+  applies_when:
+  - designing mobile touch controls and input
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P104
+  statement: 'Linearize mobile content into a single vertical column (labels above
+    controls, degrade well at minimum width) and optimize the common sequences: minimize
+    typing, screen loads, scrolling, and taps.'
+  derived_from_claims:
+  - C00476
+  - C00477
+  - C00478
+  - C00481
+  confidence: high
+  applies_when:
+  - laying out mobile content and flows
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P105
+  statement: 'Design for the distracted, mobile context: support quick, reentrant,
+    self-explanatory tasks; behave well in varied light, noise, motion, and social
+    situations; and leverage device location and hardware.'
+  derived_from_claims:
+  - C00469
+  - C00470
+  - C00471
+  - C00475
+  confidence: high
+  applies_when:
+  - designing mobile interactions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: 'Choose where selected-item details appear by space and use case: Two-Panel
+    Selector (details beside the list, best for overview/browse) for large screens,
+    One-Window Drilldown (details replace the list) for constrained/mobile space,
+    and List Inlay (details expand in place) when users compare items.'
+  derived_from_claims:
+  - C00504
+  - C00512
+  - C00515
+  - C00517
+  confidence: high
+  applies_when:
+  - a list whose items have detail to show on selection
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
+  statement: Make keyboard shortcuts, tab-order navigation, and direct manipulation
+    available so users can operate without a mouse and act on objects directly (tap,
+    swipe, drag, pinch), and make drag-and-drop work exactly as users expect or the
+    illusion of direct manipulation breaks.
+  derived_from_claims:
+  - C00537
+  - C00547
+  - C00548
+  - C00550
+  confidence: high
+  applies_when:
+  - designing efficient and accessible action mechanisms
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P108
+  statement: Give every transaction a prominent, button-like final control at the
+    end of the eye's travel near the last field, labeled with a specific verb, because
+    a clear last step gives closure and a misplaced one causes hunting or abandonment.
+  derived_from_claims:
+  - C00562
+  - C00563
+  - C00564
+  - C00646
+  confidence: high
+  applies_when:
+  - a form, purchase, or settings change needs a commit action
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
+  statement: Show a spinner or loading indicator whenever a response exceeds about
+    one second (below 0.1s feels instant, 0.1-1s is tolerated), telling the user what
+    is happening, how far along, and how to stop, without locking the rest of the
+    UI.
+  derived_from_claims:
+  - C00570
+  - C00571
+  - C00573
+  - C00574
+  confidence: high
+  applies_when:
+  - an operation may take longer than about a second
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
+  statement: 'Follow information-design principles for data displays: enforce visual
+    comparisons, show causality and multiple variables, integrate text/graphics/data
+    in one display, show states adjacent in space rather than stacked in time, and
+    never de-quantify quantifiable data (show the actual numbers alongside trend graphics);
+    above all ensure the quality, relevance, and integrity of shown content, and do
+    not display information merely because it is technically possible, because poor-quality
+    information damages user trust.'
+  derived_from_claims:
+  - C01363
+  - C01364
+  - C01365
+  - C01366
+  confidence: high
+  applies_when:
+  - designing a data-rich or information display
+  operational_mapping:
+    profile_rule: true
