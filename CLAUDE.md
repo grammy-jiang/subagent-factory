@@ -55,6 +55,29 @@ rules, and the log-review tiers live in `docs/factory-ops.md` (section "Run and 
 the factory"). Back up `subagents/<slug>/` before a fresh map→reduce — assemble/finish
 overwrites it.
 
+## Materials catalog & duplication check
+
+`docs/materials-catalog.md` (+ `catalog/materials.yaml`) records **every source processed in this
+repo**, keyed by `sha256`. It is generated — DO NOT hand-edit; it is derived from every
+`subagents/*/source-pack.manifest.yaml` + the MAP cache.
+
+**On every new inbound book/paper, CHECK FIRST (before converting/MAPping):**
+
+```bash
+python -m tools.subagent_factory.materials_catalog check <md-path | sha256 | title>
+```
+
+It reports exact-content duplication (sha256) and the closest same-book / topic matches (title
+tokens) with which subagent each feeds — so you never re-ingest a book already in the corpus and
+you can see topical overlap before choosing a home. After processing new material, refresh:
+
+```bash
+python -m tools.subagent_factory.materials_catalog build
+```
+
+(Overlap that is not exact-dup is fine — the reduce step's cos-0.55 clustering de-dups principles at
+build time; the check just prevents blind re-ingestion and informs home/`--select` choices.)
+
 ## Key docs (read when relevant)
 
 - `docs/state-of-the-factory.md` — **start here.** Orientation: what's built, the A/B/C tracks, the
