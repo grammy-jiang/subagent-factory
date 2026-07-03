@@ -1,0 +1,1072 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: 'Defend the DOM against XSS by never passing unsanitized user data into
+    it — treat DOM injection as a last resort and pass user data as text, preferring
+    innerText over innerHTML — and by avoiding the javascript: URL scheme and text-to-DOM
+    or text-to-script sinks (innerHTML, outerHTML, Blob, SVG, document.write, DOMParser.parseFromString,
+    document.implementation), building nodes with createElement and appendChild, and
+    sanitizing links through the browser''s built-in anchor handling and encodeURIComponent
+    rather than a home-brewed solution, recognizing that complete sanitization is
+    extremely hard.'
+  derived_from_claims:
+  - C00345
+  - C00348
+  - C00350
+  - C00352
+  - C00353
+  - C00354
+  - C00355
+  - C00449
+  - C00450
+  - C00451
+  - C00452
+  - C00453
+  - C00454
+  - C00455
+  confidence: high
+  applies_when:
+  - reviewing how user-supplied data is rendered into the DOM
+  - reviewing or writing code that inserts user-supplied data or links into the DOM
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: Add OpenID Connect and identity-provider federation when an OAuth-based
+    API solution needs standardized user identity, authentication context, or cross-domain
+    trust.
+  derived_from_claims:
+  - C00012
+  - C00013
+  - C00029
+  - C00030
+  - C00107
+  - C00108
+  - C00109
+  - C00110
+  - C00111
+  - C00112
+  - C00113
+  - C00114
+  - C00116
+  - C00117
+  confidence: medium
+  applies_when:
+  - APIs or partner applications must reuse authenticated identity data across trusted
+    services or organizations
+  - Clients need authenticated user attributes, authentication context, federation,
+    profile sharing, or modern OpenID migration
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Defend against injection by never letting a client send a query or command
+    to be executed on the server, using prepared statements with bind variables as
+    the first-line SQL defense (with database-specific escapers only as a fallback
+    for unparameterizable queries), applying secure-by-default coding and least authority
+    to every injection target (schedulers, compression and backup utilities, loggers,
+    host-OS calls, interpreters, and dependencies), and whitelisting any unavoidable
+    user commands together with an acceptable syntax.
+  derived_from_claims:
+  - C00371
+  - C00372
+  - C00373
+  - C00374
+  - C00375
+  - C00474
+  - C00475
+  - C00476
+  - C00477
+  - C00478
+  - C00479
+  - C00480
+  - C00481
+  confidence: high
+  applies_when:
+  - reviewing how user input is incorporated into a query, command, or interpreter
+    call
+  - reviewing how an application builds queries or invokes interpreters and CLIs from
+    user input
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Manage a reported vulnerability by reproducing it first in an automated
+    production-like staging environment (to confirm it is real and find the root cause),
+    scoring it with a system such as CVSS (base, temporal, and environmental, customized
+    for IoT or physical risk) while treating the score as one input alongside contracts
+    and relationships, then resolving it with a permanent application-wide fix — opening
+    a follow-up bug for any remaining surface rather than closing on a partial fix
+    — and shipping a regression test with every closed bug.
+  derived_from_claims:
+  - C00406
+  - C00407
+  - C00408
+  - C00409
+  - C00441
+  - C00442
+  - C00443
+  - C00444
+  - C00445
+  - C00446
+  - C00447
+  - C00448
+  confidence: high
+  applies_when:
+  - triaging, prioritizing, or closing out a reported vulnerability
+  - triaging, scoring, and resolving a reported vulnerability
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Prefer modern public-key-backed transport security for network APIs,
+    validate key ownership, avoid plain symmetric-key use over networks, and use TLS
+    over SSL whenever possible.
+  derived_from_claims:
+  - C00158
+  - C00159
+  - C00160
+  - C00165
+  - C00166
+  - C00167
+  - C00168
+  - C00169
+  - C00170
+  confidence: medium
+  applies_when:
+  - API traffic crosses a network boundary or carries sensitive information
+  - Choosing encryption or transport-security protocols for API traffic
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: Discover API endpoints and payloads methodically — probe HTTP verbs against
+    known resources, try OPTIONS, reverse-engineer the authentication scheme and token,
+    start from common endpoints (sign in/up, password reset), and shrink an unknown
+    value's search space by learning its rules — but obtain explicit owner permission
+    first because verb brute-forcing can delete or alter data.
+  derived_from_claims:
+  - C00303
+  - C00304
+  - C00305
+  - C00306
+  - C00307
+  - C00308
+  - C00309
+  - C00312
+  - C00315
+  confidence: medium
+  applies_when:
+  - enumerating and characterizing an application's API endpoints
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: Integrate open source dependencies securely by isolating risky code (a
+    decentralized server or constrained environment over embedding it in core code),
+    choosing the integration method by size, dependency chain, and upstream activity,
+    avoiding one-click installers that run setup scripts as admin, and scanning the
+    full transitive dependency tree against a CVE database — recognizing that package
+    managers pull in unaudited recursive dependencies and have themselves been attack
+    vectors through compromised maintainer credentials or malicious sub-dependencies.
+  derived_from_claims:
+  - C00391
+  - C00392
+  - C00393
+  - C00394
+  - C00395
+  - C00396
+  - C00397
+  - C00398
+  confidence: high
+  applies_when:
+  - selecting and wiring a third-party or open source dependency into an application
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: 'Secure the whole dependency tree through automation and pinning, because
+    third-, fourth-, and deeper-party dependencies cannot be manually reviewed and
+    each unique dependency and version must be checked: model the tree and scan it
+    automatically against a long-lived CVE database such as NIST NVD, isolate risky
+    packages (a dedicated server behind an HTTP/JSON boundary or hardware-defined
+    process and memory limits), and audit-then-pin versions with shrinkwrapping and
+    Git SHAs or a private mirror, knowing that a simple version lock neither stops
+    a maintainer reusing a version number nor pins descendant dependencies.'
+  derived_from_claims:
+  - C00488
+  - C00489
+  - C00490
+  - C00491
+  - C00492
+  - C00493
+  - C00494
+  - C00495
+  confidence: high
+  applies_when:
+  - evaluating and pinning an application's third-party dependency tree
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: 'Treat command injection as a top-severity risk and defend it with least
+    privilege and meticulous sanitization: because injected commands run against the
+    host OS (often as superuser on Unix) and can read or write critical files, exfiltrate
+    data, tamper with logs, or take over the server, run each API as an unprivileged
+    user with only the permissions it needs and never concatenate unparameterized
+    user input into a system command or any CLI or interpreter — which may be application-specific
+    and less defended than SQL.'
+  derived_from_claims:
+  - C00376
+  - C00377
+  - C00378
+  - C00379
+  - C00380
+  - C00381
+  - C00382
+  - C00383
+  confidence: high
+  applies_when:
+  - reviewing code that passes user input to the host OS, a CLI, or an interpreter
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Defend against XXE by disabling external entities in every XML parser
+    and verifying parser behavior rather than assuming safe defaults.
+  derived_from_claims:
+  - C00366
+  - C00367
+  - C00368
+  - C00369
+  - C00370
+  - C00471
+  - C00472
+  - C00473
+  confidence: high
+  applies_when:
+  - reviewing any endpoint or integration that parses XML or XML-like data
+  - reviewing or designing any component that parses XML or XML-like data
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Prefer delegated tokens over API-side access tables for microservice-heavy
+    user-to-user delegation, while accounting for application token-management complexity.
+  derived_from_claims:
+  - C00147
+  - C00148
+  - C00151
+  - C00152
+  - C00153
+  - C00154
+  - C00155
+  - C00156
+  confidence: medium
+  applies_when:
+  - Many APIs or microservices must support delegated access to another user’s resources
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Use several reconnaissance techniques together because no single one
+    is comprehensive, preferring cheap low-noise methods first (a zone-transfer attempt,
+    then a dictionary of common subdomains) and treating noisy brute force as a last
+    resort fired asynchronously, while paying special attention to less-scrutinized
+    behind-the-scenes servers and keeping organized notes to prioritize.
+  derived_from_claims:
+  - C00296
+  - C00297
+  - C00298
+  - C00299
+  - C00300
+  - C00301
+  - C00302
+  - C00325
+  confidence: medium
+  applies_when:
+  - discovering an application's subdomains, infrastructure, and surface area
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Understand that XSS exists because applications execute scripts in users'
+    browsers, that any dynamically created script modifiable by a user is a risk,
+    and that its three OWASP categories (stored, reflected, DOM-based) can run without
+    user interaction to steal session tokens for account takeover, exfiltrate data,
+    or mount undetectable phishing — with stored XSS reaching many users and reflected
+    XSS evading detection, and the risk extending to any client-side display technology.
+  derived_from_claims:
+  - C00343
+  - C00344
+  - C00346
+  - C00347
+  - C00349
+  - C00351
+  - C00356
+  confidence: high
+  applies_when:
+  - assessing an application's exposure to cross-site scripting
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Recognize that CSRF abuses the browser's trust model (the browser attaches
+    authentication data to a request regardless of where the link came from) to make
+    an authenticated user issue requests unknowingly, combining privilege escalation
+    with stealth, and that it can be delivered through links, src-bearing tags such
+    as a 0-by-0 image that needs no interaction, and auto-submitting hidden forms
+    that ride the victim's session and even reach internal-network servers.
+  derived_from_claims:
+  - C00357
+  - C00358
+  - C00361
+  - C00362
+  - C00363
+  - C00364
+  - C00365
+  confidence: high
+  applies_when:
+  - assessing an application's exposure to cross-site request forgery
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: Understand and defend against denial of service across its classes —
+    regex (catastrophic backtracking from greedy expressions), logical (targeting
+    resource-intensive operations), and distributed (network-level traffic floods)
+    — by identifying which server resources are most valuable, watching logs during
+    suspected attacks, and testing DoS only in a local development environment so
+    real users are not disrupted.
+  derived_from_claims:
+  - C00384
+  - C00385
+  - C00386
+  - C00387
+  - C00388
+  - C00389
+  - C00390
+  confidence: high
+  applies_when:
+  - assessing an application's resilience to resource-exhaustion attacks
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Begin security in the architecture phase, before any code is written,
+    by collecting and risk-evaluating all business requirements, building communication
+    between security and engineering, and focusing on data flow — securing data in
+    transit (require all network data encrypted, preferring TLS over deprecated SSL
+    to thwart man-in-the-middle) and at rest from point A to point B — because a flaw
+    fixed in design costs 30 to 60 times less than in production and re-architecture
+    after adoption is severely limited.
+  derived_from_claims:
+  - C00401
+  - C00402
+  - C00410
+  - C00411
+  - C00412
+  - C00413
+  - C00414
+  confidence: high
+  applies_when:
+  - designing or reviewing the architecture of a new application or feature
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: For user-to-user sharing of connected-device access, do not rely on ordinary
+    OAuth alone; use an added identity layer such as OpenID Connect to represent the
+    resource owner, delegate, and scopes.
+  derived_from_claims:
+  - C00143
+  - C00144
+  - C00145
+  - C00146
+  - C00149
+  - C00150
+  - C00157
+  confidence: medium
+  applies_when:
+  - One user grants another user access to API-controlled data or physical device
+    functionality
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Keep authentication, authorization, federation, and delegation conceptually
+    separate and apply each only to the responsibility it actually serves.
+  derived_from_claims:
+  - C00024
+  - C00027
+  - C00028
+  - C00034
+  - C00035
+  - C00036
+  - C00039
+  confidence: medium
+  applies_when:
+  - Explaining, designing, or reviewing an API access-control architecture
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: Favor private or partner API models for sensitive personal data or secure
+    systems, and reserve public exposure for open data that does not connect to confidential
+    systems.
+  derived_from_claims:
+  - C00044
+  - C00045
+  - C00046
+  - C00047
+  - C00048
+  - C00052
+  - C00057
+  confidence: medium
+  applies_when:
+  - Classifying an API by intended audience and data sensitivity
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: 'Reject just-enough API code: validate inputs, prevent unsafe file upload
+    behavior, avoid overbroad storage paths, handle errors safely, and suppress raw
+    implementation diagnostics from external callers.'
+  derived_from_claims:
+  - C00069
+  - C00070
+  - C00071
+  - C00072
+  - C00073
+  - C00074
+  - C00075
+  confidence: medium
+  applies_when:
+  - Reviewing API implementation code, upload endpoints, or error responses
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: 'Choose token transport and profile by security need: use reference tokens
+    when data should remain server-side, avoid bearer tokens when proof of presenter
+    identity is required, prefer Holder-of-Key over custom proof schemes, and avoid
+    obsolete MAC token drafts without strong external justification.'
+  derived_from_claims:
+  - C00095
+  - C00096
+  - C00097
+  - C00098
+  - C00099
+  - C00100
+  - C00101
+  confidence: medium
+  applies_when:
+  - Designing OAuth access-token representation, dereferencing, or proof-of-possession
+    behavior
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Design and review architecture for the worst case by assuming malicious
+    users and accounting for the application's distributed nature; designing only
+    for legitimate, well-intentioned users is a fatal flaw, and proper planning raises
+    the cost of attack.
+  derived_from_claims:
+  - C00217
+  - C00219
+  - C00236
+  - C00237
+  - C00238
+  - C00242
+  confidence: high
+  applies_when:
+  - designing or reviewing the architecture of a feature or system to be deployed
+    at scale
+  - the system stores or shares data among many users
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: 'Avoid the core secure-coding anti-patterns: do not ship temporary mitigations
+    without a planned permanent fix, do not rely on blacklists (prefer whitelists,
+    easing their maintenance with vetting), do not launch unevaluated boilerplate
+    or default framework configuration (which can leak version information or ship
+    dangerously open), do not run a whole application under one over-privileged account
+    (give each module least privilege), and do not tightly couple client and server
+    (develop them independently over a predefined protocol).'
+  derived_from_claims:
+  - C00427
+  - C00428
+  - C00429
+  - C00430
+  - C00431
+  - C00432
+  confidence: high
+  applies_when:
+  - reviewing code or design for recurring insecure patterns
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: Reduce version fingerprinting and keep dependencies patched, because
+    insecurely configured default headers (X-Powered-By, Server, X-AspNet-Version)
+    and default error or 404 pages reveal the software and version, letting an attacker
+    cross-reference a known CVE; disable and remove identifying headers, replace default
+    pages, and treat client-detectable framework versions as exploitable until updated.
+  derived_from_claims:
+  - C00317
+  - C00318
+  - C00319
+  - C00320
+  - C00321
+  - C00322
+  confidence: high
+  applies_when:
+  - reviewing server, framework, and dependency configuration for information disclosure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: 'Defend against CSRF application-wide: verify the origin and referer
+    headers against trusted origins as a first line (but not the only one, since an
+    XSS on a trusted origin bypasses it), make anti-CSRF tokens the primary defense
+    (cryptographic, per-session, returned on every request and verified server-side,
+    built statelessly from user id, timestamp, and a server-only nonce for stateless
+    APIs), never modify server state via GET, and enforce all of this through pre-route
+    middleware with the token automatically injected on the client.'
+  derived_from_claims:
+  - C00465
+  - C00466
+  - C00467
+  - C00468
+  - C00469
+  - C00470
+  confidence: high
+  applies_when:
+  - designing or reviewing defenses for state-changing authenticated requests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Reassess security assumptions when adopting microservices, API-management
+    changes, or cloud infrastructure, including decentralization, physical control
+    loss, backups, file security, and possible co-residency risks.
+  derived_from_claims:
+  - C00076
+  - C00077
+  - C00078
+  - C00079
+  - C00080
+  - C00081
+  confidence: medium
+  applies_when:
+  - Migrating APIs to cloud infrastructure or adopting newer distributed architectures
+  - Migrating existing APIs into cloud environments
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Expose reference tokens externally, translate them at an edge authentication
+    server or API firewall, and pass JWTs internally when microservices need distributed
+    identity.
+  derived_from_claims:
+  - C00137
+  - C00138
+  - C00139
+  - C00140
+  - C00141
+  - C00142
+  confidence: medium
+  applies_when:
+  - Microservices need user context without exposing readable value tokens over public
+    boundaries
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Assume sensitive data and infrastructure leak into public records over
+    time — cached repositories, keys, internal URLs, PII — and proactively hunt for
+    them using search-engine operators, web archives, social-media data APIs, and
+    browser developer tools (including timing side-channels), both to find exposure
+    and to prevent your own.
+  derived_from_claims:
+  - C00288
+  - C00289
+  - C00290
+  - C00291
+  - C00292
+  - C00293
+  confidence: medium
+  applies_when:
+  - searching for an application's exposed assets or assessing information leakage
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: 'Protect credentials and sensitive data: enforce password strength by
+    entropy (reject common-list passwords and any derived from the user''s name, birthdate,
+    or address rather than counting special characters), never store passwords in
+    plain text but hash them with a deliberately slow algorithm such as BCrypt or
+    PBKDF2, offer two-factor authentication (a hardware token beats SMS, and any 2FA
+    beats none), and store PII or financial data in a legally compliant, non-abusable-on-breach
+    form, outsourcing to a compliant specialist when appropriate.'
+  derived_from_claims:
+  - C00415
+  - C00416
+  - C00417
+  - C00418
+  - C00419
+  confidence: high
+  applies_when:
+  - designing or reviewing storage and verification of passwords, credentials, PII,
+    or financial data
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Use Content Security Policy as a first-line XSS control delivered via
+    header or meta tag, whitelisting script sources (avoiding wildcard hosts and unsafe-inline/unsafe-eval,
+    and rewriting eval-like functions to pass a function rather than a string), while
+    mitigating XSS primarily at the client with a centralized DOM-append function
+    and combining defenses, since CSP does not stop DOM-based XSS.
+  derived_from_claims:
+  - C00460
+  - C00461
+  - C00462
+  - C00463
+  - C00464
+  confidence: high
+  applies_when:
+  - configuring browser-level controls and choosing where to mitigate XSS
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: 'Layer automated vulnerability discovery against production code, since
+    even well-architected and reviewed applications still ship flaws: combine static
+    analysis (source-level, configured for the OWASP top 10, strong on common patterns
+    but weak on dynamic languages and noisy with false positives), dynamic analysis
+    (post-execution, finding actual vulnerabilities and side-effects at higher cost),
+    and vulnerability regression tests run on commit or push hooks — while knowing
+    automation misses logic-specific and chained vulnerabilities.'
+  derived_from_claims:
+  - C00433
+  - C00434
+  - C00435
+  - C00436
+  - C00437
+  confidence: high
+  applies_when:
+  - building a vulnerability-discovery pipeline or CI security gate
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Review API security as an identity and access-management system that
+    includes the API, surrounding organization, servers, mobile clients, IoT devices,
+    and microservice interactions.
+  derived_from_claims:
+  - C00001
+  - C00003
+  - C00004
+  - C00005
+  - C00021
+  confidence: medium
+  applies_when:
+  - Assessing or designing security for APIs that expose valuable resources or interact
+    with mobile, enterprise, IoT, or microservice systems
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Prefer peer-reviewed, proven security standards and products over bespoke
+    mechanisms, combining protocols such as OAuth, OpenID Connect, SCIM, JWT, strong
+    second factors, and policy systems as the use case requires.
+  derived_from_claims:
+  - C00006
+  - C00011
+  - C00014
+  - C00015
+  - C00022
+  confidence: medium
+  applies_when:
+  - Selecting API security mechanisms or user/group provisioning patterns
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Use OAuth for delegated access only, and model OAuth integrations around
+    the client, authorization server, resource owner, and resource server responsibilities.
+  derived_from_claims:
+  - C00008
+  - C00009
+  - C00090
+  - C00091
+  - C00092
+  confidence: medium
+  applies_when:
+  - Designing, reviewing, or troubleshooting OAuth-based API integrations
+  - A third-party client needs access to a user-controlled resource
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: For microservices, avoid repeating monolithic per-service authentication;
+    use OAuth delegation and OpenID Connect identity where clients need user context
+    or backend sessions.
+  derived_from_claims:
+  - C00131
+  - C00132
+  - C00133
+  - C00134
+  - C00135
+  confidence: medium
+  applies_when:
+  - Designing identity and access management for independent services
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Make the API provider responsible for the base security design early,
+    including transport protection, authentication and authorization policy, session
+    handling, delegation, and federation verification.
+  derived_from_claims:
+  - C00064
+  - C00065
+  - C00066
+  - C00067
+  - C00068
+  confidence: medium
+  applies_when:
+  - Designing provider-controlled API foundations or assigning security ownership
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Choose API licensing and availability at the start of the lifecycle,
+    matching exposure to the API purpose, data sensitivity, business model, upkeep
+    capacity, and monetization goals.
+  derived_from_claims:
+  - C00042
+  - C00043
+  - C00049
+  - C00050
+  - C00059
+  confidence: medium
+  applies_when:
+  - Selecting among private, public, and partner API models
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Review dependency updates before installation, compare them to known
+    prior code, and reject update-then-review habits that transfer security responsibility
+    to dependency maintainers.
+  derived_from_claims:
+  - C00179
+  - C00180
+  - C00181
+  - C00182
+  - C00183
+  confidence: medium
+  applies_when:
+  - Applying patches or new versions of API dependencies
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Use the attacker's perspective — running the same reconnaissance against
+    your own application — to find weak mechanisms and prioritize defenses, recognizing
+    that routine defenses are easily bypassed and that some threats (such as malware
+    hidden in valid software) are nearly impossible to detect after the fact.
+  derived_from_claims:
+  - C00223
+  - C00229
+  - C00231
+  - C00239
+  - C00251
+  confidence: medium
+  applies_when:
+  - prioritizing which parts of an application to harden first
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Begin any security assessment by mapping the application's structure,
+    combining technical analysis with functional analysis of its purpose, users, and
+    revenue model to identify mission-critical data, and record findings in notes
+    that preserve relationships and scale from small to large applications.
+  derived_from_claims:
+  - C00257
+  - C00258
+  - C00259
+  - C00286
+  - C00287
+  confidence: medium
+  applies_when:
+  - scoping or prioritizing a security review of an application
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Run a security review by traversing the code from the client to its API
+    calls, then to the dependencies those APIs rely on (databases, logs, helper libraries),
+    then to unintentionally exposed or future APIs, and finally the rest by descending
+    risk — searching not only for archetypes but for logic-level vulnerabilities that
+    require business context, such as an endpoint that trusts a client-supplied privilege
+    flag, which no scanner would catch.
+  derived_from_claims:
+  - C00423
+  - C00424
+  - C00425
+  - C00426
+  confidence: high
+  applies_when:
+  - performing a manual security code review of an application
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Secure client-side code as rigorously as server code, because modern
+    exploits increasingly target the user through the browser, DOM, and CSS, and scale
+    through email, social media, and camouflaged legitimate-looking interfaces such
+    as phishing.
+  derived_from_claims:
+  - C00221
+  - C00240
+  - C00241
+  - C00243
+  confidence: high
+  applies_when:
+  - reviewing frontend or browser-executed code for security risk
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Recognize that the modern attack surface is the application logic itself
+    and that it constantly moves, so stay current with new technologies whose controls
+    are immature and treat web security as a cyclical, never-finished process.
+  derived_from_claims:
+  - C00244
+  - C00248
+  - C00249
+  - C00250
+  confidence: high
+  applies_when:
+  - assessing where the highest-value vulnerabilities in a modern application lie
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: 'Choose authentication schemes that resist interception and replay: avoid
+    HTTP basic auth because base64 is encoding not encryption and its credentials
+    leak easily, prefer hashed schemes with replay defenses, couple authentication
+    with two-factor authentication, and weigh that an OAuth provider compromise can
+    cascade to every connected profile.'
+  derived_from_claims:
+  - C00274
+  - C00275
+  - C00276
+  - C00277
+  confidence: high
+  applies_when:
+  - selecting or reviewing an authentication mechanism
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: 'Avoid JavaScript footguns that create security risk: never declare implicit
+    global variables (which land on the window object), prefer let and const over
+    var for block scoping, and guard against Prototype Pollution given that JavaScript
+    objects are mutable and prototype changes propagate to children at runtime.'
+  derived_from_claims:
+  - C00265
+  - C00266
+  - C00268
+  - C00269
+  confidence: high
+  applies_when:
+  - reviewing JavaScript code for security and correctness
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: 'Output-encode untrusted data for its context and treat CSS as an attack
+    vector: HTML entity encoding of the big-five characters lets user data display
+    safely only inside a div-like node and does not protect script, CSS, or URL contexts;
+    and because CSS can exfiltrate data through background:url GET requests and conditional
+    selectors, prevent it by disallowing user-uploaded stylesheets, generating stylesheets
+    server-side from permitted fields, or sanitizing HTTP-initiating CSS attributes.'
+  derived_from_claims:
+  - C00456
+  - C00457
+  - C00458
+  - C00459
+  confidence: high
+  applies_when:
+  - rendering user-supplied data or stylesheets into a page
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: Defend against single-source DoS by building comprehensive logging of
+    every request's response time and of asynchronous background jobs, keeping evil
+    greedy-backtracking regular expressions out of the codebase through code review
+    and a regex-scanning linter, never accepting user-supplied regular expressions,
+    and treating DoS risk as a graded scale where you err toward caution and implement
+    mitigations preemptively once affordable.
+  derived_from_claims:
+  - C00482
+  - C00483
+  - C00484
+  - C00487
+  confidence: high
+  applies_when:
+  - hardening an application against resource-exhaustion attacks
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: Build security into API designs from the outset, assuming even initially
+    private APIs may later face public exposure.
+  derived_from_claims:
+  - C00002
+  - C00017
+  - C00022
+  - C00040
+  confidence: medium
+  applies_when:
+  - Starting or revising an API design, including private or internal APIs
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Do not present API keys, OAuth adoption, or any single control as complete
+    API security; require layered controls across enterprise, mobile, network, and
+    API surfaces.
+  derived_from_claims:
+  - C00018
+  - C00019
+  - C00037
+  - C00038
+  confidence: medium
+  applies_when:
+  - Evaluating whether an API security design is sufficient
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Deploy OAuth and OpenID Connect inside a broader security and identity-management
+    program that also protects servers, mobile clients, networks, firewalls, and cloud
+    infrastructure.
+  derived_from_claims:
+  - C00086
+  - C00087
+  - C00088
+  - C00089
+  confidence: medium
+  applies_when:
+  - Planning OAuth or OpenID Connect for APIs that expose protected data
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []

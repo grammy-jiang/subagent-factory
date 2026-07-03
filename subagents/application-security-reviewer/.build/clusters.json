@@ -1,0 +1,474 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Review API security as an identity and access-management system that includes the API, surrounding organization, servers, mobile clients, IoT devices, and microservice interactions."
+   },
+   {
+    "idx": 1,
+    "statement": "Build security into API designs from the outset, assuming even initially private APIs may later face public exposure."
+   },
+   {
+    "idx": 2,
+    "statement": "Prefer peer-reviewed, proven security standards and products over bespoke mechanisms, combining protocols such as OAuth, OpenID Connect, SCIM, JWT, strong second factors, and policy systems as the use case requires."
+   },
+   {
+    "idx": 5,
+    "statement": "Do not present API keys, OAuth adoption, or any single control as complete API security; require layered controls across enterprise, mobile, network, and API surfaces."
+   },
+   {
+    "idx": 47,
+    "statement": "Make API security and developer responsibility organizational norms while recognizing that users protect their credentials and providers protect federation, delegation, physical security, and internal data controls."
+   }
+  ]
+ },
+ {
+  "group": 1,
+  "members": [
+   {
+    "idx": 3,
+    "statement": "Use OAuth for delegated access only, and model OAuth integrations around the client, authorization server, resource owner, and resource server responsibilities."
+   },
+   {
+    "idx": 20,
+    "statement": "Use OAuth to delegate access and support per-application revocation instead of asking users to share passwords with third-party applications."
+   },
+   {
+    "idx": 21,
+    "statement": "Design OAuth scopes, consent display, and grant semantics explicitly because OAuth leaves most of that behavior to the implementer."
+   },
+   {
+    "idx": 25,
+    "statement": "Never treat resource-owner consent as API authorization; OAuth provides delegation, while the API still authorizes each request."
+   },
+   {
+    "idx": 36,
+    "statement": "For user-to-user sharing of connected-device access, do not rely on ordinary OAuth alone; use an added identity layer such as OpenID Connect to represent the resource owner, delegate, and scopes."
+   },
+   {
+    "idx": 37,
+    "statement": "Prefer delegated tokens over API-side access tables for microservice-heavy user-to-user delegation, while accounting for application token-management complexity."
+   }
+  ]
+ },
+ {
+  "group": 2,
+  "members": [
+   {
+    "idx": 4,
+    "statement": "Add OpenID Connect and identity-provider federation when an OAuth-based API solution needs standardized user identity, authentication context, or cross-domain trust."
+   },
+   {
+    "idx": 7,
+    "statement": "Keep authentication, authorization, federation, and delegation conceptually separate and apply each only to the responsibility it actually serves."
+   },
+   {
+    "idx": 8,
+    "statement": "Federate identity by separating authentication from protected resources and allowing relying parties to revoke trust in a compromised identity provider."
+   },
+   {
+    "idx": 19,
+    "statement": "Deploy OAuth and OpenID Connect inside a broader security and identity-management program that also protects servers, mobile clients, networks, firewalls, and cloud infrastructure."
+   },
+   {
+    "idx": 26,
+    "statement": "Use OpenID Connect for OAuth-based identity needs, including ID tokens, UserInfo, federation, mobile use cases, and migration from older OpenID or federation stacks."
+   },
+   {
+    "idx": 27,
+    "statement": "Ensure development, product, operations, and project-management stakeholders understand OAuth and OpenID Connect basics when those protocols protect API data access."
+   },
+   {
+    "idx": 28,
+    "statement": "Use standardized OpenID Connect and OAuth native SSO patterns rather than ad hoc token sharing across apps."
+   },
+   {
+    "idx": 30,
+    "statement": "Treat OpenID Connect plus mobile information management as exploratory unless the implementation proves the identity, context, license, and key-distribution model in practice."
+   },
+   {
+    "idx": 32,
+    "statement": "Use OpenID Connect-style user involvement and policy control when connected Things obtain API tokens on behalf of users."
+   },
+   {
+    "idx": 33,
+    "statement": "For microservices, avoid repeating monolithic per-service authentication; use OAuth delegation and OpenID Connect identity where clients need user context or backend sessions."
+   }
+  ]
+ },
+ {
+  "group": 3,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Grant API consumers the minimum authority needed for their functions, using roles and responsibility tiers instead of broad default privileges."
+   },
+   {
+    "idx": 15,
+    "statement": "Make the API provider responsible for the base security design early, including transport protection, authentication and authorization policy, session handling, delegation, and federation verification."
+   }
+  ]
+ },
+ {
+  "group": 4,
+  "members": [
+   {
+    "idx": 9,
+    "statement": "Choose API licensing and availability at the start of the lifecycle, matching exposure to the API purpose, data sensitivity, business model, upkeep capacity, and monetization goals."
+   },
+   {
+    "idx": 12,
+    "statement": "Avoid ambiguous API exposure models and mismatches between documentation and actual restrictions; define the API premise, access rules, and maintenance responsibilities explicitly."
+   },
+   {
+    "idx": 43,
+    "statement": "Consider security early in every API lifecycle and account for dependency zero-day risk before depending on external services or components."
+   },
+   {
+    "idx": 54,
+    "statement": "Treat availability as a security requirement: evaluate every API, server, dependency, and lifecycle change for uptime and legacy compatibility impact."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 10,
+    "statement": "Favor private or partner API models for sensitive personal data or secure systems, and reserve public exposure for open data that does not connect to confidential systems."
+   },
+   {
+    "idx": 11,
+    "statement": "For partner APIs, expose only contractually necessary calls to defined and vetted partners, keeping unrelated functionality locked down, undocumented, or separately authorized."
+   },
+   {
+    "idx": 42,
+    "statement": "Treat encryption as mandatory for monetizable, regulated, payment, health, password, or otherwise sensitive API data, and recognize that encryption can also support user trust."
+   }
+  ]
+ },
+ {
+  "group": 6,
+  "members": [
+   {
+    "idx": 13,
+    "statement": "Treat internet-facing APIs as likely attack targets and define vulnerabilities as any exposure of data, capability, path, or resource that should not be exposed."
+   },
+   {
+    "idx": 14,
+    "statement": "Use outside penetration testing to find vulnerabilities that internal API teams are likely to miss."
+   },
+   {
+    "idx": 18,
+    "statement": "Treat every API user request as potentially hostile and constrain user-controlled data manipulation, passwords, sessions, session identifiers, and account activity."
+   },
+   {
+    "idx": 46,
+    "statement": "Hold the API team responsible for vulnerabilities in adopted dependencies and first-party code instead of shifting responsibility to users or upstream developers."
+   },
+   {
+    "idx": 48,
+    "statement": "Balance confidentiality, integrity, and availability across internal and external API security, especially when APIs span multiple platforms or cloud systems."
+   },
+   {
+    "idx": 51,
+    "statement": "Instrument API traffic and service-risk patterns so developers know normal behavior, detect anomalies, and harden frequently attacked resources."
+   },
+   {
+    "idx": 53,
+    "statement": "Account for physical network characteristics when designing API integrity features such as error checking and packet-loss mitigation."
+   },
+   {
+    "idx": 57,
+    "statement": "Establish security culture early and prepare for known attacks and vulnerabilities so the API remains useful rather than merely functional."
+   },
+   {
+    "idx": 109,
+    "statement": "Run a security review by traversing the code from the client to its API calls, then to the dependencies those APIs rely on (databases, logs, helper libraries), then to unintentionally exposed or future APIs, and finally the rest by descending risk — searching not only for archetypes but for logic-level vulnerabilities that require business context, such as an endpoint that trusts a client-supplied privilege flag, which no scanner would catch."
+   }
+  ]
+ },
+ {
+  "group": 14,
+  "members": [
+   {
+    "idx": 34,
+    "statement": "Use signed JWT ID tokens to let clients validate authentication-session context and trust the authentication server."
+   },
+   {
+    "idx": 35,
+    "statement": "Expose reference tokens externally, translate them at an edge authentication server or API firewall, and pass JWTs internally when microservices need distributed identity."
+   }
+  ]
+ },
+ {
+  "group": 15,
+  "members": [
+   {
+    "idx": 38,
+    "statement": "Encrypt API data streams with readily available transport protections such as HTTPS, SSL, or TLS because the stream is often the weakest link in an otherwise protected system."
+   },
+   {
+    "idx": 39,
+    "statement": "Do not treat API keys or other non-encryption mechanisms as transport encryption; evaluate point-to-point protection across the data provider, stream, and consumer."
+   },
+   {
+    "idx": 40,
+    "statement": "Prefer modern public-key-backed transport security for network APIs, validate key ownership, avoid plain symmetric-key use over networks, and use TLS over SSL whenever possible."
+   }
+  ]
+ },
+ {
+  "group": 17,
+  "members": [
+   {
+    "idx": 44,
+    "statement": "Review dependency updates before installation, compare them to known prior code, and reject update-then-review habits that transfer security responsibility to dependency maintainers."
+   },
+   {
+    "idx": 45,
+    "statement": "After reviewing a dependency update, verify security-system compatibility and test the API with penetration tools, overflow attempts, and unvalidated requests before treating the update as safe."
+   },
+   {
+    "idx": 87,
+    "statement": "Manage third-party and open source dependencies deliberately as a primary, under-reviewed attack vector: they are not reviewed to the standard of in-house code, frequently carry documented CVEs that can be reused, and require understanding how each is integrated so shoddy integrations or less-secure libraries can be mitigated."
+   },
+   {
+    "idx": 101,
+    "statement": "Integrate open source dependencies securely by isolating risky code (a decentralized server or constrained environment over embedding it in core code), choosing the integration method by size, dependency chain, and upstream activity, avoiding one-click installers that run setup scripts as admin, and scanning the full transitive dependency tree against a CVE database — recognizing that package managers pull in unaudited recursive dependencies and have themselves been attack vectors through compromised maintainer credentials or malicious sub-dependencies."
+   },
+   {
+    "idx": 123,
+    "statement": "Secure the whole dependency tree through automation and pinning, because third-, fourth-, and deeper-party dependencies cannot be manually reviewed and each unique dependency and version must be checked: model the tree and scan it automatically against a long-lived CVE database such as NIST NVD, isolate risky packages (a dedicated server behind an HTTP/JSON boundary or hardware-defined process and memory limits), and audit-then-pin versions with shrinkwrapping and Git SHAs or a private mirror, knowing that a simple version lock neither stops a maintainer reusing a version number nor pins descendant dependencies."
+   }
+  ]
+ },
+ {
+  "group": 19,
+  "members": [
+   {
+    "idx": 50,
+    "statement": "Protect integrity by securing data streams and workstations against unauthorized changes, including internal failures, poor versioning, bad code, and insecure transmission paths."
+   },
+   {
+    "idx": 55,
+    "statement": "Mitigate availability threats from malformed requests, scanning, and flooding through architecture choices, overflow mitigation, memory safeguards, and error reporting."
+   }
+  ]
+ },
+ {
+  "group": 22,
+  "members": [
+   {
+    "idx": 58,
+    "statement": "Treat security as a continuous process folded into the entire software development life cycle, not a one-time event, because an undefended system is easy to break into."
+   },
+   {
+    "idx": 88,
+    "statement": "Treat architecture as the primary source of security: most vulnerabilities stem from weak application architecture rather than individual bad methods, multiple vulnerabilities of the same class signal weak architecture, and even skilled teams accumulate holes on an inherently insecure architecture — so build security in before and during feature development and centralize reusable secure components instead of reimplementing per case."
+   }
+  ]
+ },
+ {
+  "group": 23,
+  "members": [
+   {
+    "idx": 59,
+    "statement": "Design and review architecture for the worst case by assuming malicious users and accounting for the application's distributed nature; designing only for legitimate, well-intentioned users is a fatal flaw, and proper planning raises the cost of attack."
+   },
+   {
+    "idx": 108,
+    "statement": "Review architecture before code and resolve flaws in the architecture phase, because architecture-level security flaws are far costlier later (forcing customer migration plans, cascading module rewrites, real exploitation losses, and bad-PR exposure), and a move-fast-and-break-things culture must not be allowed to skip the architecture review that precedes coding."
+   }
+  ]
+ },
+ {
+  "group": 25,
+  "members": [
+   {
+    "idx": 61,
+    "statement": "Secure client-side code as rigorously as server code, because modern exploits increasingly target the user through the browser, DOM, and CSS, and scale through email, social media, and camouflaged legitimate-looking interfaces such as phishing."
+   },
+   {
+    "idx": 77,
+    "statement": "Develop deep understanding of the browser DOM and of single-page-application framework behavior, because not all script-related vulnerabilities come from improper JavaScript — some arise from DOM implementation or framework complexity at the presentation layer."
+   },
+   {
+    "idx": 93,
+    "statement": "Understand that XSS exists because applications execute scripts in users' browsers, that any dynamically created script modifiable by a user is a risk, and that its three OWASP categories (stored, reflected, DOM-based) can run without user interaction to steal session tokens for account takeover, exfiltrate data, or mount undetectable phishing — with stored XSS reaching many users and reflected XSS evading detection, and the risk extending to any client-side display technology."
+   }
+  ]
+ },
+ {
+  "group": 29,
+  "members": [
+   {
+    "idx": 65,
+    "statement": "Use the attacker's perspective — running the same reconnaissance against your own application — to find weak mechanisms and prioritize defenses, recognizing that routine defenses are easily bypassed and that some threats (such as malware hidden in valid software) are nearly impossible to detect after the fact."
+   },
+   {
+    "idx": 69,
+    "statement": "Map an application's structure, roles, and endpoints before attacking or hardening it: assume you can see only a subset of the UI, expect role-based access control with multiple permission levels, and look for hidden privileged endpoints and access-control glitches that let nonprivileged users reach privileged functionality."
+   },
+   {
+    "idx": 90,
+    "statement": "Apply defense in depth by introducing security mechanisms at many layers (such as API entry and database write) rather than one or two, because an application is only as secure as the weakest link and different layers catch different payloads; conversely, prioritize testing functionality that has a low ratio of security mechanisms to layers as most likely exploitable."
+   },
+   {
+    "idx": 124,
+    "statement": "Recognize that an application's security architecture serves as a proxy for the quality of its code and is a signal attackers weigh when choosing a target, and that because modern attackers target logical vulnerabilities in source code, close collaboration between developers and security experts has become more valuable than individual contribution."
+   }
+  ]
+ },
+ {
+  "group": 30,
+  "members": [
+   {
+    "idx": 66,
+    "statement": "Make security the default through secure-by-default methodologies and enforce secure-coding practices with simple automated tooling such as linters and tests rather than relying on per-case manual diligence."
+   },
+   {
+    "idx": 110,
+    "statement": "Avoid the core secure-coding anti-patterns: do not ship temporary mitigations without a planned permanent fix, do not rely on blacklists (prefer whitelists, easing their maintenance with vetting), do not launch unevaluated boilerplate or default framework configuration (which can leak version information or ship dangerously open), do not run a whole application under one over-privileged account (give each module least privilege), and do not tightly couple client and server (develop them independently over a predefined protocol)."
+   }
+  ]
+ },
+ {
+  "group": 32,
+  "members": [
+   {
+    "idx": 68,
+    "statement": "Recognize that the modern attack surface is the application logic itself and that it constantly moves, so stay current with new technologies whose controls are immature and treat web security as a cyclical, never-finished process."
+   },
+   {
+    "idx": 82,
+    "statement": "Approach web application security as requiring software-development skill across client, server, and network in addition to security knowledge, valuing independent problem-solving and critical thinking over memorizing specific offensive or defensive techniques."
+   }
+  ]
+ },
+ {
+  "group": 35,
+  "members": [
+   {
+    "idx": 72,
+    "statement": "Always enforce authorization checks on sensitive operations, including settings and profile updates, password resets, private message reads and writes, any paid functionality, and any elevated-user or moderation functionality."
+   },
+   {
+    "idx": 107,
+    "statement": "Protect credentials and sensitive data: enforce password strength by entropy (reject common-list passwords and any derived from the user's name, birthdate, or address rather than counting special characters), never store passwords in plain text but hash them with a deliberately slow algorithm such as BCrypt or PBKDF2, offer two-factor authentication (a hardware token beats SMS, and any 2FA beats none), and store PII or financial data in a legally compliant, non-abusable-on-breach form, outsourcing to a compliant specialist when appropriate."
+   }
+  ]
+ },
+ {
+  "group": 38,
+  "members": [
+   {
+    "idx": 75,
+    "statement": "Treat injection as a risk across every database and interpreter, not just SQL: securing one database's query generation does not secure another's (NoSQL, search engines), so each database type and query model must be evaluated and hardened independently."
+   },
+   {
+    "idx": 98,
+    "statement": "Never build a query or command by concatenating unsanitized user input, because all injection shares the same shape — an interpreter plus user-supplied data read into it — so SQL injection (whose root cause is string-concatenated parameters) and injection against any CLI or interpreter can dump, destroy, or stealthily modify data, and it remains common wherever secure-coding practices are not followed."
+   },
+   {
+    "idx": 99,
+    "statement": "Treat command injection as a top-severity risk and defend it with least privilege and meticulous sanitization: because injected commands run against the host OS (often as superuser on Unix) and can read or write critical files, exfiltrate data, tamper with logs, or take over the server, run each API as an unprivileged user with only the permissions it needs and never concatenate unparameterized user input into a system command or any CLI or interpreter — which may be application-specific and less defended than SQL."
+   },
+   {
+    "idx": 120,
+    "statement": "Defend against injection by never letting a client send a query or command to be executed on the server, using prepared statements with bind variables as the first-line SQL defense (with database-specific escapers only as a fallback for unparameterizable queries), applying secure-by-default coding and least authority to every injection target (schedulers, compression and backup utilities, loggers, host-OS calls, interpreters, and dependencies), and whitelisting any unavoidable user commands together with an acceptable syntax."
+   }
+  ]
+ },
+ {
+  "group": 51,
+  "members": [
+   {
+    "idx": 94,
+    "statement": "Sanitize untrusted data before it reaches the DOM and never rely on naive filters: stored XSS arises from applying an HTTP response straight into the DOM (e.g., innerHTML), a script-tag regex or inline-script CSP stops only the common case, database scanning is a cheap but incomplete mitigation, and DOM-based and mutation-based XSS evade scanners and bypass robust filters — so prefer reading a string through a client-side sanitizer before insertion as the most effective defense."
+   },
+   {
+    "idx": 114,
+    "statement": "Defend the DOM against XSS by never passing unsanitized user data into it — treat DOM injection as a last resort and pass user data as text, preferring innerText over innerHTML — and by avoiding the javascript: URL scheme and text-to-DOM or text-to-script sinks (innerHTML, outerHTML, Blob, SVG, document.write, DOMParser.parseFromString, document.implementation), building nodes with createElement and appendChild, and sanitizing links through the browser's built-in anchor handling and encodeURIComponent rather than a home-brewed solution, recognizing that complete sanitization is extremely hard."
+   },
+   {
+    "idx": 116,
+    "statement": "Output-encode untrusted data for its context and treat CSS as an attack vector: HTML entity encoding of the big-five characters lets user data display safely only inside a div-like node and does not protect script, CSS, or URL contexts; and because CSS can exfiltrate data through background:url GET requests and conditional selectors, prevent it by disallowing user-uploaded stylesheets, generating stylesheets server-side from permitted fields, or sanitizing HTTP-initiating CSS attributes."
+   },
+   {
+    "idx": 117,
+    "statement": "Use Content Security Policy as a first-line XSS control delivered via header or meta tag, whitelisting script sources (avoiding wildcard hosts and unsafe-inline/unsafe-eval, and rewriting eval-like functions to pass a function rather than a string), while mitigating XSS primarily at the client with a centralized DOM-append function and combining defenses, since CSP does not stop DOM-based XSS."
+   }
+  ]
+ },
+ {
+  "group": 52,
+  "members": [
+   {
+    "idx": 95,
+    "statement": "Recognize that CSRF abuses the browser's trust model (the browser attaches authentication data to a request regardless of where the link came from) to make an authenticated user issue requests unknowingly, combining privilege escalation with stealth, and that it can be delivered through links, src-bearing tags such as a 0-by-0 image that needs no interaction, and auto-submitting hidden forms that ride the victim's session and even reach internal-network servers."
+   },
+   {
+    "idx": 118,
+    "statement": "Defend against CSRF application-wide: verify the origin and referer headers against trusted origins as a first line (but not the only one, since an XSS on a trusted origin bypasses it), make anti-CSRF tokens the primary defense (cryptographic, per-session, returned on every request and verified server-side, built statelessly from user id, timestamp, and a server-only nonce for stateless APIs), never modify server state via GET, and enforce all of this through pre-route middleware with the token automatically injected on the client."
+   }
+  ]
+ },
+ {
+  "group": 54,
+  "members": [
+   {
+    "idx": 97,
+    "statement": "Defend against XXE by disabling external entities in every XML parser (often a single configuration line) and always test for it on new applications, recognizing that the risk extends to XML-like formats such as SVG, PDF, and RTF and to indirect XXE where a non-XML endpoint converts the payload to XML behind the scenes for a legacy system."
+   },
+   {
+    "idx": 119,
+    "statement": "Defend against XXE by disabling external entities in every XML parser (checking the parser's documentation rather than assuming, since Java parsers often enable them by default) and by re-architecting to JSON where the payload is just lightweight hierarchical data, because XML's external-file power makes it inherently less secure and an XXE can escalate from read-only file access to remote code execution and full server takeover."
+   }
+  ]
+ },
+ {
+  "group": 55,
+  "members": [
+   {
+    "idx": 100,
+    "statement": "Understand and defend against denial of service across its classes — regex (catastrophic backtracking from greedy expressions), logical (targeting resource-intensive operations), and distributed (network-level traffic floods) — by identifying which server resources are most valuable, watching logs during suspected attacks, and testing DoS only in a local development environment so real users are not disrupted."
+   },
+   {
+    "idx": 121,
+    "statement": "Defend against single-source DoS by building comprehensive logging of every request's response time and of asynchronous background jobs, keeping evil greedy-backtracking regular expressions out of the codebase through code review and a regex-scanning linter, never accepting user-supplied regular expressions, and treating DoS risk as a graded scale where you err toward caution and implement mitigations preemptively once affordable."
+   },
+   {
+    "idx": 122,
+    "statement": "Mitigate DDoS rather than expecting to prevent it: because botnets of compromised PCs, mobile, and IoT devices overwhelm a target with legitimate-looking traffic, rely on a bandwidth management service that drops malicious-pattern packets at a scale your own infrastructure cannot, supplement with blackholing for smaller attacks, and gather deep metrics on legitimate usage before deploying aggressive filters that would otherwise block real users."
+   }
+  ]
+ },
+ {
+  "group": 59,
+  "members": [
+   {
+    "idx": 105,
+    "statement": "Discover vulnerabilities proactively rather than waiting for customer notification or public disclosure, combining bug bounty programs, internal red and blue teams, third-party penetration testers, and incentives for engineers to log known vulnerabilities so issues are found before customers or attackers do."
+   },
+   {
+    "idx": 106,
+    "statement": "Manage each found vulnerability through triage, monitoring, and regression: prioritize by financial risk, exploit difficulty, data type, contractual agreements, and existing mitigations; add logging while a known vulnerability is being fixed to detect active exploitation; write a regression test on every fix because a large share of vulnerabilities are regressions; and spread mitigation widely across the whole development life cycle while running it deep in crucial areas."
+   },
+   {
+    "idx": 111,
+    "statement": "Layer automated vulnerability discovery against production code, since even well-architected and reviewed applications still ship flaws: combine static analysis (source-level, configured for the OWASP top 10, strong on common patterns but weak on dynamic languages and noisy with false positives), dynamic analysis (post-execution, finding actual vulnerabilities and side-effects at higher cost), and vulnerability regression tests run on commit or push hooks — while knowing automation misses logic-specific and chained vulnerabilities."
+   },
+   {
+    "idx": 112,
+    "statement": "Source vulnerabilities externally with a layered program: publish a responsible disclosure policy defining legally safe testing scope, a submission template, and a non-disclosure window so users will report safely; add a bug bounty for incentive using platforms that lower setup cost; and engage third-party penetration testers who can be scoped to specific high-risk and newly written areas with source access before and after release."
+   },
+   {
+    "idx": 113,
+    "statement": "Manage a reported vulnerability by reproducing it first in an automated production-like staging environment (to confirm it is real and find the root cause), scoring it with a system such as CVSS (base, temporal, and environmental, customized for IoT or physical risk) while treating the score as one input alongside contracts and relationships, then resolving it with a permanent application-wide fix — opening a follow-up bug for any remaining surface rather than closing on a partial fix — and shipping a regression test with every closed bug."
+   }
+  ]
+ }
+]
