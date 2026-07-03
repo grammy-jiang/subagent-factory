@@ -1,0 +1,1701 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Use monkeypatch's self-cleaning helpers—setattr/delattr, setitem/delitem,
+    setenv/delenv, syspath_prepend to shadow a module, and chdir for cwd-dependent
+    code (plus the raising parameter)—to modify attributes, dictionary items, and
+    environment variables for a test's duration with automatic restore afterwards;
+    combine with unittest.mock for mock objects.
+  derived_from_claims:
+  - C00137
+  - C00138
+  - C00139
+  - C00140
+  - C00141
+  - C00142
+  - C00143
+  - C00144
+  - C00147
+  - C00750
+  confidence: high
+  applies_when:
+  - temporarily altering environment, attributes, or paths during a test
+  - patching dict entries, environment variables, sys.path or the working directory
+    in tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: Embed runnable examples as doctests in docstrings so documentation doubles
+    as executable, coverage-counted tests, and run them via pytest --doctest-modules—injecting
+    shared symbols with the doctest_namespace fixture in an autouse top-level conftest.py
+    so docstrings stay uncluttered.
+  derived_from_claims:
+  - C00148
+  - C00149
+  - C00150
+  - C00797
+  confidence: high
+  applies_when:
+  - verifying runnable examples embedded in docstrings
+  - a function's behaviour is easy to show with a short example
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: 'Drive behavior with test-first, outside-in TDD: write an expected-failing
+    test, make the smallest code change that moves the failure forward, and repeat
+    until the user-level behavior passes.'
+  derived_from_claims:
+  - C00250
+  - C00252
+  - C00254
+  - C00269
+  - C00270
+  - C00271
+  - C00273
+  - C00301
+  - C00302
+  - C00303
+  - C00304
+  - C00305
+  - C00312
+  - C00313
+  - C00314
+  - C00315
+  confidence: medium
+  applies_when:
+  - When applying TDD to application behavior or configuration work.
+  - When building a web feature with both functional and unit tests.
+  - When iterating through the unit-test/code cycle.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: When external-server tests cannot connect, use inline TEST_SERVER targeting
+    plus layered diagnostics such as server output, curl, docker exec, docker ps,
+    and docker inspect.
+  derived_from_claims:
+  - C00551
+  - C00552
+  - C00553
+  - C00554
+  - C00555
+  - C00570
+  - C00571
+  - C00572
+  - C00573
+  - C00574
+  - C00575
+  - C00653
+  - C00661
+  - C00668
+  confidence: medium
+  applies_when:
+  - When testing a Docker container or staging server.
+  - When host browser tests cannot reach a service running in Docker.
+  - When a staging functional test cannot reach the app.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Drive environment-specific settings from runtime configuration, keeping
+    secrets out of source and using persistent per-environment secret storage appropriate
+    to deployment maturity.
+  derived_from_claims:
+  - C00604
+  - C00606
+  - C00607
+  - C00608
+  - C00609
+  - C00643
+  - C00644
+  - C00645
+  - C00646
+  - C00647
+  - C00648
+  - C00649
+  - C00650
+  confidence: medium
+  applies_when:
+  - When one image must run in development, staging, and production.
+  - When configuring staging or production containers.
+  - When selecting a secret-management approach.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: Use explicit Selenium polling waits that retry lookup and assertion failures,
+    re-raise the final failure on timeout, and avoid premature generalization.
+  derived_from_claims:
+  - C00428
+  - C00429
+  - C00430
+  - C00431
+  - C00432
+  - C00433
+  - C00434
+  - C00435
+  - C00436
+  - C00437
+  - C00438
+  - C00439
+  confidence: medium
+  applies_when:
+  - When a browser test waits for DOM or page-refresh state.
+  - When implementing Selenium wait helpers.
+  - When a first local wait helper feels ugly but is not repeated.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: For Django model changes, declare persistent fields and relationships
+    explicitly, generate migrations carefully, avoid rewriting used migrations, and
+    update legacy creation paths that violate new constraints.
+  derived_from_claims:
+  - C00391
+  - C00392
+  - C00393
+  - C00394
+  - C00395
+  - C00396
+  - C00397
+  - C00481
+  - C00482
+  - C00483
+  - C00484
+  - C00486
+  confidence: medium
+  applies_when:
+  - When adding or changing database-backed models.
+  - When reconsidering a migration generated during model iteration.
+  - When a new ForeignKey causes NOT NULL failures.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: For production static files, collect app assets into STATIC_ROOT, keep
+    generated copies out of version control, configure a production serving strategy,
+    and verify it with layout functional tests.
+  derived_from_claims:
+  - C00534
+  - C00535
+  - C00536
+  - C00538
+  - C00595
+  - C00596
+  - C00597
+  - C00598
+  - C00610
+  - C00611
+  - C00612
+  confidence: medium
+  applies_when:
+  - When preparing Django static files for deployment.
+  - When Gunicorn or DEBUG=False changes static-file behavior.
+  - When building a production-like Django image.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: Reduce deployment risk by running functional tests against container
+    and staging environments, rerunning them after each fixed deployment layer because
+    the next layer may fail independently.
+  derived_from_claims:
+  - C00545
+  - C00546
+  - C00547
+  - C00548
+  - C00549
+  - C00550
+  - C00569
+  - C00578
+  - C00579
+  - C00580
+  - C00656
+  confidence: medium
+  applies_when:
+  - When preparing code for deployment.
+  - When checking a container or deployment candidate.
+  - When an earlier deployment blocker has been fixed.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Automate deployment steps that affect correctness, while separating server
+    provisioning from application deployment and keeping staging close enough to production
+    to be meaningful.
+  derived_from_claims:
+  - C00620
+  - C00621
+  - C00622
+  - C00623
+  - C00624
+  - C00663
+  - C00664
+  - C00665
+  - C00666
+  - C00669
+  - C00670
+  confidence: medium
+  applies_when:
+  - When designing a deployment workflow.
+  - When deciding how much of a deployment flow to automate initially.
+  - When designing a staging-to-production deployment process.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Keep runtime database state outside the container image; attach persistent
+    storage and run migrations against the deployed runtime database.
+  derived_from_claims:
+  - C00581
+  - C00582
+  - C00583
+  - C00584
+  - C00585
+  - C00586
+  - C00657
+  - C00658
+  - C00659
+  - C00660
+  - C00667
+  confidence: medium
+  applies_when:
+  - When a containerized app needs persistent database state.
+  - When deploying a database-backed containerized app.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Test layout and styling with minimal browser smoke checks that prove
+    CSS-driven behavior works without freezing the visual design.
+  derived_from_claims:
+  - C00512
+  - C00513
+  - C00514
+  - C00515
+  - C00516
+  - C00517
+  - C00530
+  - C00533
+  - C00539
+  - C00540
+  confidence: medium
+  applies_when:
+  - When styling depends on CSS/static files rather than complex visual logic.
+  - When styling changes depend on CSS or client-side behavior.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Tune output verbosity and traceback detail to the task with -v/-q, --tb=<style>
+    (including --tb=no/line), -l for locals, -s to surface prints, and --durations
+    to find the slowest tests.
+  derived_from_claims:
+  - C00006
+  - C00009
+  - C00025
+  - C00026
+  - C00029
+  - C00030
+  - C00031
+  - C00032
+  - C00033
+  confidence: high
+  applies_when:
+  - reading or narrowing pytest output while diagnosing tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Store pytest configuration in pytest.ini, tox.ini, or setup.cfg (the
+    format is largely the same) and enable xfail_strict; override discovery with python_files/python_classes/python_functions
+    only for a strong reason such as migrating a large existing suite, doing so gradually
+    by listing both old and new patterns.
+  derived_from_claims:
+  - C00179
+  - C00180
+  - C00181
+  - C00182
+  - C00183
+  - C00184
+  - C00185
+  - C00186
+  - C00187
+  confidence: high
+  applies_when:
+  - configuring pytest defaults or discovery rules
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: Refactor only under passing-test protection, without mixing in new behavior,
+    and commit the completed structural change as its own milestone.
+  derived_from_claims:
+  - C00345
+  - C00346
+  - C00347
+  - C00353
+  - C00354
+  - C00355
+  - C00383
+  - C00384
+  - C00385
+  confidence: medium
+  applies_when:
+  - When improving structure without changing user-visible behavior.
+  - When a refactoring step is complete.
+  - When repeated FT assertions obscure intent.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Change broad designs through controlled working-state-to-working-state
+    steps, using the current expected failure to choose one narrow next move and avoiding
+    speculative features.
+  derived_from_claims:
+  - C00440
+  - C00442
+  - C00443
+  - C00446
+  - C00452
+  - C00453
+  - C00454
+  - C00455
+  - C00485
+  confidence: medium
+  applies_when:
+  - When redesigning an existing codebase.
+  - Before changing an existing tested design.
+  - When moving toward dynamic URLs or a new data model.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: 'Test plugins like any other code using the bundled pytester plugin:
+    enable it (pytest_plugins=''pytester''), generate example tests with testdir.makepyfile,
+    run them via testdir.runpytest, and assert on result.stdout.fnmatch_lines and
+    result.ret (0 pass / 1 fail); follow the make-example, run, examine-output, check-exit-code
+    pattern, keep each test checking one thing, and install the plugin before running
+    its tests.'
+  derived_from_claims:
+  - C00167
+  - C00168
+  - C00169
+  - C00170
+  - C00171
+  - C00172
+  - C00173
+  - C00174
+  confidence: high
+  applies_when:
+  - writing automated tests for a pytest plugin
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: 'Prefer normal pytest fixtures over xUnit fixtures and avoid mixing the
+    two: xUnit fixtures do not appear in --setup-show/--setup-plan, have no session
+    scope (module is widest), apply to every test in a class regardless of need, nest
+    at most three levels, cannot be parametrized, and can only be optimized by grouping
+    tests.'
+  derived_from_claims:
+  - C00242
+  - C00243
+  - C00244
+  - C00245
+  - C00246
+  - C00247
+  - C00248
+  - C00249
+  confidence: high
+  applies_when:
+  - choosing between xUnit-style fixtures and pytest fixtures
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: Use tmpdir for a per-test, auto-cleaned temporary directory (a py.path.local
+    — wrap in str() for a path string); because it is function-scoped, use tmpdir_factory
+    (with .mktemp) for class/module/session scope; pytest keeps only the most recent
+    temp base directories, and --basetemp overrides the location.
+  derived_from_claims:
+  - C00092
+  - C00093
+  - C00101
+  - C00116
+  - C00117
+  - C00118
+  - C00119
+  - C00120
+  confidence: high
+  applies_when:
+  - a test needs a temporary directory or files
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: For POST endpoints that create or update list resources, add route and
+    view behavior under tests that separately check persistence and redirects to the
+    relevant resource URL.
+  derived_from_claims:
+  - C00470
+  - C00471
+  - C00472
+  - C00493
+  - C00494
+  - C00495
+  - C00496
+  - C00499
+  confidence: medium
+  applies_when:
+  - When creation becomes its own endpoint.
+  - When a POST endpoint creates a parent resource and first child item.
+  - When later submissions must attach to an existing list instead of creating a new
+    one.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Parametrize a test with @pytest.mark.parametrize(argnames, argvalues)
+    to run it against many data sets (each reported separately, and applicable to
+    a class); make case identifiers readable with the ids parameter or pytest.param(id=...),
+    and quote a node id containing spaces, brackets, or parentheses when rerunning
+    one case.
+  derived_from_claims:
+  - C00072
+  - C00073
+  - C00074
+  - C00075
+  - C00076
+  - C00077
+  - C00078
+  confidence: high
+  applies_when:
+  - testing one function against multiple input sets
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: 'Migrate a legacy unittest suite incrementally under pytest: pytest runs
+    unittest tests and both styles in one session, pytest markers can be applied to
+    unittest tests, and rewriting to fixtures shrinks the files; watch for session-scope
+    resource conflicts between a unittest tearDownModule and a pytest session fixture,
+    resolving them by sharing the pytest session fixture on the TestCase via @pytest.mark.usefixtures
+    (needed only for shared session-scope resources).'
+  derived_from_claims:
+  - C00219
+  - C00220
+  - C00221
+  - C00222
+  - C00223
+  - C00224
+  - C00225
+  confidence: high
+  applies_when:
+  - moving an existing unittest suite onto pytest
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: 'Recognize that a top-level conftest.py is already a local plugin: find
+    third-party plugins on PyPI, the pytest docs, and pytest-dev on GitHub, install
+    with pip (pin with ==, install offline via --find-links, or from a Git repo),
+    and prototype a hook-based behaviour change in conftest.py before packaging it.'
+  derived_from_claims:
+  - C00154
+  - C00155
+  - C00156
+  - C00157
+  - C00158
+  - C00159
+  - C00160
+  confidence: high
+  applies_when:
+  - finding, installing, or beginning to build a pytest plugin
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: 'Manage tests you should not run normally with the builtin skip/skipif/xfail
+    markers: skip unconditionally, skipif on a Python expression (reason required),
+    and xfail to run-but-expect-failure; set xfail_strict so an unexpected pass fails,
+    always give a reason, and surface reasons with -rs.'
+  derived_from_claims:
+  - C00057
+  - C00058
+  - C00059
+  - C00060
+  - C00061
+  - C00062
+  - C00063
+  confidence: high
+  applies_when:
+  - deferring, conditionally skipping, or expecting failure of a test
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: 'Integrate pytest with CI (e.g. Jenkins) that runs the suite after each
+    commit: emit results with --junit-xml (the only flag required; --junit-prefix
+    and junit_suite_name refine naming), run inside a virtual environment installing
+    the project first, keep build logic in a version-controlled script, and cover
+    multiple environments via separate jobs or by calling tox.'
+  derived_from_claims:
+  - C00212
+  - C00213
+  - C00214
+  - C00215
+  - C00216
+  - C00217
+  - C00218
+  confidence: high
+  applies_when:
+  - running pytest under a continuous-integration server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Use functional tests for user-visible behavior and wiring confidence,
+    and unit tests for implementation details, edge cases, and clean internal behavior.
+  derived_from_claims:
+  - C00253
+  - C00274
+  - C00275
+  - C00306
+  - C00307
+  - C00308
+  - C00317
+  confidence: medium
+  applies_when:
+  - When planning test coverage for a web feature.
+  - When deciding whether behavior belongs in an FT or unit test.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Debug browser tests with clear durable assertions and temporary inspection
+    aids, replacing arbitrary waits with robust wait helpers when available.
+  derived_from_claims:
+  - C00357
+  - C00358
+  - C00364
+  - C00365
+  - C00376
+  - C00377
+  - C00378
+  confidence: medium
+  applies_when:
+  - When adding or debugging visible page behavior.
+  - When Selenium failures are hard to interpret or page refresh timing is involved.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Write infrastructure automation declaratively and idempotently so repeated
+    runs converge on the desired state for fresh and partially configured servers.
+  derived_from_claims:
+  - C00631
+  - C00632
+  - C00633
+  - C00634
+  - C00651
+  - C00652
+  - C00671
+  confidence: medium
+  applies_when:
+  - When creating Ansible playbooks for Docker deployment.
+  - When writing deployment scripts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Set up each project in an isolated virtual environment with the expected
+    Python, Django, Selenium, browser, and IDE interpreter configuration before running
+    project work.
+  derived_from_claims:
+  - C00259
+  - C00260
+  - C00261
+  - C00262
+  - C00263
+  - C00264
+  - C00265
+  confidence: medium
+  applies_when:
+  - When preparing a local development environment for the book-style workflow.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Use the Django test client and Django assertion helpers to test URL routing
+    and response behavior through more of the Django stack, then remove redundant
+    lower-level direct-call tests.
+  derived_from_claims:
+  - C00318
+  - C00319
+  - C00320
+  - C00322
+  - C00323
+  - C00324
+  - C00326
+  confidence: medium
+  applies_when:
+  - When a view must be reachable through its configured URL.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Start Docker work with a minimal verified Docker setup and a first Dockerfile
+    that chooses a Python base image, copies source, sets WORKDIR, and defines the
+    default command.
+  derived_from_claims:
+  - C00557
+  - C00558
+  - C00559
+  - C00560
+  - C00561
+  - C00562
+  - C00563
+  confidence: medium
+  applies_when:
+  - When creating a proof-of-concept Django container.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Package a pytest plugin as a minimal module plus setup.py, registered
+    via the setuptools entry_points 'pytest11' group, implementing behaviour through
+    hook functions (e.g. pytest_addoption, pytest_report_header, pytest_report_teststatus);
+    include the required setup fields, use py_modules (or packages for multiple modules),
+    and provide a README.
+  derived_from_claims:
+  - C00161
+  - C00162
+  - C00163
+  - C00164
+  - C00165
+  - C00166
+  confidence: high
+  applies_when:
+  - turning a conftest customization into a distributable plugin
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Measure code coverage with coverage.py via the pytest-cov plugin (pytest
+    --cov=<src>, --cov-report=html for line detail), but treat 100% coverage as a
+    heuristic rather than a goal — untested code may indicate a missing test or dead
+    code, and coverage does not replace thinking.
+  derived_from_claims:
+  - C00194
+  - C00195
+  - C00196
+  - C00197
+  - C00198
+  - C00199
+  confidence: high
+  applies_when:
+  - assessing which code the suite exercises
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: 'Build runnable subsets such as smoke tests with markers: a test may
+    carry many markers and a marker may tag many tests, and marked tests are selectable
+    together (even across files) with -m.'
+  derived_from_claims:
+  - C00021
+  - C00022
+  - C00053
+  - C00054
+  - C00055
+  - C00056
+  confidence: high
+  applies_when:
+  - you want to run a named subset of tests across files
+  - curating a fast subset like a smoke test
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: 'Parametrize fixtures to multiply coverage: @pytest.fixture(params=[...])
+    runs every dependent test once per value (read via request.param), ids gives readable
+    identifiers, and isolating an environment/backend choice in one parametrized fixture
+    (e.g. [''tiny'',''mongo'']) runs the whole suite against each option — remembering
+    that fixture parametrization multiplies all dependent tests while test parametrization
+    multiplies only that test.'
+  derived_from_claims:
+  - C00108
+  - C00109
+  - C00110
+  - C00111
+  - C00112
+  - C00113
+  confidence: high
+  applies_when:
+  - running the same tests across multiple environments or backends
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: 'Follow pytest''s discovery conventions: a plural ''tests'' directory,
+    ''test_'' file prefix, ''test'' function/method prefix, ''Test'' class prefix,
+    and no __init__ on test classes — otherwise tests are silently skipped.'
+  derived_from_claims:
+  - C00687
+  - C00688
+  - C00690
+  - C00694
+  - C00695
+  - C00698
+  confidence: high
+  applies_when:
+  - laying out or naming tests for pytest discovery
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: 'Use fixtures (rather than old xUnit setup/teardown) to separate ''get
+    ready'' (setup) from ''clean up'' (teardown): in a yield fixture the code before
+    yield is setup and the code after yield is guaranteed-to-run teardown, autouse=True
+    applies a fixture without naming it, and fixtures can be consumed by tests or
+    composed by other fixtures.'
+  derived_from_claims:
+  - C00067
+  - C00068
+  - C00069
+  - C00082
+  - C00086
+  - C00094
+  confidence: high
+  applies_when:
+  - choosing a setup/teardown mechanism
+  - structuring setup and guaranteed cleanup
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Keep tests independent and order-independent so any test can run in any
+    order with repeatable results; when you deliberately need cross-session state
+    use the cache fixture (cache.get/set, keys namespaced with '/', JSON-serializable
+    values), inspect or reset it with --cache-show/--cache-clear, and reach request.config.cache
+    from any scope.
+  derived_from_claims:
+  - C00127
+  - C00128
+  - C00129
+  - C00130
+  - C00131
+  - C00133
+  confidence: high
+  applies_when:
+  - designing test isolation or deliberately passing data between sessions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Recognise that without tests you cannot know software works, and that
+    writing tests before or during implementation shapes code toward modular, maintainable
+    structure.
+  derived_from_claims:
+  - C00675
+  - C00705
+  - C00745
+  - C00746
+  - C00787
+  - C00788
+  confidence: high
+  applies_when:
+  - a function is hard to exercise in a test
+  - reviewing large or tangled code
+  - a unit is difficult to test or needs extensive patching
+  - writing new code
+  - justifying testing effort
+  - deciding when to write tests relative to code
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: For dynamic resource URLs, capture typed URL parameters, accept them
+    in the view, and use them to select only the requested resource data.
+  derived_from_claims:
+  - C00487
+  - C00488
+  - C00489
+  - C00490
+  - C00491
+  - C00492
+  confidence: medium
+  applies_when:
+  - When implementing first dynamic resource URLs.
+  - When serving a dynamic resource URL.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: 'Reach for the right execution plugin per need: pytest-repeat (--count)
+    to reproduce flaky failures, pytest-xdist (-n) to parallelize independent tests
+    (with overhead, so not a linear speedup, and run sequentially when a resource
+    is single-access), and pytest-timeout to bound tests that may hang.'
+  derived_from_claims:
+  - C00226
+  - C00227
+  - C00228
+  - C00229
+  - C00230
+  confidence: high
+  applies_when:
+  - controlling how and how fast tests execute
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Prefer pytest's single plain 'assert' with its rich data-structure diffs
+    over unittest's many specialised assertion methods; use -v/-vv to reveal a withheld
+    diff.
+  derived_from_claims:
+  - C00707
+  - C00708
+  - C00709
+  - C00710
+  - C00711
+  confidence: high
+  applies_when:
+  - writing assertions
+  - comparing strings, lists or dicts in tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: 'Select and scope test runs precisely: rely on implicit recursive discovery,
+    or pass explicit files/directories, a file::test node id, a -k name expression,
+    and preview a selection with --collect-only before running.'
+  derived_from_claims:
+  - C00012
+  - C00013
+  - C00017
+  - C00020
+  - C00035
+  confidence: high
+  applies_when:
+  - running a targeted subset of the test suite
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: Run any subset by directory, file, class, method, node id, name expression,
+    or marker, and run pytest -v to discover the exact node-id syntax for a specific
+    target.
+  derived_from_claims:
+  - C00064
+  - C00065
+  - C00066
+  - C00070
+  - C00071
+  confidence: high
+  applies_when:
+  - invoking a specific directory, file, class, or method
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: 'Choose fixture scope deliberately: the scope parameter (function/class/module/session,
+    default function) is fixed at the fixture''s definition and sets setup/teardown
+    frequency; a fixture may depend only on same-or-wider-scoped fixtures; do expensive
+    setup once at session scope and reset state per test with a small function-scoped
+    fixture.'
+  derived_from_claims:
+  - C00096
+  - C00097
+  - C00098
+  - C00099
+  - C00100
+  confidence: high
+  applies_when:
+  - deciding how often a fixture should be set up and torn down
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: 'Choose mock tooling and strategy deliberately: monkeypatch plus the
+    mock package (unittest.mock since Python 3.3, with pytest-mock as a convenient
+    interface) cover test-double needs; because mock-based tests are white-box, decide
+    up front what to mock and where — for example test functionality at the API layer
+    and mock that layer when testing the CLI.'
+  derived_from_claims:
+  - C00201
+  - C00202
+  - C00203
+  - C00204
+  - C00205
+  confidence: medium
+  applies_when:
+  - deciding how and where to use test doubles
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: 'Reach for the right reporting or analysis plugin per need: pytest-instafail
+    and pytest-sugar for live failure output, pytest-html for filterable session reports,
+    and static-analysis plugins (pytest-pycodestyle/--pep8, pytest-flake8/--flake8,
+    flake8-docstrings) to surface style and lint failures as test failures.'
+  derived_from_claims:
+  - C00231
+  - C00232
+  - C00233
+  - C00234
+  - C00235
+  confidence: medium
+  applies_when:
+  - enhancing test output or adding static analysis to the run
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: 'Activate fixtures appropriately: request by parameter when you need
+    the return value, use @pytest.mark.usefixtures for classes when you do not (it
+    gives no return value), and reserve autouse=True for always-run code whose data
+    tests do not depend on — otherwise prefer named fixtures; rename with name= for
+    clarity.'
+  derived_from_claims:
+  - C00102
+  - C00103
+  - C00104
+  - C00105
+  - C00106
+  confidence: medium
+  applies_when:
+  - deciding how a test should activate a fixture
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: 'Keep commits small and reviewable: inspect status and diffs, separate
+    substantial functional-test specification changes from implementation, and commit
+    at coherent tested milestones.'
+  derived_from_claims:
+  - C00287
+  - C00288
+  - C00289
+  - C00339
+  - C00340
+  confidence: medium
+  applies_when:
+  - When preparing commits during TDD.
+  - When a TDD or setup step has reached a stable point.
+  - When an FT expansion materially changes the expected behavior.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Keep unit tests focused on logic, flow, configuration, and template selection;
+    leave mostly constant HTML appearance to browser-level checks and templates.
+  derived_from_claims:
+  - C00341
+  - C00342
+  - C00350
+  - C00351
+  - C00356
+  confidence: medium
+  applies_when:
+  - When deciding how to test Django HTML responses.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Serve app static files through Django’s static URL prefix and use StaticLiveServerTestCase
+    for functional tests that depend on staticfiles support.
+  derived_from_claims:
+  - C00525
+  - C00526
+  - C00527
+  - C00528
+  - C00529
+  confidence: medium
+  applies_when:
+  - When browser tests verify CSS-dependent layout.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: Do not let tests interfere through persistent state; use Django-managed
+    live-server tests or equivalent isolation instead of manual database cleanup.
+  derived_from_claims:
+  - C00412
+  - C00413
+  - C00415
+  - C00416
+  - C00417
+  confidence: medium
+  applies_when:
+  - When browser tests create database records.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: Use Django template inheritance to remove shared boilerplate after comparing
+    templates, defining blocks for variable regions, and rerunning functional tests
+    after the refactor.
+  derived_from_claims:
+  - C00520
+  - C00521
+  - C00522
+  - C00523
+  - C00524
+  confidence: medium
+  applies_when:
+  - When multiple templates share most markup.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: 'Introduce new URLs incrementally: point them at existing behavior first
+    when possible, then split views, tests, and templates as responsibilities become
+    distinct.'
+  derived_from_claims:
+  - C00457
+  - C00458
+  - C00459
+  - C00463
+  - C00464
+  confidence: medium
+  applies_when:
+  - When separating home-page behavior from resource-page behavior.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Model parent-child persistence with a ForeignKey and tests that save
+    the parent, assign children to it, and verify the persisted relationship.
+  derived_from_claims:
+  - C00476
+  - C00477
+  - C00478
+  - C00479
+  - C00480
+  confidence: medium
+  applies_when:
+  - When saved records must be partitioned by a parent object.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Install dependencies inside the image, preferably in an image-local virtual
+    environment on PATH, and use rebuild-and-run loops plus Docker process commands
+    to test and control each Dockerfile change.
+  derived_from_claims:
+  - C00564
+  - C00565
+  - C00566
+  - C00567
+  - C00568
+  confidence: medium
+  applies_when:
+  - When iterating on a Dockerfile locally.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Manage runtime dependencies with a pinned requirements file copied into
+    the Docker build before source, excluding test-only dependencies from production
+    installs.
+  derived_from_claims:
+  - C00599
+  - C00600
+  - C00601
+  - C00602
+  - C00603
+  confidence: medium
+  applies_when:
+  - When building a production application image.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Operate public servers with SSH access, sudo-capable non-root users,
+    DNS A records for hostnames, and explicit awareness that server security needs
+    further study.
+  derived_from_claims:
+  - C00625
+  - C00627
+  - C00628
+  - C00629
+  - C00630
+  confidence: medium
+  applies_when:
+  - When following a server-admin deployment path.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: 'Automate image transfer in the playbook: build locally when needed,
+    handle target architecture, export or registry-transfer the image, upload or pull
+    it, and load it on the server.'
+  derived_from_claims:
+  - C00636
+  - C00637
+  - C00638
+  - C00639
+  - C00640
+  confidence: medium
+  applies_when:
+  - When deploying a Docker image without relying on a prior manual server-side build.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: 'Adopt pytest as the Python test framework: it discovers, runs, and reports
+    tests from the command line, lets you signal failure with a plain assert statement,
+    works for unit through system/functional levels, and can even run existing unittest
+    or nose suites.'
+  derived_from_claims:
+  - C00001
+  - C00002
+  - C00003
+  - C00011
+  confidence: high
+  applies_when:
+  - choosing or setting up a test framework for a Python project
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: 'Control failure handling and iteration speed with run-control options:
+    -x and --maxfail to stop early, and --lf/--ff to rerun or prioritize previously
+    failed tests.'
+  derived_from_claims:
+  - C00023
+  - C00024
+  - C00027
+  - C00028
+  confidence: high
+  applies_when:
+  - debugging or iterating on a suite with failures
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: Customize pytest locally through conftest.py and ini files, introspect
+    with -h/--markers/--fixtures, and remember that the available options, markers,
+    and fixtures depend on the target path because conftest.py files are loaded along
+    it.
+  derived_from_claims:
+  - C00036
+  - C00037
+  - C00038
+  - C00039
+  confidence: high
+  applies_when:
+  - customizing or introspecting pytest for a project
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: 'Organize and share fixtures with conftest.py: pytest resolves a requested
+    fixture by name first in the test module then in conftest.py; a lower-level conftest.py
+    serves its directory and subdirectories; never import conftest.py, since pytest
+    loads it automatically as a local plugin.'
+  derived_from_claims:
+  - C00081
+  - C00083
+  - C00084
+  - C00085
+  confidence: high
+  applies_when:
+  - deciding where to place and how to scope shared fixtures
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: 'Add and read custom command-line options via pytestconfig: register
+    options with the pytest_addoption hook (only in a plugin or the top-level conftest.py,
+    never a test subdirectory) and read them with pytestconfig.getoption; pytestconfig
+    (a shortcut to request.config) can also be requested from other fixtures.'
+  derived_from_claims:
+  - C00123
+  - C00124
+  - C00125
+  - C00126
+  confidence: high
+  applies_when:
+  - adding project-specific command-line options
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: 'Debug failures efficiently: drop into pdb at the failure point with
+    --pdb, combine it with --lf -x (and -l/-v/--tb) to jump to and inspect the first
+    previously failed test, and use pdb commands such as p/pp, l, a, u/d, and q.'
+  derived_from_claims:
+  - C00190
+  - C00191
+  - C00192
+  - C00193
+  confidence: high
+  applies_when:
+  - interactively debugging a failing test
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: Install and run pytest inside a per-project virtual environment; because
+    pytest is versioned separately from the interpreter you can run the latest pytest
+    against legacy Pythons, and on Windows activate the environment with venv\Scripts\activate.bat.
+  derived_from_claims:
+  - C00004
+  - C00005
+  - C00007
+  - C00008
+  confidence: medium
+  applies_when:
+  - setting up the pytest execution environment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: Use framework-specific plugins for web testing (pytest-selenium, pytest-django
+    which replaces Django's unittest-based support, pytest-flask), and share your
+    own code with the built-in packaging tools (a pip-installable project via a minimal
+    setup.py, a source distribution, and a wheel) rather than emailing zipped directories.
+  derived_from_claims:
+  - C00236
+  - C00237
+  - C00238
+  - C00239
+  confidence: medium
+  applies_when:
+  - testing a web framework app or sharing reusable code
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: Organize Selenium functional tests with unittest.TestCase-style classes,
+    descriptive test method names, framework assertions, and setUp/tearDown browser
+    lifecycle management.
+  derived_from_claims:
+  - C00290
+  - C00291
+  - C00292
+  - C00293
+  confidence: medium
+  applies_when:
+  - When browser tests create and control a Selenium browser.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: 'Push as much setup (the GIVEN) into fixtures as possible so a FAIL means
+    the behaviour under test broke: an error inside a fixture is reported as ERROR
+    rather than FAIL, so keeping setup in fixtures preserves that distinction; add
+    GIVEN/WHEN/THEN comments when the test''s intent is not obvious.'
+  derived_from_claims:
+  - C00089
+  - C00090
+  - C00091
+  - C00095
+  confidence: medium
+  applies_when:
+  - deciding what belongs in a fixture versus the test body
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Verify production-like logging by provoking an error under DEBUG=False,
+    ensuring tracebacks reach standard output, and restoring broken test fixtures
+    afterward.
+  derived_from_claims:
+  - C00614
+  - C00615
+  - C00616
+  - C00617
+  confidence: medium
+  applies_when:
+  - When configuring observability for a containerized Django app.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: While learning rigorous TDD, write tests for even simple behavior so
+    tests are already present when complexity grows.
+  derived_from_claims:
+  - C00330
+  - C00331
+  - C00332
+  - C00333
+  confidence: medium
+  applies_when:
+  - When practicing strict TDD rather than optimizing for shortest immediate path.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: Keep unit tests focused on one concern, splitting save behavior from
+    response behavior and using assertRedirects for redirect-after-POST checks.
+  derived_from_claims:
+  - C00398
+  - C00401
+  - C00402
+  - C00403
+  confidence: medium
+  applies_when:
+  - When a POST view saves data and returns a response.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: Run LiveServerTestCase-based functional tests through Django discovery,
+    keep them in a separate package when workflows cross app boundaries, and use live_server_url
+    instead of fixed localhost.
+  derived_from_claims:
+  - C00418
+  - C00419
+  - C00421
+  - C00422
+  confidence: medium
+  applies_when:
+  - When converting standalone Selenium tests to Django-managed functional tests.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: Move nontrivial HTML into Django templates and render them with Django
+    render rather than building HTML in Python strings.
+  derived_from_claims:
+  - C00343
+  - C00344
+  - C00348
+  - C00349
+  confidence: medium
+  applies_when:
+  - When a Django view returns HTML that will evolve.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: Pass dynamic values to Django templates through render context dictionaries
+    and test that the intended template path is still used.
+  derived_from_claims:
+  - C00371
+  - C00372
+  - C00373
+  - C00406
+  confidence: medium
+  applies_when:
+  - When a view renders submitted or database-derived data.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: For POST forms in Django, include CSRF support and unit-test POST handling
+    with Django’s test client data dictionaries.
+  derived_from_claims:
+  - C00366
+  - C00367
+  - C00368
+  - C00369
+  confidence: medium
+  applies_when:
+  - When creating or testing a Django form submission.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Treat trailing slashes and form action URLs as part of the tested contract
+    because small mismatches can break routing after navigation changes.
+  derived_from_claims:
+  - C00456
+  - C00461
+  - C00469
+  - C00475
+  confidence: medium
+  applies_when:
+  - When editing Django URL patterns, assertions, or shared form templates.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: After a responsibility moves to a new page or view, simplify the old
+    template/view and remove tests for behavior that no longer belongs there.
+  derived_from_claims:
+  - C00466
+  - C00467
+  - C00473
+  - C00474
+  confidence: medium
+  applies_when:
+  - When extraction leaves redundant home-page behavior behind.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: Before a structural URL refactor, commit a passing state; then move app-specific
+    routes into app urls.py, include them with a prefix, and alias top-level view
+    imports.
+  derived_from_claims:
+  - C00503
+  - C00504
+  - C00505
+  - C00506
+  confidence: medium
+  applies_when:
+  - When project urls.py contains repeated app-specific routes.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: Do not use Django runserver for production; use a production WSGI server
+    such as Gunicorn and address production ports and core Django settings.
+  derived_from_claims:
+  - C00590
+  - C00591
+  - C00592
+  - C00594
+  confidence: medium
+  applies_when:
+  - When preparing a Django container for public deployment.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: 'Rescue a legacy mess in order: establish a lint baseline, extract nested
+    logic into tested functions, add logging, and use the debugger only as a last
+    resort.'
+  derived_from_claims:
+  - C00782
+  - C00783
+  - C00784
+  - C00785
+  confidence: medium
+  applies_when:
+  - taking over tangled or untested legacy code
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: 'Follow pytest''s naming conventions so tests are auto-discovered: name
+    files test_<x>.py or <x>_test.py, functions and methods test_<x>, and classes
+    Test<X>.'
+  derived_from_claims:
+  - C00014
+  - C00015
+  - C00016
+  confidence: high
+  applies_when:
+  - writing new test files, functions, or classes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: Write assertions as a plain 'assert <expression>' and rely on pytest's
+    assert rewriting for detailed failure diagnostics (exact failing line and value
+    diff); add -v to see the full diff when output is truncated.
+  derived_from_claims:
+  - C00048
+  - C00049
+  - C00050
+  confidence: high
+  applies_when:
+  - writing assertions in test functions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: Assert on warnings issued by code under test with the recwarn fixture
+    (a list of warnings exposing category/message/filename/lineno; recwarn.clear()
+    to reset) or the equivalent pytest.warns() context manager.
+  derived_from_claims:
+  - C00151
+  - C00152
+  - C00153
+  confidence: high
+  applies_when:
+  - verifying that code emits the expected warnings
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: In xunit-style pytest tests, use setup_function/teardown_function and
+    reset or delete per-test state so a mutation cannot make a later test pass or
+    fail for the wrong reason.
+  derived_from_claims:
+  - C00716
+  - C00717
+  - C00718
+  confidence: high
+  applies_when:
+  - using xunit-style setup/teardown in pytest
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
