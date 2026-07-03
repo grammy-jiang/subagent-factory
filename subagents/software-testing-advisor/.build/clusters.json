@@ -1,0 +1,2061 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Design tests by modeling the software artifact as one of four abstract structures (input space, graphs, logic expressions, syntax) and applying a formal coverage criterion to that model, keeping test design independent of any particular artifact so the same criteria transfer across code, designs, and specifications."
+   },
+   {
+    "idx": 11,
+    "statement": "Combine two complementary test-design styles: criteria-based design to create values that satisfy coverage goals, and human-based design that deliberately targets stress cases - very large or very small values, boundaries, and error conditions drawn from domain knowledge."
+   },
+   {
+    "idx": 12,
+    "statement": "Assign every software artifact an associated set of tests authored by whoever best understands it, and start test design early because design and construction are the most time-consuming parts of testing and can proceed before code is executable."
+   },
+   {
+    "idx": 46,
+    "statement": "Model an artifact as a directed graph (nodes, non-empty initial and final node sets, edges) to apply graph coverage, remembering the graph abstracts and omits detail, that a test path runs from an initial to a final node and only models a test case, and that a node/edge may be syntactically reachable yet semantically unreachable."
+   },
+   {
+    "idx": 56,
+    "statement": "Test design elements through coupling: build a call graph (nodes are methods, edges are calls) and apply Node Coverage as Method Coverage (each method called once) and Edge Coverage as Call Coverage (each call executed once), since design-element coverage is based on the coupling dependencies among components."
+   },
+   {
+    "idx": 96,
+    "statement": "Perform stage-appropriate testing work: evaluate requirements for correctness, testability, and completeness before design; during design verify the requirement-to-design mapping and plan acceptance and coverage; guard against interface mismatches and settle integration order early; and system-test against original functional and non-functional requirements."
+   },
+   {
+    "idx": 170,
+    "statement": "Engineer tests systematically from requirements, boundaries, corner cases, invalid inputs, and structural gaps instead of relying on remembered examples or intuition alone."
+   },
+   {
+    "idx": 381,
+    "statement": "Use technology-specific high-level testing tools where appropriate, while preserving core test-case engineering principles and client-perspective system testing."
+   }
+  ]
+ },
+ {
+  "group": 2,
+  "members": [
+   {
+    "idx": 2,
+    "statement": "Keep the fault/error/failure vocabulary precise: a fault is a static defect, an error is an incorrect internal state, and a failure is externally wrong behavior; an executed fault may create an error state that never propagates to output, so not every fault causes an observable failure."
+   },
+   {
+    "idx": 118,
+    "statement": "Use direct failure calls and assertion messages to make failures diagnosable at the point of failure."
+   }
+  ]
+ },
+ {
+  "group": 3,
+  "members": [
+   {
+    "idx": 3,
+    "statement": "Treat faults as an inevitable consequence of human design decisions: all faults can never be eliminated and completely correct software is unreachable, so evaluate whether the software's behavior is acceptable rather than aiming to prove it fault-free."
+   },
+   {
+    "idx": 108,
+    "statement": "When correct outputs are unknown, apply consistency checks - including internal invariant checks on data structures and object pre/postconditions, which can detect faults with only reachability and infection - and metamorphic testing, which relates a program's output on one input to its output on related inputs and is useful even when the relation only sometimes reveals a failure."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 5,
+    "statement": "Test each fault at the level where it is cheapest to detect: catch faults at the unit level where they are trivial rather than letting them surface in expensive system testing, and re-analyze and re-test any reused component in its new context."
+   },
+   {
+    "idx": 8,
+    "statement": "Eliminate faults as early as possible: cost to find and fix a fault rises steeply the later it is caught, and most faults are introduced in requirements and design, so shift verification and test design left into the earlier phases."
+   },
+   {
+    "idx": 13,
+    "statement": "Choose the testing level by the type of fault targeted, not merely by when it is applied: acceptance tests against requirements (with users or domain experts), system tests against overall behavior, integration tests against interface assumptions, and unit tests against the implementation."
+   },
+   {
+    "idx": 72,
+    "statement": "Recognize Implicant Coverage as weak (it subsumes Predicate Coverage but no ACC criterion), and build up through the DNF fault-detecting criteria - MUTP (detects Literal Insertion and seven of nine fault classes but only true points), CUTPNFP (adds Literal Omission and subsumes RACC), and MNFP - combining all three as MUMCUT to detect the entire fault hierarchy even under partial infeasibility."
+   },
+   {
+    "idx": 184,
+    "statement": "Do not retest every behavior at every level; place each behavior at the cheapest level that can reveal the relevant defect, and add higher-level tests only for risks unit tests cannot cover."
+   },
+   {
+    "idx": 402,
+    "statement": "Because testing cannot catch every production bug, invest in monitoring that detects escaped defects quickly, with logging guidelines that balance diagnostic value against volume and mechanisms to distinguish important anomalies from expected noise."
+   },
+   {
+    "idx": 529,
+    "statement": "Keep separate tests for functional behavior and for synchronization so you can pinpoint the fault, accept that stress tests give only a degree of reassurance (not a guarantee) so run them frequently across environments, and take a defence-in-depth approach combining unit tests, end-to-end tests, formal modeling where feasible, and static analysis."
+   }
+  ]
+ },
+ {
+  "group": 6,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Raise the team's testing mindset from equating testing with debugging or with proving correctness toward treating testing as a discipline for revealing failures and improving developer practice, since correctness cannot be shown and testing shows the presence but not the absence of failures."
+   },
+   {
+    "idx": 23,
+    "statement": "Embed high-quality testing centrally and deeply in the development process rather than bolting it on, because the cost of a change climbs steeply with the delay between a decision and its correction, so revealing failures early yields an enormous return on investment."
+   },
+   {
+    "idx": 24,
+    "statement": "In agile and test-driven development treat high-quality tests as the definition of behavior: write tests first, implement second, refactor third; add functionality only in response to a failing test; and when someone wants different behavior, express it as a new failing test."
+   },
+   {
+    "idx": 295,
+    "statement": "Avoid excessive mocking because it can make tests brittle, unclear, less fault-revealing, and a signal of poor production design."
+   },
+   {
+    "idx": 388,
+    "statement": "Make test failures diagnosable with one clear reason to fail, descriptive names, understandable inputs, and clear assertions."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 7,
+    "statement": "Give every test a known purpose - a specific fact it is trying to verify - and document test objectives, requirements, and planned coverage levels so tests are traceable and their value is defensible."
+   },
+   {
+    "idx": 10,
+    "statement": "Use coverage criteria to answer the two hard questions of testing - how to search an effectively infinite input space and when to stop - and to provide artifact-to-test traceability that supports regression testing."
+   },
+   {
+    "idx": 97,
+    "statement": "Institutionalize quality through ethics and artifact management: put quality first and refuse to build what cannot be tested, regression-test every change, place all test artifacts under version control while tracking each test's criteria-based source, and emphasize test-plan content over documentation form, following IEEE 829's Master and Level Test Plan structure with a traceability matrix and explicit features-to-test and not-to-test."
+   }
+  ]
+ },
+ {
+  "group": 8,
+  "members": [
+   {
+    "idx": 9,
+    "statement": "Automate the test infrastructure before relying on criteria-based or unit testing, because automation is a prerequisite for repeatable coverage-driven testing and for supporting many developers from one test designer."
+   },
+   {
+    "idx": 15,
+    "statement": "Automate test execution and evaluation: embed test values in executable scripts and embed the expected-result checks in those scripts, since automation is a prerequisite for unit and criteria-based testing and lets one designer support many developers."
+   },
+   {
+    "idx": 17,
+    "statement": "Automate away excise tasks (script maintenance, re-running tests, marshalling results) that add no behavioral value, to free engineers for revenue tasks such as test design and to let the same tests run repeatedly at low cost; automate every test activity except a genuinely one-time check."
+   },
+   {
+    "idx": 95,
+    "statement": "Integrate testing across the whole lifecycle rather than postponing it: late testing is compromised and yields unreliable software, so run testing on a parallel track with testers embedded in teams, performing test actions, test design, and test influence at each stage."
+   },
+   {
+    "idx": 109,
+    "statement": "Keep automated tests repeatable by controlling external context, data, time, order, and resource dependencies."
+   },
+   {
+    "idx": 111,
+    "statement": "Use automated tests as a refactoring safety net, and refactor test code conservatively because tests rarely have their own tests."
+   },
+   {
+    "idx": 156,
+    "statement": "Apply the same automation principles to unit tests, story tests, and acceptance tests unless a deliberate tradeoff is documented."
+   },
+   {
+    "idx": 179,
+    "statement": "Keep test-case design separate from test automation: frameworks execute and report tests, but humans or design techniques still decide which cases matter."
+   },
+   {
+    "idx": 357,
+    "statement": "Automated SQL tests require a real connection or test database, controlled initial state, query execution, and output assertions."
+   },
+   {
+    "idx": 419,
+    "statement": "Automate testing as much as possible, since frequent manual testing is impractical for systems of any interesting size."
+   }
+  ]
+ },
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 16,
+    "statement": "Anticipate that low controllability and observability - common in embedded, real-time, distributed, component-based, and web software - make testing and its automation substantially harder, and design seams and instrumentation to compensate."
+   },
+   {
+    "idx": 22,
+    "statement": "Require both controllability and observability to trust a test result, recognizing that information hiding, though good for design, reduces controllability; prefer catching a problem at compile time (e.g. via type safety) over a failing test or a field failure."
+   },
+   {
+    "idx": 298,
+    "statement": "Design for testability from the beginning and refactor production code when testing reveals controllability or observability problems."
+   },
+   {
+    "idx": 387,
+    "statement": "If behavior is hard to assert, improve production-code observability rather than accepting weak tests."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 20,
+    "statement": "Test exceptional behavior deliberately: if a condition is possible in the software write a test for it, implement exceptional-return tests with the framework's expected-exception mechanism, and mine well-written specifications (e.g. JavaDoc) that document both normal and exceptional returns, because exceptional paths are error-prone and often neglected."
+   },
+   {
+    "idx": 25,
+    "statement": "Judge a model or document by whether it aids understanding, and note that an incorrect non-executable document is worse than none; because knowing correct behavior on one test is far simpler than specifying correctness universally, favor existential (test-based) checks where full specifications are impractical."
+   },
+   {
+    "idx": 241,
+    "statement": "Document contracts and deliberately choose between assertions and explicit exceptions based on runtime behavior and caller needs."
+   }
+  ]
+ },
+ {
+  "group": 14,
+  "members": [
+   {
+    "idx": 21,
+    "statement": "When the same test logic must run over many input/output pairs use data-driven tests, and when asserting a universally quantified property use a parameterized theory in Precondition-Action-Postcondition form; guard against combinatorial explosion and let a test skip combinations that fail the theory's precondition."
+   },
+   {
+    "idx": 65,
+    "statement": "Use logic coverage to advance from reaching a location to infecting internal state via truth-value combinations; prefer the semantic approach (same tests regardless of how a predicate is written) for portability, but use the syntactic (DNF) approach when detecting more faults justifies its extra complexity."
+   },
+   {
+    "idx": 79,
+    "statement": "Develop or recover method preconditions as part of testing when they are absent, expect preconditions to be transformed into exceptions for defensive and security reasons, and treat preconditions, postconditions, and invariants as rich sources of testable predicates."
+   },
+   {
+    "idx": 217,
+    "statement": "Do not rely on line coverage for branching logic; conditionals, loops, ternaries, and similar constructs need tests for alternative execution outcomes."
+   }
+  ]
+ },
+ {
+  "group": 15,
+  "members": [
+   {
+    "idx": 26,
+    "statement": "Run continuous integration on every change: pull into a clean environment, build, and include verification steps beyond compiling such as running the test set, and engineer that test set to finish within minutes so it does not disrupt the development flow."
+   },
+   {
+    "idx": 98,
+    "statement": "Make tests executable as early as possible (requiring compilation, no collateral damage, repeatability, and timeliness), recognizing integration testing exercises the interfaces between otherwise-correct components on an often-incomplete system, and that a component is anything testable independently - class, method, package, or even an XML file or database."
+   },
+   {
+    "idx": 102,
+    "statement": "Treat regression testing as the bulk of testing effort and automate it fully (unautomated regression testing equals none), because small changes often break distant parts of the system; incorporate it into continuous integration so it runs on every change."
+   },
+   {
+    "idx": 353,
+    "statement": "Use full-engine integration tests when a processing step cannot sensibly run without prior pipeline steps, while focusing assertions on the target step."
+   }
+  ]
+ },
+ {
+  "group": 16,
+  "members": [
+   {
+    "idx": 27,
+    "statement": "Derive agile system tests from user stories, turning each story into one or more acceptance tests that fail on the current software and pass once the story is implemented, keeping acceptance tests at the requirements abstraction level and involving users."
+   },
+   {
+    "idx": 29,
+    "statement": "Compensate for the tendency of agile and TDD tests to focus on happy paths by deliberately adding tests for confused-user, malicious, and boundary scenarios that such tests otherwise miss."
+   },
+   {
+    "idx": 415,
+    "statement": "Frame testing as helping the team understand and reliably deliver the features users need, not merely as defect prevention; applied thoroughly TDD improves reliability and flexibility, and it is a core practice across agile approaches."
+   }
+  ]
+ },
+ {
+  "group": 17,
+  "members": [
+   {
+    "idx": 28,
+    "statement": "Do not assume an unchanged legacy system is safe; add tests incrementally rather than freezing work to build a full suite, and before refactoring or changing a section of legacy code first write and pass tests for exactly that section so behavior is pinned."
+   },
+   {
+    "idx": 327,
+    "statement": "Use existing tests as regression protection while implementing new behavior, then refactor and rerun tests after the suite is green."
+   }
+  ]
+ },
+ {
+  "group": 19,
+  "members": [
+   {
+    "idx": 31,
+    "statement": "Manage test-set economy and infeasibility: avoid redundant tests that satisfy an already-covered requirement, distinguish a minimal test set (loses coverage if any test is removed) from a minimum one (smallest possible), and document infeasible requirements that no input can satisfy."
+   },
+   {
+    "idx": 475,
+    "statement": "Make each acceptance test add just enough new requirement to force a manageable increase in functionality, and when writing any test decide deliberately 'what are we testing?'; defer many decisions but retrofit consistency and symmetry when it matters, weighing trade-offs such as using one shared construct on both sides of a boundary."
+   }
+  ]
+ },
+ {
+  "group": 20,
+  "members": [
+   {
+    "idx": 32,
+    "statement": "Prefer recognizing whether a test set satisfies a criterion (usually decidable) over generating a satisfying set (often hard), and use subsumption (C1 subsumes C2 if every C1-satisfying set satisfies C2) only as a rough comparison, since infeasible requirements can break subsumption and it gives no guarantee a subsuming criterion finds more faults."
+   },
+   {
+    "idx": 33,
+    "statement": "Expect criteria-based test sets to be smaller yet more effective at finding faults than ad hoc human-based sets while also giving artifact traceability, and use abstraction to handle complexity rather than to ignore it."
+   },
+   {
+    "idx": 34,
+    "statement": "Treat all testing as choosing elements from the software's input domain, and structure that choice with input space partitioning: divide each characteristic's domain into disjoint blocks that together cover it, then test on the assumption that any value from a block is as good as any other."
+   }
+  ]
+ },
+ {
+  "group": 21,
+  "members": [
+   {
+    "idx": 35,
+    "statement": "Separate the two input-domain tasks - modeling the domain (choosing characteristics and partitioning into blocks) and choosing values - and verify each partition is complete and disjoint so modeling stays disciplined."
+   },
+   {
+    "idx": 39,
+    "statement": "Accept that different testers produce different input domain models, and improve model quality by treating block count as a tuning decision, giving boundary values their own blocks, giving special values (null references, empty versus non-empty) their own blocks, listing candidate values early, and asking whether any behavioral information was left unmodeled."
+   },
+   {
+    "idx": 42,
+    "statement": "Record infeasible block combinations as explicit constraints in the input domain model, handle them according to the criterion (drop for combinatorial criteria), and treat a model overloaded with constraints as a signal of a structural problem to be re-modeled."
+   }
+  ]
+ },
+ {
+  "group": 23,
+  "members": [
+   {
+    "idx": 37,
+    "statement": "Identify testable functions first (typically each public method), include the object's state among the parameters that affect a function, and form each test input as a tuple taking exactly one block from each characteristic, discarding invalid combinations."
+   },
+   {
+    "idx": 41,
+    "statement": "Handle invalid inputs one at a time: put at most one invalid value in a test because the software often short-circuits on the first, make the base choice valid and vary a single characteristic to an invalid value per test, and use Multiple Base Choice when several natural base cases exist."
+   }
+  ]
+ },
+ {
+  "group": 27,
+  "members": [
+   {
+    "idx": 44,
+    "statement": "Solve the observability problem of a method with no return value by adding an observer or checking state, and recognize that adding a characteristic applicable to every method multiplies test requirements while the chosen implementation strongly affects test feasibility."
+   },
+   {
+    "idx": 115,
+    "statement": "Keep test methods linear; replace conditional verification with guard assertions or separate tests."
+   },
+   {
+    "idx": 244,
+    "statement": "For mutating methods, prevent nonsensical state changes, assert observable state changes, and capture old state when postconditions compare before and after."
+   }
+  ]
+ },
+ {
+  "group": 29,
+  "members": [
+   {
+    "idx": 47,
+    "statement": "Apply the structural graph criteria in increasing strength: Node Coverage (visit every reachable node, i.e. statement coverage), Edge Coverage (every path up to length 1, i.e. branch coverage), and Edge-Pair Coverage (every path up to length 2)."
+   },
+   {
+    "idx": 63,
+    "statement": "Turn use cases into test graphs (following the find-a-graph-then-cover-it principle) by treating description steps as action-state nodes and alternatives as branch nodes; apply Node and Edge Coverage (and Specified Path Coverage over user scenarios), because use-case graphs have few loops and simple predicates so logic and data flow criteria rarely apply, and start early since use cases appear early."
+   }
+  ]
+ },
+ {
+  "group": 30,
+  "members": [
+   {
+    "idx": 48,
+    "statement": "Prefer Prime Path Coverage for loop-bearing graphs: a prime path is a maximal simple path, it keeps the number of test requirements low, and unlike Complete Path Coverage it stays finite when the graph has cycles - but watch that an infeasible prime path may contain feasible shorter subpaths that still need covering."
+   },
+   {
+    "idx": 50,
+    "statement": "Derive test paths for prime-path coverage by hand starting from the longest prime paths and extending them to the initial and final nodes, then drop any test path whose toured prime paths are a subset of another's to shrink the test set."
+   },
+   {
+    "idx": 52,
+    "statement": "Use the coverage-criteria subsumption hierarchy to choose strength: Edge subsumes Node (but not vice versa), Prime Path subsumes Edge-Pair only without self-loops, All-Uses subsumes All-Defs, All-du-Paths subsumes All-Uses, and Prime Path Coverage subsumes all the data flow criteria while being simpler to compute - so consider Prime Path Coverage in place of data flow, whose data-flow subsumptions hold only under stated assumptions."
+   }
+  ]
+ },
+ {
+  "group": 32,
+  "members": [
+   {
+    "idx": 51,
+    "statement": "Base data flow coverage on def-use pairs: a def stores a value and a use reads it, a def reaches a use only along a def-clear path, and a du-path is a simple def-clear path from def to use; require All-Defs (each def reaches one use), All-Uses (each def reaches every use), or All-du-Paths (every du-path to each use), touring with Best Effort."
+   },
+   {
+    "idx": 54,
+    "statement": "Apply the source-code data flow rules precisely: recognize defs (assignment target, changed actual parameter, formal parameter, input) and uses (assignment source, conditional test, actual parameter, output, return); keep only the last def in a basic block and only global uses; and use the prefix optimization that a du-path's prefix is toured whenever the longer path is, except when the extension is infeasible."
+   },
+   {
+    "idx": 55,
+    "statement": "Automate data flow analysis rather than doing it by hand, which is tedious and error-prone, and expect the standard du-path definitions to break for definitions on edges and to be complicated by arrays, objects, and aliasing; note all-du-paths coverage is often satisfiable by a small test set though some du-paths are infeasible."
+   },
+   {
+    "idx": 64,
+    "statement": "Read the data flow criteria names carefully: despite the names, All-Defs focuses on definitions while All-Uses focuses on def-use pairs, and Prime Path Coverage subsuming All-du-Paths is a slight overstatement that can fail in sidetrip-infeasibility corner cases."
+   },
+   {
+    "idx": 234,
+    "statement": "Use data-flow coverage when variable definitions, modifications, and uses are central to correctness."
+   }
+  ]
+ },
+ {
+  "group": 35,
+  "members": [
+   {
+    "idx": 58,
+    "statement": "Focus integration testing on data flow couplings, which are complex and fault-rich unlike simple control couplings: exercise parameter, shared-data, and external-device coupling by touring coupling du-paths from each last-def to its first-uses (All-Coupling-Def / All-Coupling-Use), considering only callee-relevant variables and accounting for implicit initialization of class and global variables."
+   },
+   {
+    "idx": 59,
+    "statement": "Bound coupling data flow analysis pragmatically: ignore transitive du-pairs across more than one call, treat an array element reference as a reference to the whole array (individual tracking is undecidable), and require object-oriented direct du-pairs to share the same instance context, recognizing indirect du-pairs are far harder to analyze."
+   }
+  ]
+ },
+ {
+  "group": 36,
+  "members": [
+   {
+    "idx": 60,
+    "statement": "Test sequencing constraints - rules on the order methods may be called - by hunting for implicit as well as explicit constraints, treating 'must' violations as faults and 'should' violations as potential faults, and checking them both statically (prohibited/required paths in the client CFG) and dynamically via test requirements that try to violate each constraint, which are infeasible in correct programs but reveal a fault when one exists."
+   },
+   {
+    "idx": 151,
+    "statement": "Avoid overspecified tests that constrain incidental implementation details or exact collaborator call sequences."
+   },
+   {
+    "idx": 501,
+    "statement": "Use state or ordering assertions in a test to confirm that operations happen in the required order."
+   }
+  ]
+ },
+ {
+  "group": 37,
+  "members": [
+   {
+    "idx": 61,
+    "statement": "Model state behavior as a finite state machine (states are variable-value situations, edges are transitions) and apply Node Coverage as State Coverage, Edge Coverage as Transition Coverage, and Edge-Pair as transition-pair; add initial and final nodes to the test graph since FSMs often lack them, and apply data flow criteria only to guard variables since transition defs reach uses immediately."
+   },
+   {
+    "idx": 62,
+    "statement": "Derive FSMs by modeling state variables rather than by combining control flow graphs or mapping methods to states: state-variable modeling is repeatable across testers, needs the design not the finished code, and requires grouping variable values into semantically similar ranges to keep the state space tractable; deriving an FSM at all tends to expose design flaws, and specification-derived FSMs are cleanest."
+   },
+   {
+    "idx": 80,
+    "statement": "Apply logic coverage to an FSM by treating each transition's trigger-and-guard as a predicate, ANDing guards with triggers even when implicit, modeling SCR triggering events with before/after values, and remembering that simultaneity and timing cannot be represented and must be handled as a real-time concern."
+   },
+   {
+    "idx": 81,
+    "statement": "Reach FSM transition pre-states with prefix values found by depth-first search, and when the initial state is uncontrollable prefix every test with inputs that force a single known state; exploit that the expected output is simply the transition's post-state (true) or pre-state (false), while resolving the mapping from predicate assignments to executable inputs."
+   },
+   {
+    "idx": 265,
+    "statement": "Model stateful properties as generated actions that respect current preconditions, execute against the current object, assert the transition, and return updated state."
+   }
+  ]
+ },
+ {
+  "group": 38,
+  "members": [
+   {
+    "idx": 66,
+    "statement": "Order the basic logic criteria by strength and weakness: Predicate (decision) Coverage forces each predicate true and false but leaves clauses unexercised; Clause (condition) Coverage forces each clause true and false; neither subsumes the other; and Combinatorial Coverage forces all 2^n clause combinations and is impractical beyond a few clauses."
+   },
+   {
+    "idx": 75,
+    "statement": "When applying logic coverage to programs, derive predicates from decision statements and note that most real predicates have a single clause (collapsing all logic criteria to Predicate Coverage, which equals Edge Coverage); the hard part is reachability and resolving internal variables, whose control problem is undecidable and largely limits program-level logic coverage to unit and module testing."
+   }
+  ]
+ },
+ {
+  "group": 39,
+  "members": [
+   {
+    "idx": 67,
+    "statement": "Test each clause where it determines the predicate (flipping it flips the predicate) using Active Clause Coverage, which needs between n and 2n tests and generalizes the MCDC variants; without determination there is no evidence the clause is used correctly, even if predicate and clause coverage are satisfied."
+   },
+   {
+    "idx": 82,
+    "statement": "Map MCDC terminology to the ACC framework - unique-cause MCDC is RACC and masking MCDC is CACC - and expect MCDC/RACC to need between n+1 and 2n tests; because roughly 88% of real-program predicates have a single clause, reserve the multi-clause logic criteria for the minority of larger predicates."
+   }
+  ]
+ },
+ {
+  "group": 40,
+  "members": [
+   {
+    "idx": 68,
+    "statement": "Prefer Correlated Active Clause Coverage as the most practical ACC flavor: General ACC does not subsume Predicate Coverage, while Restricted ACC can be infeasible or hard to satisfy exactly when clause constraints exist and gives no evidence of better tests, whereas CACC subsumes Predicate Coverage."
+   },
+   {
+    "idx": 69,
+    "statement": "Also apply Inactive Clause Coverage - choosing minor clauses so the major clause does NOT determine the predicate - to catch the common mistake of letting a clause affect the outcome in modes where it should be irrelevant; it has only General and Restricted flavors and neither ACC nor ICC subsumes the other."
+   },
+   {
+    "idx": 70,
+    "statement": "Treat infeasibility as the central difficulty of Active Clause Coverage: it arises from related clauses and is undecidable to recognize, so ignore truly infeasible requirements (usually harmless) or, better, replace an infeasible requirement with the feasible counterpart from a subsumed criterion, as when substituting CACC for infeasible RACC."
+   }
+  ]
+ },
+ {
+  "group": 41,
+  "members": [
+   {
+    "idx": 71,
+    "statement": "Express predicates in minimal Disjunctive Normal Form for syntactic logic testing (literals ANDed into terms, terms ORed as implicants), refactoring to keep every implicant prime and none redundant, because DNF tracks the specifier's mental model and non-prime or redundant implicants add unnecessary constraints."
+   },
+   {
+    "idx": 74,
+    "statement": "Use Karnaugh maps for predicates of up to four or five clauses to read off minimal DNF (group adjacent cells into 2^k rectangles, dropping redundant implicants), to read the negation (swap filled and blank cells), to identify unique true points and near false points, and to compute determination (adjacent cells where both the variable and predicate change)."
+   },
+   {
+    "idx": 78,
+    "statement": "Mine specifications for logic coverage: preconditions, postconditions, and invariants almost always contain logical expressions, and for a DNF predicate making each clause determine the predicate is simple (set minor clauses true, then make each other clause false in turn), though related clauses may be unable to be false simultaneously."
+   }
+  ]
+ },
+ {
+  "group": 46,
+  "members": [
+   {
+    "idx": 84,
+    "statement": "Test malformed-input rejection explicitly, and understand mutation as applying operators to a ground string to make mutants: design the operator set carefully (a well-chosen set is powerful, a poor one is useless), mutate one element at a time, apply every applicable operation, and score by the ratio of killed mutants, remembering mutation yields the most test requirements and is a high-end, expensive criterion."
+   },
+   {
+    "idx": 85,
+    "statement": "In program-based mutation seek a mutation-adequate test set that distinguishes the program from its compilable mutants (count roughly proportional to variable references times variables), design operators either to mimic programmer mistakes or to force effective tests, and discard stillborn (uncompilable) mutants while accepting that equivalent mutants can never be killed and detecting them is undecidable."
+   },
+   {
+    "idx": 86,
+    "statement": "Kill a mutant under strong mutation only when reachability, infection, and propagation all hold (RIPR), and use weak mutation - checking internal state right after the mutated component - when cheaper, since strong mutation may need more tests but experimentation shows the difference is usually very small."
+   },
+   {
+    "idx": 87,
+    "statement": "Run mutation analysis as an iterative loop: generate mutants, eliminate as many equivalents as possible, and design tests (by intuition or by analyzing RIPR kill conditions) until the mutation score - dead over non-equivalent mutants - reaches a chosen threshold, discarding tests that strongly kill nothing; the premise is that a fault usually has mutants killable only by a test that also detects that fault."
+   },
+   {
+    "idx": 88,
+    "statement": "Control mutation cost by starting inclusive then narrowing to an effective operator set - one whose mutant-killing tests also kill the rest with high probability, empirically the operators that insert unary operators and modify unary and binary operators - and choose operators per language according to its features."
+   },
+   {
+    "idx": 89,
+    "statement": "Treat mutation as the strongest but most expensive criterion and use its subsumption results (based on weak mutation): the bomb operator yields Node Coverage, ROR/COR/LOR yield Clause Coverage, mutation subsumes GACC and (via statement deletion under strong mutation) All-defs, but it cannot subsume Combinatorial Coverage nor the pair-relating CACC and RACC."
+   },
+   {
+    "idx": 91,
+    "statement": "Exploit finite state machines for high-level, system-level testing: describe them compactly by variable ranges, mutate the machine description like program source (a killing test is a sequence the original allows but the mutant rejects), and use a model checker to generate killing tests automatically - which also makes the equivalent-mutant problem decidable for finite machines, unlike program code."
+   },
+   {
+    "idx": 93,
+    "statement": "Test malformed and invalid inputs deliberately as stress and security testing (unhandled invalid inputs enable buffer-overflow and injection attacks) by mutating the input grammar so the mutants are the tests; apply operators during derivation to stay close to valid, screen out still-valid mutants with a recognizer, and where a program accepts only a language subset, use strings valid in the full grammar but not the subset as attack tests."
+   },
+   {
+    "idx": 94,
+    "statement": "Ground mutation testing in its two foundational premises - the competent programmer hypothesis (programs are close to correct) and the coupling effect (test data detecting all simple faults detects most complex faults, supported empirically and probabilistically) - and treat grammar-based operators as less definitive than the more mature program-based ones."
+   },
+   {
+    "idx": 235,
+    "statement": "Use mutation testing to assess assertion and suite strength beyond code exercise metrics."
+   },
+   {
+    "idx": 236,
+    "statement": "Analyze surviving mutants because they may reveal weak tests or equivalent/unhelpful mutations."
+   },
+   {
+    "idx": 237,
+    "statement": "Apply mutation testing selectively to sensitive parts when whole-system mutation testing is too expensive."
+   }
+  ]
+ },
+ {
+  "group": 50,
+  "members": [
+   {
+    "idx": 100,
+    "statement": "Use test doubles to replace components that are unimplemented, perform unrecoverable actions, depend on unreliable resources, or are slow: a stub returns canned values while a mock also verifies the calls made to it, enabling interaction-based testing (obtain doubles, specify expected interactions, act, verify) that checks how objects communicate rather than only their state."
+   },
+   {
+    "idx": 142,
+    "statement": "Choose a test double by the role it plays: dummy for unused parameters, stub for indirect inputs, spy or mock for indirect outputs, fake for simplified behavior."
+   },
+   {
+    "idx": 271,
+    "statement": "Use test doubles when real dependencies make a unit test too slow, hard, costly, uncontrollable, or outside the unit’s focus."
+   },
+   {
+    "idx": 273,
+    "statement": "Choose the right kind of double: dummies only fill unused parameters, fakes simplify real behavior, stubs return fixed data, mocks verify interactions, and spies record real-object interactions."
+   },
+   {
+    "idx": 277,
+    "statement": "Use mocks when the behavior under test is an interaction protocol with a collaborator, including call arguments, counts, and no-work cases."
+   },
+   {
+    "idx": 278,
+    "statement": "Use command-query separation to guide doubles: stub queries that return data and mock commands whose interactions must be verified."
+   },
+   {
+    "idx": 280,
+    "statement": "Apply ordinary boundary and parameterization techniques inside mock-based tests when the interaction data varies systematically."
+   },
+   {
+    "idx": 287,
+    "statement": "Prefer real instances for simple entities, value objects, utility functions, language collections, and simple types; mock only genuinely costly or interaction-focused collaborators."
+   },
+   {
+    "idx": 303,
+    "statement": "Use real simple entities directly, and spy rather than fully mock them only when interaction observation is necessary."
+   },
+   {
+    "idx": 352,
+    "statement": "For framework-driven or plug-and-play components, test with the real framework and realistic fixtures when mocked callbacks would not resemble production."
+   },
+   {
+    "idx": 386,
+    "statement": "Write strong assertions that cover every meaningful output, state change, and interaction, and verify tests fail when the covered behavior changes."
+   },
+   {
+    "idx": 409,
+    "statement": "Mock infrastructure-related, complex, or slow collaborators but generally avoid mocking entities, simple utilities, and data holders; never mock the source of randomness when the test's purpose is to evaluate the random generator's behavior."
+   },
+   {
+    "idx": 427,
+    "statement": "Use mock objects—substitute implementations of an object's neighbours—to test how an object interacts with them."
+   },
+   {
+    "idx": 460,
+    "statement": "Distinguish an interface (whether two components fit together) from a protocol (whether they work together), use TDD with mock objects to make communication protocols visible for both discovery and documentation, and mock an object's peers—not its internals."
+   },
+   {
+    "idx": 485,
+    "statement": "Rely on strict mocking (no expectations set on a mock means any call fails the test) to trap unexpected interactions, and drop from a test any values that are not part of the behavior being verified so the test stays focused on the interesting behavior."
+   }
+  ]
+ },
+ {
+  "group": 51,
+  "members": [
+   {
+    "idx": 101,
+    "statement": "Insert doubles through seams rather than maintaining a separate doubled system (which scales poorly and diverges): define a seam variable with an enabling point such as a setter for dependency injection, and avoid making seam variables public - restrict them to package scope with tests in the same package to avoid maintenance debt and security holes."
+   },
+   {
+    "idx": 153,
+    "statement": "Install doubles through substitutable dependencies; prefer dependency injection, then dependency lookup, and use test hooks only as a last resort."
+   },
+   {
+    "idx": 276,
+    "statement": "When testing a class with doubles, keep systematic test design focused on the class under test rather than the dependency implementation."
+   }
+  ]
+ },
+ {
+  "group": 52,
+  "members": [
+   {
+    "idx": 103,
+    "statement": "Size the regression test set as a Goldilocks problem - large enough to cover functionality but small enough to finish in the available window (overnight traditionally, minutes for agile) - keep a regression test for each field problem report, and use coverage criteria to evaluate and evolve the set."
+   },
+   {
+    "idx": 104,
+    "statement": "On a regression failure first decide whether the code change or the test set is at fault, re-analyze the set after every corrective, perfective, adaptive, or preventive change (even when external behavior is unchanged), add tests cautiously as the set grows unwieldy, and remove tests only against the same criteria that built the set, safely omitting only tests that visit nothing modified."
+   }
+  ]
+ },
+ {
+  "group": 53,
+  "members": [
+   {
+    "idx": 105,
+    "statement": "Encode an explicit test oracle in every automated test that balances revealability between checking too much and too little, and never rely on the null oracle strategy of only detecting crashes, since only about a quarter to a half of failures crash so the rest go undetected."
+   },
+   {
+    "idx": 107,
+    "statement": "Choose an oracle technique by feasibility: automate direct verification against a specification when possible (best, but specs are rare and checkers hard); otherwise use redundant computation against a gold version or alternate algorithm (guarding against shared faults), most often realized in industry as regression testing against the previous release."
+   }
+  ]
+ },
+ {
+  "group": 54,
+  "members": [
+   {
+    "idx": 106,
+    "statement": "Check the right outputs - those directly affected by the test's goal - at the appropriate level (return values and returned parameters at unit level, directly visible output at system level), and rely on the finding that low precision and low frequency are acceptable: checking additional outputs or checking repeatedly during execution adds little revealability."
+   },
+   {
+    "idx": 227,
+    "statement": "Do not equate execution with verification: tests need assertions, and coverage metrics can be gamed by tests that add little bug-finding value."
+   }
+  ]
+ },
+ {
+  "group": 55,
+  "members": [
+   {
+    "idx": 110,
+    "statement": "Use test-first and regression-first workflows: make the intended test fail before changing production code."
+   },
+   {
+    "idx": 134,
+    "statement": "Avoid modifying production behavior solely for tests; any testability hook must be isolated, controlled, and unable to corrupt production semantics."
+   },
+   {
+    "idx": 169,
+    "statement": "Keep test code out of production runtime dependencies and production packaging."
+   },
+   {
+    "idx": 333,
+    "statement": "Keep feedback timely even when writing tests after production code."
+   }
+  ]
+ },
+ {
+  "group": 56,
+  "members": [
+   {
+    "idx": 112,
+    "statement": "Bypass unstable user-interface layers when testing business logic; target a stable service, facade, or public API instead."
+   },
+   {
+    "idx": 289,
+    "statement": "Avoid directly mocking third-party APIs; create an owned abstraction when a third-party interaction must be controlled in unit tests."
+   }
+  ]
+ },
+ {
+  "group": 57,
+  "members": [
+   {
+    "idx": 113,
+    "statement": "Keep each test focused on one condition and one exercise path so failures localize the broken behavior."
+   },
+   {
+    "idx": 281,
+    "statement": "Use mocks to force hard-to-trigger failure paths, and assert both failure reporting and required continuation behavior."
+   },
+   {
+    "idx": 384,
+    "statement": "Make each test set up and clean up its own environment rather than relying on execution order or other tests’ side effects."
+   }
+  ]
+ },
+ {
+  "group": 59,
+  "members": [
+   {
+    "idx": 116,
+    "statement": "Reduce obscure tests by extracting intent-revealing helpers and hiding irrelevant fixture or verification detail."
+   },
+   {
+    "idx": 135,
+    "statement": "Use test utility methods, helpers, superclasses, and mixins only when they reduce duplication without hiding test intent."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 117,
+    "statement": "Use custom assertions or verification methods for repeated, domain-specific, or noisy checks."
+   },
+   {
+    "idx": 119,
+    "statement": "Use expected objects, delta assertions, or fuzzy equality when they express result state more clearly than field-by-field checks."
+   },
+   {
+    "idx": 139,
+    "statement": "Keep custom assertions pure, parameterized, and independently tested when their logic is nontrivial."
+   },
+   {
+    "idx": 240,
+    "statement": "Use precondition checks to establish the expected input domain and postcondition checks to prevent invalid outputs from propagating."
+   },
+   {
+    "idx": 246,
+    "statement": "Factor repeated invariant checks into a dedicated checker when many public methods must restore the same invariant."
+   },
+   {
+    "idx": 252,
+    "statement": "Use exceptions by default for library or utility contracts, and use assertions only where validated internal data and runtime assertion policy make them appropriate."
+   },
+   {
+    "idx": 253,
+    "statement": "For user validation, collect and report all relevant errors when possible instead of stopping at the first failed check."
+   },
+   {
+    "idx": 392,
+    "statement": "Make assertions legible, specific, and self-explaining about the failure reason; use custom assertion helpers or brief comments for complex checks, and assert the whole cohesive behavior rather than enforcing one-assertion-per-test dogmatically."
+   },
+   {
+    "idx": 396,
+    "statement": "Make assertions resilient to irrelevant implementation-detail changes; avoid scattering literal string-fragment assertions on fragile or formatted output, and centralize such checks in custom assertions that are as strong as necessary but no more sensitive than useful."
+   }
+  ]
+ },
+ {
+  "group": 61,
+  "members": [
+   {
+    "idx": 120,
+    "statement": "Prefer fresh fixtures for independent tests; introduce shared fixtures only for a measured setup cost and isolate mutable state."
+   },
+   {
+    "idx": 121,
+    "statement": "Keep fixture setup minimal: include only data and objects relevant to the behavior under test."
+   },
+   {
+    "idx": 122,
+    "statement": "Use creation methods, finder methods, and delegated setup to make fixture construction readable and reusable."
+   },
+   {
+    "idx": 123,
+    "statement": "Use setup methods for essential irrelevant setup only; keep behavior-significant setup visible in the test or its named helpers."
+   },
+   {
+    "idx": 155,
+    "statement": "Partition persistent fixture data by developer, runner, test, or schema to prevent interaction in shared databases."
+   },
+   {
+    "idx": 158,
+    "statement": "Use a fixture registry or suite setup only when ordinary per-test setup cannot share required objects cleanly."
+   },
+   {
+    "idx": 160,
+    "statement": "Return fixture objects explicitly from setup helpers unless storing them in test instance state makes the test clearer."
+   },
+   {
+    "idx": 338,
+    "statement": "Use mocks to isolate units when needed, but use larger tests when they fit the risk better than unit tests."
+   },
+   {
+    "idx": 361,
+    "statement": "Optimize database test setup thoughtfully: reuse connections where useful, but preserve per-test transaction and clean-state isolation."
+   },
+   {
+    "idx": 364,
+    "statement": "Use builders, reusable assertions, and minimized fixture data to keep SQL tests clear and focused."
+   },
+   {
+    "idx": 395,
+    "statement": "Prefer specific, cohesive fixtures that each test fully uses over large shared fixtures that force tests to filter irrelevant data."
+   },
+   {
+    "idx": 436,
+    "statement": "Give each test a repeatable fixture (a fixed starting state) and create a fresh instance of the test object per test method so tests stay isolated from one another."
+   }
+  ]
+ },
+ {
+  "group": 62,
+  "members": [
+   {
+    "idx": 124,
+    "statement": "Choose teardown by resource lifecycle: automatic cleanup for in-memory objects, guaranteed teardown for explicit resources, and suite cleanup for suite-owned fixtures."
+   },
+   {
+    "idx": 126,
+    "statement": "Avoid complex teardown by reducing created resources, delegating cleanup, or using sandbox rollback instead of mirroring construction manually."
+   },
+   {
+    "idx": 163,
+    "statement": "Choose database cleanup based on transaction behavior: rollback for uncommitted changes, truncation for committed state, and explicit teardown when neither applies."
+   }
+  ]
+ },
+ {
+  "group": 63,
+  "members": [
+   {
+    "idx": 125,
+    "statement": "Put teardown in framework hooks or guaranteed blocks so cleanup runs even when exercise or verification fails."
+   },
+   {
+    "idx": 444,
+    "statement": "Start testing a new class or feature with the simplest success case rather than degenerate or failure cases (simple, not simplistic), and keep a running notepad of failure cases, refactorings, and tasks so the feature is finished only when every item is done or explicitly dropped."
+   }
+  ]
+ },
+ {
+  "group": 64,
+  "members": [
+   {
+    "idx": 127,
+    "statement": "Make hidden external resources visible in setup or replace their access with a test double."
+   },
+   {
+    "idx": 393,
+    "statement": "Tests that depend on external resources must explicitly set up, verify availability of, and clean up those resources, avoiding resource optimism and hidden mystery-guest dependencies."
+   }
+  ]
+ },
+ {
+  "group": 65,
+  "members": [
+   {
+    "idx": 128,
+    "statement": "Use unique generated or partitioning values when tests create persistent resources in a shared namespace."
+   },
+   {
+    "idx": 203,
+    "statement": "Use test helpers to remove repetitive setup while keeping the behavior under test visible and readable."
+   }
+  ]
+ },
+ {
+  "group": 70,
+  "members": [
+   {
+    "idx": 133,
+    "statement": "Keep at least one integration path with the real collaborator when most tests use doubles."
+   },
+   {
+    "idx": 152,
+    "statement": "Keep each test double API-compatible with the collaborator while implementing only the behavior required by the test."
+   },
+   {
+    "idx": 272,
+    "statement": "Use test doubles to improve speed, controllability, and design clarity, but require simulated dependencies to respect the real collaborator contract."
+   },
+   {
+    "idx": 293,
+    "statement": "Prefer real dependencies when practical; use doubles only when real dependencies are slow, nondeterministic, complex, external, hard to control, or outside the test focus."
+   },
+   {
+    "idx": 294,
+    "statement": "Be skeptical of both mocks and fakes: any double must be faithful enough to the real collaborator contract to avoid false confidence."
+   }
+  ]
+ },
+ {
+  "group": 71,
+  "members": [
+   {
+    "idx": 136,
+    "statement": "Use coverage and smell diagnosis to find missing tests, but let risk and behavior guide what to add."
+   },
+   {
+    "idx": 137,
+    "statement": "Classify test smells by their failure mode and apply a targeted pattern-level repair instead of a symptom patch."
+   }
+  ]
+ },
+ {
+  "group": 74,
+  "members": [
+   {
+    "idx": 141,
+    "statement": "Organize testcase classes by class, feature, fixture, or story according to the fixture and behavior boundaries readers use."
+   },
+   {
+    "idx": 328,
+    "statement": "Use parameterized examples to broaden coverage of a behavior category, organizing split or combined tests according to readability and team preference."
+   }
+  ]
+ },
+ {
+  "group": 78,
+  "members": [
+   {
+    "idx": 146,
+    "statement": "Extract hard-to-test framework, threading, transaction, or UI logic behind a humble object and test the extracted logic synchronously."
+   },
+   {
+    "idx": 161,
+    "statement": "Separate transaction control from business logic so tests can manage commits, rollbacks, and verification deterministically."
+   }
+  ]
+ },
+ {
+  "group": 79,
+  "members": [
+   {
+    "idx": 147,
+    "statement": "Use layered database tests intentionally: round-trip tests for normal behavior and a small number of layer-crossing checks for mapping or persistence details."
+   },
+   {
+    "idx": 162,
+    "statement": "Run persistence tests in an isolated database sandbox; never point automated tests at production data."
+   },
+   {
+    "idx": 521,
+    "statement": "Be clear which aspect you are testing when code crosses feature-level and system-level design (e.g., threads); when testing an abstraction over a persistence or ORM API verify queries, mappings, SQL, constraints, and transactions, and isolate persistence tests by cleaning persistent data at the start of each test with the cleanup order captured in one place."
+   }
+  ]
+ },
+ {
+  "group": 80,
+  "members": [
+   {
+    "idx": 148,
+    "statement": "Move reusable test helpers to the narrowest scope that serves their users and respects domain visibility."
+   },
+   {
+    "idx": 363,
+    "statement": "Hide SQL test infrastructure behind base classes or helpers so ordinary tests focus on query behavior and future setup changes are centralized."
+   }
+  ]
+ },
+ {
+  "group": 82,
+  "members": [
+   {
+    "idx": 150,
+    "statement": "Preserve encapsulation by testing through public interfaces unless a layer-crossing or subclass technique is explicitly justified by testability risk."
+   },
+   {
+    "idx": 452,
+    "statement": "Distinguish encapsulation (behavior affected only through the API) from information hiding (concealing implementation behind the API), deliberately decide what is inside versus outside each object, and guard encapsulation against accidental aliasing with immutable value types, no globals or singletons, and copying mutable values when passing them."
+   }
+  ]
+ },
+ {
+  "group": 84,
+  "members": [
+   {
+    "idx": 157,
+    "statement": "Use parameterized, data-driven, or tabular tests only when per-case reporting and failure localization remain clear."
+   },
+   {
+    "idx": 198,
+    "statement": "Choose test method structure by diagnostic value: use named single-case tests for complex business rules and parameterized tests when one assertion shape covers many data rows."
+   },
+   {
+    "idx": 213,
+    "statement": "Use parameterized tests only when they reduce harmful duplication without making the suite harder for the team to read."
+   }
+  ]
+ },
+ {
+  "group": 89,
+  "members": [
+   {
+    "idx": 167,
+    "statement": "Name tests systematically so package, class, and method names reveal the SUT, scenario, and expected outcome."
+   },
+   {
+    "idx": 512,
+    "statement": "Name tests as sentences describing the feature (with the class as implicit subject), treat tests as documentation you read regularly, write them in a standard canonical structure (setup, execute, verify, teardown) so they can be skim-read, and write them 'backwards'—name, then call, then expectations, then setup."
+   }
+  ]
+ },
+ {
+  "group": 91,
+  "members": [
+   {
+    "idx": 171,
+    "statement": "For each meaningful invalid-input class, define the product semantics, add validation if needed, and lock the observable failure behavior with regression tests."
+   },
+   {
+    "idx": 173,
+    "statement": "Use property-based tests when behavior can be expressed as an invariant over many inputs, and use any generated counterexample to understand and fix the defect."
+   },
+   {
+    "idx": 350,
+    "statement": "Use realistic or production-derived inputs in larger tests when they represent real scenarios, especially for reproducing production failures."
+   }
+  ]
+ },
+ {
+  "group": 92,
+  "members": [
+   {
+    "idx": 172,
+    "statement": "Treat collection-specific cases such as null, empty, singleton, multiple elements, duplicates, ordering, ties, and degenerate all-equal inputs as distinct test-design prompts when they can affect behavior."
+   },
+   {
+    "idx": 261,
+    "statement": "Use clear assertion-library matchers for complex collection properties, and keep simple one-off behavior as example tests when a property adds little value."
+   }
+  ]
+ },
+ {
+  "group": 93,
+  "members": [
+   {
+    "idx": 174,
+    "statement": "Use code coverage as a gap-finding aid, not as proof that testing is complete."
+   },
+   {
+    "idx": 216,
+    "statement": "Run coverage, inspect uncovered or partially covered code, decide consciously whether new tests are needed, and iterate after each added test."
+   },
+   {
+    "idx": 223,
+    "statement": "Use coverage gaps to triangulate among source code, specification, and mental model so missed partitions or boundaries become visible."
+   },
+   {
+    "idx": 423,
+    "statement": "Start each feature with a failing acceptance test written in domain terms that, wherever possible, exercises the system end-to-end from the outside, and use it to write only directly relevant code; a project with only unit tests misses critical benefits and can leave code uncalled or unintegrated."
+   },
+   {
+    "idx": 445,
+    "statement": "Write the test you would want to read (express the behavior clearly first, as if the support code exists), then always watch it fail before making it pass, ensuring the failure produces a clear, relevant diagnostic message."
+   }
+  ]
+ },
+ {
+  "group": 94,
+  "members": [
+   {
+    "idx": 175,
+    "statement": "Separate tests that guide development from focused bug-finding work, and deliberately switch into systematic testing after implementing a feature slice."
+   },
+   {
+    "idx": 176,
+    "statement": "Apply test-design techniques iteratively; discoveries during testing may require requirement clarification, design changes, bug fixes, or new targeted tests."
+   },
+   {
+    "idx": 206,
+    "statement": "Practice specification-based testing iteratively, moving among partition discovery, boundary analysis, and automation until repeated passes stop revealing meaningful new cases."
+   }
+  ]
+ },
+ {
+  "group": 95,
+  "members": [
+   {
+    "idx": 177,
+    "statement": "Balance the cost of systematic testing against the higher cost of escaped defects, and reduce testing cost through practice and reusable checklists."
+   },
+   {
+    "idx": 178,
+    "statement": "Choose tests for high bug-finding value relative to writing, running, and maintenance cost, with explicit adequacy criteria for when the current goal is sufficiently tested."
+   },
+   {
+    "idx": 180,
+    "statement": "Combine multiple testing strategies because no single technique or test level reveals all defects."
+   },
+   {
+    "idx": 378,
+    "statement": "Apply the same systematic test-design techniques to larger tests, but focus lower-level tests broadly and larger tests on important assembled behavior after cost-benefit analysis."
+   },
+   {
+    "idx": 399,
+    "statement": "Expect that testing from multiple angles raises the chance of finding bugs without guaranteeing bug-free software; complement techniques with domain knowledge and treat automated generation or fuzzing as augmenting, not replacing, human test design."
+   }
+  ]
+ },
+ {
+  "group": 96,
+  "members": [
+   {
+    "idx": 181,
+    "statement": "Use unit tests as the default for isolated algorithmic and business-rule behavior because they are fast, controllable, observable, and cheap to write."
+   },
+   {
+    "idx": 340,
+    "statement": "Favor unit tests for isolated single-responsibility business rules, but do not force unit tests onto unsuitable code where larger tests would find better bugs."
+   },
+   {
+    "idx": 343,
+    "statement": "Split sequential business rules into small rule classes behind a common interface, then unit-test each localized rule."
+   }
+  ]
+ },
+ {
+  "group": 97,
+  "members": [
+   {
+    "idx": 182,
+    "statement": "Use integration tests when the risk is communication with real external components such as databases, transactions, schemas, or infrastructure protocols."
+   },
+   {
+    "idx": 185,
+    "statement": "Separate business rules from infrastructure so business behavior can be mostly unit tested and infrastructure behavior can be integration tested."
+   },
+   {
+    "idx": 187,
+    "statement": "For distributed systems, include communication variations such as delayed messages and duplicate deliveries in integration tests."
+   },
+   {
+    "idx": 249,
+    "statement": "Use contracts to fail near violated assumptions and to generate test ideas, while still keeping unit, integration, and system tests."
+   },
+   {
+    "idx": 302,
+    "statement": "Test adapters that contain SQL, framework, or web-service code in their own integration-oriented suites rather than through every domain unit test."
+   },
+   {
+    "idx": 354,
+    "statement": "Invest in reusable larger-test infrastructure because it makes later integration tests cheaper and more readable."
+   },
+   {
+    "idx": 358,
+    "statement": "Database integration tests must use a dedicated test database, controlled state, explicit cleanup, and resource release."
+   },
+   {
+    "idx": 380,
+    "statement": "Build infrastructure for integration and system tests to handle setup, cleanup, data retrieval, complex assertions, and other repeated tasks."
+   },
+   {
+    "idx": 412,
+    "statement": "Allow the same code to have both unit and integration tests when they catch different bugs; a heavy integration-test mix can be appropriate for some applications, but an inability to unit test where unit tests are the best choice signals a design problem."
+   }
+  ]
+ },
+ {
+  "group": 100,
+  "members": [
+   {
+    "idx": 188,
+    "statement": "Use execution constraints such as speed, determinism, and external calls to decide test size, reserving large tests for scenarios that truly need end-to-end scope."
+   },
+   {
+    "idx": 341,
+    "statement": "Use larger tests when behavior emerges from collaborating classes, host framework invocation, or external infrastructure."
+   },
+   {
+    "idx": 379,
+    "statement": "Use unit tests together with larger tests because broad tests can execute methods without meaningfully checking their behavior."
+   },
+   {
+    "idx": 507,
+    "statement": "Keep tests focused — distinguish stubs (side-effect-free query simulations) from expectations, write few expectations per test (more signals too large a unit or over-specification), tell the nearest object to do the work rather than chaining calls that expose irrelevant dependencies, and keep knowledge local so an object is independent of its context."
+   }
+  ]
+ },
+ {
+  "group": 101,
+  "members": [
+   {
+    "idx": 189,
+    "statement": "Start specification-based testing from the requirements, not the implementation, and de-emphasize source details until requirements-derived cases are explored."
+   },
+   {
+    "idx": 190,
+    "statement": "Before designing detailed cases, state the program goal, inputs, outputs, and expected input-output mappings, especially when requirements are informal."
+   },
+   {
+    "idx": 197,
+    "statement": "Once specification-derived cases have concrete inputs and expected outputs, automate them with traceability from assertions back to the designed case."
+   },
+   {
+    "idx": 205,
+    "statement": "Use structural testing after specification-based testing to reveal implementation decisions, branches, or missing-code defects that requirements-derived cases missed."
+   },
+   {
+    "idx": 208,
+    "statement": "Scale specification-testing depth to failure risk and impact, giving high-impact behavior more corner-case exploration and additional techniques."
+   },
+   {
+    "idx": 214,
+    "statement": "Apply specification-based testing at any scope by reasoning about inputs, state, outputs, partitions, and boundaries at that level."
+   },
+   {
+    "idx": 215,
+    "statement": "Use structural testing to augment requirements-derived tests by inspecting source constructs, algorithms, data structures, and coverage gaps that affect correctness."
+   },
+   {
+    "idx": 222,
+    "statement": "When testing unfamiliar code, first understand requirements and expected behavior, then apply specification and structural techniques."
+   },
+   {
+    "idx": 226,
+    "statement": "Structural testing must be combined with specification knowledge because full branch coverage can still miss important requirement scenarios."
+   },
+   {
+    "idx": 329,
+    "statement": "Treat TDD examples as executable requirements and a source of requirement questions, but not as a substitute for later systematic testing."
+   },
+   {
+    "idx": 403,
+    "statement": "Give non-functional requirements, architecture-specific stacks, and different language paradigms their own tailored testing patterns; add static analysis as fast CI checks and production QA practices such as A/B testing and blue-green deployment to reduce risk from escaped bugs."
+   },
+   {
+    "idx": 443,
+    "statement": "Begin each feature with failing acceptance tests written only in the application's domain terminology (not technology terms), because precise, automatically-checkable requirements uncover implicit assumptions and shield the tests from infrastructure change; separate tests that measure progress from those that catch regressions, keep unit and integration tests fast and always-passing, and when requirements change move affected tests back to the in-progress suite and edit them."
+   }
+  ]
+ },
+ {
+  "group": 106,
+  "members": [
+   {
+    "idx": 195,
+    "statement": "For each meaningful boundary, test the on point and nearest off point, including both sides for equality boundaries, and discard duplicates already covered by another case."
+   },
+   {
+    "idx": 225,
+    "statement": "Apply boundary analysis directly to source-code comparisons, including equality off-points and complex loop conditions when existing tests do not already cover them."
+   },
+   {
+    "idx": 344,
+    "statement": "Use specification and boundary testing for rules with clear continuous ranges, including unspecified but relevant edge preconditions."
+   },
+   {
+    "idx": 405,
+    "statement": "Derive boundary tests from either the specification or the source code, and for an equality condition include the two off-points on each side of the exact value."
+   }
+  ]
+ },
+ {
+  "group": 107,
+  "members": [
+   {
+    "idx": 196,
+    "statement": "Select partition combinations pragmatically: test exceptional partitions once, reduce low-value cross-products, and only use implementation knowledge after requirement-based derivation."
+   },
+   {
+    "idx": 204,
+    "statement": "Include invalid precondition tests on each relevant input side, and accept a small number of redundant low-cost tests when partition distinctness is uncertain."
+   },
+   {
+    "idx": 404,
+    "statement": "Use specification-based functional testing (no source code needed) with equivalence partitioning to keep one representative per partition, only one case for exceptional partitions, and justify why each chosen invalid case matters."
+   }
+  ]
+ },
+ {
+  "group": 109,
+  "members": [
+   {
+    "idx": 200,
+    "statement": "After systematic partition and boundary passes, add experience-driven variations such as special characters, whitespace, and implementation-informed cases when they expose plausible risk."
+   },
+   {
+    "idx": 201,
+    "statement": "Read specifications for required behavior, forbidden behavior, corner cases, variable domains, implicit constraints, and unstated business rules; missed partitions are a major escape path for defects."
+   }
+  ]
+ },
+ {
+  "group": 111,
+  "members": [
+   {
+    "idx": 207,
+    "statement": "Use separate design notes for complex problems, but transfer lasting rationale into concise test comments and avoid stale external notes."
+   },
+   {
+    "idx": 314,
+    "statement": "Use test-writing friction as design feedback because instantiation, invocation, and assertion difficulties reveal design problems early."
+   }
+  ]
+ },
+ {
+  "group": 116,
+  "members": [
+   {
+    "idx": 218,
+    "statement": "For complex decisions, consider each condition true and false and use branch plus condition criteria or MC/DC when independent condition influence matters."
+   },
+   {
+    "idx": 219,
+    "statement": "Use MC/DC to obtain practical rigor for complex binary decisions without testing every possible condition combination."
+   },
+   {
+    "idx": 231,
+    "statement": "Choose coverage rigor contextually: branch coverage as a pragmatic default, branch-plus-condition for complicated expressions, and MC/DC for very complex expressions that cannot be simplified."
+   }
+  ]
+ },
+ {
+  "group": 118,
+  "members": [
+   {
+    "idx": 221,
+    "statement": "Choose coverage criteria explicitly as a rigor-versus-cost trade-off, recognizing which stronger criteria subsume weaker ones."
+   },
+   {
+    "idx": 228,
+    "statement": "Treat high coverage as a consequence of thoughtful testing, not as the primary objective or proof of adequacy."
+   }
+  ]
+ },
+ {
+  "group": 122,
+  "members": [
+   {
+    "idx": 232,
+    "statement": "Simplify or split very complex boolean expressions when possible instead of relying only on expensive structural criteria."
+   },
+   {
+    "idx": 318,
+    "statement": "Split complex boolean conditions into smaller pieces when that improves testability and comprehension, while still testing the underlying complexity."
+   }
+  ]
+ },
+ {
+  "group": 125,
+  "members": [
+   {
+    "idx": 239,
+    "statement": "Define method contracts with preconditions for caller obligations, postconditions for method guarantees, and invariants for object state across public operations."
+   },
+   {
+    "idx": 242,
+    "statement": "Decide contract strength explicitly: strong preconditions shift obligations to callers, while weak preconditions require more handling inside the method."
+   },
+   {
+    "idx": 247,
+    "statement": "Evaluate contract changes through all clients: strengthening preconditions or weakening postconditions can break existing callers."
+   }
+  ]
+ },
+ {
+  "group": 129,
+  "members": [
+   {
+    "idx": 250,
+    "statement": "Validate and sanitize user input before domain creation or persistence, while using contracts for unexpected programmer or integration faults inside the system."
+   },
+   {
+    "idx": 251,
+    "statement": "Avoid duplicate validation and contract checks only when architecture creates a reliable safe zone; duplicate important checks when violation cost is high."
+   }
+  ]
+ },
+ {
+  "group": 130,
+  "members": [
+   {
+    "idx": 254,
+    "statement": "Structure complex validation logic for reuse and use semantic exception types when clients need to distinguish business violations from technical failures."
+   },
+   {
+    "idx": 516,
+    "statement": "Improve failure diagnostics by adding explanatory messages that identify the asserted value, using matchers that describe the mismatch, building detail into self-describing values, and choosing obviously canned or improbable values so a wrong value stands out."
+   }
+  ]
+ },
+ {
+  "group": 132,
+  "members": [
+   {
+    "idx": 256,
+    "statement": "Combine contracts with tests: contracts make collaboration safer, but tests still verify behavior and validation mechanisms."
+   },
+   {
+    "idx": 283,
+    "statement": "Use mocks deliberately because each mock reduces realism and increases dependence on collaborator contracts and implementation interactions."
+   },
+   {
+    "idx": 284,
+    "statement": "Mock-heavy systems need stable, explicit collaborator contracts and impact analysis when those contracts change."
+   },
+   {
+    "idx": 292,
+    "statement": "Reject or repair test doubles that no longer preserve the real collaborator contract because they can create false confidence."
+   },
+   {
+    "idx": 391,
+    "statement": "Keep tests from knowing too much about internal collaborator interactions; interaction-based mock verification should break for meaningful contract changes but not couple every test to internal wiring."
+   }
+  ]
+ },
+ {
+  "group": 133,
+  "members": [
+   {
+    "idx": 257,
+    "statement": "Write property-based tests by defining a general property, generating values in the relevant domain, executing the method, and asserting the property."
+   },
+   {
+    "idx": 259,
+    "statement": "Use property-test counterexamples and seeds as reproducible debugging cases."
+   },
+   {
+    "idx": 264,
+    "statement": "Use stateful property tests for objects whose bugs may appear only after long or unexpected operation sequences."
+   },
+   {
+    "idx": 269,
+    "statement": "Mix example-based and property-based tests: examples are simpler for understanding requirements, while properties are useful after meaningful general behaviors are identified."
+   },
+   {
+    "idx": 312,
+    "statement": "For void or side-effect methods, consider whether returning generated domain objects or adding observable behavior simplifies tests without damaging design."
+   },
+   {
+    "idx": 389,
+    "statement": "Make tests easy to write and evolve with expressive Test Data Builders, sensible defaults, and reduced change points."
+   },
+   {
+    "idx": 408,
+    "statement": "Choose example-based tests for concrete instances and property-based tests for invariants over generated inputs, constraining generated data so it does not accidentally violate the intended setup; distinguish this from fuzzing, which seeks crashes from invalid or random inputs."
+   },
+   {
+    "idx": 447,
+    "statement": "Unit-test behavior rather than methods—focus on the features an object provides and how to use it to achieve a goal, not on exercising every code path—and choose test names that describe how the object behaves in the scenario."
+   },
+   {
+    "idx": 479,
+    "statement": "Give test methods long, fully descriptive names, since a reflection-based runner never requires them in calling code."
+   },
+   {
+    "idx": 486,
+    "statement": "Distinguish allowances (calls that may happen; supporting infrastructure or ignored side effects) from expectations (calls that must happen) to express what matters; make assertions about an object's state-dependent behavior by listening to the notifications it already sends rather than exposing internal state, since this logical representation lets you change the implementation without changing the tests, and aim for a style where the test name matches the expectation it enforces."
+   },
+   {
+    "idx": 513,
+    "statement": "Aim for one coherent feature per test rather than a single assertion, streamline test code to emphasize what over how, compose readable assertions from small intention-revealing matchers, and extract shared setup/teardown/assertion behavior into descriptively named methods without making the test too abstract to read."
+   },
+   {
+    "idx": 514,
+    "statement": "Catch an exception in a test only to assert about it (otherwise let it propagate), delegate to subordinate helper objects and test data builders so tests read in domain terms with only relevant values, keep assertions narrowly defined, and prefer explicit matchers over negated booleans while naming literal values to show their role."
+   }
+  ]
+ },
+ {
+  "group": 135,
+  "members": [
+   {
+    "idx": 260,
+    "statement": "Design generators to include edge values and make important cases likely; inspect statistics when generation may miss intended partitions."
+   },
+   {
+    "idx": 262,
+    "statement": "Design property generators to avoid ambiguous data and to guarantee the expected result can be computed from generated values."
+   },
+   {
+    "idx": 263,
+    "statement": "Ensure generated data covers the important partitions with reasonable probability; measure or inspect generator output when distribution is uncertain."
+   }
+  ]
+ },
+ {
+  "group": 140,
+  "members": [
+   {
+    "idx": 274,
+    "statement": "Refactor production code toward dependency injection when internal construction prevents tests from replacing collaborators."
+   },
+   {
+    "idx": 275,
+    "statement": "Inject only collaborators the class actually needs, and stub dependencies only to provide data needed for the case under test."
+   },
+   {
+    "idx": 282,
+    "statement": "Keep test code maintainable by extracting repeated complex object creation and applying production-code quality practices to tests."
+   },
+   {
+    "idx": 286,
+    "statement": "Mock slow, infrastructure-facing, or hard-to-force collaborators in dependent unit tests, while still integration-testing the infrastructure-facing classes themselves."
+   },
+   {
+    "idx": 291,
+    "statement": "Design production code so replacement collaborators can be injected when test doubles are part of the strategy."
+   },
+   {
+    "idx": 307,
+    "statement": "Inject dependencies rather than constructing them internally when tests may need to substitute collaborators."
+   },
+   {
+    "idx": 317,
+    "statement": "Manage coupling by breaking large behavior into smaller steps or focused collaborators when tests require too many dependencies or collaborator bugs leak through."
+   },
+   {
+    "idx": 348,
+    "statement": "Build larger component tests through factories or dependency injection so they use real collaborators wired as production would."
+   },
+   {
+    "idx": 382,
+    "statement": "Maintain test code actively like production code: keep tests fast, readable, focused, independent, and worth their maintenance cost."
+   },
+   {
+    "idx": 383,
+    "statement": "When tests are slow, isolate slow collaborators, redesign to separate fast and slow parts, or split slow checks into targeted and CI-run suites."
+   },
+   {
+    "idx": 390,
+    "statement": "Refactor duplicated test setup and assertions into helper methods or builders, ruthlessly for repeated change points but tolerating small duplication when extraction would not pay off."
+   },
+   {
+    "idx": 401,
+    "statement": "Do as much unit testing as practical and reserve integration testing for parts that genuinely need it; write new code to be unit-testable even against legacy code by placing new behavior in a new testable class and isolating poorly testable dependencies with anti-corruption layers."
+   }
+  ]
+ },
+ {
+  "group": 142,
+  "members": [
+   {
+    "idx": 285,
+    "statement": "Accept interaction-test coupling only when the interaction itself is part of the behavior or design decision being protected."
+   },
+   {
+    "idx": 296,
+    "statement": "Prefer state testing for value or state changes, and interaction testing only when collaboration is the behavior that matters."
+   },
+   {
+    "idx": 297,
+    "statement": "Interaction tests should verify only meaningful methods and arguments, not every call that happens during execution."
+   }
+  ]
+ },
+ {
+  "group": 143,
+  "members": [
+   {
+    "idx": 288,
+    "statement": "Wrap current-time access behind an injectable clock abstraction when tests need controllable dates or times."
+   },
+   {
+    "idx": 397,
+    "statement": "Avoid exact assertions on unstable date or time values unless the test deliberately controls time zone, daylight saving, and the current time."
+   },
+   {
+    "idx": 410,
+    "statement": "Improve unit-testability by separating business rules from infrastructure and external API calls, injecting dependencies so tests can substitute collaborators, and passing time as a parameter or injected clock instead of reading a static time source."
+   }
+  ]
+ },
+ {
+  "group": 144,
+  "members": [
+   {
+    "idx": 290,
+    "statement": "Keep owned abstractions over third-party APIs small enough to simplify clients and unit tests, then integration-test the abstraction against the real library."
+   },
+   {
+    "idx": 425,
+    "statement": "Maintain a hierarchy of tests—acceptance (does the whole system work?), integration (does our code work against code we cannot change?), and unit (do our objects do the right thing and are they convenient?)—using integration tests to confirm that abstractions over third-party code behave as expected."
+   },
+   {
+    "idx": 468,
+    "statement": "For third-party code you do not control, focus design on the integration rather than trying to shape the code; only mock types you own, and instead write a thin adapter layer implementing domain-defined interfaces over the third-party API, verified by focused integration tests, which keeps technical concepts out of the domain model."
+   },
+   {
+    "idx": 469,
+    "statement": "Mock a third-party library only in rare, justified cases (e.g., simulating hard-to-trigger behavior or a call sequence); when an adapter must call back into the application, mock only the application-defined callback interfaces to verify event translation, and isolate and translate third-party value types the same way you isolate services."
+   }
+  ]
+ },
+ {
+  "group": 145,
+  "members": [
+   {
+    "idx": 299,
+    "statement": "Separate infrastructure and UI/framework code from domain code so business rules can be tested without external-system concerns."
+   },
+   {
+    "idx": 301,
+    "statement": "Use ports and adapters so domain code depends on technology-agnostic business interfaces while adapters contain infrastructure details."
+   }
+  ]
+ },
+ {
+  "group": 146,
+  "members": [
+   {
+    "idx": 300,
+    "statement": "Keep domain classes cohesive and infrastructure-free because single-responsibility code is easier to test and demands fewer cases."
+   },
+   {
+    "idx": 305,
+    "statement": "Avoid placing even simple external calls in domain code because they can become testability debt."
+   }
+  ]
+ },
+ {
+  "group": 150,
+  "members": [
+   {
+    "idx": 309,
+    "statement": "Apply dependency inversion by depending on abstractions that hide infrastructure details and keep port contracts simple and cohesive."
+   },
+   {
+    "idx": 321,
+    "statement": "Let ports emerge during development when the current class needs an external capability, and design the port around what the current class actually needs."
+   }
+  ]
+ },
+ {
+  "group": 155,
+  "members": [
+   {
+    "idx": 316,
+    "statement": "Keep classes and methods cohesive; split classes or introduce abstractions when tests grow large, never stop growing, or reveal variant-heavy conditionals."
+   },
+   {
+    "idx": 429,
+    "statement": "Aim for loosely coupled, highly cohesive classes with explicit substitutable dependencies and clear responsibilities, since only such classes are easy to unit-test; when a test is hard to write, treat the difficulty as design feedback and refactor rather than skip it."
+   }
+  ]
+ },
+ {
+  "group": 158,
+  "members": [
+   {
+    "idx": 322,
+    "statement": "Use TDD as a red-green-refactor loop driven by small input-output examples and reflection after each passing test."
+   },
+   {
+    "idx": 324,
+    "statement": "Generalize hard-coded early TDD implementations when repeated examples expose the underlying rule."
+   },
+   {
+    "idx": 325,
+    "statement": "Use parameterized tests for repeated input-output examples, and tolerate small localized duplication when it keeps tests simple and fast."
+   },
+   {
+    "idx": 330,
+    "statement": "After the initial TDD list is empty, identify new behavior categories such as invalid inputs and repeat the cycle."
+   },
+   {
+    "idx": 339,
+    "statement": "After TDD, switch promptly to systematic testing with specification-based, structural, and property-based techniques, reusing or refactoring TDD tests where useful."
+   },
+   {
+    "idx": 493,
+    "statement": "Use TDD especially for tricky index and boundary logic, because writing the tests first clarifies the boundary conditions and checks the implementation, avoiding hard-to-find off-by-one bugs."
+   }
+  ]
+ },
+ {
+  "group": 159,
+  "members": [
+   {
+    "idx": 323,
+    "statement": "During TDD, start with happy-path business rules and let more examples emerge; defer rigorous corner, boundary, and systematic testing to the testing phase."
+   },
+   {
+    "idx": 326,
+    "statement": "Generalize production code when examples reveal the rule, while allowing pragmatic larger or smaller TDD steps based on confidence."
+   },
+   {
+    "idx": 334,
+    "statement": "Prefer TDD for complex business-rule domains, and consider implement-then-test for simpler data-centric features unless they contain complex rules."
+   },
+   {
+    "idx": 398,
+    "statement": "Treat the testing process as iterative rather than a waterfall of techniques; move back and forth among specification-based, structural, property-based, and other techniques as new information appears, using mastery of each technique's goal to choose the order."
+   },
+   {
+    "idx": 473,
+    "statement": "Treat judging test boundaries as a core TDD skill — when you must test against a fake instead of a real external service, record it as a known project risk and test against the real service as soon as a meaningful transaction is possible, and keep every fake or stub minimal—implementing only what the test requires."
+   },
+   {
+    "idx": 517,
+    "statement": "Use a tracer object (a named dummy that describes its role on failure) to check routing and to double as a design tool for marking a domain concept; when a test has both expectations and assertions, assert that expectations are satisfied first to get the right failure report, and follow a four-step TDD cycle (fail, report, pass, refactor) treating diagnostics as a first-class feature."
+   }
+  ]
+ },
+ {
+  "group": 160,
+  "members": [
+   {
+    "idx": 331,
+    "statement": "Use TDD to control implementation pace, prevent speculative code, obtain quick feedback, and expose design friction early."
+   },
+   {
+    "idx": 332,
+    "statement": "Do not treat TDD as mandatory or magical; use it pragmatically where it improves learning, reflection, and productivity."
+   },
+   {
+    "idx": 411,
+    "statement": "Justify TDD by its design feedback, steady progress, refactoring prompts, and improved testability rather than as a way to completely test software."
+   },
+   {
+    "idx": 414,
+    "statement": "Write the test before the code it tests, treating test-writing as a design activity that clarifies intent, exposes rigid or unfocused designs, and yields a regression safety net; TDD is a serious skill requiring sustained effort, not an automatic technique."
+   },
+   {
+    "idx": 417,
+    "statement": "Let the tests guide development—use their contents to stay focused and their feedback to raise quality—because writing tests first without letting them drive the design does not by itself produce good code, and TDD only works fully when adopted as a whole."
+   },
+   {
+    "idx": 421,
+    "statement": "Follow the fundamental TDD cycle—write a failing test, write just enough code to pass, then refactor to the simplest implementation—and obey the Golden Rule that you never write new functionality without a failing test."
+   },
+   {
+    "idx": 426,
+    "statement": "Design the process to anticipate unanticipated change, because non-routine projects always hold surprises and everyone must keep learning; be aware that TDD's benefits can be crippled by organizational circumstances such as an early design freeze or non-communicating stakeholders."
+   },
+   {
+    "idx": 442,
+    "statement": "On a pre-existing (brownfield) system, start TDD safely by automating the build and deploy process and adding end-to-end tests over the areas you must change—beginning with the simplest path through the system—before refactoring, because it is risky to rework code that has no regression tests."
+   },
+   {
+    "idx": 489,
+    "statement": "Expect design to emerge from trying to implement it—few people get designs right up front—so get into the critical areas of the code early and allow yourself to change your mind, relying on small steps and the tests to protect you."
+   }
+  ]
+ },
+ {
+  "group": 161,
+  "members": [
+   {
+    "idx": 335,
+    "statement": "Use empirical evidence about TDD cautiously because findings are mixed and may reflect fine-grained steady progress more than test-first ordering."
+   },
+   {
+    "idx": 509,
+    "statement": "Keep tests and code clean as you go (it is far easier than recovering from a mess and rot dissipates a team's good intentions); keep each unit test focused on a few classes without a large fixture, and recognize TDD is unforgiving—poor internal quality yields poor tests—so for sustainable TDD tests must be readable as well as correct."
+   }
+  ]
+ },
+ {
+  "group": 171,
+  "members": [
+   {
+    "idx": 356,
+    "statement": "Apply specification, boundary, structural, condition, MC/DC-style, and category-partition reasoning to SQL queries."
+   },
+   {
+    "idx": 362,
+    "statement": "Boundary-test SQL predicates with on/off points and cheap in-points, combining cases when it reduces database setup cost without hiding intent."
+   }
+  ]
+ },
+ {
+  "group": 175,
+  "members": [
+   {
+    "idx": 366,
+    "statement": "Selenium-style browser tests require DOM knowledge, stable element location, real browser resource cleanup, and commands that mirror browser interactions."
+   },
+   {
+    "idx": 373,
+    "statement": "Browser system tests need repeatable environment reset and clean application state before each run."
+   }
+  ]
+ },
+ {
+  "group": 178,
+  "members": [
+   {
+    "idx": 369,
+    "statement": "Page Objects should return application-level data structures from page extraction and hide HTML details from test methods."
+   },
+   {
+    "idx": 370,
+    "statement": "Invest in Page Object infrastructure, base classes, visit methods, setup page objects, and helpers because system tests are expensive initially but cheaper after structure exists."
+   },
+   {
+    "idx": 376,
+    "statement": "Keep assertions in test code and page mechanics in Page Objects so Page Objects do not depend on the test framework."
+   }
+  ]
+ },
+ {
+  "group": 184,
+  "members": [
+   {
+    "idx": 385,
+    "statement": "Treat flakiness as a trust and productivity problem; diagnose external resources, dirty shared state, timeouts, async waits, concurrency, and test-order dependencies first."
+   },
+   {
+    "idx": 413,
+    "statement": "Diagnose end-to-end web-test flakiness by checking for delayed asynchronous requests, dirty application state, or unavailable components, and avoid mystery-guest fixtures whose external content is not visible in the test body."
+   }
+  ]
+ },
+ {
+  "group": 190,
+  "members": [
+   {
+    "idx": 418,
+    "statement": "Use empirical feedback in nested loops (pairing, unit, acceptance, standups, iterations, releases), deploying completed work to a production-like environment each cycle and seeking feedback about every aspect as early as possible, because without deployment the feedback is incomplete."
+   },
+   {
+    "idx": 424,
+    "statement": "Automate the whole end-to-end build-and-deploy cycle (that also exercises the deployment process), because its steps are error-prone and repeated throughout the software's life, and remember that a deployable build is only the start of release in large or regulated organizations."
+   }
+  ]
+ },
+ {
+  "group": 191,
+  "members": [
+   {
+    "idx": 420,
+    "statement": "Keep code as simple as possible and optimize for reading (developers read far more than they write), refactoring constantly to remove duplication and clearly express intent; making code testable also drives it toward being cleaner and more modular."
+   },
+   {
+    "idx": 422,
+    "statement": "Refactor by changing internal structure without changing behavior, applying small safe transformations and re-running the tests after each step; keep refactoring distinct from redesign, but use refactoring techniques to reach a new design incrementally once a redesign is decided."
+   },
+   {
+    "idx": 448,
+    "statement": "When code is difficult to test, ask why (not just how); treat the difficulty as an early warning of a design that will also be hard to change, and refactor to fix it while it is still fresh rather than letting the code rot."
+   },
+   {
+    "idx": 474,
+    "statement": "Give each developer their own test environment, maintain a single command that reliably compiles, builds, deploys, and tests the application (and only start coding once it works), add functionality a tiny slice at a time handling one failure at a time, and make failure diagnostics verbose and easy to understand."
+   },
+   {
+    "idx": 498,
+    "statement": "Perform even significant refactorings incrementally—scale down each change so you never stray more than a few minutes from working code and backtrack if a path fails—and treat refactoring as a design activity that needs all your design skills, considering the dynamic structure of instances and threads as well as the static structure of classes."
+   }
+  ]
+ },
+ {
+  "group": 193,
+  "members": [
+   {
+    "idx": 430,
+    "statement": "Focus object-oriented design on the communication between objects rather than the objects themselves, treating the system as a web of collaborating objects whose behavior emerges from their composition."
+   },
+   {
+    "idx": 432,
+    "statement": "Identify object roles with abstract interfaces rather than concrete classes, and think about objects in terms of roles, responsibilities, and collaborators."
+   }
+  ]
+ },
+ {
+  "group": 195,
+  "members": [
+   {
+    "idx": 433,
+    "statement": "Never commit failing unit tests to the source repository, and expect unit tests to pass soon after they are written."
+   },
+   {
+    "idx": 515,
+    "statement": "Remember that the point of a test is to fail—design tests to detect and report errors, avoid failures you cannot diagnose without a debugger, synchronize with the repository frequently so reverting is cheap, keep tests small, focused, and well-named, and above all make them fail informatively."
+   }
+  ]
+ },
+ {
+  "group": 196,
+  "members": [
+   {
+    "idx": 434,
+    "statement": "Follow 'Tell, Don't Ask'—tell objects what to do with explicit, named interactions rather than chaining getters—and query objects sparingly, phrasing any query to ask the real question you want answered in the caller's terms, because queries let information leak out and make the system rigid."
+   },
+   {
+    "idx": 508,
+    "statement": "Emphasize how objects communicate over what they are, which yields more, smaller, domain-oriented abstractions; applying 'Tell, Don't Ask' consistently leads to passing behavior (callbacks) into the system rather than pulling data up, giving better information hiding."
+   }
+  ]
+ },
+ {
+  "group": 200,
+  "members": [
+   {
+    "idx": 439,
+    "statement": "Kick-start a project by building, deploying, and testing a 'walking skeleton'—the thinnest slice of real functionality automatically built, deployed, and tested end-to-end (process as well as system)—before the first feature, because deploying from the start flushes out technical and organizational risks and nothing forces understanding of a process like automating it."
+   },
+   {
+    "idx": 440,
+    "statement": "Let the need for end-to-end testing shape the system's design from the start; if full end-to-end testing is initially too hard use temporary stop-gap infrastructure, keep the walking-skeleton design to a broad-brush whiteboard sketch, and remember that ignoring testability early makes the system hard to test and forces risky later change."
+   },
+   {
+    "idx": 441,
+    "statement": "Expect incremental development to front-load project stress and start unsettled before settling into routine; keep a sense of direction with a concrete implementation to test assumptions while limiting early structural choices to whiteboard-level decisions, because the walking skeleton flushes out issues while there is still time, budget, and goodwill."
+   }
+  ]
+ },
+ {
+  "group": 201,
+  "members": [
+   {
+    "idx": 446,
+    "statement": "Develop a feature from inputs to outputs—from the external triggering events, through boundary and intermediate objects, to the domain model and out again—rather than starting by unit-testing new domain objects in isolation and hooking them up later, which invites integration problems and wasted work."
+   },
+   {
+    "idx": 480,
+    "statement": "Insulate a domain object from other concerns by introducing a listener interface so it reports status in its own terms, and decide whether a collaborator is a dependency (required, injected at construction) or a notification (optional) by asking whether the object can function without it."
+   }
+  ]
+ },
+ {
+  "group": 204,
+  "members": [
+   {
+    "idx": 451,
+    "statement": "Structure functionality into objects, packages, and programs using two heuristics—separation of concerns (gather code that changes for the same reason) and working at higher levels of abstraction—which, applied consistently, push the system toward a ports-and-adapters architecture that isolates the domain from technical infrastructure."
+   },
+   {
+    "idx": 466,
+    "statement": "Compose system behavior from well-understood lower-level objects used as building blocks, and organize code into an implementation layer (the graph of objects, describing how) and a declarative layer (small sugar methods describing what)—effectively an embedded domain-specific language—using a different style for each."
+   }
+  ]
+ },
+ {
+  "group": 211,
+  "members": [
+   {
+    "idx": 459,
+    "statement": "Use writing the test first as a design tool—it forces describing what before how and keeps the right abstraction (unclear test intent means mixed-up concepts), keeps unit tests small in scope (a long test signals too large a component), and forces you to know an object's dependencies before you can construct it for testing."
+   },
+   {
+    "idx": 463,
+    "statement": "Break up an object when it becomes too large to test easily or its test failures are hard to interpret, and when a test becomes too complicated to set up consider bundling up some collaborating objects; then unit-test the extracted parts separately."
+   },
+   {
+    "idx": 510,
+    "statement": "Take as much care with test code as production code but in its own style (concrete about example values, abstract about how, reading like a declarative description of what is tested), watch for readability smells, and make the test name the first clue to what is tested—naming tests by the feature the object provides, not the method it exercises."
+   }
+  ]
+ },
+ {
+  "group": 219,
+  "members": [
+   {
+    "idx": 472,
+    "statement": "For end-to-end testing of asynchronous, event-based systems, cope with asynchrony by polling for a visible effect (UI change or log entry) with a timeout, controlling the application and stepping through the scenario (wait for an assertion, then send the next event), and expect these tests to be slower and more brittle so their failures may need interpretation."
+   },
+   {
+    "idx": 496,
+    "statement": "When threading prevents a simple synchronous unit test, use an integration test that waits for the code to stabilize and a polling probe that checks for the desired state until satisfied or timed out; step away from the keyboard to visualize structure (e.g., CRC cards), and marshal any UI-state change made from outside the UI thread onto that thread."
+   },
+   {
+    "idx": 505,
+    "statement": "Verify that failures are recorded by having an end-to-end test check a log file's contents, and accept running a test in memory instead of against a real resource when that resource is already covered by an end-to-end test and would add irrelevant dependencies or asynchrony."
+   },
+   {
+    "idx": 530,
+    "statement": "Treat asynchronous tests as fundamentally different (control returns before the activity completes), coordinate the test carefully with the system, make it wait for success with a timeout to detect failure, ensure every tested activity has an observable effect, and observe the system by sampling its state or listening for its events."
+   },
+   {
+    "idx": 531,
+    "statement": "Beware flickering tests (they mask defects and erode the team's culture of quality), make asynchronous tests succeed fast for rapid feedback (listening is quicker than sampling), define timeout values in one place, and do not scatter ad hoc sleeps and timeouts—factor synchronization and assertion into subordinate objects."
+   }
+  ]
+ },
+ {
+  "group": 239,
+  "members": [
+   {
+    "idx": 504,
+    "statement": "Depend on roles (interfaces), not concrete classes; mock concrete classes only as a last resort because subclassing to mock leaves the relationship implicit and overspecifies the client (violating interface segregation), extracting an interface instead forces you to name the relationship. When forced by legacy or unchangeable third-party code, prefer a veneer to direct mocking, never override a class's internal features, and never mock values—just create them."
+   },
+   {
+    "idx": 532,
+    "statement": "Prefer composition and dependency injection over getters added only to enable testing, use mock objects to emphasize the roles objects play for each other (mock roles, not objects) and as a design tool for the interfaces between objects, and express expectations through constraint or matcher objects that describe what went wrong."
+   }
+  ]
+ },
+ {
+  "group": 248,
+  "members": [
+   {
+    "idx": 525,
+    "statement": "Recognize that concurrency complicates TDD (weaker confidence, harder diagnosis); decide a broad-brush concurrency architecture ahead of time (often prescribed by frameworks, provable with modeling tools) and then test-drive the objects that fit it, using unit tests for an object's synchronization responsibilities and system tests for whole-system concurrency."
+   },
+   {
+    "idx": 526,
+    "statement": "Separate functional concerns from concurrency policy by injecting a task runner or executor, so functional behavior can be unit-tested on the test thread (with a deterministic executor) and the object's API no longer hides its concurrency—treating concurrency as a system-wide concern controlled outside the object (context independence)."
+   },
+   {
+    "idx": 527,
+    "statement": "Drive out synchronization with stress tests—specify an observable invariant with respect to concurrency, exercise the object from many threads, watch it fail and tune it until it fails reliably, then add synchronization—writing both the functional unit test and the stress test before the code, since without scheduler control you cannot guarantee finding every error."
+   }
+  ]
+ }
+]
