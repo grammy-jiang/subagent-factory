@@ -1,0 +1,1238 @@
+[
+ {
+  "group": 4,
+  "members": [
+   {
+    "idx": 4,
+    "statement": "Analyze each architecture problem through users, content, and context instead of applying generic best practices or competitor patterns uncritically."
+   },
+   {
+    "idx": 20,
+    "statement": "Begin architecture exploration with a hierarchy, then balance mutual exclusivity, cross-listing, breadth, depth, and expected growth through user testing."
+   },
+   {
+    "idx": 100,
+    "statement": "Use a documented IA rationale and style guide to prioritize requests, distinguish standards from guidelines, and support maintainers when the architect is absent."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 5,
+    "statement": "Start IA decisions from real users and their information needs, using field or behavioral research rather than internal brainstorming alone."
+   },
+   {
+    "idx": 98,
+    "statement": "Keep IA involved during production, balancing usability, client requests, production effort, budget, timeline, and architectural intent while avoiding late major decisions."
+   }
+  ]
+ },
+ {
+  "group": 6,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Support integrated, iterative finding behavior by letting users move fluidly among search, browse, asking, similar-item paths, and subsite-level navigation."
+   },
+   {
+    "idx": 11,
+    "statement": "Combine top-down structure with bottom-up content structure so deep-entry users can orient, understand what is present, and move to related content."
+   },
+   {
+    "idx": 94,
+    "statement": "Build content models for high-value, similar content chunks so users can navigate contextually across related objects instead of returning to the top-down hierarchy."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 7,
+    "statement": "Treat information environments as places: use semantic cues, ordering, labels, typologies, and familiar concepts to shape users' understanding of where they are and what they can do."
+   },
+   {
+    "idx": 34,
+    "statement": "Respect established navigation conventions and provide clear place cues so users know where they are, what the environment is, and where they can go after deep entry."
+   },
+   {
+    "idx": 211,
+    "statement": "Use language to build a vivid, ideally spatial mental map that fits users' pre-existing mental picture, so information is easier to retain and process and requires no new learning."
+   }
+  ]
+ },
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 10,
+    "statement": "Evaluate IA through its component systems: organization, labeling, navigation, search, content/task elements, and invisible metadata or vocabulary systems."
+   },
+   {
+    "idx": 81,
+    "statement": "Include content-management implications in strategy work, aligning IA with content strategy, rules, roles, resources, templates, metadata, and thesauri."
+   },
+   {
+    "idx": 89,
+    "statement": "Use wireframes to connect IA with interaction design by clarifying page structure, visible components, grouping, priority, responsive behavior, and navigation overload."
+   },
+   {
+    "idx": 99,
+    "statement": "Plan for IA maintenance after launch because content, people, and context keep changing and the architecture must evolve intentionally."
+   }
+  ]
+ },
+ {
+  "group": 11,
+  "members": [
+   {
+    "idx": 12,
+    "statement": "Design organization and labeling with awareness that classification shapes understanding, reflects perspectives, and carries organizational politics."
+   },
+   {
+    "idx": 24,
+    "statement": "Design labels as compact representations that use user language, distinguish destinations, avoid organizational jargon, and are tested in their actual channel context."
+   },
+   {
+    "idx": 29,
+    "statement": "Design labels as a scoped, consistent system by managing style, presentation, syntax, granularity, comprehensiveness, audience terminology, and modular boundaries."
+   }
+  ]
+ },
+ {
+  "group": 16,
+  "members": [
+   {
+    "idx": 17,
+    "statement": "Use task-specific or audience-specific schemes only when their conditions hold, and revisit audience assumptions because users may not fit cleanly into segments."
+   },
+   {
+    "idx": 351,
+    "statement": "For context-independent guidance, omit practices whose evidence is conflicting, weak, or tightly bound to audience-specific conditions."
+   }
+  ]
+ },
+ {
+  "group": 18,
+  "members": [
+   {
+    "idx": 19,
+    "statement": "Use hierarchy, database-oriented structure, hypertext, and tagging as complementary organization structures, selecting each for the part of the environment where its strengths fit."
+   },
+   {
+    "idx": 21,
+    "statement": "Apply metadata and database models to homogeneous structured collections, using controlled vocabularies and professional database or CMS support where needed."
+   },
+   {
+    "idx": 22,
+    "statement": "Use hypertext for creative or associative relationships only as a complement to clearer hierarchy or database structure, not as the primary organization model."
+   }
+  ]
+ },
+ {
+  "group": 22,
+  "members": [
+   {
+    "idx": 27,
+    "statement": "Use index terms, controlled vocabularies, and thesauri to describe content consistently for more precise search, browsing, and cross-silo access."
+   },
+   {
+    "idx": 41,
+    "statement": "Design indexes around user terms and appropriate granularity, using search logs, user research, controlled vocabularies, and selective term rotation."
+   },
+   {
+    "idx": 48,
+    "statement": "Choose retrieval algorithms, stemming, query builders, and structured-field search according to the user's recall-versus-precision needs."
+   },
+   {
+    "idx": 53,
+    "statement": "Use controlled vocabularies and metadata as system glue, shifting from placing documents in one taxonomy to describing them for navigation and retrieval."
+   },
+   {
+    "idx": 55,
+    "statement": "Define preferred terms through authority files to make indexing consistent, browsing manageable, and variant terms useful as entry points."
+   },
+   {
+    "idx": 57,
+    "statement": "Choose classic, indexing, or searching thesaurus types according to whether controlled vocabulary will be used at indexing time, search time, or both."
+   },
+   {
+    "idx": 96,
+    "statement": "Prioritize and manage controlled vocabularies with metadata matrices and tools that match the complexity of the terms and relationships."
+   }
+  ]
+ },
+ {
+  "group": 24,
+  "members": [
+   {
+    "idx": 30,
+    "statement": "Start label design from existing systems, comparable environments, and current labels, then capture them in tables to expose patterns and inconsistencies."
+   },
+   {
+    "idx": 32,
+    "statement": "Treat labeling systems as living systems: plan for future content within a focused scope, then monitor usability and search logs after launch to adjust labels."
+   }
+  ]
+ },
+ {
+  "group": 26,
+  "members": [
+   {
+    "idx": 33,
+    "statement": "Design navigation as an interdisciplinary complement to organization, giving structure usable doors, windows, context, and flexibility."
+   },
+   {
+    "idx": 35,
+    "statement": "Design navigation flexibility to reinforce hierarchy without overwhelming users with clutter or competing navigation bars."
+   }
+  ]
+ },
+ {
+  "group": 27,
+  "members": [
+   {
+    "idx": 36,
+    "statement": "Make global navigation a tested, user-centered system for key areas, home, search, structure reinforcement, and current-location feedback."
+   },
+   {
+    "idx": 285,
+    "statement": "Treat navigation as effectively being the site: since people will not use a site they cannot find their way around, provide persistent (global) navigation in a consistent place, follow navigation conventions so elements are easy to locate and recognize, and remember navigation also reveals content, teaches how to use the site, and builds trust."
+   }
+  ]
+ },
+ {
+  "group": 28,
+  "members": [
+   {
+    "idx": 37,
+    "statement": "Let local navigation vary only for user and local-content reasons, while deciding deliberately how much central consistency the organization needs."
+   },
+   {
+    "idx": 42,
+    "statement": "Treat personalization, customization, visualization, and social navigation as limited refinements that require a strong shared navigation foundation."
+   }
+  ]
+ },
+ {
+  "group": 31,
+  "members": [
+   {
+    "idx": 40,
+    "statement": "Provide supplemental navigation such as sitemaps, indexes, guides, configurators, and search as backup paths because taxonomies and embedded navigation will not satisfy every user or task."
+   },
+   {
+    "idx": 286,
+    "statement": "Provide the core persistent-navigation elements: a Site ID or logo at the top (upper-left for left-to-right languages), primary Sections linking to the top of the hierarchy, a modest set of the most-needed Utilities, and an always-available way back to the Home page."
+   }
+  ]
+ },
+ {
+  "group": 32,
+  "members": [
+   {
+    "idx": 43,
+    "statement": "Implement search only when user needs justify it and the team will configure it properly; never use search as a substitute for fixing navigation."
+   },
+   {
+    "idx": 44,
+    "statement": "Choose search deliberately by comparing alternatives, user preferences, content volume, silos, dynamics, analytics needs, and the team's ability to maintain it."
+   },
+   {
+    "idx": 47,
+    "statement": "Keep navigation pages and boilerplate out of destination-oriented search results unless testing shows they help the user task."
+   },
+   {
+    "idx": 51,
+    "statement": "Keep the default search interface simple and consistently placed, while exposing advanced capabilities only where users need or are ready for them."
+   }
+  ]
+ },
+ {
+  "group": 41,
+  "members": [
+   {
+    "idx": 59,
+    "statement": "Use polyhierarchy and faceted classification when content has multiple meaningful dimensions that one strict hierarchy cannot represent."
+   },
+   {
+    "idx": 60,
+    "statement": "Build faceted classification from multiple pure dimensions such as topic, product, type, audience, geography, or price, balancing user needs, business needs, and meaningful context."
+   }
+  ]
+ },
+ {
+  "group": 43,
+  "members": [
+   {
+    "idx": 62,
+    "statement": "Use users, content, and context as the research framework, explicitly including business goals, politics, budget, technology, culture, and legal constraints."
+   },
+   {
+    "idx": 63,
+    "statement": "Begin context research with background materials, a shared IA kickoff, focused research meetings, early IT engagement, and stakeholder interviews."
+   }
+  ]
+ },
+ {
+  "group": 44,
+  "members": [
+   {
+    "idx": 64,
+    "statement": "For redesigns, learn from the existing environment before replacing it, using heuristic evaluation, content analysis, content maps, and technology gap analysis."
+   },
+   {
+    "idx": 101,
+    "statement": "Include maintenance procedures, reusable patterns, content-addition rules, and integration with existing style guides so the architecture can grow coherently."
+   },
+   {
+    "idx": 277,
+    "statement": "Follow established placement, behavior, and appearance conventions unless a replacement is clearly better or adds enough value to justify a learning curve; innovate only when you have a genuinely better idea, keep creativity subordinate to usability, and let clarity trump consistency."
+   }
+  ]
+ },
+ {
+  "group": 46,
+  "members": [
+   {
+    "idx": 66,
+    "statement": "Benchmark competitors and before-after versions carefully, tying goals to measurable criteria while avoiding uncritical copying of context-specific designs."
+   },
+   {
+    "idx": 111,
+    "statement": "Judge a design by how well it fits real usage conditions and needs, not as an isolated innovation, because where humans are concerned context is decisive."
+   }
+  ]
+ },
+ {
+  "group": 48,
+  "members": [
+   {
+    "idx": 68,
+    "statement": "Use contextual inquiry when real work context is likely to reveal behavior, but keep research focused on data the project can act on."
+   },
+   {
+    "idx": 195,
+    "statement": "Make interactions context-aware and appropriate (not merely relevant) to the moment, grounding context in user research about real needs across times, places, and roles; device signals such as location and time alone are insufficient, and empathy must rest on listening to real users rather than on internal artifacts."
+   }
+  ]
+ },
+ {
+  "group": 49,
+  "members": [
+   {
+    "idx": 69,
+    "statement": "Use focus groups for ideation, not as the primary method for testing IA usability or validating architecture decisions."
+   },
+   {
+    "idx": 300,
+    "statement": "Distinguish focus groups from usability tests: use focus groups in the planning stages to learn what the audience wants and whether the value proposition makes sense, but use usability tests (watching one person at a time attempt real tasks) throughout development to learn whether the design works."
+   }
+  ]
+ },
+ {
+  "group": 53,
+  "members": [
+   {
+    "idx": 73,
+    "statement": "Treat research and strategy as connected work: the same team should carry hands-on learning into strategy, record design ideas during research, and use IA-specific research to counter unsupported assumptions."
+   },
+   {
+    "idx": 74,
+    "statement": "Treat IA strategy, business strategy, and content policy as co-evolving; use architecture decisions to surface gaps and collaborate across those teams."
+   },
+   {
+    "idx": 75,
+    "statement": "Start strategy hypotheses before research, test them during research, and shift from discovery to strategy when learning plateaus and candidate structures need validation."
+   },
+   {
+    "idx": 76,
+    "statement": "Use small focused groups for complex strategy design, then communicate drafts early through audience-appropriate artifacts and deliberately seek critique."
+   },
+   {
+    "idx": 79,
+    "statement": "Use scenarios, stories, case studies, diagrams, sitemaps, wireframes, and reports to make abstract IA strategy understandable and actionable for different audiences."
+   },
+   {
+    "idx": 82,
+    "statement": "Pair IA strategy with a project plan and presentations so recommendations become feasible, sequenced, integrated with other teams, and understood by stakeholders."
+   },
+   {
+    "idx": 107,
+    "statement": "Make research a shared team activity: involve team members from the start so they apply the insights, designate a research lead responsible for quality, and ensure everyone knows the purpose, their role, and the process."
+   },
+   {
+    "idx": 115,
+    "statement": "Adapt the research approach to your working context: whether freelance, agency, in-house, or startup, and especially in agile work, decouple research planning from development, aggressively prioritize the highest-value users (particularly those least like your developers), analyze data quickly and collaboratively, and defer less urgent research."
+   },
+   {
+    "idx": 138,
+    "statement": "Research the organization as rigorously as its users: get out and talk to real people, interview the stakeholders whose support the project needs (anyone whose lack of support would sink it) using user-research methods, and gather clear business requirements, because work that does not support the business fails no matter how good the design."
+   }
+  ]
+ },
+ {
+  "group": 56,
+  "members": [
+   {
+    "idx": 80,
+    "statement": "Structure strategy reports so busy stakeholders can understand context, evidence, recommendations, and implications without losing the thread."
+   },
+   {
+    "idx": 146,
+    "statement": "Know when organizational research is enough: stop once you confidently understand all stakeholders, their influence and availability, who could block success, the workflow and resource changes required, the business requirements, and whether the team truly shares the stated goals, documenting each stakeholder's attitude, incentives, and influence."
+   }
+  ]
+ },
+ {
+  "group": 58,
+  "members": [
+   {
+    "idx": 84,
+    "statement": "Treat IA diagrams as partial communication views; tailor each view to audience and need, present it live when possible, and value usefulness over polish."
+   },
+   {
+    "idx": 97,
+    "statement": "Use sketches, wireframes, and prototypes to integrate IA with visual design, technical feasibility, and team vocabulary before committing to code or finished graphics."
+   }
+  ]
+ },
+ {
+  "group": 59,
+  "members": [
+   {
+    "idx": 85,
+    "statement": "Use diagrams and visual vocabularies to show structural components and connections, while documenting semantics through other artifacts when sitemaps or wireframes are insufficient."
+   },
+   {
+    "idx": 90,
+    "statement": "Present wireframes as scoped architectural collaboration artifacts, not final visual design or one-way handoff documents."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 86,
+    "statement": "Use high-level sitemaps as purpose-specific, selective discussion tools for exploring organization, navigation, ownership, management, and access paths."
+   },
+   {
+    "idx": 87,
+    "statement": "Make implementation-stage sitemaps simple, modular, traceable, and production-ready with condensed notation, unique IDs, hierarchy coverage, labels, and navigation specifications."
+   }
+  ]
+ },
+ {
+  "group": 63,
+  "members": [
+   {
+    "idx": 92,
+    "statement": "Document content mapping from source to destination systematically, especially for new or multi-author content that production teams must track."
+   },
+   {
+    "idx": 93,
+    "statement": "Use unique chunk IDs, inventories, and audits to coordinate content mapping, locate gaps, and guide production integration."
+   }
+  ]
+ },
+ {
+  "group": 66,
+  "members": [
+   {
+    "idx": 103,
+    "statement": "Match the type and openness of research to the maturity of the problem: use generative or exploratory research to define an ill-defined problem, descriptive research to understand context once a problem is identified, evaluative research iteratively to test solutions, and causal research to explain a live product, and do not fine-tune solutions while the problem is still undefined."
+   },
+   {
+    "idx": 110,
+    "statement": "Keep applied research pragmatic rather than academic: relax methods under time or resource constraints and judge success by contribution to the goal, choose methods by fit to the question rather than to appear rigorous, and avoid arguing statistical significance by keeping the focus on useful insights."
+   },
+   {
+    "idx": 188,
+    "statement": "Treat research as a habitual means to insight within your existing process, forming questions, gathering data, and analyzing, rather than as a burden or a luxury."
+   }
+  ]
+ },
+ {
+  "group": 67,
+  "members": [
+   {
+    "idx": 104,
+    "statement": "Prefer evidence of real behavior over stated preference: never treat what people say they like or want as data, investigate how and why people actually behave, and remember that people are unreliable reporters of their own preferences."
+   },
+   {
+    "idx": 317,
+    "statement": "Avoid the behaviors that drain goodwill (hiding wanted information, punishing users over data formatting, over-asking for personal data, faux sincerity, marketing sizzle in the way, an amateurish look); recognize that appearance rarely causes abandonment (discount color comments in testing) and that any deliberately user-unfriendly choice must be an informed business decision."
+   }
+  ]
+ },
+ {
+  "group": 70,
+  "members": [
+   {
+    "idx": 108,
+    "statement": "Use research for argumentative and political leverage: knowing your constraints yields stronger arguments and freedom to innovate, real-world facts can defuse internal debates, and you must guard findings against those who would use information-gathering politically."
+   },
+   {
+    "idx": 139,
+    "statement": "Use organizational research to surface and neutralize politics: it exposes misalignment between stated strategy and actual attitudes, the observer effect prompts useful reflection, and interviewing the right people for the right knowledge lets you win over opponents by selling value in their terms."
+   }
+  ]
+ },
+ {
+  "group": 72,
+  "members": [
+   {
+    "idx": 112,
+    "statement": "Prepare the ground before fieldwork: give everyone a shared understanding of how the study will proceed (even a simple checklist), separate the interviewer and notetaker roles, allow observers only when their presence will not influence the research, and secure approval and buy-in before starting rather than defending the work midway."
+   },
+   {
+    "idx": 141,
+    "statement": "Interview stakeholders individually and privately as a rule, resisting managers who want to sit in by citing the observer effect, using group interviews only for equal-influence close colleagues and email only as a last resort, and keeping sessions thirty to sixty minutes with a separate notetaker while recognizing recording can reduce candor."
+   },
+   {
+    "idx": 142,
+    "statement": "Prepare stakeholder interviews with tact: build and prioritize a wide interviewee list capped by available time, research each person beforehand without leading with private details, send an agenda and key questions ahead, promise non-attribution, and secure written assurance that people can speak without reprisal."
+   },
+   {
+    "idx": 154,
+    "statement": "Interview by shutting up and listening: prepare a guide of the study goal, demographics, icebreakers, and focus questions, run three acts of warm-up, body, and conclusion with explicit recording permission, ask open-ended questions and probe with follow-ups while tolerating silence, use the questions as a checklist not a script, and act as an almost-invisible host and student who intervenes only to redirect or clarify."
+   }
+  ]
+ },
+ {
+  "group": 76,
+  "members": [
+   {
+    "idx": 117,
+    "statement": "Treat recruiting as the hardest and highest-leverage part of research, and always be recruiting, keeping a pipeline of participants ready."
+   },
+   {
+    "idx": 128,
+    "statement": "Invest in recruiting skill, because although recruiting is time-consuming it makes all subsequent research faster and easier."
+   }
+  ]
+ },
+ {
+  "group": 81,
+  "members": [
+   {
+    "idx": 122,
+    "statement": "Set realistic expectations up front with everyone involved about the questions to be answered, the methods to be used, and the decisions the findings will inform, especially when requesting time or budget."
+   },
+   {
+    "idx": 140,
+    "statement": "Consult stakeholders early and broadly: ask people for input before you start because the human need to be consulted safeguards against late objections, determine whose input you need from the project goals rather than waiting to be told, and gauge how genuinely important the project is to the organization."
+   }
+  ]
+ },
+ {
+  "group": 82,
+  "members": [
+   {
+    "idx": 123,
+    "statement": "Follow a lightweight but explicit process: define the problem, select the approach (its type from the problem statement and its specific method from available resources), plan and prepare by naming a point person and sketching a revisable plan with tradeoffs and fallbacks decided in advance and roles, recruiting, and materials listed, then collect, analyze, and report."
+   },
+   {
+    "idx": 135,
+    "statement": "Analyze collaboratively and structurally: involve as many team members as possible, follow an explicit analysis structure even for a two-person team, give participants advance access, look for goals, priorities, tasks, motivators, barriers, habits, relationships, tools, and environment, turn patterns into observations and then recommendations against the original problem statement, and group around patterns that emerge rather than ones imposed in advance."
+   }
+  ]
+ },
+ {
+  "group": 86,
+  "members": [
+   {
+    "idx": 127,
+    "statement": "Recruit deliberately for representativeness: screen primarily for the behaviors that matter (a good participant shares the target's goals and key characteristics, can articulate their thoughts, and matches the target's technology familiarity), use a short screener that filters out time-wasters and stays vague about the test, verify tool and domain knowledge realistically, and phone-follow-up in-person candidates."
+   },
+   {
+    "idx": 169,
+    "statement": "Recruit usability-test participants who share key goals with your target users, and treat them as single-use because participants brought back are tainted by prior exposure."
+   },
+   {
+    "idx": 304,
+    "statement": "Recruit loosely and grade on a curve: you can test much of a site with almost anybody, and you should deliberately include some participants from outside the target audience because everyone is a beginner under the skin and clarity helps experts too; pay incentives a little above the going rate."
+   }
+  ]
+ },
+ {
+  "group": 90,
+  "members": [
+   {
+    "idx": 132,
+    "statement": "Treat usability as a necessary but not sufficient minimum: usability testing is a directed task-based session with a representative user that shows whether people can use the product and surfaces structural problems but cannot supply vision, predict market success, rank tasks, or replace QA, so run it early, often, and as just another review, focusing good participants, facilitation, and analysis on finding the most significant issues fast."
+   },
+   {
+    "idx": 164,
+    "statement": "Use heuristic analysis as a cheap early sanity check, with two or three evaluators independently scoring against Nielsen's usability heuristics, but not as a substitute for usability testing with real users."
+   },
+   {
+    "idx": 165,
+    "statement": "Treat usability as the minimum standard: a design that thwarts intended users attempting the intended use is a failure, and the easier it is for customers to switch away, the more decisive usability becomes to success."
+   },
+   {
+    "idx": 166,
+    "statement": "Test cheap before expensive and continuously: learn everything you can from paper and sketches before prototypes, in your own office before the field, and with general audiences before hard-to-find specific ones, test a competitor's product before you even start designing, test as often as significant decisions are made but never right before launch, and remember complex systems need more usability work, which is also an argument for simple feature sets, assessed across Nielsen's five components of learnability, efficiency, memorability, errors, and satisfaction."
+   },
+   {
+    "idx": 167,
+    "statement": "Institutionalize usability: build usability practices into the workflow from the start like other reviews, keep a testing process and checklist, always be recruiting into a participant database, and designate a point person, assembling for each test a plan, a prototype, four to eight participants per type, a facilitator, an observer, documentation, and a timer."
+   },
+   {
+    "idx": 168,
+    "statement": "Build usability tests around tasks: derive tasks and scenarios from personas, write a brief background story per feature, know in advance which failures matter most because the deal-breaker task must succeed, and capture it all in a checklist test plan that keeps planning light."
+   },
+   {
+    "idx": 273,
+    "statement": "Judge usability by the effortless-use test (an average or below-average user accomplishes their goal without it being more trouble than it is worth), remembering usability is about people rather than technology, endures over time, applies to anything interactive, and that higher perceived effort makes people less likely to act."
+   },
+   {
+    "idx": 274,
+    "statement": "Treat usability knowledge as a few load-bearing guiding principles rather than rigid rules or long checklists (most answers are honestly 'it depends'), and learn more from studying good designs than from mocking bad ones."
+   },
+   {
+    "idx": 320,
+    "statement": "Make usability happen through attitude, not titles, and through firsthand exposure: what matters is learning about users, testing, and driving change rather than what you call the discipline, and the most effective way to win support is getting bosses and executives to watch a real usability test in person (or short highlight clips)."
+   }
+  ]
+ },
+ {
+  "group": 95,
+  "members": [
+   {
+    "idx": 143,
+    "statement": "Run stakeholder interviews as informal conversations: ask a baseline set covering role, duties, typical day, relationships, their definition of success, concerns, and challenges, close by confirming how the information is used and the person's ongoing role, and account for workflow and how your work affects operations and competing efforts."
+   },
+   {
+    "idx": 144,
+    "statement": "Handle stakeholder hostility deliberately: anticipate who may react badly and pre-empt by explaining why their participation matters, and if hostility arises stay calm, restate the goal, ask a broad open question, and cut the interview short if needed without ever ceding control, practicing these scenarios with your team."
+   }
+  ]
+ },
+ {
+  "group": 97,
+  "members": [
+   {
+    "idx": 147,
+    "statement": "Anchor the project in agreed business requirements: write a clear statement of what success means to the organization, get everyone to agree, keep the requirements cohesive, complete, consistent, current, unambiguous, feasible, and concise at two to three pages, include no solutions, and hold business strategy constant for the project's duration."
+   },
+   {
+    "idx": 148,
+    "statement": "Document the essentials: the problem statement, reconciled goals and success metrics, validated completion criteria, detailed scope with explicit out-of-scope items to prevent scope creep, and acknowledged risks with contingency plans developed with project managers."
+   }
+  ]
+ },
+ {
+  "group": 99,
+  "members": [
+   {
+    "idx": 150,
+    "statement": "Do user research to replace assumptions with patterns and genuine empathy, treating user research as ethnography that understands how and why people behave in their real context rather than gathering opinions through surveys or focus groups, and observe representative users in their own environment across physical setting, mental model, habits, and relationships."
+   },
+   {
+    "idx": 153,
+    "statement": "Practice ethnography's core discipline: deep-dive on a small but sufficient set of representative users in their messy real environment through participant observation, then systematically analyze the observations with your team and turn them into personas and scenarios that keep everyone designing for the user."
+   },
+   {
+    "idx": 238,
+    "statement": "Treat user research as mandatory—before design and continuously throughout—listening to how real users talk (to be intelligible to them, not to mimic them), ridding yourself of internal phrasings, anticipating their negative emotional states (anxious, confused, overwhelmed, skeptical, bored, frustrated), and understanding real contexts instead of assuming what users want."
+   }
+  ]
+ },
+ {
+  "group": 104,
+  "members": [
+   {
+    "idx": 157,
+    "statement": "Treat the interview as the basic unit of ethnography: analyze all interviews together to find themes and cluster the user types into reusable personas."
+   },
+   {
+    "idx": 239,
+    "statement": "Extract your interface vocabulary from users: interview about half a dozen representative customers, let them speak, then pull the nouns and verbs from your notes to guide labels and action phrases."
+   }
+  ]
+ },
+ {
+  "group": 107,
+  "members": [
+   {
+    "idx": 160,
+    "statement": "Do competitive research frequently and treat knowledge as an advantage: habitually ask what matters to customers, how you serve that need better, and how you show you are the superior choice, use SWOT to map your position and focus on opportunities and threats, and remember you see only competitors' external surface, so infer their reasons."
+   },
+   {
+    "idx": 161,
+    "statement": "Run a competitive audit and usability-test competitors: assemble competitors from your own list, a web search, products mentioned in interviews, and admired leaders, analyze each one's positioning, targeting, differentiators, and strengths and weaknesses, and task-based-test their products to learn from the user's point of view."
+   }
+  ]
+ },
+ {
+  "group": 110,
+  "members": [
+   {
+    "idx": 170,
+    "statement": "Facilitate neutrally: choose a facilitator with the right temperament because a bad one tanks the test, avoid leading or rescuing lost users and embrace silences (the system's own designer is most tempted to hint), and when a participant blames themselves ask how they expected the system to work and why."
+   },
+   {
+    "idx": 305,
+    "statement": "Turn testing into shared learning: get as many stakeholders as possible to observe sessions in person (watching is transformative), make the facilitator's core job eliciting think-aloud, and have each observer record the three most serious problems for the debriefing."
+   },
+   {
+    "idx": 307,
+    "statement": "Do not bias participants during tasks: let them work on their own, ask no leading questions and give no help unless they are hopelessly stuck (respond 'what would you do if I weren't here?'), and frame the session by telling them you are testing the site, not them."
+   }
+  ]
+ },
+ {
+  "group": 114,
+  "members": [
+   {
+    "idx": 174,
+    "statement": "Analyze qualitatively through affinity diagramming: collaboratively review the notes, write each observation as a direct quote or objective description coded to its source user (noting divergent vocabulary), group them so patterns emerge, name each pattern and its user need, and extract prioritized, actionable design mandates."
+   },
+   {
+    "idx": 178,
+    "statement": "Document and apply mental models: externalize the user's mental model to collaborate and find unserved needs, build it from research via affinity clustering grouped around tasks and goals, translate it into a conceptual map that becomes the information architecture, and run a gap analysis to fill mismatches while dropping planned features that do not fit."
+   }
+  ]
+ },
+ {
+  "group": 118,
+  "members": [
+   {
+    "idx": 179,
+    "statement": "Use task analysis to map real behavior to functionality: break a task into its steps of initial state, trigger, needed information and tools, and interruption points and reassemble a workflow, using contextual inquiry as the best prelude, and place supporting content along the path while expecting users to take unanticipated routes."
+   },
+   {
+    "idx": 219,
+    "statement": "For every action, make it goal-oriented and context-aware, communicate its prerequisites, encouragement, instructions, consequences, and level of commitment, give feedback on whether it succeeded or failed and what to do next, and present users only with actions they can actually take."
+   }
+  ]
+ },
+ {
+  "group": 120,
+  "members": [
+   {
+    "idx": 181,
+    "statement": "Optimize only after defining what good means: optimality is always subjective and full of trade-offs, so design with qualitative methods first for likely success and then use live quantitative data to see how right you were, accepting you will not get everything right up front."
+   },
+   {
+    "idx": 185,
+    "statement": "Treat optimization as incremental rather than strategic: over-focusing on small wins breeds risk aversion, and you can only climb to a local maximum within an existing design, so weigh larger innovations against incremental tuning."
+   }
+  ]
+ },
+ {
+  "group": 126,
+  "members": [
+   {
+    "idx": 189,
+    "statement": "Treat language as a core design material and design verbal exchanges as interactions, not as documents or literary copy bolted on at the end; each view's meaning must be decided before its visual container."
+   },
+   {
+    "idx": 258,
+    "statement": "Never run verbal (writing) design on a separate track from visual and interaction design—splitting it produces an interface of boxes later filled with language and disserves the whole experience—so make decisions about verbal language and nonverbal cues part of the same process at the same time, and give writers and designers a feedback loop on how successful their work was so they can learn and improve."
+   },
+   {
+    "idx": 366,
+    "statement": "Use buttons and other visual controls as constrained enhancements, not as substitutes for core conversational behavior that must work through language."
+   }
+  ]
+ },
+ {
+  "group": 127,
+  "members": [
+   {
+    "idx": 190,
+    "statement": "Apply the deeper principles of how human conversation works to every interaction regardless of mode; do not assume everyday conversational fluency equals skill at designing conversational systems."
+   },
+   {
+    "idx": 191,
+    "statement": "Make systems conversational at a deep level (cooperative, goal-oriented, context-aware, fault-tolerant) rather than adding a surface chat or voice facade, because a facade forces users to fixate on the technology's limits instead of their goals."
+   },
+   {
+    "idx": 204,
+    "statement": "Aim for a sound, enduring conversational model that lets new capabilities be layered in without redesign and lets users flow across media, switching modes by context."
+   },
+   {
+    "idx": 206,
+    "statement": "Following conversational principles is necessary but not sufficient: apply them in the right way at the right time; the same principles recur across the key interaction moments (Introduction, Orientation, Action, Guidance), and each moment must support the success of the whole interaction."
+   },
+   {
+    "idx": 235,
+    "statement": "Give the system a unifying personality: conversational principles come to life only through a distinctive, appropriate, and consistent personality, which matters more as interactions grow sophisticated; if you do not craft it intentionally, users will assign one anyway, and it will be worse than one you design."
+   },
+   {
+    "idx": 363,
+    "statement": "Preserve the natural multi-turn structure of conversational activities instead of compressing them into a single content response."
+   }
+  ]
+ },
+ {
+  "group": 130,
+  "members": [
+   {
+    "idx": 194,
+    "statement": "Design so value flows both ways—both the user and the business get what they need—and remember that the better the system matches user intent, the better the outcome for everyone."
+   },
+   {
+    "idx": 213,
+    "statement": "Orient the service around the user's intention and let that intention persist across devices instead of forcing users to reorient themselves; adopt a customer-and-business value perspective rather than a device-centered one."
+   },
+   {
+    "idx": 222,
+    "statement": "Treat choice architecture as an ethical matter, not merely a cognitive one: a system truly cooperating with the user will not lead them down a bad path even as minor choices accumulate; never use a limited menu to manufacture an illusion of freedom while manipulating the user, minimize distraction from users' higher-order life goals (which they rarely notice are missing), and keep the system in balance—transparent about business goals while encouraging actions valuable to both business and customer."
+   },
+   {
+    "idx": 263,
+    "statement": "Before building, step back from the Minimum Viable Product to a 'Minimum Meaningful Conversation' to understand the value exchange from the customer's perspective: start from their intent, questions, and needs, design how and where you answer at the moment they have a problem (rather than leaving that moment to marketing), and work through how they express need, what is exchanged, what they must give, what choices they get, how to close while conveying value, and how to leave the door open to future interactions."
+   }
+  ]
+ },
+ {
+  "group": 131,
+  "members": [
+   {
+    "idx": 196,
+    "statement": "Design every interaction as a cooperative effort toward a clear, shared goal, contributing what is required when it is required; nothing can be designed in the absence of a clearly defined goal, and the system must stay actively on the customer's side."
+   },
+   {
+    "idx": 268,
+    "statement": "Look past surface components and code to what a design means for the human beings involved; the true purpose of process is to make humans more efficient—not to eradicate humanity or avoid dealing with one another—so cultivate direct, honest communication and mutual respect, recognizing that significant change happens incrementally with everyone contributing."
+   }
+  ]
+ },
+ {
+  "group": 134,
+  "members": [
+   {
+    "idx": 199,
+    "statement": "Apply the politeness principle: don't impose, give options, and make the user feel good; respect the user's time and meet business goals without interrupting the user's pursuit of their own objectives (interrupting ads that obscure content are rude)."
+   },
+   {
+    "idx": 228,
+    "statement": "Send notifications only with affirmative consent and only when the customer is likely to welcome the interruption and can act on it; make them well-timed, concise, personalized, relevant, and genuinely valuable, route them only to the customer's active endpoint, and never use them for advertising, no-value messages, or false urgency when no action is possible."
+   }
+  ]
+ },
+ {
+  "group": 136,
+  "members": [
+   {
+    "idx": 201,
+    "statement": "Request and validate the right information at the right time before acting on it, especially when a misunderstanding carries a penalty or the action is non-trivial to undo."
+   },
+   {
+    "idx": 220,
+    "statement": "Make actions reversible, or give a very clear warning when they are commitments; an interface that omits or misrepresents an action's full consequences is failing to be truthful."
+   }
+  ]
+ },
+ {
+  "group": 137,
+  "members": [
+   {
+    "idx": 202,
+    "statement": "Exploit the complementary strengths of humans and computers instead of simulating a human mind or forcing people to conform to the technology; natural language is not always the right mode."
+   },
+   {
+    "idx": 270,
+    "statement": "To solve new problems in new ways, look beyond the typical design reading list to build historical perspective and an understanding of the nature of language, remembering that advancing technology will not change anything fundamental about human nature."
+   }
+  ]
+ },
+ {
+  "group": 143,
+  "members": [
+   {
+    "idx": 210,
+    "statement": "Avoid the traits that make a product forgettable (a generic or hard-to-spell name, saying too much or too little, looking or sounding like competitors, no clear pitch, too many options, or jargon meaningless to the customer), and never deliberately imitate other products to exploit customer confusion, which is a dark pattern."
+   },
+   {
+    "idx": 250,
+    "statement": "Use concrete, precise language with no superfluous words and go in fear of abstractions; define your voice from the negative space by first articulating what you do not want to sound like, and keep an explicit list of 'avoidably ugly words' and empty clichés that any product could use ('helpful', 'compelling', 'innovative', 'world-class') and never use them—if you have to say it, you probably are not it, so let customers judge."
+   }
+  ]
+ },
+ {
+  "group": 162,
+  "members": [
+   {
+    "idx": 236,
+    "statement": "The fewer senses a system engages, the more its personality must carry, so text-only chatbots depend almost entirely on personality; voice interfaces force a gender presentation (or an explicit choice) and naming/persona decisions carry social implications, so handle them with nuance."
+   },
+   {
+    "idx": 325,
+    "statement": "Design and review the chatbot's conversation before implementation details, treating conversational requirements as technology-independent, user-centered, and tied to business goals."
+   },
+   {
+    "idx": 329,
+    "statement": "Treat a system as an in-scope chatbot only if it processes natural-language input and sustains a one-on-one text conversation; a static icon or single-message broadcast does not qualify, speech/embodied/machine-to-machine cases are out of scope, and findings apply only within the text scope and are not exhaustive."
+   },
+   {
+    "idx": 335,
+    "statement": "Explicitly decide and disclose whether the chatbot is non-human and never let it pretend to be human, because discovered deception produces worse trust, anger, and frustration than transparent disclosure; disclosure itself reduces trust, humanness, and social presence, moderated by service criticality and by whether the bot acknowledges its expertise or limitations."
+   },
+   {
+    "idx": 355,
+    "statement": "Match the chatbot's personality to its audience and purpose: a reserved, calm, counselor-like persona increases users' willingness to confide and listen, while an extraverted persona raises social presence - both moderated by the user's personality."
+   }
+  ]
+ },
+ {
+  "group": 165,
+  "members": [
+   {
+    "idx": 241,
+    "statement": "Ground personality in clear values: values are implicit in the business model and you cannot adopt values that run counter to how you make money, so define them collaboratively with stakeholders in the context of real interactions (never abstract and top-down) and state them in human terms someone would actually say in conversation."
+   },
+   {
+    "idx": 245,
+    "statement": "Define personality along the dimensions of identity, expertise, mood/attitude, and relationship, keep its fundamental characteristics stable while letting tone adapt to context, and remember the most effective interfaces are neutral and slightly positive because an overly human personality backfires (as parodied by Marvin the Paranoid Android)."
+   }
+  ]
+ },
+ {
+  "group": 178,
+  "members": [
+   {
+    "idx": 256,
+    "statement": "To build conversational, human-centered systems, the team must work in a conversational, human-centered way, because (Conway's Law) an organization produces a design that copies its own communication structure—how human and goal-oriented a system feels reflects how well its creators interacted, and visible seams in an interface are the residue of handoffs and unresolved arguments."
+   },
+   {
+    "idx": 261,
+    "statement": "Run the work culture on the same conversational principles as the interface—cooperative, goal-oriented, context-aware, quick and clear, turn-based, truthful, polite, and error-tolerant—waiting your turn and truly listening (an underrepresented skill), treating the work as an interactive collective process, and building a safe, error-tolerant environment where ideas that may fail are welcome; some authority and documentation is a normal fact of organizational life, but keep clear goals and a standing willingness to reflect and improve."
+   },
+   {
+    "idx": 328,
+    "statement": "Run the conversational-design process end to end - observe users, define personas and goals, shape the dialogue and agent persona, draft messages, prototype, and test - with designers, writers, developers, and business strategists owning flow, wording, platform, and brand fit."
+   },
+   {
+    "idx": 378,
+    "statement": "Define every conversational UX design system around three explicit artifacts: a philosophy, reusable interaction patterns, and a content format."
+   },
+   {
+    "idx": 393,
+    "statement": "Use conversation templates to reduce repeated implementation work, make agents consistent, scaffold designer learning, and give teams shared interaction assumptions."
+   }
+  ]
+ },
+ {
+  "group": 183,
+  "members": [
+   {
+    "idx": 264,
+    "statement": "Design and test by interacting with real people, and test more interactions faster by doing less: keep early prototypes rough to separate the polish of production from the value of the idea (it is easy to become defensive about labor-intensive artifacts that are merely shiny vessels for weak ideas), and use the Wizard of Oz method—a human simulating the system—to test flow and conversation without technological constraints and reveal genuine customer expectations from both sides."
+   },
+   {
+    "idx": 306,
+    "statement": "Test early and throughout the whole process (from sketches to finished pages, including competitors' sites), and choose good tasks: derive them from what people need to do, word each carefully, and let participants pick some details to raise engagement."
+   }
+  ]
+ },
+ {
+  "group": 190,
+  "members": [
+   {
+    "idx": 275,
+    "statement": "Design for how people really use the web: they scan rather than read, satisfice on the first reasonable link, and muddle through without understanding how things work, so build 'billboards' that surface task- and interest-relevant words, make the first reasonable guess succeed, and never rely on users tolerating friction."
+   },
+   {
+    "idx": 276,
+    "statement": "For scanning users, apply the six billboard-design tactics: exploit conventions, create a clear visual hierarchy, break pages into clearly defined areas, make what is clickable obvious, eliminate distractions, and format content to support scanning."
+   }
+  ]
+ },
+ {
+  "group": 194,
+  "members": [
+   {
+    "idx": 281,
+    "statement": "Cut visual noise: treat shouting, disorganization, and clutter as enemies of easily grasped pages, make the tough decisions about what matters most, and when editing presume every element is noise (guilty until proven innocent) and remove anything not making a real contribution."
+   },
+   {
+    "idx": 284,
+    "statement": "Omit needless words: aim to cut about half the words (then half again as a discipline), kill content-free 'happy talk', and eliminate instructions by making things self-explanatory (or cut any necessary instructions to the minimum), because most page words go unread and merely add noise."
+   }
+  ]
+ },
+ {
+  "group": 203,
+  "members": [
+   {
+    "idx": 293,
+    "statement": "Recognize the Home page must satisfy many competing concrete and abstract demands under contention for scarce, prominent space, and that the one thing most often lost yet least affordable to lose is conveying the big picture of what the site is; make it answer a first-time visitor's core questions at a glance."
+   },
+   {
+    "idx": 296,
+    "statement": "Make the Home page's entry points obvious: after users know what the site is, make it clear where to start to search, browse, or sample the best content (and where to sign in or begin a process), by making entry points look like what they are and labeling them plainly."
+   },
+   {
+    "idx": 297,
+    "statement": "Protect the Home page from promotional overload: because prominent links reliably boost traffic, every stakeholder competes for space in a tragedy of the commons, so resist over-promoting, educate stakeholders about the shared cost of clutter, and offer alternative ways to drive traffic."
+   }
+  ]
+ },
+ {
+  "group": 207,
+  "members": [
+   {
+    "idx": 299,
+    "statement": "Reject the myth of the average user (web use is idiosyncratic and there is no simple right answer to important design questions) and resolve disputes by testing rather than opinion: replace 'do people like X?' with 'does this specific thing work for the people likely to use it?', because testing shifts discussion from opinion to what actually works."
+   },
+   {
+    "idx": 322,
+    "statement": "Act as a user advocate, never a manipulator: serve users' real needs, treat persuasion as acceptable only when it is not deceptive, refuse dark patterns and manipulation because that is not your job, and do not use usability tests to judge desirability (a market-research question)."
+   }
+  ]
+ },
+ {
+  "group": 209,
+  "members": [
+   {
+    "idx": 302,
+    "statement": "Make testing cheap and habitual: do it yourself when time and money are short, test about three users one morning a month on a fixed recurring day, keep it simple so you keep doing it, prefer more rounds over exhaustive ones, and use remote or unmoderated testing to widen the participant pool."
+   },
+   {
+    "idx": 303,
+    "statement": "Treat do-it-yourself testing as qualitative, not proof: about three participants per round is enough, the goal is actionable insight, and since you will always find more problems than you can fix you must focus on the most serious ones."
+   }
+  ]
+ },
+ {
+  "group": 212,
+  "members": [
+   {
+    "idx": 310,
+    "statement": "Design mobile around good tradeoffs: the same usability principles apply (users move even faster and read even less), design is fundamentally constraints and tradeoffs, most serious usability problems stem from tradeoffs that underweight the user, so use Mobile First to identify essentials and do not assume mobile users only want 'on the move' features."
+   },
+   {
+    "idx": 311,
+    "statement": "Manage small-screen space by prioritizing rather than sacrificing usability: keep frequent or urgent things close at hand, accept more tapping and scrolling as long as the scent of information stays strong, never trade away usability to fit the space, use responsive design rather than maintaining separate site versions, and honor mobile courtesies (allow zooming, deep-link to the actual content, and offer a full-site option)."
+   }
+  ]
+ },
+ {
+  "group": 217,
+  "members": [
+   {
+    "idx": 316,
+    "statement": "Treat usability as courtesy by managing the user's goodwill reservoir: beyond being clear, behave considerately, and remember every user arrives with a limited, idiosyncratic, situational, refillable reserve of goodwill that each problem drains and a single bad mistake can empty."
+   },
+   {
+    "idx": 318,
+    "statement": "Increase goodwill by serving users well: make the main tasks obvious and easy, be candid about things you would rather hide, save users steps and visibly put effort in, answer likely questions with genuine up-to-date FAQs, make errors easy to recover from, and apologize when you cannot do what a user wants."
+   }
+  ]
+ },
+ {
+  "group": 222,
+  "members": [
+   {
+    "idx": 326,
+    "statement": "Match the chatbot's communication style to its target audience and domain to support user satisfaction."
+   },
+   {
+    "idx": 331,
+    "statement": "Treat the chatbot's domain and context as an indirect moderator - the same practice can help in one domain and hurt in another - and tune target impacts to the domain (health toward well-being, mental-health toward closeness and trust, commercial toward retention and satisfaction)."
+   },
+   {
+    "idx": 337,
+    "statement": "When the chatbot fails to understand or solve a problem, acknowledge the misunderstanding and offer a recovery path; clarification requests raise perceived anthropomorphism and adoption intent, and users prefer repair that acknowledges the breakdown and suggests solutions."
+   },
+   {
+    "idx": 338,
+    "statement": "Accompany recommendations, instructions, or unexpected information with explanations or justifications; justification and rapport-building raise trust, perceived transparency, satisfaction, usefulness, and ease of use, and are especially relevant for customer-service and recommendation chatbots."
+   },
+   {
+    "idx": 339,
+    "statement": "Apply naturalness practices - self-introduction, a welcoming opening that states capabilities and optionally collects the user's name, addressing the user by name, small talk, echoing user responses, casual language, and humanization techniques such as adaptive response speed - to raise perceived anthropomorphism and social presence and reduce user resistance; naturalness is the baseline for every chatbot."
+   },
+   {
+    "idx": 340,
+    "statement": "Combine politeness with restrained informality rather than either extreme, adjust language features to the domain, and keep informality from undermining the chatbot's professional image; informal elements build closeness and motivation more in health and learning contexts than in commercial ones, and warm, polite openers raise engagement."
+   },
+   {
+    "idx": 341,
+    "statement": "Use typing cues and slightly delayed responses to make the chatbot feel less instantaneous and more human - raising perceived humanness, social presence, and satisfaction - but balance them against task efficiency."
+   },
+   {
+    "idx": 346,
+    "statement": "Pretest how target users perceive intended practices, because user belief about the chatbot determines impact more than the designer's intended identity or effect."
+   },
+   {
+    "idx": 348,
+    "statement": "Let the chatbot's purpose drive the desired user relationship, the target impacts, and the primary conversational-design focus."
+   },
+   {
+    "idx": 349,
+    "statement": "Tune emphasis to purpose: information-collection and transaction chatbots state capabilities and limitations early; information and recommendation chatbots emphasize credibility and trust (recommendation also intimacy-building); well-being chatbots emphasize companionship, intimacy, and encouragement."
+   },
+   {
+    "idx": 350,
+    "statement": "Treat naturalness as the baseline for every chatbot, and foreground transparency when competent task performance matters most and emotionality when deeper user connection matters most, deciding explicitly which to foreground since they can coexist."
+   },
+   {
+    "idx": 354,
+    "statement": "Avoid repetitive or identical messages, exaggerated practice use, hidden chatbot identity, machine-like typefaces such as OCR-A, and intentional or forced typing errors, which reduce perceived humanness and can read as developer incompetence."
+   }
+  ]
+ },
+ {
+  "group": 223,
+  "members": [
+   {
+    "idx": 327,
+    "statement": "Keep only conversational practices that are pragmatic, replicable, and backed by concrete implementation examples; translate broad subjective characteristics into implementable behavior or drop them."
+   },
+   {
+    "idx": 347,
+    "statement": "Author multiple varied formulations for each recurring communicative function so repeated use of a practice does not make the chatbot feel machine-like."
+   }
+  ]
+ },
+ {
+  "group": 225,
+  "members": [
+   {
+    "idx": 332,
+    "statement": "Do not treat avatars as context-independent improvements: avatar gender and appearance shape user impressions before any message, effects are inconsistent across studies, human-like avatars raise expectations and frustration after failures, and auto-activation can worsen anthropomorphic avatars - pair avatar choices with transparency and failure handling, and test them."
+   },
+   {
+    "idx": 343,
+    "statement": "Account for interactions between practices - avatar activation mode, humor style, limitation acknowledgement, disclosure timing, and pretending to be human - rather than treating each practice in isolation."
+   },
+   {
+    "idx": 357,
+    "statement": "Design how the conversation is initiated: a system-initiated, non-anthropomorphic assistant can raise user reactance and auto-activated agents can fare worse with anthropomorphic avatars, so prefer user-initiated openings or carefully designed onboarding."
+   }
+  ]
+ },
+ {
+  "group": 226,
+  "members": [
+   {
+    "idx": 333,
+    "statement": "Use emotionality practices - exclamatory feedback, graphical media (emoji, emoticons, GIFs, memes), a social-oriented informal style, and humor - to raise social presence and positive perceptions such as enjoyment, credibility, engagement, and behavioral intentions."
+   },
+   {
+    "idx": 334,
+    "statement": "Convey empathy by adapting responses to what the user said, acknowledging negative situations, restating the user's message, and using active listening (paraphrasing, verbalizing emotions, summarizing, encouraging); sentiment-adaptive and supportive messages raise perceived empathy, valence, and engagement."
+   }
+  ]
+ },
+ {
+  "group": 231,
+  "members": [
+   {
+    "idx": 352,
+    "statement": "Deliver guidance in simple, objective, and clear language with short explanations, concrete per-practice examples, extended before-and-after examples, and references to supporting studies; state the objective and scope or limitations early and do not present it as exhaustive or as a full technical or process manual."
+   },
+   {
+    "idx": 353,
+    "statement": "Apply transparency practices - presenting capabilities, acknowledging limitations, making suggestions, and asking for clarification - to support competent task performance and adoption."
+   }
+  ]
+ },
+ {
+  "group": 233,
+  "members": [
+   {
+    "idx": 358,
+    "statement": "Design the interaction sequence as a first-class object, not just the language recognizer, response text, or visual shell."
+   },
+   {
+    "idx": 379,
+    "statement": "Design conversational interfaces as ordered utterance sequences grounded in human conversation, not as visual-control layouts with text attached."
+   }
+  ]
+ },
+ {
+  "group": 234,
+  "members": [
+   {
+    "idx": 359,
+    "statement": "Set expectations and scope around the agent as a constrained conversational simulation rather than a human-equivalent interlocutor."
+   },
+   {
+    "idx": 380,
+    "statement": "Use natural conversation as the interaction metaphor and mutual understanding as the success criterion for agent-user exchanges."
+   }
+  ]
+ },
+ {
+  "group": 236,
+  "members": [
+   {
+    "idx": 361,
+    "statement": "Use elicitation, repeat, and paraphrase techniques to display hearing and invite elaboration, while treating them as limited interactional displays rather than proof of deep understanding."
+   },
+   {
+    "idx": 388,
+    "statement": "Use a content schema with separate slots for user utterance, agent utterance, repeat, paraphrase, example, and definition."
+   }
+  ]
+ },
+ {
+  "group": 241,
+  "members": [
+   {
+    "idx": 368,
+    "statement": "Implement conversation-management actions as core agent capabilities, including preliminaries, repair requests, acknowledgments, cancellations, sequence closings, and conversation closings."
+   },
+   {
+    "idx": 382,
+    "statement": "Organize a conversational pattern library into primary activities, sequence-level management, and conversation-level management."
+   },
+   {
+    "idx": 383,
+    "statement": "Model primary conversational activities with reusable modules for inquiries, requests, extended tellings, known-answer questions, and information capture."
+   },
+   {
+    "idx": 387,
+    "statement": "Include conversation-lifecycle patterns for openings, capability and topic negotiation, transitions, last-topic checks, closings, and disengagement."
+   }
+  ]
+ },
+ {
+  "group": 242,
+  "members": [
+   {
+    "idx": 369,
+    "statement": "Design conversation-centric flows as mixed-initiative and nonlinear so either party can lead and the user can redirect the trajectory."
+   },
+   {
+    "idx": 377,
+    "statement": "Use a systematic conversation-analysis framework, such as NCF, to compensate for platform gaps in modeling turn-by-turn interaction."
+   }
+  ]
+ },
+ {
+  "group": 245,
+  "members": [
+   {
+    "idx": 372,
+    "statement": "Evaluate understanding by demonstrated performance across probing, varied situations, not by the mere ability to continue a conversation or claim comprehension."
+   },
+   {
+    "idx": 374,
+    "statement": "Scope claims of machine understanding to narrow, practical domains unless performance holds up under varied probing and phrasing."
+   }
+  ]
+ },
+ {
+  "group": 248,
+  "members": [
+   {
+    "idx": 376,
+    "statement": "Expose the agent's interpretation of the user's utterance, action, or topic when that interpretation affects the next move, so the user can repair it if needed."
+   },
+   {
+    "idx": 381,
+    "statement": "Apply recipient design, minimization, and repair together when writing automated-agent utterances."
+   }
+  ]
+ }
+]

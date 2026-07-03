@@ -1,0 +1,1495 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Design conversational interfaces as ordered interaction sequences grounded
+    in human conversation, not as response text or visual controls with language attached.
+  derived_from_claims:
+  - C01367
+  - C01368
+  - C01375
+  - C01376
+  - C01380
+  - C01381
+  - C01441
+  - C01442
+  - C01446
+  confidence: high
+  applies_when:
+  - Designing an interface that is meant to feel recognizably conversational.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: Use focus groups for early planning or ideation, not as the primary way
+    to validate IA usability or architecture decisions.
+  derived_from_claims:
+  - C00366
+  - C00367
+  - C00368
+  - C00369
+  - C01161
+  - C01162
+  confidence: high
+  applies_when:
+  - The goal is content or feature brainstorming with target audiences.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Judge usability by the effortless-use test (an average or below-average
+    user accomplishes their goal without it being more trouble than it is worth),
+    remembering usability is about people rather than technology, endures over time,
+    applies to anything interactive, and that higher perceived effort makes people
+    less likely to act.
+  derived_from_claims:
+  - C00767
+  - C00768
+  - C01043
+  - C01044
+  - C01045
+  - C01046
+  confidence: high
+  applies_when:
+  - judging whether a design is good enough to ship
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: 'Facilitate neutrally: choose a facilitator with the right temperament
+    because a bad one tanks the test, avoid leading or rescuing lost users and embrace
+    silences (the system''s own designer is most tempted to hint), and when a participant
+    blames themselves ask how they expected the system to work and why.'
+  derived_from_claims:
+  - C00780
+  - C00781
+  - C00782
+  - C01183
+  - C01184
+  confidence: high
+  applies_when:
+  - running a usability-test session
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: 'Design pages for scanning users: use conventions, clear hierarchy, obvious
+    links, low distraction, and scannable content so the first reasonable choice can
+    succeed.'
+  derived_from_claims:
+  - C01058
+  - C01059
+  - C01060
+  - C01061
+  - C01062
+  - C01063
+  - C01064
+  - C01065
+  - C01066
+  - C01067
+  - C01068
+  - C01069
+  - C01070
+  - C01071
+  - C01072
+  - C01073
+  confidence: high
+  applies_when:
+  - designing or reviewing web or app pages that users navigate under time pressure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: 'Treat information environments as places: use semantic cues, ordering,
+    labels, typologies, and familiar concepts to shape users'' understanding of where
+    they are and what they can do.'
+  derived_from_claims:
+  - C00060
+  - C00061
+  - C00062
+  - C00063
+  - C00064
+  - C00065
+  - C00066
+  - C00067
+  - C00068
+  - C00069
+  - C00076
+  - C00078
+  - C00080
+  confidence: medium
+  applies_when:
+  - Designing or evaluating a product's high-level structure, first-level navigation,
+    labeling, or cross-channel identity.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: Evaluate claims of machine understanding by demonstrated performance
+    across varied probing and phrasing, and scope those claims to the domains where
+    that performance holds.
+  derived_from_claims:
+  - C01414
+  - C01415
+  - C01416
+  - C01422
+  - C01423
+  - C01424
+  - C01425
+  - C01426
+  - C01427
+  - C01428
+  - C01429
+  - C01430
+  confidence: high
+  applies_when:
+  - Assessing whether a person, machine, or conversational agent understands a concept,
+    topic, or conversational action.
+  - Designing or evaluating service agents, chatbots, or voice assistants with limited
+    domains and repetitive goals.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Generate candidate labels from content analysis, extraction tools, authors,
+    SMEs, user advocates, card sorting, free listing, and search logs, but validate
+    them before treating them as final.
+  derived_from_claims:
+  - C00181
+  - C00182
+  - C00183
+  - C00184
+  - C00185
+  - C00186
+  - C00187
+  - C00188
+  - C00189
+  - C00190
+  - C00191
+  - C00192
+  confidence: medium
+  applies_when:
+  - Creating labels where no ideal controlled vocabulary already exists.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: Design card sorts to match the research goal, using open sorts for discovery,
+    closed sorts for validation, and careful analysis for qualitative versus quantitative
+    use.
+  derived_from_claims:
+  - C00374
+  - C00375
+  - C00376
+  - C00377
+  - C00378
+  - C00379
+  - C00380
+  - C00381
+  - C00382
+  - C00383
+  - C00384
+  confidence: medium
+  applies_when:
+  - Studying users' mental models for grouping, sorting, or labeling content and tasks.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: 'Treat research and strategy as connected work: the same team should
+    carry hands-on learning into strategy, record design ideas during research, and
+    use IA-specific research to counter unsupported assumptions.'
+  derived_from_claims:
+  - C00390
+  - C00391
+  - C00392
+  - C00393
+  - C00394
+  - C00395
+  - C00396
+  - C00397
+  - C00398
+  - C00399
+  - C00400
+  confidence: medium
+  applies_when:
+  - Moving from IA research toward strategy or defending research effort.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Test strategy before commitment with adapted research methods, closed
+    card sorts, prototype task tests, hierarchy tests, and simple wireframes.
+  derived_from_claims:
+  - C00415
+  - C00416
+  - C00417
+  - C00418
+  - C00419
+  - C00420
+  - C00421
+  - C00422
+  - C00423
+  - C00424
+  - C00426
+  confidence: medium
+  applies_when:
+  - Candidate organization, labeling, or hierarchy choices are ready for validation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Design labels as compact representations that use user language, distinguish
+    destinations, avoid organizational jargon, and are tested in their actual channel
+    context.
+  derived_from_claims:
+  - C00144
+  - C00145
+  - C00146
+  - C00147
+  - C00148
+  - C00149
+  - C00150
+  - C00151
+  - C00152
+  - C00153
+  confidence: medium
+  applies_when:
+  - Creating textual or iconic labels for navigation, headings, links, or index terms.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Design labels as a scoped, consistent system by managing style, presentation,
+    syntax, granularity, comprehensiveness, audience terminology, and modular boundaries.
+  derived_from_claims:
+  - C00169
+  - C00170
+  - C00171
+  - C00172
+  - C00173
+  - C00174
+  - C00193
+  - C00194
+  - C00195
+  - C00196
+  confidence: medium
+  applies_when:
+  - Creating or revising a label set rather than a single isolated label.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Validate and improve content-model links with user research, gap analysis,
+    entry-point identification, and metadata-backed linking logic.
+  derived_from_claims:
+  - C00530
+  - C00531
+  - C00532
+  - C00533
+  - C00534
+  - C00535
+  - C00536
+  - C00537
+  - C00538
+  - C00539
+  confidence: medium
+  applies_when:
+  - Designing automated or semi-automated links between content objects.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: 'Treat navigation as effectively being the site: since people will not
+    use a site they cannot find their way around, provide persistent (global) navigation
+    in a consistent place, follow navigation conventions so elements are easy to locate
+    and recognize, and remember navigation also reveals content, teaches how to use
+    the site, and builds trust.'
+  derived_from_claims:
+  - C01107
+  - C01108
+  - C01109
+  - C01110
+  - C01111
+  - C01112
+  - C01113
+  - C01114
+  - C01115
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Apply naturalness practices - self-introduction, a welcoming opening
+    that states capabilities and optionally collects the user's name, addressing the
+    user by name, small talk, echoing user responses, casual language, and humanization
+    techniques such as adaptive response speed - to raise perceived anthropomorphism
+    and social presence and reduce user resistance; naturalness is the baseline for
+    every chatbot.
+  derived_from_claims:
+  - C01253
+  - C01272
+  - C01277
+  - C01287
+  - C01325
+  - C01335
+  - C01345
+  - C01359
+  - C01366
+  confidence: high
+  applies_when:
+  - designing the opening and everyday phrasing
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Analyze each architecture problem through users, content, and context
+    instead of applying generic best practices or competitor patterns uncritically.
+  derived_from_claims:
+  - C00031
+  - C00032
+  - C00033
+  - C00034
+  - C00035
+  - C00036
+  - C00038
+  - C00039
+  - C00040
+  confidence: medium
+  applies_when:
+  - Choosing an IA solution, especially when the right answer depends on ownership,
+    metadata, channel constraints, business goals, or user variation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Start IA decisions from real users and their information needs, using
+    field or behavioral research rather than internal brainstorming alone.
+  derived_from_claims:
+  - C00043
+  - C00044
+  - C00045
+  - C00046
+  - C00047
+  - C00048
+  - C00057
+  - C00058
+  - C00059
+  confidence: medium
+  applies_when:
+  - Prioritizing components, labels, navigation, search, or content access for a product.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: 'Evaluate IA through its component systems: organization, labeling, navigation,
+    search, content/task elements, and invisible metadata or vocabulary systems.'
+  derived_from_claims:
+  - C00081
+  - C00082
+  - C00083
+  - C00089
+  - C00090
+  - C00091
+  - C00092
+  - C00093
+  - C00094
+  confidence: medium
+  applies_when:
+  - Auditing, designing, or explaining what counts as information architecture.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Choose retrieval algorithms, stemming, query builders, and structured-field
+    search according to the user's recall-versus-precision needs.
+  derived_from_claims:
+  - C00254
+  - C00255
+  - C00256
+  - C00257
+  - C00258
+  - C00259
+  - C00260
+  - C00261
+  - C00262
+  confidence: medium
+  applies_when:
+  - Configuring search ranking, matching, stemming, spelling, fields, or expansion
+    tools.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Use scenarios, stories, case studies, diagrams, sitemaps, wireframes,
+    and reports to make abstract IA strategy understandable and actionable for different
+    audiences.
+  derived_from_claims:
+  - C00432
+  - C00433
+  - C00434
+  - C00435
+  - C00436
+  - C00437
+  - C00438
+  - C00439
+  - C00440
+  confidence: medium
+  applies_when:
+  - Communicating IA strategy to stakeholders, clients, colleagues, or implementation
+    teams.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Never run verbal (writing) design on a separate track from visual and
+    interaction design—splitting it produces an interface of boxes later filled with
+    language and disserves the whole experience—so make decisions about verbal language
+    and nonverbal cues part of the same process at the same time, and give writers
+    and designers a feedback loop on how successful their work was so they can learn
+    and improve.
+  derived_from_claims:
+  - C00840
+  - C00841
+  - C00844
+  - C00854
+  - C00856
+  - C00857
+  - C01007
+  - C01008
+  - C01010
+  confidence: medium
+  applies_when:
+  - designing or reviewing any interface that uses words
+  - structuring the design workflow across writing, visual, and interaction disciplines
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: 'Treat usability as courtesy: protect and build users'' limited goodwill
+    by making key tasks easy, being candid, saving steps, supporting recovery, and
+    apologizing when needed.'
+  derived_from_claims:
+  - C01219
+  - C01220
+  - C01221
+  - C01225
+  - C01226
+  - C01227
+  - C01228
+  - C01229
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: 'Do not treat avatars as context-independent improvements: avatar gender
+    and appearance shape user impressions before any message, effects are inconsistent
+    across studies, human-like avatars raise expectations and frustration after failures,
+    and auto-activation can worsen anthropomorphic avatars - pair avatar choices with
+    transparency and failure handling, and test them.'
+  derived_from_claims:
+  - C01270
+  - C01289
+  - C01290
+  - C01296
+  - C01342
+  - C01346
+  - C01350
+  - C01365
+  confidence: high
+  applies_when:
+  - adding or reviewing a visual avatar or identity cue
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Design cross-channel coherence from abstract semantic structures that
+    can be expressed differently in each channel while remaining recognizable and
+    consistent.
+  derived_from_claims:
+  - C00004
+  - C00010
+  - C00011
+  - C00018
+  - C00019
+  - C00020
+  - C00022
+  - C00037
+  confidence: medium
+  applies_when:
+  - The same information environment appears across web, mobile, device, voice, or
+    other channels.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Begin architecture exploration with a hierarchy, then balance mutual
+    exclusivity, cross-listing, breadth, depth, and expected growth through user testing.
+  derived_from_claims:
+  - C00123
+  - C00124
+  - C00125
+  - C00126
+  - C00127
+  - C00128
+  - C00129
+  - C00130
+  confidence: medium
+  applies_when:
+  - Designing a hierarchical or top-down organization structure.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Support integrated, iterative finding behavior by letting users move
+    fluidly among search, browse, asking, similar-item paths, and subsite-level navigation.
+  derived_from_claims:
+  - C00049
+  - C00050
+  - C00051
+  - C00052
+  - C00053
+  - C00054
+  - C00055
+  - C00056
+  confidence: medium
+  applies_when:
+  - Users may explore, refine, refind, research exhaustively, or enter through multiple
+    paths.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Include content-management implications in strategy work, aligning IA
+    with content strategy, rules, roles, resources, templates, metadata, and thesauri.
+  derived_from_claims:
+  - C00447
+  - C00448
+  - C00449
+  - C00450
+  - C00451
+  - C00452
+  - C00453
+  - C00454
+  confidence: medium
+  applies_when:
+  - IA recommendations affect content creation, governance, templates, metadata, or
+    partner distribution.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Provide supplemental navigation such as sitemaps, indexes, guides, configurators,
+    and search as backup paths because taxonomies and embedded navigation will not
+    satisfy every user or task.
+  derived_from_claims:
+  - C00220
+  - C00221
+  - C00222
+  - C00223
+  - C00224
+  - C00228
+  - C00229
+  - C00230
+  confidence: medium
+  applies_when:
+  - The system is large, hierarchical, complex, or supports varied finding needs.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Select sorting, ranking, best bets, popularity, ratings, paid placement,
+    or clustering based on task, content heterogeneity, available metadata, and user
+    trust implications.
+  derived_from_claims:
+  - C00269
+  - C00270
+  - C00271
+  - C00272
+  - C00273
+  - C00274
+  - C00275
+  - C00276
+  confidence: medium
+  applies_when:
+  - Ordering or grouping retrieval results.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Use sketches, wireframes, and prototypes to integrate IA with visual
+    design, technical feasibility, and team vocabulary before committing to code or
+    finished graphics.
+  derived_from_claims:
+  - C00544
+  - C00545
+  - C00546
+  - C00547
+  - C00548
+  - C00549
+  - C00550
+  - C00551
+  confidence: medium
+  applies_when:
+  - Cross-functional teams are resolving interface, navigation, architecture, and
+    implementation questions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Make implementation-stage sitemaps simple, modular, traceable, and production-ready
+    with condensed notation, unique IDs, hierarchy coverage, labels, and navigation
+    specifications.
+  derived_from_claims:
+  - C00488
+  - C00489
+  - C00490
+  - C00491
+  - C00492
+  - C00494
+  - C00495
+  - C00496
+  confidence: medium
+  applies_when:
+  - Preparing architecture documentation for designers, developers, editors, or production
+    staff.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Make systems conversational at a deep level (cooperative, goal-oriented,
+    context-aware, fault-tolerant) rather than adding a surface chat or voice facade,
+    because a facade forces users to fixate on the technology's limits instead of
+    their goals.
+  derived_from_claims:
+  - C00838
+  - C00839
+  - C00843
+  - C00846
+  - C00858
+  - C00865
+  - C00872
+  - C00873
+  confidence: medium
+  applies_when:
+  - any human-centered interaction design task
+  - deciding whether/how to add conversational or chatbot capabilities
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: 'Match the type and openness of research to the maturity of the problem:
+    use generative or exploratory research to define an ill-defined problem, descriptive
+    research to understand context once a problem is identified, evaluative research
+    iteratively to test solutions, and causal research to explain a live product,
+    and do not fine-tune solutions while the problem is still undefined.'
+  derived_from_claims:
+  - C00590
+  - C00591
+  - C00593
+  - C00594
+  - C00595
+  - C00596
+  - C00597
+  confidence: high
+  applies_when:
+  - choosing a research activity for the current project stage
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: Do user research to replace assumptions with patterns and genuine empathy,
+    treating user research as ethnography that understands how and why people behave
+    in their real context rather than gathering opinions through surveys or focus
+    groups, and observe representative users in their own environment across physical
+    setting, mental model, habits, and relationships.
+  derived_from_claims:
+  - C00718
+  - C00719
+  - C00720
+  - C00729
+  - C00730
+  - C00731
+  - C00732
+  confidence: high
+  applies_when:
+  - planning research into the people a design serves
+  - planning and running qualitative user research
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Run the work culture on the same conversational principles as the interface—cooperative,
+    goal-oriented, context-aware, quick and clear, turn-based, truthful, polite, and
+    error-tolerant—waiting your turn and truly listening (an underrepresented skill),
+    treating the work as an interactive collective process, and building a safe, error-tolerant
+    environment where ideas that may fail are welcome; some authority and documentation
+    is a normal fact of organizational life, but keep clear goals and a standing willingness
+    to reflect and improve.
+  derived_from_claims:
+  - C01003
+  - C01004
+  - C01005
+  - C01015
+  - C01016
+  - C01017
+  - C01018
+  confidence: high
+  applies_when:
+  - diagnosing why a product feels disjointed, or structuring how a team collaborates
+  - shaping team norms and collaboration culture
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Make every page or screen self-evident so users understand what it is
+    and how to use it without conscious effort; when full self-evidence is impossible
+    make it at least self-explanatory, and relentlessly remove the 'question marks'
+    (moments of uncertainty) that add cognitive load and erode confidence.
+  derived_from_claims:
+  - C01048
+  - C01049
+  - C01050
+  - C01054
+  - C01055
+  - C01056
+  - C01057
+  confidence: high
+  applies_when:
+  - designing or reviewing any page, screen, or interactive element
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Frame architecture work as technology-independent design of information
+    environments, not as guidance tied to one site, device, software package, or job
+    title.
+  derived_from_claims:
+  - C00001
+  - C00002
+  - C00003
+  - C00005
+  - C00007
+  - C00008
+  - C00025
+  confidence: medium
+  applies_when:
+  - Defining the scope or role of information architecture work.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Design organization and labeling with awareness that classification shapes
+    understanding, reflects perspectives, and carries organizational politics.
+  derived_from_claims:
+  - C00095
+  - C00096
+  - C00097
+  - C00099
+  - C00100
+  - C00103
+  - C00106
+  confidence: medium
+  applies_when:
+  - Creating categories, labels, or taxonomies for contested, abstract, or stakeholder-owned
+    content.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Design contextual links and headings around user expectations, surrounding
+    context, visual hierarchy, and process sequence rather than ad hoc author preference.
+  derived_from_claims:
+  - C00154
+  - C00155
+  - C00156
+  - C00157
+  - C00158
+  - C00159
+  - C00160
+  confidence: medium
+  applies_when:
+  - Creating in-content links, headings, or process-step labels.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Design thesauri as semantic networks of equivalence, hierarchy, and associative
+    relationships, using professional judgment and research rather than expecting
+    one correct design.
+  derived_from_claims:
+  - C00300
+  - C00301
+  - C00302
+  - C00303
+  - C00304
+  - C00313
+  - C00314
+  confidence: medium
+  applies_when:
+  - A controlled vocabulary needs richer semantic relationships than preferred and
+    variant terms alone.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Begin context research with background materials, a shared IA kickoff,
+    focused research meetings, early IT engagement, and stakeholder interviews.
+  derived_from_claims:
+  - C00333
+  - C00334
+  - C00335
+  - C00336
+  - C00337
+  - C00338
+  - C00339
+  confidence: medium
+  applies_when:
+  - Starting an IA project or redesign.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Use multiple lightweight user-research approaches, because any real user
+    evidence is better than none and different methods reveal different parts of the
+    problem.
+  derived_from_claims:
+  - C00353
+  - C00354
+  - C00355
+  - C00356
+  - C00357
+  - C00358
+  - C00359
+  confidence: medium
+  applies_when:
+  - Researching user needs, language, behavior, or satisfaction under practical constraints.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: Start strategy hypotheses before research, test them during research,
+    and shift from discovery to strategy when learning plateaus and candidate structures
+    need validation.
+  derived_from_claims:
+  - C00405
+  - C00406
+  - C00407
+  - C00408
+  - C00409
+  - C00410
+  - C00425
+  confidence: medium
+  applies_when:
+  - Planning or running the transition from IA research to strategy.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: Pair IA strategy with a project plan and presentations so recommendations
+    become feasible, sequenced, integrated with other teams, and understood by stakeholders.
+  derived_from_claims:
+  - C00456
+  - C00457
+  - C00458
+  - C00459
+  - C00460
+  - C00461
+  - C00462
+  confidence: medium
+  applies_when:
+  - Moving from strategy into design or implementation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: Treat IA diagrams as partial communication views; tailor each view to
+    audience and need, present it live when possible, and value usefulness over polish.
+  derived_from_claims:
+  - C00468
+  - C00469
+  - C00470
+  - C00471
+  - C00472
+  - C00473
+  - C00477
+  confidence: medium
+  applies_when:
+  - Creating or presenting IA diagrams or nonvisual equivalents.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: Use high-level sitemaps as purpose-specific, selective discussion tools
+    for exploring organization, navigation, ownership, management, and access paths.
+  derived_from_claims:
+  - C00481
+  - C00482
+  - C00483
+  - C00484
+  - C00485
+  - C00486
+  - C00487
+  confidence: medium
+  applies_when:
+  - Exploring or communicating broad architecture and navigation concepts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: Choose wireframe fidelity and production practices deliberately, maintaining
+    consistency, reusable templates, callouts, revision metadata, and team stewardship.
+  derived_from_claims:
+  - C00506
+  - C00507
+  - C00509
+  - C00510
+  - C00511
+  - C00512
+  - C00513
+  confidence: medium
+  applies_when:
+  - Creating multiple wireframes or a wireframe set for clients or production teams.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Deliver guidance in simple, objective, and clear language with short
+    explanations, concrete per-practice examples, extended before-and-after examples,
+    and references to supporting studies; state the objective and scope or limitations
+    early and do not present it as exhaustive or as a full technical or process manual.
+  derived_from_claims:
+  - C01308
+  - C01315
+  - C01316
+  - C01317
+  - C01318
+  - C01319
+  - C01320
+  confidence: medium
+  applies_when:
+  - writing a practitioner-facing design guide
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Follow established placement, behavior, and appearance conventions unless
+    a replacement is clearly better or adds enough value to justify a learning curve;
+    innovate only when you have a genuinely better idea, keep creativity subordinate
+    to usability, and let clarity trump consistency.
+  derived_from_claims:
+  - C01074
+  - C01075
+  - C01076
+  - C01077
+  - C01078
+  - C01079
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: 'Research the organization as rigorously as its users: get out and talk
+    to real people, interview the stakeholders whose support the project needs (anyone
+    whose lack of support would sink it) using user-research methods, and gather clear
+    business requirements, because work that does not support the business fails no
+    matter how good the design.'
+  derived_from_claims:
+  - C00679
+  - C00680
+  - C00681
+  - C00682
+  - C00684
+  - C00688
+  confidence: high
+  applies_when:
+  - starting work inside or for an organization
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: 'Name and manage bias in every study: assume bias is unavoidable and
+    note it so you can weight results appropriately using a bias checklist, keep interviewers
+    neutral especially early, reduce sponsor bias by not naming the sponsor prematurely,
+    counter social-desirability bias by promising confidentiality and stressing honesty,
+    and counter the Hawthorne effect by blending in.'
+  derived_from_claims:
+  - C00618
+  - C00619
+  - C00620
+  - C00621
+  - C00622
+  - C00623
+  confidence: high
+  applies_when:
+  - designing, running, or interpreting any study
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: 'Follow a lightweight but explicit process: define the problem, select
+    the approach (its type from the problem statement and its specific method from
+    available resources), plan and prepare by naming a point person and sketching
+    a revisable plan with tradeoffs and fallbacks decided in advance and roles, recruiting,
+    and materials listed, then collect, analyze, and report.'
+  derived_from_claims:
+  - C00640
+  - C00643
+  - C00644
+  - C00645
+  - C00646
+  - C00647
+  confidence: high
+  applies_when:
+  - structuring any research effort
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: 'Analyze collaboratively and structurally: involve as many team members
+    as possible, follow an explicit analysis structure even for a two-person team,
+    give participants advance access, look for goals, priorities, tasks, motivators,
+    barriers, habits, relationships, tools, and environment, turn patterns into observations
+    and then recommendations against the original problem statement, and group around
+    patterns that emerge rather than ones imposed in advance.'
+  derived_from_claims:
+  - C00669
+  - C00670
+  - C00671
+  - C00672
+  - C00674
+  - C00675
+  confidence: high
+  applies_when:
+  - running an analysis session
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: 'Recruit deliberately for representativeness: screen primarily for the
+    behaviors that matter (a good participant shares the target''s goals and key characteristics,
+    can articulate their thoughts, and matches the target''s technology familiarity),
+    use a short screener that filters out time-wasters and stays vague about the test,
+    verify tool and domain knowledge realistically, and phone-follow-up in-person
+    candidates.'
+  derived_from_claims:
+  - C00649
+  - C00651
+  - C00652
+  - C00653
+  - C00654
+  - C00655
+  confidence: high
+  applies_when:
+  - writing a screener or selecting participants
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: 'Build and use personas as the users in user-centered design: create
+    composites from firsthand research, keep them as few as possible with multiple
+    roles, brief and reusable, with realistic construction details, keep design targets
+    separate from marketing targets, and make personas the first people you check
+    any new idea against.'
+  derived_from_claims:
+  - C00798
+  - C00799
+  - C00800
+  - C00801
+  - C00802
+  - C00805
+  confidence: high
+  applies_when:
+  - creating or using personas to guide design
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: 'Omit needless words: aim to cut about half the words (then half again
+    as a discipline), kill content-free ''happy talk'', and eliminate instructions
+    by making things self-explanatory (or cut any necessary instructions to the minimum),
+    because most page words go unread and merely add noise.'
+  derived_from_claims:
+  - C01101
+  - C01102
+  - C01103
+  - C01104
+  - C01105
+  - C01106
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: 'Judge navigation by how hard each click is rather than the raw count:
+    keep every click a mindless, unambiguous choice with a strong ''scent of information'',
+    use progressive disclosure to avoid confronting users with everything at once,
+    and give just-enough (brief, timely, unavoidable) guidance only when a hard choice
+    cannot be eliminated.'
+  derived_from_claims:
+  - C01095
+  - C01096
+  - C01097
+  - C01098
+  - C01099
+  - C01100
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: 'Debrief immediately and triage ruthlessly: fix the most serious problems
+    first via a collective list, top-ten selection, ranking, and an ordered fix list
+    with owners; fix only enough to declassify each serious problem then stop; keep
+    a separate low-hanging-fruit list; and prefer removing what obscures meaning over
+    adding explanations.'
+  derived_from_claims:
+  - C01187
+  - C01188
+  - C01189
+  - C01190
+  - C01191
+  - C01192
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: 'Manage small-screen space by prioritizing rather than sacrificing usability:
+    keep frequent or urgent things close at hand, accept more tapping and scrolling
+    as long as the scent of information stays strong, never trade away usability to
+    fit the space, use responsive design rather than maintaining separate site versions,
+    and honor mobile courtesies (allow zooming, deep-link to the actual content, and
+    offer a full-site option).'
+  derived_from_claims:
+  - C01201
+  - C01202
+  - C01203
+  - C01204
+  - C01205
+  - C01206
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Base conversational guidance on primary, full research studies that measure
+    user-centered outcomes such as satisfaction and trust, excluding studies that
+    report no user impact or only algorithmic or technical performance, and passing
+    each study through a quality checklist.
+  derived_from_claims:
+  - C01257
+  - C01258
+  - C01261
+  - C01262
+  - C01264
+  - C01265
+  confidence: high
+  applies_when:
+  - synthesizing evidence for a practice
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: Use emotionality practices - exclamatory feedback, graphical media (emoji,
+    emoticons, GIFs, memes), a social-oriented informal style, and humor - to raise
+    social presence and positive perceptions such as enjoyment, credibility, engagement,
+    and behavioral intentions.
+  derived_from_claims:
+  - C01271
+  - C01326
+  - C01336
+  - C01354
+  - C01355
+  - C01363
+  confidence: high
+  applies_when:
+  - deciding how much emotional expressiveness the chatbot shows
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: Avoid a two-turn valid-query model when users need to build on prior
+    turns; preserve sequential context so follow-ups, references, repair, and closings
+    have an interactional target.
+  derived_from_claims:
+  - C01383
+  - C01384
+  - C01386
+  - C01388
+  - C01389
+  - C01390
+  confidence: high
+  applies_when:
+  - The task involves multi-turn requests, incremental specification, references to
+    earlier turns, repair, or sequence closure.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: Respect established navigation conventions and provide clear place cues
+    so users know where they are, what the environment is, and where they can go after
+    deep entry.
+  derived_from_claims:
+  - C00201
+  - C00202
+  - C00203
+  - C00204
+  - C00205
+  - C00206
+  confidence: medium
+  applies_when:
+  - Users can arrive from search engines, deep links, or unfamiliar pages.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: Preserve stable semantic structures while allowing controlled adaptation,
+    separating fast-changing areas from slower architectural foundations.
+  derived_from_claims:
+  - C00070
+  - C00071
+  - C00072
+  - C00073
+  - C00074
+  - C00077
+  confidence: medium
+  applies_when:
+  - Maintaining or redesigning an information environment that must evolve over time.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: Use wireframes to connect IA with interaction design by clarifying page
+    structure, visible components, grouping, priority, responsive behavior, and navigation
+    overload.
+  derived_from_claims:
+  - C00497
+  - C00498
+  - C00499
+  - C00500
+  - C00501
+  - C00502
+  confidence: medium
+  applies_when:
+  - Designing important, complex, unique, confusing, or template-setting pages and
+    screens.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: Plan for IA maintenance after launch because content, people, and context
+    keep changing and the architecture must evolve intentionally.
+  derived_from_claims:
+  - C00555
+  - C00556
+  - C00557
+  - C00558
+  - C00559
+  - C00560
+  confidence: medium
+  applies_when:
+  - An information environment will be maintained, extended, or governed after launch.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: 'Select organization schemes by user knowledge and task: exact schemes
+    support known-item access, ambiguous schemes support exploration, and combinations
+    are often necessary.'
+  derived_from_claims:
+  - C00110
+  - C00111
+  - C00112
+  - C00113
+  - C00114
+  - C00115
+  confidence: medium
+  applies_when:
+  - Choosing among alphabetical, chronological, geographical, topical, or other organization
+    schemes.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: Use hierarchy, database-oriented structure, hypertext, and tagging as
+    complementary organization structures, selecting each for the part of the environment
+    where its strengths fit.
+  derived_from_claims:
+  - C00121
+  - C00122
+  - C00131
+  - C00137
+  - C00138
+  - C00143
+  confidence: medium
+  applies_when:
+  - A large information environment contains mixed content types, structured collections,
+    or associative relationships.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Use controlled vocabularies and metadata as system glue, shifting from
+    placing documents in one taxonomy to describing them for navigation and retrieval.
+  derived_from_claims:
+  - C00289
+  - C00290
+  - C00291
+  - C00292
+  - C00293
+  - C00298
+  confidence: medium
+  applies_when:
+  - A product depends on metadata-driven search, browse, indexing, or cross-system
+    consistency.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
