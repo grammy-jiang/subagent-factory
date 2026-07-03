@@ -1,0 +1,156 @@
+# Faithfulness report for python-testing-advisor.
+# Every gradable profile rule graded vs the package evidence/principles.
+# No rule exceeds its evidence; scope/editorial rules are role decisions (accept_with_note).
+schema_version: faithfulness-report-v1
+subagent_slug: python-testing-advisor
+findings:
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Naming the pytest mechanism and citing the governing principle id is a house editorial rule; grounded
+    in the sources' emphasis on specific, named pytest mechanisms (P056, P039).
+  source_anchors:
+  - 44deffe96b40-c0000
+  - 44deffe96b40-c0001
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Deliberate fixture scope and pushing setup into fixtures so a FAIL means broken behaviour is directly
+    supported (P035, P041, P065).
+  source_anchors:
+  - 44deffe96b40-c0002
+  - 44deffe96b40-c0003
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Test independence/order-independence and coverage-as-heuristic are stated in the source (P032,
+    P036).
+  source_anchors:
+  - 44deffe96b40-c0008
+  - 44deffe96b40-c0005
+- rule_ref: quality_bar[3]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: 'Outside-in loop: expected-failing test drives the smallest change; refactor only under green
+    (P001, P014).'
+  source_anchors:
+  - e5bd744baa21-c0000
+  - e5bd744baa21-c0001
+- rule_ref: quality_bar[4]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Precise selection/diagnostics via node ids, -k, markers, --lf/-x, --pdb is supported (P039, P057,
+    P061).
+  source_anchors:
+  - 44deffe96b40-c0001
+- rule_ref: forbidden_behaviours[0]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Behaviour is not established until a test proves it; write tests even for simple behaviour (P001,
+    P067).
+  source_anchors:
+  - e5bd744baa21-c0000
+  - e5bd744baa21-c0001
+- rule_ref: forbidden_behaviours[1]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: The source explicitly treats 100% coverage as a heuristic, not a goal, and warns coverage does
+    not replace thinking (P032).
+  source_anchors:
+  - 44deffe96b40-c0008
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Do not mix xUnit with pytest fixtures; keep tests order-independent (P017, P036).
+  source_anchors:
+  - 44deffe96b40-c0011
+  - 44deffe96b40-c0005
+- rule_ref: forbidden_behaviours[3]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Editorial guardrail (recommend only documented mechanisms); it constrains the agent rather than
+    asserting a source claim, so no source anchor is cited.
+- rule_ref: forbidden_behaviours[4]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: 'Role-scoping decision (read-only advisor): propose changes for the caller to apply. A boundary
+    choice, not a source claim; no source anchor cited.'
+- rule_ref: outputs.modes[advise].trigger
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Advising how to test/run/configure a Python suite is the core subject of the pytest source (P056).
+  source_anchors:
+  - 44deffe96b40-c0000
+- rule_ref: outputs.modes[review].trigger
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Reviewing an existing suite for design/isolation/coverage is a valid inference from the source's
+    functional-vs-unit and fixtures-as-GIVEN guidance (P025, P065).
+  source_anchors:
+  - e5bd744baa21-c0000
+  - e5bd744baa21-c0001
+- rule_ref: outputs.modes[tdd-guide].trigger
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Growing a feature test-first from a behaviour is the core TDD workflow (P001, P015).
+  source_anchors:
+  - e5bd744baa21-c0000
+  - e5bd744baa21-c0001
+- rule_ref: when_to_use[0]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Fixtures, parametrization, markers, and selection are covered pytest topics (P017, P020, P059).
+  source_anchors:
+  - 44deffe96b40-c0011
+  - 44deffe96b40-c0003
+- rule_ref: when_to_use[1]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Outside-in TDD on a Python web feature is the TDD book's central workflow (P001, P014, P015).
+  source_anchors:
+  - e5bd744baa21-c0000
+  - e5bd744baa21-c0001
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: 'Deliberate role-scoping: the advisor does not write features or make product decisions. A scope
+    boundary, not contradicted by the source; no anchor cited.'
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: 'Role-scoping: infra/secret tooling choices are handed off; the source treats deployment as testing-adjacent
+    and the advisor advises only how to verify it. No anchor cited.'

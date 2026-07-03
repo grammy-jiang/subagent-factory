@@ -1,0 +1,399 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: python-testing-advisor
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  prompt: I need to temporarily set an environment variable and replace an object attribute for just one
+    test, with everything restored afterward.
+  expected_behaviour:
+  - recommends monkeypatch's self-cleaning helpers (setenv/delenv, setattr/delattr, setitem, syspath_prepend,
+    chdir) for automatic restore after the test
+  - notes combining with unittest.mock for mock objects
+  - cites P001
+  must_not:
+  - mutates global state without restoring it afterward
+- test_id: PB-P002
+  principle_id: P002
+  prompt: How can I make the runnable examples in my function docstrings actually get tested?
+  expected_behaviour:
+  - recommends running doctests via pytest --doctest-modules so docs double as tests
+  - mentions the doctest_namespace fixture in an autouse top-level conftest.py to inject shared symbols
+  - cites P002
+  must_not:
+  - says docstring examples cannot be executed as tests
+- test_id: PB-P011
+  principle_id: P011
+  prompt: A test run is too noisy and I can't tell which test is slow or see my print output.
+  expected_behaviour:
+  - recommends tuning verbosity/traceback with -v/-q, --tb, -s, and --durations
+  - cites P011
+  must_not:
+  - invents a nonexistent verbosity flag
+- test_id: PB-P012
+  principle_id: P012
+  prompt: Where should I keep pytest configuration and how do I make xfail strict?
+  expected_behaviour:
+  - points to pytest.ini/tox.ini/setup.cfg and enabling xfail_strict
+  - cites P012
+  must_not:
+  - tells the user to change discovery patterns without a strong reason
+- test_id: PB-P013
+  principle_id: P013
+  prompt: I need to set an env var and patch an attribute only for the duration of one test.
+  expected_behaviour:
+  - recommends monkeypatch setenv/setattr with automatic undo
+  - cites P013
+  must_not:
+  - suggests manually mutating global state without restoring it
+- test_id: PB-P014
+  principle_id: P014
+  prompt: Where should pytest configuration live, how do I make xfail strict, and should I change the
+    test discovery patterns?
+  expected_behaviour:
+  - points to pytest.ini/tox.ini/setup.cfg and enabling xfail_strict
+  - advises overriding python_files/python_classes/python_functions only for a strong reason, doing it
+    gradually by listing both old and new patterns
+  - cites P014
+  must_not:
+  - tells the user to change discovery patterns without a strong reason
+- test_id: PB-P016
+  principle_id: P016
+  prompt: How do I test a pytest plugin I'm writing?
+  expected_behaviour:
+  - 'recommends the pytester/testdir plugin: makepyfile, runpytest, assert on stdout.fnmatch_lines and
+    ret'
+  - cites P016
+  must_not:
+  - says plugins cannot be tested like normal code
+- test_id: PB-P017
+  principle_id: P017
+  prompt: Should I use setup_method or a pytest fixture, and can I mix them?
+  expected_behaviour:
+  - recommends normal pytest fixtures over xUnit and warns against mixing them
+  - cites P017
+  must_not:
+  - encourages mixing xUnit setup with fixtures
+- test_id: PB-P018
+  principle_id: P018
+  prompt: I need a temporary directory for a test that is cleaned up automatically.
+  expected_behaviour:
+  - recommends tmpdir (function scope) and tmpdir_factory for wider scope
+  - cites P018
+  must_not:
+  - recommends creating temp dirs manually without cleanup
+- test_id: PB-P019
+  principle_id: P019
+  prompt: My test needs a temporary directory with files that is cleaned up automatically; what if several
+    tests should share one?
+  expected_behaviour:
+  - recommends tmpdir (function-scoped py.path.local; wrap in str() for a path string)
+  - recommends tmpdir_factory.mktemp for class/module/session scope
+  - cites P019
+  must_not:
+  - recommends creating temp directories manually without cleanup
+- test_id: PB-P020
+  principle_id: P020
+  prompt: I want to run the same test against many input datasets.
+  expected_behaviour:
+  - recommends @pytest.mark.parametrize with readable ids
+  - cites P020
+  must_not:
+  - recommends copy-pasting the test once per dataset
+- test_id: PB-P021
+  principle_id: P021
+  prompt: We have a legacy unittest suite; how do we move to pytest incrementally?
+  expected_behaviour:
+  - explains pytest runs unittest tests and supports incremental migration, noting session-scope conflicts
+  - cites P021
+  must_not:
+  - insists the whole suite be rewritten at once before pytest can run
+- test_id: PB-P022
+  principle_id: P022
+  prompt: How do I find and install third-party pytest plugins, and prototype my own behaviour change?
+  expected_behaviour:
+  - explains conftest.py is a local plugin, finding plugins on PyPI, and prototyping hooks in conftest
+    first
+  - cites P022
+  must_not:
+  - says you must package a plugin before trying any hook
+- test_id: PB-P023
+  principle_id: P023
+  prompt: Some tests should be skipped conditionally and one is expected to fail.
+  expected_behaviour:
+  - recommends skip/skipif/xfail with reasons and xfail_strict, surfacing with -rs
+  - cites P023
+  must_not:
+  - recommends commenting out or deleting the tests
+- test_id: PB-P024
+  principle_id: P024
+  prompt: How do I run pytest in CI and publish results?
+  expected_behaviour:
+  - recommends --junit-xml, a versioned build script, a virtualenv, and multi-env via tox
+  - cites P024
+  must_not:
+  - hardcodes environment-specific steps outside version control
+- test_id: PB-P025
+  principle_id: P025
+  prompt: How do I run my pytest suite on our CI server after each commit and publish the results?
+  expected_behaviour:
+  - recommends emitting results with --junit-xml, running in a virtualenv that installs the project first,
+    and keeping build logic in a version-controlled script
+  - covers multiple environments via separate CI jobs or by calling tox
+  - cites P025
+  must_not:
+  - hardcodes environment-specific steps outside version control
+- test_id: PB-P031
+  principle_id: P031
+  prompt: How do I package my pytest plugin so others can install it?
+  expected_behaviour:
+  - explains a minimal module plus setup.py registered via the pytest11 entry point with hooks
+  - cites P031
+  must_not:
+  - invents a plugin registration mechanism not in the sources
+- test_id: PB-P032
+  principle_id: P032
+  prompt: What coverage target should we set and how do we measure it?
+  expected_behaviour:
+  - recommends coverage.py via pytest-cov and treats 100% as a heuristic, not a goal
+  - cites P032
+  must_not:
+  - declares 100% coverage the goal that guarantees quality
+- test_id: PB-P033
+  principle_id: P033
+  prompt: I want a fast smoke-test subset I can run across files.
+  expected_behaviour:
+  - recommends markers and selecting marked tests with -m
+  - cites P033
+  must_not:
+  - recommends duplicating tests into a separate smoke file
+- test_id: PB-P034
+  principle_id: P034
+  prompt: I want the whole suite to run against two backends without rewriting tests.
+  expected_behaviour:
+  - recommends a parametrized fixture (params=[...]) read via request.param
+  - cites P034
+  must_not:
+  - confuses fixture parametrization with test parametrization
+- test_id: PB-P035
+  principle_id: P035
+  prompt: How should I structure setup and guaranteed teardown for a resource?
+  expected_behaviour:
+  - recommends a yield fixture (setup before yield, teardown after) over xUnit teardown
+  - cites P035
+  must_not:
+  - recommends setup_method/teardown_method as the preferred approach
+- test_id: PB-P036
+  principle_id: P036
+  prompt: My tests pass alone but fail when run together in a different order.
+  expected_behaviour:
+  - diagnoses shared state and recommends independent, order-independent tests (cache fixture for deliberate
+    state)
+  - cites P036
+  must_not:
+  - recommends forcing a fixed run order to hide the coupling
+- test_id: PB-P037
+  principle_id: P037
+  prompt: How should I structure setup and guaranteed teardown for a resource in pytest?
+  expected_behaviour:
+  - recommends a yield fixture (setup before yield, guaranteed teardown after) rather than xUnit setup/teardown
+  - mentions autouse and fixtures composing other fixtures
+  - cites P037
+  must_not:
+  - recommends xUnit setup_method/teardown_method as the preferred mechanism
+- test_id: PB-P038
+  principle_id: P038
+  prompt: Tests are flaky and slow; what execution plugins help?
+  expected_behaviour:
+  - recommends pytest-repeat, pytest-xdist, and pytest-timeout for the matching need
+  - cites P038
+  must_not:
+  - promises xdist gives a linear speedup for all tests
+- test_id: PB-P039
+  principle_id: P039
+  prompt: How do I preview and precisely target which tests will run?
+  expected_behaviour:
+  - recommends discovery plus explicit paths, node ids, -k, and --collect-only preview
+  - cites P039
+  must_not:
+  - recommends running the full suite every time
+- test_id: PB-P040
+  principle_id: P040
+  prompt: How do I run just one class or method, and how do I learn its node id?
+  expected_behaviour:
+  - explains running by directory/file/class/method/node id/-k/marker and using -v to discover node ids
+  - cites P040
+  must_not:
+  - invents a node-id syntax not shown by pytest
+- test_id: PB-P041
+  principle_id: P041
+  prompt: Setup is expensive; how do I share it but still reset per test?
+  expected_behaviour:
+  - 'recommends deliberate fixture scope: session-scoped expensive setup plus function-scoped reset'
+  - cites P041
+  must_not:
+  - lets a wider-scoped fixture depend on a narrower-scoped one
+- test_id: PB-P042
+  principle_id: P042
+  prompt: Should I keep using self.assertEqual and friends for comparing dicts and lists, or is there
+    a better way in pytest?
+  expected_behaviour:
+  - recommends a single plain assert with pytest's rich data-structure diffs over unittest's specialised
+    assertion methods
+  - notes -v/-vv reveals a withheld diff
+  - cites P042
+  must_not:
+  - insists unittest-style assertion methods are required
+- test_id: PB-P043
+  principle_id: P043
+  prompt: How do I run just a targeted subset of my tests, and preview what will run before running it?
+  expected_behaviour:
+  - recommends explicit files/directories, a file::test node id, and a -k name expression
+  - recommends previewing the selection with --collect-only before running
+  - cites P043
+  must_not:
+  - recommends always running the whole suite
+- test_id: PB-P044
+  principle_id: P044
+  prompt: How do I run one specific class or method, and how do I find its exact node id?
+  expected_behaviour:
+  - explains running by directory, file, class, method, node id, name expression, or marker
+  - notes running pytest -v to discover the exact node-id syntax for a target
+  - cites P044
+  must_not:
+  - invents a node-id syntax pytest does not produce
+- test_id: PB-P045
+  principle_id: P045
+  prompt: Setup is expensive; how do I share it across tests but still reset per test, and what are the
+    fixture scope rules?
+  expected_behaviour:
+  - 'recommends deliberate scope: expensive setup once at session scope plus a small function-scoped reset
+    fixture'
+  - notes a fixture may depend only on same-or-wider-scoped fixtures
+  - cites P045
+  must_not:
+  - lets a wider-scoped fixture depend on a narrower-scoped one
+- test_id: PB-P056
+  principle_id: P056
+  prompt: Which Python test framework should we adopt and why?
+  expected_behaviour:
+  - 'recommends pytest: plain assert, discovery, all test levels, and can run unittest/nose suites'
+  - cites P056
+  must_not:
+  - claims pytest cannot run existing unittest tests
+- test_id: PB-P057
+  principle_id: P057
+  prompt: I want to stop on the first failure and rerun only what failed.
+  expected_behaviour:
+  - recommends -x/--maxfail and --lf/--ff run-control options
+  - cites P057
+  must_not:
+  - recommends manually re-selecting failed tests by hand
+- test_id: PB-P058
+  principle_id: P058
+  prompt: How do I customize pytest locally and see available markers and fixtures?
+  expected_behaviour:
+  - recommends conftest.py + ini files and -h/--markers/--fixtures, noting path-dependent loading
+  - cites P058
+  must_not:
+  - says markers and fixtures are global regardless of path
+- test_id: PB-P059
+  principle_id: P059
+  prompt: Where should shared fixtures live so several test modules can use them?
+  expected_behaviour:
+  - recommends conftest.py resolution order and never importing conftest.py
+  - cites P059
+  must_not:
+  - tells the user to import conftest.py explicitly
+- test_id: PB-P060
+  principle_id: P060
+  prompt: How do I add a custom command-line option and read it in tests?
+  expected_behaviour:
+  - recommends pytest_addoption in a top-level conftest/plugin and reading via pytestconfig.getoption
+  - cites P060
+  must_not:
+  - registers pytest_addoption in a test subdirectory conftest
+- test_id: PB-P061
+  principle_id: P061
+  prompt: A test fails and I want to drop into a debugger at the failure.
+  expected_behaviour:
+  - recommends --pdb combined with --lf -x and -l/--tb, plus pdb commands
+  - cites P061
+  must_not:
+  - recommends adding print statements instead of using --pdb
+- test_id: PB-P062
+  principle_id: P062
+  prompt: How do I customize pytest for my project and see which markers and fixtures are available?
+  expected_behaviour:
+  - recommends conftest.py plus ini files and introspecting with -h/--markers/--fixtures
+  - notes available options, markers, and fixtures depend on the target path because conftest.py loads
+    along it
+  - cites P062
+  must_not:
+  - claims markers and fixtures are global regardless of path
+- test_id: PB-P063
+  principle_id: P063
+  prompt: Where should I put shared fixtures so several test modules can use them?
+  expected_behaviour:
+  - explains conftest.py resolution (test module first, then conftest.py; a lower-level conftest.py serves
+    its directory and subdirectories)
+  - warns never to import conftest.py because pytest loads it automatically as a local plugin
+  - cites P063
+  must_not:
+  - tells the user to import conftest.py explicitly
+- test_id: PB-P064
+  principle_id: P064
+  prompt: How do I add a project-specific command-line option to pytest and read it in my tests?
+  expected_behaviour:
+  - recommends registering the option with the pytest_addoption hook in a plugin or the top-level conftest.py
+    (never a test subdirectory)
+  - reads it via pytestconfig.getoption
+  - cites P064
+  must_not:
+  - registers pytest_addoption in a test subdirectory conftest.py
+- test_id: PB-P065
+  principle_id: P065
+  prompt: A test fails and I want to jump straight into a debugger at the failure point.
+  expected_behaviour:
+  - recommends --pdb combined with --lf -x (and -l/-v/--tb) to jump to and inspect the first previously
+    failed test
+  - mentions pdb commands such as p/pp, l, a, u/d, and q
+  - cites P065
+  must_not:
+  - recommends scattering print statements instead of using --pdb
+- test_id: PB-P082
+  principle_id: P082
+  prompt: My new tests aren't being discovered by pytest. What naming conventions should I follow?
+  expected_behaviour:
+  - explains files named test_<x>.py or <x>_test.py, functions and methods test_<x>, and classes Test<X>
+  - cites P082
+  must_not:
+  - invents a discovery naming rule pytest does not use
+- test_id: PB-P083
+  principle_id: P083
+  prompt: Do I need special assertion helpers to get good failure messages in pytest?
+  expected_behaviour:
+  - recommends plain 'assert <expression>' relying on pytest's assert rewriting for the exact failing
+    line and value diff
+  - notes adding -v to see the full diff when output is truncated
+  - cites P083
+  must_not:
+  - claims plain assert gives no useful failure detail
+- test_id: PB-P084
+  principle_id: P084
+  prompt: How do I assert that my code emits the expected warning?
+  expected_behaviour:
+  - recommends the recwarn fixture (exposing category/message/filename/lineno, recwarn.clear() to reset)
+    or the pytest.warns() context manager
+  - cites P084
+  must_not:
+  - suggests suppressing or ignoring the warning instead of asserting on it
+- test_id: PB-P085
+  principle_id: P085
+  prompt: I'm using setup_function/teardown_function in pytest; how do I stop tests from leaking state
+    into each other?
+  expected_behaviour:
+  - recommends resetting or deleting per-test state in setup_function/teardown_function so a mutation
+    cannot make a later test pass or fail for the wrong reason
+  - cites P085
+  must_not:
+  - allows per-test mutated state to persist into later tests
