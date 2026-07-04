@@ -55,6 +55,15 @@ rules, and the log-review tiers live in `docs/factory-ops.md` (section "Run and 
 the factory"). Back up `subagents/<slug>/` before a fresh map→reduce — assemble/finish
 overwrites it.
 
+That same section also covers **engine assignment & the p2b self-drive** — the load-bearing
+operational rules: p2b authoring is **opus only** (codex under-authors → empty skills); the
+precision filter tolerates codex but it caps fast (fail over codex→copilot→claude); a giant
+book's promotion routes to **claude 1M**. `p2b_finish` drives its own validate→fix loop, so
+**never `validate` mid-p2b** (transient fails), and **a dead headless session may already be
+valid — check the package's `validate` state, not just the `P2B_SUMMARY` signal** (which lives
+in `campaign/logs/p2b-<slug>.log.jsonl`). For a fold-in (add a source to an existing package):
+clear stale `.build/`, MINOR version bump + re-export the adapter, and don't under-`--select`.
+
 ## Materials catalog & duplication check
 
 `docs/materials-catalog.md` (+ `catalog/materials.yaml`) records **every source processed in this
