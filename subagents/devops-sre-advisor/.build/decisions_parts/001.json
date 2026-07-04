@@ -1,32 +1,403 @@
 {
-  "74": {"action": "confirm", "canonical": "Break down organizational silos between development and operations rather than relying on tooling alone, because separate teams and siloed incentives, not tools, are the root of delivery pain."},
-  "75": {"action": "split", "subgroups": [[101], [103, 139], [128], [137], [178], [211], [215], [217], [484], [637]]},
-  "77": {"action": "confirm", "canonical": "Share delivery information, plans, and data openly across the whole business — for example via wikis, blogs, intranets, and forums — to ensure transparency and enable feedback."},
-  "78": {"action": "split", "subgroups": [[109], [228]]},
-  "79": {"action": "split", "subgroups": [[110], [1083], [1126]]},
-  "81": {"action": "split", "subgroups": [[112], [166]]},
-  "85": {"action": "split", "subgroups": [[116], [213]]},
-  "87": {"action": "split", "subgroups": [[118], [388]]},
-  "88": {"action": "split", "subgroups": [[119], [120], [1071]]},
-  "95": {"action": "split", "subgroups": [[129], [965]]},
-  "100": {"action": "split", "subgroups": [[134], [135]]},
-  "103": {"action": "split", "subgroups": [[140, 153], [159], [163], [170], [192]]},
-  "106": {"action": "split", "subgroups": [[145], [162], [514]]},
-  "108": {"action": "split", "subgroups": [[148], [363]]},
-  "109": {"action": "split", "subgroups": [[149], [193], [1089]]},
-  "111": {"action": "split", "subgroups": [[152], [1085]]},
-  "116": {"action": "split", "subgroups": [[164], [282], [283], [284]]},
-  "119": {"action": "split", "subgroups": [[171], [190]]},
-  "122": {"action": "split", "subgroups": [[174, 224], [564], [1074]]},
-  "124": {"action": "split", "subgroups": [[177], [1034], [1067], [1123]]},
-  "126": {"action": "confirm", "canonical": "Make changes small and frequent — splitting large changes into smaller pieces and supporting them with automated testing and reliable rollback — because small changes carry small risk while infrequent large releases carry large risk."},
-  "134": {"action": "split", "subgroups": [[189], [1122]]},
-  "135": {"action": "split", "subgroups": [[191], [606]]},
-  "137": {"action": "split", "subgroups": [[196], [200]]},
-  "138": {"action": "split", "subgroups": [[197], [332]]},
-  "141": {"action": "split", "subgroups": [[201, 674], [634]]},
-  "146": {"action": "conflict"},
-  "148": {"action": "split", "subgroups": [[238, 712], [219], [236], [256], [263], [269], [308], [453], [477], [479], [519], [553], [563], [578], [702], [734]]},
-  "149": {"action": "split", "subgroups": [[220, 630], [221, 348], [565, 603], [1042, 1051], [222], [231], [232], [239], [306], [333], [379], [551], [555], [579], [701], [855], [857], [1040], [1046], [1047], [1052]]},
-  "155": {"action": "split", "subgroups": [[234, 1039, 1041], [552], [556], [557], [610], [982], [1005], [1031]]}
+  "69": {
+    "action": "split",
+    "subgroups": [
+      [
+        94
+      ],
+      [
+        99
+      ]
+    ]
+  },
+  "70": {
+    "action": "split",
+    "subgroups": [
+      [
+        95
+      ],
+      [
+        105
+      ],
+      [
+        107
+      ]
+    ]
+  },
+  "72": {
+    "action": "split",
+    "subgroups": [
+      [
+        97
+      ],
+      [
+        304
+      ],
+      [
+        517
+      ]
+    ]
+  },
+  "74": {
+    "action": "confirm",
+    "canonical": "Break down organizational silos between development and operations rather than relying on tooling alone, because separate teams, siloed knowledge, and incentives for local optimization worsen delivery outcomes."
+  },
+  "75": {
+    "action": "split",
+    "subgroups": [
+      [
+        101
+      ],
+      [
+        103,
+        139
+      ],
+      [
+        128
+      ],
+      [
+        137
+      ],
+      [
+        178
+      ],
+      [
+        211
+      ],
+      [
+        215
+      ],
+      [
+        217
+      ],
+      [
+        484
+      ],
+      [
+        637
+      ]
+    ]
+  },
+  "77": {
+    "action": "confirm",
+    "canonical": "Share plans, data, and delivery/progress information openly and transparently across the whole business (for example via wikis, blogs, intranets, and forums) to enable feedback."
+  },
+  "78": {
+    "action": "split",
+    "subgroups": [
+      [
+        109
+      ],
+      [
+        228
+      ]
+    ]
+  },
+  "79": {
+    "action": "split",
+    "subgroups": [
+      [
+        110
+      ],
+      [
+        1083
+      ],
+      [
+        1126
+      ],
+      [
+        1291
+      ]
+    ]
+  },
+  "81": {
+    "action": "split",
+    "subgroups": [
+      [
+        112
+      ],
+      [
+        166
+      ]
+    ]
+  },
+  "85": {
+    "action": "split",
+    "subgroups": [
+      [
+        116
+      ],
+      [
+        213
+      ]
+    ]
+  },
+  "87": {
+    "action": "split",
+    "subgroups": [
+      [
+        118
+      ],
+      [
+        388
+      ]
+    ]
+  },
+  "88": {
+    "action": "split",
+    "subgroups": [
+      [
+        119
+      ],
+      [
+        120
+      ],
+      [
+        1071
+      ]
+    ]
+  },
+  "95": {
+    "action": "split",
+    "subgroups": [
+      [
+        129
+      ],
+      [
+        965
+      ]
+    ]
+  },
+  "100": {
+    "action": "split",
+    "subgroups": [
+      [
+        134
+      ],
+      [
+        135
+      ]
+    ]
+  },
+  "103": {
+    "action": "split",
+    "subgroups": [
+      [
+        140,
+        153
+      ],
+      [
+        159
+      ],
+      [
+        163
+      ],
+      [
+        170
+      ],
+      [
+        192
+      ]
+    ]
+  },
+  "106": {
+    "action": "split",
+    "subgroups": [
+      [
+        145
+      ],
+      [
+        162
+      ],
+      [
+        514
+      ]
+    ]
+  },
+  "108": {
+    "action": "split",
+    "subgroups": [
+      [
+        148
+      ],
+      [
+        363
+      ]
+    ]
+  },
+  "109": {
+    "action": "split",
+    "subgroups": [
+      [
+        149
+      ],
+      [
+        193
+      ],
+      [
+        1089
+      ],
+      [
+        1143
+      ],
+      [
+        1290
+      ]
+    ]
+  },
+  "111": {
+    "action": "split",
+    "subgroups": [
+      [
+        152
+      ],
+      [
+        1085
+      ],
+      [
+        1146
+      ],
+      [
+        1158
+      ],
+      [
+        1184
+      ],
+      [
+        1244
+      ]
+    ]
+  },
+  "112": {
+    "action": "confirm",
+    "canonical": "Design loosely coupled, discrete, independently deployable components (for example services or SOA, using abstraction layers such as SQL views to break hard dependencies) to enable small frequent releases and large-team collaboration."
+  },
+  "114": {
+    "action": "split",
+    "subgroups": [
+      [
+        156
+      ],
+      [
+        1135
+      ]
+    ]
+  },
+  "116": {
+    "action": "split",
+    "subgroups": [
+      [
+        164
+      ],
+      [
+        282
+      ],
+      [
+        283
+      ],
+      [
+        284
+      ],
+      [
+        1249
+      ],
+      [
+        1256
+      ],
+      [
+        1263
+      ]
+    ]
+  },
+  "119": {
+    "action": "split",
+    "subgroups": [
+      [
+        171
+      ],
+      [
+        190
+      ]
+    ]
+  },
+  "122": {
+    "action": "split",
+    "subgroups": [
+      [
+        174
+      ],
+      [
+        224
+      ],
+      [
+        564
+      ],
+      [
+        1074
+      ]
+    ]
+  },
+  "124": {
+    "action": "split",
+    "subgroups": [
+      [
+        177
+      ],
+      [
+        1034
+      ],
+      [
+        1067
+      ],
+      [
+        1123
+      ]
+    ]
+  },
+  "126": {
+    "action": "split",
+    "subgroups": [
+      [
+        180,
+        225,
+        1137
+      ],
+      [
+        1243
+      ],
+      [
+        1251
+      ]
+    ]
+  },
+  "134": {
+    "action": "split",
+    "subgroups": [
+      [
+        189
+      ],
+      [
+        1122
+      ]
+    ]
+  },
+  "135": {
+    "action": "split",
+    "subgroups": [
+      [
+        191
+      ],
+      [
+        606
+      ]
+    ]
+  },
+  "137": {
+    "action": "confirm",
+    "canonical": "Measure code quality and adherence to engineering standards using metrics whose thresholds and rule severities are agreed with the engineers first, involving them so the measurement builds trust rather than being imposed."
+  },
+  "138": {
+    "action": "confirm",
+    "canonical": "Measure code complexity (for example cyclomatic complexity) while understanding the metric's underlying principles and limitations \u2014 it cannot distinguish necessary from accidental complexity \u2014 before setting or interpreting thresholds."
+  }
 }
