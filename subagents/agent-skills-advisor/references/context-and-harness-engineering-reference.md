@@ -5,6 +5,7 @@ status: ready
 provenance:
   principles:
   - P058
+  - P066
   - P083
   - P084
   - P086
@@ -86,7 +87,7 @@ P106, P130, P144, P141.
 - Use tool input examples to teach conventions a schema cannot express (optional-field patterns,
   nested-object usage, correlated parameters) [P084].
 - Use deferred tool discovery for large tool libraries so the model loads only the definitions it
-  needs [P066 via profile].
+  needs [P066].
 
 ## Long-task failure modes
 
@@ -125,5 +126,5 @@ interrogable object outside the window rather than compacting or trimming blindl
 
 ## Grounding
 
-Principles: P058, P083, P084, P086, P100, P105, P106, P108, P109, P127, P128, P129, P130, P131,
+Principles: P058, P066, P083, P084, P086, P100, P105, P106, P108, P109, P127, P128, P129, P130, P131,
 P141, P142, P144, P146, P147, P148, P149. Distillation-only: no verbatim source quotation.

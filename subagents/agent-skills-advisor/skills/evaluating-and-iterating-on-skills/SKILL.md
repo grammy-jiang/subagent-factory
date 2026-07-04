@@ -74,7 +74,7 @@ P117.
 ## Procedure
 
 1. **Classify what the eval must prove.** Decide up front whether the skill is *capability uplift*
-   or an *encoded preference*; this determines what a passing eval looks like [P102 via profile],
+   or an *encoded preference*; this determines what a passing eval looks like [P102],
    [P007].
 2. **Practise eval-driven development.** Define eval tasks that express the planned capability
    *before* the agent can fulfil them, then iterate until it performs [P007].

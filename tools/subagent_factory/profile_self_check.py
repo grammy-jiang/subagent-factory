@@ -105,6 +105,11 @@ class Fields:
 _Check = Callable[[int, Fields, _Emit], None]
 
 
+def _trunc(text: str, limit: int = 60) -> str:
+    """Truncate for table cells with an explicit ellipsis, never mid-word silently."""
+    return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
+
 # Role slug is kebab-case and role-based
 def _check_slug(num: int, f: Fields, add: _Emit) -> None:
     slug = f.slug
@@ -184,7 +189,7 @@ def _check_primary_format(num: int, f: Fields, add: _Emit) -> None:
     if not primary_format:
         add(num, "FAIL", "primary-format", "outputs.primary_format is empty")
     else:
-        add(num, "PASS", "primary-format", primary_format[:60])
+        add(num, "PASS", "primary-format", _trunc(primary_format))
 
 
 # Every mode states its output format
@@ -218,7 +223,7 @@ def _check_canonical_owner(num: int, f: Fields, add: _Emit) -> None:
     if not canonical_owner:
         add(num, "FAIL", "canonical-owner", "source_of_truth_policy.canonical_owner is empty")
     else:
-        add(num, "PASS", "canonical-owner", canonical_owner[:60])
+        add(num, "PASS", "canonical-owner", _trunc(canonical_owner))
 
 
 # may_edit_canonical is false for specialist roles
