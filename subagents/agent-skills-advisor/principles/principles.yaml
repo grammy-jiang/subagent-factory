@@ -1,0 +1,2999 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: 'Design Skills for three-tier progressive disclosure: keep only a short
+    name+description in frontmatter (always loaded), put working instructions in SKILL.md
+    (loaded when the skill is judged relevant), and push bulk detail into a references/
+    directory loaded only on demand — so an agent can hold hundreds of skills without
+    exhausting its context window.'
+  derived_from_claims:
+  - C00003
+  - C00004
+  - C00021
+  - C00022
+  - C00023
+  - C00059
+  - C00060
+  - C00061
+  - C00062
+  - C00063
+  - C00070
+  - C00071
+  - C00100
+  - C00101
+  - C00158
+  - C00159
+  - C00186
+  - C00187
+  - C00188
+  - C00577
+  - C00578
+  - C00597
+  - C00683
+  - C00686
+  - C00699
+  confidence: high
+  applies_when:
+  - authoring or structuring a skill's SKILL.md and file layout
+  - a skill's context outgrows a single lean SKILL.md
+  - contexts are mutually exclusive or rarely used together
+  - a skill covering multiple distinct processes, options, or large reference material
+  - a skill has more detail than fits comfortably in one file
+  - authoring a skill
+  - equipping an agent with many skills under a limited context budget
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: Treat the SKILL.md description as the sole triggering signal and invest
+    effort accordingly, because at load time the agent sees only each skill's name
+    and description and reads the full body only after a description match.
+  derived_from_claims:
+  - C00058
+  - C00059
+  - C00074
+  - C00083
+  - C00084
+  - C00085
+  - C00163
+  - C00164
+  - C00539
+  - C00555
+  - C01047
+  - C01048
+  - C01049
+  - C01050
+  - C01051
+  - C01759
+  - C01760
+  - C01763
+  - C01764
+  - C01833
+  - C01838
+  - C01839
+  confidence: high
+  applies_when:
+  - authoring or reviewing a skill's discoverability
+  - authoring or reviewing a skill's SKILL.md front matter
+  - authoring or revising a skill's description/frontmatter
+  - Creating or reviewing skill frontmatter.
+  - authoring or reviewing a skill's SKILL.md frontmatter
+  - authoring or optimizing a skill's description field
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Author each agent skill as a self-contained directory whose SKILL.md
+    is the entry point and which also holds any scripts or resources the instructions
+    reference; Copilot auto-discovers every file in that directory when the skill
+    is invoked.
+  derived_from_claims:
+  - C00177
+  - C00184
+  - C00649
+  - C00650
+  - C00767
+  - C00768
+  - C00773
+  - C00873
+  - C00874
+  - C00877
+  - C00884
+  - C01672
+  - C01673
+  - C01955
+  - C01958
+  - C01959
+  confidence: high
+  applies_when:
+  - creating or packaging a skill
+  - authoring and uploading a custom Skill
+  - creating a new skill by hand or reviewing a skill's layout
+  - creating or structuring an agent skill
+  - Authoring or reviewing an Agent Skill package
+  - creating or scaffolding a new agent skill
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Place a skill in the location matching its intended audience (repository
+    .agents/skills scanned from CWD up to repo root, user $HOME/.agents/skills, admin
+    /etc/codex/skills, or system-bundled) and avoid duplicate skill names, since Codex
+    does not merge same-named skills and shows both in selectors.
+  derived_from_claims:
+  - C00775
+  - C00776
+  - C00777
+  - C00778
+  - C00810
+  - C00875
+  - C00876
+  - C01890
+  - C01897
+  - C01898
+  - C01899
+  - C01900
+  - C01956
+  - C01957
+  - C01967
+  confidence: high
+  applies_when:
+  - deciding where to check in or install a skill
+  - naming skills across scopes
+  - deciding where a skill should live
+  - deciding where to install or store a skill
+  - a skill should be shared with everyone working in a specific repository
+  - creating a new skill or deciding where to install one
+  - deciding where to store a new or downloaded skill
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: 'Design Skills for progressive disclosure and a small context footprint:
+    keep the always-loaded frontmatter tiny (~100 tokens), keep the SKILL.md body
+    under ~5k tokens, and push bulky material into bundled files that load only on
+    demand, so installing many Skills carries negligible context cost.'
+  derived_from_claims:
+  - C00540
+  - C00541
+  - C00542
+  - C00543
+  - C00544
+  - C00548
+  - C00549
+  - C00976
+  - C00977
+  - C00998
+  - C01027
+  - C01028
+  - C01029
+  - C01658
+  - C01663
+  - C01664
+  - C01665
+  - C01666
+  - C01667
+  - C01682
+  - C01685
+  - C01686
+  - C01846
+  - C01847
+  - C01848
+  - C01849
+  confidence: high
+  applies_when:
+  - Authoring skills with nontrivial instructions, references, or assets.
+  - Skill behavior is slow, degraded, or many skills are enabled.
+  - structuring skill content for context efficiency
+  - designing how an agent surfaces and loads installed skills
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: 'Offload discrete specialized work to subagents for context isolation
+    and parallelism: each subagent has its own context and returns results to the
+    main agent, keeping the main conversation focused while work runs in parallel.'
+  derived_from_claims:
+  - C00037
+  - C00038
+  - C00039
+  - C00431
+  - C00435
+  - C00819
+  - C01133
+  - C01134
+  - C01444
+  confidence: high
+  applies_when:
+  - steps benefit from clean, isolated context
+  - a task is specialized or noisy enough to isolate from the main agent
+  - Focused subtasks can be delegated and summarized back to a coordinator
+  - Extended work needs a context-management method chosen by task characteristics
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: 'Practice eval-driven development: define eval tasks that express planned
+    capabilities before the agent can fulfil them, then iterate until it performs
+    well; defining the tasks also stress-tests whether product requirements are concrete
+    enough to build, and low starting pass rates make progress on bets visible.'
+  derived_from_claims:
+  - C00069
+  - C00076
+  - C00605
+  - C00606
+  - C01065
+  - C01066
+  - C01067
+  - C01311
+  - C01347
+  - C01348
+  confidence: high
+  applies_when:
+  - deciding whether or what skill to build
+  - Creating a new skill or substantially revising an existing one.
+  - Planning a new agent capability or evaluating whether requirements are build-ready
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: 'Author skills from the agent''s perspective and iterate empirically:
+    monitor real usage for unexpected trajectories or overreliance on certain contexts,
+    have the agent capture successful approaches and common mistakes into reusable
+    context and code, and ask it to self-reflect when it goes off track.'
+  derived_from_claims:
+  - C00073
+  - C00075
+  - C00076
+  - C00607
+  - C00608
+  - C00609
+  - C00610
+  - C01068
+  - C01069
+  - C01070
+  - C01071
+  confidence: high
+  applies_when:
+  - refining an existing skill against observed agent behaviour
+  - Iterating on a skill after test runs or production usage.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: To run Skills on the Claude API, send the three required beta headers
+    (code-execution-2025-08-25, skills-2025-10-02, files-api-2025-04-14) and reference
+    pre-built Skills by skill_id in the container parameter alongside the code execution
+    tool.
+  derived_from_claims:
+  - C00012
+  - C00013
+  - C00562
+  - C00563
+  - C00745
+  - C00746
+  - C00747
+  - C00748
+  - C00749
+  confidence: high
+  applies_when:
+  - using Skills through the API
+  - deploying Skills on the Claude API
+  - configuring a Messages API request that uses Agent Skills
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: 'Assign responsibilities by layer: use MCP servers to give Claude connectivity
+    and access to external systems, and use skills to supply the procedural and domain
+    knowledge for using that access well.'
+  derived_from_claims:
+  - C00042
+  - C00043
+  - C00046
+  - C00202
+  - C00203
+  - C00205
+  - C00224
+  - C00980
+  - C00985
+  confidence: high
+  applies_when:
+  - designing an agent that must reach external tools or data
+  - deciding whether a capability belongs in an MCP server or a skill
+  - deciding whether a new capability should be a skill or an MCP server
+  - A working MCP server exists and users need repeatable outcomes from it.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: For batch or destructive operations, have the agent produce a structured
+    plan, validate it against a source of truth, and only then execute; make validation
+    errors informative enough (e.g., listing valid field names) for the agent to self-correct.
+  derived_from_claims:
+  - C00620
+  - C00621
+  - C00622
+  - C01083
+  - C01084
+  - C01085
+  - C01715
+  - C01716
+  confidence: high
+  applies_when:
+  - batch, destructive, complex-validation, or high-stakes operations
+  - The task is batch-oriented, destructive, high-stakes, or governed by complex validation
+    rules.
+  - the operation is batch or destructive
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: 'Write instructions that are structured, scannable, and actionable: use
+    markdown headers, bullets, and code blocks; give a clear section hierarchy; break
+    complex workflows into discrete phases with explicit inputs and outputs; and include
+    concrete examples of correct usage.'
+  derived_from_claims:
+  - C00096
+  - C00097
+  - C00098
+  - C00600
+  - C01656
+  - C01657
+  confidence: high
+  applies_when:
+  - authoring the instructions body of a skill
+  - complex multi-step task
+  - writing the instructional body of a SKILL.md
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: 'Run a skill in a forked context (context: fork) when it reads many files
+    or runs a long investigation and should return only a focused result without polluting
+    the parent conversation, remembering the feature is experimental and requires
+    enabling the VS Code setting.'
+  derived_from_claims:
+  - C00705
+  - C00706
+  - C01884
+  - C01906
+  - C01910
+  - C01911
+  confidence: high
+  applies_when:
+  - a skill's workflow is complex enough to benefit from a dedicated session
+  - a skill performs lengthy investigation or reads many files
+  - the skill's intermediate reasoning is irrelevant to the main conversation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Write the SKILL.md body as an operational recipe — what it accomplishes,
+    when to use it, the step-by-step procedure, and input/output examples — and reference
+    every bundled script or resource with a relative Markdown link, because unreferenced
+    files are never loaded.
+  derived_from_claims:
+  - C00883
+  - C00887
+  - C00997
+  - C00998
+  - C01908
+  - C01909
+  confidence: high
+  applies_when:
+  - a skill bundles scripts or resources
+  - Authoring the main skill instructions.
+  - authoring the instructions body of a skill
+  - a skill bundles scripts, templates, or example resources
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: 'Treat third-party skills as untrusted code: install only from trusted
+    sources (self-authored or Anthropic), and before using a skill from an untrusted
+    or unknown source, audit every bundled file (SKILL.md, scripts, resources) for
+    behaviour that does not match its stated purpose, treating skills that fetch external
+    URLs as higher risk.'
+  derived_from_claims:
+  - C00077
+  - C00078
+  - C00079
+  - C00080
+  - C00556
+  - C00557
+  - C00558
+  - C00559
+  - C00560
+  - C00561
+  confidence: high
+  applies_when:
+  - installing or adopting a skill from an external source
+  - the Skill comes from an untrusted or unknown source
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: 'Design each Skill for its target surface''s runtime limits: the Claude
+    API has no network access and no runtime package installation (pre-installed packages
+    only), claude.ai network access varies by user/admin settings, and Claude Code
+    has full network access but Skills there should install packages locally rather
+    than globally.'
+  derived_from_claims:
+  - C00569
+  - C00570
+  - C00571
+  - C00572
+  - C00573
+  - C00623
+  - C00624
+  - C00625
+  - C00632
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Write concise skill descriptions with clear scope and boundaries, front-loading
+    the primary use case and trigger words, because Codex's implicit skill matching
+    and its context-budget shortening both depend on the description.
+  derived_from_claims:
+  - C00763
+  - C00764
+  - C00765
+  - C00769
+  - C00770
+  - C01646
+  - C01647
+  - C01648
+  confidence: high
+  applies_when:
+  - authoring or reviewing a skill's description
+  - relying on implicit invocation to match tasks to skills
+  - authoring or reviewing the description field
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Use prompt files (*.prompt.md, stored at .github/prompts/) for reusable,
+    task-specific chat interactions run repeatedly with different inputs, kept distinct
+    from codebase-wide custom instructions and invoked manually.
+  derived_from_claims:
+  - C00931
+  - C00932
+  - C00933
+  - C00934
+  - C00935
+  - C01923
+  - C01932
+  - C01939
+  confidence: high
+  applies_when:
+  - a common task or interaction should be reusable and shareable
+  - the same task is rerun with varying inputs (e.g. generating unit tests, running
+    a review checklist)
+  - manual, on-demand invocation is acceptable
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: For deterministic, repeatable work, ship an executable script and have
+    Claude run it via bash rather than generating code inline — the script's source
+    never enters context, so only its output costs tokens; reserve instructions for
+    flexible guidance and bundled resources for factual lookup.
+  derived_from_claims:
+  - C00545
+  - C00546
+  - C00547
+  - C00616
+  - C00617
+  - C00618
+  - C00629
+  confidence: high
+  applies_when:
+  - a Skill bundles executable scripts
+  - deterministic operations
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Select Skills for a request via the Messages API container parameter,
+    giving each entry type "anthropic", a skill_id (e.g. pptx), and a version such
+    as "latest" to pin the newest published version.
+  derived_from_claims:
+  - C00636
+  - C00637
+  - C00736
+  - C00741
+  - C00742
+  - C00743
+  - C00744
+  confidence: high
+  applies_when:
+  - building a Messages API request that uses Agent Skills
+  - specifying which Anthropic-managed Skills a request may use
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: 'Design instruction files around Codex precedence: within a directory
+    AGENTS.override.md wins over AGENTS.md then configured fallbacks, and files nearer
+    the current directory override earlier ones because they appear later in the merged
+    prompt.'
+  derived_from_claims:
+  - C00826
+  - C00829
+  - C00830
+  - C00841
+  - C00858
+  - C00860
+  - C00861
+  confidence: high
+  applies_when:
+  - multiple AGENTS.md files could apply to the same run
+  - resolving conflicting guidance between directories
+  - multiple AGENTS.md files or user prompts may conflict
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: 'Match instruction strictness to task fragility: use heuristic prose
+    for open-ended judgment where multiple approaches are valid, parameterized patterns
+    for a preferred approach that tolerates variation, and exact/prescriptive commands
+    that forbid deviation for fragile operations or fixed sequences.'
+  derived_from_claims:
+  - C01041
+  - C01042
+  - C01043
+  - C01044
+  - C01703
+  - C01704
+  - C01705
+  confidence: high
+  applies_when:
+  - Choosing how prescriptive a skill workflow or command should be.
+  - calibrating how prescriptive an instruction should be
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Design agent tools around how nondeterministic agents perceive choices,
+    context, and workflows rather than mirroring conventional API boundaries by default.
+  derived_from_claims:
+  - C00294
+  - C00295
+  - C00316
+  - C00317
+  - C01136
+  - C01155
+  - C01174
+  confidence: medium
+  applies_when:
+  - When selecting or revising tools for an agent harness.
+  - When capability fit is uncertain and can be tested through model outputs.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: Package skills in the standard Agent Skills folder format (instructions
+    + scripts + resources) so one skill built once runs unchanged across Claude apps,
+    Claude Code, the API, and the Agent SDK.
+  derived_from_claims:
+  - C00001
+  - C00002
+  - C00006
+  - C00017
+  - C00019
+  - C01836
+  confidence: high
+  applies_when:
+  - choosing a skill's file format
+  - targeting more than one Claude surface (apps, Code, API, SDK)
+  - deciding on skill format or targeting multiple agents
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: 'Always supply the required SKILL.md frontmatter: a unique lowercase
+    ''name'' and a ''description'' stating what the skill does and when to use it,
+    because Copilot selects skills based on the prompt matched against that description.'
+  derived_from_claims:
+  - C00187
+  - C00198
+  - C00879
+  - C00880
+  - C00881
+  - C00903
+  confidence: high
+  applies_when:
+  - writing a skill's metadata and activation scope
+  - writing SKILL.md frontmatter
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Reuse before building — install an existing plugin when one fits the
+    workflow, and package your own skill as a plugin to distribute across teams, remembering
+    skills are the authoring format and plugins the installable distribution unit.
+  derived_from_claims:
+  - C00760
+  - C00761
+  - C00779
+  - C00780
+  - C00813
+  - C00814
+  confidence: high
+  applies_when:
+  - designing a reusable Codex workflow
+  - deciding how to share a skill with other developers
+  - a reusable workflow may already exist
+  - distributing a workflow across teams
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Place guidance at the right location — files closer to the working directory
+    take precedence; use the global AGENTS file for communication style (review style,
+    verbosity, defaults) and repo files for team and codebase rules.
+  derived_from_claims:
+  - C00801
+  - C00802
+  - C00823
+  - C00830
+  - C00834
+  - C00836
+  confidence: high
+  applies_when:
+  - choosing between global and repo-level guidance
+  - configuring Codex instructions for a repository
+  - establishing consistent agent expectations across projects
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Provide agent-specific guidance via one or more AGENTS.md files placed
+    anywhere in the repository — the nearest AGENTS.md in the directory tree wins
+    — or via a single CLAUDE.md or GEMINI.md file in the repository root.
+  derived_from_claims:
+  - C00854
+  - C00857
+  - C00858
+  - C00953
+  - C00954
+  - C00955
+  confidence: high
+  applies_when:
+  - setting up AGENTS.md for a repo or monorepo
+  - the guidance targets AI agents
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: 'Use progressive disclosure: keep SKILL.md to the core instructions needed
+    every run (under ~500 lines and ~5,000 tokens), move detailed material into references/,
+    and tell the agent exactly when to load each file rather than giving a generic
+    pointer.'
+  derived_from_claims:
+  - C01052
+  - C01053
+  - C01054
+  - C01055
+  - C01701
+  - C01702
+  confidence: high
+  applies_when:
+  - A skill contains more detail than is needed for every invocation.
+  - a skill needs more content than fits in a lean SKILL.md
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: 'Install skills per surface: in Claude Code, place skill folders containing
+    a SKILL.md under a skills/ directory in the plugin or project root for automatic
+    discovery; on Claude.ai, custom skills require a paid plan with code execution
+    enabled and are individual per user rather than org-shared.'
+  derived_from_claims:
+  - C00119
+  - C00120
+  - C00248
+  - C00249
+  - C00250
+  confidence: high
+  applies_when:
+  - installing or distributing a skill
+  - A user is setting up skills for Claude Apps, Claude Code, or the Developer Platform.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Package reusable procedural knowledge and organization-, team-, or user-specific
+    context into portable, version-controlled skill folders loaded on demand, rather
+    than relying on ad-hoc or inlined context.
+  derived_from_claims:
+  - C00232
+  - C00233
+  - C01677
+  - C01678
+  - C01680
+  confidence: high
+  applies_when:
+  - Designing, documenting, or evaluating a skill as part of a workflow system.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Constrain the skill name to 1-64 characters using only lowercase alphanumerics
+    and hyphens, never starting or ending with a hyphen and never using consecutive
+    hyphens.
+  derived_from_claims:
+  - C00089
+  - C01641
+  - C01642
+  - C01643
+  - C01644
+  confidence: high
+  applies_when:
+  - choosing or reviewing a skill's name field
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Extend Claude's reach with MCP servers for internal tools, data sources,
+    and APIs it cannot otherwise access, and expose structured search as a callable
+    MCP tool as the most sophisticated teams do.
+  derived_from_claims:
+  - C00220
+  - C00221
+  - C00222
+  - C00223
+  - C00396
+  confidence: high
+  applies_when:
+  - Claude must read, act on, or write to an external system
+  - integrating a service that has no native Claude support
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: 'Author valid SKILL.md frontmatter: a name of at most 64 characters using
+    only lowercase letters, numbers, and hyphens with no XML tags or reserved words
+    (''anthropic''/''claude''), and a non-empty description of at most 1024 characters
+    with no XML tags.'
+  derived_from_claims:
+  - C00588
+  - C00589
+  - C00590
+  - C00652
+  - C00653
+  confidence: high
+  applies_when:
+  - writing SKILL.md frontmatter
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: Bundle reusable deterministic scripts for recurring, mechanically-checkable
+    operations and instruct the agent to run them by default instead of regenerating
+    or reading equivalent code, because bundled scripts are more reliable, token-cheaper,
+    faster, and more consistent.
+  derived_from_claims:
+  - C00615
+  - C01079
+  - C01080
+  - C01081
+  - C01093
+  confidence: high
+  applies_when:
+  - a recurring or repeatable operation exists
+  - A skill has deterministic logic that will be used repeatedly.
+  - The operation has stable inputs, stable outputs, and objective correctness checks.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: 'Retrieve a Skill-generated file through the Files API: extract its file
+    ID from the code-execution tool result (checking both Python and bash result block
+    types) and download the content.'
+  derived_from_claims:
+  - C00644
+  - C00752
+  - C00753
+  - C00754
+  - C00755
+  confidence: high
+  applies_when:
+  - a Skill creates a file such as Excel, PowerPoint, PDF, or Word
+  - a Skill request returns a generated document that must be downloaded
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: 'Set invocation visibility deliberately with user-invocable and disable-model-invocation:
+    omit both for a slash command that also auto-loads; user-invocable:false for auto-load
+    only; disable-model-invocation:true for slash-command only; set both to disable
+    the skill.'
+  derived_from_claims:
+  - C00689
+  - C00690
+  - C01904
+  - C01905
+  - C01914
+  confidence: high
+  applies_when:
+  - controlling whether a skill appears as a slash command and whether it auto-loads
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: 'Design skill resources around lazy access: large references, examples,
+    data, and scripts are acceptable when agents are guided to load or execute only
+    the parts needed for the task.'
+  derived_from_claims:
+  - C01088
+  - C01089
+  - C01092
+  - C01118
+  - C01119
+  confidence: high
+  applies_when:
+  - A skill benefits from substantial auxiliary documentation, examples, datasets,
+    or scripts.
+  - The environment provides files, stored queries, links, or commands that can fetch
+    relevant details at runtime
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Delegate complex subtasks that should run in isolation from the main
+    agent to subagents (e.g. codebase research, running test suites); treat subagents
+    as runtime processes triggered automatically or by direct reference, not as user-configured
+    files.
+  derived_from_claims:
+  - C01582
+  - C01589
+  - C01926
+  - C01934
+  - C01941
+  confidence: high
+  applies_when:
+  - a task reads many files or needs focused work that would otherwise clutter the
+    main context
+  - a subtask is complex and benefits from an isolated context
+  - the work is delegatable from the main agent
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Name every skill in lowercase letters, numbers, and hyphens, under 64
+    characters with no slashes, colons, dots, or namespace prefixes, and make the
+    SKILL.md 'name' field exactly match its parent directory name — invalid or mismatched
+    names can make the skill silently fail to load.
+  derived_from_claims:
+  - C01831
+  - C01832
+  - C01901
+  - C01907
+  - C01917
+  confidence: high
+  applies_when:
+  - choosing or reviewing a skill's name field
+  - authoring or renaming a skill's SKILL.md frontmatter
+  - distributing a skill through a plugin or extension
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: 'Debug a skill by adjusting the dimension that fails: broaden the description
+    and add use cases when it does not activate; add instruction specificity and validation
+    steps when results are inconsistent.'
+  derived_from_claims:
+  - C00113
+  - C00999
+  - C01000
+  - C01001
+  - C01002
+  confidence: medium
+  applies_when:
+  - a skill misbehaves in triggering or in output quality
+  - Testing reveals missed triggers, irrelevant triggers, inconsistent outputs, failed
+    API calls, or user corrections.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Do not rely on context compaction alone to preserve continuity across
+    sessions; add explicit externally-persisted state, because compaction is insufficient
+    and does not reliably pass clear instructions to the next session.
+  derived_from_claims:
+  - C01127
+  - C01128
+  - C01410
+  - C01411
+  - C01414
+  confidence: medium
+  applies_when:
+  - Work spans many actions, long sessions, or more useful state than fits in one
+    context window
+  - Strong performance is required over extended contexts
+  - work spans multiple context windows
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: 'Rely on Claude''s automatic Skill matching and progressive disclosure
+    rather than hardcoding invocation: metadata is loaded at startup for discovery,
+    and a Skill''s full instructions load only once Claude judges it relevant, after
+    which its code executes.'
+  derived_from_claims:
+  - C00008
+  - C00740
+  - C00750
+  - C00751
+  confidence: high
+  applies_when:
+  - designing how a skill gets triggered
+  - deciding how a request should trigger a Skill
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: 'Evaluate a skill with a baseline comparison: run each realistic prompt
+    in a fresh session with the skill available and again disabled and compare, measuring
+    separately whether Claude invokes it and whether output matches intent, using
+    a fresh session so authoring context does not mask instruction gaps.'
+  derived_from_claims:
+  - C00138
+  - C00139
+  - C00721
+  - C00722
+  confidence: high
+  applies_when:
+  - A skill must be selected among multiple available skills or tools.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: Treat skill evaluation as an iterative loop — propose from signals, apply
+    changes, rerun all cases in a new iteration directory, grade, aggregate, and human-review
+    — and stop when satisfied, feedback is consistently empty, or improvement is no
+    longer meaningful.
+  derived_from_claims:
+  - C01692
+  - C01693
+  - C01718
+  - C01758
+  confidence: high
+  applies_when:
+  - a first draft of a skill exists
+  - running the end-to-end eval-and-improve process
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: For complex skills, route by task type with a decision tree, show complex
+    patterns with paired good/bad examples, and apply large multi-change edits in
+    small verified batches of about three to ten.
+  derived_from_claims:
+  - C00116
+  - C00117
+  - C00118
+  - C01064
+  confidence: high
+  applies_when:
+  - a skill spans multiple workflows or performs large multi-change edits
+  - The same skill supports creation, editing, analysis, repair, or other distinct
+    modes.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: Test each Skill against every model it will run on and write instructions
+    that work across all target models, giving enough concrete detail for the least-capable
+    model without over-explaining for the strongest.
+  derived_from_claims:
+  - C00586
+  - C00587
+  - C01045
+  - C01046
+  confidence: high
+  applies_when:
+  - A skill will be used across multiple models or model tiers.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: Pre-approve the tools a skill needs via the SKILL.md allowed-tools frontmatter
+    field to avoid a per-use confirmation prompt; any tool omitted from allowed-tools
+    will trigger a permission prompt each time it is used.
+  derived_from_claims:
+  - C00885
+  - C00886
+  - C01965
+  - C01966
+  confidence: high
+  applies_when:
+  - a skill runs scripts or uses tools that would otherwise prompt for confirmation
+  - a skill runs scripts or otherwise uses tools
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Write a precise, trigger-oriented description, because Copilot selects
+    skills solely from the user's prompt and the skill's description — a vague description
+    means the skill will not be invoked when relevant.
+  derived_from_claims:
+  - C01902
+  - C01915
+  - C01962
+  - C01970
+  confidence: high
+  applies_when:
+  - authoring or reviewing a skill's description field
+  - authoring or refining a skill's description
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Put guidance that should apply to every request in a repository-wide
+    file located exactly at .github/copilot-instructions.md, creating the .github
+    directory first if it does not exist.
+  derived_from_claims:
+  - C00912
+  - C00948
+  - C00949
+  - C00961
+  confidence: high
+  applies_when:
+  - guidance should apply to the whole repository
+  - the guidance should apply to all requests in the repository
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: 'Prefer scripts-as-tools over opaque built-in tools and capture recurring
+    ones: provide capability as code the agent can read, modify, and keep out of context,
+    and when the agent repeatedly writes the same script, save it as a reusable script
+    inside a skill whose docs reference the script rather than inlining it.'
+  derived_from_claims:
+  - C00167
+  - C00189
+  - C00190
+  - C00191
+  confidence: medium
+  applies_when:
+  - a skill involves repeated non-trivial code the agent would otherwise rewrite
+  - a task needs a deterministic or repeatable operation
+  - the same script recurs across tasks
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: Isolate each eval run with a clean context so only SKILL.md drives behaviour,
+    using fresh subagent tasks where available or a separate session otherwise.
+  derived_from_claims:
+  - C00136
+  - C01729
+  - C01730
+  confidence: high
+  applies_when:
+  - Eval cases can be split into independent runs.
+  - spawning an individual eval run
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: Author skills against the open Agent Skills standard so they stay portable
+    across AI platforms and systems that implement it, rather than tied to a single
+    tool.
+  derived_from_claims:
+  - C00246
+  - C00247
+  - C01886
+  confidence: high
+  applies_when:
+  - The target platforms implement or align with the Agent Skills standard.
+  - designing a skill intended to be reused or shared
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: 'Never let the agent self-certify its own work: before treating a task
+    as done, spawn a dedicated adversarial reviewer subagent that inspects the output
+    and acceptance criteria in a fresh context, fix any blocking correctness/requirement
+    findings, and re-review.'
+  derived_from_claims:
+  - C00510
+  - C01597
+  - C01598
+  confidence: high
+  applies_when:
+  - completing a task, especially after a long autonomous run
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Always use forward-slash file paths in skill instructions and references
+    so skills work across platforms.
+  derived_from_claims:
+  - C00611
+  - C01072
+  - C01073
+  confidence: high
+  applies_when:
+  - Writing file paths in SKILL.md, reference files, scripts, or examples.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Reference MCP tools by fully qualified ServerName:tool_name to avoid
+    tool-not-found errors, especially when multiple MCP servers are available.
+  derived_from_claims:
+  - C00631
+  - C01095
+  - C01096
+  confidence: high
+  applies_when:
+  - a Skill uses MCP tools
+  - A skill tells the agent to use an MCP tool.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Match scaffolding to model capability and re-evaluate it whenever a more
+    capable model ships — a stronger model needs less scaffolding, so strip pieces
+    that are no longer load-bearing and add pieces that unlock newly-possible capability
+    — while keeping the design grounded in what has been tested for the task.
+  derived_from_claims:
+  - C01126
+  - C01402
+  - C01408
+  confidence: medium
+  applies_when:
+  - The model is capable enough for the target problem space and failure modes are
+    monitored
+  - a new, more capable model has become available
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Bound and paginate tool/script output to protect the agent's context
+    budget — default to a summary or limit, support pagination (offset/range) and
+    filtering, and account for harness truncation (~10-30K characters) — since many
+    harnesses truncate large output.
+  derived_from_claims:
+  - C01167
+  - C01168
+  - C01827
+  confidence: medium
+  applies_when:
+  - Tool responses can become large enough to consume substantial context.
+  - A tool response is truncated because of size limits.
+  - a script may produce large output
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: 'Aim for moderate detail: prefer concise, stepwise guidance with a working
+    example over exhaustive documentation, which makes the agent struggle to find
+    what is relevant and can trigger inapplicable instructions.'
+  derived_from_claims:
+  - C00160
+  - C01700
+  confidence: high
+  applies_when:
+  - skills are reused across many varied contexts
+  - writing skill instructions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: 'Do not rely on Zero Data Retention for Agent Skills: Skill definitions
+    and execution data fall under Anthropic''s standard retention policy, so keep
+    ZDR-required sensitive data out of Skills.'
+  derived_from_claims:
+  - C00574
+  - C00663
+  confidence: high
+  applies_when:
+  - a workload has ZDR or data-retention requirements
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: When multiple tools or approaches could work, give one sensible default
+    with an escape hatch, mentioning alternatives only briefly rather than presenting
+    many equal options.
+  derived_from_claims:
+  - C00612
+  - C01706
+  confidence: high
+  applies_when:
+  - several tools or approaches could accomplish a step
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: When inputs can be rendered as images, have Claude analyze them visually
+    to reason about spatial layout, form structure, and other visual properties.
+  derived_from_claims:
+  - C00619
+  - C01082
+  confidence: high
+  applies_when:
+  - inputs can be rendered as images
+  - The input can be rendered visually and layout or structure affects correctness.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: 'Build a validation feedback loop into quality-critical or refinement
+    workflows: define quality criteria, run validation, fix the concrete failures,
+    and repeat until the gate passes before finalizing.'
+  derived_from_claims:
+  - C01007
+  - C01059
+  confidence: high
+  applies_when:
+  - The artifact quality improves through iterative revision.
+  - A validator, checker, rubric, or review checklist can evaluate intermediate or
+    final output.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: 'Scaffold a new skill with the skill-creator skill instead of hand-editing
+    files: it interviews you, generates the folder structure, formats SKILL.md, and
+    bundles resources.'
+  derived_from_claims:
+  - C00009
+  - C00112
+  confidence: medium
+  applies_when:
+  - creating a new skill from scratch
+  - starting a new skill, especially the first few
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: Use blind A/B comparison — presenting both outputs without revealing
+    which skill version (or skill/no-skill variant) produced which — to decide whether
+    a skill change actually improves outputs.
+  derived_from_claims:
+  - C00137
+  - C01743
+  confidence: medium
+  applies_when:
+  - Two candidate outputs or configurations can be compared against the same task.
+  - comparing two versions on qualities assertions cannot capture
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: Use deferred tool discovery for large tool libraries so the model loads
+    only the tool definitions needed for the current task.
+  derived_from_claims:
+  - C01175
+  - C01176
+  - C01177
+  - C01178
+  - C01179
+  - C01180
+  - C01181
+  - C01182
+  - C01183
+  - C01207
+  confidence: high
+  applies_when:
+  - Tool definitions are large enough to materially consume context, tool-selection
+    errors are likely, multiple MCP servers are connected, or the available library
+    has roughly ten or more tools.
+  - A stable set of critical or frequently used tools exists alongside many lower-frequency
+    tools.
+  - Deferred definitions are excluded from the initial prompt and can be expanded
+    after search.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: 'Match the building block to the need: use a Skill for reusable procedural
+    how-to, a prompt for ephemeral in-the-moment instruction, a Project for persistent
+    background knowledge, a subagent for independent task execution with its own context
+    and tools, and MCP for tool and data connectivity.'
+  derived_from_claims:
+  - C00024
+  - C00026
+  - C00028
+  - C00033
+  - C00039
+  - C00045
+  - C00047
+  - C00048
+  - C00052
+  - C00053
+  confidence: medium
+  applies_when:
+  - deciding which Claude agentic component to reach for
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: Use programmatic tool calling for workflows where code can reduce context
+    bloat, inference round-trips, or fragile manual synthesis.
+  derived_from_claims:
+  - C01186
+  - C01187
+  - C01188
+  - C01189
+  - C01190
+  - C01191
+  - C01194
+  - C01195
+  confidence: high
+  applies_when:
+  - The task processes large datasets, has three or more dependent tool calls, needs
+    filtering or transformation, benefits from parallel checks, or should keep intermediate
+    records out of model context.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: 'Treat skills and MCP as complementary rather than substitutes: use both
+    for the most capable workflows, span multiple MCP servers from one skill or build
+    multiple skills over one server, and bootstrap by connecting an MCP server first
+    and then adding a skill that uses it.'
+  derived_from_claims:
+  - C00204
+  - C00207
+  - C00208
+  - C00226
+  - C00227
+  - C00228
+  - C00231
+  confidence: high
+  applies_when:
+  - architecting a reusable set of skills and connections
+  - adding a new tool connection or revising a skill
+  - building a capable end-to-end agent workflow
+  - getting started combining skills and MCP
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: 'Make frontmatter descriptions precise enough for automatic loading:
+    include what the skill does, when to use it, concrete trigger phrases, relevant
+    file types, and avoid vague or unsafe metadata.'
+  derived_from_claims:
+  - C00992
+  - C00993
+  - C00994
+  - C00995
+  - C00996
+  - C01013
+  - C01014
+  confidence: high
+  applies_when:
+  - Writing or debugging the description field.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: 'Select a Copilot customization feature by matching its trigger model
+    to the task: automatic features (custom instructions, agent skills, hooks) fire
+    without user action, while manual features (prompt files, custom agents) require
+    explicit invocation, and subagents/MCP can be automatic or invoked by reference/name.'
+  derived_from_claims:
+  - C01931
+  - C01932
+  - C01933
+  - C01934
+  - C01935
+  - C01936
+  - C01937
+  confidence: high
+  applies_when:
+  - deciding which customization feature fits a task
+  - the automatic-vs-manual trigger distinction affects the choice
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: Prefer a runtime dependency-resolving tool runner (uvx, pipx, npx, bunx,
+    deno run, go run) so a skill can invoke a tool without a manual install step,
+    choosing the runner that matches the target runtime and its install/caching characteristics.
+  derived_from_claims:
+  - C01797
+  - C01798
+  - C01799
+  - C01800
+  - C01801
+  - C01802
+  - C01803
+  confidence: high
+  applies_when:
+  - a skill invokes an external CLI tool or package at runtime
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: Prefer a dynamic workflow over the single-context default harness when
+    a task is long-running, massively parallel, highly structured, or adversarial,
+    because a single context window is prone to agentic laziness, self-preferential
+    bias, and goal drift.
+  derived_from_claims:
+  - C00419
+  - C00426
+  - C00427
+  - C00428
+  - C00429
+  - C00430
+  - C00431
+  confidence: medium
+  applies_when:
+  - a task is long-running, massively parallel, highly structured, or adversarial
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: 'Treat project context for an AI coding agent as durable infrastructure:
+    record it, version it, grow it, and maintain it across sessions.'
+  derived_from_claims:
+  - C00353
+  - C00355
+  - C00362
+  - C00363
+  - C00370
+  - C00371
+  - C00375
+  confidence: medium
+  applies_when:
+  - Work spans repeated AI sessions or depends on project-specific knowledge
+  - Open source, academic, volunteer, or otherwise rotating-contributor projects
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: Persist a progress file alongside git history so a fresh-context agent
+    can quickly reconstruct the state of work and use git to revert bad changes and
+    recover working states; this also removes wasted effort re-deriving prior state.
+  derived_from_claims:
+  - C01417
+  - C01419
+  - C01420
+  - C01421
+  - C01428
+  - C01429
+  - C01430
+  confidence: medium
+  applies_when:
+  - a session hands off to a later fresh-context session
+  - agents start each session with no memory of prior sessions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: Before promising a customization feature works on a given IDE or surface,
+    verify it against the feature-support matrix and recommend the latest stable IDE/CLI/extension
+    versions, because support varies per surface and some features are only preview
+    or unsupported (e.g. hooks are not in Visual Studio/JetBrains/Eclipse/Xcode; prompt
+    files are not in Eclipse/GitHub.com/Copilot CLI; only MCP servers are supported
+    everywhere).
+  derived_from_claims:
+  - C01945
+  - C01946
+  - C01947
+  - C01948
+  - C01949
+  - C01950
+  - C01951
+  confidence: medium
+  applies_when:
+  - advising whether a feature is usable on a specific IDE or surface
+  - cross-surface portability of a customization matters
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: 'Manage the skill lifecycle with the gh skill CLI: search and preview
+    before installing, install from a repository (interactively or by OWNER/REPOSITORY[/SKILL]),
+    and update via provenance metadata written into SKILL.md.'
+  derived_from_claims:
+  - C00889
+  - C00890
+  - C00891
+  - C00892
+  - C00897
+  - C00898
+  confidence: high
+  applies_when:
+  - discovering, installing, or updating third-party skills
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: For behavior that must happen reliably or must be blocked, enforce it
+    deterministically with hooks (and permissions/managed settings) rather than a
+    prompted instruction, because prompted rules can fail under pressure, in long
+    or ambiguous sessions, or via prompt injection.
+  derived_from_claims:
+  - C00274
+  - C00277
+  - C00278
+  - C00279
+  - C00287
+  - C00288
+  confidence: high
+  applies_when:
+  - a behavior must happen every time or an action must never happen
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: Maintain a lean CLAUDE.md of only broadly-applicable, non-obvious project
+    context (Bash commands, non-default style, test runners, etiquette, gotchas);
+    prune ruthlessly because bloat makes Claude ignore rules, and use emphasis plus
+    git check-in.
+  derived_from_claims:
+  - C01571
+  - C01572
+  - C01573
+  - C01574
+  - C01575
+  - C01576
+  confidence: high
+  applies_when:
+  - configuring persistent project context for Claude Code
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: Diagnose every inaccurate analytics-agent answer as one of three failure
+    modes - concept-to-entity ambiguity, data staleness, or retrieval failure - and
+    architect each stack layer to attack a specific one; the largest gains come from
+    addressing all three together.
+  derived_from_claims:
+  - C00464
+  - C00465
+  - C00466
+  - C00467
+  - C00468
+  - C00505
+  confidence: high
+  applies_when:
+  - triaging a wrong analytics answer or architecting an analytics-agent stack
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: 'Account for IDE differences in supported instruction mechanisms: GitHub.com
+    and VS Code support all three repository types; Visual Studio supports repository-wide
+    and path-specific; Xcode uses a single .github/copilot-instructions.md; Eclipse
+    offers workspace and project instructions.'
+  derived_from_claims:
+  - C00936
+  - C00937
+  - C00941
+  - C00942
+  - C00943
+  - C00944
+  confidence: high
+  applies_when:
+  - choosing where to store instructions for a specific IDE
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: Scope narrower guidance to matching files by adding .github/instructions/NAME.instructions.md
+    files whose names end in .instructions.md, each beginning with an applyTo frontmatter
+    key using glob syntax (comma-separated for multiple patterns).
+  derived_from_claims:
+  - C00950
+  - C00951
+  - C00964
+  - C00965
+  - C00966
+  - C00974
+  confidence: high
+  applies_when:
+  - guidance should apply only to files matching a path or glob
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: 'Avoid irreversible retain/discard context decisions on long-horizon
+    tasks (compaction, trimming): store context as an interrogable object outside
+    the context window, since it is hard to know which tokens future turns need and
+    compacted context is unrecoverable unless it was stored.'
+  derived_from_claims:
+  - C01502
+  - C01503
+  - C01504
+  - C01505
+  - C01506
+  - C01507
+  confidence: high
+  applies_when:
+  - a task's context will exceed the model's context window
+  - implementing how a long-running agent recovers and re-reads prior context
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: Use tool input examples to teach conventions that schemas cannot express,
+    including optional-field patterns, nested object usage, correlated parameters,
+    and similar-tool disambiguation.
+  derived_from_claims:
+  - C01198
+  - C01199
+  - C01200
+  - C01201
+  - C01202
+  - C01203
+  confidence: high
+  applies_when:
+  - Correct invocation depends on meaningful conventions, nested structures, many
+    optional parameters, domain formats, or choosing among similar tools.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: 'Write precise, context-rich prompts: reference specific files, name
+    the scenario and testing preferences, point to source (e.g. git history) and existing
+    patterns, and describe bug symptom + likely location + what ''fixed'' looks like.'
+  derived_from_claims:
+  - C01564
+  - C01565
+  - C01566
+  - C01567
+  - C01568
+  - C01570
+  confidence: high
+  applies_when:
+  - prompting for a concrete implementation, fix, or investigation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: 'Separate infrastructure-reliability gains from capability gains: added
+    headroom up to roughly 3x mainly removes transient-spike failures without making
+    the eval easier, whereas headroom beyond that lets agents solve tasks they otherwise
+    could not and changes what the eval measures, so keep resource pressure in the
+    reliability band.'
+  derived_from_claims:
+  - C01612
+  - C01613
+  - C01614
+  - C01615
+  - C01616
+  - C01617
+  confidence: high
+  applies_when:
+  - choosing how much resource headroom to grant an agentic eval
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: 'Understand each evaluation method''s trade-offs before relying on it:
+    automated evals give fast, reproducible, no-user-impact iteration but need maintenance
+    and can create false confidence; production monitoring gives ground truth but
+    is reactive and noisy; A/B testing measures real outcomes and controls confounds
+    but is slow and needs traffic; user feedback surfaces unanticipated problems but
+    is sparse and skewed; manual transcript review builds intuition but doesn''t scale;
+    human studies are gold-standard but expensive and slow.'
+  derived_from_claims:
+  - C01350
+  - C01351
+  - C01352
+  - C01353
+  - C01354
+  - C01355
+  confidence: medium
+  applies_when:
+  - Choosing which evaluation method(s) to invest in
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: 'Keep every Skill concise: add only context the model lacks, challenge
+    each line against its token cost, and keep the SKILL.md body under 500 lines,
+    splitting overflow into separate files.'
+  derived_from_claims:
+  - C00576
+  - C00579
+  - C00580
+  - C00581
+  - C00596
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P089
+  statement: Reserve a multi-agent orchestrator-worker architecture for high-value,
+    breadth-first tasks with heavy parallelization, information exceeding one context
+    window, or many complex tools; do not use it for work that requires all agents
+    to share context or that has heavy inter-agent dependencies.
+  derived_from_claims:
+  - C01443
+  - C01446
+  - C01451
+  - C01452
+  - C01453
+  confidence: high
+  applies_when:
+  - the task is open-ended, breadth-first, and heavily parallelizable
+  - information exceeds a single context window
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: Use a Project for persistent, always-loaded context that should inform
+    every conversation about an initiative, and rely on RAG mode when the project's
+    knowledge base exceeds the context window.
+  derived_from_claims:
+  - C00029
+  - C00030
+  - C00031
+  - C00032
+  - C00033
+  confidence: high
+  applies_when:
+  - background knowledge must inform all conversations in an initiative
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: 'Check runtime and plan prerequisites before choosing a block: Projects
+    require a paid plan (team sharing needs a Team or Enterprise plan), subagents
+    require Claude Code or the Agent SDK, and Skills must be enabled before use.'
+  derived_from_claims:
+  - C00029
+  - C00034
+  - C00036
+  - C00051
+  - C00054
+  confidence: high
+  applies_when:
+  - confirming a component is available in the target environment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: Author every Skill as a SKILL.md with valid YAML frontmatter carrying
+    the required name and description; keep name ≤64 chars of lowercase letters, numbers
+    and hyphens with no XML tags and no reserved words ('anthropic'/'claude'), and
+    keep description non-empty, ≤1024 chars, and free of XML tags.
+  derived_from_claims:
+  - C00550
+  - C00551
+  - C00552
+  - C00553
+  - C00554
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: Author a skill as a SKILL.md plus optional scripts, references, and assets,
+    rely on progressive disclosure, and write clear name/description metadata because
+    it drives discovery and triggering reliability.
+  derived_from_claims:
+  - C00805
+  - C00806
+  - C00807
+  - C00811
+  - C00812
+  confidence: high
+  applies_when:
+  - creating or refining a skill
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: 'Treat a wrong analytics answer as a mapping failure, not a query-writing
+    failure: once a question is mapped to the right up-to-date entities the SQL is
+    trivial, and giving the agent more access to prior work does not help if the mapping
+    (structure) is wrong.'
+  derived_from_claims:
+  - C00459
+  - C00461
+  - C00462
+  - C00463
+  - C00494
+  confidence: high
+  applies_when:
+  - designing or reviewing an LLM-based analytics or data-agent system
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: 'Do not assume Skills sync across surfaces: upload and manage them separately
+    for claude.ai, the Claude API, and Claude Code, and account for each surface''s
+    sharing scope — individual-user on claude.ai (no org-wide admin management), workspace-wide
+    on the API, and personal or project-scoped in Claude Code.'
+  derived_from_claims:
+  - C00564
+  - C00565
+  - C00566
+  - C00567
+  - C00568
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
+  statement: 'Restrict which skills Claude can invoke by denying the Skill tool wholesale
+    in /permissions or scoping with Skill(name) exact and Skill(name *) prefix rules,
+    and use disable-model-invocation: true to block programmatic invocation, since
+    user-invocable only affects menu visibility.'
+  derived_from_claims:
+  - C00711
+  - C00713
+  - C00714
+  - C00715
+  - C00716
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: 'Maintain AGENTS.md as a feedback loop: when the agent makes a repeated
+    mistake, reads too many files, or you repeat PR feedback, add or correct the rule
+    and have the agent update AGENTS.md so the fix persists.'
+  derived_from_claims:
+  - C00793
+  - C00794
+  - C00795
+  - C00796
+  - C00797
+  confidence: high
+  applies_when:
+  - the agent repeats a mistake
+  - the agent reads too many documents
+  - the same PR feedback is left more than once
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: 'On difficult, policy-heavy domains, pair the think tool with an optimized
+    prompt that gives domain-specific reasoning examples: list applicable rules, check
+    for missing required information, verify policy compliance, and inspect tool results
+    for correctness.'
+  derived_from_claims:
+  - C01277
+  - C01279
+  - C01280
+  - C01281
+  - C01282
+  confidence: high
+  applies_when:
+  - the domain has complex rules or high policy burden (e.g. the airline tau-bench
+    domain)
+  - tool results have just been received and a consequential action is next
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: 'Choose grader types by trade-off: prefer deterministic code-based graders
+    where possible (fast, cheap, reproducible, but brittle to valid variation), use
+    model-based graders where flexibility or nuance is needed (scalable but non-deterministic
+    and needing calibration), and use human graders judiciously for validation (gold
+    standard but expensive and slow).'
+  derived_from_claims:
+  - C01305
+  - C01306
+  - C01307
+  - C01308
+  - C01309
+  confidence: high
+  applies_when:
+  - Selecting how to grade a task or transcript
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: 'Do not couple session, harness, and sandbox into one container: that
+    ''pet'' design loses the session on container failure, makes distinct failures
+    indistinguishable, prevents safe debugging when user data is co-located, and bakes
+    in a co-located-resource assumption that blocks connecting to a customer''s own
+    network.'
+  derived_from_claims:
+  - C01486
+  - C01487
+  - C01488
+  - C01489
+  - C01490
+  confidence: high
+  applies_when:
+  - choosing where an agent's components run
+  - the agent must reach resources outside its own environment or be operable
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: 'Design a small, varied, realistic test set: begin with 2-3 cases, vary
+    phrasing/detail/formality, include at least one edge or boundary case, and ground
+    every prompt in realistic context (file paths, column names) rather than vague
+    instructions.'
+  derived_from_claims:
+  - C01719
+  - C01720
+  - C01722
+  - C01723
+  - C01724
+  confidence: high
+  applies_when:
+  - authoring the initial eval set for a skill
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: Classify a skill as capability uplift or encoded preference before deciding
+    what its evals must prove.
+  derived_from_claims:
+  - C00123
+  - C00124
+  - C00125
+  - C00126
+  - C00127
+  confidence: medium
+  applies_when:
+  - Designing or revising evals for a skill.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P103
+  statement: Treat agentic evals as end-to-end system tests and audit all confounders
+    (cluster health, hardware specs, concurrency, egress bandwidth, and time-of-day
+    API latency), not just RAM, because the boundary between model capability and
+    infrastructure behavior is blurrier than a single score implies.
+  derived_from_claims:
+  - C01622
+  - C01623
+  - C01624
+  - C01625
+  - C01636
+  confidence: medium
+  applies_when:
+  - diagnosing score variance or reproducibility problems in an agentic eval
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P104
+  statement: 'Author each skill to encode discovery, orchestration, and performance:
+    which sources to consult and in what order, an explicit multi-step sequence, and
+    an explicit definition of a finished output.'
+  derived_from_claims:
+  - C00206
+  - C00209
+  - C00210
+  - C00211
+  - C00229
+  confidence: medium
+  applies_when:
+  - writing a skill for a multi-step workflow
+  - outputs must meet team standards or a fixed methodology
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P105
+  statement: 'Budget context as a scarce resource: include enough information for
+    reliable behavior, but prefer the smallest high-signal set over broad accumulation.'
+  derived_from_claims:
+  - C01103
+  - C01104
+  - C01105
+  - C01117
+  - C01135
+  confidence: medium
+  applies_when:
+  - Choosing among prompt text, tools, examples, history, and retrieved content
+  - Optimizing agent reliability across large or changing contexts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: Design agent tools as clear, non-overlapping, token-efficient contracts
+    with robust behavior and unambiguous parameters.
+  derived_from_claims:
+  - C01111
+  - C01112
+  - C01113
+  - C01114
+  - C01115
+  confidence: medium
+  applies_when:
+  - Defining, pruning, or reviewing tools that expose information or actions to an
+    agent
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
+  statement: Evaluate tool quality with realistic workflow tasks, realistic data,
+    verifiable outcomes, and verifiers tolerant of harmless output variation.
+  derived_from_claims:
+  - C01141
+  - C01142
+  - C01143
+  - C01144
+  - C01145
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P108
+  statement: Start with the simplest LLM design that can solve the task, and add agentic
+    complexity only when measured outcomes justify the added latency, cost, and operational
+    risk.
+  derived_from_claims:
+  - C01208
+  - C01210
+  - C01211
+  - C01214
+  - C01241
+  confidence: medium
+  applies_when:
+  - Designing or revising an LLM application architecture.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
+  statement: Choose workflows for predictable predefined paths and choose autonomous
+    agents only when flexible, model-directed control is needed for an open-ended
+    task.
+  derived_from_claims:
+  - C01209
+  - C01212
+  - C01213
+  - C01238
+  - C01239
+  confidence: medium
+  applies_when:
+  - Selecting between a coded workflow and an autonomous agent.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
+  statement: Justify adopting the think tool by task complexity rather than adding
+    it universally, because it increases prompt length and output-token usage; its
+    low downside holds only when it is optional and side-effect-free.
+  derived_from_claims:
+  - C01269
+  - C01273
+  - C01274
+  - C01293
+  - C01294
+  confidence: medium
+  applies_when:
+  - choosing a reasoning mechanism for a Claude workflow
+  - the task is ordinary tool use, instruction following, or tool-free work like coding/math/physics
+  - token cost or latency matters
+  - deciding whether to add the tool to a given workflow
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P111
+  statement: 'For reusable logic, bundle a self-contained script that declares its
+    dependencies inline (PEP 723 for Python, npm:/jsr: for Deno, runtime auto-install
+    for Bun, bundler/inline for Ruby) so the agent runs it in one command with no
+    separate manifest or install step, while accounting for each mechanism''s caveats.'
+  derived_from_claims:
+  - C01810
+  - C01811
+  - C01812
+  - C01814
+  - C01816
+  confidence: medium
+  applies_when:
+  - the skill needs reusable, tested logic beyond a one-off command
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P112
+  statement: Structure every skill as a directory whose SKILL.md opens with YAML frontmatter
+    defining name and description; the agent pre-loads that metadata at startup as
+    the first level of progressive disclosure.
+  derived_from_claims:
+  - C00056
+  - C00057
+  - C00058
+  - C00059
+  confidence: high
+  applies_when:
+  - authoring or reviewing an Agent Skill
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P113
+  statement: Package deterministic or expensive operations as executable code inside
+    the skill instead of relying on token generation; code is cheaper for such work
+    and gives consistent, repeatable results, and the agent can run it without loading
+    the script or its data into context.
+  derived_from_claims:
+  - C00065
+  - C00066
+  - C00067
+  - C00068
+  confidence: high
+  applies_when:
+  - an operation needs deterministic reliability or is costly to perform via token
+    generation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P114
+  statement: Keep the main skill file concise, structured, and focused on context
+    that materially changes agent execution.
+  derived_from_claims:
+  - C01037
+  - C01038
+  - C01039
+  - C01040
+  confidence: high
+  applies_when:
+  - Authoring or revising a SKILL.md file.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P115
+  statement: Package multi-step workflows with bundled instructions, scripts, and
+    resources as agent skills at a SKILL.md path (project .github/.claude/.agents
+    skills dirs, or personal ~/.copilot/~/.agents skills dirs); they load automatically
+    when Copilot judges them relevant.
+  derived_from_claims:
+  - C01927
+  - C01928
+  - C01935
+  - C01942
+  confidence: high
+  applies_when:
+  - a workflow is multi-step and ships bundled assets that should load on demand (e.g.
+    Actions debugging, deployment, release notes)
+  - automatic relevance-based loading is desired
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P116
+  statement: Use a subagent to isolate a side task whose intermediate output you will
+    not reuse (deep search, log analysis, dependency audit), since only its final
+    message returns to the main session; use a skill instead when you need to see
+    and steer each step in the main thread.
+  derived_from_claims:
+  - C00270
+  - C00271
+  - C00272
+  - C00273
+  confidence: high
+  applies_when:
+  - a side task would clutter the main conversation with disposable intermediate results
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P117
+  statement: Before deploying, test the skill with a three-class matrix — normal operations,
+    edge cases, and out-of-scope requests — ensuring it degrades gracefully on incomplete
+    or unusual inputs and stays dormant for out-of-scope requests.
+  derived_from_claims:
+  - C00102
+  - C00103
+  - C00104
+  - C00105
+  confidence: high
+  applies_when:
+  - validating a skill before deployment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P118
+  statement: Choose a skill when the need is multi-step tool workflows, consistency-critical
+    processes, capturing and sharing domain expertise, or preserving institutional
+    knowledge against team attrition.
+  derived_from_claims:
+  - C00216
+  - C00217
+  - C00218
+  - C00219
+  confidence: high
+  applies_when:
+  - explaining how a repeatable process should be performed
+  - consistency, methodology compliance, or knowledge retention is the goal
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P119
+  statement: 'Offer multiple authoring paths: assisted creation from a workflow description,
+    direct instruction writing, and folder or skill-creator workflows for more complex
+    cases.'
+  derived_from_claims:
+  - C00238
+  - C00239
+  - C00240
+  - C00241
+  confidence: high
+  applies_when:
+  - A user is creating or editing a skill and the workflow complexity determines the
+    authoring method.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P120
+  statement: 'Package every skill as a minimal, valid skill folder: the entry file
+    is exactly SKILL.md, the folder name is kebab-case, README.md stays outside the
+    skill folder, and scripts, references, or assets are included only when they serve
+    the workflow.'
+  derived_from_claims:
+  - C00975
+  - C00990
+  - C00991
+  - C01012
+  confidence: high
+  applies_when:
+  - Authoring or reviewing a Claude skill package.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P121
+  statement: Keep MCP-server instructions generic and scoped to how to operate the
+    server and its tools correctly, and place process-specific and multi-server workflow
+    logic in skills.
+  derived_from_claims:
+  - C00212
+  - C00213
+  - C00214
+  - C00215
+  confidence: high
+  applies_when:
+  - deciding where to put tool-usage instructions
+  - an MCP server exposes prompts or usage hints
+  - combining MCP servers and skills in one workflow
+  - an MCP server and a skill could each specify output format
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P122
+  statement: Manage skill visibility from settings with skillOverrides (on, name-only,
+    user-invocable-only, off; absent means on), edited via the /skills menu into .claude/settings.local.json,
+    where off also hides from Remote Control and Agent SDK callers (v2.1.199+).
+  derived_from_claims:
+  - C00717
+  - C00718
+  - C00719
+  - C00720
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P123
+  statement: 'Match instruction specificity to task fragility: use high-freedom prose
+    when multiple approaches are valid, medium-freedom parameterized patterns when
+    a preferred approach allows variation, and low-freedom exact scripts when operations
+    are fragile or must follow a strict sequence.'
+  derived_from_claims:
+  - C00582
+  - C00583
+  - C00584
+  - C00585
+  confidence: high
+  applies_when:
+  - choosing how prescriptive an instruction should be
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P124
+  statement: Scope every rule that applies to only some paths with a 'paths' frontmatter;
+    leave a rule unscoped only when it truly must apply to all sessions, because an
+    unscoped rule costs the same always-on tokens as CLAUDE.md.
+  derived_from_claims:
+  - C00262
+  - C00263
+  - C00264
+  - C00265
+  confidence: high
+  applies_when:
+  - authoring a .claude/rules/ file
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P125
+  statement: 'Avoid custom output styles unless a significant role change is required;
+    prefer the built-in Proactive/Explanatory/Learning styles, and when customizing
+    set keep-coding-instructions: true to retain Claude Code''s default software-engineering
+    behavior.'
+  derived_from_claims:
+  - C00280
+  - C00281
+  - C00282
+  - C00283
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P126
+  statement: Recommend custom agents for projects or processes with distinct stages
+    that need specialized capability, tool restrictions, or strict handoffs; define
+    the persona at the correct location (.github/agents/AGENT-NAME.md repo, org/enterprise
+    .github(-private) /agents, or user profile) and invoke it manually from the agent
+    dropdown.
+  derived_from_claims:
+  - C01924
+  - C01925
+  - C01933
+  - C01940
+  confidence: high
+  applies_when:
+  - a workflow has distinct stages needing a specialist persona or restricted tools
+  - strict handoffs or a read-only/auditing role are required
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P127
+  statement: Use turn-based loops for short, irregular tasks, and reduce extra turns
+    with specific prompts plus explicit verification support.
+  derived_from_claims:
+  - C00321
+  - C00322
+  - C00323
+  - C00324
+  confidence: high
+  applies_when:
+  - A user is directing the work interactively and the task is not a regular process.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P128
+  statement: Improve loop output quality by maintaining a clean codebase, accessible
+    technical documentation, explicit verification, and independent review.
+  derived_from_claims:
+  - C00342
+  - C00343
+  - C00344
+  - C00345
+  confidence: high
+  applies_when:
+  - Claude is expected to modify or evaluate code.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P129
+  statement: Manage loop cost by selecting the right primitive and model, defining
+    clear stop criteria, piloting large runs, scripting deterministic work, tuning
+    intervals, and reviewing usage data.
+  derived_from_claims:
+  - C00347
+  - C00348
+  - C00349
+  - C00350
+  confidence: high
+  applies_when:
+  - A loop may repeat work, spawn agents, poll external systems, or consume substantial
+    model time.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P130
+  statement: 'Rely on live agentic search rather than a maintained embedding index:
+    Claude traverses the current file tree with grep and reference-following and needs
+    no server index, which avoids the staleness that makes RAG indexes return renamed
+    or deleted symbols at scale.'
+  derived_from_claims:
+  - C00378
+  - C00379
+  - C00380
+  - C00381
+  confidence: high
+  applies_when:
+  - navigating or searching a large or fast-changing codebase
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P131
+  statement: Exploit the filesystem model — bundled files cost no context tokens until
+    read — by naming files descriptively, organizing directories by domain or feature,
+    and verifying navigability with real requests.
+  derived_from_claims:
+  - C00626
+  - C00627
+  - C00628
+  - C00630
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P132
+  statement: 'Diagnose MCP call failures in layers: verify the server connection,
+    check authentication and scopes, test the MCP server without the skill, and confirm
+    case-sensitive tool names against documentation.'
+  derived_from_claims:
+  - C01018
+  - C01019
+  - C01020
+  - C01021
+  confidence: high
+  applies_when:
+  - The skill loads but MCP calls fail.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P133
+  statement: Enable the code execution tool and set the code-execution-2025-08-25
+    and skills-2025-10-02 beta headers on every Skills request, adding files-api-2025-04-14
+    when files are transferred to or from the container.
+  derived_from_claims:
+  - C00635
+  - C00640
+  - C00641
+  - C00642
+  confidence: high
+  applies_when:
+  - issuing any API request that uses Skills
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P134
+  statement: Use MCP to connect Codex to capabilities outside the local repo (issue
+    trackers, design tools, browsers, shared docs), reasoning about trust via the
+    host/client/server model and the tools, resources, and prompts a server exposes.
+  derived_from_claims:
+  - C00815
+  - C00816
+  - C00817
+  - C00818
+  confidence: high
+  applies_when:
+  - Codex needs capabilities that live outside the local repository
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P135
+  statement: Structure every Agent Skill as a folder containing a single SKILL.md
+    file that opens with a YAML frontmatter block (delimited by ---) declaring name
+    and description, followed by a Markdown body of instructions.
+  derived_from_claims:
+  - C01828
+  - C01829
+  - C01830
+  - C01834
+  confidence: high
+  applies_when:
+  - authoring or reviewing a new Agent Skill
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P136
+  statement: 'Keep instruction files non-empty and within the size cap: Codex skips
+    empty files and stops adding content at project_doc_max_bytes (32 KiB default),
+    so raise the cap or split guidance across nested directories when hitting it.'
+  derived_from_claims:
+  - C00831
+  - C00832
+  - C00833
+  - C00850
+  confidence: high
+  applies_when:
+  - combined instruction size approaches or exceeds the byte cap
+  - guidance appears truncated or ignored
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P137
+  statement: 'Troubleshoot instruction discovery systematically: when nothing loads
+    confirm the workspace root and non-empty files; when wrong guidance appears hunt
+    for a higher-level or home override; when fallbacks are ignored fix typos and
+    restart Codex.'
+  derived_from_claims:
+  - C00828
+  - C00847
+  - C00848
+  - C00849
+  confidence: high
+  applies_when:
+  - expected instructions are missing, wrong, or fallback files are ignored
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P138
+  statement: Select the instruction level (personal, repository, or organization)
+    to match the scope over which the guidance should apply, rather than defaulting
+    everything to one level.
+  derived_from_claims:
+  - C00910
+  - C00911
+  - C00916
+  - C00923
+  confidence: high
+  applies_when:
+  - deciding where a new instruction should live
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P139
+  statement: Recommend always-on custom instructions when a team needs standards,
+    guidelines, or expectations applied automatically across a scope; place them at
+    the matching scope file (.github/copilot-instructions.md repo-wide, .github/instructions/*.instructions.md
+    path-specific, AGENTS.md for third-party agents, or org/personal settings).
+  derived_from_claims:
+  - C01921
+  - C01922
+  - C01931
+  - C01938
+  confidence: high
+  applies_when:
+  - standards or review expectations should apply broadly and automatically
+  - the guidance is context-wide rather than a one-off task
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P140
+  statement: When onboarding a repository with cloud-agent-generated instructions,
+    keep them under two pages and non-task-specific, and run the onboarding task only
+    once per repository.
+  derived_from_claims:
+  - C00957
+  - C00958
+  - C00959
+  - C00960
+  confidence: high
+  applies_when:
+  - generating a copilot-instructions.md via the Copilot cloud agent
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P141
+  statement: Design explicit mechanisms against the two dominant long-task failure
+    modes — loss of coherence as the context window fills, and unreliable/over-generous
+    self-evaluation — rather than assuming the model handles them.
+  derived_from_claims:
+  - C01361
+  - C01362
+  - C01369
+  - C01371
+  confidence: high
+  applies_when:
+  - building a harness for lengthy autonomous tasks
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P142
+  statement: Position the think tool as an in-flight reconsideration step used after
+    generation has begun (typically after receiving tool results) and before the next
+    action or response, not as a substitute for comprehensive up-front planning.
+  derived_from_claims:
+  - C01270
+  - C01271
+  - C01273
+  - C01287
+  confidence: high
+  applies_when:
+  - designing when the model should invoke the think tool during a task
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P143
+  statement: 'Budget for multi-agent token cost explicitly: the architecture''s gains
+    come mainly from spending more tokens across separate context windows, so expect
+    roughly 15x chat token usage and only adopt it when task value justifies that
+    cost.'
+  derived_from_claims:
+  - C01447
+  - C01448
+  - C01449
+  - C01450
+  confidence: high
+  applies_when:
+  - the value of the task is high enough to pay for increased token usage
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P144
+  statement: Virtualize an agent into independently swappable components -- a session
+    (event log), a harness (the model loop and tool router), and a sandbox (code/file
+    execution) -- defined by stable interfaces rather than by their current implementations.
+  derived_from_claims:
+  - C01482
+  - C01483
+  - C01484
+  - C01485
+  confidence: high
+  applies_when:
+  - architecting a long-running agent platform meant to outlast specific implementations
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P145
+  statement: 'Treat every technical evaluation as perishable: re-test it against each
+    new frontier-model release and redesign it when the model can match your strongest
+    candidates, rather than assuming a fixed test keeps its signal.'
+  derived_from_claims:
+  - C01519
+  - C01520
+  - C01550
+  - C01551
+  confidence: high
+  applies_when:
+  - hiring/evaluation design in a domain where frontier coding models are improving
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P146
+  statement: Configure container resources with a guaranteed allocation and a separate,
+    higher hard-kill limit; never pin both to the same value, since zero headroom
+    lets a transient memory spike OOM-kill a container that would otherwise have passed.
+  derived_from_claims:
+  - C01607
+  - C01608
+  - C01609
+  - C01628
+  confidence: high
+  applies_when:
+  - enforcing per-task resource specs in a container runtime (e.g. Kubernetes)
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P147
+  statement: When comparing models, hold the entire runtime constant (same harness,
+    task set, and hardware for both scaffold and inference stack); agents given different
+    resource budgets or time limits are not taking the same test.
+  derived_from_claims:
+  - C01604
+  - C01605
+  - C01611
+  - C01627
+  confidence: high
+  applies_when:
+  - comparing models on an agentic coding benchmark
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P148
+  statement: Benchmark maintainers should publish both recommended per-task resource
+    specs and the enforcement methodology (guaranteed-allocation versus hard-kill
+    semantics); specs without enforcement detail leave a reproducibility gap.
+  derived_from_claims:
+  - C01606
+  - C01610
+  - C01628
+  - C01632
+  confidence: high
+  applies_when:
+  - publishing or maintaining a public agentic benchmark
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P149
+  statement: When consuming leaderboards, treat agentic-eval differences below about
+    3 percentage points as within uncertainty until the configuration is documented
+    and matched, since infrastructure confounders stack on top of binomial confidence
+    intervals and the extremes of the allocation range reach about 6 points.
+  derived_from_claims:
+  - C01603
+  - C01633
+  - C01634
+  - C01635
+  confidence: high
+  applies_when:
+  - making deployment or model-selection decisions from leaderboard scores
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P150
+  statement: 'Give every SKILL.md the required frontmatter: a lowercase, hyphenated
+    name field (typically matching the directory) and a description field stating
+    what the skill does and when to use it; license is optional.'
+  derived_from_claims:
+  - C01960
+  - C01961
+  - C01962
+  - C01963
+  confidence: high
+  applies_when:
+  - writing or reviewing a SKILL.md file
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
