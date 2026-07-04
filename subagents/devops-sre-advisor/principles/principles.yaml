@@ -29,23 +29,53 @@ principles:
     reference: null
     test_cases: []
 - principle_id: P002
-  statement: Keep all configuration (system and application) in version control, not
-    just application code, since configuration in version control correlates more
-    strongly with performance.
+  statement: Build a canary process with three parts — a way to deploy the change
+    to a subset of the population, an evaluation deciding good or bad, and integration
+    of those evaluations into the release process — deploying to a small labeled production
+    segment that receives only a small portion of traffic (split via application versions,
+    load-balancer backend weights, proxy configs, or round-robin DNS), so it demonstrates
+    value by detecting bad candidates with high confidence and identifying good releases
+    without false positives.
   derived_from_claims:
-  - C00085
-  - C00217
-  - C00390
-  - C00391
-  - C01915
+  - C00949
+  - C01121
+  - C01122
+  - C02076
+  - C04151
+  - C04152
+  - C04153
   confidence: high
-  applies_when: []
+  applies_when:
+  - rolling out a new version safely
+  - constructing a canary deployment process
+  - releasing to a large production environment or reducing release risk
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
 - principle_id: P003
+  statement: Reduce cycle time, the time from deciding on a change to it being available
+    to users, by making frequent, automated releases; if a process is not automated
+    it is not repeatable, and frequent releases keep the delta small, reduce risk,
+    and speed feedback.
+  derived_from_claims:
+  - C00483
+  - C00594
+  - C00595
+  - C03659
+  - C03661
+  - C03662
+  confidence: high
+  applies_when:
+  - designing a change and release process
+  - a team wants to improve delivery speed or reduce release risk
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
   statement: Build a generative (Westrum) culture of trust, information flow, shared
     risk, and inquiry-not-blame, because it predicts delivery performance, organizational
     performance, and job satisfaction.
@@ -64,27 +94,6 @@ principles:
   confidence: high
   applies_when:
   - shaping team culture or responding to incidents
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P004
-  statement: Treat deployment pain as a leading signal of poor performance and reduce
-    it through technical practices, deployable system design, automation, and reproducible-from-version-control
-    environments.
-  derived_from_claims:
-  - C00127
-  - C00128
-  - C00129
-  - C00130
-  - C00131
-  - C00132
-  - C00289
-  - C00290
-  confidence: high
-  applies_when:
-  - deployments are feared, manual, or must run outside business hours
   operational_mapping:
     profile_rule: true
     skill: null
@@ -114,6 +123,26 @@ principles:
     reference: null
     test_cases: []
 - principle_id: P006
+  statement: Design loosely coupled, discrete, independently deployable components
+    (for example services or SOA, using abstraction layers such as SQL views to break
+    hard dependencies) to enable small frequent releases and large-team collaboration.
+  derived_from_claims:
+  - C00415
+  - C00416
+  - C00418
+  - C04323
+  - C04324
+  - C04325
+  - C04330
+  confidence: high
+  applies_when:
+  - deciding whether and how to split an application into components
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
   statement: Add code-quality analysis as gates within CI so a component failing the
     checks goes no further even if its build and tests pass, building your own analysis
     where mainstream tools do not cover your stack.
@@ -133,7 +162,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P007
+- principle_id: P008
   statement: Lint code in the pipeline and let lint failures break the build (fixing
     or configuring rules rather than ignoring them), and publish coverage reports
     that fail the build when missing.
@@ -151,124 +180,92 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P008
-  statement: 'Adopt a blame-slow, learn-quickly culture: when mistakes happen, help
-    people learn, prevent recurrence, and share lessons without a fuss, and do not
-    blame those who quickly fix issues, because a blame culture erodes the good behaviors
-    while reducing blame grows learning.'
-  derived_from_claims:
-  - C00465
-  - C00466
-  - C00467
-  - C00468
-  - C00592
-  - C00593
-  confidence: high
-  applies_when:
-  - responding to or reviewing a failure
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
 - principle_id: P009
-  statement: Recognize that burn-rate alerting over-pages low-traffic services (one
-    failure in ten requests is a 10% error rate, a 1,000x burn against 99.9%) and
-    handle them by generating artificial traffic, combining related services that
-    share a failure domain, or changing the product so a single failure carries less
-    weight or takes more requests to qualify.
+  statement: Develop new features incrementally and commit to trunk or mainline regularly
+    and frequently (at least once a day), rather than branching for new functionality,
+    because you cannot safely refactor unless everybody commits frequently to mainline.
   derived_from_claims:
-  - C00731
-  - C00732
-  - C00733
-  - C00734
-  - C01950
+  - C00090
+  - C03705
+  - C03707
+  - C03708
+  - C03710
   confidence: high
   applies_when:
-  - applying SLO alerting to a low-traffic service
+  - a full-time team working on a shared codebase
+  - a team is choosing how to organize ongoing development in version control
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
 - principle_id: P010
-  statement: Set the SLO as the target level of reliability for customers (above it
-    almost all users are happy, below it they complain or leave) and do not chase
-    extra nines, because each additional nine costs more for marginal utility approaching
-    zero, customers never experience your internal 100%, and change is the number
-    one source of outages.
+  statement: Run deployment tests, a small fail-fast smoke suite asserting the environment
+    is configured and inter-component communication works, at the start of the acceptance
+    stage, and fail the whole stage immediately if they fail rather than waiting for
+    the lengthy suite.
   derived_from_claims:
-  - C00620
-  - C00621
-  - C00622
-  - C01727
+  - C01634
+  - C01635
+  - C01636
+  - C01637
+  - C04068
   confidence: high
   applies_when:
-  - choosing a reliability target
+  - validating a deployment within the pipeline
+  - running acceptance tests in a deployed environment
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
 - principle_id: P011
-  statement: Base the SLO framework on the small consistent signal set services already
-    monitor — volume, availability, latency, errors, and tickets (VALET, aligned with
-    the Four Golden Signals) — and standardize their naming and measurement across
-    services.
+  statement: Keep all configuration (system and application) in version control, not
+    just application code, since configuration in version control correlates more
+    strongly with performance.
   derived_from_claims:
-  - C00680
-  - C00681
-  - C00688
-  - C01844
+  - C00085
+  - C00217
+  - C00390
+  - C00391
   confidence: high
-  applies_when:
-  - choosing which signals an SLO framework standardizes on
+  applies_when: []
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
 - principle_id: P012
-  statement: Use a standard postmortem template that consistently captures the incident
-    root cause and trigger, because doing so enables trend analysis that targets improvements
-    against systemic root-cause types such as faulty software interface design or
-    immature change deployment planning — and prioritize accordingly given that across
-    thousands of Google postmortems (2010-2017) the top outage triggers were binary
-    pushes (37%) and configuration pushes (31%), together about 68%, followed by user-behavior
-    change, processing pipeline, service-provider change, performance decay, capacity
-    management, and hardware, while the top contributing root-cause categories were
-    software (~41%), development-process failure (~20%), complex system behaviors
-    (~17%), deployment planning (~7%), and network failure (~3%).
+  statement: Measure code complexity (for example cyclomatic complexity) while understanding
+    the metric's underlying principles and limitations — it cannot distinguish necessary
+    from accidental complexity — before setting or interpreting thresholds.
   derived_from_claims:
-  - C01311
-  - C01312
-  - C01313
-  - C02516
+  - C00529
+  - C00530
+  - C00792
+  - C00793
   confidence: high
   applies_when:
-  - standardizing postmortems for trend analysis and prioritization
+  - assessing the complexity of code or a system
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
 - principle_id: P013
-  statement: Build a canary process with three parts — a way to deploy the change
-    to a subset of the population, an evaluation deciding good or bad, and integration
-    of those evaluations into the release process — deploying to a small labeled production
-    segment that receives only a small portion of traffic (split via application versions,
-    load-balancer backend weights, proxy configs, or round-robin DNS), so it demonstrates
-    value by detecting bad candidates with high confidence and identifying good releases
-    without false positives.
+  statement: Validate service readiness with real-world unit tests that confirm all
+    dependencies are available and correctly configured, that configurations are consistent
+    with other deployments, and that every configuration exception is intended, aborting
+    dependent tests when one fails.
   derived_from_claims:
-  - C00949
-  - C01121
-  - C01122
-  - C02076
+  - C01881
+  - C03729
+  - C03869
+  - C03870
   confidence: high
   applies_when:
-  - rolling out a new version safely
-  - constructing a canary deployment process
+  - deploying an application that depends on configuration and external services
+  - deploying to any environment
   operational_mapping:
     profile_rule: true
     skill: null
@@ -291,8 +288,8 @@ principles:
     test_cases: []
 - principle_id: P015
   statement: Break down organizational silos between development and operations rather
-    than relying on tooling alone, because separate teams and siloed incentives, not
-    tools, are the root of delivery pain.
+    than relying on tooling alone, because separate teams, siloed knowledge, and incentives
+    for local optimization worsen delivery outcomes.
   derived_from_claims:
   - C00313
   - C00314
@@ -306,22 +303,6 @@ principles:
     reference: null
     test_cases: []
 - principle_id: P016
-  statement: Make changes small and frequent — splitting large changes into smaller
-    pieces and supporting them with automated testing and reliable rollback — because
-    small changes carry small risk while infrequent large releases carry large risk.
-  derived_from_claims:
-  - C00483
-  - C00594
-  - C00595
-  confidence: high
-  applies_when:
-  - designing a change and release process
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P017
   statement: Engage SRE as early as the design phase, because the earlier the engagement
     the lower the cost to onboard and the more reliable the service is out of the
     gate, since you avoid spending time unwinding suboptimal design and implementation.
@@ -337,27 +318,10 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P018
-  statement: Use the error-budget/SLO model as a shared, fact-based language that
-    removes subjectivity so ops and dev reach the same decision from the same data,
-    embracing the differences between the disciplines rather than converting one into
-    the other.
-  derived_from_claims:
-  - C00667
-  - C00677
-  - C01791
-  confidence: high
-  applies_when:
-  - ops and dev must jointly decide reliability vs feature velocity
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P019
-  statement: Treat latency and most other metrics as distributions and report percentiles
-    (such as the 90th, 95th, or 99th) rather than arithmetic averages, because a mean
-    masks long-tail behaviour like a slow tail of requests.
+- principle_id: P017
+  statement: Prefer percentiles/distributions (for example 90th, 95th, and 99th) over
+    arithmetic averages when measuring latency and most metrics, because an average
+    masks long-tail behavior such as a slow tail of requests.
   derived_from_claims:
   - C00683
   - C00697
@@ -370,7 +334,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P020
+- principle_id: P018
   statement: When automating toil, do not transcribe the human workflow verbatim or
     let automation erase human understanding of failures; instead decompose documented
     manual work into separable, well-defined, reusable, composable software components
@@ -387,7 +351,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P021
+- principle_id: P019
   statement: 'Pursue simplicity as a primary reliability lever: simple software breaks
     less, is faster to fix, and is easier to understand, maintain, and test, and treat
     simplicity as an end-to-end goal spanning code, system architecture, and the tools
@@ -404,44 +368,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P022
-  statement: 'Protect engineering capacity: SREs should spend at least 50% of time
-    on project work (roughly one-third operational, two-thirds project), which also
-    sets an on-call rotation size where engineers are on-call about one-third of the
-    time, and review the balance against a clear rubric to produce trackable team-health
-    metrics.'
-  derived_from_claims:
-  - C00813
-  - C00814
-  - C02508
-  confidence: high
-  applies_when:
-  - balancing operational and project work and sizing rotations
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P023
-  statement: 'Guard against operational underload as well as overload: when a team
-    spends too little time on operations, take more risks and move faster (shorter
-    release cycles, more features per release, more disaster-recovery testing), and
-    if it stays underloaded, onboard related services or hand a service that no longer
-    needs SRE back to development; let operational issues feed strategic, time-bounded
-    project work in a continuous feedback loop.'
-  derived_from_claims:
-  - C00815
-  - C00816
-  - C01980
-  confidence: high
-  applies_when:
-  - a team's operational load is too low
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P024
+- principle_id: P020
   statement: 'Support on-call engineers with psychological safety and fair incentives:
     provide procedures and escalation paths that make their lives easier, and compensate
     out-of-hours work (time-off-in-lieu or capped cash) both to incentivize participation
@@ -458,7 +385,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P025
+- principle_id: P021
   statement: Set response-time expectations by severity rather than demanding an immediate
     response to everything (e.g. five minutes for a revenue-impacting outage, thirty
     for a stuck batch system, a work-hours ticket for a failing pre-launch backup),
@@ -477,7 +404,23 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P026
+- principle_id: P022
+  statement: Use hermetic builds that are insensitive to whatever software is installed
+    on the build machine and depend only on known versions of build tools and dependencies,
+    so the same source revision produces identical results on any machine.
+  derived_from_claims:
+  - C01903
+  - C03712
+  - C03713
+  confidence: high
+  applies_when:
+  - a project depends on third-party libraries
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
   statement: 'Recognize for operational decisions: Distinguish three terms precisely:
     an SLI is a quantitative measure of a service level, an SLO is a target value
     or range for an SLI, and an SLA is a contract with explicit consequences for meeting
@@ -493,7 +436,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P027
+- principle_id: P024
   statement: Organize incident response into three roles — Incident Commander (leads/coordinates
     and assumes any undelegated role), Operations Lead (applies operational tools
     to mitigate and resolve), and Communications Lead (public face giving periodic
@@ -510,11 +453,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P028
-  statement: Use DNS as the first and simplest layer of load balancing, but treat
-    it as insufficient on its own because it depends on client cooperation to expire
-    and refetch records and gives weak control over client behaviour (the authoritative
-    server sees the recursive resolver, not the user).
+- principle_id: P025
+  statement: Use DNS as the first layer of load balancing (it balances load before
+    a connection starts), but treat it as insufficient on its own because it relies
+    on client cooperation to expire and refetch records and gives weak control over
+    client behavior.
   derived_from_claims:
   - C00943
   - C02147
@@ -526,11 +469,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P029
-  statement: Health-check backends and give each an explicit 'lame-duck' state in
-    which it keeps serving in-flight requests but asks clients to stop sending new
-    ones (propagated to active and, via periodic health checks, inactive clients),
-    so backends can be drained, removed, or updated without disrupting user requests.
+- principle_id: P026
+  statement: Give backends an explicit 'lame-duck' state and health-check them, so
+    a backend still serves in-flight requests while signaling clients to stop sending
+    new ones, allowing it to be gracefully removed or updated without disrupting user
+    requests.
   derived_from_claims:
   - C00947
   - C02160
@@ -542,7 +485,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P030
+- principle_id: P027
   statement: Set deliberate deadlines on RPC requests — without one a process holds
     resources for every in-flight request up to a large default, raising latency and
     risking exhaustion and crashes — having servers terminate over-long requests and
@@ -558,7 +501,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P031
+- principle_id: P028
   statement: Separate components that change at different rates — binaries, runtime
     environment, libraries, service config, feature config, and user config — and
     use feature-flag or experiment frameworks to separate feature launches from binary
@@ -575,7 +518,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P032
+- principle_id: P029
   statement: Automate security tests inside developer workflows and pipelines with
     actionable feedback and false-positive management.
   derived_from_claims:
@@ -609,7 +552,7 @@ principles:
     test_cases:
     - Security failures appear in CI or developer tools with enough context for the
       responsible team to fix them.
-- principle_id: P033
+- principle_id: P030
   statement: Integrate security telemetry into production observability so hostile
     behavior is visible to the teams that design and run services.
   derived_from_claims:
@@ -639,33 +582,7 @@ principles:
     test_cases:
     - Security dashboards appear beside operational dashboards and include alerts
       for application and environment indicators.
-- principle_id: P034
-  statement: Make approved standards, policies, and security assets (libraries, configurations,
-    images, secrets patterns, services) reusable by converting them from static prose
-    into executable blueprints and components in shared repositories and platforms.
-  derived_from_claims:
-  - C03385
-  - C03386
-  - C03387
-  - C03470
-  - C03471
-  - C03473
-  - C03474
-  - C03477
-  - C03478
-  - C03479
-  - C03480
-  - C03481
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases:
-    - Teams can implement common auth, logging, encryption, and base-image controls
-      from approved reusable assets.
-- principle_id: P035
+- principle_id: P031
   statement: Design audit evidence with auditors from actual regulations and expose
     it through telemetry, logs, and documentation linked to controls.
   derived_from_claims:
@@ -689,7 +606,7 @@ principles:
     test_cases:
     - An auditor can self-serve evidence for a control and trace it to the regulatory
       requirement.
-- principle_id: P036
+- principle_id: P032
   statement: Measure software delivery performance with four global-outcome metrics
     (delivery lead time from commit to production, deployment frequency, time to restore
     service, change fail rate) to avoid pitting functions against each other.
@@ -712,7 +629,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P037
+- principle_id: P033
   statement: Apply Lean, Agile, continuous delivery, and constraints thinking through
     small batches, deployable states, daily improvement, and fast feedback.
   derived_from_claims:
@@ -735,7 +652,29 @@ principles:
     test_cases:
     - Work policies reduce WIP, preserve deployability, and include daily scientific
       improvement routines.
-- principle_id: P038
+- principle_id: P034
+  statement: Make approved security libraries, configurations, images, secrets patterns,
+    and services reusable through shared repositories and platforms.
+  derived_from_claims:
+  - C03470
+  - C03471
+  - C03473
+  - C03474
+  - C03477
+  - C03478
+  - C03479
+  - C03480
+  - C03481
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases:
+    - Teams can implement common auth, logging, encryption, and base-image controls
+      from approved reusable assets.
+- principle_id: P035
   statement: Modernize regulated platforms through customer-centered slices, standardized
     tools, and CI/CD controls that can block noncompliant releases.
   derived_from_claims:
@@ -757,7 +696,7 @@ principles:
     test_cases:
     - Each modernization slice identifies user need, compliance controls, pipeline
       checks, and rollout criteria.
-- principle_id: P039
+- principle_id: P036
   statement: 'Watch for the slow, often-unnoticed symptoms of delivery decay as an
     organization scales: slower and more complex releases, developers distanced from
     production, last-minute changes, dead code, diverted resource, and deployment
@@ -779,7 +718,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P040
+- principle_id: P037
   statement: Harden build VMs by disabling password authentication in favor of SSH
     keys and placing them in private subnets reachable only through a bastion (using
     a managed bastion service where available, restricting its ingress).
@@ -799,7 +738,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P041
+- principle_id: P038
   statement: Protect CI/CD infrastructure as a production-critical attack surface
     with hardening, review, suspicious-test detection, isolation, and read-only credentials.
   derived_from_claims:
@@ -820,7 +759,7 @@ principles:
     test_cases:
     - CI jobs run in isolated fresh environments and cannot write to source control
       using CI credentials.
-- principle_id: P042
+- principle_id: P039
   statement: Satisfy separation-of-duty intent through review, pair work, inspection,
     and telemetry while avoiding low-trust controls that destroy visibility.
   derived_from_claims:
@@ -841,7 +780,7 @@ principles:
     test_cases:
     - A control design shows who reviewed the change and how production monitoring
       detects fraud or errors.
-- principle_id: P043
+- principle_id: P040
   statement: Drive improvement through a capabilities model selected by research evidence,
     not through maturity models or vendor/consultant bias.
   derived_from_claims:
@@ -860,7 +799,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P044
+- principle_id: P041
   statement: Measure developer productivity holistically across well-being, performance,
     activity, collaboration, and flow instead of relying on activity counts.
   derived_from_claims:
@@ -880,7 +819,7 @@ principles:
     test_cases:
     - A productivity dashboard combines at least three dimensions and flags sustainability
       tradeoffs.
-- principle_id: P045
+- principle_id: P042
   statement: Do not buy, copy, outsource, or 'implement' culture change; develop your
     own coaches, lead by example, and proceed with discipline and patience, because
     high performance must be grown for your context.
@@ -900,7 +839,50 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P046
+- principle_id: P043
+  statement: Make all changes incrementally rather than branching, since the bigger
+    the apparent reason to branch the more you should not, use branch by abstraction
+    for changes too hard to make incrementally, and protect large-scale changes with
+    a comprehensive automated acceptance suite.
+  derived_from_claims:
+  - C04304
+  - C04309
+  - C04310
+  - C04311
+  - C04312
+  - C04317
+  - C04319
+  confidence: high
+  applies_when:
+  - keeping an application releasable while under constant change
+  - making a large or far-reaching change to a codebase
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: Aim for a completely automated, button-press release and back-out; control
+    every bit deployed by locking production down so changes go only through automated
+    processes, and use the same process for testing environments as for production.
+  derived_from_claims:
+  - C03642
+  - C03643
+  - C03644
+  - C03651
+  - C03896
+  - C03897
+  - C03898
+  confidence: high
+  applies_when:
+  - a team deploys software to any environment
+  - preparing to release software
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
   statement: Prevent burnout by fixing the work environment (Maslach's six risk factors)
     rather than the person, since the causes are organizational factors management
     controls.
@@ -920,7 +902,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P047
+- principle_id: P046
   statement: Invest in people and identity, because engagement and satisfaction drive
     loyalty, reduce burnout, and predict profitability, productivity, and market share.
   derived_from_claims:
@@ -938,7 +920,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P048
+- principle_id: P047
   statement: 'Support team culture through the three highly-correlated levers: cross-functional
     collaboration built on trust, a climate of learning made safe to fail via blameless
     postmortems, and good tools and proactive monitoring.'
@@ -958,7 +940,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P049
+- principle_id: P048
   statement: 'Design measurement well: use latent constructs with multiple measures,
     define precisely what you measure first, measure at the team level, periodically
     retest, and remember all measures are proxies.'
@@ -978,7 +960,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P050
+- principle_id: P049
   statement: Use surveys to capture perceptions and feelings, collect anonymously
     and for improvement, measure the core behaviors of a practice rather than its
     label, and avoid weak proxies like turnover and biased question forms.
@@ -998,7 +980,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P051
+- principle_id: P050
   statement: Postmortem actions must be owned, prioritized, incremental, and tied
     to prevention, faster detection, or faster recovery metrics.
   derived_from_claims:
@@ -1018,7 +1000,7 @@ principles:
     test_cases:
     - Every top-priority postmortem action has an owner, metric impact, and incremental
       implementation path.
-- principle_id: P052
+- principle_id: P051
   statement: Reserve explicit time and community structures for improvement, learning,
     and debt reduction across Development, Operations, and Security.
   derived_from_claims:
@@ -1038,7 +1020,7 @@ principles:
     test_cases:
     - Improvement blitzes, learning time, or communities of practice have calendar
       capacity and visible outputs.
-- principle_id: P053
+- principle_id: P052
   statement: Shift security into daily value-stream work through automation, pipeline
     integration, and early feature-team engagement.
   derived_from_claims:
@@ -1058,7 +1040,7 @@ principles:
     test_cases:
     - Security feedback appears before late release review and is visible in the same
       workflow as delivery work.
-- principle_id: P054
+- principle_id: P053
   statement: Sustained improvement requires psychological safety, resources, learning
     capacity, and continuous reevaluation of the current bottleneck.
   derived_from_claims:
@@ -1078,7 +1060,95 @@ principles:
     test_cases:
     - Improvement planning includes explicit capacity, safety for experimentation,
       and a current-friction review.
+- principle_id: P054
+  statement: Practice continuous integration by developing on trunk/mainline and merging
+    any active branch back at least once a day rather than using long-lived feature
+    or team branches (the antithesis of CI); reserve branches for release.
+  derived_from_claims:
+  - C03755
+  - C03756
+  - C04385
+  - C04387
+  - C04420
+  - C04421
+  - C04424
+  confidence: high
+  applies_when:
+  - a team is deciding where developers commit their work
+  - choosing a branching strategy alongside continuous integration
+  - considering feature or team branches
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
 - principle_id: P055
+  statement: Layer acceptance tests into criteria, domain-language implementation,
+    and an application driver layer, using aliases and a well-designed driver so tests
+    are independent, reliable, parallelizable, and built incrementally, with a window
+    driver decoupling GUI-facing tests from the UI.
+  derived_from_claims:
+  - C03817
+  - C03818
+  - C03836
+  - C04031
+  - C04033
+  - C04034
+  - C04038
+  confidence: high
+  applies_when:
+  - writing automated acceptance tests for an application with a UI
+  - structuring an automated acceptance test suite
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Minimize each test's dependence on the whole universe of application
+    data, distinguish test-specific, test-reference, and application-reference data
+    for acceptance tests, and put the application into the correct initial state through
+    its public API rather than application code or database dumps.
+  derived_from_claims:
+  - C04040
+  - C04042
+  - C04043
+  - C04046
+  - C04293
+  - C04294
+  - C04297
+  confidence: high
+  applies_when:
+  - managing state and setup for acceptance tests
+  - providing test data for acceptance tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Never let tests hit a real external system unless in production, isolating
+    access with a firewall and a configuration switch to a simulated version, and
+    make the integration test harness replicate pathological as well as expected responses
+    so you can harden the application.
+  derived_from_claims:
+  - C03838
+  - C03839
+  - C03840
+  - C04051
+  - C04052
+  - C04053
+  - C04055
+  confidence: high
+  applies_when:
+  - testing an application that integrates with external systems
+  - acceptance-testing an application that talks to external systems
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
   statement: Bake immutable golden machine images with Packer, keeping secrets out
     of the template via runtime variables, selecting the newest base image dynamically,
     and giving each image a unique name.
@@ -1096,7 +1166,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P056
+- principle_id: P059
   statement: Define a valid, reliable, outcome-focused, global measure of delivery
     performance before improving it, and reject output-based vanity metrics such as
     lines of code, velocity-as-productivity, and maximized utilization.
@@ -1115,9 +1185,9 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P057
-  statement: Validate that survey measures pass convergent validity, divergent/discriminant
-    validity, and reliability checks before running any correlation or prediction
+- principle_id: P060
+  statement: Establish that measures are valid (convergent and divergent validity)
+    and reliable via psychometric checks before running any correlation or prediction
     analysis on them.
   derived_from_claims:
   - C00062
@@ -1135,7 +1205,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P058
+- principle_id: P061
   statement: 'Implement continuous delivery as five principles: build quality in,
     work in small batches, automate repetitive work so people solve problems, make
     continuous improvement everyone''s daily work, and make everyone responsible for
@@ -1155,7 +1225,26 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P059
+- principle_id: P062
+  statement: Treat deployment pain as a leading signal of poor performance and reduce
+    it through technical practices, deployable system design, automation, and reproducible-from-version-control
+    environments.
+  derived_from_claims:
+  - C00127
+  - C00128
+  - C00129
+  - C00130
+  - C00131
+  - C00132
+  confidence: high
+  applies_when:
+  - deployments are feared, manual, or must run outside business hours
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
   statement: Structure an SLO document with metadata (status, author, reviewers, approvers,
     approval date, and revisit date), a service overview, a precise definition of
     each SLI including its exact measurement formula and SLO target, a rationale,
@@ -1180,7 +1269,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P060
+- principle_id: P064
   statement: Collect centralized events, logs, and metrics across business logic,
     applications, infrastructure, and customer-impact periods.
   derived_from_claims:
@@ -1199,7 +1288,30 @@ principles:
     test_cases:
     - Dashboards include actionable business metrics and relevant business calendar
       context, not only host health.
-- principle_id: P061
+- principle_id: P065
+  statement: Decide and rehearse the single incident communication channel beforehand
+    (preferably a familiar one) so the Incident Commander never chooses it mid-incident,
+    prepare two or three ready-to-use public-announcement templates with a known send
+    path and an agreed draft/review/approve/release flow, prepare distribution lists
+    for an 'all hands on deck' call, and establish explicit criteria — derived from
+    past outages and high-risk areas — for when an issue is truly an incident.
+  derived_from_claims:
+  - C00896
+  - C00897
+  - C00899
+  - C00901
+  - C00902
+  - C00903
+  confidence: high
+  applies_when:
+  - tooling and preparing for incident response
+  - preparing incident communication and declaration criteria in advance
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
   statement: Supply cloud credentials through environment variables, managed identities,
     or instance metadata, never hardcoded in templates or configuration.
   derived_from_claims:
@@ -1216,7 +1328,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P062
+- principle_id: P067
   statement: Run tests inside Docker containers so the execution environment is consistent
     across all workers, avoiding installation of each service's language runtime on
     every worker, and auto-clean containers with the --rm flag.
@@ -1234,7 +1346,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P063
+- principle_id: P068
   statement: Harden Dockerfiles with official, version-pinned, up-to-date base images,
     pinned dependencies, instruction ordering that exploits layer caching, and multistage
     builds that keep build tooling out of the final image.
@@ -1251,7 +1363,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P064
+- principle_id: P069
   statement: Reduce functional-silo queues by moving scarce operations knowledge into
     self-service platforms, embedded engineers, or liaisons.
   derived_from_claims:
@@ -1270,7 +1382,70 @@ principles:
     test_cases:
     - A product team can obtain routine operational work without serial escalation
       across many specialist groups.
-- principle_id: P065
+- principle_id: P070
+  statement: Treat the environment's configuration as as important as the application's,
+    never manage it ad-hoc, and automate environment creation so it is always cheaper
+    to create a new environment than to repair an old one.
+  derived_from_claims:
+  - C03655
+  - C03656
+  - C03658
+  - C03734
+  - C03735
+  - C03736
+  confidence: high
+  applies_when:
+  - managing testing, staging, or production environments
+  - managing testing or production environments
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: Be conservative about accepting new versions of low-control third-party
+    dependencies, keep dependency graphs shallow and backwards-compatible, and make
+    the artifact repository contain nothing that cannot be reproduced from version
+    control, keeping a hash of every binary rather than checking artifacts into version
+    control.
+  derived_from_claims:
+  - C03864
+  - C03865
+  - C04360
+  - C04362
+  - C04363
+  - C04364
+  confidence: high
+  applies_when:
+  - managing the outputs of the commit stage
+  - managing third-party dependencies and build artifacts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: Express acceptance tests in the business's ubiquitous/domain language
+    as executable specifications of business behavior (for example given-when-then
+    customer expectations), executing them directly against a production-like environment
+    and keeping them in sync with the application.
+  derived_from_claims:
+  - C03889
+  - C03890
+  - C04025
+  - C04026
+  - C04027
+  - C04029
+  confidence: high
+  applies_when:
+  - writing acceptance tests
+  - writing and maintaining acceptance tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
   statement: Do not rely on searchable logs as the only diagnostic source when runtime
     state may be absent, noisy, or impossible to reproduce.
   derived_from_claims:
@@ -1289,7 +1464,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P066
+- principle_id: P074
   statement: Package Kubernetes manifests with Helm using overridable values, store
     secrets in Kubernetes Secrets and non-sensitive config in ConfigMaps, and inject
     build and commit IDs as deployment annotations for traceability.
@@ -1306,7 +1481,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P067
+- principle_id: P075
   statement: Build CD metrics into the tooling (deployment count, release-candidate-to-production
     time, commit-to-production time, release-candidate count, components released,
     unique components), summarize them simply on office screens to open discussion,
@@ -1325,7 +1500,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P068
+- principle_id: P076
   statement: Shift security left by building it into developers' daily work with preapproved
     libraries and integrated infosec feedback, which improves both delivery performance
     and security quality and makes security everyone's responsibility.
@@ -1343,7 +1518,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P069
+- principle_id: P077
   statement: Form cross-functional teams and apply the inverse Conway maneuver, evolving
     org structure to produce a loosely coupled architecture that lets the organization
     scale productivity.
@@ -1361,7 +1536,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P070
+- principle_id: P078
   statement: Run Lean product development as four capabilities (small batches/MVPs,
     visible value-stream flow, active customer feedback, team authority over specifications),
     forming a virtuous cycle with delivery performance.
@@ -1379,7 +1554,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P071
+- principle_id: P079
   statement: Build delivery around visible flow, fast feedback, automated tests, and
     production-like environments so changes stay deployable.
   derived_from_claims:
@@ -1397,7 +1572,7 @@ principles:
     test_cases:
     - Every commit triggers automated validation in an environment equivalent enough
       to catch deployment-impacting errors.
-- principle_id: P072
+- principle_id: P080
   statement: 'Apply research literacy: correlation is not causation, hypotheses must
     be theory-driven, distinguish prediction from causation, and triangulate conclusions
     against multiple sources rather than fishing in data.'
@@ -1415,7 +1590,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P073
+- principle_id: P081
   statement: Gather data from deep within the software itself, not just external observation,
     harvesting existing logs as a head start while preferring components that push
     their own metrics to a platform such as Graphite over a pull-based health-checker
@@ -1433,7 +1608,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P074
+- principle_id: P082
   statement: Run retrospectives as the inspect half of inspect-and-adapt, using time-boxed
     game-based exercises such as the timeline game or StoStaKee, with the explicit
     end goal of concrete action points feeding an improvement plan.
@@ -1450,7 +1625,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P075
+- principle_id: P083
   statement: 'Select change-management models by fit rather than standardizing on
     one, since none is universally applicable: use Lewin''s unfreeze–change–freeze
     for macro-level planning, apply Kotter''s eight-step process (noting SRE teams
@@ -1477,7 +1652,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P076
+- principle_id: P084
   statement: Treat recruitment as a priority as reputation grows, hiring for the new
     way of working rather than the unhelpful job-spec phrase experience in CD and
     DevOps, repeatedly educating recruiters, using an emotionally framed interview
@@ -1496,7 +1671,24 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P077
+- principle_id: P085
+  statement: Measure code quality and adherence to engineering standards using metrics
+    whose thresholds and rule severities are agreed with the engineers first, involving
+    them so the measurement builds trust rather than being imposed.
+  derived_from_claims:
+  - C00526
+  - C00527
+  - C00528
+  - C00535
+  - C00536
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
   statement: Write postmortem action items that prevent as well as mitigate, preferring
     fixes to automated systems and processes over changing human behavior (humans
     stay fallible), assign each a priority and an owner with precise, measurable,
@@ -1517,28 +1709,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P078
-  statement: 'Give a postmortem the context to be understood beyond the immediate
-    team: explain domain terms in Background and Glossary sections (linking longer
-    docs), present numbers for a consistent impact representation (a well-informed
-    estimate beats none, since you cannot confirm a fix without measuring impact),
-    and identify the root causes and trigger down to lower-level detail.'
-  derived_from_claims:
-  - C00911
-  - C00912
-  - C00913
-  - C00914
-  - C00927
-  confidence: high
-  applies_when:
-  - documenting context and impact in a postmortem
-  - writing the recovery and analysis narrative of a postmortem
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P079
+- principle_id: P087
   statement: 'As systems grow, combine load balancing, load-based autoscaling, and
     load shedding (which all serve the same goal and are not independent) deliberately:
     examine and instrument each new tool''s intersection with existing ones, add monitoring
@@ -1561,7 +1732,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P080
+- principle_id: P088
   statement: Design configuration user-centrically around a particular set of use
     cases for your key audience (requiring user research), recognizing that limited
     options can yield better adoption than highly versatile software because onboarding
@@ -1585,7 +1756,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P081
+- principle_id: P089
   statement: Fix problems where they are found and use telemetry plus decoupled platforms
     to keep local work aligned with global goals.
   derived_from_claims:
@@ -1603,7 +1774,7 @@ principles:
     test_cases:
     - When a defect or signal appears, the team either fixes it immediately or escalates
       to protect the system goal.
-- principle_id: P082
+- principle_id: P090
   statement: Use Information Security expertise early and continuously, including
     demonstrations, shared issue tracking, and postmortems.
   derived_from_claims:
@@ -1621,7 +1792,7 @@ principles:
     test_cases:
     - Security issues are prioritized in the normal Dev/Ops work tracker and reviewed
       after incidents.
-- principle_id: P083
+- principle_id: P091
   statement: Manage software supply-chain risk with vulnerability-aware component
     selection, dependency currency, automated remediation, and centralized artifact
     evidence.
@@ -1640,7 +1811,7 @@ principles:
     test_cases:
     - Dependency governance includes SCA, automated update paths, artifact records,
       and deployed-artifact scanning.
-- principle_id: P084
+- principle_id: P092
   statement: Automate change records and RFC evidence while keeping traceability lightweight
     enough not to disrupt engineering flow.
   derived_from_claims:
@@ -1658,7 +1829,67 @@ principles:
     test_cases:
     - A deployment record links planning items, commits, build manifests, tests, scripts,
       and dry-run evidence without per-commit paperwork.
-- principle_id: P085
+- principle_id: P093
+  statement: Always run the commit tests locally, or via a pretested commit, before
+    checking in, then monitor the build and do not start a new task until the commit
+    stage passes, and never go home on a broken build.
+  derived_from_claims:
+  - C03768
+  - C03769
+  - C03770
+  - C03772
+  - C03773
+  confidence: high
+  applies_when:
+  - a continuous integration build is broken
+  - a developer is about to commit or has just committed a change
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: Model your value stream from concept to cash and implement the deployment
+    pipeline incrementally — starting with a walking skeleton and placeholders for
+    manual steps — then progressively automate build/deploy, unit tests and analysis,
+    acceptance tests, and releases, treating the pipeline as a living system to be
+    refactored like the application.
+  derived_from_claims:
+  - C03857
+  - C03906
+  - C03907
+  - C03915
+  - C03916
+  confidence: high
+  applies_when:
+  - building or evolving a deployment pipeline
+  - building a deployment pipeline from scratch or for an existing system
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: Design for capacity by choosing a simpler architecture that minimizes
+    communication across process and network boundaries and disk I/O, applying stability
+    patterns and suitable data structures/threading, and assert the desired capacity
+    with automated tests.
+  derived_from_claims:
+  - C04088
+  - C04089
+  - C04090
+  - C04091
+  - C04113
+  confidence: high
+  applies_when:
+  - designing a system with capacity requirements
+  - designing and verifying a system's capacity
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
   statement: Treat automated testing as the cornerstone of delivery by keeping unit
     tests small and fast, add integration/end-to-end tests with a clean, in-memory
     database state, and automate whatever testing is feasible.
@@ -1674,7 +1905,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P086
+- principle_id: P097
   statement: For high-scale or frequently released production systems, connect detection
     to deployment and runtime instrumentation so new errors are surfaced fast enough
     for remediation.
@@ -1693,7 +1924,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P087
+- principle_id: P098
   statement: 'Build the monitoring stack by failure domain: infrastructure/availability,
     speed/performance, and functionality/reliability each need tools matched to their
     diagnostic job.'
@@ -1712,7 +1943,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P088
+- principle_id: P099
   statement: Root-cause analysis should capture failure-time source context, runtime
     state, and variable values so engineers do not have to reconstruct conditions
     later.
@@ -1732,7 +1963,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P089
+- principle_id: P100
   statement: Prioritize exception work by rate and overhead, not raw presence alone;
     frequent or resource-costly exceptions should trigger root-cause investigation.
   derived_from_claims:
@@ -1750,7 +1981,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P090
+- principle_id: P101
   statement: Provision infrastructure as code with Terraform, store state in a remote
     backend, split configuration modularly per component, and parameterize with variables
     instead of hardcoded values.
@@ -1766,7 +1997,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P091
+- principle_id: P102
   statement: Trigger builds via webhooks, secured with a request secret and signature
     validation; fall back to poll-SCM only when Jenkins is unreachable by inbound
     hooks or commits are frequent and builds long.
@@ -1782,7 +2013,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P092
+- principle_id: P103
   statement: For larger scale move to a managed Kubernetes service (EKS, AKS, or GKE)
     with a multi-AZ control plane and least-privilege managed IAM policies, exposing
     services via a TLS-terminating load balancer.
@@ -1798,7 +2029,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P093
+- principle_id: P104
   statement: Treat delivery speed and stability as complementary rather than a trade-off,
     and pursue both by building quality in instead of choosing one over the other.
   derived_from_claims:
@@ -1814,7 +2045,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P094
+- principle_id: P105
   statement: Expect continuous delivery to improve delivery performance and quality
     (lower change fail rate, less unplanned work and rework) while strengthening culture
     and reducing burnout.
@@ -1830,7 +2061,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P095
+- principle_id: P106
   statement: Achieve high performance with any system type, including legacy and mainframe,
     by ensuring systems and teams are loosely coupled rather than by chasing a particular
     technology.
@@ -1847,7 +2078,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P096
+- principle_id: P107
   statement: Practice Lean management as WIP limits plus visual displays plus a production-monitoring
     feedback loop together, since WIP limits alone do not improve performance.
   derived_from_claims:
@@ -1863,7 +2094,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P097
+- principle_id: P108
   statement: Replace external change-approval boards with a lightweight peer-review
     process (pair programming or intrateam review) plus a deployment pipeline, because
     external approval lowers performance and is worse than no process.
@@ -1880,7 +2111,26 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P098
+- principle_id: P109
+  statement: Version-control middleware configuration using its scriptable configuration
+    facilities, select middleware by whether it can be deployed and configured automatically
+    since nothing is enterprise-ready otherwise, and handle recalcitrant middleware
+    by version-controlling its storage or configuration API, or adopt a better technology
+    rather than yielding to the sunk-cost fallacy.
+  derived_from_claims:
+  - C04208
+  - C04209
+  - C04212
+  - C04215
+  confidence: high
+  applies_when:
+  - managing middleware configuration and evaluating middleware
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
   statement: Pursue both diversity and inclusion, recruiting and retaining women,
     underrepresented minorities, and people with disabilities and countering harassment,
     microaggressions, and unequal pay.
@@ -1897,7 +2147,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P099
+- principle_id: P111
   statement: 'As an organization scales, deliberately preserve small-software-house
     strengths: low Dev/Ops barriers, a shared focus on fast delivery, swarming on
     failures, and small incremental releases.'
@@ -1913,7 +2163,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P100
+- principle_id: P112
   statement: Do not let deadline pressure erode engineering discipline; protect source
     control, testing, and sound design even when time is short.
   derived_from_claims:
@@ -1929,7 +2179,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P101
+- principle_id: P113
   statement: Tailor the evangelism message to the audience, be patient and use the
     slowest adopters as a yardstick, keep it consistent with the agreed language,
     goal, and vision, route new ideas to the backlog, and do not waste effort on those
@@ -1946,7 +2196,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P102
+- principle_id: P114
   statement: Recognize that the real constraint on delivery is often the release process
     rather than the architecture, since a legacy monolith released as one bundle restricts
     CD even though tightly coupled platforms are still made of small components.
@@ -1962,7 +2212,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P103
+- principle_id: P115
   statement: 'Treat CD tooling as critical: it may be scarce so consider building
     your own to fit and future-proof, make it excellent and ideally one-click, treat
     in-house tooling as an internally open shared product, and record an audit of
@@ -1979,7 +2229,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P104
+- principle_id: P116
   statement: Share code rather than hoarding it and review every change through peer
     review that includes Operations and covers operations configuration changes, because
     more eyes reduce risk and a change failing review fails fast before reaching production.
@@ -1995,7 +2245,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P105
+- principle_id: P117
   statement: Hold internal and labor-saving tooling to production quality and demand
     consistent, repeatable results, because inconsistent automation erodes trust,
     while repeatable results both let differing results reliably signal a problem
@@ -2012,7 +2262,24 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P106
+- principle_id: P118
+  statement: Continuous integration requires everything in a single version control
+    repository, an automated command-line build, and whole-team discipline; it is
+    a practice, not a tool, in which everyone stops to fix any break immediately.
+  derived_from_claims:
+  - C03747
+  - C03748
+  - C03750
+  - C03752
+  confidence: high
+  applies_when:
+  - a team is adopting or reviewing continuous integration
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P119
   statement: 'Do not go overboard on environments: two (development and production)
     is a viable minimum and a lean set of development, CI, pre-production, and production
     is sufficient, because the hard part is keeping many environments aligned on versions,
@@ -2029,7 +2296,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P107
+- principle_id: P120
   statement: Develop against a like-live environment holding the live versions of
     code so production dependencies are validated, rather than against production
     (outage risk) or CI versions (unknown go-live order); the like-live environment
@@ -2047,7 +2314,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P108
+- principle_id: P121
   statement: Monitor everything across all environments and make the monitoring visible
     to everyone, aggregating disparate tools into a single coherent view and marking
     deployments on time-series graphs to confirm or rule out a change's impact.
@@ -2063,7 +2330,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P109
+- principle_id: P122
   statement: Foster grassroots innovation as worthwhile rather than risky, giving
     everyone (not just architects) room and a forum to contribute ideas, while making
     clear that with the freedom to innovate comes ownership and accountability.
@@ -2079,7 +2346,24 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P110
+- principle_id: P123
+  statement: 'Adopt a blame-slow, learn-quickly culture: when mistakes happen, help
+    people learn, prevent recurrence, and share lessons without a fuss, and do not
+    blame those who quickly fix issues, because a blame culture erodes the good behaviors
+    while reducing blame grows learning.'
+  derived_from_claims:
+  - C00465
+  - C00466
+  - C00467
+  - C00468
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P124
   statement: Do not reward failure such as a release that missed scope or caused downtime;
     reward delivering what is needed when or before it is needed as a group reward,
     reserve special rewards for genuinely exceptional effort, and as releases become
@@ -2096,7 +2380,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P111
+- principle_id: P125
   statement: Extend communication and visibility beyond the immediate team to the
     wider organization through internal comms and PR, because in larger organizations
     most people are outsiders who can unknowingly obstruct the work, and good PR can
@@ -2113,7 +2397,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P112
+- principle_id: P126
   statement: Work with the owners of regulatory, SLA, change-management, and auditability
     rules to find wriggle room and adapt them rather than ignoring or breaking them,
     recognizing the rules provide a real safety gate and audit record, that some are
@@ -2131,7 +2415,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P113
+- principle_id: P127
   statement: Never forget the original goal and vision, refining direction as you
     are sidetracked, and as you near the goal expect original issues to be replaced
     by new smaller ones, treating their surfacing as positive progress and inspecting
@@ -2148,7 +2432,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P114
+- principle_id: P128
   statement: Treat SRE as an opinionated, concrete implementation of DevOps that is
     complementary to it (not in conflict) and applicable at any scale, not only at
     Google's scale or culture.
@@ -2166,7 +2450,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P115
+- principle_id: P129
   statement: Derive an error budget from the SLO and write a policy specifying the
     actions to take and who takes them when the budget is exhausted; getting that
     policy approved by the product manager, developers, and SREs tests whether the
@@ -2185,7 +2469,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P116
+- principle_id: P130
   statement: 'Treat metrics and structured logging as the two primary monitoring data
     sources for distinct jobs: use near-real-time metrics for alerting and dashboards
     (even for single rare events, by incrementing a counter and alerting on it) and
@@ -2203,26 +2487,62 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P117
-  statement: Do not alert simply when a short-window error rate exceeds the SLO threshold
-    (good recall and detection but poor precision — up to 144 alerts/day while still
-    meeting SLO), and do not lengthen the window naively, since longer windows worsen
-    reset time and cost more memory and I/O.
+- principle_id: P131
+  statement: Gather monitoring data from hardware, operating system, middleware, and
+    applications, instrument applications with hooks for what operations and business
+    users care about plus version reporting, set log levels by recoverability, and
+    treat logging as first-level requirements in a single-line, grep-able format.
   derived_from_claims:
-  - C00722
-  - C00723
-  - C00725
-  - C00726
+  - C04250
+  - C04251
+  - C04252
+  - C04254
   confidence: high
   applies_when:
-  - choosing an SLO alerting window
-  - implementing SLO burn-rate alerting
+  - deciding what and how to monitor and log
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-- principle_id: P118
+- principle_id: P132
+  statement: Prefer scenario-based, composable capacity tests over isolated benchmarks,
+    set pass thresholds by ratcheting above a minimum, base load calculations on peak
+    load, and isolate the capacity environment, avoiding virtualization unless production
+    is virtual.
+  derived_from_claims:
+  - C04092
+  - C04093
+  - C04097
+  - C04098
+  confidence: high
+  applies_when:
+  - designing capacity tests and their environment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P133
+  statement: Recognize that burn-rate alerting over-pages low-traffic services (one
+    failure in ten requests is a 10% error rate, a 1,000x burn against 99.9%) and
+    handle them by generating artificial traffic, combining related services that
+    share a failure domain, or changing the product so a single failure carries less
+    weight or takes more requests to qualify.
+  derived_from_claims:
+  - C00731
+  - C00732
+  - C00733
+  - C00734
+  confidence: high
+  applies_when:
+  - applying SLO alerting to a low-traffic service
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P134
   statement: Make destructive automation idempotent and guard it with sanity checks
     and rate limits, since a bug treating an empty filter list as 'act on all' rather
     than 'act on none', combined with weak rate limits, disk-erased every machine
@@ -2245,7 +2565,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P119
+- principle_id: P135
   statement: 'Deprecate and retire legacy systems data-driven and low-touch: gather
     usage data (daily/monthly active users, job families, accessed features) plus
     surveys to validate alternatives, decompose a generalized system into a handful
@@ -2265,27 +2585,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P120
-  statement: Decide and rehearse the single incident communication channel beforehand
-    (preferably a familiar one) so the Incident Commander never chooses it mid-incident,
-    prepare two or three ready-to-use public-announcement templates with a known send
-    path and an agreed draft/review/approve/release flow, prepare distribution lists
-    for an 'all hands on deck' call, and establish explicit criteria — derived from
-    past outages and high-risk areas — for when an issue is truly an incident.
-  derived_from_claims:
-  - C00899
-  - C00901
-  - C00902
-  - C00903
-  confidence: high
-  applies_when:
-  - preparing incident communication and declaration criteria in advance
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P121
+- principle_id: P136
   statement: Practice incident management with regular drills — controlled customer-safe
     emergencies (company-wide disaster-recovery testing), Wheel-of-Misfortune role-plays,
     or deliberately escalating a minor problem — using real tools as much as possible,
@@ -2306,7 +2606,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P122
+- principle_id: P137
   statement: 'Adopt a blameless postmortem culture as a cultural as much as technical
     change: start small with a basic procedure then reflect and tune it to your organization
     (no one size fits all), because well-written, acted-upon, widely-shared postmortems
@@ -2325,7 +2625,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P123
+- principle_id: P138
   statement: 'Keep postmortems blameless and factual: avoid finger-pointing (which
     makes people risk-averse and prone to covering up critical facts), strip personal
     judgments, dramatic or animated wording (justify any severity with verifiable
@@ -2345,12 +2645,11 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P124
-  statement: Terminate TCP/TLS at a Layer 7 reverse-proxy or edge front end as close
-    to the user as possible — keeping long-lived, pre-warmed encrypted connections
-    to backends — to minimise handshake round-trip latency and to absorb low-level
-    attacks (e.g. SYN floods) and slow-client buffering that backend termination cannot
-    handle.
+- principle_id: P139
+  statement: Terminate TCP and SSL at a Layer 7 reverse-proxy/edge front end close
+    to the user (forwarding to backends over long-lived, pre-warmed encrypted connections)
+    to minimize HTTPS handshake round trips and to mitigate low-level attacks a packet-level
+    balancer cannot.
   derived_from_claims:
   - C00946
   - C00948
@@ -2365,7 +2664,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P125
+- principle_id: P140
   statement: Plan for the eventuality that even with the best practices a software
     or config bug will corrupt data, by ensuring you can quickly reprocess and restore
     (recovery is labor-intensive and hard to automate), and treat application or configuration
@@ -2387,7 +2686,44 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P126
+- principle_id: P141
+  statement: Create a script for each pipeline stage kept in the same repository as
+    the source, use the right middleware-specific tool for deployment rather than
+    a general-purpose scripting language, and require operations and developers to
+    collaborate on the deployment process.
+  derived_from_claims:
+  - C03937
+  - C03938
+  - C03939
+  - C03940
+  confidence: high
+  applies_when:
+  - organizing build and deployment scripting
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P142
+  statement: Minimize the number of mandatory configuration questions by converting
+    them to optional ones with safe, carefully chosen defaults, and add a new knob
+    only when a real need justifies it, because most users will use the default and
+    a wrong default does great harm.
+  derived_from_claims:
+  - C01064
+  - C01065
+  - C01068
+  - C01069
+  confidence: high
+  applies_when:
+  - deciding which configuration questions to require
+  - selecting defaults and pruning configuration options
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P143
   statement: 'Make configuration both code and data but keep them separate: have the
     infrastructure operate on plain static data (Protocol Buffers, YAML, JSON) while
     users interact with a higher-level interface (a DSL, Lua, Jsonnet, or web UI)
@@ -2410,31 +2746,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P127
-  statement: 'Treat configuration as a programming-language problem from the start:
-    if you do not intentionally design the language, the format creeps from data-only
-    toward an esoteric ad hoc language (a ''count'' attribute needing an evaluator,
-    string interpolation hiding code) that is unsuited to tooling, so consider simple
-    programming constructs at the initial design phase rather than bolting on ad hoc
-    features later, since ad hoc languages are more complex, less expressive, and
-    develop gotchas because their authors could not foresee feature interactions;
-    an efficient configuration system must provide config-health tooling, hermetic
-    evaluation for rollbacks and replayability, and separation of config and data.'
-  derived_from_claims:
-  - C01086
-  - C01087
-  - C01102
-  - C01103
-  confidence: high
-  applies_when:
-  - designing a configuration language
-  - engineering configuration as code
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P128
+- principle_id: P144
   statement: Select canary metrics that indicate actual user-perceivable problems,
     starting from your SLIs (which have strong attribution to service health and reuse
     SLO-compliance work) and avoiding metrics like CPU usage whose increase does not
@@ -2456,7 +2768,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P129
+- principle_id: P145
   statement: Centralize reusable pipeline helper code in a versioned Jenkins shared
     library and reference it from all pipelines instead of copying functions into
     each Jenkinsfile.
@@ -2471,7 +2783,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P130
+- principle_id: P146
   statement: Enforce least privilege for all automation identities, never use the
     cloud root account except for billing, create dedicated users/roles with only
     the permissions needed, and store generated access keys securely.
@@ -2486,7 +2798,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P131
+- principle_id: P147
   statement: Spread workers and subnets across multiple availability zones and make
     workers immutable and disposable via Auto Scaling groups for high availability
     and fault tolerance.
@@ -2501,7 +2813,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P132
+- principle_id: P148
   statement: Back up $JENKINS_HOME regularly (via a backup plugin or a scheduled cron
     job) to remote or external storage so Jenkins can be restored after data corruption
     or human error.
@@ -2516,7 +2828,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P133
+- principle_id: P149
   statement: Store built images in a private registry and authenticate with a least-privilege
     scoped token or instance profile rather than admin credentials.
   derived_from_claims:
@@ -2530,22 +2842,43 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P134
-  statement: Run post-deployment smoke tests that go beyond a 200 response, computing
-    the environment URL from the branch and asserting the deployed version matches
-    the expected build so you confirm the new version is actually live.
+- principle_id: P150
+  statement: Use the same deployment script and process to deploy to every environment,
+    capturing per-environment differences as separately managed configuration, so
+    the production path is rehearsed many times and any release-day failure isolates
+    to environment-specific configuration rather than the script.
   derived_from_claims:
-  - C01634
-  - C01635
-  - C01636
-  - C01637
+  - C03647
+  - C03655
+  - C03666
+  - C03667
   confidence: high
   applies_when:
-  - validating a deployment within the pipeline
+  - deploying to more than one environment
   operational_mapping:
     profile_rule: true
+    skill: null
+    reference: null
     test_cases: []
-- principle_id: P135
+- principle_id: P151
+  statement: Supply all application configuration through a single mechanism, applied
+    only by automated processes from a configuration repository, keeping the list
+    of options with the source but the per-environment values separate and tracked
+    against the application version.
+  derived_from_claims:
+  - C03720
+  - C03721
+  - C03722
+  - C03732
+  confidence: high
+  applies_when:
+  - managing configuration across applications and environments
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P152
   statement: Control Jenkins access with role-based authorization and delegate authentication
     to an OAuth provider (GitHub, GitLab, Google, OpenID) following least privilege,
     instead of managing per-user permissions and passwords by hand.
@@ -2560,7 +2893,151 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P136
+- principle_id: P153
+  statement: Use branch for release to replace the code freeze, developing features
+    on mainline and committing only critical fixes to the release branch and merging
+    them back immediately, never creating branches off a release branch, and stop
+    branching for release once you release about weekly.
+  derived_from_claims:
+  - C04414
+  - C04415
+  - C04417
+  - C04418
+  confidence: high
+  applies_when:
+  - preparing and stabilizing a release
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P154
+  statement: Build quality in by discovering and fixing defects at the point they
+    are introduced, ideally before check-in, since delaying testing decreases quality;
+    testing is not a phase and quality is everyone's responsibility all the time.
+  derived_from_claims:
+  - C03680
+  - C03681
+  - C03691
+  - C03693
+  confidence: high
+  applies_when:
+  - planning a project's testing and quality approach
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P155
+  statement: Script building, testing, and packaging so they run from the command
+    line independently of any IDE, and treat those scripts as first-class, version-controlled,
+    tested, and refactored artifacts, because the build must run in CI and be auditable.
+  derived_from_claims:
+  - C03751
+  - C03931
+  - C03932
+  - C03933
+  confidence: high
+  applies_when:
+  - setting up the build for continuous integration
+  - a project's build or deployment is done manually or via the IDE
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P156
+  statement: Store commit-stage outputs in an artifact repository rather than version
+    control, keeping a hash of each; make the vast majority of commit tests fast isolated
+    unit tests forming a test pyramid, avoiding the UI, the database, and asynchrony
+    and using dependency injection and test doubles.
+  derived_from_claims:
+  - C03989
+  - C03990
+  - C03991
+  - C03992
+  confidence: high
+  applies_when:
+  - designing the commit test suite and artifact handling
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P157
+  statement: Have the whole cross-functional team (developers and testers together)
+    collaboratively own and create the automated acceptance tests throughout development
+    — discussing criteria before development and responding immediately to breakages
+    — rather than deferring to a separate test team or an end-of-story handover.
+  derived_from_claims:
+  - C03842
+  - C03843
+  - C03885
+  - C03886
+  confidence: high
+  applies_when:
+  - developing and testing a story
+  - deciding who owns and maintains acceptance tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P158
+  statement: Make feedback cycles short and visible with information radiators, choose
+    metrics carefully because they shape behavior (the Hawthorne effect), and optimize
+    globally using cycle time as the primary metric rather than defect count.
+  derived_from_claims:
+  - C03918
+  - C03919
+  - C03920
+  - C03921
+  confidence: high
+  applies_when:
+  - measuring and improving a delivery process
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P159
+  statement: Automate the database migration process, versioning the database with
+    roll-forward and roll-back scripts run by a migration tool and managing all database
+    changes as scripts in version control used in continuous integration, and keep
+    roll-forward scripts nondestructive by copying data to be deleted into a temporary
+    table first.
+  derived_from_claims:
+  - C04263
+  - C04268
+  - C04269
+  - C04270
+  confidence: high
+  applies_when:
+  - managing database schema and data changes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P160
+  statement: Never run unit tests against a real database, using the repository pattern,
+    an in-memory database, or test doubles, and prefer test isolation through transaction
+    rollback or functional partitioning over adaptive or sequenced tests, resisting
+    the temptation to couple tests into a coherent story.
+  derived_from_claims:
+  - C04282
+  - C04284
+  - C04285
+  - C04289
+  confidence: high
+  applies_when:
+  - managing state and databases in automated tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P161
   statement: Assume meaningful improvement is achievable for any team in any industry
     or stack, but only when leadership gives consistent support and the team commits
     to the work.
@@ -2577,7 +3054,24 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P137
+- principle_id: P162
+  statement: Make deployment the whole team's responsibility rather than a build expert's,
+    do not delete old files but move them, keep server applications free of GUIs,
+    warm up caches before going live, and smoke-test within the deployment scripts.
+  derived_from_claims:
+  - C04166
+  - C04167
+  - C04169
+  - C04170
+  confidence: medium
+  applies_when:
+  - operating and improving the deployment process
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P163
   statement: Use visual management (an Obeya) tying each objective measurably to enterprise
     strategy, organize along value streams into small self-steering cross-functional
     teams, and let structure emerge and coaches multiply through coaching the coaches.
@@ -2594,7 +3088,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P138
+- principle_id: P164
   statement: Use the measured performance benchmarks (e.g., high performers' higher
     market-cap growth, the rework and manual-work J-curves) as evidence that capability
     gaps carry real business cost.
@@ -2610,7 +3104,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P139
+- principle_id: P165
   statement: Assign and route alerts to the accountable owner before or as incidents
     occur so response does not depend on improvised coordination during an outage.
   derived_from_claims:
@@ -2628,7 +3122,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P140
+- principle_id: P166
   statement: 'Manage exceptions with an explicit processing workflow: acknowledge
     each unique exception, decide the action, and drive it toward elimination instead
     of treating events in isolation.'
@@ -2646,7 +3140,43 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P141
+- principle_id: P167
+  statement: Version-control all networking infrastructure configuration and push
+    it from version control so systems are autonomic, monitor every port your application
+    uses, log connection events, smoke-test connections at deploy time, and mirror
+    the production network topology in the integration environment.
+  derived_from_claims:
+  - C04217
+  - C04218
+  - C04220
+  - C04221
+  confidence: medium
+  applies_when:
+  - managing network infrastructure that an application depends on
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P168
+  statement: Give operations a big visible incident display, avoid dashboard noise
+    by working from a risk list ranked by probability and impact, aggregate to red-amber-green
+    thresholds, and practice behavior-driven monitoring by plugging application smoke
+    tests into the monitoring system.
+  derived_from_claims:
+  - C04255
+  - C04256
+  - C04257
+  - C04258
+  confidence: medium
+  applies_when:
+  - building operations dashboards and alerts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P169
   statement: Sustain DevOps transformation through cross-functional coalitions and
     small teams that can independently validate and safely deploy code.
   derived_from_claims:
@@ -2663,7 +3193,7 @@ principles:
     test_cases:
     - Transformation sponsorship includes business, product, development, QA, operations,
       security, and affected delivery teams.
-- principle_id: P142
+- principle_id: P170
   statement: 'Continuously improve SLO targets: gather a cheap source of user-satisfaction
     information and iterate from it, validate the SLO by correlating outages and ticket
     spikes with error-budget drops, treat coverage gaps as normal and refine SLIs
@@ -2682,7 +3212,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P143
+- principle_id: P171
   statement: Match the architecture choice (monolith, microservices, cloud-native,
     serverless) to the team's automation maturity, because microservices and cloud-native
     add operational complexity that demands heavy automation and a DevOps/Agile culture.
@@ -2697,7 +3227,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P144
+- principle_id: P172
   statement: Use automated resilience, latency, conformity, security, health, and
     cleanup checks to exercise and maintain cloud systems continuously.
   derived_from_claims:
@@ -2713,7 +3243,24 @@ principles:
     reference: null
     test_cases:
     - Automated checks can simulate degradation and remove or flag nonconforming resources.
-- principle_id: P145
+- principle_id: P173
+  statement: Improve delivery using a maturity model driven by the Deming cycle, implementing
+    organizational change incrementally and measuring its impact, and never begin
+    a program without a business case and exactly one business sponsor per project.
+  derived_from_claims:
+  - C04435
+  - C04437
+  - C04439
+  - C04440
+  confidence: medium
+  applies_when:
+  - planning organizational change or starting a program of work
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P174
   statement: Choose a branching model that fits team size (GitFlow for large teams,
     a simpler 3-branch model for small ones) and provide a dedicated hotfix path merged
     back to both develop and master.
@@ -2728,7 +3275,7 @@ principles:
   operational_mapping:
     profile_rule: true
     test_cases: []
-- principle_id: P146
+- principle_id: P175
   statement: Tag all cloud resources for cost tracking and size instance/disk types
     to the project's actual build workload.
   derived_from_claims:
@@ -2741,64 +3288,4 @@ principles:
   - provisioning build infrastructure
   operational_mapping:
     profile_rule: true
-    test_cases: []
-- principle_id: P147
-  statement: When orchestrating with Docker Swarm, automate node joining via a shared
-    token store, use an odd number of managers for quorum, order resource creation
-    so managers come up first, and spread nodes across availability zones.
-  derived_from_claims:
-  - C01592
-  - C01593
-  - C01594
-  - C01595
-  confidence: medium
-  applies_when:
-  - deploying a self-managed Swarm cluster
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-- principle_id: P148
-  statement: Wrap pipeline stages in try/catch/finally (or a declarative post block)
-    so notifications run on every outcome, and limit heavy notifications such as email
-    to the production branch to avoid spamming developers.
-  derived_from_claims:
-  - C01650
-  - C01664
-  - C01665
-  - C01666
-  confidence: medium
-  applies_when:
-  - adding result notifications to a pipeline
-  operational_mapping:
-    profile_rule: true
-    test_cases: []
-- principle_id: P149
-  statement: Treat software delivery capability as a competitive advantage, since
-    high performers are about twice as likely to exceed commercial and non-commercial
-    goals.
-  derived_from_claims:
-  - C00049
-  - C00050
-  - C00051
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P150
-  statement: Measure as many aspects of the delivery process as possible and start
-    early to establish a baseline, without cutting corners on monitoring and reporting,
-    because most of it is long-lived and a poor solution erodes trust.
-  derived_from_claims:
-  - C00523
-  - C00524
-  - C00525
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
     test_cases: []

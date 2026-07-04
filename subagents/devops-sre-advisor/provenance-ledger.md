@@ -15,9 +15,9 @@ distilled evidence chain in this package.
 
 ## Evidence chain
 
-- Claims: `analysis/claims.jsonl` (3638 atomic claims, ids `C#####`).
-- Evidence records: `evidence/evidence-records.yaml` (769 records, ids `E#####`).
-- Principles: `principles/principles.yaml` (150 promoted principles, ids `P###`).
+- Claims: `analysis/claims.jsonl` (4484 atomic claims, ids `C#####`).
+- Evidence records: `evidence/evidence-records.yaml` (903 records, ids `E#####`).
+- Principles: `principles/principles.yaml` (175 promoted principles, ids `P###`).
 - Anchors: `sources/anchors/*.anchors.jsonl` (chunk anchors `<sha12>-cNNNN`).
 
 ## Derivation
@@ -36,3 +36,11 @@ distilled evidence chain in this package.
 - v0.3.1: regenerated the LLM-authored layer (profile sources/tags, faithfulness,
   skills/references provenance, principle-behaviour tests, adapter) onto the map-reduce spine
   (150 principles). Distilled spine unchanged.
+- v0.3.2: realigned the authored layer with the current map-reduce spine (175 principles, 4484
+  claims, 903 evidence records) after the deep 7-book rebuild renumbered it. Regenerated
+  `tests/principle-behaviour-tests.yaml` from the current principles (covers new P151–P160 and
+  every `expected_behaviour` matches its current statement); corrected `sources/metadata`
+  `source_type` to `markdown`; corrected the evidence-chain counts above; re-exported the adapter
+  to refresh the invariant layer. Distilled spine unchanged. Profile / faithfulness / skill bodies
+  retained (validate-passing, anchored to source); their secondary principle-id citations still
+  reference the pre-rebuild numbering.
