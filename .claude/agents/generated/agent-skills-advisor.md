@@ -10,8 +10,8 @@ Source package: subagents/agent-skills-advisor/
 Source profile: subagents/agent-skills-advisor/profile.yaml
 Regenerate with: /author-subagent --update agent-skills-advisor
 Generator version: 0.1.0
-Profile version: 0.1.0
-Generated: 2026-07-04T11:01:17.755112+00:00
+Profile version: 0.1.1
+Generated: 2026-07-04T22:11:00.065505+00:00
 -->
 
 ## Role

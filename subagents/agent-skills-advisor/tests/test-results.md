@@ -1,6 +1,6 @@
 # Test Results — agent-skills-advisor
 
-**Generated:** 2026-07-04T11:01:10.938830+00:00
+**Generated:** 2026-07-04T22:10:17.370287+00:00
 
 ## Phase 8 Profile Self-Check
 
@@ -13,10 +13,10 @@
 | 3 | when-not-to-use | PASS | 3 exclusions |
 | 4 | modes-evidence | INFO | mode source-evidence traceability delegated to profile-reviewer |
 | 5 | inputs-required | PASS | 1 required input(s) |
-| 6 | primary-format | PASS | A prioritized set of recommendations, each naming the specif |
+| 6 | primary-format | PASS | A prioritized set of recommendations, each naming the speci… |
 | 7 | mode-output | PASS | every mode states its output |
 | 8 | minimum-useful-output | PASS | defined |
-| 9 | canonical-owner | PASS | Fifty-seven ingested primary and secondary sources on Agent  |
+| 9 | canonical-owner | PASS | Fifty-seven ingested primary and secondary sources on Agent… |
 | 10 | may-edit-canonical | PASS | false |
 | 11 | quality-bar | PASS | 5 evidence-citing checks |
 | 12 | forbidden-behaviours | INFO | 5 rules; source traceability delegated to profile-reviewer |
