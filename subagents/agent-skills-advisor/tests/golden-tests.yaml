@@ -1,0 +1,228 @@
+schema_version: golden-tests-v1
+subagent_slug: agent-skills-advisor
+generated_at: '2026-07-04'
+profile_version: 0.1.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive — author a lean SKILL.md with progressive disclosure
+  prompt: I'm writing a SKILL.md for a PDF-report generator. How should I structure the file and its bundled resources so
+    it stays small and loads well?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: Principle-cited guidance on frontmatter, body size, and progressive disclosure
+  must_do:
+  - Recommend a tiny always-loaded frontmatter and moving bulk detail into references loaded on demand
+  - Cite at least one governing principle id
+  must_not_do:
+  - Invent a frontmatter field not in the sources
+  - Tell the caller to put everything in SKILL.md
+  principle_coverage:
+  - P001
+  - P005
+  - P029
+  - P088
+- test_id: GT-002
+  description: Positive — write the description for reliable triggering
+  prompt: My skill rarely activates. How should I write its description so the agent picks it up?
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: Findings on the description as the trigger signal, with a concrete rewrite direction
+  must_do:
+  - Explain that the description is the primary triggering signal and should be precise and trigger-oriented
+  - Cite at least one governing principle id
+  must_not_do:
+  - Claim the body, not the description, drives triggering
+  principle_coverage:
+  - P002
+  - P043
+  - P049
+  - P070
+- test_id: GT-003
+  description: Positive — deploy a skill to a target surface with the right permissions
+  prompt: I need to ship this skill so it runs on our target surface with the tools it needs pre-approved. What do I set and
+    where does it install?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: Surface-appropriate install location, runtime limits, and permission/visibility guidance
+  must_do:
+  - Match install location and permission model to the named surface
+  - Cite at least one governing principle id
+  must_not_do:
+  - Invent an install path or permission token not in the sources
+  principle_coverage:
+  - P004
+  - P030
+  - P048
+  - P095
+- test_id: GT-004
+  description: Positive — prove a skill helps with a baseline comparison
+  prompt: How do I show this skill actually improves the agent rather than just assuming it does?
+  expected_route: invoke
+  expected_mode: eval-guide
+  minimum_output: An evaluation plan with a baseline (skill vs no-skill) comparison and graders
+  must_do:
+  - Describe a baseline comparison run in a clean context and an iteration loop
+  - Cite at least one governing principle id
+  must_not_do:
+  - Assert effectiveness without any evaluation
+  principle_coverage:
+  - P007
+  - P044
+  - P045
+  - P052
+- test_id: GT-005
+  description: Positive — choose between a skill, a subagent, and an MCP server
+  prompt: Should this capability be a skill, a subagent, or an MCP server? It reads many files and returns a summary.
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A reasoned choice among skill / subagent / MCP with the trade-offs
+  must_do:
+  - Distinguish procedural how-to (skill), context isolation (subagent), and external connectivity (MCP)
+  - Cite at least one governing principle id
+  must_not_do:
+  - Treat skills and MCP as interchangeable substitutes
+  principle_coverage:
+  - P006
+  - P039
+  - P069
+- test_id: GT-006
+  description: Positive — bundle a deterministic script instead of generating code
+  prompt: My skill regenerates the same parsing code every run. Is there a better way?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: Guidance to bundle an executable script the agent runs by default
+  must_do:
+  - Recommend shipping a reusable script and invoking it rather than regenerating code inline
+  - Cite at least one governing principle id
+  must_not_do:
+  - Recommend inventing a runtime the sources do not mention
+  principle_coverage:
+  - P019
+  - P035
+  - P113
+- test_id: GT-007
+  description: Positive — review an existing skill folder layout
+  prompt: 'Here is my skill folder: SKILL.md plus a 900-line body and a README inside it. Review the layout.'
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: Findings on entry file, folder naming, and body size with concrete fixes
+  must_do:
+  - Flag the oversize body and recommend splitting detail into progressively disclosed files
+  - Cite at least one governing principle id
+  must_not_do:
+  - Approve a SKILL.md body far over the size budget without comment
+  principle_coverage:
+  - P003
+  - P114
+  - P120
+- test_id: GT-008
+  description: Positive — keep a skill portable across platforms
+  prompt: I want one skill to run unchanged across several agent platforms. What keeps it portable?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: Portability guidance (standard folder format, forward-slash paths, standard frontmatter)
+  must_do:
+  - Recommend authoring against the open Agent Skills standard and using forward-slash paths
+  - Cite at least one governing principle id
+  must_not_do:
+  - Tie the skill to one platform's proprietary layout without noting the portability cost
+  principle_coverage:
+  - P024
+  - P053
+  - P055
+- test_id: GT-009
+  description: Positive — a pre-deploy three-class test matrix
+  prompt: Before I ship this skill, how should I test it?
+  expected_route: invoke
+  expected_mode: eval-guide
+  minimum_output: A normal / edge / out-of-scope test matrix with graceful-degradation checks
+  must_do:
+  - Describe testing normal operations, edge cases, and out-of-scope requests
+  - Cite at least one governing principle id
+  must_not_do:
+  - Recommend shipping with only happy-path checks
+  principle_coverage:
+  - P101
+  - P117
+- test_id: GT-010
+  description: Positive — treat a third-party skill as untrusted
+  prompt: A teammate found a useful skill on a public repo. Can we just install and use it?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: Guidance to treat untrusted skills as code and review before use
+  must_do:
+  - Advise reviewing the skill's instructions and bundled code before running it
+  - Cite at least one governing principle id
+  must_not_do:
+  - Tell the caller to install and run it without review
+  principle_coverage:
+  - P015
+negative_routing_tests:
+- test_id: NR-001
+  description: Negative — write the production feature, not the skill
+  prompt: Write the full Spark ETL job that ingests our clickstream and loads the warehouse.
+  expected_route: do_not_invoke
+  expected_mode: null
+  minimum_output: Decline and hand back to application development
+  must_not_do:
+  - Produce the production ETL implementation
+  principle_coverage:
+  - P015
+- test_id: NR-002
+  description: Negative — product/UI design out of scope
+  prompt: Design the visual layout and pricing tiers for our product's landing page.
+  expected_route: do_not_invoke
+  expected_mode: null
+  minimum_output: Decline; this is product/UI design, not skill authoring
+  must_not_do:
+  - Produce UI or pricing design work
+  principle_coverage:
+  - P015
+- test_id: NR-003
+  description: Negative — cluster infrastructure out of scope
+  prompt: Configure autoscaling and node pools for our Kubernetes cluster.
+  expected_route: do_not_invoke
+  expected_mode: null
+  minimum_output: Decline; infrastructure operations are out of scope
+  must_not_do:
+  - Produce Kubernetes infrastructure configuration
+  principle_coverage:
+  - P015
+missing_context_tests:
+- test_id: MC-001
+  description: Missing context — which surface and current file
+  prompt: My skill isn't working. Fix it.
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for:
+  - the target surface the skill runs on
+  - the current SKILL.md (name, description, body)
+  - the observed behaviour or failure
+  minimum_output: Ask for the missing context before advising
+  principle_coverage:
+  - P002
+  - P041
+- test_id: MC-002
+  description: Missing context — deploy target unspecified
+  prompt: How do I deploy this skill?
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for:
+  - which target surface or platform you are deploying to
+  minimum_output: Ask which surface before giving install/permission steps
+  principle_coverage:
+  - P004
+  - P030
+- test_id: MC-003
+  description: Missing context — no eval criteria
+  prompt: Is my skill any good?
+  expected_route: invoke
+  expected_mode: eval-guide
+  must_ask_for:
+  - the capability the skill should improve
+  - the realistic prompts / test set to judge it on
+  minimum_output: Ask for eval criteria and a test set before judging
+  principle_coverage:
+  - P007
+  - P101
