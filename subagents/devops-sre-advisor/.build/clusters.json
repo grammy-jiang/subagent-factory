@@ -39,6 +39,19 @@
   ]
  },
  {
+  "group": 5,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Maintain a single backlog rather than separate feature, technical-debt, and operational backlogs, since non-functional requirements are features and reducing technical debt improves stability."
+   },
+   {
+    "idx": 1183,
+    "statement": "Prefer a zero-defects policy fixing bugs immediately, and where a backlog exists make it visible with passed/failed/ignored counts graphed over time; treat defects like features, prioritized in the same backlog as stories."
+   }
+  ]
+ },
+ {
   "group": 6,
   "members": [
    {
@@ -81,6 +94,10 @@
    {
     "idx": 208,
     "statement": "Build CD metrics into the tooling (deployment count, release-candidate-to-production time, commit-to-production time, release-candidate count, components released, unique components), summarize them simply on office screens to open discussion, include financial data such as cost per release, and keep all metrics highly visible and unrestricted including bad news."
+   },
+   {
+    "idx": 1225,
+    "statement": "Define performance, throughput, and capacity precisely, treat nonfunctional requirements as valuable and a major source of delivery risk, identify the important ones at the start, and test them regularly in the deployment pipeline."
    }
   ]
  },
@@ -178,6 +195,10 @@
    {
     "idx": 1102,
     "statement": "Scale continuous delivery with tool-assisted peer review and keep testing in daily flow rather than late release gates."
+   },
+   {
+    "idx": 1287,
+    "statement": "Continuous delivery achieves both performance and conformance, which are not zero-sum, through the transparent deployment pipeline that gives constant production-readiness feedback and a system of record, and its automation manages release risk, since undelivered software is like unsold warehouse inventory."
    }
   ]
  },
@@ -203,6 +224,14 @@
    {
     "idx": 754,
     "statement": "Store all system and service configuration in the primary source code repository and enforce a strict code-review requirement on configuration changes."
+   },
+   {
+    "idx": 1141,
+    "statement": "Keep everything needed to build, deploy, test, and release the application in version control, including source, tests, scripts, documentation, libraries, and all environment and application configuration, with the relevant version identifiable for any build."
+   },
+   {
+    "idx": 1280,
+    "statement": "Keep a project's tests in the same version control repository as its code, and minimize merge pain, since long-delayed merges by many people are painful and semantic conflicts not caught by the version control system are the most pernicious."
    }
   ]
  },
@@ -232,6 +261,72 @@
    {
     "idx": 1114,
     "statement": "Automate security tests inside developer workflows and pipelines with actionable feedback and false-positive management."
+   },
+   {
+    "idx": 1166,
+    "statement": "Do not comment out failing tests; instead determine whether it is a regression, a changed assumption, or removed functionality and act accordingly, and take responsibility for every test your change breaks, which requires everyone to have access to the whole codebase."
+   },
+   {
+    "idx": 1171,
+    "statement": "Design a testing strategy by identifying and prioritizing project risks; write automated tests at multiple levels (unit, component, acceptance) run in the pipeline on every change, and establish nonfunctional requirements early with automated tests to enforce them."
+   },
+   {
+    "idx": 1172,
+    "statement": "Have testers collaborate with developers and users to write automated acceptance tests from the start, before the features are built, so the tests form an executable specification and serve as regression tests."
+   },
+   {
+    "idx": 1175,
+    "statement": "Do not try to automate everything; use people for usability, look-and-feel, exploratory testing, and showcases, and treat comprehensive coverage as over roughly 80% across unit, component, and acceptance tests each while remembering coverage alone is a poor metric."
+   },
+   {
+    "idx": 1179,
+    "statement": "Treat a legacy system as one without automated tests, test the code you change, and first build a broad smoke-test scaffold around the system's high-value actions before developing new stories test-first, writing automated tests only where they deliver value."
+   },
+   {
+    "idx": 1217,
+    "statement": "Have a business analyst on each team of any size and testers who ensure everyone understands quality, and hold a short kick-off meeting before implementation where analyst, tester, developers, and customer agree the automated acceptance tests."
+   }
+  ]
+ },
+ {
+  "group": 22,
+  "members": [
+   {
+    "idx": 28,
+    "statement": "Use trunk-based development: fewer than three active branches, branch lifetimes under a day, and no code-freeze periods."
+   },
+   {
+    "idx": 1149,
+    "statement": "Develop new features incrementally and commit to trunk or mainline regularly and frequently (at least once a day), rather than branching for new functionality, because you cannot safely refactor unless everybody commits frequently to mainline."
+   },
+   {
+    "idx": 1269,
+    "statement": "Keep the application always releasable using four strategies rather than branching: hide new functionality until finished, make all changes incrementally, use branch by abstraction for large-scale changes, and use components to decouple parts that change at different rates."
+   },
+   {
+    "idx": 1270,
+    "statement": "Make all changes incrementally rather than branching, since the bigger the apparent reason to branch the more you should not, use branch by abstraction for changes too hard to make incrementally, and protect large-scale changes with a comprehensive automated acceptance suite."
+   },
+   {
+    "idx": 1279,
+    "statement": "The only reasons to branch recommendable without caveat are release, spiking, and in extremis enabling further change, so switch off pessimistic locking in favor of optimistic locking, and define a policy for every branch describing its role and who may check in."
+   },
+   {
+    "idx": 1282,
+    "statement": "Never use long-lived, infrequently merged branches to manage the complexity of a large project, since large teams can work off mainline through componentization and keeping the application always working, which subtly improves the design, and routine edits by several developers to the same code signal a poorly structured codebase."
+   }
+  ]
+ },
+ {
+  "group": 26,
+  "members": [
+   {
+    "idx": 32,
+    "statement": "Form cross-functional teams and apply the inverse Conway maneuver, evolving org structure to produce a loosely coupled architecture that lets the organization scale productivity."
+   },
+   {
+    "idx": 1273,
+    "statement": "Organize teams by functional area rather than by component, because requirements do not divide along component boundaries and component-per-team causes silos and local optimization, give everyone the right to change any part of the codebase, and be mindful of Conway's Law."
    }
   ]
  },
@@ -310,6 +405,62 @@
    {
     "idx": 1098,
     "statement": "A deployment is not done until production telemetry shows the changed system is operating as designed and recovery options are ready."
+   },
+   {
+    "idx": 1132,
+    "statement": "Fully automate deployment so the only human actions are selecting the version and target environment and pressing deploy; treat manual, ad-hoc, or late-to-production-like deployment as antipatterns."
+   },
+   {
+    "idx": 1133,
+    "statement": "Make the automated deployment process the only way software is ever deployed and require everyone to use it, so it is proven to work when needed and every environment change is recorded and auditable."
+   },
+   {
+    "idx": 1140,
+    "statement": "Design commit-stage tests to run fast, cover a large proportion of the codebase, fail only on faults that make the release unfit, and be environment-neutral; run slower later-stage tests on a production-like environment that also exercises the deployment process."
+   },
+   {
+    "idx": 1156,
+    "statement": "Select third-party software and middleware by whether it can be deployed and configured in an automated, version-controllable way, with a command-line unattended installer, making this central to every software evaluation."
+   },
+   {
+    "idx": 1195,
+    "statement": "Aim for a completely automated, button-press release and back-out; control every bit deployed by locking production down so changes go only through automated processes, and use the same process for testing environments as for production."
+   },
+   {
+    "idx": 1204,
+    "statement": "Use your operating system's packaging tools to bundle deployments as an automated pipeline step, preferring OS packaging over platform-specific packaging so upgrades, rollbacks, and integration with environment tools stay simple."
+   },
+   {
+    "idx": 1205,
+    "statement": "Make the deployment process idempotent, deploying everything from scratch from a single version-control revision onto a known-good baseline, validating environment assumptions and failing if they are unmet."
+   },
+   {
+    "idx": 1206,
+    "statement": "Prefer declarative, idempotent infrastructure or deployment tools that push the right package version to all boxes, and make changes to testing and production environments only through the automated process rather than by logging in remotely."
+   },
+   {
+    "idx": 1234,
+    "statement": "Create a release strategy with all stakeholders at the start covering the application's whole lifecycle, and maintain a release plan describing first deployment, smoke tests, back-out, backup and restore, upgrades, data migration, monitoring, and an issue log of past deployment problems."
+   },
+   {
+    "idx": 1235,
+    "statement": "Automate deployment starting with the first deployment to a testing environment, do the first deployment in the first iteration to a production-like environment (one of the few cases where technical value is prioritized), and make production-like environments match the operating system and software while using chicken-counting for scale."
+   },
+   {
+    "idx": 1247,
+    "statement": "Make deployment the whole team's responsibility rather than a build expert's, do not delete old files but move them, keep server applications free of GUIs, warm up caches before going live, and smoke-test within the deployment scripts."
+   },
+   {
+    "idx": 1253,
+    "statement": "Version-control all infrastructure configuration as inputs to the deployment pipeline, lock environments down so no change can be made without an approval process even by operations, and do not accept the default settings of operating systems and middleware."
+   },
+   {
+    "idx": 1255,
+    "statement": "Version-control middleware configuration using its scriptable configuration facilities, select middleware by whether it can be deployed and configured automatically since nothing is enterprise-ready otherwise, and handle recalcitrant middleware by version-controlling its storage or configuration API, or adopt a better technology rather than yielding to the sunk-cost fallacy."
+   },
+   {
+    "idx": 1257,
+    "statement": "Use virtualization to amplify automated provisioning with a library of baseline images that give fast faithful clones, push-button deployment, environment revert, and easier automated nonfunctional testing."
    }
   ]
  },
@@ -459,6 +610,10 @@
    {
     "idx": 790,
     "statement": "Recognize for operational decisions: Definitively proving a single root cause in production is often impossible because systems are complex with multiple jointly-causing factors and path dependence and cannot always be safely reproduced, so you frequently can only identify probable causal factors; a non-production environment can help."
+   },
+   {
+    "idx": 1292,
+    "statement": "Manage project risk by identifying, mitigating, and continually re-reviewing risks, scoring each as impact times likelihood and mitigating only when the mitigation costs less than the severity, and diagnose delivery problems by root-cause analysis, asking why at least five times."
    }
   ]
  },
@@ -555,6 +710,14 @@
    {
     "idx": 1092,
     "statement": "Connect production monitoring to release automation so hard-to-predict defects can be detected and rolled back quickly."
+   },
+   {
+    "idx": 1157,
+    "statement": "Lock down production completely so that changes can only be made through an automated, tested, approved change process, and treat testing environments the same way so the production change process is exercised frequently."
+   },
+   {
+    "idx": 1250,
+    "statement": "Keep testing environments production-like, similar in most technical aspects but managed with identical techniques, to catch environmental problems early and rehearse deployment before production."
    }
   ]
  },
@@ -707,6 +870,10 @@
    {
     "idx": 1126,
     "statement": "Apply Lean, Agile, continuous delivery, and constraints thinking through small batches, deployable states, daily improvement, and fast feedback."
+   },
+   {
+    "idx": 1291,
+    "statement": "Recognize that Scrum and iterative development commonly fail from lack of commitment, ignoring good engineering practices like TDD and CI, and over-adapting the process, so follow the process as written first, collapse operations into development, and release to real users as early as possible."
    }
   ]
  },
@@ -865,6 +1032,14 @@
    {
     "idx": 1089,
     "statement": "Make deployment automated, repeatable, predictable, and routine so validated builds can reach production on demand."
+   },
+   {
+    "idx": 1143,
+    "statement": "Automate almost everything in the build, deploy, test, and release process, up to the point where specific human direction is genuinely required, starting with the current bottleneck and automating gradually."
+   },
+   {
+    "idx": 1290,
+    "statement": "Ensure a genuine iterative process with always-working software verified by tests on every check-in, deployment to a production-like environment every iteration, and iterations no longer than two weeks, since this gives objective progress through velocity and production-readiness including tested nonfunctional requirements."
    }
   ]
  },
@@ -878,6 +1053,48 @@
    {
     "idx": 1085,
     "statement": "Require automated tests with every change and keep the continuous build green to sustain integration speed."
+   },
+   {
+    "idx": 1146,
+    "statement": "The first rule of continuous integration is to fix a break as soon as it occurs, keeping the software always in a working, releasable state when tests are comprehensive and run on a production-like environment."
+   },
+   {
+    "idx": 1158,
+    "statement": "Continuous integration requires everything in a single version control repository, an automated command-line build, and whole-team discipline; it is a practice, not a tool, in which everyone stops to fix any break immediately."
+   },
+   {
+    "idx": 1184,
+    "statement": "Continuous integration alone is not enough; adopt a holistic deployment pipeline that models the whole path from check-in to release, creating a pull system where testers and operations self-service deployments and managers watch cycle time, throughput, and quality."
+   },
+   {
+    "idx": 1244,
+    "statement": "Continuous deployment makes the final production step automatic for every check-in that passes all automated tests, which requires comprehensive test-first automation, and even if you do not release every change you should build a process that would let you, because it forces you to do the right thing."
+   }
+  ]
+ },
+ {
+  "group": 112,
+  "members": [
+   {
+    "idx": 154,
+    "statement": "When re-engineering, prefer loosely coupled, discrete components such as web services or SOA to enable small frequent releases and simpler infrastructure, and use abstraction layers such as SQL views to remove hard dependencies."
+   },
+   {
+    "idx": 1271,
+    "statement": "Create discrete components while it is cheap, treating a component as reusable, replaceable, independently deployable, and coherent, because component-based design aids large-team collaboration; distinguish components from libraries and build-time from runtime dependencies."
+   }
+  ]
+ },
+ {
+  "group": 114,
+  "members": [
+   {
+    "idx": 156,
+    "statement": "Do not go overboard on environments: two (development and production) is a viable minimum and a lean set of development, CI, pre-production, and production is sufficient, because the hard part is keeping many environments aligned on versions, patches, and configuration."
+   },
+   {
+    "idx": 1135,
+    "statement": "Integrate testing, deployment, and release into development from the start, rehearsing on a progressively more production-like sequence of environments, with all delivery roles collaborating from the beginning so release-day risk is low."
    }
   ]
  },
@@ -899,6 +1116,18 @@
    {
     "idx": 284,
     "statement": "Keep monitoring loosely coupled with separate collection, storage, alerting, and visualization components behind stable interfaces, so any component can be swapped for a better one as the system evolves."
+   },
+   {
+    "idx": 1249,
+    "statement": "Manage all infrastructure holistically by specifying its desired state in version-controlled configuration, making it autonomic so it self-corrects, always knowing its actual state through monitoring, and automating provisioning so it rebuilds in a predictable time."
+   },
+   {
+    "idx": 1256,
+    "statement": "Version-control all networking infrastructure configuration and push it from version control so systems are autonomic, monitor every port your application uses, log connection events, smoke-test connections at deploy time, and mirror the production network topology in the integration environment."
+   },
+   {
+    "idx": 1263,
+    "statement": "Give operations a big visible incident display, avoid dashboard noise by working from a risk list ranked by probability and impact, aggregate to red-amber-green thresholds, and practice behavior-driven monitoring by plugging application smoke tests into the monitoring system."
    }
   ]
  },
@@ -967,6 +1196,18 @@
    {
     "idx": 225,
     "statement": "Make changes small and frequent, splitting large changes into smaller subcomponents and building a steady pipeline of low-risk change coupled with automated testing and reliable rollback (continuous integration and delivery)."
+   },
+   {
+    "idx": 1137,
+    "statement": "Reduce cycle time, the time from deciding on a change to it being available to users, by making frequent, automated releases; if a process is not automated it is not repeatable, and frequent releases keep the delta small, reduce risk, and speed feedback."
+   },
+   {
+    "idx": 1243,
+    "statement": "Keep as few versions in production as possible, ideally two, and run every emergency fix through the same build, deploy, test, and release process, never logging into production to make uncontrolled changes, weighing whether a fix is worth it against rolling back."
+   },
+   {
+    "idx": 1251,
+    "statement": "Recognize that development and operations share the goal of low-risk release, best met by releasing frequently, so treat operations as users by discovering their monitoring needs early, never swallowing errors, logging every error to a single well-known location, and complying with change management."
    }
   ]
  },
@@ -1527,6 +1768,14 @@
    {
     "idx": 1096,
     "statement": "Collect centralized events, logs, and metrics across business logic, applications, infrastructure, and customer-impact periods."
+   },
+   {
+    "idx": 1261,
+    "statement": "Monitor production for real-time business intelligence, immediate incident response, and capacity planning, building the strategy on four areas: instrumenting applications and infrastructure, storing the data, creating aggregating dashboards, and setting up notifications."
+   },
+   {
+    "idx": 1262,
+    "statement": "Gather monitoring data from hardware, operating system, middleware, and applications, instrument applications with hooks for what operations and business users care about plus version reporting, set log levels by recoverability, and treat logging as first-level requirements in a single-line, grep-able format."
    }
   ]
  },
@@ -1618,6 +1867,10 @@
    {
     "idx": 288,
     "statement": "Break served traffic down by status code (monitor all HTTP response codes even those too noisy to alert on, plus quota/rate-limit denials) and design every exposed metric around a concrete use — capacity planning, debugging, or notification — rather than exporting metrics just because they are easy."
+   },
+   {
+    "idx": 1230,
+    "statement": "Prefer scenario-based, composable capacity tests over isolated benchmarks, set pass thresholds by ratcheting above a minimum, base load calculations on peak load, and isolate the capacity environment, avoiding virtualization unless production is virtual."
    }
   ]
  },
@@ -2590,6 +2843,10 @@
    {
     "idx": 828,
     "statement": "Conduct a canary test by upgrading a subset of servers to the new version, incubating ('baking') them for a period, and progressively rolling out only if no unexpected variances occur, reverting the modified servers quickly if anything goes wrong."
+   },
+   {
+    "idx": 1242,
+    "statement": "Use canary releasing to roll a new version out to a subset of production servers for fast feedback, easy rollback, A/B testing, and low-risk capacity ramp, ensuring any shared resource works with all in-production versions or using a shared-nothing architecture."
    }
   ]
  },
@@ -2855,6 +3112,18 @@
    {
     "idx": 1086,
     "statement": "Protect shared codebases with presubmit checks, coverage visibility, and urgent repair of pipeline failures."
+   },
+   {
+    "idx": 1131,
+    "statement": "A deployment pipeline is an automated implementation of the build, deploy, test, and release process that takes every change from check-in toward release; trigger a new pipeline instance on every change to source code, configuration, environment, or data."
+   },
+   {
+    "idx": 1202,
+    "statement": "Create a script for each pipeline stage kept in the same repository as the source, use the right middleware-specific tool for deployment rather than a general-purpose scripting language, and require operations and developers to collaborate on the deployment process."
+   },
+   {
+    "idx": 1274,
+    "statement": "Use a single whole-application pipeline until getting feedback becomes too slow, then split into per-component pipelines feeding an integration pipeline that composes binaries, smoke-tests early, and traces back to each contributing component version."
    }
   ]
  },
@@ -3006,6 +3275,10 @@
    {
     "idx": 993,
     "statement": "Use feature-flag frameworks that roll changes out from 0% to 100% of users, run many changes in parallel each to a few users or servers, automatically handle failure of new code paths without affecting users, allow each change to be reverted independently and immediately, and measure each change's effect on the user experience."
+   },
+   {
+    "idx": 1186,
+    "statement": "Build your binaries only once, during the commit stage, and deploy those exact binaries everywhere, verified by stored hashes at each stage, because recompiling risks differences from the toolchain and breaks the guarantee that what you release is what you tested."
    }
   ]
  },
@@ -3132,6 +3405,10 @@
    {
     "idx": 568,
     "statement": "End an SRE engagement when it is no longer impactful — the value proposition has gone away or the majority of work is operations rather than engineering — handing a service back to developers when SRE no longer provides business value worth the cost (the service has been optimized enough, its importance has diminished, or it is reaching end of life), and when the cost of the support relationship exceeds its value, consider disbanding the SRE team and combining the SRE and product-development functions into a single team that can balance operational needs and velocity and resolve the continual tension over where to invest."
+   },
+   {
+    "idx": 1288,
+    "statement": "Improve delivery using a maturity model driven by the Deming cycle, implementing organizational change incrementally and measuring its impact, and never begin a program without a business case and exactly one business sponsor per project."
    }
   ]
  },
@@ -3222,6 +3499,19 @@
   ]
  },
  {
+  "group": 306,
+  "members": [
+   {
+    "idx": 621,
+    "statement": "Accept that no single formal change-management model applies neatly across the spectrum of changes an organization tackles — frameworks like Kotter's eight steps and Prosci ADKAR provide useful insights, the common thread in a dynamic environment is constant reevaluation and iteration, and most grassroots changes benefit from structured coordination and planning as they mature — and consider that SRE principles are increasingly applied to other disciplines, particularly security (reflected in DevSecOps recognizing development, security, and operations as interdependent), making 'how would SRE apply to this other discipline?' a promising direction."
+   },
+   {
+    "idx": 1293,
+    "statement": "For regulatory compliance lock down environments so changes go only through change management, which research links to lower MTBF and MTTR, use a Change Advisory Board with an automated change-request system requiring a remediation strategy, acceptance criteria, and button-press application, and prefer automation over documentation for auditing."
+   }
+  ]
+ },
+ {
   "group": 308,
   "members": [
    {
@@ -3265,6 +3555,14 @@
    {
     "idx": 831,
     "statement": "Build testing infrastructure on a versioned source-control system plus a continuous build that compiles and runs tests on every submission and notifies engineers the moment a change breaks the build."
+   },
+   {
+    "idx": 1162,
+    "statement": "Manage the developer workspace so developers start from a known-good revision and can build, test, and deploy locally using the same automated processes as CI and production, with the exact dependency versions and runnable smoke tests."
+   },
+   {
+    "idx": 1167,
+    "statement": "Use test-driven development to achieve the excellent unit-test coverage that continuous integration's fast feedback depends on, since CI and TDD together enable fearless refactoring by proving that behavior is unchanged."
    }
   ]
  },
@@ -3370,6 +3668,61 @@
   ]
  },
  {
+  "group": 339,
+  "members": [
+   {
+    "idx": 682,
+    "statement": "Inject environment-specific configuration at image build time so a single source produces per-environment artifacts, and tag each build for its target environment."
+   },
+   {
+    "idx": 1134,
+    "statement": "Use the same deployment script and process to deploy to every environment, capturing per-environment differences as separately managed configuration, so the production path is rehearsed many times and any release-day failure isolates to environment-specific configuration rather than the script."
+   },
+   {
+    "idx": 1150,
+    "statement": "Treat configuration the same way as code, subject to management and testing; avoid the ultimate-configurability antipattern, and do not inject configuration at build or packaging time so the same binary can deploy to every environment."
+   },
+   {
+    "idx": 1153,
+    "statement": "Supply all application configuration through a single mechanism, applied only by automated processes from a configuration repository, keeping the list of options with the source but the per-environment values separate and tracked against the application version."
+   }
+  ]
+ },
+ {
+  "group": 342,
+  "members": [
+   {
+    "idx": 685,
+    "statement": "Notify the team of build and deployment status (for example via Slack) so failures surface quickly and can be acted on sooner."
+   },
+   {
+    "idx": 1168,
+    "statement": "Fail the build on agreed quality signals such as architectural breaches, individual tests exceeding a time limit, and rising warning or TODO counts via ratcheting, but only fail it for reasons the whole team has agreed."
+   }
+  ]
+ },
+ {
+  "group": 345,
+  "members": [
+   {
+    "idx": 688,
+    "statement": "Run post-deployment smoke tests that go beyond a 200 response, computing the environment URL from the branch and asserting the deployed version matches the expected build so you confirm the new version is actually live."
+   },
+   {
+    "idx": 1222,
+    "statement": "Run deployment tests, a small fail-fast smoke suite asserting the environment is configured and inter-component communication works, at the start of the acceptance stage, and fail the whole stage immediately if they fail rather than waiting for the lengthy suite."
+   },
+   {
+    "idx": 1238,
+    "statement": "Follow a consistent workflow for every testing stage: select a build that passed prior stages, prepare a clean environment, deploy the binary from the artifact repository without rebuilding, configure, migrate data, smoke-test, then test, and promote the configuration with the binary while excluding environment-specific settings."
+   },
+   {
+    "idx": 1245,
+    "statement": "Verify configuration promotion with smoke tests that confirm the application is pointing at the right things, and roll back reliably by keeping the previous version available and, where data changes, using techniques such as read-only mode and database copy in blue-green deployments."
+   }
+  ]
+ },
+ {
   "group": 349,
   "members": [
    {
@@ -3379,6 +3732,14 @@
    {
     "idx": 941,
     "statement": "Recognize for operational decisions: The hanging-chunk problem blocks pipeline completion on the worst-case chunk, and the default response of killing and restarting the job wastes all prior work because pipelines usually lack checkpointing."
+   },
+   {
+    "idx": 1190,
+    "statement": "Propagate each change through the pipeline instantly, triggering the first stage on every check-in and each stage on the previous stage's success rather than on a fixed schedule, and stop the line so the whole team owns and fixes any pipeline failure."
+   },
+   {
+    "idx": 1236,
+    "statement": "Model the release process in the pipeline with stages, gates, and approvers, and use build promotion, where anyone can deploy a build that passed all prior stages at the press of a button, to turn the pipeline into a pull system that runs smoke tests once the system is ready."
    }
   ]
  },
@@ -3498,6 +3859,18 @@
    {
     "idx": 1043,
     "statement": "Make a Production Readiness Review a prerequisite before an SRE team takes over a service, using it to verify the service meets production and operational-readiness standards and to improve its reliability before assuming responsibility."
+   },
+   {
+    "idx": 1154,
+    "statement": "Test configuration as part of deployment: have the deployment script verify that every external dependency is available and fail if not, then run post-install smoke tests exercising functionality that depends on the configuration."
+   },
+   {
+    "idx": 1189,
+    "statement": "Deploy to a copy of production and smoke-test every deployment with an automated script that checks the application and its dependencies are up, since the smoke or deployment test is arguably the most important test to write after a unit test suite."
+   },
+   {
+    "idx": 1239,
+    "statement": "Promote all the services or components of a service-oriented or componentized application together as a single tested combination, so a wrong version of one service cannot be deployed and cause a failure or an intermittent defect."
    }
   ]
  },
@@ -3537,6 +3910,31 @@
    {
     "idx": 829,
     "statement": "Recognize for operational decisions: Most bugs are order-one and scale linearly with user traffic, and can be turned into regression tests from logs of unusual responses, but higher-order bugs that corrupt data seen by later requests must be caught during release because they escalate operational load very quickly."
+   },
+   {
+    "idx": 1248,
+    "statement": "Lower release risk by rehearsing releases, releasing frequently into a variety of new test environments; the automated system should both commission a new environment from scratch and update an existing one, and all delivery roles should meet for release planning throughout the project."
+   }
+  ]
+ },
+ {
+  "group": 376,
+  "members": [
+   {
+    "idx": 751,
+    "statement": "Use hermetic builds that are insensitive to whatever software is installed on the build machine and depend only on known versions of build tools and dependencies, so the same source revision produces identical results on any machine."
+   },
+   {
+    "idx": 1142,
+    "statement": "Do not check the compiled binary output of the build into version control; re-create binaries from source and the build system on demand instead."
+   },
+   {
+    "idx": 1151,
+    "statement": "Specify the exact version of every external library your build uses and keep local approved copies, so that builds are reproducible and free of version-drift errors."
+   },
+   {
+    "idx": 1275,
+    "statement": "Version all dependencies, including libraries and components, so builds are reproducible and breakages traceable, keep the dependency graph a directed acyclic graph with no cycles, and build a downstream application against only one version of each upstream dependency."
    }
   ]
  },
@@ -3550,6 +3948,14 @@
    {
     "idx": 990,
     "statement": "Check all code and configuration files into version control — gaining history, change attribution, and review for configuration too — do most development on the mainline, and cut each release on its own branch with fixes cherry-picked."
+   },
+   {
+    "idx": 1284,
+    "statement": "Use branch for release to replace the code freeze, developing features on mainline and committing only critical fixes to the release branch and merging them back immediately, never creating branches off a release branch, and stop branching for release once you release about weekly."
+   },
+   {
+    "idx": 1295,
+    "statement": "Only branch for release, spike, or in extremis, merging any active branch back to mainline daily, because the longer changes stay separate from trunk the greater the risk when the merge finally happens, and trunk is the most complete statement of the system since you deploy from it."
    }
   ]
  },
@@ -3589,6 +3995,10 @@
    {
     "idx": 844,
     "statement": "Team size should not scale directly with service growth; achieving sublinear team growth against exponential service growth requires perpetual automation and tool streamlining."
+   },
+   {
+    "idx": 1231,
+    "statement": "Carry out absolute capacity measurements in an environment replicating production as closely as possible, never assume linear scaling, and if you cannot replicate the whole production farm replicate one representative slice of each tier."
    }
   ]
  },
@@ -3675,6 +4085,32 @@
   ]
  },
  {
+  "group": 405,
+  "members": [
+   {
+    "idx": 832,
+    "statement": "When the build breaks, engineers should drop other work and prioritize the fix, because breakage is harder to fix once more changes land, it slows the whole team, and it undermines release cadences and emergency-release capability."
+   },
+   {
+    "idx": 1185,
+    "statement": "As a build passes each pipeline stage confidence increases and environments become progressively more production-like; eliminate unfit release candidates as early as possible and never promote a build that failed a stage, so urgent fixes also go through the full pipeline."
+   }
+  ]
+ },
+ {
+  "group": 407,
+  "members": [
+   {
+    "idx": 834,
+    "statement": "Design disaster-recovery tools to operate offline — computing a checkpoint equivalent to a clean stop, making it loadable by existing validation tools, and supporting the release barrier and clean-start procedure — because keeping these constraints makes the tools easy to test with excellent coverage."
+   },
+   {
+    "idx": 1252,
+    "statement": "Meet recovery point and recovery time objectives by carefully managing the configuration of applications, environments, and infrastructure and testing backups, recovery, and archiving, and make changes to environments using technology the operations team is familiar with."
+   }
+  ]
+ },
+ {
   "group": 411,
   "members": [
    {
@@ -3701,6 +4137,19 @@
    {
     "idx": 852,
     "statement": "Design internal tools to be agnostic and general — 'come as you are; we'll work with what you've got' — so customers need not commit to a specific upstream tool, which lowers the barrier to entry and broadens adoption."
+   }
+  ]
+ },
+ {
+  "group": 415,
+  "members": [
+   {
+    "idx": 851,
+    "statement": "Use fuzzy requirements as an incentive to design software that is general and modular, abstracting uncertain dependencies behind interfaces so a higher-level strategy change does not force a costly rewrite."
+   },
+   {
+    "idx": 1226,
+    "statement": "Do just-enough up-front analysis of nonfunctional requirements because they are crosscutting and strongly shape a hard-to-change architecture, remembering they trade off against each other, and assign every requirement a specific value rather than a vague goal like as-fast-as-possible."
    }
   ]
  },
@@ -4202,6 +4651,337 @@
    {
     "idx": 1120,
     "statement": "Satisfy separation-of-duty intent through review, pair work, inspection, and telemetry while avoiding low-trust controls that destroy visibility."
+   }
+  ]
+ },
+ {
+  "group": 543,
+  "members": [
+   {
+    "idx": 1136,
+    "statement": "Be able to repeatably re-create every environment and its full configuration from version control through an automated process, and to roll back to a previous version using that same process."
+   },
+   {
+    "idx": 1138,
+    "statement": "Treat a working application as four components, executable code, configuration, host environment, and data, and verify every change to any of them; build and test the binary on every check-in (continuous integration) and deploy that same binary unchanged to every environment."
+   },
+   {
+    "idx": 1155,
+    "statement": "Treat the environment's configuration as as important as the application's, never manage it ad-hoc, and automate environment creation so it is always cheaper to create a new environment than to repair an old one."
+   },
+   {
+    "idx": 1193,
+    "statement": "Always be able to roll back a deployment: back up production state before a release and practice the rollback, keeping the previous version available or redeploying a previous known-good version from scratch, and never use a different or incremental process for backing out."
+   },
+   {
+    "idx": 1203,
+    "statement": "Make deployment scripts handle both fresh install and upgrade, use the same scripts to deploy to every environment with differences captured as configuration, and ensure they run on developer machines so no parallel developer-only build springs up."
+   }
+  ]
+ },
+ {
+  "group": 550,
+  "members": [
+   {
+    "idx": 1159,
+    "statement": "Keep build scripts runnable from the command line without the IDE and treat them like the codebase, tested and refactored, because the build must run in the CI environment and be auditable."
+   },
+   {
+    "idx": 1198,
+    "statement": "Script building, testing, and packaging rather than relying on the IDE as soon as a project grows beyond one person or a few days, treat the scripts as first-class version-controlled tested artifacts, and make developers and operations decide the deployment approach jointly."
+   }
+  ]
+ },
+ {
+  "group": 551,
+  "members": [
+   {
+    "idx": 1160,
+    "statement": "Keep the commit stage short, no more than ten minutes and ideally under five, splitting it into parallel suites when it grows, because a long build makes people check in less and stop caring whether tests pass."
+   },
+   {
+    "idx": 1208,
+    "statement": "The commit stage's goal is to create deployable artifacts or fail fast with a concise reason as quickly as possible; detect errors early to limit their scope, and do not fail on the first error but run to the end and aggregate all failures unless one prevents the rest running."
+   },
+   {
+    "idx": 1209,
+    "statement": "Store commit-stage outputs in an artifact repository rather than version control, keeping a hash of each; make the vast majority of commit tests fast isolated unit tests forming a test pyramid, avoiding the UI, the database, and asynchrony and using dependency injection and test doubles."
+   },
+   {
+    "idx": 1232,
+    "statement": "Add capacity testing as a separate pipeline stage run against every change past the commit tests, adapting existing acceptance tests into capacity tests that use real scenarios, a success threshold, short duration, robustness, and repeatability, and first prove the test itself can run at the required rate with a no-op stub."
+   }
+  ]
+ },
+ {
+  "group": 552,
+  "members": [
+   {
+    "idx": 1161,
+    "statement": "Base continuous integration on frequent check-ins to trunk or mainline rather than branches, since working on a branch means your code is not being integrated with others'."
+   },
+   {
+    "idx": 1281,
+    "statement": "Recognize the tension between branches and continuous integration, so merge any active branch to mainline at least once a day or you are not doing CI, and use long-lived branches only on release, the recommended and arguably industry-standard strategy."
+   },
+   {
+    "idx": 1285,
+    "statement": "Treat branch by feature and branch by team as the antithesis of continuous integration, so if used at all enforce their strict prerequisites, since many long-lived branches cause combinatorial merges, and always start from the develop-on-mainline pattern."
+   }
+  ]
+ },
+ {
+  "group": 553,
+  "members": [
+   {
+    "idx": 1163,
+    "statement": "Never check in on a broken build; when the build is broken, stop adding changes and give the responsible developer a clear run to fix it, because otherwise the build tends to stay broken all the time."
+   },
+   {
+    "idx": 1164,
+    "statement": "Always run the commit tests locally, or via a pretested commit, before checking in, then monitor the build and do not start a new task until the commit stage passes, and never go home on a broken build."
+   },
+   {
+    "idx": 1165,
+    "statement": "Always be prepared to revert to the previous known-good revision, and establish a team rule to time-box fixing a broken build to about ten minutes before reverting."
+   },
+   {
+    "idx": 1201,
+    "statement": "Reject the nightly-build and rolling-build predecessors that lack traceability from a check-in to the build it broke, in favor of a pipeline that triggers on each commit and correlates every build to its source revision."
+   }
+  ]
+ },
+ {
+  "group": 554,
+  "members": [
+   {
+    "idx": 1169,
+    "statement": "For distributed teams, retain a single shared version control and continuous integration system available equally to all sites, because all other approaches are second-best, and hold the CI discipline even more strictly across time zones."
+   },
+   {
+    "idx": 1170,
+    "statement": "Prioritize continuous integration as the single practice most likely to make a step change in team productivity, since with CI the default state of the application is working rather than broken until proven otherwise."
+   },
+   {
+    "idx": 1181,
+    "statement": "For distributed teams facing slow or unreliable links, a distributed version control system can help, but upgrading communications bandwidth is usually cheaper than splitting the version control system, which compromises the ability to find problems early."
+   },
+   {
+    "idx": 1218,
+    "statement": "Do continuous integration with a distributed version control system by designating one master repository that triggers the pipeline and having everybody push at least once a day, since DVCS usage patterns like fork-and-pull violate the single-mainline model and prevent true CI."
+   },
+   {
+    "idx": 1286,
+    "statement": "Do continuous integration with a distributed version control system by keeping a central repository that triggers the pipeline and pushing changes to it at least once a day, since DVCS benefits like offline commit and rebase can compromise CI if misused."
+   }
+  ]
+ },
+ {
+  "group": 555,
+  "members": [
+   {
+    "idx": 1173,
+    "statement": "Run the bulk of acceptance tests against a public API just below the UI through an abstraction and window-driver layer, keeping business logic out of the UI, so that UI changes do not break large swathes of the suite."
+   },
+   {
+    "idx": 1213,
+    "statement": "Invest in automated acceptance testing because a well-maintained suite costs less than frequent manual regression testing, catches user-scenario, threading, and architectural defects unit tests cannot, and is the only thing that proves the application still works after large-scale changes."
+   },
+   {
+    "idx": 1215,
+    "statement": "Layer acceptance tests into criteria, domain-language implementation, and an application driver layer, using aliases and a well-designed driver so tests are independent, reliable, parallelizable, and built incrementally, with a window driver decoupling GUI-facing tests from the UI."
+   },
+   {
+    "idx": 1216,
+    "statement": "Make acceptance tests atomic and isolated using the application's own features, establish a known-good minimal starting state through the application's public API rather than a production data dump, and never add test-only back doors to production components."
+   },
+   {
+    "idx": 1221,
+    "statement": "Run the acceptance test suite against every build that passes the commit tests and treat the gate as absolute: a build that fails acceptance tests is never deployable, and the cost of the suite is repaid in reduced maintenance, change safety, and quality."
+   },
+   {
+    "idx": 1223,
+    "statement": "Speed a slow acceptance suite by refactoring common setup into shared helpers, sharing expensive resources such as a single running system instance, running independent tests in parallel on a compute grid, and running fast API tests before slow UI tests."
+   },
+   {
+    "idx": 1267,
+    "statement": "Minimize each test's dependence on the whole universe of application data, distinguish test-specific, test-reference, and application-reference data for acceptance tests, and put the application into the correct initial state through its public API rather than application code or database dumps."
+   }
+  ]
+ },
+ {
+  "group": 556,
+  "members": [
+   {
+    "idx": 1174,
+    "statement": "Write at least one automated happy-path acceptance test per story as the first automation target, then prioritize alternate-path tests when the application is stable or sad-path tests when it is buggy."
+   },
+   {
+    "idx": 1178,
+    "statement": "On a new project start automated acceptance testing from the very beginning with INVEST-compliant stories and a strict process of defining criteria, automating tests, coding to fulfill them, and fixing any failing test, writing criteria that express the business value delivered to users."
+   }
+  ]
+ },
+ {
+  "group": 559,
+  "members": [
+   {
+    "idx": 1180,
+    "statement": "Never let tests hit a real external system unless in production, isolating access with a firewall and a configuration switch to a simulated version, and make the integration test harness replicate pathological as well as expected responses so you can harden the application."
+   },
+   {
+    "idx": 1220,
+    "statement": "Run automated acceptance tests in a controllable environment that is not integrated with all real external systems, using a test double per external system plus separate small integration tests, and concentrate each external interaction in one gateway or adapter component."
+   },
+   {
+    "idx": 1240,
+    "statement": "Perform final tests in a staging environment very similar to production before release and plan it from the beginning of the project, since staging gives final confirmation that integration with external systems works between the intended production versions."
+   }
+  ]
+ },
+ {
+  "group": 560,
+  "members": [
+   {
+    "idx": 1182,
+    "statement": "Collaborate closely between developers and testers throughout a story, discussing acceptance tests before development and reviewing functionality as soon as it is finished, rather than deferring to an end-of-story handover that becomes a bottleneck."
+   },
+   {
+    "idx": 1191,
+    "statement": "The whole cross-functional team owns and creates the automated acceptance tests as part of normal development, and must respond immediately to acceptance-test breakages, because a separate test team leaves the suite failing most of its life."
+   }
+  ]
+ },
+ {
+  "group": 561,
+  "members": [
+   {
+    "idx": 1187,
+    "statement": "Store built binaries in an artifact repository, not version control, traceable to the check-in that created them and re-creatable from source, and keep hashes even after purging binaries so you can audit from production back to the commit stage."
+   },
+   {
+    "idx": 1207,
+    "statement": "Use relative paths in builds, automate any process the second time you perform it, and build traceability from every binary to the version-control revision that produced it via embedded metadata or a stored hash."
+   },
+   {
+    "idx": 1272,
+    "statement": "Enforce repeatable builds and manage your own artifact repository to control which versions are available, prevent dependency hell, and audit library licenses, and avoid static compilation of operating-system dependencies."
+   },
+   {
+    "idx": 1278,
+    "statement": "Be conservative about accepting new versions of low-control third-party dependencies, keep dependency graphs shallow and backwards-compatible, and make the artifact repository contain nothing that cannot be reproduced from version control, keeping a hash of every binary rather than checking artifacts into version control."
+   },
+   {
+    "idx": 1294,
+    "statement": "Enforce traceability by building binaries only once on an access-controlled box and recording who did what when, prefer cross-functional teams that sit together over silos with a release working group communicating from the start, and treat iterative, incremental delivery as the key to effective risk management."
+   }
+  ]
+ },
+ {
+  "group": 562,
+  "members": [
+   {
+    "idx": 1188,
+    "statement": "Model your value stream from concept to cash to reveal waste, implement the pipeline incrementally with placeholders that record timing for manual steps, and treat the pipeline as a living system to be refactored like the application."
+   },
+   {
+    "idx": 1194,
+    "statement": "Implement a deployment pipeline incrementally in five steps: model the value stream and create a walking skeleton, automate build and deployment, automate unit tests and code analysis, automate acceptance tests, and automate releases."
+   }
+  ]
+ },
+ {
+  "group": 563,
+  "members": [
+   {
+    "idx": 1192,
+    "statement": "Express acceptance tests in the language of the business, the ubiquitous language, at the level of business behavior rather than technical interaction, and let them be run against a production-like copy of the environment."
+   },
+   {
+    "idx": 1214,
+    "statement": "Treat acceptance tests as executable specifications, writing acceptance criteria as customer expectations in given-when-then form, executing them directly, keeping them in sync with the application, and implementing them in the domain language against an application driver layer."
+   }
+  ]
+ },
+ {
+  "group": 566,
+  "members": [
+   {
+    "idx": 1199,
+    "statement": "The deployment pipeline's purpose is to give everyone visibility from check-in to release; it depends on good configuration management, automated build and deploy scripts, and automated tests, plus the discipline that only changes that passed the pipeline are released."
+   },
+   {
+    "idx": 1200,
+    "statement": "The deployment pipeline records timing and change data, so implement it incrementally with placeholders for manual steps and treat it as a living system that is continuously improved and refactored like the applications it delivers."
+   },
+   {
+    "idx": 1283,
+    "statement": "Develop on mainline as the only pattern that enables continuous integration, accepting that not every check-in is releasable and managing it through componentization, incremental development, and feature hiding, since the deployment pipeline gives rapid feedback on the fully integrated application."
+   }
+  ]
+ },
+ {
+  "group": 569,
+  "members": [
+   {
+    "idx": 1212,
+    "statement": "Abstract any time-based behavior into an injectable clock under your control and structure code so all delays during a test run are zero, so tests can control time and stay fast."
+   },
+   {
+    "idx": 1219,
+    "statement": "Isolate asynchrony behind synchronous-looking calls in the application driver layer and verify asynchronous results by polling with a bounded retry or waiting for an intermediate event, never by a naive immediate check that the test would outpace."
+   }
+  ]
+ },
+ {
+  "group": 572,
+  "members": [
+   {
+    "idx": 1228,
+    "statement": "Write high-capacity code that is simpler rather than more complex, minimize communication across process and network boundaries and disk I/O, and place capacity-versus-cost decisions in the hands of the business sponsors."
+   },
+   {
+    "idx": 1229,
+    "statement": "Address capacity by choosing an architecture attentive to process and network boundaries and I/O, applying stability patterns, choosing suitable data structures and threading, and asserting the desired capacity with automated tests, using profiling only to fix test-identified problems and real production measures."
+   }
+  ]
+ },
+ {
+  "group": 575,
+  "members": [
+   {
+    "idx": 1241,
+    "statement": "Achieve zero-downtime releases by decoupling the release so new versions of shared resources are in place before upgrading applications, for example using blue-green deployment to switch a router between two identical environments with near-instant back-out."
+   },
+   {
+    "idx": 1246,
+    "statement": "Upgrade client-installed software silently and automatically with a bulletproof revert on failure, version its data store and configuration so it can upgrade from any version to any other, test the upgrade in the pipeline, and provide crash reporting."
+   }
+  ]
+ },
+ {
+  "group": 580,
+  "members": [
+   {
+    "idx": 1264,
+    "statement": "Automate the database migration process, versioning the database with roll-forward and roll-back scripts run by a migration tool and managing all database changes as scripts in version control used in continuous integration, and keep roll-forward scripts nondestructive by copying data to be deleted into a temporary table first."
+   },
+   {
+    "idx": 1265,
+    "statement": "Prefer additive, forward-compatible database schema changes, decouple database migration from application deployment with a transitional version that works against both the current and new schema, and use an abstraction layer of stored procedures and views as a branch by abstraction."
+   }
+  ]
+ },
+ {
+  "group": 583,
+  "members": [
+   {
+    "idx": 1276,
+    "statement": "Give each component its own pipeline triggered by changes to its source or any upstream dependency, trigger downstream builds on the upstream commit stage completing to speed feedback, and be able to trace which component versions integrated together successfully."
+   },
+   {
+    "idx": 1277,
+    "statement": "Make component changes incrementally with new API entry points and static-analysis-driven deprecation, use branch by release for far-reaching component changes accepting it defers integration, and base dependency-update frequency on how much you trust and control each dependency."
    }
   ]
  }
