@@ -60,7 +60,7 @@ provenance:
   - 3a6becc3c67a-c0000
   - 0bc9d8042bad-c0000
   - b2e7bb6f60c4-c0000
-  authored_from_digest: 8404a9a4aa5733bc7e8b8d6eeb80fa5dd6f1078d2ee21de6fc7ee93feecd6680
+  authored_from_digest: f107b3349beb6a5f1c603f5d6f955e6876cab540e014c60c27f4c75e3190851c
 ---
 
 # Skill: authoring-agent-skills

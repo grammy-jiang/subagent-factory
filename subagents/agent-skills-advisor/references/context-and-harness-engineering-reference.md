@@ -57,7 +57,7 @@ provenance:
   - f33934784451-c0000
   - a3e5d595f78f-c0000
   - 5e5bb110f00c-c0000
-  authored_from_digest: 75d8d1bf99a446ebe20246726d6506eca5d3e92ae37dcc4575f409b505237aea
+  authored_from_digest: 9c1a4b119cadf5883c814ace551a4353de4063536216300d530419e261db8d38
 ---
 
 # Reference: context-and-harness-engineering-reference
