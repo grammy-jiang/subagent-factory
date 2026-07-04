@@ -214,6 +214,39 @@ bash campaign/p2b_finish.sh --slug <slug> --fg
 `steps.log.jsonl`) and resumable; its two LLM steps (MAP, precision filter) are **gates**
 that print the next command and stop — they never auto-spend.
 
+### Engine assignment, caps, and the p2b self-drive
+
+Which engine runs which LLM step (claude / GitHub Copilot / codex — **one session per engine
+at a time**; concurrent same-pool sessions corrupt a build):
+
+- **p2b (`p2b_finish.sh`) = opus only** (`--engine claude|copilot`). codex UNDER-authors — it
+  skips the skills layer (`skills: []`) even though `validate` passes. Never p2b on codex.
+- **precision filter = any structured engine**, but codex caps fast on large cluster sets
+  (rc=1 on the first call). Prefer the free opus pool; fail over on cap.
+- **MAP = any engine.** A giant book's final promotion (≥~45 chunks — e.g. xUnit 59ch,
+  Continuous Delivery 43ch) needs 1M context → route it to **claude**, which lands it in one
+  round where codex/copilot cap.
+- **Cap failover order: codex → copilot → claude.** codex has the smallest window; claude is
+  the last-resort recovery pool. codex, once capped in a session, tends to stay capped.
+
+**`p2b_finish` self-drives to green** — its session runs the whole validate→fix loop internally
+and prints `===P2B_SUMMARY=== validate: PASS` when done. Therefore:
+
+- **Do NOT `validate` a package mid-p2b** — you will see transient failures (stale behaviour
+  tests / adapter-invariant layer for the new spine) that the p2b is still fixing. Wait for the summary.
+- `P2B_SUMMARY` lands in the **transcript** `campaign/logs/p2b-<slug>.log.jsonl`, NOT the shell
+  launcher log (which only records "launched bg pid …").
+- **A dead headless session ≠ unfinished work.** A capped/crashed engine may have already reached
+  a valid state before the session ended (only the completion signal is lost). When a p2b looks
+  "stuck" (engine gone, transcript frozen), **check the package's `validate` state** — if it
+  PASSES, the work is done; bump the version, re-export, commit. Don't blindly re-run.
+
+Detached (`setsid`) campaign jobs are reparented to `systemd --user`, so they **survive a
+`claude` CLI restart** — they die only on logout/reboot. Gate any waiter on a **completion
+marker** (`principles.yaml` / installed adapter), never on engine-absence (an engine idles
+between p2b phases and a premature fire spawns a second same-pool session). Put `pkill` lines in
+a `.sh` file — an inline `pkill -f '<pattern>'` self-matches the running command's cmdline (exit 1).
+
 ### Caching (reuse MAP outputs)
 
 - MAP output is cached at `cache/book-extracts/<sha256-of-book-bytes>/`
@@ -225,6 +258,16 @@ that print the next command and stop — they never auto-spend.
   kill never marks the cache "done".
 - Cache is slug-independent → a book MAPped once is reused by every package that includes it.
 - UPDATE (add a book): chunk + MAP only the new book, then re-run REDUCE. Never re-MAP unchanged books.
+- FOLD-IN (rebuild an existing package with a new source): **clear the stale
+  `subagents/<slug>/.build/` first** — old `decisions.json`/`clusters.json`/`*.done` gates are
+  keyed to the previous cluster set and would misapply to the new one. Then REDUCE → filter →
+  assemble → p2b. Notes: (a) assemble re-synthesises the new source's metadata to a slug title
+  with null author/year — that is consistent with the md-sourced siblings, leave it; (b) a new
+  source + a principle-count change is a **MINOR** version bump (not patch), and after bumping
+  `agent_version` you must **re-export the adapter** (`python -m tools.subagent_factory.cli export
+  <slug>`) or the `adapter-sync` gate fails; (c) tune `--select` to the corpus tier — do not
+  under-select (50 was too thin for the 2-book DDD domain, raised to 110 = the software-architecture
+  tier; the pool after the filter is usually far larger than the cluster count).
 
 ### Review → fix → improve loop
 
