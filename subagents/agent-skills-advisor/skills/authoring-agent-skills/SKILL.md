@@ -24,6 +24,7 @@ provenance:
   - P113
   - P114
   - P115
+  - P119
   - P120
   - P135
   - P150
@@ -106,7 +107,7 @@ P005, P088, P112, P135.
    [P019], [P035], [P113].
 7. **Choose an authoring path and keep it portable.** Author against the open Agent Skills
    standard (assisted creation, direct instruction writing, or a skill-creator workflow) so one
-   skill built once runs across platforms [P024], [P093], [P119 via profile].
+   skill built once runs across platforms [P024], [P093], [P119].
 
 ## Pitfalls / anti-patterns
 
@@ -119,5 +120,5 @@ P005, P088, P112, P135.
 ## Grounding
 
 Principles: P001, P003, P005, P012, P014, P019, P024, P025, P029, P032, P034, P035, P038, P040,
-P059, P088, P092, P093, P112, P113, P114, P115, P120, P135, P150. Distillation-only: no verbatim
+P059, P088, P092, P093, P112, P113, P114, P115, P119, P120, P135, P150. Distillation-only: no verbatim
 source quotation.

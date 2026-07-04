@@ -2,6 +2,23 @@
 
 All notable changes to this subagent are documented here.
 
+## [0.1.1] — 2026-07-04
+
+PR #52 Copilot review fixes; no behavioural change.
+
+### Fixed
+
+- Citation format: `[P119 via profile]`, `[P102 via profile]`, `[P066 via profile]`
+  standardized to plain `[P###]`; P119 (`authoring-agent-skills`) and P066
+  (`context-and-harness-engineering-reference`) now declared in their artifact's
+  frontmatter grounding (P102 was already declared; P119/P066 were already
+  footer-listed or evidence-backed — declaration only, no new claims).
+- `tests/test-results.md` table cells no longer truncate mid-word: the Phase 8
+  self-check generator (`profile_self_check.py`) now appends an explicit ellipsis;
+  report regenerated.
+- `campaign/agent-skills-advisor.sources` comment typo: Claude/Codex/Codex →
+  Claude/Codex/Copilot.
+
 ## [0.1.0] — 2026-07-04
 
 Initial authored release. The distilled spine (claims, evidence records, principles,
