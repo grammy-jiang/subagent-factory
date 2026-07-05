@@ -1,0 +1,4210 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: MCP servers MUST validate every access token per OAuth 2.1 Section 5.2,
+    accept only tokens whose intended audience is the server itself, return HTTP 401
+    for invalid or expired tokens, and never accept or transit tokens issued for other
+    resources; clients MUST NOT send a server any token not issued by that server's
+    authorization server.
+  derived_from_claims:
+  - C00046
+  - C00047
+  - C00048
+  - C00079
+  - C00080
+  - C00081
+  - C00099
+  - C00100
+  - C00101
+  - C00588
+  - C00597
+  confidence: high
+  applies_when:
+  - an MCP server receives a request bearing an access token
+  - an MCP server receives a token from a client and could forward it to a downstream
+    API
+  - An MCP server receives a bearer token for a protected resource request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Treat MCP tool metadata as an instruction-injection surface: scan, constrain,
+    whitelist, sanitize, and avoid forwarding imperative metadata to models before
+    tool exposure.'
+  derived_from_claims:
+  - C00691
+  - C00698
+  - C00700
+  - C00742
+  - C00746
+  - C00759
+  - C00926
+  - C00927
+  - C00928
+  - C00929
+  - C00930
+  confidence: medium
+  applies_when:
+  - A client connects to a malicious, compromised, or unreviewed MCP server.
+  - A client would otherwise load tool descriptions without showing or checking the
+    full model-visible text.
+  - Server-provided tool metadata is about to be admitted to model context or a risky
+    tool call may execute.
+  - Publishing, installing, loading, or forwarding MCP tool descriptions or usage
+    fields.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Use the authorization-code flow with PKCE for MCP clients, then call
+    protected MCP resources with the issued bearer access token only after a successful
+    token exchange.
+  derived_from_claims:
+  - C00571
+  - C00572
+  - C00573
+  - C00576
+  - C00577
+  - C00578
+  - C00581
+  - C00620
+  - C00621
+  - C00624
+  confidence: medium
+  applies_when:
+  - The MCP OAuth client is public and uses an authorization-code flow.
+  - The client cannot safely retain a long-lived client secret.
+  - An MCP client accesses a remote MCP server on behalf of a user
+  - The flow uses an authorization code with a public MCP client
+  - A public MCP client receives an authorization code after user approval.
+  - The client needs to call protected MCP resources.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Use Dynamic Client Registration to onboard LLM clients without manual
+    administrator pre-registration when MCP clients and services are numerous or frequently
+    changing.
+  derived_from_claims:
+  - C00559
+  - C00566
+  - C00567
+  - C00568
+  - C00631
+  - C00635
+  - C00644
+  - C00677
+  - C00681
+  confidence: medium
+  applies_when:
+  - The authorization server exposes a dynamic registration endpoint.
+  - The ecosystem allows arbitrary or frequently added LLM clients and MCP servers.
+  - Previously unknown MCP clients need to initiate authorization against the server.
+  - The authorization platform supports a registration endpoint.
+  - An MCP client or workbench needs to onboard many or previously unknown MCP servers.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: &id002 []
+- principle_id: P005
+  statement: Pin and reverify MCP server and tool definitions by version, hash, or
+    equivalent integrity check whenever tools are installed, refreshed, or executed.
+  derived_from_claims:
+  - C00385
+  - C00390
+  - C00410
+  - C00701
+  - C00702
+  - C00710
+  - C00760
+  confidence: high
+  applies_when:
+  - Tool definitions are discovered once and later used for execution or authorization
+    decisions.
+  - MCP server or package architecture allows tool descriptions to change after approval.
+  - A client relies on an earlier approval to trust a current tool definition.
+  - MCP server tool metadata persists across sessions or is reused by a client, team,
+    or deployment.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: Use the separated authorization-server model in MCP as the architectural
+    basis for enterprise-ready integrations rather than embedding all authorization
+    behavior in the MCP server itself.
+  derived_from_claims:
+  - C00498
+  - C00565
+  - C00579
+  - C00580
+  - C00593
+  - C00594
+  - C00598
+  confidence: medium
+  applies_when:
+  - An MCP implementation follows the updated authorization model that separates authorization-server
+    responsibilities from MCP-server responsibilities.
+  - The MCP server trusts a separate authorization server named in its protected-resource
+    metadata.
+  - A deployment has or can use an external identity provider or OAuth authorization
+    server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: Deliver Protected Resource Metadata via a WWW-Authenticate resource_metadata
+    parameter on 401 responses or a well-known URI; clients MUST parse WWW-Authenticate
+    headers, react to 401s, prefer the resource_metadata URL when present, and otherwise
+    fall back to the well-known URIs in the specified order.
+  derived_from_claims:
+  - C00017
+  - C00018
+  - C00021
+  - C00471
+  - C00560
+  - C00561
+  confidence: high
+  applies_when:
+  - an MCP client receives a 401 from an MCP server
+  - The resource server cannot or should not host metadata at the fixed well-known
+    protected-resource location.
+  - A client first connects to the protected MCP resource without credentials.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Bind every MCP authorization decision to the identity of the caller that
+    triggers the invocation, and re-authorize when a new caller interacts; authorization
+    enforced only at the server or resource level, without being scoped to the caller,
+    is insecure.
+  derived_from_claims:
+  - C00401
+  - C00402
+  - C01176
+  - C01177
+  - C01181
+  - C01184
+  - C01203
+  - C01206
+  - C01209
+  - C01212
+  confidence: high
+  applies_when:
+  - MCP servers are exposed through remote HTTP or SSE transports and track user sessions
+    or tokens.
+  - An MCP server exposes tools whose execution reaches sensitive operations
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: Keep MCP instruction authority scoped to the tool or server that supplied
+    it; metadata or outputs from one server must not direct how another server's tools
+    are invoked.
+  derived_from_claims:
+  - C00703
+  - C00705
+  - C00706
+  - C00708
+  - C00717
+  - C00720
+  - C00727
+  - C00733
+  - C00734
+  - C00737
+  confidence: medium
+  applies_when:
+  - Tool descriptions from different MCP servers are jointly visible to the model.
+  - A tool description mentions another server, another tool, recipients, credentials,
+    routing, or execution rules outside its own scope.
+  - An agent connects MCP servers from different trust zones into the same model context.
+  - A tool description or tool output contains directives about recipients, payloads,
+    or behavior for another MCP server.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Treat all tool descriptions, annotations, schemas, and retrieved resource
+    content as untrusted unless obtained from a trusted server, because tool poisoning,
+    full-schema poisoning, resource-content poisoning, typosquatting, and shadow servers
+    can inject malicious behaviour or instructions.
+  derived_from_claims:
+  - C00145
+  - C00146
+  - C00147
+  - C00148
+  - C00149
+  - C00384
+  - C00389
+  - C00399
+  - C00420
+  confidence: high
+  applies_when:
+  - a client connects to MCP servers or ingests tool/resource metadata
+  - Tool descriptions, schemas, return values, or retrieved content are provided to
+    an LLM context.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: For enterprise app-to-app MCP access, put authorization policy under
+    enterprise admin and IdP control instead of relying on each user to approve direct
+    OAuth connections.
+  derived_from_claims:
+  - C00494
+  - C00495
+  - C00496
+  - C00497
+  - C00503
+  - C00504
+  - C00505
+  - C00506
+  - C00507
+  confidence: medium
+  applies_when:
+  - Access is to enterprise-managed resources and an enterprise policy authority can
+    approve integrations centrally.
+  - Access involves company-controlled accounts or enterprise application data.
+  - Current integration setup would require users to approve multiple redirect-based
+    OAuth connections.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Treat every tool's metadata — its name and natural-language description
+    loaded at MCP registration — as untrusted data, never as instructions the agent
+    may obey; a description must not be able to add steps to a tool's operation or
+    invoke other tools.
+  derived_from_claims:
+  - C00742
+  - C00744
+  - C00745
+  - C00746
+  - C01137
+  - C01138
+  - C01139
+  - C01175
+  confidence: high
+  applies_when:
+  - An MCP client imports tool metadata from an external or third-party server into
+    model context.
+  - connecting an agent to MCP servers or loading third-party tool descriptions into
+    the agent context
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: 'Adopt a progressive least-privilege scope model: grant a minimal initial
+    scope of low-risk read/discovery operations, elevate incrementally via targeted
+    WWW-Authenticate scope challenges, tolerate down-scoped tokens, emit precise (not
+    full-catalog) challenges with logged elevation events, and have clients start
+    from baseline scopes while caching denied-scope failures.'
+  derived_from_claims:
+  - C00038
+  - C00039
+  - C00131
+  - C00132
+  - C00133
+  - C00134
+  - C00135
+  - C00136
+  confidence: medium
+  applies_when:
+  - designing or requesting OAuth scopes for MCP tools and resources
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases:
+    - PB-P016
+- principle_id: P014
+  statement: Clients MUST implement PKCE (S256 when technically capable) and verify
+    PKCE support before authorizing by checking code_challenge_methods_supported in
+    the authorization-server (or OpenID provider) metadata, refusing to proceed when
+    it is absent; OpenID-Connect-Discovery authorization servers MUST publish this
+    field.
+  derived_from_claims:
+  - C00061
+  - C00062
+  - C00063
+  - C00064
+  - C00065
+  - C00676
+  - C00679
+  confidence: high
+  applies_when:
+  - a client begins an authorization-code flow
+  - MCP clients participate in OAuth authorization.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: Log tool invocations with their parameters and originating prompt at
+    every layer (host, client, server), centralize cross-cutting logging via MCP gateways
+    or proxies, keep immutable records of actions and authorizations (e.g., IdP token
+    exchange), and use OpenTelemetry for end-to-end linkability.
+  derived_from_claims:
+  - C00197
+  - C00198
+  - C00203
+  - C00227
+  - C00228
+  - C00257
+  - C00275
+  confidence: high
+  applies_when:
+  - operating MCP in any environment requiring troubleshooting, forensics, or accountability
+  - operating MCP where compliance, accountability, or forensics is required
+  - operating MCP servers, especially in multi-tenant environments
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Validate every tool invocation and model-execution request against well-defined
+    schemas, expected ranges, and the intended execution context (checking malformed
+    inputs, missing fields, and excessive sizes), and block or restrict parameter
+    forwarding when the data source is ambiguous or user-supplied.
+  derived_from_claims:
+  - C00238
+  - C00259
+  - C00270
+  - C00271
+  - C00391
+  - C00397
+  - C00398
+  confidence: high
+  applies_when:
+  - a tool or model receives parameters or forwarded inputs
+  - An MCP server accepts parameters generated or influenced by an LLM.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Use a cryptographic MCP message envelope to bind JSON-RPC traffic to
+    agent identity, message integrity, timestamp freshness, nonce-based replay resistance,
+    and auditability, while pairing it with application-layer controls for command
+    and context semantics.
+  derived_from_claims:
+  - C00372
+  - C00373
+  - C00380
+  - C00407
+  - C00408
+  - C00409
+  - C00412
+  confidence: high
+  applies_when:
+  - MCP traffic needs identity binding, message integrity, replay protection, or cryptographic
+    audit evidence.
+  - MCP messages pass through proxies, middleware, host agents, or other components
+    that could alter payloads after transport protection terminates.
+  - Message signing or replay protection is configured for an MCP channel.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: &id001 []
+- principle_id: P018
+  statement: Prefer OAuth authorization-server metadata discovery for MCP OAuth so
+    clients can discover endpoints automatically and avoid manual endpoint configuration
+    errors.
+  derived_from_claims:
+  - C00584
+  - C00585
+  - C00586
+  - C00589
+  - C00598
+  - C00678
+  - C00680
+  confidence: medium
+  applies_when:
+  - An MCP client needs to discover where to obtain authorization for a protected
+    MCP resource
+  - Implementing or configuring MCP OAuth authorization.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: 'Select MCP transport by deployment target: stdio for local servers (low-latency,
+    no network overhead) and HTTP/S with streaming for remote servers (adds standard
+    authentication); do not assume one transport fits both.'
+  derived_from_claims:
+  - C00656
+  - C00657
+  - C00658
+  - C00659
+  - C00660
+  - C01292
+  confidence: high
+  applies_when:
+  - Developing or selecting the transport for an MCP server.
+  - choosing or reviewing an MCP server or client transport
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: MCP proxy servers that use static client IDs MUST obtain user consent
+    for each dynamically registered client before forwarding to third-party authorization
+    servers, to prevent confused-deputy exploitation via stolen authorization codes.
+  derived_from_claims:
+  - C00076
+  - C00085
+  - C00086
+  - C00087
+  - C00088
+  confidence: high
+  applies_when:
+  - an MCP server proxies to third-party authorization servers with a static client
+    ID
+  - the MCP server acts as an OAuth proxy to a third-party API
+  - the third-party AS uses a static client ID and/or supports dynamic client registration
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Build on OAuth 2.1 and the referenced RFC subset (RFC 8414, RFC 7591,
+    RFC 9728, Client ID Metadata Documents) rather than inventing bespoke authorization;
+    authorization servers MUST implement OAuth 2.1 with appropriate measures for both
+    confidential and public clients.
+  derived_from_claims:
+  - C00006
+  - C00010
+  - C00674
+  - C00675
+  - C00676
+  confidence: high
+  applies_when:
+  - An MCP implementation supports OAuth authorization.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Run agents and MCP servers with least privilege, always sandbox any server
+    that touches the host (files, commands, network) or executes LLM-generated code,
+    and do not rely on containers alone as a security boundary—add stronger isolation
+    such as gVisor, Kata Containers, or SELinux sandboxes.
+  derived_from_claims:
+  - C00179
+  - C00180
+  - C00181
+  - C00182
+  - C00272
+  confidence: high
+  applies_when:
+  - an MCP server interacts with the host or runs model-generated code
+  - MCP triggers shell commands, database queries, or external API calls
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: 'Do not adopt or standardize on the SSE-over-HTTP transport: it is deprecated
+    in the MCP specification (and client migration to the recommended streamable HTTP
+    transport lags), so use streamable HTTP instead.'
+  derived_from_claims:
+  - C00236
+  - C01338
+  - C01339
+  - C01340
+  - C01341
+  confidence: high
+  applies_when:
+  - choosing an MCP HTTP transport
+  - choosing a transport for a new or updated MCP client
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: Treat all contextual and Resource input (documents, pasted text, retrieved
+    content, emails, Slack) as untrusted rather than authoritative, because obfuscated
+    embedded directives can redirect tool calls (indirect prompt injection).
+  derived_from_claims:
+  - C00428
+  - C00429
+  - C01025
+  - C01045
+  confidence: high
+  applies_when:
+  - when external content is placed in an agent context
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Enforce authentication and authorization at the per-tool level for every
+    tool that can reach a sensitive operation; missing per-tool checks enable unauthorized
+    access to sensitive operations.
+  derived_from_claims:
+  - C00425
+  - C00426
+  - C01179
+  - C01181
+  confidence: high
+  applies_when:
+  - when agents operate across trust boundaries or can invoke sensitive operations
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Run local MCP servers inside isolation boundaries and restrict their
+    filesystem and network access to the minimum required for their intended function.
+  derived_from_claims:
+  - C00392
+  - C00393
+  - C00832
+  - C00844
+  confidence: high
+  applies_when:
+  - Deploying or reviewing MCP servers that run on a local host.
+  - When MCP servers can initiate outbound network or file-like requests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Avoid auto-approving command execution in MCP-enabled environments, especially
+    where commands can affect sensitive data, local systems, development workspaces,
+    or production infrastructure.
+  derived_from_claims:
+  - C00395
+  - C00396
+  - C00747
+  - C00762
+  confidence: high
+  applies_when:
+  - A proposed MCP tool call can delete, modify, spend, transfer, disclose, or otherwise
+    affect sensitive resources.
+  - MCP-connected tools can run commands or make changes in sensitive environments.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Gate critical, high-impact, or irreversible actions behind explicit human
+    confirmation before execution (Plan-then-Execute pre-execution gating, with a
+    two-person rule for the highest-impact actions), accepting the efficiency loss
+    for the reduction in harm.
+  derived_from_claims:
+  - C00435
+  - C00436
+  - C01072
+  - C01086
+  confidence: high
+  applies_when:
+  - when actions can be destructive, financial, administrative, externally visible,
+    or otherwise high impact
+  - the action is critical, high-impact, or irreversible
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Institute regular red-team and adversarial-testing exercises using external
+    experts or automated attack frameworks to simulate prompt injections and tool
+    tampering, so weaknesses are found and patched before real adversaries exploit
+    them.
+  derived_from_claims:
+  - C00456
+  - C00457
+  - C01126
+  confidence: high
+  applies_when:
+  - when preparing production deployment or changing prompts, tools, memory, retrieval,
+    policies, or model providers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Treat MCP context as a boundary-sensitive asset and enforce strict context
+    isolation and lifecycle controls with per-user, per-agent, per-workflow, and per-tenant
+    namespaces, isolated retrieval stores, sensitivity tagging, TTL and purge, pre-storage
+    redaction, approval and preview for sensitive sharing, access logging, injection
+    filtering, and contamination remediation.
+  derived_from_claims:
+  - C00358
+  - C00359
+  - C00360
+  - C00361
+  - C00362
+  - C00363
+  - C00364
+  - C00365
+  - C00366
+  - C00367
+  - C00368
+  - C00369
+  - C00370
+  - C00371
+  confidence: high
+  applies_when:
+  - MCP context, embeddings, retrieval indexes, memory, prompts, reasoning traces,
+    or interaction history may persist or be reused across identities, workflows,
+    trust domains, departments, or tenants.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P031
+  statement: Do not infer authorization correctness from the presence of authorization
+    logic, specific APIs, or framework constructs; authorization state may be cached
+    in memory, held as a global flag, tied to a session, or embedded in initialization
+    logic and then reused, and checks are scattered rather than at fixed APIs — so
+    reason about the concrete execution path instead.
+  derived_from_claims:
+  - C01184
+  - C01186
+  - C01187
+  - C01189
+  - C01213
+  - C01214
+  - C01217
+  - C01221
+  - C01222
+  - C01223
+  - C01226
+  - C01230
+  - C01264
+  confidence: high
+  applies_when:
+  - Reviewing whether an MCP server is subject to caller identity confusion
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Enforce strong MCP authentication and authorization with mutual authentication,
+    short-lived scoped and bound tokens, server-side validation, per-request deny-by-default
+    RBAC or ABAC, lifecycle controls, least privilege, centralized IAM and policy
+    decisions, secure endpoint defaults, and immediate credential incident response.
+  derived_from_claims:
+  - C00333
+  - C00334
+  - C00335
+  - C00336
+  - C00337
+  - C00338
+  - C00339
+  - C00340
+  - C00341
+  - C00342
+  - C00343
+  - C00344
+  confidence: high
+  applies_when:
+  - MCP clients, agents, tools, servers, users, or services authenticate, authorize,
+    invoke tools, or access data.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P033
+  statement: Bound every MCP agent with unique identity, documented least-privilege
+    scopes, policy-as-code enforcement, just-in-time elevation for risky access, continuous
+    entitlement review, runtime guardrails, tamper-evident action logs, and separation
+    of permission-granting from deployment authority.
+  derived_from_claims:
+  - C00290
+  - C00291
+  - C00292
+  - C00293
+  - C00294
+  - C00295
+  - C00296
+  - C00297
+  - C00298
+  - C00299
+  - C00300
+  confidence: high
+  applies_when:
+  - MCP agents can act across repositories, cloud APIs, ticketing systems, CI/CD,
+    production settings, identity systems, or sensitive data stores.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P034
+  statement: Preserve MCP intent-flow integrity by anchoring the original user goal,
+    treating retrieved resources and tool outputs as untrusted data, validating every
+    planned action against the goal, using isolated checker or policy-decision controls,
+    and pausing for human re-authentication on intent drift.
+  derived_from_claims:
+  - C00322
+  - C00323
+  - C00324
+  - C00325
+  - C00326
+  - C00327
+  - C00328
+  - C00329
+  - C00330
+  - C00331
+  - C00332
+  confidence: high
+  applies_when:
+  - External context, tool output, retrieved documents, schemas, or long-lived memory
+    can influence multi-step MCP planning.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P035
+  statement: Use lifecycle-centric MCP threat modeling that covers creation, deployment,
+    operation, maintenance, attacker type, threat origin, consequence, supply-chain
+    risk, and LLM-specific tool risks.
+  derived_from_claims:
+  - C00856
+  - C00857
+  - C00871
+  - C00910
+  - C00912
+  - C00998
+  - C01006
+  - C01007
+  - C01008
+  - C01009
+  - C01010
+  confidence: medium
+  applies_when:
+  - Scoping MCP security requirements, audits, mitigations, research agendas, or secure-by-design
+    guidance.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: 'Enforce least-privilege secure delegation for MCP servers using OAuth:
+    authenticate users via existing OIDC identity providers, register servers as IAM
+    clients (using Dynamic Client Registration when needed), never pass through user-provided
+    tokens, perform token exchange for accountability, minimize scopes, and use short-lived
+    proof-of-possession tokens and Rich Authorization Requests; this also defeats
+    confused-deputy abuse.'
+  derived_from_claims:
+  - C00151
+  - C00160
+  - C00161
+  - C00162
+  - C00163
+  - C00164
+  - C00165
+  - C00166
+  - C00167
+  - C00168
+  confidence: high
+  applies_when:
+  - an MCP server brokers access to downstream services or delegates user authority
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: 'Treat MCP schemas, tool manifests, descriptors, and signed tool definitions
+    as executable contracts: require author identity and signature or hash verification,
+    immutable governed version control, semantic policy checks, provenance logging,
+    schema pinning, revalidation before use, approval for high-impact behavior, and
+    rollback plus forensic response after compromise.'
+  derived_from_claims:
+  - C00301
+  - C00302
+  - C00303
+  - C00304
+  - C00305
+  - C00306
+  - C00307
+  - C00308
+  - C00377
+  - C00378
+  confidence: high
+  applies_when:
+  - Schemas, manifests, descriptors, tool definitions, or tool metadata are loaded
+    dynamically, promoted through CI/CD, used during planning, or capable of changing
+    tool semantics.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P038
+  statement: 'Harden according to the deployment pattern: for all-local use stdio
+    transport (which eliminates DNS-rebinding risk) plus sandboxing; for single-tenant
+    remote require client-server authentication, secure OS-keychain/secret-manager
+    credential storage, and authenticated encrypted channels with enforced server
+    allowlists; for multi-tenant require strong tenant isolation (per-tenant encryption,
+    RBAC), preference for provider-hosted servers over third-party, and remote attestation
+    where possible.'
+  derived_from_claims:
+  - C00206
+  - C00207
+  - C00208
+  - C00209
+  - C00210
+  - C00211
+  - C00212
+  - C00213
+  - C00214
+  confidence: high
+  applies_when:
+  - selecting and hardening a specific MCP deployment pattern
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: 'Handle MCP credentials as ephemeral, scoped, vault-backed secrets: inject
+    them only at runtime, keep them out of model context and stored diagnostics, redact
+    sensitive records, audit credential flows, and rotate immediately on suspected
+    exposure.'
+  derived_from_claims:
+  - C00281
+  - C00282
+  - C00283
+  - C00284
+  - C00285
+  - C00286
+  - C00287
+  - C00288
+  - C00289
+  confidence: high
+  applies_when:
+  - MCP clients, servers, agents, or tools handle tokens, API keys, service credentials,
+    prompts, logs, traces, context memory, or vector stores that may contain secrets.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P040
+  statement: 'Make MCP audit and telemetry complete enough for accountability and
+    incident response: capture structured action and context evidence, protect log
+    integrity, forward telemetry to central monitoring, preserve privacy through redaction
+    and encryption, maintain baselines and traces, govern retention and access, and
+    test investigative readiness.'
+  derived_from_claims:
+  - C00345
+  - C00346
+  - C00347
+  - C00348
+  - C00349
+  - C00350
+  - C00351
+  - C00352
+  - C00353
+  confidence: high
+  applies_when:
+  - MCP systems perform autonomous actions, access sensitive data, make decisions,
+    or operate under compliance, security, or forensic requirements.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P041
+  statement: Treat public MCP ecosystem maturity as uneven and verify community servers,
+    marketplace listings, and directories for identity, availability, maintenance,
+    documentation, curation, validation, and signing before trusting them.
+  derived_from_claims:
+  - C00889
+  - C00890
+  - C00893
+  - C00894
+  - C00895
+  - C00896
+  - C00897
+  - C00898
+  - C00899
+  confidence: medium
+  applies_when:
+  - Selecting MCP servers from community marketplaces, directories, registries, or
+    repositories.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Protect MCP transport and sessions with endpoint authentication, secure
+    credential storage, audience-bound tokens, short-lived sessions, rotation, invalidation,
+    and session observability.
+  derived_from_claims:
+  - C00953
+  - C00954
+  - C00955
+  - C00956
+  - C00957
+  - C00978
+  - C00989
+  - C01004
+  confidence: medium
+  applies_when:
+  - Designing MCP HTTP, WebSocket, SSE, proxy, credential, or session controls.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Assess MCP controls by the attack preconditions they remove, especially
+    untrusted input, sensitive-data access, action capability, broad privileges, token
+    forwarding, unvalidated metadata, arbitrary egress, and weak server trust.
+  derived_from_claims:
+  - C00827
+  - C00828
+  - C00829
+  - C00830
+  - C00831
+  - C00832
+  - C00833
+  - C00838
+  confidence: medium
+  applies_when:
+  - When threat-modeling MCP deployments or choosing remediation priorities
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: For enterprise MCP deployments, avoid direct client-to-server OAuth as
+    the only control point when the enterprise IdP would lack visibility into downstream
+    tool connections.
+  derived_from_claims:
+  - C00541
+  - C00542
+  - C00543
+  - C00544
+  - C00545
+  - C00546
+  - C00547
+  - C00548
+  confidence: medium
+  applies_when:
+  - A downstream MCP server is accessed through an enterprise SSO-backed service.
+  - Enterprise policy visibility is required for AI-client access to tools.
+  - An MCP client requests access to a downstream tool in an enterprise-managed environment.
+  - The client, enterprise IdP, and MCP authorization server support the enterprise-managed
+    flow.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: 'Treat every server-supplied OAuth discovery URL as untrusted and apply
+    SSRF defenses: require HTTPS in production, block private/reserved and cloud-metadata
+    IP ranges, use a vetted library instead of hand-rolled IP validation, apply the
+    same checks to redirect targets, prefer an egress proxy for server-side deployments,
+    and pin DNS between check and use.'
+  derived_from_claims:
+  - C00102
+  - C00103
+  - C00104
+  - C00105
+  - C00106
+  - C00107
+  - C00108
+  confidence: high
+  applies_when:
+  - an MCP client fetches OAuth metadata/endpoint URLs supplied by an MCP server
+  - the client runs server-side where it can reach internal networks
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases:
+    - PB-P007
+- principle_id: P046
+  statement: Secure the MCP software supply chain by requiring signed provenance for
+    components, deployment SBOM and cryptographic inventories, pinned approved sources,
+    dependency and code scanning, and sandboxed third-party plugins with constrained
+    network and filesystem access.
+  derived_from_claims:
+  - C00309
+  - C00310
+  - C00311
+  - C00312
+  - C00313
+  - C00314
+  - C00315
+  confidence: high
+  applies_when:
+  - MCP systems use SDKs, connectors, protocol servers, plugins, model tooling, build
+    pipelines, container images, or package registries.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P047
+  statement: Evaluate MCP security as an LLM-tool safety problem that includes prompt
+    manipulation, unsafe execution, untrusted endpoints, unsafe workflows, ambiguous
+    documentation, model behavior, and alignment tradeoffs.
+  derived_from_claims:
+  - C00993
+  - C00994
+  - C00995
+  - C00996
+  - C00997
+  - C00999
+  - C01000
+  confidence: medium
+  applies_when:
+  - Assessing MCP as infrastructure for tool-augmented LLM agents.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: Resolve MCP tools by verified server-qualified identity and show provenance
+    or trust level before sensitive automatic invocations, with load-time conflict
+    checks across connected servers.
+  derived_from_claims:
+  - C00918
+  - C00919
+  - C00920
+  - C00921
+  - C00922
+  - C00935
+  - C00936
+  confidence: medium
+  applies_when:
+  - Loading multiple servers, resolving tool names, or invoking tools that affect
+    sensitive data or system state.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Treat MCP metadata, configuration, tool lists, resource lists, prompt
+    templates, capability declarations, and handlers as security-critical artifacts
+    that must be scoped and validated against implementation.
+  derived_from_claims:
+  - C00872
+  - C00873
+  - C00874
+  - C00875
+  - C00983
+  - C00984
+  - C00985
+  confidence: medium
+  applies_when:
+  - Creating or reviewing MCP server identity metadata, tools, resources, prompt templates,
+    or capability handlers.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: 'Apply conventional security hygiene to MCP components: enforce least
+    privilege to avoid overexposure, validate inputs against command injection and
+    path traversal, add integrity validation to messages and responses, protect stored
+    credentials and tokens, and securely handle transport descriptors.'
+  derived_from_claims:
+  - C00220
+  - C00229
+  - C00230
+  - C00231
+  - C00234
+  - C00235
+  confidence: high
+  applies_when:
+  - implementing or reviewing an MCP server or client
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: 'Because authorization correctness in MCP servers is an execution-time
+    property, complement static analysis with selective dynamic validation: issue
+    controlled invocations to resource-affecting paths and interpret success without
+    an authorization failure as the resource being accessible under existing state,
+    and an explicit authorization failure as effective per-invocation enforcement.
+    Apply dynamic validation only to the ambiguous case — tools whose execution paths
+    already contain authorization logic — and unify deployment modes (SSE, stdio)
+    non-invasively with an mcp-remote protocol proxy that captures inputs and outputs.'
+  derived_from_claims:
+  - C01227
+  - C01228
+  - C01229
+  - C01236
+  - C01237
+  - C01238
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: Do not cache or persist authorization state and reuse it across tool
+    invocations without a per-invocation, caller-scoped re-check; one-time authorization
+    combined with server-level trust lets later calls inherit an authorized state
+    regardless of their origin and expands the attack surface.
+  derived_from_claims:
+  - C01178
+  - C01180
+  - C01183
+  - C01185
+  - C01190
+  - C01204
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: Recognize that MCP middleware executes tools in its own execution context,
+    so backend services authenticate only the MCP server's identity and cannot see
+    the originating agent or the intent of individual invocations; therefore the MCP
+    layer, not the backend, must attribute and scope authorization.
+  derived_from_claims:
+  - C01196
+  - C01197
+  - C01198
+  - C01199
+  - C01263
+  - C01270
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: Treat Dynamic Client Registration as a risky default for broad MCP interoperability
+    unless the server and client lifecycle controls are explicit.
+  derived_from_claims:
+  - C00526
+  - C00527
+  - C00528
+  - C00531
+  - C00532
+  - C00533
+  confidence: medium
+  applies_when:
+  - An MCP authorization design proposes Dynamic Client Registration for an open or
+    enterprise-facing ecosystem.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Secure MCP source, dependency, build, and release pipelines with controlled
+    environments, reproducible builds, dependency records, signatures, checksums,
+    attestations, version pinning, and strict dependency management.
+  derived_from_claims:
+  - C00876
+  - C00877
+  - C00937
+  - C00938
+  - C00939
+  - C00986
+  confidence: medium
+  applies_when:
+  - Developing, building, packaging, publishing, installing, or distributing MCP servers
+    and dependencies.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Constrain MCP runtime environments and external resource access with
+    isolation, least privilege, authentication, authorization, sandboxing, trusted
+    bindings, filesystem roots, outbound network filters, and parameter validation.
+  derived_from_claims:
+  - C00878
+  - C00880
+  - C00948
+  - C00949
+  - C00950
+  - C00987
+  confidence: medium
+  applies_when:
+  - Deploying MCP servers that hold credentials, retrieve external data, expose local
+    resources, or run with host-provided permissions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Reject or redesign any agent workflow that simultaneously has private-data
+    access, exposure to untrusted content, and an outbound channel capable of carrying
+    data away.
+  derived_from_claims:
+  - C00765
+  - C00766
+  - C00767
+  - C00768
+  - C00769
+  - C00786
+  confidence: medium
+  applies_when:
+  - Composing or reviewing LLM tools for end users or applications.
+  - All three lethal capabilities are present in one workflow or tool chain.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: For scalable MCP authorization, compose OAuth authorization, protected-resource
+    metadata, authorization-server metadata, Dynamic Client Registration, and PKCE
+    as one coordinated stack.
+  derived_from_claims:
+  - C00555
+  - C00560
+  - C00563
+  - C00566
+  - C00571
+  - C00574
+  confidence: medium
+  applies_when:
+  - The goal is secure automated authorization between arbitrary LLM clients and remote
+    MCP services.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id002
+- principle_id: P059
+  statement: Prefer a capable hosted OAuth or identity platform when MCP auth requires
+    consent lifecycle, token management, revocation, dynamic registration, or multiple
+    external clients.
+  derived_from_claims:
+  - C00627
+  - C00628
+  - C00629
+  - C00630
+  - C00631
+  - C00632
+  confidence: medium
+  applies_when:
+  - The MCP server would otherwise need to implement OAuth provider infrastructure
+    itself.
+  - The integration includes multiple clients, refresh tokens, dynamic registration,
+    revocation, or production-grade consent UX.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: Maintain MCP servers with auditable version control, controlled configuration
+    changes, authenticated compatible updates, local-configuration preservation, rollback,
+    access auditing, and integrity-protected logs.
+  derived_from_claims:
+  - C00882
+  - C00883
+  - C00884
+  - C00885
+  - C00990
+  - C00991
+  confidence: medium
+  applies_when:
+  - Running MCP servers after deployment or applying patches, upgrades, credential
+    changes, resource address changes, or policy updates.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Do not rely on MCP server sandboxing alone for prompt-injection defense;
+    add controls over model-visible tool metadata, tool outputs, and cross-tool instruction
+    following.
+  derived_from_claims:
+  - C00721
+  - C00727
+  - C00733
+  - C00737
+  - C00738
+  - C00741
+  confidence: medium
+  applies_when:
+  - The harmful behavior is carried by text the model reads rather than by executable
+    server code.
+  - Multiple tool surfaces share a single agent instruction context.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: If DCR is used, require abuse controls, bounded registration storage,
+    a stale-registration policy, client recovery behavior, and a way to avoid repeated
+    unnecessary registrations.
+  derived_from_claims:
+  - C00527
+  - C00528
+  - C00529
+  - C00530
+  - C00533
+  - C00534
+  confidence: medium
+  applies_when:
+  - Authorization servers accept Dynamic Client Registration from MCP clients.
+  - Clients depend on dynamically registered credentials.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: Counter vulnerable-version redeployment with automated vulnerability
+    detection, version freshness checks, standardized packaging, and a trusted MCP
+    registry.
+  derived_from_claims:
+  - C00958
+  - C00959
+  - C00960
+  - C00961
+  - C00962
+  - C00977
+  confidence: medium
+  applies_when:
+  - Managing MCP package versions, auto-installers, updates, or server discovery.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: 'Enforce transport-layer controls matched to the transport in use: payload
+    limits and integrity checks on all transports; client-server and downstream authentication,
+    mutual TLS, TLS encryption, plus CORS and CSRF protection on HTTP transports;
+    and secure descriptor handling on stdio to prevent MITM, impersonation, replay,
+    and hijacking.'
+  derived_from_claims:
+  - C00156
+  - C00186
+  - C00187
+  - C00188
+  - C00189
+  confidence: high
+  applies_when:
+  - configuring MCP transport and protocol layers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: When using Client ID Metadata Documents, host the metadata at an HTTPS
+    URL that contains a path and whose client_id equals the URL exactly, include at
+    least client_id/client_name/redirect_uris, and have the authorization server validate
+    the client_id-URL match, the presented redirect URIs, and that the document is
+    well-formed JSON with the required fields.
+  derived_from_claims:
+  - C00028
+  - C00029
+  - C00030
+  - C00031
+  - C00033
+  confidence: high
+  applies_when:
+  - Client ID Metadata Documents are used for client identification
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: 'Protect against open redirection: pre-register redirect URIs, have the
+    authorization server validate them by exact match, avoid redirecting user agents
+    to untrusted URIs (auto-redirecting only trusted ones), and have clients use and
+    verify the state parameter, discarding mismatched or missing state.'
+  derived_from_claims:
+  - C00066
+  - C00067
+  - C00068
+  - C00069
+  - C00070
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: 'Run a strict OAuth state lifecycle: generate a cryptographically random
+    state per request, persist it server-side only after the user approves consent
+    and set the tracking cookie immediately before the third-party redirect, then
+    at the callback require an exact state match, reject missing/mismatched state,
+    and make state single-use with a short expiry.'
+  derived_from_claims:
+  - C00094
+  - C00095
+  - C00096
+  - C00097
+  - C00098
+  confidence: high
+  applies_when:
+  - implementing an OAuth authorization-code flow with a redirect callback
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases:
+    - PB-P005
+- principle_id: P068
+  statement: 'Close the stdio proxy escalation path by eliminating its enabling vulnerabilities
+    (OAuth URL validation, CSP, input sanitization) and hardening the proxy itself:
+    sandbox/containerize spawned processes, restrict their filesystem access, log
+    stdio usage, require extra authorization for dangerous commands, and isolate proxy
+    communication with least privilege.'
+  derived_from_claims:
+  - C00126
+  - C00127
+  - C00128
+  - C00129
+  - C00130
+  confidence: high
+  applies_when:
+  - a proxy architecture spawns MCP servers as child processes over stdio
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases:
+    - PB-P015
+- principle_id: P069
+  statement: 'Prioritize review of developer-facing MCP servers: they dominate the
+    ecosystem, expose dense execution interfaces (over 50% insecure), and often aggregate
+    multiple powerful capabilities, so a single authorization failure can escalate
+    into diverse, high-impact outcomes.'
+  derived_from_claims:
+  - C01193
+  - C01242
+  - C01247
+  - C01250
+  - C01251
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Use agent passports, trust levels, capability lists, mutual authentication,
+    revocation, and self-hostable trust authority operations to bind MCP agent identity,
+    permissions, and server acceptance to verifiable credentials.
+  derived_from_claims:
+  - C00374
+  - C00375
+  - C00376
+  - C00379
+  - C00381
+  confidence: high
+  applies_when:
+  - An MCP deployment adopts or evaluates a passport-based cryptographic trust model.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P071
+  statement: Use hardware TEEs with remote attestation to isolate MCP clients and
+    servers from compromised hardware, malicious infrastructure operators, and co-tenancy
+    threats, rejecting shadow or compromised servers whose measurements fail attestation,
+    but always complement TEEs with runtime controls because they do not cover vulnerabilities
+    in the running code.
+  derived_from_claims:
+  - C00174
+  - C00175
+  - C00176
+  - C00177
+  - C00178
+  confidence: high
+  applies_when:
+  - strong isolation against privileged or co-tenant adversaries is required
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: Identify the security-relevant tool entry as the moment a protocol-level
+    tools/call invocation commits to concrete execution — not an exported function
+    or callback — because MCP dispatch is dynamic and implementation-specific (name-to-handler
+    maps, generic dispatchers, layered callbacks, runtime-built handlers, decorators,
+    add-tool APIs, FastAPI-MCP routes, ToolHandler subclasses); cover all dispatch
+    and registration mechanisms rather than a single syntactic pattern.
+  derived_from_claims:
+  - C01188
+  - C01218
+  - C01219
+  - C01220
+  - C01233
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: 'Prevent cross-tenant leakage through shared efficiency optimizations:
+    sharing key-value caches or vector indexes across tenants creates covert side
+    channels even without an explicit bug (the PROMPTPEEK attack reconstructs another
+    user''s prompt token by token from cache hits), so relax separation for efficiency
+    only with provable safety or not at all.'
+  derived_from_claims:
+  - C01102
+  - C01103
+  - C01104
+  - C01105
+  - C01106
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: Trace the control flow from each tool entry point to every operation
+    that interacts with system, file, network, or physical resources — including sensitive
+    operations reached transitively through helpers or libraries — and along each
+    path determine whether authorization is absent, cached as server-level state,
+    or explicitly bound to the caller identity.
+  derived_from_claims:
+  - C01215
+  - C01217
+  - C01224
+  - C01225
+  - C01235
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: 'Judge an MCP server''s security posture from repository signals - project
+    size, lines of code, and commit history - and continuously monitor maintenance:
+    about 21.9% of servers are inactive over a year (an unpatched long tail) and oversized
+    dependency-heavy servers widen the attack surface, while most servers are lightweight.'
+  derived_from_claims:
+  - C01284
+  - C01326
+  - C01327
+  - C01328
+  - C01329
+  confidence: high
+  applies_when:
+  - assessing or monitoring MCP server maintenance and attack surface
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: Use OAuth rather than shared credentials or API keys when MCP agents
+    need to access protected user resources, especially across remote or third-party
+    boundaries.
+  derived_from_claims:
+  - C00612
+  - C00613
+  - C00647
+  - C00648
+  - C00650
+  confidence: medium
+  applies_when:
+  - An MCP client accesses protected resources on behalf of a user.
+  - The client and server are remote, cross-organization, cloud-hosted, or third-party
+    controlled.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Drive MCP OAuth setup from standards-based discovery documents instead
+    of hardcoded provider assumptions or service-specific configuration.
+  derived_from_claims:
+  - C00558
+  - C00560
+  - C00562
+  - C00563
+  - C00564
+  confidence: medium
+  applies_when:
+  - The protected resource and authorization server can publish standards-compliant
+    metadata.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id002
+- principle_id: P078
+  statement: 'Harden Client ID Metadata Document handling per its Section 6: mitigate
+    SSRF when the authorization server fetches an attacker-supplied client_id URL,
+    recognize that CIMD alone cannot prevent localhost redirect-URI impersonation
+    (warn on localhost-only redirects, clearly display the redirect hostname, optionally
+    require attestation), and optionally apply domain-based trust policies.'
+  derived_from_claims:
+  - C00071
+  - C00072
+  - C00073
+  - C00074
+  - C00075
+  confidence: medium
+  applies_when:
+  - an authorization server accepts URL-formatted client_ids
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: Treat MCP as a privileged enterprise integration layer and explicitly
+    model trust boundaries for authentication, token movement, tool metadata, runtime
+    execution, and supply-chain provenance.
+  derived_from_claims:
+  - C00818
+  - C00820
+  - C00821
+  - C00823
+  - C00837
+  confidence: medium
+  applies_when:
+  - When MCP connects an AI agent or model runtime to enterprise tools, services,
+    or data sources
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: Cloud-hosted MCP deployments must pair scaling convenience with managed
+    authentication, scoped authorization, secure session state, privacy controls,
+    data residency handling, latency design, tenant isolation, and runtime sandboxing.
+  derived_from_claims:
+  - C00906
+  - C00907
+  - C00908
+  - C00909
+  - C00981
+  confidence: medium
+  applies_when:
+  - Deploying MCP servers in managed cloud, remote, shared-cluster, or multi-tenant
+    infrastructure.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: Benchmark MCP defenses across multiple attack types, hosts, and client
+    configurations, then prefer layered defenses combining identity, policy, scanning,
+    detection, arbitration, logging, firewalling, gateways, and isolation.
+  derived_from_claims:
+  - C01001
+  - C01002
+  - C01003
+  - C01004
+  - C01005
+  confidence: medium
+  applies_when:
+  - Evaluating or designing MCP defenses for production, enterprise, or benchmarked
+    environments.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: Threat-model MCP line jumping for downstream effects such as code exfiltration,
+    vulnerability insertion, and security-alert manipulation, even when the malicious
+    server is never explicitly invoked.
+  derived_from_claims:
+  - C00743
+  - C00753
+  - C00754
+  - C00755
+  - C00756
+  confidence: medium
+  applies_when:
+  - An MCP-connected assistant can see code, generate code, inspect security outputs,
+    or interact with operational tooling after untrusted metadata enters context.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: Prevent server impersonation by binding MCP namespaces to verified publishers,
+    enforcing uniqueness, surfacing provenance, preferring trusted servers, and monitoring
+    suspicious registration or update behavior.
+  derived_from_claims:
+  - C00913
+  - C00914
+  - C00915
+  - C00916
+  - C00917
+  confidence: medium
+  applies_when:
+  - Distributing, selecting, installing, or dynamically resolving MCP servers by name.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: Validate tool definitions before model-context injection, hash reviewed
+    tool descriptions at deployment, verify each tools/list response against those
+    hashes, and reject changed descriptions as unreviewed model-trusted behavior.
+  derived_from_claims:
+  - C00826
+  - C00831
+  - C00836
+  - C00848
+  - C00849
+  confidence: medium
+  applies_when:
+  - When an MCP client retrieves tool metadata for model-context injection
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: Do not assume vendor fixes for known prompt-injection incidents secure
+    arbitrary user-assembled tool chains; enforce local capability boundaries for
+    the actual composition.
+  derived_from_claims:
+  - C00776
+  - C00777
+  - C00778
+  - C00785
+  - C00786
+  confidence: medium
+  applies_when:
+  - A user or team assembles tools outside a single vendor-controlled product boundary.
+  - The composition can recreate private-data access, untrusted input, and outbound
+    communication.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: Prevent privilege persistence by revoking credentials during updates,
+    synchronizing privilege changes, expiring versioned sessions, validating tokens
+    centrally, and supporting explicit revocation events.
+  derived_from_claims:
+  - C00963
+  - C00964
+  - C00965
+  - C00966
+  - C00967
+  confidence: medium
+  applies_when:
+  - MCP server versions, roles, sessions, credentials, streams, or shared tokens change.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: Cover both malicious MCP metadata and indirect prompt injections in MCP
+    security guardrails, rather than treating user approval or user caution as sufficient
+    protection.
+  derived_from_claims:
+  - C00724
+  - C00726
+  - C00728
+  - C00738
+  - C00741
+  confidence: medium
+  applies_when:
+  - Agents connect to MCP tools that can receive untrusted metadata, changed descriptions,
+    or attacker-controlled tool results.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: Control MCP configuration drift with canonical baseline comparison, version-controlled
+    definitions, immutable manifests, signed policy descriptors, rollback, compliance
+    auditing, and protocol-level checksum or schema hooks where available.
+  derived_from_claims:
+  - C00968
+  - C00969
+  - C00970
+  - C00971
+  - C00972
+  confidence: medium
+  applies_when:
+  - Maintaining MCP server configuration in local, cloud-hosted, multi-tenant, or
+    federated deployments.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P089
+  statement: Do not rely on human approval alone to neutralize MCP line-jumping risk;
+    pair approval with automated checks and workflow restrictions.
+  derived_from_claims:
+  - C00747
+  - C00748
+  - C00749
+  - C00762
+  - C00763
+  confidence: medium
+  applies_when:
+  - Users may approve unfamiliar commands or tools, or the environment can execute
+    proposed commands automatically.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: Prefer IdP-mediated Cross-App Access or identity chaining for enterprise
+    MCP app-to-app connections when the requesting and resource applications can rely
+    on the same enterprise IdP policy domain.
+  derived_from_claims:
+  - C00508
+  - C00509
+  - C00512
+  - C00516
+  - C00517
+  confidence: medium
+  applies_when:
+  - The parties can use the in-progress identity-chaining OAuth extension for the
+    app-to-app access case.
+  - The requesting and resource applications are both configured for SSO with the
+    relevant enterprise IdP.
+  - Enterprise policy already authorizes the requesting application to access the
+    resource application for the user.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: Construct authorization requests with complete OAuth parameters and present
+    a consent experience that clearly identifies the requesting agent and requested
+    scopes before approval.
+  derived_from_claims:
+  - C00617
+  - C00618
+  - C00619
+  - C00634
+  - C00643
+  confidence: medium
+  applies_when:
+  - An MCP client redirects a user to an authorization endpoint.
+  - The authorization UI renders a consent prompt for the agent.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: Model MCP integrations explicitly around host, client, server, transport,
+    and the server capability classes of tools, resources, and prompts.
+  derived_from_claims:
+  - C00863
+  - C00864
+  - C00865
+  - C00866
+  - C00870
+  confidence: medium
+  applies_when:
+  - Designing, reviewing, or testing an MCP integration or threat model.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: Block or require explicit escalation for tool-description instructions
+    that request sensitive-file access, credential handling, covert exfiltration,
+    or concealment from the user.
+  derived_from_claims:
+  - C00692
+  - C00693
+  - C00695
+  - C00699
+  - C00715
+  confidence: medium
+  applies_when:
+  - A model-visible tool description asks the agent to read local files, credentials,
+    configuration, databases, or other sensitive data.
+  - A tool call can carry arbitrary side-channel parameters or transformed secret
+    data.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: Treat attacker-controlled content as executable-looking instruction data
+    and do not rely on the model to infer that it has lower authority than user or
+    system instructions.
+  derived_from_claims:
+  - C00768
+  - C00771
+  - C00772
+  - C00773
+  - C00787
+  confidence: medium
+  applies_when:
+  - The agent reads web pages, email, documents, images, issue text, chat messages,
+    or other third-party content.
+  - Trusted and untrusted material are combined in the model context.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: Before executing external-send tools, inspect and constrain outgoing
+    arguments for unexpected destinations, hidden payloads, and inclusion of prior
+    chat, contact, or history data.
+  derived_from_claims:
+  - C00722
+  - C00723
+  - C00729
+  - C00732
+  - C00740
+  confidence: medium
+  applies_when:
+  - An agent can send messages or other data through a trusted connector.
+  - Earlier tool calls exposed chat history, contact lists, or other user communication
+    data to the agent context.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
+  statement: Treat externally received communication content in tool results as adversarial
+    data and prevent it from creating memory, policy, or send-parameter instructions.
+  derived_from_claims:
+  - C00728
+  - C00729
+  - C00730
+  - C00731
+  - C00739
+  confidence: medium
+  applies_when:
+  - An attacker can place messages or other content into a trusted tool result that
+    the agent reads.
+  - Received content appears before a later operation that can send data outward.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: Detect resource-abuse attempts by comparing sampled-token volume and
+    sampling frequency against operation-specific baselines and caps.
+  derived_from_claims:
+  - C00795
+  - C00796
+  - C00809
+  - C00812
+  - C00817
+  confidence: medium
+  applies_when:
+  - MCP servers are permitted to request LLM completions that consume user or organization
+    quota.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: Prevent sampled response text from becoming durable behavioral instruction
+    for later turns unless it has passed an explicit trust and safety check.
+  derived_from_claims:
+  - C00800
+  - C00801
+  - C00802
+  - C00808
+  - C00813
+  confidence: medium
+  applies_when:
+  - Sampled output may be displayed, summarized, stored, or carried forward into conversation
+    context.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: Treat MCP authorization as optional, but when it is used apply this specification
+    to HTTP-based transports (SHOULD conform), keep STDIO transports on environment-supplied
+    credentials (SHOULD NOT use this flow), and require established security best
+    practices on any other transport.
+  derived_from_claims:
+  - C00002
+  - C00003
+  - C00004
+  - C00005
+  confidence: high
+  applies_when:
+  - deciding whether/how to add authorization to an MCP implementation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: Enforce authentication and role-based access control (including CRUD-level
+    permissions) on MCP components and bind each session to an identity, since MCP
+    leaves identity and RBAC optional and many implementations omit them.
+  derived_from_claims:
+  - C00243
+  - C00244
+  - C00245
+  - C00261
+  confidence: high
+  applies_when:
+  - any MCP client, server, proxy, or host handling non-public data or actions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: Do not require an MCP authorization server to own user interface, login,
+    or account storage; it may delegate user authentication and account management
+    to another service.
+  derived_from_claims:
+  - C00478
+  - C00479
+  - C00480
+  - C00481
+  confidence: high
+  applies_when:
+  - Designing the responsibility boundary of an MCP authorization server.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: Clients MUST implement RFC 8707 Resource Indicators and include a resource
+    parameter identifying the target MCP server by its canonical URI in both authorization
+    and token requests, sending it regardless of whether the authorization server
+    supports it, so tokens are bound to their intended resource.
+  derived_from_claims:
+  - C00040
+  - C00043
+  - C00055
+  - C00083
+  confidence: high
+  applies_when:
+  - a client requests an access token for an MCP server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P103
+  statement: Preserve MCP client bootstrap from a single server URL by using protected-resource
+    metadata to point clients from the MCP resource server to the appropriate authorization
+    server metadata.
+  derived_from_claims:
+  - C00467
+  - C00468
+  - C00469
+  - C00470
+  confidence: high
+  applies_when:
+  - An MCP client is given only an MCP server URL and must discover OAuth endpoints.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P104
+  statement: 'Allowlist authorization-URL schemes: permit only http/https (https in
+    production), reject javascript:, data:, file:, vbscript: and other dangerous schemes,
+    and prefer allowlist over blocklist validation to prevent XSS via malicious authorization
+    URLs.'
+  derived_from_claims:
+  - C00118
+  - C00120
+  - C00121
+  - C00122
+  confidence: high
+  applies_when:
+  - an MCP client receives an authorization URL from an MCP server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases:
+    - PB-P012
+- principle_id: P105
+  statement: Before securing an MCP system, classify its deployment pattern (all-local,
+    single-tenant hybrid, or multi-tenant cloud) and explicitly map the resulting
+    trust boundaries, because security posture is set by where server code originates,
+    where it executes, and what resources it can reach.
+  derived_from_claims:
+  - C00140
+  - C00141
+  - C00142
+  - C00143
+  confidence: high
+  applies_when:
+  - reviewing or designing any MCP deployment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: 'Govern the full MCP server lifecycle: mandatory code-signing and binary
+    authorization before install, private vetted repositories with software-composition
+    analysis, allow-lists with documented reviews, SBOM tracking, hash-pinned dependencies
+    and reproducible builds, a centralized server inventory, automated shadow-deployment
+    discovery, deprecation and rollback policies, periodic re-certification, and forced
+    upgrades for servers with known vulnerabilities.'
+  derived_from_claims:
+  - C00199
+  - C00200
+  - C00201
+  - C00202
+  confidence: high
+  applies_when:
+  - managing MCP servers across an organization over time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
+  statement: Prevent shadow MCP deployments by requiring central registration before
+    deployment, CI/CD gates, owner and compliance metadata, continuous discovery,
+    secure baseline templates, central IAM, service identities, segmentation, anomaly
+    monitoring, developer education, policy signoff, threat-hunting playbooks, and
+    incident workflows.
+  derived_from_claims:
+  - C00354
+  - C00355
+  - C00356
+  - C00357
+  confidence: high
+  applies_when:
+  - Teams can create, expose, test, or operate MCP servers or AI infrastructure outside
+    a tightly governed deployment path.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P108
+  statement: 'Account for MCP''s inherent architectural weaknesses when threat modeling:
+    centralized credential stores are high-value targets, the spec lacks native fine-grained
+    authorization, LLMs transform but do not sanitize malicious input, and there is
+    no control-plane/data-plane separation so any adversary-controllable input can
+    alter execution flow.'
+  derived_from_claims:
+  - C00215
+  - C00216
+  - C00217
+  - C00218
+  confidence: high
+  applies_when:
+  - assessing residual risk that protocol design imposes on an MCP deployment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
+  statement: Require identity-bound server authentication and integrity or signature
+    verification, because without them tool shadowing, model-switching, unauthorized
+    context injection, and unverified message modification grant attackers silent
+    control.
+  derived_from_claims:
+  - C01026
+  - C01027
+  - C01030
+  - C01031
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
+  statement: 'Use one unified threat model in which security breaches and safety failures
+    converge: an indirect prompt injection can cause an honestly-mistaken destructive
+    action, and a tool-parameter hallucination can cause a breach, so never triage
+    epistemic errors and unauthorized actions as separate domains.'
+  derived_from_claims:
+  - C01013
+  - C01014
+  - C01016
+  - C01040
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P111
+  statement: 'Treat tools as the primary security boundary: give each tool a single,
+    explicitly bounded purpose, prefer narrow purpose-built tools over powerful general
+    ones (e.g., a prepared statement over arbitrary SQL), and never delegate security-critical
+    validation or constraint enforcement to the LLM.'
+  derived_from_claims:
+  - C00190
+  - C00191
+  - C00192
+  - C00193
+  confidence: high
+  applies_when:
+  - designing or reviewing MCP tool interfaces
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P112
+  statement: Make security-relevant elicitations clear about their implications and
+    do not rely solely on the human user; where the risk of dangerous tool execution
+    is unacceptable, enforce host/client configurations that unprivileged users cannot
+    change to keep confirmation prompts enabled, and use server-side elicitation for
+    explicit confirmation.
+  derived_from_claims:
+  - C00153
+  - C00194
+  - C00195
+  - C00196
+  confidence: high
+  applies_when:
+  - human-in-the-loop confirmation is a control for risky MCP actions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P113
+  statement: Review MCP deployments as agent-mediated security boundaries where model-selected
+    tool calls can reach sensitive systems, not merely as conventional API integrations.
+  derived_from_claims:
+  - C00382
+  - C00383
+  - C00386
+  - C00387
+  confidence: high
+  applies_when:
+  - An MCP host or client exposes external tools, data sources, or services to an
+    LLM-driven workflow.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P114
+  statement: 'Flag any MCP tool that passes tool parameters into a system-command
+    invocation without authentication, caller verification, or input sanitization:
+    it becomes an unauthenticated remote-command-execution endpoint running at the
+    server process''s privilege, and such flaws are observed in real high-star projects.
+    These attacks abuse the MCP execution model itself, not memory corruption, sandbox
+    escape, or credential theft.'
+  derived_from_claims:
+  - C01194
+  - C01195
+  - C01257
+  - C01262
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P115
+  statement: 'Defend Tool Poisoning at the pre-execution reasoning stage: screen tool
+    descriptions before they enter the agent''s planning context rather than relying
+    on content-based output filtering or model safety alignment, which do not catch
+    TPA (refusal stays under 3%).'
+  derived_from_claims:
+  - C01142
+  - C01169
+  - C01170
+  - C01174
+  confidence: high
+  applies_when:
+  - designing safety controls for an MCP-integrated agent
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P116
+  statement: 'Enumerate and test all three attack paradigms when assessing an agent:
+    explicit-trigger function hijacking (P1), implicit-trigger function hijacking
+    (P2), and implicit-trigger parameter tampering (P3); covering only one leaves
+    the others unmeasured.'
+  derived_from_claims:
+  - C01148
+  - C01149
+  - C01150
+  - C01151
+  confidence: high
+  applies_when:
+  - evaluating or red-teaming an agent's robustness to Tool Poisoning
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P117
+  statement: 'Interpret MCP ecosystem growth cautiously: measured scale is smaller
+    than raw counts suggest, MCP.so has plateaued, and new growth is driven largely
+    by duplication (via MCP Market) rather than novel projects.'
+  derived_from_claims:
+  - C01280
+  - C01318
+  - C01319
+  - C01322
+  confidence: high
+  applies_when:
+  - judging ecosystem momentum or adoption trend
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P118
+  statement: Resolve cross-market MCP entities with multi-feature matching (GitHub
+    URL as strong id, TF-IDF cosine text similarity, author and license, temporal
+    activity) plus content hashing; auto-merge above a threshold and escalate borderline
+    cases to human review - never rely on a single identifier.
+  derived_from_claims:
+  - C01300
+  - C01302
+  - C01304
+  - C01308
+  confidence: high
+  applies_when:
+  - deduplicating or linking MCP projects across markets
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P119
+  statement: 'Crawl reproducibly and resiliently: rate-limited, robots-aware requests,
+    time-versioned snapshots, rotating IPs, keyword variants, and semi-automated CAPTCHA
+    handling with cookie or session reuse - these lifted coverage about 18% and sustained
+    roughly 36-hour sessions at about 96.7% success.'
+  derived_from_claims:
+  - C01300
+  - C01301
+  - C01314
+  - C01315
+  confidence: high
+  applies_when:
+  - designing a large-scale market crawl
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P120
+  statement: Treat the MCP ecosystem as transitional - widely adopted in appearance
+    but structurally fragile (over 50% low-value, supply-chain monocultures, uneven
+    maintenance, slow client protocol migration) - and weight advice toward sustainability,
+    server security, and client interoperability.
+  derived_from_claims:
+  - C01288
+  - C01336
+  - C01351
+  - C01352
+  confidence: high
+  applies_when:
+  - giving strategic guidance on adopting or investing in MCP
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P121
+  statement: Model an MCP protected endpoint as a resource server and keep the authorization
+    server role explicit, even if both roles are implemented by the same deployment.
+  derived_from_claims:
+  - C00462
+  - C00463
+  - C00464
+  - C00465
+  confidence: medium
+  applies_when:
+  - Designing OAuth-based authorization for an MCP server.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P122
+  statement: Avoid making user-facing MCP authorization depend on local server setup
+    and plaintext API credentials; use an authorization flow that removes manual credential
+    provisioning from the normal path.
+  derived_from_claims:
+  - C00552
+  - C00553
+  - C00554
+  - C00557
+  confidence: medium
+  applies_when:
+  - The MCP integration is intended for non-developer or broad user adoption.
+  - The MCP server must call authenticated remote services.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id002
+- principle_id: P123
+  statement: Design MCP connection flows so users experience account-style authorization
+    and self-service setup instead of managing tokens, scopes, and provider-specific
+    configuration by hand.
+  derived_from_claims:
+  - C00557
+  - C00564
+  - C00568
+  - C00575
+  confidence: medium
+  applies_when:
+  - The relevant OAuth metadata and registration mechanisms are available across the
+    participating services.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id002
+- principle_id: P124
+  statement: 'Keep MCP resource-server authorization state minimal: validate external
+    tokens and enforce local RBAC or permission checks inside the MCP server.'
+  derived_from_claims:
+  - C00593
+  - C00594
+  - C00595
+  - C00610
+  confidence: medium
+  applies_when:
+  - External tokens can be validated without the MCP server managing the OAuth login
+    or issuance flow
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P125
+  statement: Do not rely on the MCP protocol itself for security guarantees; add authentication,
+    authorization, and transport controls in the host, client, and server implementation.
+  derived_from_claims:
+  - C00819
+  - C00820
+  - C00823
+  - C00824
+  confidence: medium
+  applies_when:
+  - When implementing or reviewing MCP hosts, clients, or servers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P126
+  statement: On a runtime insufficient-scope error, respond with 403 plus a Bearer
+    WWW-Authenticate header carrying error=insufficient_scope, the required scope
+    set, and resource_metadata; clients should react with a step-up authorization
+    flow (user-delegated clients SHOULD, client_credentials clients MAY) using retry
+    limits and tracked upgrade attempts, while servers keep a consistent, user-experience-aware
+    scope-inclusion strategy.
+  derived_from_claims:
+  - C00050
+  - C00051
+  - C00052
+  - C00053
+  confidence: medium
+  applies_when:
+  - a client holds a token but lacks sufficient scope for an operation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P127
+  statement: 'Support the three client-registration mechanisms and, when several are
+    available, select in priority order: pre-registered credentials, then Client ID
+    Metadata Documents (if the AS advertises support), then Dynamic Client Registration
+    (kept mainly for backwards compatibility), then prompt the user.'
+  derived_from_claims:
+  - C00026
+  - C00027
+  - C00036
+  - C00037
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P128
+  statement: Use a dedicated MCP authorization server as a delegation boundary when
+    relying on external identity or OAuth services, so the MCP client sees MCP-specific
+    endpoints while backend identity flows can vary.
+  derived_from_claims:
+  - C00477
+  - C00479
+  - C00480
+  - C00481
+  confidence: medium
+  applies_when:
+  - An MCP server needs to reuse an existing OAuth server, login system, or hosted
+    authorization product.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P129
+  statement: Model MCP integrations around explicit host, client, server, data-source,
+    and remote-service responsibilities so capability ownership and access boundaries
+    stay clear.
+  derived_from_claims:
+  - C00651
+  - C00652
+  - C00653
+  - C00654
+  confidence: medium
+  applies_when:
+  - Designing or reviewing an MCP integration architecture.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P130
+  statement: Treat MCP authorization weakness as systemic — spanning functional categories,
+    star ranges, and maturity, and stemming from flawed assumptions about execution
+    context and caller identity rather than absent checks — and do not assess ecosystem
+    or server security by counting vulnerable servers alone; weigh the nature and
+    severity of the actions those servers enable.
+  derived_from_claims:
+  - C01250
+  - C01253
+  - C01255
+  - C01256
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P131
+  statement: Normalize and evaluate suspicious structured-context payloads in tool
+    outputs, because injections may imitate surrounding serialization rather than
+    appear as plain instructions.
+  derived_from_claims:
+  - C00728
+  - C00730
+  - C00731
+  - C00739
+  confidence: medium
+  applies_when:
+  - Tool outputs contain serialized records, message objects, or other structured
+    text that may include attacker-controlled substrings.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P132
+  statement: Treat every MCP sampling prompt supplied by a server as untrusted input
+    that crosses a security boundary before reaching the LLM.
+  derived_from_claims:
+  - C00789
+  - C00791
+  - C00792
+  - C00793
+  confidence: medium
+  applies_when:
+  - A host enables MCP sampling for one or more connected servers.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P133
+  statement: Isolate MCP servers with explicit cross-server dataflow and authority
+    boundaries instead of giving all connected servers unrestricted influence in one
+    agent context.
+  derived_from_claims:
+  - C00703
+  - C00704
+  - C00707
+  - C00711
+  confidence: medium
+  applies_when:
+  - Multiple MCP servers are connected to the same client or agent.
+  - One server can access data, credentials, or authority associated with another
+    server through the shared agent context.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P134
+  statement: Use end-to-end MCP security controls across client, server, protocol,
+    tool metadata, and model dataflow rather than relying on a single confirmation
+    prompt or prompt-level rule.
+  derived_from_claims:
+  - C00696
+  - C00702
+  - C00712
+  - C00714
+  confidence: medium
+  applies_when:
+  - Agent behavior depends on server-provided tool descriptions and model-mediated
+    tool calls.
+  - Sensitive data can move between model context, local resources, and MCP servers.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P135
+  statement: When delegating user login to a third-party identity provider, preserve
+    the MCP OAuth responsibility for issuing an MCP-server token bound to the third-party
+    session.
+  derived_from_claims:
+  - C00682
+  - C00683
+  - C00687
+  - C00688
+  confidence: medium
+  applies_when:
+  - An MCP OAuth flow delegates user authentication to an external identity provider.
+  - An MCP server delegates OAuth metadata or authentication to an external identity
+    provider.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P136
+  statement: Validate JWT bearer tokens for signature, issuer, audience, expiry, and
+    scopes before serving protected MCP data, and deny requests that fail those checks.
+  derived_from_claims:
+  - C00622
+  - C00623
+  - C00637
+  - C00645
+  confidence: medium
+  applies_when:
+  - A protected MCP request includes a JWT bearer token.
+  - The resource server has the audience, issuer, and JWKS configuration needed for
+    validation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P137
+  statement: Use system-level enforcement (sandboxing, mandatory access control, capability-based
+    execution, or container isolation) to limit the blast radius of unauthorized tool
+    invocations, but recognize it is coarse-grained, does not address the root cause
+    at the MCP layer, and requires policy configuration that may be infeasible in
+    lightweight or user-installed deployments — so pair it with MCP-layer caller-bound
+    authorization.
+  derived_from_claims:
+  - C01266
+  - C01267
+  - C01268
+  - C01269
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P138
+  statement: Treat MCP tool descriptions as untrusted model-facing input; do not allow
+    server-supplied metadata to override user intent, system rules, or trusted-service
+    rules.
+  derived_from_claims:
+  - C00691
+  - C00694
+  - C00708
+  - C00716
+  confidence: medium
+  applies_when:
+  - Tool descriptions come from third-party, mutable, or otherwise externally controlled
+    MCP servers.
+  - An agent loads tool metadata into the same context as user instructions or trusted-server
+    instructions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P139
+  statement: Require explicit user approval for tool execution that arises from or
+    is adjacent to MCP sampling output.
+  derived_from_claims:
+  - C00803
+  - C00804
+  - C00806
+  - C00814
+  confidence: medium
+  applies_when:
+  - A sampled completion can influence tool calls, file operations, or other system
+    actions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P140
+  statement: Use prompt-level guardrails only as defense-in-depth; do not count natural-language
+    instructions as the sole boundary preventing prompt-injection exfiltration.
+  derived_from_claims:
+  - C00774
+  - C00775
+  - C00782
+  - C00783
+  confidence: medium
+  applies_when:
+  - A proposed control relies on telling the model not to obey malicious or lower-priority
+    instructions.
+  - Failure could trigger consequential actions or leak private data.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P141
+  statement: Integrate enterprise SSO by routing user authentication through the existing
+    enterprise identity path behind the MCP authorization server, without changing
+    the MCP client or resource server flow.
+  derived_from_claims:
+  - C00487
+  - C00488
+  - C00489
+  - C00490
+  confidence: medium
+  applies_when:
+  - The underlying application already supports enterprise SSO or can delegate login
+    through an authorization server.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P142
+  statement: Treat enterprise-deployed MCP clients and AI agents as first-class enterprise
+    applications that require SSO integration and central access governance.
+  derived_from_claims:
+  - C00499
+  - C00500
+  - C00501
+  - C00502
+  confidence: medium
+  applies_when:
+  - An AI agent or MCP client is being rolled out inside an enterprise.
+  - The agent needs access to company-managed applications or data.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P143
+  statement: 'Design enterprise-ready MCP authorization as a paired model: CIMD scales
+    decentralized client identity, while Enterprise-Managed Authorization centralizes
+    enterprise policy decisions.'
+  derived_from_claims:
+  - C00523
+  - C00538
+  - C00549
+  - C00551
+  confidence: medium
+  applies_when:
+  - Designing MCP authorization for scalable enterprise adoption.
+  - Both client identity and enterprise access management must be addressed.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P144
+  statement: Challenge unauthenticated protected MCP calls and make the OAuth endpoints
+    discoverable through authorization-server metadata, with fallback behavior only
+    when metadata is unavailable.
+  derived_from_claims:
+  - C00614
+  - C00615
+  - C00616
+  - C00644
+  confidence: medium
+  applies_when:
+  - A protected MCP endpoint receives a request without a bearer token.
+  - An OAuth-secured MCP server needs clients to locate authorization, token, registration,
+    scope, and PKCE capabilities.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P145
+  statement: Design token lifetime, refresh, rotation, and revocation behavior so
+    leaked tokens have a limited damage window and user disconnects stop future agent
+    access.
+  derived_from_claims:
+  - C00625
+  - C00626
+  - C00642
+  - C00646
+  confidence: medium
+  applies_when:
+  - The MCP integration issues access tokens, refresh tokens, or long-lived agent
+    access.
+  - Users need the ability to disconnect an agent after consent.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P146
+  statement: Treat MCP tool-description changes as security-relevant changes that
+    require visible review, diffing, or re-approval before the updated tool can influence
+    the agent.
+  derived_from_claims:
+  - C00718
+  - C00719
+  - C00726
+  - C00735
+  confidence: medium
+  applies_when:
+  - A previously approved MCP server changes a tool name, description, schema, or
+    behavior-shaping metadata.
+  - A server can delay or selectively activate changed metadata after installation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P147
+  statement: Apply MCP security checks during connection and tool discovery, before
+    server-provided metadata reaches the model, rather than waiting for explicit tool
+    invocation.
+  derived_from_claims:
+  - C00742
+  - C00743
+  - C00750
+  - C00752
+  confidence: medium
+  applies_when:
+  - The control point currently governs tool calls but not pre-invocation metadata
+    ingestion.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P148
+  statement: Do not treat a plausible or useful MCP tool as trustworthy merely because
+    it performs the visible user-requested task.
+  derived_from_claims:
+  - C00794
+  - C00795
+  - C00800
+  - C00803
+  confidence: medium
+  applies_when:
+  - A server exposes a tool that appears aligned with the user request while also
+    controlling sampling prompt content.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P149
+  statement: 'Model outbound capability broadly: HTTP requests, image loads, API calls,
+    public writes, and generated links can all be exfiltration paths if they can encode
+    private context.'
+  derived_from_claims:
+  - C00769
+  - C00770
+  - C00777
+  - C00781
+  confidence: medium
+  applies_when:
+  - A tool can send, fetch, write, render, or prompt a user to open data outside the
+    private boundary.
+  - The outbound action can include or reveal information from agent context.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P150
+  statement: Review aggregate tool composition, not just individual tools, because
+    safe-looking components can become unsafe when their combined capabilities satisfy
+    the lethal trifecta.
+  derived_from_claims:
+  - C00778
+  - C00779
+  - C00781
+  - C00785
+  confidence: medium
+  applies_when:
+  - Using extensible agent protocols, marketplaces, plugins, MCP servers, or user-selected
+    tool bundles.
+  - Capabilities come from multiple vendors or independently safe components.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P151
+  statement: Classify email and similar message-reading tools as untrusted-input channels
+    and isolate them from permissions that can expose private data or perform outbound
+    actions.
+  derived_from_claims:
+  - C00768
+  - C00772
+  - C00780
+  - C00786
+  confidence: medium
+  applies_when:
+  - The agent can read inboxes, tickets, issues, comments, chats, or other content
+    that an attacker can submit.
+  - The same workflow also has private-data access or outbound-action capability.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P152
+  statement: Make sampled outputs auditable enough that hidden generated content cannot
+    be concealed by UI summarization or result condensation alone.
+  derived_from_claims:
+  - C00796
+  - C00797
+  - C00798
+  - C00799
+  confidence: medium
+  applies_when:
+  - The host displays a summarized, filtered, or otherwise transformed view of MCP
+    tool output.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P153
+  statement: For action-capable MCP assistants and IDE integrations, evaluate data
+    compatibility, permission management, isolation, distributed-call latency, and
+    tool chaining risk.
+  derived_from_claims:
+  - C00902
+  - C00903
+  - C00904
+  - C00905
+  confidence: medium
+  applies_when:
+  - Adding MCP tools that can write, automate tasks, interact with repositories, or
+    coordinate multiple developer tools.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P154
+  statement: 'Assess security impact with a resource-centric view: classify each tool
+    invocation by the type of resource it ultimately affects — system-level execution,
+    persistent data access, network or external communication, or physical/human-interface
+    interaction — rather than by how the tool is invoked or implemented, and treat
+    system-level execution capabilities as particularly severe.'
+  derived_from_claims:
+  - C01210
+  - C01211
+  - C01252
+  - C01253
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P155
+  statement: Do not assume a larger or reasoning-enabled model is safer against Tool
+    Poisoning; inverse scaling holds — more capable models are often more vulnerable
+    (enabling Qwen3 reasoning raised ASR by 27.8%; o1-mini reached 72.8%) because
+    the attack exploits stronger instruction-following.
+  derived_from_claims:
+  - C01159
+  - C01163
+  - C01164
+  - C01165
+  confidence: medium
+  applies_when:
+  - selecting a model or reasoning setting on the belief it improves safety
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P156
+  statement: 'Gate one-click local MCP server configuration behind explicit, fully
+    transparent consent: show the exact untruncated command, flag it as code execution
+    on the user''s machine, require approval with a cancel option, and highlight dangerous
+    patterns and sensitive-path access.'
+  derived_from_claims:
+  - C00113
+  - C00114
+  - C00115
+  confidence: high
+  applies_when:
+  - the client offers one-click configuration that executes local MCP server commands
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases:
+    - PB-P010
+- principle_id: P157
+  statement: Model the MCP server as an OAuth 2.1 resource server and the MCP client
+    as an OAuth 2.1 client acting for a resource owner, and treat the authorization
+    server as a separable component (co-hosted or standalone) located via metadata.
+  derived_from_claims:
+  - C00007
+  - C00008
+  - C00009
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P158
+  statement: 'Follow OAuth 2.1 Section 7 security best practices end to end: implement
+    secure token storage, issue short-lived access tokens, and rotate refresh tokens
+    for public clients.'
+  derived_from_claims:
+  - C00054
+  - C00056
+  - C00057
+  confidence: high
+  applies_when:
+  - public clients
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P159
+  statement: Advertise required scopes in the WWW-Authenticate scope parameter; clients
+    MUST treat the challenge scopes as authoritative for the current request, MUST
+    NOT assume any subset/superset relationship to scopes_supported, and MUST apply
+    the scope-selection fallback when no scope is provided.
+  derived_from_claims:
+  - C00019
+  - C00020
+  - C00022
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P160
+  statement: When discovering authorization-server metadata, clients MUST probe multiple
+    well-known endpoints in the defined priority order, which differs depending on
+    whether the issuer URL includes a path component.
+  derived_from_claims:
+  - C00023
+  - C00024
+  - C00025
+  confidence: high
+  applies_when:
+  - a client is resolving authorization-server metadata from an issuer URL
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P161
+  statement: 'Enforce communication security: serve all authorization-server endpoints
+    over HTTPS, restrict every redirect URI to localhost or HTTPS, and follow OAuth
+    2.1 Section 1.5.'
+  derived_from_claims:
+  - C00058
+  - C00059
+  - C00060
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P162
+  statement: 'Never accept mis-audienced tokens or pass a client-supplied token through
+    to downstream services: audience-validation failure lets attackers reuse tokens
+    across services and token passthrough creates confused-deputy exposure.'
+  derived_from_claims:
+  - C00077
+  - C00078
+  - C00082
+  confidence: high
+  applies_when:
+  - an MCP server makes requests to upstream APIs
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P163
+  statement: When sessions are used for state, make session IDs secure random values
+    (e.g., UUIDs from a CSPRNG), bind them to user-specific identity such as <user_id>:<session_id>,
+    and rotate or expire them to limit hijacking impact.
+  derived_from_claims:
+  - C00110
+  - C00111
+  - C00112
+  confidence: high
+  applies_when:
+  - the server issues session IDs to clients
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases:
+    - PB-P009
+- principle_id: P164
+  statement: 'Open authorization URLs without a shell: never invoke cmd.exe/sh/PowerShell
+    to open URLs, use platform non-shell openers, and web clients should apply a restrictive
+    CSP (script-src/default-src ''self'') to block injected JavaScript and command
+    injection.'
+  derived_from_claims:
+  - C00119
+  - C00123
+  - C00124
+  confidence: high
+  applies_when:
+  - an MCP client opens or renders a server-supplied authorization URL
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases:
+    - PB-P013
+- principle_id: P165
+  statement: Continuously detect and eliminate shadow, zombie, and malicious MCP servers
+    through automated discovery, a centralized inventory, and decommissioning, because
+    absent provenance and inventory controls attackers deploy unauthorized servers
+    and distribute malicious or rug-pull packages that introduce unvetted capabilities.
+  derived_from_claims:
+  - C00225
+  - C00226
+  - C00233
+  confidence: high
+  applies_when:
+  - managing which MCP servers are permitted to run in an environment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P166
+  statement: Establish explicit trust boundaries/zones between MCP components, gate
+    dynamic tool discovery behind origin verification or authorization, align tools
+    and models to data-classification zones, prefer local MCP servers for private
+    data, and control egress via a filtering proxy or DLP.
+  derived_from_claims:
+  - C00267
+  - C00268
+  - C00269
+  confidence: high
+  applies_when:
+  - MCP components span differing trust levels or handle sensitive/regulated data
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P167
+  statement: Separate sensitive MCP servers from general-purpose servers so payment,
+    authentication, and personal-data capabilities are not exposed to broad shared
+    contexts.
+  derived_from_claims:
+  - C00394
+  - C00413
+  - C00414
+  confidence: high
+  applies_when:
+  - An MCP environment includes both sensitive capabilities and general-purpose tools.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P168
+  statement: Treat each connected MCP server as a separate untrusted security domain
+    and monitor or mediate cross-server data flows.
+  derived_from_claims:
+  - C00383
+  - C00413
+  - C00414
+  confidence: high
+  applies_when:
+  - An MCP host or client connects to more than one server.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P169
+  statement: 'Treat every MCP integration as a privilege-execution boundary, not a
+    passive text interface: MCP turns the LLM into an active system component with
+    shell-level privileges acting on untrusted context, and the attack surface grows
+    with each connected file, database, or API.'
+  derived_from_claims:
+  - C01011
+  - C01012
+  - C01036
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P170
+  statement: 'Verify MCP server provenance before deployment: require developers to
+    publish code signatures and SBOMs, verify contents and signatures against an approved-source
+    and signing-key policy, protect all data in transit with TLS, and prefer end-to-end
+    signatures proving authenticity of returned resources.'
+  derived_from_claims:
+  - C00183
+  - C00184
+  - C00185
+  confidence: high
+  applies_when:
+  - acquiring, installing, or updating an MCP server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P171
+  statement: Strictly validate and sanitize every input with allowlists at each trust
+    boundary (path canonicalization, parameterized queries, context-aware output encoding
+    for SQL/shell/HTML), treat AI-generated content as untrusted requiring the same
+    validation, and deploy prompt-injection detection with strict schemas across all
+    MCP-returned data.
+  derived_from_claims:
+  - C00170
+  - C00171
+  - C00173
+  confidence: high
+  applies_when:
+  - any MCP component accepts input or consumes server responses
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P172
+  statement: Secure MCP deployments with defense-in-depth—zero-trust architecture,
+    hardware isolation via TEEs, rigorous supply-chain vetting, and continuous monitoring—because
+    documented incidents show that failures of authentication, session management,
+    and supply-chain control are active, not theoretical, threats.
+  derived_from_claims:
+  - C00157
+  - C00204
+  - C00205
+  confidence: high
+  applies_when:
+  - setting overall security architecture for an MCP-based system
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P173
+  statement: Do not rely on MCP protocol guarantees for security; enforce it through
+    implementation rigor and standard external controls (reverse proxies, middleware
+    firewalls, application sandboxing/containment), because the protocol cannot enforce
+    security principles itself.
+  derived_from_claims:
+  - C00239
+  - C00249
+  - C00265
+  confidence: high
+  applies_when:
+  - designing, reviewing, or deploying any MCP-based system
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P174
+  statement: Enforce resource-consumption controls—token, context-size, and API-call
+    quotas plus cost management—to prevent resource-exhaustion denial of service and
+    denial-of-wallet, since the protocol specifies none by default.
+  derived_from_claims:
+  - C00154
+  - C00223
+  - C00224
+  confidence: high
+  applies_when:
+  - an MCP deployment incurs metered LLM, tool, or API cost
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P175
+  statement: Apply traditional controls (authentication, authorization, input validation)
+    AND explicitly address agentic-specific risks—dynamic tool invocation, implicit
+    trust between agents, and shared/overlapping context—across the entire lifecycle
+    rather than at endpoints alone.
+  derived_from_claims:
+  - C00240
+  - C00241
+  - C00242
+  confidence: high
+  applies_when:
+  - securing an agentic MCP deployment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P176
+  statement: Execute agent-produced commands, queries, file operations, and API calls
+    only through validated tool boundaries that use allowlists, metacharacter rejection,
+    path normalization, structured APIs, parameterization, sandboxing, least privilege,
+    secret isolation, approval for sensitive actions, and immutable call logging.
+  derived_from_claims:
+  - C00316
+  - C00317
+  - C00318
+  confidence: high
+  applies_when:
+  - An MCP agent or tool transforms model output, user input, retrieved context, or
+    third-party data into executable operations.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P177
+  statement: Enforce token and session lifecycle management—expiration, rotation,
+    revocation, reuse/replay control, and idempotency—rather than relying on MCP's
+    optional authorization and unmanaged OAuth 2.1 bearer tokens.
+  derived_from_claims:
+  - C00251
+  - C00252
+  - C00253
+  confidence: high
+  applies_when:
+  - MCP access is authorized via bearer tokens or session IDs
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P178
+  statement: 'Design MCP servers so the initialize phase is the sole entry point for
+    session creation: bind the OAuth token, caller identity (for example client_id),
+    and connection context into an isolated per-connection session, verify the caller
+    identity at initialization and reject a mismatch, and authorize each subsequent
+    tools/call against that session — rejecting any tools/call whose connection has
+    no initialized session. This prevents token reuse and privilege inheritance across
+    connections even when valid tokens exist.'
+  derived_from_claims:
+  - C01272
+  - C01273
+  - C01274
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P179
+  statement: Handle MCP server installation as a supply-chain control point requiring
+    trusted sources, code and tool-definition review, package-integrity checks, dependency
+    scanning, and package-name verification.
+  derived_from_claims:
+  - C00415
+  - C00418
+  - C00419
+  confidence: high
+  applies_when:
+  - Before installing, updating, or connecting a new MCP server.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P180
+  statement: Monitor MCP command execution for injection symptoms by correlating forbidden
+    syntax, failed validation, privilege-escalation primitives, suspicious process
+    arguments, abnormal syscall patterns, unexpected outbound traffic, sensitive path
+    access, and unusual host resource consumption.
+  derived_from_claims:
+  - C00319
+  - C00320
+  - C00321
+  confidence: high
+  applies_when:
+  - MCP tools execute host-level commands, scripts, binaries, or other operations
+    whose misuse could affect files, networks, databases, or runtime resources.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id001
+- principle_id: P181
+  statement: Treat sensitive-API usage as a first-class audit surface for MCP servers,
+    scanning for five threat classes - network request (exfiltration or SSRF), code
+    execution (eval, exec, Function), system command (os.system, subprocess, child_process),
+    file operation, and HTML injection - recognizing such calls are widespread though
+    a match alone does not prove exploitation.
+  derived_from_claims:
+  - C01285
+  - C01333
+  - C01334
+  confidence: high
+  applies_when:
+  - security-reviewing MCP server code
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P182
+  statement: Grant agents only task-required tools, and constrain each tool by explicit
+    resources and operations instead of broad wildcard permissions.
+  derived_from_claims:
+  - C00423
+  - C00424
+  - C00427
+  confidence: high
+  applies_when:
+  - when configuring agent tool access
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P183
+  statement: Model MCP as a client-server protocol over stateful JSON-RPC 2.0 in which
+    the host instantiates one client per server (n servers means n clients) and each
+    client keeps a persistent session across RPC calls.
+  derived_from_claims:
+  - C01289
+  - C01290
+  - C01293
+  confidence: high
+  applies_when:
+  - reasoning about or reviewing an MCP host, client, or server design
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P184
+  statement: Validate and pin tool metadata and surface complete tool definitions
+    to the approver before execution, because context/tool poisoning hides malicious
+    instructions in tool metadata, schema, or docstrings that agents follow blindly.
+  derived_from_claims:
+  - C01022
+  - C01023
+  - C01024
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P185
+  statement: Concentrate interception and approval at the Host as the policy enforcement
+    point and security boundary (the LLM never touches a data source directly), and
+    do not let Human-in-the-Loop approval be the only line of defense.
+  derived_from_claims:
+  - C01017
+  - C01018
+  - C01019
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P186
+  statement: Measure a decentralized MCP ecosystem with per-registry adapters plus
+    schema inference and canonicalization into a unified schema, because registries
+    differ in data model and access method (HTML pages, JSON APIs, static catalogs).
+  derived_from_claims:
+  - C01299
+  - C01301
+  - C01307
+  confidence: high
+  applies_when:
+  - building or auditing a crawler or dataset across multiple MCP markets
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P187
+  statement: Assume the malicious action will be performed by a legitimate, already-registered
+    tool while the poisoned tool is never executed; do not gate solely on 'new or
+    unknown tool', because that stealth pattern is chosen specifically to look unsuspicious
+    and to bypass new-tool permission models.
+  derived_from_claims:
+  - C01141
+  - C01146
+  - C01147
+  confidence: high
+  applies_when:
+  - building detection or permission models for agent tool calls
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P188
+  statement: 'Prioritize defenses against parameter tampering: it is empirically the
+    most effective paradigm (average ASR 46.7% vs 36.7% explicit and 26.7% implicit
+    function hijacking), likely because the primary call still matches user intent
+    and only a single parameter is altered — so validate tool-call parameters against
+    user intent, not just which tool is called.'
+  derived_from_claims:
+  - C01151
+  - C01166
+  - C01167
+  confidence: high
+  applies_when:
+  - allocating limited detection effort or designing tool-call guards
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P189
+  statement: When measuring TPA, define Attack Success narrowly — the agent calls
+    a separate legitimate tool to complete the malicious action — compute ASR over
+    valid outputs only, and record the four-way outcome taxonomy (Success / Ignored
+    / Direct-Execution / Refused) so direct-execution and refusal are not hidden inside
+    a single failure bucket.
+  derived_from_claims:
+  - C01155
+  - C01156
+  - C01157
+  confidence: high
+  applies_when:
+  - defining metrics for a Tool-Poisoning evaluation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P190
+  statement: 'Treat dependency monoculture as systemic risk: Java servers concentrate
+    on Spring (a single flaw like SpringShell can cascade), and over 93% of servers
+    are JavaScript or Python, so a popular npm or PyPI vulnerability can cascade widely
+    - audit and diversify shared dependencies.'
+  derived_from_claims:
+  - C01282
+  - C01324
+  - C01330
+  confidence: high
+  applies_when:
+  - assessing supply-chain exposure of MCP servers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P191
+  statement: If Dynamic Client Registration is enabled for production MCP use, scope
+    it to the MCP authorization server and prevent dynamically registered clients
+    from gaining regular API access by default.
+  derived_from_claims:
+  - C00483
+  - C00484
+  - C00485
+  confidence: medium
+  applies_when:
+  - The service chooses Dynamic Client Registration for MCP client onboarding.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P192
+  statement: When a web frontend hosts MCP authorization, keep the frontend focused
+    on login and consent and leave the code-for-token exchange to the MCP client and
+    token endpoint after redirect.
+  derived_from_claims:
+  - C00633
+  - C00634
+  - C00636
+  confidence: medium
+  applies_when:
+  - A web application serves both the product UI and the OAuth authorization route.
+  - The authorization-code redirect has completed successfully.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P193
+  statement: Require an authorization design whenever an MCP server accesses protected
+    remote services; do not assume the MCP server process identity is enough.
+  derived_from_claims:
+  - C00668
+  - C00669
+  - C00670
+  confidence: medium
+  applies_when:
+  - The MCP server calls a remote service that requires authorization.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P194
+  statement: Authorization servers should fetch and cache (respecting HTTP cache headers)
+    URL-formatted client_ids and advertise client_id_metadata_document_supported;
+    clients should check that capability, may authenticate with private_key_jwt, and
+    may fall back to Dynamic Client Registration or pre-registration when CIMD is
+    unavailable.
+  derived_from_claims:
+  - C00032
+  - C00034
+  - C00035
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P195
+  statement: Push login, token issuance, and related authorization complexity into
+    the MCP authorization server so the MCP resource server can stay focused on validating
+    tokens and serving protected resources.
+  derived_from_claims:
+  - C00464
+  - C00477
+  - C00491
+  confidence: medium
+  applies_when:
+  - Separating MCP authorization-server and resource-server responsibilities.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P196
+  statement: 'Treat MCP''s security as implementation-dependent rather than protocol-guaranteed:
+    adopt it with caution and heightened scrutiny—drawing on lessons from prior distributed
+    and plugin ecosystems—especially in national-security or other high-assurance
+    environments.'
+  derived_from_claims:
+  - C00278
+  - C00279
+  - C00280
+  confidence: medium
+  applies_when:
+  - deciding whether and how to adopt MCP for sensitive or high-assurance workloads
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P197
+  statement: Map MCP server identities to their required permissions and remediate
+    overprivileged servers before lower-impact posture findings.
+  derived_from_claims:
+  - C00823
+  - C00841
+  - C00850
+  confidence: medium
+  applies_when:
+  - When triaging MCP identity and permission exposure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P198
+  statement: Treat MCP auto-installers as privileged supply-chain components that
+    must show provenance, verify trusted signatures or checksums, reject mismatches,
+    require confirmation, and isolate setup execution.
+  derived_from_claims:
+  - C00940
+  - C00941
+  - C00942
+  confidence: medium
+  applies_when:
+  - Using one-click, natural-language, or community-provided tools to install MCP
+    servers.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P199
+  statement: 'Prefer Client ID Metadata Documents for scalable MCP client identity:
+    clients identify with controlled metadata URLs and authorization servers fetch
+    metadata from those URLs.'
+  derived_from_claims:
+  - C00535
+  - C00536
+  - C00538
+  confidence: medium
+  applies_when:
+  - The MCP authorization server supports CIMD.
+  - The client can control a stable metadata URL that authorization servers can fetch.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P200
+  statement: Audit logs and tool-call displays should reveal actual destinations,
+    arguments, and data movements so malicious behavior cannot hide behind ordinary
+    trusted-tool usage.
+  derived_from_claims:
+  - C00696
+  - C00697
+  - C00706
+  confidence: medium
+  applies_when:
+  - A client records or displays tool execution to the user or reviewer.
+  - A trusted tool call could carry redirected recipients, hidden arguments, or concealed
+    data movement.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P201
+  statement: Constrain cross-tool composition with explicit approval, inter-tool data-flow
+    limits, state validation, integrity checks, rollback, and anomaly detection for
+    suspicious multi-step chains.
+  derived_from_claims:
+  - C00951
+  - C00952
+  - C00980
+  confidence: medium
+  applies_when:
+  - An LLM can autonomously sequence MCP tools or pass one tool's output into another
+    across systems.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P202
+  statement: Until robust MCP defenses are standardized and deployed, handle MCP connections
+    as potentially hostile rather than assuming the protocol boundaries are sufficient.
+  derived_from_claims:
+  - C00752
+  - C00757
+  - C00764
+  confidence: medium
+  applies_when:
+  - Robust defenses for tool-description poisoning and line-jumping are not yet standardized
+    and deployed in the relevant client and server ecosystem.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P203
+  statement: Prioritize MCP remediation using real attack paths that combine identity,
+    network reachability, runtime privilege, and connected data sensitivity.
+  derived_from_claims:
+  - C00822
+  - C00823
+  - C00850
+  confidence: medium
+  applies_when:
+  - When ranking MCP security findings or deciding which exposed servers to fix first
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P204
+  statement: After an agent ingests untrusted input, constrain its ability to perform
+    consequential actions so that the untrusted input cannot directly trigger those
+    actions.
+  derived_from_claims:
+  - C00771
+  - C00773
+  - C00784
+  confidence: medium
+  applies_when:
+  - Designing an application or tool runtime that processes untrusted content before
+    taking actions such as sending, writing, deleting, purchasing, or changing access.
+  - The action would affect private data, external systems, or user-visible state.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P205
+  statement: Treat MCP tool outputs from external or user-generated sources as adversarial
+    content and detect or neutralize hidden instructions before model use.
+  derived_from_claims:
+  - C00943
+  - C00944
+  - C00945
+  confidence: medium
+  applies_when:
+  - MCP tools retrieve external content and pass it into an LLM context.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P206
+  statement: Treat the MCP authorization specification as a baseline and add production
+    controls for multi-tenancy, auditability, SSO, DCR abuse, and token lifecycle
+    management.
+  derived_from_claims:
+  - C00591
+  - C00608
+  - C00611
+  confidence: medium
+  applies_when:
+  - Building or reviewing a production MCP authorization deployment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P207
+  statement: Publish authorization-server metadata so MCP clients can discover login,
+    token, scope, grant-type, key, client-authentication, and registration capabilities
+    automatically.
+  derived_from_claims:
+  - C00563
+  - C00564
+  - C00566
+  confidence: medium
+  applies_when:
+  - The authorization server participates in MCP OAuth flows and supports metadata
+    publication.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: *id002
+- principle_id: P208
+  statement: Apply heightened review before connecting third-party MCP servers in
+    contexts that contain credentials, sensitive files, or sensitive external services.
+  derived_from_claims:
+  - C00693
+  - C00704
+  - C00713
+  confidence: medium
+  applies_when:
+  - A third-party MCP server would share context with credentials, private files,
+    workflow platforms, email, or other sensitive services.
+  - The client lacks strong validation, transparency, or isolation for server-provided
+    tools.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P209
+  statement: 'Assign MCP security duties by stakeholder: developers verify provenance
+    and sign releases, users prefer trusted and sandboxed servers, and maintainers
+    enforce version, integrity, and configuration checks.'
+  derived_from_claims:
+  - C00973
+  - C00974
+  - C00975
+  confidence: medium
+  applies_when:
+  - Writing MCP guidance for developers, users, registry operators, or ecosystem maintainers.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P210
+  statement: 'Treat MCP tools as executable trust boundaries: declare structured inputs
+    and validate or sanitize every user-controlled argument before using it.'
+  derived_from_claims:
+  - C00663
+  - C00664
+  - C00665
+  confidence: medium
+  applies_when:
+  - An MCP tool accepts input that can be influenced by a user or model output.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P211
+  statement: Monitor MCP-enabled assistant behavior after tool setup as well as at
+    explicit invocation boundaries, because malicious metadata can influence later
+    actions without a visible malicious call.
+  derived_from_claims:
+  - C00750
+  - C00756
+  - C00763
+  confidence: medium
+  applies_when:
+  - The assistant may later change code, data, infrastructure, or security posture
+    after MCP tool metadata has entered context.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P212
+  statement: Filter and monitor MCP intent mapping and command execution so requests
+    match declared capabilities and tool calls remain structured, serialized, monitored,
+    and isolated.
+  derived_from_claims:
+  - C00879
+  - C00881
+  - C00988
+  confidence: medium
+  applies_when:
+  - Operating MCP hosts, clients, or servers that translate user or model intent into
+    tool calls.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P213
+  statement: Validate Tool-Poisoning robustness against live, real-world MCP servers
+    and toolsets, not simulated environments; simulated IPI-style benchmarks understate
+    the ecosystem-level TPA threat.
+  derived_from_claims:
+  - C01143
+  - C01154
+  - C01160
+  confidence: medium
+  applies_when:
+  - building or choosing a benchmark to measure agent TPA robustness
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P214
+  statement: Reduce MCP rug-pull risk with version pinning, reproducible builds, signature
+    verification, update transparency, and runtime monitoring.
+  derived_from_claims:
+  - C00932
+  - C00933
+  - C00934
+  confidence: medium
+  applies_when:
+  - Installing, updating, or executing maintainer-controlled third-party MCP servers.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P215
+  statement: Require approval interfaces to expose the complete AI-visible tool description,
+    full arguments, and security-relevant side effects before a tool call is trusted.
+  derived_from_claims:
+  - C00696
+  - C00697
+  - C00709
+  confidence: medium
+  applies_when:
+  - A user is asked to approve an MCP server, tool, or individual tool call.
+  - The user interface summarizes tool names, arguments, outputs, or descriptions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P216
+  statement: 'Choose token-validation mechanics from the deployment topology: reuse
+    existing validation in a combined system, or follow the external authorization
+    server token format and validation guidance when authorization is delegated.'
+  derived_from_claims:
+  - C00472
+  - C00473
+  - C00474
+  confidence: medium
+  applies_when:
+  - Implementing MCP resource-server access-token validation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P217
+  statement: Build the IdP token-exchange request around the existing user identity
+    assertion, the target resource authorization-server audience, the requested ID
+    Assertion JWT token type, the assertion type, and authenticated requesting-application
+    credentials.
+  derived_from_claims:
+  - C00509
+  - C00518
+  - C00519
+  confidence: medium
+  applies_when:
+  - The requesting application has already completed SSO for the user.
+  - The requesting application asks the enterprise IdP for an ID Assertion JWT.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P218
+  statement: Do not design open MCP client identity around manual per-server OAuth
+    registration; use an identity mechanism that can scale across independently operated
+    clients and servers.
+  derived_from_claims:
+  - C00524
+  - C00525
+  - C00551
+  confidence: medium
+  applies_when:
+  - The MCP ecosystem has many independently operated clients and servers.
+  - The design target includes open ecosystem or enterprise-scale adoption.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P219
+  statement: 'Configure an OAuth-secured MCP deployment as a coherent set: enabled
+    connected-app behavior, supported scopes, metadata exposure, and runtime validation
+    identifiers and key URLs.'
+  derived_from_claims:
+  - C00643
+  - C00644
+  - C00645
+  confidence: medium
+  applies_when:
+  - Deploying an MCP server that relies on an external authorization service for token
+    issuance and validation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P220
+  statement: At the resource authorization server, accept an ID Assertion JWT as a
+    JWT Bearer authorization grant only after validating issuer, signature, and required
+    assertion claims.
+  derived_from_claims:
+  - C00513
+  - C00514
+  - C00515
+  confidence: medium
+  applies_when:
+  - The requesting application presents an ID Assertion JWT to the resource application
+    authorization server.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []

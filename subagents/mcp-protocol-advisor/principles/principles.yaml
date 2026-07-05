@@ -1,0 +1,3967 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: 'Build on the MCP base protocol: exchange JSON-RPC 2.0 messages over
+    stateful connections and complete client/server capability negotiation before
+    using any feature.'
+  derived_from_claims:
+  - C00005
+  - C00008
+  - C00009
+  - C00035
+  - C00036
+  - C00073
+  confidence: high
+  applies_when:
+  - establishing or reviewing the transport and handshake layer of an MCP connection
+  - defining the transport/message layer or session lifecycle
+  - designing or reviewing MCP wire messages
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: Design MCP list operations that can return large result sets (resources/list,
+    resources/templates/list, prompts/list, tools/list) to support cursor-based pagination,
+    yielding results in smaller pages rather than all at once.
+  derived_from_claims:
+  - C00447
+  - C00448
+  - C00462
+  - C00472
+  - C00581
+  - C00589
+  confidence: high
+  applies_when:
+  - listing available prompts, especially large prompt sets
+  - discovering available resources
+  - implementing or reviewing an MCP list operation
+  - the operation can return an unbounded or large result set
+  - the server integrates external/internet services or large local data sets
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Require explicit user approval of every LLM sampling request, let users
+    control whether sampling occurs, the exact prompt sent, and what results the server
+    may see, and limit server visibility into prompts by default.
+  derived_from_claims:
+  - C00028
+  - C00029
+  - C00030
+  - C00399
+  - C00400
+  - C00401
+  - C00402
+  confidence: high
+  applies_when:
+  - a server initiates a sampling / recursive LLM request through the client
+  - a client is about to forward a sampling request to a model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: 'Handle JSON Schema dialects explicitly: default to 2020-12 when no $schema
+    is declared, allow a $schema field to select another dialect, support at least
+    2020-12 while documenting any additional dialects, and prefer 2020-12.'
+  derived_from_claims:
+  - C00090
+  - C00091
+  - C00092
+  - C00093
+  - C00627
+  confidence: high
+  applies_when:
+  - processing JSON Schemas within MCP messages
+  - Auditing schema definitions, validators, or schema dialect assumptions against
+    revision 2025-11-25.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: 'Route all server-originated LLM access through the client via sampling:
+    let the client own model access, selection, and permissions so servers need no
+    API keys of their own.'
+  derived_from_claims:
+  - C00052
+  - C00395
+  - C00396
+  - C00397
+  confidence: high
+  applies_when:
+  - a server needs an LLM completion
+  - a server needs an LLM completion (text, image, or audio) inside an MCP feature
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: For task-augmented requests, keep using the original request's progressToken
+    for the entire task lifetime — including after CreateTaskResult is returned —
+    and never switch tokens mid-task; the token stays valid until the task reaches
+    a terminal status.
+  derived_from_claims:
+  - C00237
+  - C00238
+  - C00239
+  - C00286
+  confidence: high
+  applies_when:
+  - the request is task-augmented
+  - a long-running task should report progress
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: 'Treat tool annotations as untrusted input: a client must not rely on
+    tool annotations for security decisions unless they come from a trusted server.'
+  derived_from_claims:
+  - C00025
+  - C00512
+  confidence: high
+  applies_when:
+  - consuming tool metadata such as descriptions or annotations from a server
+  - a client consumes annotation metadata attached to a tool
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: 'Treat MCP tasks (introduced 2025-11-25) as an experimental capability:
+    expect the design and behaviour to evolve and avoid hard-coding assumptions about
+    unstable details.'
+  derived_from_claims:
+  - C00245
+  - C00628
+  confidence: high
+  applies_when:
+  - building against the 2025-11-25 task specification
+  - Auditing task-like durable request support against revision 2025-11-25.
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: 'Shut down through the transport rather than protocol messages: MCP defines
+    no shutdown message. For stdio, the client closes the server''s input stream,
+    then escalates to SIGTERM and finally SIGKILL if the server does not exit in a
+    reasonable time (the server may instead close its output and exit); for HTTP,
+    close the associated connection(s).'
+  derived_from_claims:
+  - C00135
+  - C00136
+  - C00137
+  - C00138
+  - C00139
+  - C00140
+  - C00141
+  confidence: high
+  applies_when:
+  - terminating an MCP connection
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: 'Assign each capability to the correct side of the connection: Servers
+    expose Resources, Prompts, and Tools to clients; Clients expose Sampling, Roots,
+    and Elicitation to servers.'
+  derived_from_claims:
+  - C00010
+  - C00011
+  - C00012
+  - C00013
+  - C00014
+  - C00015
+  confidence: high
+  applies_when:
+  - deciding where a feature belongs or reviewing a server/client feature surface
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: 'Negotiate the protocol version explicitly: the client proposes the latest
+    version it supports, the server echoes that version if supported or otherwise
+    offers the latest version it supports, and the client disconnects if it cannot
+    support the server''s chosen version.'
+  derived_from_claims:
+  - C00121
+  - C00122
+  - C00123
+  - C00124
+  - C00125
+  - C00126
+  confidence: high
+  applies_when:
+  - a client and server may support different protocol versions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: 'Preserve MCP versioning scope: treat the date identifier as changing
+    only for backwards-incompatible updates, and do not reject deprecated-but-present
+    behavior before its removal window has elapsed.'
+  derived_from_claims:
+  - C00598
+  - C00599
+  - C00602
+  - C00603
+  - C00604
+  - C00632
+  confidence: high
+  applies_when:
+  - Assessing whether a feature or version identifier is valid for a negotiated MCP
+    revision.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: 'Require explicit, informed user consent before exposing or accessing
+    user data: the host must obtain consent before exposing user data to a server,
+    must not transmit resource data elsewhere without consent, and must protect user
+    data with appropriate access controls while keeping the user in control of what
+    is shared.'
+  derived_from_claims:
+  - C00018
+  - C00019
+  - C00021
+  - C00022
+  - C00023
+  confidence: high
+  applies_when:
+  - any MCP operation that accesses user data or performs an action on the user's
+    behalf
+  - a host is about to share user or resource data with a server or any external destination
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: 'Harden the client around tool calls: confirm sensitive operations, show
+    tool inputs to the user before calling the server to prevent exfiltration, validate
+    results before passing them to the LLM, apply timeouts to tool calls, and log
+    tool usage for audit.'
+  derived_from_claims:
+  - C00533
+  - C00534
+  - C00535
+  - C00536
+  - C00537
+  confidence: high
+  applies_when:
+  - a client orchestrates tool calls on behalf of a model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: Concentrate all security enforcement — connection permissions, consent,
+    security policy, and user authorization — in the host process rather than in clients
+    or servers.
+  derived_from_claims:
+  - C00038
+  - C00039
+  - C00040
+  - C00041
+  - C00053
+  confidence: high
+  applies_when:
+  - deciding where authorization and consent checks live
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: 'Respect the _meta reserved namespace: make no assumptions about values
+    at MCP-reserved keys, form prefixes as dot-separated slash-terminated labels (preferring
+    reverse-DNS), keep prefixes with a second label of modelcontextprotocol or mcp
+    reserved for MCP, and bound non-empty key names with alphanumeric characters.'
+  derived_from_claims:
+  - C00097
+  - C00098
+  - C00099
+  - C00100
+  - C00101
+  confidence: high
+  applies_when:
+  - attaching or reading _meta metadata on MCP interactions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: 'Drive initialization as a client-initiated handshake: client sends an
+    initialize request carrying its protocol version, capabilities, and implementation
+    info; the server replies with its own capabilities and info; then the client sends
+    an initialized notification before normal operation.'
+  derived_from_claims:
+  - C00114
+  - C00115
+  - C00116
+  - C00117
+  - C00118
+  confidence: high
+  applies_when:
+  - implementing or reviewing MCP connection setup
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Require every progress notification to echo the original progressToken
+    and a progress value that strictly increases on each notification even when no
+    total is known; total and message are optional, with total omittable when unknown
+    and message intended as human-readable text.
+  derived_from_claims:
+  - C00229
+  - C00230
+  - C00231
+  - C00232
+  - C00236
+  confidence: high
+  applies_when:
+  - emitting progress notifications for an accepted request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: 'For third-party authorization via URL mode, keep credentials on the
+    server side only: never self-authorize the MCP server through URL mode, never
+    let third-party credentials transit or be transmitted to the client, never reuse
+    the client''s credentials for the third party (forbidden token passthrough), and
+    have the user authorize the server directly outside the MCP protocol, and remain
+    the stateful owner that securely stores and manages those third-party tokens bound
+    to the user''s identity.'
+  derived_from_claims:
+  - C00345
+  - C00346
+  - C00347
+  - C00348
+  - C00349
+  confidence: high
+  applies_when:
+  - the server needs third-party credentials to call an external service on the user's
+    behalf
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: 'Apply safe URL handling on the client: never auto pre-fetch the URL
+    or its metadata, never open it without explicit consent, show the full URL first,
+    open it in an isolated viewer the client/LLM cannot inspect, highlight the domain
+    and warn on suspicious URIs (e.g. Punycode), and never render URLs clickable except
+    the url field of a URL elicitation request.'
+  derived_from_claims:
+  - C00357
+  - C00358
+  - C00359
+  - C00360
+  - C00361
+  confidence: high
+  applies_when:
+  - a client receives and must present a URL mode elicitation URL
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Use the optional annotations — `audience` (user/assistant), `priority`
+    (0.0–1.0, 1=effectively required), and `lastModified` (ISO 8601) — to filter by
+    intended audience, prioritize what enters context, and sort/display by recency.
+  derived_from_claims:
+  - C00481
+  - C00482
+  - C00483
+  - C00484
+  - C00485
+  confidence: high
+  applies_when:
+  - a client must rank, filter, or display candidate resources
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Never emit credentials, secrets, PII, or exploitable internal details
+    in logs; strip and monitor for sensitive content before sending.
+  derived_from_claims:
+  - C00573
+  - C00574
+  - C00575
+  - C00576
+  - C00579
+  confidence: high
+  applies_when:
+  - composing the data payload of any log message
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: 'Match HTTP transport expectations to the negotiated revision: HTTP plus
+    SSE belongs to 2024-11-05, Streamable HTTP begins in 2025-03-26, and 2025-11-25
+    adds stricter Origin and polling-stream behavior.'
+  derived_from_claims:
+  - C00609
+  - C00610
+  - C00611
+  - C00612
+  - C00630
+  confidence: high
+  applies_when:
+  - Auditing MCP transport implementation or advertised transport support.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: 'Audit authorization requirements by revision: OAuth 2.1 appears in 2025-03-26,
+    Resource Server metadata and RFC 8707 client behavior appear in 2025-06-18, and
+    2025-11-25 adds the newer discovery, consent, client metadata, and RFC 9728 alignment
+    requirements.'
+  derived_from_claims:
+  - C00614
+  - C00615
+  - C00616
+  - C00617
+  - C00631
+  confidence: high
+  applies_when:
+  - Reviewing MCP authorization, token audience, protected-resource metadata, server
+    discovery, scope consent, or client registration behavior.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: 'Support the MCP ping mechanism as a bidirectional liveness check: allow
+    either the client or the server to send a standard JSON-RPC request with method
+    `ping` and no parameters to confirm the peer is responsive.'
+  derived_from_claims:
+  - C00209
+  - C00210
+  - C00211
+  - C00212
+  confidence: high
+  applies_when:
+  - Implementing or reviewing an MCP client or server transport that must detect dropped
+    or unresponsive connections
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Because MCP cannot enforce its security principles at the protocol level,
+    the implementor must own robust consent and authorization flows, access controls
+    and data protection, clear security documentation, privacy-by-design, and clear
+    UIs for reviewing and authorizing activity.
+  derived_from_claims:
+  - C00017
+  - C00020
+  - C00031
+  - C00032
+  confidence: high
+  applies_when:
+  - building, deploying, or reviewing the security posture of an MCP host, client,
+    or server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Start every MCP conformance review by identifying the negotiated protocol
+    revision, then judge transport, authorization, tools, schema, and lifecycle behavior
+    against that revision rather than against the newest specification by default.
+  derived_from_claims:
+  - C00605
+  - C00606
+  - C00607
+  - C00629
+  confidence: high
+  applies_when:
+  - Reviewing an MCP client or server for version-specific conformance.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Assign the client the responsibilities of protocol/capability negotiation,
+    bidirectional message routing, subscription and notification management, and maintaining
+    isolation between the servers a host connects to.
+  derived_from_claims:
+  - C00046
+  - C00047
+  - C00048
+  - C00049
+  confidence: high
+  applies_when:
+  - implementing client-side protocol handling
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: 'Gate task augmentation on capability negotiation: a peer that supports
+    tasks must declare a structured `tasks` capability at initialization, requestors
+    must only augment a request when the receiver declared the matching capability,
+    treat `capabilities.tasks.requests` as exhaustive, and never create tasks when
+    `capabilities.tasks` is absent.'
+  derived_from_claims:
+  - C00249
+  - C00250
+  - C00251
+  - C00252
+  confidence: high
+  applies_when:
+  - initializing a session
+  - deciding whether to send a task-augmented request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Only advertise the `resources` capability when the server actually exposes
+    resources, and within it only advertise `subscribe`/`listChanged` for features
+    that are genuinely implemented; clients must negotiate and never assume either
+    optional feature is present.
+  derived_from_claims:
+  - C00468
+  - C00469
+  - C00470
+  - C00471
+  confidence: high
+  applies_when:
+  - a server exposes resources
+  - a client integrates with a resource server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: 'Confine operation-phase behaviour to the negotiated envelope: use only
+    the protocol version and the capabilities that were successfully negotiated, and
+    never invoke a feature the peer did not advertise.'
+  derived_from_claims:
+  - C00128
+  - C00132
+  - C00133
+  - C00134
+  confidence: high
+  applies_when:
+  - exchanging messages during the operation phase
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: 'Implement SSE resumability with per-stream cursors: attach globally
+    unique event IDs (within the session or per client) that encode the originating
+    stream, let clients resume via an HTTP GET carrying Last-Event-ID, and never replay
+    messages that belonged to a different stream.'
+  derived_from_claims:
+  - C00177
+  - C00178
+  - C00179
+  - C00180
+  confidence: high
+  applies_when:
+  - implementing resumable SSE streams and message redelivery
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: 'Design both sides to tolerate cancellation race conditions: because
+    a cancellation can arrive after the request finished or its response was sent,
+    senders should ignore any late-arriving response and both parties must treat racing
+    cancellations as graceful no-ops, preserving the fire-and-forget semantics of
+    notifications.'
+  derived_from_claims:
+  - C00202
+  - C00203
+  - C00204
+  - C00208
+  confidence: high
+  applies_when:
+  - cancellation and response messages may cross on the wire
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Issue pings periodically to detect connection health, but make the frequency
+    configurable, tune it to the network environment, and avoid excessive pinging
+    that adds unnecessary network overhead.
+  derived_from_claims:
+  - C00216
+  - C00217
+  - C00218
+  - C00219
+  confidence: high
+  applies_when:
+  - Designing an active connection-health monitoring loop over MCP
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: To opt into progress updates, require a progressToken in the request's
+    `_meta` that is a string or integer and unique across all of the sender's active
+    requests; the sender may choose the value freely as long as uniqueness holds.
+  derived_from_claims:
+  - C00225
+  - C00226
+  - C00227
+  - C00228
+  confidence: high
+  applies_when:
+  - a party wants to receive progress updates for a request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: 'Honour per-tool `execution.taskSupport` on top of the `tasks.requests.tools.call`
+    capability: never augment tools when that capability is absent; when it is present,
+    forbid task invocation for tools that omit it or set `forbidden` (returning -32601),
+    allow either mode for `optional`, and require task invocation for `required` (returning
+    -32601 otherwise).'
+  derived_from_claims:
+  - C00253
+  - C00254
+  - C00255
+  - C00256
+  confidence: high
+  applies_when:
+  - a client is about to invoke a server tool via tools/call
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Correlate every task-related message with `io.modelcontextprotocol/related-task`
+    (matching `taskId`) in `_meta`, including the `tasks/result` response whose body
+    lacks the ID; but omit that metadata on `tasks/get`, `tasks/list`, and `tasks/cancel`
+    (where the `taskId` is already the source of truth) and ignore it if a requestor
+    sends it there anyway.
+  derived_from_claims:
+  - C00280
+  - C00281
+  - C00289
+  - C00290
+  confidence: high
+  applies_when:
+  - sending or handling any request, response, or notification tied to a task
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: 'Return the specified JSON-RPC error codes for task protocol errors:
+    -32602 (Invalid params) for an invalid/nonexistent `taskId` in get/result/cancel,
+    an invalid cursor in `tasks/list`, or cancelling an already-terminal task; -32603
+    (Internal error) for internal failures; optionally -32600 (Invalid request) when
+    a required task augmentation is missing; and always provide an informative error
+    message.'
+  derived_from_claims:
+  - C00292
+  - C00293
+  - C00294
+  - C00295
+  confidence: high
+  applies_when:
+  - a receiver rejects a task operation with an error
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Never request secrets or credentials (passwords, API keys, access tokens,
+    payment details) through form mode; route any sensitive-information exchange through
+    URL mode so the data never enters the client, keeping it out of the LLM context
+    and intermediaries.
+  derived_from_claims:
+  - C00310
+  - C00311
+  - C00312
+  - C00344
+  confidence: high
+  applies_when:
+  - a server needs the user to supply a secret, credential, or payment detail
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: 'Negotiate elicitation support correctly: a client must declare the elicitation
+    capability at initialization and support at least one mode (an empty object means
+    form only), and a server must never send a request in a mode the client did not
+    declare.'
+  derived_from_claims:
+  - C00318
+  - C00319
+  - C00320
+  - C00321
+  confidence: high
+  applies_when:
+  - establishing or using an elicitation session
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Constrain form schemas to a flat object of primitive properties (string,
+    number/integer, boolean, enum) using only the supported string formats (email,
+    uri, date, date-time); pre-populate declared defaults when supported.
+  derived_from_claims:
+  - C00324
+  - C00325
+  - C00326
+  - C00327
+  confidence: high
+  applies_when:
+  - authoring or validating a form mode requestedSchema
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: 'Handle URL-mode completion notifications correctly: a server may send
+    notifications/elicitation/complete only to the initiating client and must include
+    the original elicitationId; clients must ignore unknown or already-completed IDs
+    and still offer manual retry/cancel in case no notification arrives.'
+  derived_from_claims:
+  - C00332
+  - C00333
+  - C00334
+  - C00335
+  confidence: high
+  applies_when:
+  - a URL-mode out-of-band interaction may complete asynchronously
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Discover roots via the `roots/list` request/response and treat its `roots`
+    array (each entry a `uri` plus optional display `name`) as the authoritative current
+    set.
+  derived_from_claims:
+  - C00368
+  - C00373
+  - C00374
+  - C00378
+  confidence: high
+  applies_when:
+  - a server needs to know which roots it may operate within
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: 'Select models by preference, not by name: express costPriority, speedPriority,
+    and intelligencePriority as normalized 0-1 values and provide advisory substring
+    hints in order of preference; the client makes the final selection and may map
+    hints to an equivalent provider''s model.'
+  derived_from_claims:
+  - C00426
+  - C00427
+  - C00428
+  - C00429
+  confidence: high
+  applies_when:
+  - a server expresses model requirements for a sampling request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: 'Assign each server capability to the primitive that matches its control
+    owner: user-invoked interaction templates become prompts (user-controlled), client-managed
+    contextual data becomes resources (application-controlled), and model-invokable
+    actions become tools (model-controlled).'
+  derived_from_claims:
+  - C00435
+  - C00437
+  - C00439
+  - C00440
+  confidence: high
+  applies_when:
+  - Deciding which MCP primitive a given capability should be exposed as
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: 'Constrain tool names: keep them 1-128 characters, treat them as case-sensitive,
+    restrict them to ASCII letters, digits, underscore, hyphen and dot (no spaces/commas/special
+    characters), and keep them unique within a server.'
+  derived_from_claims:
+  - C00513
+  - C00514
+  - C00515
+  - C00516
+  confidence: high
+  applies_when:
+  - naming a tool exposed by an MCP server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: 'Harden the server against tool abuse: validate all tool inputs, enforce
+    proper access controls, rate-limit tool invocations, and sanitize tool outputs.'
+  derived_from_claims:
+  - C00529
+  - C00530
+  - C00531
+  - C00532
+  confidence: high
+  applies_when:
+  - implementing a server that executes tools
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: 'Separate protocol errors from tool execution errors: report execution
+    failures (API, input-validation, business-logic) in the result with `isError:
+    true` and reserve JSON-RPC protocol errors for unknown tools, malformed requests,
+    and server errors; forward execution errors to the model so it can self-correct,
+    and optionally forward protocol errors.'
+  derived_from_claims:
+  - C00525
+  - C00526
+  - C00527
+  - C00528
+  confidence: high
+  applies_when:
+  - reporting or handling tool errors on server or client
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Return completion results as a `completion` object whose `values` are
+    relevance-ranked and capped at 100 items per response, and expose the optional
+    `total` count and a `hasMore` boolean when further matches exist beyond those
+    returned.
+  derived_from_claims:
+  - C00544
+  - C00545
+  - C00546
+  - C00547
+  confidence: high
+  applies_when:
+  - implementing or reviewing a server's completion response
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: 'Honour the client-configured minimum log level: expose `logging/setLevel`,
+    and once a level is set send only messages at that level and above via `notifications/message`.'
+  derived_from_claims:
+  - C00560
+  - C00565
+  - C00566
+  - C00567
+  confidence: high
+  applies_when:
+  - a client has configured a minimum log level
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: 'A client should keep the user in control of roots: obtain consent before
+    exposing roots, provide a clear root-management UI, verify a root''s accessibility
+    before exposing it, and monitor for subsequent changes.'
+  derived_from_claims:
+  - C00387
+  - C00388
+  - C00389
+  - C00390
+  confidence: medium
+  applies_when:
+  - a client mediates user-owned filesystem access to a server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: 'Treat tools as arbitrary code execution: obtain explicit per-tool user
+    consent before invoking any tool and ensure the user understands what the tool
+    does before authorizing it.'
+  derived_from_claims:
+  - C00024
+  - C00026
+  - C00027
+  confidence: high
+  applies_when:
+  - a host or client is about to invoke an MCP tool on the user's behalf
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: 'Keep a human in the loop for tool invocations: give users the ability
+    to deny a call, make clear which tools are exposed to the model, show a visual
+    indicator when a tool is invoked, and present confirmation prompts for operations.'
+  derived_from_claims:
+  - C00500
+  - C00501
+  - C00502
+  confidence: high
+  applies_when:
+  - designing a client/application that lets a model invoke MCP tools
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: 'Keep the user in control of every elicitation: clearly identify which
+    server is asking, respect privacy, and always present clear decline and cancel
+    options.'
+  derived_from_claims:
+  - C00313
+  - C00314
+  - C00315
+  confidence: high
+  applies_when:
+  - any elicitation request is presented to the user
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Require every MCP implementation to support the base protocol and lifecycle-management
+    layers; treat the other layers (authorization, server features, client features,
+    utilities) as optional capabilities selected to fit the application.
+  derived_from_claims:
+  - C00070
+  - C00071
+  - C00072
+  confidence: high
+  applies_when:
+  - reviewing or building any MCP client or server implementation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: 'Keep servers focused and independent: expose functionality only through
+    MCP primitives (resources, tools, prompts), each server owning a narrow responsibility,
+    deployable as a local process or remote service.'
+  derived_from_claims:
+  - C00050
+  - C00051
+  - C00054
+  confidence: high
+  applies_when:
+  - scoping a server's responsibilities or deployment model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: 'Enforce least-context isolation: a server must not read the whole conversation
+    or see into other servers, must receive only the context necessary for its task,
+    and all cross-server interaction is mediated by the host.'
+  derived_from_claims:
+  - C00057
+  - C00058
+  - C00059
+  confidence: high
+  applies_when:
+  - deciding what context to forward to a server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Negotiate capabilities explicitly at initialization; the declared capability
+    set fixes which features and primitives are available for that session, and both
+    parties must honour it throughout.
+  derived_from_claims:
+  - C00062
+  - C00063
+  - C00064
+  confidence: high
+  applies_when:
+  - implementing the initialization handshake
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: 'Gate every optional protocol operation on a prior capability declaration:
+    emit resource subscription notifications only if subscription support was declared,
+    allow tool invocation only if the tool capability was declared, and allow a server
+    sampling request only if the client declared sampling support.'
+  derived_from_claims:
+  - C00067
+  - C00068
+  - C00069
+  confidence: high
+  applies_when:
+  - performing subscriptions, tool calls, or sampling
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: 'Enforce MCP request-id rules: every request carries a string or integer
+    id, the id is never null (unlike base JSON-RPC), and an id is never reused by
+    the same requestor within a session.'
+  derived_from_claims:
+  - C00074
+  - C00075
+  - C00076
+  confidence: high
+  applies_when:
+  - constructing or validating MCP requests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Persist elicitation state securely bound to a verified individual user,
+    never to a session ID alone, protect the store from unauthorized access, and for
+    remote servers derive user identity from MCP authorization credentials (e.g. the
+    sub claim) whenever possible.
+  derived_from_claims:
+  - C00341
+  - C00342
+  - C00343
+  confidence: high
+  applies_when:
+  - the server must remember collected information or access status across requests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: 'Shape MCP result responses correctly: echo the request''s id and always
+    include a result field (whose contents may be any JSON object).'
+  derived_from_claims:
+  - C00077
+  - C00078
+  - C00079
+  confidence: high
+  applies_when:
+  - returning a successful MCP operation result
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: 'Shape MCP error responses correctly: echo the request id (except when
+    a malformed request makes the id unreadable), include an error field with a code
+    and message, and use integer error codes.'
+  derived_from_claims:
+  - C00080
+  - C00081
+  - C00082
+  confidence: high
+  applies_when:
+  - returning an MCP error
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: Validate schemas against their declared or default dialect, require schemas
+    to be valid for that dialect, and fail gracefully with an explicit unsupported-dialect
+    error rather than silently proceeding.
+  derived_from_claims:
+  - C00094
+  - C00095
+  - C00096
+  confidence: high
+  applies_when:
+  - validating a schema carried in an MCP message
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: 'Define every tool with a valid JSON Schema inputSchema: it must be a
+    non-null JSON Schema object (defaulting to draft 2020-12 when no `$schema` is
+    given), and for tools with no parameters use `{"type":"object","additionalProperties":false}`.'
+  derived_from_claims:
+  - C00509
+  - C00510
+  - C00511
+  confidence: high
+  applies_when:
+  - authoring a tool definition
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: 'Treat icon metadata and bytes as untrusted: restrict icon URIs to HTTPS
+    or data: schemes, reject unsafe schemes (javascript:, file:, ftp:, ws:) and cross-origin
+    redirects, and fetch icons without credentials.'
+  derived_from_claims:
+  - C00105
+  - C00106
+  - C00107
+  confidence: high
+  applies_when:
+  - fetching or rendering an MCP icon from metadata
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: Treat the MCP connection as a strict three-phase lifecycle (initialization,
+    then operation, then shutdown) and make initialization the very first interaction
+    before any other traffic.
+  derived_from_claims:
+  - C00111
+  - C00112
+  - C00113
+  confidence: high
+  applies_when:
+  - establishing or reviewing an MCP client-server connection
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: For stdio, run the server as a client-launched subprocess, delimit messages
+    by newlines with no embedded newlines, and never write anything to stdout or the
+    server's stdin that is not a valid MCP message.
+  derived_from_claims:
+  - C00153
+  - C00154
+  - C00155
+  confidence: high
+  applies_when:
+  - implementing the stdio transport
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: Cancel an in-progress MCP request by sending a `notifications/cancelled`
+    notification carrying the target `requestId` and an optional human-facing `reason`;
+    either side of the connection may initiate cancellation, and the `reason` must
+    never be used to drive protocol behaviour.
+  derived_from_claims:
+  - C00190
+  - C00191
+  - C00192
+  confidence: high
+  applies_when:
+  - issuing a cancellation for an in-progress MCP request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Set a timeout on every sent request (configurable per request) and, when
+    it elapses without a success or error response, issue a cancellation notification
+    and stop waiting, to prevent hung connections and resource exhaustion.
+  derived_from_claims:
+  - C00142
+  - C00143
+  - C00144
+  confidence: high
+  applies_when:
+  - sending any MCP request that expects a response
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: A Streamable HTTP client MUST send each JSON-RPC message as its own HTTP
+    POST to the MCP endpoint, with an Accept header listing both application/json
+    and text/event-stream, and a body of exactly one JSON-RPC message.
+  derived_from_claims:
+  - C00163
+  - C00164
+  - C00165
+  confidence: high
+  applies_when:
+  - a Streamable HTTP client sends a JSON-RPC message
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: On receiving a valid cancellation, a receiver should stop processing
+    the request, free its associated resources, and refrain from sending any response
+    for it.
+  derived_from_claims:
+  - C00198
+  - C00199
+  - C00200
+  confidence: high
+  applies_when:
+  - a receiver accepts and acts on a cancellation notification
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: 'Enforce cancellation semantics: reject cancellation of an already-terminal
+    task with -32602, and on a valid cancel attempt to stop execution, transition
+    the task to `cancelled` before responding, and keep it `cancelled` even if execution
+    later finishes; since a cancelled task may be deleted at any time, requestors
+    must retrieve needed data before cancelling.'
+  derived_from_claims:
+  - C00283
+  - C00284
+  - C00285
+  confidence: high
+  applies_when:
+  - a requestor cancels a task or a receiver handles tasks/cancel
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: Treat ping timeouts as connection failures, allow multiple failed pings
+    to trigger a connection reset, and log ping failures for diagnostics.
+  derived_from_claims:
+  - C00220
+  - C00221
+  - C00222
+  confidence: high
+  applies_when:
+  - Building failure-handling and observability around MCP connection health
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: 'Implement task-augmented requests as a strict two-phase exchange: return
+    a `CreateTaskResult` carrying only task data immediately (as soon as possible
+    after acceptance) and never the operation result, and deliver the real result
+    exclusively through `tasks/result` after the task completes.'
+  derived_from_claims:
+  - C00257
+  - C00259
+  - C00278
+  confidence: high
+  applies_when:
+  - a receiver accepts a task-augmented request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: 'Treat `ttl` as advisory, not a guarantee: requestors may request a lifetime,
+    receivers may override it and must report the actual `ttl` (or null for unlimited)
+    in `tasks/get`, and once the `ttl` elapses the receiver may delete the task and
+    its results regardless of status.'
+  derived_from_claims:
+  - C00258
+  - C00275
+  - C00276
+  confidence: high
+  applies_when:
+  - setting or relying on a task's retention window
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Poll task status via `tasks/get`, respect the returned `pollInterval`,
+    and keep polling until a terminal status or `input_required`; do not assume that
+    calling `tasks/result` removes the need to keep polling.
+  derived_from_claims:
+  - C00261
+  - C00262
+  - C00264
+  confidence: high
+  applies_when:
+  - a requestor is awaiting a task result
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: 'Use `input_required` for mid-task input: the receiver moves the task
+    to `input_required` and tags the input request with related-task metadata, the
+    requestor preemptively calls `tasks/result` to receive that request, and the task
+    returns to `working` once the input is supplied.'
+  derived_from_claims:
+  - C00272
+  - C00273
+  - C00280
+  confidence: high
+  applies_when:
+  - a task cannot complete without further requestor input (e.g. an elicitation)
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: 'Treat the task ID as an access-control credential: because holding a
+    task ID grants access to task state and results, bind tasks to the requestor''s
+    authorization context when one exists and reject get/result/cancel for tasks outside
+    that context while filtering `tasks/list` to the requestor''s own tasks.'
+  derived_from_claims:
+  - C00299
+  - C00300
+  - C00301
+  confidence: high
+  applies_when:
+  - an authorization context is available for task operations
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: 'Implement the tool discovery and invocation contract: support `tools/list`
+    with optional cursor pagination for discovery and `tools/call` (tool name plus
+    arguments) for invocation.'
+  derived_from_claims:
+  - C00505
+  - C00506
+  - C00507
+  confidence: high
+  applies_when:
+  - implementing MCP tool discovery or invocation on client or server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: Drive the pagination loop by echoing the previously returned cursor in
+    the follow-up request's params.cursor, and stop when a response omits nextCursor
+    (treat a missing nextCursor as end-of-results).
+  derived_from_claims:
+  - C00587
+  - C00588
+  - C00592
+  confidence: high
+  applies_when:
+  - a client iterates through a paginated MCP result set
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: 'Harden unauthenticated deployments: when tasks cannot be bound to an
+    authorization context, clearly document that results may be reachable by anyone
+    who guesses the ID, generate cryptographically secure high-entropy task IDs, prefer
+    shorter TTLs, and do not declare the `tasks.list` capability if requestors cannot
+    be identified.'
+  derived_from_claims:
+  - C00302
+  - C00303
+  - C00304
+  confidence: high
+  applies_when:
+  - running in an environment without authorization or requestor identification
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: 'Implement the three-action response model (accept, decline, cancel):
+    on form-mode accept return content matching the schema, on URL-mode accept omit
+    content and treat it as consent to begin, not proof the interaction completed.'
+  derived_from_claims:
+  - C00338
+  - C00339
+  - C00340
+  confidence: high
+  applies_when:
+  - producing or interpreting an elicitation response
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: 'Build URL mode requests completely: specify mode url, include a message,
+    a valid url, and a unique elicitationId.'
+  derived_from_claims:
+  - C00328
+  - C00329
+  - C00330
+  confidence: high
+  applies_when:
+  - constructing a URL mode elicitation request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: 'Apply safe URL handling on the server: never place end-user PII or credentials
+    in the URL, never issue a URL pre-authenticated to a protected resource (it enables
+    impersonation), avoid clickable URLs inside form-field values, and use HTTPS outside
+    development.'
+  derived_from_claims:
+  - C00354
+  - C00355
+  - C00356
+  confidence: high
+  applies_when:
+  - a server constructs a URL for URL mode elicitation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: 'Enforce resource security on the server: validate all resource URIs,
+    apply access controls to sensitive resources, and check permissions before performing
+    any resource operation.'
+  derived_from_claims:
+  - C00494
+  - C00495
+  - C00497
+  confidence: high
+  applies_when:
+  - a server accepts resource URIs or performs resource operations
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: 'Honor declared output schemas on both sides: when a tool declares an
+    output schema the server must return structured results that conform to it and
+    clients should validate results against it; also serialize structured content
+    into a text content block for backwards compatibility.'
+  derived_from_claims:
+  - C00520
+  - C00521
+  - C00522
+  confidence: high
+  applies_when:
+  - a tool declares an outputSchema
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: 'Defend URL mode against cross-user phishing: verify that whoever opens
+    the URL is the same user the elicitation was generated for before accepting any
+    information, ensure the originator completes the flow, and make the identity check
+    resilient to URL tampering (e.g. a server connect-URL comparing the session subject
+    to the authorization sub claim before redirecting to the third party).'
+  derived_from_claims:
+  - C00364
+  - C00365
+  - C00366
+  confidence: high
+  applies_when:
+  - a URL mode flow performs third-party authorization or accepts user-provided information
+    out of band
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P089
+  statement: 'Treat MCP roots as hard operational boundaries: a server must confine
+    its filesystem operations to the directories and files exposed by the client as
+    roots.'
+  derived_from_claims:
+  - C00367
+  - C00385
+  - C00386
+  confidence: high
+  applies_when:
+  - a server performs filesystem operations under MCP
+  - the client has exposed one or more roots
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: 'Keep the root set in sync via notifications: a client advertising `listChanged`
+    must send `notifications/roots/list_changed` on any change, and a server must
+    react by re-issuing `roots/list`.'
+  derived_from_claims:
+  - C00375
+  - C00376
+  - C00392
+  confidence: high
+  applies_when:
+  - the client advertised listChanged support
+  - the exposed root set can change at runtime
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: 'A client must enforce access safety before and while exposing roots:
+    expose only roots it has permission for, apply proper access controls, and continuously
+    monitor root accessibility.'
+  derived_from_claims:
+  - C00380
+  - C00382
+  - C00383
+  confidence: high
+  applies_when:
+  - a client is deciding which roots to expose to a server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: Request generations with a sampling/createMessage JSON-RPC request carrying
+    messages, optional modelPreferences, an optional systemPrompt, and maxTokens;
+    expect a result with role, content, model, and stopReason.
+  derived_from_claims:
+  - C00410
+  - C00411
+  - C00412
+  confidence: high
+  applies_when:
+  - a server initiates a model generation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: 'Drive tool-enabled sampling as a multi-turn loop: send tools (name,
+    description, inputSchema) and optional toolChoice, execute the tool_use returned
+    under stopReason ''toolUse'', append tool results, and repeat.'
+  derived_from_claims:
+  - C00413
+  - C00414
+  - C00415
+  confidence: high
+  applies_when:
+  - a sampling request enables tool use
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: 'Address every resource by a unique URI: standard schemes are non-exhaustive,
+    so custom schemes are permitted but MUST conform to RFC3986; `git://` is the defined
+    scheme for Git version-control integration.'
+  derived_from_claims:
+  - C00467
+  - C00490
+  - C00491
+  confidence: high
+  applies_when:
+  - defining or identifying a resource
+  - choosing a URI scheme
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: Model completion requests as `completion/complete`, identifying the target
+    with a reference that is either `ref/prompt` (prompt by name) or `ref/resource`
+    (resource by URI template), and naming the argument being completed by its `name`
+    and current `value`.
+  derived_from_claims:
+  - C00540
+  - C00541
+  - C00543
+  confidence: high
+  applies_when:
+  - designing or reviewing the completion request path of an MCP client or server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
+  statement: 'Advertise the tools capability and wire up listChanged correctly: a
+    server exposing tools must declare the `tools` capability, and if it sets `listChanged`
+    it must emit `notifications/tools/list_changed` whenever its tool list changes.'
+  derived_from_claims:
+  - C00503
+  - C00504
+  - C00508
+  confidence: high
+  applies_when:
+  - implementing an MCP server that exposes tools
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: Offer `resources/subscribe` only when the `subscribe` feature is advertised;
+    on a `notifications/resources/updated` for a subscribed resource the client must
+    re-read it via `resources/read` to get the new contents.
+  derived_from_claims:
+  - C00470
+  - C00477
+  - C00478
+  confidence: high
+  applies_when:
+  - the server advertises the subscribe feature
+  - a client tracks live changes to specific resources
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: 'Return well-formed tool results: place unstructured output in the `content`
+    array (which may hold multiple typed items such as text, image, audio, resource
+    links, or embedded resources) and structured output as a JSON object in `structuredContent`.'
+  derived_from_claims:
+  - C00517
+  - C00518
+  - C00519
+  confidence: high
+  applies_when:
+  - a tool produces a result payload
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: 'Treat cursors as fully opaque tokens: do not parse, modify, or make
+    assumptions about their format, and do not persist them across sessions.'
+  derived_from_claims:
+  - C00594
+  - C00595
+  - C00596
+  confidence: high
+  applies_when:
+  - a client stores or forwards a pagination cursor
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: Servers should provide stable cursors, handle invalid cursors gracefully,
+    and return JSON-RPC error code -32602 (Invalid params) when a supplied cursor
+    is invalid.
+  derived_from_claims:
+  - C00590
+  - C00591
+  - C00597
+  confidence: high
+  applies_when:
+  - implementing the server side of a paginated MCP operation
+  - validating an incoming cursor
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: 'Review tool behavior against revision-specific MCP capabilities: annotations
+    start in 2025-03-26, structured outputs and resource links start in 2025-06-18,
+    and 2025-11-25 expects tool-input validation failures to be reported as Tool Execution
+    Errors.'
+  derived_from_claims:
+  - C00618
+  - C00619
+  - C00620
+  confidence: high
+  applies_when:
+  - Auditing tool descriptions, tool results, resource-link handling, or tool-call
+    error classification.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: 'Advertise and interpret capabilities against the defined catalog (client:
+    roots, sampling, elicitation, tasks, experimental; server: prompts, resources,
+    tools, logging, completions, tasks, experimental) and honour sub-capabilities
+    such as listChanged (prompts/resources/tools) and subscribe (resources only).'
+  derived_from_claims:
+  - C00129
+  - C00130
+  - C00131
+  confidence: medium
+  applies_when:
+  - building or validating the capability object exchanged at initialization
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P103
+  statement: 'Scope authorization to transport: HTTP-based transports should conform
+    to the MCP authorization spec, STDIO transports should skip it and instead take
+    credentials from the environment, and peers may still negotiate custom auth strategies.'
+  derived_from_claims:
+  - C00085
+  - C00086
+  - C00087
+  confidence: medium
+  applies_when:
+  - choosing an authentication/authorization approach for an MCP transport
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P104
+  statement: 'Manage the SSE response stream deliberately: prime reconnection with
+    an initial empty-data event ID, optionally close the connection without terminating
+    the stream while sending an SSE retry field (which the client MUST honour by waiting
+    before reconnecting), and terminate the stream after delivering the JSON-RPC response.'
+  derived_from_claims:
+  - C00168
+  - C00169
+  - C00170
+  confidence: medium
+  applies_when:
+  - the server has opened an SSE stream for a client request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P105
+  statement: 'A server should be defensive about roots at runtime: check the roots
+    capability before using roots, validate all paths against the provided roots,
+    and handle roots that become unavailable without failing catastrophically.'
+  derived_from_claims:
+  - C00384
+  - C00386
+  - C00391
+  confidence: medium
+  applies_when:
+  - a server relies on roots to scope its work
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: 'Do not couple root handling to a specific UI: the protocol mandates
+    no user-interaction model, so expose roots through whatever workspace/project
+    interface fits, and cache root information appropriately instead of re-fetching
+    needlessly.'
+  derived_from_claims:
+  - C00369
+  - C00370
+  - C00394
+  confidence: medium
+  applies_when:
+  - designing how roots are surfaced to users or fetched by a server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
+  statement: On the client side, debounce rapid successive completion requests, cache
+    results where appropriate, and degrade gracefully when results are missing or
+    partial.
+  derived_from_claims:
+  - C00550
+  - C00551
+  - C00552
+  confidence: medium
+  applies_when:
+  - building an interactive client that issues completion requests as the user types
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P108
+  statement: 'Treat the logging presentation layer as implementation-defined: the
+    protocol mandates no UI model, and clients may present, filter, search, visually
+    distinguish, and persist log messages as they choose.'
+  derived_from_claims:
+  - C00559
+  - C00562
+  - C00580
+  confidence: medium
+  applies_when:
+  - designing how a client surfaces logs to users
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
+  statement: 'Harden log output operationally: rate-limit messages, validate all data
+    fields, and control access to logs.'
+  derived_from_claims:
+  - C00570
+  - C00577
+  - C00578
+  confidence: medium
+  applies_when:
+  - operating a server or client that produces or stores logs
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
+  statement: 'Make log data actionable and correlatable: include relevant context
+    in the data field and use consistent logger names.'
+  derived_from_claims:
+  - C00561
+  - C00571
+  - C00572
+  confidence: medium
+  applies_when:
+  - structuring the content of a log notification
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P111
+  statement: Adopt MCP as the standardized protocol layer for connecting LLM applications
+    to external data and tools, instead of building bespoke per-integration connectors.
+  derived_from_claims:
+  - C00001
+  - C00002
+  confidence: high
+  applies_when:
+  - designing how an LLM application will consume external context, data, or tools
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P112
+  statement: Treat the normative TypeScript schema (schema.ts) as the source of truth,
+    and honour BCP-14/RFC-2119 keywords as binding requirements only where they appear
+    in all capitals.
+  derived_from_claims:
+  - C00003
+  - C00004
+  confidence: high
+  applies_when:
+  - implementing or reviewing conformance of an MCP client or server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P113
+  statement: Treat the TypeScript schema as the single source of truth for MCP messages
+    and structures, and treat the JSON Schema as a generated artifact derived from
+    it.
+  derived_from_claims:
+  - C00088
+  - C00089
+  confidence: high
+  applies_when:
+  - referencing or validating against the MCP protocol schema
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P114
+  statement: Model the three MCP participant roles distinctly — Hosts initiate connections,
+    Clients are the connectors embedded in the host, and Servers provide context and
+    capabilities.
+  derived_from_claims:
+  - C00006
+  - C00007
+  confidence: high
+  applies_when:
+  - designing or documenting the architecture and responsibilities of an MCP deployment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P115
+  statement: When building an MCP server, model all context and capabilities using
+    the three standard server primitives — prompts, resources, and tools — rather
+    than ad-hoc mechanisms, so clients and models can discover and use them consistently.
+  derived_from_claims:
+  - C00432
+  - C00433
+  confidence: high
+  applies_when:
+  - Designing or implementing an MCP server that exposes capabilities to a client
+    and model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P116
+  statement: 'Model the system as client-host-server: a single host process runs multiple
+    client instances, and this separation is the mechanism for security boundaries
+    and concern isolation.'
+  derived_from_claims:
+  - C00033
+  - C00034
+  confidence: high
+  applies_when:
+  - designing or reviewing an MCP integration topology
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P117
+  statement: Make the host the sole owner of context aggregation and AI/LLM sampling
+    coordination across clients.
+  derived_from_claims:
+  - C00042
+  - C00043
+  confidence: high
+  applies_when:
+  - routing model calls or assembling context from multiple servers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P118
+  statement: Give each client exactly one isolated, stateful session with a single
+    server (1:1), so a client never multiplexes across servers.
+  derived_from_claims:
+  - C00044
+  - C00045
+  confidence: high
+  applies_when:
+  - mapping clients to servers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P119
+  statement: 'Optimise the protocol so servers are extremely easy to build and highly
+    composable: push complex orchestration to the host and keep each server''s interface
+    simple and combinable.'
+  derived_from_claims:
+  - C00055
+  - C00056
+  confidence: high
+  applies_when:
+  - making protocol or SDK design trade-offs
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P120
+  statement: 'Design for progressive, backward-compatible evolution: keep the core
+    protocol minimal and required, negotiate everything else, and let clients and
+    servers evolve independently.'
+  derived_from_claims:
+  - C00060
+  - C00061
+  confidence: high
+  applies_when:
+  - adding new protocol features or versioning
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P121
+  statement: Require a server to advertise every implemented feature in its declared
+    capabilities, and use protocol extensions for any capability beyond the standard
+    negotiated set.
+  derived_from_claims:
+  - C00065
+  - C00066
+  confidence: high
+  applies_when:
+  - a server implements a feature or a non-standard capability
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P122
+  statement: 'Handle MCP notifications as one-way messages: a notification carries
+    no id and its receiver sends no response.'
+  derived_from_claims:
+  - C00083
+  - C00084
+  confidence: high
+  applies_when:
+  - sending or receiving MCP notifications
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P123
+  statement: For clients that render icons, support at least image/png and image/jpeg,
+    and additionally support image/svg+xml and image/webp where feasible.
+  derived_from_claims:
+  - C00103
+  - C00104
+  confidence: high
+  applies_when:
+  - a client that renders MCP icons
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P124
+  statement: 'Restrict traffic during the handshake window: the client sends nothing
+    but pings until the initialize response arrives, and the server sends nothing
+    but pings and logging until the initialized notification arrives.'
+  derived_from_claims:
+  - C00119
+  - C00120
+  confidence: high
+  applies_when:
+  - a request is about to be sent before the handshake completes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P125
+  statement: 'Handle the expected lifecycle failure modes explicitly: protocol-version
+    mismatch, failure to negotiate required capabilities, and request timeouts; report
+    an unsupported protocol version with JSON-RPC error code -32602 and data listing
+    supported and requested versions.'
+  derived_from_claims:
+  - C00147
+  - C00148
+  confidence: high
+  applies_when:
+  - implementing error handling for MCP connection setup
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P126
+  statement: You may reset a request's timeout clock on receiving a progress notification
+    for it, but always enforce a hard maximum timeout regardless of progress, to bound
+    the impact of a misbehaving peer.
+  derived_from_claims:
+  - C00145
+  - C00146
+  confidence: high
+  applies_when:
+  - a long-running request emits progress notifications
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P127
+  statement: Custom transports are permitted but MUST preserve MCP's JSON-RPC message
+    format and lifecycle requirements and SHOULD document their connection and message-exchange
+    patterns for interoperability.
+  derived_from_claims:
+  - C00152
+  - C00189
+  confidence: high
+  applies_when:
+  - implementing a non-standard or custom MCP transport
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P128
+  statement: Over HTTP the client MUST send the MCP-Protocol-Version header on all
+    post-initialization requests (SHOULD be the negotiated version); the server SHOULD
+    assume 2025-03-26 when the header is absent and unresolvable, and MUST return
+    HTTP 400 for an invalid or unsupported version.
+  derived_from_claims:
+  - C00185
+  - C00186
+  confidence: high
+  applies_when:
+  - a client makes HTTP requests after initialization
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P129
+  statement: Restrict the `https://` scheme to resources the client can fetch directly
+    from the web on its own; for anything the client must read through the MCP server,
+    prefer another or a custom scheme even when the server itself downloads the bytes.
+  derived_from_claims:
+  - C00486
+  - C00487
+  confidence: high
+  applies_when:
+  - choosing a scheme for a web-hosted or server-mediated resource
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P130
+  statement: Streamable HTTP servers MUST validate the Origin header on all incoming
+    connections and MUST respond with HTTP 403 Forbidden when it is present and invalid,
+    to prevent DNS rebinding attacks.
+  derived_from_claims:
+  - C00159
+  - C00160
+  confidence: high
+  applies_when:
+  - handling incoming Streamable HTTP connections
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P131
+  statement: Support an optional client-initiated GET (with an Accept header listing
+    text/event-stream) that opens a server-to-client SSE stream without a prior POST;
+    the server MUST answer such a GET with either text/event-stream or HTTP 405 Method
+    Not Allowed.
+  derived_from_claims:
+  - C00173
+  - C00174
+  confidence: high
+  applies_when:
+  - a client opens a server-to-client SSE stream via GET
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P132
+  statement: Only emit a cancellation that references a request the sender itself
+    issued in that direction and that the sender still believes to be in-progress;
+    never cancel a peer's request or one already known to be finished.
+  derived_from_claims:
+  - C00193
+  - C00194
+  confidence: high
+  applies_when:
+  - constructing a `notifications/cancelled` notification
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P133
+  statement: Cancel task-augmented requests through the dedicated `tasks/cancel` request
+    (which returns the final task state), not through `notifications/cancelled`.
+  derived_from_claims:
+  - C00196
+  - C00197
+  confidence: high
+  applies_when:
+  - the request being cancelled is task-augmented
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P134
+  statement: 'Treat cancellation as best-effort: a receiver may ignore a cancellation
+    whose request is unknown, already completed, or uncancellable, and should ignore
+    invalid notifications (bad request IDs, completed targets, or malformed content)
+    rather than erroring.'
+  derived_from_claims:
+  - C00201
+  - C00207
+  confidence: high
+  applies_when:
+  - a receiver cannot honour or cannot validate a cancellation notification
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P135
+  statement: 'Make cancellation observable: log cancellation reasons for debugging
+    and surface in the application UI when a cancellation has been requested.'
+  derived_from_claims:
+  - C00205
+  - C00206
+  confidence: high
+  applies_when:
+  - implementing cancellation handling in an application
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P136
+  statement: 'A ping receiver MUST respond promptly with an empty JSON-RPC result
+    (`result: {}`) that reuses the originating request''s `id`, so the sender can
+    correlate the reply.'
+  derived_from_claims:
+  - C00213
+  - C00214
+  confidence: high
+  applies_when:
+  - Handling an inbound `ping` request on either side of an MCP connection
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P137
+  statement: 'Treat MCP progress tracking as opt-in and bidirectional: it applies
+    only to long-running operations, and either party may emit progress notifications
+    only when the peer has requested updates.'
+  derived_from_claims:
+  - C00223
+  - C00224
+  confidence: high
+  applies_when:
+  - reviewing or designing an MCP long-running operation that may report progress
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P138
+  statement: 'Preserve receiver discretion: a receiver may decline to send progress
+    notifications at all and may choose any notification frequency, so never require
+    progress as a correctness precondition.'
+  derived_from_claims:
+  - C00234
+  - C00235
+  confidence: high
+  applies_when:
+  - depending on progress notifications in client or server logic
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P139
+  statement: 'Stop progress notifications once the operation is done: cease notifications
+    after completion, and for tasks stop as soon as the task reaches a terminal status
+    of completed, failed, or cancelled.'
+  derived_from_claims:
+  - C00240
+  - C00243
+  confidence: high
+  applies_when:
+  - an operation or task has completed or reached a terminal status
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P140
+  statement: 'Model long-running or deferrable MCP work as requestor-driven durable
+    tasks: the requestor owns augmenting the request and polling for the result, while
+    the receiver decides which request types are task-eligible and owns each task''s
+    lifecycle.'
+  derived_from_claims:
+  - C00244
+  - C00247
+  confidence: high
+  applies_when:
+  - designing a task-augmented MCP client or server
+  - the operation is expensive, batched, or backed by an external job API
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P141
+  statement: 'Match task handling to declared capability: process requests normally
+    and ignore task metadata for request types where task capability was not declared,
+    and only reject non-task-augmented requests for types where it was declared.'
+  derived_from_claims:
+  - C00267
+  - C00268
+  confidence: high
+  applies_when:
+  - a receiver dispatches an incoming request that may carry task metadata
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P142
+  statement: 'Treat `notifications/tasks/status` as an optional optimization only:
+    receivers may push full-state notifications on status changes, but requestors
+    must not depend on receiving them and must continue polling `tasks/get`.'
+  derived_from_claims:
+  - C00265
+  - C00266
+  confidence: high
+  applies_when:
+  - designing how a requestor learns of status changes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P143
+  statement: 'Make `tasks/result` return exactly what the underlying request would
+    have returned, matching its result type: block the response while the task is
+    `working` or `input_required`, and on a terminal task return either the successful
+    result or the identical original JSON-RPC error.'
+  derived_from_claims:
+  - C00263
+  - C00279
+  confidence: high
+  applies_when:
+  - implementing or consuming tasks/result
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P144
+  statement: On execution failure move the task to `failed` — including JSON-RPC errors
+    during execution and, for tool calls, a tool result with `isError` true — include
+    a diagnostic `statusMessage`, and have `tasks/result` return the identical successful
+    result or JSON-RPC error the underlying request produced.
+  derived_from_claims:
+  - C00297
+  - C00298
+  confidence: high
+  applies_when:
+  - the wrapped request does not complete successfully
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P145
+  statement: 'Enforce the task status state machine: every task starts in `working`,
+    only the allowed transitions to and from `input_required` are permitted, and a
+    task in a terminal status (`completed`, `failed`, or `cancelled`) must never transition
+    again.'
+  derived_from_claims:
+  - C00270
+  - C00271
+  confidence: high
+  applies_when:
+  - updating or validating a task's status
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P146
+  statement: Model task state with the standard fields (`taskId`, `status`, optional
+    `statusMessage`, `createdAt`, `ttl`, `pollInterval`, `lastUpdatedAt`) and the
+    five defined statuses — `working`, `input_required`, `completed`, `failed`, `cancelled`
+    — treating a tool result with `isError` true as `failed`.
+  derived_from_claims:
+  - C00287
+  - C00288
+  confidence: high
+  applies_when:
+  - representing or interpreting task state
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P147
+  statement: Use opaque cursor-based pagination (a server-issued position token),
+    never numbered/offset pages, so the pagination scheme stays server-controlled.
+  derived_from_claims:
+  - C00583
+  - C00584
+  confidence: high
+  applies_when:
+  - choosing a pagination scheme for an MCP operation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P148
+  statement: Clients should support both paginated and non-paginated flows so they
+    interoperate with servers regardless of whether a given response returns a nextCursor.
+  derived_from_claims:
+  - C00587
+  - C00593
+  confidence: high
+  applies_when:
+  - building a client that lists resources, templates, prompts, or tools
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P149
+  statement: 'Let users vet their input before it leaves: in form mode allow review
+    and modification of responses before sending, and in URL mode display the target
+    domain/host and obtain explicit consent before navigating.'
+  derived_from_claims:
+  - C00316
+  - C00317
+  confidence: high
+  applies_when:
+  - presenting a form for submission or a URL for navigation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P150
+  statement: Form every elicitation/create request with a mode (optional for form,
+    defaulting to form when omitted) and a human-readable message that explains why
+    the interaction is needed; treat a missing mode as form.
+  derived_from_claims:
+  - C00322
+  - C00323
+  confidence: high
+  applies_when:
+  - constructing or parsing an elicitation/create request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P151
+  statement: Use URLElicitationRequiredError (-32042) only when a request genuinely
+    cannot proceed until a URL-mode elicitation completes, and populate it with the
+    list of required elicitations, each URL mode and carrying an elicitationId.
+  derived_from_claims:
+  - C00336
+  - C00337
+  confidence: high
+  applies_when:
+  - a request cannot be processed until a URL mode elicitation is completed
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P152
+  statement: 'Give users strong runtime control: implement user-approval controls,
+    allow declining an elicitation at any time, apply rate limiting, and present each
+    request so it is clear what is being asked and why.'
+  derived_from_claims:
+  - C00352
+  - C00353
+  confidence: high
+  applies_when:
+  - a client surfaces elicitation requests to users
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P153
+  statement: 'A client that supports roots must declare the `roots` capability at
+    initialization, and set `listChanged: true` only if it will actually emit change
+    notifications.'
+  derived_from_claims:
+  - C00371
+  - C00372
+  confidence: high
+  applies_when:
+  - implementing or reviewing an MCP client that exposes roots
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P154
+  statement: 'Constrain and validate root URIs: a root `uri` must be a `file://` URI
+    under the current spec, and a client must validate every root URI to prevent path-traversal.'
+  derived_from_claims:
+  - C00377
+  - C00381
+  confidence: high
+  applies_when:
+  - constructing, accepting, or exposing a root URI
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P155
+  statement: 'Return standard JSON-RPC error codes for prompt failures: -32602 for
+    an invalid prompt name or missing required arguments, and -32603 for internal
+    errors.'
+  derived_from_claims:
+  - C00459
+  - C00460
+  confidence: high
+  applies_when:
+  - a prompts/get or prompts/list request fails
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P156
+  statement: Return standard JSON-RPC errors for resource failures — code -32002 for
+    resource-not-found (including the offending `uri` in `data`) and -32603 for internal
+    errors.
+  derived_from_claims:
+  - C00492
+  - C00493
+  confidence: high
+  applies_when:
+  - a resource request fails
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P157
+  statement: 'Negotiate tool use through capabilities: a client must declare sampling.tools
+    to receive tool-enabled sampling requests, and a server must not send tool-enabled
+    requests to a client that has not declared it.'
+  derived_from_claims:
+  - C00404
+  - C00405
+  confidence: high
+  applies_when:
+  - a server wants the client's LLM to call tools during sampling
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P158
+  statement: A client that supports sampling must declare the sampling capability
+    during initialization, nesting a tools object for tool-use support and a context
+    object for context-inclusion support.
+  derived_from_claims:
+  - C00406
+  - C00407
+  confidence: high
+  applies_when:
+  - a client initializes an MCP session and intends to support sampling
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P159
+  statement: A user message that carries tool results must contain only tool_result
+    blocks and no text, image, or audio, so it stays compatible with provider APIs
+    that use dedicated tool-result roles.
+  derived_from_claims:
+  - C00417
+  - C00418
+  confidence: high
+  applies_when:
+  - a user message contains one or more tool_result blocks
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P160
+  statement: 'Preserve tool-use/result balance: immediately follow any assistant message
+    containing ToolUseContent with a user message made up entirely of ToolResultContent,
+    matching each tool use''s id to a tool result''s toolUseId before any other message.'
+  derived_from_claims:
+  - C00419
+  - C00420
+  confidence: high
+  applies_when:
+  - an assistant message returns one or more tool_use blocks
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P161
+  statement: Support parallel tool use by accepting an array of ToolUseContent; treat
+    disabling parallel tool use as an optional provider-specific extension, not part
+    of core MCP.
+  derived_from_claims:
+  - C00423
+  - C00424
+  confidence: high
+  applies_when:
+  - a model may issue multiple tool calls in one turn
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P162
+  statement: Base64-encode image and audio prompt-message content and include a valid
+    MIME type for it.
+  derived_from_claims:
+  - C00456
+  - C00457
+  confidence: high
+  applies_when:
+  - a prompt message carries image or audio content
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P163
+  statement: Treat resource selection as application-driven — the host decides how
+    resources become model context — and do not hard-code a single user-interaction
+    model; the protocol mandates none.
+  derived_from_claims:
+  - C00465
+  - C00466
+  confidence: high
+  applies_when:
+  - designing how a host surfaces or injects resource context
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P164
+  statement: Expose executable, action-taking or side-effecting operations (such as
+    API POST requests or file writes) as tools, because tools are the model-controlled
+    primitive through which a model performs actions or retrieves information.
+  derived_from_claims:
+  - C00438
+  - C00439
+  confidence: high
+  applies_when:
+  - A capability lets the model perform an action or actively retrieve information
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P165
+  statement: 'Design tools as model-controlled while leaving the interface open: assume
+    the model discovers and invokes tools from context, and do not assume or mandate
+    any particular user-interaction pattern.'
+  derived_from_claims:
+  - C00498
+  - C00499
+  confidence: high
+  applies_when:
+  - deciding how tools are surfaced and triggered in an MCP integration
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P166
+  statement: Expose read-only contextual data (such as file contents or git history)
+    as resources that the client attaches and manages, rather than as tools, since
+    resources are the application-controlled primitive for providing additional context
+    to the model.
+  derived_from_claims:
+  - C00436
+  - C00437
+  confidence: high
+  applies_when:
+  - A capability provides structured data or content as context to the model
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P167
+  statement: Expose reusable, user-invoked interaction templates (such as slash commands
+    or menu options) as prompts, because prompts are the user-controlled primitive
+    of pre-defined templates that guide language-model interactions.
+  derived_from_claims:
+  - C00434
+  - C00435
+  confidence: high
+  applies_when:
+  - A capability is a pre-defined template a user chooses to invoke
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P168
+  statement: 'Keep prompts user-controlled: expose them for explicit user selection
+    (e.g. slash commands or other user-initiated UI) rather than invoking them automatically.'
+  derived_from_claims:
+  - C00442
+  - C00443
+  confidence: high
+  applies_when:
+  - exposing prompts from a server to a client UI
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P169
+  statement: Advertise the `prompts.listChanged` flag to signal support for change
+    notifications, and when it is declared, send `notifications/prompts/list_changed`
+    whenever the available prompt set changes.
+  derived_from_claims:
+  - C00446
+  - C00451
+  confidence: high
+  applies_when:
+  - the prompt list can change at runtime and the server declared listChanged
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P170
+  statement: Retrieve a concrete prompt with `prompts/get`, passing the prompt name
+    and its arguments; support argument auto-completion through the completion API
+    where useful.
+  derived_from_claims:
+  - C00449
+  - C00450
+  confidence: high
+  applies_when:
+  - a client needs the rendered content of a specific prompt
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P171
+  statement: Model prompt messages as a `role` ("user" or "assistant") plus a `content`
+    value of one of the supported content types.
+  derived_from_claims:
+  - C00453
+  - C00454
+  confidence: high
+  applies_when:
+  - constructing the messages a prompt returns
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P172
+  statement: Emit each resource-content entry as exactly one of text (`text`) or binary
+    (base64 `blob`), and ensure binary data is properly encoded.
+  derived_from_claims:
+  - C00480
+  - C00496
+  confidence: high
+  applies_when:
+  - returning resource contents
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P173
+  statement: Carefully validate all prompt inputs and outputs to prevent injection
+    attacks and unauthorized access to resources.
+  derived_from_claims:
+  - C00461
+  - C00464
+  confidence: high
+  applies_when:
+  - handling a prompts/get request with arguments
+  - accepting prompt arguments or emitting prompt content, especially with embedded
+    resources
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P174
+  statement: Expose parameterized resources as RFC6570 URI-template resource templates
+    discoverable via `resources/templates/list`, and wire their arguments to the completion
+    API for auto-completion.
+  derived_from_claims:
+  - C00474
+  - C00475
+  confidence: high
+  applies_when:
+  - a family of resources is parameterized rather than enumerable
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P175
+  statement: Declaring the `listChanged` capability obligates the server to emit `notifications/resources/list_changed`
+    whenever the available-resource set changes.
+  derived_from_claims:
+  - C00471
+  - C00476
+  confidence: high
+  applies_when:
+  - the server declared the listChanged capability and its resource list changes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P176
+  statement: Treat `file://` as filesystem-like without requiring a real physical
+    filesystem, and optionally tag non-regular files (e.g. directories) with an XDG
+    MIME type such as `inode/directory` when no standard MIME type applies.
+  derived_from_claims:
+  - C00488
+  - C00489
+  confidence: high
+  applies_when:
+  - modeling filesystem-like or virtual-file resources
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P177
+  statement: An MCP server that offers argument autocompletion MUST advertise the
+    `completions` capability (an empty object) in its capabilities; a server that
+    returns completion suggestions without declaring this capability is non-conformant.
+  derived_from_claims:
+  - C00538
+  - C00539
+  confidence: high
+  applies_when:
+  - reviewing or building an MCP server that provides completion suggestions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P178
+  statement: Control access to sensitive completion suggestions and prevent completion-based
+    information disclosure, so that probing the completion endpoint cannot enumerate
+    or infer restricted values.
+  derived_from_claims:
+  - C00556
+  - C00557
+  confidence: high
+  applies_when:
+  - completion suggestions could reveal access-controlled or sensitive data
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P179
+  statement: 'Rate-limit completion handling on the server: appropriate rate limiting
+    is a security requirement, not merely an optimization.'
+  derived_from_claims:
+  - C00549
+  - C00555
+  confidence: high
+  applies_when:
+  - operating a server that exposes the completion endpoint
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P180
+  statement: Use the eight RFC 5424 syslog severity levels (debug→emergency) as the
+    log severity vocabulary, and attach a severity to every notification.
+  derived_from_claims:
+  - C00561
+  - C00564
+  confidence: high
+  applies_when:
+  - assigning or interpreting log severities in MCP
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P181
+  statement: Let the server determine page size; clients must not assume a fixed page
+    size or hardcode one.
+  derived_from_claims:
+  - C00585
+  - C00586
+  confidence: high
+  applies_when:
+  - a client consumes a paginated MCP list response
+  - sizing buffers or loops around page results
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P182
+  statement: 'Separate human-facing and programmatic naming checks by revision: title
+    is expected from 2025-06-18 onward, and 2025-11-25 adds broader user-facing metadata
+    and tool-name guidance.'
+  derived_from_claims:
+  - C00623
+  - C00624
+  confidence: high
+  applies_when:
+  - Auditing names, titles, icons, or other user-facing metadata for MCP tools, resources,
+    templates, or prompts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P183
+  statement: 'Defend icon consumption against resource exhaustion and executable content:
+    guard oversized images/dimensions/frames (optionally capping size), and exercise
+    caution with formats that can embed scripts (e.g. SVG), sanitizing or disallowing
+    risky file types.'
+  derived_from_claims:
+  - C00108
+  - C00109
+  confidence: medium
+  applies_when:
+  - rendering icons that may be oversized or carry executable content
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P184
+  statement: For backwards compatibility with the deprecated HTTP+SSE transport, servers
+    should host both the old SSE and POST endpoints alongside the new MCP endpoint,
+    and clients should probe with an InitializeRequest POST and fall back on HTTP
+    400/404/405 to a GET expecting an endpoint event.
+  derived_from_claims:
+  - C00187
+  - C00188
+  confidence: medium
+  applies_when:
+  - supporting peers built for the deprecated HTTP+SSE transport
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P185
+  statement: Harden local Streamable HTTP servers by binding only to localhost (127.0.0.1)
+    rather than all interfaces, and implement proper authentication for all connections.
+  derived_from_claims:
+  - C00161
+  - C00162
+  confidence: medium
+  applies_when:
+  - deploying or hardening a Streamable HTTP server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P186
+  statement: 'Apply operational hygiene to progress: track active progress tokens
+    on both ends and rate-limit progress notifications to prevent flooding the peer.'
+  derived_from_claims:
+  - C00241
+  - C00242
+  confidence: medium
+  applies_when:
+  - implementing a sender or receiver that handles progress notifications
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P187
+  statement: 'Log task lifecycle for audit on both sides: receivers should record
+    creation, completion, and retrieval events with auth context and watch for suspicious
+    patterns (e.g. many failed lookups or excessive polling), and requestors should
+    log lifecycle events and track task IDs with their operations.'
+  derived_from_claims:
+  - C00307
+  - C00308
+  confidence: medium
+  applies_when:
+  - operating task-augmented clients or servers that require auditability
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P188
+  statement: Return standard JSON-RPC errors for logging failures — `-32602` for an
+    invalid log level and `-32603` for configuration errors.
+  derived_from_claims:
+  - C00568
+  - C00569
+  confidence: medium
+  applies_when:
+  - a logging/setLevel request is invalid or configuration fails
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P189
+  statement: Avoid the soft-deprecated includeContext values 'thisServer' and 'allServers'
+    (omit includeContext so it defaults to 'none'); do not use them unless the client
+    has declared sampling.context, since they may be removed in a future release.
+  derived_from_claims:
+  - C00408
+  - C00409
+  confidence: medium
+  applies_when:
+  - a server is constructing a createMessage request that could set includeContext
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P190
+  statement: 'Handle resource references defensively: tools may return resource links
+    (URIs the client can fetch or subscribe to) that are not guaranteed to appear
+    in `resources/list`, and servers embedding resources in results should implement
+    the `resources` capability.'
+  derived_from_claims:
+  - C00523
+  - C00524
+  confidence: medium
+  applies_when:
+  - a tool returns resource links or embedded resources
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P191
+  statement: Respect capability negotiation for prompts on both the client and server
+    sides.
+  derived_from_claims:
+  - C00463
+  confidence: high
+  applies_when:
+  - either party is deciding whether prompt operations are available
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P192
+  statement: When establishing stateful sessions, assign the session ID via the MCP-Session-Id
+    header on the InitializeResult; the ID SHOULD be globally unique and cryptographically
+    secure and MUST contain only visible ASCII characters (0x21-0x7E).
+  derived_from_claims:
+  - C00181
+  confidence: high
+  applies_when:
+  - a server establishes stateful sessions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P193
+  statement: Once a session ID is assigned, the client MUST echo it in the MCP-Session-Id
+    header on all subsequent requests, and a server requiring sessions SHOULD reject
+    non-initialization requests that lack the header with HTTP 400 Bad Request.
+  derived_from_claims:
+  - C00182
+  confidence: high
+  applies_when:
+  - the server has assigned a session ID
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P194
+  statement: For HTTP MCP sessions on revision 2025-06-18 or newer, require the implementation
+    to send or enforce the negotiated MCP-Protocol-Version header on post-initialization
+    requests.
+  derived_from_claims:
+  - C00608
+  confidence: high
+  applies_when:
+  - The implementation uses HTTP transport and negotiates MCP 2025-06-18 or a later
+    revision.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P195
+  statement: Require each Icon object to provide a src URI that is an HTTP/HTTPS URL
+    or a data URI.
+  derived_from_claims:
+  - C00102
+  confidence: high
+  applies_when:
+  - exposing or consuming MCP icons
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P196
+  statement: 'Validate icon content by type: detect the real content type via magic
+    bytes, reject on mismatch or unknown type, and enforce a strict allowlist of image
+    types rather than trusting the advertised MIME type.'
+  derived_from_claims:
+  - C00110
+  confidence: high
+  applies_when:
+  - accepting an icon file for rendering
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P197
+  statement: On HTTP transports, send the negotiated version in an MCP-Protocol-Version
+    header on every request after initialization.
+  derived_from_claims:
+  - C00127
+  confidence: high
+  applies_when:
+  - the transport is HTTP
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P198
+  statement: Encode every MCP message as UTF-8 JSON-RPC across all transports.
+  derived_from_claims:
+  - C00150
+  confidence: high
+  applies_when:
+  - implementing or reviewing any MCP transport
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P199
+  statement: A Streamable HTTP server MUST expose a single MCP endpoint path that
+    supports both HTTP POST and GET.
+  derived_from_claims:
+  - C00157
+  confidence: high
+  applies_when:
+  - implementing a Streamable HTTP MCP server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P200
+  statement: The server MUST deliver each JSON-RPC message on only one connected stream
+    and MUST NOT broadcast the same message across multiple streams.
+  derived_from_claims:
+  - C00176
+  confidence: high
+  applies_when:
+  - the server maintains multiple concurrent SSE streams with a client
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P201
+  statement: When a posted body is a JSON-RPC response or notification, the server
+    MUST return HTTP 202 Accepted with no body if accepted, or an HTTP error status
+    (e.g. 400) if it cannot accept it.
+  derived_from_claims:
+  - C00166
+  confidence: high
+  applies_when:
+  - the POST body is a JSON-RPC response or notification
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P202
+  statement: When a posted body is a JSON-RPC request, the server MUST answer with
+    either text/event-stream (an SSE stream) or application/json (one object), and
+    the client MUST support both.
+  derived_from_claims:
+  - C00167
+  confidence: high
+  applies_when:
+  - the POST body is a JSON-RPC request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P203
+  statement: 'Return the correct JSON-RPC errors: a server must return -32042 (URLElicitationRequiredError)
+    when a request cannot proceed until an elicitation completes, and a client must
+    return -32602 (Invalid params) when a server uses a mode the client did not declare.'
+  derived_from_claims:
+  - C00350
+  confidence: high
+  applies_when:
+  - an elicitation cannot proceed or a request uses an undeclared mode
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P204
+  statement: On a GET-initiated SSE stream the server MUST NOT send a JSON-RPC response
+    except when resuming a stream tied to a previous client request.
+  derived_from_claims:
+  - C00175
+  confidence: high
+  applies_when:
+  - the server sends messages on a GET-initiated SSE stream
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P205
+  statement: 'Honour session-termination semantics: after the server terminates a
+    session it MUST return HTTP 404 Not Found for requests bearing that session ID,
+    and a client receiving that 404 MUST start a fresh session with a new InitializeRequest
+    and no session ID.'
+  derived_from_claims:
+  - C00183
+  confidence: high
+  applies_when:
+  - the server terminates a session
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P206
+  statement: Never allow a client to cancel the `initialize` request.
+  derived_from_claims:
+  - C00195
+  confidence: high
+  applies_when:
+  - a client considers cancelling any request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P207
+  statement: When a ping response does not arrive within a reasonable timeout, the
+    sender may treat the connection as stale and terminate it or attempt reconnection;
+    this is permitted, not mandatory.
+  derived_from_claims:
+  - C00215
+  confidence: high
+  applies_when:
+  - A sent ping has not been answered within the configured timeout window
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P208
+  statement: Only send a progress notification for a token that was supplied in a
+    still-active request and is bound to an in-progress operation; reject or drop
+    notifications for unknown or completed operations.
+  derived_from_claims:
+  - C00233
+  confidence: high
+  applies_when:
+  - validating an outgoing or incoming progress notification
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P209
+  statement: 'Select tool behaviour with toolChoice: ''auto'' (default) lets the model
+    decide, ''required'' forces at least one tool call before completing, and ''none''
+    forbids tool use.'
+  derived_from_claims:
+  - C00422
+  confidence: high
+  applies_when:
+  - a server needs to control whether the model uses tools
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P210
+  statement: 'Manage task resources deliberately: cap concurrent tasks per requestor
+    and maximum `ttl`, clean up expired tasks promptly, document the supported limits,
+    and monitor and alert on task resource usage.'
+  derived_from_claims:
+  - C00306
+  confidence: high
+  applies_when:
+  - operating a receiver that retains task state
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P211
+  statement: 'Report task problems through the correct channel: use standard JSON-RPC
+    protocol errors for protocol-level issues and surface underlying-execution failures
+    through the task status rather than as protocol errors.'
+  derived_from_claims:
+  - C00291
+  confidence: high
+  applies_when:
+  - deciding how to signal a task failure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P212
+  statement: Generate task IDs as receiver-side strings that are unique across every
+    task the receiver controls; never let the requestor supply the task ID.
+  derived_from_claims:
+  - C00269
+  confidence: high
+  applies_when:
+  - a receiver creates a new task
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P213
+  statement: Include ISO 8601 `createdAt` and `lastUpdatedAt` timestamps on every
+    task response so requestors can track creation and last-update times.
+  derived_from_claims:
+  - C00274
+  confidence: high
+  applies_when:
+  - returning any task response
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P214
+  statement: 'Support opaque, cursor-based pagination for `tasks/list`: emit `nextCursor`
+    whenever more tasks remain, require requestors to treat cursors as opaque tokens,
+    and keep list visibility consistent with `tasks/get` (anything gettable is listable
+    for that requestor).'
+  derived_from_claims:
+  - C00282
+  confidence: high
+  applies_when:
+  - implementing or consuming tasks/list
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P215
+  statement: Rate-limit task operations to defend against denial-of-service and task-ID
+    enumeration attacks.
+  derived_from_claims:
+  - C00305
+  confidence: high
+  applies_when:
+  - exposing task endpoints to callers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P216
+  statement: 'Understand URL mode''s boundary: it exists for acquiring sensitive data
+    or third-party authorization on the user''s behalf, not for authorizing the client''s
+    access to the server, and the client''s bearer token stays unchanged.'
+  derived_from_claims:
+  - C00331
+  confidence: high
+  applies_when:
+  - deciding whether to use URL mode elicitation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P217
+  statement: Bind every elicitation request to both the client and the specific user
+    identity.
+  derived_from_claims:
+  - C00351
+  confidence: high
+  applies_when:
+  - issuing or processing any elicitation request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P218
+  statement: Never treat client-provided user identification as authoritative without
+    server-side verification; identify users through authorization, since client-supplied
+    identity can be forged.
+  derived_from_claims:
+  - C00362
+  confidence: high
+  applies_when:
+  - determining the identity of the user behind an elicitation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P219
+  statement: 'Apply sampling security controls: clients implement user-approval controls,
+    respect model-preference hints, and rate-limit; both parties validate message
+    content, handle sensitive data appropriately, and enforce iteration limits when
+    tools are used.'
+  derived_from_claims:
+  - C00431
+  confidence: high
+  applies_when:
+  - implementing or reviewing a sampling client or server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P220
+  statement: 'Validate elicitation data against the schema on both sides: clients
+    should validate responses before sending and servers should validate received
+    data against the requested schema.'
+  derived_from_claims:
+  - C00363
+  confidence: high
+  applies_when:
+  - exchanging form mode data with a schema
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P221
+  statement: 'Bound the tool loop: cap the maximum number of iterations and pass toolChoice
+    {mode: ''none''} on the final iteration to force a final text result.'
+  derived_from_claims:
+  - C00416
+  confidence: high
+  applies_when:
+  - a server runs a multi-turn tool loop
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P222
+  statement: 'Use only the ''user'' and ''assistant'' roles: return tool-use requests
+    with the assistant role and send tool results back with the user role.'
+  derived_from_claims:
+  - C00421
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P223
+  statement: 'Support multimodal sampling content: text, image (base64 data plus mimeType),
+    and audio (base64 data plus mimeType).'
+  derived_from_claims:
+  - C00425
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P224
+  statement: 'Return standard errors on sampling failures: user rejection as code
+    -1, and a missing tool result or tool results mixed with other content as -32602
+    Invalid params.'
+  derived_from_claims:
+  - C00430
+  confidence: high
+  applies_when:
+  - a client cannot fulfill a sampling request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P225
+  statement: Expose reusable prompt templates through MCP's standardized prompts feature
+    rather than ad-hoc mechanisms, so clients can discover, retrieve, and parameterize
+    them uniformly.
+  derived_from_claims:
+  - C00441
+  confidence: high
+  applies_when:
+  - designing a server that offers reusable prompt templates to clients
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P226
+  statement: A server that supports prompts MUST declare the `prompts` capability
+    during initialization before serving prompt requests.
+  derived_from_claims:
+  - C00445
+  confidence: high
+  applies_when:
+  - the server implements the prompts feature
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P227
+  statement: Define each prompt with a unique `name` identifier and use the optional
+    `title`, `description`, `icons`, and `arguments` fields to make it discoverable
+    and customizable.
+  derived_from_claims:
+  - C00452
+  confidence: high
+  applies_when:
+  - authoring a prompt definition
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P228
+  statement: For an embedded resource in a prompt message, include a valid resource
+    URI, the appropriate MIME type, and either text content or base64-encoded blob
+    data.
+  derived_from_claims:
+  - C00458
+  confidence: high
+  applies_when:
+  - a prompt message embeds a server-side resource
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P229
+  statement: Validate all completion inputs before processing them.
+  derived_from_claims:
+  - C00554
+  confidence: high
+  applies_when:
+  - handling any incoming completion request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P230
+  statement: Retrieve resource contents through `resources/read` keyed by the resource
+    `uri`.
+  derived_from_claims:
+  - C00473
+  confidence: high
+  applies_when:
+  - fetching the contents of a known resource
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P231
+  statement: Always populate a resource's required `uri` and `name`; `title`, `description`,
+    `icons`, `mimeType`, and `size` are optional and should be provided only when
+    meaningful.
+  derived_from_claims:
+  - C00479
+  confidence: high
+  applies_when:
+  - serializing a resource or resource-template definition
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P232
+  statement: Do not assume or hard-require a specific completion user-interaction
+    model; the protocol mandates none, so present suggestions through whatever interface
+    fits the application (e.g. an IDE-style dropdown).
+  derived_from_claims:
+  - C00558
+  confidence: high
+  applies_when:
+  - choosing how to surface completion suggestions in a client
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P233
+  statement: Declare the `logging` capability before a server emits any log-message
+    notifications.
+  derived_from_claims:
+  - C00563
+  confidence: high
+  applies_when:
+  - building an MCP server that sends log notifications
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P234
+  statement: 'Treat JSON-RPC batching as a narrow version marker: allow it only for
+    MCP 2025-03-26 and flag it as non-conformant for 2024-11-05 or 2025-06-18 and
+    newer.'
+  derived_from_claims:
+  - C00613
+  confidence: high
+  applies_when:
+  - An implementation sends, accepts, emits, requires, or documents JSON-RPC batches.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P235
+  statement: Apply elicitation checks only to revisions that support them, with 2025-06-18
+    as the starting point and 2025-11-25 as the revision that adds URL mode, expanded
+    enum/result schema behavior, and primitive defaults.
+  derived_from_claims:
+  - C00621
+  confidence: high
+  applies_when:
+  - Auditing server-to-user elicitation or elicitation schema handling.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P236
+  statement: 'Check content-type support by negotiated revision: text and image are
+    baseline, and audio should only be expected from 2025-03-26 onward.'
+  derived_from_claims:
+  - C00622
+  confidence: high
+  applies_when:
+  - Auditing declared or accepted MCP content types.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P237
+  statement: Expect sampling tool-calling controls only when auditing MCP 2025-11-25
+    sampling behavior.
+  derived_from_claims:
+  - C00625
+  confidence: high
+  applies_when:
+  - Auditing sampling requests or tool-selection parameters against revision 2025-11-25.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P238
+  statement: Enforce lifecycle-operation requirements as mandatory for MCP 2025-06-18
+    and newer rather than treating them as advisory guidance.
+  derived_from_claims:
+  - C00626
+  confidence: high
+  applies_when:
+  - Auditing lifecycle operation behavior against revision 2025-06-18 or a later revision.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P239
+  statement: Provide the cross-cutting MCP utilities — configuration, progress tracking,
+    cancellation, error reporting, and logging — as part of a complete, operable implementation.
+  derived_from_claims:
+  - C00016
+  confidence: medium
+  applies_when:
+  - implementing a production-grade MCP client or server
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P240
+  statement: Offer the two standard MCP transports and support stdio whenever possible;
+    treat stdio as the default client choice.
+  derived_from_claims:
+  - C00151
+  confidence: medium
+  applies_when:
+  - choosing which transports an MCP client or server supports
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P241
+  statement: 'Treat a stdio server''s stderr as an optional log channel: the server
+    MAY log UTF-8 to stderr and the client MUST NOT assume stderr output signals an
+    error.'
+  derived_from_claims:
+  - C00156
+  confidence: medium
+  applies_when:
+  - handling a stdio server's stderr output
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P242
+  statement: Use Server-Sent Events (SSE) when the server needs to stream multiple
+    messages or push server-to-client messages over Streamable HTTP.
+  derived_from_claims:
+  - C00158
+  confidence: medium
+  applies_when:
+  - the server must stream multiple messages or push messages to the client
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P243
+  statement: Before the final JSON-RPC response, the server MAY interleave JSON-RPC
+    requests and notifications on the SSE stream, and those messages SHOULD relate
+    to the originating client request.
+  derived_from_claims:
+  - C00171
+  confidence: medium
+  applies_when:
+  - the server is streaming over SSE prior to the final response
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P244
+  statement: Do not treat an SSE disconnection as request cancellation; require clients
+    to cancel explicitly with an MCP CancelledNotification.
+  derived_from_claims:
+  - C00172
+  confidence: medium
+  applies_when:
+  - an SSE connection drops mid-request
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P245
+  statement: Let clients end sessions gracefully with an HTTP DELETE carrying the
+    MCP-Session-Id header; servers MAY refuse client-initiated termination with HTTP
+    405 Method Not Allowed.
+  derived_from_claims:
+  - C00184
+  confidence: medium
+  applies_when:
+  - a client no longer needs its session
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P246
+  statement: 'Do not assume indefinite task retention: a receiver may purge an expired
+    task and it is compliant to answer a later lookup with a ''task not found'' error,
+    so requestors must not depend on retrieval after expiry.'
+  derived_from_claims:
+  - C00296
+  confidence: medium
+  applies_when:
+  - retrieving a task or result after its ttl may have elapsed
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P247
+  statement: 'Return standard JSON-RPC errors for roots failures: `-32601` (method
+    not found) when the client does not support roots, and `-32603` for internal errors.'
+  derived_from_claims:
+  - C00379
+  confidence: medium
+  applies_when:
+  - a client must respond to a roots request it cannot fulfil
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P248
+  statement: 'Signal completion failures with the standard JSON-RPC error codes: -32601
+    when the completions capability is unsupported, -32602 for an invalid prompt name
+    or missing required arguments, and -32603 for internal errors.'
+  derived_from_claims:
+  - C00553
+  confidence: medium
+  applies_when:
+  - a completion request cannot be fulfilled
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P249
+  statement: Do not hard-code or mandate a specific prompt user-interaction model;
+    leave the client free to surface prompts through whatever interface pattern fits
+    its product.
+  derived_from_claims:
+  - C00444
+  confidence: medium
+  applies_when:
+  - designing how a client presents server-provided prompts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P250
+  statement: Treat content annotations (audience, priority, modification times) as
+    optional metadata available on any prompt-message content type.
+  derived_from_claims:
+  - C00455
+  confidence: medium
+  applies_when:
+  - metadata about audience, priority, or freshness is useful to the client
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P251
+  statement: When completing an argument on a prompt or template that has multiple
+    arguments, include the already-resolved argument values in `context.arguments`
+    so the server can return context-dependent suggestions.
+  derived_from_claims:
+  - C00542
+  confidence: medium
+  applies_when:
+  - the completion target exposes more than one argument
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P252
+  statement: Apply fuzzy matching to completion suggestions where appropriate rather
+    than requiring exact prefix matches.
+  derived_from_claims:
+  - C00548
+  confidence: medium
+  applies_when:
+  - fuzzy matching suits the argument domain being completed
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P253
+  statement: A server may return an `io.modelcontextprotocol/model-immediate-response`
+    placeholder in the `CreateTaskResult` `_meta` so the model can proceed while a
+    task runs, but this is provisional, non-binding guidance and must not be relied
+    on as stable protocol behaviour.
+  derived_from_claims:
+  - C00260
+  confidence: low
+  applies_when:
+  - a task wraps a tools/call and the host wants to return control to the model
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []

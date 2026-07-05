@@ -1,0 +1,252 @@
+# Faithfulness review — mcp-security-advisor
+# Per-rule claim-strength check of load-bearing profile rules against the promoted
+# principles and their backing claims/evidence. No rule is stronger than its evidence;
+# source_anchors are omitted deliberately (provenance carried in each note via
+# principle + claim IDs).
+schema_version: faithfulness-report-v1
+subagent_slug: mcp-security-advisor
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The role restates the sources'' framing — defensive MCP security review across authorization,
+    tool metadata, prompt injection, supply chain, and isolation — and narrows scope to review/advice,
+    not offensive testing, code, or the risk decision. A narrowing, not an over-claim. No rule is stronger
+    than its evidence. Grounded in principle(s): P010 (claims C00145/C00146); P001 (claims C00046/C00047);
+    P169 (claims C01011/C01012).'
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the sources directly address; within scope. No rule is stronger
+    than its evidence. Grounded in principle(s): P001 (claims C00046/C00047); P014 (claims C00061/C00062).'
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the sources directly address; within scope. No rule is stronger
+    than its evidence. Grounded in principle(s): P010 (claims C00145/C00146); P046 (claims C00309/C00310).'
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the sources directly address; within scope. No rule is stronger
+    than its evidence. Grounded in principle(s): P024 (claims C00428/C00429); P057 (claims C00765/C00766).'
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the sources directly address; within scope. No rule is stronger
+    than its evidence. Grounded in principle(s): P105 (claims C00140/C00141); P022 (claims C00179/C00180).'
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The exclusion narrows scope (no offensive testing / no implementation / out-of-domain); a narrowing,
+    not an over-claim. No rule is stronger than its evidence. Grounded in principle(s): P010 (claims C00145/C00146);
+    P169 (claims C01011/C01012).'
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The exclusion narrows scope (no offensive testing / no implementation / out-of-domain); a narrowing,
+    not an over-claim. No rule is stronger than its evidence. Grounded in principle(s): P125 (claims C00819/C00820);
+    P196 (claims C00278/C00279).'
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The exclusion narrows scope (no offensive testing / no implementation / out-of-domain); a narrowing,
+    not an over-claim. No rule is stronger than its evidence. Grounded in principle(s): P209 (claims C00973/C00974);
+    P105 (claims C00140/C00141).'
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The output contract requires per-finding weakness, attack, control, and trade-off; it restates
+    the sources’ review discipline. No rule is stronger than its evidence. Grounded in principle(s): P010
+    (claims C00145/C00146); P125 (claims C00819/C00820).'
+- rule_ref: outputs.modes[review].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The review mode trigger names a situation the sources support; within scope. No rule is stronger
+    than its evidence. Grounded in principle(s): P010 (claims C00145/C00146); P113 (claims C00382/C00383).'
+- rule_ref: outputs.modes[advise].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The advise mode trigger names a situation the sources support; within scope. No rule is stronger
+    than its evidence. Grounded in principle(s): P105 (claims C00140/C00141); P043 (claims C00827/C00828).'
+- rule_ref: outputs.modes[compare].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The compare mode trigger names a situation the sources support; within scope. No rule is stronger
+    than its evidence. Grounded in principle(s): P019 (claims C00656/C00657); P038 (claims C00206/C00207).'
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The floor — one grounded finding with attack and trade-off — is weaker than, and entailed by,
+    the sources. No rule is stronger than its evidence. Grounded in principle(s): P010 (claims C00145/C00146);
+    P125 (claims C00819/C00820).'
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar restates controls the cited principles support; within scope, no rule stronger
+    than its evidence. No rule is stronger than its evidence. Grounded in principle(s): P001 (claims C00046/C00047);
+    P014 (claims C00061/C00062); P102 (claims C00040/C00043).'
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar restates controls the cited principles support; within scope, no rule stronger
+    than its evidence. No rule is stronger than its evidence. Grounded in principle(s): P010 (claims C00145/C00146);
+    P012 (claims C00742/C00744); P115 (claims C01142/C01169).'
+- rule_ref: quality_bar[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar restates controls the cited principles support; within scope, no rule stronger
+    than its evidence. No rule is stronger than its evidence. Grounded in principle(s): P057 (claims C00765/C00766);
+    P028 (claims C00435/C00436); P204 (claims C00771/C00773).'
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar restates controls the cited principles support; within scope, no rule stronger
+    than its evidence. No rule is stronger than its evidence. Grounded in principle(s): P022 (claims C00179/C00180);
+    P026 (claims C00392/C00393); P111 (claims C00190/C00191).'
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar restates controls the cited principles support; within scope, no rule stronger
+    than its evidence. No rule is stronger than its evidence. Grounded in principle(s): P125 (claims C00819/C00820);
+    P134 (claims C00696/C00702); P061 (claims C00721/C00727).'
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The prohibition is at least as strong a restriction as the sources warn for; a narrowing, not
+    an over-claim. No rule is stronger than its evidence. Grounded in principle(s): P010 (claims C00145/C00146).'
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The prohibition is at least as strong a restriction as the sources warn for; a narrowing, not
+    an over-claim. No rule is stronger than its evidence. Grounded in principle(s): P010 (claims C00145/C00146);
+    P138 (claims C00691/C00694); P162 (claims C00077/C00078).'
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The prohibition is at least as strong a restriction as the sources warn for; a narrowing, not
+    an over-claim. No rule is stronger than its evidence. Grounded in principle(s): P125 (claims C00819/C00820);
+    P061 (claims C00721/C00727); P134 (claims C00696/C00702).'
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The handoff assigns ownership the sources assign to the deploying team / specialist; within scope.
+    No rule is stronger than its evidence. Grounded in principle(s): P209 (claims C00973/C00974); P108
+    (claims C00215/C00216).'
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The handoff assigns ownership the sources assign to the deploying team / specialist; within scope.
+    No rule is stronger than its evidence. Grounded in principle(s): P209 (claims C00973/C00974); P047
+    (claims C00993/C00994).'
+- rule_ref: source_of_truth_policy.canonical_owner
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Naming the engineering/security owners as canonical authority restates the sources’ stance; within
+    scope. No rule is stronger than its evidence. Grounded in principle(s): P209 (claims C00973/C00974);
+    P108 (claims C00215/C00216).'
+- rule_ref: source_of_truth_policy.precedence
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Letting the deployment pattern and threat model govern, never weakening below source support,
+    restates the sources; within scope. No rule is stronger than its evidence. Grounded in principle(s):
+    P105 (claims C00140/C00141); P125 (claims C00819/C00820).'
