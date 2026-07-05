@@ -1,0 +1,1897 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: mcp-quality-advisor
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  prompt: 'I''m working on this: a tool-augmented LLM or MCP deployment exposes many tools (dozens to
+    hundreds or more), often across multiple servers. What do you advise?'
+  expected_behaviour:
+  - advises to do not statically expose the entire tool catalog to the LLM
+  - cites P001
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P002
+  principle_id: P002
+  prompt: 'I''m working on this: configuring which tools/servers an agent can access for a task. What
+    do you advise?'
+  expected_behaviour:
+  - advises to minimize the number of tools an MCP server exposes
+  - cites P002
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P003
+  principle_id: P003
+  prompt: 'I''m working on this: Reviewing or authoring an MCP tool description. What do you advise?'
+  expected_behaviour:
+  - advises to treat an MCP tool's name, description, and parameter specification as the primary lever
+    for correct tool selection
+  - cites P003
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P004
+  principle_id: P004
+  prompt: 'I''m working on this: Tools are discovered by matching against names and descriptions, especially
+    when many capabilities are deferred.. What do you advise?'
+  expected_behaviour:
+  - advises to put an overview of the available tool categories into the tool-search description so the
+    LLM knows what exists and will actually attempt a search
+  - cites P004
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P005
+  principle_id: P005
+  prompt: 'I''m working on this: constructing arguments for a tool/API call. What do you advise?'
+  expected_behaviour:
+  - advises to validate tool-call parameters against each tool's constraints before invoking it
+  - cites P005
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P006
+  principle_id: P006
+  prompt: 'I''m working on this: the server emits diagnostic or logging output. What do you advise?'
+  expected_behaviour:
+  - advises to keep diagnostic and other non-protocol output off the JSON-RPC message stream
+  - cites P006
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P007
+  principle_id: P007
+  prompt: 'I''m working on this: listing tools, resources, templates, or prompts that a server may paginate.
+    What do you advise?'
+  expected_behaviour:
+  - advises to never assume an MCP list call (list_tools/list_prompts/list_resources/list_resource_templates)
+    returns every item
+  - cites P007
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P008
+  principle_id: P008
+  prompt: 'I''m working on this: reporting agent performance for a specific evaluation goal. What do you
+    advise?'
+  expected_behaviour:
+  - advises to select the evaluation metric to match the question
+  - cites P008
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P009
+  principle_id: P009
+  prompt: 'I''m working on this: asserting that a toolset exercises dynamic, real-world conditions. What
+    do you advise?'
+  expected_behaviour:
+  - advises to run evaluation against exclusively real, production servers rather than mocked substitutes
+    so authentic error modes (rate limits, pagination, schema-version mismatches, transient errors) are
+    exercised
+  - cites P009
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P010
+  principle_id: P010
+  prompt: 'I''m working on this: authoring web-search or information-seeking agent tasks. What do you
+    advise?'
+  expected_behaviour:
+  - advises to design tasks that require multi-hop, multi-step reasoning across scattered sources
+  - cites P010
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P011
+  principle_id: P011
+  prompt: 'I''m working on this: prioritizing which description smells to fix first. What do you advise?'
+  expected_behaviour:
+  - advises to prioritize remediation by measured impact on tool selection — functionality first (+11.6%),
+    then accuracy (+8.8%), then information completeness (+5.9%), then conciseness (+1.5%) — and adjust
+    for quer
+  - cites P011
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P012
+  principle_id: P012
+  prompt: 'I''m working on this: an MCP deployment exposes tools with dynamic registration, shared memory,
+    or shell-bound wrappers. What do you advise?'
+  expected_behaviour:
+  - advises to treat MCP tools as untrusted and map each threat vector to its defense
+  - cites P012
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P013
+  principle_id: P013
+  prompt: 'I''m working on this: Tool definitions are large enough to materially consume context, tool-selection
+    errors are likely, multiple MCP servers are connected, or the available library has roughly ten or
+    more tools.. What do you advise?'
+  expected_behaviour:
+  - advises to use deferred tool discovery for large tool libraries so the model loads only the tool definitions
+    needed for the current task
+  - cites P013
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P014
+  principle_id: P014
+  prompt: 'I''m working on this: Generating grounding or evaluation tasks and grounded example/limitation
+    text. What do you advise?'
+  expected_behaviour:
+  - advises to when building tasks to ground or evaluate a tool, write self-contained plain-English questions
+    with a single unambiguous answer reachable in one tool call, specifying all inputs, varying values
+    across
+  - cites P014
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P015
+  principle_id: P015
+  prompt: 'I''m working on this: Prioritize MCP validation and review effort by combining repository frequency
+    with practitioner-confirmed severity and diagnostic effort. What do you advise?'
+  expected_behaviour:
+  - advises to prioritize MCP validation and review effort by combining repository frequency with practitioner-confirmed
+    severity and diagnostic effort
+  - cites P015
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P016
+  principle_id: P016
+  prompt: 'I''m working on this: Deciding whether to fully augment tool descriptions. What do you advise?'
+  expected_behaviour:
+  - advises to treat augmentation gains as real but neither free nor universal
+  - cites P016
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P017
+  principle_id: P017
+  prompt: 'I''m working on this: tools exchange masks, bounding boxes, or other spatial data. What do
+    you advise?'
+  expected_behaviour:
+  - advises to extend vision tool schemas with explicit semantic-role, modality, and coordinate-system
+    fields
+  - cites P017
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P018
+  principle_id: P018
+  prompt: 'I''m working on this: The task processes large datasets, has three or more dependent tool calls,
+    needs filtering or transformation, benefits from parallel checks, or should keep intermediate records
+    out of model context.. What do you advise?'
+  expected_behaviour:
+  - advises to use programmatic tool calling for workflows where code can reduce context bloat, inference
+    round-trips, or fragile manual synthesis
+  - cites P018
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P019
+  principle_id: P019
+  prompt: 'I''m working on this: analyzing why a tool-use agent failed. What do you advise?'
+  expected_behaviour:
+  - advises to diagnose agent failures into distinct categories - query errors (poor or wrong-granularity
+    queries from weak task decomposition), retrieve errors (retriever misses a semantically equivalent
+    tool), too
+  - cites P019
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P020
+  principle_id: P020
+  prompt: 'I''m working on this: Context window or execution cost is a constraint. What do you advise?'
+  expected_behaviour:
+  - advises to drop the Examples component first when trimming a description
+  - cites P020
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P021
+  principle_id: P021
+  prompt: 'I''m working on this: authoring or reviewing an MCP server tool description. What do you advise?'
+  expected_behaviour:
+  - advises to for Accuracy, keep the description semantically consistent with the implementation
+  - cites P021
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P022
+  principle_id: P022
+  prompt: 'I''m working on this: auditing a deployed real-world MCP vision toolchain. What do you advise?'
+  expected_behaviour:
+  - advises to expect the recurring cross-case failure signature in deployed MCP vision toolchains
+  - cites P022
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P023
+  principle_id: P023
+  prompt: 'I''m working on this: tool outputs must satisfy runtime invariants beyond static schema type.
+    What do you advise?'
+  expected_behaviour:
+  - advises to attach runtime validator contracts that check spatial dimensions, tensor channel semantics,
+    and coordinate alignment, and let agents halt, replan, or fall back on invariant violation
+  - cites P023
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P024
+  principle_id: P024
+  prompt: 'I''m working on this: Correct invocation depends on meaningful conventions, nested structures,
+    many optional parameters, domain formats, or choosing among similar tools.. What do you advise?'
+  expected_behaviour:
+  - advises to use tool input examples to teach conventions schemas cannot express
+  - cites P024
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P025
+  principle_id: P025
+  prompt: 'I''m working on this: designing how much of each tool''s specification is carried in context.
+    What do you advise?'
+  expected_behaviour:
+  - advises to prefer intent-gated two-phase loading over both naive full-schema injection and simple
+    top-k retrieval of full schemas
+  - cites P025
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P026
+  principle_id: P026
+  prompt: 'I''m working on this: a tool''s output is deterministic for given arguments and identical calls
+    recur within a session. What do you advise?'
+  expected_behaviour:
+  - advises to cache deterministic MCP tool outputs, keyed by a hash of tool name plus parameters and
+    stored in object storage with a per-tool TTL, so repeated identical calls in a session return a cached
+    handle ins
+  - cites P026
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P027
+  principle_id: P027
+  prompt: 'I''m working on this: evaluating memory and caching configurations for a multi-turn workflow.
+    What do you advise?'
+  expected_behaviour:
+  - advises to agent memory combined with MCP caching beats memoryless baselines across latency, tokens,
+    and cost (up to 13x, 88%, and 66% respectively), and the empty-memory configuration fails follow-up
+    queries th
+  - cites P027
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P028
+  principle_id: P028
+  prompt: 'I''m working on this: Triaging which smells to fix first. What do you advise?'
+  expected_behaviour:
+  - advises to prioritize the most prevalent smells when reviewing descriptions
+  - cites P028
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P029
+  principle_id: P029
+  prompt: 'I''m working on this: Establishing a workflow for producing and releasing tool descriptions.
+    What do you advise?'
+  expected_behaviour:
+  - advises to treat tool descriptions as first-class engineering artifacts
+  - cites P029
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P030
+  principle_id: P030
+  prompt: 'I''m working on this: Choosing which components to include for a specific domain and model.
+    What do you advise?'
+  expected_behaviour:
+  - advises to select the minimal effective component set for each domain-model pair, always retaining
+    Purpose
+  - cites P030
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P031
+  principle_id: P031
+  prompt: 'I''m working on this: authoring or reviewing an MCP server tool description. What do you advise?'
+  expected_behaviour:
+  - advises to for Functionality, make the tool distinct within a shared namespace
+  - cites P031
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P032
+  principle_id: P032
+  prompt: 'I''m working on this: a workflow retains visual state across multiple tool invocations. What
+    do you advise?'
+  expected_behaviour:
+  - advises to persist intermediate visual state in explicit, versioned, semantically namespaced memory
+    with temporal scoping and provenance
+  - cites P032
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P033
+  principle_id: P033
+  prompt: 'I''m working on this: building or extending an MCP profiling/instrumentation harness. What
+    do you advise?'
+  expected_behaviour:
+  - advises to instrument the MCP workflow as a six-stage pipeline (S1 prompting, S2 planning, S3 tool
+    call, S4 tool response, S5 context update, S6 answer synthesis) with a per-event structured log (identifiers,
+    bo
+  - cites P033
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P034
+  principle_id: P034
+  prompt: 'I''m working on this: Choosing which evaluation method(s) to invest in. What do you advise?'
+  expected_behaviour:
+  - advises to understand each evaluation method's trade-offs before relying on it
+  - cites P034
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P035
+  principle_id: P035
+  prompt: 'I''m working on this: designing what an MCP server or tool returns to the calling LLM. What
+    do you advise?'
+  expected_behaviour:
+  - advises to return results processed enough to be directly usable, but keep the underlying source detail
+  - cites P035
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P036
+  principle_id: P036
+  prompt: 'I''m working on this: Authoring the Examples or Limitations components. What do you advise?'
+  expected_behaviour:
+  - advises to do not write Examples or the full Limitations from the description alone
+  - cites P036
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P037
+  principle_id: P037
+  prompt: 'I''m working on this: Validating whether a description change helps in practice. What do you
+    advise?'
+  expected_behaviour:
+  - advises to measure a description change with execution-based metrics rather than assuming its effect
+  - cites P037
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P038
+  principle_id: P038
+  prompt: 'I''m working on this: Scoring or improving a specific description component. What do you advise?'
+  expected_behaviour:
+  - advises to hold each component to its quality bar
+  - cites P038
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P039
+  principle_id: P039
+  prompt: 'I''m working on this: Evaluating or improving Parameter Explanation and Limitations accuracy.
+    What do you advise?'
+  expected_behaviour:
+  - advises to adopt source-code grounding of tool descriptions as a reliability safeguard (not a guaranteed
+    performance gain)
+  - cites P039
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P040
+  principle_id: P040
+  prompt: 'I''m working on this: authoring or reviewing an MCP server tool description. What do you advise?'
+  expected_behaviour:
+  - advises to for Conciseness, maximize signal-to-noise
+  - cites P040
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P041
+  principle_id: P041
+  prompt: 'I''m working on this: Use the 27 fault subcategories as a structured fault-localization checklist
+    for diagnostic triage, narrowing an MCP server misbehavior to protocol-level hypotheses such as Schema
+    Compatibility, Sessio. What do you advise?'
+  expected_behaviour:
+  - advises to use the 27 fault subcategories as a structured fault-localization checklist for diagnostic
+    triage, narrowing an MCP server misbehavior to protocol-level hypotheses such as Schema Compatibility,
+    Sessio
+  - cites P041
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P042
+  principle_id: P042
+  prompt: 'I''m working on this: evaluating the reliability of a multi-tool MCP vision workflow. What
+    do you advise?'
+  expected_behaviour:
+  - advises to establish protocol-level orchestration benchmarks and validator suites that emit binary
+    results plus structured failure traces
+  - cites P042
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P043
+  principle_id: P043
+  prompt: 'I''m working on this: token cost or context-window pressure is the binding constraint. What
+    do you advise?'
+  expected_behaviour:
+  - advises to for token-critical or large MCP servers, prefer dynamic toolsets
+  - cites P043
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P044
+  principle_id: P044
+  prompt: 'I''m working on this: assembling an MCP registry definition for a containerized server. What
+    do you advise?'
+  expected_behaviour:
+  - advises to build the registry entry deterministically from the repository
+  - cites P044
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P045
+  principle_id: P045
+  prompt: 'I''m working on this: a multi-step tool task is executed many times. What do you advise?'
+  expected_behaviour:
+  - advises to recommend the design-once/execute-many pattern when a multi-step tool task recurs
+  - cites P045
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P046
+  principle_id: P046
+  prompt: 'I''m working on this: designing or reviewing an MCP server for a platform with a broad API
+    surface. What do you advise?'
+  expected_behaviour:
+  - advises to design an MCP server for a large-API platform as a capability-oriented interface
+  - cites P046
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P047
+  principle_id: P047
+  prompt: 'I''m working on this: assembling a reproducible toolset for benchmarking or deployment. What
+    do you advise?'
+  expected_behaviour:
+  - advises to build the tool environment from stable, reproducible interfaces rather than unstable or
+    simulated APIs
+  - cites P047
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P048
+  principle_id: P048
+  prompt: 'I''m working on this: tasks are long-horizon or require composing several tools or recovering
+    from errors. What do you advise?'
+  expected_behaviour:
+  - advises to structure a large-toolset agent around two explicit operations - a retrieval (route) tool
+    used as the discovery step when the model cannot solve the request alone or is unsure which tool to
+    use, and a
+  - cites P048
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P049
+  principle_id: P049
+  prompt: 'I''m working on this: configuring or improving the tool-retrieval stage of an agent. What do
+    you advise?'
+  expected_behaviour:
+  - advises to retrieve around five candidate tools per query
+  - cites P049
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P050
+  principle_id: P050
+  prompt: 'I''m working on this: publishing or reviewing an efficiency/performance study of an agent system.
+    What do you advise?'
+  expected_behaviour:
+  - advises to report efficiency work reproducibly and honestly
+  - cites P050
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P051
+  principle_id: P051
+  prompt: 'I''m working on this: Do not assume any single judge is uniformly reliable, or that the largest
+    or most expensive model is the best judge. What do you advise?'
+  expected_behaviour:
+  - advises to do not assume any single judge is uniformly reliable, or that the largest or most expensive
+    model is the best judge
+  - cites P051
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P052
+  principle_id: P052
+  prompt: 'I''m working on this: Selecting how to grade a task or transcript. What do you advise?'
+  expected_behaviour:
+  - advises to choose grader types by trade-off
+  - cites P052
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P053
+  principle_id: P053
+  prompt: 'I''m working on this: Verify MCP servers at the protocol-runtime level, not only at build time.
+    What do you advise?'
+  expected_behaviour:
+  - advises to verify MCP servers at the protocol-runtime level, not only at build time
+  - cites P053
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P054
+  principle_id: P054
+  prompt: 'I''m working on this: authoring or reviewing an MCP server tool description. What do you advise?'
+  expected_behaviour:
+  - advises to for Information Completeness, document everything the agent needs to build a valid call
+    and interpret the result without guessing
+  - cites P054
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P055
+  principle_id: P055
+  prompt: 'I''m working on this: authoring or reviewing an MCP server tool description. What do you advise?'
+  expected_behaviour:
+  - advises to treat description authoring as a first-class engineering phase, co-equal with implementation
+    and testing (like API contract design)
+  - cites P055
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P056
+  principle_id: P056
+  prompt: 'I''m working on this: Detect MCP faults behaviorally, not only via crashes or explicit errors.
+    What do you advise?'
+  expected_behaviour:
+  - advises to detect MCP faults behaviorally, not only via crashes or explicit errors
+  - cites P056
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P057
+  principle_id: P057
+  prompt: 'I''m working on this: Represent tool and server failures as structured JSON-RPC error objects
+    mapped to the correct error code. What do you advise?'
+  expected_behaviour:
+  - advises to represent tool and server failures as structured JSON-RPC error objects mapped to the correct
+    error code
+  - cites P057
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P058
+  principle_id: P058
+  prompt: 'I''m working on this: choosing or reviewing how an MCP vision workflow coordinates tools. What
+    do you advise?'
+  expected_behaviour:
+  - advises to select an MCP orchestration pattern by its trade-off and cover its dominant failure mode,
+    and defer costly tool invocations when confidence is low or context is absent
+  - cites P058
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P059
+  principle_id: P059
+  prompt: 'I''m working on this: multi-turn conversational sessions on a stateless serverless platform.
+    What do you advise?'
+  expected_behaviour:
+  - advises to persist agent memory in an external store keyed by a session id (with a per-request invocation
+    id) to give a stateless FaaS workflow multi-turn continuity
+  - cites P059
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P060
+  principle_id: P060
+  prompt: 'I''m working on this: designing or reviewing an agent that connects to many MCP tools. What
+    do you advise?'
+  expected_behaviour:
+  - advises to treat per-turn MCP tool-schema injection as a first-class recurring cost (the Tools Tax)
+  - cites P060
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P061
+  principle_id: P061
+  prompt: 'I''m working on this: choosing a model for MCP-agent workloads with variable task complexity.
+    What do you advise?'
+  expected_behaviour:
+  - advises to treat model selection as a lever that reshapes both the cost profile and its predictability
+  - cites P061
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P062
+  principle_id: P062
+  prompt: 'I''m working on this: an application uses several MCP servers and is sensitive to cold-start
+    latency. What do you advise?'
+  expected_behaviour:
+  - advises to consolidate an application's MCP servers into a single FaaS function (memory set to the
+    peak of the constituents) to reduce cold-start overhead and stabilize latency, accepting a higher
+    per-invocation
+  - cites P062
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P063
+  principle_id: P063
+  prompt: 'I''m working on this: working with multiple MCP servers or complex configurations. What do
+    you advise?'
+  expected_behaviour:
+  - advises to for multi-server or complex setups, store servers in a --config file (transport auto-detected),
+    rely on automatic selection when there is a single server or one named 'default-server', use the Server
+  - cites P063
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P064
+  principle_id: P064
+  prompt: 'I''m working on this: a request may run long enough that the caller needs incremental progress.
+    What do you advise?'
+  expected_behaviour:
+  - advises to wire progress reporting end-to-end for long-running requests
+  - cites P064
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P065
+  principle_id: P065
+  prompt: 'I''m working on this: validating an HTTP or SSE MCP server. What do you advise?'
+  expected_behaviour:
+  - advises to choose the transport explicitly and supply its required endpoint and authentication
+  - cites P065
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P066
+  principle_id: P066
+  prompt: 'I''m working on this: Comparing models or configurations for cost-efficiency. What do you advise?'
+  expected_behaviour:
+  - advises to judge efficiency by execution steps on a cost-accuracy Pareto frontier rather than by model
+    size
+  - cites P066
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P067
+  principle_id: P067
+  prompt: 'I''m working on this: a multi-step tool-using task is repeated across sessions. What do you
+    advise?'
+  expected_behaviour:
+  - advises to when an LLM agent performs a recurring multi-step tool task, separate one-time intelligence
+    (deciding what to do) from repeated execution (carrying it out)
+  - cites P067
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P068
+  principle_id: P068
+  prompt: 'I''m working on this: deciding where to invest performance optimization in an MCP-based agent.
+    What do you advise?'
+  expected_behaviour:
+  - advises to optimize MCP-agent efficiency by targeting protocol orchestration - schema injection, planning,
+    transport, and result handling - not tool execution speed, which is a negligible cost fraction under
+    lig
+  - cites P068
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P069
+  principle_id: P069
+  prompt: 'I''m working on this: using a customized MCP client (local or cloud-API). What do you advise?'
+  expected_behaviour:
+  - advises to expect customized MCP clients to be input-bottlenecked
+  - cites P069
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P070
+  principle_id: P070
+  prompt: 'I''m working on this: evaluating agents whose trajectories may contain fabricated tool calls
+    or outputs. What do you advise?'
+  expected_behaviour:
+  - advises to make evaluation robust to tool-use hallucination by decomposing the task into explicit
+    completion criteria and grounding each key point against the raw tool outputs, rather than trusting
+    the agent's s
+  - cites P070
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P071
+  principle_id: P071
+  prompt: 'I''m working on this: creating a high-fidelity agent task benchmark. What do you advise?'
+  expected_behaviour:
+  - advises to construct benchmark tasks with a two-stage human pipeline of separate proposers and validators,
+    allowing LLM-assisted ideation only when each candidate task is human-vetted for authenticity, and
+    havin
+  - cites P071
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P072
+  principle_id: P072
+  prompt: 'I''m working on this: scoring agent trajectories with an LLM judge. What do you advise?'
+  expected_behaviour:
+  - advises to choose a strong judge model for LLM-as-a-Judge evaluation, and when any single evaluator's
+    reliability is uncertain use multi-model majority voting
+  - cites P072
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P073
+  principle_id: P073
+  prompt: 'I''m working on this: selecting, configuring, or deploying an LLM judge / autograder for an
+    evaluation. What do you advise?'
+  expected_behaviour:
+  - advises to before trusting or deploying an LLM judge, run a reliability validation suite that stress-tests
+    it with targeted perturbations rather than relying on a single point estimate of agreement with human
+    ra
+  - cites P073
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P074
+  principle_id: P074
+  prompt: 'I''m working on this: A team consumes third-party MCP tools and is choosing models or tuning
+    cost. What do you advise?'
+  expected_behaviour:
+  - advises to advise MCP users to treat tool descriptions as mutable client-side configuration they can
+    override at runtime without changing server code, using high-quality descriptions as a cost lever
+    that can let
+  - cites P074
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P075
+  principle_id: P075
+  prompt: 'I''m working on this: complex, open-ended agent tasks with heavy retrieval. What do you advise?'
+  expected_behaviour:
+  - advises to on complex, open-ended tasks the tool-result (retrieval) phase dominates the token budget
+    across client types
+  - cites P075
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P076
+  principle_id: P076
+  prompt: 'I''m working on this: tuning K, thresholds, or reranking for a semantic tool-discovery layer.
+    What do you advise?'
+  expected_behaviour:
+  - advises to choose retrieval parameters on accuracy grounds, because the token and latency savings
+    are essentially free and domain-invariant
+  - cites P076
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P077
+  principle_id: P077
+  prompt: 'I''m working on this: assessing or justifying a tool-context reduction strategy. What do you
+    advise?'
+  expected_behaviour:
+  - advises to evaluate a tool-heavy agent on all three coupled failure modes of the Tools Tax - cost,
+    reasoning degradation, and an enlarged tool-poisoning attack surface - not on token cost alone, because
+    reducing
+  - cites P077
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P078
+  principle_id: P078
+  prompt: 'I''m working on this: building or reviewing an MCP evaluation pipeline. What do you advise?'
+  expected_behaviour:
+  - advises to structure the offline evaluation pipeline as three stages
+  - cites P078
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P079
+  principle_id: P079
+  prompt: 'I''m working on this: Integrating or auditing MCP tools. What do you advise?'
+  expected_behaviour:
+  - advises to assume tool-description quality is poor by default and always review it
+  - cites P079
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P080
+  principle_id: P080
+  prompt: 'I''m working on this: Judging a description by its source or maintainer. What do you advise?'
+  expected_behaviour:
+  - advises to do not assume a description is good because it comes from an official server or reputable
+    vendor
+  - cites P080
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P081
+  principle_id: P081
+  prompt: 'I''m working on this: Judging the quality of a description component. What do you advise?'
+  expected_behaviour:
+  - advises to score each component on a graded (5-point) scale rather than a yes/no check, treating 3
+    as the minimum viable threshold, 4-5 as increasing precision and clarity, and a mean below 3 as a
+    detected smell
+  - cites P081
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P082
+  principle_id: P082
+  prompt: 'I''m working on this: Rolling out augmented descriptions across domains and models. What do
+    you advise?'
+  expected_behaviour:
+  - advises to apply augmentation adaptively per domain and model rather than uniformly
+  - cites P082
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P083
+  principle_id: P083
+  prompt: 'I''m working on this: authoring or reviewing an MCP server tool description. What do you advise?'
+  expected_behaviour:
+  - advises to treat the tool description, together with its name and input schema, as the primary and
+    often only basis an LLM has for selecting a tool
+  - cites P083
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P084
+  principle_id: P084
+  prompt: 'I''m working on this: functionally equivalent servers compete for the same selection. What
+    do you advise?'
+  expected_behaviour:
+  - advises to expect substantial, measurable payoff from a standards-compliant description
+  - cites P084
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P085
+  principle_id: P085
+  prompt: 'I''m working on this: handling the outcome of a tool call. What do you advise?'
+  expected_behaviour:
+  - advises to treat a failing tool as an ordinary result with `is_error=True` (the exception message
+    is placed in `content` for the model), always check `is_error` before trusting `structured_content`
+    (which is `No
+  - cites P085
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P086
+  principle_id: P086
+  prompt: 'I''m working on this: Preserve request-response and session identifiers consistently across
+    message exchange, tool invocation, and result propagation, so requests, results, and related streaming
+    events stay correlated. What do you advise?'
+  expected_behaviour:
+  - advises to preserve request-response and session identifiers consistently across message exchange,
+    tool invocation, and result propagation, so requests, results, and related streaming events stay correlated
+  - cites P086
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P087
+  principle_id: P087
+  prompt: 'I''m working on this: citing MCP audit prevalence rates or the proposed extensions as evidence.
+    What do you advise?'
+  expected_behaviour:
+  - advises to scope MCP audit conclusions to their validity boundaries
+  - cites P087
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P088
+  principle_id: P088
+  prompt: 'I''m working on this: Validate the full MCP compliance surface. What do you advise?'
+  expected_behaviour:
+  - advises to validate the full MCP compliance surface
+  - cites P088
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P089
+  principle_id: P089
+  prompt: 'I''m working on this: Test a judge''s consistency with meaning-preserving perturbations. What
+    do you advise?'
+  expected_behaviour:
+  - advises to test a judge's consistency with meaning-preserving perturbations
+  - cites P089
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P090
+  principle_id: P090
+  prompt: 'I''m working on this: scoring single-tool-call benchmarks. What do you advise?'
+  expected_behaviour:
+  - advises to for benchmarks with a single tool call, model tool selection as multi-class classification
+    (each tool is a class) and score it with accuracy, precision, recall, and F1
+  - cites P090
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P091
+  principle_id: P091
+  prompt: 'I''m working on this: consuming the result of `call_tool`. What do you advise?'
+  expected_behaviour:
+  - advises to read a `CallToolResult` as three separately-consumed fields
+  - cites P091
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P092
+  principle_id: P092
+  prompt: 'I''m working on this: many tools are registered and their schemas are injected into the planning
+    prompt. What do you advise?'
+  expected_behaviour:
+  - advises to reduce tool-schema injection cost
+  - cites P092
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P093
+  principle_id: P093
+  prompt: 'I''m working on this: deciding what to optimize in an MCP agent given its client implementation.
+    What do you advise?'
+  expected_behaviour:
+  - advises to diagnose the bottleneck class from the client type before optimizing
+  - cites P093
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P094
+  principle_id: P094
+  prompt: 'I''m working on this: collecting millisecond-level, run-to-run comparable latency and token
+    measurements. What do you advise?'
+  expected_behaviour:
+  - advises to enforce profiling hygiene for stable, comparable stage attribution
+  - cites P094
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P095
+  principle_id: P095
+  prompt: 'I''m working on this: a monolithic agentic workflow risks exceeding the FaaS per-function timeout,
+    or roles need independent resource or prompt configuration. What do you advise?'
+  expected_behaviour:
+  - advises to decompose the agentic pattern into one FaaS function per role (e.g
+  - cites P095
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P096
+  principle_id: P096
+  prompt: 'I''m working on this: running an iterative reason-act-observe (ReAct) agentic workflow. What
+    do you advise?'
+  expected_behaviour:
+  - advises to bound the planner–evaluator reasoning loop with an explicit maximum-iteration cap
+  - cites P096
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P097
+  principle_id: P097
+  prompt: 'I''m working on this: implementing an OAuth client flow. What do you advise?'
+  expected_behaviour:
+  - advises to oAuth client scopes and registration
+  - cites P097
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P098
+  principle_id: P098
+  prompt: 'I''m working on this: constructing a Client and choosing how it connects. What do you advise?'
+  expected_behaviour:
+  - advises to select the Client transport by the type of its single positional argument
+  - cites P098
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P099
+  principle_id: P099
+  prompt: 'I''m working on this: launching the Inspector against a server you want to test. What do you
+    advise?'
+  expected_behaviour:
+  - advises to match the Inspector launch wrapper to how the server is distributed
+  - cites P099
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P100
+  principle_id: P100
+  prompt: 'I''m working on this: building tool-call requests from Inspector client form inputs. What do
+    you advise?'
+  expected_behaviour:
+  - advises to when constructing tool-call requests from form inputs, omit optional fields with empty
+    values unless the schema defines a matching explicit default, preserve explicit defaults (e.g. default
+  - cites P100
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P101
+  principle_id: P101
+  prompt: 'I''m working on this: Design the CLI test suite for safe parallelism. What do you advise?'
+  expected_behaviour:
+  - advises to design the CLI test suite for safe parallelism
+  - cites P101
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P102
+  principle_id: P102
+  prompt: 'I''m working on this: configuring a server that an MCP client will launch. What do you advise?'
+  expected_behaviour:
+  - advises to always use absolute paths in server configuration, .env files, and the command executable,
+    because a client-launched stdio server's working directory may be undefined (e.g
+  - cites P102
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P103
+  principle_id: P103
+  prompt: 'I''m working on this: configuring a client or server that uses optional MCP capabilities. What
+    do you advise?'
+  expected_behaviour:
+  - advises to declare every capability you will use at initialize (client capabilities in the Client
+    constructor
+  - cites P103
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P104
+  principle_id: P104
+  prompt: 'I''m working on this: unit/integration testing MCP server tool, resource, or prompt logic.
+    What do you advise?'
+  expected_behaviour:
+  - advises to use InMemoryTransport (e.g. createLinkedPair) only for in-process unit and integration
+    testing of MCP server logic
+  - cites P104
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P105
+  principle_id: P105
+  prompt: 'I''m working on this: Treat `protocol` as the mandatory foundation validator and respect validator
+    dependency order (capabilities, ping, errors, security all depend on it). What do you advise?'
+  expected_behaviour:
+  - advises to treat `protocol` as the mandatory foundation validator and respect validator dependency
+    order (capabilities, ping, errors, security all depend on it)
+  - cites P105
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P106
+  principle_id: P106
+  prompt: 'I''m working on this: The agent is connected to many tools or servers.. What do you advise?'
+  expected_behaviour:
+  - advises to treat upfront loading of all MCP tool definitions as a scaling hazard, and design agents
+    to disclose tool definitions only as needed
+  - cites P106
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P107
+  principle_id: P107
+  prompt: 'I''m working on this: estimating how much hallucination distorts evaluation results. What do
+    you advise?'
+  expected_behaviour:
+  - advises to treat tool-use hallucination as real but low-prevalence and largely detectable (about 9%
+    of invocations, ~1.6% evaluation inconsistency, detection stable across judges), while still guarding
+    the known
+  - cites P107
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P108
+  principle_id: P108
+  prompt: 'I''m working on this: Do not assume an MCP server outperforms an equivalent function-call/tool-use
+    implementation on accuracy. What do you advise?'
+  expected_behaviour:
+  - advises to do not assume an MCP server outperforms an equivalent function-call/tool-use implementation
+    on accuracy
+  - cites P108
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P109
+  principle_id: P109
+  prompt: 'I''m working on this: Evaluating direct MCP tool calls versus a code-execution architecture..
+    What do you advise?'
+  expected_behaviour:
+  - advises to choose a code-execution MCP architecture only when the expected token, latency, privacy,
+    or composition gains justify the added infrastructure and security cost
+  - cites P109
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P110
+  principle_id: P110
+  prompt: 'I''m working on this: the LLM would otherwise have to construct a complex structured parameter
+    such as a SQL query. What do you advise?'
+  expected_behaviour:
+  - advises to prefer a declarative natural-language interface over a raw structured-query parameter,
+    moving query construction (e.g. text-to-SQL) inside the server
+  - cites P110
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P111
+  principle_id: P111
+  prompt: 'I''m working on this: Using an FM to augment or rewrite a description and source is available.
+    What do you advise?'
+  expected_behaviour:
+  - advises to ground FM-based augmentation in implementation evidence
+  - cites P111
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P112
+  principle_id: P112
+  prompt: 'I''m working on this: designing a dynamic/large MCP toolset. What do you advise?'
+  expected_behaviour:
+  - advises to architect dynamic tool access around three tools - search_tools (semantic search plus a
+    tool-category overview), describe_tools (on-demand schemas), and execute_tool - so that discoverability
+    and toke
+  - cites P112
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P113
+  principle_id: P113
+  prompt: 'I''m working on this: authoring or reviewing an MCP server tool description. What do you advise?'
+  expected_behaviour:
+  - advises to also avoid vague hedge words (for example maybe or probably), keep terminology consistent,
+    and keep wording understandable to the model
+  - cites P113
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P114
+  principle_id: P114
+  prompt: 'I''m working on this: Gate request handling on completion of the initialization handshake so
+    no request is processed before the session is fully initialized. What do you advise?'
+  expected_behaviour:
+  - advises to gate request handling on completion of the initialization handshake so no request is processed
+    before the session is fully initialized
+  - cites P114
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P115
+  principle_id: P115
+  prompt: 'I''m working on this: When reviewing MCP state and configuration, check that server-level configuration
+    parameters are actually enforced rather than accepted and silently ignored, that session identifiers
+    are neither stale. What do you advise?'
+  expected_behaviour:
+  - advises to when reviewing MCP state and configuration, check that server-level configuration parameters
+    are actually enforced rather than accepted and silently ignored, that session identifiers are neither
+    stale
+  - cites P115
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P116
+  principle_id: P116
+  prompt: 'I''m working on this: When reviewing MCP security, check authentication (Authorization header
+    present, token well-formed and unexpired), token validation (token audience and other claims verified
+    on receipt, tokens not for. What do you advise?'
+  expected_behaviour:
+  - advises to when reviewing MCP security, check authentication (Authorization header present, token
+    well-formed and unexpired), token validation (token audience and other claims verified on receipt,
+    tokens not for
+  - cites P116
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P117
+  principle_id: P117
+  prompt: 'I''m working on this: the domain lacks established fault models. What do you advise?'
+  expected_behaviour:
+  - advises to build a fault taxonomy for an immature domain inductively
+  - cites P117
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P118
+  principle_id: P118
+  prompt: 'I''m working on this: Tool outputs are large documents, tables, or complex structures.. What
+    do you advise?'
+  expected_behaviour:
+  - advises to avoid using the model context as a data bus for large intermediate results
+  - cites P118
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P119
+  principle_id: P119
+  prompt: 'I''m working on this: designing the prompts that couple agents in a multi-stage workflow. What
+    do you advise?'
+  expected_behaviour:
+  - advises to give each agent a strict-JSON prompt contract - the planner returns the tools and their
+    sequence, the actor executes them in order, and the evaluator returns success, needs_retry, reason,
+    and feedback
+  - cites P119
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P120
+  principle_id: P120
+  prompt: 'I''m working on this: deciding how to lay out MCP servers across FaaS functions. What do you
+    advise?'
+  expected_behaviour:
+  - advises to provision MCP servers cost-consciously by choosing among independent, per-workflow-unified,
+    or globally-unified (colocated) deployment, because FaaS bills on peak memory and execution time
+  - cites P120
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P121
+  principle_id: P121
+  prompt: 'I''m working on this: exposing more than a handful of tools to an LLM agent. What do you advise?'
+  expected_behaviour:
+  - advises to when an MCP server must expose many tools (dozens to hundreds), do not load every tool
+    definition statically
+  - cites P121
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P122
+  principle_id: P122
+  prompt: 'I''m working on this: evaluating latency and cost of a dynamic toolset. What do you advise?'
+  expected_behaviour:
+  - advises to budget for the dynamic-toolset trade-off
+  - cites P122
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P123
+  principle_id: P123
+  prompt: 'I''m working on this: reporting the results of validating multiple registry servers. What do
+    you advise?'
+  expected_behaviour:
+  - advises to emit a structured, timestamped aggregated report
+  - cites P123
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P124
+  principle_id: P124
+  prompt: 'I''m working on this: designing what and how an MCP server logs. What do you advise?'
+  expected_behaviour:
+  - advises to make logging load-bearing and structured
+  - cites P124
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P125
+  principle_id: P125
+  prompt: 'I''m working on this: Configure validation reproducibly through named profiles, a .mcp-validation.json
+    config file, or the MCP_VALIDATION_CONFIG / MCP_VALIDATION_PROFILE environment variables (and tune
+    validator parameters. What do you advise?'
+  expected_behaviour:
+  - advises to configure validation reproducibly through named profiles, a .mcp-validation.json config
+    file, or the MCP_VALIDATION_CONFIG / MCP_VALIDATION_PROFILE environment variables (and tune validator
+    parameters
+  - cites P125
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P126
+  principle_id: P126
+  prompt: 'I''m working on this: designing or judging an MCP/tool-use agent benchmark or evaluation. What
+    do you advise?'
+  expected_behaviour:
+  - advises to evaluate MCP tool-use agents on large-scale, multi-server, dynamic toolsets that force
+    real tool retrieval and multi-tool composition
+  - cites P126
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P127
+  principle_id: P127
+  prompt: 'I''m working on this: designing or reviewing an agent tool-use / MCP evaluation or benchmark.
+    What do you advise?'
+  expected_behaviour:
+  - advises to score with multiple independent LLM judges, always report and pin the judge model version,
+    report per-model cross-judge score ranges, and read small rank swaps within that band as evaluator
+    uncertaint
+  - cites P127
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P128
+  principle_id: P128
+  prompt: 'I''m working on this: An agent selects the wrong tool, supplies bad arguments, or takes extra
+    steps. What do you advise?'
+  expected_behaviour:
+  - advises to diagnose wrong-tool selection, invalid or over-broad arguments, and unnecessary steps as
+    a specification problem in the tool description, not a model bug, since defective, underspecified,
+    or misleadin
+  - cites P128
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P129
+  principle_id: P129
+  prompt: 'I''m working on this: diagnosing or improving an LLM agent''s tool-use reliability. What do
+    you advise?'
+  expected_behaviour:
+  - advises to expect cognitive failures to dominate once basic tool mechanics are solved
+  - cites P129
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P130
+  principle_id: P130
+  prompt: 'I''m working on this: Operating or debugging any non-trivial eval. What do you advise?'
+  expected_behaviour:
+  - advises to read transcripts and grades from many trials regularly and invest in transcript-viewing
+    tooling, because you cannot know whether graders work without doing so
+  - cites P130
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P131
+  principle_id: P131
+  prompt: 'I''m working on this: deploying MCP servers behind a serverless platform. What do you advise?'
+  expected_behaviour:
+  - advises to wrap each MCP server as an HTTP-exposed FaaS function (e.g. a Lambda Function URL), because
+    MCP's stdio/local transports cannot be embedded directly in a function
+  - cites P131
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P132
+  principle_id: P132
+  prompt: 'I''m working on this: Estimating the context and cost impact of a description. What do you
+    advise?'
+  expected_behaviour:
+  - advises to account for tool metadata being repeatedly injected into the FM context on every interaction
+  - cites P132
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P133
+  principle_id: P133
+  prompt: 'I''m working on this: Deciding how seriously to treat a detected smell. What do you advise?'
+  expected_behaviour:
+  - advises to interpret a rubric smell as a potential risk signal, not a deterministic predictor of failure
+  - cites P133
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P134
+  principle_id: P134
+  prompt: 'I''m working on this: a workflow chains tools with divergent output formats. What do you advise?'
+  expected_behaviour:
+  - advises to bring all resizing, unit conversion, and schema coercion inside declared tool contracts
+  - cites P134
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P135
+  principle_id: P135
+  prompt: 'I''m working on this: Keep mcp-scan security analysis enabled by default. What do you advise?'
+  expected_behaviour:
+  - advises to keep mcp-scan security analysis enabled by default
+  - cites P135
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P136
+  principle_id: P136
+  prompt: 'I''m working on this: tools are invoked sequentially / one input can trigger multiple tools.
+    What do you advise?'
+  expected_behaviour:
+  - advises to recognize that single-tool-call evaluation does not cover real sequential multi-tool flows,
+    where later calls consume earlier outputs
+  - cites P136
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P137
+  principle_id: P137
+  prompt: 'I''m working on this: measuring argument quality for correctly-selected tool calls. What do
+    you advise?'
+  expected_behaviour:
+  - advises to score argument correctness with four targeted metrics
+  - cites P137
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P138
+  principle_id: P138
+  prompt: 'I''m working on this: multiple MCP servers run in one client. What do you advise?'
+  expected_behaviour:
+  - advises to treat context spent on tool definitions as a budget
+  - cites P138
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P139
+  principle_id: P139
+  prompt: 'I''m working on this: Tools are safe and intended for code-driven invocation, especially when
+    calls can run independently or tolerate retry.. What do you advise?'
+  expected_behaviour:
+  - advises to when enabling code-driven tool use, explicitly opt in only appropriate tools and keep their
+    raw results inside the code-execution flow until the final output is ready
+  - cites P139
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P140
+  principle_id: P140
+  prompt: 'I''m working on this: a tool returns large or raw JSON payloads. What do you advise?'
+  expected_behaviour:
+  - advises to wrap and trim tool results to task-relevant fields
+  - cites P140
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P141
+  principle_id: P141
+  prompt: 'I''m working on this: reducing the cost or latency of an LLM-driven agentic workflow. What
+    do you advise?'
+  expected_behaviour:
+  - advises to optimize input-token consumption before FaaS execution, because LLM token charges dominate
+    total cost (roughly 61-94%) and input-token volume drives both latency and cost, while agent and MCP
+    function
+  - cites P141
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P142
+  principle_id: P142
+  prompt: 'I''m working on this: authoring or auditing tool schemas that will be embedded for semantic
+    discovery. What do you advise?'
+  expected_behaviour:
+  - advises to treat tool-description quality as the retrieval ceiling
+  - cites P142
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P143
+  principle_id: P143
+  prompt: 'I''m working on this: deploying multi-agent or MCP-based workflows that must scale to enterprise
+    or bursty load. What do you advise?'
+  expected_behaviour:
+  - advises to host MCP-enabled agentic workflows on serverless FaaS rather than monolithic VMs to gain
+    autoscaling and pay-per-request cost efficiency, but design every component around FaaS statelessness
+    from the
+  - cites P143
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P144
+  principle_id: P144
+  prompt: 'I''m working on this: deciding how much prior state to place in an agent''s context window.
+    What do you advise?'
+  expected_behaviour:
+  - advises to inject only the relevant slice of memory into the context rather than everything, because
+    stale or off-topic memory distracts the LLM and inflates latency and cost
+  - cites P144
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P145
+  principle_id: P145
+  prompt: 'I''m working on this: a workflow suffers sporadic failures from LLM non-determinism. What do
+    you advise?'
+  expected_behaviour:
+  - advises to value persisted memory and caching for reliability, not only efficiency
+  - cites P145
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P146
+  principle_id: P146
+  prompt: 'I''m working on this: a tool can return large content or must share files between steps. What
+    do you advise?'
+  expected_behaviour:
+  - advises to keep large content and file artifacts out of the LLM context and off the function's local
+    disk
+  - cites P146
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P147
+  principle_id: P147
+  prompt: 'I''m working on this: the agent has strong training-data knowledge of the tool. What do you
+    advise?'
+  expected_behaviour:
+  - advises to prefer CLI over MCP when the agent already knows the tool from training data (e.g. gh,
+    kubectl, terraform) or when a single piped command composes several operations in one call
+  - cites P147
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P148
+  principle_id: P148
+  prompt: 'I''m working on this: the platform API surface exceeds the agent''s training knowledge. What
+    do you advise?'
+  expected_behaviour:
+  - advises to prefer MCP over CLI when the platform's API surface is larger than the agent's training
+    knowledge (use a describe/discovery tool for runtime capability discovery instead of guessing undocumented
+    calls
+  - cites P148
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P149
+  principle_id: P149
+  prompt: 'I''m working on this: writing or debugging a conformance client under test. What do you advise?'
+  expected_behaviour:
+  - advises to understand the client-mode harness contract
+  - cites P149
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P150
+  principle_id: P150
+  prompt: 'I''m working on this: building an SDK''s conformance target server. What do you advise?'
+  expected_behaviour:
+  - advises to model an SDK's example conformance server on the reference everything-server
+  - cites P150
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P151
+  principle_id: P151
+  prompt: 'I''m working on this: consuming or reasoning about traceability.json. What do you advise?'
+  expected_behaviour:
+  - advises to read the traceability manifest correctly
+  - cites P151
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P152
+  principle_id: P152
+  prompt: 'I''m working on this: writing conformance check code. What do you advise?'
+  expected_behaviour:
+  - advises to give a check one slug shared by its SUCCESS and FAILURE outcomes (flip status and errorMessage),
+    optimize the code for Ctrl+F on that slug (repetition beats a clever helper), and reuse ConformanceChec
+  - cites P152
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P153
+  principle_id: P153
+  prompt: 'I''m working on this: a check cannot be exercised against the server under test. What do you
+    advise?'
+  expected_behaviour:
+  - advises to never report a missing prerequisite as SKIPPED
+  - cites P153
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P154
+  principle_id: P154
+  prompt: 'I''m working on this: Launch the Inspector via npx without cloning its repository (Node.js
+    ^22.7.5 required). What do you advise?'
+  expected_behaviour:
+  - advises to launch the Inspector via npx without cloning its repository (Node.js ^22.7.5 required)
+  - cites P154
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P155
+  principle_id: P155
+  prompt: 'I''m working on this: validating what a server actually exposes. What do you advise?'
+  expected_behaviour:
+  - advises to exercise each capability surface through its tab rather than only checking connectivity
+  - cites P155
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P156
+  principle_id: P156
+  prompt: 'I''m working on this: Treat the MCP Inspector as two cooperating parts. What do you advise?'
+  expected_behaviour:
+  - advises to treat the MCP Inspector as two cooperating parts
+  - cites P156
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P157
+  principle_id: P157
+  prompt: 'I''m working on this: developing or diagnosing an MCP server. What do you advise?'
+  expected_behaviour:
+  - advises to reach for the MCP Inspector first
+  - cites P157
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P158
+  principle_id: P158
+  prompt: 'I''m working on this: running the Inspector proxy on any host. What do you advise?'
+  expected_behaviour:
+  - advises to rely on the proxy's default Bearer-token authentication
+  - cites P158
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P159
+  principle_id: P159
+  prompt: 'I''m working on this: a tool involves user interaction (elicitation) or long-running operations.
+    What do you advise?'
+  expected_behaviour:
+  - advises to treat Inspector timeouts (MCP_SERVER_REQUEST_TIMEOUT default 300000 ms
+  - cites P159
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P160
+  principle_id: P160
+  prompt: 'I''m working on this: writing or reviewing MCP Python client code. What do you advise?'
+  expected_behaviour:
+  - advises to drive an MCP Client entirely through `async with Client(...)`
+  - cites P160
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P161
+  principle_id: P161
+  prompt: 'I''m working on this: scripting, automating, or integrating the Inspector into pipelines. What
+    do you advise?'
+  expected_behaviour:
+  - advises to use CLI mode for scripting, automation, CI/CD, and coding-assistant feedback loops
+  - cites P161
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P162
+  principle_id: P162
+  prompt: 'I''m working on this: a server fails to connect. What do you advise?'
+  expected_behaviour:
+  - advises to work a connection failure as an ordered checklist (client logs, server process, standalone
+    Inspector test, protocol-version compatibility, capability negotiation)
+  - cites P162
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P163
+  principle_id: P163
+  prompt: 'I''m working on this: the MCP tests are asynchronous (async def). What do you advise?'
+  expected_behaviour:
+  - advises to configure the async backend for asynchronous MCP tests
+  - cites P163
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P164
+  principle_id: P164
+  prompt: 'I''m working on this: inspecting what a connected server offers. What do you advise?'
+  expected_behaviour:
+  - advises to read connection facts from the four read-only properties populated on entering the block
+  - cites P164
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P165
+  principle_id: P165
+  prompt: 'I''m working on this: invoking a server-defined prompt. What do you advise?'
+  expected_behaviour:
+  - advises to discover prompts with `list_prompts()` (name, title, required arguments), render one with
+    `get_prompt(name, arguments)` passing a string-to-string arguments dict (prompt arguments are always
+    strings)
+  - cites P165
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P166
+  principle_id: P166
+  prompt: 'I''m working on this: a caller may need to abort an in-flight request. What do you advise?'
+  expected_behaviour:
+  - advises to make long-running calls cancellable
+  - cites P166
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P167
+  principle_id: P167
+  prompt: 'I''m working on this: connecting to a server whose protocol version may not match. What do
+    you advise?'
+  expected_behaviour:
+  - advises to rely on the SDK's automatic protocol-version negotiation (client sends LATEST_PROTOCOL_VERSION,
+    server returns the highest mutually supported version from SUPPORTED_PROTOCOL_VERSIONS) but handle
+    the e
+  - cites P167
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P168
+  principle_id: P168
+  prompt: 'I''m working on this: wiring an in-memory linked-pair client/server test connection. What do
+    you advise?'
+  expected_behaviour:
+  - advises to establish the in-memory connection by running both client.connect() and server.connect()
+    concurrently (e.g. await Promise.all([...]))
+  - cites P168
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P169
+  principle_id: P169
+  prompt: 'I''m working on this: Evaluating a coding agent with well-specified tasks and stable test environments.
+    What do you advise?'
+  expected_behaviour:
+  - advises to for coding agents, rely on deterministic outcome tests (does the code run, do the tests
+    pass) plus an LLM rubric for overall code quality, adding heuristic code-quality rules and transcript
+    grading of
+  - cites P169
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P170
+  principle_id: P170
+  prompt: 'I''m working on this: In early agent development, or when defining product requirements for
+    an agent. What do you advise?'
+  expected_behaviour:
+  - advises to build evals early in development, when product requirements translate naturally into test
+    cases
+  - cites P170
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P171
+  principle_id: P171
+  prompt: 'I''m working on this: the judge scores free-text responses whose surface formatting can vary
+    across the models being compared. What do you advise?'
+  expected_behaviour:
+  - advises to explicitly test format invariance (blank lines, extra spaces, indentation), because judges
+    are frequently more brittle to formatting than to semantic changes and formatting brittleness can
+    distort dow
+  - cites P171
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P172
+  principle_id: P172
+  prompt: 'I''m working on this: When reviewing MCP tool handling, check tool identification (tools declared
+    in the capabilities object with valid input/output schemas so they are discoverable and callable),
+    tool execution (input typ. What do you advise?'
+  expected_behaviour:
+  - advises to when reviewing MCP tool handling, check tool identification (tools declared in the capabilities
+    object with valid input/output schemas so they are discoverable and callable), tool execution (input
+    typ
+  - cites P172
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P173
+  principle_id: P173
+  prompt: 'I''m working on this: The target systems can expose or consume MCP-compatible integrations..
+    What do you advise?'
+  expected_behaviour:
+  - advises to prefer standardized MCP connectors over bespoke agent-to-system integrations when building
+    agents that must reach many external tools or data sources
+  - cites P173
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P174
+  principle_id: P174
+  prompt: 'I''m working on this: The agent can execute code safely.. What do you advise?'
+  expected_behaviour:
+  - advises to expose MCP tools as code interfaces in a navigable filesystem or equivalent API surface
+    when an agent has a secure execution environment
+  - cites P174
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P175
+  principle_id: P175
+  prompt: 'I''m working on this: the MCP server targets non-trivial multi-step workflows or an unfamiliar
+    domain. What do you advise?'
+  expected_behaviour:
+  - advises to ship a companion skills layer alongside the tools that turns raw MCP tool access into guided,
+    IDE-native, multi-step workflows, structured in three levels
+  - cites P175
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P176
+  principle_id: P176
+  prompt: 'I''m working on this: ranking tools from a large hierarchical server-tool catalog. What do
+    you advise?'
+  expected_behaviour:
+  - advises to structure the retrieval query with an explicit server-and-tool descriptor - server as the
+    platform or permission domain and tool as the operation type plus target - and generate a concise
+    server-level
+  - cites P176
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P177
+  principle_id: P177
+  prompt: 'I''m working on this: Building an automated tool-description quality scanner. What do you advise?'
+  expected_behaviour:
+  - advises to when automatically scoring tool descriptions, apply a well-defined analytic rubric (more
+    consistent than open-ended prompts) via a multi-model LLM jury drawn from disparate model families
+    to mitigate
+  - cites P177
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P178
+  principle_id: P178
+  prompt: 'I''m working on this: building or reviewing automated failure diagnostics for agents. What
+    do you advise?'
+  expected_behaviour:
+  - advises to in failure diagnosis assign one primary failure mode (the one best explaining the coverage
+    gap) plus contributing modes from the same fixed vocabulary, mark a mode as root cause only when it
+    caused do
+  - cites P178
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P179
+  principle_id: P179
+  prompt: 'I''m working on this: designing or reviewing an agent tool-use / MCP evaluation or benchmark.
+    What do you advise?'
+  expected_behaviour:
+  - advises to treat the coverage threshold as a reporting decision (the rubric returns a real-valued
+    coverage score), report mean coverage and pass rate at several thresholds, and expect model rankings
+    to be largel
+  - cites P179
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P180
+  principle_id: P180
+  prompt: 'I''m working on this: Evaluating a multi-turn conversational agent. What do you advise?'
+  expected_behaviour:
+  - advises to for conversational agents, evaluate the interaction itself
+  - cites P180
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P181
+  principle_id: P181
+  prompt: 'I''m working on this: Deciding how to staff and sustain evaluation over an agent''s lifecycle.
+    What do you advise?'
+  expected_behaviour:
+  - advises to treat the eval suite as a living artifact with clear ownership
+  - cites P181
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P182
+  principle_id: P182
+  prompt: 'I''m working on this: Planning a new agent capability or evaluating whether requirements are
+    build-ready. What do you advise?'
+  expected_behaviour:
+  - advises to practice eval-driven development
+  - cites P182
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P183
+  principle_id: P183
+  prompt: 'I''m working on this: Evaluate an MCP server on three axes together. What do you advise?'
+  expected_behaviour:
+  - advises to evaluate an MCP server on three axes together
+  - cites P183
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P184
+  principle_id: P184
+  prompt: 'I''m working on this: Expect a wide performance spread across MCP servers (measured accuracy
+    ~10-64%, latency <15s to ~231s) and select a server by benchmarking candidates on your own task instead
+    of trusting popularity or. What do you advise?'
+  expected_behaviour:
+  - advises to expect a wide performance spread across MCP servers (measured accuracy ~10-64%, latency
+    <15s to ~231s) and select a server by benchmarking candidates on your own task instead of trusting
+    popularity or
+  - cites P184
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P185
+  principle_id: P185
+  prompt: 'I''m working on this: evaluating or comparing MCP deployments for efficiency. What do you advise?'
+  expected_behaviour:
+  - advises to profile MCP at the protocol level rather than as an end-to-end black box
+  - cites P185
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P186
+  principle_id: P186
+  prompt: 'I''m working on this: Avoid silently truncating results or returning snippets too thin to answer
+    with. What do you advise?'
+  expected_behaviour:
+  - advises to avoid silently truncating results or returning snippets too thin to answer with
+  - cites P186
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P187
+  principle_id: P187
+  prompt: 'I''m working on this: Writing or improving a tool description. What do you advise?'
+  expected_behaviour:
+  - advises to ensure every tool description clearly states its purpose (the function, behavior, and return
+    data), guides the FM on when and how to use the tool, and includes relevant caveats
+  - cites P187
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P188
+  principle_id: P188
+  prompt: 'I''m working on this: authoring an Agent Skill''s name and description metadata. What do you
+    advise?'
+  expected_behaviour:
+  - advises to apply the same description-quality discipline to Agent Skill metadata
+  - cites P188
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P189
+  principle_id: P189
+  prompt: 'I''m working on this: The FM context window is scarce and components must be trimmed. What
+    do you advise?'
+  expected_behaviour:
+  - advises to when the context budget is tight, prune Parameter Explanation before other components
+  - cites P189
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P190
+  principle_id: P190
+  prompt: 'I''m working on this: Deciding which component to drop first. What do you advise?'
+  expected_behaviour:
+  - advises to treat Examples as the lowest-priority component and the safest to omit under constraints
+  - cites P190
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P191
+  principle_id: P191
+  prompt: 'I''m working on this: authoring or reviewing an MCP server tool description. What do you advise?'
+  expected_behaviour:
+  - advises to diagnose tool-selection failures by mode
+  - cites P191
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P192
+  principle_id: P192
+  prompt: 'I''m working on this: Derive MCP conformance tests and fault-injection scenarios directly from
+    the leaf fault categories (for example, verifying that timeout violations yield structured error objects,
+    undeclared tool ident. What do you advise?'
+  expected_behaviour:
+  - advises to derive MCP conformance tests and fault-injection scenarios directly from the leaf fault
+    categories (for example, verifying that timeout violations yield structured error objects, undeclared
+    tool ident
+  - cites P192
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P193
+  principle_id: P193
+  prompt: 'I''m working on this: When reviewing the MCP session lifecycle, check initialization (protocol
+    version match, no capability-negotiation races, initialized notifications sent, no use of uninitialized
+    state), state transitio. What do you advise?'
+  expected_behaviour:
+  - advises to when reviewing the MCP session lifecycle, check initialization (protocol version match,
+    no capability-negotiation races, initialized notifications sent, no use of uninitialized state), state
+    transitio
+  - cites P193
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P194
+  principle_id: P194
+  prompt: 'I''m working on this: When reviewing MCP transport handling, check the stdio binding (only
+    valid JSON-RPC 2.0 emitted on standard output) and the Streamable HTTP binding (correct handling of
+    HTTP requests, session identifi. What do you advise?'
+  expected_behaviour:
+  - advises to when reviewing MCP transport handling, check the stdio binding (only valid JSON-RPC 2.0
+    emitted on standard output) and the Streamable HTTP binding (correct handling of HTTP requests, session
+    identifi
+  - cites P194
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P195
+  principle_id: P195
+  prompt: 'I''m working on this: When reviewing MCP resource handling, check resource identification (valid,
+    resolvable resource URIs with the input URI format matching the internal normalized format) and resource
+    synchronization (re. What do you advise?'
+  expected_behaviour:
+  - advises to when reviewing MCP resource handling, check resource identification (valid, resolvable
+    resource URIs with the input URI format matching the internal normalized format) and resource synchronization
+    (re
+  - cites P195
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P196
+  principle_id: P196
+  prompt: 'I''m working on this: When reviewing MCP data and schema handling, check schema compatibility
+    (emitted content conforms to the declared JSON Schema, with no missing required properties or format
+    violations), data type and. What do you advise?'
+  expected_behaviour:
+  - advises to when reviewing MCP data and schema handling, check schema compatibility (emitted content
+    conforms to the declared JSON Schema, with no missing required properties or format violations), data
+    type and
+  - cites P196
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P197
+  principle_id: P197
+  prompt: 'I''m working on this: Validate a fault taxonomy''s external validity with an independent practitioner
+    survey (respondents not involved in its construction) that captures, per subcategory, whether the
+    fault was encountered i. What do you advise?'
+  expected_behaviour:
+  - advises to validate a fault taxonomy's external validity with an independent practitioner survey (respondents
+    not involved in its construction) that captures, per subcategory, whether the fault was encountered
+    i
+  - cites P197
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P198
+  principle_id: P198
+  prompt: 'I''m working on this: the goal is qualitative coverage of recurring patterns rather than prevalence
+    estimation. What do you advise?'
+  expected_behaviour:
+  - advises to select information-rich cases by criterion-based purposive sampling when the goal is qualitative
+    coverage of recurring fault patterns rather than statistical prevalence, and restrict mining to activel
+  - cites P198
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P199
+  principle_id: P199
+  prompt: 'I''m working on this: orchestrating multiple downstream MCP servers behind one interface. What
+    do you advise?'
+  expected_behaviour:
+  - advises to build an MCP orchestration layer as a Mediator that is simultaneously an MCP server (exposing
+    workflow tools to agents) and an MCP client (calling downstream MCP servers), so downstream servers
+    stay u
+  - cites P199
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources
+- test_id: PB-P200
+  principle_id: P200
+  prompt: 'I''m working on this: designing a declarative workflow or orchestration DSL. What do you advise?'
+  expected_behaviour:
+  - advises to constrain the orchestration DSL to a small fixed set of composable step primitives (call,
+    loop, parallel, pipe, collect) and deliberately exclude conditionals, variables, and string manipulation,
+    to k
+  - cites P200
+  must_not:
+  - invents an MCP mechanism, protocol field, error code, or metric not present in the sources

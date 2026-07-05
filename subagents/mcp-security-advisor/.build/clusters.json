@@ -1,0 +1,2082 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Treat MCP authorization as optional, but when it is used apply this specification to HTTP-based transports (SHOULD conform), keep STDIO transports on environment-supplied credentials (SHOULD NOT use this flow), and require established security best practices on any other transport."
+   },
+   {
+    "idx": 23,
+    "statement": "MCP proxy servers that use static client IDs MUST obtain user consent for each dynamically registered client before forwarding to third-party authorization servers, to prevent confused-deputy exploitation via stolen authorization codes."
+   },
+   {
+    "idx": 25,
+    "statement": "Treat MCP authorization extensions as optional, additive, composable, and independently versioned: they add capabilities without modifying or breaking core protocol behavior and multiple may be adopted together."
+   },
+   {
+    "idx": 26,
+    "statement": "Enforce MCP-owned per-client consent before delegating to a third-party authorization server: maintain a per-user registry of approved client_ids, check it before starting the third-party flow, and store consent decisions securely."
+   },
+   {
+    "idx": 33,
+    "statement": "Do not use sessions for authentication: an MCP server that implements authorization must independently verify every inbound request rather than trusting a session identifier."
+   },
+   {
+    "idx": 35,
+    "statement": "Gate one-click local MCP server configuration behind explicit, fully transparent consent: show the exact untruncated command, flag it as code execution on the user's machine, require approval with a cancel option, and highlight dangerous patterns and sensitive-path access."
+   },
+   {
+    "idx": 36,
+    "statement": "Run local MCP servers with least privilege: execute spawned commands in platform-appropriate, up-to-date sandboxes with minimal default access, and have local servers limit their own exposure via stdio or access-restricted IPC/HTTP transports."
+   },
+   {
+    "idx": 56,
+    "statement": "Enforce transport-layer controls matched to the transport in use: payload limits and integrity checks on all transports; client-server and downstream authentication, mutual TLS, TLS encryption, plus CORS and CSRF protection on HTTP transports; and secure descriptor handling on stdio to prevent MITM, impersonation, replay, and hijacking."
+   },
+   {
+    "idx": 69,
+    "statement": "Apply conventional security hygiene to MCP components: enforce least privilege to avoid overexposure, validate inputs against command injection and path traversal, add integrity validation to messages and responses, protect stored credentials and tokens, and securely handle transport descriptors."
+   },
+   {
+    "idx": 73,
+    "statement": "Enforce authentication and role-based access control (including CRUD-level permissions) on MCP components and bind each session to an identity, since MCP leaves identity and RBAC optional and many implementations omit them."
+   },
+   {
+    "idx": 76,
+    "statement": "Require codified approval workflows and force re-consent whenever a trusted MCP server's capabilities or data access change, so a previously benign, approved service cannot silently gain access to sensitive resources."
+   },
+   {
+    "idx": 106,
+    "statement": "Enforce least privilege for every MCP server by using narrow scopes, per-server credentials, and short-lived secrets where the platform supports them."
+   },
+   {
+    "idx": 112,
+    "statement": "Authenticate remote MCP endpoints and bind every session or token check to the current requester before authorizing tool execution."
+   },
+   {
+    "idx": 113,
+    "statement": "Protect remote MCP transport and listener exposure with TLS, server-identity verification, intended-interface binding, and Host header validation."
+   },
+   {
+    "idx": 144,
+    "statement": "Model an MCP protected endpoint as a resource server and keep the authorization server role explicit, even if both roles are implemented by the same deployment."
+   },
+   {
+    "idx": 150,
+    "statement": "Do not require an MCP authorization server to own user interface, login, or account storage; it may delegate user authentication and account management to another service."
+   },
+   {
+    "idx": 152,
+    "statement": "If Dynamic Client Registration is enabled for production MCP use, scope it to the MCP authorization server and prevent dynamically registered clients from gaining regular API access by default."
+   },
+   {
+    "idx": 174,
+    "statement": "For server-hosted MCP clients, use CIMD metadata to support stronger client authentication by publishing public keys while protecting private keys on the client side."
+   },
+   {
+    "idx": 181,
+    "statement": "Avoid making user-facing MCP authorization depend on local server setup and plaintext API credentials; use an authorization flow that removes manual credential provisioning from the normal path."
+   },
+   {
+    "idx": 188,
+    "statement": "Treat LLM-based MCP clients as public OAuth clients and do not rely on a shipped client secret for client authentication."
+   },
+   {
+    "idx": 191,
+    "statement": "Design MCP connection flows so users experience account-style authorization and self-service setup instead of managing tokens, scopes, and provider-specific configuration by hand."
+   },
+   {
+    "idx": 197,
+    "statement": "Keep MCP resource-server authorization state minimal: validate external tokens and enforce local RBAC or permission checks inside the MCP server."
+   },
+   {
+    "idx": 209,
+    "statement": "Use OAuth rather than shared credentials or API keys when MCP agents need to access protected user resources, especially across remote or third-party boundaries."
+   },
+   {
+    "idx": 217,
+    "statement": "When a web frontend hosts MCP authorization, keep the frontend focused on login and consent and leave the code-for-token exchange to the MCP client and token endpoint after redirect."
+   },
+   {
+    "idx": 225,
+    "statement": "Choose the MCP transport from the integration context: stdio for local or command-line use, SSE for HTTP streaming, and a custom transport only when standard options do not fit."
+   },
+   {
+    "idx": 228,
+    "statement": "Require an authorization design whenever an MCP server accesses protected remote services; do not assume the MCP server process identity is enough."
+   },
+   {
+    "idx": 229,
+    "statement": "Use API keys or secrets for MCP authorization only in stdio-style local server deployments, and inject them through environment variables or local secret storage at runtime."
+   },
+   {
+    "idx": 230,
+    "statement": "For local CLI-like MCP servers that need per-user protected-service access, consider device authorization flow to obtain the user access token."
+   },
+   {
+    "idx": 293,
+    "statement": "Do not rely on the MCP protocol itself for security guarantees; add authentication, authorization, and transport controls in the host, client, and server implementation."
+   },
+   {
+    "idx": 298,
+    "statement": "Protect MCP service-to-service traffic with mutual TLS and explicit recipient validation so a server accepts only requests intended for it."
+   },
+   {
+    "idx": 445,
+    "statement": "Bind every MCP authorization decision to the identity of the caller that triggers the invocation, and re-authorize when a new caller interacts; authorization enforced only at the server or resource level, without being scoped to the caller, is insecure."
+   },
+   {
+    "idx": 451,
+    "statement": "Do not rely on any platform- or system-level authorization for MCP; unlike a centralized OS permission framework, MCP has no system-level authorization infrastructure, so each server must define and enforce its own authorization logic."
+   },
+   {
+    "idx": 453,
+    "statement": "Assume any remote, potentially untrusted agent that can reach the MCP endpoint and speak the protocol can issue tool invocations (for example via mcp-remote to an HTTP endpoint); network reachability plus held authorization state is exploitable, even without controlling the server process or stealing credentials."
+   },
+   {
+    "idx": 464,
+    "statement": "Because authorization correctness in MCP servers is an execution-time property, complement static analysis with selective dynamic validation: issue controlled invocations to resource-affecting paths and interpret success without an authorization failure as the resource being accessible under existing state, and an explicit authorization failure as effective per-invocation enforcement. Apply dynamic validation only to the ambiguous case — tools whose execution paths already contain authorization logic — and unify deployment modes (SSE, stdio) non-invasively with an mcp-remote protocol proxy that captures inputs and outputs."
+   },
+   {
+    "idx": 483,
+    "statement": "Select MCP transport by deployment target: stdio for local servers (low-latency, no network overhead) and HTTP/S with streaming for remote servers (adds standard authentication); do not assume one transport fits both."
+   },
+   {
+    "idx": 493,
+    "statement": "Assess each MCP client's transport security via a connection fingerprint (supported modes, handshake, auth, session persistence): unencrypted persistent SSE can leak request headers, stdio can leak tokens through unsanitized logging, and hybrid-mode clients warrant extra scrutiny for unexpected data flows."
+   },
+   {
+    "idx": 505,
+    "statement": "Expect stdio support in nearly all MCP clients (339 of 341) as the legacy default for local, synchronous communication inherited from early prototypes."
+   }
+  ]
+ },
+ {
+  "group": 1,
+  "members": [
+   {
+    "idx": 1,
+    "statement": "Build on OAuth 2.1 and the referenced RFC subset (RFC 8414, RFC 7591, RFC 9728, Client ID Metadata Documents) rather than inventing bespoke authorization; authorization servers MUST implement OAuth 2.1 with appropriate measures for both confidential and public clients."
+   },
+   {
+    "idx": 2,
+    "statement": "Model the MCP server as an OAuth 2.1 resource server and the MCP client as an OAuth 2.1 client acting for a resource owner, and treat the authorization server as a separable component (co-hosted or standalone) located via metadata."
+   },
+   {
+    "idx": 3,
+    "statement": "Require MCP servers to expose OAuth 2.0 Protected Resource Metadata (RFC 9728) containing at least one authorization_servers entry, and require clients to use Protected Resource Metadata for authorization-server discovery."
+   },
+   {
+    "idx": 4,
+    "statement": "Require each authorization server to expose at least one of OAuth 2.0 Authorization Server Metadata (RFC 8414) or OpenID Connect Discovery 1.0, and require clients to support both discovery mechanisms."
+   },
+   {
+    "idx": 10,
+    "statement": "Authorization servers should fetch and cache (respecting HTTP cache headers) URL-formatted client_ids and advertise client_id_metadata_document_supported; clients should check that capability, may authenticate with private_key_jwt, and may fall back to Dynamic Client Registration or pre-registration when CIMD is unavailable."
+   },
+   {
+    "idx": 18,
+    "statement": "Follow OAuth 2.1 Section 7 security best practices end to end: implement secure token storage, issue short-lived access tokens, and rotate refresh tokens for public clients."
+   },
+   {
+    "idx": 182,
+    "statement": "Drive MCP OAuth setup from standards-based discovery documents instead of hardcoded provider assumptions or service-specific configuration."
+   },
+   {
+    "idx": 231,
+    "statement": "For OAuth-enabled MCP authorization, implement OAuth 2.1 with security controls suitable for both confidential and public clients."
+   },
+   {
+    "idx": 385,
+    "statement": "Adopt the mid-2025 spec controls (OAuth2 Resource Server patterns and Resource Indicators, RFC 8707) to prevent token replay and ensure scope isolation, while not assuming peer servers comply given uneven adoption and backward-compatibility gaps."
+   }
+  ]
+ },
+ {
+  "group": 2,
+  "members": [
+   {
+    "idx": 5,
+    "statement": "Deliver Protected Resource Metadata via a WWW-Authenticate resource_metadata parameter on 401 responses or a well-known URI; clients MUST parse WWW-Authenticate headers, react to 401s, prefer the resource_metadata URL when present, and otherwise fall back to the well-known URIs in the specified order."
+   },
+   {
+    "idx": 9,
+    "statement": "When using Client ID Metadata Documents, host the metadata at an HTTPS URL that contains a path and whose client_id equals the URL exactly, include at least client_id/client_name/redirect_uris, and have the authorization server validate the client_id-URL match, the presented redirect URIs, and that the document is well-formed JSON with the required fields."
+   },
+   {
+    "idx": 146,
+    "statement": "Use a WWW-Authenticate metadata link for protected-resource discovery when a fixed well-known metadata endpoint is not appropriate, accepting the extra request this adds."
+   },
+   {
+    "idx": 183,
+    "statement": "When an unauthenticated client reaches a protected MCP resource, return a 401 response that directs the client to the protected-resource metadata through WWW-Authenticate."
+   }
+  ]
+ },
+ {
+  "group": 3,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Advertise required scopes in the WWW-Authenticate scope parameter; clients MUST treat the challenge scopes as authoritative for the current request, MUST NOT assume any subset/superset relationship to scopes_supported, and MUST apply the scope-selection fallback when no scope is provided."
+   },
+   {
+    "idx": 11,
+    "statement": "Follow least privilege in scope selection: request only necessary scopes, preferring the scope from the WWW-Authenticate challenge and otherwise requesting all scopes_supported (the intended minimal baseline), acquiring additional scopes incrementally via step-up authorization."
+   },
+   {
+    "idx": 17,
+    "statement": "On a runtime insufficient-scope error, respond with 403 plus a Bearer WWW-Authenticate header carrying error=insufficient_scope, the required scope set, and resource_metadata; clients should react with a step-up authorization flow (user-delegated clients SHOULD, client_credentials clients MAY) using retry limits and tracked upgrade attempts, while servers keep a consistent, user-experience-aware scope-inclusion strategy."
+   },
+   {
+    "idx": 41,
+    "statement": "Adopt a progressive least-privilege scope model: grant a minimal initial scope of low-risk read/discovery operations, elevate incrementally via targeted WWW-Authenticate scope challenges, tolerate down-scoped tokens, emit precise (not full-catalog) challenges with logged elevation events, and have clients start from baseline scopes while caching denied-scope failures."
+   },
+   {
+    "idx": 42,
+    "statement": "Avoid scope anti-patterns and always enforce authorization server-side: do not publish every scope in scopes_supported, use wildcard/omnibus scopes, bundle unrelated privileges, or change scope semantics silently, and never treat scopes claimed in a token as sufficient without independent server-side authorization checks."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 8,
+    "statement": "Support the three client-registration mechanisms and, when several are available, select in priority order: pre-registered credentials, then Client ID Metadata Documents (if the AS advertises support), then Dynamic Client Registration (kept mainly for backwards compatibility), then prompt the user."
+   },
+   {
+    "idx": 153,
+    "statement": "Consider URL-based client identifiers with client metadata documents when MCP needs client identity without a dynamic registration step."
+   },
+   {
+    "idx": 170,
+    "statement": "Treat Dynamic Client Registration as a risky default for broad MCP interoperability unless the server and client lifecycle controls are explicit."
+   },
+   {
+    "idx": 187,
+    "statement": "Use Dynamic Client Registration to onboard LLM clients without manual administrator pre-registration when MCP clients and services are numerous or frequently changing."
+   },
+   {
+    "idx": 218,
+    "statement": "Support dynamic client registration when new MCP agents should be able to onboard at first authorization instead of requiring manual client setup."
+   },
+   {
+    "idx": 234,
+    "statement": "Support Dynamic Client Registration when an MCP client may connect to unfamiliar servers, especially in broad workbench-style environments."
+   }
+  ]
+ },
+ {
+  "group": 6,
+  "members": [
+   {
+    "idx": 12,
+    "statement": "Clients MUST implement RFC 8707 Resource Indicators and include a resource parameter identifying the target MCP server by its canonical URI in both authorization and token requests, sending it regardless of whether the authorization server supports it, so tokens are bound to their intended resource."
+   },
+   {
+    "idx": 14,
+    "statement": "Transmit access tokens only in the Authorization request header, never in the URI query string, and include authorization on every HTTP request from client to server even within one logical session."
+   },
+   {
+    "idx": 15,
+    "statement": "MCP servers MUST validate every access token per OAuth 2.1 Section 5.2, accept only tokens whose intended audience is the server itself, return HTTP 401 for invalid or expired tokens, and never accept or transit tokens issued for other resources; clients MUST NOT send a server any token not issued by that server's authorization server."
+   },
+   {
+    "idx": 31,
+    "statement": "Never pass tokens through: an MCP server must reject any access token that was not explicitly issued to itself, because token passthrough bypasses audience-bound security controls, breaks the audit trail, and enables use of the server as an exfiltration proxy."
+   },
+   {
+    "idx": 145,
+    "statement": "Preserve MCP client bootstrap from a single server URL by using protected-resource metadata to point clients from the MCP resource server to the appropriate authorization server metadata."
+   },
+   {
+    "idx": 148,
+    "statement": "Issue MCP access tokens for a specific MCP resource server audience and do not make the same token valid for both MCP and the service regular API."
+   },
+   {
+    "idx": 149,
+    "statement": "Use a dedicated MCP authorization server as a delegation boundary when relying on external identity or OAuth services, so the MCP client sees MCP-specific endpoints while backend identity flows can vary."
+   },
+   {
+    "idx": 156,
+    "statement": "Push login, token issuance, and related authorization complexity into the MCP authorization server so the MCP resource server can stay focused on validating tokens and serving protected resources."
+   },
+   {
+    "idx": 167,
+    "statement": "Let the resource authorization server issue and validate its normal access tokens for the MCP server instead of requiring a universal Cross-App Access token format."
+   },
+   {
+    "idx": 184,
+    "statement": "Publish protected-resource metadata for MCP resources with the resource identifier, trusted authorization servers, accepted bearer-token handling, and token verification material."
+   },
+   {
+    "idx": 196,
+    "statement": "Validate Resource Indicators or equivalent audience binding on incoming tokens and reject tokens not issued for the MCP server."
+   },
+   {
+    "idx": 198,
+    "statement": "Never forward the MCP client access token to upstream APIs; have the MCP server obtain service-appropriate upstream tokens as its own OAuth client."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 13,
+    "statement": "Identify an MCP server with its most specific canonical URI: include a scheme, exclude any fragment, prefer the form without a trailing slash unless the slash is semantically significant, and accept uppercase scheme/host on input for robustness."
+   },
+   {
+    "idx": 27,
+    "statement": "Make the MCP consent page self-describing and hard to abuse: identify the requesting client by name, show the exact third-party scopes and registered redirect_uri, and protect it with CSRF defenses and anti-clickjacking headers (frame-ancestors CSP or X-Frame-Options: DENY)."
+   },
+   {
+    "idx": 39,
+    "statement": "Sanitize and validate every URL received from an MCP server: parse strictly, reject shell-special characters, prefer a dedicated sanitization library, and log suspicious authorization URLs for monitoring."
+   }
+  ]
+ },
+ {
+  "group": 9,
+  "members": [
+   {
+    "idx": 19,
+    "statement": "Enforce communication security: serve all authorization-server endpoints over HTTPS, restrict every redirect URI to localhost or HTTPS, and follow OAuth 2.1 Section 1.5."
+   },
+   {
+    "idx": 21,
+    "statement": "Protect against open redirection: pre-register redirect URIs, have the authorization server validate them by exact match, avoid redirecting user agents to untrusted URIs (auto-redirecting only trusted ones), and have clients use and verify the state parameter, discarding mismatched or missing state."
+   },
+   {
+    "idx": 32,
+    "statement": "Treat every server-supplied OAuth discovery URL as untrusted and apply SSRF defenses: require HTTPS in production, block private/reserved and cloud-metadata IP ranges, use a vetted library instead of hand-rolled IP validation, apply the same checks to redirect targets, prefer an egress proxy for server-side deployments, and pin DNS between check and use."
+   },
+   {
+    "idx": 371,
+    "statement": "Use short-lived credentials and mutual TLS for endpoint authentication and apply zero-trust continuous verification, re-authenticating and re-authorizing every request rather than granting persistent privileges."
+   }
+  ]
+ },
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 20,
+    "statement": "Clients MUST implement PKCE (S256 when technically capable) and verify PKCE support before authorizing by checking code_challenge_methods_supported in the authorization-server (or OpenID provider) metadata, refusing to proceed when it is absent; OpenID-Connect-Discovery authorization servers MUST publish this field."
+   },
+   {
+    "idx": 232,
+    "statement": "Require PKCE in MCP OAuth client flows to strengthen the baseline against common OAuth attack classes."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 28,
+    "statement": "Secure any cookie used to record consent: use the __Host- prefix with Secure, HttpOnly and SameSite=Lax, sign it or back it with a server-side session, and bind it to the specific client_id rather than a generic 'user consented' flag."
+   },
+   {
+    "idx": 30,
+    "statement": "Run a strict OAuth state lifecycle: generate a cryptographically random state per request, persist it server-side only after the user approves consent and set the tracking cookie immediately before the third-party redirect, then at the callback require an exact state match, reject missing/mismatched state, and make state single-use with a short expiry."
+   }
+  ]
+ },
+ {
+  "group": 19,
+  "members": [
+   {
+    "idx": 43,
+    "statement": "Before securing an MCP system, classify its deployment pattern (all-local, single-tenant hybrid, or multi-tenant cloud) and explicitly map the resulting trust boundaries, because security posture is set by where server code originates, where it executes, and what resources it can reach."
+   },
+   {
+    "idx": 60,
+    "statement": "Govern the full MCP server lifecycle: mandatory code-signing and binary authorization before install, private vetted repositories with software-composition analysis, allow-lists with documented reviews, SBOM tracking, hash-pinned dependencies and reproducible builds, a centralized server inventory, automated shadow-deployment discovery, deprecation and rollback policies, periodic re-certification, and forced upgrades for servers with known vulnerabilities."
+   },
+   {
+    "idx": 62,
+    "statement": "Harden according to the deployment pattern: for all-local use stdio transport (which eliminates DNS-rebinding risk) plus sandboxing; for single-tenant remote require client-server authentication, secure OS-keychain/secret-manager credential storage, and authenticated encrypted channels with enforced server allowlists; for multi-tenant require strong tenant isolation (per-tenant encryption, RBAC), preference for provider-hosted servers over third-party, and remote attestation where possible."
+   },
+   {
+    "idx": 66,
+    "statement": "Continuously detect and eliminate shadow, zombie, and malicious MCP servers through automated discovery, a centralized inventory, and decommissioning, because absent provenance and inventory controls attackers deploy unauthorized servers and distribute malicious or rug-pull packages that introduce unvetted capabilities."
+   },
+   {
+    "idx": 68,
+    "statement": "Apply segregation-of-access and zero-trust principles because concentrating access to disparate services in one MCP protocol layer violates segregation and its optimistic client/server trust model lets a single compromise cascade into a full breach."
+   },
+   {
+    "idx": 82,
+    "statement": "Establish explicit trust boundaries/zones between MCP components, gate dynamic tool discovery behind origin verification or authorization, align tools and models to data-classification zones, prefer local MCP servers for private data, and control egress via a filtering proxy or DLP."
+   },
+   {
+    "idx": 89,
+    "statement": "Treat MCP's security as implementation-dependent rather than protocol-guaranteed: adopt it with caution and heightened scrutiny—drawing on lessons from prior distributed and plugin ecosystems—especially in national-security or other high-assurance environments."
+   },
+   {
+    "idx": 91,
+    "statement": "Bound every MCP agent with unique identity, documented least-privilege scopes, policy-as-code enforcement, just-in-time elevation for risky access, continuous entitlement review, runtime guardrails, tamper-evident action logs, and separation of permission-granting from deployment authority."
+   },
+   {
+    "idx": 99,
+    "statement": "Prevent shadow MCP deployments by requiring central registration before deployment, CI/CD gates, owner and compliance metadata, continuous discovery, secure baseline templates, central IAM, service identities, segmentation, anomaly monitoring, developer education, policy signoff, threat-hunting playbooks, and incident workflows."
+   },
+   {
+    "idx": 100,
+    "statement": "Treat MCP context as a boundary-sensitive asset and enforce strict context isolation and lifecycle controls with per-user, per-agent, per-workflow, and per-tenant namespaces, isolated retrieval stores, sensitivity tagging, TTL and purge, pre-storage redaction, approval and preview for sensitive sharing, access logging, injection filtering, and contamination remediation."
+   },
+   {
+    "idx": 109,
+    "statement": "Separate sensitive MCP servers from general-purpose servers so payment, authentication, and personal-data capabilities are not exposed to broad shared contexts."
+   },
+   {
+    "idx": 118,
+    "statement": "Treat each connected MCP server as a separate untrusted security domain and monitor or mediate cross-server data flows."
+   },
+   {
+    "idx": 223,
+    "statement": "Model MCP integrations around explicit host, client, server, data-source, and remote-service responsibilities so capability ownership and access boundaries stay clear."
+   },
+   {
+    "idx": 292,
+    "statement": "Treat MCP as a privileged enterprise integration layer and explicitly model trust boundaries for authentication, token movement, tool metadata, runtime execution, and supply-chain provenance."
+   },
+   {
+    "idx": 297,
+    "statement": "Map MCP server identities to their required permissions and remediate overprivileged servers before lower-impact posture findings."
+   },
+   {
+    "idx": 311,
+    "statement": "Secure MCP source, dependency, build, and release pipelines with controlled environments, reproducible builds, dependency records, signatures, checksums, attestations, version pinning, and strict dependency management."
+   },
+   {
+    "idx": 312,
+    "statement": "Treat MCP auto-installers as privileged supply-chain components that must show provenance, verify trusted signatures or checksums, reject mismatches, require confirmation, and isolate setup execution."
+   },
+   {
+    "idx": 319,
+    "statement": "Cloud-hosted MCP deployments must pair scaling convenience with managed authentication, scoped authorization, secure session state, privacy controls, data residency handling, latency design, tenant isolation, and runtime sandboxing."
+   },
+   {
+    "idx": 338,
+    "statement": "Benchmark MCP defenses across multiple attack types, hosts, and client configurations, then prefer layered defenses combining identity, policy, scanning, detection, arbitration, logging, firewalling, gateways, and isolation."
+   },
+   {
+    "idx": 344,
+    "statement": "Contain blast radius with least-privilege scoping per server, because each MCP server has autonomy over tool exposure and scope, so one compromised endpoint can cascade through dependent agents into systemic risk."
+   },
+   {
+    "idx": 381,
+    "statement": "Structure robust MCP security as five defense-in-depth layers with no single layer sufficient: provenance verification for authenticity, access control for authorization, context validation for semantic inputs, isolation and protocol integrity to contain operational risk, and continuous monitoring for adaptive feedback."
+   },
+   {
+    "idx": 419,
+    "statement": "Harden default MCP deployments with read-only modes, mandatory authentication, and a request/response-validating proxy, and prefer secure-by-design server templates with built-in OAuth, logging, and safe parsing that strips dangerous content from tool descriptions."
+   },
+   {
+    "idx": 454,
+    "statement": "Classify an MCP server's authorization into one of three patterns — (1) no checks with implicit trust, (2) authorize-once-and-cache bound to the server or resource but not the caller, or (3) caller-bound with re-authorization on a new caller — and treat only pattern 3 as providing meaningful isolation between invocation contexts."
+   },
+   {
+    "idx": 461,
+    "statement": "Prioritize review of developer-facing MCP servers: they dominate the ecosystem, expose dense execution interfaces (over 50% insecure), and often aggregate multiple powerful capabilities, so a single authorization failure can escalate into diverse, high-impact outcomes."
+   },
+   {
+    "idx": 503,
+    "statement": "Apply stricter privacy and access controls to MCP server categories that handle sensitive data - external data tools, web-browser content, productivity and collaboration, cloud storage, and communication - since they can expose PII, credentials, or message data."
+   }
+  ]
+ },
+ {
+  "group": 20,
+  "members": [
+   {
+    "idx": 44,
+    "statement": "Threat-model MCP differently from conventional multi-component systems: an LLM whose behaviour is driven by natural-language input sits at the centre of security-critical decisions, and developers must not assume the model will invoke tools safely."
+   },
+   {
+    "idx": 63,
+    "statement": "Account for MCP's inherent architectural weaknesses when threat modeling: centralized credential stores are high-value targets, the spec lacks native fine-grained authorization, LLMs transform but do not sanitize malicious input, and there is no control-plane/data-plane separation so any adversary-controllable input can alter execution flow."
+   },
+   {
+    "idx": 267,
+    "statement": "Threat-model MCP line jumping for downstream effects such as code exfiltration, vulnerability insertion, and security-alert manipulation, even when the malicious server is never explicitly invoked."
+   },
+   {
+    "idx": 308,
+    "statement": "Use lifecycle-centric MCP threat modeling that covers creation, deployment, operation, maintenance, attacker type, threat origin, consequence, supply-chain risk, and LLM-specific tool risks."
+   },
+   {
+    "idx": 337,
+    "statement": "Evaluate MCP security as an LLM-tool safety problem that includes prompt manipulation, unsafe execution, untrusted endpoints, unsafe workflows, ambiguous documentation, model behavior, and alignment tradeoffs."
+   },
+   {
+    "idx": 340,
+    "statement": "Treat every MCP integration as a privilege-execution boundary, not a passive text interface: MCP turns the LLM into an active system component with shell-level privileges acting on untrusted context, and the attack surface grows with each connected file, database, or API."
+   },
+   {
+    "idx": 355,
+    "statement": "Model each MCP primitive's trust domain separately (Resources = read-only context, Tools = external actions, Prompts = reusable templates), because the single safety perimeter dissolves and a failure in one primitive can escalate into a harmful action executed by another."
+   },
+   {
+    "idx": 383,
+    "statement": "Never assume the model reliably separates data from instructions: because MCP blends natural-language prompts with code execution there is no rigorous guarantee an agent will not misinterpret malicious input, so a high-privilege LLM can be tricked into running unintended SQL or shell commands (confused deputy)."
+   },
+   {
+    "idx": 430,
+    "statement": "Do not secure MCP as merely an API or merely an LLM: coupling Context (Resources) with Action (Tools) creates a semantic attack surface where indirect prompt injection escalates into real-world operational damage and epistemic failures such as hallucinations become security breaches, so existing defenses are necessary but insufficient."
+   }
+  ]
+ },
+ {
+  "group": 21,
+  "members": [
+   {
+    "idx": 45,
+    "statement": "Require identity that is traceable end-to-end across the execution chain (initiating user or agent, intermediate MCP servers, and the tools that act), preferring emerging cryptographic workload-identity standards such as SPIFFE/SPIRE where available."
+   },
+   {
+    "idx": 46,
+    "statement": "Enforce least-privilege secure delegation for MCP servers using OAuth: authenticate users via existing OIDC identity providers, register servers as IAM clients (using Dynamic Client Registration when needed), never pass through user-provided tokens, perform token exchange for accountability, minimize scopes, and use short-lived proof-of-possession tokens and Rich Authorization Requests; this also defeats confused-deputy abuse."
+   },
+   {
+    "idx": 55,
+    "statement": "Verify MCP server provenance before deployment: require developers to publish code signatures and SBOMs, verify contents and signatures against an approved-source and signing-key policy, protect all data in transit with TLS, and prefer end-to-end signatures proving authenticity of returned resources."
+   },
+   {
+    "idx": 78,
+    "statement": "Sign and verify MCP messages at the payload level with cryptographic signatures, expiration timestamps, and replay-protection metadata; never assume transport-layer encryption provides message integrity or authenticity."
+   },
+   {
+    "idx": 90,
+    "statement": "Handle MCP credentials as ephemeral, scoped, vault-backed secrets: inject them only at runtime, keep them out of model context and stored diagnostics, redact sensitive records, audit credential flows, and rotate immediately on suspected exposure."
+   },
+   {
+    "idx": 92,
+    "statement": "Treat MCP schemas, tool manifests, descriptors, and signed tool definitions as executable contracts: require author identity and signature or hash verification, immutable governed version control, semantic policy checks, provenance logging, schema pinning, revalidation before use, approval for high-impact behavior, and rollback plus forensic response after compromise."
+   },
+   {
+    "idx": 93,
+    "statement": "Secure the MCP software supply chain by requiring signed provenance for components, deployment SBOM and cryptographic inventories, pinned approved sources, dependency and code scanning, and sandboxed third-party plugins with constrained network and filesystem access."
+   },
+   {
+    "idx": 102,
+    "statement": "Use agent passports, trust levels, capability lists, mutual authentication, revocation, and self-hostable trust authority operations to bind MCP agent identity, permissions, and server acceptance to verifiable credentials."
+   },
+   {
+    "idx": 151,
+    "statement": "Plan MCP client identity for open-web scale; avoid designs that require every client developer to pre-register with every MCP server operator."
+   },
+   {
+    "idx": 172,
+    "statement": "Prefer Client ID Metadata Documents for scalable MCP client identity: clients identify with controlled metadata URLs and authorization servers fetch metadata from those URLs."
+   },
+   {
+    "idx": 320,
+    "statement": "Prevent server impersonation by binding MCP namespaces to verified publishers, enforcing uniqueness, surfacing provenance, preferring trusted servers, and monitoring suspicious registration or update behavior."
+   },
+   {
+    "idx": 321,
+    "statement": "Resolve MCP tools by verified server-qualified identity and show provenance or trust level before sensitive automatic invocations, with load-time conflict checks across connected servers."
+   },
+   {
+    "idx": 336,
+    "statement": "For MCP in smart, industrial, or enterprise automation environments, require secure firmware updates, strict device authentication, and MCP-aware intrusion detection."
+   },
+   {
+    "idx": 347,
+    "statement": "Require identity-bound server authentication and integrity or signature verification, because without them tool shadowing, model-switching, unauthorized context injection, and unverified message modification grant attackers silent control."
+   },
+   {
+    "idx": 352,
+    "statement": "Deploy MCP zero-trust: identity-bound authentication across Host, Client, and Server; tightly scoped OAuth authorization; signed packages and tool definitions; and provenance/audit trails verifiable before execution."
+   },
+   {
+    "idx": 394,
+    "statement": "Honor data-minimization and purpose-limitation (GDPR-style) for MCP workflows that shuttle personal data: label personal data, ensure user consent, keep access audit logs, and enforce strict context isolation with encryption in transit and at rest plus per-layer access controls to prevent cross-tenant leakage."
+   },
+   {
+    "idx": 428,
+    "statement": "As a mid-term step, move from implicit trust to explicit verification: enforce tool signatures and immutable versioning via ETDI, and deploy identity-aware proxies that bind every MCP request to a specific user identity so an agent cannot escalate privileges beyond the invoking user, solving the confused-deputy problem."
+   },
+   {
+    "idx": 470,
+    "statement": "Treat MCP authorization weakness as systemic — spanning functional categories, star ranges, and maturity, and stemming from flawed assumptions about execution context and caller identity rather than absent checks — and do not assess ecosystem or server security by counting vulnerable servers alone; weigh the nature and severity of the actions those servers enable."
+   },
+   {
+    "idx": 473,
+    "statement": "Flag MCP servers that authenticate once at initialization with high-privilege credentials (for example Slack tokens or AWS SDK credentials) and reuse that state for all invocations: they become long-lived, high-privilege API proxies, letting any entity that can invoke the tools perform privileged third-party operations without holding credentials, and because the operations use valid credentials, external services cannot distinguish abuse from intended behavior — enabling stealthy cross-system privilege abuse with limited forensic visibility."
+   },
+   {
+    "idx": 501,
+    "statement": "Mitigate MCP server sensitive-API risk with regular dependency checks, sandboxed execution of network and file operations, and standardized authentication for sensitive calls."
+   }
+  ]
+ },
+ {
+  "group": 22,
+  "members": [
+   {
+    "idx": 47,
+    "statement": "Enforce robust access-control models (RBAC or ABAC) at every endpoint, evaluating identity-provider claims such as role, job title, or location, optionally using policy engines like OPA, Cedar, or OpenFGA."
+   },
+   {
+    "idx": 97,
+    "statement": "Enforce strong MCP authentication and authorization with mutual authentication, short-lived scoped and bound tokens, server-side validation, per-request deny-by-default RBAC or ABAC, lifecycle controls, least privilege, centralized IAM and policy decisions, secure endpoint defaults, and immediate credential incident response."
+   }
+  ]
+ },
+ {
+  "group": 23,
+  "members": [
+   {
+    "idx": 48,
+    "statement": "Treat all tool descriptions, annotations, schemas, and retrieved resource content as untrusted unless obtained from a trusted server, because tool poisoning, full-schema poisoning, resource-content poisoning, typosquatting, and shadow servers can inject malicious behaviour or instructions."
+   },
+   {
+    "idx": 51,
+    "statement": "Strictly validate and sanitize every input with allowlists at each trust boundary (path canonicalization, parameterized queries, context-aware output encoding for SQL/shell/HTML), treat AI-generated content as untrusted requiring the same validation, and deploy prompt-injection detection with strict schemas across all MCP-returned data."
+   },
+   {
+    "idx": 104,
+    "statement": "Treat tool metadata and tool outputs as untrusted prompt-injection surfaces, and inspect, sanitize, or constrain them before they influence model behavior."
+   },
+   {
+    "idx": 124,
+    "statement": "Treat user, retrieval, API, email, website, and document content as untrusted data that must be sanitized, bounded, and separated from instructions before agent use."
+   },
+   {
+    "idx": 125,
+    "statement": "Use an isolated validation or summarization step for untrusted source content when downstream reasoning needs that content but should not directly consume raw instructions from it."
+   },
+   {
+    "idx": 249,
+    "statement": "Audit logs and tool-call displays should reveal actual destinations, arguments, and data movements so malicious behavior cannot hide behind ordinary trusted-tool usage."
+   },
+   {
+    "idx": 256,
+    "statement": "Normalize and evaluate suspicious structured-context payloads in tool outputs, because injections may imitate surrounding serialization rather than appear as plain instructions."
+   },
+   {
+    "idx": 301,
+    "statement": "Validate tool definitions before model-context injection, hash reviewed tool descriptions at deployment, verify each tools/list response against those hashes, and reject changed descriptions as unreviewed model-trusted behavior."
+   },
+   {
+    "idx": 346,
+    "statement": "Treat all contextual and Resource input (documents, pasted text, retrieved content, emails, Slack) as untrusted rather than authoritative, because obfuscated embedded directives can redirect tool calls (indirect prompt injection)."
+   },
+   {
+    "idx": 384,
+    "statement": "Standardize and enforce a tool-metadata schema that structurally separates instructions from descriptive text, because inconsistent implementations (auth varying from unencrypted HTTP to OAuth, varying tool-description formats) create a weakest-link problem."
+   }
+  ]
+ },
+ {
+  "group": 24,
+  "members": [
+   {
+    "idx": 49,
+    "statement": "Assume prompt injection is possible whenever untrusted input can reach the LLM's context window, and never rely on model-level safety controls (trained refusals, classifiers) as an ironclad security boundary."
+   },
+   {
+    "idx": 279,
+    "statement": "Treat every MCP sampling prompt supplied by a server as untrusted input that crosses a security boundary before reaching the LLM."
+   },
+   {
+    "idx": 341,
+    "statement": "Use one unified threat model in which security breaches and safety failures converge: an indirect prompt injection can cause an honestly-mistaken destructive action, and a tool-parameter hallucination can cause a breach, so never triage epistemic errors and unauthorized actions as separate domains."
+   },
+   {
+    "idx": 388,
+    "statement": "Defend the long-context safety blind spot where a prompt injection is buried deep in a long context to evade filters tuned on shorter prompts: train on long-context safety data, scan context in sliding-window segments with safety classifiers, add hierarchical oversight that detects contradictions of earlier policy, and dynamically mask or tag malicious context so the decoder gives it no weight."
+   },
+   {
+    "idx": 402,
+    "statement": "Counter prompt injection with layered, patchable defenses (input filters, context compartmentalization, least privilege, output checks), because it is the top-ranked OWASP LLM risk and has no single silver bullet."
+   }
+  ]
+ },
+ {
+  "group": 27,
+  "members": [
+   {
+    "idx": 53,
+    "statement": "Use hardware TEEs with remote attestation to isolate MCP clients and servers from compromised hardware, malicious infrastructure operators, and co-tenancy threats, rejecting shadow or compromised servers whose measurements fail attestation, but always complement TEEs with runtime controls because they do not cover vulnerabilities in the running code."
+   },
+   {
+    "idx": 61,
+    "statement": "Secure MCP deployments with defense-in-depth—zero-trust architecture, hardware isolation via TEEs, rigorous supply-chain vetting, and continuous monitoring—because documented incidents show that failures of authentication, session management, and supply-chain control are active, not theoretical, threats."
+   },
+   {
+    "idx": 416,
+    "statement": "Move MCP connectors to a zero-trust posture (authenticate every call, verify every component, never assume a tool is safe merely because it is connected), for example via an MCP gateway with allow-lists and cryptographic verification."
+   }
+  ]
+ },
+ {
+  "group": 28,
+  "members": [
+   {
+    "idx": 54,
+    "statement": "Run agents and MCP servers with least privilege, always sandbox any server that touches the host (files, commands, network) or executes LLM-generated code, and do not rely on containers alone as a security boundary—add stronger isolation such as gVisor, Kata Containers, or SELinux sandboxes."
+   },
+   {
+    "idx": 81,
+    "statement": "Treat any MCP-triggered tool execution as high-risk: confine it with OS-level sandboxing (AppContainers, seccomp, AppArmor, SELinux) and least privilege, explicitly denying unneeded file system, model, data, or network access at runtime."
+   },
+   {
+    "idx": 244,
+    "statement": "Isolate MCP servers with explicit cross-server dataflow and authority boundaries instead of giving all connected servers unrestricted influence in one agent context."
+   },
+   {
+    "idx": 313,
+    "statement": "Constrain MCP runtime environments and external resource access with isolation, least privilege, authentication, authorization, sandboxing, trusted bindings, filesystem roots, outbound network filters, and parameter validation."
+   }
+  ]
+ },
+ {
+  "group": 29,
+  "members": [
+   {
+    "idx": 57,
+    "statement": "Treat tools as the primary security boundary: give each tool a single, explicitly bounded purpose, prefer narrow purpose-built tools over powerful general ones (e.g., a prepared statement over arbitrary SQL), and never delegate security-critical validation or constraint enforcement to the LLM."
+   },
+   {
+    "idx": 80,
+    "statement": "Enforce unique tool identifiers and strict tool-name resolution policies to prevent naming-collision and tool-invocation path-confusion attacks that load attacker-controlled code."
+   },
+   {
+    "idx": 123,
+    "statement": "Separate tool capability by trust tier and require explicit authorization before sensitive tools can execute."
+   },
+   {
+    "idx": 277,
+    "statement": "Do not assume vendor fixes for known prompt-injection incidents secure arbitrary user-assembled tool chains; enforce local capability boundaries for the actual composition."
+   },
+   {
+    "idx": 328,
+    "statement": "Constrain cross-tool composition with explicit approval, inter-tool data-flow limits, state validation, integrity checks, rollback, and anomaly detection for suspicious multi-step chains."
+   },
+   {
+    "idx": 368,
+    "statement": "Perform semantic and structural validation of tool metadata before model execution, because poisoned tool descriptions can manipulate the LLM's planning process without executing any code (a decision-level attack)."
+   },
+   {
+    "idx": 447,
+    "statement": "Enforce authentication and authorization at the per-tool level for every tool that can reach a sensitive operation; missing per-tool checks enable unauthorized access to sensitive operations."
+   }
+  ]
+ },
+ {
+  "group": 30,
+  "members": [
+   {
+    "idx": 58,
+    "statement": "Make security-relevant elicitations clear about their implications and do not rely solely on the human user; where the risk of dangerous tool execution is unacceptable, enforce host/client configurations that unprivileged users cannot change to keep confirmation prompts enabled, and use server-side elicitation for explicit confirmation."
+   },
+   {
+    "idx": 247,
+    "statement": "Use end-to-end MCP security controls across client, server, protocol, tool metadata, and model dataflow rather than relying on a single confirmation prompt or prompt-level rule."
+   },
+   {
+    "idx": 391,
+    "statement": "Display an informed-consent warning, modeled on browser certificate warnings, before a user connects to an unverified third-party MCP server that may execute arbitrary commands."
+   }
+  ]
+ },
+ {
+  "group": 31,
+  "members": [
+   {
+    "idx": 59,
+    "statement": "Log tool invocations with their parameters and originating prompt at every layer (host, client, server), centralize cross-cutting logging via MCP gateways or proxies, keep immutable records of actions and authorizations (e.g., IdP token exchange), and use OpenTelemetry for end-to-end linkability."
+   },
+   {
+    "idx": 67,
+    "statement": "Maintain standardized audit logging of server connections, tool invocations, authorization decisions, and data access to enable incident detection, forensics, attribution, and satisfaction of compliance frameworks that require audit trails."
+   },
+   {
+    "idx": 84,
+    "statement": "Implement comprehensive audit logging—actions traceable across sessions, identities, exact parameters, HTTP source headers, and result hashes—and integrate it into SIEM/threat-detection to detect anomalies such as authorization failures, RBAC violations, and repeated or malformed requests."
+   },
+   {
+    "idx": 120,
+    "statement": "Log MCP tool invocations with enough detail for audit and anomaly detection while redacting secrets and personal data from stored telemetry."
+   }
+  ]
+ },
+ {
+  "group": 32,
+  "members": [
+   {
+    "idx": 64,
+    "statement": "Bind MCP servers to localhost rather than all interfaces (0.0.0.0), enforce network segmentation and origin controls, and defend against DNS rebinding and lateral movement, because unrestricted network exposure enables command-and-control, exfiltration, and lateral movement."
+   },
+   {
+    "idx": 71,
+    "statement": "Do not rely on MCP protocol guarantees for security; enforce it through implementation rigor and standard external controls (reverse proxies, middleware firewalls, application sandboxing/containment), because the protocol cannot enforce security principles itself."
+   },
+   {
+    "idx": 74,
+    "statement": "Isolate MCP servers, tasks, and data so that client context is not shared freely across servers and tasks cannot propagate unverified, preventing data leakage and unverified task propagation."
+   },
+   {
+    "idx": 85,
+    "statement": "Protect MCP servers against denial-of-service and fatigue techniques (prompt storms, malformed and recursive requests, and 'lethargy' resource exhaustion) with rate limiting and resource controls, accounting for the difficulty of distinguishing attacks from valid high load."
+   },
+   {
+    "idx": 88,
+    "statement": "Regularly scan networks for insecure or unauthorized MCP servers—unauthenticated, vulnerable/outdated, unauthorized, or with unregulated Internet connectivity—using MCP security scanners and periodic differential scans, since MCP servers may dynamically change ports."
+   },
+   {
+    "idx": 108,
+    "statement": "Run local MCP servers inside isolation boundaries and restrict their filesystem and network access to the minimum required for their intended function."
+   },
+   {
+    "idx": 268,
+    "statement": "Until robust MCP defenses are standardized and deployed, handle MCP connections as potentially hostile rather than assuming the protocol boundaries are sufficient."
+   },
+   {
+    "idx": 300,
+    "statement": "Run each MCP server in an isolated sandbox and restrict outbound requests with egress allowlists and URL-scheme validation."
+   },
+   {
+    "idx": 304,
+    "statement": "Use strong session binding and server attestation before accepting MCP server connections to reduce rogue-registration and session-hijacking exposure."
+   },
+   {
+    "idx": 306,
+    "statement": "Prioritize MCP remediation using real attack paths that combine identity, network reachability, runtime privilege, and connected data sensitivity."
+   }
+  ]
+ },
+ {
+  "group": 34,
+  "members": [
+   {
+    "idx": 70,
+    "statement": "Do not use the Server-Sent Events (SSE) over HTTP transport, which was deprecated in the 2025-06-18 revision of the MCP specification."
+   },
+   {
+    "idx": 504,
+    "statement": "Do not standardize new MCP clients on SSE - it was officially deprecated in November 2024 yet remains widespread - and adopt the recommended streamable HTTP transport, noting only about 27.9% of clients had done so as of August 2025 (the client ecosystem lags the spec)."
+   }
+  ]
+ },
+ {
+  "group": 35,
+  "members": [
+   {
+    "idx": 72,
+    "statement": "Apply traditional controls (authentication, authorization, input validation) AND explicitly address agentic-specific risks—dynamic tool invocation, implicit trust between agents, and shared/overlapping context—across the entire lifecycle rather than at endpoints alone."
+   },
+   {
+    "idx": 94,
+    "statement": "Execute agent-produced commands, queries, file operations, and API calls only through validated tool boundaries that use allowlists, metacharacter rejection, path normalization, structured APIs, parameterization, sandboxing, least privilege, secret isolation, approval for sensitive actions, and immutable call logging."
+   },
+   {
+    "idx": 103,
+    "statement": "Review MCP deployments as agent-mediated security boundaries where model-selected tool calls can reach sensitive systems, not merely as conventional API integrations."
+   },
+   {
+    "idx": 121,
+    "statement": "Model agent security as an expanded attack surface that includes planning, tools, memory, external data, approvals, costs, and multi-agent propagation paths."
+   },
+   {
+    "idx": 132,
+    "statement": "Validate agent outputs before display or execution, using structured schemas, tool allowlists, and sensitive-parameter checks for tool calls."
+   },
+   {
+    "idx": 135,
+    "statement": "Monitor agent operations for cost and behavioral anomalies, and alert on critical events, approval bypass patterns, elevated privilege use, abnormal tool frequency, and high-risk action spikes."
+   },
+   {
+    "idx": 136,
+    "statement": "Enforce multi-agent trust boundaries with allowed senders, recipients, message types, execution isolation, privilege-escalation prevention, and circuit breakers."
+   },
+   {
+    "idx": 137,
+    "statement": "Protect inter-agent messages with signatures, freshness checks, recipient verification, and payload sanitization based on sender trust."
+   },
+   {
+    "idx": 138,
+    "statement": "Minimize sensitive data in agent context and enforce classification, encryption, retention, deletion, and privacy-compliance controls."
+   },
+   {
+    "idx": 205,
+    "statement": "Optimize Agent Experience by aligning requested scopes with agent intent and avoiding unnecessary repeated human authorization prompts."
+   },
+   {
+    "idx": 270,
+    "statement": "Reject or redesign any agent workflow that simultaneously has private-data access, exposure to untrusted content, and an outbound channel capable of carrying data away."
+   },
+   {
+    "idx": 274,
+    "statement": "After an agent ingests untrusted input, constrain its ability to perform consequential actions so that the untrusted input cannot directly trigger those actions."
+   },
+   {
+    "idx": 400,
+    "statement": "Never grant an AI agent or connector broad production credentials: use minimally-scoped or read-only keys, container/VM isolation, or a restricted OS user seeing only what it needs, and approve each action, so a successful prompt injection is bounded by design."
+   },
+   {
+    "idx": 413,
+    "statement": "Establish a trust model that binds each tool call to the backend that fulfilled it, because in cross-server tool shadowing a malicious server can intercept a call meant for a trusted one (for example when two servers both offer send_email) while the agent and user believe the trusted server handled it."
+   },
+   {
+    "idx": 429,
+    "statement": "As a long-term step, adopt governance-as-code: enforce data-sovereignty policies such as no PII in external context at the protocol layer using sidecar monitors that inspect semantic payloads in real time, and add watchdog agents (small models trained to detect alignment failures in larger agents) as automated circuit breakers."
+   },
+   {
+    "idx": 431,
+    "statement": "Adopt a new architectural paradigm combining cryptographic provenance, runtime intent verification, and capability-based isolation, with responsibility shared: protocol designers bake identity and verification into the core specification, tool developers treat model inputs as untrusted user data with secure-by-design practices, and organizations continuously monitor agentic behavior."
+   }
+  ]
+ },
+ {
+  "group": 36,
+  "members": [
+   {
+    "idx": 75,
+    "statement": "Enforce strict schema validation and keep code isolated from data during MCP (de)serialization to block injection through serialized comments, prompts, or embedded model calls."
+   },
+   {
+    "idx": 79,
+    "statement": "Validate every tool invocation and model-execution request against well-defined schemas, expected ranges, and the intended execution context (checking malformed inputs, missing fields, and excessive sizes), and block or restrict parameter forwarding when the data source is ambiguous or user-supplied."
+   },
+   {
+    "idx": 107,
+    "statement": "Define MCP tools with strict schemas and validate every model-provided input before using it in interpreters, file access, databases, network calls, or shell commands."
+   },
+   {
+    "idx": 261,
+    "statement": "Preserve MCP connection isolation by blocking server-supplied metadata from directing the model to relay data or actions across other tools."
+   },
+   {
+    "idx": 326,
+    "statement": "Treat MCP tool outputs from external or user-generated sources as adversarial content and detect or neutralize hidden instructions before model use."
+   },
+   {
+    "idx": 376,
+    "statement": "Mitigate insecure deserialization (which can yield remote code execution or denial of service) with schema validation, digital signatures for message authenticity, and timestamps and nonces to counter replay attacks."
+   }
+  ]
+ },
+ {
+  "group": 37,
+  "members": [
+   {
+    "idx": 77,
+    "statement": "Enforce token and session lifecycle management—expiration, rotation, revocation, reuse/replay control, and idempotency—rather than relying on MCP's optional authorization and unmanaged OAuth 2.1 bearer tokens."
+   },
+   {
+    "idx": 96,
+    "statement": "Preserve MCP intent-flow integrity by anchoring the original user goal, treating retrieved resources and tool outputs as untrusted data, validating every planned action against the goal, using isolated checker or policy-decision controls, and pausing for human re-authentication on intent drift."
+   },
+   {
+    "idx": 155,
+    "statement": "Keep user authentication and user authorization distinct in MCP OAuth designs so authentication methods can change without altering delegated authorization semantics."
+   },
+   {
+    "idx": 168,
+    "statement": "Treat refresh-token issuance in Cross-App Access as policy-sensitive, and constrain refresh-token lifetimes so they do not weaken repeated IdP policy enforcement."
+   },
+   {
+    "idx": 180,
+    "statement": "For remote MCP services, model authorization with OAuth 2.1-compatible roles: user as resource owner, MCP server as protected resource, LLM app as client, and a service or identity provider as authorization server."
+   },
+   {
+    "idx": 190,
+    "statement": "For scalable MCP authorization, compose OAuth authorization, protected-resource metadata, authorization-server metadata, Dynamic Client Registration, and PKCE as one coordinated stack."
+   },
+   {
+    "idx": 208,
+    "statement": "Treat the MCP authorization specification as a baseline and add production controls for multi-tenancy, auditability, SSO, DCR abuse, and token lifecycle management."
+   },
+   {
+    "idx": 213,
+    "statement": "Validate JWT bearer tokens for signature, issuer, audience, expiry, and scopes before serving protected MCP data, and deny requests that fail those checks."
+   },
+   {
+    "idx": 216,
+    "statement": "Prefer a capable hosted OAuth or identity platform when MCP auth requires consent lifecycle, token management, revocation, dynamic registration, or multiple external clients."
+   },
+   {
+    "idx": 221,
+    "statement": "Account for the OAuth client work introduced by MCP authorization, including handling authorization challenges, launching user consent, and storing tokens securely."
+   },
+   {
+    "idx": 222,
+    "statement": "Treat MCP OAuth discovery linkage as an evolving integration boundary and isolate it behind configurable metadata handling rather than baking in assumptions that are hard to change."
+   },
+   {
+    "idx": 235,
+    "statement": "When delegating user login to a third-party identity provider, preserve the MCP OAuth responsibility for issuing an MCP-server token bound to the third-party session."
+   },
+   {
+    "idx": 237,
+    "statement": "Avoid treating metadata proxying to an identity provider as a complete MCP OAuth solution unless the design still satisfies MCP token issuance requirements."
+   },
+   {
+    "idx": 329,
+    "statement": "Protect MCP transport and sessions with endpoint authentication, secure credential storage, audience-bound tokens, short-lived sessions, rotation, invalidation, and session observability."
+   },
+   {
+    "idx": 331,
+    "statement": "Prevent privilege persistence by revoking credentials during updates, synchronizing privilege changes, expiring versioned sessions, validating tokens centrally, and supporting explicit revocation events."
+   },
+   {
+    "idx": 475,
+    "statement": "Design MCP servers so the initialize phase is the sole entry point for session creation: bind the OAuth token, caller identity (for example client_id), and connection context into an isolated per-connection session, verify the caller identity at initialization and reject a mismatch, and authorize each subsequent tools/call against that session — rejecting any tools/call whose connection has no initialized session. This prevents token reuse and privilege inheritance across connections even when valid tokens exist."
+   }
+  ]
+ },
+ {
+  "group": 39,
+  "members": [
+   {
+    "idx": 86,
+    "statement": "Prefer supported, actively maintained MCP projects, subject MCP server code to the organization's most stringent audit profile, deploy and maintain servers locally, and enroll them via the MCP Registry."
+   },
+   {
+    "idx": 87,
+    "statement": "Establish a formal process to track MCP-related vulnerabilities (CVEs, vendor advisories, issue trackers) and maintain a versioned inventory of deployed MCP agents and tools with patch history and known concerns."
+   },
+   {
+    "idx": 98,
+    "statement": "Make MCP audit and telemetry complete enough for accountability and incident response: capture structured action and context evidence, protect log integrity, forward telemetry to central monitoring, preserve privacy through redaction and encryption, maintain baselines and traces, govern retention and access, and test investigative readiness."
+   },
+   {
+    "idx": 119,
+    "statement": "Handle MCP server installation as a supply-chain control point requiring trusted sources, code and tool-definition review, package-integrity checks, dependency scanning, and package-name verification."
+   },
+   {
+    "idx": 185,
+    "statement": "Publish authorization-server metadata so MCP clients can discover login, token, scope, grant-type, key, client-authentication, and registration capabilities automatically."
+   },
+   {
+    "idx": 248,
+    "statement": "Apply heightened review before connecting third-party MCP servers in contexts that contain credentials, sensitive files, or sensitive external services."
+   },
+   {
+    "idx": 315,
+    "statement": "Maintain MCP servers with auditable version control, controlled configuration changes, authenticated compatible updates, local-configuration preservation, rollback, access auditing, and integrity-protected logs."
+   },
+   {
+    "idx": 316,
+    "statement": "Treat public MCP ecosystem maturity as uneven and verify community servers, marketplace listings, and directories for identity, availability, maintenance, documentation, curation, validation, and signing before trusting them."
+   },
+   {
+    "idx": 333,
+    "statement": "Assign MCP security duties by stakeholder: developers verify provenance and sign releases, users prefer trusted and sandboxed servers, and maintainers enforce version, integrity, and configuration checks."
+   },
+   {
+    "idx": 414,
+    "statement": "Treat MCP integrations as third-party software: track versions, watch the commit histories of open-source tools, fork and maintain vetted versions, and in critical environments host an internal registry of approved connectors and allow only those."
+   },
+   {
+    "idx": 479,
+    "statement": "When measuring third-party MCP servers, rely on static analysis and controlled local testing in author-owned environments; avoid interacting with live production or third-party infrastructure, avoid using real credentials or triggering exploits, and follow responsible, staged disclosure."
+   },
+   {
+    "idx": 499,
+    "statement": "Audit MCP servers that integrate third-party platforms (for example Slack or GitHub via slack-ruby-client and octokit) for credential and token exposure, since a misconfiguration could leak API tokens or workspace data."
+   }
+  ]
+ },
+ {
+  "group": 40,
+  "members": [
+   {
+    "idx": 95,
+    "statement": "Monitor MCP command execution for injection symptoms by correlating forbidden syntax, failed validation, privilege-escalation primitives, suspicious process arguments, abnormal syscall patterns, unexpected outbound traffic, sensitive path access, and unusual host resource consumption."
+   },
+   {
+    "idx": 226,
+    "statement": "Treat MCP tools as executable trust boundaries: declare structured inputs and validate or sanitize every user-controlled argument before using it."
+   },
+   {
+    "idx": 252,
+    "statement": "Do not rely on MCP server sandboxing alone for prompt-injection defense; add controls over model-visible tool metadata, tool outputs, and cross-tool instruction following."
+   },
+   {
+    "idx": 257,
+    "statement": "Cover both malicious MCP metadata and indirect prompt injections in MCP security guardrails, rather than treating user approval or user caution as sufficient protection."
+   },
+   {
+    "idx": 269,
+    "statement": "Monitor MCP-enabled assistant behavior after tool setup as well as at explicit invocation boundaries, because malicious metadata can influence later actions without a visible malicious call."
+   },
+   {
+    "idx": 294,
+    "statement": "Assess MCP controls by the attack preconditions they remove, especially untrusted input, sensitive-data access, action capability, broad privileges, token forwarding, unvalidated metadata, arbitrary egress, and weak server trust."
+   },
+   {
+    "idx": 314,
+    "statement": "Filter and monitor MCP intent mapping and command execution so requests match declared capabilities and tool calls remain structured, serialized, monitored, and isolated."
+   },
+   {
+    "idx": 324,
+    "statement": "Detect MCP tool poisoning at runtime by monitoring API-call patterns and flagging behavior inconsistent with a tool's declared capability."
+   },
+   {
+    "idx": 335,
+    "statement": "Provide MCP telemetry, logging, auditing, runtime introspection, and tamper-evident anomaly alerts so stealthy attacks and drift can be investigated."
+   },
+   {
+    "idx": 354,
+    "statement": "Disambiguate local executables from remote MCP servers explicitly in every threat model and document, because conflating them creates dangerous misconceptions about privilege boundaries and exposure surfaces."
+   },
+   {
+    "idx": 382,
+    "statement": "Assume remote-code-execution exposure is common and audit MCP servers for unsafe shell execution, because in one security test over 43% of MCP server implementations executed unsafe shell calls."
+   },
+   {
+    "idx": 396,
+    "statement": "Define standard operating procedures for MCP incidents and rehearse them: on detecting a tool-poisoning attack report it to a security operations center and quarantine the offending server for forensic analysis, and run MCP fire drills because such breaches can unfold in seconds."
+   },
+   {
+    "idx": 401,
+    "statement": "Monitor MCP agents for behavioral anomalies (such as reading a credentials table no normal workflow touches) and validate outputs by scanning answers for secrets and blocking their return to the user."
+   },
+   {
+    "idx": 421,
+    "statement": "Require a security review for every new MCP integration as with code review, train developers to validate inputs and threat-model how a tool could be abused, and educate end-users to recognize odd AI behavior such as unusual permission requests or unexpected raw-data dumps."
+   },
+   {
+    "idx": 427,
+    "statement": "As an immediate adoption step, treat MCP servers as shadow IT: discover and catalog them, enforce policy-based gateways that log all tool invocations and block known-bad tool definitions, deploy basic prompt filters, and require human-in-the-loop approval for all state-changing actions (POST, DELETE, UPDATE)."
+   },
+   {
+    "idx": 440,
+    "statement": "Validate Tool-Poisoning robustness against live, real-world MCP servers and toolsets, not simulated environments; simulated IPI-style benchmarks understate the ecosystem-level TPA threat."
+   },
+   {
+    "idx": 462,
+    "statement": "Flag any MCP tool that passes tool parameters into a system-command invocation without authentication, caller verification, or input sanitization: it becomes an unauthenticated remote-command-execution endpoint running at the server process's privilege, and such flaws are observed in real high-star projects. These attacks abuse the MCP execution model itself, not memory corruption, sandbox escape, or credential theft."
+   },
+   {
+    "idx": 472,
+    "statement": "Flag MCP tools that expose browser or GUI control (page navigation, screenshot capture, mouse movement, keyboard input) without authentication: they let any external process remotely drive real user interfaces, bypassing CAPTCHAs, UI confirmations, and multi-step workflows without desktop access, malware, or user interaction."
+   },
+   {
+    "idx": 477,
+    "statement": "Use system-level enforcement (sandboxing, mandatory access control, capability-based execution, or container isolation) to limit the blast radius of unauthorized tool invocations, but recognize it is coarse-grained, does not address the root cause at the MCP layer, and requires policy configuration that may be infeasible in lightweight or user-installed deployments — so pair it with MCP-layer caller-bound authorization."
+   },
+   {
+    "idx": 500,
+    "statement": "Treat sensitive-API usage as a first-class audit surface for MCP servers, scanning for five threat classes - network request (exfiltration or SSRF), code execution (eval, exec, Function), system command (os.system, subprocess, child_process), file operation, and HTML injection - recognizing such calls are widespread though a match alone does not prove exploitation."
+   }
+  ]
+ },
+ {
+  "group": 41,
+  "members": [
+   {
+    "idx": 101,
+    "statement": "Use a cryptographic MCP message envelope to bind JSON-RPC traffic to agent identity, message integrity, timestamp freshness, nonce-based replay resistance, and auditability, while pairing it with application-layer controls for command and context semantics."
+   },
+   {
+    "idx": 115,
+    "statement": "Use application-layer signing for MCP JSON-RPC messages when payload tampering after TLS termination is in scope."
+   },
+   {
+    "idx": 116,
+    "statement": "When MCP message signing is used, include freshness checks and reject missing, invalid, stale, or replayed messages rather than falling back to unsigned processing."
+   },
+   {
+    "idx": 342,
+    "statement": "Do not rely on network firewalls or LLM safety filters alone to secure MCP: firewalls cannot inspect the semantic intent of a JSON-RPC message and safety filters cannot see the downstream consequences of a tool execution."
+   }
+  ]
+ },
+ {
+  "group": 42,
+  "members": [
+   {
+    "idx": 105,
+    "statement": "Pin MCP tool definitions at discovery, monitor them for mutation, and require alerting or renewed consent before executing changed definitions."
+   },
+   {
+    "idx": 243,
+    "statement": "Pin and reverify MCP server and tool definitions by version, hash, or equivalent integrity check whenever tools are installed, refreshed, or executed."
+   },
+   {
+    "idx": 264,
+    "statement": "Use trust-on-first-use change detection for MCP tool inventories and descriptions, alerting when tools are added or descriptions change."
+   },
+   {
+    "idx": 303,
+    "statement": "Treat every new MCP server registration as a security-reviewed change-management event rather than an informal runtime configuration update."
+   },
+   {
+    "idx": 325,
+    "statement": "Reduce MCP rug-pull risk with version pinning, reproducible builds, signature verification, update transparency, and runtime monitoring."
+   },
+   {
+    "idx": 332,
+    "statement": "Control MCP configuration drift with canonical baseline comparison, version-controlled definitions, immutable manifests, signed policy descriptors, rollback, compliance auditing, and protocol-level checksum or schema hooks where available."
+   }
+  ]
+ },
+ {
+  "group": 43,
+  "members": [
+   {
+    "idx": 110,
+    "statement": "Require explicit human approval with full tool-call parameters for destructive, financial, or data-sharing MCP actions, and do not allow model output to bypass that control."
+   },
+   {
+    "idx": 111,
+    "statement": "For MCP tools that fetch URLs or make outbound requests from model-provided values, reject arbitrary destinations and enforce a strict allowlist."
+   },
+   {
+    "idx": 239,
+    "statement": "Treat MCP tool descriptions as untrusted model-facing input; do not allow server-supplied metadata to override user intent, system rules, or trusted-service rules."
+   },
+   {
+    "idx": 260,
+    "statement": "Do not rely on human approval alone to neutralize MCP line-jumping risk; pair approval with automated checks and workflow restrictions."
+   },
+   {
+    "idx": 266,
+    "statement": "Avoid auto-approving command execution in MCP-enabled environments, especially where commands can affect sensitive data, local systems, development workspaces, or production infrastructure."
+   },
+   {
+    "idx": 285,
+    "statement": "Require explicit user approval for tool execution that arises from or is adjacent to MCP sampling output."
+   }
+  ]
+ },
+ {
+  "group": 47,
+  "members": [
+   {
+    "idx": 126,
+    "statement": "Validate and sanitize memory before storage, and isolate memory by user and session so one context cannot poison another."
+   },
+   {
+    "idx": 127,
+    "statement": "Constrain retained memory with expiration, size limits, sensitive-data screening, and integrity checks before reusing it as context."
+   },
+   {
+    "idx": 348,
+    "statement": "Enforce strict session isolation, because without it poisoned metadata and artifacts propagate across tools, tasks, and sessions as infectious cross-session contamination where one user's workflow compromises others."
+   }
+  ]
+ },
+ {
+  "group": 48,
+  "members": [
+   {
+    "idx": 128,
+    "statement": "Route high-impact actions through risk-based human-in-the-loop control with previews, explicit approval, auditability, and interrupt or rollback paths."
+   },
+   {
+    "idx": 129,
+    "statement": "Keep high-impact action execution independent from model decision-making, and make the executor verify scope, privilege, policy, approval state, and audit readiness before it acts."
+   },
+   {
+    "idx": 379,
+    "statement": "Gate critical, high-impact, or irreversible actions behind explicit human confirmation before execution (Plan-then-Execute pre-execution gating, with a two-person rule for the highest-impact actions), accepting the efficiency loss for the reduction in harm."
+   }
+  ]
+ },
+ {
+  "group": 49,
+  "members": [
+   {
+    "idx": 130,
+    "statement": "Bind approvals to exact action parameters and protect irreversible operations with short-lived, replay-resistant authorization."
+   },
+   {
+    "idx": 131,
+    "statement": "Require step-up authentication for critical actions, and make repeated high-impact execution idempotent or explicitly reconfirmed."
+   },
+   {
+    "idx": 240,
+    "statement": "Require approval interfaces to expose the complete AI-visible tool description, full arguments, and security-relevant side effects before a tool call is trusted."
+   },
+   {
+    "idx": 349,
+    "statement": "Add continuous integrity checks and re-approval triggers on any server or tool change and never treat prior approval as permanent, because rug-pull attacks exploit mutable server-side logic, missing integrity checks, absent re-approval, and previously established trust."
+   },
+   {
+    "idx": 446,
+    "statement": "Do not cache or persist authorization state and reuse it across tool invocations without a per-invocation, caller-scoped re-check; one-time authorization combined with server-level trust lets later calls inherit an authorized state regardless of their origin and expands the attack surface."
+   }
+  ]
+ },
+ {
+  "group": 50,
+  "members": [
+   {
+    "idx": 133,
+    "statement": "Apply output guardrails that filter sensitive data, detect exfiltration patterns, and enforce rate, scope, and content-safety limits."
+   },
+   {
+    "idx": 273,
+    "statement": "Use prompt-level guardrails only as defense-in-depth; do not count natural-language instructions as the sole boundary preventing prompt-injection exfiltration."
+   }
+  ]
+ },
+ {
+  "group": 51,
+  "members": [
+   {
+    "idx": 134,
+    "statement": "Maintain structured audit logs for decisions, tool calls, outcomes, and high-risk action metadata, with sensitive fields redacted before storage."
+   },
+   {
+    "idx": 139,
+    "statement": "Apply classification-specific handling rules so restricted or confidential data receives stronger masking or redaction in context, logs, and outputs."
+   },
+   {
+    "idx": 372,
+    "statement": "Track the provenance of tool-call decisions with decision-level guardrails (a Decision Dependence Graph plus attention attribution, as in MindGuard) to detect when tool metadata has been poisoned to force an unintended action."
+   }
+  ]
+ },
+ {
+  "group": 52,
+  "members": [
+   {
+    "idx": 140,
+    "statement": "Run structured adversarial testing before production and after material changes, covering prompt override, tool misuse, privilege escalation, memory poisoning, exfiltration, recursive abuse, approval bypass, and multi-agent chaining."
+   },
+   {
+    "idx": 141,
+    "statement": "Make CI/CD release gates run adversarial and regression tests, and block security-sensitive tool, approval, or credential changes unless corresponding tests are updated."
+   },
+   {
+    "idx": 143,
+    "statement": "Retain production validation evidence that ties the tested agent version, model provider, tool policy, retrieval configuration, abuse cases, observed control behavior, and residual risk decisions together."
+   },
+   {
+    "idx": 420,
+    "statement": "Institute regular red-team and adversarial-testing exercises using external experts or automated attack frameworks to simulate prompt injections and tool tampering, so weaknesses are found and patched before real adversaries exploit them."
+   }
+  ]
+ },
+ {
+  "group": 55,
+  "members": [
+   {
+    "idx": 154,
+    "statement": "Integrate enterprise SSO by routing user authentication through the existing enterprise identity path behind the MCP authorization server, without changing the MCP client or resource server flow."
+   },
+   {
+    "idx": 159,
+    "statement": "Treat enterprise-deployed MCP clients and AI agents as first-class enterprise applications that require SSO integration and central access governance."
+   },
+   {
+    "idx": 161,
+    "statement": "Use the separated authorization-server model in MCP as the architectural basis for enterprise-ready integrations rather than embedding all authorization behavior in the MCP server itself."
+   },
+   {
+    "idx": 162,
+    "statement": "Prefer IdP-mediated Cross-App Access or identity chaining for enterprise MCP app-to-app connections when the requesting and resource applications can rely on the same enterprise IdP policy domain."
+   },
+   {
+    "idx": 163,
+    "statement": "Build the IdP token-exchange request around the existing user identity assertion, the target resource authorization-server audience, the requested ID Assertion JWT token type, the assertion type, and authenticated requesting-application credentials."
+   },
+   {
+    "idx": 169,
+    "statement": "Do not design open MCP client identity around manual per-server OAuth registration; use an identity mechanism that can scale across independently operated clients and servers."
+   },
+   {
+    "idx": 176,
+    "statement": "For enterprise MCP deployments, avoid direct client-to-server OAuth as the only control point when the enterprise IdP would lack visibility into downstream tool connections."
+   },
+   {
+    "idx": 177,
+    "statement": "Route enterprise downstream MCP access through Enterprise-Managed Authorization so the IdP can evaluate policy before the MCP authorization server issues an access token."
+   },
+   {
+    "idx": 179,
+    "statement": "Design enterprise-ready MCP authorization as a paired model: CIMD scales decentralized client identity, while Enterprise-Managed Authorization centralizes enterprise policy decisions."
+   },
+   {
+    "idx": 186,
+    "statement": "Keep the MCP protected resource and authorization server separable so an MCP server can delegate authorization to a compatible external identity provider when that is the better fit."
+   },
+   {
+    "idx": 193,
+    "statement": "Model an MCP server as an OAuth resource server and delegate login and token issuance to an external authorization server or identity provider."
+   }
+  ]
+ },
+ {
+  "group": 57,
+  "members": [
+   {
+    "idx": 158,
+    "statement": "For enterprise-managed data, consider admin-managed app-to-app consent mechanisms to reduce repeated per-user OAuth prompts across MCP and other AI tool integrations."
+   },
+   {
+    "idx": 160,
+    "statement": "For enterprise app-to-app MCP access, put authorization policy under enterprise admin and IdP control instead of relying on each user to approve direct OAuth connections."
+   },
+   {
+    "idx": 211,
+    "statement": "Construct authorization requests with complete OAuth parameters and present a consent experience that clearly identifies the requesting agent and requested scopes before approval."
+   },
+   {
+    "idx": 220,
+    "statement": "Configure an OAuth-secured MCP deployment as a coherent set: enabled connected-app behavior, supported scopes, metadata exposure, and runtime validation identifiers and key URLs."
+   }
+  ]
+ },
+ {
+  "group": 58,
+  "members": [
+   {
+    "idx": 164,
+    "statement": "Require the IdP to verify protocol validity, client binding, user status, resource-app assignment, and customer policy before issuing an ID Assertion JWT."
+   },
+   {
+    "idx": 165,
+    "statement": "Sign the ID Assertion JWT with IdP signing material already trusted for SSO so resource applications can validate cross-app assertions through established enterprise IdP trust."
+   },
+   {
+    "idx": 166,
+    "statement": "At the resource authorization server, accept an ID Assertion JWT as a JWT Bearer authorization grant only after validating issuer, signature, and required assertion claims."
+   },
+   {
+    "idx": 207,
+    "statement": "Prefer direct JWT signature and claim validation through the identity provider JWKs when it satisfies the MCP server authorization needs, while preserving token-mapping paths required by the chosen spec interpretation."
+   }
+  ]
+ },
+ {
+  "group": 59,
+  "members": [
+   {
+    "idx": 171,
+    "statement": "If DCR is used, require abuse controls, bounded registration storage, a stale-registration policy, client recovery behavior, and a way to avoid repeated unnecessary registrations."
+   },
+   {
+    "idx": 199,
+    "statement": "Treat Dynamic Client Registration as conditional: support it where appropriate, but pre-register trusted enterprise clients when DCR is unsupported or operationally gated."
+   },
+   {
+    "idx": 200,
+    "statement": "Before exposing DCR in production or federated environments, add client verification, reputation checks, and risk-based controls."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 173,
+    "statement": "Model CIMD trust around domain control: evaluate the client identity in relation to the domain named by the client identifier URL."
+   },
+   {
+    "idx": 175,
+    "statement": "Do not assume CIMD eliminates desktop-client authorization constraints; handle desktop MCP clients as a separately constrained case."
+   }
+  ]
+ },
+ {
+  "group": 61,
+  "members": [
+   {
+    "idx": 178,
+    "statement": "Use the enterprise IdP as the central place to grant, block, and revoke AI-client access to internal MCP tools."
+   },
+   {
+    "idx": 361,
+    "statement": "Assign explicit accountability across the Host, Resource Server, and Tool Server when they are run by different providers, because MCP fragments regulatory liability and makes propagation under frameworks such as the EU AI Act unclear."
+   },
+   {
+    "idx": 395,
+    "statement": "Place an AI governance control tower over MCP infrastructure that gives a unified view of all agents, tools, and data flows and enforces global policies through an MCP gateway or proxy that checks each request (for example, no agent may call financial-transaction APIs without two-factor approval)."
+   }
+  ]
+ },
+ {
+  "group": 62,
+  "members": [
+   {
+    "idx": 189,
+    "statement": "Use PKCE with public MCP authorization-code flows so token redemption is bound to the client that created the original verifier."
+   },
+   {
+    "idx": 192,
+    "statement": "For remote MCP deployments, use OAuth 2.1 delegated authorization and require PKCE for public-client authorization-code flows."
+   },
+   {
+    "idx": 212,
+    "statement": "Use the authorization-code flow with PKCE for MCP clients, then call protected MCP resources with the issued bearer access token only after a successful token exchange."
+   },
+   {
+    "idx": 295,
+    "statement": "Use OAuth 2.1 with PKCE for user-facing MCP authorization and RFC 8693 token exchange for downstream calls instead of forwarding upstream credentials."
+   }
+  ]
+ },
+ {
+  "group": 63,
+  "members": [
+   {
+    "idx": 194,
+    "statement": "Use Protected Resource Metadata and authorization-server metadata for discovery instead of hardcoded or fallback authorization endpoints."
+   },
+   {
+    "idx": 195,
+    "statement": "When Protected Resource Metadata lists multiple authorization servers, make client-side authorization-server selection explicit and policy-driven."
+   },
+   {
+    "idx": 210,
+    "statement": "Challenge unauthenticated protected MCP calls and make the OAuth endpoints discoverable through authorization-server metadata, with fallback behavior only when metadata is unavailable."
+   },
+   {
+    "idx": 233,
+    "statement": "Prefer OAuth authorization-server metadata discovery for MCP OAuth so clients can discover endpoints automatically and avoid manual endpoint configuration errors."
+   }
+  ]
+ },
+ {
+  "group": 66,
+  "members": [
+   {
+    "idx": 203,
+    "statement": "Enforce authorization scopes at route middleware and at the MCP tool, function, or resource level when requests identify specific actions."
+   },
+   {
+    "idx": 204,
+    "statement": "Define a deployment-specific MCP scope model instead of assuming that authorization-server metadata can determine the scopes required for each action."
+   },
+   {
+    "idx": 214,
+    "statement": "Propagate validated identity and scope claims into request context and enforce both user-level data isolation and scope-level action authorization in application handlers."
+   },
+   {
+    "idx": 296,
+    "statement": "Issue short-lived, deny-by-default MCP credentials scoped to the exact server and tool, and validate OIDC audience and scopes before accepting user-facing requests."
+   },
+   {
+    "idx": 370,
+    "statement": "Enforce tool-call permissions at a gateway that intercepts each call and validates its capability token and contextual scope before execution."
+   },
+   {
+    "idx": 450,
+    "statement": "Recognize that MCP middleware executes tools in its own execution context, so backend services authenticate only the MCP server's identity and cannot see the originating agent or the intent of individual invocations; therefore the MCP layer, not the backend, must attribute and scope authorization."
+   },
+   {
+    "idx": 474,
+    "statement": "Treat invocation-level, caller-bound authorization as a first-class design principle for agent execution frameworks; the most direct MCP-specific defense is developer-enforced authorization explicitly scoped to caller identity and session context rather than cached as global server state."
+   }
+  ]
+ },
+ {
+  "group": 70,
+  "members": [
+   {
+    "idx": 224,
+    "statement": "Represent MCP server startup and connection details in explicit server-specific configuration, then establish protocol and capability negotiation before normal use."
+   },
+   {
+    "idx": 227,
+    "statement": "Keep the MCP messaging path explicit: the host decides tool need, the client sends tool name and parameters, the server performs the backing operation, and the host incorporates the returned result."
+   },
+   {
+    "idx": 236,
+    "statement": "Before making an MCP server act as an authorization server, account for the added endpoint implementation, token storage, security-critical operations, audit, logging, and certification burden."
+   },
+   {
+    "idx": 262,
+    "statement": "Connect only to trusted MCP servers, and review their tool descriptions before enabling them in a model session."
+   },
+   {
+    "idx": 307,
+    "statement": "Model MCP integrations explicitly around host, client, server, transport, and the server capability classes of tools, resources, and prompts."
+   },
+   {
+    "idx": 309,
+    "statement": "Use MCP capability discovery and schema negotiation to reduce hardcoded tool adapters, but require advertised capabilities before invocation."
+   },
+   {
+    "idx": 481,
+    "statement": "Model MCP as a client-server protocol over stateful JSON-RPC 2.0 in which the host instantiates one client per server (n servers means n clients) and each client keeps a persistent session across RPC calls."
+   },
+   {
+    "idx": 482,
+    "statement": "Expect each MCP server to expose three primitives - resources (data), prompts (templates), and tools (functions) - and to follow the initialize, discover (tools/list, resources/list), invoke (tools/call), notify workflow."
+   }
+  ]
+ },
+ {
+  "group": 71,
+  "members": [
+   {
+    "idx": 238,
+    "statement": "Keep recommendations about future MCP authorization changes explicitly hedged while still favoring stronger security and identity standards as the ecosystem matures."
+   },
+   {
+    "idx": 317,
+    "statement": "Do not equate MCP platform integration with meaningful access; account for proprietary data control, privacy constraints, and partial exposure by large platforms."
+   },
+   {
+    "idx": 339,
+    "statement": "Treat MCP as a dual-use interoperability layer whose open flexibility creates systemic risk alongside integration benefits, so long-term adoption depends on lifecycle security and governance."
+   }
+  ]
+ },
+ {
+  "group": 72,
+  "members": [
+   {
+    "idx": 241,
+    "statement": "Validate and sanitize the full tool description before loading an MCP tool into an agent context, and fail closed when hidden or conflicting instructions are found."
+   },
+   {
+    "idx": 245,
+    "statement": "Detect and reject tool shadowing: a tool description from one MCP server must not define, modify, or redirect behavior for another server's trusted tool."
+   },
+   {
+    "idx": 250,
+    "statement": "Keep MCP instruction authority scoped to the tool or server that supplied it; metadata or outputs from one server must not direct how another server's tools are invoked."
+   },
+   {
+    "idx": 251,
+    "statement": "Treat MCP tool-description changes as security-relevant changes that require visible review, diffing, or re-approval before the updated tool can influence the agent."
+   },
+   {
+    "idx": 258,
+    "statement": "Treat MCP server-provided tool descriptions as untrusted input, not as trusted instructions or inert metadata."
+   },
+   {
+    "idx": 259,
+    "statement": "Apply MCP security checks during connection and tool discovery, before server-provided metadata reaches the model, rather than waiting for explicit tool invocation."
+   },
+   {
+    "idx": 263,
+    "statement": "Scan and filter MCP tool descriptions and risky invocation patterns before the model can act on them."
+   },
+   {
+    "idx": 281,
+    "statement": "Do not treat a plausible or useful MCP tool as trustworthy merely because it performs the visible user-requested task."
+   },
+   {
+    "idx": 310,
+    "statement": "Treat MCP metadata, configuration, tool lists, resource lists, prompt templates, capability declarations, and handlers as security-critical artifacts that must be scoped and validated against implementation."
+   },
+   {
+    "idx": 322,
+    "statement": "Treat MCP tool descriptions as adversarial selection inputs and counter preference manipulation with metadata audits, suspicious-language detection, randomized ordering, trusted labels, and robustness testing."
+   },
+   {
+    "idx": 323,
+    "statement": "Treat MCP tool metadata as an instruction-injection surface: scan, constrain, whitelist, sanitize, and avoid forwarding imperative metadata to models before tool exposure."
+   },
+   {
+    "idx": 334,
+    "statement": "Include fair tool selection, dataset-leakage prevention, and accountability in MCP safety work for cross-agent coordination and large-scale reuse."
+   },
+   {
+    "idx": 345,
+    "statement": "Validate and pin tool metadata and surface complete tool definitions to the approver before execution, because context/tool poisoning hides malicious instructions in tool metadata, schema, or docstrings that agents follow blindly."
+   },
+   {
+    "idx": 365,
+    "statement": "Provide a unified tool registry with a schema-validation endpoint that distinguishes benign from malicious tool definitions, because mutable, ambiguous tool definitions enable poisoning, puppet, and rug-pull attacks and standard MCP implementations lack this."
+   },
+   {
+    "idx": 389,
+    "statement": "Expose the agent's true context view to the user and use transparency dashboards (such as ScanMCP) that compare what the agent sees versus what the user sees and audit all tool metadata, because a poisoned tool description can drive a hidden malicious action while the agent reports a benign one."
+   },
+   {
+    "idx": 393,
+    "statement": "Treat liability for MCP-agent harm as shared and act accordingly: deploying organizations must exercise due care by configuring permissions properly and testing the system, vendors may need to warrant safety features, and an AI governance committee should oversee it."
+   },
+   {
+    "idx": 412,
+    "statement": "Recognize that MCP tools often run with the AI system's permissions, so a malicious tool or compromised open-source dependency can be far more damaging than a typical dependency (reading private conversations, accessing internal databases, or impersonating the user), and scope them accordingly."
+   },
+   {
+    "idx": 432,
+    "statement": "Treat every tool's metadata — its name and natural-language description loaded at MCP registration — as untrusted data, never as instructions the agent may obey; a description must not be able to add steps to a tool's operation or invoke other tools."
+   },
+   {
+    "idx": 433,
+    "statement": "Defend Tool Poisoning at the pre-execution reasoning stage: screen tool descriptions before they enter the agent's planning context rather than relying on content-based output filtering or model safety alignment, which do not catch TPA (refusal stays under 3%)."
+   },
+   {
+    "idx": 458,
+    "statement": "Identify the security-relevant tool entry as the moment a protocol-level tools/call invocation commits to concrete execution — not an exported function or callback — because MCP dispatch is dynamic and implementation-specific (name-to-handler maps, generic dispatchers, layered callbacks, runtime-built handlers, decorators, add-tool APIs, FastAPI-MCP routes, ToolHandler subclasses); cover all dispatch and registration mechanisms rather than a single syntactic pattern."
+   }
+  ]
+ },
+ {
+  "group": 73,
+  "members": [
+   {
+    "idx": 242,
+    "statement": "Block or require explicit escalation for tool-description instructions that request sensitive-file access, credential handling, covert exfiltration, or concealment from the user."
+   },
+   {
+    "idx": 271,
+    "statement": "Treat attacker-controlled content as executable-looking instruction data and do not rely on the model to infer that it has lower authority than user or system instructions."
+   },
+   {
+    "idx": 357,
+    "statement": "Block or escalate any flow where a low-trust Resource triggers a destructive Tool on a high-privilege Server, because cross-primitive execution is the most severe indirect-prompt-injection risk, escalating epistemic harm into operational harm."
+   },
+   {
+    "idx": 363,
+    "statement": "Prevent cross-primitive indirect-prompt-injection escalation with capability-based Tool permissions, robust semantic filtering, and sanitization of Resource inputs."
+   },
+   {
+    "idx": 369,
+    "statement": "Use capability-based access control that couples privileges to specific actions rather than user identity: issue tools fine-grained, scope-bound tokens (read-only, network-isolated) that cannot be reused outside their scope so a compromised tool cannot escalate privileges."
+   }
+  ]
+ },
+ {
+  "group": 75,
+  "members": [
+   {
+    "idx": 253,
+    "statement": "Before executing external-send tools, inspect and constrain outgoing arguments for unexpected destinations, hidden payloads, and inclusion of prior chat, contact, or history data."
+   },
+   {
+    "idx": 255,
+    "statement": "Treat externally received communication content in tool results as adversarial data and prevent it from creating memory, policy, or send-parameter instructions."
+   },
+   {
+    "idx": 287,
+    "statement": "Inspect incoming sampling requests for prompt-injection syntax, role or system-message impersonation, and hidden encodings before forwarding them to the LLM."
+   }
+  ]
+ },
+ {
+  "group": 77,
+  "members": [
+   {
+    "idx": 265,
+    "statement": "Keep the active MCP server set minimal by disabling servers that are not needed for the current workflow."
+   },
+   {
+    "idx": 305,
+    "statement": "Isolate host sessions so MCP context from one user, workflow, or client connection cannot bleed into another."
+   },
+   {
+    "idx": 327,
+    "statement": "Keep MCP secrets out of static plaintext configuration by using secret managers or encrypted stores, restrictive permissions, token expiration, and automatic rotation."
+   }
+  ]
+ },
+ {
+  "group": 86,
+  "members": [
+   {
+    "idx": 286,
+    "statement": "Constrain sampling-triggered tool access by server capability declarations and by separating one server's authority from tools exposed by other servers."
+   },
+   {
+    "idx": 291,
+    "statement": "Scope security conclusions about MCP sampling attacks to the host implementation and surface any assumptions about output handling or permission prompts."
+   },
+   {
+    "idx": 375,
+    "statement": "Confine each tool execution to an isolated, short-lived context using sandboxing such as a capability-based microkernel (seL4) or a syscall-intercepting user-space kernel (gVisor) to minimize the host kernel attack surface."
+   }
+  ]
+ },
+ {
+  "group": 90,
+  "members": [
+   {
+    "idx": 299,
+    "statement": "Define and test fail-closed behavior for MCP server unavailability before production use."
+   },
+   {
+    "idx": 302,
+    "statement": "Govern MCP server supply chains with an approved-server allowlist, cryptographic signing, attestation, version pinning, and runtime checks for behavior changes after installation."
+   },
+   {
+    "idx": 459,
+    "statement": "Treat insecure MCP authorization as the common case, not the exception — measured at 46.4% of 6,137 real-world servers, persisting across all functional domains — so assume an unaudited MCP server is likely insecure until verified."
+   }
+  ]
+ },
+ {
+  "group": 91,
+  "members": [
+   {
+    "idx": 318,
+    "statement": "For action-capable MCP assistants and IDE integrations, evaluate data compatibility, permission management, isolation, distributed-call latency, and tool chaining risk."
+   },
+   {
+    "idx": 467,
+    "statement": "For static dependency and authorization analysis of MCP server code, AST-level analysis (for example CodeQL) balances precision and recall; improve dependency-reconstruction precision with context-sensitive function-versus-variable distinction, type-based filtering of container abstractions (List/Dict/Optional), explicit callback-parameter tracing for lambdas and higher-order functions, and loop-aware dependency tracking."
+   }
+  ]
+ },
+ {
+  "group": 92,
+  "members": [
+   {
+    "idx": 330,
+    "statement": "Counter vulnerable-version redeployment with automated vulnerability detection, version freshness checks, standardized packaging, and a trusted MCP registry."
+   },
+   {
+    "idx": 411,
+    "statement": "Verify a tool's code or definition against a known-good signature or hash as OS package managers do and warn on unexpected change; until such integrity mechanisms exist, pin tool versions and manually inspect updates, because a benign tool can silently auto-update or be modified server-side to reroute API keys."
+   }
+  ]
+ },
+ {
+  "group": 96,
+  "members": [
+   {
+    "idx": 353,
+    "statement": "Adopt signing, publisher verification, and reputation mechanisms for MCP registries, because open ecosystems (browser extensions, npm, PyPI) moved to these controls after supply-chain abuse and MCP faces the same tool-name collisions, malicious servers, and weak integrity checks."
+   },
+   {
+    "idx": 468,
+    "statement": "Account for concentration and propagation of insecurity in the MCP ecosystem: a few marketplaces aggregate roughly two-thirds of servers and act as propagation points, and vulnerable servers cluster among a few prolific authors (the top authors by server count are also the top by vulnerable-server count, with about a third of their servers vulnerable), so reuse amplifies a single source's flaws across many servers."
+   },
+   {
+    "idx": 486,
+    "statement": "Measure a decentralized MCP ecosystem with per-registry adapters plus schema inference and canonicalization into a unified schema, because registries differ in data model and access method (HTML pages, JSON APIs, static catalogs)."
+   }
+  ]
+ },
+ {
+  "group": 98,
+  "members": [
+   {
+    "idx": 358,
+    "statement": "Keep policy and guardrails consistent from Host to Server and do not delegate safety decisions to independently-governed Servers, because scaling alignment requires consistent reward modeling across the environment and delegation lets a remote component circumvent the Host's guardrails."
+   },
+   {
+    "idx": 364,
+    "statement": "Propagate safety policies consistently across Host and Server components using a distributed policy-orchestration approach rather than per-component policies."
+   }
+  ]
+ },
+ {
+  "group": 100,
+  "members": [
+   {
+    "idx": 360,
+    "statement": "Assess aggregate and scale misuse, not only per-call risk: at scale MCP systems exposing sensitive Resources form de facto surveillance architectures, and Tools that send messages or modify files can be weaponized for disinformation or internal compromise."
+   },
+   {
+    "idx": 392,
+    "statement": "Treat an MCP system that can modify databases or send emails as potentially high-risk under the EU AI Act and NIST AI RMF, requiring stringent risk management, documentation, human oversight, logging of all tool invocations, regular connector security audits, and incident-response plans."
+   },
+   {
+    "idx": 513,
+    "statement": "Note this is the first large-scale empirical measurement of MCP scale and security, and that independent prior work (Li et al.) corroborates that network and system APIs dominate servers and that low-download plugins embed high-risk calls."
+   }
+  ]
+ },
+ {
+  "group": 102,
+  "members": [
+   {
+    "idx": 366,
+    "statement": "Adopt signed tool manifests with immutable version identifiers and registry-based approval (ETDI): sign each manifest's schema, permissions, and metadata with the provider's key and verify the signature at both load and invocation time, requiring a new signature and explicit re-authorization for any functional change."
+   },
+   {
+    "idx": 367,
+    "statement": "Maintain a canonical (centralized or federated) registry as the record of truth for public keys, signed definitions, and change logs, and have hosts cross-check local tool metadata against registry entries and reject mismatches."
+   },
+   {
+    "idx": 377,
+    "statement": "Bind every message to a verified, versioned schema record with signed headers backed by a canonical registry record, changelog, and transparency log, so any tool invocation can be verified against an auditable record."
+   }
+  ]
+ },
+ {
+  "group": 104,
+  "members": [
+   {
+    "idx": 374,
+    "statement": "Apply deterministic filters, output encoding, and content sanitization to all external tool outputs so external data cannot be parsed as an instruction or code payload."
+   },
+   {
+    "idx": 399,
+    "statement": "Isolate executable instructions from content and filter user-provided data for injection patterns (such as 'ignore previous' or 'system:') before it reaches an agent that holds powerful rights, sanitizing tool descriptions so they cannot carry executable instructions."
+   }
+  ]
+ },
+ {
+  "group": 107,
+  "members": [
+   {
+    "idx": 386,
+    "statement": "Weigh the interoperability-versus-cost tradeoff of a registry-based zero-trust approach, which improves interoperability by trusting only signed, registered tools but adds latency and reduces flexibility."
+   },
+   {
+    "idx": 424,
+    "statement": "Apply a tiered trust model that balances open innovation against security: Tier 0 untrusted tools run in ephemeral, network-gated sandboxes (WebAssembly or gVisor) with no persistent host file-system access; Tier 1 verified, signed tools run with standard permissions but require human-in-the-loop confirmation for high-risk actions; Tier 2 hardened, formally verified core tools run with high autonomy under continuous runtime audit and anomaly detection."
+   }
+  ]
+ },
+ {
+  "group": 112,
+  "members": [
+   {
+    "idx": 403,
+    "statement": "Prevent cross-tenant leakage through shared efficiency optimizations: sharing key-value caches or vector indexes across tenants creates covert side channels even without an explicit bug (the PROMPTPEEK attack reconstructs another user's prompt token by token from cache hits), so relax separation for efficiency only with provable safety or not at all."
+   },
+   {
+    "idx": 404,
+    "statement": "Enforce strict per-tenant context isolation as mechanism: disable cache sharing across users, partition vector stores per tenant with namespace filters or separate indexes, tag every request with a tenant identifier, and have every internal component (LLM, retriever, cache) check a per-request tenant access token before serving any data."
+   }
+  ]
+ },
+ {
+  "group": 114,
+  "members": [
+   {
+    "idx": 406,
+    "statement": "Unify data-confidentiality policies into the AI's own instructions, because a confused-deputy failure arises when a rule such as row-level security is enforced only for human interfaces while the agent holds a credential that ignores it and has no awareness of the rule."
+   },
+   {
+    "idx": 408,
+    "statement": "Test AI pipelines for policy adherence by crafting adversarial scenarios that put the AI's policies at odds, including simulating a rogue instruction, to verify that human data policies still hold and no disallowed data is output."
+   }
+  ]
+ },
+ {
+  "group": 118,
+  "members": [
+   {
+    "idx": 415,
+    "statement": "Assume a tool may turn malicious and monitor tool behavior at runtime as an intrusion-detection layer, flagging out-of-scope actions such as a calculator tool making network calls or a weather tool returning SSH keys."
+   },
+   {
+    "idx": 456,
+    "statement": "Assess security impact with a resource-centric view: classify each tool invocation by the type of resource it ultimately affects — system-level execution, persistent data access, network or external communication, or physical/human-interface interaction — rather than by how the tool is invoked or implemented, and treat system-level execution capabilities as particularly severe."
+   }
+  ]
+ },
+ {
+  "group": 125,
+  "members": [
+   {
+    "idx": 434,
+    "statement": "Flag a tool description that combines a trigger condition, a malicious/unrelated action, and a plausible justification — this three-part structure is the signature of an effective poisoned description; a payload missing the trigger condition is largely inert."
+   },
+   {
+    "idx": 444,
+    "statement": "Do not expect Indirect-Prompt-Injection payloads to transfer to Tool Poisoning: injected verbatim into a tool description they drop to near-0% ASR because they lack a trigger condition and lose contextual prominence — a TPA payload must supply its own trigger context."
+   }
+  ]
+ },
+ {
+  "group": 134,
+  "members": [
+   {
+    "idx": 448,
+    "statement": "Do not assume the LLM or agent reliably preserves, binds, or forwards user identity; LLMs are often stateless third-party services, so the MCP server itself must establish and verify caller identity."
+   },
+   {
+    "idx": 452,
+    "statement": "Treat caller identity confusion as an implementation flaw, not a specification flaw: MCP permits authorization reuse but does not mandate how that state is scoped or attributed, and a server's security is determined by how its tools are implemented, dispatched, and protected — so the fix lies in server implementation."
+   }
+  ]
+ },
+ {
+  "group": 135,
+  "members": [
+   {
+    "idx": 449,
+    "statement": "Assess authorization by attribution: for each tool invocation that reaches a sensitive resource, verify the authorization decision is explicitly scoped to the caller that initiated the invocation — not merely that authorization logic exists somewhere in the code. This is the core stance for detecting caller identity confusion."
+   },
+   {
+    "idx": 455,
+    "statement": "Do not infer authorization correctness from the presence of authorization logic, specific APIs, or framework constructs; authorization state may be cached in memory, held as a global flag, tied to a session, or embedded in initialization logic and then reused, and checks are scattered rather than at fixed APIs — so reason about the concrete execution path instead."
+   },
+   {
+    "idx": 457,
+    "statement": "Trace the control flow from each tool entry point to every operation that interacts with system, file, network, or physical resources — including sensitive operations reached transitively through helpers or libraries — and along each path determine whether authorization is absent, cached as server-level state, or explicitly bound to the caller identity."
+   },
+   {
+    "idx": 463,
+    "statement": "Treat each tool invocation as a distinct security principal whose actions must be individually attributable; do not assume that authorization established earlier in the server lifecycle justifies subsequent executions."
+   },
+   {
+    "idx": 465,
+    "statement": "Evaluate authorization along three dimensions: its form (OAuth, bearer token, API key, username/password, or local cached credential), its timing (once at startup versus per tool invocation), and its binding to the caller (dependence on tool input parameters, session identifiers, or execution-context objects)."
+   },
+   {
+    "idx": 469,
+    "statement": "Recognize the three unsafe-tool classes when auditing: AuthNone (no checks before or during execution), AuthCache (authorization performed once, e.g. at initialization, then cached and reused without re-validation), and AuthRuntime (runtime checks that rely on in-memory state or are applied inconsistently across invocations); AuthCache in particular persists in long-lived, infrastructure-oriented tools."
+   },
+   {
+    "idx": 478,
+    "statement": "Combine developer-enforced session and caller-identity management (which aligns with MCP's execution model and gives fine-grained control over authorization scope) with static detection tools that identify where caller-identity or session binding is missing or inconsistently enforced in existing implementations."
+   }
+  ]
+ },
+ {
+  "group": 140,
+  "members": [
+   {
+    "idx": 480,
+    "statement": "Treat raw MCP marketplace project counts as inflated: more than half of listed projects are invalid or low-value, so apply per-market validity rates (roughly 26-43% valid) before citing ecosystem size."
+   },
+   {
+    "idx": 494,
+    "statement": "Aggregate across MCP markets for coverage: no single market is complete - only about 32% of projects appear in more than one market and about 5.5% in four or more, while MCP.so holds roughly 89% share but is saturated."
+   },
+   {
+    "idx": 495,
+    "statement": "Interpret MCP ecosystem growth cautiously: measured scale is smaller than raw counts suggest, MCP.so has plateaued, and new growth is driven largely by duplication (via MCP Market) rather than novel projects."
+   }
+  ]
+ },
+ {
+  "group": 146,
+  "members": [
+   {
+    "idx": 490,
+    "statement": "Rank MCP projects by combining complementary signals - GitHub stars and forks (visibility), security and license ratings, and usage statistics - into a normalized weighted composite score rather than any single source."
+   },
+   {
+    "idx": 511,
+    "statement": "Validate automated MCP filtering and scoring against a labeled manual sample and multi-source aggregation: a 500-entry sample gave about 93.5% detection accuracy and composite scoring cut ranking variance about 21% versus single-source."
+   }
+  ]
+ },
+ {
+  "group": 148,
+  "members": [
+   {
+    "idx": 492,
+    "statement": "Expect MCP clients to be more consistently maintained and higher quality than servers (nearly all client entries were valid versus about half of server entries), so apply heavier quality filtering to servers."
+   },
+   {
+    "idx": 502,
+    "statement": "Judge an MCP server's security posture from repository signals - project size, lines of code, and commit history - and continuously monitor maintenance: about 21.9% of servers are inactive over a year (an unpatched long tail) and oversized dependency-heavy servers widen the attack surface, while most servers are lightweight."
+   },
+   {
+    "idx": 512,
+    "statement": "Treat the MCP ecosystem as transitional - widely adopted in appearance but structurally fragile (over 50% low-value, supply-chain monocultures, uneven maintenance, slow client protocol migration) - and weight advice toward sustainability, server security, and client interoperability."
+   }
+  ]
+ },
+ {
+  "group": 150,
+  "members": [
+   {
+    "idx": 497,
+    "statement": "Treat dependency monoculture as systemic risk: Java servers concentrate on Spring (a single flaw like SpringShell can cascade), and over 93% of servers are JavaScript or Python, so a popular npm or PyPI vulnerability can cascade widely - audit and diversify shared dependencies."
+   },
+   {
+    "idx": 498,
+    "statement": "Weigh implementation language in server security: memory-safe Rust and stricter-typed Go reduce certain vulnerability classes versus dynamic JavaScript and Python (which add dependency-confusion, prototype-pollution, and insecure-serialization surface), while Java frameworks carry Spring or Log4j-scale exploit risk."
+   }
+  ]
+ }
+]
