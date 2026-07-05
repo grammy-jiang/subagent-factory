@@ -3,6 +3,19 @@
 All notable changes to this generated subagent package are recorded here. The canonical source of
 truth is `profile.yaml`; the installed adapter is a derived artifact.
 
+## [0.1.1] — 2026-07-05
+
+### Added
+
+- Authoritative-answer mode: bundled 7 verbatim, open-licensed security standards (spec authorization + security-best-practices, OWASP MCP Top-10 + cheatsheets, NSA CSI, CoSAI) under
+  `references/mcp-security-standards/` with a section index (`README.md`) and `NOTICE.md` attribution.
+  Extended `source_of_truth_policy.precedence` to Read and cite the original text for exact
+  requirements. Distillation-only sources (arXiv, vendor blogs) are not bundled.
+
+### Fixed
+
+- Set `rights_status: open` on the bundled open sources, clearing quote-scan rights warnings.
+
 ## [0.1.0] — 2026-07-05
 
 ### Added

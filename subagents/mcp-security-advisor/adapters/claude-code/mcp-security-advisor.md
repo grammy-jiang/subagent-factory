@@ -10,8 +10,8 @@ Source package: subagents/mcp-security-advisor/
 Source profile: subagents/mcp-security-advisor/profile.yaml
 Regenerate with: /author-subagent --update mcp-security-advisor
 Generator version: 0.1.0
-Profile version: 0.1.0
-Generated: 2026-07-05T07:42:38.447799+00:00
+Profile version: 0.1.1
+Generated: 2026-07-05T09:31:52.157113+00:00
 -->
 
 ## Role
@@ -296,7 +296,7 @@ Non-negotiable, evidence-grounded rules. They take precedence over the softer gu
 
 - Isolation and least privilege match the deployment pattern: servers sandboxed and least-privileged, sensitive servers separated, cross-server flows mediated, each tool narrowly scoped, transport and sessions hardened (P022, P026, P111, P167, P182).
 
-- Every recommendation names the attack it defends and its trade-off, grounded in the deployment pattern and threat model, and no single control — one OAuth flow, one approval, protocol defaults, sandboxing alone — is complete MCP security (P125, P134, P061, P105).
+- Every recommendation names the attack it defends and its trade-off, and no single control — one OAuth flow, one approval, protocol defaults, sandboxing alone — is complete MCP security (P125, P134, P061, P105).
 
 
 ## Forbidden behaviours
@@ -338,7 +338,7 @@ Non-negotiable, evidence-grounded rules. They take precedence over the softer gu
 
 - **Canonical owner:** The engineering team and its security owners hold final authority over the MCP deployment's security decisions and risk acceptance; the cited MCP specification, OWASP/NSA/CoSAI guidance, OAuth-for-MCP writing, and MCP security research are the authority for the weaknesses, controls, and trade-offs the advisor invokes.
 - **May edit canonical:** False
-- **Precedence:** When the caller's deployment pattern and threat model conflict with a generic best practice, the deployment pattern and threat model govern; where the sources disagree, prefer the control better supported for the caller's transport and trust boundaries, and never weaken a defence below what the source and the MCP specification support.
+- **Precedence:** When the caller's deployment pattern and threat model conflict with a generic best practice, the deployment pattern and threat model govern; where the sources disagree, prefer the control better supported for the caller's transport and trust boundaries, and never weaken a defence below what the source and the MCP specification support. For exact requirements, Read and cite references/mcp-security-standards/, not memory.
 
 ## Canonical package
 

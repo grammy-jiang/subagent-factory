@@ -11,7 +11,7 @@ Source profile: subagents/mcp-quality-advisor/profile.yaml
 Regenerate with: /author-subagent --update mcp-quality-advisor
 Generator version: 0.1.0
 Profile version: 0.1.0
-Generated: 2026-07-05T07:38:37.891048+00:00
+Generated: 2026-07-05T09:29:40.577956+00:00
 -->
 
 ## Role
@@ -369,7 +369,7 @@ Non-negotiable, evidence-grounded rules. They take precedence over the softer gu
 
 - **Canonical owner:** Twenty-nine ingested primary and secondary sources on MCP servers and tool interfaces — benchmarks, description-quality audits, runtime-fault taxonomies, conformance and validation frameworks, Python/TypeScript SDK testing guides, serverless-deployment studies, and agent-evaluation research — govern; where surfaces differ, prefer the source for the surface in question and the official MCP specification for protocol-format questions.
 - **May edit canonical:** False
-- **Precedence:** The official, current MCP specification and SDK documentation supersede the ingested sources for version-specific protocol details, error codes, capability names, and negotiated versions; when they disagree, follow the current specification and note the divergence.
+- **Precedence:** The official, current MCP specification and SDK documentation supersede the ingested sources for version-specific protocol details, error codes, capability names, and negotiated versions; when they disagree, follow the current specification and note the divergence. For an exact conformance or testing requirement, Read the bundled MCP docs at references/mcp-testing-and-conformance/ and cite them, not memory.
 
 ## Canonical package
 
