@@ -1,0 +1,1112 @@
+---
+name: mcp-protocol-principles-index
+kind: reference
+status: ready
+provenance:
+  principles:
+  - P001
+  - P002
+  - P003
+  - P004
+  - P005
+  - P006
+  - P007
+  - P008
+  - P009
+  - P010
+  - P011
+  - P012
+  - P013
+  - P014
+  - P015
+  - P016
+  - P017
+  - P018
+  - P019
+  - P020
+  - P021
+  - P022
+  - P023
+  - P024
+  - P025
+  - P026
+  - P027
+  - P028
+  - P029
+  - P030
+  - P031
+  - P032
+  - P033
+  - P034
+  - P035
+  - P036
+  - P037
+  - P038
+  - P039
+  - P040
+  - P041
+  - P042
+  - P043
+  - P044
+  - P045
+  - P046
+  - P047
+  - P048
+  - P049
+  - P050
+  - P051
+  - P052
+  - P053
+  - P054
+  - P055
+  - P056
+  - P057
+  - P058
+  - P059
+  - P060
+  - P061
+  - P062
+  - P063
+  - P064
+  - P065
+  - P066
+  - P067
+  - P068
+  - P069
+  - P070
+  - P071
+  - P072
+  - P073
+  - P074
+  - P075
+  - P076
+  - P077
+  - P078
+  - P079
+  - P080
+  - P081
+  - P082
+  - P083
+  - P084
+  - P085
+  - P086
+  - P087
+  - P088
+  - P089
+  - P090
+  - P091
+  - P092
+  - P093
+  - P094
+  - P095
+  - P096
+  - P097
+  - P098
+  - P099
+  - P100
+  - P101
+  - P102
+  - P103
+  - P104
+  - P105
+  - P106
+  - P107
+  - P108
+  - P109
+  - P110
+  - P111
+  - P112
+  - P113
+  - P114
+  - P115
+  - P116
+  - P117
+  - P118
+  - P119
+  - P120
+  - P121
+  - P122
+  - P123
+  - P124
+  - P125
+  - P126
+  - P127
+  - P128
+  - P129
+  - P130
+  - P131
+  - P132
+  - P133
+  - P134
+  - P135
+  - P136
+  - P137
+  - P138
+  - P139
+  - P140
+  - P141
+  - P142
+  - P143
+  - P144
+  - P145
+  - P146
+  - P147
+  - P148
+  - P149
+  - P150
+  - P151
+  - P152
+  - P153
+  - P154
+  - P155
+  - P156
+  - P157
+  - P158
+  - P159
+  - P160
+  - P161
+  - P162
+  - P163
+  - P164
+  - P165
+  - P166
+  - P167
+  - P168
+  - P169
+  - P170
+  - P171
+  - P172
+  - P173
+  - P174
+  - P175
+  - P176
+  - P177
+  - P178
+  - P179
+  - P180
+  - P181
+  - P182
+  - P183
+  - P184
+  - P185
+  - P186
+  - P187
+  - P188
+  - P189
+  - P190
+  - P191
+  - P192
+  - P193
+  - P194
+  - P195
+  - P196
+  - P197
+  - P198
+  - P199
+  - P200
+  - P201
+  - P202
+  - P203
+  - P204
+  - P205
+  - P206
+  - P207
+  - P208
+  - P209
+  - P210
+  - P211
+  - P212
+  - P213
+  - P214
+  - P215
+  - P216
+  - P217
+  - P218
+  - P219
+  - P220
+  - P221
+  - P222
+  - P223
+  - P224
+  - P225
+  - P226
+  - P227
+  - P228
+  - P229
+  - P230
+  - P231
+  - P232
+  - P233
+  - P234
+  - P235
+  - P236
+  - P237
+  - P238
+  - P239
+  - P240
+  - P241
+  - P242
+  - P243
+  - P244
+  - P245
+  - P246
+  - P247
+  - P248
+  - P249
+  - P250
+  - P251
+  - P252
+  - P253
+  claims:
+  - C00005
+  - C00447
+  - C00028
+  - C00090
+  - C00052
+  - C00237
+  - C00025
+  - C00245
+  - C00135
+  - C00010
+  - C00121
+  - C00598
+  - C00018
+  - C00533
+  - C00038
+  - C00097
+  - C00114
+  - C00229
+  - C00345
+  - C00357
+  - C00481
+  - C00573
+  - C00609
+  - C00614
+  - C00209
+  - C00017
+  - C00605
+  - C00046
+  - C00249
+  - C00468
+  - C00128
+  - C00177
+  - C00202
+  - C00216
+  - C00225
+  - C00253
+  - C00280
+  - C00292
+  - C00310
+  - C00318
+  - C00324
+  - C00332
+  - C00368
+  - C00426
+  - C00435
+  - C00513
+  - C00529
+  - C00525
+  - C00544
+  - C00560
+  - C00387
+  - C00024
+  - C00500
+  - C00313
+  - C00070
+  - C00050
+  - C00057
+  - C00062
+  - C00067
+  - C00074
+  - C00341
+  - C00077
+  - C00080
+  - C00094
+  - C00509
+  - C00105
+  - C00111
+  - C00153
+  - C00190
+  - C00142
+  - C00163
+  - C00198
+  - C00283
+  - C00220
+  - C00257
+  - C00258
+  - C00261
+  - C00272
+  - C00299
+  - C00505
+  - C00587
+  - C00302
+  - C00338
+  - C00328
+  - C00354
+  - C00494
+  - C00520
+  - C00364
+  - C00367
+  - C00375
+  - C00380
+  - C00410
+  - C00413
+  - C00467
+  - C00540
+  - C00503
+  - C00470
+  - C00517
+  - C00594
+  - C00590
+  - C00618
+  - C00129
+  - C00085
+  - C00168
+  - C00384
+  - C00369
+  - C00550
+  - C00559
+  - C00570
+  - C00561
+  - C00001
+  - C00003
+  - C00088
+  - C00006
+  - C00432
+  - C00033
+  - C00042
+  - C00044
+  - C00055
+  - C00060
+  - C00065
+  - C00083
+  - C00103
+  - C00119
+  - C00147
+  - C00145
+  - C00152
+  - C00185
+  - C00486
+  - C00159
+  - C00173
+  - C00193
+  - C00196
+  - C00201
+  - C00205
+  - C00213
+  - C00223
+  - C00234
+  - C00240
+  - C00244
+  - C00267
+  - C00265
+  - C00263
+  - C00297
+  - C00270
+  - C00287
+  - C00583
+  - C00316
+  - C00322
+  - C00336
+  - C00352
+  - C00371
+  - C00377
+  - C00459
+  - C00492
+  - C00404
+  - C00406
+  - C00417
+  - C00419
+  - C00423
+  - C00456
+  - C00465
+  - C00438
+  - C00498
+  - C00436
+  - C00434
+  - C00442
+  - C00446
+  - C00449
+  - C00453
+  - C00480
+  - C00461
+  - C00474
+  - C00471
+  - C00488
+  - C00538
+  - C00556
+  - C00549
+  - C00585
+  - C00623
+  - C00108
+  - C00187
+  - C00161
+  - C00241
+  - C00307
+  - C00568
+  - C00408
+  - C00523
+  - C00463
+  - C00181
+  - C00182
+  - C00608
+  - C00102
+  - C00110
+  - C00127
+  - C00150
+  - C00157
+  - C00176
+  - C00166
+  - C00167
+  - C00350
+  - C00175
+  - C00183
+  - C00195
+  - C00215
+  - C00233
+  - C00422
+  - C00306
+  - C00291
+  - C00269
+  - C00274
+  - C00282
+  - C00305
+  - C00331
+  - C00351
+  - C00362
+  - C00431
+  - C00363
+  - C00416
+  - C00421
+  - C00425
+  - C00430
+  - C00441
+  - C00445
+  - C00452
+  - C00458
+  - C00554
+  - C00473
+  - C00479
+  - C00558
+  - C00563
+  - C00613
+  - C00621
+  - C00622
+  - C00625
+  - C00626
+  - C00016
+  - C00151
+  - C00156
+  - C00158
+  - C00171
+  - C00172
+  - C00184
+  - C00296
+  - C00379
+  - C00553
+  - C00444
+  - C00455
+  - C00542
+  - C00548
+  - C00260
+  evidence:
+  - E00005
+  - E00438
+  - E00028
+  - E00089
+  - E00051
+  - E00235
+  - E00025
+  - E00243
+  - E00134
+  - E00010
+  - E00120
+  - E00588
+  - E00018
+  - E00524
+  - E00037
+  - E00096
+  - E00113
+  - E00227
+  - E00339
+  - E00351
+  - E00472
+  - E00564
+  - E00597
+  - E00602
+  - E00207
+  - E00017
+  - E00593
+  - E00045
+  - E00245
+  - E00459
+  - E00127
+  - E00175
+  - E00200
+  - E00214
+  - E00223
+  - E00249
+  - E00275
+  - E00287
+  - E00304
+  - E00312
+  - E00318
+  - E00326
+  - E00362
+  - E00417
+  - E00426
+  - E00504
+  - E00520
+  - E00516
+  - E00535
+  - E00551
+  - E00381
+  - E00024
+  - E00491
+  - E00307
+  - E00069
+  - E00049
+  - E00056
+  - E00061
+  - E00066
+  - E00073
+  - E00335
+  - E00076
+  - E00079
+  - E00093
+  - E00500
+  - E00104
+  - E00110
+  - E00151
+  - E00188
+  - E00141
+  - E00161
+  - E00196
+  - E00278
+  - E00218
+  - E00253
+  - E00254
+  - E00257
+  - E00268
+  - E00294
+  - E00496
+  - E00577
+  - E00297
+  - E00332
+  - E00322
+  - E00348
+  - E00485
+  - E00511
+  - E00358
+  - E00361
+  - E00369
+  - E00374
+  - E00401
+  - E00404
+  - E00458
+  - E00531
+  - E00494
+  - E00461
+  - E00508
+  - E00584
+  - E00580
+  - E00606
+  - E00128
+  - E00084
+  - E00166
+  - E00378
+  - E00363
+  - E00541
+  - E00550
+  - E00561
+  - E00552
+  - E00001
+  - E00003
+  - E00087
+  - E00006
+  - E00423
+  - E00033
+  - E00041
+  - E00043
+  - E00054
+  - E00059
+  - E00064
+  - E00082
+  - E00102
+  - E00118
+  - E00146
+  - E00144
+  - E00150
+  - E00183
+  - E00477
+  - E00157
+  - E00171
+  - E00191
+  - E00194
+  - E00199
+  - E00203
+  - E00211
+  - E00221
+  - E00232
+  - E00238
+  - E00242
+  - E00263
+  - E00261
+  - E00259
+  - E00292
+  - E00266
+  - E00282
+  - E00573
+  - E00310
+  - E00316
+  - E00330
+  - E00346
+  - E00365
+  - E00371
+  - E00450
+  - E00483
+  - E00395
+  - E00397
+  - E00408
+  - E00410
+  - E00414
+  - E00447
+  - E00456
+  - E00429
+  - E00489
+  - E00427
+  - E00425
+  - E00433
+  - E00437
+  - E00440
+  - E00444
+  - E00471
+  - E00452
+  - E00465
+  - E00462
+  - E00479
+  - E00529
+  - E00547
+  - E00540
+  - E00575
+  - E00611
+  - E00107
+  - E00185
+  - E00159
+  - E00239
+  - E00302
+  - E00559
+  - E00399
+  - E00514
+  - E00454
+  - E00179
+  - E00180
+  - E00596
+  - E00101
+  - E00109
+  - E00126
+  - E00148
+  - E00155
+  - E00174
+  - E00164
+  - E00165
+  - E00344
+  - E00173
+  - E00181
+  - E00193
+  - E00213
+  - E00231
+  - E00413
+  - E00301
+  - E00286
+  - E00265
+  - E00270
+  - E00277
+  - E00300
+  - E00325
+  - E00345
+  - E00356
+  - E00422
+  - E00357
+  - E00407
+  - E00412
+  - E00416
+  - E00421
+  - E00432
+  - E00436
+  - E00443
+  - E00449
+  - E00545
+  - E00464
+  - E00470
+  - E00549
+  - E00554
+  - E00601
+  - E00609
+  - E00610
+  - E00613
+  - E00614
+  - E00016
+  - E00149
+  - E00154
+  - E00156
+  - E00169
+  - E00170
+  - E00182
+  - E00291
+  - E00373
+  - E00544
+  - E00435
+  - E00446
+  - E00533
+  - E00539
+  - E00256
+  source_anchors:
+  - 37bf1590e3e5-c0000
+  - a17e89016c56-c0000
+  - a504a3403936-c0000
+  - 0b6ac42ddf2e-c0000
+  - 8f5b562e852e-c0000
+  - 8df00bee0b51-c0000
+  - 884720004be3-c0000
+  - 4f99907b2686-c0000
+  - 8ed43301d44f-c0000
+  - 01bfb448d361-c0000
+  - 37de412ba819-c0000
+  - b287e6ef9e11-c0000
+  - 2702be9d7f42-c0000
+  - 5a86d66ae0ab-c0000
+  - a52208278358-c0000
+  - 8df00bee0b51-c0001
+  - 992d141a6f75-c0000
+  - 3498fca5668f-c0000
+  - ddb8b9b444ad-c0000
+  - 88cd5f33cd8f-c0000
+  - e59fbe4c002a-c0000
+  authored_from_digest: 55e946fe443bd09302081f56928cae2c472858842a127bf922149707cb1ab92b
+---
+
+# MCP Protocol Principles Index
+
+The full set of Model Context Protocol principles distilled from the specification, grouped by the
+skill that applies them. Each entry is a paraphrase with its confidence; no source text is quoted
+verbatim.
+
+## Base Protocol And Messages
+
+_Build on the JSON-RPC base protocol and shape every MCP message to spec._
+
+- **P001** (high) — Build on the MCP base protocol: exchange JSON-RPC 2.0 messages over stateful connections and complete client/server capability negotiation before using any feature.
+- **P004** (high) — Handle JSON Schema dialects explicitly: default to 2020-12 when no $schema is declared, allow a $schema field to select another dialect, support at least 2020-12 while documenting any additional dialects, and prefer 2020-12.
+- **P007** (high) — Treat tool annotations as untrusted input: a client must not rely on tool annotations for security decisions unless they come from a trusted server.
+- **P010** (high) — Assign each capability to the correct side of the connection: Servers expose Resources, Prompts, and Tools to clients; Clients expose Sampling, Roots, and Elicitation to servers.
+- **P013** (high) — Require explicit, informed user consent before exposing or accessing user data: the host must obtain consent before exposing user data to a server, must not transmit resource data elsewhere without consent, and must protect user data with appropriate access…
+- **P016** (high) — Respect the _meta reserved namespace: make no assumptions about values at MCP-reserved keys, form prefixes as dot-separated slash-terminated labels (preferring reverse-DNS), keep prefixes with a second label of modelcontextprotocol or mcp reserved for MCP,…
+- **P026** (high) — Because MCP cannot enforce its security principles at the protocol level, the implementor must own robust consent and authorization flows, access controls and data protection, clear security documentation, privacy-by-design, and clear UIs for reviewing and…
+- **P052** (high) — Treat tools as arbitrary code execution: obtain explicit per-tool user consent before invoking any tool and ensure the user understands what the tool does before authorizing it.
+- **P055** (high) — Require every MCP implementation to support the base protocol and lifecycle-management layers; treat the other layers (authorization, server features, client features, utilities) as optional capabilities selected to fit the application.
+- **P060** (high) — Enforce MCP request-id rules: every request carries a string or integer id, the id is never null (unlike base JSON-RPC), and an id is never reused by the same requestor within a session.
+- **P062** (high) — Shape MCP result responses correctly: echo the request's id and always include a result field (whose contents may be any JSON object).
+- **P063** (high) — Shape MCP error responses correctly: echo the request id (except when a malformed request makes the id unreadable), include an error field with a code and message, and use integer error codes.
+- **P064** (high) — Validate schemas against their declared or default dialect, require schemas to be valid for that dialect, and fail gracefully with an explicit unsupported-dialect error rather than silently proceeding.
+- **P066** (high) — Treat icon metadata and bytes as untrusted: restrict icon URIs to HTTPS or data: schemes, reject unsafe schemes (javascript:, file:, ftp:, ws:) and cross-origin redirects, and fetch icons without credentials.
+- **P103** (medium) — Scope authorization to transport: HTTP-based transports should conform to the MCP authorization spec, STDIO transports should skip it and instead take credentials from the environment, and peers may still negotiate custom auth strategies.
+- **P111** (high) — Adopt MCP as the standardized protocol layer for connecting LLM applications to external data and tools, instead of building bespoke per-integration connectors.
+- **P112** (high) — Treat the normative TypeScript schema (schema.ts) as the source of truth, and honour BCP-14/RFC-2119 keywords as binding requirements only where they appear in all capitals.
+- **P113** (high) — Treat the TypeScript schema as the single source of truth for MCP messages and structures, and treat the JSON Schema as a generated artifact derived from it.
+- **P114** (high) — Model the three MCP participant roles distinctly — Hosts initiate connections, Clients are the connectors embedded in the host, and Servers provide context and capabilities.
+- **P122** (high) — Handle MCP notifications as one-way messages: a notification carries no id and its receiver sends no response.
+- **P123** (high) — For clients that render icons, support at least image/png and image/jpeg, and additionally support image/svg+xml and image/webp where feasible.
+- **P183** (medium) — Defend icon consumption against resource exhaustion and executable content: guard oversized images/dimensions/frames (optionally capping size), and exercise caution with formats that can embed scripts (e.g. SVG), sanitizing or disallowing risky file types.
+- **P195** (high) — Require each Icon object to provide a src URI that is an HTTP/HTTPS URL or a data URI.
+- **P196** (high) — Validate icon content by type: detect the real content type via magic bytes, reject on mismatch or unknown type, and enforce a strict allowlist of image types rather than trusting the advertised MIME type.
+- **P239** (medium) — Provide the cross-cutting MCP utilities — configuration, progress tracking, cancellation, error reporting, and logging — as part of a complete, operable implementation.
+
+## Architecture And Trust Model
+
+_Assign each capability to the right side and concentrate trust in the host._
+
+- **P015** (high) — Concentrate all security enforcement — connection permissions, consent, security policy, and user authorization — in the host process rather than in clients or servers.
+- **P028** (high) — Assign the client the responsibilities of protocol/capability negotiation, bidirectional message routing, subscription and notification management, and maintaining isolation between the servers a host connects to.
+- **P045** (high) — Assign each server capability to the primitive that matches its control owner: user-invoked interaction templates become prompts (user-controlled), client-managed contextual data becomes resources (application-controlled), and model-invokable actions become…
+- **P056** (high) — Keep servers focused and independent: expose functionality only through MCP primitives (resources, tools, prompts), each server owning a narrow responsibility, deployable as a local process or remote service.
+- **P057** (high) — Enforce least-context isolation: a server must not read the whole conversation or see into other servers, must receive only the context necessary for its task, and all cross-server interaction is mediated by the host.
+- **P058** (high) — Negotiate capabilities explicitly at initialization; the declared capability set fixes which features and primitives are available for that session, and both parties must honour it throughout.
+- **P059** (high) — Gate every optional protocol operation on a prior capability declaration: emit resource subscription notifications only if subscription support was declared, allow tool invocation only if the tool capability was declared, and allow a server sampling request…
+- **P115** (high) — When building an MCP server, model all context and capabilities using the three standard server primitives — prompts, resources, and tools — rather than ad-hoc mechanisms, so clients and models can discover and use them consistently.
+- **P116** (high) — Model the system as client-host-server: a single host process runs multiple client instances, and this separation is the mechanism for security boundaries and concern isolation.
+- **P117** (high) — Make the host the sole owner of context aggregation and AI/LLM sampling coordination across clients.
+- **P118** (high) — Give each client exactly one isolated, stateful session with a single server (1:1), so a client never multiplexes across servers.
+- **P119** (high) — Optimise the protocol so servers are extremely easy to build and highly composable: push complex orchestration to the host and keep each server's interface simple and combinable.
+- **P120** (high) — Design for progressive, backward-compatible evolution: keep the core protocol minimal and required, negotiate everything else, and let clients and servers evolve independently.
+- **P121** (high) — Require a server to advertise every implemented feature in its declared capabilities, and use protocol extensions for any capability beyond the standard negotiated set.
+- **P164** (high) — Expose executable, action-taking or side-effecting operations (such as API POST requests or file writes) as tools, because tools are the model-controlled primitive through which a model performs actions or retrieves information.
+- **P166** (high) — Expose read-only contextual data (such as file contents or git history) as resources that the client attaches and manages, rather than as tools, since resources are the application-controlled primitive for providing additional context to the model.
+- **P167** (high) — Expose reusable, user-invoked interaction templates (such as slash commands or menu options) as prompts, because prompts are the user-controlled primitive of pre-defined templates that guide language-model interactions.
+
+## Connection Lifecycle And Capabilities
+
+_Drive the three-phase lifecycle and negotiate capabilities before any feature is used._
+
+- **P009** (high) — Shut down through the transport rather than protocol messages: MCP defines no shutdown message. For stdio, the client closes the server's input stream, then escalates to SIGTERM and finally SIGKILL if the server does not exit in a reasonable time (the server…
+- **P011** (high) — Negotiate the protocol version explicitly: the client proposes the latest version it supports, the server echoes that version if supported or otherwise offers the latest version it supports, and the client disconnects if it cannot support the server's chosen…
+- **P017** (high) — Drive initialization as a client-initiated handshake: client sends an initialize request carrying its protocol version, capabilities, and implementation info; the server replies with its own capabilities and info; then the client sends an initialized…
+- **P031** (high) — Confine operation-phase behaviour to the negotiated envelope: use only the protocol version and the capabilities that were successfully negotiated, and never invoke a feature the peer did not advertise.
+- **P067** (high) — Treat the MCP connection as a strict three-phase lifecycle (initialization, then operation, then shutdown) and make initialization the very first interaction before any other traffic.
+- **P070** (high) — Set a timeout on every sent request (configurable per request) and, when it elapses without a success or error response, issue a cancellation notification and stop waiting, to prevent hung connections and resource exhaustion.
+- **P102** (medium) — Advertise and interpret capabilities against the defined catalog (client: roots, sampling, elicitation, tasks, experimental; server: prompts, resources, tools, logging, completions, tasks, experimental) and honour sub-capabilities such as listChanged…
+- **P124** (high) — Restrict traffic during the handshake window: the client sends nothing but pings until the initialize response arrives, and the server sends nothing but pings and logging until the initialized notification arrives.
+- **P125** (high) — Handle the expected lifecycle failure modes explicitly: protocol-version mismatch, failure to negotiate required capabilities, and request timeouts; report an unsupported protocol version with JSON-RPC error code -32602 and data listing supported and…
+- **P126** (high) — You may reset a request's timeout clock on receiving a progress notification for it, but always enforce a hard maximum timeout regardless of progress, to bound the impact of a misbehaving peer.
+- **P197** (high) — On HTTP transports, send the negotiated version in an MCP-Protocol-Version header on every request after initialization.
+
+## Transports
+
+_Implement the stdio and Streamable HTTP transports to the negotiated revision._
+
+- **P032** (high) — Implement SSE resumability with per-stream cursors: attach globally unique event IDs (within the session or per client) that encode the originating stream, let clients resume via an HTTP GET carrying Last-Event-ID, and never replay messages that belonged to…
+- **P068** (high) — For stdio, run the server as a client-launched subprocess, delimit messages by newlines with no embedded newlines, and never write anything to stdout or the server's stdin that is not a valid MCP message.
+- **P071** (high) — A Streamable HTTP client MUST send each JSON-RPC message as its own HTTP POST to the MCP endpoint, with an Accept header listing both application/json and text/event-stream, and a body of exactly one JSON-RPC message.
+- **P104** (medium) — Manage the SSE response stream deliberately: prime reconnection with an initial empty-data event ID, optionally close the connection without terminating the stream while sending an SSE retry field (which the client MUST honour by waiting before…
+- **P127** (high) — Custom transports are permitted but MUST preserve MCP's JSON-RPC message format and lifecycle requirements and SHOULD document their connection and message-exchange patterns for interoperability.
+- **P128** (high) — Over HTTP the client MUST send the MCP-Protocol-Version header on all post-initialization requests (SHOULD be the negotiated version); the server SHOULD assume 2025-03-26 when the header is absent and unresolvable, and MUST return HTTP 400 for an invalid or…
+- **P130** (high) — Streamable HTTP servers MUST validate the Origin header on all incoming connections and MUST respond with HTTP 403 Forbidden when it is present and invalid, to prevent DNS rebinding attacks.
+- **P131** (high) — Support an optional client-initiated GET (with an Accept header listing text/event-stream) that opens a server-to-client SSE stream without a prior POST; the server MUST answer such a GET with either text/event-stream or HTTP 405 Method Not Allowed.
+- **P184** (medium) — For backwards compatibility with the deprecated HTTP+SSE transport, servers should host both the old SSE and POST endpoints alongside the new MCP endpoint, and clients should probe with an InitializeRequest POST and fall back on HTTP 400/404/405 to a GET…
+- **P185** (medium) — Harden local Streamable HTTP servers by binding only to localhost (127.0.0.1) rather than all interfaces, and implement proper authentication for all connections.
+- **P192** (high) — When establishing stateful sessions, assign the session ID via the MCP-Session-Id header on the InitializeResult; the ID SHOULD be globally unique and cryptographically secure and MUST contain only visible ASCII characters (0x21-0x7E).
+- **P193** (high) — Once a session ID is assigned, the client MUST echo it in the MCP-Session-Id header on all subsequent requests, and a server requiring sessions SHOULD reject non-initialization requests that lack the header with HTTP 400 Bad Request.
+- **P198** (high) — Encode every MCP message as UTF-8 JSON-RPC across all transports.
+- **P199** (high) — A Streamable HTTP server MUST expose a single MCP endpoint path that supports both HTTP POST and GET.
+- **P200** (high) — The server MUST deliver each JSON-RPC message on only one connected stream and MUST NOT broadcast the same message across multiple streams.
+- **P201** (high) — When a posted body is a JSON-RPC response or notification, the server MUST return HTTP 202 Accepted with no body if accepted, or an HTTP error status (e.g. 400) if it cannot accept it.
+- **P202** (high) — When a posted body is a JSON-RPC request, the server MUST answer with either text/event-stream (an SSE stream) or application/json (one object), and the client MUST support both.
+- **P204** (high) — On a GET-initiated SSE stream the server MUST NOT send a JSON-RPC response except when resuming a stream tied to a previous client request.
+- **P205** (high) — Honour session-termination semantics: after the server terminates a session it MUST return HTTP 404 Not Found for requests bearing that session ID, and a client receiving that 404 MUST start a fresh session with a new InitializeRequest and no session ID.
+- **P240** (medium) — Offer the two standard MCP transports and support stdio whenever possible; treat stdio as the default client choice.
+- **P241** (medium) — Treat a stdio server's stderr as an optional log channel: the server MAY log UTF-8 to stderr and the client MUST NOT assume stderr output signals an error.
+- **P242** (medium) — Use Server-Sent Events (SSE) when the server needs to stream multiple messages or push server-to-client messages over Streamable HTTP.
+- **P243** (medium) — Before the final JSON-RPC response, the server MAY interleave JSON-RPC requests and notifications on the SSE stream, and those messages SHOULD relate to the originating client request.
+- **P244** (medium) — Do not treat an SSE disconnection as request cancellation; require clients to cancel explicitly with an MCP CancelledNotification.
+- **P245** (medium) — Let clients end sessions gracefully with an HTTP DELETE carrying the MCP-Session-Id header; servers MAY refuse client-initiated termination with HTTP 405 Method Not Allowed.
+
+## Cancellation Ping And Progress
+
+_Run cancellation, ping, and progress as race-tolerant connection utilities._
+
+- **P006** (high) — For task-augmented requests, keep using the original request's progressToken for the entire task lifetime — including after CreateTaskResult is returned — and never switch tokens mid-task; the token stays valid until the task reaches a terminal status.
+- **P018** (high) — Require every progress notification to echo the original progressToken and a progress value that strictly increases on each notification even when no total is known; total and message are optional, with total omittable when unknown and message intended as…
+- **P025** (high) — Support the MCP ping mechanism as a bidirectional liveness check: allow either the client or the server to send a standard JSON-RPC request with method `ping` and no parameters to confirm the peer is responsive.
+- **P033** (high) — Design both sides to tolerate cancellation race conditions: because a cancellation can arrive after the request finished or its response was sent, senders should ignore any late-arriving response and both parties must treat racing cancellations as graceful…
+- **P034** (high) — Issue pings periodically to detect connection health, but make the frequency configurable, tune it to the network environment, and avoid excessive pinging that adds unnecessary network overhead.
+- **P035** (high) — To opt into progress updates, require a progressToken in the request's `_meta` that is a string or integer and unique across all of the sender's active requests; the sender may choose the value freely as long as uniqueness holds.
+- **P069** (high) — Cancel an in-progress MCP request by sending a `notifications/cancelled` notification carrying the target `requestId` and an optional human-facing `reason`; either side of the connection may initiate cancellation, and the `reason` must never be used to drive…
+- **P072** (high) — On receiving a valid cancellation, a receiver should stop processing the request, free its associated resources, and refrain from sending any response for it.
+- **P074** (high) — Treat ping timeouts as connection failures, allow multiple failed pings to trigger a connection reset, and log ping failures for diagnostics.
+- **P132** (high) — Only emit a cancellation that references a request the sender itself issued in that direction and that the sender still believes to be in-progress; never cancel a peer's request or one already known to be finished.
+- **P133** (high) — Cancel task-augmented requests through the dedicated `tasks/cancel` request (which returns the final task state), not through `notifications/cancelled`.
+- **P134** (high) — Treat cancellation as best-effort: a receiver may ignore a cancellation whose request is unknown, already completed, or uncancellable, and should ignore invalid notifications (bad request IDs, completed targets, or malformed content) rather than erroring.
+- **P135** (high) — Make cancellation observable: log cancellation reasons for debugging and surface in the application UI when a cancellation has been requested.
+- **P136** (high) — A ping receiver MUST respond promptly with an empty JSON-RPC result (`result: {}`) that reuses the originating request's `id`, so the sender can correlate the reply.
+- **P137** (high) — Treat MCP progress tracking as opt-in and bidirectional: it applies only to long-running operations, and either party may emit progress notifications only when the peer has requested updates.
+- **P138** (high) — Preserve receiver discretion: a receiver may decline to send progress notifications at all and may choose any notification frequency, so never require progress as a correctness precondition.
+- **P139** (high) — Stop progress notifications once the operation is done: cease notifications after completion, and for tasks stop as soon as the task reaches a terminal status of completed, failed, or cancelled.
+- **P186** (medium) — Apply operational hygiene to progress: track active progress tokens on both ends and rate-limit progress notifications to prevent flooding the peer.
+- **P206** (high) — Never allow a client to cancel the `initialize` request.
+- **P207** (high) — When a ping response does not arrive within a reasonable timeout, the sender may treat the connection as stale and terminate it or attempt reconnection; this is permitted, not mandatory.
+- **P208** (high) — Only send a progress notification for a token that was supplied in a still-active request and is bound to an in-progress operation; reject or drop notifications for unknown or completed operations.
+
+## Long Running Tasks
+
+_Treat tasks as an experimental, capability-gated, two-phase exchange._
+
+- **P008** (high) — Treat MCP tasks (introduced 2025-11-25) as an experimental capability: expect the design and behaviour to evolve and avoid hard-coding assumptions about unstable details.
+- **P029** (high) — Gate task augmentation on capability negotiation: a peer that supports tasks must declare a structured `tasks` capability at initialization, requestors must only augment a request when the receiver declared the matching capability, treat…
+- **P036** (high) — Honour per-tool `execution.taskSupport` on top of the `tasks.requests.tools.call` capability: never augment tools when that capability is absent; when it is present, forbid task invocation for tools that omit it or set `forbidden` (returning -32601), allow…
+- **P037** (high) — Correlate every task-related message with `io.modelcontextprotocol/related-task` (matching `taskId`) in `_meta`, including the `tasks/result` response whose body lacks the ID; but omit that metadata on `tasks/get`, `tasks/list`, and `tasks/cancel` (where the…
+- **P038** (high) — Return the specified JSON-RPC error codes for task protocol errors: -32602 (Invalid params) for an invalid/nonexistent `taskId` in get/result/cancel, an invalid cursor in `tasks/list`, or cancelling an already-terminal task; -32603 (Internal error) for…
+- **P073** (high) — Enforce cancellation semantics: reject cancellation of an already-terminal task with -32602, and on a valid cancel attempt to stop execution, transition the task to `cancelled` before responding, and keep it `cancelled` even if execution later finishes;…
+- **P075** (high) — Implement task-augmented requests as a strict two-phase exchange: return a `CreateTaskResult` carrying only task data immediately (as soon as possible after acceptance) and never the operation result, and deliver the real result exclusively through…
+- **P076** (high) — Treat `ttl` as advisory, not a guarantee: requestors may request a lifetime, receivers may override it and must report the actual `ttl` (or null for unlimited) in `tasks/get`, and once the `ttl` elapses the receiver may delete the task and its results…
+- **P077** (high) — Poll task status via `tasks/get`, respect the returned `pollInterval`, and keep polling until a terminal status or `input_required`; do not assume that calling `tasks/result` removes the need to keep polling.
+- **P078** (high) — Use `input_required` for mid-task input: the receiver moves the task to `input_required` and tags the input request with related-task metadata, the requestor preemptively calls `tasks/result` to receive that request, and the task returns to `working` once…
+- **P079** (high) — Treat the task ID as an access-control credential: because holding a task ID grants access to task state and results, bind tasks to the requestor's authorization context when one exists and reject get/result/cancel for tasks outside that context while…
+- **P082** (high) — Harden unauthenticated deployments: when tasks cannot be bound to an authorization context, clearly document that results may be reachable by anyone who guesses the ID, generate cryptographically secure high-entropy task IDs, prefer shorter TTLs, and do not…
+- **P140** (high) — Model long-running or deferrable MCP work as requestor-driven durable tasks: the requestor owns augmenting the request and polling for the result, while the receiver decides which request types are task-eligible and owns each task's lifecycle.
+- **P141** (high) — Match task handling to declared capability: process requests normally and ignore task metadata for request types where task capability was not declared, and only reject non-task-augmented requests for types where it was declared.
+- **P142** (high) — Treat `notifications/tasks/status` as an optional optimization only: receivers may push full-state notifications on status changes, but requestors must not depend on receiving them and must continue polling `tasks/get`.
+- **P143** (high) — Make `tasks/result` return exactly what the underlying request would have returned, matching its result type: block the response while the task is `working` or `input_required`, and on a terminal task return either the successful result or the identical…
+- **P144** (high) — On execution failure move the task to `failed` — including JSON-RPC errors during execution and, for tool calls, a tool result with `isError` true — include a diagnostic `statusMessage`, and have `tasks/result` return the identical successful result or…
+- **P145** (high) — Enforce the task status state machine: every task starts in `working`, only the allowed transitions to and from `input_required` are permitted, and a task in a terminal status (`completed`, `failed`, or `cancelled`) must never transition again.
+- **P146** (high) — Model task state with the standard fields (`taskId`, `status`, optional `statusMessage`, `createdAt`, `ttl`, `pollInterval`, `lastUpdatedAt`) and the five defined statuses — `working`, `input_required`, `completed`, `failed`, `cancelled` — treating a tool…
+- **P187** (medium) — Log task lifecycle for audit on both sides: receivers should record creation, completion, and retrieval events with auth context and watch for suspicious patterns (e.g. many failed lookups or excessive polling), and requestors should log lifecycle events and…
+- **P210** (high) — Manage task resources deliberately: cap concurrent tasks per requestor and maximum `ttl`, clean up expired tasks promptly, document the supported limits, and monitor and alert on task resource usage.
+- **P211** (high) — Report task problems through the correct channel: use standard JSON-RPC protocol errors for protocol-level issues and surface underlying-execution failures through the task status rather than as protocol errors.
+- **P212** (high) — Generate task IDs as receiver-side strings that are unique across every task the receiver controls; never let the requestor supply the task ID.
+- **P213** (high) — Include ISO 8601 `createdAt` and `lastUpdatedAt` timestamps on every task response so requestors can track creation and last-update times.
+- **P214** (high) — Support opaque, cursor-based pagination for `tasks/list`: emit `nextCursor` whenever more tasks remain, require requestors to treat cursors as opaque tokens, and keep list visibility consistent with `tasks/get` (anything gettable is listable for that…
+- **P215** (high) — Rate-limit task operations to defend against denial-of-service and task-ID enumeration attacks.
+- **P246** (medium) — Do not assume indefinite task retention: a receiver may purge an expired task and it is compliant to answer a later lookup with a 'task not found' error, so requestors must not depend on retrieval after expiry.
+- **P253** (low) — A server may return an `io.modelcontextprotocol/model-immediate-response` placeholder in the `CreateTaskResult` `_meta` so the model can proceed while a task runs, but this is provisional, non-binding guidance and must not be relied on as stable protocol…
+
+## Server Tools
+
+_Define, discover, invoke, and harden tools with a valid schema and human consent._
+
+- **P014** (high) — Harden the client around tool calls: confirm sensitive operations, show tool inputs to the user before calling the server to prevent exfiltration, validate results before passing them to the LLM, apply timeouts to tool calls, and log tool usage for audit.
+- **P046** (high) — Constrain tool names: keep them 1-128 characters, treat them as case-sensitive, restrict them to ASCII letters, digits, underscore, hyphen and dot (no spaces/commas/special characters), and keep them unique within a server.
+- **P047** (high) — Harden the server against tool abuse: validate all tool inputs, enforce proper access controls, rate-limit tool invocations, and sanitize tool outputs.
+- **P048** (high) — Separate protocol errors from tool execution errors: report execution failures (API, input-validation, business-logic) in the result with `isError: true` and reserve JSON-RPC protocol errors for unknown tools, malformed requests, and server errors; forward…
+- **P053** (high) — Keep a human in the loop for tool invocations: give users the ability to deny a call, make clear which tools are exposed to the model, show a visual indicator when a tool is invoked, and present confirmation prompts for operations.
+- **P065** (high) — Define every tool with a valid JSON Schema inputSchema: it must be a non-null JSON Schema object (defaulting to draft 2020-12 when no `$schema` is given), and for tools with no parameters use `{"type":"object","additionalProperties":false}`.
+- **P080** (high) — Implement the tool discovery and invocation contract: support `tools/list` with optional cursor pagination for discovery and `tools/call` (tool name plus arguments) for invocation.
+- **P087** (high) — Honor declared output schemas on both sides: when a tool declares an output schema the server must return structured results that conform to it and clients should validate results against it; also serialize structured content into a text content block for…
+- **P096** (high) — Advertise the tools capability and wire up listChanged correctly: a server exposing tools must declare the `tools` capability, and if it sets `listChanged` it must emit `notifications/tools/list_changed` whenever its tool list changes.
+- **P098** (high) — Return well-formed tool results: place unstructured output in the `content` array (which may hold multiple typed items such as text, image, audio, resource links, or embedded resources) and structured output as a JSON object in `structuredContent`.
+- **P165** (high) — Design tools as model-controlled while leaving the interface open: assume the model discovers and invokes tools from context, and do not assume or mandate any particular user-interaction pattern.
+- **P190** (medium) — Handle resource references defensively: tools may return resource links (URIs the client can fetch or subscribe to) that are not guaranteed to appear in `resources/list`, and servers embedding resources in results should implement the `resources` capability.
+
+## Server Resources And Prompts
+
+_Expose resources and prompts by unique URI, declared capability, and control owner._
+
+- **P002** (high) — Design MCP list operations that can return large result sets (resources/list, resources/templates/list, prompts/list, tools/list) to support cursor-based pagination, yielding results in smaller pages rather than all at once.
+- **P021** (high) — Use the optional annotations — `audience` (user/assistant), `priority` (0.0–1.0, 1=effectively required), and `lastModified` (ISO 8601) — to filter by intended audience, prioritize what enters context, and sort/display by recency.
+- **P030** (high) — Only advertise the `resources` capability when the server actually exposes resources, and within it only advertise `subscribe`/`listChanged` for features that are genuinely implemented; clients must negotiate and never assume either optional feature is…
+- **P086** (high) — Enforce resource security on the server: validate all resource URIs, apply access controls to sensitive resources, and check permissions before performing any resource operation.
+- **P094** (high) — Address every resource by a unique URI: standard schemes are non-exhaustive, so custom schemes are permitted but MUST conform to RFC3986; `git://` is the defined scheme for Git version-control integration.
+- **P097** (high) — Offer `resources/subscribe` only when the `subscribe` feature is advertised; on a `notifications/resources/updated` for a subscribed resource the client must re-read it via `resources/read` to get the new contents.
+- **P129** (high) — Restrict the `https://` scheme to resources the client can fetch directly from the web on its own; for anything the client must read through the MCP server, prefer another or a custom scheme even when the server itself downloads the bytes.
+- **P155** (high) — Return standard JSON-RPC error codes for prompt failures: -32602 for an invalid prompt name or missing required arguments, and -32603 for internal errors.
+- **P156** (high) — Return standard JSON-RPC errors for resource failures — code -32002 for resource-not-found (including the offending `uri` in `data`) and -32603 for internal errors.
+- **P162** (high) — Base64-encode image and audio prompt-message content and include a valid MIME type for it.
+- **P163** (high) — Treat resource selection as application-driven — the host decides how resources become model context — and do not hard-code a single user-interaction model; the protocol mandates none.
+- **P168** (high) — Keep prompts user-controlled: expose them for explicit user selection (e.g. slash commands or other user-initiated UI) rather than invoking them automatically.
+- **P169** (high) — Advertise the `prompts.listChanged` flag to signal support for change notifications, and when it is declared, send `notifications/prompts/list_changed` whenever the available prompt set changes.
+- **P170** (high) — Retrieve a concrete prompt with `prompts/get`, passing the prompt name and its arguments; support argument auto-completion through the completion API where useful.
+- **P171** (high) — Model prompt messages as a `role` ("user" or "assistant") plus a `content` value of one of the supported content types.
+- **P172** (high) — Emit each resource-content entry as exactly one of text (`text`) or binary (base64 `blob`), and ensure binary data is properly encoded.
+- **P173** (high) — Carefully validate all prompt inputs and outputs to prevent injection attacks and unauthorized access to resources.
+- **P174** (high) — Expose parameterized resources as RFC6570 URI-template resource templates discoverable via `resources/templates/list`, and wire their arguments to the completion API for auto-completion.
+- **P175** (high) — Declaring the `listChanged` capability obligates the server to emit `notifications/resources/list_changed` whenever the available-resource set changes.
+- **P176** (high) — Treat `file://` as filesystem-like without requiring a real physical filesystem, and optionally tag non-regular files (e.g. directories) with an XDG MIME type such as `inode/directory` when no standard MIME type applies.
+- **P191** (high) — Respect capability negotiation for prompts on both the client and server sides.
+- **P225** (high) — Expose reusable prompt templates through MCP's standardized prompts feature rather than ad-hoc mechanisms, so clients can discover, retrieve, and parameterize them uniformly.
+- **P226** (high) — A server that supports prompts MUST declare the `prompts` capability during initialization before serving prompt requests.
+- **P227** (high) — Define each prompt with a unique `name` identifier and use the optional `title`, `description`, `icons`, and `arguments` fields to make it discoverable and customizable.
+- **P228** (high) — For an embedded resource in a prompt message, include a valid resource URI, the appropriate MIME type, and either text content or base64-encoded blob data.
+- **P230** (high) — Retrieve resource contents through `resources/read` keyed by the resource `uri`.
+- **P231** (high) — Always populate a resource's required `uri` and `name`; `title`, `description`, `icons`, `mimeType`, and `size` are optional and should be provided only when meaningful.
+- **P249** (medium) — Do not hard-code or mandate a specific prompt user-interaction model; leave the client free to surface prompts through whatever interface pattern fits its product.
+- **P250** (medium) — Treat content annotations (audience, priority, modification times) as optional metadata available on any prompt-message content type.
+
+## Server Completion Logging And Pagination
+
+_Run completion, logging, and pagination to spec, leaking no secrets._
+
+- **P022** (high) — Never emit credentials, secrets, PII, or exploitable internal details in logs; strip and monitor for sensitive content before sending.
+- **P049** (high) — Return completion results as a `completion` object whose `values` are relevance-ranked and capped at 100 items per response, and expose the optional `total` count and a `hasMore` boolean when further matches exist beyond those returned.
+- **P050** (high) — Honour the client-configured minimum log level: expose `logging/setLevel`, and once a level is set send only messages at that level and above via `notifications/message`.
+- **P081** (high) — Drive the pagination loop by echoing the previously returned cursor in the follow-up request's params.cursor, and stop when a response omits nextCursor (treat a missing nextCursor as end-of-results).
+- **P095** (high) — Model completion requests as `completion/complete`, identifying the target with a reference that is either `ref/prompt` (prompt by name) or `ref/resource` (resource by URI template), and naming the argument being completed by its `name` and current `value`.
+- **P099** (high) — Treat cursors as fully opaque tokens: do not parse, modify, or make assumptions about their format, and do not persist them across sessions.
+- **P100** (high) — Servers should provide stable cursors, handle invalid cursors gracefully, and return JSON-RPC error code -32602 (Invalid params) when a supplied cursor is invalid.
+- **P107** (medium) — On the client side, debounce rapid successive completion requests, cache results where appropriate, and degrade gracefully when results are missing or partial.
+- **P108** (medium) — Treat the logging presentation layer as implementation-defined: the protocol mandates no UI model, and clients may present, filter, search, visually distinguish, and persist log messages as they choose.
+- **P109** (medium) — Harden log output operationally: rate-limit messages, validate all data fields, and control access to logs.
+- **P110** (medium) — Make log data actionable and correlatable: include relevant context in the data field and use consistent logger names.
+- **P147** (high) — Use opaque cursor-based pagination (a server-issued position token), never numbered/offset pages, so the pagination scheme stays server-controlled.
+- **P148** (high) — Clients should support both paginated and non-paginated flows so they interoperate with servers regardless of whether a given response returns a nextCursor.
+- **P177** (high) — An MCP server that offers argument autocompletion MUST advertise the `completions` capability (an empty object) in its capabilities; a server that returns completion suggestions without declaring this capability is non-conformant.
+- **P178** (high) — Control access to sensitive completion suggestions and prevent completion-based information disclosure, so that probing the completion endpoint cannot enumerate or infer restricted values.
+- **P179** (high) — Rate-limit completion handling on the server: appropriate rate limiting is a security requirement, not merely an optimization.
+- **P180** (high) — Use the eight RFC 5424 syslog severity levels (debug→emergency) as the log severity vocabulary, and attach a severity to every notification.
+- **P181** (high) — Let the server determine page size; clients must not assume a fixed page size or hardcode one.
+- **P188** (medium) — Return standard JSON-RPC errors for logging failures — `-32602` for an invalid log level and `-32603` for configuration errors.
+- **P229** (high) — Validate all completion inputs before processing them.
+- **P232** (high) — Do not assume or hard-require a specific completion user-interaction model; the protocol mandates none, so present suggestions through whatever interface fits the application (e.g. an IDE-style dropdown).
+- **P233** (high) — Declare the `logging` capability before a server emits any log-message notifications.
+- **P248** (medium) — Signal completion failures with the standard JSON-RPC error codes: -32601 when the completions capability is unsupported, -32602 for an invalid prompt name or missing required arguments, and -32603 for internal errors.
+- **P251** (medium) — When completing an argument on a prompt or template that has multiple arguments, include the already-resolved argument values in `context.arguments` so the server can return context-dependent suggestions.
+- **P252** (medium) — Apply fuzzy matching to completion suggestions where appropriate rather than requiring exact prefix matches.
+
+## Elicitation
+
+_Keep elicitation user-controlled and route secrets through safe URL mode._
+
+- **P019** (high) — For third-party authorization via URL mode, keep credentials on the server side only: never self-authorize the MCP server through URL mode, never let third-party credentials transit or be transmitted to the client, never reuse the client's credentials for…
+- **P020** (high) — Apply safe URL handling on the client: never auto pre-fetch the URL or its metadata, never open it without explicit consent, show the full URL first, open it in an isolated viewer the client/LLM cannot inspect, highlight the domain and warn on suspicious…
+- **P039** (high) — Never request secrets or credentials (passwords, API keys, access tokens, payment details) through form mode; route any sensitive-information exchange through URL mode so the data never enters the client, keeping it out of the LLM context and intermediaries.
+- **P040** (high) — Negotiate elicitation support correctly: a client must declare the elicitation capability at initialization and support at least one mode (an empty object means form only), and a server must never send a request in a mode the client did not declare.
+- **P041** (high) — Constrain form schemas to a flat object of primitive properties (string, number/integer, boolean, enum) using only the supported string formats (email, uri, date, date-time); pre-populate declared defaults when supported.
+- **P042** (high) — Handle URL-mode completion notifications correctly: a server may send notifications/elicitation/complete only to the initiating client and must include the original elicitationId; clients must ignore unknown or already-completed IDs and still offer manual…
+- **P054** (high) — Keep the user in control of every elicitation: clearly identify which server is asking, respect privacy, and always present clear decline and cancel options.
+- **P061** (high) — Persist elicitation state securely bound to a verified individual user, never to a session ID alone, protect the store from unauthorized access, and for remote servers derive user identity from MCP authorization credentials (e.g. the sub claim) whenever…
+- **P083** (high) — Implement the three-action response model (accept, decline, cancel): on form-mode accept return content matching the schema, on URL-mode accept omit content and treat it as consent to begin, not proof the interaction completed.
+- **P084** (high) — Build URL mode requests completely: specify mode url, include a message, a valid url, and a unique elicitationId.
+- **P085** (high) — Apply safe URL handling on the server: never place end-user PII or credentials in the URL, never issue a URL pre-authenticated to a protected resource (it enables impersonation), avoid clickable URLs inside form-field values, and use HTTPS outside development.
+- **P088** (high) — Defend URL mode against cross-user phishing: verify that whoever opens the URL is the same user the elicitation was generated for before accepting any information, ensure the originator completes the flow, and make the identity check resilient to URL…
+- **P149** (high) — Let users vet their input before it leaves: in form mode allow review and modification of responses before sending, and in URL mode display the target domain/host and obtain explicit consent before navigating.
+- **P150** (high) — Form every elicitation/create request with a mode (optional for form, defaulting to form when omitted) and a human-readable message that explains why the interaction is needed; treat a missing mode as form.
+- **P151** (high) — Use URLElicitationRequiredError (-32042) only when a request genuinely cannot proceed until a URL-mode elicitation completes, and populate it with the list of required elicitations, each URL mode and carrying an elicitationId.
+- **P152** (high) — Give users strong runtime control: implement user-approval controls, allow declining an elicitation at any time, apply rate limiting, and present each request so it is clear what is being asked and why.
+- **P203** (high) — Return the correct JSON-RPC errors: a server must return -32042 (URLElicitationRequiredError) when a request cannot proceed until an elicitation completes, and a client must return -32602 (Invalid params) when a server uses a mode the client did not declare.
+- **P216** (high) — Understand URL mode's boundary: it exists for acquiring sensitive data or third-party authorization on the user's behalf, not for authorizing the client's access to the server, and the client's bearer token stays unchanged.
+- **P217** (high) — Bind every elicitation request to both the client and the specific user identity.
+- **P218** (high) — Never treat client-provided user identification as authoritative without server-side verification; identify users through authorization, since client-supplied identity can be forged.
+- **P220** (high) — Validate elicitation data against the schema on both sides: clients should validate responses before sending and servers should validate received data against the requested schema.
+
+## Sampling
+
+_Route server-originated LLM access through the client with explicit user approval._
+
+- **P003** (high) — Require explicit user approval of every LLM sampling request, let users control whether sampling occurs, the exact prompt sent, and what results the server may see, and limit server visibility into prompts by default.
+- **P005** (high) — Route all server-originated LLM access through the client via sampling: let the client own model access, selection, and permissions so servers need no API keys of their own.
+- **P044** (high) — Select models by preference, not by name: express costPriority, speedPriority, and intelligencePriority as normalized 0-1 values and provide advisory substring hints in order of preference; the client makes the final selection and may map hints to an…
+- **P092** (high) — Request generations with a sampling/createMessage JSON-RPC request carrying messages, optional modelPreferences, an optional systemPrompt, and maxTokens; expect a result with role, content, model, and stopReason.
+- **P093** (high) — Drive tool-enabled sampling as a multi-turn loop: send tools (name, description, inputSchema) and optional toolChoice, execute the tool_use returned under stopReason 'toolUse', append tool results, and repeat.
+- **P157** (high) — Negotiate tool use through capabilities: a client must declare sampling.tools to receive tool-enabled sampling requests, and a server must not send tool-enabled requests to a client that has not declared it.
+- **P158** (high) — A client that supports sampling must declare the sampling capability during initialization, nesting a tools object for tool-use support and a context object for context-inclusion support.
+- **P159** (high) — A user message that carries tool results must contain only tool_result blocks and no text, image, or audio, so it stays compatible with provider APIs that use dedicated tool-result roles.
+- **P160** (high) — Preserve tool-use/result balance: immediately follow any assistant message containing ToolUseContent with a user message made up entirely of ToolResultContent, matching each tool use's id to a tool result's toolUseId before any other message.
+- **P161** (high) — Support parallel tool use by accepting an array of ToolUseContent; treat disabling parallel tool use as an optional provider-specific extension, not part of core MCP.
+- **P189** (medium) — Avoid the soft-deprecated includeContext values 'thisServer' and 'allServers' (omit includeContext so it defaults to 'none'); do not use them unless the client has declared sampling.context, since they may be removed in a future release.
+- **P209** (high) — Select tool behaviour with toolChoice: 'auto' (default) lets the model decide, 'required' forces at least one tool call before completing, and 'none' forbids tool use.
+- **P219** (high) — Apply sampling security controls: clients implement user-approval controls, respect model-preference hints, and rate-limit; both parties validate message content, handle sensitive data appropriately, and enforce iteration limits when tools are used.
+- **P221** (high) — Bound the tool loop: cap the maximum number of iterations and pass toolChoice {mode: 'none'} on the final iteration to force a final text result.
+- **P222** (high) — Use only the 'user' and 'assistant' roles: return tool-use requests with the assistant role and send tool results back with the user role.
+- **P223** (high) — Support multimodal sampling content: text, image (base64 data plus mimeType), and audio (base64 data plus mimeType).
+- **P224** (high) — Return standard errors on sampling failures: user rejection as code -1, and a missing tool result or tool results mixed with other content as -32602 Invalid params.
+
+## Roots
+
+_Treat roots as hard operational boundaries kept in sync and access-safe._
+
+- **P043** (high) — Discover roots via the `roots/list` request/response and treat its `roots` array (each entry a `uri` plus optional display `name`) as the authoritative current set.
+- **P051** (medium) — A client should keep the user in control of roots: obtain consent before exposing roots, provide a clear root-management UI, verify a root's accessibility before exposing it, and monitor for subsequent changes.
+- **P089** (high) — Treat MCP roots as hard operational boundaries: a server must confine its filesystem operations to the directories and files exposed by the client as roots.
+- **P090** (high) — Keep the root set in sync via notifications: a client advertising `listChanged` must send `notifications/roots/list_changed` on any change, and a server must react by re-issuing `roots/list`.
+- **P091** (high) — A client must enforce access safety before and while exposing roots: expose only roots it has permission for, apply proper access controls, and continuously monitor root accessibility.
+- **P105** (medium) — A server should be defensive about roots at runtime: check the roots capability before using roots, validate all paths against the provided roots, and handle roots that become unavailable without failing catastrophically.
+- **P106** (medium) — Do not couple root handling to a specific UI: the protocol mandates no user-interaction model, so expose roots through whatever workspace/project interface fits, and cache root information appropriately instead of re-fetching needlessly.
+- **P153** (high) — A client that supports roots must declare the `roots` capability at initialization, and set `listChanged: true` only if it will actually emit change notifications.
+- **P154** (high) — Constrain and validate root URIs: a root `uri` must be a `file://` URI under the current spec, and a client must validate every root URI to prevent path-traversal.
+- **P247** (medium) — Return standard JSON-RPC errors for roots failures: `-32601` (method not found) when the client does not support roots, and `-32603` for internal errors.
+
+## Versioning And Conformance
+
+_Judge every behaviour against the negotiated protocol revision, not the newest._
+
+- **P012** (high) — Preserve MCP versioning scope: treat the date identifier as changing only for backwards-incompatible updates, and do not reject deprecated-but-present behavior before its removal window has elapsed.
+- **P023** (high) — Match HTTP transport expectations to the negotiated revision: HTTP plus SSE belongs to 2024-11-05, Streamable HTTP begins in 2025-03-26, and 2025-11-25 adds stricter Origin and polling-stream behavior.
+- **P024** (high) — Audit authorization requirements by revision: OAuth 2.1 appears in 2025-03-26, Resource Server metadata and RFC 8707 client behavior appear in 2025-06-18, and 2025-11-25 adds the newer discovery, consent, client metadata, and RFC 9728 alignment requirements.
+- **P027** (high) — Start every MCP conformance review by identifying the negotiated protocol revision, then judge transport, authorization, tools, schema, and lifecycle behavior against that revision rather than against the newest specification by default.
+- **P101** (high) — Review tool behavior against revision-specific MCP capabilities: annotations start in 2025-03-26, structured outputs and resource links start in 2025-06-18, and 2025-11-25 expects tool-input validation failures to be reported as Tool Execution Errors.
+- **P182** (high) — Separate human-facing and programmatic naming checks by revision: title is expected from 2025-06-18 onward, and 2025-11-25 adds broader user-facing metadata and tool-name guidance.
+- **P194** (high) — For HTTP MCP sessions on revision 2025-06-18 or newer, require the implementation to send or enforce the negotiated MCP-Protocol-Version header on post-initialization requests.
+- **P234** (high) — Treat JSON-RPC batching as a narrow version marker: allow it only for MCP 2025-03-26 and flag it as non-conformant for 2024-11-05 or 2025-06-18 and newer.
+- **P235** (high) — Apply elicitation checks only to revisions that support them, with 2025-06-18 as the starting point and 2025-11-25 as the revision that adds URL mode, expanded enum/result schema behavior, and primitive defaults.
+- **P236** (high) — Check content-type support by negotiated revision: text and image are baseline, and audio should only be expected from 2025-03-26 onward.
+- **P237** (high) — Expect sampling tool-calling controls only when auditing MCP 2025-11-25 sampling behavior.
+- **P238** (high) — Enforce lifecycle-operation requirements as mandatory for MCP 2025-06-18 and newer rather than treating them as advisory guidance.
+

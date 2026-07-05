@@ -78,6 +78,9 @@ python_files = ["test_*.py"]
 
 [tool.ruff]
 line-length = 100
+# Generated subagent packages (incl .build/gen_authored.py) are emitted artifacts, not
+# maintained source — exclude from lint, mirroring detect-secrets' subagents/ exclusion.
+extend-exclude = ["subagents"]
 target-version = "py311"
 
 [tool.ruff.lint]

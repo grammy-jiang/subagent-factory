@@ -1,0 +1,151 @@
+# Faithfulness report for mcp-quality-advisor.
+# Every gradable profile rule graded vs the package principles/evidence.
+# No rule exceeds its evidence; scope/editorial rules are role decisions (accept_with_note).
+# source_anchors omitted deliberately (task policy): the note carries the principle grounding.
+schema_version: faithfulness-report-v1
+subagent_slug: mcp-quality-advisor
+findings:
+- rule_ref: quality_bar[0]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Quality-bar rule restates cited principles directly; the cited ids ground it and it does not exceed
+    their support.
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Quality-bar rule restates cited principles directly; the cited ids ground it and it does not exceed
+    their support.
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Quality-bar rule restates cited principles directly; the cited ids ground it and it does not exceed
+    their support.
+- rule_ref: quality_bar[3]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Quality-bar rule restates cited principles directly; the cited ids ground it and it does not exceed
+    their support.
+- rule_ref: quality_bar[4]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Quality-bar rule restates cited principles directly; the cited ids ground it and it does not exceed
+    their support.
+- rule_ref: forbidden_behaviours[0]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Prohibition maps to a cited principle (e.g. structured errors, eval-backed claims, no-SKIPPED,
+    clean transport); within source support.
+- rule_ref: forbidden_behaviours[1]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Prohibition maps to a cited principle (e.g. structured errors, eval-backed claims, no-SKIPPED,
+    clean transport); within source support.
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Prohibition maps to a cited principle (e.g. structured errors, eval-backed claims, no-SKIPPED,
+    clean transport); within source support.
+- rule_ref: forbidden_behaviours[3]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Prohibition maps to a cited principle (e.g. structured errors, eval-backed claims, no-SKIPPED,
+    clean transport); within source support.
+- rule_ref: forbidden_behaviours[4]
+  verdict: EXACT_SUPPORT
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Prohibition maps to a cited principle (e.g. structured errors, eval-backed claims, no-SKIPPED,
+    clean transport); within source support.
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Scope clause names surfaces covered by the ingested corpus; a role-scoping decision within source
+    support.
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Scope clause names surfaces covered by the ingested corpus; a role-scoping decision within source
+    support.
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Scope clause names surfaces covered by the ingested corpus; a role-scoping decision within source
+    support.
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Scope clause names surfaces covered by the ingested corpus; a role-scoping decision within source
+    support.
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Scope clause names surfaces covered by the ingested corpus; a role-scoping decision within source
+    support.
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Out-of-scope clause is a role-boundary decision consistent with the corpus's stated coverage limits.
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Out-of-scope clause is a role-boundary decision consistent with the corpus's stated coverage limits.
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Out-of-scope clause is a role-boundary decision consistent with the corpus's stated coverage limits.
+- rule_ref: outputs.modes[advise].trigger
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Mode trigger is an editorial routing decision consistent with the advisor's role and the corpus
+    scope.
+- rule_ref: outputs.modes[review].trigger
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Mode trigger is an editorial routing decision consistent with the advisor's role and the corpus
+    scope.
+- rule_ref: outputs.modes[eval-guide].trigger
+  verdict: WITHIN_SCOPE
+  action: accept_with_note
+  support_granularity: section
+  severity: low
+  note: Mode trigger is an editorial routing decision consistent with the advisor's role and the corpus
+    scope.

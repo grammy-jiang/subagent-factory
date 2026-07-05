@@ -1,0 +1,14 @@
+{
+  "328": {"action": "split", "subgroups": [[564], [565]]},
+  "335": {"action": "split", "subgroups": [[575], [578]]},
+  "337": {"action": "split", "subgroups": [[577], [614]]},
+  "350": {"action": "confirm", "canonical": "Never assume an MCP list call (list_tools/list_prompts/list_resources/list_resource_templates) returns every item: they are cursor-paginated, so loop — passing the previous response's next cursor — until the next cursor is empty, even though some in-process servers return a single page."},
+  "352": {"action": "split", "subgroups": [[598], [599]]},
+  "353": {"action": "split", "subgroups": [[600], [601]]},
+  "354": {"action": "split", "subgroups": [[603], [604]]},
+  "358": {"action": "split", "subgroups": [[609], [620]]},
+  "360": {"action": "confirm", "canonical": "Use InMemoryTransport (e.g. createLinkedPair) only for in-process unit and integration testing of MCP server logic; reserve stdio or Streamable-HTTP transports for end-to-end transport-level tests and for production in-process connections."},
+  "367": {"action": "split", "subgroups": [[623], [629]]},
+  "371": {"action": "split", "subgroups": [[631], [634], [640], [641]]},
+  "374": {"action": "split", "subgroups": [[636], [638]]}
+}
