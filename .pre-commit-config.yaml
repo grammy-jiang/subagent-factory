@@ -28,7 +28,7 @@ repos:
         # books (no human secrets) and are full of content sha256 hashes that the high-entropy
         # detector reports as false positives. This matches `make secrets` (the CI gate), whose
         # file list is scoped to tools/tests/config and never includes subagents/.
-        exclude: ^(subagents/|\.secrets\.baseline$)
+        exclude: ^(subagents/|catalog/|\.secrets\.baseline$)
 
   # Block stray binaries (e.g. a source PDF/ePUB committed by mistake). 4 MB
   # clears the largest tracked distilled layer (software-architecture

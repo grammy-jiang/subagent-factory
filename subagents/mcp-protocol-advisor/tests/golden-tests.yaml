@@ -1,0 +1,108 @@
+schema_version: golden-tests-v1
+subagent_slug: mcp-protocol-advisor
+generated_at: '2026-07-05'
+profile_version: 0.1.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — task-augmented tools/call, ungated + wrong result channel
+  prompt: Our MCP server augments every slow tools/call as a task without checking any capability, and it returns the operation
+    result inside the CreateTaskResult. Review it against revision 2025-11-25.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review flagging ungated task augmentation (must gate on the tasks capability and per-tool execution.taskSupport)
+    and the two-phase violation (CreateTaskResult carries only task data; the real result comes through tasks/result), each
+    with the failure it prevents and the trade-off.
+  must_do:
+  - Require task augmentation to be gated on the declared tasks capability and per-tool execution.taskSupport, rejecting with
+    -32601 where forbidden
+  - Flag that CreateTaskResult must carry only task data and the real result must arrive through tasks/result
+  - Note that every task-related message carries related-task metadata and the task id is an access-control credential
+  - State the trade-off of tasks (polling and retention) and hand the decision to the team
+  must_not_do:
+  - Invent task behaviour the spec does not define
+  - Endorse using a capability the peer never advertised
+  principle_coverage:
+  - P029
+  - P036
+  - P075
+  - P037
+  - P079
+- test_id: GT-002
+  description: Positive routing — host-centered trust and consent for tool invocation
+  prompt: We let the model invoke MCP tools directly and plan to trust each tool's annotations for our security checks. Is
+    that enough?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: Advice that concentrates enforcement in the host, requires explicit per-tool user consent, treats tools
+    as arbitrary code execution, and refuses to trust server-supplied annotations for security decisions.
+  must_do:
+  - Concentrate security enforcement and authorization in the host, not the client or server
+  - Require explicit per-tool user consent and treat tools as arbitrary code execution
+  - Refuse to rely on tool annotations from an untrusted server for security decisions
+  - Keep a human in the loop and state the residual risk
+  must_not_do:
+  - Endorse trusting server annotations as a complete security control
+  principle_coverage:
+  - P015
+  - P052
+  - P007
+  - P053
+  - P013
+- test_id: GT-003
+  description: Positive routing — transport choice against the negotiated revision
+  prompt: We're targeting revision 2025-11-25 but our server only implements the old HTTP+SSE transport and advertises Streamable
+    HTTP. How should we handle it?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: Advice that matches transport to the negotiated revision (HTTP+SSE is 2024-11-05; Streamable HTTP begins
+    2025-03-26; 2025-11-25 adds stricter Origin and polling behaviour), with the interoperability break named.
+  must_do:
+  - Match the transport to the negotiated revision rather than the newest by default
+  - Explain that advertising a transport the server does not implement breaks interoperability
+  - Describe Streamable HTTP wire behaviour (one JSON-RPC message per POST, both accept types)
+  - State the migration trade-off and hand the decision to the team
+  must_not_do:
+  - Judge conformance against the newest spec when an older revision was negotiated
+  principle_coverage:
+  - P023
+  - P027
+  - P071
+  - P011
+negative_routing_tests:
+- test_id: GT-NEG-001
+  description: Negative routing — production implementation request
+  prompt: Write the full production MCP server in Python with every tool, resource, and prompt handler implemented so we can
+    just run it.
+  expected_route: do_not_invoke
+  expected_mode: null
+  minimum_output: 'A redirect: writing the production server implementation is out of scope; offer to review a design or a
+    specific message for conformance instead.'
+  must_not_do:
+  - Produce the production server implementation code
+  principle_coverage: []
+- test_id: GT-NEG-002
+  description: Negative routing — out-of-protocol product/model decision
+  prompt: Decide our product's pricing tiers and which base LLM we should ship with.
+  expected_route: do_not_invoke
+  expected_mode: null
+  minimum_output: 'A redirect: product strategy and model choice sit outside the MCP protocol; offer to review the MCP integration
+    or sampling contract instead.'
+  must_not_do:
+  - Make the product pricing or model-selection decision
+  principle_coverage: []
+missing_context_tests:
+- test_id: GT-MC-001
+  description: Missing context — underspecified conformance request
+  prompt: Is our MCP server spec-compliant?
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for:
+  - which protocol revision is negotiated or targeted (2024-11-05 … 2025-11-25)
+  - which side and transport is under review (host/client/server; stdio or Streamable HTTP)
+  - which capabilities the server advertises and which primitives/utilities it exposes
+  minimum_output: A request for the missing context (revision, side/transport, advertised capabilities) before a conformance
+    verdict.
+  principle_coverage:
+  - P027
+  - P058

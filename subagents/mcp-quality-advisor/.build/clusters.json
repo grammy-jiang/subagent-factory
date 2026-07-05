@@ -1,0 +1,2250 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Benchmark and evaluate tool-using LLM agents on realistic, hard tasks against real-world MCP servers connected to actual data sources, not simplified or simulated environments, so evaluation reflects authentic operational complexity."
+   },
+   {
+    "idx": 15,
+    "statement": "Minimize the exposed tool space to the tools relevant to the task: connecting additional unrelated MCP servers enlarges the tool space, injects noise, and measurably degrades agent success."
+   },
+   {
+    "idx": 29,
+    "statement": "Evaluate MCP tool-use agents on large-scale, multi-server, dynamic toolsets that force real tool retrieval and multi-tool composition; do not rely on single-server setups that inject a fixed tool list directly into the model context."
+   },
+   {
+    "idx": 62,
+    "statement": "Evaluate agent tool-use on three axes at once — realistic cross-server multi-step workflows, breadth across authentic (non-mock) servers, and reproducible claim-level scoring disentangled from verbosity and style; do not accept a benchmark that satisfies only one or two."
+   },
+   {
+    "idx": 107,
+    "statement": "Recognize that on realistic multi-server tool-use tasks the agentic frontier is not saturated and is no longer explained by function-calling mechanics alone, so evaluations must probe evidence-gathering, stopping, and synthesis."
+   },
+   {
+    "idx": 118,
+    "statement": "For coding agents, rely on deterministic outcome tests (does the code run, do the tests pass) plus an LLM rubric for overall code quality, adding heuristic code-quality rules and transcript grading of tool/user interaction only as needed."
+   },
+   {
+    "idx": 155,
+    "statement": "Minimize the complexity of the parameters the LLM must construct for a tool call; an MCP's effectiveness rises as the LLM-built parameters are simplified or optimized, and falls when the hardest construction work is offloaded to the model."
+   },
+   {
+    "idx": 316,
+    "statement": "Optimize MCP-agent efficiency by targeting protocol orchestration - schema injection, planning, transport, and result handling - not tool execution speed, which is a negligible cost fraction under lightweight-to-moderate tools."
+   },
+   {
+    "idx": 317,
+    "statement": "Expect customized MCP clients to be input-bottlenecked: LLM planning plus tool-schema injection dominate their token and latency budgets, and cloud custom setups carry a planning/prefill latency floor that grows with task complexity."
+   },
+   {
+    "idx": 405,
+    "statement": "Prioritize agent-memory and MCP-caching optimizations, because on the evaluated tool-heavy multi-turn workloads they cut end-to-end latency by up to 13x, input tokens by up to 88%, and cost by up to 66% while raising completion rates."
+   },
+   {
+    "idx": 415,
+    "statement": "Design an MCP server for a large-API platform as a capability-oriented interface: expose a small set of generic verb tools and put the intelligence in a declarative registry that maps each resource type to its API operations, rather than wrapping one tool per endpoint. Adding a resource type then means adding one registry entry, keeping the LLM's tool vocabulary constant and letting a single verb call return a composed result the agent would otherwise assemble from many API calls."
+   },
+   {
+    "idx": 416,
+    "statement": "Minimize the number of tools an MCP server exposes: every tool's name, description, parameter schema, and annotations load into the model's context on connect and tax reasoning before any prompt, and benchmark evidence shows task efficiency drops (>10 points) as tool-selection complexity rises. Consolidating many narrow tools into a few higher-level ones (e.g. 130+ to 11) can cut tool-definition context from roughly 26% to about 1.6%."
+   }
+  ]
+ },
+ {
+  "group": 2,
+  "members": [
+   {
+    "idx": 2,
+    "statement": "Design tasks around precise, objectively verifiable, multi-constraint requirements (exact counts, named waypoints, numeric thresholds, category filters) that require producing exact, inspectable end-state artifacts, so execution-based evaluators can deterministically check completion."
+   },
+   {
+    "idx": 3,
+    "statement": "Cross-check every created task and every evaluator with independent reviewers for feasibility, ambiguity, and correctness before including it in the benchmark."
+   },
+   {
+    "idx": 32,
+    "statement": "For dynamic, open-ended tasks with multiple valid solution paths, evaluate with an LLM-as-a-Judge that verifies completion against explicit key points, instead of exact tool-matching or fixed ground-truth trajectories."
+   },
+   {
+    "idx": 53,
+    "statement": "Make evaluation robust to tool-use hallucination by decomposing the task into explicit completion criteria and grounding each key point against the raw tool outputs, rather than trusting the agent's self-reported completion or brittle rule-based/answer-based checks that do not scale in dynamic environments."
+   },
+   {
+    "idx": 56,
+    "statement": "Define each evaluation key point to be atomic (one tool-mediated action), anchored to a concrete tool or observable signal, and auditable from logged inputs and outputs."
+   },
+   {
+    "idx": 111,
+    "statement": "Build evals early in development, when product requirements translate naturally into test cases; waiting forces you to reverse-engineer success criteria from a live system."
+   }
+  ]
+ },
+ {
+  "group": 3,
+  "members": [
+   {
+    "idx": 4,
+    "statement": "Prefer execution-based evaluators (objective automated checks of structured outputs or end states) over LLM-as-a-judge whenever tasks depend on real-time or time-sensitive data, because a judge's static knowledge cannot assess time-varying answers and LLM judges carry style bias and hallucination."
+   },
+   {
+    "idx": 31,
+    "statement": "Construct benchmark tasks with a two-stage human pipeline of separate proposers and validators, allowing LLM-assisted ideation only when each candidate task is human-vetted for authenticity, and having verifiers consolidate duplicates and check feasibility and execution quality."
+   },
+   {
+    "idx": 39,
+    "statement": "Choose a strong judge model for LLM-as-a-Judge evaluation, and when any single evaluator's reliability is uncertain use multi-model majority voting; relative agent rankings are robust to evaluator bias even though absolute agreement varies by judge."
+   },
+   {
+    "idx": 44,
+    "statement": "Record the limits of trajectory-based LLM evaluation: it retains residual model bias even after human-agreement validation, and it assumes tool descriptions reflect actual tool effects, an assumption that weakens as the toolset grows."
+   },
+   {
+    "idx": 75,
+    "statement": "Score with multiple independent LLM judges, always report and pin the judge model version, report per-model cross-judge score ranges, and read small rank swaps within that band as evaluator uncertainty rather than capability differences."
+   },
+   {
+    "idx": 76,
+    "statement": "Prefer structured claim-level scoring over holistic LLM-as-judge scoring, which introduces verbosity/style bias and reduces reproducibility."
+   },
+   {
+    "idx": 261,
+    "statement": "Before trusting or deploying an LLM judge, run a reliability validation suite that stress-tests it with targeted perturbations rather than relying on a single point estimate of agreement with human raters on a small validation set."
+   }
+  ]
+ },
+ {
+  "group": 4,
+  "members": [
+   {
+    "idx": 5,
+    "statement": "Structure agent evaluators into three classes: format evaluators (output-format compliance), static evaluators (time-invariant content matching against manually collected answers), and dynamic evaluators (automatically retrieved real-time ground truth)."
+   },
+   {
+    "idx": 6,
+    "statement": "For temporally sensitive tasks, implement dynamic evaluators that recompute or re-fetch ground truth by invoking the same underlying data sources or APIs the task relies on, yielding checks that stay stable and reproducible across timestamps."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 9,
+    "statement": "Do not equate more interaction steps with weaker capability: step efficiency varies independently of success rate, so judge efficiency and success separately."
+   },
+   {
+    "idx": 193,
+    "statement": "Judge efficiency by execution steps on a cost-accuracy Pareto frontier rather than by model size: richer descriptions push most tasks to more steps, and a smaller model can dominate a larger one that spends more steps for equal or lower accuracy."
+   }
+  ]
+ },
+ {
+  "group": 9,
+  "members": [
+   {
+    "idx": 11,
+    "statement": "Expect and plan for the long-context challenge: input token count grows rapidly with interaction steps and can overflow context and degrade multi-step performance, concentrated in domains whose servers return large payloads (map data, full HTML, long financial series)."
+   },
+   {
+    "idx": 157,
+    "statement": "Expect a declarative natural-language interface to also cut pre-fill (prompt) token cost substantially, because query-construction context moves server-side instead of into the prompt."
+   }
+  ]
+ },
+ {
+  "group": 11,
+  "members": [
+   {
+    "idx": 13,
+    "statement": "Mitigate the unknown-tools problem with an exploration phase in which the agent freely probes tool interfaces and constraints before an exploitation phase, but treat it as non-universal: it can fail to help or hurt, especially on tasks that require planning for state changes."
+   },
+   {
+    "idx": 36,
+    "statement": "Optimize for the exploration-exploitation balance rather than raw tool-call volume: over-exploration yields diminishing returns and accumulates errors, while under-exploration fails to adapt."
+   },
+   {
+    "idx": 37,
+    "statement": "Account for the cost of tool exploration: aggressive exploration substantially raises token consumption, so choose models and settings on the cost-versus-performance Pareto frontier."
+   }
+  ]
+ },
+ {
+  "group": 12,
+  "members": [
+   {
+    "idx": 14,
+    "statement": "Validate tool-call parameters against each tool's constraints before invoking it; a common failure is violating parameter rules such as setting identical start and end dates where the tool requires them to differ."
+   },
+   {
+    "idx": 164,
+    "statement": "Diagnose wrong-tool selection, invalid or over-broad arguments, and unnecessary steps as a specification problem in the tool description, not a model bug, since defective, underspecified, or misleading descriptions directly cause these failures."
+   },
+   {
+    "idx": 225,
+    "statement": "Validate tool (and prompt) inputs against their declared JSON schemas before execution, rather than trusting that schema-conformant declaration implies schema-conformant runtime payloads."
+   },
+   {
+    "idx": 289,
+    "statement": "Evaluate tool selection and argument correctness as two separate aspects: selecting the correct tool is necessary but not sufficient, so score whether the model supplies correct arguments independently of whether it picked the right tool."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 16,
+    "statement": "Do not assume an enterprise or product agent framework outperforms a plain ReAct loop: such frameworks can underperform, partly by relying on their internal tools instead of the task's designated MCP servers."
+   },
+   {
+    "idx": 17,
+    "statement": "Match the agent architecture to the model: optimal agent-model pairing materially changes performance, and a specialized harness (e.g., a vendor Agent SDK) can substantially beat ReAct on the same backbone model."
+   }
+  ]
+ },
+ {
+  "group": 17,
+  "members": [
+   {
+    "idx": 21,
+    "statement": "When strict output format matters, account for reasoning-tuned models' weaker adherence to formatting instructions (a concrete failure is copying the prompt's format requirements verbatim without doing the task): add explicit format checks or format-robust parsing."
+   },
+   {
+    "idx": 265,
+    "statement": "Explicitly test format invariance (blank lines, extra spaces, indentation), because judges are frequently more brittle to formatting than to semantic changes and formatting brittleness can distort downstream model comparisons and leaderboards even when meaning is unchanged."
+   }
+  ]
+ },
+ {
+  "group": 18,
+  "members": [
+   {
+    "idx": 22,
+    "statement": "Design agents to reason over partial information, adapt to diverse and unfamiliar tool interfaces, and handle ambiguous or failed tool responses gracefully, since real MCP tool use routinely presents all three."
+   },
+   {
+    "idx": 30,
+    "statement": "Build the tool environment from stable, reproducible interfaces rather than unstable or simulated APIs: aggregate real MCP servers, drop any that require proprietary API keys, curate and vet for quality, and pin a dependency-free, containerized, security-checked toolset version."
+   },
+   {
+    "idx": 48,
+    "statement": "Have annotators freely explore the toolset - its tool descriptions and real calls - to gain familiarity before proposing tasks or key points."
+   },
+   {
+    "idx": 106,
+    "statement": "Formalize the setup as a single-turn, multi-call agentic task over real servers with a controlled, allow-listed tool exposure, a reference trajectory used only for analysis, and answer-centric claims scoring; model each tool as a typed relation returning either a well-typed value or an error token, and treat the interaction as a finite-horizon POMDP whose reward is attached post-hoc via claims scoring."
+   },
+   {
+    "idx": 162,
+    "statement": "Treat each MCP tool description as the primary FM-facing interface the model uses to discover, select, parameterize, and orchestrate a tool; it is exposed to the FM alongside the tool name and input schema and directly shapes agent behavior."
+   },
+   {
+    "idx": 176,
+    "statement": "Extract tool descriptions dynamically via the MCP reflection protocol (a tools/list request returns each tool's name, description, and input schema) rather than by static source parsing, so review and scanning work across any implementation language or proprietary server."
+   },
+   {
+    "idx": 202,
+    "statement": "Advise MCP users to treat tool descriptions as mutable client-side configuration they can override at runtime without changing server code, using high-quality descriptions as a cost lever that can let a smaller, cheaper model reach parity with a larger one in a target domain before defaulting to a bigger model, since descriptions are a critical but under-engineered artifact best managed as a configurable engineering asset."
+   },
+   {
+    "idx": 208,
+    "statement": "Evaluate and author every MCP tool description against a four-dimension quality standard — accuracy, functionality, information completeness, and conciseness — which together span 18 recurring description-smell categories."
+   },
+   {
+    "idx": 239,
+    "statement": "When reviewing MCP tool handling, check tool identification (tools declared in the capabilities object with valid input/output schemas so they are discoverable and callable), tool execution (input types validated, execution terminates, runtime errors surfaced as error objects), and tool result propagation (result payload present, correctly structured, no success response masking a tool failure, no result-visibility races)."
+   },
+   {
+    "idx": 284,
+    "statement": "Treat an MCP tool's name, description, and parameter specification as the primary lever for correct tool selection: keep instructions simple and precise, and expect that even small description edits — tightening wording, adding/removing a tool, or merging similar tools — can move evaluation results significantly, while inaccurate descriptions cause wrong-tool choices, skipped steps, and malformed or missing arguments."
+   },
+   {
+    "idx": 296,
+    "statement": "Prefer standardized MCP connectors over bespoke agent-to-system integrations when building agents that must reach many external tools or data sources."
+   },
+   {
+    "idx": 297,
+    "statement": "Treat upfront loading of all MCP tool definitions as a scaling hazard, and design agents to disclose tool definitions only as needed."
+   },
+   {
+    "idx": 298,
+    "statement": "Expose MCP tools as code interfaces in a navigable filesystem or equivalent API surface when an agent has a secure execution environment."
+   },
+   {
+    "idx": 404,
+    "statement": "Give each agent a system prompt that clearly describes its role to reduce hallucination, and augment agents with external MCP tools and knowledge to mitigate reasoning errors."
+   },
+   {
+    "idx": 421,
+    "statement": "Ship a companion skills layer alongside the tools that turns raw MCP tool access into guided, IDE-native, multi-step workflows, structured in three levels: an auto-loaded shared agent-instruction file per IDE, server-side prompt templates any client can invoke, and individual slash-command skills. This cuts the 3-5 exploratory calls an agent otherwise needs to learn a resource model and the token waste from failed calls and retries."
+   }
+  ]
+ },
+ {
+  "group": 20,
+  "members": [
+   {
+    "idx": 24,
+    "statement": "Implement execution-based evaluators as code that returns a (pass/fail boolean, reason string) pair, so every failed check carries a diagnostic message explaining why it failed."
+   },
+   {
+    "idx": 124,
+    "statement": "Seed the initial eval set from what you already test manually plus the bug tracker and support queue, converting real user-reported failures into test cases and prioritising by user impact."
+   }
+  ]
+ },
+ {
+  "group": 21,
+  "members": [
+   {
+    "idx": 25,
+    "statement": "Gate content checks behind a format check: an evaluator should first verify that required output keys are present and coercible to their expected types, and only then validate the values."
+   },
+   {
+    "idx": 624,
+    "statement": "Gate CI/CD on the tool's process exit code (0 compliant, 1 non-compliant) and archive the --json-report output as the machine-readable validation evidence artifact."
+   }
+  ]
+ },
+ {
+  "group": 24,
+  "members": [
+   {
+    "idx": 28,
+    "statement": "Include tasks that require multi-hop reasoning over scattered clues to uniquely identify a target entity and report a specific identifier, exercising evidence aggregation rather than single-lookup retrieval."
+   },
+   {
+    "idx": 88,
+    "statement": "Design tasks to be reasoning-intensive and multi-step, requiring the agent to resolve indirect references or filter datasets across multiple sources."
+   }
+  ]
+ },
+ {
+  "group": 25,
+  "members": [
+   {
+    "idx": 33,
+    "statement": "Structure a large-toolset agent as an adaptive decision loop with distinct Route (retrieve candidate tools), Execute (invoke a tool and observe feedback), and Response (finish) actions, rather than a fixed retrieve-then-execute pipeline, so it can re-route after errors and combine outputs across tools."
+   },
+   {
+    "idx": 35,
+    "statement": "Prefer and reward active tool composition: agents that proactively interact with the tool environment (retrieving, executing, and combining multiple tools) succeed more than conservative agents that use roughly one tool per task."
+   },
+   {
+    "idx": 45,
+    "statement": "Expect realistic large-scale toolsets to contain noisy or redundant tools: only a relevant subset is exercised by real tasks, so design retrieval and benchmarks to surface that subset rather than assuming every tool is needed."
+   },
+   {
+    "idx": 59,
+    "statement": "Structure a large-toolset agent around two explicit operations - a retrieval (route) tool used as the discovery step when the model cannot solve the request alone or is unsure which tool to use, and an execution tool that may invoke only tools returned by the preceding route step and may retry a failing execution up to three times."
+   },
+   {
+    "idx": 348,
+    "statement": "Apply the same embedding-retrieval mechanism beyond single-tool selection when scaling: agent selection (embed agent capability descriptions for two-level agent-then-tool routing), cross-organizational federated discovery (per-org indexes merged by a coordination layer preserving ownership and access control), and dynamic tool composition (mine the feedback loop for co-occurring tool chains to retrieve whole pipelines)."
+   },
+   {
+    "idx": 384,
+    "statement": "Route every downstream tool call through a client pool that discovers tools via tools/list at initialization and treats each tool as a pure function (name, params) -> result over its transport (stdio, SSE, or streamable-HTTP)."
+   }
+  ]
+ },
+ {
+  "group": 26,
+  "members": [
+   {
+    "idx": 34,
+    "statement": "Score candidate tools during retrieval by combining server-level and tool-level similarity so that server-level priors dominate when the tool-level match is weak."
+   },
+   {
+    "idx": 60,
+    "statement": "Structure the retrieval query with an explicit server-and-tool descriptor - server as the platform or permission domain and tool as the operation type plus target - and generate a concise server-level summary from each server's name, description, and tools to support server-level retrieval."
+   },
+   {
+    "idx": 318,
+    "statement": "On complex, open-ended tasks the tool-result (retrieval) phase dominates the token budget across client types; large or retained tool outputs, not tool execution time, are the primary inflator."
+   }
+  ]
+ },
+ {
+  "group": 27,
+  "members": [
+   {
+    "idx": 38,
+    "statement": "Retrieve around five candidate tools per query: retrieving too few (k=1) significantly hurts success while increasing beyond five plateaus, and the tool-retrieval methodology - not the embedding model choice - is the dominant bottleneck, so invest there first."
+   },
+   {
+    "idx": 43,
+    "statement": "Do not assume a retrieval-over-large-toolset method with a rigid pipeline is sufficient: prior approaches are limited by inflexible invocation and weak error recovery, and some by manually built, low-diversity toolsets."
+   },
+   {
+    "idx": 218,
+    "statement": "Prioritize remediation by measured impact on tool selection — functionality first (+11.6%), then accuracy (+8.8%), then information completeness (+5.9%), then conciseness (+1.5%) — and adjust for query specificity: emphasize a clear, distinct functional description for underspecified queries and thorough completeness for detailed queries. Because the dimensions interact, improving one (for example adding parameter docs) can also improve another."
+   },
+   {
+    "idx": 336,
+    "statement": "Choose retrieval parameters on accuracy grounds, because the token and latency savings are essentially free and domain-invariant: semantic filtering removes ~99% of tool-definition tokens across every server and K, and retrieval adds sub-100ms latency negligible next to LLM inference."
+   }
+  ]
+ },
+ {
+  "group": 28,
+  "members": [
+   {
+    "idx": 40,
+    "statement": "Diagnose agent failures into distinct categories - query errors (poor or wrong-granularity queries from weak task decomposition), retrieve errors (retriever misses a semantically equivalent tool), tool errors (correct tool invoked with wrong parameters), and other errors (unhandled transient failures) - and route each to its own remediation."
+   },
+   {
+    "idx": 41,
+    "statement": "Build explicit error-handling into the agent framework - retries, failure recovery, and adaptive re-exploration - because agents that abandon a task on a transient failure (e.g., a network timeout) constitute a distinct and avoidable failure class."
+   },
+   {
+    "idx": 72,
+    "statement": "Diagnose failures with a fixed 11-mode taxonomy split into a tool-call family (malformed parameters, wrong tool, no tool use, failed error recovery) and a cognitive family (task misunderstanding, faulty synthesis, misparsing, early termination, hallucination, logical error, constraint violation)."
+   },
+   {
+    "idx": 371,
+    "statement": "Treat tool-summary quality as a reliability dependency: most routing failures trace to ambiguous user queries or cryptic tool descriptions, so invest in clear, disambiguated, regenerated summaries and expect residual ambiguous-query cases to require clarification turns."
+   }
+  ]
+ },
+ {
+  "group": 29,
+  "members": [
+   {
+    "idx": 42,
+    "statement": "Treat large tool-invocation agents as a security surface: validate tools and monitor execution to guard against maliciously disguised tools and against destructive erroneous invocations such as unintended file deletion."
+   },
+   {
+    "idx": 217,
+    "statement": "Treat misleading or incomplete tool descriptions as a security surface, not merely a usability issue: they can enable tool abuse, privilege escalation, and data exfiltration."
+   },
+   {
+    "idx": 256,
+    "statement": "Treat MCP tools as untrusted and map each threat vector to its defense: prompt injection via image metadata to sanitization and semantic filters, schema bypass to strict enforcement and audit logs, remote code execution to capability scoping and sandboxing, privilege escalation to role-based tool binding, stale memory to TTL and garbage collection, cross-tool leakage to secure memory zones, provenance loss to output tagging, and command injection to input escaping."
+   },
+   {
+    "idx": 353,
+    "statement": "Evaluate a tool-heavy agent on all three coupled failure modes of the Tools Tax - cost, reasoning degradation, and an enlarged tool-poisoning attack surface - not on token cost alone, because reducing in-context schemas improves all three at once."
+   }
+  ]
+ },
+ {
+  "group": 30,
+  "members": [
+   {
+    "idx": 46,
+    "statement": "Judge benchmark quality by domain coverage, generality, and compositional depth (multi-hop and cross-domain tasks) rather than by sheer task count."
+   },
+   {
+    "idx": 47,
+    "statement": "Require benchmark tasks to satisfy three design principles: real-world relevance, temporal dynamics (time-sensitive tasks needing real-time retrieval rather than static internal knowledge), and tool diversity (needing integration of multiple tools rather than one sufficient tool)."
+   },
+   {
+    "idx": 79,
+    "statement": "Maintain task and harness quality through layered assurance (expert reference-trajectory execution, domain-expert correctness/solvability review, tool/server name-leakage review, automated claim-completeness verification, random-sample manual audit), and prefer systematic manual verification over automated task generation, which can compromise quality and naturalism."
+   },
+   {
+    "idx": 120,
+    "statement": "For research agents, judge quality relative to the task by combining groundedness checks (claims supported by retrieved sources), coverage checks (key facts a good answer must include), and source-quality checks (authoritative, not merely first-retrieved sources), and frequently calibrate the LLM rubrics against expert human judgment."
+   },
+   {
+    "idx": 125,
+    "statement": "Write unambiguous tasks: a good task is one where two domain experts would independently reach the same pass/fail verdict, and everything the grader checks is clear from the task description, so agents don't fail on ambiguous specs."
+   }
+  ]
+ },
+ {
+  "group": 31,
+  "members": [
+   {
+    "idx": 49,
+    "statement": "Verify a benchmark's claimed runtime dynamism by individually confirming that online-information tools fetch real data from live sources rather than returning simulated or pre-cached static responses."
+   },
+   {
+    "idx": 67,
+    "statement": "Run evaluation against exclusively real, production servers rather than mocked substitutes so authentic error modes (rate limits, pagination, schema-version mismatches, transient errors) are exercised."
+   },
+   {
+    "idx": 161,
+    "statement": "Pin and report the benchmark runtime environment, timeout, and transport mode (and note any per-server exceptions) so results are reproducible and comparable."
+   },
+   {
+    "idx": 374,
+    "statement": "Report efficiency work reproducibly and honestly: fix seeds, release a no-API token-counting harness, validate on a community-standard benchmark rather than only synthetic (even if calibrated) workloads, and explicitly mark projected downstream metrics as extrapolations to be verified against live agents."
+   }
+  ]
+ },
+ {
+  "group": 33,
+  "members": [
+   {
+    "idx": 51,
+    "statement": "Select the evaluation metric to match the question: single-run success rate as the primary metric, pass@k to assess the ability to discover diverse solution paths, and pass^k to assess consistency and reliability."
+   },
+   {
+    "idx": 122,
+    "statement": "Select the aggregate metric by what matters: use pass@k (probability of at least one correct solution in k attempts; rises with k) when only one success is needed (e.g. pass@1 for coding), and pass^k (probability all k trials succeed; falls with k) for customer-facing agents needing consistent, reliable behaviour every time."
+   }
+  ]
+ },
+ {
+  "group": 34,
+  "members": [
+   {
+    "idx": 52,
+    "statement": "Pin a specific recommended judge model (e.g., DeepSeek-V3-0324) for reproducible results, while allowing substitution by models with higher human agreement or more robust frameworks."
+   },
+   {
+    "idx": 262,
+    "statement": "Treat judge reliability as a joint property of the whole configuration — model, rubric, and prompt template — and report that reliability alongside the benchmark results the judge produces."
+   },
+   {
+    "idx": 275,
+    "statement": "Evaluate all candidate judges on the same fixed, curated synthetic test set per benchmark so that judge comparisons are made on identical inputs."
+   },
+   {
+    "idx": 278,
+    "statement": "Do not assume any single judge is uniformly reliable, or that the largest or most expensive model is the best judge; benchmark cost against reliability, since a smaller, cheaper open model can match or beat premium frontier judges at a fraction of the inference cost."
+   },
+   {
+    "idx": 281,
+    "statement": "Adopt reliability-aware judge selection, reporting, and benchmarking: identify and rule out unreliable judge configurations before they influence model comparisons or safety evaluations."
+   }
+  ]
+ },
+ {
+  "group": 36,
+  "members": [
+   {
+    "idx": 55,
+    "statement": "Consider per-step, agent-based assessment of each trajectory step to close the long-trajectory evaluation blind spot, but weigh it against the significant loss of evaluation efficiency it incurs."
+   },
+   {
+    "idx": 96,
+    "statement": "Examine the agent trajectory turn-by-turn for progression signals: forward progress versus looping on the same call, adaptive versus identical retry after an error, unproductive tool switching when one correct tool was available, and stopping while required data is still missing."
+   }
+  ]
+ },
+ {
+  "group": 39,
+  "members": [
+   {
+    "idx": 61,
+    "statement": "Instruct the evaluation judge to fail a task when required information came from the model's internal knowledge rather than an actual tool call, and to require file creation for tasks that specify it."
+   },
+   {
+    "idx": 82,
+    "statement": "Require every task to be tool-dependent and stable: it must need external data to solve and rely on information that stays valid throughout the evaluation window."
+   }
+  ]
+ },
+ {
+  "group": 40,
+  "members": [
+   {
+    "idx": 63,
+    "statement": "Author evaluation prompts as single-turn natural language that never name any server, tool, or parameter, avoid subjective phrasing, and never reveal internal mechanics or the solution path, so the agent must infer the tool chain itself."
+   },
+   {
+    "idx": 167,
+    "statement": "Evaluate and author tool descriptions in terms of six components (Purpose, Usage Guidelines, Limitations, Parameter Explanation, Length & Completeness, Examples), grouped into requirement-like specification components (Purpose, Limitations, Parameter Explanation, Examples) and prompt-like instructional components (Usage Guidelines, Length & Completeness)."
+   },
+   {
+    "idx": 175,
+    "statement": "When automatically scoring tool descriptions, apply a well-defined analytic rubric (more consistent than open-ended prompts) via a multi-model LLM jury drawn from disparate model families to mitigate single-model bias; such rubric scoring aligns with human judgment at substantial agreement."
+   }
+  ]
+ },
+ {
+  "group": 41,
+  "members": [
+   {
+    "idx": 64,
+    "statement": "Score final answers against a list of atomic, independently verifiable claims grounded in tool outputs and decoupled from any specific trajectory, so any valid tool-call path that yields the same claims gets full credit."
+   },
+   {
+    "idx": 101,
+    "statement": "Release a public split with, per task, the task id, enabled tool list, natural-language prompt, grounded claims, and reference trajectory — the trajectory supporting reproducibility, smoke tests, solvability audits, and diagnostics but never used as a scoring target."
+   }
+  ]
+ },
+ {
+  "group": 43,
+  "members": [
+   {
+    "idx": 66,
+    "statement": "Populate every task's exposed tool set with plausible, semantically-similar distractor tools so the evaluation tests tool discovery under noise, not just execution with a known API."
+   },
+   {
+    "idx": 89,
+    "statement": "Construct each task's tool environment for sufficiency (the minimum necessary relevant tools) plus plausible-but-irrelevant distractors, and for multi-source tasks require combining evidence across tool families without introducing unnecessary ambiguity."
+   }
+  ]
+ },
+ {
+  "group": 46,
+  "members": [
+   {
+    "idx": 70,
+    "statement": "Evaluate all models under matched task-level conditions (same prompt, tool set, budget, rubric, final-answer protocol) with no model-specific demonstrations, retries, or scaffolding, while still following a provider's recommended native tool-calling strategy where one exists."
+   },
+   {
+    "idx": 90,
+    "statement": "Ship each task with a reference trajectory (a gold-standard sequence of calls with rationales) and a grounded final answer that is strictly supported by tool outputs."
+   },
+   {
+    "idx": 103,
+    "statement": "Allow a bounded number of per-task retries with tool-error summaries fed back into the model context for fairness, and permit partial-response grading when the model reaches the tool-call limit."
+   },
+   {
+    "idx": 207,
+    "statement": "When building tasks to ground or evaluate a tool, write self-contained plain-English questions with a single unambiguous answer reachable in one tool call, specifying all inputs, varying values across tasks, and spanning medium/hard/very-hard difficulty; then synthesize Examples and Limitations strictly from the observed executions, each example a real observation with exact arguments and response (preferring edge and error cases) and each limitation a tool-specific fact seen in a trace, never invented, never generic API advice, and never a verbatim repeat of the description."
+   }
+  ]
+ },
+ {
+  "group": 48,
+  "members": [
+   {
+    "idx": 73,
+    "statement": "Expect cognitive failures to dominate once basic tool mechanics are solved: the bottleneck moves to deciding when enough evidence is gathered and synthesizing the answer, so target claim-aware stopping criteria and trajectory-grounded verification of the answer against collected evidence."
+   },
+   {
+    "idx": 74,
+    "statement": "Watch for a tool-use policy mismatch in which reasoning-trained models emit no tool calls on tasks that require external evidence, and treat frequent no-tool-use as a calibration failure rather than a capability limit."
+   }
+  ]
+ },
+ {
+  "group": 49,
+  "members": [
+   {
+    "idx": 77,
+    "statement": "Use reference trajectories only for solvability checks, tool-dependence validation, and post-hoc diagnostics — never for pass/fail scoring."
+   },
+   {
+    "idx": 85,
+    "statement": "Mitigate reference-trajectory path bias in diagnostics by using claim-based pass/fail scoring, diagnosing only after a failure, and treating the trajectory as one sufficient evidence trace."
+   }
+  ]
+ },
+ {
+  "group": 59,
+  "members": [
+   {
+    "idx": 93,
+    "statement": "State the language and locale scope of the benchmark explicitly (for example, English-only prompts bound the conclusions and exclude non-English tool use, script handling, and localization failures)."
+   },
+   {
+    "idx": 287,
+    "statement": "Specify every evaluation benchmark as a triple: the input (a natural-language user request), the expected tools to be called, and the expected arguments for each tool."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 94,
+    "statement": "Include the reference trajectory in the diagnostic prompt as a verified evidence trace (not a target policy) so the diagnostic judge can localize failures against the missed claims."
+   },
+   {
+    "idx": 95,
+    "statement": "Instruct the diagnostic judge to localize a failure relative to the missed claims and to never penalize alternative valid plans, different tool orderings, extra or parallel calls, or different parameterizations that produce the same claim-supporting evidence."
+   },
+   {
+    "idx": 97,
+    "statement": "Structure the diagnostic prompt in ordered stages: anchor on the ground-truth trajectory and expected claims, examine the actual agent behavior, consider which claims were missed and why (using the scorer's per-claim reasoning as evidence), then map to a failure mode."
+   }
+  ]
+ },
+ {
+  "group": 61,
+  "members": [
+   {
+    "idx": 98,
+    "statement": "In failure diagnosis assign one primary failure mode (the one best explaining the coverage gap) plus contributing modes from the same fixed vocabulary, mark a mode as root cause only when it caused downstream failures, calibrate diagnostic confidence explicitly, and resolve tricky boundaries with explicit disambiguation rules."
+   },
+   {
+    "idx": 99,
+    "statement": "Use one shared set of failure-mode definitions for both human reviewers and the automated diagnostic judge to keep classification consistent."
+   }
+  ]
+ },
+ {
+  "group": 67,
+  "members": [
+   {
+    "idx": 109,
+    "statement": "Grade the outcome (the final state in the environment at the end of a trial), not what the transcript claims the agent did; verify the real end state (e.g. the reservation exists in the database) rather than trusting a success message."
+   },
+   {
+    "idx": 135,
+    "statement": "Read transcripts and grades from many trials regularly and invest in transcript-viewing tooling, because you cannot know whether graders work without doing so; a failed-task transcript reveals whether the agent made a genuine mistake or the grader rejected a valid solution."
+   }
+  ]
+ },
+ {
+  "group": 69,
+  "members": [
+   {
+    "idx": 112,
+    "statement": "Treat evals as a high-bandwidth communication channel between product and research: eval tasks define the concrete metrics researchers can optimise against."
+   },
+   {
+    "idx": 113,
+    "statement": "Without evals, teams debug reactively and cannot distinguish real regressions from noise, test changes at scale before shipping, or measure improvement; good evals make behavioural changes visible before they reach users."
+   },
+   {
+    "idx": 142,
+    "statement": "Enable the people closest to requirements and users (product managers, customer success, salespeople) to contribute eval tasks directly (e.g. as a PR), since they are best positioned to define success."
+   },
+   {
+    "idx": 143,
+    "statement": "Understand each evaluation method's trade-offs before relying on it: automated evals give fast, reproducible, no-user-impact iteration but need maintenance and can create false confidence; production monitoring gives ground truth but is reactive and noisy; A/B testing measures real outcomes and controls confounds but is slow and needs traffic; user feedback surfaces unanticipated problems but is sparse and skewed; manual transcript review builds intuition but doesn't scale; human studies are gold-standard but expensive and slow."
+   }
+  ]
+ },
+ {
+  "group": 72,
+  "members": [
+   {
+    "idx": 116,
+    "statement": "Set target pass rates by eval purpose: capability ('quality') evals should start at a low pass rate on tasks the agent struggles with, while regression evals should sit near 100% so any decline signals breakage."
+   },
+   {
+    "idx": 117,
+    "statement": "Once an agent is launched and optimised, graduate high-pass-rate capability evals into a regression suite run continuously to catch drift."
+   },
+   {
+    "idx": 126,
+    "statement": "Treat a 0% pass rate across many trials with frontier models (e.g. 0% pass@100) as most likely a broken task or grader, not an incapable agent, and investigate the eval before concluding the agent failed."
+   },
+   {
+    "idx": 138,
+    "statement": "Watch for saturation: an eval at 100% pass rate tracks regressions but gives no signal for improvement, and near saturation large capability gains show up as small score increases (e.g. SWE-Bench Verified moved from ~30% to >80% within a year), so retire or refresh saturated evals for capability measurement."
+   }
+  ]
+ },
+ {
+  "group": 73,
+  "members": [
+   {
+    "idx": 119,
+    "statement": "For conversational agents, evaluate the interaction itself: combine verifiable end-state outcomes, transcript constraints (e.g. finished under N turns), and LLM rubrics for task completion and interaction quality, often using a second LLM to simulate the user across multi-turn dialogue."
+   },
+   {
+    "idx": 271,
+    "statement": "Build agentic-transcript perturbations with a staged LLM pipeline — plan the edit steps, apply them coherently with an editor that accounts for preceding turns, consolidate state with a summarizer, and confirm the target outcome with an optional verifier — so each edit stays logically consistent with the rest of the transcript."
+   }
+  ]
+ },
+ {
+  "group": 76,
+  "members": [
+   {
+    "idx": 127,
+    "statement": "Create a reference solution—a known working output that passes all graders—for each task to prove the task is solvable and to verify the graders are configured correctly."
+   },
+   {
+    "idx": 134,
+    "statement": "Make graders resistant to bypasses and hacks so that passing genuinely requires solving the problem rather than exploiting unintended loopholes."
+   }
+  ]
+ },
+ {
+  "group": 80,
+  "members": [
+   {
+    "idx": 131,
+    "statement": "For tasks with multiple components, build in partial credit so an agent that completes some steps scores above one that fails immediately, giving finer-grained signal."
+   },
+   {
+    "idx": 147,
+    "statement": "Apply the constant fundamentals across all agent types: start early, source realistic tasks from observed failures, define unambiguous and robust success criteria, design graders thoughtfully by combining multiple types, make problems hard enough for the model, iterate to improve signal-to-noise, and read the transcripts."
+   }
+  ]
+ },
+ {
+  "group": 81,
+  "members": [
+   {
+    "idx": 132,
+    "statement": "Calibrate LLM-as-judge graders against human experts, give the judge an explicit way out (e.g. return 'Unknown' when it lacks information) to avoid hallucination, and use clear structured rubrics that grade each dimension with an isolated judge rather than one judge for all dimensions."
+   },
+   {
+    "idx": 152,
+    "statement": "When grading free-form answers at scale, use an LLM judge that returns a binary correct/incorrect verdict on whether the prediction covers the ground-truth key information."
+   }
+  ]
+ },
+ {
+  "group": 82,
+  "members": [
+   {
+    "idx": 133,
+    "statement": "Double-check tasks and graders before trusting low scores, because subtle failure modes—grading bugs, agent-harness constraints, or ambiguity—can produce low scores despite good agent performance (e.g. a model rose from 42% to 95% on CORE-Bench after fixing rigid grading, ambiguous specs, and non-reproducible tasks)."
+   },
+   {
+    "idx": 136,
+    "statement": "Design evals so failures seem fair—it is clear what the agent got wrong and why—so that when scores don't climb you can be confident it is due to agent performance and not a broken eval."
+   }
+  ]
+ },
+ {
+  "group": 85,
+  "members": [
+   {
+    "idx": 140,
+    "statement": "Make owning and iterating on evaluations as routine as maintaining unit tests, because teams can waste weeks on AI features that 'work' in early testing but fail unstated expectations a good eval would surface early."
+   },
+   {
+    "idx": 141,
+    "statement": "Practice eval-driven development: define eval tasks that express planned capabilities before the agent can fulfil them, then iterate until it performs well; defining the tasks also stress-tests whether product requirements are concrete enough to build, and low starting pass rates make progress on bets visible."
+   }
+  ]
+ },
+ {
+  "group": 86,
+  "members": [
+   {
+    "idx": 144,
+    "statement": "Map evaluation methods to lifecycle stages: automated evals pre-launch and in CI/CD, production monitoring post-launch for drift, A/B testing to validate significant changes once traffic suffices, ongoing user-feedback triage and weekly transcript sampling, and reserve systematic human studies for calibrating LLM graders or evaluating subjective outputs."
+   },
+   {
+    "idx": 288,
+    "statement": "Structure the offline evaluation pipeline as three stages — fulfillment (run each benchmark across multiple models with the full tool list supplied, recording invoked tools and arguments), evaluation (compute metrics and scores from the raw outputs), and summarization (aggregate dataset-level statistics into a final report)."
+   }
+  ]
+ },
+ {
+  "group": 89,
+  "members": [
+   {
+    "idx": 148,
+    "statement": "Do not assume an MCP server outperforms an equivalent function-call/tool-use implementation on accuracy; MCP wrapping alone yields no measured accuracy gain, so justify MCP adoption by other benefits (standardization, interoperability) rather than expected accuracy."
+   },
+   {
+    "idx": 149,
+    "statement": "Evaluate an MCP server on three axes together — answer accuracy, end-to-end latency, and token consumption — not accuracy alone, because efficiency and cost vary more sharply across servers than accuracy does."
+   },
+   {
+    "idx": 154,
+    "statement": "Expect a wide performance spread across MCP servers (measured accuracy ~10-64%, latency <15s to ~231s) and select a server by benchmarking candidates on your own task instead of trusting popularity or defaults."
+   },
+   {
+    "idx": 223,
+    "statement": "Verify MCP servers at the protocol-runtime level, not only at build time: a server can compile successfully and conform to its specification yet still violate its coordination obligations at runtime, so build success and spec conformance do not imply correct runtime behavior."
+   },
+   {
+    "idx": 306,
+    "statement": "Choose a code-execution MCP architecture only when the expected token, latency, privacy, or composition gains justify the added infrastructure and security cost."
+   },
+   {
+    "idx": 326,
+    "statement": "Profile MCP at the protocol level rather than as an end-to-end black box: standardization removes n-by-m integration glue but adds schema-discovery, injection, and context-management overhead that answer-level benchmarks miss and that affects latency and tokens even when answer quality is unchanged."
+   },
+   {
+    "idx": 399,
+    "statement": "Wrap each MCP server as an HTTP-exposed FaaS function (e.g. a Lambda Function URL), because MCP's stdio/local transports cannot be embedded directly in a function; this mimics a remote MCP server, gains FaaS scaling, and isolates tool execution for security."
+   },
+   {
+    "idx": 418,
+    "statement": "Frame the CLI-versus-MCP choice as a question of tool design, not of protocol: the token-cost gap benchmarks attribute to MCP comes from tool-schema bloat and naive one-tool-per-endpoint design, so a well-designed MCP server removes the cost argument against MCP without giving up its advantages."
+   },
+   {
+    "idx": 626,
+    "statement": "For stdio servers, separate the target server command with a `--` so mcp-validate does not consume the server's own flags (required for npx and similar wrapped commands)."
+   }
+  ]
+ },
+ {
+  "group": 91,
+  "members": [
+   {
+    "idx": 151,
+    "statement": "Scope effectiveness evaluation to data-fetching MCPs, whose accuracy is directly measurable, and treat world-changing MCPs separately because verifying their effect requires inspecting post-action state you may not be able to access."
+   },
+   {
+    "idx": 503,
+    "statement": "MCP feature scope: the tier audit scores 48 non-experimental features (36 core, 6 transport, 6 protocol); the 5 Tasks features are experimental and informational and do not count."
+   }
+  ]
+ },
+ {
+  "group": 97,
+  "members": [
+   {
+    "idx": 163,
+    "statement": "Design every tool description to serve a dual role: a requirement-like specification of the tool's expected behavior and parameter constraints, and a prompt-like instruction that guides the FM's reasoning about when and how to invoke it."
+   },
+   {
+    "idx": 177,
+    "statement": "Do not write Examples or the full Limitations from the description alone; ground them in observed tool executions by generating at least one success task and one error task per tool plus edge cases (prioritizing harder cases first), because an FM cannot reliably infer them without traces and augmentation must preserve the tool's original meaning and intent."
+   }
+  ]
+ },
+ {
+  "group": 98,
+  "members": [
+   {
+    "idx": 165,
+    "statement": "Give every tool input an explicit argument name and state its data type and expected format (for example yyyy-mm-dd) so the FM issues correctly bounded calls instead of defaulting to broad parameters that inflate tool-response size and token cost."
+   },
+   {
+    "idx": 170,
+    "statement": "Ensure every tool description clearly states its purpose (the function, behavior, and return data), guides the FM on when and how to use the tool, and includes relevant caveats; a bare purpose statement without behavioral or output detail is only minimally viable."
+   },
+   {
+    "idx": 173,
+    "statement": "Account for tool metadata being repeatedly injected into the FM context on every interaction: excessive detail saturates the context window and raises cost, so any augmentation must justify its token cost and seek compact representations."
+   }
+  ]
+ },
+ {
+  "group": 99,
+  "members": [
+   {
+    "idx": 166,
+    "statement": "Assume tool-description quality is poor by default and always review it: in a large empirical study 97.1% of descriptions carried at least one smell and 56% failed to state purpose clearly, where a smell is a recurring component-specific pattern that degrades clarity, correctness, or maintainability without being an outright fault."
+   },
+   {
+    "idx": 183,
+    "statement": "Prioritize the most prevalent smells when reviewing descriptions: Unstated Limitations (~90%), Missing Usage Guidelines (~89%), and Opaque Parameters (~84%) dominate, only ~2.9% of descriptions are fully smell-free, and completeness drops sharply as more components are required, so most descriptions lack boundary conditions, when/how-to-use guidance, and parameter insight."
+   },
+   {
+    "idx": 184,
+    "statement": "Do not assume a description is good because it comes from an official server or reputable vendor: quality shows no significant official-vs-community difference (23 official and 80 community servers were comparably smelly), and minimal one-line descriptions that merely restate the tool name are below-median quality."
+   },
+   {
+    "idx": 194,
+    "statement": "Interpret a rubric smell as a potential risk signal, not a deterministic predictor of failure: whether a missing component actually hurts depends on tool complexity, task difficulty, available context budget, and the model's prior exposure to the tool, API, or domain."
+   },
+   {
+    "idx": 199,
+    "statement": "Treat tool descriptions as first-class engineering artifacts: run rubric-based smell detection in review or CI as a blocking release criterion, fix the highest-leverage components first, add examples or exhaustive parameter detail only where they justify their token cost, and use manual refinement for small servers but reviewed semi-automated augmentation for large ones, always resolving ambiguity without inflating the token footprint past its efficiency payoff."
+   },
+   {
+    "idx": 204,
+    "statement": "Because description quality is systemically poor and cannot be reliably delegated to individual teams, support ecosystem-level gating: registries and marketplaces should scan published servers and surface smell summaries, quality badges, and threshold warnings, analogous to security advisories in package registries."
+   }
+  ]
+ },
+ {
+  "group": 102,
+  "members": [
+   {
+    "idx": 171,
+    "statement": "Treat augmentation gains as real but neither free nor universal: augmenting all components raised task success by about 5.85 percentage points (median) and partial-goal completion by about 15.12%, but increased execution steps by about 67.46% (median) and regressed roughly 16.67% of cases."
+   },
+   {
+    "idx": 186,
+    "statement": "Apply augmentation adaptively per domain and model rather than uniformly: gains improved roughly 54% of runs but regressed roughly 17%, help is largest in some domains and negative in others, and richer descriptions raise partial-goal completion even when final success is capped by an iteration limit."
+   },
+   {
+    "idx": 187,
+    "statement": "Budget for augmentation's cost side: median execution steps rose about 67% and token usage rose materially (about +22-41% input, +11-69% output), though the penalty is not universal, since a smaller model reduced its steps while still improving success and evaluator scores."
+   }
+  ]
+ },
+ {
+  "group": 103,
+  "members": [
+   {
+    "idx": 172,
+    "statement": "Prefer shorter, targeted descriptions that preserve the core semantic content: no single component combination performs best everywhere, compact variants often match full augmentation while cutting tokens, and removing Examples typically does not degrade performance."
+   },
+   {
+    "idx": 191,
+    "statement": "Drop the Examples component first when trimming a description: removing it did not significantly degrade performance and even slightly improved cross-domain consistency, consistent with Anthropic's deprioritization though contrary to generic few-shot expectations; keep examples only where a tool is unfamiliar or complex enough to benefit."
+   },
+   {
+    "idx": 200,
+    "statement": "Where you influence protocol or server design, expose description components as structured fields rather than one monolithic text blob, so agents can assemble the most effective, budget-appropriate description profile at runtime."
+   }
+  ]
+ },
+ {
+  "group": 104,
+  "members": [
+   {
+    "idx": 174,
+    "statement": "Do not assume that Agent Skills (progressive discovery) or Tool Search (on-demand lookup) remove the need for good tool descriptions; they reduce context loading but the FM still relies on descriptions to select and invoke tools."
+   },
+   {
+    "idx": 179,
+    "statement": "Always include the Purpose component in a tool description and in any pruned component subset, because without it the FM cannot infer what the tool does or when to use it."
+   },
+   {
+    "idx": 222,
+    "statement": "Apply the same description-quality discipline to Agent Skill metadata: because progressive disclosure loads only the Skill's name and summary at startup to decide activation, that description metadata determines whether the correct Skill is discovered, so author it with the same accuracy, functionality, completeness, and conciseness rigor."
+   }
+  ]
+ },
+ {
+  "group": 110,
+  "members": [
+   {
+    "idx": 188,
+    "statement": "Use a description that conveys purpose, usage guidelines, limitations, and parameters together as the positive exemplar of quality, rather than a one-line stub."
+   },
+   {
+    "idx": 201,
+    "statement": "Hold each component to its quality bar: Usage Guidelines state when to use and when not to use (plus disambiguation if the name is ambiguous); Limitations state what the tool does not return and its scope and constraints; Parameter Explanation gives each parameter's type, meaning, behavioral effect, and required-or-default status rather than schema-only listing; the prose is self-sufficient with examples supplementing rather than replacing it and roughly four or more substantive sentences; judge a description Bad if any component is below viable or examples replace the description, and Good only if all components are at least minimally viable."
+   }
+  ]
+ },
+ {
+  "group": 112,
+  "members": [
+   {
+    "idx": 190,
+    "statement": "Write components as precise behavioral constraints (valid input ranges, temporal offsets, concrete rules) and remove ambiguous, contradictory, or self-referential statements, which degrade agent performance and dilute otherwise-useful guidance when combined with other components."
+   },
+   {
+    "idx": 210,
+    "statement": "For Accuracy, keep the description semantically consistent with the implementation: describe only behaviors the tool actually has, declare the behaviors it does have, state its behavioral boundaries, and give each parameter's correct type and meaning, so the agent neither invokes non-existent behavior nor misreads argument constraints."
+   }
+  ]
+ },
+ {
+  "group": 116,
+  "members": [
+   {
+    "idx": 197,
+    "statement": "Expect source-code grounding to improve description faithfulness and rubric-scoring reliability most for behavior- and input-tied components, particularly Parameter Explanation, by correcting the lower-scoring, hallucinating cases."
+   },
+   {
+    "idx": 198,
+    "statement": "Adopt source-code grounding as a reliability safeguard rather than a guaranteed performance optimization: it may not change task success for tools well represented in training data, but it unlocks some otherwise-failing cases and matters most for rare, proprietary, or out-of-distribution tools."
+   }
+  ]
+ },
+ {
+  "group": 119,
+  "members": [
+   {
+    "idx": 206,
+    "statement": "To cut multi-step loop cost, consider code-mode or programmatic tool execution, where the model generates orchestration code so intermediate tool responses are not round-tripped back through the model, reducing both steps and tokens."
+   },
+   {
+    "idx": 390,
+    "statement": "Recommend the design-once/execute-many pattern when a multi-step tool task recurs: per-execution cost falls to roughly O(1) (about 150 tokens), the one-time design cost breaks even after only ~4% of a single agent run, and amortized token savings exceed 99% past about five executions; treat the specific savings figures as conservative, estimated lower bounds rather than exact per-model measurements."
+   }
+  ]
+ },
+ {
+  "group": 120,
+  "members": [
+   {
+    "idx": 209,
+    "statement": "Treat the tool description, together with its name and input schema, as the primary and often only basis an LLM has for selecting a tool: implementation is unobservable, so selection is driven by the semantic alignment between the query and the description."
+   },
+   {
+    "idx": 309,
+    "statement": "Make tool discovery text explicit: use capability-specific names and descriptions, and tell the model what broad tool domains can be searched."
+   },
+   {
+    "idx": 333,
+    "statement": "Do not statically expose the entire tool catalog to the LLM; retrieve only a small, semantically relevant subset (typically 3-5 tools) per query via dense-embedding similarity search. Static provisioning wastes tokens (a 100-tool catalog is ~20K-80K tokens before any query), degrades accuracy through context bloat, and hits context-window limits; manual curation is inflexible."
+   },
+   {
+    "idx": 354,
+    "statement": "Replace eager, uniform injection of every tool schema with dynamic, query-conditioned tool selection: load only the tools whose intent matches the current turn, mirroring how attention lets each position attend only to what matters."
+   },
+   {
+    "idx": 361,
+    "statement": "Make tool summaries self-documenting and query-shaped: descriptive names and intent-voiced summaries substantially raise retrieval quality, and an LLM can regenerate cryptic implementer-voiced summaries to be shorter yet more retrievable."
+   },
+   {
+    "idx": 430,
+    "statement": "Architect dynamic tool access around three tools - search_tools (semantic search plus a tool-category overview), describe_tools (on-demand schemas), and execute_tool - so that discoverability and token efficiency are both achieved."
+   },
+   {
+    "idx": 431,
+    "statement": "Separate schema retrieval (describe_tools) from tool search so input schemas load only for the tools the LLM will actually use, since input schemas are the dominant token cost (often 60-80% of a static toolset's tokens)."
+   },
+   {
+    "idx": 432,
+    "statement": "Put an overview of the available tool categories into the tool-search description so the LLM knows what exists and will actually attempt a search; pure semantic search fails when the model has no visibility into what tools are available."
+   }
+  ]
+ },
+ {
+  "group": 128,
+  "members": [
+   {
+    "idx": 220,
+    "statement": "Treat description authoring as a first-class engineering phase, co-equal with implementation and testing (like API contract design); avoid the code-first, description-last pattern, which measurably degrades tool discoverability and invocation accuracy."
+   },
+   {
+    "idx": 221,
+    "statement": "Keep tool descriptions synchronized with the implementation as code evolves: a description accurate at authoring time drifts stale after code updates, and static checks do not catch this drift."
+   }
+  ]
+ },
+ {
+  "group": 129,
+  "members": [
+   {
+    "idx": 224,
+    "statement": "Detect MCP faults behaviorally, not only via crashes or explicit errors: many faults return well-formed JSON-RPC success responses while violating coordination semantics (silent/gray failure), so oracles must assert response content, session-state consistency, and the occurrence of required notification events across interaction steps."
+   },
+   {
+    "idx": 231,
+    "statement": "Use the 27 fault subcategories as a structured fault-localization checklist for diagnostic triage, narrowing an MCP server misbehavior to protocol-level hypotheses such as Schema Compatibility, Session State, or Tool Result Propagation."
+   },
+   {
+    "idx": 232,
+    "statement": "Derive MCP conformance tests and fault-injection scenarios directly from the leaf fault categories (for example, verifying that timeout violations yield structured error objects, undeclared tool identifiers are rejected, and requests are not processed before initialization completes), and ground reliability benchmarks in observed protocol-level faults rather than generic software bugs."
+   },
+   {
+    "idx": 234,
+    "statement": "Push recurring MCP correctness checks into SDK and protocol infrastructure (default tool-input validation, request-response identifier propagation, prevention of premature request handling, and helpers for structured JSON-RPC error objects) instead of re-fixing the same fault classes in each implementation."
+   },
+   {
+    "idx": 235,
+    "statement": "When reviewing MCP Base Protocol handling, check message structure (required JSON-RPC 2.0 fields id/method/params/result/error present and propagated, with correct request-response id correlation) and message semantics (identifiers consistent across related events; failures represented as structured error objects, not HTTP status codes)."
+   },
+   {
+    "idx": 237,
+    "statement": "When reviewing the MCP session lifecycle, check initialization (protocol version match, no capability-negotiation races, initialized notifications sent, no use of uninitialized state), state transition (correct async control flow, no requests before initialization completes), and termination (correct shutdown ordering, resource release, input streams closed)."
+   },
+   {
+    "idx": 246,
+    "statement": "Isolate domain-specific faults with a domain relevance filter rather than relying on generic bug labels and fault keywords alone (which were 80% false positives for MCP), and analyze full issue-centered threads rather than titles or labels because the confirming evidence often appears only in diagnostic comments, linked pull requests, commit messages, or closing discussions."
+   },
+   {
+    "idx": 249,
+    "statement": "Diagnose MCP vision composition failures at the protocol layer (schema semantics, memory scoping, runtime coordination) rather than attributing them to individual model or tool errors."
+   }
+  ]
+ },
+ {
+  "group": 130,
+  "members": [
+   {
+    "idx": 226,
+    "statement": "Represent tool and server failures as structured JSON-RPC error objects mapped to the correct error code; never return a success response that carries hidden failure information, and never surface application failures as bare HTTP status codes."
+   },
+   {
+    "idx": 590,
+    "statement": "Treat a failing tool as an ordinary result with `is_error=True` (the exception message is placed in `content` for the model), always check `is_error` before trusting `structured_content` (which is `None` on failure), and remember a Client method raises `MCPError` only when the server returns a JSON-RPC error rather than a result."
+   }
+  ]
+ },
+ {
+  "group": 133,
+  "members": [
+   {
+    "idx": 229,
+    "statement": "Keep diagnostic and other non-protocol output off the JSON-RPC message stream; on the stdio transport, emitting anything other than valid JSON-RPC on standard output corrupts the stream and breaks client parsing."
+   },
+   {
+    "idx": 236,
+    "statement": "When reviewing MCP transport handling, check the stdio binding (only valid JSON-RPC 2.0 emitted on standard output) and the Streamable HTTP binding (correct handling of HTTP requests, session identifiers, and server-sent event streams, including request throttling under high-volume traffic)."
+   },
+   {
+    "idx": 560,
+    "statement": "Keep protocol and diagnostics separate on stdio: log to stderr (captured automatically by the host) and never write log output to stdout, which carries protocol messages."
+   }
+  ]
+ },
+ {
+  "group": 134,
+  "members": [
+   {
+    "idx": 230,
+    "statement": "Set operation timeouts adaptively to workload and handle cancellation and stream-termination correctly, so long-running or streaming operations are neither terminated prematurely nor left hanging in an unresolved state."
+   },
+   {
+    "idx": 602,
+    "statement": "For long requests that stream progress, set resetTimeoutOnProgress: true so each progress update resets the request timeout and a still-working, progressing request is not killed by the timeout."
+   }
+  ]
+ },
+ {
+  "group": 135,
+  "members": [
+   {
+    "idx": 233,
+    "statement": "Prioritize MCP validation and review effort by combining repository frequency with practitioner-confirmed severity and diagnostic effort: treat frequency counts as descriptive of the studied corpus rather than ecosystem prevalence, and remember that a rarely reported category (such as Authorization or other Security faults) can still be high severity while frequent categories cluster in Tool execution and data-schema enforcement."
+   },
+   {
+    "idx": 260,
+    "statement": "Scope MCP audit conclusions to their validity boundaries: prevalence rates come from a public-server corpus (prototypes overrepresented), the proposed extensions are unvalidated testbed reference prototypes, and rates depend on the operational definitions used, so do not over-generalize them to proprietary or production systems."
+   }
+  ]
+ },
+ {
+  "group": 136,
+  "members": [
+   {
+    "idx": 238,
+    "statement": "When reviewing MCP state and configuration, check that server-level configuration parameters are actually enforced rather than accepted and silently ignored, that session identifiers are neither stale, reused, absent, nor stripped by middleware, and that server-managed resource state is persisted and kept fresh across operations."
+   },
+   {
+    "idx": 240,
+    "statement": "When reviewing MCP resource handling, check resource identification (valid, resolvable resource URIs with the input URI format matching the internal normalized format) and resource synchronization (resources/updated notifications propagated so clients do not observe stale state)."
+   }
+  ]
+ },
+ {
+  "group": 137,
+  "members": [
+   {
+    "idx": 241,
+    "statement": "When reviewing MCP prompt handling, check prompt identification (prompt lookup, correct handling of unknown prompt names, and error mapping to the appropriate MCP error code) and prompt argument handling (arguments conform to the declared input schema with correct types and value substitution)."
+   },
+   {
+    "idx": 573,
+    "statement": "When escalating an MCP issue, provide log excerpts, configuration files, reproduction steps, and environment details so it can be diagnosed."
+   }
+  ]
+ },
+ {
+  "group": 140,
+  "members": [
+   {
+    "idx": 244,
+    "statement": "When reviewing MCP security, check authentication (Authorization header present, token well-formed and unexpired), token validation (token audience and other claims verified on receipt, tokens not forwarded upstream unverified), and authorization (access-control checks enforced after authentication before executing capabilities or tool invocations)."
+   },
+   {
+    "idx": 621,
+    "statement": "Validate the full MCP compliance surface — the initialize handshake, JSON-RPC 2.0 conformance, advertised capabilities (tools/prompts/resources), security, and registry/OSS conformance — rather than checking connectivity alone."
+   }
+  ]
+ },
+ {
+  "group": 141,
+  "members": [
+   {
+    "idx": 245,
+    "statement": "Build a fault taxonomy for an immature domain inductively: use faceted, bottom-up open coding rather than predefined categories, code artifacts independently with multiple coders and report inter-rater agreement, and iterate through refinement rounds until no new categories emerge (saturation)."
+   },
+   {
+    "idx": 248,
+    "statement": "Validate a fault taxonomy's external validity with an independent practitioner survey (respondents not involved in its construction) that captures, per subcategory, whether the fault was encountered in practice, its perceived severity, and its diagnostic effort, and treat the absence of newly reported categories as evidence of structural coverage."
+   }
+  ]
+ },
+ {
+  "group": 143,
+  "members": [
+   {
+    "idx": 250,
+    "statement": "Require every vision tool schema to declare its coordinate convention and spatial semantics explicitly; undeclared coordinate conventions are a leading cause of silent misalignment."
+   },
+   {
+    "idx": 253,
+    "statement": "Extend vision tool schemas with explicit semantic-role, modality, and coordinate-system fields; over 60% of composition failures came from schema-valid but semantically mismatched outputs."
+   },
+   {
+    "idx": 259,
+    "statement": "Expect the recurring cross-case failure signature in deployed MCP vision toolchains: semantic misalignment despite valid schemas, fragmented spatial and temporal representations, and shallow wrappers unable to manage implicit state (evidenced across ParaView, SUMO+YOLO, ALITA, FHIR, and Blender case studies)."
+   }
+  ]
+ },
+ {
+  "group": 147,
+  "members": [
+   {
+    "idx": 255,
+    "statement": "Select an MCP orchestration pattern by its trade-off and cover its dominant failure mode, and defer costly tool invocations when confidence is low or context is absent: static composition is auditable but brittle to drift, dynamic orchestration generalizes but needs runtime checks, multi-agent coordination parallelizes but risks memory leakage."
+   },
+   {
+    "idx": 258,
+    "statement": "Establish protocol-level orchestration benchmarks and validator suites that emit binary results plus structured failure traces; without them, orchestration failures under injected errors go undetected and model benchmarks miss multi-tool correctness."
+   },
+   {
+    "idx": 379,
+    "statement": "Build an MCP orchestration layer as a Mediator that is simultaneously an MCP server (exposing workflow tools to agents) and an MCP client (calling downstream MCP servers), so downstream servers stay unmodified and any MCP-compliant server is auto-discovered."
+   },
+   {
+    "idx": 382,
+    "statement": "Constrain the orchestration DSL to a small fixed set of composable step primitives (call, loop, parallel, pipe, collect) and deliberately exclude conditionals, variables, and string manipulation, to keep semantics formal, failure modes predictable, and stop the DSL drifting into an accidental programming language."
+   },
+   {
+    "idx": 386,
+    "statement": "For repeated, deterministic orchestration (the ~80% case), prefer a declarative blueprint over generated code because it gives sandboxing (only MCP tools are invocable), inspectability, design-time schema validation, and reliable LLM editability."
+   }
+  ]
+ },
+ {
+  "group": 148,
+  "members": [
+   {
+    "idx": 257,
+    "statement": "Do not deploy MCP into safety-critical domains before hardening the protocol layer with typed schemas, scoped memory, and introspectable execution traces."
+   },
+   {
+    "idx": 627,
+    "statement": "Keep mcp-scan security analysis enabled by default; use --skip-mcp-scan only when speed matters and security is out of scope, and ensure mcp-scan is installed (or explicitly disable the security validator) so runs do not silently lose security coverage."
+   }
+  ]
+ },
+ {
+  "group": 149,
+  "members": [
+   {
+    "idx": 263,
+    "statement": "Test a judge's discriminative validity with a label-flip perturbation: rewrite a response to invert its ground-truth label while preserving topic and structure; a reliable judge must flip its verdict."
+   },
+   {
+    "idx": 264,
+    "statement": "Test a judge's consistency with meaning-preserving perturbations — formatting-only changes, semantic paraphrase, and verbosity variants — and require its score to stay constant when the underlying quality is unchanged."
+   },
+   {
+    "idx": 270,
+    "statement": "Validate agentic judges separately from free-response judges — perturbing multi-turn transcripts both toward violations and toward compliance — because free-response reliability does not generalize to agentic settings and judges show asymmetric agentic failure modes (missing subtle violations versus over-flagging corrected transcripts)."
+   },
+   {
+    "idx": 279,
+    "statement": "Treat judge robustness as task-specific and re-validate a judge on each new task type rather than extrapolating its reliability from one task, since relative robustness rankings among judges can reverse across tasks and binary-stable judges can degrade badly on ordinal scoring."
+   }
+  ]
+ },
+ {
+  "group": 152,
+  "members": [
+   {
+    "idx": 268,
+    "statement": "For ordinal or graded scoring tasks, generate calibration samples targeting every score level (aim for an even distribution across the range) and report reliability with correlation and error metrics — Concordance Correlation Coefficient, Pearson's and Spearman's correlation, and Mean Absolute Error — not accuracy alone."
+   },
+   {
+    "idx": 276,
+    "statement": "Select reliability test families by task type — label-flip plus binary invariance tests for binary classification, ordinal calibration plus invariance tests for graded scoring — rather than applying one fixed suite to every task."
+   }
+  ]
+ },
+ {
+  "group": 159,
+  "members": [
+   {
+    "idx": 282,
+    "statement": "Weight judge-reliability evidence by its strength: reliability results from small, down-sampled test sets (on the order of ten to sixteen samples) are preliminary and should be treated as directional rather than definitive."
+   },
+   {
+    "idx": 283,
+    "statement": "Do not assume that naively ensembling several judges improves reliability; verify it empirically, since a three-judge ensemble did not exceed the best single judge in these experiments."
+   }
+  ]
+ },
+ {
+  "group": 162,
+  "members": [
+   {
+    "idx": 290,
+    "statement": "For benchmarks with a single tool call, model tool selection as multi-class classification (each tool is a class) and score it with accuracy, precision, recall, and F1 — accuracy over the whole dataset, and F1 as the harmonic mean summarizing precision and recall per tool."
+   },
+   {
+    "idx": 291,
+    "statement": "Read the classification metrics diagnostically: low precision for a tool means it is being over-triggered (called when not expected), and low recall typically means it is under-triggered (missed, or confused with another tool); when two semantically similar tools are confused, expect the over-called tool's precision and the under-called tool's recall to both drop."
+   },
+   {
+    "idx": 294,
+    "statement": "Treat benchmark volume as the limiting factor of offline evaluation: per-tool metrics built from only a couple of examples are not dependable, so grow per-tool benchmark coverage to make the classification metrics reliable."
+   },
+   {
+    "idx": 295,
+    "statement": "Recognize that single-tool-call evaluation does not cover real sequential multi-tool flows, where later calls consume earlier outputs; to evaluate such flows, actually execute the tool calls or faithfully mock their responses instead of only fetching the tool list, and score selection as multi-label (not multi-class) classification when one input can trigger several tools."
+   },
+   {
+    "idx": 335,
+    "statement": "Optimize tool provisioning for precision, not breadth: giving the model fewer, more relevant tools improves tool-calling accuracy (not merely token cost) by reducing decision complexity, letting the model spend reasoning on parameters and execution rather than tool disambiguation."
+   },
+   {
+    "idx": 346,
+    "statement": "Evaluate a tool-selection system with retrieval metrics — Precision@K, Recall@K, F1@K, Hit Rate@K, MRR — and quantify savings with a Token Reduction Rate against the all-tools baseline, and interpret those metrics relative to catalog size (small catalogs inflate recall/F1 because more of the catalog is relevant)."
+   }
+  ]
+ },
+ {
+  "group": 165,
+  "members": [
+   {
+    "idx": 299,
+    "statement": "Provide searchable tool discovery with adjustable detail levels when filesystem browsing alone is not enough for efficient MCP tool selection."
+   },
+   {
+    "idx": 349,
+    "statement": "As tool catalogs grow from hundreds toward thousands, intelligent tool discovery shifts from a nice-to-have optimization to a necessity, and is what makes large-scale multi-server MCP deployments economically feasible rather than prohibitive."
+   }
+  ]
+ },
+ {
+  "group": 166,
+  "members": [
+   {
+    "idx": 300,
+    "statement": "Avoid using the model context as a data bus for large intermediate results; move, filter, and summarize data inside the execution environment before returning model-visible output."
+   },
+   {
+    "idx": 588,
+    "statement": "Read a `CallToolResult` as three separately-consumed fields — `content` for the model, `structured_content` (JSON matching the tool's output_schema) for application code, and `is_error` for success — and do not conflate the model-facing and code-facing halves."
+   }
+  ]
+ },
+ {
+  "group": 168,
+  "members": [
+   {
+    "idx": 302,
+    "statement": "Keep intermediate and sensitive data outside the model context by default, and expose only explicitly logged, returned, or policy-approved values."
+   },
+   {
+    "idx": 303,
+    "statement": "Use client-side tokenization or equivalent data-flow controls for sensitive fields that must pass between tools without being exposed to the model."
+   },
+   {
+    "idx": 425,
+    "statement": "Apply least-exposure defaults for sensitive operations and data: offer a read-only mode for shared environments, demos, or observe-only use, and expose secret resources as metadata only (name, type, scope), never returning the secret value itself."
+   }
+  ]
+ },
+ {
+  "group": 169,
+  "members": [
+   {
+    "idx": 304,
+    "statement": "Persist intermediate state and reusable task code in the agent workspace when workflows need resume capability, progress tracking, or repeated execution."
+   },
+   {
+    "idx": 396,
+    "statement": "Persist agent memory in an external store keyed by a session id (with a per-request invocation id) to give a stateless FaaS workflow multi-turn continuity; inject the retrieved memory into the planning stage, append only newly produced state each invocation, and reuse the store as a provenance and audit trail."
+   }
+  ]
+ },
+ {
+  "group": 171,
+  "members": [
+   {
+    "idx": 307,
+    "statement": "Use deferred tool discovery for large tool libraries so the model loads only the tool definitions needed for the current task."
+   },
+   {
+    "idx": 308,
+    "statement": "Configure deferred tool libraries with a small always-loaded core and a searchable long tail."
+   },
+   {
+    "idx": 417,
+    "statement": "Treat context spent on tool definitions as a budget: keep it well under about 40% total utilization, accounting for other MCP servers whose definitions stack in the same client and for IDE/model tool caps (Cursor ~80, OpenAI 128, Claude ~120). This matters because models degrade at using information buried deep in a long context, so bloated tool metadata dilutes the signal available for the task."
+   }
+  ]
+ },
+ {
+  "group": 172,
+  "members": [
+   {
+    "idx": 310,
+    "statement": "Use programmatic tool calling for workflows where code can reduce context bloat, inference round-trips, or fragile manual synthesis."
+   },
+   {
+    "idx": 436,
+    "statement": "Batch describe_tools: request schemas for all the tools you intend to use in a single call rather than one call per tool, to cut round-trips in a multi-tool workflow (which typically runs 6-8 tool calls versus 3 for a static toolset)."
+   }
+  ]
+ },
+ {
+  "group": 175,
+  "members": [
+   {
+    "idx": 313,
+    "statement": "Use tool input examples to teach conventions that schemas cannot express, including optional-field patterns, nested object usage, correlated parameters, and similar-tool disambiguation."
+   },
+   {
+    "idx": 314,
+    "statement": "Write tool examples as concise realistic variants that show minimal, partial, and full calls only where they resolve real ambiguity."
+   }
+  ]
+ },
+ {
+  "group": 178,
+  "members": [
+   {
+    "idx": 320,
+    "statement": "Reduce tool-schema injection cost: verbose JSON schemas loaded for every registered tool are the fixed planning overhead, so use deferred/lazy tool loading and trim schema verbosity rather than injecting the full tool list up front."
+   },
+   {
+    "idx": 322,
+    "statement": "Treat session initialization and tool discovery as first-class measured cost: verbose schema serialization dominates initialization and is incurred before any user query, so log its token footprint and latency separately rather than amortizing it silently."
+   },
+   {
+    "idx": 351,
+    "statement": "Treat per-turn MCP tool-schema injection as a first-class recurring cost (the Tools Tax): quantify it as approximately turns x catalog-size x ~200-500 tokens per tool, because stateless chat-completions APIs re-inject the full catalog on every turn and audits place it in the tens of thousands of tokens."
+   },
+   {
+    "idx": 357,
+    "statement": "Load tool schemas in two phases: keep all compact tool summaries (target <=~60 tokens each) resident so the model stays aware the tools exist, and promote the full JSON schema on demand only for the gated top-k tools."
+   },
+   {
+    "idx": 365,
+    "statement": "Prefer intent-gated two-phase loading over both naive full-schema injection and simple top-k retrieval of full schemas: it can cut measured per-turn tool tokens by roughly 95% while keeping effective context utilization high, and unlike static manual pruning it does not starve tasks of tools they need."
+   },
+   {
+    "idx": 366,
+    "statement": "Expose the full JSON schema - not just the summary - for any tool the model will actually call, because the model needs full parameter specs to populate calls correctly; in ablation, dropping full-schema promotion was the single largest hit to task success."
+   },
+   {
+    "idx": 489,
+    "statement": "Preserve JSON Schema 2020-12 (server): do not strip $schema, $defs, or additionalProperties, and keep composition (allOf/anyOf), conditional (if/then/else), and reference ($anchor) keywords intact through tools/list."
+   }
+  ]
+ },
+ {
+  "group": 179,
+  "members": [
+   {
+    "idx": 321,
+    "statement": "Profile both token cost and latency, and separate protocol token footprint (schemas, JSON tool calls, tool results tokenized under the same tokenizer) from LLM usage tokens, so cost is attributed to protocol representation versus model reasoning."
+   },
+   {
+    "idx": 408,
+    "statement": "Optimize input-token consumption before FaaS execution, because LLM token charges dominate total cost (roughly 61-94%) and input-token volume drives both latency and cost, while agent and MCP function execution are comparatively negligible."
+   }
+  ]
+ },
+ {
+  "group": 182,
+  "members": [
+   {
+    "idx": 325,
+    "statement": "Instrument the MCP workflow as a six-stage pipeline (S1 prompting, S2 planning, S3 tool call, S4 tool response, S5 context update, S6 answer synthesis) with a per-event structured log (identifiers, boundary timestamps and derived stage latency, model/tool/transport metadata, token accounting); when a client exposes no traces, reconstruct the stages from exported conversation logs."
+   },
+   {
+    "idx": 562,
+    "statement": "Deliver logs to the client with log-message notifications on any transport, using MCP's eight RFC 5424 severity levels and honouring the client's runtime logging/setLevel choice."
+   }
+  ]
+ },
+ {
+  "group": 186,
+  "members": [
+   {
+    "idx": 330,
+    "statement": "Reducing orchestration overhead does not force a quality trade-off: on the benchmarks evaluated, protocol overhead and answer quality vary independently (85-100% accuracy maintained), so efficiency optimization can proceed without degrading task success."
+   },
+   {
+    "idx": 332,
+    "statement": "Re-profile before assuming orchestration dominates in I/O-heavy production: because the six-stage decomposition isolates tool execution (S3-S4) from prompting, planning, and synthesis (S1-S2, S5-S6), it directly reveals the regime shift and quantifies orchestration overhead relative to tool latency when tools become heavy."
+   }
+  ]
+ },
+ {
+  "group": 189,
+  "members": [
+   {
+    "idx": 337,
+    "statement": "Treat tool-description quality as the retrieval ceiling: invest in informative, semantically distinct descriptions. Poorly documented tools are under-retrieved regardless of embedding model, and servers with overlapping descriptions (e.g. read/write/copy/move file) suffer lower MRR, while distinct domain vocabulary retrieves near-perfectly at low K."
+   },
+   {
+    "idx": 339,
+    "statement": "When tools are semantically overlapping, add discriminating signals beyond description embeddings — parameter-level matching or tool-usage-frequency — to break ties, since embedding similarity alone surfaces related-but-wrong tools among near-duplicates."
+   },
+   {
+    "idx": 355,
+    "statement": "Route tools by Intent-Schema Overlap - cosine similarity between the query embedding and a compact tool-summary embedding - and admit a tool only when it clears a threshold; ISO is a cheap embedding-space proxy for the attention a tool would actually receive, so a low-ISO tool can be dropped without changing the decision."
+   }
+  ]
+ },
+ {
+  "group": 191,
+  "members": [
+   {
+    "idx": 340,
+    "statement": "For ambiguous queries that lack domain specificity, do not just return the raw top-K: fold conversational context (prior tool use, active server sessions) into the query embedding, or prompt the user to clarify before retrieving, to avoid a mixed cross-domain tool set."
+   },
+   {
+    "idx": 341,
+    "statement": "For cross-domain queries that need tools from multiple servers, decompose the intent into sub-tasks and retrieve tools per sub-task (multi-query retrieval); a single top-K retrieval often surfaces only one domain and misses the others."
+   }
+  ]
+ },
+ {
+  "group": 215,
+  "members": [
+   {
+    "idx": 378,
+    "statement": "When an LLM agent performs a recurring multi-step tool task, separate one-time intelligence (deciding what to do) from repeated execution (carrying it out): have the agent reason once to produce a reusable plan, then execute that plan with no further agent reasoning."
+   },
+   {
+    "idx": 380,
+    "statement": "Structure the agent lifecycle into a one-time design phase (explore downstream tools via tools/list and trial calls, then build a blueprint) and a repeated execution phase triggered by a single call that runs with zero agent involvement."
+   },
+   {
+    "idx": 388,
+    "statement": "When a task cannot be fully automated, use a hybrid pattern: have the engine execute the mechanical parts in a loop and return a single batch (collect) for the agent to reason over, giving O(1) agent reasoning passes instead of O(N)."
+   },
+   {
+    "idx": 395,
+    "statement": "In the tool-executing agent, gate the tool-call node behind a conditional edge so tools run only when the LLM actually requests them, and cap the tool loop (LangGraph defaults to 25 supersteps)."
+   },
+   {
+    "idx": 397,
+    "statement": "Prefer persisting full agent memory (internal reasoning plus tool inputs and outputs) over naively replaying cumulative client request/response history, because client-only memory repeats already-completed work while agent memory lets the planner skip failed strategies and the actor skip redundant tool calls."
+   },
+   {
+    "idx": 407,
+    "statement": "Do not assume an agent will use memory just because it was injected: LLMs often ignore available context and repeat tool calls, so add an explicit system-prompt instruction telling the agent to check prior tool responses and reuse that data before making new calls."
+   }
+  ]
+ },
+ {
+  "group": 216,
+  "members": [
+   {
+    "idx": 381,
+    "statement": "Capture the agent's plan as a declarative JSON blueprint that is parameterized (runtime values via {{params.*}} templates), portable (version in Git, share, schedule via cron), and inspectable (human- and machine-readable for validation and audit)."
+   },
+   {
+    "idx": 413,
+    "statement": "Give each agent a strict-JSON prompt contract - the planner returns the tools and their sequence, the actor executes them in order, and the evaluator returns success, needs_retry, reason, and feedback - so every agent's output can be parsed deterministically by downstream agents and branching logic."
+   }
+  ]
+ },
+ {
+  "group": 221,
+  "members": [
+   {
+    "idx": 391,
+    "statement": "Host MCP-enabled agentic workflows on serverless FaaS rather than monolithic VMs to gain autoscaling and pay-per-request cost efficiency, but design every component around FaaS statelessness from the outset."
+   },
+   {
+    "idx": 392,
+    "statement": "Decompose the agentic pattern into one FaaS function per role (e.g. Planner, Actor, Evaluator) orchestrated as a FaaS workflow, so no single function risks the platform timeout and each role can be scaled and configured independently while sharing stateless instances."
+   },
+   {
+    "idx": 400,
+    "statement": "Automate MCP-server-to-FaaS packaging by parsing the server source (AST) to detect tool functions and generating the request handler, telemetry, caching, and container deployment, instead of hand-writing per-server glue."
+   },
+   {
+    "idx": 401,
+    "statement": "Provision MCP servers cost-consciously by choosing among independent, per-workflow-unified, or globally-unified (colocated) deployment, because FaaS bills on peak memory and execution time; colocating shared or remote servers near their workflows cuts latency and management overhead."
+   },
+   {
+    "idx": 406,
+    "statement": "Consolidate an application's MCP servers into a single FaaS function (memory set to the peak of the constituents) to reduce cold-start overhead and stabilize latency, accepting a higher per-invocation cost; keep singleton per-server deployment when minimizing per-function memory footprint matters more."
+   }
+  ]
+ },
+ {
+  "group": 223,
+  "members": [
+   {
+    "idx": 394,
+    "statement": "Structure the reasoning loop as a bounded cycle: the Evaluator returns success to the user or routes structured feedback back to the Planner for a revised plan, and the loop must terminate at an explicit maximum-iteration cap."
+   },
+   {
+    "idx": 414,
+    "statement": "Bound the agent loop with an explicit maximum-iteration cap and require the evaluator to emit feedback on retry that the planner consumes to revise its plan."
+   }
+  ]
+ },
+ {
+  "group": 224,
+  "members": [
+   {
+    "idx": 398,
+    "statement": "Inject only the relevant slice of memory into the context rather than everything, because stale or off-topic memory distracts the LLM and inflates latency and cost; curate what state is supplied and optionally summarize or knowledge-graph-distill it before storage."
+   },
+   {
+    "idx": 411,
+    "statement": "Value persisted memory and caching for reliability, not only efficiency: they raised completion rates (eliminating the failures seen in memoryless runs) and mitigated the impact of LLM non-determinism and temperature on practical workflows."
+   }
+  ]
+ },
+ {
+  "group": 226,
+  "members": [
+   {
+    "idx": 403,
+    "statement": "Cache deterministic MCP tool outputs, keyed by a hash of tool name plus parameters and stored in object storage with a per-tool TTL, so repeated identical calls in a session return a cached handle instead of re-executing the tool."
+   },
+   {
+    "idx": 409,
+    "statement": "MCP invocation caching pays off only after a warmup call and works by returning a stored object handle instead of full content, cutting both repeated MCP execution latency and input tokens."
+   },
+   {
+    "idx": 429,
+    "statement": "When an MCP server must expose many tools (dozens to hundreds), do not load every tool definition statically; use a dynamic/lazy discovery mechanism, because static exposure grows token usage roughly linearly with toolset size and soon hits the context-window limit."
+   }
+  ]
+ },
+ {
+  "group": 229,
+  "members": [
+   {
+    "idx": 419,
+    "statement": "Prefer CLI over MCP when the agent already knows the tool from training data (e.g. gh, kubectl, terraform) or when a single piped command composes several operations in one call: the agent pays zero schema overhead, gets terse predictable output, and avoids per-step LLM round-trips. A short (~800-token) skills document can further cut CLI tool calls and latency."
+   },
+   {
+    "idx": 420,
+    "statement": "Prefer MCP over CLI when the platform's API surface is larger than the agent's training knowledge (use a describe/discovery tool for runtime capability discovery instead of guessing undocumented calls), in multi-tenant or multi-user environments (per-user OAuth, explicit tool boundaries, structured audit trails instead of ambient credentials), or when safety requires constraining the agent to declared tools with typed inputs rather than arbitrary shell."
+   }
+  ]
+ },
+ {
+  "group": 237,
+  "members": [
+   {
+    "idx": 434,
+    "statement": "Budget for the dynamic-toolset trade-off: expect about 2-3x more tool calls and roughly 50% higher execution time than a static toolset; net total tokens and runtime still do not rise because input tokens fall by more than 96%."
+   },
+   {
+    "idx": 435,
+    "statement": "For token-critical or large MCP servers, prefer dynamic toolsets: they hold token consumption roughly constant from 40 to 400 tools and cut total tokens by about 90-96% at a 100% task success rate, and adding new tools does not raise baseline token usage."
+   },
+   {
+    "idx": 437,
+    "statement": "If tool-call count (steps/latency) matters more than token cost, collapse search_tools and describe_tools into a single call, accepting higher token usage as the deliberate trade-off."
+   },
+   {
+    "idx": 440,
+    "statement": "When choosing between dynamic toolsets and a bespoke 'code mode' runtime, weigh that code mode can sidestep context limits entirely but demands significant engineering investment and domain expertise most teams lack; dynamic toolsets on standard MCP are the lower-investment path."
+   }
+  ]
+ },
+ {
+  "group": 241,
+  "members": [
+   {
+    "idx": 442,
+    "statement": "Understand the client-mode harness contract: the framework starts a test server for the scenario, appends the server URL as the client's final argument, sets MCP_CONFORMANCE_SCENARIO (and MCP_CONFORMANCE_CONTEXT with scenario data such as credentials), then captures and checks the protocol interactions."
+   },
+   {
+    "idx": 443,
+    "statement": "In server mode the server under test must already be running and the SDK owns its full lifecycle (start, health-check, cleanup) while the harness connects as an MCP client."
+   }
+  ]
+ },
+ {
+  "group": 242,
+  "members": [
+   {
+    "idx": 444,
+    "statement": "A client under test must derive its lifecycle from the protocol version it is told to run — stateful (initialize handshake) for dated versions through 2025-11-25, stateless (per-request _meta) for the 2026 draft — and use the forwarded MCP_CONFORMANCE_PROTOCOL_VERSION."
+   },
+   {
+    "idx": 482,
+    "statement": "Request metadata (client): send MCP-Protocol-Version on every POST, populate the three required _meta fields on every request, keep the header equal to _meta.protocolVersion, and retry with a supported version when the first is rejected."
+   },
+   {
+    "idx": 584,
+    "statement": "Let the Client negotiate the protocol version (it probes the server and falls back to the classic handshake for older servers) rather than pinning a version, unless you have a specific reason to control it."
+   }
+  ]
+ },
+ {
+  "group": 246,
+  "members": [
+   {
+    "idx": 448,
+    "statement": "Use the sdk subcommand as the cross-SDK inner loop (it clones, builds, and runs the local conformance build against a ref) and pass --mode client or --mode server, since each side is tested and scored independently."
+   },
+   {
+    "idx": 471,
+    "statement": "Model an SDK's example conformance server on the reference everything-server: implement the full feature surface (tools, resources, prompts, all log levels, completion, list-changed, subscribe/update), use the standardized names (test_ prefix for tools/prompts, test:// for resources), and reproduce its automatic behaviors (dynamic registration about 2s after start, watched-resource update about every 3s) so one suite verifies every SDK."
+   }
+  ]
+ },
+ {
+  "group": 248,
+  "members": [
+   {
+    "idx": 450,
+    "statement": "Assess an SDK's tier with the tier-check subcommand against SEP-1730."
+   },
+   {
+    "idx": 460,
+    "statement": "Every check should carry specReferences to the governing spec section, and its severity must follow the spec keyword — MUST/MUST NOT to FAILURE, SHOULD/SHOULD NOT to WARNING — noting CI treats WARNING as failing, so Tier-1 SDKs must satisfy SHOULDs too."
+   },
+   {
+    "idx": 464,
+    "statement": "Read the traceability manifest correctly: it is generated from a real reference-SDK run (so dynamic check IDs resolve), tested means the check ID was emitted (not that any SDK passes — that is tier-check), and a SEP absent from it has no conformance artifacts and is not-started."
+   },
+   {
+    "idx": 509,
+    "statement": "Relegation (SEP-1730): an SDK drops from Tier 1 to Tier 2 if any conformance test fails continuously for 4 weeks, and from Tier 2 to Tier 3 if more than 20% fail continuously for 4 weeks."
+   }
+  ]
+ },
+ {
+  "group": 260,
+  "members": [
+   {
+    "idx": 463,
+    "statement": "Take a SEP's requirement levels from its spec diff (the docs/specification/draft/ change), not the SEP summary or PR description, since the governing keyword lives in the spec text."
+   },
+   {
+    "idx": 528,
+    "statement": "Review against the spec diff as ground truth: read the RFC-2119 sentences yourself rather than trusting the PR description or SEP summary, and treat a SEP's conformance-test-case table as authoritative for its cases, flagging a table/prose mismatch as a spec gap rather than silently resolving it."
+   }
+  ]
+ },
+ {
+  "group": 261,
+  "members": [
+   {
+    "idx": 465,
+    "statement": "Ship every new scenario with both a passing example (extend the everything-client/server) and a negative test that asserts the specific FAILURE/WARNING, because a green run only proves no false-positive, not that the check catches anything."
+   },
+   {
+    "idx": 532,
+    "statement": "Demand proof it runs and a real negative test: the PR must cite a real implementation it ran green against (the everything-server or an external SDK via the pkg.pr.new preview), and its negative test must pin the specific failing check slugs rather than merely assert the failure count is greater than zero."
+   }
+  ]
+ },
+ {
+  "group": 263,
+  "members": [
+   {
+    "idx": 467,
+    "statement": "Know the output contract: results land in results/<scenario>-<timestamp>/ (server mode results/server-<scenario>-<timestamp>/), and each result is a ConformanceCheck (id, name, description, status, timestamp, specReferences, details) in checks.json."
+   },
+   {
+    "idx": 635,
+    "statement": "Emit a structured, timestamped aggregated report: one JSON report per server (named <server>.json under output/), an aggregate servers_validation.json, and a Markdown summary table of per-server status/errors/warnings — recording Name, Command, Status, counts, and report file, and adding an Error_Message on failures."
+   }
+  ]
+ },
+ {
+  "group": 265,
+  "members": [
+   {
+    "idx": 469,
+    "statement": "Import protocol types from the vendored spec-types/<version> copies (not @modelcontextprotocol/sdk) so scenarios can target draft versions before any SDK implements them, and never hand-edit those files — refresh via npm run sync-schema and let SOURCE record the commit."
+   },
+   {
+    "idx": 470,
+    "statement": "Import the schema version a scenario or connection actually uses: a scenario imports the version matching its source.introducedIn, and a Connection imports the version whose lifecycle it implements (stateful to 2025-11-25, stateless to draft)."
+   }
+  ]
+ },
+ {
+  "group": 268,
+  "members": [
+   {
+    "idx": 474,
+    "statement": "OAuth client authorization-server binding: on a Protected-Resource-Metadata flip to a new authorization server (a new issuer surfacing on a 401), the client MUST re-register with the new AS rather than reuse the old credentials."
+   },
+   {
+    "idx": 475,
+    "statement": "OAuth client resource validation: per RFC 8707 a client MUST verify the PRM resource matches the server URL it is accessing and abort authorization on a mismatch."
+   }
+  ]
+ },
+ {
+  "group": 270,
+  "members": [
+   {
+    "idx": 477,
+    "statement": "Elicitation client: apply default values for omitted fields (string, integer, number, enum, boolean) before returning an elicitation response."
+   },
+   {
+    "idx": 486,
+    "statement": "Elicitation (server): include default values in the elicitation schema across string, integer, number, enum, and boolean fields, and encode enum schemas by shape (untitled single-select as an enum array, titled single-select as oneOf with const/title, the legacy titled form as the deprecated enumNames, untitled multi-select as items.enum, titled multi-select as items.anyOf)."
+   }
+  ]
+ },
+ {
+  "group": 271,
+  "members": [
+   {
+    "idx": 478,
+    "statement": "MCP request headers (client): on Streamable HTTP POSTs send Mcp-Method (mirroring the JSON-RPC method) and Mcp-Name (mirroring params.name or params.uri for tools/call, resources/read, prompts/get)."
+   },
+   {
+    "idx": 487,
+    "statement": "MCP request-header validation (server, SEP-2243): reject a request whose Mcp-Method or Mcp-Name header disagrees with the body (or is missing for a name-carrying body) with HTTP 400 and JSON-RPC -32020 (HeaderMismatch); treat header names case-insensitively but values case-sensitively, accept optional whitespace around Mcp-Name per RFC 9110 section 5.5, and reject a request where a custom header is omitted while its value is present in the body."
+   },
+   {
+    "idx": 581,
+    "statement": "Select the Client transport by the type of its single positional argument: an MCPServer/Server instance for in-process, a URL string for Streamable HTTP, or a transport object (usable as `async with ... as (read, write)`) for anything else."
+   }
+  ]
+ },
+ {
+  "group": 274,
+  "members": [
+   {
+    "idx": 481,
+    "statement": "Multi-Round Tool Resolution (client): echo requestState unchanged on retry, include none when the server sent none, use a new JSON-RPC id per retry, treat a missing resultType as complete, and never leak inputResponses or requestState into other requests."
+   },
+   {
+    "idx": 484,
+    "statement": "SSE retry (client): respect the retry field (wait the given milliseconds), treat a graceful stream closure as reconnectable (reconnect via GET), and send Last-Event-ID on reconnection for resumability."
+   },
+   {
+    "idx": 488,
+    "statement": "InputRequiredResult (server): respond with InputRequiredResult (inputRequests and/or requestState) to gather input; always include resultType, never return it on unsupported methods, reject tampered requestState, include inputRequests only for declared client capabilities, and return JSON-RPC errors for protocol-level input errors."
+   },
+   {
+    "idx": 494,
+    "statement": "Stateless requests (server, SEP-2575): carry the request JSON-RPC id on every error, and reject a request with missing _meta — or _meta lacking io.modelcontextprotocol/protocolVersion, clientInfo, or clientCapabilities — with -32602."
+   }
+  ]
+ },
+ {
+  "group": 279,
+  "members": [
+   {
+    "idx": 492,
+    "statement": "Concurrent SSE (server): give each POST request its own SSE stream with a unique stream ID, and keep the standalone GET stream (without Last-Event-ID) limited to one per session."
+   },
+   {
+    "idx": 493,
+    "statement": "SSE polling and resumption (server): send a priming event (id plus empty data) and a retry field on POST SSE streams, and support closing a stream mid-operation then replaying events on reconnect with Last-Event-ID including via GET."
+   }
+  ]
+ },
+ {
+  "group": 281,
+  "members": [
+   {
+    "idx": 496,
+    "statement": "Tasks capability (SEP-2663): advertise the io.modelcontextprotocol/tasks extension, gate the v2 task surface on capability negotiation, and support SEP-2575 per-request capability overrides."
+   },
+   {
+    "idx": 497,
+    "statement": "Tasks dispatch (SEP-2663): reject the removed v1 methods tasks/result and tasks/list with -32601; allow server-directed task creation without a client task hint (tolerating and ignoring the legacy task param on sync tools); let a fast operation return a sync ToolResult; stamp every non-task response with the resultType 'complete' discriminator; and guarantee strong consistency, where tasks/get right after a CreateTaskResult resolves and an unknown taskId returns -32602."
+   },
+   {
+    "idx": 499,
+    "statement": "Tasks required-capability (SEP-2575/2663): if a required-task tool is called by a client that did not declare the tasks extension at initialize, reject with -32021 (MissingRequiredClientCapability) and put a requiredCapabilities object (mirroring InitializeRequest) in the error data so the client can self-describe."
+   },
+   {
+    "idx": 500,
+    "statement": "Tasks wire hygiene (SEP-2663): the tasks-v2 wire defines no requestState (keep it off CreateTaskResult and DetailedTask), uses the renamed ttlMs and pollIntervalMs fields, enforces no-early-TTL-expiry, and drops the redundant v1 related-task _meta key because the taskId is already at root."
+   }
+  ]
+ },
+ {
+  "group": 285,
+  "members": [
+   {
+    "idx": 504,
+    "statement": "Tier thresholds (SEP-1730): Tier 1 requires a 100% conformance pass rate, Tier 2 at least 80%, and Tier 3 no minimum, where the pass rate is passed/(passed+failed)*100 over date-versioned scenarios."
+   },
+   {
+    "idx": 506,
+    "statement": "Tier definitions (SEP-1730): an issue is triaged at its first label (labeling and validity, not resolution), and a P0 is a CVSS>=7.0 security vulnerability or a core-functionality failure blocking connection, message exchange, or use of core primitives."
+   }
+  ]
+ },
+ {
+  "group": 286,
+  "members": [
+   {
+    "idx": 505,
+    "statement": "Tier responsiveness commitments (SEP-1730): new-feature support before each spec release (Tier 1) versus within 6 months (Tier 2); issue triage within 2 business days versus within 30 days; P0 resolution within 7 days versus within 14."
+   },
+   {
+    "idx": 507,
+    "statement": "Tier release, docs, and policy obligations (SEP-1730): Tier 1 needs a stable release >=1.0.0 with no pre-release plus a documented breaking-change policy, all-feature docs with examples, a published dependency policy, and a concrete roadmap; Tier 2 needs at least one stable release, core-feature docs, a dependency policy, and a plan toward Tier 1."
+   },
+   {
+    "idx": 516,
+    "statement": "Tier 1 gate — require ALL of: server and client conformance at 100% (date-versioned), triage compliance >=90% within 2 business days, all P0s resolved within 7 days, a stable release >=1.0.0 with no pre-release, a documented breaking-change policy, all non-experimental features documented with examples, a published dependency policy, and a concrete roadmap."
+   },
+   {
+    "idx": 517,
+    "statement": "Tier 2 gate — require ALL of: server and client conformance >=80% (date-versioned), triage compliance >=80% within 1 month, P0s resolved within 2 weeks, at least one stable release >=1.0.0, core-feature docs, a published dependency policy, and a plan toward Tier 1; otherwise the SDK is Tier 3."
+   }
+  ]
+ },
+ {
+  "group": 296,
+  "members": [
+   {
+    "idx": 520,
+    "statement": "Understand the traceability YAML's job (SEP-2484): map each spec-diff normative sentence to a check: ID (testable) or an excluded: reason (not testable); the CLI scaffolds the skeleton and you fill the rows from the diff, and the SEP number is the source PR number."
+   },
+   {
+    "idx": 525,
+    "statement": "When a requirement is ambiguous, leave a TODO: row rather than guess, because humans review the traceability yaml before scenarios are written."
+   },
+   {
+    "idx": 529,
+    "statement": "Diff the traceability YAML against the spec sentences and flag any row that paraphrases rather than quotes, claims a keyword level the spec does not support, or asserts something the spec never says."
+   }
+  ]
+ },
+ {
+  "group": 298,
+  "members": [
+   {
+    "idx": 522,
+    "statement": "Map RFC 2119 severity to YAML: MUST, MUST NOT, SHALL, SHALL NOT, and REQUIRED become a check: row at FAILURE; SHOULD and SHOULD NOT become a check: row at WARNING; MAY and OPTIONAL produce no row at all."
+   },
+   {
+    "idx": 524,
+    "statement": "Follow traceability YAML conventions: use the same id for SUCCESS and FAILURE, lowercase-kebab slugs from the verb phrase, check: rows leading with check: (then text, then optional url), excluded: rows leading with text: (then excluded, then optional issue), and all check: rows before all excluded: rows, separated by one blank line and never interleaved."
+   }
+  ]
+ },
+ {
+  "group": 306,
+  "members": [
+   {
+    "idx": 535,
+    "statement": "Match the Inspector launch wrapper to how the server is distributed: `npx <pkg>` for an npm package, `uvx <pkg>` for a PyPI package, `node <entry>.js` for a local TypeScript server, and `uv --directory <path> run <pkg>` for a local Python server."
+   },
+   {
+    "idx": 544,
+    "statement": "Launch the Inspector via npx without cloning its repository (Node.js ^22.7.5 required): pass server arguments directly, set the server's environment variables with -e, and separate inspector flags from server arguments with `--`."
+   }
+  ]
+ },
+ {
+  "group": 308,
+  "members": [
+   {
+    "idx": 537,
+    "statement": "Use the server connection pane to select the transport and, for local servers, set the command-line arguments and environment before connecting."
+   },
+   {
+    "idx": 617,
+    "statement": "Connect the server end via mcpServer.connect(serverTransport) with the high-level McpServer (which delegates to this.server.connect); with the low-level Server class, call server.connect(serverTransport) directly."
+   }
+  ]
+ },
+ {
+  "group": 309,
+  "members": [
+   {
+    "idx": 538,
+    "statement": "Exercise each capability surface through its tab rather than only checking connectivity: Resources (metadata, content, subscriptions), Prompts (custom arguments and previewed output), and Tools (custom inputs and observed results)."
+   },
+   {
+    "idx": 540,
+    "statement": "Begin every Inspector session by verifying basic connectivity and confirming capability negotiation before deeper testing."
+   }
+  ]
+ },
+ {
+  "group": 313,
+  "members": [
+   {
+    "idx": 543,
+    "statement": "Treat the MCP Inspector as two cooperating parts — the MCPI React web UI and the MCPP Node.js protocol-bridge (an MCP client plus HTTP server spanning stdio, SSE, and streamable-http) — and do not mistake the proxy for a traffic-intercepting network proxy."
+   },
+   {
+    "idx": 545,
+    "statement": "Expect the MCPI UI on port 6274 and the MCPP proxy on port 6277, and resolve port conflicts by overriding CLIENT_PORT and SERVER_PORT rather than changing code."
+   },
+   {
+    "idx": 546,
+    "statement": "Keep the Inspector proxy bound to localhost (its default) because it can spawn local processes and reach any MCP server; bind to all interfaces with HOST=0.0.0.0 only inside a trusted, isolated network, and never expose the proxy to untrusted networks."
+   },
+   {
+    "idx": 559,
+    "statement": "Reach for the MCP Inspector first: use it as an interactive, transport-agnostic way to invoke a server's tools, prompts, and resources and watch its notification stream before deeper debugging."
+   }
+  ]
+ },
+ {
+  "group": 317,
+  "members": [
+   {
+    "idx": 550,
+    "statement": "Treat Inspector timeouts (MCP_SERVER_REQUEST_TIMEOUT default 300000 ms; MCP_REQUEST_MAX_TOTAL_TIMEOUT default 60000 ms) as client-side cancels independent of server-side timeouts — whichever elapses first wins — and raise them for elicitation or long-running tools."
+   },
+   {
+    "idx": 580,
+    "statement": "Drive an MCP Client entirely through `async with Client(...)`: entering the block connects and negotiates and leaving it disconnects, so never call a connect()/close() pair and never reuse a Client after its block has exited."
+   }
+  ]
+ },
+ {
+  "group": 322,
+  "members": [
+   {
+    "idx": 555,
+    "statement": "Design the CLI test suite for safe parallelism: run in parallel across files but sequentially within a file, make each config file unique with crypto.randomUUID(), allocate HTTP/SSE ports dynamically, depend only on built-in MCP test servers, and do not expect coverage numbers because subprocess-run code is untrackable by Vitest."
+   },
+   {
+    "idx": 574,
+    "statement": "Prefer the in-memory transport session helper (create_connected_server_and_client_session) for MCP server tests instead of starting a real server or network, which yields fast, isolated tests."
+   }
+  ]
+ },
+ {
+  "group": 327,
+  "members": [
+   {
+    "idx": 563,
+    "statement": "Make logging load-bearing and structured: instrument initialization, resource access, tool execution, errors, and performance; use consistent formats, context, timestamps, and request IDs; log stack traces and track error patterns, recovery, timing, resource usage, message sizes, and latency."
+   },
+   {
+    "idx": 572,
+    "statement": "Treat debug logging and debugging access as a security surface: sanitize logs, protect credentials, mask personal information, and enforce access control (verify permissions, check authentication, monitor access patterns)."
+   }
+  ]
+ },
+ {
+  "group": 328,
+  "members": [
+   {
+    "idx": 564,
+    "statement": "Always use absolute paths in server configuration, .env files, and the command executable, because a client-launched stdio server's working directory may be undefined (e.g. / on macOS)."
+   },
+   {
+    "idx": 565,
+    "statement": "Declare a server's required environment variables explicitly via the client config's env key rather than relying on stdio env inheritance, which passes only a limited, platform-dependent subset."
+   }
+  ]
+ },
+ {
+  "group": 335,
+  "members": [
+   {
+    "idx": 575,
+    "statement": "Expose the connected client session to tests through an async-generator pytest fixture that opens create_connected_server_and_client_session(app, raise_exceptions=True) with `async with` and yields the session, so teardown is automatic and server-side exceptions propagate into the test."
+   },
+   {
+    "idx": 578,
+    "statement": "Consider snapshot testing (inline-snapshot's snapshot(...)) to pin expected tool results; it eases test authoring and is promoted as best practice, but it is optional and adds the inline-snapshot dependency alongside pytest."
+   }
+  ]
+ },
+ {
+  "group": 337,
+  "members": [
+   {
+    "idx": 577,
+    "statement": "Exercise tools through the session: await client_session.call_tool(name, arguments) and assert on the returned CallToolResult, checking both its text content (the TextContent list) and its machine-readable structuredContent."
+   },
+   {
+    "idx": 614,
+    "statement": "When a tool declares an output/structured schema, call client.listTools() before client.callTool() so the client caches and validates against the tool's schemas, and assert on the result's structuredContent."
+   }
+  ]
+ },
+ {
+  "group": 350,
+  "members": [
+   {
+    "idx": 596,
+    "statement": "Page every `list_*` call with a cursor loop: pass `cursor=`, collect the results, and stop when `next_cursor` is `None`; this loop is correct against every server even though `MCPServer` returns a single page."
+   },
+   {
+    "idx": 605,
+    "statement": "Never assume a list call returns every item: listTools, listPrompts, listResources and listResourceTemplates are cursor-paginated, so loop passing the previous response's nextCursor as cursor until nextCursor is undefined."
+   }
+  ]
+ },
+ {
+  "group": 352,
+  "members": [
+   {
+    "idx": 598,
+    "statement": "Use the SDK's built-in ping() for peer health checks rather than a custom heartbeat: both client and server expose it and the remote responds automatically with no registered handler."
+   },
+   {
+    "idx": 599,
+    "statement": "For a bounded health check set a millisecond timeout on client.ping(); remember the low-level server.server.ping() has no timeout option, so enforce your own deadline when pinging from the server side."
+   }
+  ]
+ },
+ {
+  "group": 353,
+  "members": [
+   {
+    "idx": 600,
+    "statement": "Wire progress reporting end-to-end for long-running requests: provide an onprogress callback on the client (the SDK auto-assigns the progressToken) and have the server emit notifications/progress via extra.sendNotification with the progressToken in params."
+   },
+   {
+    "idx": 601,
+    "statement": "Guard server-side progress emission: send a progress notification only when extra._meta.progressToken is defined, i.e. only when the caller actually requested progress."
+   }
+  ]
+ },
+ {
+  "group": 354,
+  "members": [
+   {
+    "idx": 603,
+    "statement": "Make long-running calls cancellable: the client passes an AbortSignal ({ signal: controller.signal }) and calls controller.abort() to cancel; the SDK then sends notifications/cancelled and aborts the server handler through its signal."
+   },
+   {
+    "idx": 604,
+    "statement": "In a cancellable server handler, poll extra.signal.aborted inside long loops/operations and stop work promptly (returning an error result) once cancellation is signalled."
+   }
+  ]
+ },
+ {
+  "group": 358,
+  "members": [
+   {
+    "idx": 609,
+    "statement": "Define tool input/output schemas as JSON Schema 2020-12: let McpServer with Zod convert them automatically, or supply JSON Schema directly when using the low-level Server."
+   },
+   {
+    "idx": 620,
+    "statement": "Register tool and prompt input schemas with a Standard-Schema library (e.g. Zod v4) when defining the server under test."
+   }
+  ]
+ },
+ {
+  "group": 360,
+  "members": [
+   {
+    "idx": 611,
+    "statement": "Default to InMemoryTransport.createLinkedPair() when unit- or integration-testing MCP server logic, and reserve stdio or Streamable-HTTP transports for end-to-end transport-level tests."
+   },
+   {
+    "idx": 616,
+    "statement": "Use InMemoryTransport only for test/development in-process wiring; for production in-process connections use StreamableHTTPClientTransport against a local server URL."
+   }
+  ]
+ },
+ {
+  "group": 367,
+  "members": [
+   {
+    "idx": 623,
+    "statement": "Treat `protocol` as the mandatory foundation validator and respect validator dependency order (capabilities, ping, errors, security all depend on it); extend validation through the plugin model instead of ad-hoc checks."
+   },
+   {
+    "idx": 629,
+    "statement": "Configure validation reproducibly through named profiles, a .mcp-validation.json config file, or the MCP_VALIDATION_CONFIG / MCP_VALIDATION_PROFILE environment variables (and tune validator parameters there) instead of ad-hoc one-off flags."
+   }
+  ]
+ },
+ {
+  "group": 371,
+  "members": [
+   {
+    "idx": 631,
+    "statement": "Beyond the CLI, validate containerized servers through the container runtime (e.g. podman/docker) and embed validation programmatically via the API (validate_server / validate_mcp_server_command) when automating."
+   },
+   {
+    "idx": 634,
+    "statement": "Standardize the container-based validation invocation: run the tool via `uv run`, use podman with `-i --rm <image>:<version>`, and append the server's package_arguments after the image name."
+   },
+   {
+    "idx": 640,
+    "statement": "Treat validation warnings as non-fatal but actionable: a server can pass with warnings, so triage recurring warning categories (container images not based on UBI, mcp-scan 'NoneType' failures, and JSON-RPC error-compliance issues) instead of ignoring them."
+   },
+   {
+    "idx": 641,
+    "statement": "Diagnose common validation failures as a missing required package argument or an incorrect container image reference, and recognize that servers lacking a containerized distribution cannot be validated by the container-based flow."
+   }
+  ]
+ },
+ {
+  "group": 374,
+  "members": [
+   {
+    "idx": 636,
+    "statement": "When generating registry entries, extract environment-variable names verbatim from the server README (for example from `-e VARIABLE_NAME` Docker examples); never assume, invent, or standardize variable names."
+   },
+   {
+    "idx": 638,
+    "statement": "Build the registry entry deterministically from the repository: clone it, derive metadata (uuid id, README-based description, GitHub repository fields), set version from the container image tag with is_latest true, model packages as a single docker entry, and store the result in registry.json conforming to the MCP registry OpenAPI schema."
+   }
+  ]
+ }
+]

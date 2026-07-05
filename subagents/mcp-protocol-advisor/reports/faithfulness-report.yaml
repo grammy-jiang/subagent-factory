@@ -1,0 +1,259 @@
+# Faithfulness review — mcp-protocol-advisor
+# Per-rule claim-strength check of load-bearing profile rules against the promoted
+# principles and their backing claims/evidence. No rule is stronger than its evidence;
+# source_anchors are omitted deliberately (provenance carried in each note via
+# principle + claim IDs).
+schema_version: faithfulness-report-v1
+subagent_slug: mcp-protocol-advisor
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The role restates the specification''s framing — reviewing MCP hosts, clients, and servers for
+    conformance and security across the base protocol, lifecycle, transports, primitives, client features,
+    tasks, and trust model — and narrows scope to advice/review (no production code, no invented behaviour,
+    no product decision). A narrowing, not an over-claim. Grounded in principle(s): P001 (claims C00005/C00008);
+    P002 (claims C00447/C00448).'
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the specification directly addresses; within scope. Grounded
+    in principle(s): P001 (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the specification directly addresses; within scope. Grounded
+    in principle(s): P001 (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the specification directly addresses; within scope. Grounded
+    in principle(s): P001 (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the specification directly addresses; within scope. Grounded
+    in principle(s): P001 (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The trigger names a review situation the specification directly addresses; within scope. Grounded
+    in principle(s): P001 (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The exclusion is stronger-restrictive than the source, not stronger-permissive; a safe narrowing.
+    Grounded in principle(s): P001 (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The exclusion is stronger-restrictive than the source, not stronger-permissive; a safe narrowing.
+    Grounded in principle(s): P001 (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The exclusion is stronger-restrictive than the source, not stronger-permissive; a safe narrowing.
+    Grounded in principle(s): P001 (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The output shape (rule, revision, failure prevented, conforming behaviour, trade-off, next step)
+    follows the specification''s normative, revision-scoped structure. Grounded in principle(s): P001
+    (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: outputs.modes[review].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The review mode restates review/advice behaviour the specification supports; within scope. Grounded
+    in principle(s): P001 (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: outputs.modes[advise].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The advise mode restates review/advice behaviour the specification supports; within scope. Grounded
+    in principle(s): P001 (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: outputs.modes[compare].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The compare mode restates review/advice behaviour the specification supports; within scope. Grounded
+    in principle(s): P001 (claims C00005/C00008); P002 (claims C00447/C00448).'
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar is drawn directly from the cited principles and no rule is stronger than its
+    evidence. Grounded in principle(s): P001 (claims C00005/C00008); P060 (claims C00074/C00075); P062
+    (claims C00077/C00078); P063 (claims C00080/C00081).'
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar is drawn directly from the cited principles and no rule is stronger than its
+    evidence. Grounded in principle(s): P027 (claims C00605/C00606); P023 (claims C00609/C00610); P024
+    (claims C00614/C00615); P012 (claims C00598/C00599).'
+- rule_ref: quality_bar[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar is drawn directly from the cited principles and no rule is stronger than its
+    evidence. Grounded in principle(s): P059 (claims C00067/C00068); P058 (claims C00062/C00063); P029
+    (claims C00249/C00250); P031 (claims C00128/C00132).'
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar is drawn directly from the cited principles and no rule is stronger than its
+    evidence. Grounded in principle(s): P015 (claims C00038/C00039); P013 (claims C00018/C00019); P052
+    (claims C00024/C00026); P007 (claims C00025/C00512).'
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The quality bar is drawn directly from the cited principles and no rule is stronger than its
+    evidence. Grounded in principle(s): P047 (claims C00529/C00530); P086 (claims C00494/C00495); P022
+    (claims C00573/C00574); P082 (claims C00302/C00303).'
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The minimum bar (name the rule+revision+failure, apply a named principle, state the trade-off)
+    is a floor within the spec''s scope. Grounded in principle(s): P001 (claims C00005/C00008); P002 (claims
+    C00447/C00448).'
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The prohibition is more restrictive than the source (bans invented behaviour, ungated features,
+    and un-consented tool/data access); a safe narrowing, never an over-claim. Grounded in principle(s):
+    P027 (claims C00605/C00606); P012 (claims C00598/C00599).'
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The prohibition is more restrictive than the source (bans invented behaviour, ungated features,
+    and un-consented tool/data access); a safe narrowing, never an over-claim. Grounded in principle(s):
+    P059 (claims C00067/C00068); P058 (claims C00062/C00063); P031 (claims C00128/C00132).'
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The prohibition is more restrictive than the source (bans invented behaviour, ungated features,
+    and un-consented tool/data access); a safe narrowing, never an over-claim. Grounded in principle(s):
+    P052 (claims C00024/C00026); P013 (claims C00018/C00019); P007 (claims C00025/C00512).'
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The handoff keeps the ship/deprecate/extend decision with the team and hands out-of-protocol
+    concerns onward; within scope. Grounded in principle(s): P027 (claims C00605/C00606); P026 (claims
+    C00017/C00020).'
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The handoff keeps the ship/deprecate/extend decision with the team and hands out-of-protocol
+    concerns onward; within scope. Grounded in principle(s): P015 (claims C00038/C00039); P082 (claims
+    C00302/C00303).'
+- rule_ref: source_of_truth_policy.canonical_owner
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Canonical ownership sits with the engineering team; the specification is authority only for the
+    conformance rules. Within scope. Grounded in principle(s): P001 (claims C00005/C00008); P002 (claims
+    C00447/C00448).'
+- rule_ref: source_of_truth_policy.precedence
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Precedence favours the caller''s negotiated revision and never weakens a consent or security
+    requirement below source support; within scope. Grounded in principle(s): P001 (claims C00005/C00008);
+    P002 (claims C00447/C00448).'
