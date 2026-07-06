@@ -1,0 +1,210 @@
+schema_version: golden-tests-v1
+subagent_slug: product-blueprint-reviewer
+generated_at: '2026-07-06'
+profile_version: "1.0.0"
+tier: 2
+golden_tests:
+  - test_id: GT-001
+    description: Positive routing — blueprint leaks technology and vendor names
+    prompt: >-
+      Here is our product blueprint. It names PostgreSQL, a specific cloud vendor, and a REST schema
+      throughout, and the component list reads like source modules. Review it before we hand it to
+      architecture.
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review that flags the technology/vendor/schema leakage, rewrites it as implementation-neutral
+      product primitives with neutral component names used as responsibility boundaries, and states
+      the trade-off.
+    must_do:
+      - Flag the concrete technology, vendor, and schema detail as an altitude violation
+      - Rewrite leaked detail as implementation-neutral product primitives
+      - Treat neutral logical component names as responsibility boundaries, not modules
+    must_not_do:
+      - Endorse the technology and vendor choices as part of the blueprint
+      - Produce the downstream architecture or tech stack
+    principle_coverage: [P030, P169, P058, P101]
+  - test_id: GT-002
+    description: Positive routing — blueprint thinks in outputs, not outcomes
+    prompt: >-
+      Our blueprint is basically a feature list our execs asked for, each with a build estimate. Is it
+      ready to build?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review that names the build trap, reframes the features as the outcomes each should move and
+      the assumptions they test, and states the trade-off of outcome goals versus a fixed feature list.
+    must_do:
+      - Name the build trap of prioritizing outputs over outcomes
+      - Reframe each feature as the outcome it should move and the assumption it tests
+    must_not_do:
+      - Bless the feature list as build-ready without an outcome tie
+    principle_coverage: [P034, P090, P067, P044]
+  - test_id: GT-003
+    description: Positive routing — academic gap folded into MVP-0
+    prompt: >-
+      Our blueprint puts an unresolved research question — whether the model can classify edge cases
+      accurately enough — straight into MVP-0. How should we scope it?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Advice to classify the research question as an academic gap, pull it out of MVP-0 into
+      validation or deferred scope, and keep MVP-0 the smallest demonstrable slice, with the trade-off
+      named.
+    must_do:
+      - Classify the unresolved research question as an academic gap
+      - Keep academic gaps out of MVP-0 and Phase 1
+      - Keep MVP-0 the smallest demonstrable slice
+    must_not_do:
+      - Endorse folding the unvalidated research question into MVP-0
+    principle_coverage: [P031, P051, P136, P137]
+  - test_id: GT-004
+    description: Positive routing — hypotheses are sprawling and untested
+    prompt: >-
+      Our blueprint lists thirty assumptions and cites one round of customer interviews as proof the
+      idea works. Review the hypothesis section.
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review that keeps hypotheses crisp and moderate in number, treats the interviews as
+      uncertainty-reducing probes rather than final validation, and uses convergence as the stop
+      signal, with the trade-off named.
+    must_do:
+      - Recommend keeping hypotheses crisp and moderate in number
+      - Treat customer interviews as probes, not final scientific validation
+    must_not_do:
+      - Accept the interviews as proof the idea is validated
+    principle_coverage: [P002, P005, P017, P052]
+  - test_id: GT-005
+    description: Positive routing — downstream routing is unevidenced
+    prompt: >-
+      Our blueprint says "RUN architecture, RUN UX, RUN security" with no reasons or dependencies.
+      Review the stage-routing recommendations.
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review that requires each recommendation to be evidence-based, overrideable, and
+      dependency-aware, flags the unevidenced RUNs, and explains any absent ASK_USER, with the
+      trade-off named.
+    must_do:
+      - Require each RUN/SKIP/DEFER/ASK_USER recommendation to carry evidence and dependencies
+      - Flag unevidenced RUN decisions
+      - Assign each high-impact unknown to an owner, answer, or review stage
+    must_not_do:
+      - Accept the RUN decisions without evidence or dependency reasoning
+    principle_coverage: [P029, P166, P168, P167]
+  - test_id: GT-006
+    description: Positive routing — interaction modes and AI Skill vs MCP unclassified
+    prompt: >-
+      The product-experience section lists five interaction modes in one bullet and calls the whole
+      thing "an AI skill with MCP". Review it.
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review that splits the combined modes, classifies each as a primary/secondary/wrapper/future
+      surface, disambiguates the AI Skill from the MCP tool surface, and keeps content to UX intent and
+      architecture-impacting direction.
+    must_do:
+      - Classify each interaction mode as a primary, secondary, wrapper, or future surface
+      - Disambiguate the AI Skill from the MCP external-agent tool surface
+      - Split combined modes that do not share a classification
+    must_not_do:
+      - Design the actual screens, journeys, or command syntax
+    principle_coverage: [P147, P148, P149, P012]
+  - test_id: GT-007
+    description: Positive routing — capability with no evidence trace
+    prompt: >-
+      Our blueprint claims the system "guarantees tamper-proof audit logs" but there is no citation or
+      decision behind it. Review the claim.
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review that requires the capability to trace to a citation or constrained decision, downgrades
+      the overstated guarantee to what the evidence supports, and labels it validation-requiring, with
+      the trade-off named.
+    must_do:
+      - Require the capability to trace to a source citation or constrained design decision
+      - Downgrade technology claims that overstate enforcement or immutability
+    must_not_do:
+      - Accept the "tamper-proof" guarantee at face value
+    principle_coverage: [P138, P101, P141]
+  - test_id: GT-008
+    description: Positive routing — compare two MVP-0 boundaries
+    prompt: >-
+      We are torn between an MVP-0 that ships the full workflow and one that ships only the riskiest
+      slice. Which boundary should the blueprint set?
+    expected_route: invoke
+    expected_mode: compare
+    minimum_output: >-
+      A comparison of the two MVP-0 boundaries on what each demonstrates and defers, favouring the
+      smallest slice that retires the biggest risk, ending in an evidence-weighted recommendation with
+      the trade-off named.
+    must_do:
+      - Contrast what each boundary demonstrates versus defers
+      - Favour the smallest MVP-0 that retires the biggest risk
+    must_not_do:
+      - Recommend the fuller MVP-0 without naming the scope-and-risk trade-off
+    principle_coverage: [P136, P137, P139, P078]
+negative_routing_tests:
+  - test_id: NR-001
+    description: Out of scope — write the downstream architecture, stack, and code
+    prompt: >-
+      Design the technical architecture, choose the tech stack, and write the service code for this
+      blueprint.
+    expected_route: do_not_invoke
+    must_not_do:
+      - Author downstream architecture, select a tech stack, or write code
+    principle_coverage: []
+  - test_id: NR-002
+    description: Out of scope — more literature research / second summary
+    prompt: >-
+      Go find more papers on this topic and write us an updated literature review.
+    expected_route: do_not_invoke
+    must_not_do:
+      - Perform literature research or produce a second research summary
+    principle_coverage: []
+  - test_id: NR-003
+    description: Out of scope — legal / HR decision
+    prompt: >-
+      Draft the data-processing agreement and the hiring plan for the team that will build this.
+    expected_route: do_not_invoke
+    must_not_do:
+      - Give legal/compliance or people-management/HR advice
+    principle_coverage: []
+missing_context_tests:
+  - test_id: MC-001
+    description: Underspecified — review request with no artifact
+    prompt: >-
+      Review our blueprint.
+    expected_route: invoke
+    must_ask_for:
+      - the blueprint (or research synthesis) itself
+      - the outcome it should serve
+      - the users, MVP appetite, and what is evidenced versus assumed
+  - test_id: MC-002
+    description: Underspecified — MVP scope question with no outcome or evidence
+    prompt: >-
+      Should this capability go in the MVP?
+    expected_route: invoke
+    must_ask_for:
+      - the outcome the MVP should achieve
+      - whether the capability rests on an engineering gap or an academic gap
+      - what evidence supports it versus what is still assumed
+  - test_id: MC-003
+    description: Underspecified — routing question with no risk signals
+    prompt: >-
+      Should we route this to architecture?
+    expected_route: invoke
+    must_ask_for:
+      - the risk, ambiguity, or complexity signals in the blueprint
+      - what downstream decisions depend on the architecture stage
+      - which high-impact unknowns are still unassigned
+  - test_id: MC-004
+    description: Underspecified — vague product-experience help
+    prompt: >-
+      Help us with the product-experience section.
+    expected_route: invoke
+    must_ask_for:
+      - the interaction modes and which is the primary surface
+      - whether an AI Skill or an MCP tool surface is involved
+      - which product-experience choices materially change direction, risk, or architecture
