@@ -1,0 +1,157 @@
+[
+ {
+  "group": 2,
+  "members": [
+   {
+    "idx": 2,
+    "statement": "Capture cognitive, operational, and contextual telemetry at runtime, and design privacy controls when rich traces may expose sensitive data."
+   },
+   {
+    "idx": 43,
+    "statement": "Capture live telemetry sufficient for replay, including runtime metadata, plans, tool calls, tool results, verification events, context decisions, environment state, human decisions, and append-only session logs."
+   }
+  ]
+ },
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 10,
+    "statement": "Treat persistent memory as governed state: separate mutable records from immutable history, gate writes, scope reads, monitor drift, and preserve provenance."
+   },
+   {
+    "idx": 12,
+    "statement": "Preserve superseded memory records with provenance rather than deleting them when memory must handle temporal conflict."
+   }
+  ]
+ },
+ {
+  "group": 11,
+  "members": [
+   {
+    "idx": 11,
+    "statement": "Prefer causal, schema-grounded, tool-retrievable, or bi-temporal memory records over unverified natural-language summaries for agentic tasks."
+   },
+   {
+    "idx": 63,
+    "statement": "Store exact project memory as schema-grounded records for decisions, constraints, commands, components, incidents, relations, explicit unknowns, and deletions instead of authoritative prose summaries."
+   }
+  ]
+ },
+ {
+  "group": 16,
+  "members": [
+   {
+    "idx": 17,
+    "statement": "Keep authentication, authorization, audit, cryptography, and final security decisions in deterministic wrapper code rather than model reasoning."
+   },
+   {
+    "idx": 18,
+    "statement": "Authenticate and integrity-check model responses, routers, tool binaries, skills, prompt chains, dependencies, and documentation before downstream execution trusts them."
+   },
+   {
+    "idx": 51,
+    "statement": "Use deterministic verification as the acceptance authority, with a minimum gate covering formatting or linting, tests, secret scanning, SAST, dependency scanning, and domain invariants."
+   }
+  ]
+ },
+ {
+  "group": 22,
+  "members": [
+   {
+    "idx": 24,
+    "statement": "Convert formal lifecycle, state, task, and component invariants into automated harness gates where those properties are expressible."
+   },
+   {
+    "idx": 45,
+    "statement": "Evaluate harness changes by holding the model and runtime constant while varying manifests, tool scope, permissions, or verification gates."
+   }
+  ]
+ },
+ {
+  "group": 23,
+  "members": [
+   {
+    "idx": 25,
+    "statement": "Secure skills and tools with pre-deployment analysis, runtime monitoring, and per-call checks for identity, semantic binding, permission scope, and implementation integrity."
+   },
+   {
+    "idx": 44,
+    "statement": "Enforce structural least privilege through the tool graph: expose only needed capabilities, keep planning non-executing, scope adapters, and withhold commit authority until gates pass."
+   },
+   {
+    "idx": 60,
+    "statement": "For high-risk changes, add domain-specific external guards such as state-machine invariants, schema compatibility checks, authorization tests, property checks, or formal safety properties."
+   }
+  ]
+ },
+ {
+  "group": 25,
+  "members": [
+   {
+    "idx": 27,
+    "statement": "Constrain self-evolution and meta-harness search with formal guardrails, verified fallbacks, local contracts, compatibility checks, staged rollout, rollback, and attention to diminishing returns."
+   },
+   {
+    "idx": 47,
+    "statement": "Evolve harness behavior only as a measured experiment: vary one harness variable with the model fixed, use held-out tasks and regression checks, keep only improvements without new regressions, and preserve rollback."
+   }
+  ]
+ },
+ {
+  "group": 41,
+  "members": [
+   {
+    "idx": 46,
+    "statement": "Promote lessons into durable memory only when they are structured, causal, tool-retrievable, triggered by concrete conditions, testable, rollbackable, owned, and durable across tasks."
+   },
+   {
+    "idx": 65,
+    "statement": "Answer exact project-fact questions by querying validated memory records and re-promote only durable records into manifests or skills."
+   }
+  ]
+ },
+ {
+  "group": 44,
+  "members": [
+   {
+    "idx": 50,
+    "statement": "Run agents in a constrained sandbox that limits filesystem writes, network access, process resources, secret exposure, package installation, and protected branch writes."
+   },
+   {
+    "idx": 54,
+    "statement": "Define operating budgets and incident paths before agent work begins, including limits for turns, tokens, tools, time, network, commands, human escalation, compaction triggers, quarantine, revert, secret rotation, trace replay, and labels for local-policy thresholds."
+   }
+  ]
+ },
+ {
+  "group": 45,
+  "members": [
+   {
+    "idx": 52,
+    "statement": "Add maintainability gates that can reject behavior-correct patches for poor locality, duplicated paths, mixed responsibilities, bad dependencies, unclear state ownership, or boundary-crossing side effects."
+   },
+   {
+    "idx": 53,
+    "statement": "Maintain local evaluations from realistic work: include hidden edge checks, fail-to-pass and pass-to-pass tests, manifest regressions, ambiguity cases, original prompts when privacy allows, hidden solutions, relevance checks, flaky-test exclusion, harness condition records, and rolling refresh."
+   },
+   {
+    "idx": 70,
+    "statement": "Use the safe-refactor workflow when behavior must be preserved: characterize existing behavior, freeze interfaces, scope edit tools, run invariants and public-output checks, and reject unapproved behavior changes."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 73,
+    "statement": "When an agent loops, stop immediately, preserve trace and diff, diagnose the missing tool, bad output, ambiguity, or stale context, restart from a compacted narrower context, and add a detector if recurrence shows a pattern."
+   },
+   {
+    "idx": 74,
+    "statement": "When an agent crosses scope or exposes sensitive data, stop and preserve evidence, revert only the offending agent changes, quarantine or rotate secrets as applicable, tighten controls, and add a regression or post-incident review."
+   }
+  ]
+ }
+]
