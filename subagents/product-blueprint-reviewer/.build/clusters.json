@@ -1,0 +1,607 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Convert research synthesis into a product blueprint, not a second literature summary; express findings as product primitives, workflows, architecture intent, MVP scope, evaluation, and handoff material."
+   },
+   {
+    "idx": 2,
+    "statement": "Run blueprint generation only for product-design-from-research intents, and route literature research, tech-stack selection, detailed UX, requirements elicitation, or single-paper explanation to the appropriate specialized stage."
+   },
+   {
+    "idx": 14,
+    "statement": "Translate research items into reusable product primitives and merge overlapping primitives before composing capabilities or workflows."
+   },
+   {
+    "idx": 18,
+    "statement": "Compose the blueprint thesis around the primary research-backed architecture, keep actors and domains aligned to that thesis, and copy rather than invent metadata."
+   },
+   {
+    "idx": 24,
+    "statement": "Make the blueprint useful as a technical-design handoff so downstream designers can choose a stack and plan implementation without re-reading the research papers."
+   },
+   {
+    "idx": 57,
+    "statement": "Keep the architecture stage focused on turning a product blueprint into technical structure, responsibility boundaries, contracts, security, observability, failure handling, and handoff notes; route research, blueprinting, implementation planning, code, deployment scripts, and migrations to their own stages."
+   }
+  ]
+ },
+ {
+  "group": 4,
+  "members": [
+   {
+    "idx": 5,
+    "statement": "Enforce the ordered 20-section blueprint structure so the artifact covers thesis, interpretation, users, goals, translation, decisions, capabilities, workflows, experience, architecture, information, policies, risk, evaluation, MVP, roadmap, validation, handoff, next stages, and traceability."
+   },
+   {
+    "idx": 7,
+    "statement": "Keep the blueprint implementation-neutral by replacing concrete technology, vendor, deployment, code, schema, package, ticket, or build-task specifics with conceptual responsibilities, surfacing warnings, and classifying uncertain runtime-leaning terms conservatively."
+   },
+   {
+    "idx": 25,
+    "statement": "Expose shared artifact-contract fields with controlled vocabulary, including identity, inputs, decisions, assumptions, open questions, next stages, quality-gate status, and not-applicable reasons."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Include parseable navigation and evidence structures: linked contents, required workflow and logical-architecture Mermaid diagrams, decision-oriented tables, and citations traceable to the source report."
+   },
+   {
+    "idx": 64,
+    "statement": "Architecture documents must include the required ordered sections, contents, update history, metadata, C4 views, responsibility matrices, technology decision rationale, and ADR coverage for high-impact decisions."
+   }
+  ]
+ },
+ {
+  "group": 6,
+  "members": [
+   {
+    "idx": 8,
+    "statement": "Limit product-experience content to UX intent and architecture-impacting direction; leave journeys, screens, command syntax, tool/API schemas, routes, copy, accessibility specifics, and implementation tasks to later stages."
+   },
+   {
+    "idx": 46,
+    "statement": "Route UX-design when roles, human review, non-trivial interaction, failure recovery, user-story-driven tests, non-technical users, or trust/control needs require detailed experience design."
+   },
+   {
+    "idx": 84,
+    "statement": "Before authoring UX interactions, parse architecture surfaces, actors, state, workflows, human review, security, observability, failure recovery, experience architecture, and handoff notes, and preserve blueprint experience intent when the blueprint is available."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 9,
+    "statement": "Never treat research gaps as solved; map engineering gaps toward roadmap-sized product work, academic gaps toward validation or open questions, and out-of-scope gaps toward non-goals."
+   },
+   {
+    "idx": 10,
+    "statement": "Exclude academic gaps from MVP or Phase 1 product requirements unless the product itself exists to validate the research question, and carry academic assumptions into decisions, risk, evaluation, MVP exclusions, roadmap, and open questions."
+   }
+  ]
+ },
+ {
+  "group": 12,
+  "members": [
+   {
+    "idx": 16,
+    "statement": "Use long gap-closure history or remaining-gaps readiness as pressure to defer or reject speculative scope instead of expanding MVP."
+   },
+   {
+    "idx": 17,
+    "statement": "Structure MVP scope into MVP-0, MVP-1, safety baseline, evaluation baseline, and deferred scope, with MVP-0 limited to the smallest demonstrable end-to-end slice."
+   }
+  ]
+ },
+ {
+  "group": 18,
+  "members": [
+   {
+    "idx": 26,
+    "statement": "Keep the topic slug stable and derive it from source metadata, filename, project name, or explicit user slug before failing or asking for ambiguity."
+   },
+   {
+    "idx": 63,
+    "statement": "Name and place architecture artifacts deterministically from the topic slug and source location, while recording a fallback filename if writing files is unavailable."
+   }
+  ]
+ },
+ {
+  "group": 28,
+  "members": [
+   {
+    "idx": 36,
+    "statement": "In automatic mode, infer reasonable UX defaults as assumptions and review-flag the high-impact ones in the architecture handoff."
+   },
+   {
+    "idx": 83,
+    "statement": "In UX-design modes, ask only high-impact UX questions, infer and record low-risk defaults, flag high-risk assumptions, and still complete the document when remaining open questions do not break the design."
+   }
+  ]
+ },
+ {
+  "group": 29,
+  "members": [
+   {
+    "idx": 37,
+    "statement": "Gate product-experience quality by checking the primary user, job, experience thesis, primary mode, mode classification, trust/control/transparency, human review, failure recovery, and UX-to-architecture handoff."
+   },
+   {
+    "idx": 38,
+    "statement": "Fail the product-experience gate when required user, job, mode, human-review, uncertainty, trust/control/transparency, or architecture-handoff information is absent."
+   },
+   {
+    "idx": 53,
+    "statement": "Use product-experience signals to drive routing decisions for UX-design, security-review, test-design, architecture-design, and tech-stack selection."
+   }
+  ]
+ },
+ {
+  "group": 31,
+  "members": [
+   {
+    "idx": 40,
+    "statement": "Use the blueprint as the first product-level routing point because it is where product shape, users, MVP, interaction mode, risk, AI involvement, review needs, data sensitivity, workflow complexity, and implementation ambiguity become explicit."
+   },
+   {
+    "idx": 78,
+    "statement": "Consume the blueprint product-experience direction and recommended-next-stage routing in architecture design, preserving UX intent and emitting downstream handoffs while keeping the stack provisional when stack selection is deferred."
+   }
+  ]
+ },
+ {
+  "group": 32,
+  "members": [
+   {
+    "idx": 41,
+    "statement": "Separate the design pipeline into a core path and optional gates, running optional gates only when justified by risk, ambiguity, rework avoidance, or testing needs."
+   },
+   {
+    "idx": 51,
+    "statement": "Present the recommended pipeline as a linear core path plus conditional follow-up gates so deferred conditional work remains visible."
+   },
+   {
+    "idx": 55,
+    "statement": "Warn on routing plans that skip optional stages despite matching risk signals, omit dependencies, omit deferred-gate triggers, flatten the pipeline, formalize the complexity score, or leave interaction labels ambiguous."
+   }
+  ]
+ },
+ {
+  "group": 33,
+  "members": [
+   {
+    "idx": 42,
+    "statement": "Score routing complexity across user-facing complexity, technical ambiguity, security/privacy risk, AI uncertainty, integration complexity, human-review complexity, and testing importance."
+   },
+   {
+    "idx": 43,
+    "statement": "Label the complexity score as a routing heuristic, not a formal estimate, and revisit it after architecture design rather than letting it override judgment."
+   }
+  ]
+ },
+ {
+  "group": 34,
+  "members": [
+   {
+    "idx": 44,
+    "statement": "Default architecture-design to RUN for serious blueprints and skip it only for conceptual notes, no-implementation work, or trivial scripts with obvious architecture."
+   },
+   {
+    "idx": 62,
+    "statement": "Discover required architecture inputs from explicit arguments, context, and common artifact locations before stopping for a missing blueprint or architecture."
+   }
+  ]
+ },
+ {
+  "group": 38,
+  "members": [
+   {
+    "idx": 49,
+    "statement": "Keep architecture-update and architecture-reconciliation deferred at blueprint stage and run them only when downstream decisions, reviews, or conflicts require architecture changes."
+   },
+   {
+    "idx": 60,
+    "statement": "In stack mode, choose technologies to satisfy the architecture and report architecture-impacting conflicts instead of rewriting the architecture silently."
+   },
+   {
+    "idx": 65,
+    "statement": "Every major architecture decision must be traceable to blueprint material, user clarification, a rule-pack decision, or an explicit recorded assumption."
+   },
+   {
+    "idx": 66,
+    "statement": "Ask only architecture-impacting clarification questions, one at a time, and record assumptions, review requirements, reversibility, and revisit triggers according to interactive, automatic, or hybrid mode."
+   },
+   {
+    "idx": 71,
+    "statement": "Preserve blueprint MVP staging and create or supersede ADRs for every high-impact architecture decision."
+   },
+   {
+    "idx": 74,
+    "statement": "Keep architecture artifacts at the boundary level: proposed modules and namespaces are allowed, but task tickets, code, migrations, file-by-file steps, and implementation sequencing belong downstream."
+   }
+  ]
+ },
+ {
+  "group": 43,
+  "members": [
+   {
+    "idx": 58,
+    "statement": "Resolve the architecture mode before substantive work, honoring an explicit mode first and otherwise routing from the request plus available artifacts."
+   },
+   {
+    "idx": 79,
+    "statement": "For review, update, and reconcile modes, resolve artifacts first, stop when the required architecture is missing, and avoid silent mutation."
+   }
+  ]
+ },
+ {
+  "group": 54,
+  "members": [
+   {
+    "idx": 77,
+    "statement": "Require controlled provenance for high-impact architecture decisions and never label a decision user-confirmed without explicit confirmation evidence."
+   },
+   {
+    "idx": 127,
+    "statement": "Do not commit to visions or lofty feature sets without validation, and do not assume an expensive consultancy roadmap is right, because teams that lock into plans before gathering evidence build useless features that do not matter to customers."
+   }
+  ]
+ },
+ {
+  "group": 55,
+  "members": [
+   {
+    "idx": 80,
+    "statement": "Keep UX design as the stage that converts architecture constraints into interaction flows, user stories, acceptance criteria, E2E scenario seeds, and architecture feedback; do not use it for architecture, stack selection, implementation plans, executable tests, visual layout, or final copy."
+   },
+   {
+    "idx": 81,
+    "statement": "Do not run UX design without a resolved architecture design document; discover the architecture first and stop if it cannot be found."
+   },
+   {
+    "idx": 82,
+    "statement": "UX-design outputs must include contents, update history, metadata, separate skill-operator and target-software UX, scoped surfaces, user stories, Gherkin-style scenario seeds, architecture feedback, and a self-check appendix."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 89,
+    "statement": "Treat becoming product-led as an organization-wide change - across the product-manager role, strategy, process, and policies/rewards - and fundamentally a mentality shift from delivering outputs to achieving outcomes; fixing only a team's process is not enough."
+   },
+   {
+    "idx": 91,
+    "statement": "Tie rewards and incentives to solving problems, achieving outcomes, and learning, not to shipping output, and re-evaluate reward structures when transitioning to product-led: rewarding output proxies, scorecards of items to deliver, and livelihoods tied to shipping keep the organization in the build trap and stifle innovation."
+   },
+   {
+    "idx": 93,
+    "statement": "Staff the product-management role with genuine product-management expertise; it is a specialized skill set, and placing adjacent-function people (e.g. marketers) in the role leaves teams unable to find value-creating solutions."
+   },
+   {
+    "idx": 99,
+    "statement": "Be product-led rather than sales-, visionary-, or technology-led: let product strategy aligned to business outcomes lead and connect business, market, and technology, because the other operating models fail to scale or sustain."
+   },
+   {
+    "idx": 101,
+    "statement": "Treat product management as a career whose holder synthesizes many data sources into a direction and keeps the team anchored on the why and the outcome, with the chief product officer tying business outcomes to the roadmap and the board."
+   },
+   {
+    "idx": 102,
+    "statement": "Establish a standardized product-management career path and grow people through it, because product management is a discipline mastered over a career (not in a two-day course), so pair junior people with experienced product managers."
+   },
+   {
+    "idx": 103,
+    "statement": "Do not assume Agile covers product management: Agile speeds up building software but ignores the front-of-funnel work of generating and validating ideas, leaving many product managers operating with a Waterfall mindset."
+   },
+   {
+    "idx": 107,
+    "statement": "The product manager's real job is to work with the team to create the right product that balances business needs with user problems, which requires understanding the market, the business, the company vision, and the users."
+   },
+   {
+    "idx": 109,
+    "statement": "Hire and grow product managers as product-management experts, not as technical or market experts: product management spans the whole system beyond UX, and the manager needs only to be tech-literate (not tech-fluent) enough to make trade-off decisions."
+   },
+   {
+    "idx": 113,
+    "statement": "A product manager's core value is marrying business goals with customer goals by creating or optimizing products that solve real customer problems, and companies that dismiss the need for product management rarely sustain long-term value."
+   },
+   {
+    "idx": 116,
+    "statement": "Build a deep bench of product people and understand the distinct responsibilities of each level: create associate or junior programs open to career-switchers with coaching, keep the mid-level product manager from becoming purely operational by pushing project-management effort to the team, and scale up through senior product manager (top individual contributor), director (first people manager), VP (owning a product line's strategy and finances), and CPO (owning the whole portfolio)."
+   },
+   {
+    "idx": 117,
+    "statement": "Select chief product officers who pair skill in product, technology, and finance with three traits - inspiring confidence through influence, empathy that aligns goals, and relentless resilience accountable to data - because a strong product leader in the C-Suite is a critical step to becoming product-led."
+   },
+   {
+    "idx": 165,
+    "statement": "Recognize that good process and research alone do not escape the build trap: it also takes a supportive, product-led organization that favours outcomes over outputs, evaluates strategy on a cadence, rewards learning, gets close to customers, and treats product management as a critical function."
+   },
+   {
+    "idx": 170,
+    "statement": "Use product management to enable the sales strategy through working agreements and customer-facing roadmaps (for example, letting sales sell anything at GA or far along in Beta), which helps move the company from sales-led to product-led."
+   },
+   {
+    "idx": 180,
+    "statement": "Adopt being product-led as a winning strategy whose fundamental criterion for building is that the product solves a real user problem, and diagnose health by the signs of a strong product team: the team originates ideas and can connect the why to the what, the organization is able to kill ideas, goals are outcome-oriented and actionable and clearly communicated, and product managers are respected leaders who talk more about problems than solutions."
+   }
+  ]
+ },
+ {
+  "group": 61,
+  "members": [
+   {
+    "idx": 90,
+    "statement": "Concentrate strategy on a very few priorities and give large objectives the time and manpower to build up; spreading many initiatives across too few people (peanut-buttering) prevents teams from hitting major goals."
+   },
+   {
+    "idx": 122,
+    "statement": "Give the organization a coherent product strategy ruthlessly prioritized around a few key goals, because without one it spreads thin optimizing components instead of the whole and everyone must be pulling in the same direction."
+   },
+   {
+    "idx": 123,
+    "statement": "Treat strategy as a deployable decision-making framework that enables action toward outcomes (constrained by current capabilities and aligned to context), not as a detailed plan, and make it transcend individual feature iterations and sustain the organization for years rather than rewriting it yearly without cause."
+   },
+   {
+    "idx": 125,
+    "statement": "Commit to the outcomes that solutions produce rather than to the solutions themselves so you can change tactics or kill ideas, cascading strategy from a guiding principle into a few strategies, then tactics, then metrics, and thinking about the whole before zooming into details."
+   },
+   {
+    "idx": 128,
+    "statement": "Recognize that treating strategy as a plan creates the Knowledge, Alignment, and Effects gaps, and close them the right way: communicate strategic intent and ask only for enough information to decide (not more detail), give teams room to experiment and understand the why before the how, and let each level define how it will achieve the intent of the level above."
+   },
+   {
+    "idx": 134,
+    "statement": "Deploy strategy by setting the right level of goals for each level's time scale (teams think in weeks, executives in years), because appropriately constrained teams feel safe to decide while too-broad or too-prescriptive direction lands the organization in the build trap - the same premise underlying OKRs, Hoshin Kanri, and mission command."
+   }
+  ]
+ },
+ {
+  "group": 63,
+  "members": [
+   {
+    "idx": 94,
+    "statement": "Align every team's and leader's most important priority back to the company's overarching goal; divergent top priorities across leaders are a symptom of misalignment."
+   },
+   {
+    "idx": 129,
+    "statement": "Give aligned teams real autonomy: do not hand down committed feature requests (which severs work from outcomes and blocks course-correction) and do not answer poor results with more controls, but let teams explore solutions and adjust to the data as long as they stay aligned to the strategic intent, because leadership misalignment is the single biggest blocker to product success."
+   }
+  ]
+ },
+ {
+  "group": 64,
+  "members": [
+   {
+    "idx": 95,
+    "statement": "Treat the business as a value exchange: value is realized only when a customer's problem is solved, and only then does the customer return value to the business, so every feature and initiative should map to a business-value outcome."
+   },
+   {
+    "idx": 141,
+    "statement": "Write a product vision that states why you are building and the customer value proposition, let it emerge from experimentation and describe main capabilities rather than every feature (with the VP of product owning it), wrap multiple products in a portfolio the CPO governs as a system, and deliberately make time to innovate by saying no and dedicating teams - since the best solutions are linked to real problems users want solved."
+   }
+  ]
+ },
+ {
+  "group": 68,
+  "members": [
+   {
+    "idx": 100,
+    "statement": "Frame work with a knowns/unknowns model and treat product management as investigating the known unknowns and reducing the unknown unknowns, always checking intuition with experiments because bias hides in unchecked intuition."
+   },
+   {
+    "idx": 108,
+    "statement": "Lead the experiments and continually reveal the known unknowns - early ones about the problem and customer, later ones about the solution - connecting research, market data, experiment results, and analysis into a product vision."
+   },
+   {
+    "idx": 144,
+    "statement": "Frame each product initiative as a testable belief tied to a quantified outcome, quantifying it from existing data (baselines, problem size, and realistic targets) and identifying and baselining leading indicators before writing option statements."
+   }
+  ]
+ },
+ {
+  "group": 69,
+  "members": [
+   {
+    "idx": 104,
+    "statement": "Lead by influence rather than authority: a product manager owns the why (while the team collectively owns the what) and is not a project manager or mini-CEO, so acting as the product's sole owner or dictator only alienates the team."
+   },
+   {
+    "idx": 111,
+    "statement": "Do not let leadership hand solutions down without success metrics and goals, because that removes the ability to detect and correct a failing approach; the Scrum product-owner role is only a subset of product management."
+   },
+   {
+    "idx": 118,
+    "statement": "Drop the 'product owner' title and call everyone in the position a product manager, so the organization keeps a single coherent and meaningful career path."
+   }
+  ]
+ },
+ {
+  "group": 72,
+  "members": [
+   {
+    "idx": 110,
+    "statement": "Start with why and confront risk and bias before building: explicitly ask the desired result, what success looks like, and what could kill the project, and fight the bias inherent in every solution idea by learning from users and experimenting."
+   },
+   {
+    "idx": 112,
+    "statement": "Find the real problem with data before designing, validate a candidate solution with a small manual or concierge experiment before building it, and bring developers and designers into user research so the whole team understands the problem."
+   },
+   {
+    "idx": 147,
+    "statement": "Do not over-design solutions for problems that are not core to your value proposition - adopt an existing best practice and iterate - but when the problem is core to the value proposition, experiment with a few ideas before committing; keep all work in service of a goal, kill bad ideas, and keep features few."
+   },
+   {
+    "idx": 161,
+    "statement": "Treat solving a validated problem as a build-partner-buy decision weighed on margin against risk, run a usability experiment proving users can self-serve before adopting purchased or third-party software, and assemble the business case from the accumulated Product Kata evidence showing risk eliminated on both the user and business sides."
+   }
+  ]
+ },
+ {
+  "group": 74,
+  "members": [
+   {
+    "idx": 115,
+    "statement": "Avoid splitting the product manager (strategy) from the product owner (tactical execution) as SAFe does, because in practice the split disconnects product owners from users and stops validation work."
+   },
+   {
+    "idx": 120,
+    "statement": "Treat a product as a whole value vehicle rather than an app or feature: keep a piece-owning product manager inside the division that holds the true value so strategy and execution stay together, and minimize management layers while giving product managers more scope."
+   },
+   {
+    "idx": 175,
+    "statement": "Have product managers act as risk mitigators and have leaders make experimentation safe by giving explicit boundaries such as spending caps, segmenting Alpha and Beta populations for a bounded rollout and easy rollback, and defusing first-experiment fear through a boundaries conversation and demonstrated small wins."
+   }
+  ]
+ },
+ {
+  "group": 75,
+  "members": [
+   {
+    "idx": 119,
+    "statement": "Organize teams around value streams and strategic goals rather than technical components or features: component and feature organization breed output-oriented busywork on stable slices, while goal and value-stream organization (built backward from the customer's value) force prioritization and eliminate useless work, balancing coverage against goals."
+   },
+   {
+    "idx": 121,
+    "statement": "Restructure around value (which typically needs fewer teams), never build an organizational structure without a product vision because the value streams are not apparent without it, and give product managers the scope to manage toward whole outcome-oriented goals."
+   },
+   {
+    "idx": 133,
+    "statement": "Communicate strategy well so product development and management stay synchronized in a cyclical flow - strategy informs the teams and the execution and data inform the strategy - with information moving up, down, and across the organization."
+   },
+   {
+    "idx": 171,
+    "statement": "Stand up a small product operations team at scale, reporting to the CPO, that streamlines data collection, reporting, analytics, and cadences by creating systems and templates for the inputs and outputs of work rather than dictating how teams operate, and that aims to stay minimal."
+   }
+  ]
+ },
+ {
+  "group": 76,
+  "members": [
+   {
+    "idx": 124,
+    "statement": "Anchor the company around a strong, evolving vision and a staged multi-year strategy so it can invest early against future disruption while staying focused on its core mission, because distraction from the core mission drags even strong-strategy companies into the build trap."
+   },
+   {
+    "idx": 137,
+    "statement": "Do not set vision purely top-down: have teams surface and share what they learn so it informs strategy, and anchor everything on a strong company vision (the linchpin) that combines mission and vision, is short and memorable and gives context on how, and cascades from corporate down to products in multi-product companies."
+   },
+   {
+    "idx": 139,
+    "statement": "Set a very few concise, outcome-oriented strategic intents based on the current state (asking what is the most important thing to do to reach the vision from where the company is now) - about one for a small company and three for a large one - and keep them high-level and business-focused."
+   },
+   {
+    "idx": 178,
+    "statement": "Recognize that doing everything right and still not escaping the build trap means escape is a whole-organization change that must start with the top leader changing first rather than delegating the transformation, running strategy on a rolling basis and killing ideas early."
+   }
+  ]
+ },
+ {
+  "group": 78,
+  "members": [
+   {
+    "idx": 130,
+    "statement": "Separate the operational framework (keeping day-to-day activities moving) from the strategic framework (realizing the vision through product development) and get the strategic framework right, because a strong company vision and aligned product visions avoid swirl in planning and execution."
+   },
+   {
+    "idx": 136,
+    "statement": "Use the four strategy-deployment levels - vision, strategic intent, product initiatives, and options - and treat strategy creation as a sustained C-suite priority that moves the organization from its current state to its vision by identifying obstacles and experimenting, driven by the Product Kata loop of direction, current state, obstacle, experiment, and learning."
+   },
+   {
+    "idx": 140,
+    "statement": "Translate strategic intents into product initiatives (the customer problems to solve, the how) whose options are the bets teams explore, keep initiatives and options aligned to the product or portfolio vision, and remember that one-off products built without a coherent vision do not scale."
+   }
+  ]
+ },
+ {
+  "group": 80,
+  "members": [
+   {
+    "idx": 132,
+    "statement": "Sustain innovation by not mandating what to build from the top and by creating an environment where it is safe to experiment and fail, so the organization can course-correct quickly."
+   },
+   {
+    "idx": 166,
+    "statement": "Do not isolate innovation in an under-resourced lab or wait for annual budget to act; be strategic rather than reactive and drive market-driven innovation by immersing in a target user group's problems, as Kodak failed to do."
+   }
+  ]
+ },
+ {
+  "group": 85,
+  "members": [
+   {
+    "idx": 145,
+    "statement": "Use the Product Kata as a repeatable problem-solving habit driven by its six questions (goal, current state, biggest obstacle, how to solve it, what is expected, what was learned), arriving at initiatives from the strategic intent and breaking success metrics into a shorter per-release team goal for fast feedback."
+   },
+   {
+    "idx": 155,
+    "statement": "Define a minimum viable product as the minimum effort needed to learn rather than the first release, keep the Product Kata's question of what to learn next at the center, and limit customer exposure by closing the loop and setting expectations on every experiment."
+   }
+  ]
+ },
+ {
+  "group": 93,
+  "members": [
+   {
+    "idx": 154,
+    "statement": "Do not get attached to solutions or build merely to ship: a feature that solves no current problem is a distraction, so fall in love with the problem, kill bad ideas early, test the riskiest assumption cheaply first, get creative to reach customers when access is blocked, expect solving one problem to uncover the bigger real one, and experiment to learn rather than to earn."
+   },
+   {
+    "idx": 174,
+    "statement": "Fail small and early (which is what problem and solution exploration are for), treat experimentation as the ultimate risk-management strategy, avoid the worst failure mode of failing slowly by shipping unmeasured products for years, and recognize that how a company recovers from a big failure defines its culture."
+   }
+  ]
+ },
+ {
+  "group": 110,
+  "members": [
+   {
+    "idx": 181,
+    "statement": "Use lean startup for early-stage business ideas with unresolved uncertainty, structuring the work around explicit assumptions, canvas scaffolding, and customer or stakeholder probing."
+   },
+   {
+    "idx": 187,
+    "statement": "For repeatable lean-startup programs, standardize cadence, platform use, reporting fields, feedback loops, team expectations, and interview targets."
+   },
+   {
+    "idx": 188,
+    "statement": "Assess team composition before applying lean startup because prior expertise and educational background can alter adoption, interpretation, and change behavior."
+   },
+   {
+    "idx": 191,
+    "statement": "Use lean startup as an initial commercialization method for technology-driven academics, while managing MBA involvement so it supports rather than suppresses probing."
+   },
+   {
+    "idx": 193,
+    "statement": "Treat higher lean-startup activity intensity as a promising but exploratory outcome signal, not as proof of venture performance."
+   },
+   {
+    "idx": 195,
+    "statement": "Distinguish minor canvas edits from major business-idea changes when judging whether lean startup produced meaningful reorientation."
+   }
+  ]
+ },
+ {
+  "group": 116,
+  "members": [
+   {
+    "idx": 189,
+    "statement": "For MBA or strongly learning-by-thinking teams, first force engagement with probing, then use their analytical training to interpret interview evidence and support major changes."
+   },
+   {
+    "idx": 196,
+    "statement": "Validate that probing is real learning activity by checking qualitative decision records in addition to interview counts."
+   }
+  ]
+ }
+]
