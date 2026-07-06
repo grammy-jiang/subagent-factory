@@ -1,0 +1,938 @@
+# Behaviour tests — one per high-confidence principle (principle_id → coverage).
+schema_version: principle-behaviour-tests-v1
+subagent_slug: product-blueprint-reviewer
+generated_at: '2026-07-06'
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  mode: review
+  prompt: 'Review our product blueprint for this situation: A lean-startup team includes MBA-trained members
+    or influential members who rely heavily on analytical business frameworks. What''s wrong at the blueprint
+    altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: For MBA or strongly learning-by-thinking teams, first force engagement with
+    probing, then use their analytical training to interpret intervi…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P001.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P002
+  principle_id: P002
+  mode: advise
+  prompt: 'Review our product blueprint for this situation: A team is creating hypotheses faster than
+    it can probe or decide on them. What''s wrong at the blueprint altitude, and what should we change
+    — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Keep hypotheses crisp and moderate in number, and use convergence as a signal
+    to stop generating additional hypotheses for resolved assumpti…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P002.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P004
+  principle_id: P004
+  mode: compare
+  prompt: 'Review our product blueprint for this situation: A team is iterating an early-stage business
+    concept under uncertainty. What''s wrong at the blueprint altitude, and what should we change — with
+    the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Use lean startup for early-stage business ideas with unresolved uncertainty,
+    structuring the work around explicit assumptions, canvas scaffo…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P004.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P005
+  principle_id: P005
+  mode: review
+  prompt: 'Review our product blueprint for this situation: A team needs external evidence to decide whether
+    to retain, revise, or abandon assumptions. What''s wrong at the blueprint altitude, and what should
+    we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Make probing the central learning activity because it can drive convergence,
+    reveal new hypotheses, and dislodge a team from its initial ide…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P005.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P012
+  principle_id: P012
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Limit product-experience content to UX intent
+    and architecture-impacting direction; leave journeys, screens, c… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Limit product-experience content to UX intent and architecture-impacting direction;
+    leave journeys, screens, command syntax, tool/API schema…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P012.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P013
+  principle_id: P013
+  mode: compare
+  prompt: 'Review our product blueprint for this situation: A program, accelerator, or organization wants
+    comparable learning across teams. What''s wrong at the blueprint altitude, and what should we change
+    — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: For repeatable lean-startup programs, standardize cadence, platform use, reporting
+    fields, feedback loops, team expectations, and interview…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P013.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P017
+  principle_id: P017
+  mode: review
+  prompt: 'Review our product blueprint for this situation: A team is interpreting evidence from customer
+    or stakeholder interviews. What''s wrong at the blueprint altitude, and what should we change — with
+    the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Treat customer interviews as probes that reduce uncertainty, not as controlled
+    experiments or final scientific validation.'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P017.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P029
+  principle_id: P029
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Use the blueprint as an adaptive downstream router
+    with evidence-based, overrideable RUN, SKIP, DEFER, and ASK… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Use the blueprint as an adaptive downstream router with evidence-based, overrideable
+    RUN, SKIP, DEFER, and ASK_USER recommendations, while a…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P029.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P030
+  principle_id: P030
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: Keep the blueprint implementation-neutral by replacing
+    concrete technology, vendor, deployment, code, schema,… What''s wrong and what should we change, with
+    the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Keep the blueprint implementation-neutral by replacing concrete technology,
+    vendor, deployment, code, schema, package, ticket, or build-task…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P030.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P031
+  principle_id: P031
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Never treat research gaps as solved; map engineering
+    gaps toward roadmap-sized product work, academic gaps tow… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Never treat research gaps as solved; map engineering gaps toward roadmap-sized
+    product work, academic gaps toward validation or open questio…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P031.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P051
+  principle_id: P051
+  mode: advise
+  prompt: 'Review our product blueprint for this situation: A gap is classified as academic. What''s wrong
+    at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Exclude academic gaps from MVP or Phase 1 product requirements unless the
+    product itself exists to validate the research question, and carry…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P051.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P052
+  principle_id: P052
+  mode: compare
+  prompt: 'Review our product blueprint for this situation: A team or program needs operational metrics
+    for lean-startup behavior. What''s wrong at the blueprint altitude, and what should we change — with
+    the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Track hypothesis formulation, stakeholder interviews, and convergence decisions
+    as separate progress signals.'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P052.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P090
+  principle_id: P090
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Convert research synthesis into a product blueprint,
+    not a second literature summary; express findings as prod… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Convert research synthesis into a product blueprint, not a second literature
+    summary; express findings as product primitives, workflows, arc…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P090.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P091
+  principle_id: P091
+  mode: advise
+  prompt: 'Review our product blueprint for this situation: A research report or compatible research artifact
+    is available. What''s wrong at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Run blueprint generation only for product-design-from-research intents, and
+    route literature research, tech-stack selection, detailed UX, re…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P091.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P092
+  principle_id: P092
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: Expose shared artifact-contract fields with controlled
+    vocabulary, including identity, inputs, decisions, assu… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Expose shared artifact-contract fields with controlled vocabulary, including
+    identity, inputs, decisions, assumptions, open questions, next…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P092.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P093
+  principle_id: P093
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Classify input quality before authoring; stop
+    on insufficient input, and proceed on weak input only with missi… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Classify input quality before authoring; stop on insufficient input, and proceed
+    on weak input only with missing areas recorded as assumptio…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P093.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P094
+  principle_id: P094
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Run quality gates before delivery, repair safe
+    wording issues, recheck repairs, stop after repeated gate failu… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Run quality gates before delivery, repair safe wording issues, recheck repairs,
+    stop after repeated gate failure, and fail immediately on ha…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P094.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P095
+  principle_id: P095
+  mode: compare
+  prompt: 'Review our product blueprint for this situation: The product requires the missing interaction,
+    review, uncertainty, or AI-heavy trust behavior. What''s wrong at the blueprint altitude, and what
+    should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Gate product-experience quality by checking the primary user, job, experience
+    thesis, primary mode, mode classification, trust/control/trans…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P095.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P125
+  principle_id: P125
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Translate research items into reusable product
+    primitives and merge overlapping primitives before composing ca… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Translate research items into reusable product primitives and merge overlapping
+    primitives before composing capabilities or workflows.'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P125.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P126
+  principle_id: P126
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Compose the blueprint thesis around the primary
+    research-backed architecture, keep actors and domains aligned… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Compose the blueprint thesis around the primary research-backed architecture,
+    keep actors and domains aligned to that thesis, and copy rathe…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P126.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P127
+  principle_id: P127
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: Make the blueprint useful as a technical-design
+    handoff so downstream designers can choose a stack and plan im… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Make the blueprint useful as a technical-design handoff so downstream designers
+    can choose a stack and plan implementation without re-readin…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P127.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P128
+  principle_id: P128
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Treat the Markdown research report as the authoritative
+    source; use structured artifacts only as supplementary… What''s wrong and what should we change, with
+    the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Treat the Markdown research report as the authoritative source; use structured
+    artifacts only as supplementary input, disclose conflicts, an…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P128.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P129
+  principle_id: P129
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Write the blueprint as a slug-named product-blueprint
+    Markdown artifact, falling back to inline output with a… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Write the blueprint as a slug-named product-blueprint Markdown artifact, falling
+    back to inline output with a recommended filename only when…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P129.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P130
+  principle_id: P130
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: Enforce the ordered 20-section blueprint structure
+    so the artifact covers thesis, interpretation, users, goals… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Enforce the ordered 20-section blueprint structure so the artifact covers
+    thesis, interpretation, users, goals, translation, decisions, capa…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P130.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P131
+  principle_id: P131
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Include parseable navigation and evidence structures:
+    linked contents, required workflow and logical-architect… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Include parseable navigation and evidence structures: linked contents, required
+    workflow and logical-architecture Mermaid diagrams, decision…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P131.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P132
+  principle_id: P132
+  mode: advise
+  prompt: 'Review our product blueprint for this situation: The product has meaningful user interaction.
+    What''s wrong at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Route UX-design when roles, human review, non-trivial interaction, failure
+    recovery, user-story-driven tests, non-technical users, or trust/…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P132.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P133
+  principle_id: P133
+  mode: compare
+  prompt: 'Review our product blueprint for this situation: Multiple unrelated product domains are present.
+    What''s wrong at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: When research spans unrelated domains, scope the blueprint to the highest-evidence
+    domain unless similarly supported domains would produce m…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P133.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P134
+  principle_id: P134
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Extract mechanisms, methods, patterns, benchmarks,
+    assumptions, contradictions, gaps, risks, and architecture… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Extract mechanisms, methods, patterns, benchmarks, assumptions, contradictions,
+    gaps, risks, and architecture hints, tagging each by type an…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P134.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P135
+  principle_id: P135
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Resolve major ideas conservatively with controlled
+    ADOPT, ADAPT, MERGE, DEFER, REJECT, or DEFER / VALIDATE dec… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Resolve major ideas conservatively with controlled ADOPT, ADAPT, MERGE, DEFER,
+    REJECT, or DEFER / VALIDATE decisions.'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P135.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P136
+  principle_id: P136
+  mode: compare
+  prompt: 'Review our product blueprint for this situation: Round history indicates many remaining gaps
+    or readiness remains gap-bearing. What''s wrong at the blueprint altitude, and what should we change
+    — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Use long gap-closure history or remaining-gaps readiness as pressure to defer
+    or reject speculative scope instead of expanding MVP.'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P136.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P137
+  principle_id: P137
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Structure MVP scope into MVP-0, MVP-1, safety
+    baseline, evaluation baseline, and deferred scope, with MVP-0 li… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Structure MVP scope into MVP-0, MVP-1, safety baseline, evaluation baseline,
+    and deferred scope, with MVP-0 limited to the smallest demonstr…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P137.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P138
+  principle_id: P138
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Trace every major capability to a source citation
+    or constrained design decision; label unsupported capabiliti… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Trace every major capability to a source citation or constrained design decision;
+    label unsupported capabilities as validation-requiring des…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P138.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P139
+  principle_id: P139
+  mode: compare
+  prompt: 'Review our product blueprint for this situation: The candidate release gate rests on medium-
+    or low-confidence evidence. What''s wrong at the blueprint altitude, and what should we change — with
+    the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Keep a medium- or low-confidence release gate mandatory only when high risk
+    impact, lack of a cheaper control, and immediate need justify it…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P139.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P140
+  principle_id: P140
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Describe each major workflow with trigger, inputs,
+    decision gates, steps or flow, outputs, failure modes, and… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Describe each major workflow with trigger, inputs, decision gates, steps or
+    flow, outputs, failure modes, and success criteria.'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P140.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P141
+  principle_id: P141
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Make risk treatment explicit and realistic: name
+    high-impact risks, avoid vague mitigations, make safety-criti… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Make risk treatment explicit and realistic: name high-impact risks, avoid
+    vague mitigations, make safety-critical deferrals release gates, a…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P141.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P142
+  principle_id: P142
+  mode: compare
+  prompt: 'Review our product blueprint for this situation: The skill needs a topic slug. What''s wrong
+    at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Keep the topic slug stable and derive it from source metadata, filename, project
+    name, or explicit user slug before failing or asking for am…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P142.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P143
+  principle_id: P143
+  mode: review
+  prompt: 'Review our product blueprint for this situation: The skill auto-discovers input artifacts.
+    What''s wrong at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Record auto-discovered input candidates with path, selection status, confidence,
+    and reason.'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P143.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P144
+  principle_id: P144
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Separate decisions from assumptions, and route
+    high-risk assumptions to ASK_USER or downstream review triggers… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Separate decisions from assumptions, and route high-risk assumptions to ASK_USER
+    or downstream review triggers when they affect security, pr…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P144.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P145
+  principle_id: P145
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: Represent open questions and next stages with
+    controlled fields for owner or stage, blocking status, recommend… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Represent open questions and next stages with controlled fields for owner
+    or stage, blocking status, recommended action, stage decision, and…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P145.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P146
+  principle_id: P146
+  mode: review
+  prompt: 'Review our product blueprint for this situation: The artifact template already contains equivalent
+    fields. What''s wrong at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Map shared contract fields to existing section names instead of duplicating
+    boilerplate when the template already carries equivalent informa…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P146.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P147
+  principle_id: P147
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Classify every product-experience interaction
+    mode as a primary surface, secondary surface, wrapper/integratio… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Classify every product-experience interaction mode as a primary surface, secondary
+    surface, wrapper/integration surface, or future surface s…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P147.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P148
+  principle_id: P148
+  mode: compare
+  prompt: 'Review our product blueprint for this situation: AI Skill or MCP is named as an interaction
+    mode. What''s wrong at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Disambiguate AI Skill from MCP: classify an AI Skill explicitly, and tag MCP
+    separately as an external-agent tool surface when it is present…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P148.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P149
+  principle_id: P149
+  mode: review
+  prompt: 'Review our product blueprint for this situation: Multiple interaction modes are listed together.
+    What''s wrong at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Split combined interaction-mode entries when the modes do not share the same
+    classification.'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P149.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P150
+  principle_id: P150
+  mode: advise
+  prompt: 'Review our product blueprint for this situation: The missing information cannot be inferred
+    from research or supplied context. What''s wrong at the blueprint altitude, and what should we change
+    — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Ask product-experience clarifications only when the answer materially changes
+    product direction, architecture, risk, or implementation, and…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P150.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P151
+  principle_id: P151
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: When a UX clarification is necessary, ask one
+    focused question with why it matters, a recommended answer, alte… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: When a UX clarification is necessary, ask one focused question with why it
+    matters, a recommended answer, alternatives, and the default assu…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P151.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P152
+  principle_id: P152
+  mode: review
+  prompt: 'Review our product blueprint for this situation: The run is automatic and no user answer is
+    available. What''s wrong at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: In automatic mode, infer reasonable UX defaults as assumptions and review-flag
+    the high-impact ones in the architecture handoff.'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P152.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P153
+  principle_id: P153
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Use product-experience signals to drive routing
+    decisions for UX-design, security-review, test-design, archite… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Use product-experience signals to drive routing decisions for UX-design, security-review,
+    test-design, architecture-design, and tech-stack s…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P153.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P154
+  principle_id: P154
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: Warn on product-experience ambiguity or risk signals,
+    including unresolved primary mode, unjustified MCP, surf… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Warn on product-experience ambiguity or risk signals, including unresolved
+    primary mode, unjustified MCP, surface/user mismatch, deferred re…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P154.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P155
+  principle_id: P155
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Use the blueprint as the first product-level routing
+    point because it is where product shape, users, MVP, inte… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Use the blueprint as the first product-level routing point because it is where
+    product shape, users, MVP, interaction mode, risk, AI involve…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P155.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P156
+  principle_id: P156
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Separate the design pipeline into a core path
+    and optional gates, running optional gates only when justified b… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Separate the design pipeline into a core path and optional gates, running
+    optional gates only when justified by risk, ambiguity, rework avoi…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P156.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P157
+  principle_id: P157
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: Present the recommended pipeline as a linear core
+    path plus conditional follow-up gates so deferred conditiona… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Present the recommended pipeline as a linear core path plus conditional follow-up
+    gates so deferred conditional work remains visible.'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P157.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P158
+  principle_id: P158
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Warn on routing plans that skip optional stages
+    despite matching risk signals, omit dependencies, omit deferre… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Warn on routing plans that skip optional stages despite matching risk signals,
+    omit dependencies, omit deferred-gate triggers, flatten the p…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P158.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P159
+  principle_id: P159
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Score routing complexity across user-facing complexity,
+    technical ambiguity, security/privacy risk, AI uncerta… What''s wrong and what should we change, with
+    the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Score routing complexity across user-facing complexity, technical ambiguity,
+    security/privacy risk, AI uncertainty, integration complexity,…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P159.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P160
+  principle_id: P160
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: Label the complexity score as a routing heuristic,
+    not a formal estimate, and revisit it after architecture de… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Label the complexity score as a routing heuristic, not a formal estimate,
+    and revisit it after architecture design rather than letting it ov…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P160.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P161
+  principle_id: P161
+  mode: review
+  prompt: 'Review this aspect of our product blueprint: Default architecture-design to RUN for serious
+    blueprints and skip it only for conceptual notes, no-implementa… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Default architecture-design to RUN for serious blueprints and skip it only
+    for conceptual notes, no-implementation work, or trivial scripts…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P161.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P162
+  principle_id: P162
+  mode: advise
+  prompt: 'Review our product blueprint for this situation: Technology choice is not already fixed or
+    obvious. What''s wrong at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Route tech-stack selection based on whether technology choices materially
+    affect architecture, data, deployment, provider/orchestration, per…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P162.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P163
+  principle_id: P163
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: Route security-review when data egress, sensitive
+    data, authentication, authorization, MCP capability exposure… What''s wrong and what should we change,
+    with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Route security-review when data egress, sensitive data, authentication, authorization,
+    MCP capability exposure, audit/compliance needs, mult…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P163.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P164
+  principle_id: P164
+  mode: review
+  prompt: 'Review our product blueprint for this situation: The product is intended for implementation
+    with workflow guarantees. What''s wrong at the blueprint altitude, and what should we change — with
+    the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Route test-design when workflow correctness, AI-output evaluation, failure/recovery
+    paths, human review, user stories, or multiple integrati…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P164.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P165
+  principle_id: P165
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Keep architecture-update and architecture-reconciliation
+    deferred at blueprint stage and run them only when do… What''s wrong and what should we change, with
+    the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Keep architecture-update and architecture-reconciliation deferred at blueprint
+    stage and run them only when downstream decisions, reviews, o…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P165.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P166
+  principle_id: P166
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: Make stage recommendations dependency-aware by
+    including Stage, Decision, Depends On, Confidence, Reason, Bloc… What''s wrong and what should we
+    change, with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Make stage recommendations dependency-aware by including Stage, Decision,
+    Depends On, Confidence, Reason, Blocks Next Step, and Revisit Trig…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P166.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P167
+  principle_id: P167
+  mode: review
+  prompt: 'Review our product blueprint for this situation: The stage recommendations contain no ASK_USER
+    entries. What''s wrong at the blueprint altitude, and what should we change — with the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Explain the absence of ASK_USER by assigning every high-impact unknown to
+    an answer, a downstream owner, or a review stage; otherwise ask th…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P167.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P168
+  principle_id: P168
+  mode: advise
+  prompt: 'Review this aspect of our product blueprint: Gate adaptive routing by failing missing or uncontrolled
+    recommendations, unevidenced RUN decisions, ASK_USER… What''s wrong and what should we change, with
+    the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Gate adaptive routing by failing missing or uncontrolled recommendations,
+    unevidenced RUN decisions, ASK_USER without missing information, u…'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P168.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.
+- test_id: PB-P169
+  principle_id: P169
+  mode: compare
+  prompt: 'Review this aspect of our product blueprint: Use neutral logical component names only as responsibility
+    boundaries, not as source-code modules, classes, se… What''s wrong and what should we change, with
+    the trade-offs?'
+  expected_behaviour:
+  - 'Applies the principle: Use neutral logical component names only as responsibility boundaries, not
+    as source-code modules, classes, services, or deployable units.'
+  - Frames the finding around the outcome and the assumption it tests, and states the trade-off rather
+    than a one-sided answer.
+  - Cites P169.
+  must_not:
+  - Presents a recommendation or downstream route while omitting its trade-off, evidence basis, or the
+    risk it leaves unretired.

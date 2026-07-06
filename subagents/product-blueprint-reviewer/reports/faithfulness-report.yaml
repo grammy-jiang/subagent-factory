@@ -1,0 +1,313 @@
+# Faithfulness review — product-blueprint-reviewer
+# Per-rule claim-strength check of load-bearing profile rules against the promoted
+# principles and their backing claims/evidence. No rule is stronger than its evidence;
+# source_anchors are omitted deliberately (provenance carried in each note via principle+claim IDs).
+schema_version: faithfulness-report-v1
+subagent_slug: product-blueprint-reviewer
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The role synthesizes one representative principle from each of the six named skills without adding
+    a claim stronger than any of them: blueprint altitude and neutrality (P030), outcomes-over-output
+    and the build trap (P034), lean-startup hypothesis discipline (P005), research-to-blueprint translation
+    (P090), adaptive stage routing (P029), and the product-experience/UX-architecture boundary (P012).
+    The "reviews and advises, does not author" framing is the scope-narrowing corollary graded separately
+    at forbidden_behaviours[0] and handoff_rules[0]. Principle(s): P030 (claims C00011/C00014); P034 (claims
+    C00150/C00151); P005 (claims C00434/C00444); P090 (claims C00001/C00002); P029 (claims C00003/C00004);
+    P012 (claims C00012/C00040).'
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The output shape (name the outcome and assumption, check altitude, flag build-trap output-thinking,
+    check gap/MVP staging, review each stage recommendation, state every trade-off, end with an outcome-tied
+    next step) aggregates the same principle sets graded individually below at quality_bar[0-3]; the "states
+    every trade-off" clause reflects the corpus'' broader context-dependent-recommendation theme (match
+    the tool to the situation, downgrade an unjustified gate, treat a score as a heuristic) rather than
+    one verbatim line, so it is a synthesis, not an over-claim. Principle(s): P034 (claims C00150/C00151);
+    P030 (claims C00011/C00014); P031 (claims C00013/C00019); P029 (claims C00003/C00004); P016 (claims
+    C00353/C00354); P160 (claim C00059).'
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Sets a floor — one finding, one named principle, one stated trade-off — that is strictly narrower
+    than outputs.primary_format''s fuller shape and draws on the same outcome, altitude, and routing principles;
+    no broadening. Principle(s): P034 (claims C00150/C00151); P030 (claims C00011/C00014); P029 (claims
+    C00003/C00004).'
+- rule_ref: outputs.modes[review].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The review-mode inputs (existing blueprint, research synthesis, MVP boundary, routing plan, product-experience
+    section) match the artifact types the sources define for blueprint conversion, adaptive routing, and
+    product-experience classification; no broadening beyond those artifact types. Principle(s): P090 (claims
+    C00001/C00002); P029 (claims C00003/C00004); P012 (claims C00012/C00040).'
+- rule_ref: outputs.modes[advise].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Advise-mode''s named decisions (MVP scoping, gap classification, stage routing) restate the gap/MVP-staging
+    and routing principles directly; within scope. Principle(s): P137 (claim C00024); P031 (claims C00013/C00019);
+    P029 (claims C00003/C00004).'
+- rule_ref: outputs.modes[compare].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Compare-mode''s named decision axes (MVP-0 boundary, gap-closure route, RUN-versus-DEFER) are
+    exactly the decision types the gap/MVP and routing principles define; within scope. Principle(s):
+    P137 (claim C00024); P136 (claim C00023); P029 (claims C00003/C00004).'
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Framing every finding around an outcome and a testable assumption, never a feature or output
+    for its own sake, restates the outcome-versus-output and commit-to-outcomes principles almost verbatim
+    (P034, P067); P090''s "express findings as blueprint elements, not a second literature summary" is
+    a broader but consistent fit for the same never-output-for-its-own-sake discipline. Principle(s):
+    P034 (claims C00150/C00151); P067 (claims C00258/C00259); P090 (claims C00001/C00002).'
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'No technology/vendor/schema/code leakage and neutral component naming restate P030 and P169 almost
+    verbatim. P058 (do not map every component to a service) and P101 (downgrade technology claims that
+    overstate a property) are architecture-stage principles the reviewer reapplies one stage earlier to
+    pre-empt the same leakage before handoff — a defensible extension consistent with the stage-boundary
+    corpus, not a broadening of what either principle itself asserts. Principle(s): P030 (claims C00011/C00014);
+    P169 (claim C00074); P058 (claims C00096/C00101); P101 (claims C00119/C00124).'
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Each clause — engineering/academic gap separation, academic gaps excluded from MVP-0 and Phase
+    1, scope not expanded under weak or remaining-gap evidence — is a direct, near-verbatim restatement
+    of its named principle. Principle(s): P031 (claims C00013/C00019); P051 (claims C00020/C00077); P136
+    (claim C00023); P137 (claim C00024).'
+- rule_ref: quality_bar[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Evidence-based, overrideable, dependency-aware RUN/SKIP/DEFER/ASK_USER, never an unevidenced
+    RUN or an unexplained missing ASK_USER, is a direct restatement of the routing and routing-gate principles.
+    Principle(s): P029 (claims C00003/C00004); P166 (claim C00066); P168 (claim C00070); P167 (claim C00068).'
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'State what each option gains and sacrifices, tie it to the caller''s MVP appetite and the evidence,
+    and never present one option as universally best — within the corpus'' context-dependent-recommendation
+    theme, not an over-claim. Principle(s): P139 (claim C00027, keep a gate mandatory only when justified);
+    P160 (claim C00059, treat the complexity score as a heuristic not a formal estimate); P016 (match
+    the experiment and recommendation to the uncertainty and context, so no single option is universally
+    best). The earlier stale P106 citation was corrected to P016 in profile.yaml.'
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Refusing to author the blueprint''s product content or downstream architecture, tech-stack, UX,
+    or code is the corollary of keeping the blueprint (and its review) implementation-neutral; a scope-narrowing
+    restatement, not a broadening. Principle(s): P030 (claims C00011/C00014); P169 (claim C00074).'
+- rule_ref: forbidden_behaviours[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Refusing to endorse scope or a feature without an outcome and the assumption it tests, and refusing
+    to expand the MVP with academic or unvalidated gaps, restates the build-trap and gap-closure-pressure
+    principles directly. Principle(s): P034 (claims C00150/C00151); P051 (claims C00020/C00077); P136
+    (claim C00023).'
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding a recommendation or stage route that omits its trade-off, evidence basis, or unretired
+    risk stays within what the sources provide. Principle(s): P168 (claim C00070, gate on missing, uncontrolled,
+    or unevidenced recommendations); P141 (make risk treatment explicit, avoid vague mitigations, keep
+    safety-critical deferrals release-gated). The earlier stale P106 citation was corrected to P141 in
+    profile.yaml.'
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Ceding the blueprint, the MVP boundary, and all downstream decisions to the product team is an
+    inherently scope-narrowing statement that cannot overclaim in the risky direction. P021''s signs of
+    a healthy product-led team (the team originates ideas, can kill ideas, owns outcome-oriented goals)
+    and P144''s decision/assumption-routing-to-an-owner discipline both support "the team decides, this
+    advisor informs" without exceeding either. Principle(s): P021 (claims C00424/C00425); P144 (claim
+    C00037).'
+- rule_ref: source_of_truth_policy.precedence
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'profile.yaml carries no inline citation for this clause; the closest-fitting principles actually
+    in the corpus are P029''s evidence-based, overrideable routing, P128''s "prefer the Markdown report
+    and disclose conflicts when structured artifacts disagree" (the direct precedent for "where sources
+    disagree ... name the divergence"), and P009''s caution about generalizing findings outside their
+    original context (the direct precedent for "prefer the practice better supported for the caller''s
+    context"). None of these license the caller''s outcome overriding the evidence itself, only a generic
+    practice preference, so the rule stays within scope. Principle(s): P029 (claims C00003/C00004); P128
+    (claim C00007); P009 (claims C00504/C00505).'
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'This bullet condenses the entire blueprint-altitude-and-neutrality skill (implementation-neutral
+    primitives, neutral component names as boundaries not modules, research-backed thesis composition,
+    shared contract-field vocabulary, metadata copied not invented, handoff usefulness, deterministic
+    naming, ordered structure, non-duplicated boilerplate, and parseable navigation) into two sentences;
+    every cited principle is a genuine facet of that one named skill and none is individually exceeded.
+    Principle(s): P030 (claims C00011/C00014); P090 (claims C00001/C00002); P092 (claims C00033/C00034);
+    P126 (claim C00025); P127 (claim C00032); P128 (claim C00007); P129 (claim C00008); P130 (claim C00009);
+    P131 (claim C00010); P146 (claim C00039); P169 (claim C00074); P058 (claims C00096/C00101); P101 (claims
+    C00119/C00124).'
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Judging work by outcome rather than features shipped, starting from the real user problem, replacing
+    feature roadmaps with outcome goals and validated bets, and treating product management as reducing
+    known unknowns restate the outcomes-over-output-and-build-trap skill''s principles faithfully; framing
+    the build trap as organizational rather than only a process failure matches P021''s product-led health
+    signs directly. Principle(s): P034 (claims C00150/C00151); P021 (claims C00424/C00425); P067 (claims
+    C00258/C00259); P069 (claims C00184/C00185); P044 (claims C00315/C00316); P078 (claims C00350/C00351);
+    P080 (claims C00326/C00327); P089 (claims C00421/C00422); P103 (claims C00262/C00263); P108 (claims
+    C00206/C00207).'
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Probing as the central learning activity, crisp/moderate/convergent hypotheses, interviews as
+    uncertainty-reducing probes rather than final validation, and reading evidence in light of team composition
+    (for example MBA-heavy teams) restate the lean-startup-hypothesis-discipline principles faithfully;
+    P013''s program-standardization principle is a looser fit (it concerns repeatable-program cadence
+    rather than hypothesis discipline itself) but belongs to the same skill and adds no claim stronger
+    than its own. Principle(s): P005 (claims C00434/C00444); P002 (claims C00446/C00447); P004 (claims
+    C00429/C00431); P017 (claims C00435/C00436); P001 (claims C00449/C00450); P013 (claims C00471/C00472);
+    P016 (claims C00353/C00354); P052 (claims C00478/C00479); P028 (claims C00432/C00433).'
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reusable-primitive framing, engineering-versus-academic gap separation, academic gaps excluded
+    from MVP-0 and Phase 1, the five-part MVP structure, citation-traced capabilities, explicit risk treatment,
+    input-quality gating, and gap-closure pressure to defer restate the research-to-blueprint-and-gap-classification
+    principles faithfully. Principle(s): P031 (claims C00013/C00019); P051 (claims C00020/C00077); P125
+    (claim C00021); P137 (claim C00024); P136 (claim C00023); P138 (claim C00026); P139 (claim C00027);
+    P141 (claim C00031); P093 (claims C00015/C00016); P094 (claims C00028/C00029).'
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The blueprint as first routing point, evidence-based/overrideable/dependency-aware RUN-SKIP-DEFER-ASK_USER,
+    complexity scored as a heuristic rather than an estimate, optional gates run only when risk signals
+    justify them, and every absent ASK_USER explained by an owner, answer, or review stage are direct
+    restatements of the stage-routing-and-pipeline principles. Note P160''s heuristic-not-estimate framing
+    is exactly on point in this bullet, unlike its looser use at quality_bar[4]. Principle(s): P029 (claims
+    C00003/C00004); P155 (claim C00054); P156 (claim C00055); P157 (claim C00067); P159 (claim C00058);
+    P160 (claim C00059); P166 (claim C00066); P167 (claim C00068); P168 (claim C00070); P132 (claim C00062).'
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'UX-intent/architecture-impacting-direction-only scope, interaction-mode classification into primary/secondary/wrapper/future
+    surfaces, AI-Skill-versus-MCP disambiguation, split classification for combined modes, clarification
+    only when material, careful single-question clarification style, ambiguity/risk warnings, and recording
+    unsupported UX needs as architecture feedback are near-verbatim restatements of the product-experience-and-ux-architecture-boundary
+    principles. Principle(s): P012 (claims C00012/C00040); P095 (claims C00050/C00051); P147 (claim C00041);
+    P148 (claim C00042); P149 (claim C00043); P150 (claim C00047); P151 (claim C00048); P154 (claim C00052);
+    P061 (claims C00144/C00147); P104 (claims C00134/C00135).'
+- rule_ref: examples[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The happy-path walkthrough sequentially applies quality_bar[1]''s altitude check (P030, P169,
+    P058), quality_bar[0]''s build-trap check (P034, P090, P067), quality_bar[2]''s gap/MVP check (P031,
+    P051, P136, P137), and quality_bar[3]''s routing check (P029, P166, P168), then hands the decision
+    back per handoff_rules[0]; illustrative composition of already-graded principles, no new claim. Principle(s):
+    P030 (claims C00011/C00014); P169 (claim C00074); P058 (claims C00096/C00101); P034 (claims C00150/C00151);
+    P090 (claims C00001/C00002); P067 (claims C00258/C00259); P031 (claims C00013/C00019); P051 (claims
+    C00020/C00077); P136 (claim C00023); P137 (claim C00024); P029 (claims C00003/C00004); P166 (claim
+    C00066); P168 (claim C00070).'
+- rule_ref: examples[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The failure-recovery example declines out-of-scope architecture, stack, and UX authorship per
+    forbidden_behaviours[0] (P030, P169) and offers in-scope product-experience and routing review instead
+    (P147, P148, P029), then hands the work back per handoff_rules[0]; consistent composition, no over-claim.
+    Principle(s): P030 (claims C00011/C00014); P169 (claim C00074); P147 (claim C00041); P148 (claim C00042);
+    P029 (claims C00003/C00004).'
