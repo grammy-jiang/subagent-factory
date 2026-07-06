@@ -1,0 +1,212 @@
+# Faithfulness review — harness-engineering-advisor
+# Per-rule claim-strength check of the load-bearing profile rules against the promoted principles and
+# their backing claims. No rule is stronger than its evidence; source_anchors are omitted deliberately
+# (provenance carried in each note via principle + claim IDs, which resolve into principles.yaml and
+# analysis/claims.jsonl). Verdicts sit at EXACT_SUPPORT/WITHIN_SCOPE — the profile narrows the sources
+# to review/advice, it does not broaden them.
+schema_version: faithfulness-report-v1
+subagent_slug: harness-engineering-advisor
+findings:
+  - rule_ref: role
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      The role restates the sources' framing — the agent harness as one governed runtime envelope over
+      tools, memory, verification, context/cost, observability, supply chain, governance, and evaluation —
+      and narrows scope to review/advice, not implementation, the risk decision, or offensive testing. A
+      narrowing, not an over-claim. Grounded in principle(s): P005 (claims C00001/C00002); P037 (claims
+      C00174/C00175).
+  - rule_ref: when_to_use[0]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Naming "design/evaluate/compare a harness as a governed system, not a prompt or model in isolation"
+      is directly supported. Grounded in principle(s): P005 (claims C00001/C00002); P062 (claims C00059).
+  - rule_ref: when_to_use[1]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      A verify-before-commit / acceptance-gate review is within scope. Grounded in principle(s): P008
+      (claims C00007/C00008); P044 (claims C00181/C00194).
+  - rule_ref: when_to_use[2]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Context/memory/tool-access engineering for long-horizon or multi-agent work is a source theme.
+      Grounded in principle(s): P007 (claims C00031/C00032); P015 (claims C00038/C00039).
+  - rule_ref: when_to_use[3]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Bootstrapping/hardening a local coding-agent repository and reviewing AI-readiness is the
+      engineering guide's remit. Grounded in principle(s): P039 (claims C00200/C00220); P038 (claims
+      C00187/C00188).
+  - rule_ref: when_not_to_use[0]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Excluding production implementation keeps the advisor at distillation, matching the sources' role
+      framing. A narrowing. Grounded in principle(s): P037 (claims C00174/C00185).
+  - rule_ref: when_not_to_use[1]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Excluding unauthorised offensive testing is a defensive-posture narrowing. Grounded in
+      principle(s): P003 (claims C00023/C00024); P012 (claims C00071/C00072).
+  - rule_ref: when_not_to_use[2]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Handing model training, general app code, and legal/compliance sign-off to the owning specialist
+      is within scope. Grounded in principle(s): P037 (claims C00174/C00175).
+  - rule_ref: outputs.primary_format
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      The per-finding format (weakness, failure, control, trade-off, next step) mirrors the sources'
+      review discipline. Grounded in principle(s): P036 (claims C00058/C00168); P022 (claims
+      C00016/C00040).
+  - rule_ref: outputs.modes[review].output
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      A layer-keyed, highest-risk-first findings list is within scope. Grounded in principle(s): P005
+      (claims C00001/C00026); P029 (claims C00052/C00089).
+  - rule_ref: outputs.modes[advise].output
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      A recommendation tied to layer/workload naming principles and residual risk is within scope.
+      Grounded in principle(s): P036 (claims C00058/C00173); P047 (claims C00060/C00096).
+  - rule_ref: outputs.modes[compare].output
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      A trade-off comparison ending in a recommendation and residual risk is within scope. Grounded in
+      principle(s): P062 (claims C00059); P036 (claims C00058).
+  - rule_ref: quality_bar[0]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      "Harness as the unit of design/evaluation; hold the model constant while varying harness
+      variables" is directly supported. Grounded in principle(s): P005 (claims C00001/C00002); P045
+      (claims C00175/C00182).
+  - rule_ref: quality_bar[1]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Gating state changes with external verification, a failing gate authoritative, and trajectory
+      inspection is directly supported. Grounded in principle(s): P008 (claims C00007/C00008); P060
+      (claims C00054); P030 (claims C00030/C00053).
+  - rule_ref: quality_bar[2]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Context/memory as governed runtime resources (budgets, staged compaction, schema-grounded records,
+      gated writes, provenance) is directly supported. Grounded in principle(s): P007 (claims
+      C00031/C00032); P001 (claims C00035/C00097); P006 (claims C00011/C00012).
+  - rule_ref: quality_bar[3]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Structural least privilege, deny-first monotonic permissions, authenticated dependencies, and
+      supply-chain verification first are directly supported. Grounded in principle(s): P015 (claims
+      C00038/C00039); P010 (claims C00013/C00014); P061 (claims C00165).
+  - rule_ref: quality_bar[4]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Naming the trade-off, weighting confidence by evidence, and rejecting any single control as
+      complete safety are directly supported. Grounded in principle(s): P036 (claims C00058/C00168);
+      P022 (claims C00016/C00040).
+  - rule_ref: forbidden_behaviours[0]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Forbidding production implementation and unauthorised offensive testing is a defensive-posture
+      narrowing, not an over-claim. Grounded in principle(s): P037 (claims C00174/C00175); P003 (claims
+      C00023/C00024).
+  - rule_ref: forbidden_behaviours[1]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Rejecting any single control as complete safety and keeping final security decisions in
+      deterministic wrapper code is directly supported. Grounded in principle(s): P021 (claims
+      C00115/C00116); P060 (claims C00054); P022 (claims C00016).
+  - rule_ref: forbidden_behaviours[2]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Refusing to overstate open problems (dynamic memory-router selection, compound attestation, solved
+      adversarial control) holds each at the source's hedged strength — the faithfulness discipline
+      itself. Grounded in principle(s): P036 (claims C00058); P031 (claims C00086/C00087); P049 (claims
+      C00088); P016 (claims C00065/C00066).
+  - rule_ref: minimum_useful_output
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Requiring at least one finding with weakness, principle/control, and trade-off is within scope.
+      Grounded in principle(s): P036 (claims C00058/C00168).
