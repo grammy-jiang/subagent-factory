@@ -1,0 +1,442 @@
+---
+name: blueprint-principles-index
+kind: reference
+status: ready
+provenance:
+  principles:
+  - P001
+  - P002
+  - P003
+  - P004
+  - P005
+  - P006
+  - P007
+  - P008
+  - P009
+  - P010
+  - P011
+  - P012
+  - P013
+  - P014
+  - P015
+  - P016
+  - P017
+  - P018
+  - P019
+  - P020
+  - P021
+  - P022
+  - P023
+  - P024
+  - P025
+  - P026
+  - P027
+  - P028
+  - P029
+  - P030
+  - P031
+  - P032
+  - P033
+  - P034
+  - P035
+  - P036
+  - P037
+  - P038
+  - P039
+  - P040
+  - P041
+  - P042
+  - P043
+  - P044
+  - P045
+  - P046
+  - P047
+  - P048
+  - P049
+  - P050
+  - P051
+  - P052
+  - P053
+  - P054
+  - P055
+  - P056
+  - P057
+  - P058
+  - P059
+  - P060
+  - P061
+  - P062
+  - P063
+  - P064
+  - P065
+  - P066
+  - P067
+  - P068
+  - P069
+  - P070
+  - P071
+  - P072
+  - P073
+  - P074
+  - P075
+  - P076
+  - P077
+  - P078
+  - P079
+  - P080
+  - P081
+  - P082
+  - P083
+  - P084
+  - P085
+  - P086
+  - P087
+  - P088
+  - P089
+  - P090
+  - P091
+  - P092
+  - P093
+  - P094
+  - P095
+  - P096
+  - P097
+  - P098
+  - P099
+  - P100
+  - P101
+  - P102
+  - P103
+  - P104
+  - P105
+  - P106
+  - P107
+  - P108
+  - P109
+  - P110
+  - P111
+  - P112
+  - P113
+  - P114
+  - P115
+  - P116
+  - P117
+  - P118
+  - P119
+  - P120
+  - P121
+  - P122
+  - P123
+  - P124
+  - P125
+  - P126
+  - P127
+  - P128
+  - P129
+  - P130
+  - P131
+  - P132
+  - P133
+  - P134
+  - P135
+  - P136
+  - P137
+  - P138
+  - P139
+  - P140
+  - P141
+  - P142
+  - P143
+  - P144
+  - P145
+  - P146
+  - P147
+  - P148
+  - P149
+  - P150
+  - P151
+  - P152
+  - P153
+  - P154
+  - P155
+  - P156
+  - P157
+  - P158
+  - P159
+  - P160
+  - P161
+  - P162
+  - P163
+  - P164
+  - P165
+  - P166
+  - P167
+  - P168
+  - P169
+  - P170
+  - P171
+  - P172
+  - P173
+  - P174
+  - P175
+  - P176
+  - P177
+  - P178
+  - P179
+  - P180
+  - P181
+  - P182
+  - P183
+  - P184
+  - P185
+  - P186
+  - P187
+  - P188
+  - P189
+  - P190
+  - P191
+  claims:
+  - C00001
+  - C00002
+  - C00003
+  - C00004
+  - C00005
+  - C00006
+  - C00007
+  - C00008
+  - C00009
+  - C00010
+  - C00011
+  - C00012
+  - C00013
+  - C00014
+  - C00015
+  - C00016
+  - C00017
+  - C00018
+  - C00019
+  - C00020
+  source_anchors:
+  - 8707406d317e-c0000
+  - 8707406d317e-c0001
+  - 2a049107e960-c0000
+  - 2a049107e960-c0001
+  authored_from_digest: 360c43222473a5b43dfabd1cbd083deac61fe70accf0f21439ee07338d9924e1
+---
+
+# Blueprint Principles Index
+
+Every principle behind this reviewer's six knowledge-partition themes, one paraphrased row each; look up an ID in `principles/principles.yaml` for its full statement, confidence level, and derived claims.
+
+## Blueprint altitude & implementation-neutrality
+
+- **P030** — Keep the blueprint implementation-neutral: replace concrete tech, vendor, code, or schema specifics with conceptual responsibilities and flag uncertain terms conservatively.
+- **P058** — Don't map every blueprint component to a separate service; use C4 views for ownership, adding component or deployment views only when triggered.
+- **P090** — Convert research synthesis into a product blueprint, not a second literature summary; express findings as product primitives and architecture intent.
+- **P092** — Expose shared artifact-contract fields with controlled vocabulary (identity, inputs, decisions, assumptions, open questions, gate status).
+- **P096** — Architecture documents must include required ordered sections, C4 views, responsibility matrices, technology rationale, and ADR coverage.
+- **P101** — Downgrade or remove technology claims that overstate enforcement, security, immutability, or provider neutrality the tech doesn't actually provide.
+- **P126** — Compose the blueprint thesis around the primary research-backed architecture; keep actors and domains aligned, and copy rather than invent metadata.
+- **P127** — Make the blueprint useful as a technical-design handoff so downstream designers can plan without re-reading the research papers.
+- **P128** — Treat the Markdown research report as authoritative; use structured artifacts as supplementary and prefer the Markdown on conflict.
+- **P129** — Write the blueprint as a slug-named product-blueprint Markdown artifact, falling back to inline output with a recommended filename when file output is unavailable.
+- **P130** — Enforce the ordered 20-section blueprint structure covering thesis through traceability.
+- **P131** — Include parseable navigation and evidence structures: linked contents, required Mermaid diagrams, decision-oriented tables, and traceable citations.
+- **P138** — Trace every major capability to a source citation or constrained design decision; label unsupported capabilities as validation-requiring hypotheses.
+- **P146** — Map shared contract fields to existing section names instead of duplicating boilerplate.
+- **P169** — Use neutral logical component names only as responsibility boundaries, never as source-code modules, classes, services, or deployable units.
+
+## Outcomes over output — escaping the build trap
+
+- **P003** — Organize teams around value streams and strategic goals rather than components or features, to force prioritization over busywork.
+- **P006** — Escaping the build trap needs a supportive, outcome-favoring, product-led organization, not just good process or research.
+- **P007** — Don't get attached to solutions or ship for its own sake; fall in love with the problem, kill bad ideas early, and test the riskiest assumption cheaply.
+- **P010** — Build a deep product bench with distinct level responsibilities from associate PM through CPO.
+- **P020** — Tie rewards to outcomes and learning, not shipped output, and re-evaluate incentive structures when moving to product-led.
+- **P021** — Adopt being product-led — the build criterion is solving a real user problem — and diagnose health by the signs of a strong product team.
+- **P022** — Treat strategy as intent, not a plan, to close the Knowledge, Alignment, and Effects gaps; communicate the why, not just the what.
+- **P023** — Give aligned teams real autonomy: don't hand down committed features or answer poor results with more controls.
+- **P024** — Organize around products (value vehicles nurtured over time), not projects; project frameworks damage product work.
+- **P025** — Lead by influence, not authority: the PM owns the why, the team owns the what; don't act as sole owner or dictator.
+- **P026** — Don't become an order-taking waiter; push back on handed-down solutions and dig into the underlying problem.
+- **P027** — Don't set vision purely top-down; let teams' learning inform strategy, anchored to a short, memorable company vision.
+- **P034** — Measure success by outcomes delivered, not by output (features, releases, velocity); optimizing for output is the build trap.
+- **P035** — Hire and grow PMs as product-management experts, not technical or market experts; tech-literate is enough, not tech-fluent.
+- **P036** — Be product-led rather than sales-, visionary-, or technology-led, since the other models fail to scale or sustain.
+- **P037** — Set goals at the right level for each team's time scale so teams feel safe to decide — the premise behind OKRs and mission command.
+- **P038** — Deeply understand customer problems before defining value, or the org substitutes feature-count as a false success proxy.
+- **P039** — Right-size product work around a few key goals; shift a PM's tactical, strategic, and operational balance with seniority and product stage.
+- **P040** — Make experimentation safe with explicit boundaries (spending caps, bounded rollout) and a boundaries conversation to defuse first-experiment fear.
+- **P041** — Set very few concise, outcome-oriented strategic intents from the current state toward the vision.
+- **P042** — Use the four strategy-deployment levels (vision, intent, initiatives, options) driven by the Product Kata loop.
+- **P043** — Translate strategic intents into product initiatives (the customer problems) whose options are the bets teams explore.
+- **P044** — Use the Product Kata's six questions as a repeatable problem-solving habit from strategic intent to per-release team goals.
+- **P045** — Actually talk to users with generative, problem-based research before designing, distinct from evaluative usability testing.
+- **P046** — Fail small and early through experimentation; the worst failure mode is failing slowly by shipping unmeasured products.
+- **P047** — Iterate toward the vision via experimentation, not early feature dictation; align with a North Star document, not an action plan.
+- **P048** — Secure leadership buy-in to outcomes and communicate strategy on a cadence via quarterly, initiative, and monthly reviews.
+- **P062** — Treat product management as a career that synthesizes many data sources into direction and keeps the team anchored on the why and outcome.
+- **P063** — Establish a standardized PM career path grown over a career, not a two-day course; pair juniors with experienced PMs.
+- **P064** — A PM's core value is marrying business and customer goals to solve real problems; dismissing PM rarely sustains long-term value.
+- **P065** — Give the org a coherent strategy ruthlessly prioritized around a few goals, or it spreads thin optimizing components instead of the whole.
+- **P066** — Treat strategy as a deployable decision framework toward outcomes, not a detailed plan rewritten yearly without cause.
+- **P067** — Commit to outcomes rather than solutions so tactics can change or be killed; cascade from a guiding principle to strategies, tactics, and metrics.
+- **P068** — Treat the business as a value exchange — value returns to the business only after a customer's problem is solved.
+- **P069** — Frame product management as investigating known unknowns and reducing unknown unknowns; check intuition with experiments.
+- **P070** — Frame each initiative as a testable belief tied to a quantified outcome, baselined from existing data before writing option statements.
+- **P071** — Don't let leadership hand down solutions without success metrics or goals — that removes the ability to detect and correct a failing approach.
+- **P072** — Produce value with humility: treat your beliefs as assumptions to validate, involve the team, and avoid the lone-wolf mentality.
+- **P073** — Find the real problem with data before designing; validate a candidate solution with a small experiment before building; involve the whole team in research.
+- **P074** — Don't over-design for non-core problems (adopt best practice and iterate); experiment with a few ideas when the problem is core to the value proposition.
+- **P075** — Weigh solving a validated problem as build-partner-buy on margin against risk, proven by a usability experiment and the accumulated Kata evidence.
+- **P076** — Anchor the company around a strong, evolving vision and staged strategy so it can invest early without losing focus on its core mission.
+- **P077** — Escaping the build trap is a whole-organization change that must start with the top leader, running strategy on a rolling basis.
+- **P078** — Define MVP as the minimum effort to learn, not the first release; keep "what to learn next" central and limit exposure on every experiment.
+- **P079** — Identify which of the four process phases you're in (understand the direction, problem exploration, solution exploration, optimization) before choosing a tool.
+- **P080** — Measure health with true product metrics, not vanity metrics (numbers that only ever grow) or output metrics (shipped features or story points).
+- **P081** — Capture structured problem statements, map current-versus-ideal journeys, and ask why rather than building the literally requested feature.
+- **P082** — Experiment before building to invalidate assumed solutions; require a real "ask" for a concept test to be evaluative; avoid A/B testing when the direction is uncertain.
+- **P083** — Experiment to learn in any industry, including bureaucratic or hardware ones, by simulating the solution cheaply.
+- **P084** — Prioritize toward Version 1 using Cost of Delay (urgency combined with value) to avoid both over-scoping and shipping something terrible.
+- **P085** — Adopt the real definition of done: a feature is done only when it reaches its goals, measured and iterated against, and rolled back if unmet.
+- **P086** — Treat roadmaps as a living explanation of strategy and stage, not a fixed-date Gantt chart; align on shared stage terminology (Experiment, Alpha, Beta, GA).
+- **P087** — Reward people for moving the business forward; push back with a data-backed case, and fix sales incentives away from pure commission.
+- **P088** — Replace yearly budgeting with venture-style incremental funding tied to reaching the next product stage, across the whole portfolio.
+- **P089** — Have the PM be the bad-idea terminator, not the big-idea generator; trust data over opinion and defuse stakeholders' personal agendas.
+- **P103** — Don't commit to visions or expensive-consultancy feature sets without validation — locked-in plans build features that don't matter to customers.
+- **P105** — Don't assume Agile covers product management — it speeds up building but ignores the front-of-funnel work of generating and validating ideas.
+- **P106** — Select CPOs who pair skill in product, technology, and finance with influence, empathy, and data-accountable resilience.
+- **P107** — Focus improvement on controllable business-side constraints (people, process, policy, strategy, culture), not customer-side influences.
+- **P108** — Lead experiments and continually reveal known unknowns, connecting research, market data, and results into a product vision.
+- **P109** — Start with why and confront risk and bias before building — ask what success looks like and what could kill the project.
+- **P110** — Treat a product as a whole value vehicle, keeping a piece-owning PM inside the value-holding division and minimizing management layers.
+- **P111** — Stand up a small product-operations team reporting to the CPO that creates systems and templates for team inputs and outputs rather than dictating how teams operate.
+- **P112** — Separate the operational framework from the strategic framework and get the strategic one right to avoid swirl in planning and execution.
+- **P113** — Fund and plan continuously rather than yearly, framing major work as uncertainty-aware bets (data, insights, beliefs).
+- **P114** — Don't isolate innovation in an under-resourced lab or wait for annual budget; drive market-driven innovation by immersing in a target user group's problems.
+- **P115** — Before generating solutions, decompose the goal into its few known levers and diagnose problems and opportunities around each.
+- **P116** — Use lifecycle and satisfaction metric frameworks (Pirate Metrics for the funnel, HEART for a product or feature), adapted to the monetization flow.
+- **P117** — Guide decisions with a balanced system of metrics (mutually destructive pairs) rather than one gameable metric.
+- **P118** — Implement an analytics platform early and set realistic goals grounded in current data — metrics can't be set before investigating the problem.
+- **P119** — Prioritize from user research and observation; treat internal tools as real products, since neglecting them raises churn and cost.
+- **P120** — Build psychological safety to fail and explore, but keep learning at the core — failing without learning is not success.
+- **P121** — Be customer-centric as a required condition of being product-led; protect direct customer contact even when times are tough.
+- **P179** — Use product management to enable the sales strategy through working agreements and customer-facing roadmaps, moving the company toward product-led.
+- **P180** — Structure the organization to invite candid feedback and dissent, since fear of speaking up blocks pushback on wrong priorities.
+- **P181** — Align every team's and leader's top priority back to the company's overarching goal; divergence signals misalignment.
+- **P182** — Communicate strategy so development and management stay synchronized in a cyclical flow — strategy informs execution, execution informs strategy.
+- **P183** — Kill a project even when nearly complete if it no longer aligns with the overall strategy.
+- **P184** — Sustain innovation by not mandating what to build from the top and by making it safe to experiment and fail, enabling quick course-correction.
+- **P185** — Make objectives and key results outcome-based rather than output-based; framing them as deliverables or dates is a failure mode.
+- **P186** — When the vision has been murky, leaders must communicate it through story and reinforce it via a simple vision statement.
+- **P187** — Instrument the product with lightweight tools to gather real user data rather than guessing at motivations.
+- **P188** — Right-size experimentation: when the problem and solution are both known, just implement and measure; heavy experiments are for high uncertainty.
+- **P189** — Treat review meetings as places to indicate progress and raise red flags rather than to make every decision.
+- **P190** — Drop the "product owner" title and call everyone in the position a product manager, keeping one coherent career path.
+- **P191** — Avoid splitting the PM (strategy) from the product owner (tactical execution) as SAFe does — it disconnects owners from users and stops validation work.
+
+## Lean-startup hypothesis discipline
+
+- **P001** — For MBA-heavy or strongly analytical teams, force probing engagement first, then use their analytical training to interpret interview evidence for major changes.
+- **P002** — Keep hypotheses crisp and moderate in number; use convergence as the signal to stop generating more for resolved assumptions.
+- **P004** — Use lean-startup structure (assumptions, canvas, probing) for early-stage business ideas with unresolved uncertainty.
+- **P005** — Make probing the central learning activity: it drives convergence, surfaces new hypotheses, and can dislodge a team from its initial idea.
+- **P008** — Assess team composition (expertise, education) before applying lean startup — it can change adoption, interpretation, and behavior.
+- **P009** — Generalize I-Corps findings cautiously beyond small, standardized, technology-driven teams and interventions.
+- **P011** — Treat educational diversity as a resource for broader questioning, but verify it converts into real stakeholder probing and evidence use.
+- **P013** — Standardize cadence, platform use, reporting fields, feedback loops, and interview targets for repeatable lean-startup programs.
+- **P015** — Write a vision stating why and the customer value proposition, let it emerge from experimentation, and dedicate time to innovate by saying no.
+- **P016** — Match the experiment type (concierge, Wizard of Oz, concept test, prototype) to the uncertainty and context; the objective is learning, not earning.
+- **P017** — Treat customer interviews as uncertainty-reducing probes, not controlled experiments or final scientific validation.
+- **P028** — Use the business-model canvas to surface implicit business assumptions before choosing what to probe.
+- **P049** — Treat higher lean-startup activity intensity as a promising but exploratory outcome signal, not proof of venture performance.
+- **P050** — Use instructor feedback as a coaching nudge, but don't treat team-composition effects as idea-quality effects without supporting evidence.
+- **P052** — Track hypothesis formulation, stakeholder interviews, and convergence decisions as separate progress signals.
+- **P122** — Use lean startup as an initial commercialization method for technology-driven academics, managing MBA involvement so it supports rather than suppresses probing.
+- **P123** — Distinguish minor canvas edits from major business-idea changes when judging whether lean startup produced meaningful reorientation.
+- **P124** — Validate that probing is real learning by checking qualitative decision records, not just interview counts.
+
+## Research-to-blueprint translation & gap classification
+
+- **P031** — Never treat research gaps as solved; route engineering gaps to roadmap-sized work, academic gaps to validation, and out-of-scope gaps to non-goals.
+- **P051** — Exclude academic gaps from MVP or Phase 1 unless the product itself exists to validate the research question; carry them into decisions and roadmap.
+- **P091** — Run blueprint generation only for product-design-from-research intents; route other work to the appropriate specialized stage.
+- **P093** — Classify input quality before authoring; stop on insufficient input, and proceed on weak input only with gaps recorded as assumptions or open questions.
+- **P094** — Run quality gates before delivery, repair safe issues, recheck repairs, and fail immediately on hard violations (tech-stack choices, code, missing diagrams).
+- **P125** — Translate research items into reusable product primitives and merge overlapping primitives before composing capabilities or workflows.
+- **P133** — When research spans unrelated domains, scope the blueprint to the highest-evidence domain unless similarly supported domains would diverge materially.
+- **P134** — Extract mechanisms, methods, patterns, benchmarks, assumptions, contradictions, gaps, risks, and architecture hints, tagged by type and confidence.
+- **P135** — Resolve major ideas conservatively with controlled ADOPT, ADAPT, MERGE, DEFER, REJECT, or DEFER/VALIDATE decisions.
+- **P136** — Use long gap-closure history or remaining-gaps readiness as pressure to defer or reject speculative scope instead of expanding MVP.
+- **P137** — Structure MVP scope into MVP-0, MVP-1, safety baseline, evaluation baseline, and deferred scope, with MVP-0 the smallest demonstrable slice.
+- **P139** — Keep a medium- or low-confidence release gate mandatory only when high impact, no cheaper control, and immediate need justify it.
+- **P140** — Describe each major workflow with trigger, inputs, decision gates, steps, outputs, failure modes, and success criteria.
+- **P141** — Make risk treatment explicit: name high-impact risks, avoid vague mitigations, gate safety-critical deferrals, and flag unvalidated academic risk.
+- **P142** — Keep the topic slug stable, deriving it from source metadata, filename, project name, or an explicit user slug before asking on ambiguity.
+- **P143** — Record auto-discovered input candidates with path, selection status, confidence, and reason.
+- **P144** — Separate decisions from assumptions; route high-risk assumptions to ASK_USER or downstream review when they affect security, privacy, or viability.
+
+## Adaptive downstream stage routing & pipeline
+
+- **P029** — Use the blueprint as an adaptive downstream router with evidence-based, overrideable RUN, SKIP, DEFER, and ASK_USER recommendations — never silently expand the pipeline.
+- **P032** — Keep architecture focused on structure, boundaries, contracts, security, observability, and handoff; route other work to its own stage.
+- **P033** — In stack mode, choose technologies to satisfy the architecture and report conflicts instead of silently rewriting it.
+- **P055** — Resolve the architecture mode before substantive work, honoring an explicit mode first, and otherwise routing from the request plus available artifacts.
+- **P056** — Default existing-architecture requests to non-mutating review unless the user explicitly asks for update, reconciliation, or mutation.
+- **P132** — Route to UX-design when roles, human review, non-trivial interaction, failure recovery, or trust/control needs require detailed experience design.
+- **P145** — Represent open questions and next stages with controlled fields for owner, blocking status, recommended action, and required input.
+- **P153** — Use product-experience signals to drive routing for UX-design, security-review, test-design, architecture-design, and tech-stack selection.
+- **P155** — Use the blueprint as the first product-level routing point, where shape, MVP, mode, risk, and ambiguity become explicit.
+- **P156** — Separate the design pipeline into a core path and optional gates, running optional gates only when risk, ambiguity, or rework avoidance justify them.
+- **P157** — Present the recommended pipeline as a linear core path plus conditional follow-up gates so deferred work stays visible.
+- **P158** — Warn on routing plans that skip optional stages despite matching risk signals, omit dependencies or deferred-gate triggers, or leave labels ambiguous.
+- **P159** — Score routing complexity across user-facing complexity, technical ambiguity, security/privacy risk, AI uncertainty, and testing importance.
+- **P160** — Label the complexity score as a routing heuristic, not a formal estimate, and revisit it after architecture design.
+- **P161** — Default architecture-design to RUN for serious blueprints; skip it only for conceptual notes or trivial scripts with obvious architecture.
+- **P162** — Route tech-stack selection based on whether choices materially affect architecture, data, deployment, performance, cost, or compliance.
+- **P163** — Route security-review when data egress, sensitive data, authentication, MCP exposure, audit/compliance needs, or multi-user access create risk.
+- **P164** — Route test-design when workflow correctness, AI-output evaluation, failure/recovery paths, or multiple integration surfaces require E2E coverage.
+- **P165** — Keep architecture-update and reconciliation deferred at blueprint stage, running them only when downstream decisions or conflicts require it.
+- **P166** — Make stage recommendations dependency-aware: include Stage, Decision, Depends On, Confidence, Reason, Blocks Next Step, and Revisit Trigger.
+- **P167** — Explain the absence of ASK_USER by assigning every high-impact unknown to an answer, owner, or review stage; otherwise ask the user.
+- **P168** — Gate adaptive routing by failing missing or uncontrolled recommendations, unevidenced RUN decisions, unjustified skips, and unresolved high-impact unknowns.
+
+## Product-experience direction & the UX/architecture boundary
+
+- **P012** — Limit product-experience content to UX intent and architecture-impacting direction; leave detail (screens, syntax, schemas, copy) to later stages.
+- **P014** — Define architecture contracts and operational controls together (interfaces, data, security, observability, failure recovery, testing, handoff).
+- **P018** — Ask only architecture-impacting clarification questions, one at a time, and record assumptions, reversibility, and revisit triggers by mode.
+- **P019** — Assign deterministic control, state, security, and audit to normal software; reserve AI for judgment-heavy work and never let it bypass deterministic validation.
+- **P053** — In UX-design modes, ask only high-impact UX questions, infer low-risk defaults, flag high-risk assumptions, and still complete the document.
+- **P054** — Preserve blueprint MVP staging and create or supersede ADRs for every high-impact architecture decision.
+- **P057** — Adopt MCP only when a reusable external tool or data-access boundary is justified and fully specified, not as a default integration pattern.
+- **P059** — Record an explicit data-egress decision when external models may see content; represent security gates as verification tables; forbid raw source content in logs by default.
+- **P060** — UX user stories and scenario seeds must be testable: roles, goals, preconditions, flows, failure recovery, acceptance criteria, Gherkin-style seeds, and phase tags.
+- **P061** — Only design surfaces, states, and operations the architecture supports; record unsupported UX needs as architecture feedback.
+- **P095** — Gate product-experience quality by checking the primary user, job, thesis, mode, trust/control/transparency, human review, and UX-to-architecture handoff.
+- **P097** — Before authoring UX interactions, parse architecture surfaces, actors, state, workflows, security, observability, and handoff notes, preserving blueprint experience intent.
+- **P098** — Consume the blueprint's product-experience direction and routing in architecture design, preserving UX intent and keeping the stack provisional when deferred.
+- **P099** — Every major architecture decision must be traceable to blueprint material, user clarification, a rule-pack decision, or an explicit recorded assumption.
+- **P100** — In materialization, merge only accepted update notes, preserve prior decisions, and stop on blocking conflicts rather than inventing resolutions.
+- **P102** — Maintain a canonical state model so lifecycle states, audit events, human-review actions, and failure behaviors stay cross-section consistent.
+- **P104** — Keep UX design as the stage converting architecture constraints into interaction flows, user stories, and acceptance criteria; not for architecture, stack, or implementation.
+- **P147** — Classify every product-experience interaction mode as a primary, secondary, wrapper/integration, or future surface so architecture understands its runtime role.
+- **P148** — Disambiguate AI Skill from MCP: classify a Skill explicitly and tag MCP separately as an external-agent tool surface when present.
+- **P149** — Split combined interaction-mode entries when the modes don't share the same classification.
+- **P150** — Ask product-experience clarifications only when the answer materially changes direction, architecture, risk, or implementation.
+- **P151** — When a UX clarification is necessary, ask one focused question with why it matters, a recommended answer, alternatives, and the default assumption if unanswered.
+- **P152** — In automatic mode, infer reasonable UX defaults as assumptions and review-flag the high-impact ones in the architecture handoff.
+- **P154** — Warn on product-experience ambiguity or risk signals: unresolved primary mode, unjustified MCP, surface/user mismatch, or unclear data-egress visibility.
+- **P170** — Name and place architecture artifacts deterministically from the topic slug and source location, recording a fallback filename if writing files is unavailable.
+- **P171** — Discover required architecture inputs from explicit arguments, context, and common artifact locations before stopping for a missing input.
+- **P172** — Keep architecture artifacts at the boundary level: proposed modules and namespaces are allowed, but tickets, code, and implementation steps belong downstream.
+- **P173** — For review, update, and reconcile modes, resolve artifacts first, stop when required architecture is missing, and avoid silent mutation.
+- **P174** — Give every model-backed evaluator an availability policy stating required availability, fallback behavior, auto-accept rules, and audit logging.
+- **P175** — Require controlled provenance for high-impact architecture decisions; never label a decision user-confirmed without explicit confirmation evidence.
+- **P176** — Don't run UX design without a resolved architecture design document; discover the architecture first and stop if it can't be found.
+- **P177** — UX-design outputs must include contents, update history, metadata, scoped surfaces, user stories, Gherkin-style scenario seeds, architecture feedback, and a self-check appendix.
+- **P178** — Define non-happy-path UX explicitly: error, empty, loading, degraded, recovery, and human-review experiences.
+
+## Provenance
+
+Every principle above is distilled in `principles/principles.yaml` (191 principles, each with `derived_from_claims` → `analysis/claims.jsonl` → `sources/anchors/*.anchors.jsonl`), built from four `distillation-only` sources (paraphrase only, no verbatim quotation): the Product Blueprint and Stage-Boundary Skill Contract (`blueprint-contract-8707406d`), Architecture and UX Stage Boundaries (`stage-boundaries-f4cae146`), Melissa Perri's *Escaping the Build Trap* (`escaping-the-build-t-8988bab5`), and the Katila et al. lean-startup study (`lean-startup-katila-2a049107`). Look up a principle ID in `principles/principles.yaml` for its full statement, confidence level, and citation chain.
