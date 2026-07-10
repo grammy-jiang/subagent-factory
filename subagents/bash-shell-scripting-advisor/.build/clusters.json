@@ -1,0 +1,3740 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Bash is the only shell scripting language permitted for executables."
+   },
+   {
+    "idx": 1,
+    "statement": "Executables must begin with `#!/bin/bash` and minimal flags, and use `set` to configure shell options so that invoking the script as `bash script_name` does not break its functionality."
+   },
+   {
+    "idx": 2,
+    "statement": "Use shell only for small utilities or simple wrapper scripts; it is a recognized utility language, not a development language for widespread deployment."
+   },
+   {
+    "idx": 3,
+    "statement": "If performance matters, use a language other than shell."
+   },
+   {
+    "idx": 158,
+    "statement": "Use the correct interpreter: put #!/usr/bin/env bash on the very first line of a Bash script (never omit it or use #!/bin/sh, which forces POSIX features even when /bin/sh is really Bash); running via ./script uses the shebang while 'bash script' ignores it; keep LF-only line endings and do not add a .sh extension."
+   },
+   {
+    "idx": 166,
+    "statement": "When portability to POSIX sh matters, rely only on documented POSIX-conformant behavior, since Bash is a superset of sh and many Bash conveniences are not available in a plain sh."
+   },
+   {
+    "idx": 260,
+    "statement": "Give every script a '#!' line - '#!/bin/bash' to force Bash even when launched from another shell, or '#!/usr/bin/env bash' to find bash on PATH - and do not rely on more than one interpreter argument, which is not portable."
+   },
+   {
+    "idx": 317,
+    "statement": "Treat BASH_ENV (read before a non-interactive script) and ENV (read by an interactive POSIX-mode shell) as security-sensitive startup hooks and sanitize or unset them when running in an untrusted environment."
+   },
+   {
+    "idx": 409,
+    "statement": "Prefer portable Bash syntax: env-based shebangs for PATH-resolved Bash, modern command substitution, and function declarations without the function keyword."
+   },
+   {
+    "idx": 419,
+    "statement": "When OS command execution is unavoidable, use structured invocation that separates the executable, arguments, environment, and working directory instead of building a shell string."
+   },
+   {
+    "idx": 465,
+    "statement": "Make executable scripts self-identifying and portable with executable permissions, a shebang, and env-based interpreter lookup where appropriate."
+   }
+  ]
+ },
+ {
+  "group": 1,
+  "members": [
+   {
+    "idx": 4,
+    "statement": "Rewrite a script in a more structured language once it exceeds roughly 100 lines or uses non-straightforward control flow, and do so early because scripts tend to grow."
+   },
+   {
+    "idx": 484,
+    "statement": "Use declaration inspection, cleanup unsets, and traps to keep script state and temporary resources under control."
+   }
+  ]
+ },
+ {
+  "group": 2,
+  "members": [
+   {
+    "idx": 5,
+    "statement": "An executable should have a `.sh` extension or no extension: prefer `.sh` when a build rule renames the source file, and prefer no extension when the file is added directly to the user's PATH."
+   },
+   {
+    "idx": 6,
+    "statement": "Libraries must have a `.sh` extension and must not be executable."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 11,
+    "statement": "A function header comment should document the intended API: a description plus the Globals used and modified, Arguments taken, Outputs to STDOUT/STDERR, and Returns beyond the default exit status."
+   },
+   {
+    "idx": 481,
+    "statement": "Return function data through stdout and return success or failure through status codes, keeping diagnostics off captured stdout."
+   }
+  ]
+ },
+ {
+  "group": 8,
+  "members": [
+   {
+    "idx": 12,
+    "statement": "Comment tricky, non-obvious, or important parts of the code, but do not comment everything."
+   },
+   {
+    "idx": 13,
+    "statement": "Use TODO comments for code that is temporary, a short-term solution, or good-enough but not perfect."
+   }
+  ]
+ },
+ {
+  "group": 12,
+  "members": [
+   {
+    "idx": 17,
+    "statement": "Maximum line length is 80 characters."
+   },
+   {
+    "idx": 18,
+    "statement": "Write literal strings longer than 80 characters using a here-document or an embedded newline."
+   }
+  ]
+ },
+ {
+  "group": 15,
+  "members": [
+   {
+    "idx": 21,
+    "statement": "Consistently include `in \"$@\"` in for loops for clarity, even though it may be omitted."
+   },
+   {
+    "idx": 27,
+    "statement": "Use arrays for safe quoting of lists of elements, especially command-line flags, and use `\"$@\"` rather than `$*` when passing arguments on."
+   },
+   {
+    "idx": 34,
+    "statement": "Use Bash arrays to store lists of elements (especially argument lists) to avoid quoting complications, access them with quoted `\"${array[@]}\"`, and avoid unquoted command-substitution expansion in array assignments."
+   },
+   {
+    "idx": 74,
+    "statement": "Iterate the positional parameters with `\"$@\"` (or the bare `for arg`, which defaults to it), never `$*` or unquoted `$@`, which word-split the parameters."
+   },
+   {
+    "idx": 183,
+    "statement": "Iterate 'for name in words' over each word, and rely on an omitted 'in words' clause iterating over the positional parameters as if 'in \"$@\"' were given."
+   },
+   {
+    "idx": 560,
+    "statement": "Prefer the double-quoted \"$@\" to preserve each positional parameter as its own field, and use \"$*\" only when a single IFS-joined string is intended, because unquoted @ and * are subject to field splitting and pathname expansion."
+   }
+  ]
+ },
+ {
+  "group": 16,
+  "members": [
+   {
+    "idx": 22,
+    "statement": "In a case statement, indent alternatives 2 spaces, put a space after the pattern's `)` and before `;;` on a one-line alternative, split long alternatives with pattern/actions/`;;` on separate lines, do not quote match expressions or precede patterns with an open parenthesis, and avoid the `;&` and `;;&` notations."
+   },
+   {
+    "idx": 188,
+    "statement": "Use 'case' to run the first matching clause, and choose the terminator deliberately: ';;' stops, ';&' falls through to the next clause unconditionally, and ';;&' re-tests the next clause's patterns."
+   }
+  ]
+ },
+ {
+  "group": 17,
+  "members": [
+   {
+    "idx": 23,
+    "statement": "As strongly recommended but non-mandatory guidelines, in order of precedence: stay consistent with existing code, quote your variables, and prefer `\"${var}\"` over `\"$var\"`."
+   },
+   {
+    "idx": 25,
+    "statement": "Braces in `${var}` are not a form of quoting; double quotes must be used as well."
+   },
+   {
+    "idx": 391,
+    "statement": "Treat a 'VAR=value command' assignment as scoped to that command in Bash even for builtins and functions, and do not depend on it leaking into the shell (as it might in a traditional 'sh')."
+   }
+  ]
+ },
+ {
+  "group": 19,
+  "members": [
+   {
+    "idx": 26,
+    "statement": "Always quote strings that contain variables, command substitutions, spaces, or shell metacharacters."
+   },
+   {
+    "idx": 53,
+    "statement": "Double-quote every parameter expansion and command substitution used as data (filenames, arguments, test operands); unquoted, they undergo word splitting on $IFS and pathname expansion (globbing), corrupting any value that contains whitespace or glob characters. Note that quotes nest across a `$(...)` boundary as a separate pair."
+   },
+   {
+    "idx": 67,
+    "statement": "Assign variables as `foo=bar`: no `$` before the name and no spaces around `=`, or the shell parses the line as a command with arguments."
+   },
+   {
+    "idx": 107,
+    "statement": "Always double-quote parameter expansions, command substitutions, and any string whose parts must stay together; an unquoted expansion undergoes word splitting on IFS and globbing, silently splitting one value into several arguments and corrupting commands like rm."
+   },
+   {
+    "idx": 108,
+    "statement": "Understand the shell's expand-then-split model: a parameter expansion is replaced by its raw value and only afterward word-split (on IFS: space, tab, newline by default) and globbed; word splitting affects expansions, not literal whitespace, which is why quoting is decisive."
+   },
+   {
+    "idx": 109,
+    "statement": "Use single quotes for a fully literal string and double quotes to block word splitting while still allowing substitution; quotes exist to remove the special meaning of shell metacharacters, and a backslash escapes exactly one character."
+   },
+   {
+    "idx": 168,
+    "statement": "Pick the quoting mechanism to match intent: single quotes preserve every character literally (and cannot contain a single quote), double quotes still allow $ and backtick expansion, $'...' decodes ANSI-C escapes, and a backslash escapes the single following character."
+   },
+   {
+    "idx": 173,
+    "statement": "Quote any of the shell metacharacters (space, tab, newline, | & ; ( ) < >) that must appear literally, because unquoted they separate words."
+   },
+   {
+    "idx": 185,
+    "statement": "Recognize that reserved words act as reserved only when unquoted and used as the first word of a command (with the case/select/for third-word exceptions), so quoting a keyword makes it a literal word."
+   },
+   {
+    "idx": 210,
+    "statement": "Rely on a 'name=value' assignment expanding its value (tilde, parameter, command substitution, arithmetic, quote removal) without word splitting or globbing, so 'x=$y' is safe unquoted even though 'cmd $y' is not."
+   },
+   {
+    "idx": 554,
+    "statement": "Quote every character that has special meaning to the shell when it must be literal, and pick the quoting mechanism by its scope: single-quotes preserve everything (and cannot contain a single-quote), double-quotes preserve everything except the dollar-sign, backquote, and backslash, and an unquoted backslash escapes just the next character."
+   },
+   {
+    "idx": 639,
+    "statement": "Preserve literal data through the shell with the appropriate mechanism: quotes, single versus double quote choice, backslash escaping, or literal control-character entry."
+   },
+   {
+    "idx": 742,
+    "statement": "Quote variables, filenames, and command substitutions unless word splitting or expansion is specifically intended."
+   },
+   {
+    "idx": 835,
+    "statement": "Assign shell variables without surrounding spaces, quote values containing spaces, and use braces when adjacent text would confuse variable names."
+   }
+  ]
+ },
+ {
+  "group": 20,
+  "members": [
+   {
+    "idx": 28,
+    "statement": "ShellCheck is recommended for all scripts, large or small."
+   },
+   {
+    "idx": 712,
+    "statement": "Run shell scripts using the execution model that matches intended side effects: executable shebang scripts for direct runs, bash script arguments for independent execution, and source only for current-shell changes."
+   },
+   {
+    "idx": 881,
+    "statement": "Use traps and cleanup functions for long-running or temporary-file scripts, including EXIT and ERR where their caveats are understood."
+   }
+  ]
+ },
+ {
+  "group": 21,
+  "members": [
+   {
+    "idx": 29,
+    "statement": "Use `$(command)` instead of backticks for command substitution, because it does not change when nested and is easier to read."
+   },
+   {
+    "idx": 232,
+    "statement": "Use the '${ command; }' (or '${| command; }') form when the command must run in the current execution environment so side effects such as 'exit' and variable changes persist, unlike a subshell command substitution."
+   },
+   {
+    "idx": 569,
+    "statement": "Prefer the $(command) form over backquotes for command substitution: it runs the command in a subshell and substitutes its standard output with trailing newlines stripped, its result is not re-expanded, and it avoids the backslash and nesting pitfalls of backquotes."
+   }
+  ]
+ },
+ {
+  "group": 22,
+  "members": [
+   {
+    "idx": 30,
+    "statement": "Prefer `[[ ... ]]` over `[ ... ]`, `test`, and `/usr/bin/[`, because no pathname expansion or word splitting occurs inside `[[ ... ]]` and it supports pattern and regular-expression matching."
+   },
+   {
+    "idx": 60,
+    "statement": "Treat `[`/`[[` as commands, not `if` syntax: they need whitespace around every operand, `if` runs a command directly (`if grep -q re file`, not a bracket-wrapped condition), and compound conditions are separate commands joined by `&&`/`||`, never nested in an outer `[ ]`."
+   },
+   {
+    "idx": 600,
+    "statement": "Treat shell patterns as distinct from regular expressions: matching is on the encoding bit pattern, ? matches one character, * greedily matches any string (including empty), and a bracket expression uses ! for a non-matching list; a backslash escapes the next character, a quoted or escaped character is literal, and a trailing unescaped backslash or a bracket expression opened with an unquoted circumflex is unspecified."
+   }
+  ]
+ },
+ {
+  "group": 23,
+  "members": [
+   {
+    "idx": 31,
+    "statement": "When testing strings, use quotes rather than filler characters, prefer explicit `-z` and `-n` for empty/non-empty tests, and use `==` rather than `=` for equality."
+   },
+   {
+    "idx": 339,
+    "statement": "Test strings with '-z' (empty) and '-n' or a bare operand (non-empty), and check variable existence safely with '-v varname' (set) and '-R varname' (a name reference), which avoids nounset pitfalls."
+   }
+  ]
+ },
+ {
+  "group": 24,
+  "members": [
+   {
+    "idx": 32,
+    "statement": "Expand filename wildcards with an explicit path such as `./*` rather than `*`, because filenames can begin with a `-`."
+   },
+   {
+    "idx": 57,
+    "statement": "Stop filenames that begin with `-` from being read as options: prefix expansions with `./` (so `-foo` becomes `./-foo`), or pass `--` end-of-options before filename arguments — repeated at every site, and knowing some programs (e.g. `echo`) do not honour it."
+   },
+   {
+    "idx": 87,
+    "statement": "When pattern-matching the results of a `./*` glob, remember the `./` prefix is part of the string; strip the directory (`${p##*/}`) before matching, or include the prefix in the pattern."
+   },
+   {
+    "idx": 115,
+    "statement": "When globbing filenames into an array, quote only the literal path parts that contain spaces (e.g. (~/\"My Photos\"/*.jpg)); never quote ~ or *, which would make them literal and defeat the expansion."
+   },
+   {
+    "idx": 240,
+    "statement": "Enable the globstar option to match recursively with '**' (and '**/' to match only directories) when a filename pattern must descend into subdirectories."
+   },
+   {
+    "idx": 518,
+    "statement": "Treat pathname expansion as a simple globbing tool with literal-unmatched-pattern hazards and limited search power."
+   }
+  ]
+ },
+ {
+  "group": 25,
+  "members": [
+   {
+    "idx": 33,
+    "statement": "Avoid `eval`, which munges input on assignment and makes it impossible to check what variables were set."
+   },
+   {
+    "idx": 267,
+    "statement": "Treat any data placed into an 'eval' string as executable code, because 'eval' concatenates its arguments into one command and runs it."
+   }
+  ]
+ },
+ {
+  "group": 26,
+  "members": [
+   {
+    "idx": 35,
+    "statement": "Prefer process substitution or the `readarray` builtin over piping to `while`, because a pipe runs in a subshell so variables modified there do not propagate to the parent; likewise be cautious with `for var in $(...)`, which splits on whitespace rather than lines."
+   },
+   {
+    "idx": 63,
+    "statement": "Each stage of a pipeline runs in a separate subshell, so variables modified inside `... | while` do not persist afterward; POSIX leaves whether the last stage is a subshell unspecified (lastpipe/ksh93 differ), so do not depend on it — feed the loop with process substitution or `read` instead."
+   },
+   {
+    "idx": 65,
+    "statement": "Read into a bare variable name (`read foo`, not `read $foo`), and use `IFS= read -r` to avoid trimming leading/trailing whitespace and mangling backslashes."
+   },
+   {
+    "idx": 93,
+    "statement": "Do not populate an array with an unquoted command substitution (`arr=( $(cmd) )`): the output is word-split on all whitespace and globbed; use `read -ra arr < <(cmd)` for one line or `readarray -t arr < <(cmd)` (bash 4.0+) for many."
+   },
+   {
+    "idx": 104,
+    "statement": "Feed a `while` loop with process substitution `< <(foo)` rather than a here-string `<<< \"$(foo)\"`: the here-string collects all of foo's output first (no concurrency) and, via `$(...)`, discards NUL bytes, strips trailing newlines, appends a newline, and stages a temporary file."
+   },
+   {
+    "idx": 146,
+    "statement": "Remember that each stage of a pipeline runs in its own subshell, so variables assigned inside a piped command are lost afterward (echo x | read v leaves v unchanged); avoid pipelines of three or more commands."
+   }
+  ]
+ },
+ {
+  "group": 27,
+  "members": [
+   {
+    "idx": 36,
+    "statement": "Do all arithmetic with `(( ... ))` or `$(( ... ))` and never with `let`, `$[ ... ]`, or `expr`, and do not use `[[ ... ]]` at all for numeric comparison."
+   },
+   {
+    "idx": 58,
+    "statement": "In bash/ksh use `[[ ]]` for test expressions and `(( ))` for arithmetic; reserve `[ ]`/`test` for POSIX portability, and there use `=` (not `==`) with every operand quoted."
+   },
+   {
+    "idx": 62,
+    "statement": "Never evaluate untrusted input in an arithmetic context (`(( ))`, `let`, an array subscript, or a `[[ ]]` numeric comparison): the text is expanded — including command substitution — before evaluation, enabling arbitrary command injection (e.g. `a[$(reboot)]`). Use bare variable names, validate inputs to decimal integers, and prefer a quoted `[ \"$x\" -gt N ]`, which requires decimal operands."
+   },
+   {
+    "idx": 124,
+    "statement": "Never feed untrusted data into an arithmetic context ([[ n -gt 0 ]] or (( n ))): it evaluates arbitrary arithmetic expressions and is therefore an arbitrary-command-execution risk; use [ \"$n\" -gt 0 ] (decimal-integer-only, worst case a syntax error) or validate the input first."
+   },
+   {
+    "idx": 139,
+    "statement": "Use arithmetic contexts for math: (( )) is a test whose status is 0 for a true/non-zero expression and 1 for false/zero (the reverse of the exit convention — a known trap), while $(( )) substitutes the numeric result and is POSIX-portable; inside both you reference variables without $ and use C-like operators."
+   }
+  ]
+ },
+ {
+  "group": 28,
+  "members": [
+   {
+    "idx": 37,
+    "statement": "Avoid aliases in scripts and use functions instead, which provide a superset of alias functionality."
+   },
+   {
+    "idx": 137,
+    "statement": "Do not treat aliases as functions: aliases work only in interactive shells, take no arguments, cannot recurse, have no local variables, and replace only the first word; use a function whenever you need real behavior."
+   },
+   {
+    "idx": 283,
+    "statement": "Define aliases with 'alias name=value', using a trailing space in the value when the following word should also be alias-expanded."
+   },
+   {
+    "idx": 312,
+    "statement": "Do not rely on aliases in scripts, because alias expansion is enabled by default only in interactive shells (unless expand_aliases is set), and use functions instead."
+   },
+   {
+    "idx": 343,
+    "statement": "Understand alias mechanics - they replace only the first word of a simple command, do not recurse into an identically-named alias, and are expanded when a line or function is read rather than executed - so put each alias on its own line and prefer functions, since aliases cannot take arguments."
+   },
+   {
+    "idx": 416,
+    "statement": "Bypass shell aliases or functions deliberately when the underlying command is required, and use detached background execution only when discarded output and continued execution are intended."
+   },
+   {
+    "idx": 556,
+    "statement": "Do not rely on aliases for script logic: alias substitution applies only to the command-name word of a simple command, never to reserved words in context, is not inherited by separate shell invocations or utility environments, and only chains to the next word when the alias value ends in a blank."
+   },
+   {
+    "idx": 735,
+    "statement": "Define aliases only after checking for name collisions, quote the replacement correctly, and persist aliases in startup files when needed across sessions."
+   },
+   {
+    "idx": 842,
+    "statement": "Use functions in startup files instead of aliases when personal commands need real script logic."
+   }
+  ]
+ },
+ {
+  "group": 29,
+  "members": [
+   {
+    "idx": 38,
+    "statement": "Name functions and variables in lower-case with underscores separating words, separate package names with `::`, require parentheses after a function name with the optional `function` keyword used consistently project-wide, keep the brace on the same line with no space before `()`, and name a loop variable to match the collection it iterates over."
+   },
+   {
+    "idx": 75,
+    "statement": "Define functions as `name() { ...; }`; do not combine the `function` keyword with `()`, which is unportable across shells."
+   }
+  ]
+ },
+ {
+  "group": 30,
+  "members": [
+   {
+    "idx": 39,
+    "statement": "Constants and anything exported to the environment should be capitalized with underscores separating words and declared at the top of the file."
+   },
+   {
+    "idx": 40,
+    "statement": "For clarity, prefer `readonly` or `export` over the equivalent `declare` commands when defining constants or exported variables."
+   }
+  ]
+ },
+ {
+  "group": 31,
+  "members": [
+   {
+    "idx": 41,
+    "statement": "It is acceptable to set a constant at runtime or conditionally, but it must be made `readonly` immediately afterwards."
+   },
+   {
+    "idx": 611,
+    "statement": "Use readonly to make a variable value immutable and un-unsettable, use readonly -p to save read-only variables re-inputtably, and do not assume the readonly attribute persists across separate shell invocations; functions are deliberately never read-only across invocations to preclude spoofing."
+   }
+  ]
+ },
+ {
+  "group": 33,
+  "members": [
+   {
+    "idx": 43,
+    "statement": "Declare function-specific variables with `local` so they and their children's scope stay inside the function, avoiding pollution of the global namespace."
+   },
+   {
+    "idx": 135,
+    "statement": "Functions run in the current process with their own positional parameters ($1... separate from the script's), so pass arguments explicitly and declare internal variables local to avoid clobbering the caller's namespace."
+   },
+   {
+    "idx": 207,
+    "statement": "Declare function-private variables with 'local', and account for Bash's dynamic scoping: a called function sees its caller's locals (which shadow globals) and the shadowed value is restored when the declaring function returns."
+   },
+   {
+    "idx": 288,
+    "statement": "Set variable attributes with 'declare'/'typeset' (-i integer, -l/-u case, -r readonly, -x export, -a/-A arrays, -n nameref, -t trace), remembering that inside a function 'declare' is implicitly local unless '-g' forces global scope, and that 'declare -p' prints a reusable definition."
+   },
+   {
+    "idx": 289,
+    "statement": "Use 'local' only inside a function to scope a variable to that function (it accepts any 'declare' option), and 'local -' to make 'set' option changes local to the function so they are restored on return."
+   }
+  ]
+ },
+ {
+  "group": 34,
+  "members": [
+   {
+    "idx": 44,
+    "statement": "Declaration and assignment must be separate statements when the value comes from a command substitution, because `local` does not propagate the command substitution's exit code (so `$?` would reflect `local`, not the command)."
+   },
+   {
+    "idx": 77,
+    "statement": "Declare then assign on separate lines for `local`/`export`/`readonly` (`local v; v=$(cmd); rc=$?`): combined, the declaration's own exit status masks the command's, and in some shells the unquoted right-hand side undergoes word splitting."
+   },
+   {
+    "idx": 740,
+    "statement": "Remember that shell expansions happen before command execution, so commands receive expanded arguments rather than the original syntax."
+   }
+  ]
+ },
+ {
+  "group": 39,
+  "members": [
+   {
+    "idx": 49,
+    "statement": "For unpiped commands, check the return value with `$?` or directly via an `if` statement to keep it simple."
+   },
+   {
+    "idx": 50,
+    "statement": "Use the `PIPESTATUS` variable to check the return codes of a pipe, and assign it to another variable immediately after the pipe, because any subsequent command (including `[`) overwrites `PIPESTATUS`."
+   },
+   {
+    "idx": 89,
+    "statement": "Test a command's success directly (`if cmd; then ...`); only capture `$?` when you need the exact status, and save it immediately (`status=$?`) before other commands overwrite it."
+   }
+  ]
+ },
+ {
+  "group": 40,
+  "members": [
+   {
+    "idx": 51,
+    "statement": "Given a choice between invoking a shell builtin and invoking a separate process, choose the builtin (e.g. parameter expansion over `sed`), because it is more efficient, robust, and portable."
+   },
+   {
+    "idx": 553,
+    "statement": "Reason about shell behaviour in terms of the fixed operation order (tokenize, parse, expand, redirect, execute, collect status) and the fixed word-expansion order (tilde/parameter/command/arithmetic, then field splitting, then pathname expansion, then quote removal last), because expansion results depend on this ordering."
+   }
+  ]
+ },
+ {
+  "group": 42,
+  "members": [
+   {
+    "idx": 54,
+    "statement": "Never build a filename list by iterating command output (`for f in $(ls)`/`$(find)`) or by parsing `ls`: command substitution provides no safe delimiter (a pathname may contain any byte but NUL, including newline), `ls` output is for humans and may mangle names, and quoting the whole substitution collapses it to one word. Use globs or `find` instead."
+   },
+   {
+    "idx": 56,
+    "statement": "For recursive file iteration use `find -exec cmd {} \\;`/`{} +` (portable), or in bash `find -print0 | while IFS= read -r -d '' f` (which also runs the loop body in the current shell so variables persist), or bash 4+ `globstar` (`**`)."
+   },
+   {
+    "idx": 95,
+    "statement": "Move filenames between tools NUL-delimited: `find -print0 | xargs -0`, `printf '%s\\0'`, or `find -exec cmd {} +` — never bare `xargs`, which splits on whitespace and mishandles quotes; and pass `{}` to `find -exec sh -c` as a positional argument (`sh -c '... \"$1\"' x {}`), never interpolated into the code, which is a command-injection vector."
+   },
+   {
+    "idx": 113,
+    "statement": "Populate and iterate file lists with globs, never with ls: use files=(*) or for f in *.ext, never files=$(ls), files=($(ls)), or for f in $(ls) — ls output cannot be parsed reliably and gets word-split on filenames with spaces."
+   },
+   {
+    "idx": 114,
+    "statement": "When reading filenames from an external command, delimit elements with the NUL byte (e.g. find -print0 | while IFS= read -r -d ''), because filenames can contain newlines but never a NUL byte."
+   },
+   {
+    "idx": 462,
+    "statement": "Use NUL-delimited find-to-xargs pipelines by default for filenames so whitespace, quotes, and newlines do not corrupt arguments."
+   },
+   {
+    "idx": 477,
+    "statement": "Prefer find or another language over brittle loop input when filenames may contain spaces, newlines, or patterns beyond shell globs."
+   }
+  ]
+ },
+ {
+  "group": 43,
+  "members": [
+   {
+    "idx": 55,
+    "statement": "When iterating a glob, quote the loop variable and handle the no-match case: an unmatched glob expands to its literal pattern text, so guard with `[ -e \"$f\" ] || continue` or enable `shopt -s nullglob`."
+   },
+   {
+    "idx": 152,
+    "statement": "Understand globs: they are anchored at both ends (must match the whole string), * and ? do not cross a / in filenames, and filename expansion runs after word splitting so glob results are never re-split; enable more powerful extended globs with shopt -s extglob."
+   },
+   {
+    "idx": 237,
+    "statement": "Quote filename patterns that must be literal (or use 'set -f'), and enable 'nullglob' or 'failglob' so an unmatched pattern is removed or raises an error instead of being passed through literally, which prevents the common bug of a loop running once over an unmatched '*'."
+   },
+   {
+    "idx": 238,
+    "statement": "Match dot-prefixed filenames only with an explicit leading dot or the 'dotglob' option, and note that setting GLOBIGNORE both filters matches and enables dotglob-like behavior for other dot-files."
+   },
+   {
+    "idx": 304,
+    "statement": "Control expansion with set options: '-f' disables globbing, '-C' (noclobber) stops '>' from overwriting an existing file (overridable with '>|'), and '-B' (on by default) enables brace expansion."
+   }
+  ]
+ },
+ {
+  "group": 44,
+  "members": [
+   {
+    "idx": 59,
+    "statement": "Quoting changes matching semantics: in `[[ ]]` the RHS of `=`/`==` is a glob pattern (quote it for a literal compare) and the RHS of `=~` is a regex (quote it for a literal, or store a long regex in a variable); `>`/`<` in `[[ ]]` compare by string collation, not numerically."
+   },
+   {
+    "idx": 121,
+    "statement": "In Bash scripts prefer [[ ]] over the [ command: [[ ]] does not word-split or glob unquoted variables and adds glob and regex matching, whereas [ is a plain command needing a closing ] and whitespace-separated operands; use [ only for POSIX portability or untrusted numeric input."
+   },
+   {
+    "idx": 125,
+    "statement": "In [[ ]], an unquoted right-hand side of = or == is treated as a glob pattern; quote the right-hand side ([[ $a = \"$b\" ]]) whenever you intend a literal equality comparison rather than pattern matching."
+   },
+   {
+    "idx": 195,
+    "statement": "Treat the right-hand side of a '[[' '=='/'!=' operator as a glob pattern (as if extglob were enabled) and quote it when a literal comparison is intended."
+   }
+  ]
+ },
+ {
+  "group": 45,
+  "members": [
+   {
+    "idx": 61,
+    "statement": "Inside `[ ]` you cannot use `&&`/`||` (the parser splits the line) nor the obsolescent `-a`/`-o`/`( )` operators (POSIX leaves `[ ]` with more than four arguments unspecified); use several `[ ]` joined by shell `&&`/`||`, or `[[ ]]`."
+   },
+   {
+    "idx": 72,
+    "statement": "Do not place a `;` immediately after `&`; `&` already terminates the command."
+   },
+   {
+    "idx": 122,
+    "statement": "If you must use [ ]: quote every operand, quote < and > so they are not taken as redirections (with [ ], > silently creates a file and gives a wrong result with no error), and never use -a/-o — chain separate [ ] commands with && / ||."
+   },
+   {
+    "idx": 194,
+    "statement": "Prefer '[[ ]]' for conditionals because it does not word-split or glob its operands (so unquoted variables are safe inside it), uses unquoted primaries like -f, compares '<'/'>' by the current locale, and short-circuits its '&&'/'||'."
+   },
+   {
+    "idx": 276,
+    "statement": "Write robust 'test'/'[' conditions: give each operator and operand as a separate argument (with a closing ']'), quote operands because a one-argument test is true for any non-null string, and restrict each test to a single primary combined with '&&'/'||' instead of the POSIX-deprecated '-a', '-o', and parentheses."
+   }
+  ]
+ },
+ {
+  "group": 47,
+  "members": [
+   {
+    "idx": 66,
+    "statement": "Print a variable's value with `printf '%s\\n' \"$var\"`, not `echo`, which mangles values that look like options (`-n`/`-e`) and needs quoting; and use `cat`, not `echo`, to emit a here-document (echo does not read stdin)."
+   },
+   {
+    "idx": 81,
+    "statement": "Never pass untrusted data as printf's format string (`printf \"$foo\"`); `\\` and `%` in it cause a format-string exploit. Always supply your own format: `printf '%s\\n' \"$foo\"`."
+   },
+   {
+    "idx": 290,
+    "statement": "Account for 'echo' portability pitfalls: '-e' enables backslash-escape interpretation, '-E' disables it, the xpg_echo option changes the default, and 'echo' does not treat '--' as the end of options."
+   }
+  ]
+ },
+ {
+  "group": 48,
+  "members": [
+   {
+    "idx": 68,
+    "statement": "Pass a shell command through `su` by giving a username before `-c` (`su user -c 'cmd'`); a bare `su -c` can bind `-c` to su's own option on some platforms."
+   },
+   {
+    "idx": 748,
+    "statement": "Use su only with clear identity and environment intent, quoting commands passed for execution by the target shell."
+   }
+  ]
+ },
+ {
+  "group": 49,
+  "members": [
+   {
+    "idx": 69,
+    "statement": "Always check `cd`'s exit status before running commands that depend on the new directory (`cd d && cmd`, or `cd d || exit`); an unchecked failed `cd` can run later commands in the wrong place. Scope a per-iteration `cd` inside a subshell so you need not change back."
+   },
+   {
+    "idx": 70,
+    "statement": "Do not rely on `set -e`/errexit for error handling: it can only read exit status (which many commands such as `[`/`grep` use as a boolean), it is ignored for commands inside a function called in a tested context, and command substitution disables it. Explicitly check critical commands (`cd -- \"$1\" || return`) regardless."
+   },
+   {
+    "idx": 91,
+    "statement": "Do not export CDPATH: an inherited CDPATH can send `cd` in any script to an unexpected directory and leak the resolved path onto stdout when output is captured. Setting it unexported in `.bashrc` is fine; defensive scripts `unset CDPATH` or prefix `./`."
+   },
+   {
+    "idx": 186,
+    "statement": "Expect commands that manipulate the shell itself - cd, exec, break, continue - to be builtins, which is why running cd in a subshell or '( )' group does not change the parent shell's directory."
+   },
+   {
+    "idx": 266,
+    "statement": "Use the logical/physical directory distinction: 'cd' searches CDPATH for a relative target (a null entry meaning the current directory), 'cd -P' and 'pwd -P' resolve symbolic links physically while the default '-L' is logical, 'cd -' returns to $OLDPWD, and a successful 'cd' updates PWD and OLDPWD."
+   }
+  ]
+ },
+ {
+  "group": 50,
+  "members": [
+   {
+    "idx": 71,
+    "statement": "`cmd1 && cmd2 || cmd3` is not equivalent to if/then/else: if `cmd2` returns non-zero, `cmd3` also runs. Use `if cmd1; then cmd2; else cmd3; fi` whenever the then-branch can fail."
+   },
+   {
+    "idx": 127,
+    "statement": "A cmd1 && cmd2 || cmd3 chain is not a safe if/then/else, because the exit status carries through skipped commands, so a failure in cmd1 can trigger the trailing || of a later command; group commands that belong together with { ...; } (a semicolon or newline is required before the closing brace)."
+   },
+   {
+    "idx": 187,
+    "statement": "Structure conditionals with if/elif/else, remembering the else branch runs only when the last tested condition returned non-zero and the status is that of the last command executed."
+   }
+  ]
+ },
+ {
+  "group": 51,
+  "members": [
+   {
+    "idx": 73,
+    "statement": "In an interactive bash before 4.3, a `!` inside double quotes triggers csh-style history expansion (`event not found`); disable it with `set +H`/`set +o histexpand` or use single quotes. Scripts are unaffected."
+   },
+   {
+    "idx": 169,
+    "statement": "Remember that parameter and command expansion still occur inside double quotes (only $, backtick, backslash, and history '!' are special, and '*'/'@' keep special meaning), so double quotes protect against word splitting and globbing but not against expansion."
+   },
+   {
+    "idx": 170,
+    "statement": "Account for POSIX mode dropping the special meaning of '!' inside double quotes even when history expansion is enabled."
+   }
+  ]
+ },
+ {
+  "group": 52,
+  "members": [
+   {
+    "idx": 76,
+    "statement": "Write home-relative paths with `\"$HOME/...\"`, not `~`: tilde expansion happens only when `~` is unquoted and at the start of a word or right after `=` in a real assignment, and `export`/`local` are not always assignments. Prefer `\"${HOME%/}/...\"` to avoid a double slash when `$HOME` is `/`."
+   },
+   {
+    "idx": 221,
+    "statement": "Use tilde expansion ('~', '~user', '~+', '~-', '~N') whose results are treated as quoted (no splitting or globbing) and which also applies after the first '=' or a ':' in assignments such as PATH and CDPATH."
+   },
+   {
+    "idx": 564,
+    "statement": "Treat tilde expansion as dependent on the user database and HOME: a bare tilde expands to HOME, an unset HOME makes it unspecified, and the resulting pathname is treated as quoted so it is not re-split or globbed."
+   }
+  ]
+ },
+ {
+  "group": 54,
+  "members": [
+   {
+    "idx": 79,
+    "statement": "Call `tr` without bracket ranges — `tr A-Z a-z` (the brackets in `tr [A-Z] [a-z]` are shell globs and tr translates them literally) — and force `LC_COLLATE=C` for the 26 ASCII letters or use the quoted `[:upper:]`/`[:lower:]` classes, since letter ranges are locale-dependent."
+   },
+   {
+    "idx": 239,
+    "statement": "Build patterns from the glob metacharacters ('*' any string, '?' one character, '[...]' one bracketed character, backslash to escape) and POSIX '[:class:]' character classes, forcing C-locale ranges (LC_COLLATE=C or the globasciiranges option) to avoid locale-dependent '[a-z]' surprises."
+   },
+   {
+    "idx": 326,
+    "statement": "Set the locale variables (LC_ALL, LANG, LC_COLLATE, LC_CTYPE) deliberately, because they change collation order and character classes in globbing and pattern matching, altering the meaning of ranges like '[a-z]'."
+   },
+   {
+    "idx": 808,
+    "statement": "Use tr for stream-level character translation, deletion, and squeezing while accounting for locale-sensitive ranges and the limits of simple obfuscation."
+   }
+  ]
+ },
+ {
+  "group": 58,
+  "members": [
+   {
+    "idx": 84,
+    "statement": "Avoid `expr` for string manipulation (it is an external process, slow, and fails on operands like the keyword `match`); use parameter/substring expansion (`${w#?}`, `${w:1}`)."
+   },
+   {
+    "idx": 156,
+    "statement": "Wrap a parameter name in braces (${name}) whenever the expansion is immediately followed by characters that are valid in a variable name."
+   },
+   {
+    "idx": 222,
+    "statement": "Brace a parameter name ('${name}') to separate it from following characters that would otherwise be read as part of the name."
+   },
+   {
+    "idx": 568,
+    "statement": "Use ${#parameter} for the length of a value and the ${parameter%pattern} / ${parameter#pattern} family for suffix/prefix removal, remembering these use shell pattern-matching (not regular expressions), that a doubled operator removes the largest match, and that double-quoting the whole expansion does not quote the pattern."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 86,
+    "statement": "All command-substitution forms strip trailing newlines; if you must preserve them, append a sentinel inside and strip it outside (`x=$(cmd; printf x); result=${x%x}`)."
+   },
+   {
+    "idx": 231,
+    "statement": "Capture command output with '$(command)' (which runs in a subshell and strips trailing newlines, with '$(< file)' as a fast file read), prefer it to the deprecated backticks, and quote it as '\"$(command)\"' to prevent word splitting and globbing of the result."
+   },
+   {
+    "idx": 570,
+    "statement": "Treat command-substitution output as untrusted for splitting: null bytes in the output make the behaviour unspecified and embedded newlines can be split into separate fields per IFS, so quote the substitution or sanitize its output when the exact value matters."
+   }
+  ]
+ },
+ {
+  "group": 61,
+  "members": [
+   {
+    "idx": 88,
+    "statement": "Redirections are applied left-to-right before the command runs, so order matters: send both stdout and stderr to a file with `cmd >file 2>&1`, not `cmd 2>&1 >file` (which leaves stderr on the tty)."
+   },
+   {
+    "idx": 105,
+    "statement": "A redirection on a simple command may be performed in a subshell (an optimisation), so a side effect in the redirect target — `cmd > \"file$((i++))\"` — may not persist in bash or ksh; compute the target into a variable first, or wrap the command in a `{ ...; }` group."
+   },
+   {
+    "idx": 141,
+    "statement": "Know redirection semantics: > sends stdout to a file and truncates it (creating it if absent, performed before the command runs), >> appends instead, < feeds stdin from a file, and a leading number selects the FD; every process has FD 0/1/2 = stdin/stdout/stderr."
+   },
+   {
+    "idx": 142,
+    "statement": "Combine stdout and stderr in the correct order: >file 2>&1 duplicates the stdout FD into stderr (shared file position, no clobber), whereas 2>&1 >file leaves errors on the terminal, and >file 2>file must never be used (two independent FDs clobber each other)."
+   },
+   {
+    "idx": 174,
+    "statement": "Understand that a pipeline connects each command's standard output to the next command's standard input, and that '|&' additionally forwards standard error (shorthand for '2>&1 |')."
+   },
+   {
+    "idx": 243,
+    "statement": "Order redirections deliberately: 'command > file 2>&1' sends both streams to the file, but 'command 2>&1 > file' sends only standard output because standard error is duplicated from the original standard output first."
+   },
+   {
+    "idx": 251,
+    "statement": "Understand that a simple command is processed left to right - assignments and redirections are saved, remaining words are expanded (the first becoming the command name), redirections are performed, then assignment values are expanded and applied."
+   },
+   {
+    "idx": 637,
+    "statement": "Keep stdout, stderr, input redirection, append, overwrite, and combined-stream capture semantically separate."
+   }
+  ]
+ },
+ {
+  "group": 62,
+  "members": [
+   {
+    "idx": 90,
+    "statement": "IFS is a field terminator, not a separator, so `read` silently drops a trailing empty field (and a single trailing separator captured into the last variable); append an extra IFS character to the input and strip it afterward when trailing fields matter."
+   },
+   {
+    "idx": 236,
+    "statement": "Account for IFS field mechanics when parsing: IFS whitespace is trimmed and collapsed, a non-whitespace IFS delimiter yields empty fields for adjacent occurrences, and an explicit '' is kept as an empty argument while an unquoted empty expansion is removed."
+   },
+   {
+    "idx": 295,
+    "statement": "Always read input with 'read -r' so backslashes are preserved rather than treated as escapes; 'read' splits the line on IFS into the given names (extra words go to the last name), and with no names assigns the whole line to REPLY."
+   },
+   {
+    "idx": 562,
+    "statement": "Set IFS explicitly whenever field splitting, read line-splitting, or $* joining matters, and know that an unset IFS behaves as space/tab/newline and that the shell resets IFS to space/tab/newline at invocation."
+   }
+  ]
+ },
+ {
+  "group": 66,
+  "members": [
+   {
+    "idx": 97,
+    "statement": "Do not close a standard descriptor (`2>&-`) as a shorthand for `/dev/null`; a program that writes to a closed descriptor may fail unpredictably — redirect explicitly with `2>/dev/null`."
+   },
+   {
+    "idx": 143,
+    "statement": "Send diagnostics to standard error with >&2 so tools can separate errors from normal output, and silence an unwanted FD by redirecting it to /dev/null."
+   },
+   {
+    "idx": 574,
+    "statement": "Do not quote any part of a redirection operator or its file-descriptor number when you want the redirection recognized, and rely only on file descriptors 0 through 9 being available to the application (0, 1, 2 being standard input, output, and error)."
+   }
+  ]
+ },
+ {
+  "group": 67,
+  "members": [
+   {
+    "idx": 98,
+    "statement": "Quote an indexed array element when unsetting it (`unset -v 'a[0]'`): unquoted, it may be glob-expanded against the current directory, and `-v` prevents a bare name being taken as a function."
+   },
+   {
+    "idx": 138,
+    "statement": "Remove functions and variables with unset, disambiguating with -f (function) or -v (variable) since variables win by default, and quote an array subscript in unset ('a[2]') so it is not treated as a glob."
+   },
+   {
+    "idx": 208,
+    "statement": "Remember that 'unset' follows dynamic scope, removing a current-scope local if present or otherwise a variable in a calling scope (changed by the localvar_unset option)."
+   },
+   {
+    "idx": 273,
+    "statement": "Mark constants and protected values with 'readonly name' (or '-f' for functions, '-a'/'-A' for arrays) so they cannot be reassigned or unset."
+   },
+   {
+    "idx": 351,
+    "statement": "Destroy an entire array with 'unset name' or a single element with 'unset name[subscript]', quoting the subscript argument so it is not subject to filename expansion."
+   }
+  ]
+ },
+ {
+  "group": 69,
+  "members": [
+   {
+    "idx": 100,
+    "statement": "Forced base-10 conversion `$(( 10#$i ))` only works for signless digits; a possibly-negative value breaks it (noisily or, worse, silently), so strip and reapply the sign for input that might carry a leading + or -."
+   },
+   {
+    "idx": 571,
+    "statement": "Keep arithmetic expansion portable: rely only on signed long integer arithmetic with decimal/octal/hex constants (not sizeof, ++/--, or control-flow operators), separate $( from a leading subshell parenthesis with white space to avoid the arithmetic-versus-command-substitution ambiguity, and expect a diagnostic and failure on an invalid expression."
+   }
+  ]
+ },
+ {
+  "group": 70,
+  "members": [
+   {
+    "idx": 101,
+    "statement": "Enable `pipefail` only for the specific pipelines where it makes sense, not globally: it is normal for an earlier pipeline element to exit non-zero (e.g. SIGPIPE when `grep -q` closes the pipe early), which would otherwise wrongly fail the whole pipeline."
+   },
+   {
+    "idx": 175,
+    "statement": "Rely on a pipeline's exit status being that of its last command by default, and enable 'set -o pipefail' when any failing stage should fail the pipeline."
+   },
+   {
+    "idx": 303,
+    "statement": "Enable 'set -o pipefail' (off by default) so a pipeline's status reflects the rightmost failing command rather than only the last command."
+   },
+   {
+    "idx": 319,
+    "statement": "Inspect the exit status of each command in the most recent foreground pipeline through the PIPESTATUS array, even when pipefail is not enabled."
+   },
+   {
+    "idx": 585,
+    "statement": "Reason about pipelines correctly: the pipe assigns standard input and output before a command own redirections (which therefore override it), the exit status is that of the last command unless the reserved word ! inverts it, and a negated pipeline whose first command is a subshell must separate the ! from the opening parenthesis with a blank."
+   }
+  ]
+ },
+ {
+  "group": 72,
+  "members": [
+   {
+    "idx": 103,
+    "statement": "Referencing an associative-array element by an arbitrary `$key` in a test (`[[ -v hash[$key] ]]`), in `[`/`test`, or in a math context is broken and injectable across bash versions, because `$key` is expanded before subscript evaluation. Use version-portable forms: single-quote the whole argument (`[[ -v 'hash[$key]' ]]`, bash 4.3+), test `[[ ${hash[$key]} ]]` for membership, or for arithmetic use `let 'hash[$key]++'` or a temp-variable round-trip (`tmp=${hash[$key]}; ((tmp++)); hash[$key]=$tmp`)."
+   },
+   {
+    "idx": 117,
+    "statement": "Remember that an indexed array's [...] subscript is an arithmetic context (do math without $(( ))), but an associative-array key is not — you must keep the $ and write ${assoc[$key]}."
+   }
+  ]
+ },
+ {
+  "group": 74,
+  "members": [
+   {
+    "idx": 110,
+    "statement": "If you genuinely need word splitting of an unquoted expansion, set IFS explicitly and disable globbing with set -o noglob first; for nearly all such cases prefer an array instead."
+   },
+   {
+    "idx": 112,
+    "statement": "Expand every array element with the quoted \"${arr[@]}\" form (each element becomes exactly one word); reserve \"${arr[*]}\" for deliberately joining all elements into a single string, and quote that too — it joins using only the first character of IFS."
+   },
+   {
+    "idx": 216,
+    "statement": "Forward arguments with '\"$@\"', which yields each parameter as a separately-quoted word and nothing when empty, and avoid unquoted '$@'/'$*' or '\"$*\"' (which word-splits/globs or joins on the first IFS character) unless that behavior is intended."
+   },
+   {
+    "idx": 235,
+    "statement": "Quote every expansion whose result must stay intact, because word splitting is applied only to unquoted expansion results, on each character of IFS (default space/tab/newline, disabled when IFS is null)."
+   },
+   {
+    "idx": 390,
+    "statement": "Rely on Bash splitting only the results of expansion on IFS (not all input words), which closes the old Bourne-shell security hole, while still quoting expansions to control splitting."
+   },
+   {
+    "idx": 476,
+    "statement": "Use loops for repeated items while respecting expansion order, quoting, unmatched globs, and intentional word splitting."
+   },
+   {
+    "idx": 517,
+    "statement": "Quote expansions and manage IFS narrowly to prevent word-splitting bugs, especially with paths containing whitespace."
+   },
+   {
+    "idx": 572,
+    "statement": "Double-quote expansions to control field splitting: only the unquoted results of parameter expansion, command substitution, and arithmetic expansion are split, IFS drives how they split (with a null IFS disabling splitting entirely), so quoting is the primary defence against accidental word-splitting."
+   },
+   {
+    "idx": 863,
+    "statement": "Use traditional for loops over generated words, positional parameters, and glob results while checking unmatched globs and preserving loop-variable clarity."
+   },
+   {
+    "idx": 864,
+    "statement": "Guard for-loop word sources by checking unmatched globs, intentionally allowing or preventing word splitting, and using distinct variables in nested loops."
+   }
+  ]
+ },
+ {
+  "group": 76,
+  "members": [
+   {
+    "idx": 116,
+    "statement": "Loop over an array's indices with \"${!arr[@]}\" when you must correlate parallel arrays by index or when the array may be sparse; never assume indices are contiguous or that the first iteration is index 0."
+   },
+   {
+    "idx": 119,
+    "statement": "Array mechanics reference: create with arr=(...), append with arr+=(...), count with ${#arr[@]}, re-index a sparse array with arr=(\"${arr[@]}\"), and split a string into an array with IFS=<delim> read -ra arr <<< \"$s\"."
+   },
+   {
+    "idx": 348,
+    "statement": "Enumerate an array's assigned indices or keys with '${!name[@]}', which is the correct way to iterate the keys of an associative array."
+   }
+  ]
+ },
+ {
+  "group": 77,
+  "members": [
+   {
+    "idx": 118,
+    "statement": "Declare associative arrays explicitly with declare -A (indexed arrays need no declaration); their key and value iteration order is unpredictable, so do not use them for lists that must be processed in a specific order."
+   },
+   {
+    "idx": 877,
+    "statement": "When presenting associative-array data, preserve values with quoted at expansion and sort brace-enclosed loop output when ordering matters."
+   }
+  ]
+ },
+ {
+  "group": 79,
+  "members": [
+   {
+    "idx": 123,
+    "statement": "Choose comparison operators by type: =, !=, <, > compare operands as strings, so use -eq/-ne/-lt/-gt/-le/-ge for numeric comparison (\"314\" sorts before \"9\" as a string but is not -lt it)."
+   },
+   {
+    "idx": 341,
+    "statement": "Choose the right comparison operator: '=='/'=' compares strings (pattern-matching under '[[', literal under 'test') while -eq/-ne/-lt/-le/-gt/-ge compare integers (with operands evaluated as arithmetic under '[[')."
+   }
+  ]
+ },
+ {
+  "group": 80,
+  "members": [
+   {
+    "idx": 126,
+    "statement": "File-test reference for [ and [[: -e exists, -f regular file, -d directory, -h symlink, -r/-w/-x readable/writable/executable, -s non-empty, -z/-n empty/non-empty string, FILE -nt/-ot FILE modification-time comparison."
+   },
+   {
+    "idx": 338,
+    "statement": "Use the file-test primaries (-e exists, -f regular file, -d directory, -r/-w/-x permissions, -s non-empty, -L/-h symlink, -p FIFO, -S socket, -t terminal, and -nt/-ot/-ef comparisons), remembering they follow symbolic links and test the target unless the test is symlink-specific."
+   },
+   {
+    "idx": 405,
+    "statement": "Use Bash conditional expressions for filesystem predicates, file comparisons, shell-variable state, and simple string comparisons before adding external tests."
+   },
+   {
+    "idx": 499,
+    "statement": "Test dotfiles in fresh target shells and source symlinked fragments only after readability and path checks."
+   }
+  ]
+ },
+ {
+  "group": 81,
+  "members": [
+   {
+    "idx": 128,
+    "statement": "Use && and || only for simple success/failure checks; for anything more complex use an if statement, since long chains of control operators are hard to read and maintain."
+   },
+   {
+    "idx": 179,
+    "statement": "Sequence commands with '&&' and '||', remembering they short-circuit and share a precedence higher than ';' and '&'."
+   },
+   {
+    "idx": 474,
+    "statement": "Use AND and OR command chaining only when later command execution truly depends on earlier success or failure."
+   },
+   {
+    "idx": 587,
+    "statement": "Use && and || for short-circuit control flow: after && the next command runs only if the previous succeeded, after || only if it failed, commands are expanded only when they are actually executed, and the list status is that of the last command executed."
+   }
+  ]
+ },
+ {
+  "group": 82,
+  "members": [
+   {
+    "idx": 129,
+    "statement": "Choose a subshell versus a command group deliberately: a subshell ( ) runs in a temporary child (cd, variable, and exit effects do not persist; each pipeline stage is one), while a { } group runs in the current shell (faster, side effects persist, and exit ends the whole script)."
+   },
+   {
+    "idx": 177,
+    "statement": "Expect each stage of a multi-command pipeline to run in its own subshell, so variable changes in constructs like 'cmd | while read' are lost unless the 'lastpipe' option is on and job control is inactive."
+   },
+   {
+    "idx": 199,
+    "statement": "Group commands with '( list )' to run them in a subshell (assignments do not persist) or with '{ list; }' to run them in the current shell, minding that the braces are reserved words needing surrounding whitespace and a terminator before the closing brace."
+   }
+  ]
+ },
+ {
+  "group": 83,
+  "members": [
+   {
+    "idx": 130,
+    "statement": "Apply a single redirection to a whole compound command (a loop's done or a { } group) to redirect every command inside it; Bash opens the file once before the construct and closes it after, and inner commands inherit the FD."
+   },
+   {
+    "idx": 181,
+    "statement": "Attach a redirection to a compound command to apply it to every command inside, unless an inner command overrides it."
+   },
+   {
+    "idx": 247,
+    "statement": "Apply redirections to the current shell environment with the 'exec' builtin (no command) to permanently reopen or close its file handles."
+   },
+   {
+    "idx": 591,
+    "statement": "Attach redirections to a compound command terminator to apply them to every inner command that does not override them, rather than repeating the redirection on each inner command."
+   },
+   {
+    "idx": 737,
+    "statement": "Group commands when several commands should share one redirection stream, observing brace syntax requirements."
+   }
+  ]
+ },
+ {
+  "group": 85,
+  "members": [
+   {
+    "idx": 132,
+    "statement": "Read a file line by line with a while IFS= read -r loop, never with 'for line in $(<file)', which word-splits and globs the content."
+   },
+   {
+    "idx": 293,
+    "statement": "Read a file into an indexed array with 'mapfile'/'readarray' (default MAPFILE), using '-t' to strip the trailing newline and '-d' to set a different delimiter, instead of a fragile word-splitting loop."
+   },
+   {
+    "idx": 400,
+    "statement": "Choose Bash file-reading techniques according to data shape: whole-file substitution for one string, raw read loops for streaming text, and mapfile or read loops for line arrays based on Bash version and empty-line behavior."
+   }
+  ]
+ },
+ {
+  "group": 86,
+  "members": [
+   {
+    "idx": 133,
+    "statement": "Use case for multi-way matching on glob patterns (first matching pattern wins, a final *) catches the rest; ;; ends a branch, ;& and ;;& control fall-through), and select for a quick numbered menu (PS3 sets the prompt); hand-roll a menu with while+read when you need more."
+   },
+   {
+    "idx": 192,
+    "statement": "Use 'select' to generate a numbered menu (printed to standard error with the PS3 prompt) that reads a choice into REPLY and loops until 'break', returning 1 on EOF."
+   }
+  ]
+ },
+ {
+  "group": 87,
+  "members": [
+   {
+    "idx": 134,
+    "statement": "Every command exits with a status 0-255 (0 = success by convention); make scripts fail loud by returning a non-zero code on any unexpected failure (e.g. cmd || { echo err >&2; exit 1; }); a leading ! negates a command's status and if branches on it."
+   },
+   {
+    "idx": 172,
+    "statement": "Expect exit statuses to be 8-bit (0-255), and read a status of 128+n as termination by signal n rather than an ordinary failure code."
+   },
+   {
+    "idx": 176,
+    "statement": "Invert a command or pipeline's success by prefixing it with the reserved word '!', which is useful for acting only when a test fails."
+   },
+   {
+    "idx": 255,
+    "statement": "Interpret exit statuses precisely: 0 is success and any non-zero value is failure (8-bit, with values above 125 reserved), 128+N means termination by signal N, 127 means command-not-found, 126 means found-but-not-executable, and a builtin returns 2 for incorrect usage."
+   },
+   {
+    "idx": 269,
+    "statement": "End the shell with 'exit [n]' (the EXIT trap runs first, and an omitted n uses the last command's status) rather than letting it fall off the end when a specific status matters."
+   },
+   {
+    "idx": 279,
+    "statement": "Use the pseudo-signal traps for lifecycle hooks: EXIT for cleanup on shell exit, DEBUG before each command, RETURN when a function or sourced file finishes, and ERR when a command returns non-zero under the same exclusions as errexit."
+   },
+   {
+    "idx": 305,
+    "statement": "Check a script for syntax errors without running it using 'bash -n' or 'set -n' (noexec), noting it is ignored in interactive shells."
+   },
+   {
+    "idx": 395,
+    "statement": "Account for Bash exiting a script only when a POSIX special builtin fails (and only for certain errors), unlike the historical shell that exits on any builtin failure, when reasoning about error-driven termination across shells."
+   },
+   {
+    "idx": 412,
+    "statement": "Use terse or code-golf Bash syntax only when its exit-status, control-flow, and readability tradeoffs are explicitly acceptable."
+   },
+   {
+    "idx": 482,
+    "statement": "Use script exit statuses, fail-fast behavior, and pipeline failure detection deliberately, while handling expected failures explicitly."
+   },
+   {
+    "idx": 579,
+    "statement": "Interpret exit statuses precisely: 127 means the command was not found, 126 means it was found but not executable, 1 through 125 means a word-expansion or redirection failure, a status greater than 128 means termination by a signal, and $? carries the full eight bits."
+   },
+   {
+    "idx": 608,
+    "statement": "Use exit deliberately: it leaves the current execution environment (only the subshell when inside one) with the given status, defaults to the last command status when no operand is given, is undefined outside 0-255 and may be truncated above 255, and triggers a trap on EXIT before termination unless exit is called from within that trap."
+   },
+   {
+    "idx": 615,
+    "statement": "Do not rely on set -e (errexit) as a general error handler: it is ignored for individual pipeline members and inside the condition lists of while/until/if/elif, negated pipelines, and non-final AND-OR commands, and in particular it is suppressed throughout a function invoked as part of an AND-OR list, so check exit statuses explicitly where it matters."
+   },
+   {
+    "idx": 713,
+    "statement": "Use exit status as the shell truth model and inspect/document status codes when they drive script control flow."
+   }
+  ]
+ },
+ {
+  "group": 88,
+  "members": [
+   {
+    "idx": 136,
+    "statement": "Use functions to isolate and reuse code, but in moderation (too many scattered functions hurt readability); inside a wrapper function named after a command, call the real command with the command builtin to avoid infinite recursion."
+   },
+   {
+    "idx": 285,
+    "statement": "Call the underlying builtin with 'builtin name' from inside a function of the same name to retain the builtin's behavior without recursing."
+   },
+   {
+    "idx": 838,
+    "statement": "Use shell functions for reusable embedded commands, defining them before calls and keeping names valid and bodies nonempty."
+   }
+  ]
+ },
+ {
+  "group": 90,
+  "members": [
+   {
+    "idx": 144,
+    "statement": "Do not use cat to feed a single file to a command in a script; pass the filename as an argument or redirect with < file, since useless cat adds a process and piping prevents the consumer from seeking; design programs to read stdin so they work as general filters."
+   },
+   {
+    "idx": 234,
+    "statement": "Pass a process's output or input as a filename with '<(list)' or '>(list)' (run asynchronously, with no space before the parenthesis) when a command needs a file argument instead of a pipe."
+   }
+  ]
+ },
+ {
+  "group": 91,
+  "members": [
+   {
+    "idx": 145,
+    "statement": "Use heredocs and herestrings appropriately: <<WORD feeds lines to stdin (sentinel alone on its own line; quote the word <<'WORD' to suppress substitution; <<-WORD strips leading tabs), and prefer a herestring <<<\"$var\" over echo \"$var\" | cmd because it creates no subshell; keep large data out of scripts."
+   },
+   {
+    "idx": 249,
+    "statement": "Feed inline input with a here-document ('<<word'; quote the delimiter to keep the body literal and use '<<-' to strip leading tabs) or a here-string ('<<< word', a single expanded line with a trailing newline)."
+   }
+  ]
+ },
+ {
+  "group": 93,
+  "members": [
+   {
+    "idx": 148,
+    "statement": "Understand that running a script as a child cannot change your current shell's working directory or variables (the child's environment is discarded); source it with the . (dot) command to run its commands in the current shell."
+   },
+   {
+    "idx": 259,
+    "statement": "Understand script invocation: Bash runs the file as a non-interactive shell and exits, searching the current directory then PATH for a slash-less name, sets $0 to the filename and the positional parameters to the remaining arguments, refuses to run detected binaries, and spawns a fresh Bash instance for an executable script while keeping the parent's hashed command locations."
+   },
+   {
+    "idx": 466,
+    "statement": "Execute or source scripts according to whether they should isolate effects in a child shell or intentionally mutate the current shell."
+   }
+  ]
+ },
+ {
+  "group": 95,
+  "members": [
+   {
+    "idx": 150,
+    "statement": "Use the environment correctly: variables are inherited already-set from the parent, export sends a variable to descendants only (you cannot change a running or parent process's environment), and a VAR=value prefix sets a one-command temporary environment."
+   },
+   {
+    "idx": 252,
+    "statement": "Treat 'VAR=value command' as scoping VAR to only that command's environment (it does not change the current shell), whereas a bare 'VAR=value' changes the current shell; use export, 'declare -x', unset, and 'export -n' to manage the exported environment."
+   },
+   {
+    "idx": 270,
+    "statement": "Export variables with 'export name' (or functions with 'export -f') to pass them to child commands, and remove the attribute with 'export -n'."
+   },
+   {
+    "idx": 307,
+    "statement": "Use 'set -a' (allexport) to automatically export every variable created or modified, for example when sourcing a config file into the environment, and turn it off again afterward."
+   },
+   {
+    "idx": 431,
+    "statement": "Review inherited environment variables as part of command-injection analysis and scrub or constrain them before privileged command execution."
+   },
+   {
+    "idx": 581,
+    "statement": "Know that a variable assignment prefixed to a command scopes differently by target: before an ordinary utility it is exported only for that command, before a special built-in it persists in the current environment, before a function it applies during the call with unspecified persistence afterward, and any assignment to a readonly variable is an error."
+   },
+   {
+    "idx": 614,
+    "statement": "Use set -a (allexport) sparingly and know its scoping: it gives the export attribute to every assigned variable, but an assignment preceding an ordinary utility does not persist that attribute (one preceding a special built-in does), while a standalone assignment or one from getopts or read persists until the variable is unset."
+   },
+   {
+    "idx": 636,
+    "statement": "Export or override environment variables only at the scope that needs them, and inspect subprocess-visible variables with printenv."
+   },
+   {
+    "idx": 759,
+    "statement": "Export only variables that child processes need, and use command-scoped assignments for one-off environment changes."
+   }
+  ]
+ },
+ {
+  "group": 97,
+  "members": [
+   {
+    "idx": 153,
+    "statement": "Use regex only inside [[ =~ ]] (Bash 3.0+): since Bash 3.2 keep the pattern unquoted by storing it in a variable and expanding it unquoted, and read captured groups from BASH_REMATCH."
+   },
+   {
+    "idx": 196,
+    "statement": "Match POSIX extended regular expressions with '[[ =~ ]]' (0 match, 1 no match, 2 invalid regex), remembering it matches any substring unless anchored with '^' and '$', and that anchors and regex-special characters must be left unquoted."
+   },
+   {
+    "idx": 197,
+    "statement": "Store a '=~' regular expression in a shell variable and reference it unquoted to sidestep shell-quoting problems, since quoting any part of the pattern forces literal matching."
+   },
+   {
+    "idx": 198,
+    "statement": "Read regex capture groups from BASH_REMATCH (index 0 is the whole match, index n the nth parenthesized group), and never declare BASH_REMATCH as local because it is maintained in the global scope."
+   }
+  ]
+ },
+ {
+  "group": 98,
+  "members": [
+   {
+    "idx": 154,
+    "statement": "Know brace expansion: it generates every permutation of its contents (not filenames), before filename expansion, unsorted and always in ASCII order ignoring locale, and cannot be used for pattern matching."
+   },
+   {
+    "idx": 219,
+    "statement": "Reason about expansions in their fixed order (brace, then tilde/parameter/arithmetic/command substitution, then word splitting, then filename expansion, then quote removal last), and remember that only brace expansion, word splitting, and filename expansion can change the number of words."
+   },
+   {
+    "idx": 220,
+    "statement": "Generate strings textually with brace expansion ('{a,b,c}' or '{x..y..incr}') before any other expansion, knowing the files need not exist, endpoints of a sequence must be the same type, and '${' inhibits it."
+   }
+  ]
+ },
+ {
+  "group": 99,
+  "members": [
+   {
+    "idx": 155,
+    "statement": "Know the parameter-expansion operators: ${p#pat}/${p##pat} and ${p%pat}/${p%%pat} strip the shortest/longest match from start/end, ${p:-w}/${p:=w}/${p:+w} handle defaults, ${#p} gives length, ${p/a/b} substitutes; you cannot chain multiple expansions in one expression."
+   },
+   {
+    "idx": 227,
+    "statement": "Strip prefixes and suffixes with '${p#pat}'/'${p##pat}' (shortest/longest match from the start) and '${p%pat}'/'${p%%pat}' (from the end) instead of shelling out to external tools."
+   }
+  ]
+ },
+ {
+  "group": 101,
+  "members": [
+   {
+    "idx": 159,
+    "statement": "Command resolution reference: Bash resolves a bare command name in the order alias, function, builtin, keyword, then PATH searched left to right; builtins spawn no new process, and an executable outside PATH must be run by path (./prog)."
+   },
+   {
+    "idx": 287,
+    "statement": "Bypass a same-named shell function with 'command name' to run the builtin or a PATH command ('command -p' for a guaranteed-safe PATH), and use 'command -v'/'command -V' as a portable way to test how a name resolves."
+   },
+   {
+    "idx": 297,
+    "statement": "Classify a command name with 'type -t' (alias/keyword/function/builtin/file), 'type -p' for the resolved executable path, and 'type -a' for every location, as a reliable alternative to 'which'."
+   },
+   {
+    "idx": 583,
+    "statement": "Predict command resolution: a slash-free name is resolved as special built-in, then shell function, then a fixed set of regular built-ins, then a PATH search whose result may be remembered until PATH is reassigned; a name with a slash is executed directly; and non-standard built-in names such as local, source, or typeset give unspecified results in portable scripts."
+   }
+  ]
+ },
+ {
+  "group": 102,
+  "members": [
+   {
+    "idx": 160,
+    "statement": "Positional and special parameters reference: the positional parameters are the shell's array ($1..., ${10} and up need braces, quoted \"$@\" preserves each, shift consumes them); useful specials include $? (last exit code), $# (count), $$ (shell PID), $! (last background PID); passing filenames as arguments keeps each as one word."
+   },
+   {
+    "idx": 217,
+    "statement": "Read runtime state from the special parameters: '$?' for the last foreground command's status (it changes after every command), '$!' for the most recent background PID, '$#' for the positional-parameter count, and '$0' for the shell or script name."
+   }
+  ]
+ },
+ {
+  "group": 104,
+  "members": [
+   {
+    "idx": 162,
+    "statement": "Job control (process groups; fg/bg/jobs/disown; Ctrl-Z/Ctrl-C/Ctrl-\\ signals; background jobs auto-suspend on terminal I/O) is mainly an interactive feature, on by default in interactive shells and rarely used in scripts (enable with set -m)."
+   },
+   {
+    "idx": 358,
+    "statement": "Understand job-control fundamentals: each pipeline is one job (numbered from 1 and listed by 'jobs'), and foreground processes receive keyboard signals such as SIGINT while background processes are immune and are stopped by SIGTTIN or SIGTTOU if they read from (or, under 'stty tostop', write to) the terminal."
+   },
+   {
+    "idx": 641,
+    "statement": "Manage jobs and terminal sessions according to their lifetime and interactivity: background, suspend, foreground, disown, detach tmux, interrupt, reset, or exit intentionally."
+   },
+   {
+    "idx": 754,
+    "statement": "Use job control deliberately: background work with ampersand, inspect jobs, move jobs with fg/bg, and know which jobs receive terminal input."
+   }
+  ]
+ },
+ {
+  "group": 106,
+  "members": [
+   {
+    "idx": 164,
+    "statement": "Treat readability as nearly as important as correctness: indent consistently, separate logic blocks with blank lines, avoid backslash-escape clutter by quoting instead, comment your reasoning, and stay consistent in naming, capitalization, and feature use, because you will maintain the script later."
+   },
+   {
+    "idx": 834,
+    "statement": "Prefer readability in scripts by using long option names, indentation, and line continuation when they clarify intent."
+   }
+  ]
+ },
+ {
+  "group": 107,
+  "members": [
+   {
+    "idx": 165,
+    "statement": "Debug methodically: state the bug in one sentence, minimize to a 3-7 line reproduction, then trace with set -x (which prints each command after expansion and shows quoting so word-splitting is visible), scoping it with set -x/+x, redirecting it via BASH_XTRACEFD, and annotating it with a single-quoted PS4; step with a DEBUG trap, recheck the shebang and for carriage-return line endings, and reread the manual."
+   },
+   {
+    "idx": 302,
+    "statement": "Debug scripts with 'set -x' (xtrace), which prints each expanded command to standard error prefixed by the expanded PS4."
+   },
+   {
+    "idx": 388,
+    "statement": "File a Bash bug with the 'bashbug' command, including the Bash version, the hardware and operating system, the compiler used, a description of the behavior, and a short recipe that reproduces it."
+   },
+   {
+    "idx": 852,
+    "statement": "Debug parser errors by looking before the reported line and using syntax highlighting to find missing quotes, separators, or reserved words."
+   }
+  ]
+ },
+ {
+  "group": 108,
+  "members": [
+   {
+    "idx": 167,
+    "statement": "Introduce comments with '#'; the shell ignores it and the rest of the line."
+   },
+   {
+    "idx": 370,
+    "statement": "Write a Readline inputrc using '#' comment lines, '$' conditional lines, and 'set variable value' lines, remembering a boolean is on for an empty value, 'on', or '1' and off otherwise, and unknown variable names are ignored."
+   }
+  ]
+ },
+ {
+  "group": 111,
+  "members": [
+   {
+    "idx": 180,
+    "statement": "Run a command asynchronously in a background subshell with '&' (its status is 0 and the shell does not wait), and note that without job control its standard input defaults to /dev/null unless redirected."
+   },
+   {
+    "idx": 589,
+    "statement": "Expect the standard input of an asynchronous list to be redirected from a /dev/null-like file when job control is disabled, so redirect its standard input explicitly if the background command must read real input."
+   }
+  ]
+ },
+ {
+  "group": 114,
+  "members": [
+   {
+    "idx": 189,
+    "statement": "Rely on 'case' returning 0 when nothing matches, and add a final '*' clause as the catch-all default."
+   },
+   {
+    "idx": 858,
+    "statement": "Order case patterns from specific to catch-all, using path-style patterns, alternatives, and fall-through only when later matches are intended."
+   }
+  ]
+ },
+ {
+  "group": 115,
+  "members": [
+   {
+    "idx": 190,
+    "statement": "Enable 'nocasematch' to make 'case' and '[[' '=='/'!=' pattern matching case-insensitive."
+   },
+   {
+    "idx": 191,
+    "statement": "Quote a 'case' word that may contain glob or expansion characters, because the word and each pattern undergo the shell expansions before matching."
+   }
+  ]
+ },
+ {
+  "group": 116,
+  "members": [
+   {
+    "idx": 193,
+    "statement": "Beware that '(( expression ))' inverts truth relative to exit status: it returns 0 when the value is non-zero and 1 when the value is zero (an empty expression counts as 0), so guard 'set -e' scripts against a zero-valued arithmetic command."
+   },
+   {
+    "idx": 292,
+    "statement": "Evaluate arithmetic on variables with 'let expression', remembering it returns 1 when the last expression is 0 (the same status inversion as '(( ))')."
+   },
+   {
+    "idx": 406,
+    "statement": "Use Bash arithmetic evaluation for integer math, updates, bitwise/logical operations, array-indexed arithmetic, and simple conditional assignment."
+   },
+   {
+    "idx": 612,
+    "statement": "Use return only inside a function or dot script (its behaviour elsewhere is unspecified); it sets $? to the given n or to the last command status when n is omitted, and an n that is not an unsigned decimal integer or exceeds 255 is unspecified."
+   }
+  ]
+ },
+ {
+  "group": 118,
+  "members": [
+   {
+    "idx": 201,
+    "statement": "Expect shell functions to run in the current shell with no new process, unlike executing a separate script."
+   },
+   {
+    "idx": 253,
+    "statement": "Expect command substitutions, '( )' groups, asynchronous commands, and non-final pipeline stages to run in a subshell (a copy of the shell with caught traps reset) whose changes cannot affect the parent, so an external or non-builtin command can never alter the shell's own state."
+   },
+   {
+    "idx": 268,
+    "statement": "Use 'exec command' to replace the shell in place without a new process (not for builtins or functions; a failure exits a non-interactive shell unless execfail is set), and 'exec' with only redirections to reconfigure the current shell's file handles."
+   },
+   {
+    "idx": 356,
+    "statement": "Expect POSIX mode to change many behaviors at once: alias expansion becomes always-on even in scripts, a function may not share a name with a special builtin (which is found first), far more error conditions abort a non-interactive shell, and inherit_errexit, shift_verbose, and interactive_comments are automatically enabled."
+   }
+  ]
+ },
+ {
+  "group": 119,
+  "members": [
+   {
+    "idx": 202,
+    "statement": "Define functions as 'fname () { …; }' (or with the 'function' keyword), knowing a definition returns 0 unless there is a syntax error or a readonly same-name function, and a call returns the status of the last command in the body."
+   },
+   {
+    "idx": 594,
+    "statement": "Define functions with fname() naming a compound command, keeping in mind that the name must not be a special built-in, that functions and variables occupy separate name spaces, that the body is expanded fresh on each call rather than at definition, and that a call temporarily replaces the positional parameters (restored on completion) while return ends the function early."
+   }
+  ]
+ },
+ {
+  "group": 120,
+  "members": [
+   {
+    "idx": 203,
+    "statement": "Inside a function, use the positional parameters (the function's arguments, with $# updated and $0 unchanged) and FUNCNAME[0] for the function name."
+   },
+   {
+    "idx": 860,
+    "statement": "Use function positional parameters, FUNCNAME, and quoted argument forwarding to build safe wrappers and reusable functions."
+   }
+  ]
+ },
+ {
+  "group": 121,
+  "members": [
+   {
+    "idx": 204,
+    "statement": "Enable 'set -E' (errtrace) and 'set -T' (functrace), or give the function the trace attribute, so ERR, DEBUG, and RETURN traps fire inside functions, since functions do not inherit them by default."
+   },
+   {
+    "idx": 306,
+    "statement": "Use 'set -E' (errtrace) and 'set -T' (functrace) to propagate the ERR trap, and the DEBUG and RETURN traps, into functions, command substitutions, and subshells, which do not inherit them by default."
+   }
+  ]
+ },
+ {
+  "group": 123,
+  "members": [
+   {
+    "idx": 206,
+    "statement": "End a function early with 'return [n]', knowing the RETURN trap runs and the positional parameters and $# are restored when it returns."
+   },
+   {
+    "idx": 274,
+    "statement": "Return from a function or sourced file with 'return [n]' (status truncated to 8 bits, RETURN trap runs first), remembering it errors when used outside a function or sourced file."
+   },
+   {
+    "idx": 275,
+    "statement": "Consume positional parameters with 'shift [n]' (default 1), knowing they are left unchanged when n is 0 or greater than $#."
+   },
+   {
+    "idx": 622,
+    "statement": "Understand trap forms: an integer first operand makes all operands conditions to reset to default, an action of - resets each condition, an action of the empty string makes the shell ignore the condition, any other action runs when the condition arises, a later trap overrides an earlier one, and $? is restored to its pre-trap value after the action completes."
+   }
+  ]
+ },
+ {
+  "group": 124,
+  "members": [
+   {
+    "idx": 209,
+    "statement": "Manage functions with 'export -f' to pass them to child shells, 'unset -f' to delete them, and 'declare -f'/'-F' to list definitions or names."
+   },
+   {
+    "idx": 282,
+    "statement": "Remove variables with 'unset -v' and functions with 'unset -f' (a bare 'unset' tries a variable first), noting '-n' unsets a nameref itself, readonly names cannot be unset, and unsetting also drops the name from the environment passed to later commands."
+   },
+   {
+    "idx": 480,
+    "statement": "Write shell functions as named reusable blocks with local variables and named parameters where readability needs them."
+   }
+  ]
+ },
+ {
+  "group": 125,
+  "members": [
+   {
+    "idx": 211,
+    "statement": "Expect a variable with the integer attribute to evaluate assigned values as arithmetic expressions even without '$(( ))'."
+   },
+   {
+    "idx": 233,
+    "statement": "Evaluate integer arithmetic with '$(( expression ))', remembering an invalid expression prints an error and aborts the command."
+   }
+  ]
+ },
+ {
+  "group": 127,
+  "members": [
+   {
+    "idx": 213,
+    "statement": "Create a nameref with 'declare -n ref=name' to operate indirectly on another variable, commonly to manipulate a variable whose name is passed as a function argument."
+   },
+   {
+    "idx": 223,
+    "statement": "Use indirect expansion '${!parameter}' when the target variable's name is held in another variable, noting that on a nameref '${!ref}' yields the referenced variable's name."
+   },
+   {
+    "idx": 417,
+    "statement": "Use Bash namerefs for pass-by-reference function output when avoiding command substitution is clearer and the required Bash version is available."
+   }
+  ]
+ },
+ {
+  "group": 128,
+  "members": [
+   {
+    "idx": 214,
+    "statement": "Brace multi-digit positional parameters ('${10}'), because '$10' is parsed as '$1' followed by a literal '0'."
+   },
+   {
+    "idx": 565,
+    "statement": "Avoid placing an unquoted dollar-sign before a character that is not a digit, special-parameter name, valid name start, brace, or parenthesis (the result is unspecified), and remember that a word whose complete expansion is empty is removed from the argument list unless it contained quotes."
+   }
+  ]
+ },
+ {
+  "group": 129,
+  "members": [
+   {
+    "idx": 215,
+    "statement": "Do not assign to positional or special parameters; set the positional parameters with 'set' and 'shift', and treat special parameters as reference-only."
+   },
+   {
+    "idx": 299,
+    "statement": "Reset the positional parameters safely with 'set -- arguments' (which handles arguments beginning with '-' and unsets them when none follow), and use 'set' with no options to list variables and functions in reusable form."
+   }
+  ]
+ },
+ {
+  "group": 130,
+  "members": [
+   {
+    "idx": 218,
+    "statement": "Use '$$' for the shell's process id, noting it remains the invoking shell's PID inside a subshell, so use BASHPID when the subshell's own PID is needed."
+   },
+   {
+    "idx": 314,
+    "statement": "Use BASHPID for the current Bash process's process id, which is correct inside a subshell where '$$' still reports the invoking shell's PID."
+   },
+   {
+    "idx": 561,
+    "statement": "Read $? as the exit status of the most recent pipeline, and remember that $ (the process ID) expands to the parent shell PID even inside a subshell rather than the subshell PID."
+   }
+  ]
+ },
+ {
+  "group": 131,
+  "members": [
+   {
+    "idx": 224,
+    "statement": "Supply defaults and guard required inputs with parameter expansion: ':-' substitutes a default, ':=' assigns and substitutes a default, ':?' fails fast with a message when a required variable is missing, and ':+' substitutes only when the variable is set; include the colon to also treat a null value as unset."
+   },
+   {
+    "idx": 262,
+    "statement": "Use ':' as a no-op that only expands its arguments and performs redirections (returning 0, e.g. ': ${x:=default}'), and 'true'/'false' for constant success/failure statuses."
+   },
+   {
+    "idx": 604,
+    "statement": "Use the colon (:) null utility as a do-nothing placeholder where the grammar needs a command, remembering that as a special built-in it still performs its associated variable assignments (which persist) and redirections."
+   }
+  ]
+ },
+ {
+  "group": 132,
+  "members": [
+   {
+    "idx": 225,
+    "statement": "Extract substrings with '${parameter:offset:length}', treating offset and length as arithmetic (a negative offset needs a leading space and counts from the end), and remember indexing is zero-based except for positional parameters and undefined for associative arrays."
+   },
+   {
+    "idx": 226,
+    "statement": "Get a value's character length, an array's element count, or the positional-parameter count with '${#parameter}'."
+   }
+  ]
+ },
+ {
+  "group": 133,
+  "members": [
+   {
+    "idx": 228,
+    "statement": "Substitute within a value using '${p/pat/str}' (first match), '${p//pat/str}' (all), '${p/#pat/str}' and '${p/%pat/str}' (anchored), or an empty replacement to delete, remembering that quoting the replacement inhibits it, nocasematch makes matching case-insensitive, and patsub_replacement makes an unquoted '&' stand for the matched text."
+   },
+   {
+    "idx": 229,
+    "statement": "Change case in place with '${p^}'/'${p^^}' (uppercase first/all matching characters) and '${p,}'/'${p,,}' (lowercase)."
+   }
+  ]
+ },
+ {
+  "group": 136,
+  "members": [
+   {
+    "idx": 242,
+    "statement": "Avoid complicated extended-pattern matching against long strings; match against shorter strings or arrays when performance matters."
+   },
+   {
+    "idx": 452,
+    "statement": "Avoid broad greedy regexes in complex expressions; test both correctness and performance on realistic short and long inputs."
+   }
+  ]
+ },
+ {
+  "group": 138,
+  "members": [
+   {
+    "idx": 245,
+    "statement": "Choose output redirection to match intent: '>' creates or truncates (and fails on an existing regular file when noclobber is set, unless '>|' is used), '>>' appends, and '&>'/'&>>' redirect or append both standard output and standard error (preferring '&>' over '>&')."
+   },
+   {
+    "idx": 575,
+    "statement": "Understand redirection semantics: multiple redirections are evaluated left to right, any failure to open or create a file fails the redirection, the noclobber option (set -C) makes > fail on an existing regular file while >| overrides it, and >> appends with O_APPEND and creates the file if absent."
+   }
+  ]
+ },
+ {
+  "group": 141,
+  "members": [
+   {
+    "idx": 250,
+    "statement": "Duplicate, move, or open descriptors explicitly with '[n]<&word'/'[n]>&word' (word '-' closes n), '[n]<&digit-'/'[n]>&digit-' (move), and '[n]<>word' (open for reading and writing)."
+   },
+   {
+    "idx": 577,
+    "statement": "Use the [n]<&word and [n]>&word operators to duplicate a descriptor from digits or to close it with a - operand, knowing that referencing a descriptor not open in the right direction is a redirection error while closing an already-closed descriptor is not, and any other operand value is unspecified."
+   }
+  ]
+ },
+ {
+  "group": 142,
+  "members": [
+   {
+    "idx": 254,
+    "statement": "Enable inherit_errexit (or run in POSIX mode) when a failing command inside a command substitution must abort under 'set -e', because outside POSIX mode Bash clears errexit in command-substitution subshells."
+   },
+   {
+    "idx": 300,
+    "statement": "Understand 'set -e' (errexit) exactly: it exits on a non-zero status except in a while/until or if/elif test, a non-final '&&'/'||' or pipeline command, or a command inverted with '!'; crucially it has no effect inside a compound command or function already running in an errexit-ignored context, so a function called as an if-test will not abort on an internal failure."
+   },
+   {
+    "idx": 310,
+    "statement": "Enable POSIX mode ('set -o posix', --posix, POSIXLY_CORRECT, or invoking as 'sh') to match the POSIX standard; in it special builtins are found before functions, their preceding assignments persist in the shell environment, and their error status exits a non-interactive shell."
+   },
+   {
+    "idx": 610,
+    "statement": "Use export -p to emit exports in a form that can be saved and re-input (bare export with no arguments is unspecified), and separate an assignment from its export (assign, then export) so that set -e can see a command-substitution failure, because combining them as export X=$(cmd) leaves $? at zero."
+   }
+  ]
+ },
+ {
+  "group": 143,
+  "members": [
+   {
+    "idx": 256,
+    "statement": "Account for interactive signal handling: with no traps Bash ignores SIGTERM and SIGQUIT and catches SIGINT (breaking loops), while child commands inherit the shell's dispositions and any signal that 'trap' set to be ignored stays ignored in children."
+   },
+   {
+    "idx": 258,
+    "statement": "Expect a trap to run only after the currently-running command completes, except that 'wait' returns immediately with a status above 128 on a trapped signal and then runs the trap; without job control Bash also defers acting on SIGINT until the foreground command finishes."
+   },
+   {
+    "idx": 278,
+    "statement": "Register signal handlers with 'trap action sigspec' - using '-' to reset a signal to its startup disposition and an empty string to ignore it - relying on case-insensitive names (SIG prefix optional), 'trap -l' to list them, and 'trap' with no arguments to print reusable trap commands."
+   },
+   {
+    "idx": 280,
+    "statement": "Remember that signals ignored on entry to a non-interactive shell cannot be trapped or reset, and that trapped-but-not-ignored signals reset to their original dispositions in a newly created subshell."
+   },
+   {
+    "idx": 407,
+    "statement": "Install trap handlers early when a script depends on cleanup, signal handling, resize handling, pre-command hooks, or function-return hooks."
+   },
+   {
+    "idx": 596,
+    "statement": "Account for signal handling in job control and traps: when job control is disabled, commands in an asynchronous list inherit an ignored action for SIGINT and SIGQUIT, and a trap for a signal received while the shell waits for a foreground command runs only after that command completes."
+   },
+   {
+    "idx": 623,
+    "statement": "Name trap conditions portably: use EXIT (or 0) and symbolic signal names without the SIG prefix rather than numbers (numeric signal conditions are guaranteed only on XSI systems), and do not attempt to trap SIGKILL or SIGSTOP because doing so is undefined and has no effect."
+   },
+   {
+    "idx": 624,
+    "statement": "Quote trap actions to control expansion timing: each action is processed like eval when the trap fires, so a single-quoted action defers expansion and trap \"eval \\\" $cmd\\\"\" runs a variable command safely, whereas an unquoted $cmd breaks on special characters; also know the EXIT-trap environment equals the state after the last command, invalid signal names are not syntax errors, and traps persist until changed."
+   },
+   {
+    "idx": 625,
+    "statement": "Account for trap inheritance limits: signals ignored on entry to a non-interactive shell cannot be trapped or reset, entering a subshell resets non-ignored traps to their defaults, trap with no operands lists current traps in a form suitable for saving and restoring, and the ERR trap is a non-portable KornShell extension."
+   }
+  ]
+ },
+ {
+  "group": 144,
+  "members": [
+   {
+    "idx": 257,
+    "statement": "Protect background jobs from SIGHUP with 'disown' or 'disown -h', remembering Bash exits on SIGHUP and an interactive shell forwards it to its jobs, and that huponexit sends SIGHUP to jobs when an interactive login shell exits."
+   },
+   {
+    "idx": 366,
+    "statement": "Remove a job from the active jobs table with 'disown', or keep it running while shielding it from SIGHUP with 'disown -h'."
+   }
+  ]
+ },
+ {
+  "group": 145,
+  "members": [
+   {
+    "idx": 261,
+    "statement": "Use '--' to end option processing on most builtins so dash-leading data is not misread as options, remembering the exceptions (':', true, false, test/'[' ignore '--', and exit/return/break/continue/let/shift accept dash-leading arguments), and that builtins run inside the shell process."
+   },
+   {
+    "idx": 423,
+    "statement": "For POSIX-style tools, place the end-of-options delimiter before user-provided operands so dash-prefixed input is not parsed as another option."
+   },
+   {
+    "idx": 630,
+    "statement": "Protect operands from unintended shell or option parsing by using --, ./ prefixes, quoting, escaping, or explicit dotfiles as the situation requires."
+   }
+  ]
+ },
+ {
+  "group": 146,
+  "members": [
+   {
+    "idx": 263,
+    "statement": "Run '. file' (source) to execute a file's commands in the current shell rather than a subshell (so its variable and function definitions persist), searching PATH and, outside POSIX mode, the current directory, without needing the execute bit."
+   },
+   {
+    "idx": 582,
+    "statement": "Remember that a redirection with no command name is performed in a subshell, so use the exec special built-in when a file-descriptor change must persist in the current shell environment."
+   },
+   {
+    "idx": 605,
+    "statement": "Use the dot utility to run a file in the current shell environment, knowing it is located through PATH (and need not be executable) and deliberately does not search the current directory unless PATH permits, which is a guard against trojan-horse scripts."
+   }
+  ]
+ },
+ {
+  "group": 148,
+  "members": [
+   {
+    "idx": 265,
+    "statement": "Break out of or continue an outer loop with 'break n' or 'continue n' (n at least 1)."
+   },
+   {
+    "idx": 850,
+    "statement": "Use break, continue, endless loops, select, and until only when their termination and validation behavior remains explicit."
+   }
+  ]
+ },
+ {
+  "group": 149,
+  "members": [
+   {
+    "idx": 271,
+    "statement": "Parse options with 'getopts optstring name' (which sets name, OPTIND, and OPTARG), always resetting OPTIND to 1 before re-parsing a new argument set in the same shell because it is not reset automatically, and prefix optstring with ':' for silent error handling."
+   },
+   {
+    "idx": 340,
+    "statement": "Test whether a shell option is enabled with '[[ -o optname ]]'."
+   },
+   {
+    "idx": 485,
+    "statement": "Parse shell-script options with getopts and shift processed options so each option and remaining argument has a clear handler."
+   },
+   {
+    "idx": 726,
+    "statement": "Parse command invocations as command name, options, and arguments, with case-sensitive options and conventional short, long, and clustered forms."
+   },
+   {
+    "idx": 861,
+    "statement": "Implement option parsing with either manual loop-case-shift logic or getopts, choosing based on long-option needs and clustered short-option support."
+   }
+  ]
+ },
+ {
+  "group": 153,
+  "members": [
+   {
+    "idx": 284,
+    "statement": "Bind a shell command to a key sequence with 'bind -x keyseq:command', which exposes the line as READLINE_LINE and the cursor and mark as READLINE_POINT and READLINE_MARK and reflects changes to them in the editing state."
+   },
+   {
+    "idx": 369,
+    "statement": "Command-line editing is provided by Readline (enabled by default interactively unless --noediting, Emacs bindings by default, switchable with 'set -o vi'), configured through ~/.inputrc (named by INPUTRC) or the 'bind' builtin."
+   }
+  ]
+ },
+ {
+  "group": 154,
+  "members": [
+   {
+    "idx": 286,
+    "statement": "Produce a stack trace with 'caller [expr]', which reports the line number, subroutine name, and source file of an active call frame."
+   },
+   {
+    "idx": 316,
+    "statement": "Build stack traces from the parallel call-stack arrays FUNCNAME, BASH_SOURCE, and BASH_LINENO (FUNCNAME[0] is the current function and the bottom element is 'main'), which the 'caller' builtin uses."
+   },
+   {
+    "idx": 321,
+    "statement": "Report the current line number with LINENO, for example in error and debug messages."
+   }
+  ]
+ },
+ {
+  "group": 156,
+  "members": [
+   {
+    "idx": 294,
+    "statement": "Prefer 'printf' for reliable formatted output: the format is reused until all arguments are consumed (missing ones treated as empty or zero), '-v var' stores the result instead of printing, '%q' quotes a value for safe reuse as shell input, and '%(datefmt)T' formats times."
+   },
+   {
+    "idx": 701,
+    "statement": "Use printf rather than echo for script-grade formatted output, and treat format/argument mismatches as bugs."
+   }
+  ]
+ },
+ {
+  "group": 157,
+  "members": [
+   {
+    "idx": 296,
+    "statement": "Control 'read' with its options: -a to fill an array, -d for a custom delimiter, -n/-N for a fixed number of characters, -s to suppress echo, -p for a prompt, -u to read from a descriptor, and -t for a timeout (which returns a status above 128 and applies only to terminals, pipes, or special files)."
+   },
+   {
+    "idx": 470,
+    "statement": "Read user input into descriptive variables and choose silent, fixed-width, or delimiter-limited modes only when the prompt semantics require them."
+   },
+   {
+    "idx": 848,
+    "statement": "Use read safely with prompts, raw mode, silent mode, timeouts, defaults, IFS control, and here strings according to the input source and sensitivity."
+   }
+  ]
+ },
+ {
+  "group": 159,
+  "members": [
+   {
+    "idx": 301,
+    "statement": "Enable 'set -u' (nounset) to turn a reference to an unset variable into an error, remembering the exceptions for the special parameters '@' and '*' and arrays subscripted by '@' or '*'."
+   },
+   {
+    "idx": 616,
+    "statement": "Use set -u (nounset) to catch references to unset variables (the @ and * special parameters are deliberately exempt) and set -n (noexec) to parse a script for syntax errors without executing it."
+   }
+  ]
+ },
+ {
+  "group": 161,
+  "members": [
+   {
+    "idx": 309,
+    "statement": "Rely on privileged mode ('set -p', applied automatically when the effective and real user ids differ) ignoring BASH_ENV/ENV, environment-imported functions, and the SHELLOPTS/BASHOPTS/CDPATH/GLOBIGNORE environment variables, which is the security default for setuid contexts."
+   },
+   {
+    "idx": 335,
+    "statement": "Expect Bash started with the effective and real ids differing and without '-p' to read no startup files, ignore environment-imported functions and the SHELLOPTS/BASHOPTS/CDPATH/GLOBIGNORE environment variables, and reset the effective id to the real id."
+   },
+   {
+    "idx": 563,
+    "statement": "Handle environment-sensitive shell variables carefully: ENV is expanded and sourced only for interactive shells and is ignored when real and effective user or group IDs differ, assigning PWD can make cd and pwd unspecified, environment-initialized variables are auto-exported, and changing LC_CTYPE does not affect the running shell lexing."
+   },
+   {
+    "idx": 847,
+    "statement": "Branch on effective user ID when a script must behave differently for privileged and unprivileged users."
+   }
+  ]
+ },
+ {
+  "group": 165,
+  "members": [
+   {
+    "idx": 318,
+    "statement": "Use the readonly EUID for a trustworthy privilege (for example root) check, since it cannot be overwritten by an attacker-controlled assignment."
+   },
+   {
+    "idx": 669,
+    "statement": "Use superuser powers sparingly, prefer sudo where available, exit elevated shells promptly, and verify effective identity before privileged changes."
+   }
+  ]
+ },
+ {
+  "group": 168,
+  "members": [
+   {
+    "idx": 323,
+    "statement": "Account for startup environment variables that reconfigure the shell: POSIXLY_CORRECT enters POSIX mode before startup files, and the readonly SHELLOPTS and BASHOPTS enable their listed options at startup and propagate to exported child shells."
+   },
+   {
+    "idx": 334,
+    "statement": "Place configuration in the right startup file: an interactive login shell reads /etc/profile then the first of ~/.bash_profile, ~/.bash_login, or ~/.profile; an interactive non-login shell reads ~/.bashrc (so ~/.bash_profile commonly sources ~/.bashrc); and under the name 'sh' Bash enters POSIX mode and reads only the file named by ENV."
+   }
+  ]
+ },
+ {
+  "group": 169,
+  "members": [
+   {
+    "idx": 324,
+    "statement": "Control filename-expansion ordering with GLOBSORT (name, numeric, size, mtime, atime, ctime, or blocks, with '-' to reverse or 'nosort' for filesystem order) rather than post-sorting glob results."
+   },
+   {
+    "idx": 601,
+    "statement": "Know the filename-expansion rules: a slash and a leading period in a name must be matched explicitly (so globs neither cross directory separators nor reveal dotfiles by default), matching requires read permission on directories with pattern components and search permission on the rest, results are sorted by the current locale, and a pattern that matches nothing is left unchanged."
+   }
+  ]
+ },
+ {
+  "group": 171,
+  "members": [
+   {
+    "idx": 327,
+    "statement": "Separate execution-trace output from program output by pointing BASH_XTRACEFD at a dedicated file descriptor when using 'set -x'."
+   },
+   {
+    "idx": 461,
+    "statement": "Use xargs when pipeline output must become command arguments, and preview or trace commands before destructive execution."
+   }
+  ]
+ },
+ {
+  "group": 172,
+  "members": [
+   {
+    "idx": 328,
+    "statement": "Gate features on the Bash version using BASH_VERSION (a string) or the readonly BASH_VERSINFO array (major, minor, patch, build, release-status, machine-type)."
+   },
+   {
+    "idx": 410,
+    "statement": "Use Bash internal state and formatting features to avoid external commands, while preserving fallbacks, version gates, and randomness warnings."
+   }
+  ]
+ },
+ {
+  "group": 173,
+  "members": [
+   {
+    "idx": 329,
+    "statement": "Unset HISTFILE (or set it null) to stop the shell from persisting command history, which matters when handling sensitive commands."
+   },
+   {
+    "idx": 383,
+    "statement": "Understand history handling: it is enabled by default interactively ('set -o history'), keeps HISTSIZE entries in memory (stored after history expansion), reads and writes HISTFILE (default ~/.bash_history; histappend to append; HISTFILESIZE to cap; nothing saved when HISTFILE is null), and is filtered by HISTIGNORE and HISTCONTROL."
+   }
+  ]
+ },
+ {
+  "group": 175,
+  "members": [
+   {
+    "idx": 331,
+    "statement": "Set TMOUT to a positive value to time out 'read' and 'select' on terminal input and to auto-logout an idle interactive shell as a hardening measure."
+   },
+   {
+    "idx": 413,
+    "statement": "Use Bash read timeouts as a sleep replacement only on supported Bash versions, and reuse a descriptor for high-frequency sleeps."
+   }
+  ]
+ },
+ {
+  "group": 176,
+  "members": [
+   {
+    "idx": 332,
+    "statement": "Invoke Bash with the set single-character options plus multi-character options first: '-c string' runs a command string (extra arguments become $0 then the positional parameters), '-l' a login shell, '-i' interactive, '-s' reads standard input, '-r' restricted, and '--' ends options so following arguments are a script and its arguments."
+   },
+   {
+    "idx": 333,
+    "statement": "Distinguish a login shell (argv[0] beginning with '-' or invoked with --login) from an interactive shell (no non-option arguments unless -s, no -c, standard input and error both terminals, or started with -i) when reasoning about which files run."
+   }
+  ]
+ },
+ {
+  "group": 177,
+  "members": [
+   {
+    "idx": 336,
+    "statement": "Detect an interactive shell inside a startup script by testing whether '$-' contains 'i' or whether PS1 is set (it is unset in non-interactive shells)."
+   },
+   {
+    "idx": 337,
+    "statement": "Do not treat interactive testing as proof a script is robust, because an interactive shell survives nounset and '${var:?}' expansion errors, builtin redirection errors, a failed 'exec', a special-builtin error, and parser syntax errors that would terminate a non-interactive script."
+   }
+  ]
+ },
+ {
+  "group": 179,
+  "members": [
+   {
+    "idx": 344,
+    "statement": "Use indexed arrays (zero-based integer subscripts, auto-created by 'name[i]=value' or declared with 'declare -a') and associative arrays (arbitrary string keys, declared with 'declare -A'), which have no size limit and need not be contiguous."
+   },
+   {
+    "idx": 345,
+    "statement": "Assign arrays with the compound form 'name=(value ...)', supplying explicit non-empty subscripts (or alternating key/value pairs) for associative arrays."
+   }
+  ]
+ },
+ {
+  "group": 180,
+  "members": [
+   {
+    "idx": 346,
+    "statement": "Reference an array element as '${name[subscript]}' (braces required) and iterate an array with '\"${name[@]}\"', which yields each element as a separate quoted word and nothing when the array is empty, reserving '\"${name[*]}\"' for a single IFS-joined string."
+   },
+   {
+    "idx": 347,
+    "statement": "Get an array's element count with '${#name[@]}' and a single element's length with '${#name[subscript]}'."
+   },
+   {
+    "idx": 349,
+    "statement": "Never reference an array variable without a subscript expecting the whole array, because a bare '$name' is equivalent to '${name[0]}' and yields only the first element."
+   }
+  ]
+ },
+ {
+  "group": 183,
+  "members": [
+   {
+    "idx": 353,
+    "statement": "Build prompt strings (PS0, PS1, PS2, PS4) from backslash escapes such as \\u, \\h, \\w, \\$, and \\[ ... \\] to bracket non-printing terminal sequences, and be aware the decoded prompt is further subjected to parameter expansion, command substitution, and arithmetic expansion (under promptvars), which can trigger unintended expansion if the text contains special characters."
+   },
+   {
+    "idx": 492,
+    "statement": "Design the prompt as a compact status display with safe PS1 syntax and clear separators around dynamic fields."
+   }
+  ]
+ },
+ {
+  "group": 185,
+  "members": [
+   {
+    "idx": 355,
+    "statement": "Prefer operating-system mechanisms such as jails, zones, or containers over a restricted shell when a genuinely secure restricted environment is required."
+   },
+   {
+    "idx": 497,
+    "statement": "Keep shared shell configuration source-only, centrally tracked, generic across shell families, and guarded for interactive use."
+   }
+  ]
+ },
+ {
+  "group": 186,
+  "members": [
+   {
+    "idx": 357,
+    "statement": "Use the shell compatibility level (the BASH_COMPAT variable, or legacy compatNN options) only as a temporary migration aid with a single level active, and rely on current Bash resetting loop state on function and subshell entry so 'break' or 'continue' does not leak into the caller's loops."
+   },
+   {
+    "idx": 393,
+    "statement": "Rely on Bash not forking a subshell when a control structure such as an 'if' or 'while' is redirected, so variables assigned inside a redirected loop persist in the current shell."
+   }
+  ]
+ },
+ {
+  "group": 188,
+  "members": [
+   {
+    "idx": 360,
+    "statement": "Stop a foreground job with the suspend character (typically Control-Z) and then use 'bg', 'fg', or 'kill', or force a stop by sending SIGSTOP."
+   },
+   {
+    "idx": 363,
+    "statement": "Resume a job with 'bg' to continue it in the background or 'fg' to bring it to the foreground and make it the current job."
+   },
+   {
+    "idx": 367,
+    "statement": "Suspend the current shell with 'suspend' until it receives SIGCONT, supplying '-f' to override the block on a login shell or one without job control."
+   }
+  ]
+ },
+ {
+  "group": 189,
+  "members": [
+   {
+    "idx": 361,
+    "statement": "Account for Bash deferring job-status notifications until the next prompt (unless 'set -b'), removing a terminated job from the table after notifying (while 'wait' with its PID still reports the status), and warning once before an exit that would terminate stopped jobs."
+   },
+   {
+    "idx": 362,
+    "statement": "Wait for children with 'wait [id]' (returns the last id's status, or waits for all background jobs with no arguments), 'wait -n' for whichever finishes next (127 if none is a child, pairing with 'wait -p varname'), and 'wait -f' to wait for actual termination rather than a state change."
+   },
+   {
+    "idx": 368,
+    "statement": "In non-interactive scripts, where job control is inactive, give 'kill' and 'wait' process ids rather than jobspecs, which they do not accept there."
+   }
+  ]
+ },
+ {
+  "group": 192,
+  "members": [
+   {
+    "idx": 371,
+    "statement": "Choose the line-editing mode with 'editing-mode' in the inputrc or 'set -o emacs'/'set -o vi'; in vi mode a new line starts in insert mode and ESC enters command mode (k/j move through history)."
+   },
+   {
+    "idx": 376,
+    "statement": "Edit a long or multi-line command in an editor with C-x C-e (edit-and-execute-command), which invokes $VISUAL, then $EDITOR, then emacs and executes the result."
+   },
+   {
+    "idx": 763,
+    "statement": "Use vi modes and basic insert, write, quit, undo, delete, yank, paste, and join commands to make controlled text edits."
+   }
+  ]
+ },
+ {
+  "group": 196,
+  "members": [
+   {
+    "idx": 375,
+    "statement": "Use the default Emacs editing keys - C-a/C-e (line start/end), C-k/C-u (kill to end/start), C-w (kill previous word), C-y (yank), M-./M-_ (insert the previous command's last argument) - and C-r/C-s for incremental reverse/forward history search."
+   },
+   {
+    "idx": 378,
+    "statement": "Insert a literal control character or Tab with C-v or C-q (quoted-insert), and stash a command into history without running it with M-# (insert-comment)."
+   }
+  ]
+ },
+ {
+  "group": 197,
+  "members": [
+   {
+    "idx": 377,
+    "statement": "Rely on TAB completion trying programmable completions for the command word first, then variable, username, hostname, or command completion, and finally filename completion."
+   },
+   {
+    "idx": 379,
+    "statement": "Define argument completion with the 'complete' builtin (a compspec; -E for an empty line, -I for the initial word, -D as the default), and in a '-F function' place matches in the COMPREPLY array using $1 (command), $2 (word being completed), $3 (preceding word), and the COMP_WORDS/COMP_CWORD/COMP_LINE/COMP_POINT variables."
+   },
+   {
+    "idx": 380,
+    "statement": "Generate completions from the appropriate source (-C command, -W wordlist, -G glob pattern, -F function; -X to filter, -P/-S to add a prefix or suffix) and shape behavior with '-o' options such as filenames, nospace, nosort, and the bashdefault/default/dirnames/plusdirs fallbacks."
+   }
+  ]
+ },
+ {
+  "group": 198,
+  "members": [
+   {
+    "idx": 381,
+    "statement": "Load completions lazily by returning exit status 124 from a completion function after installing the real compspec, the pattern the bash_completion dynamic loader uses."
+   },
+   {
+    "idx": 382,
+    "statement": "Generate matches with 'compgen' inside a completion function and adjust the active completion's options on the fly with 'compopt'."
+   }
+  ]
+ },
+ {
+  "group": 200,
+  "members": [
+   {
+    "idx": 385,
+    "statement": "Re-run or edit past commands with 'fc' ('fc -s pat=rep' for a substitution re-run, commonly aliased as 'r'), whose editor is chosen by ${FCEDIT:-${EDITOR:-vi}}."
+   },
+   {
+    "idx": 764,
+    "statement": "Use vi search, substitution ranges, global replacement, and confirmation flags to make targeted edits instead of manual repeated changes."
+   },
+   {
+    "idx": 766,
+    "statement": "Choose bash command-line editing mode deliberately and persist vi-style editing only when it matches the user workflow."
+   }
+  ]
+ },
+ {
+  "group": 201,
+  "members": [
+   {
+    "idx": 386,
+    "statement": "Build Bash with './configure', 'make', optional 'make tests', and 'make install', using 'DESTDIR=path' for a staging install that packagers consume and an out-of-tree build (with a VPATH-capable make) to compile for multiple architectures."
+   },
+   {
+    "idx": 830,
+    "statement": "Run configure and make as a dependency-driven workflow, treating configure errors and missing Makefiles as blockers."
+   }
+  ]
+ },
+ {
+  "group": 202,
+  "members": [
+   {
+    "idx": 387,
+    "statement": "Do not assume every Bash feature is present, because many - extended globbing, the '[[' command and its '=~' operator, arrays, process substitution, job control, /dev/tcp and /dev/udp redirections, coprocesses, Readline/history, programmable completion, and the restricted shell - are configure-time options, and build defaults such as --enable-strict-posix-default or --enable-xpg-echo-default make identical scripts behave differently across builds."
+   },
+   {
+    "idx": 468,
+    "statement": "Manage shell variables, exports, quoting, and braces deliberately to prevent unintended expansion or environment damage."
+   },
+   {
+    "idx": 473,
+    "statement": "Choose double-bracket or single-bracket tests based on whether richer bash-like features or portability matters more."
+   }
+  ]
+ },
+ {
+  "group": 203,
+  "members": [
+   {
+    "idx": 389,
+    "statement": "For scripts targeting '#!/bin/sh', avoid Bash-only extensions such as '[[ ]]', arrays, 'local', $'...' quoting, brace expansion, process substitution, the '+=' operator, the '${var/pat/rep}' and '${var:offset:length}' expansions, the C-style 'for (( ))', 'select', '(( ))' and 'let', '<<<' here-strings, '&>' redirection, 'mapfile', and the 'function' keyword."
+   },
+   {
+    "idx": 469,
+    "statement": "Use arrays and parameter expansion for simple structured shell data, but switch languages when data modeling starts dominating the script."
+   }
+  ]
+ },
+ {
+  "group": 206,
+  "members": [
+   {
+    "idx": 396,
+    "statement": "When authoring Bash scripts, first look for a clear Bash built-in solution before adding an external process dependency."
+   },
+   {
+    "idx": 414,
+    "statement": "Check PATH availability before relying on an external executable, and fail or branch explicitly when the dependency is missing."
+   }
+  ]
+ },
+ {
+  "group": 207,
+  "members": [
+   {
+    "idx": 397,
+    "statement": "Use Bash parameter expansion and pattern tests for routine string trimming, removal, case conversion, substring tests, slicing, and default-value handling."
+   },
+   {
+    "idx": 867,
+    "statement": "Prefer shell-native string length, substring, trimming, and replacement expansions over external tools when wildcard-pattern operations are sufficient."
+   }
+  ]
+ },
+ {
+  "group": 209,
+  "members": [
+   {
+    "idx": 399,
+    "statement": "Use Bash arrays directly for element iteration, index iteration, cycling, deduplication, and random selection, while carrying each technique’s version, ordering, and non-empty-input assumptions."
+   },
+   {
+    "idx": 872,
+    "statement": "Use bash indexed arrays for multi-value state only in bash-compatible scripts, with correct creation, braces, zero indexing, initialization, and sparse-index awareness."
+   }
+  ]
+ },
+ {
+  "group": 211,
+  "members": [
+   {
+    "idx": 402,
+    "statement": "Use shell redirection for simple empty-file creation or truncation when touch-specific timestamp behavior is not required."
+   },
+   {
+    "idx": 648,
+    "statement": "Create or timestamp files intentionally, and avoid accidental file creation when only metadata inspection or update is desired."
+   }
+  ]
+ },
+ {
+  "group": 212,
+  "members": [
+   {
+    "idx": 403,
+    "statement": "Use Bash path, variable-indirection, and terminal-escape features only when their exact shell and terminal assumptions are acceptable."
+   },
+   {
+    "idx": 411,
+    "statement": "When querying terminal state from pure Bash, design for terminal capability differences and failed escape-sequence responses."
+   }
+  ]
+ },
+ {
+  "group": 215,
+  "members": [
+   {
+    "idx": 415,
+    "statement": "Use Bash formatting and declaration introspection for lightweight utilities such as color conversion, progress display, and function listing when the input assumptions are simple."
+   },
+   {
+    "idx": 486,
+    "statement": "Format terminal output portably and emit color only to terminals, using terminal capability helpers where useful."
+   },
+   {
+    "idx": 819,
+    "statement": "Use printf in scripts for predictable formatted output, matching conversions and arguments and applying flags, width, precision, tabs, and newlines deliberately."
+   }
+  ]
+ },
+ {
+  "group": 216,
+  "members": [
+   {
+    "idx": 418,
+    "statement": "Prefer language libraries or APIs over direct OS command execution whenever they can perform the required task."
+   },
+   {
+    "idx": 428,
+    "statement": "Prefer language or platform APIs over operating-system command execution for standard application tasks."
+   }
+  ]
+ },
+ {
+  "group": 217,
+  "members": [
+   {
+    "idx": 420,
+    "statement": "Treat argument injection as a separate risk from shell metacharacter injection; escaping shell operators alone is not enough when user input can become an argument."
+   },
+   {
+    "idx": 422,
+    "statement": "Validate command arguments with narrow positive allowlists that constrain format, permitted characters, and length, and exclude metacharacters and whitespace where possible."
+   },
+   {
+    "idx": 433,
+    "statement": "Model shell parsing explicitly when assessing command-injection risk, because shell-mediated execution gives metacharacters command-control semantics."
+   },
+   {
+    "idx": 435,
+    "statement": "Use positive allowlist validation for command-related inputs, and do not rely on blocking a single metacharacter."
+   }
+  ]
+ },
+ {
+  "group": 220,
+  "members": [
+   {
+    "idx": 425,
+    "statement": "Run command-executing code with the least privileges needed and use isolated limited accounts for single-purpose command tasks where feasible."
+   },
+   {
+    "idx": 430,
+    "statement": "Treat command execution in elevated-privilege wrappers as high risk unless input, path, and environment influence are controlled."
+   },
+   {
+    "idx": 633,
+    "statement": "Use sudo only for operations that require it, and keep the elevated command scope as narrow as possible."
+   },
+   {
+    "idx": 721,
+    "statement": "Treat the shell prompt and privilege marker as operational context before running commands."
+   },
+   {
+    "idx": 749,
+    "statement": "Prefer scoped sudo grants and command-level privilege elevation over routine root sessions."
+   },
+   {
+    "idx": 841,
+    "statement": "Adapt scripts to privilege and formatting constraints rather than assuming access or losing command-output layout."
+   }
+  ]
+ },
+ {
+  "group": 221,
+  "members": [
+   {
+    "idx": 426,
+    "statement": "In Java process execution, pass the executable and each argument separately through ProcessBuilder and do not rely on a single command string as a safety boundary."
+   },
+   {
+    "idx": 434,
+    "statement": "Do not assume Java Runtime.exec has the same injection behavior as C system(); account for whether a shell is actually invoked."
+   }
+  ]
+ },
+ {
+  "group": 225,
+  "members": [
+   {
+    "idx": 436,
+    "statement": "Scope command-injection review across command construction, direct arguments, executable path selection, privilege context, parser semantics, and environment influence."
+   },
+   {
+    "idx": 488,
+    "statement": "Scope startup-file customizations to interactive shells and avoid exits, noise, slow commands, and complex failure-prone logic during startup."
+   }
+  ]
+ },
+ {
+  "group": 227,
+  "members": [
+   {
+    "idx": 438,
+    "statement": "Compose shell workflows from small tools selectively, keeping other useful tools where they still fit the task."
+   },
+   {
+    "idx": 441,
+    "statement": "Treat command-line editing, history search, and editor integration as part of shell productivity, not as incidental convenience."
+   },
+   {
+    "idx": 511,
+    "statement": "Use forks and pull requests for hosted collaboration, adding shell helpers or GitHub CLI only when they reduce repeated friction safely."
+   },
+   {
+    "idx": 519,
+    "statement": "Keep shell scripts focused on simple orchestration and choose a fuller language when logic, portability, maintenance, or distribution requirements grow."
+   },
+   {
+    "idx": 531,
+    "statement": "Learn a terminal editor for remote and shell-only editing, and store its reusable configuration in dotfiles."
+   },
+   {
+    "idx": 640,
+    "statement": "Treat interactive shell conveniences as stateful tools: use completion and editing modes for accuracy, but use history expansion cautiously because it can re-run prior commands."
+   },
+   {
+    "idx": 762,
+    "statement": "Learn a minimal command-line editor workflow for systems where graphical editors are unavailable."
+   },
+   {
+    "idx": 837,
+    "statement": "Design scripts top-down, decomposing large tasks into simple named steps that fit shell composition."
+   }
+  ]
+ },
+ {
+  "group": 228,
+  "members": [
+   {
+    "idx": 439,
+    "statement": "Build shell fluency around the core primitives of streams, search, text matching, argument construction, and scripting."
+   },
+   {
+    "idx": 442,
+    "statement": "Reason about shell commands as stream processors with distinct standard input, standard output, and standard error channels."
+   },
+   {
+    "idx": 520,
+    "statement": "Design shell-friendly tools around conventions, stdin, stdout, portability, and composability from the beginning."
+   },
+   {
+    "idx": 523,
+    "statement": "Build CLI programs incrementally from stdin reading to validation, lookup, subprocess checks, structured parsing, and graceful missing-data handling."
+   },
+   {
+    "idx": 634,
+    "statement": "Prefer composable shell primitives such as pipelines, brace expansion, echo demonstrations, and distro-portable core commands when teaching command-line workflows."
+   },
+   {
+    "idx": 638,
+    "statement": "Choose shell composition operators by control-flow semantics: semicolon for unconditional sequence, && for dependent success, || for fallback, pipes for streams, substitution for computed arguments, and process substitution for file-only consumers."
+   }
+  ]
+ },
+ {
+  "group": 229,
+  "members": [
+   {
+    "idx": 440,
+    "statement": "Automate repeated shell work with variables, conditionals, loops, functions, and explicit error handling rather than duplicated command text."
+   },
+   {
+    "idx": 464,
+    "statement": "Turn repeated command sequences into readable scripts composed from tested stages and comments that explain intent."
+   },
+   {
+    "idx": 514,
+    "statement": "Understand shell expansion order and use basic brace, tilde, and parameter-default forms to reduce repeated command text safely."
+   },
+   {
+    "idx": 833,
+    "statement": "Turn repeated command sequences into readable shell scripts with shebangs, comments, executable permissions, and predictable locations."
+   }
+  ]
+ },
+ {
+  "group": 232,
+  "members": [
+   {
+    "idx": 445,
+    "statement": "Use tee to make pipeline stages observable without breaking the flow of data to later stages."
+   },
+   {
+    "idx": 456,
+    "statement": "Preview stream transformations on stdout and restrict their scope before modifying source data."
+   },
+   {
+    "idx": 851,
+    "statement": "Feed files into read-driven loops with redirection after done, and avoid pipeline subshell surprises when loop assignments must persist."
+   },
+   {
+    "idx": 880,
+    "statement": "Use tee with output process substitution when one stream must both remain visible and feed a secondary consumer."
+   }
+  ]
+ },
+ {
+  "group": 234,
+  "members": [
+   {
+    "idx": 447,
+    "statement": "Quote, group, and combine find expressions deliberately so search logic reaches find unchanged and matches the intended paths."
+   },
+   {
+    "idx": 652,
+    "statement": "Use find for precise live tree searches and locate for indexed repeated searches, selecting predicates and expression operators before actions."
+   },
+   {
+    "idx": 787,
+    "statement": "Quote find patterns and compose tests, grouping, and logical operators so the shell does not rewrite the search expression before find evaluates it."
+   }
+  ]
+ },
+ {
+  "group": 235,
+  "members": [
+   {
+    "idx": 448,
+    "statement": "Confirm find result sets before running actions, and prefer safer execution modes for risky operations."
+   },
+   {
+    "idx": 788,
+    "statement": "Verify find actions with printing or prompts before deleting or executing commands, and choose per-file versus batched execution intentionally."
+   }
+  ]
+ },
+ {
+  "group": 236,
+  "members": [
+   {
+    "idx": 449,
+    "statement": "Build regular expressions iteratively against valid and invalid examples, with awareness of the target regex engine."
+   },
+   {
+    "idx": 450,
+    "statement": "Use quantifiers, character classes, and metacharacters narrowly so regex matches encode the real data constraint."
+   },
+   {
+    "idx": 451,
+    "statement": "Anchor, escape, and capture regex patterns according to whether the task needs whole-line matching, literal symbols, or reusable subparts."
+   },
+   {
+    "idx": 798,
+    "statement": "Use anchors, bracket expressions, POSIX character classes, and locale controls intentionally when regular-expression matches depend on exact character sets."
+   }
+  ]
+ },
+ {
+  "group": 237,
+  "members": [
+   {
+    "idx": 453,
+    "statement": "Use grep as the portable default for text search, with quoted patterns and explicit options for case, context, recursion, filenames, and line numbers."
+   },
+   {
+    "idx": 454,
+    "statement": "Compose simple grep stages and page long results before reaching for less portable search alternatives."
+   },
+   {
+    "idx": 655,
+    "statement": "Use grep variants and options according to matching semantics, output needs, context, recursion behavior, and fixed-string versus regex interpretation."
+   }
+  ]
+ },
+ {
+  "group": 238,
+  "members": [
+   {
+    "idx": 455,
+    "statement": "Choose text tools by the shape of the transformation: characters for tr, fields for cut, lines for sort or uniq, and patterns for sed."
+   },
+   {
+    "idx": 658,
+    "statement": "Build text transformations as pipelines of narrow tools, escalating from paste/column/tr/sort/uniq/tac/shuf/tee to awk, sed, or a programming language when structure demands it."
+   },
+   {
+    "idx": 803,
+    "statement": "Use text inspection and sorting tools to reveal control characters, normalize line endings, number or compress blank lines, and sort by appropriate keys."
+   }
+  ]
+ },
+ {
+  "group": 240,
+  "members": [
+   {
+    "idx": 458,
+    "statement": "Use head, tail, and pagers to inspect samples, logs, and large intermediate results without flooding the terminal."
+   },
+   {
+    "idx": 642,
+    "statement": "Use layered command help sources and page long output rather than relying on memory or truncated terminal output."
+   }
+  ]
+ },
+ {
+  "group": 242,
+  "members": [
+   {
+    "idx": 460,
+    "statement": "Prefer writing transformed sed output to a new file or using a purpose-built templating tool when direct in-place edits become risky or unclear."
+   },
+   {
+    "idx": 814,
+    "statement": "Use in-place sed only when rewriting the target file is intended, and combine simple sed commands when a single pass is sufficient."
+   }
+  ]
+ },
+ {
+  "group": 244,
+  "members": [
+   {
+    "idx": 467,
+    "statement": "Expose personal commands through user-owned PATH directories and symlinks rather than system package directories."
+   },
+   {
+    "idx": 489,
+    "statement": "Organize personal command shortcuts through aliases, functions, a user bin directory, symlinks, and PATH only where each abstraction fits."
+   }
+  ]
+ },
+ {
+  "group": 245,
+  "members": [
+   {
+    "idx": 471,
+    "statement": "Use shell arithmetic for integer calculations and make order and configurable values explicit."
+   },
+   {
+    "idx": 516,
+    "statement": "Use modern command substitution and arithmetic expansion for command output and integer calculations inside shell code."
+   },
+   {
+    "idx": 868,
+    "statement": "Use shell arithmetic only for integer logic, being explicit about bases, division truncation, modulo, assignment versus equality, and increment semantics."
+   }
+  ]
+ },
+ {
+  "group": 246,
+  "members": [
+   {
+    "idx": 472,
+    "statement": "Write conditionals around command status, typed tests, ordered branches, and explicit defaults."
+   },
+   {
+    "idx": 475,
+    "statement": "Detect shell-specific behavior explicitly and keep branch-specific values named before branching."
+   },
+   {
+    "idx": 715,
+    "statement": "Format shell control flow so keywords appear at valid command boundaries, and choose if/elif, case, while, until, or for according to the branching or looping model."
+   },
+   {
+    "idx": 846,
+    "statement": "Use control operators and grouped commands for compact success-or-failure branching, especially simple precondition checks."
+   }
+  ]
+ },
+ {
+  "group": 248,
+  "members": [
+   {
+    "idx": 479,
+    "statement": "Keep loop control readable by using break and continue for real control-flow decisions and compact syntax only when it remains clear."
+   },
+   {
+    "idx": 716,
+    "statement": "Prevent infinite loops by ensuring loop state changes or termination conditions can actually change."
+   }
+  ]
+ },
+ {
+  "group": 250,
+  "members": [
+   {
+    "idx": 487,
+    "statement": "Check operating system, required programs, shell invocation, and complexity limits explicitly; move to a programming language when shell maintainability breaks down."
+   },
+   {
+    "idx": 719,
+    "statement": "Move from shell to a stronger programming language when the problem exceeds shell scripting complexity."
+   }
+  ]
+ },
+ {
+  "group": 252,
+  "members": [
+   {
+    "idx": 491,
+    "statement": "Treat login-shell and default-shell changes as high-risk environment setup that should be minimal and tested before becoming default."
+   },
+   {
+    "idx": 760,
+    "statement": "Put login-environment changes and interactive bash customizations in the appropriate user startup files rather than system defaults unless administering all users."
+   }
+  ]
+ },
+ {
+  "group": 258,
+  "members": [
+   {
+    "idx": 500,
+    "statement": "Use Git to track configuration changes and assemble each commit through an explicit staging area."
+   },
+   {
+    "idx": 501,
+    "statement": "Commit only a clean, intentional index and write messages that explain what changed and why."
+   },
+   {
+    "idx": 761,
+    "statement": "Edit configuration as plain text with backups, comments, and a change log so changes can be understood and reversed."
+   }
+  ]
+ },
+ {
+  "group": 259,
+  "members": [
+   {
+    "idx": 502,
+    "statement": "Use branches to isolate unfinished or experimental changes from the main line of work."
+   },
+   {
+    "idx": 503,
+    "statement": "Create, switch, and merge Git branches with a clear receiving branch and an understanding of fast-forward versus merge commits."
+   },
+   {
+    "idx": 507,
+    "statement": "Use detached HEAD for inspection or disposable experiments unless you intentionally create a branch for new work."
+   },
+   {
+    "idx": 707,
+    "statement": "Make version-control changes reviewable before sharing: inspect working and staged diffs, commit deliberately, pull collaborators changes before pushing, and isolate work on branches."
+   }
+  ]
+ },
+ {
+  "group": 268,
+  "members": [
+   {
+    "idx": 515,
+    "statement": "Use parameter expansion for required values, alternates, substrings, arrays, variable cleanup, and simple path text manipulation before spawning external tools."
+   },
+   {
+    "idx": 866,
+    "statement": "Use parameter expansion with quoting, braces, defaults, required values, alternates, and prefix introspection to manage missing or adjacent variable values."
+   }
+  ]
+ },
+ {
+  "group": 269,
+  "members": [
+   {
+    "idx": 521,
+    "statement": "Keep CLI output pipeline-friendly by avoiding noise, using terminal-only color, familiar options, portable behavior, and documented exit statuses."
+   },
+   {
+    "idx": 524,
+    "statement": "Use parser libraries, help output, clear separators, width controls, executable installation, and end-of-options handling to make a CLI usable in real shells."
+   }
+  ]
+ },
+ {
+  "group": 271,
+  "members": [
+   {
+    "idx": 525,
+    "statement": "Use SSH with explicit credentials, host identity awareness, protected private keys, and clean session closure."
+   },
+   {
+    "idx": 530,
+    "statement": "Use scp with clear local or remote source-destination paths, reused SSH options, agents, and ports for straightforward secure file transfer."
+   },
+   {
+    "idx": 696,
+    "statement": "Use SSH-family tools for encrypted remote login and transfer, setting usernames, ports, terminals, verbosity, key permissions, and metadata preservation according to the task."
+   },
+   {
+    "idx": 782,
+    "statement": "Avoid cleartext remote login and file-transfer tools on untrusted networks; use SSH-based secure communication instead."
+   },
+   {
+    "idx": 783,
+    "statement": "Treat SSH host-key changes as security-relevant until confirmed, then update known_hosts with the intended tool or file edit."
+   }
+  ]
+ },
+ {
+  "group": 272,
+  "members": [
+   {
+    "idx": 526,
+    "statement": "Stop or terminate temporary cloud machines when remote-shell experiments are finished."
+   },
+   {
+    "idx": 529,
+    "statement": "Plan for SSH disconnections by knowing how to terminate a frozen session and when remote processes may receive hangup."
+   }
+  ]
+ },
+ {
+  "group": 276,
+  "members": [
+   {
+    "idx": 533,
+    "statement": "Set a terminal editor as the shell editor and use edit-in-editor for complex command lines instead of risky inline rewriting."
+   },
+   {
+    "idx": 629,
+    "statement": "When copying example commands, omit prompts and output, replace placeholders with real values, and preserve continuation syntax only when the shell should continue the command line."
+   },
+   {
+    "idx": 722,
+    "statement": "Use terminal-native editing, history, and clipboard conventions to edit commands safely instead of relying on ordinary GUI shortcuts."
+   }
+  ]
+ },
+ {
+  "group": 278,
+  "members": [
+   {
+    "idx": 535,
+    "statement": "Use tmux for persistent, organized, remote-friendly terminal sessions with exact shortcut handling and prefix-based commands."
+   },
+   {
+    "idx": 537,
+    "statement": "Run tmux remotely through SSH with TTY and remote-command configuration when remote work should resume after disconnects."
+   }
+  ]
+ },
+ {
+  "group": 279,
+  "members": [
+   {
+    "idx": 536,
+    "statement": "Master tmux panes, windows, sessions, attach, detach, naming, and cleanup before adding advanced customizations."
+   },
+   {
+    "idx": 538,
+    "statement": "Expand tmux with Vim-oriented keys, styling, plugins, and advanced pane operations only after the default workflow is understood."
+   }
+  ]
+ },
+ {
+  "group": 281,
+  "members": [
+   {
+    "idx": 540,
+    "statement": "Choose setup material and shell environment based on current comfort, operating system, and the book's Linux-like bash baseline."
+   },
+   {
+    "idx": 720,
+    "statement": "Learn command-line work hands-on on an available Linux system, using a full installation when sustained practice needs speed and persistence."
+   },
+   {
+    "idx": 758,
+    "statement": "Manage the shell environment through the right inspection tools and startup files, especially PATH and ~/.bashrc for private commands."
+   }
+  ]
+ },
+ {
+  "group": 283,
+  "members": [
+   {
+    "idx": 542,
+    "statement": "Verify working directory, listings, hidden files, and path forms before running commands whose effects depend on location."
+   },
+   {
+    "idx": 631,
+    "statement": "Resolve paths deliberately: know the current directory, use absolute paths for unambiguous targets, verify with pwd, and use home-directory forms intentionally."
+   }
+  ]
+ },
+ {
+  "group": 284,
+  "members": [
+   {
+    "idx": 543,
+    "statement": "Use recursive copy, command-line downloads, package installation, and file-type inspection deliberately when preparing or moving filesystem content."
+   },
+   {
+    "idx": 544,
+    "statement": "Verify archives and directory layouts, and apply copy, move, mkdir, touch, and wildcard operations according to their source-destination and pattern semantics."
+   },
+   {
+    "idx": 643,
+    "statement": "Inspect files and directories before modifying them, and use interactive or attribute-preserving options when overwrites, copies, moves, or recursive deletion carry risk."
+   },
+   {
+    "idx": 681,
+    "statement": "Use package-manager metadata and query operations before install, update, or removal, and never maintain packages by manually deleting installed files."
+   }
+  ]
+ },
+ {
+  "group": 285,
+  "members": [
+   {
+    "idx": 545,
+    "statement": "Treat shell deletion as irreversible; prefer interactive or nonrecursive removal unless recursive deletion of contents is clearly intended."
+   },
+   {
+    "idx": 731,
+    "statement": "Treat rm as permanent and preview wildcard deletion targets with a non-destructive command first."
+   }
+  ]
+ },
+ {
+  "group": 286,
+  "members": [
+   {
+    "idx": 546,
+    "statement": "Use cat, redirection, and recursive zip for simple text inspection, stream concatenation, output capture, and archive packaging."
+   },
+   {
+    "idx": 646,
+    "statement": "Choose file viewers by content and task: cat for short streams, less for long text, nl for controlled line numbering, head/tail for samples, strings for readable binary fragments, and od for byte-level inspection."
+   },
+   {
+    "idx": 660,
+    "statement": "Handle archives by first choosing the archive family and action, naming the archive explicitly, selecting compression flags by format, and controlling extraction destination."
+   },
+   {
+    "idx": 795,
+    "statement": "Use zip mainly for Windows interoperability and account for recursive directory archiving, update behavior, extraction prompts, and stdin limitations."
+   }
+  ]
+ },
+ {
+  "group": 287,
+  "members": [
+   {
+    "idx": 547,
+    "statement": "Handle clipboard differences by using the terminal's platform shortcuts and persistent pbcopy or pbpaste aliases where the platform lacks them."
+   },
+   {
+    "idx": 548,
+    "statement": "Use pipelines to send files or command output directly into clipboard and downstream commands instead of manual selection."
+   },
+   {
+    "idx": 704,
+    "statement": "Access clipboards only through mechanisms supported by the active graphical or terminal environment, and choose the correct X selection for the paste target."
+   }
+  ]
+ },
+ {
+  "group": 289,
+  "members": [
+   {
+    "idx": 550,
+    "statement": "Use builtin help, manual sections, and manual keyword search to locate local documentation when command names or meanings are ambiguous."
+   },
+   {
+    "idx": 628,
+    "statement": "Explain and troubleshoot commands by separating program name, options, and operands, and never transfer an option meaning across commands without command-specific evidence."
+   },
+   {
+    "idx": 733,
+    "statement": "Identify how the shell will resolve a command name before overriding it or looking up the wrong documentation source."
+   }
+  ]
+ },
+ {
+  "group": 296,
+  "members": [
+   {
+    "idx": 566,
+    "statement": "Double-quote a parameter expansion to suppress field splitting and pathname expansion on its result, and choose the ${parameter:-}, :=, :?, or :+ form deliberately, minding that the colon variants test for unset-or-null while the colon-less variants test only for unset."
+   },
+   {
+    "idx": 573,
+    "statement": "Expect each field to undergo pathname (glob) expansion after field splitting unless set -f is in effect, so quote a value or enable set -f (noglob) to keep literal characters such as * and ? from matching filenames."
+   }
+  ]
+ },
+ {
+  "group": 298,
+  "members": [
+   {
+    "idx": 576,
+    "statement": "Control here-document expansion by quoting the delimiter: an unquoted delimiter expands the body for parameter, command, and arithmetic expansion (with backslash behaving as inside double-quotes) while quoting any part of the delimiter word suppresses all body expansion; also use <<- to strip leading tabs and do not assume the here-document descriptor is seekable."
+   },
+   {
+    "idx": 836,
+    "statement": "Use here documents for multi-line embedded input or output, choosing quoted delimiters, escaping, and tab-stripping behavior to match expansion and indentation needs."
+   }
+  ]
+ },
+ {
+  "group": 299,
+  "members": [
+   {
+    "idx": 578,
+    "statement": "Account for interactivity in error handling: a non-interactive shell exits on a syntax, expansion, variable-assignment, special-built-in, or special-built-in redirection error while an interactive shell does not, an error in a special built-in is more fatal than one in an ordinary utility, and an error in a subshell exits only that subshell before execution continues in the caller."
+   },
+   {
+    "idx": 602,
+    "statement": "Treat special built-ins as more privileged than ordinary utilities: an error in one may abort the shell, they need not be reachable through the exec family of functions, and those not conforming to the Utility Syntax Guidelines do not accept a -- argument."
+   }
+  ]
+ },
+ {
+  "group": 300,
+  "members": [
+   {
+    "idx": 580,
+    "statement": "Model a simple command as: save the words that are variable assignments or redirections, expand the remaining words so the first field is the command name, perform the redirections, then expand and apply the variable assignments; and note that when no command name results the assignments affect the current environment."
+   },
+   {
+    "idx": 609,
+    "statement": "Use export to give variables the export attribute so their values appear in the environment of subsequently executed commands, and use name=word to set the value at the same time."
+   }
+  ]
+ },
+ {
+  "group": 309,
+  "members": [
+   {
+    "idx": 598,
+    "statement": "Pass state to child utilities only through exported variables: a utility that is not a special built-in runs in a separate environment seeded from the parent that receives only exported variables, it does not change the shell environment unless its own description says so (as cd and umask do), and a shell-script utility has the shell caught traps reset to default."
+   },
+   {
+    "idx": 599,
+    "statement": "Treat a subshell as an isolated duplicate: it copies the environment but resets non-ignored traps to their defaults and its changes never propagate back to the parent, and command substitutions, parenthesized groups, asynchronous lists, and each stage of a multi-command pipeline all run in subshells, so state set there does not survive."
+   }
+  ]
+ },
+ {
+  "group": 311,
+  "members": [
+   {
+    "idx": 606,
+    "statement": "Treat eval as a second round of shell parsing: it concatenates its arguments with spaces and re-reads and executes the result, returns zero for no or only-null arguments, and because it need not honour --, guard arguments that might begin with a hyphen (for example by prefixing a space) and never eval untrusted input."
+   },
+   {
+    "idx": 879,
+    "statement": "Use eval only for genuinely dynamic commands, and build the evaluated string from validated fragments to avoid injection."
+   }
+  ]
+ },
+ {
+  "group": 313,
+  "members": [
+   {
+    "idx": 613,
+    "statement": "Know the set output and option syntax: set with no options or arguments lists all variables re-inputtably, options are enabled with a hyphen and disabled with a plus-sign, set -o prints option state in an unspecified format, and set +o prints it in a form suitable for re-input to restore the same options."
+   },
+   {
+    "idx": 619,
+    "statement": "Manage positional parameters through set with care: giving arguments unsets all existing positional parameters before assigning the new ones, a lone hyphen as the first argument is unspecified, and set -- both delimits arguments that could start with a hyphen or plus (as in set -- \"$x\") and, with no further arguments, unsets all positional parameters."
+   }
+  ]
+ },
+ {
+  "group": 317,
+  "members": [
+   {
+    "idx": 621,
+    "statement": "Use the times special built-in, required of all conforming shells, to report the accumulated user and system CPU time for the shell and all of its child processes."
+   },
+   {
+    "idx": 670,
+    "statement": "Distinguish processes from shell jobs and choose process-inspection tools by question: ps/pgrep for PIDs, uptime/free/top/w for load, memory, activity, and user context."
+   }
+  ]
+ },
+ {
+  "group": 318,
+  "members": [
+   {
+    "idx": 626,
+    "statement": "Use unset -v to remove a variable (read-only variables cannot be unset) and unset -f to remove a function; without an option unset targets a variable and it is unspecified whether a function is removed when no such variable exists, so always pass -f to unset a function."
+   },
+   {
+    "idx": 627,
+    "statement": "Distinguish clearing a variable to empty from unsetting it: VARIABLE= sets the variable to an empty string rather than unsetting it, special parameters cannot be unset, and unsetting a name that was never set is not an error and does not abort the shell."
+   }
+  ]
+ },
+ {
+  "group": 319,
+  "members": [
+   {
+    "idx": 632,
+    "statement": "Use Linux directory conventions as diagnostic hints, but verify actual contents and permissions before changing system files."
+   },
+   {
+    "idx": 728,
+    "statement": "Use a read-only system-tour workflow and know the purpose of major filesystem trees before editing system files."
+   }
+  ]
+ },
+ {
+  "group": 321,
+  "members": [
+   {
+    "idx": 644,
+    "statement": "Choose hard links or symbolic links based on target semantics, device boundaries, directory targets, and tolerance for target path changes."
+   },
+   {
+    "idx": 729,
+    "statement": "Use symbolic links and wildcard patterns deliberately, accounting for stable names, hidden files, and portable character classes."
+   },
+   {
+    "idx": 732,
+    "statement": "Favor symbolic links for routine references, understand which operations affect the link versus the target, and prefer relative targets for movable trees."
+   }
+  ]
+ },
+ {
+  "group": 325,
+  "members": [
+   {
+    "idx": 650,
+    "statement": "Change ownership, group, permissions, and timestamps only after confirming identity, scope, recursion, references, and accepted timestamp formats."
+   },
+   {
+    "idx": 750,
+    "statement": "Repair ownership and group access with chown or chgrp when privileged operations create files ordinary users must later edit."
+   }
+  ]
+ },
+ {
+  "group": 326,
+  "members": [
+   {
+    "idx": 651,
+    "statement": "Treat special permission and attribute mechanisms as security-sensitive controls: conditional execute, setuid/setgid, sticky bit, umask, immutable attributes, and filesystem-specific extended attributes all need explicit intent."
+   },
+   {
+    "idx": 747,
+    "statement": "Use chmod notation, umask, setgid, and sticky bits with awareness of their scope and security impact."
+   },
+   {
+    "idx": 751,
+    "statement": "Build shared writable directories around a collaboration group, group write permission, setgid inheritance, and a compatible umask."
+   }
+  ]
+ },
+ {
+  "group": 327,
+  "members": [
+   {
+    "idx": 653,
+    "statement": "Make file-search pipelines safe by escaping find patterns, using null-delimited output for arbitrary filenames, testing xargs with harmless commands, and confirming destructive find actions."
+   },
+   {
+    "idx": 789,
+    "statement": "Use null-delimited find and xargs pipelines for filenames that may contain embedded whitespace."
+   }
+  ]
+ },
+ {
+  "group": 331,
+  "members": [
+   {
+    "idx": 659,
+    "statement": "Sort and deduplicate with semantics that match the data: choose numeric or lexical ordering, explicit keys and delimiters, validation mode, and sort-before-uniq when duplicates are not adjacent."
+   },
+   {
+    "idx": 805,
+    "statement": "Deduplicate with awareness that uniq only sees adjacent duplicates, while sort -u can sort and remove duplicates in one step."
+   }
+  ]
+ },
+ {
+  "group": 332,
+  "members": [
+   {
+    "idx": 661,
+    "statement": "Preserve originals and pipeline flow by using decompression-to-stdout forms when compression tools would otherwise replace files."
+   },
+   {
+    "idx": 792,
+    "statement": "Use gzip or bzip2 with awareness of replacement behavior, stdout mode, integrity testing, compression level, viewing helpers, speed, and damage recovery."
+   }
+  ]
+ },
+ {
+  "group": 333,
+  "members": [
+   {
+    "idx": 662,
+    "statement": "Use MIME pack/unpack tools for command-line email attachment conversion rather than treating attachments as ordinary text."
+   },
+   {
+    "idx": 698,
+    "statement": "Use command-line mail clients for terminal or scripted notifications and choose attachment handling when content is binary."
+   }
+  ]
+ },
+ {
+  "group": 335,
+  "members": [
+   {
+    "idx": 664,
+    "statement": "Compare files with the tool whose granularity matches the question, and avoid weak checksum algorithms for production integrity checks."
+   },
+   {
+    "idx": 665,
+    "statement": "Use quiet or exit-status-only comparison modes in scripts and saved strong checksums for later integrity verification."
+   },
+   {
+    "idx": 779,
+    "statement": "Verify downloaded images with checksums before use because even a one-bit difference changes the checksum."
+   }
+  ]
+ },
+ {
+  "group": 339,
+  "members": [
+   {
+    "idx": 671,
+    "statement": "Signal processes in escalating order: normal termination first, named or listed signals when needed, timeout for bounded runtime, and KILL only after grace or when ordinary termination fails."
+   },
+   {
+    "idx": 756,
+    "statement": "Signal processes with the least force that can work, reserving KILL for last resort after normal termination fails."
+   }
+  ]
+ },
+ {
+  "group": 340,
+  "members": [
+   {
+    "idx": 672,
+    "statement": "Adjust process priority, lifetime, and concurrency deliberately: nice/renice for scheduler priority, nohup for logout survival, and flock for non-overlap."
+   },
+   {
+    "idx": 755,
+    "statement": "Change process priority sparingly and only within privilege rules so essential system work is not starved."
+   }
+  ]
+ },
+ {
+  "group": 346,
+  "members": [
+   {
+    "idx": 678,
+    "statement": "Manage user accounts conservatively: require strong passwords, use explicit creation options, avoid unnecessary numeric IDs or account renames, lock before deleting where appropriate, and preserve groups when adding memberships."
+   },
+   {
+    "idx": 679,
+    "statement": "Manage account shells, passwords, locks, groups, and group IDs as persistent security state that can affect login access and file ownership."
+   }
+  ]
+ },
+ {
+  "group": 348,
+  "members": [
+   {
+    "idx": 682,
+    "statement": "Build source releases safely by inspecting archives, extracting into a new directory, reading project instructions, configuring a user prefix when appropriate, and installing only after successful build."
+   },
+   {
+    "idx": 829,
+    "statement": "Prepare source builds by installing build tools, keeping personal source in user-controlled directories, and inspecting tarball layout before extraction."
+   }
+  ]
+ },
+ {
+  "group": 349,
+  "members": [
+   {
+    "idx": 683,
+    "statement": "Before storage operations, name the storage layer precisely and map block devices, partitions, filesystems, mount points, and directories with df or lsblk."
+   },
+   {
+    "idx": 773,
+    "statement": "Understand mounting through fstab, labels or UUIDs, mount points, mount listings, and filesystem types before manually attaching storage."
+   },
+   {
+    "idx": 775,
+    "statement": "Identify block devices on the actual system using logs and lsblk before partitioning, formatting, or copying raw device data."
+   }
+  ]
+ },
+ {
+  "group": 351,
+  "members": [
+   {
+    "idx": 685,
+    "statement": "Mount and unmount filesystems through fstab-aware commands when possible, and unmount writable removable media before removal while respecting busy-filesystem refusals."
+   },
+   {
+    "idx": 774,
+    "statement": "Unmount filesystems before removal or repair, and resolve busy mounts by moving processes away from the mount point."
+   },
+   {
+    "idx": 777,
+    "statement": "Let fsck repair only unmounted filesystems, and account for fstab check order and lost+found recovery behavior."
+   }
+  ]
+ },
+ {
+  "group": 356,
+  "members": [
+   {
+    "idx": 690,
+    "statement": "Treat ZFS as a separate storage stack: use stable device identifiers, set hardware-sensitive creation options, verify pools, and manage datasets, mountpoints, encryption, and quotas through ZFS commands."
+   },
+   {
+    "idx": 691,
+    "statement": "Enable ZFS features before relying on them, snapshot before risky changes, and treat ZFS destroy commands as immediate irreversible actions."
+   }
+  ]
+ },
+ {
+  "group": 357,
+  "members": [
+   {
+    "idx": 692,
+    "statement": "Use backup and sync tools with exact source/destination semantics, dry runs, and transport choices: rsync for attribute-preserving mirrors, rclone for cloud remotes, and growisofs for staged disc images."
+   },
+   {
+    "idx": 796,
+    "statement": "Use rsync for repeated synchronization, preserving attributes and understanding trailing slashes, deletion mirroring, SSH transport, and local-end requirements."
+   }
+  ]
+ },
+ {
+  "group": 358,
+  "members": [
+   {
+    "idx": 693,
+    "statement": "Treat raw device copying with dd as high risk; verify input/output devices before running as root."
+   },
+   {
+    "idx": 778,
+    "statement": "Double-check dd operands and media type before raw copying, imaging, or optical workflows because mistakes can destroy data."
+   }
+  ]
+ },
+ {
+  "group": 359,
+  "members": [
+   {
+    "idx": 694,
+    "statement": "Inspect host and interface facts with current tools, distinguishing persistent configuration from runtime observation and preferring iproute2 over legacy interfaces."
+   },
+   {
+    "idx": 781,
+    "statement": "Use ip output to inspect interface state, addresses, routes, DHCP success, and default gateway behavior on modern Linux."
+   }
+  ]
+ },
+ {
+  "group": 363,
+  "members": [
+   {
+    "idx": 700,
+    "statement": "Choose command-line web tools by output model: Lynx for cautious text browsing, curl for stdout/API/pipeline use, and wget for durable downloads or mirroring."
+   },
+   {
+    "idx": 718,
+    "statement": "Never execute generated or downloaded shell text blindly; inspect the exact commands first, especially before piping curl/wget or generated rename/download commands into bash."
+   }
+  ]
+ },
+ {
+  "group": 365,
+  "members": [
+   {
+    "idx": 703,
+    "statement": "Generate numeric streams with seq and keep terminal clearing separate from shell state."
+   },
+   {
+    "idx": 878,
+    "statement": "Use process substitution to keep read loops in the current shell while consuming generated or filtered streams."
+   }
+  ]
+ },
+ {
+  "group": 366,
+  "members": [
+   {
+    "idx": 705,
+    "statement": "Choose calculator tools by complexity: shell arithmetic or expr for simple expressions, bc for precision and programmable arithmetic, and dc only for acceptable stack/RPN workflows."
+   },
+   {
+    "idx": 869,
+    "statement": "Use advanced arithmetic operators only when they improve numeric clarity, remembering bit-level scope, ternary grouping, sentinel loops, and comma status behavior."
+   },
+   {
+    "idx": 870,
+    "statement": "Use bc for floating-point or high-precision calculations, controlling input mode, quiet output, scale, and argument validation."
+   }
+  ]
+ },
+ {
+  "group": 373,
+  "members": [
+   {
+    "idx": 717,
+    "statement": "Validate and report script arguments using positional parameters, argument count, script name, all-argument iteration, and explicit success/failure exit codes."
+   },
+   {
+    "idx": 859,
+    "statement": "Use positional parameters, argument counts, brace syntax, shift, and self-name extraction to process arbitrary script arguments and usage messages."
+   }
+  ]
+ },
+ {
+  "group": 374,
+  "members": [
+   {
+    "idx": 723,
+    "statement": "Start diagnostics with small observational commands for time, uptime, disk space, and memory before making changes."
+   },
+   {
+    "idx": 856,
+    "statement": "Use isolation, manual trace messages, xtrace, PS4, scoped tracing, and variable dumps to find logic and flow bugs."
+   }
+  ]
+ },
+ {
+  "group": 376,
+  "members": [
+   {
+    "idx": 725,
+    "statement": "Choose shell-friendly filenames and remember that Linux names are case-sensitive, hidden by leading dot, and not semantically governed by extensions."
+   },
+   {
+    "idx": 854,
+    "statement": "Use ShellCheck and portable filename discipline to catch common scripting defects and avoid option-like or nonportable pathnames."
+   },
+   {
+    "idx": 871,
+    "statement": "Use shell-native basename expansion where sufficient before reaching for external basename."
+   }
+  ]
+ },
+ {
+  "group": 393,
+  "members": [
+   {
+    "idx": 768,
+    "statement": "Prefer distribution package management and repository-supported packages over manual source installation for ordinary software maintenance."
+   },
+   {
+    "idx": 769,
+    "statement": "Use high-level package tools and synchronized repository metadata for dependency-aware package search, installation, removal, update, and information queries."
+   },
+   {
+    "idx": 770,
+    "statement": "Use low-level package-file installation cautiously because it lacks the repository dependency-resolution workflow."
+   }
+  ]
+ },
+ {
+  "group": 403,
+  "members": [
+   {
+    "idx": 793,
+    "statement": "Use tar modes and path handling deliberately for creation, extraction, ownership, selective restore, incremental archives, and standard streams."
+   },
+   {
+    "idx": 794,
+    "statement": "Use tar file-list input, built-in compression, and SSH pipelines when archiving or transferring directory trees efficiently and securely."
+   }
+  ]
+ },
+ {
+  "group": 404,
+  "members": [
+   {
+    "idx": 797,
+    "statement": "Quote regular expressions and select the regex dialect expected by the tool so shell expansion and dialect differences do not change the pattern."
+   },
+   {
+    "idx": 799,
+    "statement": "Use extended regular expressions for alternation and repetition, quoting patterns and grouping alternatives so the shell and regex engine preserve the intended structure."
+   }
+  ]
+ },
+ {
+  "group": 408,
+  "members": [
+   {
+    "idx": 804,
+    "statement": "Design sort keys with field separators, key ranges, key modifiers, offsets, and ISO-like date formats when ordering structured text."
+   },
+   {
+    "idx": 806,
+    "statement": "Use cut, expand, unexpand, paste, and join for clean structured text, but ensure delimiters, stable positions, and join-key sorting are correct."
+   }
+  ]
+ },
+ {
+  "group": 411,
+  "members": [
+   {
+    "idx": 810,
+    "statement": "Use sed for noninteractive stream editing with explicit commands, scripts, addresses, and print behavior appropriate to the selected lines."
+   },
+   {
+    "idx": 812,
+    "statement": "Choose awk or Perl instead of sed when text processing grows beyond simple stream-editing tasks."
+   }
+  ]
+ },
+ {
+  "group": 417,
+  "members": [
+   {
+    "idx": 818,
+    "statement": "Use pr to paginate text for printing and coordinate page length and width with the intended output device."
+   },
+   {
+    "idx": 825,
+    "statement": "Use lp and a2ps layout controls with upstream pagination alignment when print orientation, density, scaling, page ranges, or pretty PostScript output matter."
+   }
+  ]
+ },
+ {
+  "group": 421,
+  "members": [
+   {
+    "idx": 823,
+    "statement": "Understand Linux printing as a CUPS and Ghostscript workflow with queues, conversion, page description, and rasterization."
+   },
+   {
+    "idx": 826,
+    "statement": "Monitor and manage print queues with lpstat, lpq, cancel, and lprm, distinguishing queue acceptance from hardware status."
+   }
+  ]
+ },
+ {
+  "group": 423,
+  "members": [
+   {
+    "idx": 827,
+    "statement": "Compile from source when package availability or version timeliness justifies the added complexity."
+   },
+   {
+    "idx": 832,
+    "statement": "Use make beyond compilation whenever a task can be expressed as targets and dependencies."
+   }
+  ]
+ },
+ {
+  "group": 441,
+  "members": [
+   {
+    "idx": 882,
+    "statement": "Create temporary files with mktemp or a safe user-local temporary directory rather than predictable shared-directory names."
+   },
+   {
+    "idx": 887,
+    "statement": "Protect temporary files in shared directories with both safe names and correct permissions, using the mktemp program intentionally."
+   }
+  ]
+ },
+ {
+  "group": 442,
+  "members": [
+   {
+    "idx": 883,
+    "statement": "Coordinate asynchronous child work with backgrounding, recorded PIDs, and wait when the parent depends on completion."
+   },
+   {
+    "idx": 888,
+    "statement": "Use background execution and wait together when parent correctness depends on child completion."
+   }
+  ]
+ },
+ {
+  "group": 443,
+  "members": [
+   {
+    "idx": 884,
+    "statement": "Use named pipes when a filesystem-visible FIFO is the right connection between separate processes."
+   },
+   {
+    "idx": 885,
+    "statement": "Reason about named pipes as file-like FIFO buffers that may block writers until a reader consumes the other end."
+   }
+  ]
+ }
+]

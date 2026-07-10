@@ -1,0 +1,250 @@
+# Faithfulness review — bash-shell-scripting-advisor
+# Per-rule claim-strength check of the load-bearing profile rules against the promoted principles and
+# their backing claims. No rule is stronger than its evidence. source_anchors are omitted deliberately:
+# the provenance is carried in each note via principle + claim IDs, which resolve into
+# principles.yaml (P###) and analysis/claims.jsonl (C#####). Verdicts sit at EXACT_SUPPORT /
+# WITHIN_SCOPE — the profile restates the sources' quoting/expansion/injection/error-handling/
+# portability rules and narrows their scope to review-and-advice; it does not broaden them.
+schema_version: faithfulness-report-v1
+subagent_slug: bash-shell-scripting-advisor
+findings:
+  - rule_ref: role
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      The role restates the sources' framing — Bash/POSIX shell and Linux command-line idioms and their
+      hazards — and narrows the posture to review/advice, explicitly disclaiming end-to-end
+      implementation, ownership of the risk-acceptance decision, and running exploits. A narrowing, not
+      an over-claim. Grounded in principle(s): P004 (claims C00027); P006 (claims C00761); P053 (claims
+      C01236); P108 (claims C00318).
+
+  - rule_ref: when_to_use[0]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Naming quoting/word-splitting/globbing correctness as a trigger is directly supported by the
+      quoting principles. Grounded in principle(s): P004 (claims C00027); P007 (claims C00317); P068
+      (claims C00056).
+
+  - rule_ref: when_to_use[1]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Reviewing the command-injection surface, input validation, and privilege model when a script runs
+      commands built from untrusted input is directly supported. Grounded in principle(s): P086 (claims
+      C00770); P111 (claims C00035); P006 (claims C00761).
+
+  - rule_ref: when_to_use[2]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Choosing an error-handling/exit-status/trap strategy that fails loud rather than limping on is
+      directly supported. Grounded in principle(s): P012 (claims C00201); P105 (claims C00101); P085
+      (claims C00516).
+
+  - rule_ref: when_to_use[3]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Naming a portability/interpreter decision (Bash-only vs POSIX sh, shebang, arrays, cross-shell
+      expansion differences) as a trigger is directly supported. Grounded in principle(s): P013 (claims
+      C00163); P018 (claims C00037); P088 (claims C00030).
+
+  - rule_ref: when_to_use[4]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Choosing a safe idiom for an everyday Linux command-line / light-sysadmin task is within scope of
+      the everyday-command material distilled into the linux-command-line-and-system-operations and
+      text-processing-and-regex-tools skills (Linux Pocket Guide, TLCL, Effective Shell). Grounded in
+      principle(s): P108 (claims C00318); P121 (claims C00765).
+
+  - rule_ref: when_not_to_use[0]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Declining to write a complete production script/tool end to end is a scope boundary consistent
+      with the advisory posture; the sources teach idioms and hazards, they do not own the caller's
+      implementation. Grounded in principle(s): P053 (claims C01236); P108 (claims C00318).
+
+  - rule_ref: when_not_to_use[1]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Declining to produce a working command-injection exploit or an offensive attack is a defensive
+      boundary the sources support. Grounded in principle(s): P006 (claims C00761); P111 (claims
+      C00035).
+
+  - rule_ref: when_not_to_use[2]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Handing non-shell language, application logic, or infrastructure beyond the shell to the owning
+      specialist — including when a task has outgrown the shell — restates the sources' own "move to a
+      stronger language" guidance as a boundary. Grounded in principle(s): P053 (claims C01236).
+
+  - rule_ref: when_not_to_use[3]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Declining non-POSIX / non-Unix shells (PowerShell, cmd.exe, proprietary shells) declares a
+      coverage boundary the sources support: they define POSIX and Bash behaviour, not those shells.
+      Grounded in principle(s): P013 (claims C00163).
+
+  - rule_ref: quality_bar[0]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      "Double-quote every data expansion; move filenames NUL-delimited, never by parsing ls or
+      iterating $(...)" restates the quoting/filename-list principles verbatim in intent. Grounded in
+      principle(s): P004 (claims C00027); P022 (claims C00103); P068 (claims C00056); P100 (claims
+      C00439).
+
+  - rule_ref: quality_bar[1]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      "Fail loud: non-zero on unexpected failure, test success directly, split declaration from
+      assignment so status is not masked, trap-clean on signals" restates the exit-status/trap
+      principles. Grounded in principle(s): P012 (claims C00201); P105 (claims C00101); P112 (claims
+      C00046); P085 (claims C00516).
+
+  - rule_ref: quality_bar[2]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      "Untrusted input never reaches a shell/eval/arithmetic context unsanitised; validate with narrow
+      positive allowlists; least privilege; prefer a library API over shelling out" restates the
+      injection-defence principles. Grounded in principle(s): P006 (claims C00761); P082 (claims
+      C00080); P086 (claims C00770); P111 (claims C00035); P121 (claims C00765).
+
+  - rule_ref: quality_bar[3]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      "Interpreter and portability explicit: correct shebang, Bash-only vs POSIX features named,
+      cross-shell/version differences called out" restates the portability principles. Grounded in
+      principle(s): P013 (claims C00163); P018 (claims C00037); P088 (claims C00030).
+
+  - rule_ref: quality_bar[4]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      "Every finding names the failure it enables and the trade-off/version caveat, escalates to a
+      stronger language when the problem outgrows the shell, and presents no single guard as complete
+      safety and no rule as stronger than its source" is the advisory meta-rule; it narrows how advice
+      is stated and does not over-claim. Grounded in principle(s): P053 (claims C01236); P086 (claims
+      C00770); P108 (claims C00318).
+
+  - rule_ref: forbidden_behaviours[0]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Forbidding end-to-end production authoring and forbidding a working command-injection exploit
+      against a system the caller does not own restates the advisory + defensive boundary. Grounded in
+      principle(s): P006 (claims C00761); P111 (claims C00035).
+
+  - rule_ref: forbidden_behaviours[1]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Forbidding unquoted data expansion, parsing ls / for f in $(...) for filenames, eval or an
+      arithmetic context over untrusted input, and "a && b || c" as a safe if/then/else names exactly
+      the idioms the sources call defects. Grounded in principle(s): P004 (claims C00027); P068 (claims
+      C00056); P082 (claims C00080); P105 (claims C00101); P111 (claims C00035).
+
+  - rule_ref: forbidden_behaviours[2]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Forbidding a rule stated more strongly than its source, an omitted portability/version caveat, or
+      a single guard presented as complete injection safety is the faithfulness meta-rule itself.
+      Grounded in principle(s): P013 (claims C00163); P086 (claims C00770); P108 (claims C00318).
+
+  - rule_ref: outputs.modes[review].output
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      A highest-risk-first findings list, each naming the hazard, the failure it enables, the safer
+      idiom, and the trade-off, restates the review posture the sources support. Grounded in
+      principle(s): P004 (claims C00027); P108 (claims C00318).
+
+  - rule_ref: outputs.modes[advise].output
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      A recommendation tied to the target shell and task, naming the principle(s) applied and the
+      residual risk to accept, restates the advisory posture. Grounded in principle(s): P053 (claims
+      C01236); P086 (claims C00770).
+
+  - rule_ref: outputs.modes[compare].output
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      A side-by-side of what each approach favours and costs against the target shell and data, ending
+      in a recommendation and the residual risk (Bash vs POSIX sh, [[ ]] vs [ ], loop/redirection/
+      text-tool choices), restates the comparison material. Grounded in principle(s): P013 (claims
+      C00163); P018 (claims C00037); P088 (claims C00030).
