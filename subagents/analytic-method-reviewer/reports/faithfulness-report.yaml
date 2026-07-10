@@ -1,0 +1,230 @@
+schema_version: faithfulness-report-v1
+subagent_slug: analytic-method-reviewer
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The role restates the sources'' subject — analytic method, hypotheses, evidence weighting, bias,
+    and the expression of uncertainty — and narrows the posture to review/advise, disclaiming making the
+    substantive judgment. A narrowing, not an over-claim. Grounded in principle(s): P013 (claim C00038);
+    P057 (claim C00116); P052 (claim C01713).'
+- rule_ref: when_to_use[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reviewing an analytic judgment for complete hypotheses, diagnostic evidence, explicit assumptions,
+    and honest uncertainty is directly supported. Grounded in principle(s): P057 (claim C00116); P074
+    (claim C00128); P013 (claim C00038).'
+- rule_ref: when_to_use[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Challenging a single operative hypothesis or single-outcome forecast with competing hypotheses
+    and alternative futures is directly supported. Grounded in principle(s): P013 (claim C00038); P020
+    (claim C01030); P006 (claim C00098).'
+- rule_ref: when_to_use[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Choosing and sequencing structured techniques (ACH, Key Assumptions Check, Outside-In, Red Team,
+    Indicators) across a project is directly supported. Grounded in principle(s): P011 (claim C00014);
+    P013 (claim C00038); P004 (claim C00058).'
+- rule_ref: when_to_use[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Naming and countering cognitive bias and motivated reasoning — mirror-imaging, confirmation,
+    asymmetric scrutiny — is directly supported. Grounded in principle(s): P009 (claim C00962); P051 (claim
+    C01629); P004 (claim C00058).'
+- rule_ref: when_to_use[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Calibrating probabilistic judgment with reference classes, the outside view, coherence, and aggregation,
+    and separating fact from opinion, is directly supported. Grounded in principle(s): P005 (claim C00023);
+    P034 (claim C01068); P068 (claim C01804).'
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Declining to make the substantive judgment restates the sources'' insistence that the analyst
+    owns the judgment and that closure must not be forced. A narrowing of scope. Grounded in principle(s):
+    P057 (claim C00116); P059 (claim C00178).'
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Scope boundary, not a source claim: these analytic-tradecraft sources do not cover operational
+    collection, HUMINT, targeting, or covert action, so excluding that work is a narrowing, not an over-claim.'
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Scope boundary, not a source claim: domain substance, infrastructure, and compliance sign-off
+    are outside analytic method; handing them off is a narrowing.'
+- rule_ref: when_not_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Declining to draft the finished product while still critiquing method restates the review/advise
+    posture — a narrowing, not an over-claim. Grounded in principle(s): P059 (claim C00178); P001 (claim
+    C00008).'
+- rule_ref: quality_bar[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Separating fact from opinion, stating the degree and source of uncertainty, and making linchpin
+    assumptions and inference chains explicit is directly supported. Grounded in principle(s): P057 (claim
+    C00116); P073 (claim C00120); P074 (claim C00128); P047 (claim C00237).'
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'A full hypothesis set, evidence weighed by diagnosticity, a drive to refute, and the matrix as
+    an aid not an oracle are directly supported. Grounded in principle(s): P013 (claim C00038); P027 (claim
+    C00139); P054 (claim C01908); P060 (claim C00253); P061 (claim C00363).'
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Surfacing and challenging assumptions and mind-set, reassessing premises rather than filtering,
+    and sequencing structured techniques are directly supported. Grounded in principle(s): P045 (claim
+    C00113); P047 (claim C00237); P011 (claim C00014); P046 (claim C00205).'
+- rule_ref: quality_bar[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reference classes / outside view, coherent estimates, updating, aggregation, and justified asymmetric-error
+    choices are directly supported. Grounded in principle(s): P005 (claim C00023); P034 (claim C01068);
+    P068 (claim C01804); P012 (claim C00582).'
+- rule_ref: quality_bar[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Countering mirror-imaging and single-outcome forecasting with Red Team, Alternative Futures,
+    and competing-view procedures is directly supported. Grounded in principle(s): P004 (claim C00058);
+    P006 (claim C00098); P020 (claim C01030); P058 (claim C00129).'
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding the advisor from making the judgment or overstating certainty tightens the sources''
+    own cautions into a hard boundary — a narrowing. Grounded in principle(s): P057 (claim C00116); P074
+    (claim C00128); P059 (claim C00178).'
+- rule_ref: forbidden_behaviours[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding a no-competitor assessment, treating consistency as confirmation, and letting the
+    matrix replace judgment is directly supported by the ACH principles. Grounded in principle(s): P013
+    (claim C00038); P054 (claim C01908); P061 (claim C00363).'
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding over-claiming a principle or presenting a technique/formula as a guarantee restates
+    the sources'' warnings that techniques are aids with no quick fix — a narrowing. Grounded in principle(s):
+    P052 (claim C01713); P008 (claim C00051); P046 (claim C00205).'
+- rule_ref: forbidden_behaviours[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Scope boundary, not a source claim: operational collection/HUMINT/targeting/covert-action are
+    outside these sources, so forbidding them is a narrowing.'
+- rule_ref: outputs.modes[review].trigger
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Critiquing hypothesis coverage, evidence diagnosticity, assumptions, bias, and uncertainty on
+    a submitted judgment is directly supported. Grounded in principle(s): P013 (claim C00038); P054 (claim
+    C01908); P047 (claim C00237).'
+- rule_ref: outputs.modes[advise].trigger
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Advising which technique, hypothesis set, or calibration practice fits the problem is directly
+    supported. Grounded in principle(s): P011 (claim C00014); P080 (claim C00352); P005 (claim C00023).'
+- rule_ref: outputs.modes[compare].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Comparing approaches (situational logic vs outside view, devil''s advocate vs adversarial collaboration)
+    and naming the trade-off is supported; casting it as a mode is a presentation choice, not an over-claim.
+    Grounded in principle(s): P008 (claim C00051); P044 (claim C01241); P029 (claim C00213).'
+- rule_ref: minimum_useful_output
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring at least one finding that names the flaw, applies a principle, names the corrective,
+    and states the residual uncertainty — never the substantive judgment — is directly supported. Grounded
+    in principle(s): P057 (claim C00116); P013 (claim C00038); P052 (claim C01713).'

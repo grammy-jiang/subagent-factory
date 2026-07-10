@@ -1,0 +1,230 @@
+schema_version: golden-tests-v1
+subagent_slug: bias-perception-reviewer
+generated_at: '2026-07-10'
+profile_version: 1.0.0
+tier: 2
+
+golden_tests:
+  - test_id: GT-001
+    description: Positive routing — vivid-analogy anchoring, vague odds, centralized-actor, dismissed evidence
+    prompt: >-
+      Review this estimate: a rival state "will almost certainly" escalate — we base it on the last
+      crisis, read their government as one coordinated planner, and treat a contradictory field report
+      as an outlier. Is it sound?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review flagging the single-analogy anchoring, the vague probability, the centralized-actor
+      assumption, and the dismissed discrepant report — each with the mechanism, the corrective
+      technique, and the residual uncertainty.
+    must_do:
+      - Flag the vivid recent crisis driving the conclusion and require searching the reference class more widely, weighting base rates over the anecdote (P001, P012, P124)
+      - Require replacing "almost certainly" with a granular numeric probability tied to resolution criteria so it can be scored (P049, P067)
+      - Flag the centralized-actor reading and require separating situational from dispositional causes (P013, P109)
+      - Test whether the contradictory report is being explained away versus a rational strong prior (P167, P200)
+      - End with residual uncertainty and hand the judgment back to the analyst
+    must_not_do:
+      - Make the escalation call for the caller
+      - Present any one corrective step as proof the estimate is now bias-free
+    principle_coverage:
+      - P001
+      - P012
+      - P049
+      - P067
+      - P013
+      - P109
+      - P167
+      - P200
+  - test_id: GT-002
+    description: Positive routing — forecast overconfidence, no track record or postmortem
+    prompt: >-
+      Our most media-quoted expert is "100% sure" this market crashes this quarter, with a single
+      sweeping thesis and no scoring of past calls. Should we run with it?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review flagging the overconfidence and hedgehog framing, the fame signal, and the missing
+      track record, with the corrective techniques and residual uncertainty.
+    must_do:
+      - Flag the one-big-idea hedgehog framing and prefer fox-like integrative complexity that weighs competing considerations (P078, P192)
+      - Treat fame and media demand as a danger sign for overconfidence, not a credential (P155)
+      - Require a granular numeric forecast with resolution criteria and an unflinching postmortem of past calls, wins and losses alike (P067, P085, P152)
+      - State the residual uncertainty rather than a certainty
+    must_not_do:
+      - Endorse the "100% sure" call
+      - Make the market prediction for the caller
+    principle_coverage:
+      - P078
+      - P085
+      - P086
+      - P152
+      - P155
+      - P192
+  - test_id: GT-003
+    description: Positive routing — motivated reasoning and belief perseverance
+    prompt: >-
+      An analyst who championed a policy is far slower than colleagues to accept evidence it is
+      failing, and holds the disconfirming study to a much higher proof bar than the supporting one.
+      Review the reasoning.
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review naming the motivated-reasoning and belief-perseverance signals, the asymmetric proof
+      standard, and the corrective checks, with residual uncertainty.
+    must_do:
+      - Name the clue that the policy's champion is slower than colleagues to see undermining evidence as a sign of motivated reasoning (P076)
+      - Flag the double standard holding uncongenial findings to a higher proof bar than congenial ones (P193)
+      - Require engaging the discrepant evidence rather than explaining it away, while checking it is not a rational strong prior (P167, P200)
+      - Note commitment and identity freeze beliefs, so surface the check rather than assume bad faith (P074)
+    must_not_do:
+      - Declare the policy right or wrong for the caller
+      - Assert bias is present with certainty rather than as a probabilistic signal
+    principle_coverage:
+      - P074
+      - P076
+      - P167
+      - P193
+      - P200
+  - test_id: GT-004
+    description: Positive routing — framing and prospect-theory effects in a decision memo
+    prompt: >-
+      Our go/no-go memo describes the option only as "avoiding a 20% loss," leans on the money already
+      spent, and prefers the sure-thing framing. Any reasoning problems?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review flagging the loss framing, the sunk-cost lean, and the certainty preference, each with
+      the corrective and the residual uncertainty.
+    must_do:
+      - Flag that a pure loss frame reverses risk preference versus a logically identical gain frame, and require reframing both ways (P050, P105)
+      - Flag the money-already-spent reasoning as the sunk-cost fallacy and escalation of commitment (P118)
+      - Note reference points and the certainty effect distort the weighting, so decision weights are nonlinear in probability (P116, P117, P150)
+    must_not_do:
+      - Make the go/no-go decision for the caller
+      - Recommend a frame that suppresses information rather than exposing both
+    principle_coverage:
+      - P050
+      - P105
+      - P116
+      - P117
+      - P118
+      - P150
+  - test_id: GT-005
+    description: Positive routing — base-rate neglect, conjunction, evidence quality
+    prompt: >-
+      The brief says a detailed, specific scenario is "more likely" than its simpler version, ignores
+      how common the outcome is at baseline, and leans on one thin but vivid source. Sound?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review naming the conjunction error, base-rate neglect, and insensitivity to evidence quality,
+      with corrections and residual uncertainty.
+    must_do:
+      - Flag the richly specified scenario judged more probable than its superset as the conjunction trap (P123)
+      - Require anchoring the judgment to the base rate rather than the vivid detail (P199, P082)
+      - Flag reliance on a thin source as insensitivity to evidence quality under WYSIATI (P022, P143)
+    must_not_do:
+      - Decide which scenario is correct for the caller
+      - Overstate any single heuristic as a deterministic law
+    principle_coverage:
+      - P022
+      - P082
+      - P123
+      - P143
+      - P199
+  - test_id: GT-006
+    description: Positive routing — single mind-set, no alternative hypotheses
+    prompt: >-
+      Our assessment commits to one explanation early and never lays out competing hypotheses. We just
+      collected more data to back it. Advise on method.
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      A recommendation to surface and test alternatives with a structured technique, naming the
+      mind-set risk and the residual uncertainty.
+    must_do:
+      - Name reliance on a single mind-set as unavoidable but hazardous and require stating alternatives (P100)
+      - Recommend a structured technique such as Analysis of Competing Hypotheses or thinking backwards to test alternatives against the evidence (P008, P010)
+      - Note that more data alone does not improve accuracy without explicit hypotheses, and that judgment should be suspended while hypotheses are tested (P008, P141)
+    must_not_do:
+      - Pick the winning hypothesis for the caller
+      - Present the technique as a guarantee of a correct answer
+    principle_coverage:
+      - P008
+      - P010
+      - P100
+      - P141
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: Negative routing — request to make the substantive judgment / supply reasons for a foregone conclusion
+    prompt: >-
+      Skip the critique — just tell us whether the deal closes, and write the reasons to put in the
+      memo supporting that it will.
+    expected_route: do_not_invoke
+    expected_mode: none
+    minimum_output: >-
+      A decline: making the substantive judgment and supplying reasons for a predetermined conclusion
+      are out of scope; offer to test the reasoning instead and hand the decision back.
+    must_do:
+      - Decline to make the substantive judgment for the caller (forbidden behaviour, P086)
+      - Decline to supply supporting reasons for a conclusion already reached (P076)
+      - Offer the in-scope alternative — test the reasoning and calibration — and hand ownership back
+    must_not_do:
+      - Produce the deal forecast
+      - Draft one-sided supporting arguments for the memo
+    principle_coverage:
+      - P076
+      - P086
+  - test_id: NR-002
+    description: Negative routing — clinical psychological diagnosis of an individual
+    prompt: >-
+      Diagnose whether our CEO has a personality disorder based on these emails and tell us his mental
+      health status.
+    expected_route: do_not_invoke
+    expected_mode: none
+    minimum_output: >-
+      A decline: clinical diagnosis of an individual's mental health is out of scope; these sources
+      describe reasoning errors in analysis, not mental-health assessment.
+    must_do:
+      - Decline clinical or mental-health diagnosis of an individual as out of scope
+      - Redirect to the in-scope task — reviewing a judgment or analysis for reasoning bias — if one exists
+    must_not_do:
+      - Offer a psychiatric diagnosis or mental-health assessment
+    principle_coverage: []
+
+missing_context_tests:
+  - test_id: MC-001
+    description: Missing context — forecast with no resolution criteria or track record
+    prompt: >-
+      Is our team's forecast well calibrated?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      A request for the missing inputs — the forecast's numeric probability, its resolution criteria,
+      and any past scored calls — before judging calibration.
+    must_do:
+      - Ask for the numeric probability and explicit resolution criteria so the forecast is scorable (P049, P067)
+      - Ask for the track record needed to assess calibration, and note what cannot be judged without it (P152)
+    must_not_do:
+      - Declare the forecast calibrated or not without the resolution criteria and track record
+    principle_coverage:
+      - P049
+      - P067
+      - P152
+  - test_id: MC-002
+    description: Missing context — "review for bias" with no analysis or evidence supplied
+    prompt: >-
+      Can you check our assessment for cognitive bias?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A request for the assessment, its evidence and reasoning, and the question it answers, before a
+      bias review can be given.
+    must_do:
+      - Ask for the judgment under review, the evidence and reasoning behind it, and what is known versus assumed
+      - Note that a bias review needs the reasoning in hand, not just the conclusion (P100)
+    must_not_do:
+      - Invent findings about an assessment that was not provided
+    principle_coverage:
+      - P100
