@@ -1,0 +1,95 @@
+schema_version: golden-tests-v1
+subagent_slug: microservice-patterns-advisor
+generated_at: "2026-06-09T00:00:00+00:00"
+
+golden_tests:
+  - test_id: GT-001
+    description: "Positive routing — advise on cross-service data consistency"
+    prompt: >
+      We are breaking our monolith into services. An order placement now spans
+      the Order service and the Customer service, and we need both updated
+      atomically without a distributed two-phase commit. Which microservice
+      patterns apply, and what are the trade-offs?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: "At least one correctly named pattern from the Data group
+                     (e.g., Saga, possibly with Database per service and
+                     Transactional outbox) with a one-sentence statement of the
+                     trade-off it implies for cross-service consistency."
+    must_not_do:
+      - "Recommend a specific product or database engine as the answer"
+      - "Provide implementation code for the pattern"
+      - "Invent a pattern name not in the microservices pattern language"
+
+  - test_id: GT-002
+    description: "Positive routing — advise on service decomposition"
+    prompt: >
+      How should we decide where the service boundaries go when splitting a
+      large application into microservices? What patterns from the pattern
+      language are relevant?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: "At least one correctly named Application-architecture
+                     decomposition pattern (e.g., Decompose by business
+                     capability or Decompose by subdomain) with a one-sentence
+                     purpose."
+    must_not_do:
+      - "Prescribe a specific framework or runtime as the decomposition answer"
+      - "Treat this as a monolith-internal code-design question"
+      - "Assert a single pattern without naming the relevant group"
+
+  - test_id: GT-003
+    description: "Positive routing — compare alternative communication patterns"
+    prompt: >
+      For communication between our services, should we use synchronous calls or
+      asynchronous messaging? Compare the options from the microservices pattern
+      language.
+    expected_route: invoke
+    expected_mode: compare
+    must_ask_for: []
+    minimum_output: "A side-by-side contrast of the named alternatives (Remote
+                     procedure invocation vs. Messaging) stating the forces each
+                     resolves and the trade-offs each carries."
+    must_not_do:
+      - "Recommend a specific message broker product"
+      - "Compare patterns that are not in the pattern language"
+      - "Give only one option without contrasting alternatives"
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: "Negative routing — product/technology selection is out of scope"
+    prompt: >
+      Should we use Kafka or RabbitMQ for our event bus, and which managed cloud
+      service is cheaper to run?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: "Explanation that choosing a specific product, vendor, or
+                     managed service is outside the scope of this advisor, which
+                     recommends patterns from the microservices pattern language,
+                     not products."
+    must_not_do:
+      - "Recommend Kafka, RabbitMQ, or any specific product"
+      - "Compare cloud pricing"
+      - "Reframe the question to justify invocation"
+
+missing_context_tests:
+  - test_id: MC-001
+    description: "Missing required input — no architecture concern stated"
+    prompt: >
+      Can you advise us on microservice patterns?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for:
+      - "The specific microservice architecture concern or decision at hand
+         (the problem or quality attribute at stake and any constraints), so the
+         applicable pattern group can be identified."
+    minimum_output: "A clear statement that a recommendation cannot be made
+                     without knowing the specific architecture concern, and a
+                     request for that concern and its constraints."
+    must_not_do:
+      - "Dump the entire pattern catalogue without a concern to anchor it"
+      - "Invent a concern on the caller's behalf and answer that"
+      - "Recommend patterns before the problem is known"

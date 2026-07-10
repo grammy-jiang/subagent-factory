@@ -1,0 +1,184 @@
+schema_version: faithfulness-report-v1
+subagent_slug: microservice-patterns-advisor
+
+# Tier-2 faithfulness review (re-grounded 2026-07-11 onto the rebuilt map→reduce
+# spine: 149 principles P001-P149 / 510 claims C00001-C00510). Each load-bearing
+# profile rule is compared against evidence-records.yaml + claims.jsonl rather than
+# raw source text. Sources: chris-richardson-mic-19016f24 (Microservices Patterns,
+# Richardson, Manning 2018) and microservicepatternl-a51cf685 (Microservice Pattern
+# Language). The backing claim IDs are named in each finding's note; this package's
+# chunk-anchor index carries no per-claim anchors, so source_anchors are omitted.
+# Result: no rule is stronger than its evidence; every rule is EXACT_SUPPORT or
+# WITHIN_SCOPE. No CONTRADICTED / unsupported finding.
+
+findings:
+
+  - rule_ref: role
+    triplet:
+      head: microservice-patterns-advisor
+      relation: advises on
+      tail: pattern selection and trade-offs across the microservices pattern language
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Claims C00001/C00021/C00022. The role scopes the advisor to naming patterns and
+      weighing forces/trade-offs, matching the pattern language's problem->pattern
+      structure and the pattern format's benefits-and-drawbacks discipline; it excludes
+      code and product choice, so it does not over-claim implementation authority.
+
+  - rule_ref: quality_bar[0]
+    triplet:
+      head: recommended pattern
+      relation: must be
+      tail: a real, correctly-grouped pattern of the pattern language
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Claims C00001/C00002. The pattern language is enumerated in three groups, each
+      entry a motivating problem paired with named solutions; "no invented names" restates it.
+
+  - rule_ref: quality_bar[1]
+    triplet:
+      head: recommendation
+      relation: must state
+      tail: the forces resolved AND the drawbacks, not just the name
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Claims C00005/C00072/C00197. The Saga example (consistency without 2PC, which is
+      not viable across services, but ACD / needs countermeasures / eventual consistency)
+      is directly supported.
+
+  - rule_ref: quality_bar[2]
+    triplet:
+      head: alternatives in a group
+      relation: must be
+      tail: compared rather than asserted in isolation
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Claims C00008/C00302/C00305. The book presents API composition vs. CQRS as an
+      explicit benefit/drawback contrast (composition's overhead/availability drawbacks
+      vs. the conditions that warrant CQRS).
+
+  - rule_ref: quality_bar[3]
+    triplet:
+      head: adopting microservices
+      relation: should be flagged premature for
+      tail: a small or simple application
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Claim C00065. The author's normative judgement is that "always" and "never" are
+      both bad advice and appropriateness depends on context; the rule mirrors it.
+
+  - rule_ref: forbidden_behaviours[0]
+    triplet:
+      head: advisor
+      relation: must not
+      tail: invent or recommend non-pattern-language patterns
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Claims C00001/C00002. Restates the closed, three-group catalogue.
+
+  - rule_ref: forbidden_behaviours[2]
+    triplet:
+      head: advisor
+      relation: must not
+      tail: produce production implementation code
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Claim C00001. The book includes Java/Spring code, but the package scopes itself to
+      patterns and trade-offs; excluding code is a narrowing, not an over-claim.
+
+  - rule_ref: forbidden_behaviours[3]
+    triplet:
+      head: advisor
+      relation: must not
+      tail: present a pattern's benefits while omitting its documented drawbacks
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Claims C00022/C00066/C00302. A well-formed pattern description states drawbacks
+      (the pattern format is chosen precisely because it forces this), and each cited
+      pattern's drawbacks (e.g. API composition) are stated in the source.
+
+  - rule_ref: knowledge_partition.always_on[2]
+    triplet:
+      head: Database per service
+      relation: is
+      tail: a cascading decision that forces sagas and CQRS and exposes eventual consistency
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Claims C00073/C00072/C00005. Because a service's data is reachable only through its
+      API, distributed transactions/queries are unavailable (2PC not viable, C00072), which
+      forces sagas (C00005) and API composition / CQRS (C00073).
+
+  - rule_ref: knowledge_partition.always_on[3]
+    triplet:
+      head: sagas
+      relation: are
+      tail: ACD and require countermeasures; reliable publishing needs the transactional outbox
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Claims C00197/C00210/C00213 (ACD; anomalies; documented countermeasures), with the
+      Transactional Outbox (P006) and idempotent consumers (P089) for reliable publishing.
+
+  - rule_ref: outputs.modes[advise]
+    triplet:
+      head: advise mode
+      relation: is justified by
+      tail: the pattern language's problem->pattern advisory structure
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Claims C00001/C00005. The catalogue guides pattern selection, which is advisory.
+
+  - rule_ref: outputs.modes[compare]
+    triplet:
+      head: compare mode
+      relation: is justified by
+      tail: explicit benefit/drawback contrasts between alternative patterns
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Claims C00008/C00201. API composition vs. CQRS and choreography vs. orchestration
+      are presented as alternative-pattern contrasts.
