@@ -1,0 +1,382 @@
+{
+  "skill_name": "linux-command-line-and-system-operations",
+  "principles": [
+    {
+      "id": "P003",
+      "statement": "Use job control deliberately for interactive jobs, knowing how process groups, backgrounding, suspension, fg/bg/jobs/disown, and terminal signals affect job lifetime and input.",
+      "applies_when": [
+        "When controlling interactive or long-running shell work.",
+        "Managing commands launched from an interactive terminal."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P009",
+      "statement": "Use SSH-family tools for encrypted remote login and file transfer, with explicit credentials, protected keys, host-key awareness, ports, agents, terminal options, and clean session closure.",
+      "applies_when": [
+        "When connecting to remote machines.",
+        "When copying files to or from an SSH-accessible machine.",
+        "When connecting to or transferring files with remote machines.",
+        "Authenticating or transferring data across a network."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P029",
+      "statement": "Inspect files and directories before modifying them, and use interactive or attribute-preserving options when overwrites, copies, moves, or recursive deletion carry risk.",
+      "applies_when": [
+        "When setting up sample data or handling unfamiliar files.",
+        "When managing files and folders from the shell.",
+        "When performing basic file operations."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P033",
+      "statement": "Before deleting or executing from find results, verify the result set with printing or prompts and choose safer per-file or batched execution modes deliberately.",
+      "applies_when": [
+        "When find will delete files or execute commands on matches.",
+        "Using find -delete, -exec, -ok, or xargs."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P034",
+      "statement": "Use Linux directory conventions as diagnostic hints, but take a read-only system-tour approach and verify actual contents and permissions before editing system files.",
+      "applies_when": [
+        "When reasoning about system paths, pseudo-filesystems, ownership, or permissions.",
+        "Learning or auditing an unfamiliar Linux system."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P036",
+      "statement": "Before storage operations, name the storage layer precisely and map block devices, partitions, filesystems, mount points, and directories with df or lsblk.",
+      "applies_when": [
+        "When diagnosing or modifying storage.",
+        "Preparing removable or disk-like storage."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P037",
+      "statement": "Use backup and sync tools with exact source/destination semantics, dry runs, and transport choices, especially rsync for repeated attribute-preserving synchronization.",
+      "applies_when": [
+        "When copying, mirroring, synchronizing, or burning backup data.",
+        "Synchronizing local or remote file trees."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P040",
+      "statement": "Favor symbolic links for routine references, understand which operations affect the link versus the target, and prefer relative targets for movable trees.",
+      "applies_when": [
+        "When creating or diagnosing links.",
+        "Creating or maintaining links between pathnames."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P041",
+      "statement": "Choose the line-editing mode with 'editing-mode' in the inputrc or 'set -o emacs'/'set -o vi'; in vi mode a new line starts in insert mode and ESC enters command mode (k/j move through history).",
+      "applies_when": [
+        "Editing text in vi or vim."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P043",
+      "statement": "Signal processes with the least force that can work, escalating from normal termination to named signals, timeouts, and KILL only after ordinary termination fails.",
+      "applies_when": [
+        "When stopping processes or bounding runtime.",
+        "Stopping, resuming, or controlling processes."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P044",
+      "statement": "Handle archives by first choosing the archive family and action, naming the archive explicitly, selecting compression flags by format, and controlling extraction destination.",
+      "applies_when": [
+        "When packaging, listing, or extracting archived/compressed files.",
+        "Sharing archives with Windows users or ZIP-only tools."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P045",
+      "statement": "Learn a terminal editor for remote and shell-only editing, and store its reusable configuration in dotfiles.",
+      "applies_when": [
+        "When editing on remote servers, containers, or terminals without desktop editors.",
+        "Editing files over terminals, recovery shells, or non-GUI systems."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P048",
+      "statement": "Verify the current directory, listings, hidden files, and path forms before running location-dependent commands; use absolute paths or home-directory forms intentionally.",
+      "applies_when": [
+        "When navigating or operating on files from the shell.",
+        "When commands operate on relative or user-home paths."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P049",
+      "statement": "Treat rm and shell deletion as permanent; preview wildcard targets and prefer interactive or nonrecursive removal unless recursive deletion is clearly intended.",
+      "applies_when": [
+        "When removing files or directories.",
+        "Deleting files, especially with wildcards or recursive options."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P051",
+      "statement": "Use compression tools with awareness of file replacement, stdout modes, integrity testing, compression levels, viewing helpers, speed, and recovery behavior.",
+      "applies_when": [
+        "When compressed content should feed another command or originals must remain.",
+        "Compressing or viewing compressed files."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P052",
+      "statement": "Treat raw device copying with dd as high risk, verifying input and output devices and media type before running as root because mistakes can destroy data.",
+      "applies_when": [
+        "When copying disks, partitions, or raw device data.",
+        "Using dd, ISO images, or optical media writing tools."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P054",
+      "statement": "Access clipboards only through mechanisms supported by the active graphical or terminal environment, and choose the correct X selection for the paste target.",
+      "applies_when": [
+        "When copying and pasting between shell and other applications.",
+        "When moving data between shell and clipboard."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P057",
+      "statement": "Compare and verify files with tools and checksum strength that match the question, using quiet modes in scripts and saved strong checksums for later integrity checks.",
+      "applies_when": [
+        "When checking differences or integrity.",
+        "When comparisons need to drive automation.",
+        "Using downloaded disk, ISO, or binary images."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P060",
+      "statement": "Design prompts with safe PS syntax, bracketing non-printing terminal sequences and accounting for any later prompt expansion of dynamic fields.",
+      "applies_when": [
+        "When customizing command prompts."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P062",
+      "statement": "Inspect host, interface, address, route, DHCP, and gateway facts with current tools, preferring iproute2 output over legacy interface tools.",
+      "applies_when": [
+        "When diagnosing local host or network-interface state.",
+        "Diagnosing local network configuration."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P067",
+      "statement": "Mount and unmount filesystems through fstab-aware commands when possible, and unmount writable removable media before removal while respecting busy-filesystem refusals.",
+      "applies_when": [
+        "When accessing or removing mounted filesystems.",
+        "Removing, repairing, or detaching storage."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P080",
+      "statement": "Use terminal-native editing, history, and clipboard conventions to edit commands safely instead of relying on ordinary GUI shortcuts.",
+      "applies_when": [
+        "When a pending shell command needs substantial edits.",
+        "Editing or reusing commands in a terminal emulator or virtual console."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P104",
+      "statement": "Create, truncate, or timestamp files intentionally; use shell redirection for simple empty-file creation or truncation when touch-specific timestamp behavior is not required.",
+      "applies_when": [
+        "The goal is only to create or empty a file.",
+        "When creating placeholders or changing timestamps."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P122",
+      "statement": "Prefer repository-backed package management for ordinary software maintenance, using high-level tools for dependency-aware operations and low-level package-file installation only cautiously.",
+      "applies_when": [
+        "Installing or maintaining Linux software.",
+        "Managing packages from distribution repositories.",
+        "Installing a downloaded package file directly."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P123",
+      "statement": "Master tmux panes, windows, sessions, attach, detach, naming, and cleanup before adding advanced customizations such as Vim-style keys, styling, plugins, or advanced pane operations.",
+      "applies_when": [
+        "When adopting tmux as a daily tool.",
+        "When basic tmux use exposes real limitations."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P124",
+      "statement": "Navigate by maintaining awareness of the current directory and choosing clear absolute, relative, home, or previous-directory path forms.",
+      "applies_when": [
+        "Working with files or directories from the shell."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P125",
+      "statement": "Manage user accounts, shells, passwords, locks, groups, and IDs conservatively as persistent security state affecting login access and file ownership.",
+      "applies_when": [
+        "When creating, modifying, or removing local user accounts.",
+        "When administering users and groups."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P126",
+      "statement": "Use tar modes and path handling deliberately for archive creation, extraction, ownership, selective restore, incremental archives, standard streams, compression, file-list input, and SSH pipelines.",
+      "applies_when": [
+        "Creating, extracting, restoring, or transporting tar archives.",
+        "Archiving selected files or copying trees between systems."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P129",
+      "statement": "Diagnose processes by understanding parent-child relationships, ownership, PID identity, daemon role, and snapshot versus live views.",
+      "applies_when": [
+        "Investigating running programs or system slowdown."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P134",
+      "statement": "Use tmux for persistent, organized, remote-friendly terminal sessions, including SSH sessions that should resume after disconnects.",
+      "applies_when": [
+        "When managing multiple shell tasks or remote work.",
+        "When remote shell sessions should be durable."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P137",
+      "statement": "Understand mounting through fstab, labels or UUIDs, mount points, mount listings, and filesystem types before manually attaching storage.",
+      "applies_when": [
+        "Inspecting or manually mounting storage devices."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P138",
+      "statement": "For copy, move, and remove operations, choose options that match overwrite, recursion, update, and confirmation requirements before executing.",
+      "applies_when": [
+        "Manipulating files or directories with mkdir, cp, mv, or rm."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P139",
+      "statement": "Use lp and a2ps layout controls with upstream pagination alignment when print orientation, density, scaling, page ranges, or pretty PostScript output matter.",
+      "applies_when": [
+        "Formatting and submitting print jobs."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P145",
+      "statement": "Understand Linux printing as a CUPS and Ghostscript workflow with queues, conversion, page description, and rasterization.",
+      "applies_when": [
+        "Printing or troubleshooting printer workflows from the command line."
+      ],
+      "confidence": "high"
+    }
+  ],
+  "provenance": {
+    "principles": [
+      "P003",
+      "P009",
+      "P029",
+      "P033",
+      "P034",
+      "P036",
+      "P037",
+      "P040",
+      "P041",
+      "P043",
+      "P044",
+      "P045",
+      "P048",
+      "P049",
+      "P051",
+      "P052",
+      "P054",
+      "P057",
+      "P060",
+      "P062",
+      "P067",
+      "P080",
+      "P104",
+      "P122",
+      "P123",
+      "P124",
+      "P125",
+      "P126",
+      "P129",
+      "P134",
+      "P137",
+      "P138",
+      "P139",
+      "P145"
+    ],
+    "claims": [
+      "C00304",
+      "C00305",
+      "C00306",
+      "C00307",
+      "C00308",
+      "C00637",
+      "C00638",
+      "C01964",
+      "C01965",
+      "C01966"
+    ],
+    "evidence": [
+      "E00143",
+      "E00144",
+      "E00145",
+      "E00146",
+      "E00147",
+      "E00266",
+      "E00267",
+      "E00942",
+      "E00943",
+      "E00944"
+    ],
+    "source_anchors": [
+      "dd4e9d2506fb-c0006",
+      "ece374b583e8-c0011",
+      "2583cb6ce003-c0002",
+      "c8604455f3d5-c0013",
+      "c8604455f3d5-c0014",
+      "fc16a0303ffc-c0024",
+      "fc16a0303ffc-c0025",
+      "2583cb6ce003-c0011",
+      "c8604455f3d5-c0019",
+      "c8604455f3d5-c0020"
+    ]
+  }
+}

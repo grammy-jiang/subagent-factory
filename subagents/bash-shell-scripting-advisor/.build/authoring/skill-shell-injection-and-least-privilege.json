@@ -1,0 +1,136 @@
+{
+  "skill_name": "shell-injection-and-least-privilege",
+  "principles": [
+    {
+      "id": "P006",
+      "statement": "Run command-executing code with the least privileges needed and use isolated limited accounts for single-purpose command tasks where feasible.",
+      "applies_when": [
+        "A process can invoke OS commands or external programs.",
+        "A wrapper, helper, or application invokes operating-system commands with privileges beyond the attacker or caller.",
+        "When a command needs administrative privileges.",
+        "Administrative access is needed for a specific task."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P031",
+      "statement": "Treat special permission and attribute mechanisms as security-sensitive controls: conditional execute, setuid/setgid, sticky bit, umask, immutable attributes, and filesystem-specific extended attributes all need explicit intent.",
+      "applies_when": [
+        "When adjusting access control beyond ordinary read/write bits.",
+        "Changing modes or defaults for files and directories."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P071",
+      "statement": "Use eval only for genuinely dynamic commands built from validated fragments, because eval performs a second round of shell parsing and can execute untrusted input.",
+      "applies_when": [
+        "constructing and executing a command dynamically with eval",
+        "A shell command must be constructed at runtime."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P082",
+      "statement": "Never evaluate untrusted input in an arithmetic context (`(( ))`, `let`, an array subscript, or a `[[ ]]` numeric comparison): the text is expanded \u2014 including command substitution \u2014 before evaluation, enabling arbitrary command injection (e.g. `a[$(reboot)]`). Use bare variable names, validate inputs to decimal integers, and prefer a quoted `[ \"$x\" -gt N ]`, which requires decimal operands.",
+      "applies_when": [
+        "evaluating any expression that includes externally-sourced or unvalidated data",
+        "referencing an array element or variable inside an arithmetic expression with untrusted data",
+        "comparing externally-supplied or untrusted numeric input"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P086",
+      "statement": "Validate command arguments with narrow positive allowlists that constrain format, permitted characters, and length, and exclude metacharacters and whitespace where possible.",
+      "applies_when": [
+        "The application accepts or derives command arguments from external input.",
+        "Command execution remains necessary and external input can reach the command, arguments, path, or environment."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P087",
+      "statement": "For Java command execution, account for whether a shell is invoked and pass the executable and arguments separately rather than relying on a single command string as a safety boundary.",
+      "applies_when": [
+        "Reviewing or writing Java code that launches external processes.",
+        "Reviewing Java process invocation paths that use Runtime.exec semantics."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P103",
+      "statement": "Use the dot utility to run a file in the current shell environment, knowing it is located through PATH (and need not be executable) and deliberately does not search the current directory unless PATH permits, which is a guard against trojan-horse scripts.",
+      "applies_when": [
+        "sourcing a file so its definitions affect the current shell"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P111",
+      "statement": "Avoid eval, and treat any data placed into an eval string as executable code.",
+      "applies_when": [
+        "building a command string for eval"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P121",
+      "statement": "Prefer language, platform, or library APIs over direct operating-system command execution whenever they can perform the task.",
+      "applies_when": [
+        "A built-in library or API can perform the intended filesystem, networking, or process-management task.",
+        "A suitable non-shell API exists for the task."
+      ],
+      "confidence": "high"
+    }
+  ],
+  "provenance": {
+    "principles": [
+      "P006",
+      "P031",
+      "P071",
+      "P082",
+      "P086",
+      "P087",
+      "P103",
+      "P111",
+      "P121"
+    ],
+    "claims": [
+      "C00761",
+      "C00773",
+      "C00774",
+      "C00787",
+      "C00791",
+      "C00792",
+      "C00806",
+      "C01917",
+      "C01918",
+      "C02640"
+    ],
+    "evidence": [
+      "E00286",
+      "E00291",
+      "E00292",
+      "E00298",
+      "E00299",
+      "E00300",
+      "E00307",
+      "E00907",
+      "E00908",
+      "E01239"
+    ],
+    "source_anchors": [
+      "10824bdf56f3-c0000",
+      "a1edef214807-c0000",
+      "2583cb6ce003-c0001",
+      "c8604455f3d5-c0012",
+      "c8604455f3d5-c0013",
+      "2583cb6ce003-c0004",
+      "07b8d355a162-c0004",
+      "c8604455f3d5-c0036",
+      "05f06662f2b0-c0000",
+      "05f06662f2b0-c0002"
+    ]
+  }
+}

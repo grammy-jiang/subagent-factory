@@ -1,0 +1,156 @@
+{
+  "skill_name": "error-handling-exit-status-and-traps",
+  "principles": [
+    {
+      "id": "P012",
+      "statement": "Every command exits with a status 0-255 (0 = success by convention); make scripts fail loud by returning a non-zero code on any unexpected failure (e.g. cmd || { echo err >&2; exit 1; }); a leading ! negates a command's status and if branches on it.",
+      "applies_when": [
+        "When script failure should stop later actions or report a controlled problem.",
+        "When writing or debugging shell scripts."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P069",
+      "statement": "Debug methodically: state the bug in one sentence, minimize to a 3-7 line reproduction, then trace with set -x (which prints each command after expansion and shows quoting so word-splitting is visible), scoping it with set -x/+x, redirecting it via BASH_XTRACEFD, and annotating it with a single-quoted PS4; step with a DEBUG trap, recheck the shebang and for carriage-return line endings, and reread the manual.",
+      "applies_when": [
+        "a script misbehaves and the cause is not obvious"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P076",
+      "statement": "Interpret exit statuses precisely: 0 is success and any non-zero value is failure (8-bit, with values above 125 reserved), 128+N means termination by signal N, 127 means command-not-found, 126 means found-but-not-executable, and a builtin returns 2 for incorrect usage.",
+      "applies_when": [
+        "checking or reporting the exit status of a command"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P081",
+      "statement": "Use arithmetic contexts for math: (( )) is a test whose status is 0 for a true/non-zero expression and 1 for false/zero (the reverse of the exit convention \u2014 a known trap), while $(( )) substitutes the numeric result and is POSIX-portable; inside both you reference variables without $ and use C-like operators.",
+      "applies_when": [
+        "performing arithmetic or numeric tests"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P085",
+      "statement": "Register signal handlers with 'trap action sigspec' - using '-' to reset a signal to its startup disposition and an empty string to ignore it - relying on case-insensitive names (SIG prefix optional), 'trap -l' to list them, and 'trap' with no arguments to print reusable trap commands.",
+      "applies_when": [
+        "specifying which signals a trap handles in a portable script"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P092",
+      "statement": "Use exit deliberately: it leaves the current execution environment (only the subshell when inside one) with the given status, defaults to the last command status when no operand is given, is undefined outside 0-255 and may be truncated above 255, and triggers a trap on EXIT before termination unless exit is called from within that trap.",
+      "applies_when": [
+        "terminating a shell or subshell with a specific status, or using an EXIT trap for cleanup"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P096",
+      "statement": "Account for trap inheritance limits: signals ignored on entry to a non-interactive shell cannot be trapped or reset, entering a subshell resets non-ignored traps to their defaults, trap with no operands lists current traps in a form suitable for saving and restoring, and the ERR trap is a non-portable KornShell extension.",
+      "applies_when": [
+        "relying on traps across subshells, background jobs, or inherited-ignored signals"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P102",
+      "statement": "Account for signal handling in job control and traps: when job control is disabled, commands in an asynchronous list inherit an ignored action for SIGINT and SIGQUIT, and a trap for a signal received while the shell waits for a foreground command runs only after that command completes.",
+      "applies_when": [
+        "reasoning about how signals reach background jobs or when traps fire"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P105",
+      "statement": "A cmd1 && cmd2 || cmd3 chain is not a safe if/then/else, because the exit status carries through skipped commands, so a failure in cmd1 can trigger the trailing || of a later command; group commands that belong together with { ...; } (a semicolon or newline is required before the closing brace).",
+      "applies_when": [
+        "choosing between two actions based on a test",
+        "mixing && and || where later commands must belong together"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P112",
+      "statement": "Declare then assign on separate lines for `local`/`export`/`readonly` (`local v; v=$(cmd); rc=$?`): combined, the declaration's own exit status masks the command's, and in some shells the unquoted right-hand side undergoes word splitting.",
+      "applies_when": [
+        "the assignment value is provided by a command substitution",
+        "capturing a command's output or exit status into a local/exported variable"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P113",
+      "statement": "Test a command's success directly (`if cmd; then ...`); only capture `$?` when you need the exact status, and save it immediately (`status=$?`) before other commands overwrite it.",
+      "applies_when": [
+        "branching on whether a command succeeded"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P119",
+      "statement": "Use the colon (:) null utility as a do-nothing placeholder where the grammar needs a command, remembering that as a special built-in it still performs its associated variable assignments (which persist) and redirections.",
+      "applies_when": [
+        "a syntactically required command should do nothing, or a persistent assignment or redirection is wanted with no action"
+      ],
+      "confidence": "high"
+    }
+  ],
+  "provenance": {
+    "principles": [
+      "P012",
+      "P069",
+      "P076",
+      "P081",
+      "P085",
+      "P092",
+      "P096",
+      "P102",
+      "P105",
+      "P112",
+      "P113",
+      "P119"
+    ],
+    "claims": [
+      "C00201",
+      "C00202",
+      "C00208",
+      "C00209",
+      "C00210",
+      "C01201",
+      "C01202",
+      "C01203",
+      "C01204",
+      "C01205"
+    ],
+    "evidence": [
+      "E00080",
+      "E00081",
+      "E00085",
+      "E00086",
+      "E00087",
+      "E00592",
+      "E00593",
+      "E00594",
+      "E00595",
+      "E00596"
+    ],
+    "source_anchors": [
+      "dd4e9d2506fb-c0001",
+      "dd4e9d2506fb-c0002",
+      "fc16a0303ffc-c0016",
+      "2583cb6ce003-c0014",
+      "dd4e9d2506fb-c0007",
+      "ece374b583e8-c0007",
+      "ece374b583e8-c0000",
+      "ece374b583e8-c0003",
+      "07b8d355a162-c0001",
+      "457d111305bf-c0000"
+    ]
+  }
+}

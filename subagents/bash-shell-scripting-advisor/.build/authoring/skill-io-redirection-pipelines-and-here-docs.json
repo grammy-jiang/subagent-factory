@@ -1,0 +1,187 @@
+{
+  "skill_name": "io-redirection-pipelines-and-here-docs",
+  "principles": [
+    {
+      "id": "P008",
+      "statement": "Apply a single redirection to a whole compound command (a loop's done or a { } group) to redirect every command inside it; Bash opens the file once before the construct and closes it after, and inner commands inherit the FD.",
+      "applies_when": [
+        "several commands should share one redirection",
+        "redirecting the combined output or input of a loop or group",
+        "Multiple command outputs need the same destination."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P018",
+      "statement": "Each stage of a pipeline runs in a separate subshell, so variables modified inside `... | while` do not persist afterward; POSIX leaves whether the last stage is a subshell unspecified (lastpipe/ksh93 differ), so do not depend on it \u2014 feed the loop with process substitution or `read` instead.",
+      "applies_when": [
+        "a loop or assignment on the right-hand side of a pipe must set variables the rest of the script reads",
+        "a piped command sets a variable you need, or a pipeline grows long"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P021",
+      "statement": "Combine stdout and stderr in the correct order: >file 2>&1 duplicates the stdout FD into stderr (shared file position, no clobber), whereas 2>&1 >file leaves errors on the terminal, and >file 2>file must never be used (two independent FDs clobber each other).",
+      "applies_when": [
+        "redirecting both stdout and stderr",
+        "merging stdout and stderr"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P050",
+      "statement": "Use here-documents for multi-line embedded input or output, quoting the delimiter to suppress body expansion and using <<- only when leading tabs should be stripped.",
+      "applies_when": [
+        "writing a here-document whose body should or should not be expanded",
+        "Generating multi-line text or feeding commands from scripts."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P059",
+      "statement": "Know redirection semantics: > sends stdout to a file and truncates it (creating it if absent, performed before the command runs), >> appends instead, < feeds stdin from a file, and a leading number selects the FD; every process has FD 0/1/2 = stdin/stdout/stderr.",
+      "applies_when": [
+        "redirecting a command's input or output",
+        "When capturing, redirecting, or piping command output."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P077",
+      "statement": "Use here-documents and here-strings to feed inline input, quoting the delimiter for literal here-doc bodies and using <<- only when leading tabs should be stripped.",
+      "applies_when": [
+        "feeding inline or variable data to a command"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P079",
+      "statement": "Choose redirection operators by intent: > creates or truncates, >> appends, noclobber makes > fail unless >| is used, and combined-stream forms redirect or append stdout and stderr together.",
+      "applies_when": [
+        "ordering redirections or guarding against clobbering existing files"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P088",
+      "statement": "Prefer the $(command) form over backquotes for command substitution: it runs the command in a subshell and substitutes its standard output with trailing newlines stripped, its result is not re-expanded, and it avoids the backslash and nesting pitfalls of backquotes.",
+      "applies_when": [
+        "capturing the output of a command into a word"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P091",
+      "statement": "Choose a subshell versus a command group deliberately: a subshell ( ) runs in a temporary child (cd, variable, and exit effects do not persist; each pipeline stage is one), while a { } group runs in the current shell (faster, side effects persist, and exit ends the whole script).",
+      "applies_when": [
+        "you need or must avoid side effects on the current shell"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P097",
+      "statement": "Use printf instead of echo for reliable script-grade formatted output, treating format and argument mismatches as bugs.",
+      "applies_when": [
+        "When emitting formatted shell output."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P109",
+      "statement": "Commands run with & are asynchronous, and when job control is disabled their standard input defaults to a /dev/null-like source unless redirected explicitly.",
+      "applies_when": [
+        "running a background command that needs to read standard input under a non-interactive shell"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P110",
+      "statement": "Use tee with output process substitution when one stream must both remain visible and feed a secondary consumer.",
+      "applies_when": [
+        "When intermediate output must be saved or inspected while the pipeline continues.",
+        "Displaying output while computing a derived summary."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P120",
+      "statement": "Duplicate, move, open, or close file descriptors explicitly with the [n]<&word, [n]>&word, [n]<&digit-, [n]>&digit-, and [n]<>word redirection forms.",
+      "applies_when": [
+        "duplicating or closing file descriptors in a script"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P136",
+      "statement": "Build pipelines incrementally from clear transformations and use readability, not dogma, to decide whether a helper such as cat is acceptable.",
+      "applies_when": [
+        "When chaining shell tools over files, streams, or copied text."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P143",
+      "statement": "Use printf in scripts for predictable formatted output, matching conversions and arguments and applying flags, width, precision, tabs, and newlines deliberately.",
+      "applies_when": [
+        "Generating script output or tabular data."
+      ],
+      "confidence": "high"
+    }
+  ],
+  "provenance": {
+    "principles": [
+      "P008",
+      "P018",
+      "P021",
+      "P050",
+      "P059",
+      "P077",
+      "P079",
+      "P088",
+      "P091",
+      "P097",
+      "P109",
+      "P110",
+      "P120",
+      "P136",
+      "P143"
+    ],
+    "claims": [
+      "C00207",
+      "C00233",
+      "C00284",
+      "C00361",
+      "C01800",
+      "C02542",
+      "C02543",
+      "C00037",
+      "C00083",
+      "C00084"
+    ],
+    "evidence": [
+      "E00084",
+      "E00099",
+      "E00128",
+      "E00178",
+      "E00879",
+      "E01195",
+      "E01196",
+      "E00006",
+      "E00037",
+      "E00038"
+    ],
+    "source_anchors": [
+      "dd4e9d2506fb-c0002",
+      "dd4e9d2506fb-c0003",
+      "dd4e9d2506fb-c0005",
+      "ece374b583e8-c0000",
+      "07b8d355a162-c0002",
+      "c8604455f3d5-c0010",
+      "457d111305bf-c0000",
+      "05f06662f2b0-c0000",
+      "05f06662f2b0-c0002",
+      "ece374b583e8-c0003"
+    ]
+  }
+}
