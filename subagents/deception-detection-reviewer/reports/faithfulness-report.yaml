@@ -1,0 +1,245 @@
+# Faithfulness review — deception-detection-reviewer
+# Per-rule claim-strength check of the load-bearing profile rules against the promoted
+# principles and their backing claims. No rule is stronger than its evidence. source_anchors
+# are omitted deliberately: provenance is carried in each note via principle + claim IDs,
+# which resolve into principles.yaml (P###) and analysis/claims.jsonl (C#####). Verdicts sit
+# at EXACT_SUPPORT / WITHIN_SCOPE — the profile restates the source's double-agent /
+# counter-deception tradecraft and narrows it to review and advice; it does not broaden it.
+schema_version: faithfulness-report-v1
+subagent_slug: deception-detection-reviewer
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The role restates the source''s subject — running double agents and detecting deception — and
+    narrows the posture to review and advice, explicitly disclaiming running the operation, making the
+    command decision, or certifying a channel (un)compromised. A narrowing, not an over-claim. Grounded
+    in principle(s): P001 (claims C00001, C00002); P025 (claims C00058, C00066); P070 (claims C00299);
+    P013 (claims C00143, C00144).'
+- rule_ref: when_to_use[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reviewing a deception plan or double-agent case for control, security, and credibility is directly
+    supported. Grounded in principle(s): P008 (claims C00068, C00069); P010 (claims C00013, C00019); P039
+    (claims C00152, C00229).'
+- rule_ref: when_to_use[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Examining a claim that a channel is trusted/controlled/blown, and the mirror risk of being deceived,
+    is directly supported. Grounded in principle(s): P013 (claims C00143, C00144); P021 (claims C00087,
+    C00088); P070 (claims C00299).'
+- rule_ref: when_to_use[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Checking material to be fed for plausibility, corroboration, and deduction-by-the-enemy is directly
+    supported. Grounded in principle(s): P003 (claims C00006, C00040); P029 (claims C00196, C00197); P039
+    (claims C00152, C00229).'
+- rule_ref: when_to_use[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reviewing a network''s compartmentation, independence, firewalling, and single approval gate
+    is directly supported. Grounded in principle(s): P005 (claims C00178, C00181); P010 (claims C00013,
+    C00019); P033 (claims C00046, C00055).'
+- rule_ref: when_to_use[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reviewing the timing and strategic stewardship of a deception capability is directly supported.
+    Grounded in principle(s): P035 (claims C00089, C00091); P047 (claims C00141, C00243); P060 (claims
+    C00163).'
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Declining to run the operation or make the command decision narrows the role; the source places
+    the case and the decision with the operation''s owner. Grounded in principle(s): P025 (claims C00058,
+    C00066); P017 (claims C00150, C00182).'
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Excluding tasks with no deception dimension narrows scope to deception/counter-deception reasoning,
+    consistent with the source''s framing. Grounded in principle(s): P016 (claims C00045, C00065); P059
+    (claims C00160).'
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Declining to certify a channel genuinely (un)compromised narrows the role and follows the source''s
+    mirror warning that apparent success is not proof against being deceived. Grounded in principle(s):
+    P070 (claims C00299); P089 (claims C00242).'
+- rule_ref: when_not_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Declining to produce a real-world operational attack plan narrows the role to analytic/historical
+    tradecraft reasoning; a safety boundary, not an over-claim. Grounded in principle(s): P042 (claims
+    C00257, C00300); P025 (claims C00058, C00066).'
+- rule_ref: quality_bar[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring genuine control — no premature relaxation, a minute pruned record, an immersed case
+    officer, a ready substitute, quick decisive start — is directly supported. Grounded in principle(s):
+    P002 (claims C00049, C00050); P008 (claims C00068, C00069); P026 (claims C00075, C00077); P030 (claims
+    C00009, C00298); P031 (claims C00016, C00170).'
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring credibility by deduction — embedded in genuine reporting, seeded with truth, on a long
+    truthful record, able to withstand scrutiny — is directly supported. Grounded in principle(s): P003
+    (claims C00006, C00040); P029 (claims C00196, C00197); P039 (claims C00152, C00229); P051 (claims
+    C00042); P058 (claims C00158).'
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring a secure compartmented network — independent agents, withheld secret sources, firewalled
+    decisive channel, terminated compromised case — is directly supported. Grounded in principle(s): P005
+    (claims C00178, C00181); P007 (claims C00047, C00048); P010 (claims C00013, C00019); P063 (claims
+    C00258); P069 (claims C00293).'
+- rule_ref: quality_bar[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring the adversary''s trust to be evidenced, control confirmed only gradually, and scale
+    not mistaken for security, is directly supported. Grounded in principle(s): P004 (claims C00057, C00074);
+    P013 (claims C00143, C00144); P015 (claims C00026, C00027); P089 (claims C00242).'
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring governance and the mirror question — single approval gate, policy above the case officer,
+    no irrevocable act on a doubtful case — restates the source and adds the standing mirror discipline;
+    a narrowing, not a broadening. Grounded in principle(s): P025 (claims C00058, C00066); P033 (claims
+    C00046, C00055); P035 (claims C00089, C00091); P070 (claims C00299).'
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding the reviewer from running the operation or making the command decision narrows the
+    role, consistent with policy set above the operator. Grounded in principle(s): P025 (claims C00058,
+    C00066).'
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding over-claim of control/trust and letting success stand as proof against being deceived
+    restates the source''s assessment discipline and mirror warning; a narrowing. Grounded in principle(s):
+    P013 (claims C00143, C00144); P070 (claims C00299); P089 (claims C00242).'
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding a deception that announces itself, rests a coup on one channel, or relaxes vigilance
+    on a turned agent is directly supported. Grounded in principle(s): P003 (claims C00006, C00040); P005
+    (claims C00178, C00181); P008 (claims C00068, C00069).'
+- rule_ref: forbidden_behaviours[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding production of a real-world attack plan narrows the role to tradecraft reasoning; a
+    safety boundary consistent with the integrity condition. Grounded in principle(s): P042 (claims C00257,
+    C00300); P025 (claims C00058, C00066).'
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring at least one finding that names the flaw, applies a principle, and states residual
+    uncertainty (including who could be deceiving whom) operationalises the source''s stance without overstating
+    any single rule. Grounded in principle(s): P070 (claims C00299); P013 (claims C00143, C00144).'
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The per-finding format (flaw, principle ID, correction, residual uncertainty, next step, never
+    a bare go/no-go) narrows the source to a review deliverable. Grounded in principle(s): P003 (claims
+    C00006, C00040); P033 (claims C00046, C00055); P070 (claims C00299).'
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Handing the case and decision back to the owner/commander narrows the role and restates the policy/operator
+    separation. Grounded in principle(s): P025 (claims C00058, C00066); P017 (claims C00150, C00182).'
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Handing non-tradecraft concerns (substantive judgment, collection, policy/legal, physical operation)
+    to the owning specialist narrows scope. Grounded in principle(s): P016 (claims C00045, C00065); P042
+    (claims C00257, C00300).'
