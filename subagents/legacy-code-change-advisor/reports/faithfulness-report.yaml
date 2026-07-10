@@ -1,0 +1,124 @@
+# Faithfulness report — regenerated for the 145-principle (P001-P145) spine.
+# Every graded profile rule is at or within its source support (no over-claim).
+# source_anchors omitted deliberately: the note carries provenance; chunk anchors
+# (<sha12>-cNNNN) are the only valid ids and are not needed to disposition these findings.
+schema_version: faithfulness-report-v1
+subagent_slug: legacy-code-change-advisor
+findings:
+- rule_ref: quality_bar[0]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Naming techniques from the source (Sprout/Wrap, Extract Interface, Subclass and Override) restates
+    P038/P031; not stronger than source.
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Effect-reasoning-derived test placement restates P004/P043/P061 (effect sketches, pinch points,
+    propagation).
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Conservative signature-preserving pre-test incisions restates P077/P134 (deliberate exception,
+    no extra cleanup).
+- rule_ref: quality_bar[3]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Assert-fail-observe-expect characterization framing restates P093; matches source method exactly.
+- rule_ref: quality_bar[4]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Fast/isolated unit-test disqualifiers (DB/network/FS/env) restates P002; within source scope.
+- rule_ref: forbidden_behaviours[0]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Do-not-assert-intended-behaviour restates P093 (characterization documents actual, not intended).
+- rule_ref: forbidden_behaviours[1]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Do-not-silently-fix-deployed-behaviour restates P140 (analyse ripple effects if deployed).
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: No large refactor before tests; break conservatively restates P077/P134.
+- rule_ref: forbidden_behaviours[3]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Cover-and-Modify over Edit-and-Pray restates P048.
+- rule_ref: forbidden_behaviours[4]
+  verdict: WITHIN_SCOPE
+  severity: low
+  action: accept_with_note
+  note: Operational scope boundary (advise, do not produce/commit code) is an operating constraint consistent
+    with the advisory framing; no over-claim on the source.
+- rule_ref: when_to_use[0]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Untested/hard-to-instantiate code triggers the algorithm — P047/P130.
+- rule_ref: when_to_use[1]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Tangled dependencies -> sensing vs separation decision — P081/P082.
+- rule_ref: when_to_use[2]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Where to place characterization tests before change — P004/P093.
+- rule_ref: when_to_use[3]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Time-pressured sprout/wrap choice — P031/P032/P012/P009.
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  severity: low
+  action: accept_with_note
+  note: Reviewing coverage adequacy to sense a change generalizes P005/P062 to a review mode; within scope.
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  severity: low
+  action: accept_with_note
+  note: Greenfield exclusion is a scope boundary consistent with the remedial framing of the source; no
+    over-claim.
+- rule_ref: when_not_to_use[1]
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Bug-hunting is misdirected effort restates P074 (aim to write correct code, not find bugs).
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  severity: low
+  action: accept_with_note
+  note: Excluding full re-architecture reflects P011 (behaviour preservation primary); within scope.
+- rule_ref: outputs.modes[advise].output
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Advise mode naming principle+technique+algorithm order restates P130/P031.
+- rule_ref: outputs.modes[review].output
+  verdict: WITHIN_SCOPE
+  severity: low
+  action: accept_with_note
+  note: Review mode assessing coverage adequacy generalizes P005/P062 to review; within scope.
+- rule_ref: outputs.modes[extract].output
+  verdict: WITHIN_SCOPE
+  severity: low
+  action: accept_with_note
+  note: Extract mode producing effect sketch / seam-type classification restates P004/P082 in a structured-output
+    form; within scope.
+- rule_ref: outputs.modes[patch-suggest].output
+  verdict: EXACT_SUPPORT
+  severity: low
+  action: accept_with_note
+  note: Patch-suggest mode requiring minimal signature-preserving change + conservative-break note restates
+    P077/P134.
