@@ -1,0 +1,215 @@
+{
+  "skill_name": "scripting-portability-style-and-tooling",
+  "principles": [
+    {
+      "id": "P002",
+      "statement": "Do not rely on aliases for script logic: alias substitution applies only to the command-name word of a simple command, never to reserved words in context, is not inherited by separate shell invocations or utility environments, and only chains to the next word when the alias value ends in a blank.",
+      "applies_when": [
+        "you need parameters, recursion, or scripting",
+        "a script or reviewer is considering aliases as a mechanism for reusable behaviour",
+        "Customizing interactive shell commands."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P013",
+      "statement": "Use the correct interpreter: put #!/usr/bin/env bash on the very first line of a Bash script (never omit it or use #!/bin/sh, which forces POSIX features even when /bin/sh is really Bash); running via ./script uses the shebang while 'bash script' ignores it; keep LF-only line endings and do not add a .sh extension.",
+      "applies_when": [
+        "writing a Bash script",
+        "When a script should run directly by path."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P025",
+      "statement": "Automate repeated shell work with variables, conditionals, loops, functions, and explicit error handling rather than duplicated command text.",
+      "applies_when": [
+        "When a command sequence is reused or must adapt to inputs, files, shells, or failures.",
+        "When a workflow is repeated often enough to justify reuse.",
+        "Creating reusable shell commands."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P028",
+      "statement": "Use version-control branches to isolate unfinished or experimental work, inspect diffs, commit deliberately, and make changes reviewable before sharing.",
+      "applies_when": [
+        "When a change series is not ready to merge.",
+        "When managing separate lines of Git work.",
+        "When checking out a commit instead of a branch tip.",
+        "When using Git or Subversion collaboratively."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P038",
+      "statement": "Use the configure and make workflow for building Bash or similar source packages, treating configure errors and missing Makefiles as blockers and using staging or out-of-tree builds when needed.",
+      "applies_when": [
+        "Building conventional Unix source packages."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P046",
+      "statement": "Prepare source builds safely by inspecting archives, extracting into controlled directories, reading project instructions, installing build tools, configuring prefixes when appropriate, and installing only after a successful build.",
+      "applies_when": [
+        "When installing software from source code.",
+        "Downloading and unpacking source code."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P047",
+      "statement": "Treat interactive shell conveniences as stateful tools: use completion and editing modes for accuracy, but use history expansion cautiously because it can re-run prior commands.",
+      "applies_when": [
+        "When commands are long, reused, or error-prone to retype.",
+        "When working at an interactive shell."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P053",
+      "statement": "Move from shell to a stronger programming language when the problem exceeds shell scripting complexity or maintainability limits.",
+      "applies_when": [
+        "When scripts must run across platforms or have grown complex.",
+        "When shell scripts become hard to express, validate, or maintain."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P056",
+      "statement": "Learn command-line work hands-on on an available Linux system, using a full installation when sustained practice needs speed and persistence.",
+      "applies_when": [
+        "When preparing a machine for shell learning.",
+        "A learner is building practical Linux command-line competence."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P061",
+      "statement": "Keep login-shell, default-shell, login-environment, and interactive startup changes minimal, tested, and placed in the appropriate user startup files unless administering all users.",
+      "applies_when": [
+        "When changing profile files or a user default shell.",
+        "Persisting shell customizations."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P093",
+      "statement": "Understand that running a script as a child cannot change your current shell's working directory or variables (the child's environment is discarded); source it with the . (dot) command to run its commands in the current shell.",
+      "applies_when": [
+        "a script must alter the calling shell's state",
+        "When deciding how a shell script should be invoked."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P108",
+      "statement": "Prefer readable scripts: use consistent indentation and style, clear long options or continuations when helpful, comments for reasoning, and quoting instead of escape clutter.",
+      "applies_when": [
+        "Writing maintainable shell scripts."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P114",
+      "statement": "In an interactive bash before 4.3, a `!` inside double quotes triggers csh-style history expansion (`event not found`); disable it with `set +H`/`set +o histexpand` or use single quotes. Scripts are unaffected.",
+      "applies_when": [
+        "typing a double-quoted string containing ! at an interactive prompt (bash < 4.3)",
+        "the shell is in POSIX mode"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P128",
+      "statement": "Use Git to track configuration changes and assemble each commit through an explicit staging area.",
+      "applies_when": [
+        "When personal or project files evolve over time.",
+        "When recording changes in Git."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P140",
+      "statement": "Test dotfiles in fresh target shells and source symlinked fragments only after readability and path checks.",
+      "applies_when": [
+        "When dotfiles should work across machines or shell families."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P142",
+      "statement": "Build CLI programs incrementally from stdin reading to validation, lookup, subprocess checks, structured parsing, and graceful missing-data handling.",
+      "applies_when": [
+        "When building a command-line program meant to fit shell workflows.",
+        "When developing a command-line utility in Python."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P147",
+      "statement": "Scope startup-file customizations to interactive shells and avoid exits, noise, slow commands, and complex failure-prone logic during startup.",
+      "applies_when": [
+        "When editing shell startup files."
+      ],
+      "confidence": "medium"
+    }
+  ],
+  "provenance": {
+    "principles": [
+      "P002",
+      "P013",
+      "P025",
+      "P028",
+      "P038",
+      "P046",
+      "P047",
+      "P053",
+      "P056",
+      "P061",
+      "P093",
+      "P108",
+      "P114",
+      "P128",
+      "P140",
+      "P142",
+      "P147"
+    ],
+    "claims": [
+      "C00039",
+      "C00156",
+      "C00157",
+      "C00242",
+      "C00562",
+      "C00611",
+      "C00612",
+      "C00613",
+      "C01709",
+      "C01710"
+    ],
+    "evidence": [
+      "E00008",
+      "E00058",
+      "E00059",
+      "E00107",
+      "E00254",
+      "E00259",
+      "E00260",
+      "E00261",
+      "E00847",
+      "E00848"
+    ],
+    "source_anchors": [
+      "457d111305bf-c0000",
+      "dd4e9d2506fb-c0000",
+      "dd4e9d2506fb-c0003",
+      "ece374b583e8-c0007",
+      "ece374b583e8-c0009",
+      "07b8d355a162-c0000",
+      "c8604455f3d5-c0030",
+      "dd4e9d2506fb-c0006",
+      "ece374b583e8-c0004",
+      "fc16a0303ffc-c0012"
+    ]
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "skill_name": "control-flow-conditionals-and-loops",
+  "principles": [
+    {
+      "id": "P016",
+      "statement": "Write robust 'test'/'[' conditions: give each operator and operand as a separate argument (with a closing ']'), quote operands because a one-argument test is true for any non-null string, and restrict each test to a single primary combined with '&&'/'||' instead of the POSIX-deprecated '-a', '-o', and parentheses.",
+      "applies_when": [
+        "combining test conditions",
+        "using the [ / test command"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P017",
+      "statement": "Use && and || for short-circuit control flow: after && the next command runs only if the previous succeeded, after || only if it failed, commands are expanded only when they are actually executed, and the list status is that of the last command executed.",
+      "applies_when": [
+        "When compact command chaining replaces an explicit if block.",
+        "chaining commands conditionally on success or failure"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P022",
+      "statement": "Prefer the double-quoted \"$@\" to preserve each positional parameter as its own field, and use \"$*\" only when a single IFS-joined string is intended, because unquoted @ and * are subject to field splitting and pathname expansion.",
+      "applies_when": [
+        "looping over a script's or function's arguments",
+        "forwarding or iterating over positional parameters"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P027",
+      "statement": "Use traditional for loops over generated words, positional parameters, and glob results while checking unmatched globs and preserving loop-variable clarity.",
+      "applies_when": [
+        "When iterating over arrays, variables, globs, files, or generated values.",
+        "Iterating over command-line arguments or generated file lists.",
+        "Looping over files, command output, or positional parameters."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P032",
+      "statement": "Format shell control flow so keywords appear at valid command boundaries, and choose if/elif, case, while, until, or for according to the branching or looping model.",
+      "applies_when": [
+        "When shell behavior depends on input, file state, shell type, or another condition.",
+        "When writing shell conditionals and loops."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P042",
+      "statement": "Use shell arithmetic only for integer logic, being explicit about bases, division truncation, modulo, assignment versus equality, and increment semantics.",
+      "applies_when": [
+        "When shell scripts perform simple numeric operations.",
+        "Writing arithmetic shell expressions."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P063",
+      "statement": "Choose calculator tools by complexity: shell arithmetic or expr for simple expressions, bc for precision and programmable arithmetic, and dc only for acceptable stack/RPN workflows.",
+      "applies_when": [
+        "When doing calculations at the command line.",
+        "Shell arithmetic is not precise or expressive enough."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P070",
+      "statement": "Order case patterns from specific to catch-all, add a final * default when unmatched input should be handled, and remember that a case with no match returns success.",
+      "applies_when": [
+        "Writing bash case statements."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P073",
+      "statement": "For recursive file iteration use `find -exec cmd {} \\;`/`{} +` (portable), or in bash `find -print0 | while IFS= read -r -d '' f` (which also runs the loop body in the current shell so variables persist), or bash 4+ `globstar` (`**`).",
+      "applies_when": [
+        "you must descend into subdirectories",
+        "When iterating over filesystem results with unusual names or complex filters."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P101",
+      "statement": "Use the file-test primaries (-e exists, -f regular file, -d directory, -r/-w/-x permissions, -s non-empty, -L/-h symlink, -p FIFO, -S socket, -t terminal, and -nt/-ot/-ef comparisons), remembering they follow symbolic links and test the target unless the test is symlink-specific.",
+      "applies_when": [],
+      "confidence": "high"
+    },
+    {
+      "id": "P116",
+      "statement": "Choose comparison operators by operand type: string operators compare strings, while -eq/-ne/-lt/-le/-gt/-ge compare integers.",
+      "applies_when": [
+        "comparing values that should be numbers"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P132",
+      "statement": "Choose string, integer, regex, pattern, and arithmetic test forms according to the value being validated or compared.",
+      "applies_when": [
+        "Writing bash conditionals."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P150",
+      "statement": "Choose the loop form that matches the problem: fixed ranges, numeric counters, unknown repetition, streamed lines, or interactive menus.",
+      "applies_when": [
+        "When selecting between for, C-style for, while, and infinite loops."
+      ],
+      "confidence": "medium"
+    }
+  ],
+  "provenance": {
+    "principles": [
+      "P016",
+      "P017",
+      "P022",
+      "P027",
+      "P032",
+      "P042",
+      "P063",
+      "P070",
+      "P073",
+      "P101",
+      "P116",
+      "P132",
+      "P150"
+    ],
+    "claims": [
+      "C00076",
+      "C00077",
+      "C00214",
+      "C00218",
+      "C00320",
+      "C00512",
+      "C00513",
+      "C00514",
+      "C00357",
+      "C00358"
+    ],
+    "evidence": [
+      "E00031",
+      "E00032",
+      "E00090",
+      "E00093",
+      "E00153",
+      "E00239",
+      "E00240",
+      "E00241",
+      "E00174",
+      "E00175"
+    ],
+    "source_anchors": [
+      "05f06662f2b0-c0000",
+      "dd4e9d2506fb-c0002",
+      "dd4e9d2506fb-c0006",
+      "ece374b583e8-c0005",
+      "ece374b583e8-c0000",
+      "fc16a0303ffc-c0014",
+      "07b8d355a162-c0002",
+      "05f06662f2b0-c0001",
+      "07b8d355a162-c0000",
+      "fc16a0303ffc-c0015"
+    ]
+  }
+}

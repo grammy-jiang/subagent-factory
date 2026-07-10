@@ -1,0 +1,163 @@
+{
+  "skill_name": "text-processing-and-regex-tools",
+  "principles": [
+    {
+      "id": "P010",
+      "statement": "Choose text inspection and transformation tools by data shape, composing narrow tools into pipelines and escalating to awk, sed, or a programming language when the structure demands it.",
+      "applies_when": [
+        "When selecting a shell text-processing command.",
+        "When manipulating line-oriented text.",
+        "Preparing or inspecting line-oriented text."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P024",
+      "statement": "Build regular expressions iteratively against valid and invalid examples, using anchors, escapes, captures, character classes, quantifiers, and locale controls to encode the intended data constraint.",
+      "applies_when": [
+        "When authoring regexes for grep, sed, shell conditionals, or another tool.",
+        "When a regex component must allow or forbid specific character forms.",
+        "When regex output will drive validation, extraction, or replacement.",
+        "Writing portable or precise regular expressions."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P026",
+      "statement": "Use grep and its variants with quoted patterns and explicit options that match the needed search semantics, output, context, recursion, filenames, line numbers, and fixed-string or regex behavior.",
+      "applies_when": [
+        "When searching files, history, or stream output in a shared shell workflow.",
+        "When basic inclusion, exclusion, and inspection solve the immediate text-filtering task.",
+        "When searching text."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P065",
+      "statement": "Use in-place sed only when rewriting the target file is intended; prefer writing transformed output to a new file or using a templating tool when direct edits become risky or unclear.",
+      "applies_when": [
+        "When editing files or generating templates from shell transformations.",
+        "Editing files directly with sed."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P066",
+      "statement": "Sort and deduplicate with semantics that match the data, remembering uniq only removes adjacent duplicates while sort -u can sort and deduplicate together.",
+      "applies_when": [
+        "When ordering or summarizing line-oriented data.",
+        "Removing or counting duplicate lines."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P072",
+      "statement": "Avoid broad or complicated pattern and regex matching against long strings when performance matters; test correctness and performance on realistic inputs or match smaller pieces.",
+      "applies_when": [
+        "When a regex has nested, broad, or delimiter-sensitive subpatterns."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P078",
+      "statement": "Match POSIX extended regular expressions with '[[ =~ ]]' (0 match, 1 no match, 2 invalid regex), remembering it matches any substring unless anchored with '^' and '$', and that anchors and regex-special characters must be left unquoted.",
+      "applies_when": [
+        "matching a string against a regular expression"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P130",
+      "statement": "Quote regular expressions and choose the dialect expected by the tool, using extended syntax, grouping, alternation, and repetition only so the shell and regex engine preserve the intended pattern.",
+      "applies_when": [
+        "Searching text with grep or related tools.",
+        "Writing grep -E or other ERE patterns."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P131",
+      "statement": "Use tac, rev, comm, diff, and patch to inspect ordering, compare versions, review changes, and apply small text change sets.",
+      "applies_when": [
+        "Comparing logs, configuration, or source trees."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P144",
+      "statement": "Use sed for noninteractive stream editing with explicit commands, scripts, addresses, and print behavior appropriate to the selected lines.",
+      "applies_when": [
+        "Editing text streams or files noninteractively."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P148",
+      "statement": "Build sed commands from targeted addresses, ordered expressions, captures, and tested regexes rather than one opaque transformation.",
+      "applies_when": [
+        "When sed must remove comments, append or prepend text, extract fields, or reuse matched subparts."
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "P149",
+      "statement": "Control xargs batching, placeholders, delimiters, tracing, and prompts according to the command shape and risk.",
+      "applies_when": [
+        "When generated arguments must be chunked, placed away from the end, or reviewed interactively."
+      ],
+      "confidence": "medium"
+    }
+  ],
+  "provenance": {
+    "principles": [
+      "P010",
+      "P024",
+      "P026",
+      "P065",
+      "P066",
+      "P072",
+      "P078",
+      "P130",
+      "P131",
+      "P144",
+      "P148",
+      "P149"
+    ],
+    "claims": [
+      "C00968",
+      "C00969",
+      "C00970",
+      "C00971",
+      "C00972",
+      "C00973",
+      "C00974",
+      "C00975",
+      "C00976",
+      "C00977"
+    ],
+    "evidence": [
+      "E00415",
+      "E00416",
+      "E00417",
+      "E00418",
+      "E00419",
+      "E00420",
+      "E00421",
+      "E00422",
+      "E00423",
+      "E00424"
+    ],
+    "source_anchors": [
+      "fc16a0303ffc-c0010",
+      "2583cb6ce003-c0005",
+      "c8604455f3d5-c0024",
+      "fc16a0303ffc-c0008",
+      "fc16a0303ffc-c0009",
+      "c8604455f3d5-c0022",
+      "c8604455f3d5-c0023",
+      "fc16a0303ffc-c0011",
+      "c8604455f3d5-c0026",
+      "ece374b583e8-c0003"
+    ]
+  }
+}
