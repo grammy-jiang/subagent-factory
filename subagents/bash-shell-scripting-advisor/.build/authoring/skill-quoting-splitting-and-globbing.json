@@ -1,0 +1,192 @@
+{
+  "skill_name": "quoting-splitting-and-globbing",
+  "principles": [
+    {
+      "id": "P004",
+      "statement": "Double-quote every parameter expansion and command substitution used as data (filenames, arguments, test operands); unquoted, they undergo word splitting on $IFS and pathname expansion (globbing), corrupting any value that contains whitespace or glob characters. Note that quotes nest across a `$(...)` boundary as a separate pair.",
+      "applies_when": [
+        "expanding a variable or command substitution that will be used as data, a filename, or an argument",
+        "any parameter expansion or command substitution",
+        "a value may contain whitespace or special characters",
+        "Writing commands that include user data, filenames, or generated output."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P005",
+      "statement": "Quote every character that has special meaning to the shell when it must be literal, and pick the quoting mechanism by its scope: single-quotes preserve everything (and cannot contain a single-quote), double-quotes preserve everything except the dollar-sign, backquote, and backslash, and an unquoted backslash escapes just the next character.",
+      "applies_when": [
+        "a value or argument may contain shell metacharacters, whitespace, or globbing characters",
+        "When arguments contain whitespace, variables, metacharacters, or control characters."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P007",
+      "statement": "Double-quote expansions to control field splitting: only the unquoted results of parameter expansion, command substitution, and arithmetic expansion are split, IFS drives how they split (with a null IFS disabling splitting entirely), so quoting is the primary defence against accidental word-splitting.",
+      "applies_when": [
+        "you intentionally rely on splitting an unquoted expansion",
+        "When variables or command output become command arguments.",
+        "an expansion result may contain IFS characters and must remain a single field"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P019",
+      "statement": "Move filenames between tools NUL-delimited: `find -print0 | xargs -0`, `printf '%s\\0'`, or `find -exec cmd {} +` \u2014 never bare `xargs`, which splits on whitespace and mishandles quotes; and pass `{}` to `find -exec sh -c` as a positional argument (`sh -c '... \"$1\"' x {}`), never interpolated into the code, which is a command-injection vector.",
+      "applies_when": [
+        "piping filenames to another command, or running a shell per found file",
+        "parsing a stream of filenames into elements",
+        "When passing filesystem paths from find to another command."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P020",
+      "statement": "Quoting changes matching semantics: in `[[ ]]` the RHS of `=`/`==` is a glob pattern (quote it for a literal compare) and the RHS of `=~` is a regex (quote it for a literal, or store a long regex in a variable); `>`/`<` in `[[ ]]` compare by string collation, not numerically.",
+      "applies_when": [
+        "comparing a string against a fixed value, pattern, or regex in [[ ]]",
+        "matching a string against a regular expression in [[ ]]",
+        "using = or == inside [[ ]]"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P030",
+      "statement": "Quote find patterns and compose tests, grouping, and logical operators so the shell does not rewrite the search expression before find evaluates it.",
+      "applies_when": [
+        "When find patterns include wildcards, path components, OR, NOT, or grouped conditions.",
+        "Building find expressions."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P068",
+      "statement": "Never build a filename list by iterating command output (`for f in $(ls)`/`$(find)`) or by parsing `ls`: command substitution provides no safe delimiter (a pathname may contain any byte but NUL, including newline), `ls` output is for humans and may mangle names, and quoting the whole substitution collapses it to one word. Use globs or `find` instead.",
+      "applies_when": [
+        "you need to iterate over a set of filenames",
+        "enumerating or iterating files"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P089",
+      "statement": "Treat tilde expansion as dependent on the user database and HOME: a bare tilde expands to HOME, an unset HOME makes it unspecified, and the resulting pathname is treated as quoted so it is not re-split or globbed.",
+      "applies_when": [
+        "a script relies on ~ or ~user expansion for paths"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P090",
+      "statement": "Call `tr` without bracket ranges \u2014 `tr A-Z a-z` (the brackets in `tr [A-Z] [a-z]` are shell globs and tr translates them literally) \u2014 and force `LC_COLLATE=C` for the 26 ASCII letters or use the quoted `[:upper:]`/`[:lower:]` classes, since letter ranges are locale-dependent.",
+      "applies_when": [
+        "transliterating characters or changing case with tr",
+        "Transforming individual characters in a stream."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P094",
+      "statement": "Generate strings textually with brace expansion ('{a,b,c}' or '{x..y..incr}') before any other expansion, knowing the files need not exist, endpoints of a sequence must be the same type, and '${' inhibits it.",
+      "applies_when": [],
+      "confidence": "high"
+    },
+    {
+      "id": "P098",
+      "statement": "Stop filenames that begin with `-` from being read as options: prefix expansions with `./` (so `-foo` becomes `./-foo`), or pass `--` end-of-options before filename arguments \u2014 repeated at every site, and knowing some programs (e.g. `echo`) do not honour it.",
+      "applies_when": [
+        "passing user- or glob-derived filenames to a command"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P099",
+      "statement": "Quote filename patterns that must be literal (or use 'set -f'), and enable 'nullglob' or 'failglob' so an unmatched pattern is removed or raises an error instead of being passed through literally, which prevents the common bug of a loop running once over an unmatched '*'.",
+      "applies_when": [
+        "looping over a glob such as ./*.ext"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P100",
+      "statement": "Treat command-substitution output as untrusted for splitting: null bytes in the output make the behaviour unspecified and embedded newlines can be split into separate fields per IFS, so quote the substitution or sanitize its output when the exact value matters.",
+      "applies_when": [
+        "capturing output that may contain newlines or null bytes"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P135",
+      "statement": "Remember that shell expansions happen before command execution, so commands receive expanded arguments rather than the original syntax.",
+      "applies_when": [
+        "Diagnosing unexpected arguments or constructing command lines."
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "P014",
+      "statement": "Protect dash-leading operands from option parsing by using --, ./ prefixes, quoting, escaping, or explicit dotfile handling as appropriate for the command.",
+      "applies_when": [
+        "The invoked command follows the POSIX end-of-options convention and accepts user-provided operands.",
+        "When filenames, globs, leading dashes, whitespace, or shell metacharacters are involved."
+      ],
+      "confidence": "high"
+    }
+  ],
+  "provenance": {
+    "principles": [
+      "P004",
+      "P005",
+      "P007",
+      "P019",
+      "P020",
+      "P030",
+      "P068",
+      "P089",
+      "P090",
+      "P094",
+      "P098",
+      "P099",
+      "P100",
+      "P135",
+      "P014"
+    ],
+    "claims": [
+      "C00027",
+      "C00057",
+      "C00067",
+      "C00071",
+      "C00074",
+      "C00075",
+      "C00091",
+      "C00150",
+      "C00151",
+      "C00152"
+    ],
+    "evidence": [
+      "E00001",
+      "E00013",
+      "E00023",
+      "E00027",
+      "E00029",
+      "E00030",
+      "E00039",
+      "E00054",
+      "E00055",
+      "E00056"
+    ],
+    "source_anchors": [
+      "457d111305bf-c0000",
+      "05f06662f2b0-c0000",
+      "dd4e9d2506fb-c0000",
+      "dd4e9d2506fb-c0002",
+      "dd4e9d2506fb-c0006",
+      "c8604455f3d5-c0011",
+      "ece374b583e8-c0000",
+      "07b8d355a162-c0000",
+      "2583cb6ce003-c0002",
+      "ece374b583e8-c0003"
+    ]
+  }
+}

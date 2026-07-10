@@ -1,0 +1,3863 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: 'Know that a variable assignment prefixed to a command scopes differently
+    by target: before an ordinary utility it is exported only for that command, before
+    a special built-in it persists in the current environment, before a function it
+    applies during the call with unspecified persistence afterward, and any assignment
+    to a readonly variable is an error.'
+  derived_from_claims:
+  - C00182
+  - C00273
+  - C00275
+  - C00276
+  - C00472
+  - C00476
+  - C00504
+  - C01777
+  - C01778
+  - C01779
+  - C01939
+  - C01940
+  - C01941
+  - C02720
+  - C02721
+  - C02722
+  - C02723
+  - C02724
+  - C02725
+  confidence: high
+  applies_when:
+  - passing data via the environment
+  - prefixing VAR=value to a command and reasoning about whether it persists
+  - When configuring commands through environment variables.
+  - Configuring environment for commands or child processes.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Do not rely on aliases for script logic: alias substitution applies
+    only to the command-name word of a simple command, never to reserved words in
+    context, is not inherited by separate shell invocations or utility environments,
+    and only chains to the next word when the alias value ends in a blank.'
+  derived_from_claims:
+  - C00039
+  - C00156
+  - C00157
+  - C00242
+  - C00562
+  - C00611
+  - C00612
+  - C00613
+  - C01709
+  - C01710
+  - C01711
+  - C01712
+  - C03338
+  - C03339
+  confidence: high
+  applies_when:
+  - you need parameters, recursion, or scripting
+  - a script or reviewer is considering aliases as a mechanism for reusable behaviour
+  - Customizing interactive shell commands.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Use job control deliberately for interactive jobs, knowing how process
+    groups, backgrounding, suspension, fg/bg/jobs/disown, and terminal signals affect
+    job lifetime and input.
+  derived_from_claims:
+  - C00304
+  - C00305
+  - C00306
+  - C00307
+  - C00308
+  - C00637
+  - C00638
+  - C01964
+  - C01965
+  - C01966
+  - C01967
+  - C01968
+  - C01969
+  - C01970
+  - C01971
+  - C01972
+  - C01973
+  - C01974
+  - C02680
+  - C02681
+  - C02682
+  - C02683
+  - C02684
+  - C02685
+  - C02686
+  - C02687
+  - C02688
+  confidence: high
+  applies_when:
+  - When controlling interactive or long-running shell work.
+  - Managing commands launched from an interactive terminal.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Double-quote every parameter expansion and command substitution used
+    as data (filenames, arguments, test operands); unquoted, they undergo word splitting
+    on $IFS and pathname expansion (globbing), corrupting any value that contains
+    whitespace or glob characters. Note that quotes nest across a `$(...)` boundary
+    as a separate pair.
+  derived_from_claims:
+  - C00027
+  - C00057
+  - C00067
+  - C00071
+  - C00074
+  - C00075
+  - C00091
+  - C00150
+  - C00151
+  - C00152
+  - C00153
+  - C00176
+  - C00211
+  - C00219
+  - C00313
+  - C02583
+  - C02584
+  - C02585
+  - C02586
+  - C02587
+  - C02588
+  - C02589
+  - C02590
+  - C02592
+  - C02593
+  - C02594
+  confidence: high
+  applies_when:
+  - expanding a variable or command substitution that will be used as data, a filename,
+    or an argument
+  - any parameter expansion or command substitution
+  - a value may contain whitespace or special characters
+  - Writing commands that include user data, filenames, or generated output.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: 'Quote every character that has special meaning to the shell when it
+    must be literal, and pick the quoting mechanism by its scope: single-quotes preserve
+    everything (and cannot contain a single-quote), double-quotes preserve everything
+    except the dollar-sign, backquote, and backslash, and an unquoted backslash escapes
+    just the next character.'
+  derived_from_claims:
+  - C00170
+  - C00171
+  - C00315
+  - C00338
+  - C00339
+  - C00340
+  - C00344
+  - C00349
+  - C01699
+  - C01700
+  - C01701
+  - C01702
+  - C01703
+  - C01704
+  - C01705
+  - C01706
+  - C01957
+  - C01958
+  - C01959
+  - C01960
+  confidence: high
+  applies_when:
+  - a value or argument may contain shell metacharacters, whitespace, or globbing
+    characters
+  - When arguments contain whitespace, variables, metacharacters, or control characters.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: Run command-executing code with the least privileges needed and use isolated
+    limited accounts for single-purpose command tasks where feasible.
+  derived_from_claims:
+  - C00761
+  - C00773
+  - C00774
+  - C00787
+  - C00791
+  - C00792
+  - C00806
+  - C01917
+  - C01918
+  - C02640
+  - C02641
+  - C02642
+  - C02643
+  - C02644
+  - C02645
+  - C02646
+  - C02647
+  - C02648
+  - C02649
+  - C02653
+  confidence: high
+  applies_when:
+  - A process can invoke OS commands or external programs.
+  - A wrapper, helper, or application invokes operating-system commands with privileges
+    beyond the attacker or caller.
+  - When a command needs administrative privileges.
+  - Administrative access is needed for a specific task.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: 'Double-quote expansions to control field splitting: only the unquoted
+    results of parameter expansion, command substitution, and arithmetic expansion
+    are split, IFS drives how they split (with a null IFS disabling splitting entirely),
+    so quoting is the primary defence against accidental word-splitting.'
+  derived_from_claims:
+  - C00317
+  - C00445
+  - C00446
+  - C00687
+  - C01465
+  - C01466
+  - C01467
+  - C01468
+  - C01469
+  - C01470
+  - C01471
+  - C01753
+  - C01754
+  confidence: high
+  applies_when:
+  - you intentionally rely on splitting an unquoted expansion
+  - When variables or command output become command arguments.
+  - an expansion result may contain IFS characters and must remain a single field
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Apply a single redirection to a whole compound command (a loop's done
+    or a { } group) to redirect every command inside it; Bash opens the file once
+    before the construct and closes it after, and inner commands inherit the FD.
+  derived_from_claims:
+  - C00207
+  - C00233
+  - C00284
+  - C00361
+  - C01800
+  - C02542
+  - C02543
+  confidence: high
+  applies_when:
+  - several commands should share one redirection
+  - redirecting the combined output or input of a loop or group
+  - Multiple command outputs need the same destination.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: Use SSH-family tools for encrypted remote login and file transfer, with
+    explicit credentials, protected keys, host-key awareness, ports, agents, terminal
+    options, and clean session closure.
+  derived_from_claims:
+  - C01516
+  - C01517
+  - C01518
+  - C01519
+  - C01520
+  - C01521
+  - C01522
+  - C01523
+  - C01524
+  - C01525
+  - C01526
+  - C01527
+  - C01539
+  - C01540
+  - C01541
+  - C01542
+  - C01543
+  - C01544
+  - C01545
+  - C01546
+  - C01547
+  - C02285
+  - C02286
+  - C02287
+  - C02288
+  - C02289
+  - C02290
+  - C02291
+  - C02292
+  - C02293
+  - C02294
+  - C02899
+  - C02900
+  - C02901
+  - C02902
+  - C02903
+  - C02904
+  - C02905
+  - C02906
+  - C02907
+  - C02908
+  - C02909
+  - C02910
+  - C02911
+  - C02912
+  - C02913
+  - C02914
+  - C02915
+  - C02916
+  - C02917
+  - C02918
+  - C02919
+  confidence: high
+  applies_when:
+  - When connecting to remote machines.
+  - When copying files to or from an SSH-accessible machine.
+  - When connecting to or transferring files with remote machines.
+  - Authenticating or transferring data across a network.
+  - Connecting to remote hosts with SSH.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Choose text inspection and transformation tools by data shape, composing
+    narrow tools into pipelines and escalating to awk, sed, or a programming language
+    when the structure demands it.
+  derived_from_claims:
+  - C00968
+  - C00969
+  - C00970
+  - C00971
+  - C00972
+  - C00973
+  - C00974
+  - C00975
+  - C00976
+  - C00977
+  - C00978
+  - C00979
+  - C00980
+  - C00981
+  - C00982
+  - C00983
+  - C00984
+  - C00985
+  - C00986
+  - C02059
+  - C02060
+  - C02061
+  - C02062
+  - C02063
+  - C02064
+  - C02065
+  - C02072
+  - C02073
+  - C02074
+  - C02075
+  - C02076
+  - C02077
+  - C03067
+  - C03068
+  - C03069
+  - C03070
+  - C03071
+  - C03072
+  - C03073
+  - C03074
+  - C03075
+  - C03076
+  - C03077
+  - C03078
+  - C03079
+  confidence: high
+  applies_when:
+  - When selecting a shell text-processing command.
+  - When manipulating line-oriented text.
+  - Preparing or inspecting line-oriented text.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Parse options with 'getopts optstring name' (which sets name, OPTIND,
+    and OPTARG), always resetting OPTIND to 1 before re-parsing a new argument set
+    in the same shell because it is not reset automatically, and prefix optstring
+    with ':' for silent error handling.
+  derived_from_claims:
+  - C00505
+  - C00506
+  - C01228
+  - C01229
+  - C01230
+  - C01231
+  - C03459
+  - C03460
+  - C03461
+  - C03462
+  - C03463
+  - C03464
+  - C03465
+  - C03466
+  - C03467
+  - C03468
+  confidence: high
+  applies_when:
+  - When a script accepts flags or option arguments.
+  - Adding options to shell scripts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Every command exits with a status 0-255 (0 = success by convention);
+    make scripts fail loud by returning a non-zero code on any unexpected failure
+    (e.g. cmd || { echo err >&2; exit 1; }); a leading ! negates a command's status
+    and if branches on it.
+  derived_from_claims:
+  - C00201
+  - C00202
+  - C00208
+  - C00209
+  - C00210
+  - C01201
+  - C01202
+  - C01203
+  - C01204
+  - C01205
+  - C01206
+  - C01207
+  - C02376
+  - C02377
+  - C02378
+  confidence: high
+  applies_when:
+  - When script failure should stop later actions or report a controlled problem.
+  - When writing or debugging shell scripts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: 'Use the correct interpreter: put #!/usr/bin/env bash on the very first
+    line of a Bash script (never omit it or use #!/bin/sh, which forces POSIX features
+    even when /bin/sh is really Bash); running via ./script uses the shebang while
+    ''bash script'' ignores it; keep LF-only line endings and do not add a .sh extension.'
+  derived_from_claims:
+  - C00163
+  - C00164
+  - C00165
+  - C00166
+  - C00167
+  - C00168
+  - C00312
+  - C00490
+  - C00491
+  - C01048
+  - C01049
+  - C01050
+  - C01051
+  - C01052
+  confidence: high
+  applies_when:
+  - writing a Bash script
+  - When a script should run directly by path.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Protect dash-leading operands from option parsing by using --, ./ prefixes,
+    quoting, escaping, or explicit dotfile handling as appropriate for the command.
+  derived_from_claims:
+  - C00492
+  - C00493
+  - C00772
+  - C01900
+  - C01901
+  - C01902
+  - C01923
+  - C01935
+  - C01936
+  - C01937
+  confidence: high
+  applies_when:
+  - The invoked command follows the POSIX end-of-options convention and accepts user-provided
+    operands.
+  - When filenames, globs, leading dashes, whitespace, or shell metacharacters are
+    involved.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: 'Declare function-private variables with ''local'', and account for Bash''s
+    dynamic scoping: a called function sees its caller''s locals (which shadow globals)
+    and the shadowed value is restored when the declaring function returns.'
+  derived_from_claims:
+  - C00045
+  - C00237
+  - C00238
+  - C00240
+  - C00398
+  - C00399
+  - C00532
+  - C00533
+  confidence: high
+  applies_when:
+  - writing a shell function
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: 'Write robust ''test''/''['' conditions: give each operator and operand
+    as a separate argument (with a closing '']''), quote operands because a one-argument
+    test is true for any non-null string, and restrict each test to a single primary
+    combined with ''&&''/''||'' instead of the POSIX-deprecated ''-a'', ''-o'', and
+    parentheses.'
+  derived_from_claims:
+  - C00076
+  - C00077
+  - C00214
+  - C00218
+  - C00320
+  - C00512
+  - C00513
+  - C00514
+  confidence: high
+  applies_when:
+  - combining test conditions
+  - using the [ / test command
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: 'Use && and || for short-circuit control flow: after && the next command
+    runs only if the previous succeeded, after || only if it failed, commands are
+    expanded only when they are actually executed, and the list status is that of
+    the last command executed.'
+  derived_from_claims:
+  - C00357
+  - C00358
+  - C01128
+  - C01129
+  - C01130
+  - C01798
+  - C01799
+  confidence: high
+  applies_when:
+  - When compact command chaining replaces an explicit if block.
+  - chaining commands conditionally on success or failure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Each stage of a pipeline runs in a separate subshell, so variables modified
+    inside `... | while` do not persist afterward; POSIX leaves whether the last stage
+    is a subshell unspecified (lastpipe/ksh93 differ), so do not depend on it — feed
+    the loop with process substitution or `read` instead.
+  derived_from_claims:
+  - C00037
+  - C00083
+  - C00084
+  - C00297
+  - C00298
+  - C00299
+  confidence: high
+  applies_when:
+  - a loop or assignment on the right-hand side of a pipe must set variables the rest
+    of the script reads
+  - a piped command sets a variable you need, or a pipeline grows long
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: 'Move filenames between tools NUL-delimited: `find -print0 | xargs -0`,
+    `printf ''%s\0''`, or `find -exec cmd {} +` — never bare `xargs`, which splits
+    on whitespace and mishandles quotes; and pass `{}` to `find -exec sh -c` as a
+    positional argument (`sh -c ''... "$1"'' x {}`), never interpolated into the code,
+    which is a command-injection vector.'
+  derived_from_claims:
+  - C00132
+  - C00135
+  - C00252
+  - C01022
+  - C01023
+  - C01024
+  confidence: high
+  applies_when:
+  - piping filenames to another command, or running a shell per found file
+  - parsing a stream of filenames into elements
+  - When passing filesystem paths from find to another command.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: 'Quoting changes matching semantics: in `[[ ]]` the RHS of `=`/`==` is
+    a glob pattern (quote it for a literal compare) and the RHS of `=~` is a regex
+    (quote it for a literal, or store a long regex in a variable); `>`/`<` in `[[
+    ]]` compare by string collation, not numerically.'
+  derived_from_claims:
+  - C00073
+  - C00079
+  - C00118
+  - C00213
+  - C00323
+  - C00379
+  confidence: high
+  applies_when:
+  - comparing a string against a fixed value, pattern, or regex in [[ ]]
+  - matching a string against a regular expression in [[ ]]
+  - using = or == inside [[ ]]
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: 'Combine stdout and stderr in the correct order: >file 2>&1 duplicates
+    the stdout FD into stderr (shared file position, no clobber), whereas 2>&1 >file
+    leaves errors on the terminal, and >file 2>file must never be used (two independent
+    FDs clobber each other).'
+  derived_from_claims:
+  - C00124
+  - C00288
+  - C00289
+  - C00290
+  - C00459
+  confidence: high
+  applies_when:
+  - redirecting both stdout and stderr
+  - merging stdout and stderr
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Prefer the double-quoted "$@" to preserve each positional parameter as
+    its own field, and use "$*" only when a single IFS-joined string is intended,
+    because unquoted @ and * are subject to field splitting and pathname expansion.
+  derived_from_claims:
+  - C00103
+  - C00363
+  - C01718
+  - C01719
+  confidence: high
+  applies_when:
+  - looping over a script's or function's arguments
+  - forwarding or iterating over positional parameters
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Remove functions and variables with unset, disambiguating with -f (function)
+    or -v (variable) since variables win by default, and quote an array subscript
+    in unset ('a[2]') so it is not treated as a glob.
+  derived_from_claims:
+  - C00136
+  - C00244
+  - C00245
+  - C00623
+  confidence: high
+  applies_when:
+  - removing a single element from an array
+  - removing a function or variable
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: Build regular expressions iteratively against valid and invalid examples,
+    using anchors, escapes, captures, character classes, quantifiers, and locale controls
+    to encode the intended data constraint.
+  derived_from_claims:
+  - C00911
+  - C00912
+  - C00913
+  - C00914
+  - C00915
+  - C00916
+  - C00917
+  - C00918
+  - C00919
+  - C00920
+  - C00921
+  - C00922
+  - C00923
+  - C00924
+  - C00925
+  - C00926
+  - C00927
+  - C00928
+  - C00929
+  - C00930
+  - C00931
+  - C00932
+  - C00933
+  - C03026
+  - C03027
+  - C03028
+  - C03029
+  - C03030
+  - C03031
+  - C03032
+  - C03033
+  - C03034
+  - C03035
+  - C03036
+  - C03037
+  - C03038
+  confidence: high
+  applies_when:
+  - When authoring regexes for grep, sed, shell conditionals, or another tool.
+  - When a regex component must allow or forbid specific character forms.
+  - When regex output will drive validation, extraction, or replacement.
+  - Writing portable or precise regular expressions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Automate repeated shell work with variables, conditionals, loops, functions,
+    and explicit error handling rather than duplicated command text.
+  derived_from_claims:
+  - C00823
+  - C00824
+  - C00825
+  - C00826
+  - C00827
+  - C00828
+  - C01037
+  - C01038
+  - C01039
+  - C01040
+  - C01041
+  - C01042
+  - C01043
+  - C01044
+  - C01045
+  - C01046
+  - C01047
+  - C03281
+  - C03282
+  - C03283
+  - C03284
+  - C03285
+  - C03286
+  - C03287
+  - C03288
+  - C03289
+  - C03290
+  - C03291
+  - C03292
+  - C03293
+  - C03294
+  - C03295
+  - C03296
+  - C03297
+  confidence: high
+  applies_when:
+  - When a command sequence is reused or must adapt to inputs, files, shells, or failures.
+  - When a workflow is repeated often enough to justify reuse.
+  - Creating reusable shell commands.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Use grep and its variants with quoted patterns and explicit options that
+    match the needed search semantics, output, context, recursion, filenames, line
+    numbers, and fixed-string or regex behavior.
+  derived_from_claims:
+  - C00942
+  - C00943
+  - C00944
+  - C00945
+  - C00946
+  - C00947
+  - C00948
+  - C00949
+  - C00950
+  - C00951
+  - C00952
+  - C00953
+  - C00954
+  - C00955
+  - C00956
+  - C00957
+  - C00958
+  - C00959
+  - C00960
+  - C00961
+  - C02047
+  - C02048
+  - C02049
+  - C02050
+  - C02051
+  - C02052
+  - C02053
+  confidence: medium
+  applies_when:
+  - When searching files, history, or stream output in a shared shell workflow.
+  - When basic inclusion, exclusion, and inspection solve the immediate text-filtering
+    task.
+  - When searching text.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Use traditional for loops over generated words, positional parameters,
+    and glob results while checking unmatched globs and preserving loop-variable clarity.
+  derived_from_claims:
+  - C01135
+  - C01136
+  - C01137
+  - C01138
+  - C01139
+  - C01140
+  - C01141
+  - C01142
+  - C01143
+  - C01144
+  - C01145
+  - C01146
+  - C01147
+  - C01148
+  - C01149
+  - C01150
+  - C03475
+  - C03476
+  - C03477
+  - C03478
+  - C03479
+  - C03480
+  - C03481
+  - C03482
+  - C03483
+  - C03484
+  confidence: high
+  applies_when:
+  - When iterating over arrays, variables, globs, files, or generated values.
+  - Iterating over command-line arguments or generated file lists.
+  - Looping over files, command output, or positional parameters.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Use version-control branches to isolate unfinished or experimental work,
+    inspect diffs, commit deliberately, and make changes reviewable before sharing.
+  derived_from_claims:
+  - C01352
+  - C01367
+  - C01368
+  - C01369
+  - C01370
+  - C01371
+  - C01372
+  - C01373
+  - C01374
+  - C01375
+  - C01376
+  - C01377
+  - C01397
+  - C01398
+  - C01399
+  - C01400
+  - C02341
+  - C02342
+  - C02343
+  - C02345
+  - C02346
+  - C02348
+  - C02349
+  - C02350
+  - C02351
+  confidence: medium
+  applies_when:
+  - When a change series is not ready to merge.
+  - When managing separate lines of Git work.
+  - When checking out a commit instead of a branch tip.
+  - When using Git or Subversion collaboratively.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Inspect files and directories before modifying them, and use interactive
+    or attribute-preserving options when overwrites, copies, moves, or recursive deletion
+    carry risk.
+  derived_from_claims:
+  - C01640
+  - C01641
+  - C01642
+  - C01643
+  - C01644
+  - C01645
+  - C01646
+  - C01647
+  - C01648
+  - C01652
+  - C01653
+  - C01654
+  - C01655
+  - C01656
+  - C01657
+  - C01658
+  - C01659
+  - C01660
+  - C01661
+  - C01662
+  - C01979
+  - C01980
+  - C01981
+  - C01982
+  - C01995
+  confidence: medium
+  applies_when:
+  - When setting up sample data or handling unfamiliar files.
+  - When managing files and folders from the shell.
+  - When performing basic file operations.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Quote find patterns and compose tests, grouping, and logical operators
+    so the shell does not rewrite the search expression before find evaluates it.
+  derived_from_claims:
+  - C00888
+  - C00889
+  - C00890
+  - C00891
+  - C00892
+  - C00893
+  - C00894
+  - C00895
+  - C00896
+  - C00897
+  - C00898
+  - C00899
+  - C00900
+  - C02937
+  - C02938
+  - C02939
+  - C02940
+  - C02941
+  - C02942
+  - C02943
+  - C02944
+  - C02945
+  - C02946
+  - C02947
+  confidence: high
+  applies_when:
+  - When find patterns include wildcards, path components, OR, NOT, or grouped conditions.
+  - Building find expressions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: 'Treat special permission and attribute mechanisms as security-sensitive
+    controls: conditional execute, setuid/setgid, sticky bit, umask, immutable attributes,
+    and filesystem-specific extended attributes all need explicit intent.'
+  derived_from_claims:
+  - C02025
+  - C02026
+  - C02027
+  - C02028
+  - C02029
+  - C02030
+  - C02031
+  - C02620
+  - C02621
+  - C02622
+  - C02623
+  - C02624
+  - C02625
+  - C02626
+  - C02627
+  - C02628
+  - C02629
+  - C02630
+  - C02631
+  - C02632
+  - C02633
+  - C02634
+  - C02635
+  - C02636
+  confidence: high
+  applies_when:
+  - When adjusting access control beyond ordinary read/write bits.
+  - Changing modes or defaults for files and directories.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Format shell control flow so keywords appear at valid command boundaries,
+    and choose if/elif, case, while, until, or for according to the branching or looping
+    model.
+  derived_from_claims:
+  - C01102
+  - C01103
+  - C01104
+  - C01105
+  - C01106
+  - C01107
+  - C01108
+  - C01109
+  - C01110
+  - C01111
+  - C01112
+  - C01113
+  - C01114
+  - C01115
+  - C01116
+  - C01117
+  - C01118
+  - C01119
+  - C01120
+  - C02383
+  - C02384
+  - C02385
+  - C02386
+  - C02388
+  confidence: medium
+  applies_when:
+  - When shell behavior depends on input, file state, shell type, or another condition.
+  - When writing shell conditionals and loops.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Before deleting or executing from find results, verify the result set
+    with printing or prompts and choose safer per-file or batched execution modes
+    deliberately.
+  derived_from_claims:
+  - C00901
+  - C00902
+  - C00903
+  - C00904
+  - C00905
+  - C00906
+  - C00907
+  - C00908
+  - C00909
+  - C00910
+  - C02948
+  - C02949
+  - C02950
+  - C02951
+  - C02952
+  - C02953
+  - C02954
+  - C02955
+  - C02956
+  - C02957
+  - C02958
+  - C02959
+  confidence: high
+  applies_when:
+  - When find will delete files or execute commands on matches.
+  - Using find -delete, -exec, -ok, or xargs.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Use Linux directory conventions as diagnostic hints, but take a read-only
+    system-tour approach and verify actual contents and permissions before editing
+    system files.
+  derived_from_claims:
+  - C01925
+  - C01926
+  - C01927
+  - C01928
+  - C01929
+  - C01930
+  - C01931
+  - C01932
+  - C01933
+  - C02457
+  - C02458
+  - C02459
+  - C02460
+  - C02461
+  - C02462
+  - C02463
+  - C02464
+  - C02465
+  - C02466
+  - C02467
+  - C02468
+  - C02469
+  confidence: high
+  applies_when:
+  - When reasoning about system paths, pseudo-filesystems, ownership, or permissions.
+  - Learning or auditing an unfamiliar Linux system.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: Use parameter expansion with quoting and braces for required values,
+    alternates, defaults, substrings, arrays, cleanup, prefix introspection, and simple
+    path text manipulation before spawning external tools.
+  derived_from_claims:
+  - C01448
+  - C01449
+  - C01450
+  - C01451
+  - C01452
+  - C01453
+  - C01454
+  - C01455
+  - C01456
+  - C01457
+  - C01458
+  - C01459
+  - C01460
+  - C03489
+  - C03490
+  - C03491
+  - C03492
+  - C03493
+  - C03494
+  - C03495
+  - C03496
+  confidence: high
+  applies_when:
+  - When the transformation is simple and shell-native.
+  - Manipulating shell parameters safely.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Before storage operations, name the storage layer precisely and map block
+    devices, partitions, filesystems, mount points, and directories with df or lsblk.
+  derived_from_claims:
+  - C02210
+  - C02211
+  - C02212
+  - C02214
+  - C02215
+  - C02216
+  - C02217
+  - C02218
+  - C02845
+  - C02846
+  - C02847
+  - C02848
+  - C02849
+  - C02850
+  - C02851
+  - C02852
+  - C02853
+  - C02854
+  - C02855
+  - C02856
+  confidence: high
+  applies_when:
+  - When diagnosing or modifying storage.
+  - Preparing removable or disk-like storage.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Use backup and sync tools with exact source/destination semantics, dry
+    runs, and transport choices, especially rsync for repeated attribute-preserving
+    synchronization.
+  derived_from_claims:
+  - C02262
+  - C02263
+  - C02264
+  - C02265
+  - C02266
+  - C02267
+  - C02268
+  - C02269
+  - C02271
+  - C02272
+  - C03011
+  - C03012
+  - C03013
+  - C03014
+  - C03015
+  - C03016
+  - C03017
+  - C03018
+  - C03019
+  - C03020
+  confidence: high
+  applies_when:
+  - When copying, mirroring, synchronizing, or burning backup data.
+  - Synchronizing local or remote file trees.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Use the configure and make workflow for building Bash or similar source
+    packages, treating configure errors and missing Makefiles as blockers and using
+    staging or out-of-tree builds when needed.
+  derived_from_claims:
+  - C00680
+  - C00681
+  - C00684
+  - C03260
+  - C03261
+  - C03262
+  - C03263
+  - C03264
+  - C03265
+  - C03266
+  - C03267
+  - C03268
+  - C03269
+  - C03270
+  - C03271
+  - C03272
+  - C03273
+  - C03274
+  - C03275
+  confidence: high
+  applies_when:
+  - Building conventional Unix source packages.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Use Bash arrays for multi-value state in Bash-compatible scripts, accounting
+    for creation, iteration, indexing, ordering, sparseness, version, and non-empty-input
+    assumptions.
+  derived_from_claims:
+  - C00706
+  - C00707
+  - C00708
+  - C00709
+  - C00711
+  - C03525
+  - C03526
+  - C03527
+  - C03528
+  - C03529
+  - C03530
+  - C03531
+  - C03532
+  - C03533
+  - C03534
+  - C03536
+  - C03537
+  - C03538
+  confidence: high
+  applies_when:
+  - The data is already available as shell arguments or a Bash array.
+  - Managing lists or counters in bash scripts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Favor symbolic links for routine references, understand which operations
+    affect the link versus the target, and prefer relative targets for movable trees.
+  derived_from_claims:
+  - C01983
+  - C01984
+  - C01985
+  - C01986
+  - C01987
+  - C02497
+  - C02498
+  - C02499
+  - C02500
+  - C02501
+  - C02502
+  - C02503
+  - C02504
+  - C02505
+  - C02506
+  - C02507
+  - C02508
+  - C02512
+  confidence: high
+  applies_when:
+  - When creating or diagnosing links.
+  - Creating or maintaining links between pathnames.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Choose the line-editing mode with 'editing-mode' in the inputrc or 'set
+    -o emacs'/'set -o vi'; in vi mode a new line starts in insert mode and ESC enters
+    command mode (k/j move through history).
+  derived_from_claims:
+  - C00658
+  - C00668
+  - C02745
+  - C02746
+  - C02747
+  - C02748
+  - C02749
+  - C02750
+  - C02751
+  - C02752
+  - C02753
+  - C02754
+  - C02755
+  - C02756
+  - C02757
+  - C02758
+  - C02759
+  confidence: high
+  applies_when:
+  - Editing text in vi or vim.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Use shell arithmetic only for integer logic, being explicit about bases,
+    division truncation, modulo, assignment versus equality, and increment semantics.
+  derived_from_claims:
+  - C01097
+  - C01098
+  - C01099
+  - C01100
+  - C01101
+  - C03500
+  - C03501
+  - C03502
+  - C03503
+  - C03504
+  - C03505
+  - C03506
+  - C03507
+  - C03508
+  - C03509
+  - C03510
+  - C03511
+  confidence: high
+  applies_when:
+  - When shell scripts perform simple numeric operations.
+  - Writing arithmetic shell expressions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Signal processes with the least force that can work, escalating from
+    normal termination to named signals, timeouts, and KILL only after ordinary termination
+    fails.
+  derived_from_claims:
+  - C02133
+  - C02134
+  - C02135
+  - C02136
+  - C02137
+  - C02138
+  - C02694
+  - C02695
+  - C02696
+  - C02697
+  - C02698
+  - C02699
+  - C02700
+  - C02701
+  - C02702
+  - C02703
+  - C02705
+  confidence: high
+  applies_when:
+  - When stopping processes or bounding runtime.
+  - Stopping, resuming, or controlling processes.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: Handle archives by first choosing the archive family and action, naming
+    the archive explicitly, selecting compression flags by format, and controlling
+    extraction destination.
+  derived_from_claims:
+  - C02078
+  - C02079
+  - C02080
+  - C02081
+  - C02082
+  - C02085
+  - C02086
+  - C02087
+  - C03003
+  - C03004
+  - C03005
+  - C03006
+  - C03007
+  - C03008
+  - C03009
+  - C03010
+  confidence: high
+  applies_when:
+  - When packaging, listing, or extracting archived/compressed files.
+  - Sharing archives with Windows users or ZIP-only tools.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: Learn a terminal editor for remote and shell-only editing, and store
+    its reusable configuration in dotfiles.
+  derived_from_claims:
+  - C01548
+  - C01549
+  - C01550
+  - C01551
+  - C01552
+  - C01553
+  - C01554
+  - C01555
+  - C01556
+  - C02734
+  - C02740
+  - C02741
+  - C02742
+  - C02743
+  - C02744
+  confidence: high
+  applies_when:
+  - When editing on remote servers, containers, or terminals without desktop editors.
+  - Editing files over terminals, recovery shells, or non-GUI systems.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: Prepare source builds safely by inspecting archives, extracting into
+    controlled directories, reading project instructions, installing build tools,
+    configuring prefixes when appropriate, and installing only after a successful
+    build.
+  derived_from_claims:
+  - C02201
+  - C02202
+  - C02203
+  - C02204
+  - C02205
+  - C02206
+  - C02207
+  - C02208
+  - C02209
+  - C03255
+  - C03256
+  - C03257
+  - C03258
+  - C03259
+  confidence: high
+  applies_when:
+  - When installing software from source code.
+  - Downloading and unpacking source code.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: 'Treat interactive shell conveniences as stateful tools: use completion
+    and editing modes for accuracy, but use history expansion cautiously because it
+    can re-run prior commands.'
+  derived_from_claims:
+  - C00837
+  - C00838
+  - C00839
+  - C00840
+  - C00841
+  - C00842
+  - C00843
+  - C00844
+  - C00845
+  - C00846
+  - C00847
+  - C01961
+  - C01962
+  - C01963
+  confidence: medium
+  applies_when:
+  - When commands are long, reused, or error-prone to retype.
+  - When working at an interactive shell.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: Verify the current directory, listings, hidden files, and path forms
+    before running location-dependent commands; use absolute paths or home-directory
+    forms intentionally.
+  derived_from_claims:
+  - C01631
+  - C01632
+  - C01633
+  - C01634
+  - C01635
+  - C01636
+  - C01637
+  - C01638
+  - C01639
+  - C01919
+  - C01920
+  - C01921
+  - C01922
+  - C01924
+  confidence: medium
+  applies_when:
+  - When navigating or operating on files from the shell.
+  - When commands operate on relative or user-home paths.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Treat rm and shell deletion as permanent; preview wildcard targets and
+    prefer interactive or nonrecursive removal unless recursive deletion is clearly
+    intended.
+  derived_from_claims:
+  - C01649
+  - C01650
+  - C01651
+  - C01663
+  - C01664
+  - C01665
+  - C02494
+  - C02495
+  - C02496
+  - C02509
+  - C02510
+  - C02511
+  - C02513
+  confidence: high
+  applies_when:
+  - When removing files or directories.
+  - Deleting files, especially with wildcards or recursive options.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Use here-documents for multi-line embedded input or output, quoting the
+    delimiter to suppress body expansion and using <<- only when leading tabs should
+    be stripped.
+  derived_from_claims:
+  - C01759
+  - C01764
+  - C01765
+  - C01766
+  - C03309
+  - C03310
+  - C03311
+  - C03312
+  - C03313
+  - C03314
+  - C03315
+  - C03316
+  - C03317
+  confidence: high
+  applies_when:
+  - writing a here-document whose body should or should not be expanded
+  - Generating multi-line text or feeding commands from scripts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Use compression tools with awareness of file replacement, stdout modes,
+    integrity testing, compression levels, viewing helpers, speed, and recovery behavior.
+  derived_from_claims:
+  - C02083
+  - C02084
+  - C02976
+  - C02977
+  - C02978
+  - C02979
+  - C02980
+  - C02981
+  - C02982
+  - C02983
+  - C02984
+  - C02985
+  - C02986
+  confidence: high
+  applies_when:
+  - When compressed content should feed another command or originals must remain.
+  - Compressing or viewing compressed files.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: Treat raw device copying with dd as high risk, verifying input and output
+    devices and media type before running as root because mistakes can destroy data.
+  derived_from_claims:
+  - C02270
+  - C02867
+  - C02868
+  - C02869
+  - C02870
+  - C02871
+  - C02872
+  - C02873
+  - C02874
+  - C02875
+  - C02877
+  - C02878
+  - C02879
+  confidence: high
+  applies_when:
+  - When copying disks, partitions, or raw device data.
+  - Using dd, ISO images, or optical media writing tools.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: Move from shell to a stronger programming language when the problem exceeds
+    shell scripting complexity or maintainability limits.
+  derived_from_claims:
+  - C01236
+  - C01237
+  - C01238
+  - C01239
+  - C01240
+  - C01241
+  - C01242
+  - C01243
+  - C01244
+  - C01245
+  - C01246
+  - C01247
+  - C02399
+  confidence: medium
+  applies_when:
+  - When scripts must run across platforms or have grown complex.
+  - When shell scripts become hard to express, validate, or maintain.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: Access clipboards only through mechanisms supported by the active graphical
+    or terminal environment, and choose the correct X selection for the paste target.
+  derived_from_claims:
+  - C01670
+  - C01671
+  - C01672
+  - C01673
+  - C01674
+  - C01675
+  - C01676
+  - C01677
+  - C01678
+  - C01679
+  - C02325
+  - C02326
+  - C02327
+  confidence: medium
+  applies_when:
+  - When copying and pasting between shell and other applications.
+  - When moving data between shell and clipboard.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: 'Control ''read'' with its options: -a to fill an array, -d for a custom
+    delimiter, -n/-N for a fixed number of characters, -s to suppress echo, -p for
+    a prompt, -u to read from a descriptor, and -t for a timeout (which returns a
+    status above 128 and applies only to terminals, pipes, or special files).'
+  derived_from_claims:
+  - C00543
+  - C03369
+  - C03370
+  - C03371
+  - C03372
+  - C03373
+  - C03374
+  - C03375
+  - C03376
+  - C03377
+  - C03378
+  - C03379
+  confidence: high
+  applies_when:
+  - Reading keyboard, file, or delimited input into shell variables.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Learn command-line work hands-on on an available Linux system, using
+    a full installation when sustained practice needs speed and persistence.
+  derived_from_claims:
+  - C01619
+  - C01620
+  - C01621
+  - C01622
+  - C01623
+  - C01624
+  - C01625
+  - C02400
+  - C02401
+  - C02402
+  - C02403
+  - C02404
+  confidence: high
+  applies_when:
+  - When preparing a machine for shell learning.
+  - A learner is building practical Linux command-line competence.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Compare and verify files with tools and checksum strength that match
+    the question, using quiet modes in scripts and saved strong checksums for later
+    integrity checks.
+  derived_from_claims:
+  - C02094
+  - C02095
+  - C02096
+  - C02097
+  - C02098
+  - C02099
+  - C02100
+  - C02101
+  - C02880
+  - C02881
+  - C02882
+  - C02883
+  confidence: high
+  applies_when:
+  - When checking differences or integrity.
+  - When comparisons need to drive automation.
+  - Using downloaded disk, ISO, or binary images.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Validate and report script arguments with positional parameters, argument
+    counts, brace syntax, shift, script-name extraction, all-argument iteration, usage
+    messages, and explicit exit codes.
+  derived_from_claims:
+  - C02389
+  - C02390
+  - C02391
+  - C02392
+  - C02393
+  - C03447
+  - C03448
+  - C03449
+  - C03450
+  - C03451
+  - C03452
+  - C03453
+  confidence: high
+  applies_when:
+  - When writing shell-script interfaces.
+  - Accepting command-line arguments in scripts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: 'Know redirection semantics: > sends stdout to a file and truncates it
+    (creating it if absent, performed before the command runs), >> appends instead,
+    < feeds stdin from a file, and a leading number selects the FD; every process
+    has FD 0/1/2 = stdin/stdout/stderr.'
+  derived_from_claims:
+  - C00277
+  - C00279
+  - C00280
+  - C00281
+  - C00282
+  - C00286
+  - C01945
+  - C01946
+  - C01947
+  - C01948
+  - C01949
+  confidence: high
+  applies_when:
+  - redirecting a command's input or output
+  - When capturing, redirecting, or piping command output.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: Design prompts with safe PS syntax, bracketing non-printing terminal
+    sequences and accounting for any later prompt expansion of dynamic fields.
+  derived_from_claims:
+  - C00625
+  - C00626
+  - C01279
+  - C01280
+  - C01281
+  - C01282
+  - C01283
+  - C01284
+  - C01285
+  - C01286
+  - C01287
+  confidence: high
+  applies_when:
+  - When customizing command prompts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Keep login-shell, default-shell, login-environment, and interactive startup
+    changes minimal, tested, and placed in the appropriate user startup files unless
+    administering all users.
+  derived_from_claims:
+  - C01273
+  - C01274
+  - C01275
+  - C01276
+  - C01277
+  - C01278
+  - C02726
+  - C02727
+  - C02728
+  - C02738
+  - C02739
+  confidence: high
+  applies_when:
+  - When changing profile files or a user default shell.
+  - Persisting shell customizations.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: Inspect host, interface, address, route, DHCP, and gateway facts with
+    current tools, preferring iproute2 output over legacy interface tools.
+  derived_from_claims:
+  - C02273
+  - C02274
+  - C02275
+  - C02276
+  - C02277
+  - C02893
+  - C02894
+  - C02895
+  - C02896
+  - C02897
+  - C02898
+  confidence: high
+  applies_when:
+  - When diagnosing local host or network-interface state.
+  - Diagnosing local network configuration.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: 'Choose calculator tools by complexity: shell arithmetic or expr for
+    simple expressions, bc for precision and programmable arithmetic, and dc only
+    for acceptable stack/RPN workflows.'
+  derived_from_claims:
+  - C02328
+  - C02329
+  - C02330
+  - C02331
+  - C02332
+  - C02333
+  - C02334
+  - C03520
+  - C03521
+  - C03522
+  - C03523
+  confidence: high
+  applies_when:
+  - When doing calculations at the command line.
+  - Shell arithmetic is not precise or expressive enough.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: Assign shell variables without surrounding spaces, quote values containing
+    spaces, and use braces when adjacent text would confuse variable names.
+  derived_from_claims:
+  - C00093
+  - C03300
+  - C03301
+  - C03302
+  - C03303
+  - C03304
+  - C03305
+  - C03306
+  - C03307
+  - C03308
+  confidence: high
+  applies_when:
+  - assigning a variable
+  - Creating shell variables or constants.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: Use in-place sed only when rewriting the target file is intended; prefer
+    writing transformed output to a new file or using a templating tool when direct
+    edits become risky or unclear.
+  derived_from_claims:
+  - C01008
+  - C01009
+  - C01010
+  - C01011
+  - C01012
+  - C01013
+  - C01014
+  - C01015
+  - C03152
+  - C03153
+  confidence: high
+  applies_when:
+  - When editing files or generating templates from shell transformations.
+  - Editing files directly with sed.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: Sort and deduplicate with semantics that match the data, remembering
+    uniq only removes adjacent duplicates while sort -u can sort and deduplicate together.
+  derived_from_claims:
+  - C02066
+  - C02067
+  - C02068
+  - C02069
+  - C02070
+  - C02071
+  - C03087
+  - C03088
+  - C03089
+  - C03090
+  confidence: high
+  applies_when:
+  - When ordering or summarizing line-oriented data.
+  - Removing or counting duplicate lines.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: Mount and unmount filesystems through fstab-aware commands when possible,
+    and unmount writable removable media before removal while respecting busy-filesystem
+    refusals.
+  derived_from_claims:
+  - C02219
+  - C02220
+  - C02221
+  - C02840
+  - C02841
+  - C02842
+  - C02843
+  - C02844
+  - C02865
+  - C02876
+  confidence: high
+  applies_when:
+  - When accessing or removing mounted filesystems.
+  - Removing, repairing, or detaching storage.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: 'Never build a filename list by iterating command output (`for f in $(ls)`/`$(find)`)
+    or by parsing `ls`: command substitution provides no safe delimiter (a pathname
+    may contain any byte but NUL, including newline), `ls` output is for humans and
+    may mangle names, and quoting the whole substitution collapses it to one word.
+    Use globs or `find` instead.'
+  derived_from_claims:
+  - C00056
+  - C00058
+  - C00059
+  - C00060
+  - C00061
+  - C00194
+  - C00223
+  - C00248
+  - C00324
+  confidence: high
+  applies_when:
+  - you need to iterate over a set of filenames
+  - enumerating or iterating files
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: 'Debug methodically: state the bug in one sentence, minimize to a 3-7
+    line reproduction, then trace with set -x (which prints each command after expansion
+    and shows quoting so word-splitting is visible), scoping it with set -x/+x, redirecting
+    it via BASH_XTRACEFD, and annotating it with a single-quoted PS4; step with a
+    DEBUG trap, recheck the shebang and for carriage-return line endings, and reread
+    the manual.'
+  derived_from_claims:
+  - C00328
+  - C00329
+  - C00330
+  - C00331
+  - C00332
+  - C00333
+  - C00334
+  - C00335
+  - C00550
+  confidence: high
+  applies_when:
+  - a script misbehaves and the cause is not obvious
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Order case patterns from specific to catch-all, add a final * default
+    when unmatched input should be handled, and remember that a case with no match
+    returns success.
+  derived_from_claims:
+  - C00372
+  - C00373
+  - C03440
+  - C03441
+  - C03442
+  - C03443
+  - C03444
+  - C03445
+  - C03446
+  confidence: high
+  applies_when:
+  - Writing bash case statements.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: Use eval only for genuinely dynamic commands built from validated fragments,
+    because eval performs a second round of shell parsing and can execute untrusted
+    input.
+  derived_from_claims:
+  - C01846
+  - C01847
+  - C01848
+  - C03573
+  - C03574
+  - C03575
+  - C03576
+  - C03577
+  - C03578
+  confidence: high
+  applies_when:
+  - constructing and executing a command dynamically with eval
+  - A shell command must be constructed at runtime.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: Avoid broad or complicated pattern and regex matching against long strings
+    when performance matters; test correctness and performance on realistic inputs
+    or match smaller pieces.
+  derived_from_claims:
+  - C00458
+  - C00934
+  - C00935
+  - C00936
+  - C00937
+  - C00938
+  - C00939
+  - C00940
+  - C00941
+  confidence: medium
+  applies_when:
+  - When a regex has nested, broad, or delimiter-sensitive subpatterns.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: For recursive file iteration use `find -exec cmd {} \;`/`{} +` (portable),
+    or in bash `find -print0 | while IFS= read -r -d '' f` (which also runs the loop
+    body in the current shell so variables persist), or bash 4+ `globstar` (`**`).
+  derived_from_claims:
+  - C00064
+  - C00065
+  - C00066
+  - C01151
+  - C01152
+  - C01153
+  - C01154
+  - C01155
+  confidence: high
+  applies_when:
+  - you must descend into subdirectories
+  - When iterating over filesystem results with unusual names or complex filters.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: Use special parameters for runtime state such as the last status, background
+    PID, argument count, script name, and positional parameters, quoting "$@" when
+    preserving arguments.
+  derived_from_claims:
+  - C00179
+  - C00270
+  - C00271
+  - C00272
+  - C00411
+  - C00413
+  - C00414
+  - C00415
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: Prefer Bash parameter expansion for routine string length, trimming,
+    removal, case conversion, substitution, slicing, and default handling when shell
+    patterns are sufficient.
+  derived_from_claims:
+  - C00695
+  - C00701
+  - C00702
+  - C00705
+  - C00726
+  - C03497
+  - C03498
+  - C03499
+  confidence: high
+  applies_when:
+  - The desired transformation matches Bash parameter-expansion or glob-pattern semantics.
+  - Required Bash-version features are available.
+  - Optimizing simple shell string manipulation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: 'Interpret exit statuses precisely: 0 is success and any non-zero value
+    is failure (8-bit, with values above 125 reserved), 128+N means termination by
+    signal N, 127 means command-not-found, 126 means found-but-not-executable, and
+    a builtin returns 2 for incorrect usage.'
+  derived_from_claims:
+  - C00347
+  - C00348
+  - C00477
+  - C00478
+  - C00479
+  - C01771
+  - C01772
+  confidence: high
+  applies_when:
+  - checking or reporting the exit status of a command
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Use here-documents and here-strings to feed inline input, quoting the
+    delimiter for literal here-doc bodies and using <<- only when leading tabs should
+    be stripped.
+  derived_from_claims:
+  - C00292
+  - C00293
+  - C00294
+  - C00295
+  - C00296
+  - C00468
+  - C00469
+  confidence: high
+  applies_when:
+  - feeding inline or variable data to a command
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: Match POSIX extended regular expressions with '[[ =~ ]]' (0 match, 1
+    no match, 2 invalid regex), remembering it matches any substring unless anchored
+    with '^' and '$', and that anchors and regex-special characters must be left unquoted.
+  derived_from_claims:
+  - C00196
+  - C00197
+  - C00198
+  - C00380
+  - C00381
+  - C00382
+  - C00383
+  confidence: high
+  applies_when:
+  - matching a string against a regular expression
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: 'Choose redirection operators by intent: > creates or truncates, >> appends,
+    noclobber makes > fail unless >| is used, and combined-stream forms redirect or
+    append stdout and stderr together.'
+  derived_from_claims:
+  - C00461
+  - C00462
+  - C00463
+  - C01760
+  - C01761
+  - C01762
+  - C01763
+  confidence: high
+  applies_when:
+  - ordering redirections or guarding against clobbering existing files
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: Use terminal-native editing, history, and clipboard conventions to edit
+    commands safely instead of relying on ordinary GUI shortcuts.
+  derived_from_claims:
+  - C01566
+  - C01567
+  - C02411
+  - C02412
+  - C02413
+  - C02414
+  - C02415
+  confidence: high
+  applies_when:
+  - When a pending shell command needs substantial edits.
+  - Editing or reusing commands in a terminal emulator or virtual console.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: 'Use arithmetic contexts for math: (( )) is a test whose status is 0
+    for a true/non-zero expression and 1 for false/zero (the reverse of the exit convention
+    — a known trap), while $(( )) substitutes the numeric result and is POSIX-portable;
+    inside both you reference variables without $ and use C-like operators.'
+  derived_from_claims:
+  - C00033
+  - C00038
+  - C00183
+  - C00234
+  - C00235
+  - C00236
+  confidence: high
+  applies_when:
+  - performing arithmetic or numeric tests
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: 'Never evaluate untrusted input in an arithmetic context (`(( ))`, `let`,
+    an array subscript, or a `[[ ]]` numeric comparison): the text is expanded — including
+    command substitution — before evaluation, enabling arbitrary command injection
+    (e.g. `a[$(reboot)]`). Use bare variable names, validate inputs to decimal integers,
+    and prefer a quoted `[ "$x" -gt N ]`, which requires decimal operands.'
+  derived_from_claims:
+  - C00080
+  - C00081
+  - C00082
+  - C00126
+  - C00321
+  - C00322
+  confidence: high
+  applies_when:
+  - evaluating any expression that includes externally-sourced or unvalidated data
+  - referencing an array element or variable inside an arithmetic expression with
+    untrusted data
+  - comparing externally-supplied or untrusted numeric input
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: Use associative arrays only when unordered key/value storage is acceptable;
+    preserve values when expanding and sort output explicitly when presentation order
+    matters.
+  derived_from_claims:
+  - C00184
+  - C00267
+  - C00268
+  - C03566
+  - C03567
+  - C03568
+  confidence: high
+  applies_when:
+  - you need string-keyed maps
+  - Printing associative-array values or keys.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: Inside functions, use the function positional parameters, FUNCNAME, and
+    quoted argument forwarding to build reusable wrappers safely.
+  derived_from_claims:
+  - C00394
+  - C03454
+  - C03455
+  - C03456
+  - C03457
+  - C03458
+  confidence: high
+  applies_when:
+  - Forwarding arguments through functions or wrapper scripts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: Register signal handlers with 'trap action sigspec' - using '-' to reset
+    a signal to its startup disposition and an empty string to ignore it - relying
+    on case-insensitive names (SIG prefix optional), 'trap -l' to list them, and 'trap'
+    with no arguments to print reusable trap commands.
+  derived_from_claims:
+  - C00516
+  - C00517
+  - C00519
+  - C01884
+  - C01890
+  - C01892
+  confidence: high
+  applies_when:
+  - specifying which signals a trap handles in a portable script
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: Validate command arguments with narrow positive allowlists that constrain
+    format, permitted characters, and length, and exclude metacharacters and whitespace
+    where possible.
+  derived_from_claims:
+  - C00770
+  - C00771
+  - C00784
+  - C00800
+  - C00802
+  - C00803
+  confidence: high
+  applies_when:
+  - The application accepts or derives command arguments from external input.
+  - Command execution remains necessary and external input can reach the command,
+    arguments, path, or environment.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: For Java command execution, account for whether a shell is invoked and
+    pass the executable and arguments separately rather than relying on a single command
+    string as a safety boundary.
+  derived_from_claims:
+  - C00775
+  - C00776
+  - C00777
+  - C00778
+  - C00797
+  - C00798
+  confidence: high
+  applies_when:
+  - Reviewing or writing Java code that launches external processes.
+  - Reviewing Java process invocation paths that use Runtime.exec semantics.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: 'Prefer the $(command) form over backquotes for command substitution:
+    it runs the command in a subshell and substitutes its standard output with trailing
+    newlines stripped, its result is not re-expanded, and it avoids the backslash
+    and nesting pitfalls of backquotes.'
+  derived_from_claims:
+  - C00030
+  - C01744
+  - C01746
+  - C01747
+  - C01748
+  confidence: high
+  applies_when:
+  - capturing the output of a command into a word
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P089
+  statement: 'Treat tilde expansion as dependent on the user database and HOME: a
+    bare tilde expands to HOME, an unset HOME makes it unspecified, and the resulting
+    pathname is treated as quoted so it is not re-split or globbed.'
+  derived_from_claims:
+  - C00421
+  - C00422
+  - C00423
+  - C01731
+  - C01732
+  confidence: high
+  applies_when:
+  - a script relies on ~ or ~user expansion for paths
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: Call `tr` without bracket ranges — `tr A-Z a-z` (the brackets in `tr
+    [A-Z] [a-z]` are shell globs and tr translates them literally) — and force `LC_COLLATE=C`
+    for the 26 ASCII letters or use the quoted `[:upper:]`/`[:lower:]` classes, since
+    letter ranges are locale-dependent.
+  derived_from_claims:
+  - C00110
+  - C00111
+  - C03117
+  - C03118
+  - C03119
+  confidence: high
+  applies_when:
+  - transliterating characters or changing case with tr
+  - Transforming individual characters in a stream.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: 'Choose a subshell versus a command group deliberately: a subshell (
+    ) runs in a temporary child (cd, variable, and exit effects do not persist; each
+    pipeline stage is one), while a { } group runs in the current shell (faster, side
+    effects persist, and exit ends the whole script).'
+  derived_from_claims:
+  - C00230
+  - C00231
+  - C00232
+  - C00387
+  - C00388
+  confidence: high
+  applies_when:
+  - you need or must avoid side effects on the current shell
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: 'Use exit deliberately: it leaves the current execution environment (only
+    the subshell when inside one) with the given status, defaults to the last command
+    status when no operand is given, is undefined outside 0-255 and may be truncated
+    above 255, and triggers a trap on EXIT before termination unless exit is called
+    from within that trap.'
+  derived_from_claims:
+  - C00503
+  - C01852
+  - C01853
+  - C01854
+  - C01855
+  confidence: high
+  applies_when:
+  - terminating a shell or subshell with a specific status, or using an EXIT trap
+    for cleanup
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: Understand that running a script as a child cannot change your current
+    shell's working directory or variables (the child's environment is discarded);
+    source it with the . (dot) command to run its commands in the current shell.
+  derived_from_claims:
+  - C00302
+  - C00303
+  - C01053
+  - C01054
+  - C01055
+  confidence: high
+  applies_when:
+  - a script must alter the calling shell's state
+  - When deciding how a shell script should be invoked.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: Generate strings textually with brace expansion ('{a,b,c}' or '{x..y..incr}')
+    before any other expansion, knowing the files need not exist, endpoints of a sequence
+    must be the same type, and '${' inhibits it.
+  derived_from_claims:
+  - C00199
+  - C00200
+  - C00418
+  - C00419
+  - C00420
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: Define shell functions with valid names and compound-command bodies,
+    knowing calls run the body with temporary positional parameters and return the
+    body or explicit return status.
+  derived_from_claims:
+  - C00392
+  - C00393
+  - C01809
+  - C01810
+  - C01811
+  confidence: high
+  applies_when:
+  - defining or reviewing shell functions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
+  statement: 'Account for trap inheritance limits: signals ignored on entry to a non-interactive
+    shell cannot be trapped or reset, entering a subshell resets non-ignored traps
+    to their defaults, trap with no operands lists current traps in a form suitable
+    for saving and restoring, and the ERR trap is a non-portable KornShell extension.'
+  derived_from_claims:
+  - C00520
+  - C01887
+  - C01888
+  - C01889
+  - C01894
+  confidence: high
+  applies_when:
+  - relying on traps across subshells, background jobs, or inherited-ignored signals
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: Use printf instead of echo for reliable script-grade formatted output,
+    treating format and argument mismatches as bugs.
+  derived_from_claims:
+  - C00538
+  - C00539
+  - C02319
+  - C02320
+  - C02321
+  confidence: high
+  applies_when:
+  - When emitting formatted shell output.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: 'Stop filenames that begin with `-` from being read as options: prefix
+    expansions with `./` (so `-foo` becomes `./-foo`), or pass `--` end-of-options
+    before filename arguments — repeated at every site, and knowing some programs
+    (e.g. `echo`) do not honour it.'
+  derived_from_claims:
+  - C00034
+  - C00068
+  - C00069
+  - C00070
+  confidence: high
+  applies_when:
+  - passing user- or glob-derived filenames to a command
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: Quote filename patterns that must be literal (or use 'set -f'), and enable
+    'nullglob' or 'failglob' so an unmatched pattern is removed or raises an error
+    instead of being passed through literally, which prevents the common bug of a
+    loop running once over an unmatched '*'.
+  derived_from_claims:
+  - C00062
+  - C00063
+  - C00449
+  - C00450
+  confidence: high
+  applies_when:
+  - looping over a glob such as ./*.ext
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: 'Treat command-substitution output as untrusted for splitting: null bytes
+    in the output make the behaviour unspecified and embedded newlines can be split
+    into separate fields per IFS, so quote the substitution or sanitize its output
+    when the exact value matters.'
+  derived_from_claims:
+  - C00439
+  - C00440
+  - C00441
+  - C01745
+  confidence: high
+  applies_when:
+  - capturing output that may contain newlines or null bytes
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: Use the file-test primaries (-e exists, -f regular file, -d directory,
+    -r/-w/-x permissions, -s non-empty, -L/-h symlink, -p FIFO, -S socket, -t terminal,
+    and -nt/-ot/-ef comparisons), remembering they follow symbolic links and test
+    the target unless the test is symlink-specific.
+  derived_from_claims:
+  - C00216
+  - C00601
+  - C00602
+  - C00603
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: 'Account for signal handling in job control and traps: when job control
+    is disabled, commands in an asynchronous list inherit an ignored action for SIGINT
+    and SIGQUIT, and a trap for a signal received while the shell waits for a foreground
+    command runs only after that command completes.'
+  derived_from_claims:
+  - C00484
+  - C00485
+  - C01815
+  - C01816
+  confidence: high
+  applies_when:
+  - reasoning about how signals reach background jobs or when traps fire
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P103
+  statement: Use the dot utility to run a file in the current shell environment, knowing
+    it is located through PATH (and need not be executable) and deliberately does
+    not search the current directory unless PATH permits, which is a guard against
+    trojan-horse scripts.
+  derived_from_claims:
+  - C00495
+  - C01843
+  - C01844
+  - C01845
+  confidence: high
+  applies_when:
+  - sourcing a file so its definitions affect the current shell
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P104
+  statement: Create, truncate, or timestamp files intentionally; use shell redirection
+    for simple empty-file creation or truncation when touch-specific timestamp behavior
+    is not required.
+  derived_from_claims:
+  - C00720
+  - C02007
+  - C02017
+  - C02018
+  confidence: medium
+  applies_when:
+  - The goal is only to create or empty a file.
+  - When creating placeholders or changing timestamps.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P105
+  statement: A cmd1 && cmd2 || cmd3 chain is not a safe if/then/else, because the
+    exit status carries through skipped commands, so a failure in cmd1 can trigger
+    the trailing || of a later command; group commands that belong together with {
+    ...; } (a semicolon or newline is required before the closing brace).
+  derived_from_claims:
+  - C00101
+  - C00205
+  - C00206
+  confidence: high
+  applies_when:
+  - choosing between two actions based on a test
+  - mixing && and || where later commands must belong together
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: Loop over an array's indices with "${!arr[@]}" when you must correlate
+    parallel arrays by index or when the array may be sparse; never assume indices
+    are contiguous or that the first iteration is index 0.
+  derived_from_claims:
+  - C00263
+  - C00265
+  - C00620
+  confidence: high
+  applies_when:
+  - arrays may be sparse or must be matched by index
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
+  statement: Use functions to isolate and reuse code, but in moderation (too many
+    scattered functions hurt readability); inside a wrapper function named after a
+    command, call the real command with the command builtin to avoid infinite recursion.
+  derived_from_claims:
+  - C00239
+  - C00243
+  - C00525
+  confidence: high
+  applies_when:
+  - factoring code into functions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P108
+  statement: 'Prefer readable scripts: use consistent indentation and style, clear
+    long options or continuations when helpful, comments for reasoning, and quoting
+    instead of escape clutter.'
+  derived_from_claims:
+  - C00318
+  - C03298
+  - C03299
+  confidence: high
+  applies_when:
+  - Writing maintainable shell scripts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
+  statement: Commands run with & are asynchronous, and when job control is disabled
+    their standard input defaults to a /dev/null-like source unless redirected explicitly.
+  derived_from_claims:
+  - C00359
+  - C00360
+  - C01795
+  confidence: high
+  applies_when:
+  - running a background command that needs to read standard input under a non-interactive
+    shell
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
+  statement: Use tee with output process substitution when one stream must both remain
+    visible and feed a secondary consumer.
+  derived_from_claims:
+  - C00876
+  - C00877
+  - C03579
+  confidence: medium
+  applies_when:
+  - When intermediate output must be saved or inspected while the pipeline continues.
+  - Displaying output while computing a derived summary.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P111
+  statement: Avoid eval, and treat any data placed into an eval string as executable
+    code.
+  derived_from_claims:
+  - C00035
+  - C00500
+  confidence: high
+  applies_when:
+  - building a command string for eval
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P112
+  statement: 'Declare then assign on separate lines for `local`/`export`/`readonly`
+    (`local v; v=$(cmd); rc=$?`): combined, the declaration''s own exit status masks
+    the command''s, and in some shells the unquoted right-hand side undergoes word
+    splitting.'
+  derived_from_claims:
+  - C00046
+  - C00106
+  confidence: high
+  applies_when:
+  - the assignment value is provided by a command substitution
+  - capturing a command's output or exit status into a local/exported variable
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P113
+  statement: Test a command's success directly (`if cmd; then ...`); only capture
+    `$?` when you need the exact status, and save it immediately (`status=$?`) before
+    other commands overwrite it.
+  derived_from_claims:
+  - C00051
+  - C00125
+  confidence: high
+  applies_when:
+  - branching on whether a command succeeded
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P114
+  statement: In an interactive bash before 4.3, a `!` inside double quotes triggers
+    csh-style history expansion (`event not found`); disable it with `set +H`/`set
+    +o histexpand` or use single quotes. Scripts are unaffected.
+  derived_from_claims:
+  - C00102
+  - C00342
+  confidence: high
+  applies_when:
+  - typing a double-quoted string containing ! at an interactive prompt (bash < 4.3)
+  - the shell is in POSIX mode
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P115
+  statement: Wrap a parameter name in braces (${name}) whenever the expansion is immediately
+    followed by characters that are valid in a variable name.
+  derived_from_claims:
+  - C00186
+  - C00424
+  confidence: high
+  applies_when:
+  - an expansion abuts name characters
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P116
+  statement: 'Choose comparison operators by operand type: string operators compare
+    strings, while -eq/-ne/-lt/-le/-gt/-ge compare integers.'
+  derived_from_claims:
+  - C00215
+  - C00607
+  confidence: high
+  applies_when:
+  - comparing values that should be numbers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P117
+  statement: 'Use set -a (allexport) sparingly and know its scoping: it gives the
+    export attribute to every assigned variable, but an assignment preceding an ordinary
+    utility does not persist that attribute (one preceding a special built-in does),
+    while a standalone assignment or one from getopts or read persists until the variable
+    is unset.'
+  derived_from_claims:
+  - C00555
+  - C01866
+  confidence: high
+  applies_when:
+  - bulk-exporting assigned variables with set -a
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P118
+  statement: Create a nameref with 'declare -n ref=name' to operate indirectly on
+    another variable, commonly to manipulate a variable whose name is passed as a
+    function argument.
+  derived_from_claims:
+  - C00405
+  - C00759
+  confidence: high
+  applies_when:
+  - The caller can pass a target variable name and Bash 4 or newer is available.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P119
+  statement: Use the colon (:) null utility as a do-nothing placeholder where the
+    grammar needs a command, remembering that as a special built-in it still performs
+    its associated variable assignments (which persist) and redirections.
+  derived_from_claims:
+  - C00494
+  - C01841
+  confidence: high
+  applies_when:
+  - a syntactically required command should do nothing, or a persistent assignment
+    or redirection is wanted with no action
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P120
+  statement: Duplicate, move, open, or close file descriptors explicitly with the
+    [n]<&word, [n]>&word, [n]<&digit-, [n]>&digit-, and [n]<>word redirection forms.
+  derived_from_claims:
+  - C00470
+  - C01767
+  confidence: high
+  applies_when:
+  - duplicating or closing file descriptors in a script
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P121
+  statement: Prefer language, platform, or library APIs over direct operating-system
+    command execution whenever they can perform the task.
+  derived_from_claims:
+  - C00765
+  - C00801
+  confidence: high
+  applies_when:
+  - A built-in library or API can perform the intended filesystem, networking, or
+    process-management task.
+  - A suitable non-shell API exists for the task.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P122
+  statement: Prefer repository-backed package management for ordinary software maintenance,
+    using high-level tools for dependency-aware operations and low-level package-file
+    installation only cautiously.
+  derived_from_claims:
+  - C02792
+  - C02793
+  - C02794
+  - C02795
+  - C02796
+  - C02797
+  - C02798
+  - C02799
+  - C02800
+  - C02801
+  - C02802
+  - C02803
+  - C02804
+  - C02805
+  - C02806
+  - C02807
+  - C02808
+  - C02809
+  - C02810
+  - C02811
+  - C02812
+  - C02813
+  - C02814
+  - C02815
+  - C02816
+  - C02817
+  - C02818
+  - C02819
+  - C02820
+  confidence: high
+  applies_when:
+  - Installing or maintaining Linux software.
+  - Managing packages from distribution repositories.
+  - Installing a downloaded package file directly.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P123
+  statement: Master tmux panes, windows, sessions, attach, detach, naming, and cleanup
+    before adding advanced customizations such as Vim-style keys, styling, plugins,
+    or advanced pane operations.
+  derived_from_claims:
+  - C01584
+  - C01585
+  - C01586
+  - C01587
+  - C01588
+  - C01589
+  - C01590
+  - C01591
+  - C01592
+  - C01593
+  - C01594
+  - C01595
+  - C01596
+  - C01597
+  - C01598
+  - C01599
+  - C01604
+  - C01605
+  - C01606
+  - C01607
+  - C01608
+  confidence: medium
+  applies_when:
+  - When adopting tmux as a daily tool.
+  - When basic tmux use exposes real limitations.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P124
+  statement: Navigate by maintaining awareness of the current directory and choosing
+    clear absolute, relative, home, or previous-directory path forms.
+  derived_from_claims:
+  - C02423
+  - C02424
+  - C02425
+  - C02426
+  - C02427
+  - C02428
+  - C02429
+  - C02430
+  - C02431
+  - C02432
+  - C02433
+  - C02434
+  - C02435
+  - C02436
+  - C02437
+  - C02438
+  - C02439
+  confidence: high
+  applies_when:
+  - Working with files or directories from the shell.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P125
+  statement: Manage user accounts, shells, passwords, locks, groups, and IDs conservatively
+    as persistent security state affecting login access and file ownership.
+  derived_from_claims:
+  - C02172
+  - C02173
+  - C02174
+  - C02175
+  - C02176
+  - C02177
+  - C02178
+  - C02179
+  - C02180
+  - C02181
+  - C02182
+  - C02183
+  - C02184
+  - C02185
+  - C02186
+  - C02187
+  - C02188
+  confidence: medium
+  applies_when:
+  - When creating, modifying, or removing local user accounts.
+  - When administering users and groups.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P126
+  statement: Use tar modes and path handling deliberately for archive creation, extraction,
+    ownership, selective restore, incremental archives, standard streams, compression,
+    file-list input, and SSH pipelines.
+  derived_from_claims:
+  - C02987
+  - C02988
+  - C02989
+  - C02990
+  - C02991
+  - C02992
+  - C02993
+  - C02994
+  - C02995
+  - C02996
+  - C02997
+  - C02998
+  - C02999
+  - C03000
+  - C03001
+  - C03002
+  confidence: high
+  applies_when:
+  - Creating, extracting, restoring, or transporting tar archives.
+  - Archiving selected files or copying trees between systems.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P127
+  statement: Manage shell variables, exports, quoting, and braces deliberately to
+    prevent unintended expansion or environment damage.
+  derived_from_claims:
+  - C01059
+  - C01060
+  - C01061
+  - C01062
+  - C01063
+  - C01064
+  - C01065
+  - C01066
+  - C01067
+  - C01068
+  - C01069
+  - C01070
+  - C01071
+  - C01072
+  - C01073
+  - C01074
+  confidence: medium
+  applies_when:
+  - When writing shell scripts that use variables or pass values to commands.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P128
+  statement: Use Git to track configuration changes and assemble each commit through
+    an explicit staging area.
+  derived_from_claims:
+  - C01351
+  - C01352
+  - C01353
+  - C01354
+  - C01355
+  - C01356
+  - C01357
+  - C01358
+  - C01359
+  - C01360
+  - C01361
+  - C01362
+  - C01363
+  - C01364
+  - C01365
+  - C01366
+  confidence: medium
+  applies_when:
+  - When personal or project files evolve over time.
+  - When recording changes in Git.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P129
+  statement: Diagnose processes by understanding parent-child relationships, ownership,
+    PID identity, daemon role, and snapshot versus live views.
+  derived_from_claims:
+  - C02665
+  - C02666
+  - C02667
+  - C02668
+  - C02669
+  - C02670
+  - C02671
+  - C02672
+  - C02673
+  - C02674
+  - C02675
+  - C02676
+  - C02677
+  - C02678
+  - C02679
+  confidence: high
+  applies_when:
+  - Investigating running programs or system slowdown.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P130
+  statement: Quote regular expressions and choose the dialect expected by the tool,
+    using extended syntax, grouping, alternation, and repetition only so the shell
+    and regex engine preserve the intended pattern.
+  derived_from_claims:
+  - C03021
+  - C03022
+  - C03023
+  - C03024
+  - C03025
+  - C03039
+  - C03040
+  - C03041
+  - C03042
+  - C03043
+  - C03044
+  - C03045
+  - C03046
+  - C03047
+  - C03048
+  confidence: high
+  applies_when:
+  - Searching text with grep or related tools.
+  - Writing grep -E or other ERE patterns.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P131
+  statement: Use tac, rev, comm, diff, and patch to inspect ordering, compare versions,
+    review changes, and apply small text change sets.
+  derived_from_claims:
+  - C03102
+  - C03103
+  - C03104
+  - C03105
+  - C03106
+  - C03107
+  - C03108
+  - C03109
+  - C03110
+  - C03111
+  - C03112
+  - C03113
+  - C03114
+  - C03115
+  - C03116
+  confidence: high
+  applies_when:
+  - Comparing logs, configuration, or source trees.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P132
+  statement: Choose string, integer, regex, pattern, and arithmetic test forms according
+    to the value being validated or compared.
+  derived_from_claims:
+  - C03340
+  - C03341
+  - C03342
+  - C03344
+  - C03345
+  - C03346
+  - C03347
+  - C03348
+  - C03349
+  - C03350
+  - C03351
+  - C03352
+  - C03353
+  - C03354
+  - C03355
+  confidence: high
+  applies_when:
+  - Writing bash conditionals.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P133
+  statement: Write shell functions as named reusable blocks with local variables and
+    named parameters where readability needs them.
+  derived_from_claims:
+  - C01177
+  - C01178
+  - C01179
+  - C01180
+  - C01181
+  - C01182
+  - C01183
+  - C01184
+  - C01185
+  - C01186
+  - C01187
+  - C01188
+  - C01189
+  - C01190
+  - C01191
+  confidence: medium
+  applies_when:
+  - When a script repeats a command group or needs reusable behavior.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P134
+  statement: Use tmux for persistent, organized, remote-friendly terminal sessions,
+    including SSH sessions that should resume after disconnects.
+  derived_from_claims:
+  - C01573
+  - C01574
+  - C01575
+  - C01576
+  - C01577
+  - C01578
+  - C01579
+  - C01580
+  - C01581
+  - C01582
+  - C01583
+  - C01600
+  - C01601
+  - C01602
+  - C01603
+  confidence: medium
+  applies_when:
+  - When managing multiple shell tasks or remote work.
+  - When remote shell sessions should be durable.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P135
+  statement: Remember that shell expansions happen before command execution, so commands
+    receive expanded arguments rather than the original syntax.
+  derived_from_claims:
+  - C02567
+  - C02568
+  - C02569
+  - C02572
+  - C02573
+  - C02574
+  - C02575
+  - C02576
+  - C02577
+  - C02578
+  - C02579
+  - C02580
+  - C02581
+  - C02582
+  confidence: high
+  applies_when:
+  - Diagnosing unexpected arguments or constructing command lines.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P136
+  statement: Build pipelines incrementally from clear transformations and use readability,
+    not dogma, to decide whether a helper such as cat is acceptable.
+  derived_from_claims:
+  - C00855
+  - C00856
+  - C00857
+  - C00858
+  - C00859
+  - C00860
+  - C00861
+  - C00862
+  - C00863
+  - C00864
+  - C00878
+  - C00879
+  - C00880
+  - C00881
+  confidence: medium
+  applies_when:
+  - When chaining shell tools over files, streams, or copied text.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P137
+  statement: Understand mounting through fstab, labels or UUIDs, mount points, mount
+    listings, and filesystem types before manually attaching storage.
+  derived_from_claims:
+  - C02827
+  - C02828
+  - C02829
+  - C02830
+  - C02831
+  - C02832
+  - C02833
+  - C02834
+  - C02835
+  - C02836
+  - C02837
+  - C02838
+  - C02839
+  confidence: high
+  applies_when:
+  - Inspecting or manually mounting storage devices.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P138
+  statement: For copy, move, and remove operations, choose options that match overwrite,
+    recursion, update, and confirmation requirements before executing.
+  derived_from_claims:
+  - C02481
+  - C02482
+  - C02483
+  - C02484
+  - C02485
+  - C02486
+  - C02487
+  - C02488
+  - C02489
+  - C02490
+  - C02491
+  - C02492
+  - C02493
+  confidence: high
+  applies_when:
+  - Manipulating files or directories with mkdir, cp, mv, or rm.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P139
+  statement: Use lp and a2ps layout controls with upstream pagination alignment when
+    print orientation, density, scaling, page ranges, or pretty PostScript output
+    matter.
+  derived_from_claims:
+  - C03227
+  - C03228
+  - C03229
+  - C03230
+  - C03231
+  - C03232
+  - C03233
+  - C03234
+  - C03235
+  - C03236
+  - C03237
+  - C03238
+  - C03239
+  confidence: high
+  applies_when:
+  - Formatting and submitting print jobs.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P140
+  statement: Test dotfiles in fresh target shells and source symlinked fragments only
+    after readability and path checks.
+  derived_from_claims:
+  - C01338
+  - C01339
+  - C01340
+  - C01341
+  - C01342
+  - C01343
+  - C01344
+  - C01345
+  - C01346
+  - C01347
+  - C01348
+  - C01349
+  - C01350
+  confidence: medium
+  applies_when:
+  - When dotfiles should work across machines or shell families.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P141
+  statement: Use arrays and parameter expansion for simple structured shell data,
+    but switch languages when data modeling starts dominating the script.
+  derived_from_claims:
+  - C01075
+  - C01076
+  - C01077
+  - C01078
+  - C01079
+  - C01080
+  - C01081
+  - C01082
+  - C01083
+  - C01084
+  - C01085
+  - C01086
+  - C01087
+  confidence: medium
+  applies_when:
+  - When scripts handle collections, slices, defaults, or keyed values.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P142
+  statement: Build CLI programs incrementally from stdin reading to validation, lookup,
+    subprocess checks, structured parsing, and graceful missing-data handling.
+  derived_from_claims:
+  - C01484
+  - C01485
+  - C01486
+  - C01487
+  - C01496
+  - C01497
+  - C01498
+  - C01499
+  - C01500
+  - C01501
+  - C01502
+  - C01503
+  - C01504
+  confidence: medium
+  applies_when:
+  - When building a command-line program meant to fit shell workflows.
+  - When developing a command-line utility in Python.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P143
+  statement: Use printf in scripts for predictable formatted output, matching conversions
+    and arguments and applying flags, width, precision, tabs, and newlines deliberately.
+  derived_from_claims:
+  - C03178
+  - C03179
+  - C03180
+  - C03181
+  - C03182
+  - C03183
+  - C03184
+  - C03185
+  - C03186
+  - C03187
+  - C03188
+  - C03189
+  confidence: high
+  applies_when:
+  - Generating script output or tabular data.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P144
+  statement: Use sed for noninteractive stream editing with explicit commands, scripts,
+    addresses, and print behavior appropriate to the selected lines.
+  derived_from_claims:
+  - C03125
+  - C03126
+  - C03127
+  - C03128
+  - C03129
+  - C03130
+  - C03131
+  - C03132
+  - C03133
+  - C03138
+  - C03139
+  - C03140
+  confidence: high
+  applies_when:
+  - Editing text streams or files noninteractively.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P145
+  statement: Understand Linux printing as a CUPS and Ghostscript workflow with queues,
+    conversion, page description, and rasterization.
+  derived_from_claims:
+  - C03208
+  - C03209
+  - C03210
+  - C03211
+  - C03212
+  - C03213
+  - C03214
+  - C03215
+  - C03216
+  - C03217
+  - C03218
+  - C03219
+  confidence: high
+  applies_when:
+  - Printing or troubleshooting printer workflows from the command line.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P146
+  statement: Use array-to-pipeline transformations, unset semantics, and associative
+    arrays to sort, delete, look up, count, and model keyed or multidimensional data.
+  derived_from_claims:
+  - C03548
+  - C03549
+  - C03550
+  - C03551
+  - C03552
+  - C03553
+  - C03554
+  - C03555
+  - C03556
+  - C03557
+  - C03558
+  - C03559
+  confidence: high
+  applies_when:
+  - Performing nontrivial data handling in bash arrays.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P147
+  statement: Scope startup-file customizations to interactive shells and avoid exits,
+    noise, slow commands, and complex failure-prone logic during startup.
+  derived_from_claims:
+  - C01248
+  - C01249
+  - C01263
+  - C01264
+  - C01265
+  - C01266
+  - C01267
+  - C01268
+  - C01269
+  - C01270
+  - C01271
+  - C01272
+  confidence: medium
+  applies_when:
+  - When editing shell startup files.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P148
+  statement: Build sed commands from targeted addresses, ordered expressions, captures,
+    and tested regexes rather than one opaque transformation.
+  derived_from_claims:
+  - C00996
+  - C00997
+  - C00998
+  - C00999
+  - C01000
+  - C01001
+  - C01002
+  - C01003
+  - C01004
+  - C01005
+  - C01006
+  - C01007
+  confidence: medium
+  applies_when:
+  - When sed must remove comments, append or prepend text, extract fields, or reuse
+    matched subparts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P149
+  statement: Control xargs batching, placeholders, delimiters, tracing, and prompts
+    according to the command shape and risk.
+  derived_from_claims:
+  - C01025
+  - C01026
+  - C01027
+  - C01028
+  - C01029
+  - C01030
+  - C01031
+  - C01032
+  - C01033
+  - C01034
+  - C01035
+  - C01036
+  confidence: medium
+  applies_when:
+  - When generated arguments must be chunked, placed away from the end, or reviewed
+    interactively.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P150
+  statement: 'Choose the loop form that matches the problem: fixed ranges, numeric
+    counters, unknown repetition, streamed lines, or interactive menus.'
+  derived_from_claims:
+  - C01156
+  - C01157
+  - C01158
+  - C01159
+  - C01160
+  - C01161
+  - C01162
+  - C01163
+  - C01164
+  - C01165
+  - C01166
+  - C01167
+  confidence: medium
+  applies_when:
+  - When selecting between for, C-style for, while, and infinite loops.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []

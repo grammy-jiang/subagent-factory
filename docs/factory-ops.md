@@ -247,6 +247,32 @@ marker** (`principles.yaml` / installed adapter), never on engine-absence (an en
 between p2b phases and a premature fire spawns a second same-pool session). Put `pkill` lines in
 a `.sh` file — an inline `pkill -f '<pattern>'` self-matches the running command's cmdline (exit 1).
 
+#### Always `setsid`-detach a forked engine session (never a bare child of a background task)
+
+**Rule:** any independent engine session (`claude -p` / `codex exec` / `copilot -p`) that must outlive
+the thing that launched it — a p2b, precision filter, MAP, faithfulness run — **must be started under
+`setsid`**, so it gets its own session + process group reparented to `init`/`systemd`.
+
+**Why (a real failure, 2026-07-10):** a `p2b_finish.sh --fg` started as a child of a Claude Code
+Bash-tool *background task* was **SIGKILLed mid-authoring** when that task was reaped — abrupt (transcript
+stops mid-message, no `rc=` line), **not** OOM and **not** a usage cap. `nohup` / `trap '' HUP` + `disown`
+do **not** protect against this: they only ignore SIGHUP, and the process stays in the caller's process
+group, so a group-targeted kill takes it down. Only `setsid` (new session, no shared group, reparented to
+PID 1) survives. MAP/filter escaped this earlier only because a long-lived `--fg` manager held them alive.
+
+**How:**
+- `precision_filter.sh` and `p2b_finish.sh` **self-`setsid`** in their non-`--fg` bg mode — so just omit
+  `--fg` to get a survivable launch, or wrap `--fg`.
+- `map_book.sh` / `map_books.sh` / `generate-subagent.sh` / `faith-run.sh` background a subshell that
+  inherits an argv **array** and so cannot self-`setsid` internally (re-serializing via `bash -c
+  "$(declare -f …)"` drops the array and reintroduces a fixed quoting bug). Launch them through
+  **`campaign/detach.sh`**: `bash campaign/detach.sh bash campaign/<script> … --fg`.
+- Equivalently, wrap any launcher yourself: `setsid bash campaign/<script> … --fg </dev/null &`.
+- A detached session sends **no** task-notification — **gate on a completion marker**
+  (`principles.yaml` / `===P2B_SUMMARY===` / installed adapter), and put the poll-waiter in a `.sh` FILE
+  written with the Write tool (a `cat <<EOF` heredoc gets ANSI-corrupted under the rtk shell hook).
+- Verify detachment once: `ps -o pid,ppid,sid,cmd -p <engine-pid>` → the parent chain must reach PID 1.
+
 ### Caching (reuse MAP outputs)
 
 - MAP output is cached at `cache/book-extracts/<sha256-of-book-bytes>/`
