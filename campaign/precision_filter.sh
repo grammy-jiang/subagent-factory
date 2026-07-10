@@ -50,6 +50,10 @@ driver="$LOGS/$run.driver.sh"
 } > "$driver"
 chmod +x "$driver"
 if [ "$FG" -eq 1 ]; then bash "$driver"; else
-  nohup bash "$driver" >"$LOGS/$run.driver.log" 2>&1 &
-  echo "[filter] launched bg pid $!  transcript: $log"
+  # setsid (not nohup): the forked engine must survive the launcher's process group being reaped (e.g.
+  # started from a Claude Code Bash-tool background task). setsid = new session/pgroup reparented to
+  # init/systemd; nohup only ignores SIGHUP and still dies with the group. `</dev/null` detaches stdin.
+  # (Run --fg survivably from such a task with: `setsid bash precision_filter.sh ... --fg </dev/null &`.)
+  setsid bash "$driver" >"$LOGS/$run.driver.log" 2>&1 </dev/null &
+  echo "[filter] launched detached (setsid) pid $!  transcript: $log"
 fi

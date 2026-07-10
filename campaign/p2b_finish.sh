@@ -58,6 +58,11 @@ driver="$LOGS/$run.driver.sh"
 chmod +x "$driver"
 if [ "$DRYRUN" -eq 1 ]; then echo "[p2b] DRY-RUN — generated driver ($ENGINE):"; echo "----"; cat "$driver"; echo "----"; exit 0; fi
 if [ "$FG" -eq 1 ]; then bash "$driver"; else
-  nohup bash "$driver" >"$LOGS/$run.driver.log" 2>&1 &
-  echo "[p2b] launched bg pid $!  transcript: $log"
+  # setsid (not nohup): the forked engine (`claude -p` / codex / copilot) must survive the LAUNCHER's
+  # process group being killed — e.g. when this is started from a Claude Code Bash-tool background task
+  # that gets reaped, nohup (SIGHUP-ignore only) still dies with the group. setsid gives it a NEW session
+  # + process group, reparented to init/systemd, so it outlives the caller. `</dev/null` detaches stdin.
+  # (To run --fg survivably from such a task, wrap the whole call: `setsid bash p2b_finish.sh ... --fg </dev/null &`.)
+  setsid bash "$driver" >"$LOGS/$run.driver.log" 2>&1 </dev/null &
+  echo "[p2b] launched detached (setsid) pid $!  transcript: $log"
 fi
