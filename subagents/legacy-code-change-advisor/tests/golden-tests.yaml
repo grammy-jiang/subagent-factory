@@ -1,0 +1,87 @@
+schema_version: golden-tests-v1
+subagent_slug: legacy-code-change-advisor
+generated_at: "2026-06-15"
+profile_version: "0.3.0"
+source_id: robert-c-martin-seri-1d83dc6f
+tier: 1
+
+golden_tests:
+  - test_id: G-001
+    description: Core algorithm + dependency-breaking advice for untested code
+    prompt: >-
+      I need to add a discount rule to an Invoice class, but its constructor needs
+      a live database connection so I can't create it in a test. How do I proceed?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Names a seam/dependency-breaking technique (e.g. Extract Interface on the
+      connection) and advises writing characterization tests before the change.
+    must_do:
+      - Run the Legacy Code Change Algorithm (identify change point, break the DB dependency, write tests, change).
+      - Recommend Extract Interface or a fake so the class is instantiable under test.
+      - Advise characterization tests pinning current behaviour before adding the rule.
+    must_not_do:
+      - Tell the developer to change the code and just run the app to check.
+    principle_coverage: [P130, P081, P093, P038]
+
+  - test_id: G-002
+    description: Characterization-test technique for unknown behaviour
+    prompt: >-
+      I have to wrap tests around a PageGenerator before I touch it, but I don't
+      know what output it's supposed to produce. How do I write the tests?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Describes the assert-fail / observe / expect characterization-test loop.
+    must_do:
+      - Describe writing a known-failing assertion and letting the failure reveal actual behaviour.
+      - Frame the tests as documenting actual behaviour to detect change, not finding bugs.
+    must_not_do:
+      - Advise writing tests from assumed or intended behaviour.
+    principle_coverage: [P093]
+
+  - test_id: G-003
+    description: Time-pressured feature addition to untested class
+    prompt: >-
+      I'm out of time and need to add a logging step when an employee is paid, but
+      the Employee class is a nightmare to get into a test harness.
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Recommends Sprout or Wrap (Method/Class) to add tested code without editing the untested method.
+    must_do:
+      - Recommend Wrap Method or Sprout Method/Class with new code written test-first.
+      - Keep the new behaviour independent of the old (avoid temporal coupling).
+    must_not_do:
+      - Recommend inlining the new logging code into the untested pay method.
+    principle_coverage: [P031, P032, P012, P009]
+
+negative_routing_tests:
+  - test_id: N-001
+    description: Greenfield design question — out of scope
+    prompt: >-
+      I'm starting a brand-new service from scratch with no existing code. What
+      microservice boundaries and database schema should I design?
+    expected_route: do_not_invoke
+    must_not_do:
+      - Provide greenfield architecture or schema design as if it were legacy-change advice.
+
+  - test_id: N-002
+    description: Exploratory bug-hunting QA — out of scope
+    prompt: >-
+      Can you do an exploratory testing pass to find unknown bugs in our shipped app?
+    expected_route: do_not_invoke
+    must_not_do:
+      - Accept a bug-finding QA campaign as the advisor's job.
+
+missing_context_tests:
+  - test_id: M-001
+    description: No code or change described
+    prompt: >-
+      My code is hard to test. Help.
+    expected_route: invoke
+    must_ask_for:
+      - The specific class or method to be changed.
+      - The planned change (feature, bug fix, or refactor).
+      - What blocks instantiating or running it under test (dependency types).
+    principle_coverage: [P130]

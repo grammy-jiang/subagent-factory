@@ -1,0 +1,1749 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: legacy-code-change-advisor
+generated_at: "2026-07-11"
+
+# One behaviour test per promoted principle (P001–P145). Each pins the advisor to the
+# rule head of its principle and requires the principle to be cited. Covers every
+# high-confidence principle (principle->test coverage gate).
+
+principle_behaviour_tests:
+
+  - test_id: PB-001
+    principle_id: P001
+    mode: advise
+    prompt: "In legacy code I am deciding how to split a large class into responsibilities. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Find a class's hidden responsibilities with heuristics"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P001."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-002
+    principle_id: P002
+    mode: advise
+    prompt: "In legacy code I am designing a test suite for legacy code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Favor fast, fine-grained unit tests that localize errors, and keep a suite that runs fast"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P002."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-003
+    principle_id: P003
+    mode: advise
+    prompt: "In legacy code I am code under test depends on global variables or free functions. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "When breaking dependencies without tests, leave the logic alone as much as possible and get separation by inserting seams that let you call one method or access one datum rather than another, moving…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P003."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-004
+    principle_id: P004
+    mode: advise
+    prompt: "In legacy code I am mapping where a change's effects can be observed. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use effect sketches, a bubble per affected variable or return value with arrows to what can change, to find where to test"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P004."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-005
+    principle_id: P005
+    mode: advise
+    prompt: "In legacy code I am confirming a test actually covers the change you will make. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Do targeted testing"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P005."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-006
+    principle_id: P006
+    mode: advise
+    prompt: "In legacy code I am a class has grown large with many methods and responsibilities. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Break a big class into smaller single-responsibility classes incrementally and on demand — driven by the change you are making rather than a destabilizing refactoring binge or a hypothetical ideal —…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P006."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-007
+    principle_id: P007
+    mode: advise
+    prompt: "In legacy code I am breaking down a monster method without a refactoring tool. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Break a monster method manually with sensing variables, a temporary that senses a condition, kept across the refactoring session and then deleted, and with Extract What You Know in small named chunks…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P007."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-008
+    principle_id: P008
+    mode: advise
+    prompt: "In legacy code I am build times are slow because of concrete-class dependencies. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Break build-time coupling by extracting interfaces for classes used from outside a cluster and depending on interfaces or abstract classes rather than concrete ones (Dependency Inversion), which…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P008."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-009
+    principle_id: P009
+    mode: advise
+    prompt: "In legacy code I am adding cross-cutting behavior around an existing class. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Wrap Class to add behavior in another class that uses the method rather than in the class itself"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P009."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-010
+    principle_id: P010
+    mode: advise
+    prompt: "In legacy code I am code depends heavily on third-party or platform libraries. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Avoid over-reliance on libraries"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P010."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-011
+    principle_id: P011
+    mode: advise
+    prompt: "In legacy code I am adding a feature. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat preserving existing behavior as the primary constraint on any change"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P011."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-012
+    principle_id: P012
+    mode: advise
+    prompt: "In legacy code I am adding behavior that need not interleave with existing method logic. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Wrap Method to add behavior that runs entirely before or after existing logic by renaming the original and adding a same-signature wrapper (or a method calling both) while preserving signatures…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P012."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-013
+    principle_id: P013
+    mode: advise
+    prompt: "In legacy code I am adding a variation quickly in object-oriented code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use programming by difference to add a feature quickly via a subclass that overrides a method, then use the pinning test to refactor toward a cleaner structure such as a configuration option…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P013."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-014
+    principle_id: P014
+    mode: advise
+    prompt: "In legacy code I am using inheritance and overriding methods. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Respect the Liskov Substitution Principle by keeping subclass objects substitutable for their superclasses everywhere; avoid overriding concrete methods (and call the overridden one if you must)…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P014."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-015
+    principle_id: P015
+    mode: advise
+    prompt: "In legacy code I am a constructor allocates a collaborator you cannot reach under test. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Parameterize Constructor to externalize a constructor-created object by passing it in while keeping the original signature delegating so clients do not change, aware that its downside is opening…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P015."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-016
+    principle_id: P016
+    mode: advise
+    prompt: "In legacy code I am a parameter's type blocks testing and cannot be extracted to an interface. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Adapt Parameter when you cannot Extract Interface on a parameter's class (a sealed or low-level library type) or it is hard to fake, wrapping the incoming parameter behind a new narrow interface…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P016."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-017
+    principle_id: P017
+    mode: advise
+    prompt: "In legacy code I am decomposing a monster method with a refactoring tool. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "To break up a monster method with a tool, work tool-only with no other edits (not even reordering, since no tool checks reorder safety and it is a bug source) and get tests afterward, aiming your…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P017."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-018
+    principle_id: P018
+    mode: advise
+    prompt: "In legacy code I am organizing test code within a project. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Establish test-code conventions (a Test suffix, a Fake prefix, and a Testing prefix for testing subclasses) so tests do not swamp you and navigation between a class and its tests stays ergonomic…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P018."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-019
+    principle_id: P019
+    mode: advise
+    prompt: "In legacy code I am build and test cycles are slow enough to hurt development. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Minimize lag time between a change and its feedback"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P019."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-020
+    principle_id: P020
+    mode: advise
+    prompt: "In legacy code I am breaking a dependency in object-oriented code with inheritance. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat Subclass and Override Method as the core dependency-breaking technique that many others are variants of, using inheritance in a test to nullify behavior you do not care about or access behavior…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P020."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-021
+    principle_id: P021
+    mode: advise
+    prompt: "In legacy code I am a singleton blocks testing. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Relax a singleton for testing with Introduce Static Setter or a resetForTesting called in setUp and tearDown, making the constructor protected and subclassing; distinguish real reasons to enforce one…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P021."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-022
+    principle_id: P022
+    mode: advise
+    prompt: "In legacy code I am substituting or reducing globals and singletons for testing. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat global mutable data as the most apparent hurdle to testing, a kind of spooky action at a distance, and relax a singleton with a static setter, accepting the removed access protection because…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P022."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-023
+    principle_id: P023
+    mode: advise
+    prompt: "In legacy code I am pulling a responsibility out of a big class. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Extract a class safely by listing the variables and methods to move (to know what to test, covering private ones through their public callers), using Extract Class with tests or the conservative…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P023."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-024
+    principle_id: P024
+    mode: advise
+    prompt: "In legacy code I am communicating or evaluating an architecture and its changes. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Tell the Story of the System by explaining the architecture in a few concepts and adding the next most important each round, using the forced simplification to find abstractions and expose ideal…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P024."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-025
+    principle_id: P025
+    mode: advise
+    prompt: "In legacy code I am a procedural language offers a path toward object orientation. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Value object seams over link and preprocessing seams, which do little to improve design, and migrate procedural code toward object orientation incrementally"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P025."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-026
+    principle_id: P026
+    mode: advise
+    prompt: "In legacy code I am repeated logic can be consolidated across a code area. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Remove duplication zealously to distill a design, since it yields small focused methods and orthogonality where one place changes a given behavior, makes localized behavior easy to replace or…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P026."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-027
+    principle_id: P027
+    mode: advise
+    prompt: "In legacy code I am dependencies are pervasive and object seams are unavailable. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use a link seam to substitute an implementation at the linking or reference-resolution step, recognizing its enabling point lives outside the source in build or deploy config; make the…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P027."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-028
+    principle_id: P028
+    mode: advise
+    prompt: "In legacy code I am getting a large, include-heavy C++ class under test. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "To harness a heavily include-dependent C++ class, add includes one at a time rather than including everything until it builds, and break an unwanted dependency with an alternative empty definition…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P028."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-029
+    principle_id: P029
+    mode: advise
+    prompt: "In legacy code I am confronting a very long or deeply nested method. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat long methods as quagmires and monster methods as worse, distinguishing a bulleted method with little indentation and shared temporaries from a snarled method with deep nesting that gives you…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P029."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-030
+    principle_id: P030
+    mode: advise
+    prompt: "In legacy code I am assessing testability of existing code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "See code in terms of seams to spot existing testing opportunities and to structure new code for testability; object seams are the primary seam in object-oriented languages, but a call with no…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P030."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-031
+    principle_id: P031
+    mode: advise
+    prompt: "In legacy code I am adding a distinct piece of behavior to a method you cannot yet test. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Sprout Method when added behavior is a distinct piece of new code"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P031."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-032
+    principle_id: P032
+    mode: advise
+    prompt: "In legacy code I am heavy creational or hidden dependencies block instantiating the class. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Sprout Class when you cannot instantiate the class in a test harness in reasonable time"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P032."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-033
+    principle_id: P033
+    mode: advise
+    prompt: "In legacy code I am adding a feature to code you can get under test. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use test-driven development to add features by writing a failing test, getting it to compile, making it pass, and removing duplication, repeating in small steps (large only when certain of the…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P033."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-034
+    principle_id: P034
+    mode: advise
+    prompt: "In legacy code I am naming classes and methods or deciding a hierarchy's shape. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use names consistently and avoid abbreviations (inconsistent ones force guessing), let removing duplication align code naturally with the Open/Closed Principle of being open for extension and closed…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P034."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-035
+    principle_id: P035
+    mode: advise
+    prompt: "In legacy code I am a constructor creates an object you cannot depend on under test. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Break a hard-coded object creation in a constructor with Extract and Override Factory Method, overriding it in a testing subclass where the language allows virtual calls in constructors (not C++…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P035."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-036
+    principle_id: P036
+    mode: advise
+    prompt: "In legacy code I am a constructor-created object must be replaced but virtual dispatch is unavailable. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Supersede Instance Variable to swap a constructor-created object via a supersede method that destroys the old and sets the new when C++ disallows constructor virtual dispatch (choosing Extract…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P036."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-037
+    principle_id: P037
+    mode: advise
+    prompt: "In legacy code I am choosing how aggressively to break a parameter dependency. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Do not extract an interface to break every parameter dependency, since a near one-to-one class-to-interface ratio clutters the design; ask why the dependency is bad (creation pain, a side effect, or…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P037."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-038
+    principle_id: P038
+    mode: advise
+    prompt: "In legacy code I am breaking a dependency on a class you can modify. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Prefer Extract Interface as one of the safest dependency-breaking techniques since the compiler catches missteps"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P038."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-039
+    principle_id: P039
+    mode: advise
+    prompt: "In legacy code I am you need to change or test a private method. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "To change a private method, first test it through a public method, which tests it as used and avoids over-generalizing it; to test it directly, make it public, and if that bothers you the class is…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P039."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-040
+    principle_id: P040
+    mode: advise
+    prompt: "In legacy code I am business logic is entangled with UI or side-effecting calls. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "To test a class tangled with the GUI or with undetectable side effects (methods that work by calling other objects with no return), separate GUI-independent from GUI-dependent work via Extract…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P040."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-041
+    principle_id: P041
+    mode: advise
+    prompt: "In legacy code I am deciding where to place tests around a change. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Reason forward about the effect chain of a change (which propagates to callers up to a system boundary while unrelated code keeps its behavior) to decide where to test, and write characterization…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P041."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-042
+    principle_id: P042
+    mode: advise
+    prompt: "In legacy code I am reasoning about what can and cannot change in a program. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Make knowledge of your language the key tool for effect reasoning by learning its firewalls and subtleties (such as C++ const versus mutable and how field visibility scopes effects), narrowing…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P042."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-043
+    principle_id: P043
+    mode: advise
+    prompt: "In legacy code I am making many changes across a cluster of classes. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Look for pinch points, narrowings in an effect sketch where tests on one or two methods detect changes in many; they are determined by the change points rather than by clients, found by looking for…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P043."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-044
+    principle_id: P044
+    mode: advise
+    prompt: "In legacy code I am duplicated logic is spread across an area of code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Remove duplication incrementally as you work rather than through grand re-engineering, since the system improves as long as no one re-adds it; when unsure whether it helps, try it and see, keep a set…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P044."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-045
+    principle_id: P045
+    mode: advise
+    prompt: "In legacy code I am naming and extracting interfaces from existing classes. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Prefer simple class names even for big abstractions so that if you later need an interface you can subclass, push data and methods down, and reuse the original name without a mass rename (the…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P045."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-046
+    principle_id: P046
+    mode: advise
+    prompt: "In legacy code I am breaking dependencies in C or another procedural language. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Recognize that procedural languages lack the seams object-oriented languages have, so break procedural dependencies by getting a large chunk under test first at a pinch point using a link seam or…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P046."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-047
+    principle_id: P047
+    mode: advise
+    prompt: "In legacy code I am deciding whether code is safe to change. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat code without tests as legacy code and get tests in place before changing it, because tests are the prerequisite for changing behavior quickly and verifiably; clean structure alone does not make…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P047."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-048
+    principle_id: P048
+    mode: advise
+    prompt: "In legacy code I am making an invasive change. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Change software under a safety net of tests (Cover and Modify) rather than by careful editing and hope (Edit and Pray), because safety is not solely a function of care and tests around the change act…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P048."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-049
+    principle_id: P049
+    mode: advise
+    prompt: "In legacy code I am writing test code and fakes for legacy classes. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Hold test code to different standards than production code, breaking encapsulation with public variables or empty and null-returning fakes to ease testing while keeping the test code clean…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P049."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-050
+    principle_id: P050
+    mode: advise
+    prompt: "In legacy code I am using or selecting an automated refactoring tool. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat a change as a refactoring only if it preserves behavior, verify that your refactoring tools actually check behavior preservation, choose tools with care, and do not use automated refactorings…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P050."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-051
+    principle_id: P051
+    mode: advise
+    prompt: "In legacy code I am a class under test collaborates with an object whose effects you must sense. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use a fake object to impersonate a collaborator and sense a unit's effect on it; a fake-based unit test still gives real, error-localizing feedback even though it does not exercise the fully…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P051."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-052
+    principle_id: P052
+    mode: advise
+    prompt: "In legacy code I am a parameter's type is an unmodifiable library class. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "When a needed collaborator is a sealed or final library class with no public constructor you cannot Extract Interface, so use Adapt Parameter (subclass an unsealed base or wrap it behind a narrow…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P052."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-053
+    principle_id: P053
+    mode: advise
+    prompt: "In legacy code I am a change is demanded under schedule pressure in untested code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Under time pressure, first try to instantiate the class in a test harness since it is often easier than expected; if you truly cannot get tests in now, make the change as fresh testable code, and use…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P053."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-054
+    principle_id: P054
+    mode: advise
+    prompt: "In legacy code I am a method uses little or no instance data but its class is hard to construct. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Expose Static Method to make a method with no instance data static so you can test it without instantiating the class, treating the static area as a metaclass-like staging area for code that does…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P054."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-055
+    principle_id: P055
+    mode: advise
+    prompt: "In legacy code I am a hard-to-construct parameter is needed under test, or you are tempted to pass null in production. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Pass Null only in tests and only in languages that throw on null use (Java, C#), not in C or C++ unless the runtime detects null dereferences; never pass null in production but prefer the Null…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P055."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-056
+    principle_id: P056
+    mode: advise
+    prompt: "In legacy code I am a constructor's object creation is too tangled for simple parameterization. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "For a construction blob where a constructor builds many interdependent objects, avoid Parameterize Constructor's huge parameter list, never call overridable functions from constructors (C++ will not…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P056."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-057
+    principle_id: P057
+    mode: advise
+    prompt: "In legacy code I am code under test depends on globals or singletons. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat global variable usage as one of the hardest testing dependencies because you must set each global's state before a test, recognize the Singleton pattern as a common way to make globals, and…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P057."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-058
+    principle_id: P058
+    mode: advise
+    prompt: "In legacy code I am critical behavior is tangled with secondary behavior in a monster method. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Glean dependencies by testing the critical behavior you must preserve and then editing the uncovered code, since not all behaviors are equal, and use Break Out Method Object when local variables…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P058."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-059
+    principle_id: P059
+    mode: advise
+    prompt: "In legacy code I am a large class serves many different kinds of client. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Distinguish a Single Responsibility violation at the interface level (the class looks responsible for many things) from one at the implementation level (it actually does it all rather than…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P059."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-060
+    principle_id: P060
+    mode: advise
+    prompt: "In legacy code I am a long method resists being tested in its own class. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Break Out Method Object for a long method that uses instance data or methods (and Expose Static Method for a small method with no instance data), moving it to a method-object class whose locals…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P060."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-061
+    principle_id: P061
+    mode: advise
+    prompt: "In legacy code I am reasoning about how a change ripples through code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Trace effects through the three ways they propagate"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P061."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-062
+    principle_id: P062
+    mode: advise
+    prompt: "In legacy code I am choosing where a test can detect a change's effect. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Find interception points by tracing effects outward from change points and prefer ones close to the change, since fewer steps make a stronger safety argument and easier setup; the best is usually a…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P062."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-063
+    principle_id: P063
+    mode: advise
+    prompt: "In legacy code I am deciding how thoroughly to characterize a class. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Characterize by reading the code rather than black-box"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P063."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-064
+    principle_id: P064
+    mode: advise
+    prompt: "In legacy code I am an application appears to be nothing but library or API calls. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Restructure an API-heavy application by first describing its computational core, separating it into responsibilities and noting which are API-tied, and layering it to get the core logic under test…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P064."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-065
+    principle_id: P065
+    mode: advise
+    prompt: "In legacy code I am isolating an application from a third-party API. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Choose between Skin and Wrap the API (interfaces mirroring the API plus wrappers, preserving signatures, to end with no API dependency) and Responsibility-Based Extraction (extracting methods for…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P065."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-066
+    principle_id: P066
+    mode: advise
+    prompt: "In legacy code I am a team is losing sight of its system's structure. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Keep the architecture a shared, living thing, because long-lived applications sprawl and architecture degrades when the team is unaware (too complex, no big picture, or reactive mode); an architect…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P066."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-067
+    principle_id: P067
+    mode: advise
+    prompt: "In legacy code I am adding or changing behavior in procedural code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "In procedural legacy code, bias toward introducing new, testable functions, use TDD (which works in procedural code and improves design), reformulate code to separate pure logic in a testable…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P067."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-068
+    principle_id: P068
+    mode: advise
+    prompt: "In legacy code I am extracting methods from a monster method. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Extract to the current class first even when a chunk belongs elsewhere, using an awkward name because it is easily undone and less error-prone (and if the name uses a variable, the code likely…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P068."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-069
+    principle_id: P069
+    mode: advise
+    prompt: "In legacy code I am editing code and wanting to know exactly what each change does. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Recognize that code does not fatigue and only editing introduces faults, making developers the primary source of faults, and edit hyperaware by knowing whether each keystroke changes behavior…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P069."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-070
+    principle_id: P070
+    mode: advise
+    prompt: "In legacy code I am making structural or type changes across a static-typed code base. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Lean on the Compiler in statically typed languages by deliberately altering a declaration to cause errors and navigating to each to make the change, while knowing exactly what the compiler will and…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P070."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-071
+    principle_id: P071
+    mode: advise
+    prompt: "In legacy code I am you have just added a tested feature to legacy code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use the tests you write to add a feature as cover to refactor afterward, proceeding in small steps toward a context-dependent better state, since even simple mechanical improvements like breaking…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P071."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-072
+    principle_id: P072
+    mode: advise
+    prompt: "In legacy code I am struggling to understand a confusing method or module. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "When code reading gets confusing, use low-tech understanding aids"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P072."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-073
+    principle_id: P073
+    mode: advise
+    prompt: "In legacy code I am you must change code that has no tests. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Resolve the Legacy Code Dilemma (you should have tests to change code but must change code to get tests) by breaking dependencies conservatively to get initial tests in place, accepting temporary…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P073."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-074
+    principle_id: P074
+    mode: advise
+    prompt: "In legacy code I am deciding the testing strategy for a legacy change. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Aim to write correct code consistently rather than to find bugs, which is usually not the hard part and can be misdirected effort, because automated tests should specify a goal or preserve existing…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P074."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-075
+    principle_id: P075
+    mode: advise
+    prompt: "In legacy code I am labeling or reviewing a proposed change as refactoring. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Refactoring is improving the internal structure of software without changing its external behavior through a series of small, test-backed steps, and it is distinct from low-risk cleanup, risky…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P075."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-076
+    principle_id: P076
+    mode: advise
+    prompt: "In legacy code I am refactoring with tool assistance. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Have tests around code before using automated refactorings unless you know exactly what the tool checks; between verified-safe automated steps do no other editing, and vet a new tool's extract-method…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P076."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-077
+    principle_id: P077
+    mode: advise
+    prompt: "In legacy code I am performing dependency-breaking edits without tests. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Because refactoring is invasive and error-prone, break dependencies with extra care"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P077."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-078
+    principle_id: P078
+    mode: advise
+    prompt: "In legacy code I am selecting and sequencing dependency-breaking techniques. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Look ahead to the resulting aftermath before choosing a dependency-breaking approach, treating these behavior-preserving refactorings as ones intended to be done without tests to get tests in place…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P078."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-079
+    principle_id: P079
+    mode: advise
+    prompt: "In legacy code I am a team is discouraged by the state of a large code base. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Reject the belief that ugly code will always be ugly, which is the biggest obstacle to improving a large code base, and make consistent small improvements that transform a system over months even…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P079."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-080
+    principle_id: P080
+    mode: advise
+    prompt: "In legacy code I am understanding effort dominates the time to make changes. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Expect that as code grows it surpasses understanding, distinguishing well-maintained systems (a change is easy once figured out) from legacy systems (figuring out and changing are both hard), and…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P080."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-081
+    principle_id: P081
+    mode: advise
+    prompt: "In legacy code I am deciding why and how to break a dependency for testing. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Break dependencies to get code under test for two reasons"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P081."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-082
+    principle_id: P082
+    mode: advise
+    prompt: "In legacy code I am looking for a place to substitute behavior for testing. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "A seam is a place where you can alter behavior without editing there, and every seam has an enabling point where you choose which behavior runs; exploit a seam at its enabling point and keep the…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P082."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-083
+    principle_id: P083
+    mode: advise
+    prompt: "In legacy code I am a class is hard to instantiate for testing. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Diagnose why a class resists a test harness among four common obstacles (hard construction, the harness will not build, bad constructor side effects, or constructor work you must sense) by just…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P083."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-084
+    principle_id: P084
+    mode: advise
+    prompt: "In legacy code I am repeatedly sprouting or wrapping around untested code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Recognize the hazards of sprouting and wrapping without tests (the existing code does not improve, added code can duplicate untested code, and fear and resignation set in) and prefer to confront the…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P084."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-085
+    principle_id: P085
+    mode: advise
+    prompt: "In legacy code I am two or more methods share most of their structure. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Remove duplication by extracting the differences between near-identical methods so they become identical and one can be deleted, pulling a shared method up to a superclass with an abstract getter or…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P085."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-086
+    principle_id: P086
+    mode: advise
+    prompt: "In legacy code I am choosing how to neutralize a static, global, or object-method dependency. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Break a single problematic call with Extract and Override Call by extracting it into a local method and overriding it in a testing subclass, using Extract and Override Call for a single problematic…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P086."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-087
+    principle_id: P087
+    mode: advise
+    prompt: "In legacy code I am dependencies blocking a class are unrelated to the methods you want to test. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Pull Up Feature to move a testable cluster of methods into an abstract superclass when the blocking dependencies are unrelated to it, then subclass for tests, treating the resulting spread across…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P087."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-088
+    principle_id: P088
+    mode: advise
+    prompt: "In legacy code I am a parameter's construction transitively drags in many objects. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Handle an onion parameter, where constructing an object needs other objects, by asking what the tests really need, using Pass Null if nothing or Extract Interface or Extract Implementer on the most…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P088."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-089
+    principle_id: P089
+    mode: advise
+    prompt: "In legacy code I am a global or database reference appears pervasive. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Question why every object needs a global such as the database, because separating responsibilities so some classes act and others store and retrieve localizes dependencies; most globals are globally…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P089."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-090
+    principle_id: P090
+    mode: advise
+    prompt: "In legacy code I am deciding how to reach hidden state or methods for testing. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat testability as a design criterion (good design is testable, untestable design is bad)"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P090."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-091
+    principle_id: P091
+    mode: advise
+    prompt: "In legacy code I am a large class needs to be split into smaller ones. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use effect (feature) sketches to find hidden classes"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P091."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-092
+    principle_id: P092
+    mode: advise
+    prompt: "In legacy code I am carving out a cluster and moving to per-class tests. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat pinch-point tests as temporary scaffolding, writing narrower per-class unit tests after characterizing a cluster and then deleting the pinch-point tests, and do not let unit tests grow into…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P092."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-093
+    principle_id: P093
+    mode: advise
+    prompt: "In legacy code I am pinning down existing behavior before changing it. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Write characterization tests that document actual current behavior by using the code in a harness, asserting something you know is wrong, letting the failure reveal the behavior, expecting that…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P093."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-094
+    principle_id: P094
+    mode: advise
+    prompt: "In legacy code I am a method has grown to do several distinct things. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat Extract Method as the most useful refactoring for breaking large methods into smaller ones for understanding and reuse, performing it with tests by commenting out the code, creating an empty…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P094."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-095
+    principle_id: P095
+    mode: advise
+    prompt: "In legacy code I am a team is reluctant to refactor or restructure. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Do not minimize the number of changes as a risk strategy, because avoidance makes classes and methods grow larger and harder to understand, leaves developers rusty at change, and breeds a worsening…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P095."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-096
+    principle_id: P096
+    mode: advise
+    prompt: "In legacy code I am you need to learn how a piece of code works. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Scratch-refactor to understand code by checking it out, refactoring freely without tests, and throwing it away without committing, while guarding against a mistake that gives a false view and against…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P096."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-097
+    principle_id: P097
+    mode: advise
+    prompt: "In legacy code I am improving the design of legacy code under real constraints. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Reach good design in legacy code incrementally, accepting that some steps to make code changeable may temporarily make it uglier, and never let best be the enemy of better"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P097."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-098
+    principle_id: P098
+    mode: advise
+    prompt: "In legacy code I am a method creates an object internally that you must replace. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Parameterize Method to pass a method-created object in while keeping a no-argument forwarding method, naming the new method after the parameter type when overloading would confuse, and consider…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P098."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-099
+    principle_id: P099
+    mode: advise
+    prompt: "In legacy code I am global dependencies are pervasive. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "When singleton or global dependencies are extensive, Extract Interface or Extract Implementer on the class and lean on the compiler, remembering that Introduce Static Setter gets tests in but does…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P099."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-100
+    principle_id: P100
+    mode: advise
+    prompt: "In legacy code I am overwhelmed by the number of responsibilities in a class. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Let the change you are making right now reveal which responsibility to extract rather than being overwhelmed by all of them, and get better at spotting responsibilities by reading design-pattern…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P100."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-101
+    principle_id: P101
+    mode: advise
+    prompt: "In legacy code I am extracting from a conditional inside a large method. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Choose between Skeletonize (extract a conditional's test and body separately, leaving only the control structure) and Find Sequences (extract them together to reveal an overarching sequence) by…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P101."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-102
+    principle_id: P102
+    mode: advise
+    prompt: "In legacy code I am a static method with a hard dependency blocks testing. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Prefer plain classes with instance data over static-only utility classes, which arise when no common abstraction is found, and break static cling with Introduce Instance Delegator by adding a…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P102."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-103
+    principle_id: P103
+    mode: advise
+    prompt: "In legacy code I am breaking a small dependency in C with function-pointer support. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Replace Function with Function Pointer in C by declaring a same-named pointer, renaming the original to a production name, and initializing the pointer, giving a compile-time seam with minimal…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P103."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-104
+    principle_id: P104
+    mode: advise
+    prompt: "In legacy code I am breaking a dependency in templatized C++ or interpreted-language code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Template Redefinition in C++ by parameterizing the class on the type to replace with a typedef preserving the name, but bias toward inheritance-based techniques because templatizing moves code…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P104."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-105
+    principle_id: P105
+    mode: advise
+    prompt: "In legacy code I am a class or method is hard to get into a test harness. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat dependency as the central obstacle to testing legacy code"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P105."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-106
+    principle_id: P106
+    mode: advise
+    prompt: "In legacy code I am breaking down code to get an initial test in place. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Accept coarse first refactorings to get logic testable and clean up afterward, remembering that the most hazardous part of tool-assisted refactoring is the manual editing between safe automated…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P106."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-107
+    principle_id: P107
+    mode: advise
+    prompt: "In legacy code I am turning a hard-coded call into a substitutable one. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Create an object seam by passing the collaborator in as a parameter (enabling point is the argument list) or, for a static or private method, removing static and making it protected so a testing…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P107."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-108
+    principle_id: P108
+    mode: advise
+    prompt: "In legacy code I am weighing whether it is worth investing in tests for a change. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat the up-front cost of breaking dependencies and writing tests as usually paying back, because it avoids unknown debugging time and makes problems easier to find, and because changes cluster so…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P108."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-109
+    principle_id: P109
+    mode: advise
+    prompt: "In legacy code I am applying TDD in legacy code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Do one thing at a time with TDD, writing code or refactoring but never both at once, and for legacy code add a step zero to get the class under test first while trying not to change existing code as…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P109."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-110
+    principle_id: P110
+    mode: advise
+    prompt: "In legacy code I am a method resists being run in a test harness. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Remember that instantiating a class is only half the battle"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P110."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-111
+    principle_id: P111
+    mode: advise
+    prompt: "In legacy code I am a class reaches globals or class-static methods directly. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Replace Global Reference with Getter by introducing a protected getter for each global (a call to a static method on a class counts as a global) and overriding it via Subclass and Override Method…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P111."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-112
+    principle_id: P112
+    mode: advise
+    prompt: "In legacy code I am problematic dependencies are pervasive throughout a class. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Push Down Dependency for pervasive problematic dependencies beyond Subclass and Override Method or repeated Extract Interface by making the current class abstract, pushing the pervasive…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P112."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-113
+    principle_id: P113
+    mode: advise
+    prompt: "In legacy code I am designing or reviewing a method's signature and effects. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Apply Command/Query Separation"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P113."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-114
+    principle_id: P114
+    mode: advise
+    prompt: "In legacy code I am a dependency-breaking change would reduce encapsulation. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat encapsulation as a tool for understanding rather than an end, since many dependency-breaking techniques break it; when encapsulation and test coverage conflict, bias toward test coverage…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P114."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-115
+    principle_id: P115
+    mode: advise
+    prompt: "In legacy code I am several closely related classes or methods must change together. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Test one level back, at a single public method for changes in several private methods or at one object's interface for a collaboration it holds, to cover several changes and gain refactoring cover…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P115."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-116
+    principle_id: P116
+    mode: advise
+    prompt: "In legacy code I am the vocabulary of discussion diverges from the code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Listen to design conversations and align code concepts with conversation concepts, turning a recurring concept such as a locking policy into a named class rather than inline code, and treating a weak…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P116."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-117
+    principle_id: P117
+    mode: advise
+    prompt: "In legacy code I am evaluating whether a class does too much. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Apply the Single Responsibility Principle so that each class has one responsibility and one reason to change, treating the discovery of responsibilities in existing code as the same design skill as…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P117."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-118
+    principle_id: P118
+    mode: advise
+    prompt: "In legacy code I am tempted to fix several things at once mid-edit. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Value judgment over holding the whole system in your head and practice single-goal editing, treating programming as the art of doing one thing at a time by picking one thing and noting the rest…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P118."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-119
+    principle_id: P119
+    mode: advise
+    prompt: "In legacy code I am naming a new interface or class. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat naming as a key part of design, since good names reinforce understanding of a system while poor names make life hellish for those who follow, and do not prefix interface names with I unless it…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P119."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-120
+    principle_id: P120
+    mode: advise
+    prompt: "In legacy code I am scoping a change in unfamiliar code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Understand what behavior is at risk before making a change, because the hard part of preserving behavior is not its volume but not knowing how much of it a change can affect"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P120."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-121
+    principle_id: P121
+    mode: advise
+    prompt: "In legacy code I am starting to bring a dependency-heavy class under test. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "To break dependencies in object-oriented code, first try to instantiate the needed classes in a test harness (often just importing their declarations), and when a class is huge or has overwhelming…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P121."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-122
+    principle_id: P122
+    mode: advise
+    prompt: "In legacy code I am building new code or assessing why existing code resists testing. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Achieve testability deliberately, since code is generally poorly suited to testing"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P122."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-123
+    principle_id: P123
+    mode: advise
+    prompt: "In legacy code I am choosing between a plain fake and a mock framework. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Prefer simple hand-written fake objects, and reach for a mock object (a fake that asserts internally) only when you must write many fakes and the language has a mock framework, since simple fakes…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P123."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-124
+    principle_id: P124
+    mode: advise
+    prompt: "In legacy code I am a team wants to build a testing habit. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Run the team experiment of making no change for an iteration without a test that covers it, holding a quick meeting whenever someone believes a test cannot be written, and remember that code is your…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P124."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-125
+    principle_id: P125
+    mode: advise
+    prompt: "In legacy code I am a domain class is impractically expensive to bring into a harness. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Primitivize Parameter (a free function on a simplified primitive representation plus a delegating class method) to add a tested feature when a class is too costly to instantiate, but only when…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P125."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-126
+    principle_id: P126
+    mode: advise
+    prompt: "In legacy code I am a sprout is blocked by inability to construct the class. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat the static area of a class as a staging area for code that does not yet belong"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P126."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-127
+    principle_id: P127
+    mode: advise
+    prompt: "In legacy code I am severe C or C++ dependency with no better seam. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Reserve Definition Completion (a C or C++ alternate definition in the test file) for the worst dependency cases, since it needs a separate test executable and duplicate definitions that burden…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P127."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-128
+    principle_id: P128
+    mode: advise
+    prompt: "In legacy code I am explaining how parts of a system interact. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Naked CRC, laying down and moving blank index cards to convey the typical objects and their interactions, to make a system tangible and memorable, with cards representing instances rather than…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P128."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-129
+    principle_id: P129
+    mode: advise
+    prompt: "In legacy code I am faking procedural functions or an external library. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Use Link Substitution in procedural languages by building a dummy library of same-signature functions and recording calls for sensing, most useful for faking external libraries that are mostly pure…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P129."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-130
+    principle_id: P130
+    mode: advise
+    prompt: "In legacy code I am starting a change in a legacy code base. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Follow the Legacy Code Change Algorithm"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P130."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-131
+    principle_id: P131
+    mode: advise
+    prompt: "In legacy code I am getting a first test around fragile untested code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "In particularly nasty legacy code, modify the code as little as possible while getting tests in place, using the seams your language offers to work more safely than direct editing would"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P131."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-132
+    principle_id: P132
+    mode: advise
+    prompt: "In legacy code I am planning a risky change. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Mitigate the risk of any change by answering three questions"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P132."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-133
+    principle_id: P133
+    mode: advise
+    prompt: "In legacy code I am planning day-to-day legacy work. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Make each programming episode deliver functional value while bringing more of the system under test, so that tested areas of the code base steadily grow"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P133."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-134
+    principle_id: P134
+    mode: advise
+    prompt: "In legacy code I am breaking dependencies to get initial tests around untested code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Apply dependency-breaking refactorings without tests as the deliberate exception to test-first, purely as a means of getting the first tests in place"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P134."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-135
+    principle_id: P135
+    mode: advise
+    prompt: "In legacy code I am a localized method call must be neutralized for a test. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Break a dependency with Subclass and Override Method by overriding the offending method in a testing subclass, but only when the override does not change the behavior you intend to test"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P135."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-136
+    principle_id: P136
+    mode: advise
+    prompt: "In legacy code I am a project treats a design phase as complete but keeps changing code. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Never treat design as over while changes continue, because design is design regardless of when it happens, and once it is considered finished new code lands in poor places and classes bloat since no…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P136."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-137
+    principle_id: P137
+    mode: advise
+    prompt: "In legacy code I am a collaborator is hard to substitute under test. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Make a collaborator fakeable by introducing a seam such as extracting an interface, so the class under test can hold either the real collaborator or a fake"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P137."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-138
+    principle_id: P138
+    mode: advise
+    prompt: "In legacy code I am multiple seam types are available for a dependency. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Choose the right seam type"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P138."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-139
+    principle_id: P139
+    mode: advise
+    prompt: "In legacy code I am a required collaborator parameter is awkward under test. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "For an irritating parameter that is slow, unreliable, or has side effects under test, extract an interface on it and pass a fake that supplies only the values the code under test needs"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P139."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-140
+    principle_id: P140
+    mode: advise
+    prompt: "In legacy code I am a suspected bug surfaces during characterization. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "When you find a bug while characterizing, fix it if the system was never deployed, but if deployed analyze how to fix it without ripple effects since someone may depend on the behavior, biasing…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P140."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-141
+    principle_id: P141
+    mode: advise
+    prompt: "In legacy code I am performing risky dependency-breaking work. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Pair when using dependency-breaking techniques, because it is easy to break software unknowingly and legacy work is surgery where doctors do not operate alone, and pairing raises quality and spreads…"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P141."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-142
+    principle_id: P142
+    mode: advise
+    prompt: "In legacy code I am modifying awful code where side-by-side comparison helps. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Copy and modify code in a new method as a legitimate legacy tactic for seeing a change side by side with the old code, provided you remove the resulting duplication afterward"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P142."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-143
+    principle_id: P143
+    mode: advise
+    prompt: "In legacy code I am working in C or C++ with heavy macro or conditional-compilation use. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Keep excessive preprocessing out of production code, because conditional-compilation directives amount to several programs in one source and macros do blind text replacement that can hide obscure bugs"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P143."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-144
+    principle_id: P144
+    mode: advise
+    prompt: "In legacy code I am deciding between sprout and wrap for a change. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Choose between sprouting and wrapping by intent"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P144."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
+
+  - test_id: PB-145
+    principle_id: P145
+    mode: advise
+    prompt: "In legacy code I am a class name no longer reflects its responsibility. How should I approach it, and what does Working Effectively with Legacy Code advise?"
+    expected_behaviour:
+      - "Treat Rename Class as one of the most powerful refactorings, because a better class name changes how people see the code and reveals possibilities they had not considered"
+      - "Grounds the guidance in the source technique/principle rather than generic advice."
+      - "Cites P145."
+    must_not:
+      - "Give vague \"just refactor it\" advice that ignores the named technique or discipline this principle prescribes."
+      - "Recommend changing untested code without first establishing the safety net or seam the principle requires."
