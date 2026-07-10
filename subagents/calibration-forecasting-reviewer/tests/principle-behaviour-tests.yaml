@@ -1,0 +1,1420 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: calibration-forecasting-reviewer
+generated_at: '2026-07-10'
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  mode: review
+  prompt: We are reviewing a forecast where A confident forecast rests on a coherent account of past events.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Attribute inappropriate learning from history not to a lack of mental ability
+    but to the subject''s complexity, a small and biased sample of cases, poor learning conditions, and
+    a f'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P001.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P002
+  principle_id: P002
+  mode: review
+  prompt: We are reviewing a forecast where Setting expectations for how much any forecast can be trusted.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: The extremeness of a prediction should be controlled by predictability, so
+    when predictability is nil the same value such as the average should be predicted for every case and
+    the'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P002.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P003
+  principle_id: P003
+  mode: review
+  prompt: We are reviewing a forecast where evaluating whether subject expertise alone safeguards a judgment.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Challenge the assumption that lack of information is the principal obstacle
+    to accurate judgment, since past the minimum needed additional information raises confidence to the
+    poin'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P003.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P004
+  principle_id: P004
+  mode: review
+  prompt: We are reviewing a forecast where when uncertainty is high and a single-outcome assessment cannot
+    be trusted. What calibration or reasoning flaw should we check for, what is the correction, and what
+    residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Use Alternative Futures (scenarios) analysis when complexity and uncertainty
+    are too high to trust a single-outcome forecast:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P004.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P005
+  principle_id: P005
+  mode: review
+  prompt: We are reviewing a forecast where Interpreting a change that follows an extreme measurement
+    or evaluating a treatment. What calibration or reasoning flaw should we check for, what is the correction,
+    and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Regression to the mean means an extreme result is partly luck and tends to
+    be followed by a less extreme one whenever the correlation between measures is imperfect;'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P005.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P006
+  principle_id: P006
+  mode: review
+  prompt: We are reviewing a forecast where Forecasting the outcome or duration of a specific case or
+    project. What calibration or reasoning flaw should we check for, what is the correction, and what
+    residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: The inside view builds a forecast from case specifics while the outside view
+    uses the statistics of a reference class, and because people ignore the reference-class base rate
+    even'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P006.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P007
+  principle_id: P007
+  mode: review
+  prompt: We are reviewing a forecast where Making a quantitative prediction from an impression of the
+    evidence. What calibration or reasoning flaw should we check for, what is the correction, and what
+    residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Intuitive predictions are nonregressive and therefore biased, being as extreme
+    as the evidence, so correct them by starting from the reference-class baseline and moving toward the'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P007.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P008
+  principle_id: P008
+  mode: review
+  prompt: We are reviewing a forecast where a plausible but unlikely outcome deserves fuller consideration.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Break an established mind-set with perspective techniques that come at the
+    problem from a different direction, such as thinking backwards by assuming an unexpected event has
+    occurr'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P008.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P009
+  principle_id: P009
+  mode: review
+  prompt: We are reviewing a forecast where a capable, confident person is making a consequential judgment.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Hold intellectual humility alongside confidence:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P009.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P010
+  principle_id: P010
+  mode: review
+  prompt: We are reviewing a forecast where expressing uncertainty in an analytic product. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Convey that it is acceptable to be uncertain as long as analysts clearly inform
+    readers of the degree and sources of uncertainty and the milestones to watch for, making the inserti'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P010.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P011
+  principle_id: P011
+  mode: review
+  prompt: We are reviewing a forecast where assessing or improving a person's or team's forecasting capability.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Use public competition and scorekeeping to improve forecasters:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P011.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P012
+  principle_id: P012
+  mode: review
+  prompt: We are reviewing a forecast where designing how a forecasting function is evaluated or governed.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Steer between under- and overreaction by updating in many small increments:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P012.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P013
+  principle_id: P013
+  mode: review
+  prompt: We are reviewing a forecast where long-run forecasting of complex real-world political or economic
+    outcomes. What calibration or reasoning flaw should we check for, what is the correction, and what
+    residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Separate skill from task difficulty:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P013.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P014
+  principle_id: P014
+  mode: review
+  prompt: We are reviewing a forecast where a judgment rests on a small consistent body of evidence. What
+    calibration or reasoning flaw should we check for, what is the correction, and what residual uncertainty
+    remains?
+  expected_behaviour:
+  - 'Applies the principle: Handle evidence of uncertain accuracy probabilistically rather than with a
+    best-guess yes-or-no decision that treats seventy-to-eighty-percent-certain information as certain
+    and pr'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P014.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P015
+  principle_id: P015
+  mode: review
+  prompt: We are reviewing a forecast where measuring forecasting accuracy over a body of forecasts. What
+    calibration or reasoning flaw should we check for, what is the correction, and what residual uncertainty
+    remains?
+  expected_behaviour:
+  - 'Applies the principle: Score forecasts on both calibration and resolution:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P015.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P016
+  principle_id: P016
+  mode: review
+  prompt: We are reviewing a forecast where holding or updating any consequential belief. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Practice active open-mindedness:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P016.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P017
+  principle_id: P017
+  mode: review
+  prompt: We are reviewing a forecast where issuing or reviewing a forecast that will later be evaluated.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Anticipate four cognitive obstacles to forecasting — a preference for simplicity,
+    an aversion to ambiguity and dissonance, a need to believe the world is orderly, and a poor grasp'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P017.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P018
+  principle_id: P018
+  mode: review
+  prompt: We are reviewing a forecast where assessing the probability of a multi-step scenario. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Compute a scenario''s probability by multiplying the probabilities of its
+    events rather than averaging them, since averaging inflates the estimate and violates the principle
+    that a'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P018.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P019
+  principle_id: P019
+  mode: review
+  prompt: We are reviewing a forecast where conditions make a value trade-off easy to avoid or especially
+    painful. What calibration or reasoning flaw should we check for, what is the correction, and what
+    residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Watch for the common lesson of avoiding a recently failed policy by keeping
+    the goals but trying the opposite tactics, which is sometimes sensible but usually pays too little
+    atten'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P019.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P020
+  principle_id: P020
+  mode: review
+  prompt: We are reviewing a forecast where Confidence is offered as evidence that a conclusion is well
+    founded. What calibration or reasoning flaw should we check for, what is the correction, and what
+    residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Under the illusion of validity coherent, confident impressions coexist with
+    near-zero predictive accuracy, and confidence persists even after one learns the predictions have
+    no val'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P020.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P021
+  principle_id: P021
+  mode: review
+  prompt: We are reviewing a forecast where assessing a forecaster's claimed skill from past successes.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Distinguish luck from skill and discount fame and hollow track records:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P021.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P022
+  principle_id: P022
+  mode: review
+  prompt: We are reviewing a forecast where revising a probability in light of a new piece of evidence.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Compute how much to update in three steps — form the likelihood ratio, form
+    the prior-odds ratio, and multiply them for the posterior odds — recognizing that revision depends
+    on th'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P022.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P023
+  principle_id: P023
+  mode: review
+  prompt: We are reviewing a forecast where specific case evidence competes with base-rate data. What
+    calibration or reasoning flaw should we check for, what is the correction, and what residual uncertainty
+    remains?
+  expected_behaviour:
+  - 'Applies the principle: Causal base rates that imply something about the individual case are used
+    while purely statistical base rates are neglected, and because a statistically valid stereotype carries
+    re'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P023.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P024
+  principle_id: P024
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Do not treat slow updating, divergence, or increased commitment in the face
+    of common evidence as automatic proof of irrationality, because two actors with different priors and
+    dif'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P024.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P025
+  principle_id: P025
+  mode: review
+  prompt: We are reviewing a forecast where evaluating a probabilistic forecast after the outcome is known.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: When the outcome is disputed, bracket the score with worst- and best-case
+    bounds and trust only conclusions that survive both, and penalize the ''almost right'' excuse in proportion'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P025.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P026
+  principle_id: P026
+  mode: review
+  prompt: We are reviewing a forecast where assessing the likelihood and stakes of extreme outcomes. What
+    calibration or reasoning flaw should we check for, what is the correction, and what residual uncertainty
+    remains?
+  expected_behaviour:
+  - 'Applies the principle: Respect fat tails and radical indeterminacy:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P026.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P027
+  principle_id: P027
+  mode: review
+  prompt: We are reviewing a forecast where a recent success or failure is reshaping who holds influence
+    over policy. What calibration or reasoning flaw should we check for, what is the correction, and what
+    residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Watch for over-correcting the last failure to lose the next opportunity, as
+    excessive caution after a bloody landing forwent an easy victory when the road lay open, and recognize
+    t'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P027.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P028
+  principle_id: P028
+  mode: review
+  prompt: We are reviewing a forecast where estimating time or an outcome from case-specific detail. What
+    calibration or reasoning flaw should we check for, what is the correction, and what residual uncertainty
+    remains?
+  expected_behaviour:
+  - 'Applies the principle: People overestimate conjunctive events, where every step in a chain must occur,
+    and underestimate disjunctive events, where any one component failing suffices, because they anchor'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P028.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P029
+  principle_id: P029
+  mode: review
+  prompt: We are reviewing a forecast where deciding how much mathematical machinery a forecast requires.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Be numerate and probabilistic without needing advanced math:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P029.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P030
+  principle_id: P030
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Discount credentials and belief-system content as predictors of accuracy —
+    the one consistent demographic predictor, fame, runs the wrong way — while treating ideological moderatio'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P030.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P031
+  principle_id: P031
+  mode: review
+  prompt: We are reviewing a forecast where encountering very precise probability claims or confident
+    advisers. What calibration or reasoning flaw should we check for, what is the correction, and what
+    residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Guard against granularity theatre and confidence-competence conflation:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P031.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P032
+  principle_id: P032
+  mode: review
+  prompt: We are reviewing a forecast where tempted to assign 50% because a problem feels unknowable.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Do not default to 0.5 when you feel you know nothing:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P032.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P033
+  principle_id: P033
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Watch for motivated counterfactual selection that follows a dissonance-reduction
+    logic — the more you dislike an actor, the more you resist any counterfactual crediting them with
+    r'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P033.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P034
+  principle_id: P034
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Manage two offsetting errors rather than eliminating one — hindsight erases
+    past contingency while unpacking inflates future possibility — and note that open-minded foxes are
+    more'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P034.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P035
+  principle_id: P035
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Reject any scoring adjustment so generous it makes cognitive parity nonfalsifiable,
+    because value adjustments cannot rescue hedgehogs when foxes make fewer errors of both kinds, an'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P035.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P036
+  principle_id: P036
+  mode: review
+  prompt: We are reviewing a forecast where a question seems impossible to quantify from available data.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Fermi-ize an intractable question:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P036.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P037
+  principle_id: P037
+  mode: review
+  prompt: We are reviewing a forecast where systems governed by negative feedback / decreasing returns.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Do not rely on the marketplace of ideas to self-correct political prediction,
+    since it suffers from unmotivated consumers, consumers seeking solidarity rather than truth, and cogni'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P037.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P038
+  principle_id: P038
+  mode: review
+  prompt: We are reviewing a forecast where A numerical estimate is made after any reference number has
+    been mentioned. What calibration or reasoning flaw should we check for, what is the correction, and
+    what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: An arbitrary or even random number anchors a numerical estimate through insufficient
+    adjustment and priming, experts deny but are barely less susceptible than novices, and System 2'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P038.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P039
+  principle_id: P039
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Treat disagreements over the very definition of good judgment as a central
+    object of inquiry, judge measurement progress against whether you know more than before rather than
+    an im'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P039.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P040
+  principle_id: P040
+  mode: review
+  prompt: We are reviewing a forecast where setting or judging the time frame of a forecast. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Calibrate the forecast to its horizon:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P040.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P041
+  principle_id: P041
+  mode: review
+  prompt: We are reviewing a forecast where assessing sophisticated experts rather than lay partisans.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Expect commitment to a generalization to breed dismissal of counterfactuals
+    that undercut it, and expect even apparently apolitical facts to be politicized once rival schools
+    see a'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P041.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P042
+  principle_id: P042
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Record forecasters'' original probability judgments verbatim and confront
+    them with the record, because hindsight and belief-system defenses are complementary self-image-preserving'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P042.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P043
+  principle_id: P043
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Favor moderate muddle-through and zigzag forecasts that respect base rates
+    and blend opposing arguments over doomsday or rosy extremes, and remember that within any school someone'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P043.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P044
+  principle_id: P044
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Exploit the four approaches that reliably improve forecasting — prediction
+    markets, the Delphi method, simple consensus averaging, and cultivating self-critical flexible forecaster'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P044.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P045
+  principle_id: P045
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Run a structured post-mortem that first tests recall of the original prediction,
+    then confronts the forecaster with the record and probes which belief-system defense they reach for'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P045.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P046
+  principle_id: P046
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Structure a scoreable belief update as a reputational bet — confidence in
+    your own view and the strongest rival summing to one, plus the probability of each outcome under each
+    view'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P046.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P047
+  principle_id: P047
+  mode: review
+  prompt: We are reviewing a forecast where debating the value or limits of forecasting. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Reject both ''forecasting is a formula'' and ''forecasting is bunk'':'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P047.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P048
+  principle_id: P048
+  mode: review
+  prompt: We are reviewing a forecast where choosing, defending, or acting on a performance metric or
+    score. What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Treat numbers as tools, not totems:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P048.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P049
+  principle_id: P049
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Expect human forecasters to sit far closer to random guessing and simple extrapolation
+    than to formal statistical models, and to fall below even extrapolation algorithms when a com'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P049.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P050
+  principle_id: P050
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Define each predicted outcome precisely enough to pass a clairvoyance test
+    — a clairvoyant knowing the future could score it with no request for clarification — which rules
+    out vag'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P050.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P051
+  principle_id: P051
+  mode: review
+  prompt: We are reviewing a forecast where outcomes are random or near-random with a stable base rate.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Reward the courage to deviate correctly from the base rate and punish mindless
+    base-rate reliance that misses rare events, while beware that such skill scoring can also reward spec'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P051.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P052
+  principle_id: P052
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Recognize that collapsing the probability scale toward its endpoints treats
+    every ''maybe'' as equivalent so scoring depends only on the extremes, and that nonlinear weighting
+    reward'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P052.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P053
+  principle_id: P053
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Do not anchor on your own view as a near-certainty:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P053.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P054
+  principle_id: P054
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Expect people to update asymmetrically — readily reaffirming a prior after
+    a win but resisting revision after a loss — with foxes updating far more of the prescribed amount
+    than he'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P054.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P055
+  principle_id: P055
+  mode: review
+  prompt: We are reviewing a forecast where evaluating a low-probability, high-payoff option. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Consider that a decision-maker may recognize a slight chance of success yet
+    judge a policy worth pursuing because the potential gain is huge, so when payoffs are very high, small
+    d'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P055.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P056
+  principle_id: P056
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Keep prediction and explanation separate:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P056.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P057
+  principle_id: P057
+  mode: review
+  prompt: We are reviewing a forecast where Judging evidence strength or planning data collection by intuition.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Under the law of small numbers people, including trained researchers, place
+    exaggerated faith in small samples and underestimate sampling variation, so choose sample size by
+    comput'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P057.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P058
+  principle_id: P058
+  mode: review
+  prompt: We are reviewing a forecast where Predicting how people weight probabilities in a risky choice.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Decision weights are nonlinear and regressive with respect to probability,
+    overweighting low probabilities and underweighting moderate and high ones relative to certainty, a
+    change'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P058.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P059
+  principle_id: P059
+  mode: review
+  prompt: We are reviewing a forecast where comparing forecasters or judging whether a score reflects
+    skill. What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Interpret a score only against a benchmark on a level playing field:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P059.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P060
+  principle_id: P060
+  mode: review
+  prompt: We are reviewing a forecast where forecasters hold diverse, unshared information. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Extremize a diverse crowd''s aggregate:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P060.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P061
+  principle_id: P061
+  mode: review
+  prompt: We are reviewing a forecast where working a substantive forecasting question from scratch. What
+    calibration or reasoning flaw should we check for, what is the correction, and what residual uncertainty
+    remains?
+  expected_behaviour:
+  - 'Applies the principle: Follow the superforecaster process end to end:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P061.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P062
+  principle_id: P062
+  mode: review
+  prompt: We are reviewing a forecast where interpreting why a forecast was made or praised in a political
+    setting. What calibration or reasoning flaw should we check for, what is the correction, and what
+    residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Remember that accuracy is not always the goal (kto-kogo):'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P062.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P063
+  principle_id: P063
+  mode: review
+  prompt: We are reviewing a forecast where deep, liquid, efficient markets where many smart actors compete.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Prefer humble strategies where market efficiency or skill limits bind:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P063.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P064
+  principle_id: P064
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Discount a forecaster''s professional background, status, and ideological
+    school as predictors of accuracy, and attend instead to cognitive style, whose fox pole yields its
+    biggest'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P064.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P065
+  principle_id: P065
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Assess probabilistic forecasts on two decomposable dimensions — discrimination
+    (assigning higher probabilities to events that happen than to those that do not, beating predict-the-'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P065.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P066
+  principle_id: P066
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Match the performance baseline to the regime — random guessing during turbulence,
+    extrapolation algorithms during stability — remembering that qualitative breakpoints are far easie'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P066.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P067
+  principle_id: P067
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Treat continuation of the status quo as the single most common outcome across
+    short- and long-term forecasts, so that predicting no change beats predicting change on average.'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P067.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P068
+  principle_id: P068
+  mode: review
+  prompt: We are reviewing a forecast where the cost of missing a real event exceeds the cost of a false
+    alarm. What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Demand both calibration and discrimination to distinguish the self-aware from
+    fence-sitters, remembering that discrimination is squared and so can be perfect even for someone consi'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P068.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P069
+  principle_id: P069
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Watch for the egocentricity gap, which assigns your favored outcome more probability
+    than a full accounting of rivals would justify and grows largest when you make extreme likeliho'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P069.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P070
+  principle_id: P070
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Do intuitively what statistical averaging does — blend perspectives with non-redundant
+    predictive power through weighted averaging of conflicting considerations — which beats most'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P070.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P071
+  principle_id: P071
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Map five legitimate objections to five scoring adjustments — difficulty, value,
+    controversy, fuzzy-set, and probability-weighting — and judge skill by whether it beats a base-rate'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P071.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P072
+  principle_id: P072
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Use the narrative mode for understanding but the probability calculus for
+    judging likelihoods, because stories are lifelike and capture contingency yet are the wrong tool for
+    proba'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P072.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P073
+  principle_id: P073
+  mode: review
+  prompt: We are reviewing a forecast where Eliciting or stating a confidence interval or subjective probability.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Assessed subjective probability distributions are far too tight, with true
+    values falling outside a stated ninety-eight percent interval about thirty percent of the time, because
+    p'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P073.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P074
+  principle_id: P074
+  mode: review
+  prompt: We are reviewing a forecast where the question that matters is too vague to score directly.
+    What calibration or reasoning flaw should we check for, what is the correction, and what residual
+    uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Answer unscorable big questions via Bayesian question clustering:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P074.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P075
+  principle_id: P075
+  mode: review
+  prompt: We are reviewing a forecast where committing to a probability estimate. What calibration or
+    reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Use a proper scoring rule and the betting test:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P075.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P076
+  principle_id: P076
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Apply near-consensus coherence tests such as probability-axiom violations,
+    flagging subadditivity — judging a whole set less likely than the sum of its exclusive, exhaustive
+    parts'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P076.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P077
+  principle_id: P077
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Do not apply separate value adjustments for over- and underprediction, since
+    that makes a broken-clock forecaster look calibrated and falsely assumes they knew which error they
+    wou'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P077.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P078
+  principle_id: P078
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Never hold a probability of exactly one in your own view or zero in a rival''s,
+    because the odds ratio becomes undefined and no evidence can move you;'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P078.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P079
+  principle_id: P079
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate each predicted linkage separately and question the tightness of any
+    assumed causal coupling, such as economic collapse leading to violent conflict, since a forecaster
+    righ'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P079.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P080
+  principle_id: P080
+  mode: review
+  prompt: We are reviewing a forecast where reporting a probability that is not near certainty. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Make the residual probability explicit for the policymaker, since even long
+    odds against an event leave a chance, such as a 25 percent chance behind three-to-one odds, that may
+    mer'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P080.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P081
+  principle_id: P081
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Be reluctant to make extreme predictions, because positive feedback loops
+    are usually checked by dampening mechanisms before they run to an extreme.'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P081.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P082
+  principle_id: P082
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Treat betting against the survival of an existing government or regime as
+    usually a bad bet, giving extra weight to continuation of the status quo.'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P082.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P083
+  principle_id: P083
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Treat the ''I was just off on timing'' defense as a red flag, because a long
+    enough horizon makes almost any prediction unfalsifiable.'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P083.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P084
+  principle_id: P084
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Treat sharp regime changes as rare events, so even when you anticipate transformation
+    assign it a higher, not a high, probability than others do.'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P084.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P085
+  principle_id: P085
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Combine a broad macro-theory with micro-variables that gate alternative futures
+    and attach an explicit hedge, rather than deducing a single outcome from the theory alone.'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P085.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P086
+  principle_id: P086
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Discount a losing forecaster''s ''it almost happened'' excuse in proportion
+    to how much more often they invoke it after failures than successes, granting only a small fraction
+    of the'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P086.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P087
+  principle_id: P087
+  mode: review
+  prompt: We are reviewing a forecast where Judging the value of a theory or conceptual framework. What
+    calibration or reasoning flaw should we check for, what is the correction, and what residual uncertainty
+    remains?
+  expected_behaviour:
+  - 'Applies the principle: A good theoretical concept earns its keep by generating precise, nonintuitive,
+    testable predictions, as loss aversion did in predicting the par-versus-birdie putting gap.'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P087.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P088
+  principle_id: P088
+  mode: review
+  prompt: We are reviewing a forecast where assuming skill in one forecasting domain implies skill in
+    another. What calibration or reasoning flaw should we check for, what is the correction, and what
+    residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Do not assume calibration transfers across domains:'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P088.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P089
+  principle_id: P089
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Treat a commitment to parsimony as a liability rather than an asset in real-world
+    forecasting, however prized it is in science.'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P089.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P090
+  principle_id: P090
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Make a continuous forecast scoreable with a confidence band around the recent
+    value — such as plus or minus half a standard deviation of the prior five to ten years — asking whethe'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P090.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).
+- test_id: PB-P091
+  principle_id: P091
+  mode: review
+  prompt: We are reviewing a forecast where a forecast or probability judgment is under review. What calibration
+    or reasoning flaw should we check for, what is the correction, and what residual uncertainty remains?
+  expected_behaviour:
+  - 'Applies the principle: Remember that formal statistical models beat human forecasters only modestly
+    because many variables follow a near-first-order autoregressive process that a simple persistence-plus-'
+  - Names the calibration or reasoning flaw and the correction, and states the residual uncertainty and
+    horizon.
+  - Cites P091.
+  must_not:
+  - Make the caller's decision or supply the substantive domain forecast.
+  - Endorse an uncalibrated or incoherent judgment (default 0.5, stated certainty of 1.0/0.0, subadditive
+    set).

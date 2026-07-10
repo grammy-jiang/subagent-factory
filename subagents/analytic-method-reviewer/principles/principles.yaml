@@ -1,0 +1,1751 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Train the thinking and reasoning process, not just writing, since clear
+    writing is not clear thinking and one can argue an erroneous judgment persuasively,
+    supplement training with coaching, conduct centrally collated postmortems on both
+    failures and successes, institutionalize retrospective evaluation, which is feasible
+    in numerical fields and must be done to improve understanding rather than to assign
+    blame since a series of judgments reveals the accuracy of the mental model, and
+    support research on analysts' own mind-sets and the lens through which they perceive
+    events.
+  derived_from_claims:
+  - C00008
+  - C00009
+  - C00017
+  - C00018
+  - C00019
+  - C00020
+  - C00021
+  - C00022
+  - C00110
+  - C00500
+  - C00501
+  - C00502
+  - C00503
+  - C00504
+  - C00505
+  - C01188
+  - C01189
+  - C01190
+  - C01191
+  - C01294
+  - C01721
+  - C01722
+  confidence: high
+  applies_when:
+  - at the start of an analytic project and before finalizing judgments
+  - making or reviewing any analytic judgment
+  - managing analysts and the analytic organization
+  - probing or challenging a claim within a group
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: Remember that high-drive conditions inhibit the flexible, principle-based
+    kind of learning, so overwhelming events yield overgeneralized and oversimplified
+    lessons, meaning decision-makers are often too involved in the highest-impact
+    events to draw the most useful information from them, and that once an event stamps
+    many members of an organization its lessons become institutionalized in doctrine
+    and language and outlive their applicability.
+  derived_from_claims:
+  - C00064
+  - C00065
+  - C00066
+  - C00067
+  - C00068
+  - C00069
+  - C00070
+  - C00071
+  - C00460
+  - C00461
+  - C00462
+  - C00515
+  - C00516
+  - C01309
+  - C01318
+  - C01323
+  - C02523
+  - C02524
+  - C02525
+  confidence: high
+  applies_when:
+  - when a low-probability event would have major consequences that have not been
+    thought through
+  - when a critical judgment rests on limited information or unproven assumptions
+  - expressing a key probability in a report
+  - deciding whether to study an unlikely but high-impact event
+  - assessing forecasts of, or preparing for, rare high-impact events
+  - a traumatic or overwhelming event is being turned into doctrine
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Use the attempt to specify disconfirming evidence to reveal when an image
+    is in fact invulnerable to most events, as with an unrecognized inherent-bad-faith
+    model, and treat as a warning sign that the opposite of an observed event would
+    have been read as supporting the same conclusion, while accepting that explicit
+    prediction has severe limits because facts admit multiple interpretations and
+    good theories yield only probabilistic predictions.
+  derived_from_claims:
+  - C00222
+  - C00223
+  - C00224
+  - C00225
+  - C00650
+  - C00651
+  - C00652
+  - C01377
+  - C01379
+  - C02866
+  - C02867
+  - C02868
+  - C02869
+  - C02870
+  confidence: high
+  applies_when:
+  - broad assumptions dominate interpretation of specific evidence
+  - Trying to change how someone judges concrete situations using evidence
+  - forming or defending a hypothesis about an actor or a policy's effects
+  - checking whether an image can be contradicted by any possible evidence
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: 'Use Red Team analysis to counter mirror-imaging: do not assume a foreign
+    actor reasons as the analyst would, because cultural, organizational, and personal
+    experience drive different responses; staff a team steeped in the target''s environment,
+    have them reason and write in the first person as the adversary, present uncoordinated
+    first-person products without caveats, and recognize the technique only reduces
+    rather than eliminates the analyst''s own mind-set.'
+  derived_from_claims:
+  - C00058
+  - C00059
+  - C00060
+  - C00061
+  - C00062
+  - C00063
+  - C00090
+  - C00091
+  - C00092
+  - C00093
+  - C00094
+  - C00095
+  - C00096
+  - C00097
+  - C00294
+  - C00295
+  - C01180
+  - C01181
+  - C01182
+  - C01183
+  - C01184
+  - C01185
+  - C01186
+  - C01187
+  - C01194
+  - C01195
+  confidence: high
+  applies_when:
+  - when at least two strong competing views exist and the stakes justify the cost
+  - forecasting the behavior of a foreign leader or group, especially authoritarian,
+    terrorist, or non-Western actors
+  - reviewing an analysis for hidden assumptions
+  - a group is forming a judgment or decision together
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Organizations avoid errors better than individuals because they think
+    more slowly and can impose orderly procedures such as checklists, reference-class
+    forecasting, and the premortem, so treat an organization as a decision factory
+    and apply routine quality control at the three stages of framing the problem,
+    collecting information, and reflection and review, supported by a precise shared
+    vocabulary of biases that serves as the hook for constructive criticism.
+  derived_from_claims:
+  - C00023
+  - C00024
+  - C00025
+  - C00026
+  - C00027
+  - C00028
+  - C00029
+  - C00030
+  - C00031
+  - C00032
+  - C00871
+  - C00872
+  - C00873
+  - C02284
+  - C02285
+  - C02286
+  - C02287
+  confidence: high
+  applies_when:
+  - before resting a judgment on a body of source reporting
+  - Designing how an organization makes and reviews decisions
+  - weighing intelligence or advice from a particular source
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: 'Use Alternative Futures (scenarios) analysis when complexity and uncertainty
+    are too high to trust a single-outcome forecast: select by consensus the two most
+    critical and uncertain drivers as axes, cross them into four future worlds with
+    plausible stories and signposts, involve policymakers so they can test strategies
+    against each world, and reserve the technique for high-consequence problems given
+    its cost.'
+  derived_from_claims:
+  - C00098
+  - C00099
+  - C00100
+  - C00101
+  - C00102
+  - C00103
+  - C00104
+  - C00105
+  - C00117
+  - C00118
+  - C00121
+  - C01442
+  - C01443
+  - C01680
+  - C01681
+  - C01682
+  - C01683
+  confidence: high
+  applies_when:
+  - when uncertainty is high and a single-outcome assessment cannot be trusted
+  - producing an estimate for decisionmakers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: Break an established mind-set with perspective techniques that come at
+    the problem from a different direction, such as thinking backwards by assuming
+    an unexpected event has occurred and working back to explain it, which shifts
+    the focus from whether to how and is especially useful for low-probability, high-consequence
+    events.
+  derived_from_claims:
+  - C00299
+  - C00300
+  - C00301
+  - C00310
+  - C01107
+  - C01116
+  - C01117
+  - C01118
+  - C01119
+  - C01542
+  - C01543
+  - C01688
+  - C01689
+  confidence: high
+  applies_when:
+  - a plausible but unlikely outcome deserves fuller consideration
+  - small anomalies are accumulating against a prevailing view
+  - explaining a surprising or emotionally charged event
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Recognize that institutionalizing a devil's advocate can backfire, since
+    labeling opposition as a role signals resistance and lets a decision-maker gain
+    false confidence from believing he has been open-minded, so give special weight
+    instead when subordinates who previously held differing views converge on one
+    conclusion, especially against your own position or their own interest, while
+    discounting conversions the role itself could have produced.
+  derived_from_claims:
+  - C00051
+  - C00052
+  - C00053
+  - C00054
+  - C00055
+  - C00056
+  - C00057
+  - C00306
+  - C00307
+  - C02875
+  - C02876
+  confidence: high
+  applies_when:
+  - challenging a consensus on a judgment that cannot afford to be wrong
+  - surfacing conflicting interpretations
+  - interpreting agreement or dissent among advisers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: 'Expect motivated skepticism when evidence is dissonant: holding quality
+    constant and flipping only the conclusion, experts rate consonant evidence credible
+    and dissonant evidence not, neutralizing it about four times more often by impugning
+    motives, authenticity, or interpretation, with assurances of rigor barely denting
+    the double standard.'
+  derived_from_claims:
+  - C00962
+  - C00963
+  - C00964
+  - C01082
+  - C01425
+  - C01426
+  - C01624
+  - C01625
+  - C01771
+  - C02004
+  - C02005
+  confidence: high
+  applies_when:
+  - forming or defending a judgment
+  - reaching or reviewing a strongly one-sided conclusion
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: On key issues management should reject most single-outcome analysis and,
+    when the cost of error is high or deception is a serious possibility, mandate
+    a systematic process such as Analysis of Competing Hypotheses, requiring analysts
+    to identify the alternatives considered, justify why they are less likely, and
+    clearly express the likelihood that events may not turn out as expected.
+  derived_from_claims:
+  - C00002
+  - C00016
+  - C00263
+  - C00489
+  - C00490
+  - C00491
+  - C00512
+  - C01902
+  - C01903
+  confidence: high
+  applies_when:
+  - deciding whether to formalize the analysis
+  - gathering evidence for a set of hypotheses
+  - a high-stakes or deception-prone issue
+  - reaching a conclusion that feels strongly confirmed by new information
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: 'Sequence structured techniques across the analytic project: at the start
+    use brainstorming, a Key Assumptions Check, and Outside-In Thinking; use Indicators
+    and ACH throughout and revisit them as new information arrives; during hypothesis
+    testing apply a contrarian or Red Team technique and review intelligence gaps;
+    and before finalizing re-check key assumptions, brainstorm for missed hypotheses,
+    run Devil''s Advocacy against an unquestioned consensus, and include a key-indicators
+    list to track whether the judgment holds.'
+  derived_from_claims:
+  - C00014
+  - C00015
+  - C00106
+  - C00107
+  - C00108
+  - C00109
+  - C00210
+  - C00211
+  - C01748
+  confidence: high
+  applies_when:
+  - selecting an approach to a problem
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: 'Watch the ''right mistake'' defense and adjust for known measurement
+    biases: deliberately erring toward caution is legitimate only when the two errors
+    have genuinely asymmetric costs, and collapses if you never update afterward,
+    and you should adjust the outside view for systematic biases such as social-desirability
+    effects in polling.'
+  derived_from_claims:
+  - C00582
+  - C00583
+  - C00584
+  - C01174
+  - C01312
+  - C01319
+  - C01660
+  confidence: high
+  applies_when:
+  - Multiple related judgments will be combined, or several judges assess the same
+    case
+  - justifying a cautious forecast, or reading data with known systematic bias
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Recognize that Analysis of Competing Hypotheses is distinguished by starting
+    from a full set of alternatives, emphasizing the most diagnostic evidence, and
+    seeking to refute so that the most likely hypothesis has the least evidence against
+    it, so that concluding there is no indication of an event wrongly conflates an
+    unproven with a disproved hypothesis, and whenever tempted to write there is no
+    evidence, ask whether you could realistically expect to see it if it were true.
+  derived_from_claims:
+  - C00038
+  - C00039
+  - C00040
+  - C00041
+  - C00042
+  - C00043
+  - C00044
+  - C00045
+  - C00046
+  - C00047
+  - C00048
+  - C00049
+  - C00050
+  - C00137
+  - C00138
+  - C00245
+  - C00246
+  - C00247
+  - C00248
+  - C00249
+  - C00344
+  - C00345
+  - C00346
+  - C00347
+  - C00348
+  - C00349
+  - C00353
+  - C00354
+  - C00356
+  - C00357
+  - C00358
+  - C00359
+  - C00360
+  - C00361
+  - C00362
+  - C00366
+  - C00367
+  - C00368
+  - C00369
+  - C00370
+  - C00371
+  - C00372
+  - C00375
+  - C00376
+  - C00377
+  - C00492
+  - C00493
+  - C00494
+  confidence: high
+  applies_when:
+  - with a large body of data, controversial issues needing an auditable record, or
+    when weighing deception
+  - choosing among alternative explanations or outcomes
+  - an analyst has settled on a most-likely answer
+  - evaluating evidence against a favored hypothesis
+  - important or controversial issue requiring careful weighing of alternatives
+  - assembling the evidence for a set of hypotheses
+  - arraying evidence against competing hypotheses
+  - the initial matrix has been filled in
+  - drawing tentative conclusions from the matrix
+  - a conclusion hinges on a few linchpin items
+  - presenting conclusions to decisionmakers
+  - about to assert an absence of evidence
+  - weighing evidence across hypotheses
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Because evidence consistent with several hypotheses is common in intelligence
+    and has only a probabilistic relationship to them so hypotheses can seldom be
+    eliminated entirely, resist confirmation-seeking, which leads analysts astray,
+    and recognize that the probabilistic nature weakens an elimination strategy but
+    never justifies a confirmation strategy, as documented intelligence successes
+    pitted competing hypotheses against the evidence.
+  derived_from_claims:
+  - C00259
+  - C00260
+  - C00261
+  - C00262
+  - C00378
+  - C00379
+  - C00497
+  - C00498
+  - C00499
+  - C01864
+  - C01865
+  - C01908
+  - C02440
+  - C02441
+  confidence: high
+  applies_when:
+  - evidence is ambiguous and probabilistic
+  - evaluating the value of a structured method
+  - selecting and presenting a conclusion
+  - monitoring a published judgment as events unfold
+  - building or defending an intelligence hypothesis or estimate
+  - importance and urgency are pushing toward a fast image of an actor
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: 'Build psychologically safe, sharing, and diverse teams: safety to correct
+    higher-ups, a shared ''we'' purpose, and giver behavior raise a team''s emergent
+    open-mindedness (which predicts accuracy), and diversity of perspective, not ability
+    alone, drives the gains from aggregation.'
+  derived_from_claims:
+  - C00320
+  - C00321
+  - C00322
+  - C01197
+  - C01198
+  - C01202
+  - C01203
+  - C01204
+  - C01205
+  confidence: high
+  applies_when:
+  - organizing collaborative idea generation
+  - composing or running a forecasting or decision team
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Treat the link from lessons learned to later behavior as only probabilistic,
+    since learning from history biases but does not determine perception and can be
+    outweighed by other motives, as leaders sensitized to the dangers of appeasement
+    nonetheless favored conciliation under fear of nuclear war, and a formative lesson
+    can fail to transfer even where it plainly applies.
+  derived_from_claims:
+  - C01607
+  - C01608
+  - C01609
+  - C01610
+  - C01622
+  - C01623
+  - C01770
+  - C02492
+  - C02493
+  confidence: high
+  applies_when:
+  - assuming a known historical lesson will govern an actor's behavior
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Reason by comparison and analogy only with care, since it fills gaps
+    by assuming the present resembles a precedent, a vivid precedent imposes itself
+    before analysis, and using comparison admits insufficient information, so treat
+    two situations as equivalent in all respects only after in-depth analysis confirms
+    they are comparable.
+  derived_from_claims:
+  - C00226
+  - C00227
+  - C00228
+  - C00229
+  - C00234
+  - C01508
+  - C01509
+  confidence: high
+  applies_when:
+  - drawing on a historical analogy
+  - reasoning from a comparable case
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Because theory and fact interact so that what counts as an important
+    fact differs across frameworks and the same information is cited for opposite
+    conclusions, do not try to settle an interpretive dispute by appeal to one or
+    two facts or to the most recent behavior, but debate instead the general images
+    that lie behind the specific interpretations.
+  derived_from_claims:
+  - C00162
+  - C00163
+  - C02384
+  - C02385
+  - C02386
+  - C02387
+  confidence: high
+  applies_when:
+  - defending the objectivity of an analysis
+  - an interpretive dispute is being fought over specific pieces of evidence
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: Apply plausibility pruners to imaginative reasoning, cutting off speculative
+    branches before they exceed the bounds of probability, since theory-driven thinking
+    buys closure while imagination-driven thinking reveals possibilities at the cost
+    of confusion, and good judgment continually manages this trade-off.
+  derived_from_claims:
+  - C00316
+  - C00317
+  - C00318
+  - C00319
+  - C01704
+  - C01705
+  confidence: high
+  applies_when:
+  - generating ideas or brainstorming
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Because a single operative hypothesis with no competitor is too readily
+    confirmed, encourage alternative images and, rather than seeking unbiased analysis,
+    deliberately structure conflicting cognitive biases into the process with multiple
+    devils' advocates, recognizing that one person cannot see the evidence as an opponent
+    would when the difference in frameworks is basic, so an advocate who is not a
+    true devil is of limited value.
+  derived_from_claims:
+  - C01030
+  - C01031
+  - C01032
+  - C01095
+  - C02871
+  - C02872
+  confidence: high
+  applies_when:
+  - reaching a high-stakes conclusion, especially a confident one
+  - organizing analysis so competing interpretations genuinely contend
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Use an accurate reading of the goals behind an unacceptable proposal
+    to find integrative solutions that upgrade common interests rather than split
+    the difference, which requires understanding your own means-ends chain, since
+    pursuing established subgoals without knowing why they were valued blocks the
+    creativity needed to design new options.
+  derived_from_claims:
+  - C01764
+  - C01765
+  - C01773
+  - C02106
+  - C02107
+  - C02108
+  confidence: high
+  applies_when:
+  - seeking a solution that satisfies both sides' underlying objectives
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Direct training and self-examination inward toward the analyst's own
+    thinking and reasoning, because analysts must understand themselves before they
+    can understand others, rather than only toward organizational procedures, methods,
+    or substantive topics.
+  derived_from_claims:
+  - C00151
+  - C00153
+  - C00196
+  - C00485
+  - C01733
+  confidence: high
+  applies_when:
+  - deciding whether to collect more information
+  - designing analyst training or self-review
+  - explaining how a judgment was reached
+  - planning how to improve analytic quality
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Make beliefs and values explicit and debate two opposed images as complete
+    wholes rather than arguing over each incident, because many crucial failures come
+    not from wrong answers but from wrong questions, and the beliefs most in need
+    of scrutiny lie at the higher end of the means-ends chain, where actors adopt
+    subgoals without analyzing why attaining a subgoal would actually produce the
+    desired end.
+  derived_from_claims:
+  - C01537
+  - C01540
+  - C02859
+  - C02860
+  - C02861
+  confidence: high
+  applies_when:
+  - surfacing the assumptions behind a policy or an interpretation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: Recognize that an intelligence agency's incentive structure and organizational
+    culture can matter as much as individual psychology, and guard against the classic
+    failure of neglecting negative evidence, the dogs that do not bark, since absent
+    events that a true hypothesis predicts make far less impact than present ones
+    and countering this requires training and discipline.
+  derived_from_claims:
+  - C00355
+  - C02006
+  - C02007
+  - C02008
+  confidence: high
+  applies_when:
+  - weighing evidence for a hypothesis
+  - diagnosing an intelligence failure or building an estimate
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Adopt the basic safeguard of taking account of how perception produces
+    common errors, so that awareness that belief systems display irrational consistency
+    and that images form too quickly leads a decision-maker to examine his supporting
+    evidence, suspend judgment longer, and consult people less involved, and that
+    knowing consistent evidence is often wrongly taken as disconfirming alternatives
+    restrains the false confidence that events are proving his image correct.
+  derived_from_claims:
+  - C01746
+  - C01747
+  - C02884
+  - C02885
+  confidence: high
+  applies_when:
+  - building habits to counter one's own predictable perceptual errors
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: 'Run Brainstorming as a structured two-phase process (divergent generation
+    then convergent grouping) to generate hypotheses and break mind-sets: never censor
+    an idea and instead probe what prompted it, ban killer phrases, include at least
+    one outsider, leave rank at the door with no official analytic line, allow about
+    an hour and cap the session near 90 minutes, and record ideas visibly.'
+  derived_from_claims:
+  - C00072
+  - C00073
+  - C00074
+  - C00075
+  - C00076
+  - C00077
+  - C00078
+  - C00079
+  - C00080
+  - C00081
+  - C00082
+  - C00083
+  - C00084
+  - C00085
+  confidence: high
+  applies_when:
+  - at the start of a project or at critical points to generate a range of hypotheses
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Adopt the scientific strategy of seeking to refute rather than confirm
+    hypotheses, because people naturally avoid and discount disconfirming evidence,
+    a hypothesis can be disproved by a single inconsistent item but never proved by
+    consistent evidence, and confirmation-seeking caused most subjects to fail the
+    two-four-six rule-discovery task.
+  derived_from_claims:
+  - C00139
+  - C00140
+  - C00141
+  - C00255
+  - C00256
+  - C00257
+  - C00258
+  - C00350
+  - C00351
+  - C00487
+  - C00488
+  confidence: high
+  applies_when:
+  - screening out hypotheses
+  - testing a favored hypothesis
+  - screening out hypotheses that lack supporting evidence
+  - defining the set of hypotheses to analyze
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Get the reasons pro and con out of your head and onto paper because you
+    cannot hold them all in mind at once, and recognize that decomposition and externalization
+    tools are for the ablest analysts, not only the weak, since written elements let
+    you work each part while keeping the whole in view.
+  derived_from_claims:
+  - C00331
+  - C00332
+  - C00333
+  - C00334
+  - C00335
+  - C00336
+  - C00337
+  - C00342
+  - C00343
+  confidence: high
+  applies_when:
+  - a problem has more factors than can be held in mind
+  - weighing many competing considerations
+  - deciding how much structure a judgment warrants
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Weigh situational logic's two weaknesses, the difficulty of understanding
+    foreign mental and bureaucratic processes, which invites mirror-imaging, and its
+    failure to exploit theory from similar cases so that its proximate causes may
+    be only symptoms, and prefer situational logic for short-term estimates while
+    using theory for the longer range.
+  derived_from_claims:
+  - C00213
+  - C00214
+  - C00215
+  - C00216
+  - C00217
+  - C00241
+  - C00242
+  confidence: high
+  applies_when:
+  - choosing an analytic strategy
+  - forecasting near-term versus long-range developments
+  - writing analysis for senior consumers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Recognize that creative ability yields innovative work only under favorable
+    and cumulative conditions such as autonomy, professional security, a hands-off
+    superior, and small project size, that under unfavorable conditions the most creative
+    people produce even less innovation than duller colleagues, and that talent is
+    of little value unless the environment nurtures new ideas.
+  derived_from_claims:
+  - C00314
+  - C00315
+  - C00323
+  - C00324
+  - C00325
+  - C00326
+  - C00327
+  confidence: high
+  applies_when:
+  - developing analysts' creative capacity
+  - moving from idea generation to selection
+  - assessing why creative talent is or is not producing innovation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Watch for a policy to outlive the belief that justified it when a change
+    in the environment removes a key premise, and for subgoals to harden into ends
+    valued for their own sake once their pursuit has consumed much effort, so re-examine
+    and make explicit why a policy was originally adopted, remembering that a person
+    who has not worked on the problem or has been away from it can best see that an
+    old subgoal no longer needs to be attained.
+  derived_from_claims:
+  - C02451
+  - C02452
+  - C02453
+  - C02862
+  - C02863
+  - C02864
+  - C02865
+  confidence: high
+  applies_when:
+  - structuring who should re-examine an established policy
+  - a policy persists after the conditions that justified it have changed
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Follow the ideal of generating a full set of hypotheses, evaluating each
+    systematically, and selecting the best fit while applying the scientific principle
+    of seeking to disprove rather than confirm, and beware the less-optimal choice
+    strategies of satisficing, incrementalism, consensus, reasoning by analogy, and
+    relying on maxims.
+  derived_from_claims:
+  - C00240
+  - C00243
+  - C00244
+  - C00250
+  - C00251
+  - C00252
+  confidence: high
+  applies_when:
+  - generating candidate hypotheses
+  - choosing among competing hypotheses
+  - defining the hypothesis set
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Maintain an Indicators or Signposts list of observable events expected
+    if a situation is developing and review it periodically to warn of change; with
+    rival hypotheses keep a separate expected-observables list per hypothesis and
+    infer likelihood from which indicators change, and use an agreed list to depersonalize
+    sharply divided debates.
+  derived_from_claims:
+  - C00033
+  - C00034
+  - C00035
+  - C00036
+  - C00037
+  confidence: high
+  applies_when:
+  - when tracking a situation over time or supporting other structured techniques
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: 'Investigate the inside view as targeted hypotheses, then synthesize
+    with the outside view: structure each pathway to a ''yes'' as a hypothesis researched
+    for and against (an investigation, not an amble), merge outside and inside into
+    one estimate, and keep seeking more perspectives.'
+  derived_from_claims:
+  - C01068
+  - C01075
+  - C01076
+  - C01078
+  - C01304
+  confidence: high
+  applies_when:
+  - digging into the specifics of a particular case after establishing a base rate
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: 'Treat disagreement among independent estimates as signal, not noise:
+    universal agreement flags groupthink, so synthesize a spread of independent advisor
+    estimates (a respect-weighted average) rather than demanding consensus or retreating
+    to a 50% ignorance prior, and give the wisdom of the crowd due respect.'
+  derived_from_claims:
+  - C01091
+  - C01092
+  - C01093
+  - C01096
+  - C01207
+  confidence: high
+  applies_when:
+  - a decision-maker receives varied estimates from independent advisers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Hold bureaucratic-politics explanation to its requirements, since it
+    claims both that where one stands depends on where one sits and that policy is
+    formed by bureaucratic bargains, so one must specify the bureaucratic positions
+    in advance and show they explain outcomes, which is superficial when the distribution
+    of bureaucratic power was itself set by earlier decisions of top leaders and publics.
+  derived_from_claims:
+  - C02035
+  - C02038
+  - C02050
+  - C02051
+  - C02052
+  confidence: high
+  applies_when:
+  - choosing which level of analysis to emphasize
+  - explaining a policy outcome by bureaucratic maneuvering
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Require a theory that specifies in advance how the array of bureaucratic
+    positions maps to the outcome, because merely describing a result as a compromise
+    fits almost any outcome, and often a clash of bureaucratic stands is more fruitfully
+    seen as a clash among values widely held in society and within the leader's own
+    mind, since different units serve the divergent values the leader wants furthered.
+  derived_from_claims:
+  - C02039
+  - C02040
+  - C02056
+  - C02057
+  - C02058
+  confidence: high
+  applies_when:
+  - tracing how a factor operates across the phases of a decision
+  - claiming an outcome is explained at the bureaucratic level
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Treat the failure to actively seek clearly available and significant
+    information as itself an irrational way of processing information, because intelligent
+    decision-making requires searching for evidence rather than merely weighing what
+    is brought to attention, as air forces built war plans on strategic bombing for
+    years without gathering evidence on whether the targets could be located and hit.
+  derived_from_claims:
+  - C02392
+  - C02393
+  - C02394
+  - C02467
+  - C02468
+  confidence: high
+  applies_when:
+  - a vital prediction rests on information that was never sought
+  - you know a fact and are assuming the other side knows you know it
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: 'Use Outside-In Thinking at project conceptualization to surface external
+    forces that indirectly shape the issue: start from broad social, technological,
+    economic, environmental, and political forces you cannot influence, then the factors
+    you can, assess how each could affect the problem, and test against evidence which
+    actually do, so important variables are not discovered too late.'
+  derived_from_claims:
+  - C00086
+  - C00087
+  - C00088
+  - C00089
+  confidence: high
+  applies_when:
+  - at the conceptualization stage, to place a problem in a broader context
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Management should support analyses that periodically re-examine key problems
+    from the ground up to counter the incremental pitfall, educate consumers about
+    the limitations as well as the capabilities of analysis, and recognize that although
+    occasional failures are inevitable, analysis can be improved and these measures
+    collectively improve the odds in the analyst's favor.
+  derived_from_claims:
+  - C00181
+  - C00517
+  - C00518
+  - C00519
+  confidence: high
+  applies_when:
+  - setting expectations with intelligence consumers
+  - setting analytic management practice
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Use theory, a generalization from many examples, to economize thought,
+    but recognize that political theory often fails to specify a time frame, so elaborate
+    it into early-warning indicators that guide collection and analysis.
+  derived_from_claims:
+  - C00218
+  - C00219
+  - C00220
+  - C00221
+  confidence: high
+  applies_when:
+  - applying a general proposition to a specific case
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Foster openness, since new ideas come from combining old elements in
+    new ways, so the analyst need not be constrained by conventional wisdom, existing
+    policy, or the literal analytical requirement and should go back up the chain
+    of command with a better formulation of what is needed.
+  derived_from_claims:
+  - C00289
+  - C00290
+  - C00328
+  - C00329
+  confidence: high
+  applies_when:
+  - the assigned question seems ill-posed or constraining
+  - fostering an environment for new ideas
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Determine an appropriate problem structure first from among lists, tables,
+    trees, and matrices, and for a decision requiring tradeoffs use multiattribute
+    utility analysis, since quantifying each attribute's importance forces relevant
+    questions, followed by a sensitivity analysis.
+  derived_from_claims:
+  - C00338
+  - C00339
+  - C00340
+  - C00341
+  confidence: high
+  applies_when:
+  - structuring a tradeoff decision
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: 'Use adversarial collaboration to resolve disputes: with opponents and
+    a trusted moderator, jointly design precise, benchmarked, time-bound questions
+    that would settle the disagreement, accept that a split decision is a feature
+    not a bug, and rely on good faith to make it work.'
+  derived_from_claims:
+  - C01241
+  - C01280
+  - C01281
+  - C01282
+  confidence: high
+  applies_when:
+  - a polarized dispute could be tested by concrete forecasts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: Reassess the premises of your analytic model rather than filtering new
+    information through the existing model, because a plausible but incorrect premise,
+    often itself an unstated assumption from the analyst's own model, can produce
+    a logically valid but wrong forecast.
+  derived_from_claims:
+  - C00113
+  - C00122
+  - C00123
+  confidence: high
+  applies_when:
+  - new information arrives on an ongoing issue
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: Recognize that learning new schemata requires the exceedingly difficult
+    unlearning of old ones and that the very schemata essential to analysis are the
+    principal source of inertia, because unlike the chess master's stable environment
+    the analyst's world changes so that valid schemata expire.
+  derived_from_claims:
+  - C00205
+  - C00206
+  - C00207
+  confidence: high
+  applies_when:
+  - a long-stable model faces a changing environment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: Because the real question is not whether prior assumptions influence
+    analysis but whether they are explicit or implicit, achieve objectivity by making
+    assumptions explicit and challengeable rather than by trying to eliminate them,
+    and prefer forming and testing hypotheses over exhaustive data collection, which
+    was found less accurate in medical diagnosis.
+  derived_from_claims:
+  - C00237
+  - C00238
+  - C00239
+  confidence: high
+  applies_when:
+  - defending or improving the objectivity of analysis
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: Distinguish data-driven analysis, where accuracy follows from the data
+    given a correct and teachable model with relatively objective standards, from
+    conceptually-driven analysis, where no agreed schema exists, models are implicit,
+    and the outcome depends on the framework, and recognize that current political
+    intelligence is largely concept-driven so its accuracy hinges on the accuracy
+    of the mental model.
+  derived_from_claims:
+  - C00277
+  - C00278
+  - C00279
+  confidence: high
+  applies_when:
+  - classifying the type of analysis being performed
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Reject the mosaic theory that collecting enough small pieces will reveal
+    a clear picture, since analysts actually form a picture first and then select
+    pieces to fit, making medical diagnosis a better analogy that attributes more
+    value to analysis than to collection.
+  derived_from_claims:
+  - C00283
+  - C00284
+  - C00285
+  confidence: high
+  applies_when:
+  - justifying reliance on more collection to solve an analytic problem
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Pursue generalizable, nomothetic knowledge across many times and places
+    through multimethod triangulation and aggregation over many experts, questions,
+    and cases, raising confidence only as independent evidence converges.
+  derived_from_claims:
+  - C01351
+  - C01352
+  - C01353
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Audit yourself for asymmetric scrutiny by applying the same searchlight
+    for flaws to evidence that confirms you as to evidence that disagrees, since asking
+    sharp questions of an unexpected result is fine only if you question a confirming
+    result just as sharply, and no one spontaneously concludes the errors broke in
+    their favor.
+  derived_from_claims:
+  - C01629
+  - C01630
+  - C01634
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: 'Accept that there is no quick fix for the subjective–objective tension:
+    translate principled objections into technical adjustments, state the boundary
+    conditions under which a generalization holds, and acknowledge the reference-class
+    problem when applying the outside view.'
+  derived_from_claims:
+  - C01713
+  - C01714
+  - C01715
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: Measure the one-sidedness of your reasoning by counting pro versus con
+    thoughts, since the average expert favors their preferred outcome by roughly three
+    to one and a near-one-directional ratio signals lopsided thinking.
+  derived_from_claims:
+  - C01762
+  - C01763
+  - C01766
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: Test evidence by whether it discriminates among hypotheses rather than
+    whether it merely fits your favored one, because evidence consistent with your
+    hypothesis is often equally consistent with alternatives, as Iraqi behaviors read
+    as WMD concealment could equally reflect corruption or standard procedures, and
+    seeking discriminating evidence is not intuitive and must be explicitly taught.
+  derived_from_claims:
+  - C01908
+  - C01909
+  - C01910
+  confidence: high
+  applies_when:
+  - assembling evidence for or against a hypothesis
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Recognize that the label placed on an event shapes how it is seen and
+    that information's later availability depends on the categories under which it
+    was filed, as a navy that categorized convoying as defensive grouped it with mine
+    defenses and could not see it destroyed submarines, and an alarming report on
+    an army was filed with aid appeals and could not be found when war broke out,
+    so new ideas are hard to develop because old filing cannot be reordered by a new
+    scheme.
+  derived_from_claims:
+  - C02368
+  - C02369
+  - C02370
+  confidence: high
+  applies_when:
+  - how information is categorized may be hiding its true significance
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Recognize that ambiguity about which law applies and how to bridge theory
+    to facts is greatest exactly when guidance is most needed, treat the status quo
+    as a precarious equilibrium and truth as a fleeting achievement, and doubt that
+    real problems fit deductive templates without distortion.
+  derived_from_claims:
+  - C01517
+  - C01518
+  - C01520
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Distinguish clearly what is known as fact or reliably reported information
+    from what is believed as opinion, support opinion persuasively with evidence,
+    and hold every judgment to a show-me-your-evidence standard.
+  derived_from_claims:
+  - C00116
+  - C00119
+  confidence: high
+  applies_when:
+  - drafting or reviewing an analytic judgment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Management should institutionalize procedures that surface and elaborate
+    competing views, such as analytic debate, devil's advocacy, competitive analysis,
+    peer review, and outside expertise, and reward considering multiple hypotheses
+    over accepting the first credible one.
+  derived_from_claims:
+  - C00129
+  - C00142
+  confidence: high
+  applies_when:
+  - designing the analytic process or review environment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: Counter the strong pressure for premature closure and the vested interest
+    that both analyst and organization acquire in an assessment once it is committed
+    to writing.
+  derived_from_claims:
+  - C00178
+  - C00179
+  confidence: high
+  applies_when:
+  - an early assessment has been published and new evidence arrives
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: Judge the diagnosticity of evidence, meaning how far it distinguishes
+    the relative likelihood of the hypotheses, recognizing that evidence consistent
+    with all hypotheses has no diagnostic value and that diagnosticity cannot be assessed
+    without the full set of alternatives.
+  derived_from_claims:
+  - C00253
+  - C00254
+  confidence: high
+  applies_when:
+  - weighing which evidence matters
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Treat the matrix as an aid, not an oracle, since the analyst rather than
+    the matrix must make the decision, and if you disagree with what the matrix shows
+    it is because an important factor was omitted, which should then be added.
+  derived_from_claims:
+  - C00363
+  - C00364
+  confidence: high
+  applies_when:
+  - reconciling a judgment with the matrix
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: In ACH Step 8 specify milestones for future observation that would indicate
+    events are taking a different course, and treat all analytical conclusions as
+    tentative.
+  derived_from_claims:
+  - C00373
+  - C00374
+  confidence: high
+  applies_when:
+  - publishing a judgment on an evolving situation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: Pre-publication review should explicitly question the mental model the
+    analyst employed, asking what unstated assumptions underlie the judgments, what
+    alternatives were considered and why rejected, and what would change the analyst's
+    mind, and should ideally include capable critical thinkers from other areas who
+    are not subject specialists, since same-branch colleagues share the mind-set.
+  derived_from_claims:
+  - C00510
+  - C00511
+  confidence: high
+  applies_when:
+  - reviewing a draft analytic product
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: Under the affect heuristic a person's likes and dislikes determine their
+    beliefs, so which arguments they find compelling follows their emotional stance
+    and conclusions dominate arguments most strongly when emotions are engaged.
+  derived_from_claims:
+  - C00597
+  - C00627
+  confidence: high
+  applies_when:
+  - A belief is held about something toward which the person has a strong feeling
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: Human judges remain inferior to a valid formula even when handed its
+    output, because they wrongly believe extra case knowledge justifies overruling
+    it, so override a formula only under the broken-leg rule on a rare and decisive
+    individuating fact, not on ordinary additional information.
+  derived_from_claims:
+  - C00707
+  - C00708
+  confidence: high
+  applies_when:
+  - Deciding whether to override a validated prediction formula
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: Mix theory-driven and data-driven reasoning, since relying only on preconceptions
+    makes you closed-minded while relying only on raw data leaves you confused, and
+    do not infer a stable philosophy of history from one case where a trait can reverse
+    with whose ox is gored.
+  derived_from_claims:
+  - C01614
+  - C01615
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: Always report raw scores alongside any requested adjustments and grow
+    suspicious of a large gap between objective and subjectively adjusted performance,
+    distinguishing unadjusted ex ante accuracy (how good someone is at telling you
+    what will happen) from ex post adjustments that only measure closing the gap after
+    the fact.
+  derived_from_claims:
+  - C01742
+  - C01743
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: Hold good judges to four formal coherence rules — the additive rule for
+    exclusive events, the multiplicative rule for independent events, the total-probability
+    form of Bayes's rule, and Bayesian updating on new evidence — and treat sub-additivity
+    as a violation of the additive rule.
+  derived_from_claims:
+  - C01804
+  - C01807
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: Instead of claiming a dominant strategy, aim for policies with high payoffs
+    if your assumptions about the adversary are right and tolerable costs if they
+    are wrong, and favor a robust move such as procuring survivable retaliatory weapons
+    useful for deterrence but not for a first strike, while recognizing it is hard
+    to tell what inferences the adversary will draw from any posture.
+  derived_from_claims:
+  - C02265
+  - C02266
+  confidence: high
+  applies_when:
+  - choosing a strategy or force posture under uncertainty about the adversary
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Weigh a hypothesis by how well it fits well-confirmed theories as well
+    as by the direct evidence, because it can be rational to reject one hypothesis
+    and affirm another even with equal facts for each, and rejecting discrepant information,
+    though it can mislead, is a necessary part of theory-building, since pure empiricism
+    is impossible and every step of inquiry is governed by the theory's fundamental
+    conceptions.
+  derived_from_claims:
+  - C02357
+  - C02358
+  confidence: high
+  applies_when:
+  - deciding whether to credit a claim that clashes with established theory
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: Treat analytic thinking as a learnable, coachable skill that improves
+    with practice and expert guidance and is learned by doing rather than by classroom
+    instruction alone.
+  derived_from_claims:
+  - C00144
+  - C00145
+  confidence: medium
+  applies_when:
+  - developing analysts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: Run lightweight political gaming that needs little preparation, starting
+    from the current situation with a single notional report, to make players see
+    the problem in a new light, accepting that gaming yields no single right answer.
+  derived_from_claims:
+  - C00304
+  - C00305
+  confidence: medium
+  applies_when:
+  - seeking fresh perspective through simulation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: Make the linchpin assumptions underlying an argument explicit rather
+    than leaving them implicit.
+  derived_from_claims:
+  - C00120
+  confidence: high
+  applies_when:
+  - constructing or reviewing an argument's chain of inference
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: Analytic products should clearly delineate their assumptions and chains
+    of inference and specify the degree and source of the uncertainty in their conclusions.
+  derived_from_claims:
+  - C00128
+  confidence: high
+  applies_when:
+  - writing or reviewing an analytic product
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: When defining the problem, make certain the right questions are being
+    asked, do not hesitate to go back up the chain of command with a better formulation
+    of what is needed, and ensure the supervisor is aware of any tradeoff between
+    quality of analysis and the time deadline.
+  derived_from_claims:
+  - C00486
+  confidence: high
+  applies_when:
+  - scoping an analytic task
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: Before applying a theory or covering law to a case, check that its antecedent
+    conditions are actually satisfied rather than assuming they are.
+  derived_from_claims:
+  - C01507
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Understand that it is valuable but hard to project the image of paying
+    a high price on one issue while not contesting wider ones, because a stand looks
+    credible over a minor issue only when tied to general principles, as Hitler disavowed
+    demands beyond redressing Versailles so his vehemence would not read as unlimited
+    aggressiveness.
+  derived_from_claims:
+  - C02125
+  confidence: high
+  applies_when:
+  - signaling that your firmness on one issue does not imply broad ambition
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: Hold spiral theorists to the same standard as deterrers, since they too
+    underestimate how hard it is to project an accurate image and forget that the
+    adversary reads your behavior in light of what it thinks you know of its intentions,
+    so if it is in fact aggressive your initiatives are especially likely to be read
+    as a face-saving signal that it is free to expand.
+  derived_from_claims:
+  - C02264
+  confidence: high
+  applies_when:
+  - planning a de-escalatory initiative toward a possibly aggressive adversary
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: Value a fresh perspective, since past experience can handicap as well
+    as aid analysis and a newcomer may see what experienced analysts overlook.
+  derived_from_claims:
+  - C00167
+  confidence: medium
+  applies_when:
+  - a topic has been covered by the same analysts for a long time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: Set no fixed number of hypotheses; scale the number to the level of uncertainty
+    and the policy impact of the conclusion, grouping several together for an initial
+    cut if there are more than about seven.
+  derived_from_claims:
+  - C00352
+  confidence: medium
+  applies_when:
+  - deciding how many hypotheses to carry
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: Keep the analyst's own biases out of measurement by having independent
+    coders blind to the hypotheses apply the coding rules.
+  derived_from_claims:
+  - C01499
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: Adopt the declaratory stance 'think it possible that you may be mistaken'
+    as a standing check on conviction.
+  derived_from_claims:
+  - C01617
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []

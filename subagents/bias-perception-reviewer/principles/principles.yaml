@@ -1,0 +1,4825 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Counter the vividness criterion, under which vivid, firsthand, and anecdotal
+    information has outsized impact while more valuable statistical evidence is overlooked
+    and personal observation can be as deceptive as secondhand accounts so that seeing
+    is not always believing, by giving little weight to anecdotes and case histories
+    unless they are known to be typical.
+  derived_from_claims:
+  - C00010
+  - C00011
+  - C00012
+  - C00013
+  - C00114
+  - C00126
+  - C00127
+  - C00380
+  - C00381
+  - C00382
+  - C00383
+  - C00384
+  - C00385
+  - C00386
+  - C00387
+  - C00388
+  - C00389
+  - C00471
+  - C00472
+  - C00483
+  - C00522
+  - C00523
+  - C01728
+  - C01730
+  - C01731
+  - C01967
+  - C01968
+  - C01969
+  - C01971
+  - C02011
+  - C02014
+  - C02410
+  confidence: high
+  applies_when:
+  - forming or reviewing probability estimates and causal explanations
+  - deciding how to improve analytic quality
+  - reasoning about the reliability of intuitive judgment
+  - a vivid case competes with statistical evidence
+  - important variables are unobserved
+  - evaluating past analytic performance
+  - Diagnosing or communicating a recurring judgment error
+  - assessing whether a judgment is distorted by motives rather than evidence
+  - deciding which distortions to look for in an analysis
+  - deciding how much to trust a proven-correct analyst going forward
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Use the tests for a genuine historical impact: it is probably real when
+    people of different personalities and beliefs learn the same lesson, when an experience
+    changes a person''s mind, or when an early response recurs in a situation others
+    see as very different, and spuriousness is most likely when the earlier and later
+    situations are similar or the person chose to place himself in the formative one.'
+  derived_from_claims:
+  - C00404
+  - C00405
+  - C00406
+  - C00407
+  - C00408
+  - C00409
+  - C00410
+  - C00411
+  - C00432
+  - C00433
+  - C00434
+  - C00435
+  - C00558
+  - C01605
+  - C01606
+  - C01701
+  - C01702
+  - C02359
+  - C02360
+  - C02496
+  - C02499
+  - C02500
+  - C02501
+  - C02506
+  - C02507
+  confidence: high
+  applies_when:
+  - inferring the cause of an event
+  - constructing an explanatory narrative
+  - seeking the cause of an apparent pattern
+  - asserting a relationship between two variables
+  - A causal explanation is offered for an observed association or sequence
+  - contradictory details are taken to disprove an otherwise sound explanation
+  - judging whether a past experience genuinely shaped a later judgment
+  - a lesson rests on an untested claim about what caused a past outcome
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Guard against outcome-driven distortion of lessons, since categorizing
+    an outcome as a success leads decision-makers to over-credit the policy while
+    ignoring its costs, better alternatives, and luck, so successful policies are
+    too quickly repeated, while on failure they assume the rejected alternatives would
+    have done better and rarely allow that a policy was the best available given the
+    information, and they preserve prior beliefs by attributing an anomalous success
+    or failure to special factors.
+  derived_from_claims:
+  - C00675
+  - C00676
+  - C00677
+  - C00679
+  - C00680
+  - C01026
+  - C01027
+  - C01028
+  - C01029
+  - C01094
+  - C01172
+  - C01359
+  - C01601
+  - C01602
+  - C01839
+  - C01840
+  - C01841
+  - C01842
+  - C01844
+  - C01845
+  - C01846
+  - C02513
+  - C02514
+  - C02515
+  - C02746
+  confidence: high
+  applies_when:
+  - Assessing the quality of a past decision whose outcome is now known
+  - evaluating a past decision or forecast after the result is known
+  - evaluating a past decision or judging whether an actor was rational
+  - drawing lessons from a sample of crises, surprises, or intelligence failures
+  - drawing a lesson from whether a past policy succeeded or failed
+  - the two possible misreadings of an ambiguous stimulus carry very different costs
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Explain the overestimation of one's successful influence mainly by an
+    information asymmetry, since an actor knows his own efforts to influence the other
+    far better than he knows third parties' actions and the other's internal processes,
+    so absent strong contrary evidence the parsimonious conclusion is that he was
+    influential, and a naive stimulus-response outlook makes a manipulator ignore
+    the other's deep loyalties and autonomous assessment of its interests.
+  derived_from_claims:
+  - C00419
+  - C00420
+  - C00421
+  - C00422
+  - C00423
+  - C00424
+  - C00430
+  - C00431
+  - C01022
+  - C01301
+  - C01302
+  - C01577
+  - C02516
+  - C02517
+  - C02727
+  - C02728
+  - C02729
+  - C02730
+  - C02731
+  - C02732
+  - C02733
+  - C02734
+  confidence: high
+  applies_when:
+  - explaining why another actor behaved as they did
+  - assessing whether behavior reflects disposition or circumstance
+  - interpreting whether a foreign action is aimed at us
+  - claiming not to forecast, or attributing others' behavior to their character
+  - an actor is reapplying a past lesson or a long-held value to changed conditions
+  - scaling rewards or threats based on a belief they are working
+  - assessing your leverage over an actor with strong independent motives
+  - an act that harmed you is being read as intentionally aimed at you
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Expect an actor who is sure a phenomenon will be present to need very
+    little information, even information barely resembling it, to convince him he
+    sees it, as planes hunting the Bismarck attacked a different two-funneled ship
+    and analysts took folded tents for missile platforms, and guard against the intelligence
+    self-fulfilling prophecy in which telling field agents a phenomenon is likely
+    makes them report ambiguous stimuli as it, which feeds the analyst's certainty
+    back into the field.
+  derived_from_claims:
+  - C00155
+  - C00156
+  - C00158
+  - C00159
+  - C01631
+  - C01632
+  - C01859
+  - C01860
+  - C01861
+  - C01862
+  - C01866
+  - C01873
+  - C02041
+  - C02042
+  - C02333
+  - C02348
+  - C02349
+  - C02350
+  - C02382
+  - C02383
+  - C02459
+  - C02460
+  - C02461
+  - C02462
+  - C02474
+  - C02476
+  - C02477
+  - C02720
+  - C02721
+  - C02722
+  - C02744
+  - C02745
+  - C02747
+  - C02748
+  - C02749
+  - C02750
+  - C02751
+  - C02752
+  - C02765
+  - C02766
+  - C02767
+  - C02768
+  - C02774
+  - C02775
+  - C02776
+  - C02777
+  - C02800
+  - C02801
+  - C02802
+  confidence: high
+  applies_when:
+  - evidence conflicts with prevailing expectations
+  - interpreting ambiguous information about another actor
+  - presenting evidence intended to change an entrenched belief
+  - an outcome is attributed to an overwhelming external situation
+  - explaining why an actor noticed or missed a particular signal
+  - an analyst's strong expectation may be shaping the reports he receives
+  - waiting for an actor to update an interconnected belief structure
+  - a message is being read under a different evoked set than the sender's
+  - assuming a familiar counterpart shares your agenda and reads your messages as
+    you intend
+  - crediting your own policy for an adversary's favorable behavior
+  - attributing a perception to desire rather than to expectation or incentive
+  - a perception that flatters a wish might instead be an expectation effect
+  - testing whether an actor's perception was actually driven by desire
+  - choosing between desire and expectation as the driver of a perception
+  - a decision-maker has grown certain of a choice that was close beforehand
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: Little can be done about biases without effort because System 1 is not
+    readily educable even in an expert, so the realistic defense is to learn to recognize
+    error-prone situations, such as noticing that a number will anchor or that a choice
+    could change if reframed, then slow down and call in System 2, remembering that
+    this is hardest exactly when most needed and that it is far easier to spot another
+    person's error than one's own.
+  derived_from_claims:
+  - C00520
+  - C00521
+  - C00535
+  - C00536
+  - C00537
+  - C00538
+  - C00545
+  - C00546
+  - C00559
+  - C00589
+  - C00590
+  - C00591
+  - C00645
+  - C00646
+  - C00709
+  - C00710
+  - C00711
+  - C00712
+  - C00863
+  - C00864
+  - C00865
+  - C00866
+  - C00867
+  - C00868
+  - C00869
+  - C00870
+  - C01238
+  - C01240
+  - C01322
+  - C01934
+  - C01935
+  - C01936
+  - C01937
+  - C01942
+  - C01943
+  confidence: high
+  applies_when:
+  - Reasoning about how a person or agent actually reaches a judgment or choice
+  - Deciding when and how to guard against a known bias
+  - A judgment requires statistical reasoning or combining several distinct considerations
+  - A hard question receives a quick confident answer
+  - Valuing a set of items or choosing between single and joint evaluation
+  - Relying on repeated human summary judgments of complex information
+  - Judging when fast intuitive processing is an asset versus a liability
+  - Relying on an intuitive answer that feels confident
+  - Trying to prevent a judgment error in oneself or others
+  - building durable good-judgment habits over time
+  - judging how carefully a conclusion was actually reached
+  - relying on deliberation or staff process to guarantee a sound judgment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: Account for actors especially prone to see others as centralized and
+    Machiavellian, since an operational code that nothing is accidental or a habit
+    of long-range planning leads a state to read all an adversary's moves as planned,
+    some individuals project their own propensity to plot, and low tolerance for ambiguity
+    and low cognitive complexity heighten the perception, which is strongest in conflict
+    where the adversary lacks the detailed information that reveals diversity.
+  derived_from_claims:
+  - C00133
+  - C00134
+  - C00135
+  - C00136
+  - C00296
+  - C00297
+  - C00298
+  - C00302
+  - C00303
+  - C01532
+  - C01551
+  - C01825
+  - C01826
+  - C01832
+  - C01833
+  - C01834
+  - C01836
+  - C01837
+  - C01838
+  - C01843
+  - C01846
+  - C02061
+  - C02062
+  - C02063
+  - C02328
+  - C02329
+  - C02692
+  - C02693
+  - C02694
+  - C02716
+  - C02717
+  - C02718
+  confidence: high
+  applies_when:
+  - judging a foreign actor's decisions or intentions
+  - judging a foreign actor whose own reasoning is unclear
+  - stress-testing an assumption or another actor's viewpoint
+  - designing a policy or signal intended to influence another actor
+  - explaining why another state acted as it did
+  - building a causal account that runs through an actor's perceptions
+  - an actor is handling evidence that contradicts an established image
+  - a particular actor is disposed to read others as coordinated plotters
+  - only a hostile coordinated plan seems able to explain an adversary's behavior
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Recognize that thorough data collection does not by itself improve accuracy
+    while explicit hypothesis formulation directs a more efficient and effective search,
+    and that experts' self-insight into their own reasoning is faulty because their
+    mental models are simpler than they think, so a mathematical model of an analyst's
+    actual decisions describes them better than the analyst's own verbal account.
+  derived_from_claims:
+  - C00003
+  - C00004
+  - C00005
+  - C00006
+  - C00007
+  - C00009
+  - C00132
+  - C00147
+  - C00148
+  - C00149
+  - C00203
+  - C00204
+  - C00270
+  - C00271
+  - C00272
+  - C00280
+  - C00281
+  - C00282
+  - C00286
+  - C00287
+  - C00288
+  - C00539
+  confidence: high
+  applies_when:
+  - assessing any judgment that depends on human perception and interpretation of
+    ambiguous data
+  - when analysts have long and successfully followed an issue
+  - analysis is judged blocked by lack of information
+  - assessing an experienced analyst's openness to change
+  - reweighing information whose significance has changed
+  - relying on thoroughness or on an analyst's self-description of method
+  - a mind-set is meeting inconsistent new evidence
+  - allocating resources between collection and analysis
+  - Deciding whether to rely on self-checking or on outside review
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: 'Use Alternative Futures (scenarios) analysis when complexity and uncertainty
+    are too high to trust a single-outcome forecast: select by consensus the two most
+    critical and uncertain drivers as axes, cross them into four future worlds with
+    plausible stories and signposts, involve policymakers so they can test strategies
+    against each world, and reserve the technique for high-consequence problems given
+    its cost.'
+  derived_from_claims:
+  - C00098
+  - C00099
+  - C00100
+  - C00101
+  - C00102
+  - C00103
+  - C00104
+  - C00105
+  - C00117
+  - C00118
+  - C00121
+  - C01442
+  - C01443
+  - C01680
+  - C01681
+  - C01682
+  - C01683
+  confidence: high
+  applies_when:
+  - when uncertainty is high and a single-outcome assessment cannot be trusted
+  - producing an estimate for decisionmakers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Break an established mind-set with perspective techniques that come at
+    the problem from a different direction, such as thinking backwards by assuming
+    an unexpected event has occurred and working back to explain it, which shifts
+    the focus from whether to how and is especially useful for low-probability, high-consequence
+    events.
+  derived_from_claims:
+  - C00299
+  - C00300
+  - C00301
+  - C00310
+  - C01107
+  - C01116
+  - C01117
+  - C01118
+  - C01119
+  - C01542
+  - C01543
+  - C01688
+  - C01689
+  confidence: high
+  applies_when:
+  - a plausible but unlikely outcome deserves fuller consideration
+  - small anomalies are accumulating against a prevailing view
+  - explaining a surprising or emotionally charged event
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Trust intuition most where a person gets repeated exposure to similar
+    situations with accurate feedback, conditions foreign policy fails because the
+    important cases are few and feedback is weak, and remember that intuition can
+    still be right and that heavily deliberated decisions turning out badly may reflect
+    the difficulty of the problems selected for deliberation rather than the process.
+  derived_from_claims:
+  - C00729
+  - C00730
+  - C00971
+  - C00972
+  - C00973
+  - C00974
+  - C00975
+  - C00976
+  - C00977
+  - C01938
+  - C01939
+  - C01940
+  - C01941
+  confidence: high
+  applies_when:
+  - Weighing an expert's confident intuitive judgment
+  - the environment supplies valid, regular, learnable cues (e.g. fireground, nursing,
+    chess)
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Counter the way analogies are chosen by rationally irrelevant features
+    such as whether one's own nation took part, by searching the past more widely
+    and studying the causes of previous outcomes to judge which cases are truly relevant,
+    and watch for the specific recurrent distortions of seeing the other as highly
+    centralized and planning its moves and of crediting its friendly acts to oneself
+    while blaming its unfriendly acts on unprovoked hostility, since these systematically
+    inflate its apparent hostility.
+  derived_from_claims:
+  - C00230
+  - C00231
+  - C00232
+  - C00233
+  - C01416
+  - C02478
+  - C02479
+  - C02610
+  - C02611
+  - C02612
+  - C02886
+  - C02887
+  confidence: high
+  applies_when:
+  - drawing on historical analogy to interpret events
+  - a historical analogy is being used to interpret a present situation
+  - selecting a historical analogy to guide a decision
+  - selecting analogies and guarding against the errors that exaggerate hostility
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Guard against the common misperception of seeing others' behavior as
+    more centralized, planned, and coordinated than it is, a manifestation of the
+    drive to squeeze complex and unrelated events into a coherent pattern, because
+    people cannot accept a random situation, prefer unitary explanations to conjunctive
+    ones, and are slow to perceive accidents, unintended consequences, coincidences,
+    and small causes with large effects.
+  derived_from_claims:
+  - C01307
+  - C01308
+  - C01406
+  - C01407
+  - C02671
+  - C02672
+  - C02673
+  - C02674
+  - C02814
+  - C02815
+  - C02816
+  confidence: high
+  applies_when:
+  - a decision-maker reacts to uncertainty or a shifting probability estimate
+  - another actor's disparate actions are being read as a single coordinated plan
+  - explaining why a decision-maker has become resistant to reconsidering a policy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Treat a person's view of himself and of his nation as usually highly
+    central and maintained at the cost of altering many other beliefs, so people who
+    believe they are just conclude that if evil was done they did not do it or that
+    it was not evil, and few will see their own state as aggressive or even inadvertently
+    threatening, which increases the danger of hostility spirals.
+  derived_from_claims:
+  - C01227
+  - C01228
+  - C01229
+  - C01317
+  - C01531
+  - C01533
+  - C02640
+  - C02641
+  confidence: high
+  applies_when:
+  - forecasting about an adversary or an emotionally charged actor
+  - a judgment would require an actor to see himself or his state as in the wrong
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: 'Overcome hindsight bias with counterfactual questions: the analyst asks
+    whether they would have been surprised had the opposite occurred, the consumer
+    asks whether they would have believed the opposite report, and the overseer asks
+    whether the opposite outcome would have been predictable from the available information.'
+  derived_from_claims:
+  - C00484
+  - C00673
+  - C00674
+  - C00678
+  - C01414
+  - C01415
+  confidence: high
+  applies_when:
+  - reconstructing the uncertainty that existed before an outcome was known
+  - Judging after the fact what was known or predictable beforehand
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Remember that because people underestimate how strongly established beliefs
+    shape perception, they change their minds more slowly than they think and overestimate
+    both their sensitivity to variations in others' behavior and their ability to
+    change others' image of them, so an effort to make others accept a desired image
+    succeeds in proportion to its compatibility with what they already believe, and
+    altering their expectations requires prolonged or dramatic behavior that may be
+    misperceived for a long time.
+  derived_from_claims:
+  - C00164
+  - C00165
+  - C00166
+  - C00168
+  - C01881
+  - C01882
+  - C02425
+  - C02426
+  - C02442
+  - C02443
+  - C02444
+  - C02445
+  - C02637
+  - C02638
+  - C02857
+  - C02858
+  confidence: high
+  applies_when:
+  - a long-held view meets slowly changing evidence
+  - a fast-moving crisis where early reports are incomplete
+  - a first interpretation is fixing how all later evidence is read
+  - highly ambiguous evidence is being fitted to a confident image
+  - a strongly held or deeply internalized image resists revision
+  - predicting which of an actor's beliefs will prove most resistant
+  - trying to change how another actor perceives you
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Beware the bias toward seeing the actions of other governments as centrally
+    directed and planned, which leads analysts to overestimate other countries' rationality
+    and the predictability of their actions, even though outcomes are often accident,
+    blunder, unintended consequence, or bureaucratic bargaining that is hard to document,
+    so that assuming a central plan produces unfulfilled expectations, unwarranted
+    inferences from isolated acts, overestimated US influence, and misreading of inconsistent
+    policy as duplicity.
+  derived_from_claims:
+  - C00412
+  - C00413
+  - C00414
+  - C00426
+  - C00427
+  - C00428
+  - C00429
+  - C00495
+  - C00496
+  - C01828
+  - C01830
+  - C01831
+  - C02048
+  - C02686
+  - C02687
+  - C02688
+  confidence: high
+  applies_when:
+  - attributing a foreign government's actions to intent and plan
+  - estimating the effect of one's own policy on another actor
+  - judging what a foreign government will do
+  - reading an adversary's mixed signals as if they came from one coordinated center
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: 'Availability is distorted by how instances are brought to mind: a class
+    whose members are more famous, salient, or recent is judged more numerous, a category
+    is judged by how easily a search set can be generated, and when instances must
+    be imagined the ease of construction is mistaken for frequency, so vividly imagined
+    contingencies inflate perceived risk while overlooked ones deflate it.'
+  derived_from_claims:
+  - C00444
+  - C00445
+  - C00446
+  - C00447
+  - C00448
+  - C00449
+  - C00619
+  - C00620
+  - C00621
+  - C00622
+  - C00623
+  - C00874
+  - C00885
+  - C00886
+  - C00887
+  confidence: high
+  applies_when:
+  - estimating probability from how easily instances come to mind
+  - judging likelihood by imagining scenarios
+  - Estimating how common or likely something is from how easily examples come to
+    mind
+  - Explaining why systematic judgment errors arise
+  - Estimating frequency or risk from how easily examples come to mind
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: Recognize that the mind is sense-making and works top-down from a coherent
+    picture to the details, so without an alternative framework that recasts the information,
+    discrepant details are absorbed into the prevailing narrative and induction alone
+    cannot overturn an established interpretation, and the most a careful observer
+    may manage is to note that not all the information fits.
+  derived_from_claims:
+  - C00125
+  - C00291
+  - C00292
+  - C00293
+  - C01867
+  - C01868
+  - C01870
+  - C01871
+  - C02028
+  - C02029
+  - C02030
+  - C02031
+  - C02854
+  confidence: high
+  applies_when:
+  - assessing an uncertain or adversarial situation
+  - a conclusion rests on key driving assumptions
+  - a body of evidence keeps confirming an established picture
+  - designing safeguards against perceptual error
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Treat emotion as saturating cognition rather than opposing it, since
+    emotions provide the driving force for decision and shape attention, risk perception,
+    and moral judgment, so an analyst can rarely move from the external situation
+    to an actor's response without considering emotion, and leaders who think they
+    should shun emotion are slow to notice their own feelings at work.
+  derived_from_claims:
+  - C00157
+  - C00160
+  - C00475
+  - C00476
+  - C00477
+  - C00478
+  - C01956
+  - C01957
+  - C01958
+  - C01960
+  - C01964
+  confidence: high
+  applies_when:
+  - relying on an effort to be objective
+  - judging one's own or others' estimative track record
+  - explaining or predicting how an actor will respond to a provocation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Treat resistance to theory-changing data as often reasoned rather than
+    obstinate, because an established theory earned acceptance by economically explaining
+    a wide range of events, has survived challenges, and has pointed to fruitful research,
+    so its proponents rightly see the loss in abandoning it and are usually vindicated
+    in expecting it to absorb troublesome findings, which is why one must follow the
+    weight of evidence rather than drop a strong theory for a little discrepant data.
+  derived_from_claims:
+  - C00757
+  - C02355
+  - C02356
+  - C02361
+  - C02362
+  - C02363
+  - C02364
+  - C02365
+  - C02380
+  - C02381
+  confidence: high
+  applies_when:
+  - Relying on an established model or framework
+  - a framework may be preventing anomalous evidence from being registered
+  - deciding whether to pursue or discount an anomalous finding
+  - judging whether an actor's refusal to abandon a theory is reasonable
+  - contradicting evidence is going unrecognized under a prevailing theory
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: The second sin of representativeness is insensitivity to the quality
+    of evidence, because WYSIATI processes worthless or explicitly untrustworthy information
+    as if it were true unless it is immediately rejected, so worthless information
+    should be treated the same as a complete absence of information.
+  derived_from_claims:
+  - C00585
+  - C00586
+  - C00587
+  - C00640
+  - C00641
+  - C01230
+  - C01234
+  - C01235
+  - C01236
+  confidence: high
+  applies_when:
+  - A confident conclusion is drawn from the information at hand
+  - A judgment rests on evidence of poor or unknown reliability
+  - a sweeping claim feels obviously true, or a probability must scale with a horizon
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Do not automatically call the pairing of beliefs that an adversary will
+    not fight and that it could be easily beaten if it did irrational, since if the
+    actor believes the adversary shares his view of their relative strength, expecting
+    to win is itself a cause of his low estimate that the enemy will act, but stay
+    skeptical of frequent claims to a dominant strategy, which the world is rarely
+    benign enough to justify.
+  derived_from_claims:
+  - C01549
+  - C01550
+  - C01955
+  - C02312
+  - C02313
+  - C02577
+  - C02578
+  - C02579
+  - C02580
+  confidence: high
+  applies_when:
+  - reasoning about how a top leader will perceive or decide
+  - an actor expects both that the adversary won't fight and that it would lose
+  - a founding analogy is being stretched to an unlike context
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: Treat officials' stated reasons, even sincere ones, as unreliable evidence
+    of their true motivation, because much cognition is unconscious, people lack privileged
+    access to their own processes and infer their own goals from their behavior, and
+    the reasons given for a judgment may be post-hoc stories rather than its actual
+    causes.
+  derived_from_claims:
+  - C00525
+  - C00557
+  - C01923
+  - C01924
+  - C01925
+  - C01926
+  - C01927
+  - C01928
+  confidence: high
+  applies_when:
+  - Someone explains why they reached a judgment
+  - inferring a leader's motives from documents or public explanations
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Counter illusory correlation by requiring information on all four cells
+    of a two-by-two table rather than only the co-occurrence cases, because there
+    is no intuitive grasp of correlation, the belief that deception is likeliest when
+    stakes are high can be supported only by ignoring negative cases, and if deception
+    is as common in low-stakes situations one should not favor the high-stakes reading,
+    so the operative lesson is to understand what it takes to establish a relationship
+    and to think about all four cells.
+  derived_from_claims:
+  - C00436
+  - C00437
+  - C00438
+  - C00439
+  - C00440
+  - C00441
+  - C00888
+  confidence: high
+  applies_when:
+  - claiming an indicator correlates with an outcome
+  - Judging whether two features or events actually co-occur
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Recognize that preserving central beliefs leads people to miss the basic
+    causes of undesired events and instead blame the idiosyncratic acts of a few individuals,
+    which is why conspiracy theories are prevalent, since attributing an unwanted
+    event to a small evil group need not alter many important attitudes, so acceptance
+    of conspiracy explanations grows with the importance of the subject and the number
+    of beliefs a deep cause would force to change.
+  derived_from_claims:
+  - C01417
+  - C01418
+  - C01419
+  - C02272
+  - C02274
+  - C02642
+  - C02643
+  confidence: high
+  applies_when:
+  - assessing whether an actor's coherent image of another is well-founded
+  - an undesired outcome is being blamed on a few individuals or a conspiracy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Recognize that undesired information is shut out most readily when there
+    are no incentives for accuracy, because if a person can do nothing to avert a
+    danger there is no payoff in detecting it, just as there is no point building
+    an early-warning system a state cannot act upon, and correspondingly a sense of
+    efficacy leads people to seek out even opposing information when it will be useful.
+  derived_from_claims:
+  - C00235
+  - C00236
+  - C00400
+  - C02786
+  - C02787
+  - C02788
+  confidence: high
+  applies_when:
+  - interpreting a body of collected information
+  - assessing information from a source of questionable reliability
+  - an actor has no ability to act on the danger he might perceive
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Before crediting history with shaping a present perception, rule out
+    spuriousness and the possibility that current preferences shaped the memory, because
+    a strikingly incorrect interpretation of the past was likely produced by present
+    preferences, and when the same factors drive both the current stand and the memory
+    drawn on, the correlation between lesson and later perception is spurious.
+  derived_from_claims:
+  - C00442
+  - C00443
+  - C02494
+  - C02495
+  - C02497
+  - C02498
+  confidence: high
+  applies_when:
+  - a plausible theory seems confirmed by experience
+  - attributing a present view to a lesson learned from the past
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Recognize that believing an inference rests on the event alone leads
+    a person to assume any reasonable holder of a different view would still admit
+    the event best supports his own, so when they do not he grows more intolerant
+    and stops attending to them, especially since experiments show people attribute
+    belief-driven judgments to the stimulus itself and reflecting on a stereotype-shaped
+    impression strengthens the stereotype.
+  derived_from_claims:
+  - C01670
+  - C01673
+  - C01674
+  - C02413
+  - C02414
+  - C02415
+  confidence: high
+  applies_when:
+  - disagreement over an event's meaning is hardening into intolerance
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Do not assume that a situation will clarify over time as an experimental
+    slide comes into focus, because political and social phenomena do not automatically
+    become clearer, so early bits of information may be as valuable as later ones,
+    yet premature closure still increases policy stability by making all but the most
+    unambiguous feedback look like confirmation, so incrementalism's promised self-correction
+    fails and actors go longer down blind alleys.
+  derived_from_claims:
+  - C00177
+  - C00180
+  - C02430
+  - C02431
+  confidence: high
+  applies_when:
+  - following a developing situation through incremental reporting
+  - expecting a political situation to resolve its own ambiguity with time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Recognize that the accuracy of your estimate of the adversary's goals
+    decides whether threats, concessions, and assurances work, because a threat backfires
+    when the target welcomes the threatened action and an assurance is wasted on a
+    fear the other does not hold, as the United States reassured China about power
+    stations while China actually feared invasion.
+  derived_from_claims:
+  - C00311
+  - C00312
+  - C02105
+  confidence: high
+  applies_when:
+  - tactical indicators conflict with a longstanding strategic assumption
+  - designing a threat, concession, or reassurance
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Remember that what matters for a message is not how you would understand
+    it but how the other will, so unless you understand the other's beliefs about
+    international relations and about you, you cannot see what inferences it draws
+    from your behavior, and if you mis-estimate its beliefs you will be confidently
+    wrong about how it sees you.
+  derived_from_claims:
+  - C00169
+  - C02422
+  confidence: high
+  applies_when:
+  - analyzing an interaction between two or more actors
+  - sending a signal and predicting how it will be received
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Apply the spiral counsel that it is often not to a state's advantage
+    to seek a wide margin of superiority, since in a Prisoner's Dilemma coercion will
+    not produce the desired result, an adversary that mainly seeks security may become
+    more conciliatory when it gains strength, and threats can be self-defeating so
+    that short-run victories prove Pyrrhic by convincing the other it faces a threat
+    to be met with force.
+  derived_from_claims:
+  - C01816
+  - C01821
+  - C01863
+  - C02146
+  - C02147
+  - C02148
+  - C02155
+  - C02156
+  - C02157
+  - C02160
+  - C02161
+  - C02176
+  - C02177
+  - C02181
+  - C02189
+  - C02190
+  - C02191
+  - C02194
+  - C02195
+  - C02196
+  - C02197
+  - C02251
+  - C02252
+  - C02253
+  - C02254
+  - C02255
+  - C02307
+  - C02308
+  - C02309
+  confidence: high
+  applies_when:
+  - your side is arming, allying, or signaling resolve against a suspected threat
+  - a state justifies expansion or high armament as necessary for security
+  - explaining why states in conflict may both be security-seekers
+  - choosing between coercion and cooperation to secure an interest
+  - a state mobilizes against a threat the other did not intend to pose
+  - deciding whether to pursue military superiority over an adversary
+  - trying to reduce an arms-hostility spiral
+  - attempting a concrete move to de-escalate a spiral
+  - the parties disagree over whether an issue can be treated in isolation
+  - assessing why a minor issue is escalating
+  - a policy is defended as morally, economically, and strategically best simultaneously
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Keep early judgments vague when you can, because accurate perceivers
+    are those whose predispositions match the stimulus and those who withhold initial
+    estimates until much data is available, and beware that an image forms on little
+    information when the evidence closely resembles a well-known pattern, so an actor
+    with unusual intentions whose behavior mimics common aims is easily misjudged,
+    as Hitler's intentions were misread because his behavior was designed to fit the
+    belief that any proud defeated power merely seeks a legitimate place.
+  derived_from_claims:
+  - C01896
+  - C01897
+  - C01898
+  - C01899
+  - C01900
+  - C01901
+  - C01904
+  - C01905
+  - C01906
+  - C01916
+  - C01917
+  - C01919
+  - C01920
+  - C02009
+  - C02010
+  - C02351
+  - C02354
+  - C02411
+  - C02412
+  - C02436
+  - C02437
+  - C02438
+  - C02624
+  - C02625
+  - C02626
+  - C02627
+  - C02644
+  - C02645
+  - C02646
+  confidence: high
+  applies_when:
+  - a dispute persists over the meaning of specific pieces of evidence
+  - deciding how far to update a belief given new information
+  - the description of what happened is itself contested
+  - judging past analysts by the eventual outcome
+  - a conclusion feels like independent confirmation of a prior belief
+  - forming or delaying an initial estimate of an actor's intentions
+  - discrepant information is being absorbed without registering as a challenge
+  - an actor rejects a report as false because it contradicts a firm belief
+  - a warning is dismissed by its source or set aside as unexplained
+  - a failure is explained by special conditions that spare the prevailing belief
+  - an actor reaches a far-fetched conclusion to protect a fixed premise
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: Recognize that observers differ in their propensity to perceive aggressiveness,
+    often rooted in whether they see politics as conflictual or cooperative, so the
+    same situation yields firmness readings from some and conciliation readings from
+    others, and that a policy dispute usually reflects disagreement about the adversary's
+    probable response rather than about values, which can be isolated only by asking
+    what each side would favor with the facts held fixed.
+  derived_from_claims:
+  - C02162
+  - C02163
+  - C02171
+  - C02172
+  - C02173
+  - C02174
+  - C02175
+  - C02182
+  - C02200
+  - C02249
+  - C02250
+  - C02257
+  - C02258
+  - C02259
+  - C02267
+  - C02269
+  - C02661
+  - C02662
+  - C02663
+  - C02664
+  - C02711
+  - C02712
+  - C02735
+  - C02736
+  - C02737
+  - C02738
+  - C02739
+  - C02855
+  - C02856
+  confidence: high
+  applies_when:
+  - a hostile image is coloring how new information about an adversary is read
+  - a state treats any opposition to its policy as unprovoked hostility
+  - both sides exchange reassurances that each finds unconvincing
+  - a hostility spiral may have already changed the adversary's real intentions
+  - a party rejects compromises because it views the other as highly aggressive
+  - a firmness-versus-conciliation dispute is mistaken for a clash of values
+  - holding a firm interpretation of an adversary's intentions
+  - an image of an adversary explains every possible behavior
+  - an adversary's inconsistent behavior is being read as deliberate two-facedness
+  - an adversary's hostility is being treated as unprovoked and independent of your
+    behavior
+  - concluding that nothing you do can affect an adversary's hostility or war decision
+  - interpreting an adversary's behavior or designing a signal to it
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Recognize that dissonance effects apply only after a decision and require
+    both a definite commitment and a felt-free choice, since a person who believes
+    he had no real alternative feels no dissonance, and that a decision sharply changes
+    information-processing, because before it a person seeks conflicting information
+    and compromises while after it he must minimize how far the evidence pointed both
+    ways, as racetrack bettors grow more confident right after betting.
+  derived_from_claims:
+  - C02797
+  - C02798
+  - C02799
+  - C02803
+  - C02804
+  - C02805
+  - C02806
+  - C02807
+  - C02808
+  - C02809
+  - C02810
+  - C02811
+  - C02812
+  - C02813
+  - C02817
+  - C02818
+  - C02845
+  - C02846
+  - C02847
+  - C02848
+  - C02849
+  - C02850
+  - C02851
+  - C02852
+  - C02853
+  confidence: high
+  applies_when:
+  - an actor is defending a decision he is committed to
+  - locating whether an actor is in a pre- or post-decision, freely-chosen state
+  - assessing whether failing-policy evidence will create dissonance for a decision-maker
+  - weighing dissonance against structural reasons a policy persists
+  - a decision-maker claims he had no choice but the costly course he took
+  - a leader relies on a loyal personal staff for candid views
+  - presenting disturbing but inconclusive evidence to an entrenched actor
+  - explaining how self-justification degrades a decision-maker's rationality over
+    time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Expect the way a state gained independence or made its revolution to
+    shape the concepts its leaders later apply at home and abroad, so leaders vigilant
+    to opponents using the tactics that brought them to power project their success-recipe
+    onto very different situations and read foreign adversaries through the image
+    of their domestic opponents, as revolutionaries who were spared by liberal tolerance
+    concluded such groups were weak everywhere.
+  derived_from_claims:
+  - C02238
+  - C02239
+  - C02240
+  - C02241
+  - C02242
+  - C02243
+  - C02268
+  - C02310
+  - C02311
+  - C02573
+  - C02574
+  - C02575
+  - C02576
+  - C02782
+  - C02783
+  - C02784
+  - C02785
+  - C02789
+  - C02790
+  - C02791
+  - C02792
+  confidence: high
+  applies_when:
+  - shaping a threat so the target can comply
+  - issuing a threat you want to keep from escalating
+  - deciding whether and how to make a concession
+  - interpreting how the other responded to your threat or concession
+  - evaluating whether an adversary's limited aims can be credited
+  - an actor holds comforting beliefs that logic would tie together or split apart
+  - a leadership formed by revolution or a founding struggle reads a foreign situation
+  - a warning is being delivered with or without a feasible remedy
+  - an actor's sense of its own capacity is shaping how large a threat it perceives
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Test generational and early-experience claims for spuriousness, since
+    the time a person first attends to politics is partly set by his own characteristics,
+    but treat the influence as genuine when the independent variable is the situations
+    he faced rather than the strategies he chose, and when many people of differing
+    characteristics learned the same lesson, which is why generational effects are
+    rarely spurious and sharp break-points in an opinion-age curve rule out simple
+    aging.
+  derived_from_claims:
+  - C02556
+  - C02557
+  - C02558
+  - C02559
+  - C02560
+  - C02561
+  - C02562
+  - C02563
+  - C02564
+  - C02565
+  - C02566
+  - C02567
+  - C02568
+  - C02569
+  - C02570
+  - C02571
+  - C02572
+  confidence: high
+  applies_when:
+  - explaining differences in outlook across age cohorts of leaders
+  - deciding whether an early experience genuinely shaped a later predisposition
+  - assessing when and why a generation's formative lessons drive policy
+  - anticipating how a formative event will cycle through a state's policy over decades
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Recognize that the commonest agent distortion is to transmit the official
+    message alongside a contradicting private opinion, and that such unofficial remarks
+    may be read as a deliberate disavowable signal, as a sign of strong internal trends
+    that will become policy, or, least likely, as views likely to influence the agent's
+    own government, so being misinformed about one's own agent's remarks denies the
+    home government a key input into the other's image of it and can inflate the other's
+    expectations.
+  derived_from_claims:
+  - C02695
+  - C02696
+  - C02697
+  - C02698
+  - C02699
+  - C02700
+  - C02701
+  - C02702
+  - C02703
+  - C02704
+  - C02705
+  - C02706
+  - C02707
+  - C02708
+  - C02709
+  - C02710
+  - C02719
+  confidence: high
+  applies_when:
+  - interpreting an adversary's reaction without knowing what your own agents actually
+    did
+  - collateral or unintended effects of your own actions are being read as deliberate
+    by the other
+  - relying on a field agent whose incentives may diverge from the home government
+  - an agent has added unofficial commentary that colors how a state is perceived
+  - direct negotiations are producing mutual expectations of further concessions
+  - ad hoc or bargained behavior is being projected forward as a deliberate long-range
+    plan
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Experienced utility, the moment-by-moment area under the pleasure-pain
+    curve, is the proper criterion for some decisions, yet remembered evaluation is
+    governed by the peak-end rule and duration neglect, so decision utility can diverge
+    from experienced utility and a person's preferences cannot be fully trusted to
+    serve their interests, because the remembering self composes an episode from its
+    peak and end while the experiencing self wants long pleasure and short pain.
+  derived_from_claims:
+  - C00824
+  - C00825
+  - C00826
+  - C00827
+  - C00828
+  - C00832
+  - C00833
+  - C00834
+  - C00835
+  - C00836
+  - C00850
+  - C00851
+  - C00852
+  - C00853
+  - C00854
+  confidence: high
+  applies_when:
+  - Judging the value of an experience or a choice that shapes future feeling
+  - Reasoning about or trying to improve day-to-day well-being
+  - Weighing anticipated regret or the remembered value of an experience against lived
+    experience
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Judge minimum change to be rational only when the central elements rest
+    on a solid base of theories and data as well as supporting many beliefs, and irrational
+    when they resist merely because changing them would require changing many dependent
+    perceptions and plans, and apply the rule of thumb that a policy held constant
+    while circumstances change drastically is apt to involve irrational resistance,
+    while noting that a gradual trickle of discrepant information is more dangerous
+    than a large batch because the actor never perceives it accumulating.
+  derived_from_claims:
+  - C02314
+  - C02315
+  - C02320
+  - C02321
+  - C02322
+  - C02323
+  - C02613
+  - C02614
+  - C02615
+  - C02616
+  - C02651
+  - C02652
+  - C02653
+  - C02654
+  - C02655
+  confidence: high
+  applies_when:
+  - explaining why an actor sees no trade-offs in a policy
+  - helping a decision-maker surface hidden trade-offs
+  - a policy pursues incompatible objectives or persists despite failing
+  - an analyst reads a foreign system through the assumptions of his own
+  - judging whether an actor's resistance to changing a core belief is rational
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Treat deterrence as self-confirming, because lacking the historian's
+    knowledge of the adversary's intentions a decision-maker freely selects a pleasing
+    reason the adversary did not strike, is more apt to believe deterrence worked
+    than that it was unnecessary, and if the other does act hostilely still believes
+    it would have done more but for his stance, so the correlation between adopting
+    deterrence and perceiving its success is spurious, both flowing from the original
+    image of the other's intentions.
+  derived_from_claims:
+  - C02141
+  - C02142
+  - C02143
+  - C02185
+  - C02186
+  - C02187
+  - C02188
+  - C02220
+  - C02221
+  - C02236
+  - C02237
+  - C02260
+  - C02723
+  - C02724
+  confidence: high
+  applies_when:
+  - identifying which deterrence assumption underlies an argument
+  - choosing whether to meet a challenge with sanctions or accommodation
+  - a threat has failed or has increased tension
+  - diagnosing whether a failed threat refutes deterrence or fits the spiral model
+  - judging whether a threat is likely to succeed
+  - an advocate claims their strategy is best regardless of the adversary's type
+  - judging whether a deterrence policy actually caused an adversary's restraint
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Remember that a recent-war lesson helps only if the next confrontation
+    actually resembles the last, and since its general truths were already known,
+    another instance of a familiar phenomenon should not drastically change the estimate
+    of its recurrence probability unless it marks a trend, yet it does produce drastic
+    changes that reduce later accuracy, an effect strongest for amateurs and nations
+    with a short international history who possess few competing analogies.
+  derived_from_claims:
+  - C02581
+  - C02582
+  - C02583
+  - C02584
+  - C02585
+  - C02586
+  - C02587
+  - C02588
+  - C02589
+  - C02602
+  - C02603
+  - C02665
+  - C02666
+  - C02667
+  confidence: high
+  applies_when:
+  - the interpretation of the last major war is framing a current threat
+  - the most recent war is being used as the template for a new conflict
+  - a single recent case is sharply shifting a recurrence estimate
+  - a new policy is designed only to avoid the previously diagnosed failure
+  - a key belief cannot be tested until it is too late to act on the result
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: Departing from the default by acting produces more regret and blame than
+    inaction when outcomes are bad, so anticipated regret biases people toward conventional,
+    risk-averse choices even in life-or-death decisions, and combined with loss aversion
+    of roughly two-to-one it produces taboo tradeoffs that refuse any risk-for-value
+    trade even though a fixed safety budget is used better by accepting cheap small
+    risks, a pattern that makes a strict precautionary principle costly.
+  derived_from_claims:
+  - C00758
+  - C00759
+  - C00783
+  - C00784
+  - C00810
+  - C00811
+  - C00812
+  - C00813
+  - C00814
+  - C00815
+  - C00906
+  - C00907
+  - C00908
+  confidence: high
+  applies_when:
+  - Predicting reactions to a prospect or change that mixes gains and losses
+  - Judging or setting prices, wages, or terms that impose losses on others
+  - Choosing between a conventional and an unconventional option under uncertainty
+  - Predicting resistance to change or a bias toward the current arrangement
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: Weigh how conciliation looks to your allies, because conciliatory gradualism
+    can lead them to conclude you will settle regardless of their interests and leave
+    you facing a hostile opponent with a weakened alliance if your assumptions prove
+    wrong, and treat as the gravest danger of a conciliatory gesture that a 'we are
+    no menace' signal can be read as 'we will back down', since capability is separable
+    from gesture and you can lower your security without changing the military balance.
+  derived_from_claims:
+  - C02208
+  - C02209
+  - C02210
+  - C02211
+  - C02234
+  - C02235
+  - C02261
+  - C02262
+  - C02263
+  - C02418
+  - C02419
+  - C02420
+  - C02421
+  confidence: high
+  applies_when:
+  - deciding whether to concede to husband strength for a more important conflict
+  - firmness may be appropriate because real incompatibility is high
+  - extending aid or a commitment that could restrain or embolden an ally
+  - making a conciliatory gesture while managing allies and reputation
+  - judging an adversary's act by a standard you would not apply to your own identical
+    act
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: A minuscule probability of vivid harm receives an inordinate decision
+    weight and the emotion is insensitive to the actual probability, denominator neglect
+    makes a risk framed as a frequency loom larger than the same risk framed as a
+    probability even for expert clinicians, and choice from experience underweights
+    rare events that a decision maker has never actually experienced.
+  derived_from_claims:
+  - C00624
+  - C00625
+  - C00626
+  - C00630
+  - C00631
+  - C00787
+  - C00788
+  - C00789
+  - C00790
+  - C00791
+  - C00792
+  - C00793
+  confidence: high
+  applies_when:
+  - Assessing a hazard or deciding how much protection to prepare
+  - A risk is highly salient in public attention or a small probability is being weighed
+  - A decision maker faces a probable or certain loss
+  - Communicating or weighing a small-probability risk
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: Expect the sample of cases a decision-maker learns from to be biased
+    toward firsthand, career-affecting, and nationally consequential events and also
+    small, so a few high-impact events are overworked as analogies while variables
+    that were constant in them are ignored, and verification is rare because foreign-affairs
+    cues cannot be readily checked, which stabilizes reliance on preferred, uncertain
+    cues too soon.
+  derived_from_claims:
+  - C01823
+  - C01824
+  - C01858
+  - C01929
+  - C01930
+  - C01931
+  - C01932
+  - C02012
+  - C02013
+  - C02520
+  - C02521
+  - C02522
+  confidence: high
+  applies_when:
+  - choosing between a psychological and a structural explanation
+  - a lesson rests on a narrow, unverified set of past cases
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: Treat the experimental evidence for wishful thinking as weaker than commonly
+    believed, because controlling for third factors is very hard, expectation is not
+    always excluded, and the studies lack accuracy incentives, and note that wishful
+    thinking gives no clue to the content of beliefs, since it can equally predict
+    persisting or abandoning a policy and overextension or passivity, so it does not
+    tell an analyst which policy an actor will choose.
+  derived_from_claims:
+  - C02753
+  - C02754
+  - C02755
+  - C02756
+  - C02757
+  - C02758
+  - C02759
+  - C02760
+  - C02761
+  - C02762
+  - C02763
+  - C02764
+  confidence: high
+  applies_when:
+  - gauging how strongly desire is inflating an actor's estimate of a favored outcome
+  - invoking wishful thinking to predict what an actor will decide
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Because most intelligence judgments deal with one-of-a-kind situations,
+    use subjective probability but express uncertainty in numbers, since verbal expressions
+    of uncertainty are ambiguous empty shells the reader fills from prior belief,
+    the same qualifier means different numbers to different people so analysts fail
+    to communicate even with each other, and this miscommunication that Sherman Kent
+    identified still persists.
+  derived_from_claims:
+  - C00154
+  - C00175
+  - C00176
+  - C00208
+  - C00209
+  - C00313
+  - C00455
+  - C00456
+  - C00457
+  - C00458
+  - C00459
+  confidence: high
+  applies_when:
+  - assessing a judgment made under ambiguity and time pressure
+  - making a judgment on incomplete information
+  - conceiving the range of possible outcomes
+  - communicating the degree of uncertainty in a judgment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Framing effects reverse risk preference between logically identical gain
+    and loss descriptions even among experts, and when confronted with the inconsistency
+    people fall silent because they have no deeper preference, so choose the frame
+    that supports correct comparison (gallons-per-mile over miles-per-gallon), test
+    decisions in more than one frame, and recognize that default options powerfully
+    shape thoughtless choices, as opt-out organ donation yields far higher participation
+    than opt-in.
+  derived_from_claims:
+  - C00794
+  - C00795
+  - C00796
+  - C00797
+  - C00798
+  - C00799
+  - C00800
+  - C00820
+  - C00821
+  - C00822
+  - C00823
+  confidence: high
+  applies_when:
+  - Facing a series of similar risky choices or monitoring an investment
+  - Making recurring risky or insurance-like decisions, or overseeing many bets
+  - Wording a choice, presenting a quantity, or setting a default
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Recognize that awareness of anarchy makes decision-makers hunt for a
+    menacing plan behind innocuous behavior, that a perceived evil plan is far more
+    common than the reality and usually arises spontaneously, and that coincidence
+    in time and sequence produces an involuntary sense of causality, so military movements
+    coinciding with a diplomatic message are almost always read as designed to support
+    it even when the two are causally unrelated.
+  derived_from_claims:
+  - C02144
+  - C02145
+  - C02170
+  - C02178
+  - C02193
+  - C02244
+  - C02675
+  - C02676
+  - C02677
+  - C02678
+  - C02679
+  confidence: high
+  applies_when:
+  - judging whether a state's threat perception is paranoid or prudent
+  - a very powerful state assumes its good intentions reassure others
+  - applying the spiral model to a conflict
+  - tempted to dismiss an actor's fears as irrational
+  - deciding whether the spiral or deterrence model fits a conflict
+  - a coincidence of events is being read as deliberate coordination
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: Heuristic biases are cognitive rather than motivational, persisting even
+    when accuracy is encouraged and rewarded, they afflict statistically trained experts
+    whenever they reason intuitively, people fail to learn fundamental statistical
+    rules from lifelong experience because the instances are not coded appropriately,
+    and they cannot detect their own miscalibration, so internal consistency is not
+    enough and a judgment must be compatible with one's whole web of knowledge to
+    be rational.
+  derived_from_claims:
+  - C00633
+  - C00635
+  - C00636
+  - C00875
+  - C00876
+  - C00893
+  - C00894
+  - C00895
+  - C00896
+  - C00897
+  confidence: high
+  applies_when:
+  - Judging how likely a case belongs to a category from how well it fits the stereotype
+  - A vivid description points toward a statistically rare outcome
+  - Judging membership probability or updating odds from sample evidence
+  - Deciding whether incentives, expertise, or experience will correct a bias
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: 'Use framing as a tool while recognizing its limits: framing an issue
+    in terms of a value the target already holds can move their position and securitizing
+    an issue narrows debate, yet in real politics actors pick frames from prior predispositions
+    and competing frames are always on offer, so a frame may be an effect of prior
+    beliefs rather than an independent cause.'
+  derived_from_claims:
+  - C01889
+  - C01891
+  - C01892
+  - C01893
+  - C01894
+  - C01895
+  - C01913
+  - C01914
+  - C01915
+  - C01918
+  confidence: high
+  applies_when:
+  - interpreting a politically ambiguous act such as an apparent concession
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: Treat as the central and hardest question which conditions make deterrence
+    rather than the spiral model appropriate, that is when force will work versus
+    create a spiral and when concessions will be reciprocated versus taken as a promise
+    of further retreats, and in a large-versus-small-power dispute weigh third-party
+    inferences, since conceding to a small state on a vital issue may signal you would
+    yield far more to stronger states.
+  derived_from_claims:
+  - C02192
+  - C02201
+  - C02202
+  - C02203
+  - C02204
+  - C02215
+  - C02232
+  - C02233
+  - C02247
+  - C02248
+  confidence: high
+  applies_when:
+  - deciding how understanding a model should change your own behavior
+  - weighing whether to signal resolve or reassurance
+  - conciliating an adversary that may read concessions as weakness
+  - assessing how much control a state has over a conflict's intensity
+  - choosing between firmness and conciliation with third parties watching
+  - a policy debate turns on the meaning of small issues
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: Check whether a correlation between undergoing a situation and later
+    perceptions is spurious from self-selection, treating it as a genuine independent
+    influence only when the actor did not choose to enter the situation, when many
+    people of differing characteristics learned the same lesson, or when the experience
+    changed participants' views, and remember that when different people draw different
+    lessons the perception may be set by prior belief rather than the event.
+  derived_from_claims:
+  - C02528
+  - C02529
+  - C02548
+  - C02549
+  - C02550
+  - C02551
+  - C02552
+  - C02553
+  - C02554
+  - C02555
+  confidence: high
+  applies_when:
+  - gauging how strongly a past event will shape an actor's predispositions
+  - attributing a state's predispositions to its past experiences
+  - tracing a leader's style or analogies to his formative early career
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Humans are compulsive pattern-seekers who perceive order, skill, and
+    causality in what is actually chance, as with the hot-hand illusion and mistaking
+    a lucky run for talent, so before inferring a cause for an extreme result check
+    whether the group is simply small and test the opposite tail, and remember that
+    causal explanations of genuinely chance events are wrong.
+  derived_from_claims:
+  - C00576
+  - C00577
+  - C00578
+  - C00599
+  - C00603
+  - C00604
+  - C00605
+  - C00606
+  - C00607
+  confidence: high
+  applies_when:
+  - A causal account is offered for a pattern that could be statistical
+  - A causal or skill explanation is offered for an extreme or streaky outcome
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Because firm success is largely driven by luck, leadership and management
+    quality cannot be inferred from observed success, the halo effect reverses the
+    causal arrow so a failing firm makes its CEO look rigid rather than the reverse,
+    and highly consistent patterns distinguishing successful from unsuccessful firms
+    are mostly mirages of luck that regress to nothing, so treat business recipes-for-success
+    with suspicion.
+  derived_from_claims:
+  - C00681
+  - C00682
+  - C00683
+  - C00684
+  - C00738
+  - C00739
+  - C00740
+  - C00741
+  - C00742
+  confidence: high
+  applies_when:
+  - Drawing lessons from the observed success or failure of firms or leaders
+  - Evaluating an ambitious plan, acquisition, or self-assessment of ability
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Recognize that training shifts a person's perceptual threshold so that
+    he detects the real thing faster but is also more prone than the untrained to
+    see it when it is absent and act inappropriately, and that his professional background
+    supplies his default explanatory frame, so a diplomat sensitized to aggressors
+    rarely mistakes an aggressor for a status-quo power but more frequently sees threats
+    that do not exist.
+  derived_from_claims:
+  - C01856
+  - C01857
+  - C02053
+  - C02054
+  - C02055
+  - C02618
+  - C02619
+  - C02620
+  - C02639
+  confidence: high
+  applies_when:
+  - weighing advice or estimates produced by a particular government organization
+  - predicting an official's stance on a major war-and-peace question
+  - weighing an expert's judgment on the very thing his training sensitizes him to
+  - an adversary's restraint is being interpreted through a central hostility belief
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: Expect leaders bearing great responsibility to lift the psychological
+    burden by seeing fateful choices as forced by circumstances or by the adversary,
+    by believing they hold a dominant strategy that spares them from assessing the
+    other's fears, and by believing a more cautious path would be no safer, as Europe's
+    leaders in 1914 uniformly felt war was forced on them.
+  derived_from_claims:
+  - C01948
+  - C01949
+  - C01950
+  - C01981
+  - C01988
+  - C01998
+  - C01999
+  - C02000
+  - C02001
+  confidence: high
+  applies_when:
+  - inferring a stable disposition or an evolutionary rationale from a common bias
+  - a leader frames a consequential choice as compelled rather than chosen
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: 'Understand why arming for security is self-defeating: because a state
+    cannot read intentions from capabilities it assumes the worst and treats the other''s
+    intentions as co-extensive with its capabilities, and since both sides obey the
+    same imperative, each regards its own precautions as prudent while reading the
+    other''s identical precautions as evidence of hostile intent, so arms meant to
+    bring security instead breed a consciousness of others'' strength, fear, and suspicion.'
+  derived_from_claims:
+  - C02149
+  - C02150
+  - C02151
+  - C02152
+  - C02153
+  - C02164
+  - C02165
+  - C02206
+  - C02207
+  confidence: high
+  applies_when:
+  - inferring intentions from an adversary's military capabilities
+  - a state increases arms expecting to gain security
+  - a state assumes its own buildup is obviously non-threatening
+  - a conciliatory gesture may be read as exploitable weakness
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: Accept that perceiving the environment as balanced usually serves people
+    well because real social structures are more balanced than chance, so as the prior
+    probability of a characteristic rises it is rational to keep perceiving it despite
+    some discrepant evidence, just as one should bet on the more likely outcome rather
+    than probability-match, and judging a stranger by his subgroup can beat reading
+    specific behavioral cues.
+  derived_from_claims:
+  - C02279
+  - C02280
+  - C02292
+  - C02293
+  - C02294
+  - C02295
+  - C02296
+  - C02297
+  - C02298
+  confidence: high
+  applies_when:
+  - deciding whether to keep perceiving an expected pattern despite some contrary
+    data
+  - a balanced image may be masking a real inconsistency among actors
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: Distrust the impulse to see for yourself and judge a complex problem
+    by direct observation on a short visit, because vivid but unrepresentative personally
+    witnessed incidents outweigh the mass of available information and a summit participant
+    gives undue weight to firsthand impressions of his counterparts, so one may learn
+    best, though not most, from reading history or observing other states, whose larger
+    range of cases forces more thought before seizing on an analogy.
+  derived_from_claims:
+  - C02483
+  - C02484
+  - C02541
+  - C02542
+  - C02543
+  - C02822
+  - C02823
+  - C02824
+  - C02825
+  confidence: high
+  applies_when:
+  - a formative analogy is being applied to a new case
+  - deciding how much weight to give firsthand impressions from a brief encounter
+  - a high-stakes decision most needs reconsideration yet most resists it
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: Anticipate that in an extreme form of positive feedback a person expands
+    his objectives rather than merely trying harder, which is likely when the price
+    already paid is too high to be justified by the original goal, and that whether
+    he reduces dissonance by trying harder or by perceiving success depends on which
+    route is open, inflating his accomplishments when he can do no more and increasing
+    his efforts when failure is unambiguous but not hopeless.
+  derived_from_claims:
+  - C02826
+  - C02827
+  - C02834
+  - C02835
+  - C02836
+  - C02837
+  - C02838
+  - C02839
+  - C02840
+  confidence: high
+  applies_when:
+  - a costly investment is raising the pressure to see a policy as succeeding
+  - reassessing the value of an objective won at great cost
+  - prior investment is being used to justify continuing or escalating
+  - predicting whether an over-committed actor will escalate, expand aims, or declare
+    success
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: The momentary environment shapes thoughts, beliefs, and actions through
+    priming far more than people know or want, largely outside awareness, so unnoticed
+    cues and reciprocal idea-behavior links can bias a judgment without the person
+    detecting any influence.
+  derived_from_claims:
+  - C00555
+  - C00556
+  - C00560
+  - C00561
+  - C00562
+  - C00564
+  - C00565
+  - C00566
+  - C00617
+  confidence: medium
+  applies_when:
+  - Evaluating something while in a strong mood or physical state
+  - A judgment or behavior may have been influenced by incidental context
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: Recognize that the master analyst's edge is pattern and schema recognition
+    held in long-term memory rather than raw memory or fact recall, so the key to
+    strong analysis is the ability to recall patterns that relate facts to each other
+    and to broader concepts, not the ability to recall facts alone.
+  derived_from_claims:
+  - C00182
+  - C00183
+  - C00190
+  - C00191
+  - C00197
+  - C00198
+  - C00199
+  - C00200
+  confidence: high
+  applies_when:
+  - assessing the basis of analytic skill
+  - assessing the basis of analytic expertise
+  - a problem has too many factors to hold in mind at once
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: Under the narrative fallacy compelling stories of the past are simple,
+    over-credit talent and intention over luck, and ignore the events that did not
+    happen, creating an illusion of inevitability and understanding, so test any explanation
+    by whether it would have made the event predictable in advance and remember that
+    the more luck was involved, the less there is to learn.
+  derived_from_claims:
+  - C00642
+  - C00643
+  - C00644
+  - C00667
+  - C00668
+  - C00669
+  - C00670
+  - C00671
+  confidence: high
+  applies_when:
+  - Comparing the probability of a detailed scenario against a simpler one
+  - A confident causal account explains a past success or failure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: 'Reject the two- and three-setting mental dial and subdivide ''maybe''
+    into fine degrees: few things are certain or impossible, so use a granular numeric
+    scale as fine as captures real distinctions, because granularity predicts accuracy
+    and frequent use of exactly 50% signals mere ''unsure''.'
+  derived_from_claims:
+  - C01097
+  - C01098
+  - C01105
+  - C01106
+  - C01110
+  - C01111
+  - C01113
+  - C01291
+  confidence: high
+  applies_when:
+  - expressing the probability of an uncertain event
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: Recognize that contact with another actor on an important issue can establish
+    an image so firm it is very hard to dislodge, misleading the observer if that
+    behavior was a biased sample or the other later changes, and that means-to-an-end
+    behavior is misread as a permanent trait, so a once-expansionist state is treated
+    as a continuing threat attributed to slow-changing geography or national character
+    without asking why it was aggressive or how far short-term conditions caused it.
+  derived_from_claims:
+  - C01817
+  - C01819
+  - C01820
+  - C02117
+  - C02596
+  - C02597
+  - C02598
+  - C02599
+  confidence: high
+  applies_when:
+  - assessing an adversary's goals or a deterrence argument
+  - an estimate rests on the adversary accepting high risk
+  - a fixed image of an actor persists after its behavior or circumstances changed
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: Avoid simple one-to-one mappings from a stimulus to an emotion to a response,
+    because the relations are reciprocal and vary by person and situation, but use
+    the robust regularity that anger favors action while fear favors restraint, so
+    a crisis mood shifting from anger toward fear makes slower, cooperation-permitting
+    policies more attractive, as when Kennedy's team moved from bombing toward blockade.
+  derived_from_claims:
+  - C01961
+  - C01962
+  - C01963
+  - C01965
+  - C01966
+  - C02128
+  - C02129
+  - C02130
+  confidence: high
+  applies_when:
+  - gauging whether a crisis is tilting toward escalation or restraint
+  - trying to move an adversarial relationship toward cooperation
+  - a prediction rests on an actor's prewritten plan or stated intention
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: Treat as genuinely irrational the consistency in which someone who favors
+    a policy believes it is supported by many logically independent reasons, because
+    the proliferation of independent reasons, each of which would separately suffice,
+    is a tell of motivated reasoning rather than logic, and belief systems show overkill
+    by clustering logically unrelated beliefs so that a policy's supporters rate it
+    low-cost and high-benefit on every dimension at once.
+  derived_from_claims:
+  - C02273
+  - C02275
+  - C02276
+  - C02277
+  - C02278
+  - C02299
+  - C02300
+  - C02301
+  confidence: high
+  applies_when:
+  - deciding whether to call an actor's reasoning irrational
+  - an advocate claims a policy wins on every independent dimension
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: 'Attention and working memory are a single limited budget: demanding
+    tasks interfere with one another, extraneous memory load impairs reasoning, and
+    intense focus can blind a person to otherwise-obvious stimuli, so protect the
+    highest-priority task and minimize load when accuracy matters.'
+  derived_from_claims:
+  - C00533
+  - C00534
+  - C00541
+  - C00547
+  - C00548
+  - C00638
+  - C00639
+  confidence: high
+  applies_when:
+  - A person must reason carefully or perform two demanding tasks at once
+  - A judgment would be improved by consciously adopting a statistical frame
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: 'Interrogate System 1 with System 2: a fast answer springs from System
+    1, which under WYSIATI treats whatever evidence is present as sufficient, so deliberately
+    engage slow, effortful checking because most people accept the first answer unexamined.'
+  derived_from_claims:
+  - C00956
+  - C00957
+  - C00958
+  - C00959
+  - C00960
+  - C00967
+  - C00970
+  confidence: high
+  applies_when:
+  - any consequential judgment where a quick answer springs to mind
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: 'Aggregate diverse, independent perspectives (dragonfly eye): combine
+    many views and sources, in your own head and across people, so errors cancel and
+    valid signal accumulates, but only when judgments are independent and the pool
+    is genuinely diverse.'
+  derived_from_claims:
+  - C01015
+  - C01017
+  - C01018
+  - C01020
+  - C01021
+  - C01023
+  - C01084
+  confidence: high
+  applies_when:
+  - contributors hold diverse, independent, valid information
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: 'Beware commitment: belief perseverance freezes the beliefs nearest your
+    identity, since public commitment and identity-linked beliefs (the Jenga core)
+    resist updating and can even read the absence of expected evidence as confirmation,
+    so cultivate low ego-investment in each forecast.'
+  derived_from_claims:
+  - C01130
+  - C01131
+  - C01132
+  - C01133
+  - C01134
+  - C01135
+  - C01136
+  confidence: high
+  applies_when:
+  - updating a belief you have publicly committed to or that touches your identity
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: Understand that being too closed is closely tied to forming a hypothesis
+    too soon, because perceptual hypotheses fixate after minimal confirmation and
+    thereafter almost nothing changes the report, and an initial incorrect hypothesis
+    delays accurate perception, since exposure to early ambiguous information impairs
+    the extraction of information from later, clearer evidence rather than giving
+    a head start.
+  derived_from_claims:
+  - C01879
+  - C01880
+  - C02423
+  - C02424
+  - C02427
+  - C02428
+  - C02429
+  confidence: high
+  applies_when:
+  - assessing whether an actor has closed on an image too soon
+  - an early judgment was made on little evidence
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: Treat as clues that motivated reasoning is operating a person heavily
+    invested in a policy being slower than colleagues to see undermining evidence,
+    a sudden embrace of a previously rejected idea because it comforts, a failure
+    to ask questions one would normally ask, and a plan proceeding after a condition
+    once treated as essential has been removed.
+  derived_from_claims:
+  - C01973
+  - C01974
+  - C01976
+  - C01977
+  - C01983
+  - C01984
+  - C01985
+  confidence: high
+  applies_when:
+  - auditing a decision for signs of self-serving distortion
+  - a belief conveniently tracks the holder's interest or is inconsistent with their
+    other views
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Recognize that the sound model of treating goals as constraints, striving
+    not to fall below a minimum on any, cannot apply when information is absent or
+    highly ambiguous, exactly the case in important foreign-policy choices, so trade-offs
+    are then avoided by more severe irrational methods that make the choice feel easy
+    because all considerations seem to point one way, with the result that values
+    are sacrificed and important choices made inadvertently.
+  derived_from_claims:
+  - C01990
+  - C01991
+  - C01992
+  - C01996
+  - C01997
+  - C02302
+  - C02303
+  confidence: high
+  applies_when:
+  - a contested policy is described as low-cost and high-benefit on every dimension
+  - a decision-maker denies any conflict among his major goals
+  - a hard choice under ambiguity is being made to feel cost-free
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: Recognize that it is hard to find general differences between how those
+    who turn out right and those who turn out wrong draw inferences, because the right
+    usually show no more openness and simply had predispositions that matched the
+    situation, so a correct hypothesis is often reached by methods indistinguishable
+    from those of the mistaken, and a person may be stubborn because he is wrong rather
+    than wrong because he is stubborn.
+  derived_from_claims:
+  - C02019
+  - C02020
+  - C02021
+  - C02022
+  - C02398
+  - C02399
+  - C02400
+  confidence: high
+  applies_when:
+  - studying a historical case of perception or misperception
+  - crediting a correct forecaster with superior method or openness
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: Separate a state's willingness to run risks from its perception of the
+    risks, because aggressors often differ from others less in daring than in perceiving
+    low risk where others see high, so a state that blundered into danger will not
+    repeat once it sees it will meet strong opposition while a state that knew the
+    risks will not be deterred by a clearer picture, and the two require different
+    strategies.
+  derived_from_claims:
+  - C02113
+  - C02114
+  - C02115
+  - C02116
+  - C02120
+  - C02121
+  - C02122
+  confidence: high
+  applies_when:
+  - classifying whether a state is aggressive or status-quo
+  - deciding whether a clearer show of resolve will deter an adversary
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: Recognize that deterrence does not forbid ever changing position, since
+    superior power must sometimes be acknowledged, legitimate grievances rectified,
+    and enticing concessions offered, but an adversary's friendship cannot be bought
+    with gratuitous concessions made without conviction of their justice or of equivalent
+    return, and where the power balance is favorable, firmness can lead even a minimally
+    rational aggressor to pursue its aims peacefully once it sees the defender cannot
+    be bullied.
+  derived_from_claims:
+  - C02135
+  - C02136
+  - C02137
+  - C02138
+  - C02139
+  - C02140
+  - C02219
+  confidence: high
+  applies_when:
+  - deciding whether firmness or a conciliatory gesture is safer under testing
+  - calibrating firmness and concession within a deterrence posture
+  - structuring a concession to avoid signaling weakness
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: Recognize that decision-makers overestimate how far their opposite numbers
+    can impose their will on all parts of their own government and so read weapons
+    procurement as an index of coherent strategy, when a military budget shaped by
+    parochial inter-service conflict tells little about foreign-policy intentions,
+    which will be set under a different power distribution or by different people
+    acting on different values.
+  derived_from_claims:
+  - C02304
+  - C02305
+  - C02306
+  - C02684
+  - C02685
+  - C02828
+  - C02829
+  confidence: high
+  applies_when:
+  - parties to a dispute conveniently agree with themselves on value, feasibility,
+    and cost
+  - inferring an adversary's strategy or intentions from its force procurement
+  - assessing whether an actor is overvaluing the results of a costly policy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: An arbitrary or even random number anchors a numerical estimate through
+    insufficient adjustment and priming, experts deny but are barely less susceptible
+    than novices, and System 2 has no control over the effect, so assume any number
+    on the table has anchored you and, when stakes are high, counter it by deliberately
+    searching for reasons the anchor is wrong.
+  derived_from_claims:
+  - C00608
+  - C00609
+  - C00610
+  - C00613
+  - C00615
+  - C00616
+  confidence: high
+  applies_when:
+  - A numerical estimate is made after any reference number has been mentioned
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: Trust an intuition only when the environment is regular enough to be
+    predictable and the person has had prolonged practice with feedback; valid cues
+    then let System 1 answer even when the cue cannot be named, but in a zero-validity
+    environment intuitive hits are luck or lies, and in wicked environments where
+    feedback is misleading experience breeds false confidence.
+  derived_from_claims:
+  - C00718
+  - C00719
+  - C00720
+  - C00721
+  - C00722
+  - C00724
+  confidence: high
+  applies_when:
+  - Combining intuition with structured evaluation
+  - Deciding whether a claimed expert intuition can be trusted
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: 'Value is psychophysical and reference-dependent: subjective magnitude
+    is roughly a logarithmic function of the physical quantity, people are risk averse
+    for gains and do not evaluate gambles by expected value, and prospect theory codes
+    outcomes as gains and losses relative to a neutral reference point or adaptation
+    level, correcting Bernoulli''s error of attaching utility to absolute states of
+    wealth.'
+  derived_from_claims:
+  - C00751
+  - C00752
+  - C00753
+  - C00754
+  - C00755
+  - C00756
+  confidence: high
+  applies_when:
+  - Predicting how a person will value an outcome or a risky prospect
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: 'Run unflinching postmortems on both failures and successes: own the
+    exact error and beware hindsight, and examine wins too because a good outcome
+    does not prove a good decision (it may reflect offsetting errors or luck); keep
+    contemporaneous notes so you can reconstruct your reasoning.'
+  derived_from_claims:
+  - C01170
+  - C01171
+  - C01172
+  - C01173
+  - C01293
+  - C01315
+  confidence: high
+  applies_when:
+  - after a forecast resolves, win or lose
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: 'Resolve the leader''s dilemma with mission command: decision-makers
+    must both forecast (humble, self-critical, probabilistic) and lead (confident,
+    decisive), reconciled by telling people the goal and the intent behind it but
+    not the how, and pushing decisions down to those who meet the surprises.'
+  derived_from_claims:
+  - C01208
+  - C01215
+  - C01216
+  - C01217
+  - C01218
+  - C01222
+  confidence: high
+  applies_when:
+  - leading an organization that must both decide well and act
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: 'Separate deliberation from implementation: while deciding, weigh uncertainty
+    and complexity; once decided, act with resolute confidence while staying ready
+    to abandon the plan when circumstances change (''no plan survives contact''),
+    because an imperfect decision made in time beats a perfect one made too late.'
+  derived_from_claims:
+  - C01210
+  - C01212
+  - C01213
+  - C01214
+  - C01220
+  - C01221
+  confidence: high
+  applies_when:
+  - moving from deciding to executing under uncertainty
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: 'Watch for the moves that most reliably manufacture an enemy: threats
+    that make the recipient believe the sender is highly aggressive set off the classic
+    arms-and-hostility spiral, gratuitous interference in another''s vital interest
+    signals malign character, and demanding payment merely for refraining from meddling
+    where the other has won the right to act reads as unusual greed.'
+  derived_from_claims:
+  - C01818
+  - C01822
+  - C01829
+  - C02223
+  - C02224
+  - C02225
+  confidence: high
+  applies_when:
+  - choosing between deterrence and reassurance toward another actor
+  - a move risks signaling gratuitous or greedy hostility
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P089
+  statement: Read internal elite disagreement among people who could hold power without
+    regime change as revealing the limits of both domestic-politics and international-situation
+    determinants, while not assuming the dissenter would act on his views in office,
+    since his opposition may reflect his role, his lack of information, or expediency,
+    and recognize that a personalistic leader can defeat bureaucratic prediction entirely.
+  derived_from_claims:
+  - C01851
+  - C01852
+  - C01853
+  - C01854
+  - C02059
+  - C02060
+  confidence: high
+  applies_when:
+  - assessing how an ideological or unfamiliar regime views its environment
+  - interpreting a dissenting official's stance
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: Note that choosing among images of world politics is easier than choosing
+    scientific paradigms, because analysts can draw on previously developed alternative
+    images that share much in common, yet a statesman who wants even minimal coherence
+    must still refuse full weight to some evidence others would call discrepant, and
+    unlike a scientist he can also explain away discrepant information by believing
+    the other side is deceiving him.
+  derived_from_claims:
+  - C02015
+  - C02016
+  - C02017
+  - C02018
+  - C02366
+  - C02367
+  confidence: high
+  applies_when:
+  - adopting a psychological theory to explain elite decision-making
+  - an analyst must impose coherence on ambiguous evidence about another state
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: Study decision-making and perception only where variations in how people
+    see the world actually affect how they act, and resist the intuitive comfort of
+    'if that is how the statesman saw it, no wonder he acted so', while remembering
+    that a triggering event's specifics cannot explain an outcome when many other
+    events could have substituted for it, as the Pleiku attack only affected the timing
+    of U.S. bombing.
+  derived_from_claims:
+  - C02025
+  - C02026
+  - C02027
+  - C02032
+  - C02033
+  - C02034
+  confidence: high
+  applies_when:
+  - predicting perception or policy from an actor's interests
+  - deciding whether perception is doing causal work in a case
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: 'Grade a target''s reaction to harm by the intent it infers: mildest
+    when it believes the harm was unintended, so good motives can partly rescue a
+    bad policy if the actor shows it upheld shared values and would act differently
+    once aware; stronger but restrained when it believes the goal merely conflicted
+    with its interest; and most extreme when it believes the harm was sought as a
+    positive good, an inference drawn from inappropriate tactics, excessive force,
+    or injury without due cause.'
+  derived_from_claims:
+  - C02088
+  - C02089
+  - C02090
+  - C02740
+  - C02741
+  - C02742
+  confidence: high
+  applies_when:
+  - your action has harmed another actor and you want to limit its hostility
+  - your defensive actions may look aggressive to the actor they affect
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: In negotiation look past the other's stated demands to how it will behave
+    under various settlements, since no contract covers everything and fear drives
+    a party to demand more detailed terms and guarantees, so where a party fears for
+    its existence, changing the other's attitude matters more than winning favorable
+    clauses, and one should refuse any settlement with an adversary believed certain
+    to renege.
+  derived_from_claims:
+  - C02096
+  - C02100
+  - C02101
+  - C02102
+  - C02103
+  - C02104
+  confidence: high
+  applies_when:
+  - deciding whether to settle a specific dispute or address the underlying relationship
+  - assessing a negotiated settlement with a distrusted adversary
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: Apply the deterrence logic that great danger arises if an aggressor believes
+    the status-quo powers are weak in capability or resolve, because he will test
+    them starting small and each retreat both loses the specific value and encourages
+    further pressure while undermining the credibility of later resolve, so a status-quo
+    state must display the ability and will to wage war even over issues of little
+    intrinsic value that have become indices of resolve.
+  derived_from_claims:
+  - C02123
+  - C02124
+  - C02133
+  - C02134
+  - C02183
+  - C02184
+  confidence: high
+  applies_when:
+  - a state's limited moves are producing outsized systemic effects
+  - an aggressor is probing status-quo powers for weakness
+  - relying on small incremental adjustments against a possibly misjudged adversary
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: Recognize that persisting in a hostility strategy despite mounting evidence
+    of its failure and despite no intrinsic conflict of interest manufactures an enemy,
+    and that each side in an escalating conflict reads its own hostility as a justified
+    response while dismissing the other's protestations of non-hostility, as sustained
+    German pressure moved British policy from wanting to curb German excesses to seeing
+    Germany as a direct threat.
+  derived_from_claims:
+  - C02205
+  - C02216
+  - C02217
+  - C02218
+  - C02226
+  - C02227
+  confidence: high
+  applies_when:
+  - conceding to an adversary whose type you may have misjudged
+  - deciding whether concessions will satisfy or embolden an adversary
+  - a hostility strategy is failing yet being sustained
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
+  statement: Account for context, both the immediate situation and the concerns and
+    information dominating a person's thought at the time, known as the evoked set,
+    which establishes predispositions so that a broken figure reads as a number to
+    those primed with numbers, a decisive player who wins is seen as astute but as
+    impulsive when he loses, and viewers saw the same convention footage differently
+    depending on the network's framing.
+  derived_from_claims:
+  - C02344
+  - C02345
+  - C02346
+  - C02347
+  - C02457
+  - C02458
+  confidence: high
+  applies_when:
+  - the same behavior is being read differently depending on framing or current preoccupations
+  - a preoccupation may cause a significant signal to be filtered out
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: Remember that the correct explanation is often not supported by the bulk
+    of the evidence and that those who reach it may treat information less justifiably
+    than those who are wrong, relying on hunches, luck, and an accurate general analysis
+    while doing injustice to specific facts, since their expectations merely provided
+    a closer match, as quick inferrers of a leader's guilt did so because they already
+    distrusted him.
+  derived_from_claims:
+  - C02401
+  - C02402
+  - C02403
+  - C02404
+  - C02508
+  - C02509
+  confidence: high
+  applies_when:
+  - a correct conclusion was reached by questionable handling of the specific facts
+  - applying a fixed rule derived from a context-dependent outcome
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: Recognize that learning varies with time, energy, and ego involvement,
+    so participating teaches more than witnessing and witnessing more than reading,
+    and that a firsthand experience creates an over-predisposition driven by luck
+    rather than representativeness, as one bitten by a snake mistakes branches for
+    snakes, so the specific position a person held within an event also leaves him
+    sensitivities others lack.
+  derived_from_claims:
+  - C02488
+  - C02489
+  - C02530
+  - C02531
+  - C02532
+  - C02533
+  confidence: high
+  applies_when:
+  - predicting or checking which lesson someone will draw from an event
+  - a firsthand experience is producing a disproportionate predisposition
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: Expect a notably successful policy to be over-applied to later situations
+    seen as resembling the past one, because actors pay too little attention to why
+    it worked and overestimate their policy's role, and note that success undermines
+    its own preconditions by altering the environment as others change positions,
+    which the winning-strategy-preoccupied actor is slow to see, as a run of triumphs
+    convinced adversaries that a leader's ambitions were unlimited.
+  derived_from_claims:
+  - C02534
+  - C02535
+  - C02536
+  - C02604
+  - C02605
+  - C02606
+  confidence: high
+  applies_when:
+  - a state is drawing tactical or technological lessons only from its own experience
+  - a past success is being repeated on the assumption the new case is similar
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: Because reliance on mental models and mind-sets to simplify reality is
+    unavoidable, often useful but at times hazardous, continually challenge, refine,
+    and again challenge your own working mental models.
+  derived_from_claims:
+  - C00124
+  - C00130
+  - C00131
+  - C00150
+  - C00161
+  confidence: high
+  applies_when:
+  - interpreting complex or ambiguous issues
+  - weighing the role of an analyst's established mind-set
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: Beware similarity-of-cause-and-effect reasoning, which is valid only
+    for physical properties, since the fallacy of identity assumes economic effects
+    have economic causes and big effects big causes, and combined with the centralized-direction
+    bias it fuels conspiracy theories, so that even analysts who avoid extreme versions
+    still bias toward causes commensurate with the magnitude of effects.
+  derived_from_claims:
+  - C00415
+  - C00416
+  - C00417
+  - C00418
+  - C00425
+  confidence: high
+  applies_when:
+  - inferring a cause proportioned to a large effect
+  - two sides attribute each other's behavior oppositely
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: Correct anchoring, under which a starting point drags the estimate so
+    that adjustment is insufficient, predecessors' judgments act as anchors that analysts
+    do not revise enough, and confidence ranges built by adjusting a single point
+    estimate up and down become overconfident, whereas ranges based on hard information
+    about the limits are more accurate.
+  derived_from_claims:
+  - C00450
+  - C00451
+  - C00452
+  - C00453
+  - C00454
+  confidence: high
+  applies_when:
+  - updating a prior estimate or setting a confidence range
+  - revising judgments in the presence of a prior estimate
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P103
+  statement: The rationality assumption is a necessary and productive tool whose predictions
+    are precise or good approximations in many contexts, so the human deviations of
+    prospect theory matter mainly where the immediate emotional impact of gains and
+    losses dominates, and prospect theory itself has flaws such as reference points
+    that models like the indifference-curve map wrongly omit.
+  derived_from_claims:
+  - C00749
+  - C00750
+  - C00761
+  - C00762
+  - C00763
+  confidence: high
+  applies_when:
+  - Modeling how people actually value outcomes and make risky choices
+  - Choosing between a rational-agent model and a behavioral account
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P104
+  statement: Preference reversals show that people choose the safer option yet price
+    the riskier one higher, because single evaluation is dominated by emotional System
+    1 while joint comparison invokes System 2, so joint judgments are generally more
+    stable and rational and thoughtful assessment needs a broad comparative context,
+    except beware joint evaluation when an interested party controls what you are
+    shown.
+  derived_from_claims:
+  - C00816
+  - C00817
+  - C00818
+  - C00819
+  - C00912
+  confidence: high
+  applies_when:
+  - Designing how options or cases are presented for evaluation
+  - Explaining why an option is valued differently alone versus alongside another
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P105
+  statement: A framer can influence a decision without distorting or suppressing any
+    information, merely by framing outcomes as gains or losses and by exploiting the
+    topical mental accounts people spontaneously adopt, so willingness to act on a
+    fixed saving depends on the local reference amount, and framing can even mold
+    the actual experience of an outcome, not only the choice.
+  derived_from_claims:
+  - C00898
+  - C00904
+  - C00905
+  - C00909
+  - C00910
+  confidence: high
+  applies_when:
+  - Making or reviewing a consequential choice whose framing could vary
+  - Wording a choice or noticing how a presentation steers a decision
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: Treat differences in what most concerns an actor as a major cause of
+    misperception, because an absorbing issue makes a decision-maker see most events
+    in its terms and assume others share his preoccupation, so he reads their acts
+    as aimed at his concern and himself as central to their behavior, as an Allied
+    leadership preoccupied with a war read everything a revolutionary regime did as
+    serving the enemy.
+  derived_from_claims:
+  - C01872
+  - C02469
+  - C02470
+  - C02472
+  - C02473
+  confidence: high
+  applies_when:
+  - a phenomenon does not fit any concept currently salient to the analysts
+  - a dominant preoccupation is framing the other's every act as aimed at you
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
+  statement: Balance flexibility against stability by revising attitudes on a preponderance
+    of evidence rather than being swayed by an isolated fact, because one can be too
+    open as well as too closed, since losing memory makes an actor drift like driftwood
+    while losing openness makes it fly straight like a bullet, and this tension exists
+    at the organizational level too, between standard operating procedures for recurring
+    problems and openness to new ones.
+  derived_from_claims:
+  - C01885
+  - C02352
+  - C02353
+  - C02830
+  - C02831
+  confidence: high
+  applies_when:
+  - deciding how much a single new piece of evidence should shift a belief
+  - identifying who will most resist abandoning a failing policy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P108
+  statement: Keep propositions about perception probabilistic, since too many variables
+    operate for predispositions to be controlling, and to act well predict how others
+    will behave and estimate how they will react to each policy you might adopt, using
+    vicarious imagination only when behavior is situation-determined and otherwise
+    a hypothetico-deductive search for the constellation of forces, beliefs, and goals
+    that could explain the behavior.
+  derived_from_claims:
+  - C02069
+  - C02070
+  - C02071
+  - C02270
+  - C02271
+  confidence: high
+  applies_when:
+  - predicting another actor's behavior or reaction
+  - reasoning about how an adversary of uncertain type will react
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
+  statement: To interpret behavior, first separate situational from internal causes,
+    learning little when an actor does what anyone would do in that situation, such
+    as a weak state conceding a minor point to a stronger one, and learning most when
+    he behaves unusually, so a costly act lacking a benign economic rationale is read
+    as hostile while a cheap or self-benefiting act with the same effect need not
+    be.
+  derived_from_claims:
+  - C02078
+  - C02079
+  - C02080
+  - C02081
+  - C02743
+  confidence: high
+  applies_when:
+  - judging what an actor's move reveals about his intentions
+  - assuming your peaceful intentions are self-evident to an adversary
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
+  statement: Recognize that culture, explicit labels, and instructions shape perception
+    independently of familiarity, so people see the culturally matching image in an
+    ambiguous scene, a set for animals turns 'dock' into 'duck', a speaker described
+    as cold is seen as cold, UFO sightings match the era's science fiction, and even
+    a weapon's name can shape perceptions of its uses.
+  derived_from_claims:
+  - C02339
+  - C02340
+  - C02341
+  - C02342
+  - C02343
+  confidence: high
+  applies_when:
+  - a label, cultural template, or instruction may be steering how a stimulus is read
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P111
+  statement: Counter method-rigidity deliberately, because success with one method
+    inhibits developing new ones when they are needed and the rigidity strengthens
+    with stress and complexity, so provide prior exposure with explanation, warnings
+    that a solution may require breaking a set, or a pause before beginning, and expect
+    breakthroughs more often from the young, outsiders, or the inexperienced, who
+    can more easily free themselves from the established framework.
+  derived_from_claims:
+  - C02446
+  - C02447
+  - C02448
+  - C02449
+  - C02450
+  confidence: high
+  applies_when:
+  - a hard or novel problem needs an approach outside the established framework
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P112
+  statement: Recognize that when change is forced the least-change route is often
+    differentiation, splitting the object to slough off the conflict-causing part,
+    as separating a person's qualities from his policies, separating what he is doing
+    from what he would normally do, creating an exception to a generalization, or
+    in the extreme redefining whole categories, and that the rarer opposite mechanism
+    of transcendence combines elements into a larger superordinate unit.
+  derived_from_claims:
+  - C02632
+  - C02633
+  - C02634
+  - C02635
+  - C02636
+  confidence: high
+  applies_when:
+  - an actor is preserving a general belief by carving out an exception
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P113
+  statement: Read a leader's vehement rejection of a proposal that actually accords
+    with his own ideals as a sign of dissonance reduction, and expect that when a
+    costly policy is later confirmed decision-makers revalue the outcome by a margin
+    larger than the new information warrants, so that spreading apart the alternatives
+    increases inertia by raising the amount of discrepant information needed to reverse
+    the policy.
+  derived_from_claims:
+  - C02649
+  - C02650
+  - C02819
+  - C02820
+  - C02821
+  confidence: high
+  applies_when:
+  - a limited step touches a central belief or principle
+  - a committed decision-maker reacts strangely to information about his chosen policy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P114
+  statement: Treat as weak the inference of wishful thinking from statesmen's optimism,
+    because a statesman's desires are entangled with many other variables, some belief-desire
+    correlation is expected without any wishfulness since decision-makers choose a
+    policy precisely because they think it will succeed, and statesmen frequently
+    err against their desires by overestimating others' hostility and being too cautious,
+    so the historical record over-records dramatic wishful failures and under-records
+    quiet errors of excessive caution.
+  derived_from_claims:
+  - C02769
+  - C02770
+  - C02771
+  - C02772
+  - C02773
+  confidence: high
+  applies_when:
+  - inferring wishful thinking from a decision-maker's optimism
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P115
+  statement: Recognize that whether a person is vigilant or defensive toward a danger
+    depends on his belief about his ability to take effective counteraction, since
+    he lowers his perceptual threshold when he can avert the pain by recognizing and
+    acting on the stimulus and raises it when nothing can be done, a proposition that
+    reconciles why people are sometimes highly alert to threats and sometimes insensitive
+    to them.
+  derived_from_claims:
+  - C02778
+  - C02779
+  - C02780
+  - C02781
+  - C02889
+  confidence: high
+  applies_when:
+  - judging whether an actor will be alert or blind to a danger
+  - balancing the risk of missing a threat against the risk of manufacturing one
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P116
+  statement: Reference points are movable and goals serve as reference points, so
+    the good-bad boundary shifts with expectation, falling short of a goal is felt
+    as a loss that is more motivating than the desire to exceed it, effort drops once
+    a goal is reached, and loss aversion measurably degrades performance, as golfers
+    sink par putts more often than birdie putts.
+  derived_from_claims:
+  - C00774
+  - C00775
+  - C00776
+  - C00777
+  confidence: high
+  applies_when:
+  - Setting goals or predicting effort and satisfaction relative to a target
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P117
+  statement: Under the certainty effect removing the last increment of risk to reach
+    complete certainty is valued far more than an equal probability change in the
+    middle of the range, producing expected-utility violations such as the Allais
+    paradox, and when such an anomaly challenges a useful theory its adherents tend
+    to note it and keep using the theory unchanged.
+  derived_from_claims:
+  - C00785
+  - C00786
+  - C00902
+  - C00903
+  confidence: high
+  applies_when:
+  - Comparing choices that differ in whether an outcome is certain or nearly certain
+  - Presenting or evaluating a protective measure that reduces but does not eliminate
+    a risk
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P118
+  statement: Under the sunk-cost fallacy people invest more in a losing account when
+    better options exist to avoid admitting failure, and escalation of commitment
+    reflects an agency problem in which continuing serves the executive who owns the
+    project while harming the firm, so evaluate only future consequences, expect a
+    fresh decision maker to ignore sunk costs, and note that the fallacy can be reduced
+    by teaching.
+  derived_from_claims:
+  - C00805
+  - C00806
+  - C00807
+  - C00808
+  confidence: high
+  applies_when:
+  - Deciding whether to continue investing in a failing course of action
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P119
+  statement: 'Detect the bait-and-switch (attribute substitution): when facing a hard
+    question, notice the urge to answer an easier substitute question, reread the
+    exact question, and answer the one actually asked.'
+  derived_from_claims:
+  - C00968
+  - C00969
+  - C01067
+  - C01129
+  confidence: high
+  applies_when:
+  - a hard question triggers a quick, emotionally easy answer
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P120
+  statement: 'Triage effort toward Goldilocks-zone questions: skip questions that
+    are trivially easy or effectively unforecastable and spend effort where it can
+    move accuracy, recognizing hard limits such as turning points several years out.'
+  derived_from_claims:
+  - C01036
+  - C01037
+  - C01059
+  - C01285
+  confidence: high
+  applies_when:
+  - choosing which questions to invest analytical effort in
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P121
+  statement: 'Adopt a growth mindset and treat failure as data: believe ability can
+    improve, cycle through try, fail, analyze, adjust, and try again, and pay attention
+    to feedback, because fixed-mindset thinkers ignore the information that could
+    improve them.'
+  derived_from_claims:
+  - C01152
+  - C01153
+  - C01154
+  - C01155
+  confidence: high
+  applies_when:
+  - responding to a forecasting failure or setback
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P122
+  statement: 'Use adversarial collaboration to resolve disputes: with opponents and
+    a trusted moderator, jointly design precise, benchmarked, time-bound questions
+    that would settle the disagreement, accept that a split decision is a feature
+    not a bug, and rely on good faith to make it work.'
+  derived_from_claims:
+  - C01241
+  - C01280
+  - C01281
+  - C01282
+  confidence: high
+  applies_when:
+  - a polarized dispute could be tested by concrete forecasts
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P123
+  statement: Watch for the conjunction trap in which a richly specified scenario feels
+    more probable than its abstract superset even though it is necessarily less probable,
+    and remember a long, specific cause-effect chain has vanishingly small cumulative
+    probability even when each link seems plausible.
+  derived_from_claims:
+  - C01628
+  - C01684
+  - C01685
+  - C01805
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P124
+  statement: Choose analogical frames deliberately, because the frame applied to identical
+    evidence drives the conclusion, a wrong analogy produces error, and an institution's
+    initial frame delays recognition of a developing situation, as UN staff were slow
+    to see a genocide framed in advance as a civil war.
+  derived_from_claims:
+  - C01886
+  - C01887
+  - C01888
+  - C01890
+  confidence: high
+  applies_when:
+  - selecting an analogy or frame for a new or ambiguous situation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P125
+  statement: Expect others to disregard an actor's stated intentions when they trust
+    their own prediction of his behavior more, as the Joint Chiefs approved the Bay
+    of Pigs partly believing Kennedy would reverse his stand against direct involvement
+    if the invasion faltered, and recognize that debates dressed as clashing theories
+    often really turn on differing readings of the adversary's intentions.
+  derived_from_claims:
+  - C01921
+  - C01922
+  - C02131
+  - C02132
+  confidence: high
+  applies_when:
+  - a stated commitment may be discounted by its audience
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P126
+  statement: Expect threat perception to be trait-like and stable, so those most suspicious
+    of one adversary tend to be most alarmed by later ones while former doves stay
+    relaxed across cases, and note that the style of a person's beliefs such as being
+    vehement and unqualified can persist even when their content reverses.
+  derived_from_claims:
+  - C01951
+  - C01952
+  - C01953
+  - C01954
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P127
+  statement: Because no piece of behavior is self-explanatory, treat understanding
+    as perceiving an act and deducing the internal processes of which it is the end
+    result, since reconstructing those processes lets you respond differently depending
+    on why the act occurred, as attributions of whether it was controllable, understood,
+    or done under duress change both prediction and your own response.
+  derived_from_claims:
+  - C02072
+  - C02073
+  - C02082
+  - C02083
+  confidence: high
+  applies_when:
+  - deciding how to respond to another actor's action
+  - judging whether an actor's behavior will persist
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P128
+  statement: Recognize that actors react to the intent they impute rather than to
+    the actual harm done, retaliating in proportion to perceived intent almost regardless
+    of the injury, and that the inferred motive dictates the scale of response, so
+    reading the Korean War as proof communism would attack whenever it could win implied
+    broad rearmament while reading it as local opportunism or security fear implied
+    a smaller response.
+  derived_from_claims:
+  - C02074
+  - C02075
+  - C02076
+  - C02077
+  confidence: high
+  applies_when:
+  - calibrating a response to another's harmful or provocative act
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P129
+  statement: When an adversary's hostility is externally compelled and the compulsion
+    is temporary, ease the external constraint and build good relations rather than
+    respond with hostility, because a hostile response does no good while the other
+    cannot defect and at worst creates a new dispute outlasting the original cause,
+    whereas if the dependence is permanent it does not matter whether the hostility
+    was freely chosen.
+  derived_from_claims:
+  - C02084
+  - C02085
+  - C02091
+  - C02092
+  confidence: high
+  applies_when:
+  - responding to hostility that stems from an adversary's external constraints
+  - deciding how hard to press an adversary on a contested issue
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P130
+  statement: Predict how an actor will behave rather than how he thinks he will, sometimes
+    better than he can himself, because decision-makers often cannot predict their
+    own behavior when events outrun imagination, when they avoid thinking about a
+    hard choice, or when the reaction depends on an unpredictable future context.
+  derived_from_claims:
+  - C02111
+  - C02112
+  - C02126
+  - C02127
+  confidence: high
+  applies_when:
+  - characterizing another actor's intentions
+  - relying on an actor's own forecast of what he will do
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P131
+  statement: Expect states to pay more to keep what they hold than to acquire the
+    same value, since possessions gain value over time and losses hurt more than comparable
+    gains please, and note that others may correctly estimate the costs a state will
+    bear yet still misperceive the goals it will pay them for, as Hitler's resolve
+    on Versailles grievances was overestimated while his willingness to fight for
+    European domination was underestimated.
+  derived_from_claims:
+  - C02118
+  - C02119
+  - C02832
+  - C02833
+  confidence: high
+  applies_when:
+  - estimating what an adversary will pay and for which goals
+  - a costly war is escalating a state's commitment to keep fighting
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P132
+  statement: Remember that each model is rooted in a paradigm case, the spiral model
+    in the origins of World War I and deterrence in the failure of 1930s appeasement,
+    so neither covers all cases and even their proponents cross over, and both agree
+    that a genuinely unlimited aggressor like Hitler could not have been conciliated.
+  derived_from_claims:
+  - C02229
+  - C02230
+  - C02231
+  - C02487
+  confidence: high
+  applies_when:
+  - invoking a historical analogy to justify deterrence or conciliation
+  - an analogy to a notorious aggressor is being used to argue against conciliation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P133
+  statement: Do not treat basic intentions as the only variable, because the details
+    and context of moves, each side's operational code, and the specific goals held
+    and attributed must also be weighed, since not all status-quo or aggressive powers
+    behave alike and a conciliatory move can be read as weakness even by a non-aggressor
+    analyzing the alternatives available to it.
+  derived_from_claims:
+  - C02245
+  - C02246
+  - C02434
+  - C02435
+  confidence: high
+  applies_when:
+  - predicting how a move will be interpreted
+  - adopting a graduated-pressure policy or relying on a tentative early estimate
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P134
+  statement: Recognize that for decision-makers there is usually no independent affective
+    dimension, because whether a statesman likes another state is largely determined
+    by his beliefs about the degree of conflict between it and his own, so apparent
+    cognitive-affective consistency usually arises because both the liking and the
+    trait-views are linked through beliefs about the other's interests and intentions.
+  derived_from_claims:
+  - C02281
+  - C02282
+  - C02283
+  - C02617
+  confidence: high
+  applies_when:
+  - interpreting an actor's favorable or hostile image of another state
+  - inferring an official's foreign-policy predispositions from his domestic role
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P135
+  statement: Apply the psychology of insufficient reward, whereby the incentive offered
+    for behavior a person would not otherwise perform is inversely related to the
+    attitude change that follows, since a large reward already justifies the act while
+    a small one leaves dissonance to be reduced only by bringing attitudes into line,
+    so a decision-maker who feels he had no choice is less prone to distort information
+    than one who acted freely.
+  derived_from_claims:
+  - C02318
+  - C02319
+  - C02841
+  - C02842
+  confidence: high
+  applies_when:
+  - an actor applies different dominant values in different situations without reconciling
+    them
+  - gauging how compulsion or incentive size affects an actor's private beliefs
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P136
+  statement: Recognize that dismissing an actor's signals as having no predictive
+    value makes reassurance impossible, so once decision-makers were convinced any
+    pledge would be violated no agreement could satisfy them, and that confidence
+    one understands an actor leads to discounting his explicit signals without any
+    suspicion of deception, so the clearest evidence that an image of another state
+    is wrong is often a policy disaster, by which time it may be too late.
+  derived_from_claims:
+  - C02388
+  - C02668
+  - C02669
+  - C02670
+  confidence: high
+  applies_when:
+  - an actor's current signals are being overridden by a settled image of him
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P137
+  statement: Account for the uneven distribution of classified information within
+    a government, including information about the state's own behavior, since it leads
+    different parts of the bureaucracy to different readings of others' actions, so
+    require that the context needed to interpret an act reach those who must interpret
+    it, as the State Department sends reports of conversations with foreign diplomats
+    to the relevant embassy.
+  derived_from_claims:
+  - C02463
+  - C02464
+  - C02465
+  - C02466
+  confidence: high
+  applies_when:
+  - an interpretation depends on classified context held by only part of the government
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P138
+  statement: Recognize that firsthand experience fixes images of other actors so firmly
+    that a person is slow to detect when such an actor changes and is insensitive
+    to variables that differ across situations, and that dealing with one kind of
+    adversary increases the chance others are seen as similar, while a trauma one
+    side underwent and the other did not breeds a mutual incomprehension each reads
+    as bad faith.
+  derived_from_claims:
+  - C02537
+  - C02538
+  - C02539
+  - C02540
+  confidence: high
+  applies_when:
+  - prior firsthand contact is coloring the read of a changed or different actor
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P139
+  statement: Transfer knowledge into long-term memory by forging associations with
+    existing schemata and by deep processing, since rote and maintenance rehearsal
+    are ineffective for long-term retention and assimilation learning works only for
+    information related to an existing schema.
+  derived_from_claims:
+  - C00192
+  - C00193
+  - C00194
+  - C00195
+  confidence: medium
+  applies_when:
+  - learning or retaining new substantive material
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P140
+  statement: 'Mood modulates System 1: a good mood raises intuition and creativity
+    but also credulity and logical error, while a bad mood raises vigilance, so account
+    for the judge''s affective state when weighting an intuitive judgment.'
+  derived_from_claims:
+  - C00570
+  - C00571
+  - C00595
+  - C00596
+  confidence: medium
+  applies_when:
+  - An intuitive judgment is made in a notably good or bad mood
+  - A global or broad evaluation follows an emotionally significant prompt or mood
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P141
+  statement: Suspend judgment as long as possible while new information is received,
+    because it takes far more information to invalidate a hypothesis than to form
+    one and impressions form on very little information but change only on solid evidence.
+  derived_from_claims:
+  - C00172
+  - C00173
+  - C00174
+  confidence: high
+  applies_when:
+  - forming an initial impression on incomplete evidence
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P142
+  statement: Recognize that learning new schemata requires the exceedingly difficult
+    unlearning of old ones and that the very schemata essential to analysis are the
+    principal source of inertia, because unlike the chess master's stable environment
+    the analyst's world changes so that valid schemata expire.
+  derived_from_claims:
+  - C00205
+  - C00206
+  - C00207
+  confidence: high
+  applies_when:
+  - a long-stable model faces a changing environment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P143
+  statement: Because people are insensitive to what has been left out, as the fault-tree
+    experiment showed, explicitly identify the relevant variables on which information
+    is lacking, consider alternative hypotheses about their status, adjust confidence
+    accordingly, and ask whether the absence of information is normal or is itself
+    an indicator of unusual activity.
+  derived_from_claims:
+  - C00390
+  - C00391
+  - C00392
+  confidence: high
+  applies_when:
+  - important variables are unobserved or missing
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P144
+  statement: Fluent or repeated processing is misread as truth, fame, and liking,
+    as the mere-exposure and familiarity effects show even for subliminal stimuli,
+    so ease of recognition or a coherent fit to context is not evidence that a statement
+    is true or a thing is good.
+  derived_from_claims:
+  - C00568
+  - C00569
+  - C00574
+  confidence: high
+  applies_when:
+  - A claim feels familiar, fluent, or coherent and is being taken as true
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P145
+  statement: When uncertain, System 1 commits to a single interpretation and keeps
+    no record of the alternatives it discarded, and sustaining doubt requires System
+    2, so reject an explanation that could equally account for two contradictory outcomes
+    because it merely satisfies the need for coherence and explains nothing.
+  derived_from_claims:
+  - C00579
+  - C00580
+  - C00581
+  confidence: high
+  applies_when:
+  - Claims are evaluated while the reader is busy, tired, or distracted
+  - Evaluating an explanation or holding competing interpretations in mind
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P146
+  statement: Rapid trait impressions formed from appearance, such as reading dominance,
+    trustworthiness, and competence from a face, show high agreement but low accuracy,
+    yet they drive real decisions such as voting, especially among the less informed,
+    so guard against appearance-driven judgment.
+  derived_from_claims:
+  - C00592
+  - C00593
+  - C00594
+  confidence: high
+  applies_when:
+  - A judgment of a person is influenced by their appearance or demeanor
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P147
+  statement: Being poor makes people miserable and being rich raises life satisfaction
+    but not day-to-day experienced well-being, which satiates around a household income
+    near seventy-five thousand dollars in high-cost areas, while severe poverty amplifies
+    the experienced impact of other misfortunes such as illness, divorce, and loneliness.
+  derived_from_claims:
+  - C00837
+  - C00838
+  - C00839
+  confidence: high
+  applies_when:
+  - Reasoning about how money relates to happiness
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P148
+  statement: Under affective forecasting errors, or miswanting, people mispredict
+    how future circumstances will make them feel, and answers to global life-satisfaction
+    questions are produced by substitution, a mood heuristic drawing on a small sample
+    of highly available ideas, so such self-reports and predicted feelings should
+    be treated with caution.
+  derived_from_claims:
+  - C00840
+  - C00841
+  - C00842
+  confidence: high
+  applies_when:
+  - Predicting future satisfaction or interpreting a global well-being report
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P149
+  statement: Under the focusing illusion nothing in life is as important as it seems
+    while you are thinking about it, so attention to any single factor distorts its
+    true weight, observers mispredict others' well-being by failing to anticipate
+    adaptation, and even the remembering self is misled, as colostomy patients report
+    normal experienced happiness yet would trade years of life to be rid of the condition.
+  derived_from_claims:
+  - C00845
+  - C00848
+  - C00849
+  confidence: high
+  applies_when:
+  - Estimating how much some factor affects one's own or another's well-being
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P150
+  statement: Decision weights are nonlinear and regressive with respect to probability,
+    overweighting low probabilities and underweighting moderate and high ones relative
+    to certainty, a change from impossibility to possibility or from possibility to
+    certainty counts for more than an equal change in the middle of the range, and
+    under the pseudo-certainty effect an uncertain outcome is weighted as if certain
+    when a problem is framed in stages.
+  derived_from_claims:
+  - C00899
+  - C00900
+  - C00901
+  confidence: high
+  applies_when:
+  - Predicting how people weight probabilities in a risky choice
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P151
+  statement: 'Get a second opinion from yourself and reframe the question: use the
+    crowd within (assume your first answer is wrong, generate a second, average them,
+    or let time pass), write judgments down to critique as an outsider, and flip the
+    question''s wording to counter confirmation bias.'
+  derived_from_claims:
+  - C01079
+  - C01080
+  - C01081
+  confidence: high
+  applies_when:
+  - you have made a first estimate and want to improve it without a second person
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P152
+  statement: Pursue generalizable, nomothetic knowledge across many times and places
+    through multimethod triangulation and aggregation over many experts, questions,
+    and cases, raising confidence only as independent evidence converges.
+  derived_from_claims:
+  - C01351
+  - C01352
+  - C01353
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P153
+  statement: Match the performance baseline to the regime — random guessing during
+    turbulence, extrapolation algorithms during stability — remembering that qualitative
+    breakpoints are far easier to spot after the fact, and that expert guidance is
+    least useful exactly during the crises when demand for it peaks.
+  derived_from_claims:
+  - C01428
+  - C01429
+  - C01430
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P154
+  statement: Recognize a floor of useful sophistication — briefly briefed undergraduates
+    forecast worse than professionals — but place the point of diminishing returns
+    at roughly a savvy reader of high-quality news, and treat case-by-case human reasoning
+    from a thin knowledge base as especially dangerous.
+  derived_from_claims:
+  - C01453
+  - C01454
+  - C01458
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P155
+  statement: 'Treat fame and media demand as danger signs, not credentials: experts
+    in demand are more overconfident, overconfidence rises with media mentions, and
+    the whole expert-media-public triangle rewards overconfident advice; balanced
+    two-handed thinkers are both less overconfident and less in the limelight.'
+  derived_from_claims:
+  - C01464
+  - C01465
+  - C01466
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P156
+  statement: 'Grant only bounded, self-serving-discounted credit for being ''almost
+    right'': fuzzy-set credit can erase the fox advantage only by trusting belief-system
+    defenses that are invoked selectively after failures, so reduce such credit in
+    proportion to how self-servingly the excuse is deployed.'
+  derived_from_claims:
+  - C01647
+  - C01650
+  - C01651
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P157
+  statement: Do not infer that the environment determined a response merely because
+    decision-makers felt it did, because the subjective sense of necessity may lead
+    them to restrict their search for alternatives without showing that others would
+    have felt the same compulsion, and cognitive-consistency dynamics lead them to
+    convince themselves they had no choice, so a situation that looks overwhelming
+    in retrospect may be partly their own artifact.
+  derived_from_claims:
+  - C02045
+  - C02046
+  - C02047
+  confidence: high
+  applies_when:
+  - decision-makers report they had no choice
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P158
+  statement: Remember that shared perceptions do not guarantee shared responses though
+    responses are often the same, that agreement on a response by actors holding different
+    images tends to be short-lived, and that disputes rooted in differing perceptions
+    are debated unenlighteningly when the parties do not realize perception is the
+    real divide.
+  derived_from_claims:
+  - C02066
+  - C02067
+  - C02068
+  confidence: high
+  applies_when:
+  - a coalition or agreement rests on differing underlying images
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P159
+  statement: Interpret assistance by its inferred explanation just as with harm, since
+    a helper is not automatically a friend, help given freely impresses more than
+    help that is compelled, accidental, or also benefits the giver, and only when
+    the other gives more than needed or takes less than he could does the actor infer
+    a positive stake and expect future friendliness, so generosity and gratitude can
+    describe state behavior without altruism.
+  derived_from_claims:
+  - C02093
+  - C02094
+  - C02095
+  confidence: high
+  applies_when:
+  - judging whether another actor's help signals genuine goodwill
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P160
+  statement: Model trust as A's belief that B values long-run cooperation over the
+    short-run gains it could seize, and demonstrate trust by deliberately allowing
+    situations in which the other could harm you, and signal that an act of violence
+    is meant to stay limited by accepting military risks no combatant would run in
+    real war, such as letting the victim fire first.
+  derived_from_claims:
+  - C02097
+  - C02098
+  - C02099
+  confidence: high
+  applies_when:
+  - trying to build trust or signal limited intent to an adversary
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P161
+  statement: Beware that seeking security by weakening a potential rival can create
+    the very menace it was meant to prevent, as France's insistence on keeping Germany
+    weak made Germany less willing to accept its position, and that a mutual first-strike
+    advantage can drive even a fully status-quo state to attack out of fear, so that
+    if each knows the other sees that advantage, mild crises can end in war.
+  derived_from_claims:
+  - C02158
+  - C02159
+  - C02228
+  confidence: high
+  applies_when:
+  - a state considers weakening a rival or faces first-strike incentives
+  - strategy and technology give a decisive advantage to striking first
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P162
+  statement: Expect a decision-maker not to feel he must match the other's arms and
+    hostility if he believes the other acts from insecurity, and treat the perception
+    that others are unduly afraid of you as rare but real and usually a marginalized
+    minority view, since it is very hard to convince most people that they may be
+    inadvertently threatening others, as Kennan's warning about NATO was ignored.
+  derived_from_claims:
+  - C02212
+  - C02213
+  - C02214
+  confidence: high
+  applies_when:
+  - arguing that an adversary's hostility stems from fear of you
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P163
+  statement: 'Watch for the three modes of resisting discrepant information: simply
+    not noticing it, as analysts overlooked wide-hatch ships riding high in the water
+    before the Cuban missiles; explicitly reinterpreting it as compatible, as the
+    United States gave an absurd explanation for a Soviet civilian evacuation before
+    the 1973 war; and refusing to believe it, where the telling reaction is that the
+    report must be incorrect, as a Soviet headquarters answered a report of the 1941
+    attack with ''You must be insane''.'
+  derived_from_claims:
+  - C02330
+  - C02331
+  - C02332
+  confidence: high
+  applies_when:
+  - surprising or alarming reports are being dismissed before a crisis
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P164
+  statement: Understand that perceptual readiness rests on what the past led one to
+    expect, but that familiarity matters only as a reason to expect the stimulus in
+    the particular situation, so preceding events that make even a rare stimulus likely
+    predispose an actor to see it, and a state that has frequently attacked its neighbors
+    will have ambiguous evidence read as renewed aggression even when other explanations
+    are known to be possible.
+  derived_from_claims:
+  - C02336
+  - C02337
+  - C02338
+  confidence: high
+  applies_when:
+  - a familiar or expected pattern may be over-read into ambiguous evidence
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P165
+  statement: Remember that an old framework loses its hold only as it fails to solve
+    more and more important problems, that the evidence for a new one seems persuasive
+    only after people see the world through it, and that the mere presence of the
+    facts from which a correct inference could be drawn does not mean it will or should
+    be drawn, because if no one is listening for signals against an improbable target
+    the signals cannot be heard.
+  derived_from_claims:
+  - C02373
+  - C02374
+  - C02375
+  confidence: high
+  applies_when:
+  - expecting the right conclusion to emerge simply because the evidence exists
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P166
+  statement: Expect that once a new image of another state is established, the other's
+    actions look different, with new behavior noticed, old behavior dismissed, and
+    other acts reinterpreted, as the onset of the Cold War gave Americans an entirely
+    different view of Soviet conduct during World War II, and a new image also changes
+    what seems obvious and what needs special explanation.
+  derived_from_claims:
+  - C02376
+  - C02377
+  - C02379
+  confidence: high
+  applies_when:
+  - a shift in the overall image of an actor is recoloring its past and present behavior
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P167
+  statement: Watch for the passive failure modes of not grappling with a large body
+    of contrary information, not noticing events of obvious import, rejecting information
+    because considering it is too painful, and being unable to grasp simple but powerful
+    considerations against oneself, as Baldwin declined to read a report on German
+    rearmament lest it cost him sleep.
+  derived_from_claims:
+  - C02389
+  - C02390
+  - C02391
+  confidence: high
+  applies_when:
+  - a decision-maker is avoiding or failing to register significant contrary information
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P168
+  statement: Do not condemn every instance of ignoring or stretching information,
+    because a signal usually has several plausible explanations and choosing the one
+    that fits a popular hypothesis is reasonable when that hypothesis is popular precisely
+    because it has accounted for much data, since a theoretical framework is necessary
+    to see any pattern in a contradictory mass of evidence and observers who lack
+    one are swayed by the latest short-run trend.
+  derived_from_claims:
+  - C02395
+  - C02396
+  - C02397
+  confidence: high
+  applies_when:
+  - judging whether selecting the hypothesis-fitting reading of a signal was reasonable
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P169
+  statement: Do not assume cognitive complexity is always functional, since simplifying
+    hypotheses that match the social structure yield fewer errors, and recognize that
+    successful detection of surprise owes less to skill at piecing together arcane
+    bits than to predispositions that happen to fit the other's plan, so to surprise
+    an adversary find out what he expects and do something else rather than trying
+    to change his predictions.
+  derived_from_claims:
+  - C02405
+  - C02406
+  - C02407
+  confidence: high
+  applies_when:
+  - explaining a detection success or planning to surprise an adversary
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P170
+  statement: Account for the evoked set, the immediate concerns and information at
+    the front of a person's mind, which shapes perception alongside deeper expectations
+    even without communication and even when the phenomenon thought about is no more
+    likely, so preparing a contingency plan increases the chance decision-makers will
+    see future events as resembling the planned situation and calling for the plans
+    they developed.
+  derived_from_claims:
+  - C02454
+  - C02455
+  - C02456
+  confidence: high
+  applies_when:
+  - current preoccupations or a rehearsed plan may be coloring perception
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P171
+  statement: Recognize that a pattern learned in one context does not transfer when
+    the context changes and that axioms applied without their enabling conditions
+    fail once those conditions change, as an expectation that an aggressor would issue
+    demands first, true in peacetime, left a state open to a no-warning wartime attack,
+    and a commander chased a decoy by an axiom that was valid only while the enemy's
+    carriers still mattered.
+  derived_from_claims:
+  - C02510
+  - C02511
+  - C02512
+  confidence: high
+  applies_when:
+  - applying a proven axiom or copying a policy without checking its conditions still
+    hold
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P172
+  statement: Before crediting an earlier success as the cause of a later policy, consider
+    that repetition may reflect the decision-making process rather than the outcome,
+    since having once thought a line of action through, actors reapply it without
+    careful re-examination, and that both the earlier and later choices may stem from
+    the same underlying variables such as the objective situation, operational code,
+    or national style.
+  derived_from_claims:
+  - C02607
+  - C02608
+  - C02609
+  confidence: high
+  applies_when:
+  - attributing a repeated policy to the success of an earlier instance
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P173
+  statement: Expect a person to change as little of his attitude structure as possible,
+    altering first the beliefs that are least important, least supported by information,
+    and tied to fewest others, so large-scale change is avoided by limiting the implications
+    of the initial response, which explains both incremental decision-making and the
+    far-reaching cascade that occurs when central beliefs are finally altered.
+  derived_from_claims:
+  - C02621
+  - C02622
+  - C02623
+  confidence: high
+  applies_when:
+  - predicting how an actor will absorb information that challenges his beliefs
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P174
+  statement: Review the whole series of information rather than each item in isolation,
+    because a pattern invisible in single messages emerges from the series, and deliberately
+    arrange for information to arrive in sizable packets rather than a steady stream,
+    since a decision-maker's distance from day-to-day detail can make him better able
+    to see the inadequacy of a prevailing formulation.
+  derived_from_claims:
+  - C02658
+  - C02659
+  - C02660
+  confidence: high
+  applies_when:
+  - assessing whether a stream of individually weak signals forms a pattern
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P175
+  statement: Recognize that alliances appear more durable and binding from the outside
+    than from the inside, so partners believed to be executing a concerted plan may
+    have no joint plans and be unsure of each other, and that overestimating an adversary
+    coalition's unity drives self-defeating choices, as one power's overestimate of
+    its opponents' cooperation forced it into a war it might have avoided.
+  derived_from_claims:
+  - C02689
+  - C02690
+  - C02691
+  confidence: high
+  applies_when:
+  - assessing how unified and coordinated an opposing alliance really is
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P176
+  statement: Treat the assumption that the other acts as a centralized actor as a
+    useful simplification that yields relatively accurate predictions when the interests
+    and power of the contending elements are fairly stable, and possibly the best
+    available, since predictions from incomplete faction-information need not be better,
+    but when you cannot tell which method fits a case, always use the method that
+    works in the most cases rather than probability-matching, which is common but
+    not rational.
+  derived_from_claims:
+  - C02713
+  - C02714
+  - C02715
+  confidence: high
+  applies_when:
+  - choosing whether to model an adversary as unitary or factional for prediction
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P177
+  statement: Watch for commitment to an organization's central mission to distort
+    even technical and procurement choices and for a mission to narrow from a general
+    goal into a specific means defended for its own sake, and recognize that even
+    an intelligence agency tied to no hardware has an organizational stake, since
+    it can develop a worldview that maximizes the importance of its own distinctive
+    competence.
+  derived_from_claims:
+  - C02881
+  - C02882
+  - C02883
+  confidence: high
+  applies_when:
+  - weighing an organization's estimates or choices that touch its core mission
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P178
+  statement: People are engaged rather than lazy thinkers to the degree they resist
+    accepting the first superficially plausible answer, and low checkers who follow
+    the first idea are impulsive and error-prone, so deliberately checking an intuitive
+    answer is the mark of careful judgment.
+  derived_from_claims:
+  - C00549
+  - C00550
+  - C00553
+  confidence: medium
+  applies_when:
+  - A plausible answer comes quickly to mind on a problem that rewards checking
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P179
+  statement: System 1 continuously assesses normality and coherence, normalizing an
+    abnormal event by recruiting a similar prior instance and detecting incongruity
+    within a fraction of a second, and it will accept a context-fitting statement
+    even when it is false.
+  derived_from_claims:
+  - C00572
+  - C00573
+  - C00574
+  confidence: medium
+  applies_when:
+  - Judging whether something is surprising, normal, or true from its fit to context
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P180
+  statement: Because anchors are powerful, moving first sets an advantageous anchor
+    in a single-issue negotiation, an outrageous opening offer should be refused rather
+    than matched so it does not anchor the range, and a numerical cap acts as an anchor
+    that can pull otherwise-small outcomes upward.
+  derived_from_claims:
+  - C00611
+  - C00612
+  - C00614
+  confidence: medium
+  applies_when:
+  - Negotiating a single quantity or setting a cap or reference figure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P181
+  statement: Evaluations of whole lives show duration neglect and a less-is-more effect,
+    since adding pleasant but less-happy years lowers judged total happiness, because
+    people care about the narrative and its ending rather than the sum of feelings,
+    and apparent duration effects such as longer labor being worse actually reflect
+    the changed quality of the end state.
+  derived_from_claims:
+  - C00829
+  - C00830
+  - C00831
+  confidence: medium
+  applies_when:
+  - Evaluating the goodness of a whole experience, life, or episode
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P182
+  statement: Recognize that most cognition is unconscious, so what surfaces in consciousness
+    is the result of thinking rather than the process, and that under bounded rationality
+    the mind necessarily works from a simplified model of reality.
+  derived_from_claims:
+  - C00143
+  - C00146
+  confidence: high
+  applies_when:
+  - reflecting on one's own reasoning process
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P183
+  statement: Recognize that initial exposure to blurred or ambiguous stimuli interferes
+    with accurate perception even after better information arrives, and that the greater
+    the initial blur and the longer the exposure, the clearer the picture must become
+    before it is correctly recognized.
+  derived_from_claims:
+  - C00170
+  - C00171
+  confidence: high
+  applies_when:
+  - an analyst formed an early read on fuzzy early evidence
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P184
+  statement: Manage the categories through which information is filed, since lacking
+    an appropriate category one cannot perceive, store, or retrieve something and
+    drawing categories incorrectly causes inaccuracy, so avoid hardening of the categories
+    and favor fine distinctions and tolerance for ambiguity.
+  derived_from_claims:
+  - C00201
+  - C00202
+  confidence: high
+  applies_when:
+  - grouping phenomena under a single concept
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P185
+  statement: Because the conservative mind is too slow to change established views,
+    learn from surprise by attending to and highlighting disconfirming novelty and
+    treating it as friendly rather than denying, downplaying, or ignoring it.
+  derived_from_claims:
+  - C00308
+  - C00309
+  confidence: high
+  applies_when:
+  - a fact does not fit the analyst's prior understanding
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P186
+  statement: People attend to the content of a message more than to its reliability,
+    and any message not immediately rejected as a lie shapes the associative system
+    regardless of its truth, so they end with a world simpler and more coherent than
+    the data justify.
+  derived_from_claims:
+  - C00602
+  - C00618
+  confidence: high
+  applies_when:
+  - A vivid or fluent message is weighed without checking its source reliability
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P187
+  statement: To maximize accuracy in a low-validity environment, leave the final decision
+    to a formula rather than a human's global impression, because conducting an interview
+    and letting interviewers make the final call lowers validity by letting overconfident
+    impressions overweight the evidence.
+  derived_from_claims:
+  - C00713
+  - C00714
+  confidence: high
+  applies_when:
+  - Designing a selection or prediction procedure in an uncertain domain
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P188
+  statement: Structure a selection or hiring decision by choosing about six prerequisite
+    traits that are as independent as possible, asking factual questions for each,
+    scoring each trait separately on a fixed scale one at a time in a fixed sequence,
+    and combining the scores by formula, which prevents the halo effect from contaminating
+    later ratings.
+  derived_from_claims:
+  - C00716
+  - C00717
+  confidence: high
+  applies_when:
+  - Designing an interview or evaluation of candidates
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P189
+  statement: People adapt to most new circumstances, good or bad, largely by thinking
+    about them less, so adaptation is chiefly the gradual withdrawal of attention,
+    with the main exceptions being chronic pain, constant loud noise, and severe depression,
+    which compel attention and so resist adaptation.
+  derived_from_claims:
+  - C00846
+  - C00847
+  confidence: high
+  applies_when:
+  - Forecasting the lasting emotional impact of a change in circumstances
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P190
+  statement: 'Stress-test your model with thought experiments: vary the question''s
+    parameters (time frame, threshold) to check that the answer moves appropriately
+    and stays scope-sensitive, and remember you cannot switch cognitive illusions
+    off, only monitor their outputs and check them with a ''ruler''.'
+  derived_from_claims:
+  - C01231
+  - C01237
+  confidence: high
+  applies_when:
+  - checking whether a mental model handles the question adequately
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P191
+  statement: 'Answer unscorable big questions via Bayesian question clustering: decompose
+    ''how does this turn out?'' into many small, pertinent, scorable questions whose
+    cumulative answers converge, like pointillist dots forming a picture.'
+  derived_from_claims:
+  - C01272
+  - C01273
+  confidence: high
+  applies_when:
+  - the question that matters is too vague to score directly
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P192
+  statement: Cultivate integrative complexity — signaled by qualifying conjunctions
+    like 'however' and 'but' and by efforts to resolve tensions between competing
+    considerations — because it correlates with accuracy and partly mediates the fox
+    advantage, and it is a matter of how evenly you weigh considerations, not of generating
+    more thoughts.
+  derived_from_claims:
+  - C01496
+  - C01497
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P193
+  statement: Expect people to hold discoveries that undercut their pet theories to
+    far higher proof standards than congenial ones, with the pull of preconceptions
+    dwarfing the pull of new facts, and hedgehogs applying the harshest double standard.
+  derived_from_claims:
+  - C01611
+  - C01612
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P194
+  statement: 'Apply a minimal test of bias: if those who got it wrong are far more
+    eager than those who got it right to challenge the fairness of the exercise, bias
+    is present even if you cannot say which side distorts, because experts sign off
+    on fair-test conditions for their own pet ideas far more readily than for rivals''.'
+  derived_from_claims:
+  - C01653
+  - C01654
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P195
+  statement: Preserve your surprises rather than erasing them with a 'knew it all
+    along' reflex, because hindsight, though it conveniently unclutters memory, forecloses
+    the surprises that reveal where and when your beliefs failed.
+  derived_from_claims:
+  - C01658
+  - C01659
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P196
+  statement: Recognize that framing steers the mental search — asking when an outcome
+    became inevitable primes a hunt for momentum, while asking when alternatives became
+    impossible primes a hunt for rerouting causes — and use an impossibility framing
+    deliberately when you suspect you are treating a past outcome as more inevitable
+    than it was.
+  derived_from_claims:
+  - C01690
+  - C01703
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P197
+  statement: 'Design accountability to promote self-critical thinking: make people
+    answer for judgments they have not yet made, to an audience whose views they cannot
+    guess and whose respect they value, and prefer process accountability that rewards
+    sober second thought over outcome accountability that rewards looking decisive.'
+  derived_from_claims:
+  - C01709
+  - C01720
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P198
+  statement: Check your coherence about a past or future by drawing paired inevitability
+    and impossibility curves that should complement to one, and counterbalance the
+    order in which you consider an outcome versus its alternatives to avoid order
+    effects.
+  derived_from_claims:
+  - C01774
+  - C01775
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P199
+  statement: Treat the base rate as the determinant of task difficulty — a base rate
+    near zero or one is easy while one near one-half is hardest — and diagnose which
+    calibration failure you have among systematic over- or underprediction and over-
+    or under-extremity.
+  derived_from_claims:
+  - C01782
+  - C01783
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P200
+  statement: Do not classify slow updating as motivated bias merely because a belief
+    did not change, because strong prior grounds can rationally justify distrusting
+    a single contrary study, and since motivated and unmotivated bias are hard to
+    separate, the best test is a case where expectations and needs pull in opposite
+    directions.
+  derived_from_claims:
+  - C01970
+  - C01972
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
