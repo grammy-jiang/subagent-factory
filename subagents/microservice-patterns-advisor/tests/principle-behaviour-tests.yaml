@@ -1,0 +1,2646 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: microservice-patterns-advisor
+generated_at: '2026-07-11'
+principle_behaviour_tests:
+- test_id: PB-001
+  principle_id: P001
+  mode: advise
+  prompt: A business transaction spans multiple services. Which microservice pattern(s) apply, and what
+    are the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P001: Maintain data consistency across services with the Saga pattern (a sequence
+    of local ACID transactions coordinated by asynchronous messaging that guarantees eventual completion)
+    rather than distributed two-phase-commit….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P001.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-002
+  principle_id: P002
+  mode: advise
+  prompt: Querying data across service boundaries. Which microservice pattern(s) apply, and what are the
+    trade-offs?
+  expected_behaviour:
+  - 'Applies principle P002: Treat queries as a distinct distributed-data challenge (a query often needs
+    data across services and a distributed query would violate encapsulation), implementing them with
+    the API composition pattern (a composer….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P002.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-003
+  principle_id: P003
+  mode: advise
+  prompt: Operating or monitoring services in production. Which microservice pattern(s) apply, and what
+    are the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P003: Design a service to be observable (so operators can see its behavior, be
+    alerted before users are impacted, and troubleshoot a request that spans many services) using six
+    patterns, each split into a developer component….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P003.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-004
+  principle_id: P004
+  mode: advise
+  prompt: Making synchronous inter-service calls. Which microservice pattern(s) apply, and what are the
+    trade-offs?
+  expected_behaviour:
+  - 'Applies principle P004: Protect every synchronous inter-service call against partial failure with
+    network timeouts, an upper bound on outstanding requests, and a circuit breaker (using a resilience
+    library), and decide per case how to recover….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P004.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-005
+  principle_id: P005
+  mode: advise
+  prompt: Services must locate each other at runtime. Which microservice pattern(s) apply, and what are
+    the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P005: In a dynamic cloud where instance locations change constantly, locate services
+    through a service-discovery mechanism backed by a registry, preferring platform-provided discovery
+    (third-party registration plus….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P005.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-006
+  principle_id: P006
+  mode: advise
+  prompt: Publishing events as part of a database transaction. Which microservice pattern(s) apply, and
+    what are the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P006: Publish messages atomically with the database update using the Transactional
+    Outbox pattern (insert each message into an OUTBOX within the same local transaction), and move messages
+    to the broker with either a polling….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P006.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-007
+  principle_id: P007
+  mode: advise
+  prompt: Testing a service in isolation from its collaborators. Which microservice pattern(s) apply,
+    and what are the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P007: Verify service interactions with consumer-driven contract tests and each
+    service with component tests, minimizing the number of complex, slow, brittle end-to-end tests.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P007.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-008
+  principle_id: P008
+  mode: advise
+  prompt: Passing identity across service boundaries. Which microservice pattern(s) apply, and what are
+    the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P008: Authenticate each request once at the API gateway and pass the principal''s
+    identity and roles to downstream services via a transparent access token (e.g. a JWT the services
+    validate).'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P008.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-009
+  principle_id: P009
+  mode: advise
+  prompt: 'A team faces this microservice decision: Implement microservice security around three ideas:
+    authenticate clients at the API gateway (never in the individual services), pass the principal''s
+    identity…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P009: Implement microservice security around three ideas: authenticate clients
+    at the API gateway (never in the individual services), pass the principal''s identity and roles between
+    the gateway and services via a transparent….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P009.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-010
+  principle_id: P010
+  mode: advise
+  prompt: 'A team faces this microservice decision: Build a CQRS view module (a view database plus event
+    handlers, a query API, and a data-access module), choosing the datastore by its query and update patterns….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P010: Build a CQRS view module (a view database plus event handlers, a query API,
+    and a data-access module), choosing the datastore by its query and update patterns (NoSQL often fits;
+    match the store to the query kind),….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P010.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-011
+  principle_id: P011
+  mode: advise
+  prompt: 'A team faces this microservice decision: Recognize the symptoms of an outgrown monolith as
+    evidence to migrate: a complexity spiral no single developer can grasp, a slow edit-build-run-test
+    loop, long…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P011: Recognize the symptoms of an outgrown monolith as evidence to migrate: a
+    complexity spiral no single developer can grasp, a slow edit-build-run-test loop, long arduous deployments,
+    an inability to scale modules with….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P011.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-012
+  principle_id: P012
+  mode: advise
+  prompt: 'A team faces this microservice decision: Implement an API gateway either with an off-the-shelf
+    product (little effort, least flexible, usually without API composition) or by building on a…. What
+    do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P012: Implement an API gateway either with an off-the-shelf product (little effort,
+    least flexible, usually without API composition) or by building on a purpose-built gateway framework
+    (solving routing-rule definition and….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P012.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-013
+  principle_id: P013
+  mode: advise
+  prompt: 'A team faces this microservice decision: Prefer unit tests over running the whole service for
+    small units, choosing the unit-test type by class role (solitary tests that mock dependencies for
+    domain…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P013: Prefer unit tests over running the whole service for small units, choosing
+    the unit-test type by class role (solitary tests that mock dependencies for domain services, controllers,
+    and message gateways; sociable tests….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P013.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-014
+  principle_id: P014
+  mode: advise
+  prompt: 'A team faces this microservice decision: Apply the documented saga isolation countermeasures
+    according to the anomaly and business risk: semantic lock (a *_PENDING flag cleared by a retriable
+    or…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P014: Apply the documented saga isolation countermeasures according to the anomaly
+    and business risk: semantic lock (a *_PENDING flag cleared by a retriable or compensating transaction,
+    with locked records handled by….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P014.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-015
+  principle_id: P015
+  mode: advise
+  prompt: 'A team faces this microservice decision: Integrate orchestration-based sagas with event sourcing
+    by creating the orchestrator from an event handler on the aggregate''s creation event (deriving the
+    saga…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P015: Integrate orchestration-based sagas with event sourcing by creating the orchestrator
+    from an event handler on the aggregate''s creation event (deriving the saga id from a unique event
+    attribute for deduplication), making….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P015.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-016
+  principle_id: P016
+  mode: advise
+  prompt: 'A team faces this microservice decision: Maximize availability by minimizing synchronous inter-service
+    communication, because a system operation''s availability is the product of the availabilities of….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P016: Maximize availability by minimizing synchronous inter-service communication,
+    because a system operation''s availability is the product of the availabilities of all services it
+    synchronously invokes; a service can keep a….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P016.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-017
+  principle_id: P017
+  mode: advise
+  prompt: 'A team faces this microservice decision: Because a microservice architecture''s testing complexity
+    lies in the interactions (each a contract), do not verify interactions with end-to-end tests; use….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P017: Because a microservice architecture''s testing complexity lies in the interactions
+    (each a contract), do not verify interactions with end-to-end tests; use consumer-driven contract
+    testing, where the consumer writes….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P017.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-018
+  principle_id: P018
+  mode: advise
+  prompt: 'A team faces this microservice decision: Document an architectural decision as a pattern that
+    captures its context and forces (which can conflict), its resulting benefits, drawbacks, and newly….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P018: Document an architectural decision as a pattern that captures its context
+    and forces (which can conflict), its resulting benefits, drawbacks, and newly introduced issues, and
+    its related patterns….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P018.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-019
+  principle_id: P019
+  mode: advise
+  prompt: 'A team faces this microservice decision: Design an application''s external API for its diverse
+    clients rather than letting external clients invoke services directly, because fine-grained service
+    APIs…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P019: Design an application''s external API for its diverse clients rather than
+    letting external clients invoke services directly, because fine-grained service APIs force chatty,
+    battery-draining, high-latency interactions,….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P019.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-020
+  principle_id: P020
+  mode: advise
+  prompt: 'A team faces this microservice decision: Verify a whole service with the Service Component
+    Test pattern, a black-box acceptance test in isolation that stubs the service''s dependencies (and
+    may use…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P020: Verify a whole service with the Service Component Test pattern, a black-box
+    acceptance test in isolation that stubs the service''s dependencies (and may use in-memory infrastructure),
+    written as executable….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P020.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-021
+  principle_id: P021
+  mode: advise
+  prompt: 'A team faces this microservice decision: Run containers on Kubernetes, which pools machines
+    and provides resource management, scheduling, and service management; model each microservice with
+    the…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P021: Run containers on Kubernetes, which pools machines and provides resource
+    management, scheduling, and service management; model each microservice with the developer objects
+    (a Pod as the deployment unit, a Deployment as….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P021.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-022
+  principle_id: P022
+  mode: advise
+  prompt: 'A team faces this microservice decision: Strangle the monolith with three strategies: implement
+    new features as services (stop digging, which halts the monolith''s growth and quickly shows value,….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P022: Strangle the monolith with three strategies: implement new features as services
+    (stop digging, which halts the monolith''s growth and quickly shows value, integrated via the API
+    gateway and integration glue and falling….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P022.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-023
+  principle_id: P023
+  mode: advise
+  prompt: 'A team faces this microservice decision: Anticipate and address the four obstacles to decomposition:
+    reduce network round-trips with a batch API or by combining services; prefer asynchronous messaging….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P023: Anticipate and address the four obstacles to decomposition: reduce network
+    round-trips with a batch API or by combining services; prefer asynchronous messaging where synchronous
+    calls would reduce availability; keep any….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P023.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-024
+  principle_id: P024
+  mode: advise
+  prompt: 'A team faces this microservice decision: Use CQRS (event-maintained read-only view databases)
+    when API composition would require expensive in-memory joins, the owning service''s store cannot….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P024: Use CQRS (event-maintained read-only view databases) when API composition
+    would require expensive in-memory joins, the owning service''s store cannot efficiently support the
+    query, or separation of concerns means the….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P024.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-025
+  principle_id: P025
+  mode: advise
+  prompt: 'A team faces this microservice decision: Model asynchronous messaging as senders and receivers
+    exchanging messages (a document, a command, or an event, each with a header and body) over channels,….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P025: Model asynchronous messaging as senders and receivers exchanging messages
+    (a document, a command, or an event, each with a header and body) over channels, using point-to-point
+    channels for one-to-one interactions such….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P025.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-026
+  principle_id: P026
+  mode: advise
+  prompt: 'A team faces this microservice decision: Because unit tests verify only in-memory logic (not
+    persistence, message format/channel, or another service''s event structure), also write integration
+    tests…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P026: Because unit tests verify only in-memory logic (not persistence, message
+    format/channel, or another service''s event structure), also write integration tests that verify a
+    service''s interactions with infrastructure and….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P026.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-027
+  principle_id: P027
+  mode: advise
+  prompt: 'A team faces this microservice decision: Write persistence integration tests that exercise
+    the real database (run in Docker, not mocked) for a service''s database-access logic, and test each….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P027: Write persistence integration tests that exercise the real database (run
+    in Docker, not mocked) for a service''s database-access logic, and test each interservice interaction
+    style with consumer-driven contracts: an HTTP….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P027.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-028
+  principle_id: P028
+  mode: advise
+  prompt: 'A team faces this microservice decision: When using synchronous remote procedure invocation,
+    understand REST (resources manipulated with HTTP verbs, the Richardson maturity model, and its trade-offs:….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P028: When using synchronous remote procedure invocation, understand REST (resources
+    manipulated with HTTP verbs, the Richardson maturity model, and its trade-offs: request/response only,
+    reduced availability, and a need for….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P028.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-029
+  principle_id: P029
+  mode: advise
+  prompt: 'A team faces this microservice decision: Migrate a monolith incrementally with the Strangler
+    Application pattern (build services around the monolith so it shrinks over time) rather than a risky….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P029: Migrate a monolith incrementally with the Strangler Application pattern (build
+    services around the monolith so it shrinks over time) rather than a risky big-bang rewrite, and only
+    migrate to solve a real business….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P029.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-030
+  principle_id: P030
+  mode: advise
+  prompt: 'A team faces this microservice decision: Understand an application''s architecture as its decomposition
+    into software elements and the relations among them, which determines its quality attributes (the….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P030: Understand an application''s architecture as its decomposition into software
+    elements and the relations among them, which determines its quality attributes (the -ilities), and
+    describe it multidimensionally with the 4+1….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P030.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-031
+  principle_id: P031
+  mode: advise
+  prompt: The application is large and complex. Which microservice pattern(s) apply, and what are the
+    trade-offs?
+  expected_behaviour:
+  - 'Applies principle P031: Adopt microservices for their benefits on a large, complex application: enabling
+    continuous delivery/deployment, small maintainable and independently deployable services, independent
+    scaling on suitable hardware, better….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P031.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-032
+  principle_id: P032
+  mode: advise
+  prompt: 'A team faces this microservice decision: Build services on a microservice chassis that handles
+    cross-cutting concerns (externalized configuration, health checks, metrics, service discovery, circuit….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P032: Build services on a microservice chassis that handles cross-cutting concerns
+    (externalized configuration, health checks, metrics, service discovery, circuit breakers, tracing,
+    logging, exception tracking) while….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P032.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-033
+  principle_id: P033
+  mode: advise
+  prompt: 'A team faces this microservice decision: Understand the monolithic and microservice architectures
+    as implementation-view styles (one deployable component versus many service components connected by….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P033: Understand the monolithic and microservice architectures as implementation-view
+    styles (one deployable component versus many service components connected by IPC), where a service
+    is a standalone, independently….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P033.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-034
+  principle_id: P034
+  mode: advise
+  prompt: 'A team faces this microservice decision: Structure CQRS as a command side (create/update/delete
+    that publishes domain events) and a query side (queries only, synchronized by subscribing to those….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P034: Structure CQRS as a command side (create/update/delete that publishes domain
+    events) and a query side (queries only, synchronized by subscribing to those events), optionally as
+    query-only services for multi-service or….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P034.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-035
+  principle_id: P035
+  mode: advise
+  prompt: 'A team faces this microservice decision: Have an aggregate publish a domain event (named with
+    a past-participle verb and carrying the relevant data plus metadata such as event id, timestamp, and….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P035: Have an aggregate publish a domain event (named with a past-participle verb
+    and carrying the relevant data plus metadata such as event id, timestamp, and acting user) whenever
+    it is created or significantly changes,….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P035.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-036
+  principle_id: P036
+  mode: advise
+  prompt: 'A team faces this microservice decision: Coordinate a saga with choreography (participants
+    exchange events with no central coordinator) or orchestration (a central orchestrator sends command….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P036: Coordinate a saga with choreography (participants exchange events with no
+    central coordinator) or orchestration (a central orchestrator sends command messages), and use orchestration
+    modeled as a state machine for all….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P036.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-037
+  principle_id: P037
+  mode: advise
+  prompt: 'A team faces this microservice decision: Implement a saga as a persisted state machine driven
+    by a framework: start it within one transaction that creates and persists the entity, its domain events,….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P037: Implement a saga as a persisted state machine driven by a framework: start
+    it within one transaction that creates and persists the entity, its domain events, and the orchestrator;
+    define each step declaratively with its….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P037.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-038
+  principle_id: P038
+  mode: advise
+  prompt: 'A team faces this microservice decision: Structure a service''s business logic as aggregates
+    (the bulk of the logic), domain services (entry points invoked by inbound adapters), sagas (for….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P038: Structure a service''s business logic as aggregates (the bulk of the logic),
+    domain services (entry points invoked by inbound adapters), sagas (for cross-service consistency),
+    and repositories (outbound adapters); this….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P038.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-039
+  principle_id: P039
+  mode: advise
+  prompt: 'A team faces this microservice decision: Adopt event sourcing to overcome traditional persistence''s
+    limitations (object-relational impedance mismatch, lost aggregate history, error-prone audit…. What
+    do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P039: Adopt event sourcing to overcome traditional persistence''s limitations (object-relational
+    impedance mismatch, lost aggregate history, error-prone audit logging, and bolted-on event publishing)
+    by persisting each….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P039.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-040
+  principle_id: P040
+  mode: advise
+  prompt: 'A team faces this microservice decision: When event sourcing, emit an event for every state
+    change including creation, make each event carry all data needed to perform its transition, and split
+    each…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P040: When event sourcing, emit an event for every state change including creation,
+    make each event carry all data needed to perform its transition, and split each command method into
+    a process() that validates and returns….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P040.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-041
+  principle_id: P041
+  mode: advise
+  prompt: 'A team faces this microservice decision: For a gateway that must serve diverse clients, consider
+    a graph-based API such as GraphQL whose typed schema and resolver functions let a client fetch exactly….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P041: For a gateway that must serve diverse clients, consider a graph-based API
+    such as GraphQL whose typed schema and resolver functions let a client fetch exactly the data it needs
+    in one round-trip (the engine performs API….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P041.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-042
+  principle_id: P042
+  mode: advise
+  prompt: 'A team faces this microservice decision: Understand the anatomy of a test: it verifies a System
+    Under Test (from a single class up to the whole application) in four phases (setup, exercise, verify,….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P042: Understand the anatomy of a test: it verifies a System Under Test (from a
+    single class up to the whole application) in four phases (setup, exercise, verify, teardown), isolates
+    the SUT with test doubles (a stub returns….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P042.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-043
+  principle_id: P043
+  mode: advise
+  prompt: 'A team faces this microservice decision: Use a service mesh (a control plane plus per-instance
+    sidecar proxies via the Sidecar pattern, e.g. Istio''s Pilot/Mixer and Envoy) to move network concerns
+    out…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P043: Use a service mesh (a control plane plus per-instance sidecar proxies via
+    the Sidecar pattern, e.g. Istio''s Pilot/Mixer and Envoy) to move network concerns out of services
+    and, through declarative rule-based routing….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P043.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-044
+  principle_id: P044
+  mode: advise
+  prompt: 'A team faces this microservice decision: Extract a business capability as a vertical slice,
+    splitting the domain model by replacing cross-service object references with the referenced aggregate''s….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P044: Extract a business capability as a vertical slice, splitting the domain model
+    by replacing cross-service object references with the referenced aggregate''s primary key (having
+    the service hold a local replica to limit….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P044.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-045
+  principle_id: P045
+  mode: advise
+  prompt: 'A team faces this microservice decision: Design the integration glue between a service and
+    the monolith by interaction type (a repository interface for queries, a service interface for operations),….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P045: Design the integration glue between a service and the monolith by interaction
+    type (a repository interface for queries, a service interface for operations), using a query API or
+    an event-maintained replica for….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P045.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-046
+  principle_id: P046
+  mode: advise
+  prompt: 'A team faces this microservice decision: Understand serverless deployment (e.g. AWS Lambda):
+    stateless functions the cloud runs on demand (no idle resources or OS/runtime to administer, billed
+    per…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P046: Understand serverless deployment (e.g. AWS Lambda): stateless functions the
+    cloud runs on demand (no idle resources or OS/runtime to administer, billed per request) invoked by
+    an HTTP request, a cloud event, a schedule,….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P046.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-047
+  principle_id: P047
+  mode: advise
+  prompt: 'A team faces this microservice decision: Because a saga is ACD (it lacks isolation) and each
+    local transaction commits immediately, undo a failed saga with explicit compensating transactions
+    executed…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P047: Because a saga is ACD (it lacks isolation) and each local transaction commits
+    immediately, undo a failed saga with explicit compensating transactions executed in reverse order,
+    classifying steps as compensatable, a….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P047.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-048
+  principle_id: P048
+  mode: advise
+  prompt: 'A team faces this microservice decision: Enforce the three aggregate rules: treat the aggregate
+    as a consistency boundary updated only through its root (which enforces invariants, with concurrency….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P048: Enforce the three aggregate rules: treat the aggregate as a consistency boundary
+    updated only through its root (which enforces invariants, with concurrency handled by locking the
+    root); reference other aggregates by….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P048.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-049
+  principle_id: P049
+  mode: advise
+  prompt: 'A team faces this microservice decision: Rely on automated testing rather than manual testing,
+    because manual testing is inefficient and happens too late while automated tests give fast feedback
+    and…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P049: Rely on automated testing rather than manual testing, because manual testing
+    is inefficient and happens too late while automated tests give fast feedback and force a testable
+    application (skipping them is the fast track….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P049.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-050
+  principle_id: P050
+  mode: advise
+  prompt: 'A team faces this microservice decision: Treat deployment as both a process (an automated pipeline
+    with the DevOps team owning deployment) and an architecture, managing production machines as…. What
+    do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P050: Treat deployment as both a process (an automated pipeline with the DevOps
+    team owning deployment) and an architecture, managing production machines as immutable, disposable
+    cattle rather than hand-tended pets because….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P050.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-051
+  principle_id: P051
+  mode: advise
+  prompt: 'A team faces this microservice decision: Prefer deploying services as containers (OS-level
+    sandboxes with their own IP and filesystem and constrained resources, keeping the VM-like encapsulation
+    and…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P051: Prefer deploying services as containers (OS-level sandboxes with their own
+    IP and filesystem and constrained resources, keeping the VM-like encapsulation and isolation but lightweight
+    and fast-starting): build an image….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P051.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-052
+  principle_id: P052
+  mode: advise
+  prompt: 'A team faces this microservice decision: Provide each client type its own client-specific API
+    through the gateway instead of one one-size-fits-all API, and prefer the Backends for Frontends pattern
+    (a…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P052: Provide each client type its own client-specific API through the gateway
+    instead of one one-size-fits-all API, and prefer the Backends for Frontends pattern (a gateway per
+    client type owned by that client team, with an….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P052.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-053
+  principle_id: P053
+  mode: advise
+  prompt: 'A team faces this microservice decision: Use the scale cube to reason about scaling: X-axis
+    clones instances behind a load balancer and Z-axis partitions by a request attribute (both improving….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P053: Use the scale cube to reason about scaling: X-axis clones instances behind
+    a load balancer and Z-axis partitions by a request attribute (both improving capacity/availability),
+    while only Y-axis functional decomposition….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P053.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-054
+  principle_id: P054
+  mode: advise
+  prompt: 'A team faces this microservice decision: Account for the costs of microservices before and
+    during adoption: there is no mechanical decomposition algorithm (a wrong split yields a distributed….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P054: Account for the costs of microservices before and during adoption: there
+    is no mechanical decomposition algorithm (a wrong split yields a distributed monolith), a distributed
+    system adds IPC and partial-failure….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P054.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-055
+  principle_id: P055
+  mode: advise
+  prompt: 'A team faces this microservice decision: Prefer the hexagonal architecture over the layered/three-tier
+    style for a service: place the business logic at the center behind inbound and outbound ports and….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P055: Prefer the hexagonal architecture over the layered/three-tier style for a
+    service: place the business logic at the center behind inbound and outbound ports and adapters so
+    the business logic depends on nothing and can….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P055.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-056
+  principle_id: P056
+  mode: advise
+  prompt: 'A team faces this microservice decision: Apply domain-driven design with a ubiquitous language
+    and multiple bounded-context domain models (rejecting a single enterprise-wide model), decomposing
+    by…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P056: Apply domain-driven design with a ubiquitous language and multiple bounded-context
+    domain models (rejecting a single enterprise-wide model), decomposing by subdomain so each bounded
+    context becomes a service, which….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P056.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-057
+  principle_id: P057
+  mode: advise
+  prompt: 'A team faces this microservice decision: Manage API evolution deliberately with semantic versioning:
+    prefer backward-compatible additive changes and follow the Robustness principle (default missing….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P057: Manage API evolution deliberately with semantic versioning: prefer backward-compatible
+    additive changes and follow the Robustness principle (default missing request attributes, ignore unknown
+    response attributes), and….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P057.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-058
+  principle_id: P058
+  mode: advise
+  prompt: 'A team faces this microservice decision: Generate domain events inside the aggregate (returning
+    or accumulating them) but publish them from the service (which can inject the publisher), never having….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P058: Generate domain events inside the aggregate (returning or accumulating them)
+    but publish them from the service (which can inject the publisher), never having the aggregate call
+    the messaging API directly, and publish….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P058.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-059
+  principle_id: P059
+  mode: advise
+  prompt: 'A team faces this microservice decision: Prefer a broker-based messaging architecture over
+    a brokerless one, selecting a broker by evaluating language support, standards, message ordering,
+    delivery…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P059: Prefer a broker-based messaging architecture over a brokerless one, selecting
+    a broker by evaluating language support, standards, message ordering, delivery guarantees, persistence,
+    durability, scalability, latency, and….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P059.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-060
+  principle_id: P060
+  mode: advise
+  prompt: 'A team faces this microservice decision: In a choreography-based saga, have each participant
+    update its database and publish its triggering event atomically via transactional messaging and map
+    each…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P060: In a choreography-based saga, have each participant update its database and
+    publish its triggering event atomically via transactional messaging and map each received event back
+    to its own data with a correlation id,….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P060.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-061
+  principle_id: P061
+  mode: advise
+  prompt: 'A team faces this microservice decision: To publish domain events from a monolith, either insert
+    event-publishing calls at each entity change (precise but hard to locate and impossible for stored….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P061: To publish domain events from a monolith, either insert event-publishing
+    calls at each entity change (precise but hard to locate and impossible for stored procedures) or tail
+    the transaction log (no monolith change but….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P061.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-062
+  principle_id: P062
+  mode: advise
+  prompt: 'A team faces this microservice decision: Prefer the object-oriented Domain Model pattern over
+    procedural Transaction Scripts unless the business logic is very simple, because it is easier to….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P062: Prefer the object-oriented Domain Model pattern over procedural Transaction
+    Scripts unless the business logic is very simple, because it is easier to understand, test, and extend,
+    and build the model from DDD''s tactical….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P062.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-063
+  principle_id: P063
+  mode: advise
+  prompt: 'A team faces this microservice decision: Give each business object an explicit aggregate boundary
+    with a root, because fuzzy boundaries let concurrent partial updates jointly violate an invariant;
+    an…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P063: Give each business object an explicit aggregate boundary with a root, because
+    fuzzy boundaries let concurrent partial updates jointly violate an invariant; an aggregate is a cluster
+    of objects loaded, updated, and….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P063.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-064
+  principle_id: P064
+  mode: advise
+  prompt: 'A team faces this microservice decision: Query an event-sourced store via the CQRS pattern,
+    because state is folded from events rather than stored in a queryable column and NoSQL event stores
+    support…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P064: Query an event-sourced store via the CQRS pattern, because state is folded
+    from events rather than stored in a queryable column and NoSQL event stores support only primary-key
+    lookup; an event store is a hybrid of a….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P064.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-065
+  principle_id: P065
+  mode: advise
+  prompt: 'A team faces this microservice decision: Supply configuration to a service at runtime via the
+    Externalized Configuration pattern (build the service once and deploy it to many environments) rather
+    than…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P065: Supply configuration to a service at runtime via the Externalized Configuration
+    pattern (build the service once and deploy it to many environments) rather than hard-wiring it or
+    baking config profiles into source, using….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P065.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-066
+  principle_id: P066
+  mode: advise
+  prompt: 'A team faces this microservice decision: Apply distributed tracing: assign each external request
+    a unique id and record its span tree across services in a central tracing server (e.g. Zipkin) via
+    a…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P066: Apply distributed tracing: assign each external request a unique id and record
+    its span tree across services in a central tracing server (e.g. Zipkin) via a per-service instrumentation
+    library that propagates trace….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P066.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-067
+  principle_id: P067
+  mode: advise
+  prompt: 'A team faces this microservice decision: Roll out new versions reliably by separating deployment
+    from release: Kubernetes performs zero-downtime rolling upgrades (new pods must pass their readiness….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P067: Roll out new versions reliably by separating deployment from release: Kubernetes
+    performs zero-downtime rolling upgrades (new pods must pass their readiness probe before old pods
+    are removed, and you roll back if they….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P067.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-068
+  principle_id: P068
+  mode: advise
+  prompt: 'A team faces this microservice decision: Have the monolith drive an extracted capability through
+    a coarse-grained, remotable interface (preferably a notification-based API so the service needs no….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P068: Have the monolith drive an extracted capability through a coarse-grained,
+    remotable interface (preferably a notification-based API so the service needs no knowledge of the
+    caller''s entity lifecycle), refactoring every….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P068.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-069
+  principle_id: P069
+  mode: advise
+  prompt: 'A team faces this microservice decision: Describe and evaluate any architectural solution in
+    the pattern format: state its drawbacks and the issues it introduces, not only its benefits, because….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P069: Describe and evaluate any architectural solution in the pattern format: state
+    its drawbacks and the issues it introduces, not only its benefits, because objectively weighing trade-offs
+    leads to better decisions.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P069.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-070
+  principle_id: P070
+  mode: advise
+  prompt: 'A team faces this microservice decision: Account for the saga''s lack of isolation: because
+    it is ACD, concurrent sagas can cause lost updates, dirty reads, and fuzzy/nonrepeatable reads, and
+    it is the…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P070: Account for the saga''s lack of isolation: because it is ACD, concurrent
+    sagas can cause lost updates, dirty reads, and fuzzy/nonrepeatable reads, and it is the developer''s
+    responsibility to prevent these anomalies or….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P070.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-071
+  principle_id: P071
+  mode: advise
+  prompt: 'A team faces this microservice decision: For an operation that requires a saga, first move
+    the aggregate to a *_PENDING state (a semantic lock), group the aggregate''s methods per saga (a start
+    method…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P071: For an operation that requires a saga, first move the aggregate to a *_PENDING
+    state (a semantic lock), group the aggregate''s methods per saga (a start method moves it to pending,
+    end methods confirm or reject), and….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P071.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-072
+  principle_id: P072
+  mode: advise
+  prompt: 'A team faces this microservice decision: Keep services loosely coupled: have all interaction
+    go through a service''s API (never through a shared database), treat its persistent data as private,
+    and let…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P072: Keep services loosely coupled: have all interaction go through a service''s
+    API (never through a shared database), treat its persistent data as private, and let each service
+    use its own technology stack (typically a….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P072.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-073
+  principle_id: P073
+  mode: advise
+  prompt: 'A team faces this microservice decision: Model each service''s aggregate as its own bounded-context
+    view of a shared business object (reusing an id supplied by the owning service) and as an explicit….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P073: Model each service''s aggregate as its own bounded-context view of a shared
+    business object (reusing an id supplied by the owning service) and as an explicit state machine whose
+    state-changing methods validate the….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P073.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-074
+  principle_id: P074
+  mode: advise
+  prompt: 'A team faces this microservice decision: Use event sourcing as a reliable event publisher (saving
+    an event is atomic), delivering persisted events by transaction log tailing (guaranteed and scalable)….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P074: Use event sourcing as a reliable event publisher (saving an event is atomic),
+    delivering persisted events by transaction log tailing (guaranteed and scalable) or by polling with
+    a PUBLISHED flag, because naive polling….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P074.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-075
+  principle_id: P075
+  mode: advise
+  prompt: 'A team faces this microservice decision: Make event-sourced message processing idempotent by
+    recording the processed message id (in a PROCESSED_MESSAGES table for an RDBMS store, or in the generated….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P075: Make event-sourced message processing idempotent by recording the processed
+    message id (in a PROCESSED_MESSAGES table for an RDBMS store, or in the generated events for a NoSQL
+    store) and always emitting an event (a….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P075.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-076
+  principle_id: P076
+  mode: advise
+  prompt: 'A team faces this microservice decision: Apply application metrics: instrument the service
+    to collect behavioral metrics (each a name, numeric value, and timestamp with optional dimensions)
+    and expose…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P076: Apply application metrics: instrument the service to collect behavioral metrics
+    (each a name, numeric value, and timestamp with optional dimensions) and expose them, along with JVM
+    and framework metrics, to a central….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P076.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-077
+  principle_id: P077
+  mode: advise
+  prompt: 'A team faces this microservice decision: Apply exception tracking by reporting exceptions to
+    a central service (via its client library) that de-duplicates them, alerts, and tracks resolution
+    (better…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P077: Apply exception tracking by reporting exceptions to a central service (via
+    its client library) that de-duplicates them, alerts, and tracks resolution (better than scraping line-oriented
+    logs), and apply audit logging by….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P077.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-078
+  principle_id: P078
+  mode: advise
+  prompt: 'A team faces this microservice decision: Keep a third-party API stable and version-managed
+    (often maintained indefinitely) behind a separate public API built by a separate team, and place an
+    API…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P078: Keep a third-party API stable and version-managed (often maintained indefinitely)
+    behind a separate public API built by a separate team, and place an API gateway as the single entry
+    point from outside the firewall: a….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P078.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-079
+  principle_id: P079
+  mode: advise
+  prompt: The application is still small and simple. Which microservice pattern(s) apply, and what are
+    the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P079: Choose the monolithic architecture for a small, simple application, where
+    it is a sound default that is simple to develop, test, deploy, and scale behind a load balancer.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P079.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-080
+  principle_id: P080
+  mode: advise
+  prompt: 'A team faces this microservice decision: Sustain a migration by demonstrating value early and
+    often (refactoring high-value, constantly evolving areas first with a modern stack and DevOps process),….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P080: Sustain a migration by demonstrating value early and often (refactoring high-value,
+    constantly evolving areas first with a modern stack and DevOps process), avoiding widespread changes
+    to the monolith, and investing….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P080.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-081
+  principle_id: P081
+  mode: advise
+  prompt: 'A team faces this microservice decision: Define a service by a focused, cohesive set of responsibilities
+    (functional decomposition), not by size metrics such as lines of code or development time. What do
+    you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P081: Define a service by a focused, cohesive set of responsibilities (functional
+    decomposition), not by size metrics such as lines of code or development time.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P081.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-082
+  principle_id: P082
+  mode: advise
+  prompt: 'A team faces this microservice decision: Structure the engineering organization as a team of
+    teams, each small (roughly 8-12 people), cross-functional, and owning a business capability''s service(s),….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P082: Structure the engineering organization as a team of teams, each small (roughly
+    8-12 people), cross-functional, and owning a business capability''s service(s), applying the reverse
+    Conway maneuver so the org structure….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P082.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-083
+  principle_id: P083
+  mode: advise
+  prompt: 'A team faces this microservice decision: Model system operations as technology-agnostic commands
+    and queries against an abstract high-level domain model derived from the nouns of user stories (the….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P083: Model system operations as technology-agnostic commands and queries against
+    an abstract high-level domain model derived from the nouns of user stories (the model) and their verbs
+    (the operations), and specify each….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P083.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-084
+  principle_id: P084
+  mode: advise
+  prompt: 'A team faces this microservice decision: Apply the Decompose by business capability pattern
+    for a relatively stable architecture, because capabilities capture what the business does (which is
+    stable)…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P084: Apply the Decompose by business capability pattern for a relatively stable
+    architecture, because capabilities capture what the business does (which is stable) rather than how
+    it does it (which changes), and are found by….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P084.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-085
+  principle_id: P085
+  mode: advise
+  prompt: 'A team faces this microservice decision: Eliminate god classes by giving each service its own
+    subdomain domain model with its own version of a shared entity and maintaining consistency between
+    them…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P085: Eliminate god classes by giving each service its own subdomain domain model
+    with its own version of a shared entity and maintaining consistency between them via sagas, avoiding
+    the bad alternatives of a shared library….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P085.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-086
+  principle_id: P086
+  mode: advise
+  prompt: 'A team faces this microservice decision: Choose the client-service interaction style before
+    selecting an IPC technology, understanding the two-dimensional taxonomy (one-to-one vs one-to-many,….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P086: Choose the client-service interaction style before selecting an IPC technology,
+    understanding the two-dimensional taxonomy (one-to-one vs one-to-many, synchronous vs asynchronous)
+    and that a blocking request/response is….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P086.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-087
+  principle_id: P087
+  mode: advise
+  prompt: 'A team faces this microservice decision: Treat a service''s API as a contract and precisely
+    define it with an interface definition language regardless of IPC mechanism, using API-first design
+    (write…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P087: Treat a service''s API as a contract and precisely define it with an interface
+    definition language regardless of IPC mechanism, using API-first design (write and review the interface
+    with client developers, then….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P087.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-088
+  principle_id: P088
+  mode: advise
+  prompt: 'A team faces this microservice decision: Use a cross-language message format and avoid language-specific
+    serialization, choosing between text formats (JSON/XML: human-readable, self-describing, easy…. What
+    do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P088: Use a cross-language message format and avoid language-specific serialization,
+    choosing between text formats (JSON/XML: human-readable, self-describing, easy to evolve, but verbose)
+    and binary formats (Protocol….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P088.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-089
+  principle_id: P089
+  mode: advise
+  prompt: 'A team faces this microservice decision: Because message brokers usually guarantee only at-least-once
+    delivery, design consumers to handle duplicate messages, either by writing idempotent message…. What
+    do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P089: Because message brokers usually guarantee only at-least-once delivery, design
+    consumers to handle duplicate messages, either by writing idempotent message handlers or by tracking
+    and discarding duplicates, recording….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P089.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-090
+  principle_id: P090
+  mode: advise
+  prompt: 'A team faces this microservice decision: Weigh event sourcing''s benefits (reliable event publishing,
+    an accurate full-history audit log enabling temporal queries, mostly avoiding the object-relational….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P090: Weigh event sourcing''s benefits (reliable event publishing, an accurate
+    full-history audit log enabling temporal queries, mostly avoiding the object-relational impedance
+    mismatch, and a time machine for unanticipated….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P090.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-091
+  principle_id: P091
+  mode: advise
+  prompt: 'A team faces this microservice decision: Apply log aggregation: have each service log to stdout
+    (containers and serverless may have no permanent filesystem) and let the infrastructure ship all….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P091: Apply log aggregation: have each service log to stdout (containers and serverless
+    may have no permanent filesystem) and let the infrastructure ship all instances'' logs to a centralized,
+    searchable, alertable store (e.g.….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P091.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-092
+  principle_id: P092
+  mode: advise
+  prompt: 'A team faces this microservice decision: Extract a service by identifying the capability''s
+    entities and fields (noting which are shared), moving only the data the service owns while leaving
+    shared…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P092: Extract a service by identifying the capability''s entities and fields (noting
+    which are shared), moving only the data the service owns while leaving shared fields in the monolith
+    to minimize change, and copying and….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P092.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-093
+  principle_id: P093
+  mode: advise
+  prompt: 'A team faces this microservice decision: Deploy services as VMs (each a black-box image encapsulating
+    the technology stack, fully isolated, on mature auto-scaling cloud infrastructure) while accepting….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P093: Deploy services as VMs (each a black-box image encapsulating the technology
+    stack, fully isolated, on mature auto-scaling cloud infrastructure) while accepting the drawbacks
+    of less efficient resource use, relatively….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P093.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-094
+  principle_id: P094
+  mode: advise
+  prompt: Selecting or reviewing a microservice pattern. Which microservice pattern(s) apply, and what
+    are the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P094: Frame every microservice design decision within the pattern language''s three
+    groups (application, application-infrastructure, infrastructure) and treat each pattern as a motivating
+    problem with alternative or….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P094.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-095
+  principle_id: P095
+  mode: advise
+  prompt: The application is large and complex. Which microservice pattern(s) apply, and what are the
+    trade-offs?
+  expected_behaviour:
+  - 'Applies principle P095: Treat microservices as a means to fast, reliable, frequent delivery rather
+    than a goal, and understand the architecture''s benefits, drawbacks, and fit before adopting it; for
+    a large, complex application consider….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P095.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-096
+  principle_id: P096
+  mode: advise
+  prompt: Decomposing an application into services. Which microservice pattern(s) apply, and what are
+    the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P096: To split an application into services, apply Decompose by business capability
+    or Decompose by subdomain, and align the resulting boundaries to teams via Service-per-team and Self-contained
+    service.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P096.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-097
+  principle_id: P097
+  mode: advise
+  prompt: 'A team faces this microservice decision: Support microservices with a highly automated, self-service
+    deployment platform (VMs, containers, or serverless, often with orchestration such as Kubernetes)….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P097: Support microservices with a highly automated, self-service deployment platform
+    (VMs, containers, or serverless, often with orchestration such as Kubernetes) because the many moving
+    parts create significant operational….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P097.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-098
+  principle_id: P098
+  mode: advise
+  prompt: 'A team faces this microservice decision: Make the service the unit of modularity by exposing
+    an impermeable API boundary that cannot be bypassed to reach internal classes, so modularity is preserved….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P098: Make the service the unit of modularity by exposing an impermeable API boundary
+    that cannot be bypassed to reach internal classes, so modularity is preserved as the system evolves.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P098.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-099
+  principle_id: P099
+  mode: advise
+  prompt: The application is new / the priority is rapid iteration. Which microservice pattern(s) apply,
+    and what are the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P099: Begin a new application or startup as a monolith for rapid iteration, and
+    functionally decompose it into microservices later, once managing complexity (not iteration speed)
+    becomes the dominant problem.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P099.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-100
+  principle_id: P100
+  mode: advise
+  prompt: 'A team faces this microservice decision: Adopt agile practices and continuous delivery/deployment
+    (keeping software always releasable through a high level of automated testing) rather than a waterfall….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P100: Adopt agile practices and continuous delivery/deployment (keeping software
+    always releasable through a high level of automated testing) rather than a waterfall process, which
+    squanders most of the benefit of….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P100.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-101
+  principle_id: P101
+  mode: advise
+  prompt: 'A team faces this microservice decision: Size a service so it can be developed by a small team
+    with minimal lead time and minimal cross-team coordination, splitting a service that needs a large
+    team…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P101: Size a service so it can be developed by a small team with minimal lead time
+    and minimal cross-team coordination, splitting a service that needs a large team or is slow to test,
+    and treating a service that constantly….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P101.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-102
+  principle_id: P102
+  mode: advise
+  prompt: 'A team faces this microservice decision: Apply the Single Responsibility Principle and the
+    Common Closure Principle at the service level: give each service one reason to change and package
+    components…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P102: Apply the Single Responsibility Principle and the Common Closure Principle
+    at the service level: give each service one reason to change and package components that change for
+    the same reason into the same service, which….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P102.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-103
+  principle_id: P103
+  mode: advise
+  prompt: 'A team faces this microservice decision: Treat the choice of IPC mechanism (synchronous REST/gRPC
+    vs asynchronous AMQP/STOMP, text vs binary formats) as an important architectural decision affecting….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P103: Treat the choice of IPC mechanism (synchronous REST/gRPC vs asynchronous
+    AMQP/STOMP, text vs binary formats) as an important architectural decision affecting availability
+    and transaction management, and default to….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P103.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-104
+  principle_id: P104
+  mode: advise
+  prompt: 'A team faces this microservice decision: Event sourcing makes choreography-based sagas straightforward
+    (supplying messaging IPC, de-duplication, and atomic state-update-plus-publish), but because…. What
+    do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P104: Event sourcing makes choreography-based sagas straightforward (supplying
+    messaging IPC, de-duplication, and atomic state-update-plus-publish), but because using events for
+    choreography gives them a dual purpose (forcing….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P104.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-105
+  principle_id: P105
+  mode: advise
+  prompt: 'A team faces this microservice decision: For long-lived event-sourced aggregates that accumulate
+    many events, periodically persist a snapshot of the aggregate''s state (JSON for a simple aggregate,
+    the…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P105: For long-lived event-sourced aggregates that accumulate many events, periodically
+    persist a snapshot of the aggregate''s state (JSON for a simple aggregate, the Memento pattern for
+    a complex one) and restore by loading….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P105.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-106
+  principle_id: P106
+  mode: advise
+  prompt: 'A team faces this microservice decision: Handle event schema evolution with an upcaster that
+    upgrades each event to the current version when it is loaded (keeping version-handling out of the….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P106: Handle event schema evolution with an upcaster that upgrades each event to
+    the current version when it is loaded (keeping version-handling out of the aggregate), knowing that
+    additive changes (new aggregate type, event….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P106.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-107
+  principle_id: P107
+  mode: advise
+  prompt: 'A team faces this microservice decision: Weigh the API composition pattern''s drawbacks (increased
+    overhead, reduced availability that declines with the number of services, and a lack of transactional….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P107: Weigh the API composition pattern''s drawbacks (increased overhead, reduced
+    availability that declines with the number of services, and a lack of transactional consistency) and
+    improve a composer''s availability by….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P107.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-108
+  principle_id: P108
+  mode: advise
+  prompt: 'A team faces this microservice decision: Implement edge functions (authentication, authorization,
+    rate limiting, caching, metrics, request logging) at the gateway edge before requests reach the….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P108: Implement edge functions (authentication, authorization, rate limiting, caching,
+    metrics, request logging) at the gateway edge before requests reach the services (authenticate at
+    the edge for security, and prefer….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P108.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-109
+  principle_id: P109
+  mode: advise
+  prompt: 'A team faces this microservice decision: Make an API gateway reliable and a good architectural
+    citizen by running multiple instances behind a load balancer, using the circuit breaker when it invokes….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P109: Make an API gateway reliable and a good architectural citizen by running
+    multiple instances behind a load balancer, using the circuit breaker when it invokes services (an
+    outstanding call to a failed service can exhaust….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P109.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-110
+  principle_id: P110
+  mode: advise
+  prompt: 'A team faces this microservice decision: Give every service an automated deployment pipeline
+    that runs increasingly thorough test suites in increasingly production-like environments, ordered….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P110: Give every service an automated deployment pipeline that runs increasingly
+    thorough test suites in increasingly production-like environments, ordered fast-feedback-first (pre-commit
+    unit tests, a commit stage of compile….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P110.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-111
+  principle_id: P111
+  mode: advise
+  prompt: 'A team faces this microservice decision: Minimize slow, brittle end-to-end tests and write
+    the few you keep as user-journey tests that exercise a whole slice of functionality in a single test,….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P111: Minimize slow, brittle end-to-end tests and write the few you keep as user-journey
+    tests that exercise a whole slice of functionality in a single test, expressed in a business-readable
+    DSL.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P111.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-112
+  principle_id: P112
+  mode: advise
+  prompt: 'A team faces this microservice decision: When a new-feature or extracted service needs data
+    owned by the monolith, integrate via glue (a repository proxy to the monolith''s query API plus event….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P112: When a new-feature or extracted service needs data owned by the monolith,
+    integrate via glue (a repository proxy to the monolith''s query API plus event subscribers that replicate
+    its entities), and choose the query….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P112.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-113
+  principle_id: P113
+  mode: advise
+  prompt: 'A team faces this microservice decision: Plan the extraction with a short time-boxed architecture-definition
+    effort that sets a revisable target set of services, and sequence the extractions by…. What do you
+    advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P113: Plan the extraction with a short time-boxed architecture-definition effort
+    that sets a revisable target set of services, and sequence the extractions by expected benefit (a
+    planned, business-aligned ranking is more….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P113.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-114
+  principle_id: P114
+  mode: advise
+  prompt: 'A team faces this microservice decision: Define each service API operation for one of two reasons
+    (it implements an external system operation or it supports inter-service collaboration), and publish….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P114: Define each service API operation for one of two reasons (it implements an
+    external system operation or it supports inter-service collaboration), and publish events to collaborate
+    with other services (sagas, CQRS views)….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P114.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-115
+  principle_id: P115
+  mode: advise
+  prompt: 'A team faces this microservice decision: Understand the language-specific packaging pattern
+    (deploy the package onto a machine with the runtime installed; fast and resource-efficient) but avoid
+    it…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P115: Understand the language-specific packaging pattern (deploy the package onto
+    a machine with the runtime installed; fast and resource-efficient) but avoid it except when efficiency
+    outweighs all else, because it does not….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P115.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-116
+  principle_id: P116
+  mode: advise
+  prompt: 'A team faces this microservice decision: Publish domain events to a publish-subscribe channel
+    named for the domain class and subscribe each service only to the channels whose events it needs,
+    and…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P116: Publish domain events to a publish-subscribe channel named for the domain
+    class and subscribe each service only to the channels whose events it needs, and write an API specification
+    (channel names, message types, and….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P116.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-117
+  principle_id: P117
+  mode: advise
+  prompt: 'A team faces this microservice decision: Reject absolute advice to always or never use microservices;
+    the appropriateness of the architecture depends on the application''s context and many factors. What
+    do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P117: Reject absolute advice to always or never use microservices; the appropriateness
+    of the architecture depends on the application''s context and many factors.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P117.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-118
+  principle_id: P118
+  mode: advise
+  prompt: 'A team faces this microservice decision: Define an application''s microservice architecture
+    with a three-step, iterative (not mechanical) process: identify the system operations, decompose into….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P118: Define an application''s microservice architecture with a three-step, iterative
+    (not mechanical) process: identify the system operations, decompose into services, and define each
+    service''s API and collaborations.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P118.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-119
+  principle_id: P119
+  mode: advise
+  prompt: 'A team faces this microservice decision: Organize services around business concepts rather
+    than technical concepts; every sound decomposition strategy yields business-oriented services. What
+    do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P119: Organize services around business concepts rather than technical concepts;
+    every sound decomposition strategy yields business-oriented services.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P119.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-120
+  principle_id: P120
+  mode: advise
+  prompt: 'A team faces this microservice decision: Give each service its own private datastore and have
+    services communicate only through APIs, so teams can change a schema without cross-team coordination
+    and…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P120: Give each service its own private datastore and have services communicate
+    only through APIs, so teams can change a schema without cross-team coordination and services are isolated
+    at runtime (never blocked by another''s….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P120.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-121
+  principle_id: P121
+  mode: advise
+  prompt: Building a UI backed by multiple services. Which microservice pattern(s) apply, and what are
+    the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P121: Assemble a UI backed by multiple services using Server-side page fragment
+    composition or Client-side UI composition.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P121.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-122
+  principle_id: P122
+  mode: advise
+  prompt: Designing communication between services. Which microservice pattern(s) apply, and what are
+    the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P122: Choose an inter-service communication style deliberately between Remote procedure
+    invocation and Messaging.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P122.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-123
+  principle_id: P123
+  mode: advise
+  prompt: Deploying services. Which microservice pattern(s) apply, and what are the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P123: Select a service-deployment pattern from the language''s options: multiple
+    services per host, single service per host, service-per-VM, service-per-container, serverless deployment,
+    or a service deployment platform.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P123.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-124
+  principle_id: P124
+  mode: advise
+  prompt: 'A team faces this microservice decision: Choose the most lightweight deployment pattern that
+    supports a service''s requirements, evaluating serverless first, then containers (orchestrated by….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P124: Choose the most lightweight deployment pattern that supports a service''s
+    requirements, evaluating serverless first, then containers (orchestrated by Kubernetes), then virtual
+    machines, then language-specific packages….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P124.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-125
+  principle_id: P125
+  mode: advise
+  prompt: Providing an external API over multiple services. Which microservice pattern(s) apply, and what
+    are the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P125: Expose services to external clients through an API gateway or Backends for
+    frontends.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P125.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-126
+  principle_id: P126
+  mode: advise
+  prompt: 'A team faces this microservice decision: Evaluate an architecture by its effect on quality-of-service
+    (nonfunctional) attributes rather than by features, since any architecture can implement a given….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P126: Evaluate an architecture by its effect on quality-of-service (nonfunctional)
+    attributes rather than by features, since any architecture can implement a given set of use cases.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P126.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-127
+  principle_id: P127
+  mode: advise
+  prompt: 'A team faces this microservice decision: Make a service production-ready by satisfying three
+    quality attributes beyond its functional requirements: security, configurability, and observability.
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P127: Make a service production-ready by satisfying three quality attributes beyond
+    its functional requirements: security, configurability, and observability.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P127.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-128
+  principle_id: P128
+  mode: advise
+  prompt: 'A team faces this microservice decision: Achieve rapid, frequent, reliable delivery of a large
+    complex application by combining DevOps (continuous delivery/deployment), small autonomous…. What
+    do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P128: Achieve rapid, frequent, reliable delivery of a large complex application
+    by combining DevOps (continuous delivery/deployment), small autonomous cross-functional teams, and
+    the microservice architecture; the….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P128.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-129
+  principle_id: P129
+  mode: advise
+  prompt: 'A team faces this microservice decision: Adopt microservices primarily to improve development-time
+    attributes (maintainability, testability, deployability) so an organization can build better software….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P129: Adopt microservices primarily to improve development-time attributes (maintainability,
+    testability, deployability) so an organization can build better software faster; treat improved scalability
+    as a secondary benefit,….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P129.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-130
+  principle_id: P130
+  mode: advise
+  prompt: 'A team faces this microservice decision: Assess software delivery performance with four metrics:
+    deployment frequency, lead time, mean time to recover, and change failure rate. What do you advise,
+    and why?'
+  expected_behaviour:
+  - 'Applies principle P130: Assess software delivery performance with four metrics: deployment frequency,
+    lead time, mean time to recover, and change failure rate.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P130.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-131
+  principle_id: P131
+  mode: advise
+  prompt: 'A team faces this microservice decision: Do not place functionality that is likely to change
+    in a shared library used by multiple services (a change would force lockstep rebuild/redeploy and….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P131: Do not place functionality that is likely to change in a shared library used
+    by multiple services (a change would force lockstep rebuild/redeploy and reintroduce coupling); implement
+    likely-to-change functionality as a….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P131.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-132
+  principle_id: P132
+  mode: advise
+  prompt: 'A team faces this microservice decision: Scale message consumers while preserving message ordering
+    by using sharded (partitioned) channels keyed by a shard key, so that all messages for a given key….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P132: Scale message consumers while preserving message ordering by using sharded
+    (partitioned) channels keyed by a shard key, so that all messages for a given key are routed to one
+    shard and processed in order by a single….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P132.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-133
+  principle_id: P133
+  mode: advise
+  prompt: 'A team faces this microservice decision: When migrating a monolith into sagas, sequence the
+    extractions so the monolith only ever executes retriable transactions, which never require a compensating….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P133: When migrating a monolith into sagas, sequence the extractions so the monolith
+    only ever executes retriable transactions, which never require a compensating transaction and thus
+    minimize changes to the hard-to-test….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P133.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-134
+  principle_id: P134
+  mode: advise
+  prompt: 'A team faces this microservice decision: Keep aggregates as fine-grained as possible, because
+    updates to each aggregate are serialized so finer aggregates raise concurrency and scalability and
+    reduce…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P134: Keep aggregates as fine-grained as possible, because updates to each aggregate
+    are serialized so finer aggregates raise concurrency and scalability and reduce conflicting-update
+    collisions, enlarging an aggregate only….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P134.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-135
+  principle_id: P135
+  mode: advise
+  prompt: 'A team faces this microservice decision: Delete data in an event-sourced system with a soft
+    delete (a deleted flag and a Deleted event), and satisfy the GDPR right-to-erasure by encrypting each
+    user''s…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P135: Delete data in an event-sourced system with a soft delete (a deleted flag
+    and a Deleted event), and satisfy the GDPR right-to-erasure by encrypting each user''s personal-data
+    events under a per-user key that is deleted….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P135.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-136
+  principle_id: P136
+  mode: advise
+  prompt: 'A team faces this microservice decision: Have an API composer invoke independent provider services
+    in parallel (only sequentially when one result feeds another) using a reactive design such as…. What
+    do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P136: Have an API composer invoke independent provider services in parallel (only
+    sequentially when one result feeds another) using a reactive design such as CompletableFuture or RxJava,
+    to minimize response time while….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P136.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-137
+  principle_id: P137
+  mode: advise
+  prompt: 'A team faces this microservice decision: Place authorization where it fits: enforce role-based
+    access to URL paths at the API gateway, but implement role-based and ACL-based authorization on….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P137: Place authorization where it fits: enforce role-based access to URL paths
+    at the API gateway, but implement role-based and ACL-based authorization on individual aggregates
+    within the owning services, because the gateway….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P137.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-138
+  principle_id: P138
+  mode: advise
+  prompt: 'A team faces this microservice decision: During migration, support the monolith''s session-based
+    security and JWT-based microservice security simultaneously with one small change: have the monolith''s….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P138: During migration, support the monolith''s session-based security and JWT-based
+    microservice security simultaneously with one small change: have the monolith''s login handler also
+    return a cookie carrying a JWT of the….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P138.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-139
+  principle_id: P139
+  mode: advise
+  prompt: Addressing cross-cutting concerns across services. Which microservice pattern(s) apply, and
+    what are the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P139: Handle cross-cutting concerns with a Microservice chassis or Service template,
+    and keep environment-specific settings in Externalised configuration.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P139.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-140
+  principle_id: P140
+  mode: advise
+  prompt: 'A team faces this microservice decision: Treat an initial service decomposition as a first
+    attempt and evolve it as you learn the domain, combining services when a split causes excessive interprocess….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P140: Treat an initial service decomposition as a first attempt and evolve it as
+    you learn the domain, combining services when a split causes excessive interprocess communication
+    and splitting a service that grows too complex.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P140.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-141
+  principle_id: P141
+  mode: advise
+  prompt: Deciding how a service owns its data. Which microservice pattern(s) apply, and what are the
+    trade-offs?
+  expected_behaviour:
+  - 'Applies principle P141: Choose a data-architecture pattern for each service''s data ownership from
+    the two alternatives the language offers: Database per service or Shared database.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P141.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-142
+  principle_id: P142
+  mode: advise
+  prompt: Propagating state changes between services. Which microservice pattern(s) apply, and what are
+    the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P142: Use Event sourcing and Domain event to persist and propagate state changes
+    as events when services must react to each other''s changes.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P142.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-143
+  principle_id: P143
+  mode: advise
+  prompt: 'A team faces this microservice decision: Deploy a feature that spans multiple services with
+    a coordinated rollout plan that orders service deployments by their dependencies, since (unlike a
+    monolith)…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P143: Deploy a feature that spans multiple services with a coordinated rollout
+    plan that orders service deployments by their dependencies, since (unlike a monolith) the components
+    cannot be deployed atomically.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P143.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-144
+  principle_id: P144
+  mode: advise
+  prompt: Managing cross-service communication infrastructure. Which microservice pattern(s) apply, and
+    what are the trade-offs?
+  expected_behaviour:
+  - 'Applies principle P144: Handle inter-service communication concerns out of process using the Sidecar
+    pattern or a Service mesh.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P144.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-145
+  principle_id: P145
+  mode: advise
+  prompt: 'A team faces this microservice decision: Distinguish microservices from SOA: dumb pipes (message
+    brokers, REST/gRPC) not smart ESB pipes, a database and domain model per service not a shared global….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P145: Distinguish microservices from SOA: dumb pipes (message brokers, REST/gRPC)
+    not smart ESB pipes, a database and domain model per service not a shared global model, and many smaller
+    services not a few large ones.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P145.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-146
+  principle_id: P146
+  mode: advise
+  prompt: 'A team faces this microservice decision: Manage the human and emotional side of adopting microservices
+    (guiding people through ending/letting-go, a confusing neutral zone, and a new beginning),…. What
+    do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P146: Manage the human and emotional side of adopting microservices (guiding people
+    through ending/letting-go, a confusing neutral zone, and a new beginning), because ignoring it makes
+    adoption a bumpy ride.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P146.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-147
+  principle_id: P147
+  mode: advise
+  prompt: 'A team faces this microservice decision: Because each service owns its own domain model, translate
+    between the user-experience model and each service''s model, a translation often performed by the
+    API…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P147: Because each service owns its own domain model, translate between the user-experience
+    model and each service''s model, a translation often performed by the API gateway.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P147.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-148
+  principle_id: P148
+  mode: advise
+  prompt: 'A team faces this microservice decision: When the service that should own a system operation
+    is not obvious, assign it to the service that needs the information the operation provides or to the….
+    What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P148: When the service that should own a system operation is not obvious, assign
+    it to the service that needs the information the operation provides or to the service that already
+    holds the information needed to handle it.'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P148.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.
+- test_id: PB-149
+  principle_id: P149
+  mode: advise
+  prompt: 'A team faces this microservice decision: Use a higher-level messaging library or framework
+    rather than a broker''s low-level client library, to keep business logic decoupled from broker APIs
+    and to…. What do you advise, and why?'
+  expected_behaviour:
+  - 'Applies principle P149: Use a higher-level messaging library or framework rather than a broker''s
+    low-level client library, to keep business logic decoupled from broker APIs and to gain higher-level
+    interaction styles such as asynchronous….'
+  - Names the applicable pattern(s) from the microservices pattern language and states the forces resolved
+    AND the drawbacks, not a bare name.
+  - Ties the recommendation to the caller's stated forces rather than asserting it universally.
+  - Cites P149.
+  must_not:
+  - Give a bare pattern name with no forces or drawbacks.
+  - Invent a pattern that is not part of the microservices pattern language.
+  - Prescribe a specific product, vendor, or framework as the answer.

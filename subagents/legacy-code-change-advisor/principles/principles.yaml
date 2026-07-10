@@ -1,0 +1,2269 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: 'Find a class''s hidden responsibilities with heuristics: group methods
+    by similar name and access, treat many private or protected methods as another
+    class dying to get out (a private method you want to test should be public, and
+    if that bothers you it belongs on another class, which does not reduce encapsulation),
+    look for hard-coded decisions and extract methods named for intent (since method
+    names do not tell the whole story), map internal relationships with feature sketches,
+    describe the primary responsibility in one sentence and factor out the rest, and
+    scratch-refactor when you cannot otherwise see them.'
+  derived_from_claims:
+  - C00389
+  - C00390
+  - C00391
+  - C00392
+  - C00393
+  - C00394
+  - C00395
+  - C00396
+  - C00397
+  - C00398
+  - C00399
+  - C00404
+  confidence: high
+  applies_when:
+  - deciding how to split a large class into responsibilities
+  operational_mapping:
+    profile_rule: true
+- principle_id: P002
+  statement: 'Favor fast, fine-grained unit tests that localize errors, and keep a
+    suite that runs fast: a test that talks to a database, network, or file system,
+    or needs special environment setup, is not a unit test and slow tests end up not
+    being run.'
+  derived_from_claims:
+  - C00030
+  - C00032
+  - C00033
+  - C00034
+  - C00035
+  - C00036
+  - C00037
+  - C00038
+  - C00039
+  confidence: high
+  applies_when:
+  - designing a test suite for legacy code
+  - classifying a test as unit vs integration
+  operational_mapping:
+    profile_rule: true
+- principle_id: P003
+  statement: When breaking dependencies without tests, leave the logic alone as much
+    as possible and get separation by inserting seams that let you call one method
+    or access one datum rather than another, moving behavior between classes only
+    later once tests exist; to encapsulate globals, wrap them in a class (grouping
+    globals used or modified together), declare a global instance, and lean on the
+    compiler, starting with data or small methods, encapsulating free functions behind
+    an interface with fake and production subclasses that merely delegate, and preferring
+    the class-and-virtual-function approach over free or static functions for explicit
+    seams.
+  derived_from_claims:
+  - C00502
+  - C00503
+  - C00504
+  - C00505
+  - C00506
+  - C00507
+  - C00508
+  - C00509
+  - C00510
+  confidence: high
+  applies_when:
+  - code under test depends on global variables or free functions
+  operational_mapping:
+    profile_rule: true
+- principle_id: P004
+  statement: 'Use effect sketches, a bubble per affected variable or return value
+    with arrows to what can change, to find where to test: identify change points,
+    sketch effects outward to the methods where users can sense them, make sure you
+    have found all clients including via super- and subclasses, and note that removing
+    tiny duplication yields fewer endpoints.'
+  derived_from_claims:
+  - C00264
+  - C00265
+  - C00266
+  - C00267
+  - C00269
+  - C00270
+  - C00271
+  - C00272
+  - C00282
+  confidence: high
+  applies_when:
+  - mapping where a change's effects can be observed
+  operational_mapping:
+    profile_rule: true
+- principle_id: P005
+  statement: 'Do targeted testing: after understanding tests, verify they cover the
+    exact code you will change, test the branch that will change and confirm it is
+    hit with a sensing variable or debugger, pick inputs that expose errors such as
+    truncation, and when refactoring check both that the behavior still exists and
+    that it is connected correctly, since the most valuable characterization tests
+    exercise a specific path and each conversion; even with a refactoring tool, quirks
+    may force you to work by hand.'
+  derived_from_claims:
+  - C00313
+  - C00314
+  - C00315
+  - C00316
+  - C00317
+  - C00318
+  - C00319
+  - C00320
+  - C00321
+  confidence: high
+  applies_when:
+  - confirming a test actually covers the change you will make
+  operational_mapping:
+    profile_rule: true
+- principle_id: P006
+  statement: Break a big class into smaller single-responsibility classes incrementally
+    and on demand — driven by the change you are making rather than a destabilizing
+    refactoring binge or a hypothetical ideal — by identifying its responsibilities
+    (making sure the team understands them) and splitting at the implementation level
+    before the interface level; while the class is still large, use Sprout Class or
+    Sprout Method so ongoing changes do not worsen it.
+  derived_from_claims:
+  - C00381
+  - C00382
+  - C00383
+  - C00384
+  - C00385
+  - C00387
+  - C00408
+  - C00409
+  - C00410
+  confidence: high
+  applies_when:
+  - a class has grown large with many methods and responsibilities
+  - planning how to decompose a large class
+  operational_mapping:
+    profile_rule: true
+- principle_id: P007
+  statement: 'Break a monster method manually with sensing variables, a temporary
+    that senses a condition, kept across the refactoring session and then deleted,
+    and with Extract What You Know in small named chunks chosen by coupling count:
+    favor a low count because a type-conversion error is the key danger (checking
+    where each passed variable is declared), prefer zero-count extractions, and use
+    a sensing variable and a few tests when the count exceeds zero.'
+  derived_from_claims:
+  - C00449
+  - C00450
+  - C00451
+  - C00452
+  - C00453
+  - C00454
+  - C00455
+  - C00456
+  - C00457
+  confidence: high
+  applies_when:
+  - breaking down a monster method without a refactoring tool
+  operational_mapping:
+    profile_rule: true
+- principle_id: P008
+  statement: Break build-time coupling by extracting interfaces for classes used from
+    outside a cluster and depending on interfaces or abstract classes rather than
+    concrete ones (Dependency Inversion), which creates a compilation firewall; moving
+    cohesive clusters behind interfaces into their own packages raises total rebuild
+    cost slightly but sharply cuts average build time, a one-time cost per cluster.
+  derived_from_claims:
+  - C00151
+  - C00152
+  - C00153
+  - C00154
+  - C00155
+  - C00156
+  - C00157
+  - C00158
+  confidence: high
+  applies_when:
+  - build times are slow because of concrete-class dependencies
+  operational_mapping:
+    profile_rule: true
+- principle_id: P009
+  statement: 'Use Wrap Class to add behavior in another class that uses the method
+    rather than in the class itself: choose a decorator-style wrapper (same interface,
+    delegating) when many callers must get the behavior at once and a plain wrapper
+    for a few places, use Extract Implementer or Extract Interface if you cannot instantiate
+    the wrapped class, and use decorators sparingly.'
+  derived_from_claims:
+  - C00128
+  - C00129
+  - C00130
+  - C00131
+  - C00132
+  - C00133
+  - C00134
+  - C00136
+  confidence: high
+  applies_when:
+  - adding cross-cutting behavior around an existing class
+  operational_mapping:
+    profile_rule: true
+- principle_id: P010
+  statement: 'Avoid over-reliance on libraries: reuse saves time but promiscuous direct
+    use locks you in (a royalty hike can kill an application), so avoid littering
+    direct library-class calls because every hard-coded use could have been a seam,
+    wrap final, sealed, or non-virtual library classes behind a thin wrapper, and
+    remember a coding convention can substitute for a restrictive language feature;
+    library designers who enforce constraints via language features err because production
+    constraints break testing, including the once and restricted-override dilemmas.'
+  derived_from_claims:
+  - C00322
+  - C00323
+  - C00324
+  - C00325
+  - C00326
+  - C00327
+  - C00328
+  - C00329
+  confidence: high
+  applies_when:
+  - code depends heavily on third-party or platform libraries
+  operational_mapping:
+    profile_rule: true
+- principle_id: P011
+  statement: 'Treat preserving existing behavior as the primary constraint on any
+    change: in every modification far more behavior must be preserved than is altered,
+    and unintentionally dropping or changing behavior is a bug.'
+  derived_from_claims:
+  - C00010
+  - C00011
+  - C00012
+  - C00016
+  - C00018
+  - C00019
+  - C00020
+  confidence: high
+  applies_when:
+  - adding a feature
+  - fixing a bug
+  - refactoring
+  - optimizing
+  operational_mapping:
+    profile_rule: true
+- principle_id: P012
+  statement: Use Wrap Method to add behavior that runs entirely before or after existing
+    logic by renaming the original and adding a same-signature wrapper (or a method
+    calling both) while preserving signatures, which adds tested behavior without
+    growing existing methods and keeps it independent, at the cost of possibly awkward
+    names; avoid inline additions that create temporal coupling.
+  derived_from_claims:
+  - C00121
+  - C00122
+  - C00123
+  - C00124
+  - C00125
+  - C00126
+  - C00127
+  confidence: high
+  applies_when:
+  - adding behavior that need not interleave with existing method logic
+  operational_mapping:
+    profile_rule: true
+- principle_id: P013
+  statement: Use programming by difference to add a feature quickly via a subclass
+    that overrides a method, then use the pinning test to refactor toward a cleaner
+    structure such as a configuration option, delegate, or rename, because extensive
+    inheritance forces one feature per subclass and cannot combine them.
+  derived_from_claims:
+  - C00170
+  - C00171
+  - C00172
+  - C00173
+  - C00174
+  - C00175
+  - C00176
+  confidence: high
+  applies_when:
+  - adding a variation quickly in object-oriented code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P014
+  statement: Respect the Liskov Substitution Principle by keeping subclass objects
+    substitutable for their superclasses everywhere; avoid overriding concrete methods
+    (and call the overridden one if you must), since frequent concrete overrides confuse
+    readers, and prefer a normalized hierarchy where the superclass is abstract and
+    subclasses supply the implementations.
+  derived_from_claims:
+  - C00178
+  - C00179
+  - C00180
+  - C00181
+  - C00182
+  - C00183
+  - C00184
+  confidence: high
+  applies_when:
+  - using inheritance and overriding methods
+  operational_mapping:
+    profile_rule: true
+- principle_id: P015
+  statement: Use Parameterize Constructor to externalize a constructor-created object
+    by passing it in while keeping the original signature delegating so clients do
+    not change, aware that its downside is opening the door to more dependencies on
+    the parameter's class and that default-argument variants force header includes
+    in C++ and should be used sparingly.
+  derived_from_claims:
+  - C00198
+  - C00199
+  - C00200
+  - C00201
+  - C00546
+  - C00547
+  - C00548
+  confidence: high
+  applies_when:
+  - a constructor allocates a collaborator you cannot reach under test
+  - a constructor hard-codes creation of a collaborator
+  operational_mapping:
+    profile_rule: true
+- principle_id: P016
+  statement: Use Adapt Parameter when you cannot Extract Interface on a parameter's
+    class (a sealed or low-level library type) or it is hard to fake, wrapping the
+    incoming parameter behind a new narrow interface with a production wrapper and
+    a fake to decouple from the API; prefer Extract Interface for parameter dependencies
+    generally but not for low-level or implementation-specific types, move toward
+    interfaces that communicate responsibilities rather than implementation (a pervasive
+    legacy problem is missing abstraction layers), and since Adapt Parameter does
+    not preserve signatures, bias toward changes you are confident in over the best
+    structure.
+  derived_from_claims:
+  - C00488
+  - C00489
+  - C00490
+  - C00491
+  - C00492
+  - C00493
+  - C00494
+  confidence: high
+  applies_when:
+  - a parameter's type blocks testing and cannot be extracted to an interface
+  operational_mapping:
+    profile_rule: true
+- principle_id: P017
+  statement: To break up a monster method with a tool, work tool-only with no other
+    edits (not even reordering, since no tool checks reorder safety and it is a bug
+    source) and get tests afterward, aiming your extractions at separating logic from
+    awkward dependencies and introducing seams, doing coarse work first with hokey
+    but communicative names and handling details after tests, and guarding against
+    the common no-test extraction errors of a missing passed variable, hiding or overriding
+    a base-class method, and wrong parameter or return types.
+  derived_from_claims:
+  - C00442
+  - C00443
+  - C00444
+  - C00445
+  - C00446
+  - C00447
+  - C00448
+  confidence: high
+  applies_when:
+  - decomposing a monster method with a refactoring tool
+  operational_mapping:
+    profile_rule: true
+- principle_id: P018
+  statement: Establish test-code conventions (a Test suffix, a Fake prefix, and a
+    Testing prefix for testing subclasses) so tests do not swamp you and navigation
+    between a class and its tests stays ergonomic; decide test location by deployment-size
+    constraints, co-locating when space allows or stripping test code via build settings
+    when it does not, and separate test and production directories only for a good
+    reason, since painful navigation makes people stop writing tests.
+  derived_from_claims:
+  - C00360
+  - C00361
+  - C00362
+  - C00363
+  - C00364
+  - C00365
+  confidence: high
+  applies_when:
+  - organizing test code within a project
+  operational_mapping:
+    profile_rule: true
+- principle_id: P019
+  statement: 'Minimize lag time between a change and its feedback: aim to compile
+    and test every class or module separately in its own harness in seconds, since
+    bundling changes to avoid frequent builds is usually unnecessary waste and, for
+    compiled languages, dependency is the main impediment to fast feedback.'
+  derived_from_claims:
+  - C00143
+  - C00144
+  - C00145
+  - C00146
+  - C00147
+  - C00150
+  confidence: high
+  applies_when:
+  - build and test cycles are slow enough to hurt development
+  operational_mapping:
+    profile_rule: true
+- principle_id: P020
+  statement: Treat Subclass and Override Method as the core dependency-breaking technique
+    that many others are variants of, using inheritance in a test to nullify behavior
+    you do not care about or access behavior you do, guided by the paper-view model
+    and the class's factoring; only null out behavior irrelevant to the current test,
+    prefer overriding methods that already exist since extracting without tests is
+    risky, and make the smallest set of methods overridable.
+  derived_from_claims:
+  - C00564
+  - C00565
+  - C00566
+  - C00567
+  - C00568
+  - C00569
+  confidence: high
+  applies_when:
+  - breaking a dependency in object-oriented code with inheritance
+  operational_mapping:
+    profile_rule: true
+- principle_id: P021
+  statement: Relax a singleton for testing with Introduce Static Setter or a resetForTesting
+    called in setUp and tearDown, making the constructor protected and subclassing;
+    distinguish real reasons to enforce one instance from merely wanting a global,
+    drop the singleton property when it only serves as a global, and guard against
+    misuse with a team rule or build-time and runtime checks.
+  derived_from_claims:
+  - C00211
+  - C00212
+  - C00213
+  - C00214
+  - C00215
+  - C00216
+  confidence: high
+  applies_when:
+  - a singleton blocks testing
+  operational_mapping:
+    profile_rule: true
+- principle_id: P022
+  statement: Treat global mutable data as the most apparent hurdle to testing, a kind
+    of spooky action at a distance, and relax a singleton with a static setter, accepting
+    the removed access protection because protection and tests both prevent errors
+    and here you need the stronger tool; drive toward the better state of reducing
+    global references until the singleton becomes a normal class, make a global factory
+    substitutable via a swappable factory behind an interface, reset shared static-setter
+    state in setUp and tearDown only when wrong next-test state could mislead, and
+    shed globals by giving the classes that need them a common superclass and passing
+    the global in.
+  derived_from_claims:
+  - C00538
+  - C00539
+  - C00540
+  - C00541
+  - C00542
+  - C00543
+  confidence: high
+  applies_when:
+  - substituting or reducing globals and singletons for testing
+  operational_mapping:
+    profile_rule: true
+- principle_id: P023
+  statement: Extract a class safely by listing the variables and methods to move (to
+    know what to test, covering private ones through their public callers), using
+    Extract Class with tests or the conservative tool-independent procedure without
+    tests; do not lean on the compiler for possibly-shadowed variables but search
+    manually, avoid inheritance bugs by extracting new methods from old bodies rather
+    than moving overriding methods, and after extracting do not get overambitious
+    but move the code in a better direction rather than to the ideal.
+  derived_from_claims:
+  - C00411
+  - C00412
+  - C00413
+  - C00414
+  - C00415
+  - C00416
+  confidence: high
+  applies_when:
+  - pulling a responsibility out of a big class
+  operational_mapping:
+    profile_rule: true
+- principle_id: P024
+  statement: Tell the Story of the System by explaining the architecture in a few
+    concepts and adding the next most important each round, using the forced simplification
+    to find abstractions and expose ideal versus expedient, and use the story as a
+    design guide by preferring changes that keep it substantially true (adding an
+    unmentioned responsibility is a bolder distortion than generalizing the story
+    slightly) and telling it often to share a view.
+  derived_from_claims:
+  - C00349
+  - C00350
+  - C00351
+  - C00352
+  - C00353
+  - C00354
+  confidence: high
+  applies_when:
+  - communicating or evaluating an architecture and its changes
+  operational_mapping:
+    profile_rule: true
+- principle_id: P025
+  statement: 'Value object seams over link and preprocessing seams, which do little
+    to improve design, and migrate procedural code toward object orientation incrementally:
+    treat the whole program as effectively one big object and use the language''s
+    object-oriented extensions as a wedge to break tangled dependencies — grouping
+    related functions into classes, extracting methods, and (when migrating C to C++)
+    compiling C as C++, applying Encapsulate Global References while preserving signatures,
+    then Parameterize Constructor — accepting that mechanical migration is not great
+    object-oriented design but a good start.'
+  derived_from_claims:
+  - C00375
+  - C00376
+  - C00377
+  - C00378
+  - C00379
+  - C00380
+  confidence: high
+  applies_when:
+  - a procedural language offers a path toward object orientation
+  - improving procedural code that has an object-oriented option
+  operational_mapping:
+    profile_rule: true
+- principle_id: P026
+  statement: Remove duplication zealously to distill a design, since it yields small
+    focused methods and orthogonality where one place changes a given behavior, makes
+    localized behavior easy to replace or override, and lets designs emerge, being
+    mostly mechanical work in which naming is the creative part.
+  derived_from_claims:
+  - C00425
+  - C00426
+  - C00427
+  - C00428
+  - C00429
+  - C00430
+  confidence: high
+  applies_when:
+  - repeated logic can be consolidated across a code area
+  operational_mapping:
+    profile_rule: true
+- principle_id: P027
+  statement: Use a link seam to substitute an implementation at the linking or reference-resolution
+    step, recognizing its enabling point lives outside the source in build or deploy
+    config; make the test-vs-production difference obvious and start sensing schemes
+    as simple as possible.
+  derived_from_claims:
+  - C00074
+  - C00075
+  - C00076
+  - C00077
+  - C00078
+  - C00079
+  confidence: medium
+  applies_when:
+  - dependencies are pervasive and object seams are unavailable
+  operational_mapping:
+    profile_rule: true
+- principle_id: P028
+  statement: To harness a heavily include-dependent C++ class, add includes one at
+    a time rather than including everything until it builds, and break an unwanted
+    dependency with an alternative empty definition plus a separate build, reserving
+    that technique for a huge class with severe dependencies because C++ include defaults
+    reparse declarations and invite slow, transitively bloated builds.
+  derived_from_claims:
+  - C00223
+  - C00224
+  - C00225
+  - C00226
+  - C00227
+  - C00228
+  confidence: medium
+  applies_when:
+  - getting a large, include-heavy C++ class under test
+  operational_mapping:
+    profile_rule: true
+- principle_id: P029
+  statement: Treat long methods as quagmires and monster methods as worse, distinguishing
+    a bulleted method with little indentation and shared temporaries from a snarled
+    method with deep nesting that gives you vertigo when you line up its blocks, and
+    recognizing that a tool that safely extracts methods lets you skip verifying extractions
+    while without one your cleanup is bounded by the tests you can get in place.
+  derived_from_claims:
+  - C00436
+  - C00437
+  - C00438
+  - C00439
+  - C00440
+  - C00441
+  confidence: medium
+  applies_when:
+  - confronting a very long or deeply nested method
+  operational_mapping:
+    profile_rule: true
+- principle_id: P030
+  statement: See code in terms of seams to spot existing testing opportunities and
+    to structure new code for testability; object seams are the primary seam in object-oriented
+    languages, but a call with no enabling point (such as an object created in the
+    same method) is not a seam.
+  derived_from_claims:
+  - C00068
+  - C00069
+  - C00080
+  - C00081
+  - C00086
+  confidence: high
+  applies_when:
+  - assessing testability of existing code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P031
+  statement: 'Use Sprout Method when added behavior is a distinct piece of new code:
+    develop it test-first in a new method (writing the call first, commented out)
+    and call it from the old code, which separates new from old and adds tested behavior
+    even when the call sites are not yet testable; prefer this over adding code inline.'
+  derived_from_claims:
+  - C00109
+  - C00110
+  - C00111
+  - C00112
+  - C00116
+  confidence: high
+  applies_when:
+  - adding a distinct piece of behavior to a method you cannot yet test
+  operational_mapping:
+    profile_rule: true
+- principle_id: P032
+  statement: 'Use Sprout Class when you cannot instantiate the class in a test harness
+    in reasonable time: put the change in a new class the source class uses; a sprouted
+    class may fold into existing concepts or become a new one, so do not hold back
+    despite the added conceptual complexity.'
+  derived_from_claims:
+  - C00115
+  - C00117
+  - C00118
+  - C00119
+  - C00120
+  confidence: high
+  applies_when:
+  - heavy creational or hidden dependencies block instantiating the class
+  operational_mapping:
+    profile_rule: true
+- principle_id: P033
+  statement: Use test-driven development to add features by writing a failing test,
+    getting it to compile, making it pass, and removing duplication, repeating in
+    small steps (large only when certain of the algorithm), not getting lost generalizing
+    while making it compile, and treating removing duplication as the critical final
+    step.
+  derived_from_claims:
+  - C00162
+  - C00163
+  - C00164
+  - C00165
+  - C00167
+  confidence: high
+  applies_when:
+  - adding a feature to code you can get under test
+  operational_mapping:
+    profile_rule: true
+- principle_id: P034
+  statement: Use names consistently and avoid abbreviations (inconsistent ones force
+    guessing), let removing duplication align code naturally with the Open/Closed
+    Principle of being open for extension and closed to modification, and extract
+    shared behavior into a superclass without over-collapsing the hierarchy, since
+    thin subclasses can be better than static methods that force all clients to change.
+  derived_from_claims:
+  - C00431
+  - C00432
+  - C00433
+  - C00434
+  - C00435
+  confidence: high
+  applies_when:
+  - naming classes and methods or deciding a hierarchy's shape
+  operational_mapping:
+    profile_rule: true
+- principle_id: P035
+  statement: Break a hard-coded object creation in a constructor with Extract and
+    Override Factory Method, overriding it in a testing subclass where the language
+    allows virtual calls in constructors (not C++, where you use Supersede Instance
+    Variable or Extract and Override Getter), and use Extract and Override Getter
+    to introduce a lazy getter routed through the class and overridden in a subclass,
+    watching object lifetime in non-garbage-collected languages and making all code
+    use the getter.
+  derived_from_claims:
+  - C00517
+  - C00518
+  - C00519
+  - C00520
+  - C00521
+  confidence: high
+  applies_when:
+  - a constructor creates an object you cannot depend on under test
+  operational_mapping:
+    profile_rule: true
+- principle_id: P036
+  statement: Use Supersede Instance Variable to swap a constructor-created object
+    via a supersede method that destroys the old and sets the new when C++ disallows
+    constructor virtual dispatch (choosing Extract and Override Getter if the object
+    is not used in the constructor, Supersede if it is used and must be replaceable
+    before another method runs, and Extract and Override Factory Method where virtual
+    constructor calls are allowed), avoiding setters that change base objects because
+    they force knowing an object's history, and using an uncommon prefix like supersede
+    to search for production misuse.
+  derived_from_claims:
+  - C00570
+  - C00571
+  - C00572
+  - C00573
+  - C00574
+  confidence: high
+  applies_when:
+  - a constructor-created object must be replaced but virtual dispatch is unavailable
+  operational_mapping:
+    profile_rule: true
+- principle_id: P037
+  statement: Do not extract an interface to break every parameter dependency, since
+    a near one-to-one class-to-interface ratio clutters the design; ask why the dependency
+    is bad (creation pain, a side effect, or slowness) because Extract Interface severs
+    the whole class, and if only pieces are problematic sever just those, for example
+    by Subclass and Override on the isolated problematic method.
+  derived_from_claims:
+  - C00232
+  - C00233
+  - C00234
+  - C00235
+  - C00236
+  confidence: high
+  applies_when:
+  - choosing how aggressively to break a parameter dependency
+  operational_mapping:
+    profile_rule: true
+- principle_id: P038
+  statement: 'Prefer Extract Interface as one of the safest dependency-breaking techniques
+    since the compiler catches missteps: create an interface with the methods a context
+    needs, implement it to sense or separate, and pass a fake, via a tool, incremental
+    steps, or cutting and pasting declarations; use Extract Implementer only when
+    a class''s name is perfect for the interface and you lack a rename tool (it merely
+    swaps one concrete creation for another, so look for a factory), and for a class
+    in a hierarchy consider whether Extract Interface with different names is more
+    direct.'
+  derived_from_claims:
+  - C00523
+  - C00526
+  - C00527
+  - C00528
+  - C00529
+  confidence: high
+  applies_when:
+  - breaking a dependency on a class you can modify
+  operational_mapping:
+    profile_rule: true
+- principle_id: P039
+  statement: To change a private method, first test it through a public method, which
+    tests it as used and avoids over-generalizing it; to test it directly, make it
+    public, and if that bothers you the class is doing too much and the method belongs
+    on another class, since each method need only be as general as its callers require.
+  derived_from_claims:
+  - C00239
+  - C00240
+  - C00241
+  - C00242
+  - C00243
+  confidence: high
+  applies_when:
+  - you need to change or test a private method
+  operational_mapping:
+    profile_rule: true
+- principle_id: P040
+  statement: To test a class tangled with the GUI or with undetectable side effects
+    (methods that work by calling other objects with no return), separate GUI-independent
+    from GUI-dependent work via Extract Method, name the extracted methods by what
+    they compute rather than by display components, and Subclass and Override the
+    GUI-dependent methods to test the remaining logic.
+  derived_from_claims:
+  - C00251
+  - C00252
+  - C00253
+  - C00254
+  - C00257
+  confidence: high
+  applies_when:
+  - business logic is entangled with UI or side-effecting calls
+  operational_mapping:
+    profile_rule: true
+- principle_id: P041
+  statement: Reason forward about the effect chain of a change (which propagates to
+    callers up to a system boundary while unrelated code keeps its behavior) to decide
+    where to test, and write characterization tests to pin existing behavior before
+    changing it, treating effect reasoning as a learnable, domain-independent skill.
+  derived_from_claims:
+  - C00260
+  - C00261
+  - C00262
+  - C00263
+  - C00268
+  confidence: high
+  applies_when:
+  - deciding where to place tests around a change
+  operational_mapping:
+    profile_rule: true
+- principle_id: P042
+  statement: Make knowledge of your language the key tool for effect reasoning by
+    learning its firewalls and subtleties (such as C++ const versus mutable and how
+    field visibility scopes effects), narrowing effects to make programming and testing
+    easier and treating a code base's implicit rules of basic goodness as effects
+    you can safely rule out.
+  derived_from_claims:
+  - C00277
+  - C00278
+  - C00279
+  - C00280
+  - C00281
+  confidence: high
+  applies_when:
+  - reasoning about what can and cannot change in a program
+  operational_mapping:
+    profile_rule: true
+- principle_id: P043
+  statement: Look for pinch points, narrowings in an effect sketch where tests on
+    one or two methods detect changes in many; they are determined by the change points
+    rather than by clients, found by looking for common usage, and are natural encapsulation
+    boundaries that reveal better responsibility allocation, so if you cannot find
+    one, do fewer changes at a time.
+  derived_from_claims:
+  - C00291
+  - C00292
+  - C00293
+  - C00294
+  - C00295
+  confidence: high
+  applies_when:
+  - making many changes across a cluster of classes
+  operational_mapping:
+    profile_rule: true
+- principle_id: P044
+  statement: Remove duplication incrementally as you work rather than through grand
+    re-engineering, since the system improves as long as no one re-adds it; when unsure
+    whether it helps, try it and see, keep a set of tests you run after each step,
+    remove small pieces first because over-thinking the end structure wastes time
+    and small removals clarify, and where the split order does not matter structurally,
+    decide by which grouping yields a better name.
+  derived_from_claims:
+  - C00417
+  - C00418
+  - C00419
+  - C00420
+  - C00421
+  confidence: high
+  applies_when:
+  - duplicated logic is spread across an area of code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P045
+  statement: Prefer simple class names even for big abstractions so that if you later
+    need an interface you can subclass, push data and methods down, and reuse the
+    original name without a mass rename (the I-prefix convention forces code to know
+    it deals with an interface and makes reverting pervasive); when extracting an
+    interface do not extract all public methods but lean on the compiler and reach
+    full coverage incrementally, and watch the non-virtual pitfall where pulling a
+    non-virtual method into an interface makes it virtual and changes behavior if
+    subclasses redefine it in C++ or C#, adding a new virtual name that delegates
+    instead.
+  derived_from_claims:
+  - C00530
+  - C00531
+  - C00532
+  - C00533
+  - C00534
+  confidence: high
+  applies_when:
+  - naming and extracting interfaces from existing classes
+  operational_mapping:
+    profile_rule: true
+- principle_id: P046
+  statement: Recognize that procedural languages lack the seams object-oriented languages
+    have, so break procedural dependencies by getting a large chunk under test first
+    at a pinch point using a link seam or preprocessing seam, faking through a same-named
+    library for peripheral functions or a TESTING-flag macro with tests in a separate
+    include, and restricting macro use to code that runs under test.
+  derived_from_claims:
+  - C00366
+  - C00367
+  - C00368
+  - C00369
+  - C00370
+  confidence: medium
+  applies_when:
+  - breaking dependencies in C or another procedural language
+  operational_mapping:
+    profile_rule: true
+- principle_id: P047
+  statement: Treat code without tests as legacy code and get tests in place before
+    changing it, because tests are the prerequisite for changing behavior quickly
+    and verifiably; clean structure alone does not make change safe.
+  derived_from_claims:
+  - C00001
+  - C00002
+  - C00003
+  - C00004
+  confidence: high
+  applies_when:
+  - deciding whether code is safe to change
+  - planning a change to untested code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P048
+  statement: Change software under a safety net of tests (Cover and Modify) rather
+    than by careful editing and hope (Edit and Pray), because safety is not solely
+    a function of care and tests around the change act as a vise that holds most behavior
+    fixed.
+  derived_from_claims:
+  - C00027
+  - C00028
+  - C00029
+  - C00031
+  confidence: high
+  applies_when:
+  - making an invasive change
+  operational_mapping:
+    profile_rule: true
+- principle_id: P049
+  statement: Hold test code to different standards than production code, breaking
+    encapsulation with public variables or empty and null-returning fakes to ease
+    testing while keeping the test code clean, extracting duplicated setup into setUp,
+    and passing null for a parameter the code under test does not use, while treating
+    pervasive null-handling as a symptom of a nasty system.
+  derived_from_claims:
+  - C00189
+  - C00190
+  - C00191
+  - C00192
+  confidence: high
+  applies_when:
+  - writing test code and fakes for legacy classes
+  operational_mapping:
+    profile_rule: true
+- principle_id: P050
+  statement: Treat a change as a refactoring only if it preserves behavior, verify
+    that your refactoring tools actually check behavior preservation, choose tools
+    with care, and do not use automated refactorings that do not preserve behavior.
+  derived_from_claims:
+  - C00088
+  - C00089
+  - C00090
+  - C00091
+  confidence: high
+  applies_when:
+  - using or selecting an automated refactoring tool
+  operational_mapping:
+    profile_rule: true
+- principle_id: P051
+  statement: Use a fake object to impersonate a collaborator and sense a unit's effect
+    on it; a fake-based unit test still gives real, error-localizing feedback even
+    though it does not exercise the fully integrated system.
+  derived_from_claims:
+  - C00056
+  - C00058
+  - C00060
+  - C00061
+  confidence: high
+  applies_when:
+  - a class under test collaborates with an object whose effects you must sense
+  operational_mapping:
+    profile_rule: true
+- principle_id: P052
+  statement: When a needed collaborator is a sealed or final library class with no
+    public constructor you cannot Extract Interface, so use Adapt Parameter (subclass
+    an unsealed base or wrap it behind a narrow interface via Skin and Wrap the API);
+    avoid depending directly on libraries out of your control, since constraints meant
+    for production can make testing nearly impossible.
+  derived_from_claims:
+  - C00247
+  - C00248
+  - C00249
+  - C00250
+  confidence: high
+  applies_when:
+  - a parameter's type is an unmodifiable library class
+  operational_mapping:
+    profile_rule: true
+- principle_id: P053
+  statement: Under time pressure, first try to instantiate the class in a test harness
+    since it is often easier than expected; if you truly cannot get tests in now,
+    make the change as fresh testable code, and use caution because such code is tested
+    but its use is not.
+  derived_from_claims:
+  - C00105
+  - C00106
+  - C00107
+  - C00108
+  confidence: high
+  applies_when:
+  - a change is demanded under schedule pressure in untested code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P054
+  statement: Use Expose Static Method to make a method with no instance data static
+    so you can test it without instantiating the class, treating the static area as
+    a metaclass-like staging area for code that does not yet belong (making it public
+    to test is acceptable), and restricting its access with package, protected, or
+    namespace scope if you fear misuse.
+  derived_from_claims:
+  - C00511
+  - C00512
+  - C00513
+  - C00514
+  confidence: high
+  applies_when:
+  - a method uses little or no instance data but its class is hard to construct
+  operational_mapping:
+    profile_rule: true
+- principle_id: P055
+  statement: Use Pass Null only in tests and only in languages that throw on null
+    use (Java, C#), not in C or C++ unless the runtime detects null dereferences;
+    never pass null in production but prefer the Null Object Pattern, a do-nothing
+    object that shields clients, used only when the client need not care whether the
+    operation succeeded and watching for silent skew.
+  derived_from_claims:
+  - C00193
+  - C00194
+  - C00195
+  - C00196
+  confidence: high
+  applies_when:
+  - a hard-to-construct parameter is needed under test, or you are tempted to pass
+    null in production
+  operational_mapping:
+    profile_rule: true
+- principle_id: P056
+  statement: For a construction blob where a constructor builds many interdependent
+    objects, avoid Parameterize Constructor's huge parameter list, never call overridable
+    functions from constructors (C++ will not dispatch to derived overrides and base-construction
+    overrides can touch uninitialized state), and use Supersede Instance Variable
+    to swap an object after construction sparingly with care about deletion, never
+    using a superseding setter in production.
+  derived_from_claims:
+  - C00202
+  - C00203
+  - C00204
+  - C00205
+  confidence: high
+  applies_when:
+  - a constructor's object creation is too tangled for simple parameterization
+  operational_mapping:
+    profile_rule: true
+- principle_id: P057
+  statement: Treat global variable usage as one of the hardest testing dependencies
+    because you must set each global's state before a test, recognize the Singleton
+    pattern as a common way to make globals, and, since each test should be an isolated
+    mini-application, relax the singleton property to run code under test.
+  derived_from_claims:
+  - C00207
+  - C00208
+  - C00209
+  - C00210
+  confidence: high
+  applies_when:
+  - code under test depends on globals or singletons
+  operational_mapping:
+    profile_rule: true
+- principle_id: P058
+  statement: Glean dependencies by testing the critical behavior you must preserve
+    and then editing the uncovered code, since not all behaviors are equal, and use
+    Break Out Method Object when local variables should become instance variables
+    you can sense through, which is keepable because it uses variables needed for
+    production.
+  derived_from_claims:
+  - C00458
+  - C00459
+  - C00460
+  - C00461
+  confidence: high
+  applies_when:
+  - critical behavior is tangled with secondary behavior in a monster method
+  operational_mapping:
+    profile_rule: true
+- principle_id: P059
+  statement: Distinguish a Single Responsibility violation at the interface level
+    (the class looks responsible for many things) from one at the implementation level
+    (it actually does it all rather than delegating, the violation that matters most),
+    and fix an interface-level violation with client-specific interfaces per the Interface
+    Segregation Principle so each client sees only its interface, which hides information
+    and decouples, remembering that segregating an interface is harder than it sounds
+    and needs tests around clients.
+  derived_from_claims:
+  - C00400
+  - C00401
+  - C00402
+  - C00403
+  confidence: high
+  applies_when:
+  - a large class serves many different kinds of client
+  operational_mapping:
+    profile_rule: true
+- principle_id: P060
+  statement: Use Break Out Method Object for a long method that uses instance data
+    or methods (and Expose Static Method for a small method with no instance data),
+    moving it to a method-object class whose locals become instance variables you
+    can sense through, varying by how much of the class it uses (none, data only,
+    or methods needing Extract Interface), and accepting that making private members
+    public temporarily is not the end of the work.
+  derived_from_claims:
+  - C00496
+  - C00497
+  - C00498
+  - C00499
+  confidence: high
+  applies_when:
+  - a long method resists being tested in its own class
+  operational_mapping:
+    profile_rule: true
+- principle_id: P061
+  statement: 'Trace effects through the three ways they propagate: used return values,
+    mutated objects passed as parameters, and mutated static or global data (the sneakiest,
+    since method signatures do not reveal it), applying the heuristic of following
+    callers, used values, super- and subclasses, parameters, and globals.'
+  derived_from_claims:
+  - C00273
+  - C00274
+  - C00275
+  - C00276
+  confidence: high
+  applies_when:
+  - reasoning about how a change ripples through code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P062
+  statement: Find interception points by tracing effects outward from change points
+    and prefer ones close to the change, since fewer steps make a stronger safety
+    argument and easier setup; the best is usually a public method on the class being
+    changed, but a higher-level interception point can be more efficient for a cluster
+    and gives more refactoring cover.
+  derived_from_claims:
+  - C00287
+  - C00288
+  - C00289
+  - C00290
+  confidence: high
+  applies_when:
+  - choosing where a test can detect a change's effect
+  operational_mapping:
+    profile_rule: true
+- principle_id: P063
+  statement: 'Characterize by reading the code rather than black-box: get curious
+    and write tests until you understand it, then add tests until confident they will
+    sense the problems your intended change could cause (change the software differently
+    if you cannot), follow the Method Use Rule of testing a method before using it,
+    apply the characterization heuristics (sensing variables, what-can-go-wrong, extreme
+    inputs, invariants), and order the tests as documentation.'
+  derived_from_claims:
+  - C00308
+  - C00309
+  - C00310
+  - C00311
+  confidence: high
+  applies_when:
+  - deciding how thoroughly to characterize a class
+  operational_mapping:
+    profile_rule: true
+- principle_id: P064
+  statement: Restructure an API-heavy application by first describing its computational
+    core, separating it into responsibilities and noting which are API-tied, and layering
+    it to get the core logic under test; when it looks like nothing but API calls,
+    imagine it as one big object and apply responsibility-separation heuristics, since
+    nearly every system has core logic that can be peeled away from API calls.
+  derived_from_claims:
+  - C00330
+  - C00331
+  - C00332
+  - C00333
+  confidence: high
+  applies_when:
+  - an application appears to be nothing but library or API calls
+  operational_mapping:
+    profile_rule: true
+- principle_id: P065
+  statement: 'Choose between Skin and Wrap the API (interfaces mirroring the API plus
+    wrappers, preserving signatures, to end with no API dependency) and Responsibility-Based
+    Extraction (extracting methods for responsibilities): use Skin and Wrap for a
+    small API you want fully isolated or cannot test through, and Responsibility-Based
+    Extraction when the API is complex and you can extract safely; many teams use
+    both, a thin wrapper for testing plus a higher-level one for a better interface.'
+  derived_from_claims:
+  - C00334
+  - C00335
+  - C00336
+  - C00337
+  confidence: high
+  applies_when:
+  - isolating an application from a third-party API
+  operational_mapping:
+    profile_rule: true
+- principle_id: P066
+  statement: Keep the architecture a shared, living thing, because long-lived applications
+    sprawl and architecture degrades when the team is unaware (too complex, no big
+    picture, or reactive mode); an architect must work with the team day to day or
+    the code diverges, and architecture is too important to be left to a few, so everyone
+    who touches the code should know it and have a stake in it.
+  derived_from_claims:
+  - C00345
+  - C00346
+  - C00347
+  - C00348
+  confidence: high
+  applies_when:
+  - a team is losing sight of its system's structure
+  operational_mapping:
+    profile_rule: true
+- principle_id: P067
+  statement: In procedural legacy code, bias toward introducing new, testable functions,
+    use TDD (which works in procedural code and improves design), reformulate code
+    to separate pure logic in a testable function from a thin dependency-binding wrapper,
+    and for call-sequencing functions use a struct of function pointers pointing to
+    real functions in production and fakes in test.
+  derived_from_claims:
+  - C00371
+  - C00372
+  - C00373
+  - C00374
+  confidence: high
+  applies_when:
+  - adding or changing behavior in procedural code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P068
+  statement: Extract to the current class first even when a chunk belongs elsewhere,
+    using an awkward name because it is easily undone and less error-prone (and if
+    the name uses a variable, the code likely belongs on that variable's class), extract
+    small pieces first since each seems trivial but reveals structure and is safer
+    than big chunks, and be prepared to redo extractions because re-extracting is
+    not wasted but gives insight.
+  derived_from_claims:
+  - C00465
+  - C00466
+  - C00467
+  - C00468
+  confidence: high
+  applies_when:
+  - extracting methods from a monster method
+  operational_mapping:
+    profile_rule: true
+- principle_id: P069
+  statement: Recognize that code does not fatigue and only editing introduces faults,
+    making developers the primary source of faults, and edit hyperaware by knowing
+    whether each keystroke changes behavior (distinguishing refactoring from functional-change
+    keystrokes), with fast sub-second tests, TDD, and pair programming fostering that
+    flow state.
+  derived_from_claims:
+  - C00469
+  - C00470
+  - C00471
+  - C00472
+  confidence: high
+  applies_when:
+  - editing code and wanting to know exactly what each change does
+  operational_mapping:
+    profile_rule: true
+- principle_id: P070
+  statement: Lean on the Compiler in statically typed languages by deliberately altering
+    a declaration to cause errors and navigating to each to make the change, while
+    knowing exactly what the compiler will and will not find so you are not lulled
+    into false confidence, especially the inheritance pitfall that no error does not
+    mean a member is unused when a same-named member exists in a superclass; when
+    builds are slow, search for the sites instead.
+  derived_from_claims:
+  - C00478
+  - C00479
+  - C00480
+  - C00481
+  confidence: high
+  applies_when:
+  - making structural or type changes across a static-typed code base
+  operational_mapping:
+    profile_rule: true
+- principle_id: P071
+  statement: Use the tests you write to add a feature as cover to refactor afterward,
+    proceeding in small steps toward a context-dependent better state, since even
+    simple mechanical improvements like breaking down a large class make a real difference.
+  derived_from_claims:
+  - C00049
+  - C00050
+  - C00051
+  - C00052
+  confidence: medium
+  applies_when:
+  - you have just added a tested feature to legacy code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P072
+  statement: 'When code reading gets confusing, use low-tech understanding aids: draw
+    informal sketches (not necessarily UML) and mark up a printed listing according
+    to your goal, lining up blocks inside-out, and spread the practice by sketching
+    while you explain code to an engaged partner.'
+  derived_from_claims:
+  - C00338
+  - C00339
+  - C00340
+  - C00341
+  confidence: medium
+  applies_when:
+  - struggling to understand a confusing method or module
+  operational_mapping:
+    profile_rule: true
+- principle_id: P073
+  statement: Resolve the Legacy Code Dilemma (you should have tests to change code
+    but must change code to get tests) by breaking dependencies conservatively to
+    get initial tests in place, accepting temporary ugliness that you heal once the
+    code is covered.
+  derived_from_claims:
+  - C00044
+  - C00045
+  - C00046
+  confidence: high
+  applies_when:
+  - you must change code that has no tests
+  operational_mapping:
+    profile_rule: true
+- principle_id: P074
+  statement: Aim to write correct code consistently rather than to find bugs, which
+    is usually not the hard part and can be misdirected effort, because automated
+    tests should specify a goal or preserve existing behavior, not directly find bugs;
+    in untested legacy code, bolster the area you will change with tests as a safety
+    net rather than trying to find every bug.
+  derived_from_claims:
+  - C00302
+  - C00303
+  - C00304
+  confidence: high
+  applies_when:
+  - deciding the testing strategy for a legacy change
+  operational_mapping:
+    profile_rule: true
+- principle_id: P075
+  statement: Refactoring is improving the internal structure of software without changing
+    its external behavior through a series of small, test-backed steps, and it is
+    distinct from low-risk cleanup, risky rewriting, and optimization (which changes
+    a resource, not structure).
+  derived_from_claims:
+  - C00013
+  - C00014
+  - C00015
+  confidence: high
+  applies_when:
+  - labeling or reviewing a proposed change as refactoring
+  operational_mapping:
+    profile_rule: true
+- principle_id: P076
+  statement: Have tests around code before using automated refactorings unless you
+    know exactly what the tool checks; between verified-safe automated steps do no
+    other editing, and vet a new tool's extract-method support before trusting it
+    without tests.
+  derived_from_claims:
+  - C00092
+  - C00093
+  - C00094
+  confidence: high
+  applies_when:
+  - refactoring with tool assistance
+  operational_mapping:
+    profile_rule: true
+- principle_id: P077
+  statement: 'Because refactoring is invasive and error-prone, break dependencies
+    with extra care: do no extra cleanup while breaking dependencies without tests
+    (mistakes are found too late), and Preserve Signatures by cutting and pasting
+    whole argument lists verbatim to minimize errors and free your attention for issues
+    like accidentally hiding a base-class method.'
+  derived_from_claims:
+  - C00475
+  - C00476
+  - C00477
+  confidence: high
+  applies_when:
+  - performing dependency-breaking edits without tests
+  operational_mapping:
+    profile_rule: true
+- principle_id: P078
+  statement: Look ahead to the resulting aftermath before choosing a dependency-breaking
+    approach, treating these behavior-preserving refactorings as ones intended to
+    be done without tests to get tests in place (following the steps carefully and
+    still exercising care), and recognizing that they do not immediately improve the
+    design but get code under test so test-supported refactorings can clean it up.
+  derived_from_claims:
+  - C00486
+  - C00487
+  - C00495
+  confidence: high
+  applies_when:
+  - selecting and sequencing dependency-breaking techniques
+  operational_mapping:
+    profile_rule: true
+- principle_id: P079
+  statement: Reject the belief that ugly code will always be ugly, which is the biggest
+    obstacle to improving a large code base, and make consistent small improvements
+    that transform a system over months even when the initial steps look silly.
+  derived_from_claims:
+  - C00137
+  - C00138
+  - C00139
+  confidence: high
+  applies_when:
+  - a team is discouraged by the state of a large code base
+  operational_mapping:
+    profile_rule: true
+- principle_id: P080
+  statement: Expect that as code grows it surpasses understanding, distinguishing
+    well-maintained systems (a change is easy once figured out) from legacy systems
+    (figuring out and changing are both hard), and break the system into small, well-named,
+    understandable pieces to enable faster work.
+  derived_from_claims:
+  - C00140
+  - C00141
+  - C00142
+  confidence: high
+  applies_when:
+  - understanding effort dominates the time to make changes
+  operational_mapping:
+    profile_rule: true
+- principle_id: P081
+  statement: 'Break dependencies to get code under test for two reasons: sensing,
+    when you cannot access values the code computes, and separation, when you cannot
+    run the code in a harness at all; faking the collaborator is the dominant sensing
+    technique.'
+  derived_from_claims:
+  - C00053
+  - C00054
+  - C00055
+  confidence: high
+  applies_when:
+  - deciding why and how to break a dependency for testing
+  operational_mapping:
+    profile_rule: true
+- principle_id: P082
+  statement: A seam is a place where you can alter behavior without editing there,
+    and every seam has an enabling point where you choose which behavior runs; exploit
+    a seam at its enabling point and keep the source identical in production and test.
+  derived_from_claims:
+  - C00067
+  - C00072
+  - C00073
+  confidence: high
+  applies_when:
+  - looking for a place to substitute behavior for testing
+  operational_mapping:
+    profile_rule: true
+- principle_id: P083
+  statement: Diagnose why a class resists a test harness among four common obstacles
+    (hard construction, the harness will not build, bad constructor side effects,
+    or constructor work you must sense) by just trying to construct it in a construction
+    test and letting the compiler tell you what is needed.
+  derived_from_claims:
+  - C00185
+  - C00186
+  - C00187
+  confidence: high
+  applies_when:
+  - a class is hard to instantiate for testing
+  operational_mapping:
+    profile_rule: true
+- principle_id: P084
+  statement: Recognize the hazards of sprouting and wrapping without tests (the existing
+    code does not improve, added code can duplicate untested code, and fear and resignation
+    set in) and prefer to confront the beast by getting code under test and adding
+    features on a solid foundation.
+  derived_from_claims:
+  - C00159
+  - C00160
+  - C00161
+  confidence: high
+  applies_when:
+  - repeatedly sprouting or wrapping around untested code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P085
+  statement: Remove duplication by extracting the differences between near-identical
+    methods so they become identical and one can be deleted, pulling a shared method
+    up to a superclass with an abstract getter or hook when subclasses differ only
+    in data, and generalizing the remaining duplication by data such as a list the
+    subclass constructors populate.
+  derived_from_claims:
+  - C00422
+  - C00423
+  - C00424
+  confidence: high
+  applies_when:
+  - two or more methods share most of their structure
+  operational_mapping:
+    profile_rule: true
+- principle_id: P086
+  statement: Break a single problematic call with Extract and Override Call by extracting
+    it into a local method and overriding it in a testing subclass, using Extract
+    and Override Call for a single problematic method on an object, Extract and Override
+    Getter when there are many problematic methods on the same object, and Replace
+    Global Reference with Getter when there are many calls against the same global.
+  derived_from_claims:
+  - C00515
+  - C00516
+  - C00522
+  confidence: high
+  applies_when:
+  - choosing how to neutralize a static, global, or object-method dependency
+  operational_mapping:
+    profile_rule: true
+- principle_id: P087
+  statement: Use Pull Up Feature to move a testable cluster of methods into an abstract
+    superclass when the blocking dependencies are unrelated to it, then subclass for
+    tests, treating the resulting spread across two classes as a good first step (delegation
+    being the better factoring) made safe by Preserve Signatures and Lean on the Compiler,
+    and making the pulled-up superclass abstract so no concrete class looks like dead
+    code.
+  derived_from_claims:
+  - C00554
+  - C00555
+  - C00556
+  confidence: high
+  applies_when:
+  - dependencies blocking a class are unrelated to the methods you want to test
+  operational_mapping:
+    profile_rule: true
+- principle_id: P088
+  statement: Handle an onion parameter, where constructing an object needs other objects,
+    by asking what the tests really need, using Pass Null if nothing or Extract Interface
+    or Extract Implementer on the most immediate dependency for a fake, since interfaces
+    or C++ pure-virtual classes systematically break such dependencies.
+  derived_from_claims:
+  - C00229
+  - C00230
+  - C00231
+  confidence: high
+  applies_when:
+  - a parameter's construction transitively drags in many objects
+  operational_mapping:
+    profile_rule: true
+- principle_id: P089
+  statement: Question why every object needs a global such as the database, because
+    separating responsibilities so some classes act and others store and retrieve
+    localizes dependencies; most globals are globally accessible but used in only
+    a few places (refactor to shrink their scope), and a global truly used everywhere
+    means the code has no layering.
+  derived_from_claims:
+  - C00220
+  - C00221
+  - C00222
+  confidence: high
+  applies_when:
+  - a global or database reference appears pervasive
+  operational_mapping:
+    profile_rule: true
+- principle_id: P090
+  statement: 'Treat testability as a design criterion (good design is testable, untestable
+    design is bad): when you cannot refactor now, make a private method protected
+    and subclass to test it as a fair encapsulation trade, and do not keep tests that
+    use reflection to reach private state, because that hides how bad the code is
+    and only delays the bill.'
+  derived_from_claims:
+  - C00244
+  - C00245
+  - C00246
+  confidence: high
+  applies_when:
+  - deciding how to reach hidden state or methods for testing
+  operational_mapping:
+    profile_rule: true
+- principle_id: P091
+  statement: 'Use effect (feature) sketches to find hidden classes: a group of methods
+    and fields that form a natural encapsulation boundary can be extracted, so ignore
+    the bubble names, look at the grouping, name each cluster as a candidate class,
+    and do the naming with teammates to build shared understanding of the system.'
+  derived_from_claims:
+  - C00296
+  - C00297
+  - C00298
+  confidence: high
+  applies_when:
+  - a large class needs to be split into smaller ones
+  operational_mapping:
+    profile_rule: true
+- principle_id: P092
+  statement: 'Treat pinch-point tests as temporary scaffolding, writing narrower per-class
+    unit tests after characterizing a cluster and then deleting the pinch-point tests,
+    and do not let unit tests grow into slow mini-integration tests: test classes
+    as independently as possible, breaking them down and faking collaborators when
+    tests get too large.'
+  derived_from_claims:
+  - C00299
+  - C00300
+  - C00301
+  confidence: high
+  applies_when:
+  - carving out a cluster and moving to per-class tests
+  operational_mapping:
+    profile_rule: true
+- principle_id: P093
+  statement: Write characterization tests that document actual current behavior by
+    using the code in a harness, asserting something you know is wrong, letting the
+    failure reveal the behavior, expecting that value, and repeating; give the tests
+    no moral authority, so when a characterized value looks like a bug, keep the test
+    but mark it suspicious and investigate the effect of fixing it.
+  derived_from_claims:
+  - C00305
+  - C00306
+  - C00307
+  confidence: high
+  applies_when:
+  - pinning down existing behavior before changing it
+  operational_mapping:
+    profile_rule: true
+- principle_id: P094
+  statement: Treat Extract Method as the most useful refactoring for breaking large
+    methods into smaller ones for understanding and reuse, performing it with tests
+    by commenting out the code, creating an empty named method, calling it, copying
+    the code in, leaning on the compiler for parameters and return values, adjusting
+    the signature, running the tests, and deleting the commented code, and commenting
+    out rather than deleting so you can revert; use it to extract duplication, separate
+    responsibilities, and break down long methods.
+  derived_from_claims:
+  - C00578
+  - C00579
+  - C00580
+  confidence: high
+  applies_when:
+  - a method has grown to do several distinct things
+  operational_mapping:
+    profile_rule: true
+- principle_id: P095
+  statement: Do not minimize the number of changes as a risk strategy, because avoidance
+    makes classes and methods grow larger and harder to understand, leaves developers
+    rusty at change, and breeds a worsening team-wide fear of change.
+  derived_from_claims:
+  - C00024
+  - C00025
+  - C00026
+  confidence: medium
+  applies_when:
+  - a team is reluctant to refactor or restructure
+  operational_mapping:
+    profile_rule: true
+- principle_id: P096
+  statement: Scratch-refactor to understand code by checking it out, refactoring freely
+    without tests, and throwing it away without committing, while guarding against
+    a mistake that gives a false view and against over-attachment to the scratch result;
+    also delete confirmed-unused code, since version control preserves it.
+  derived_from_claims:
+  - C00342
+  - C00343
+  - C00344
+  confidence: medium
+  applies_when:
+  - you need to learn how a piece of code works
+  operational_mapping:
+    profile_rule: true
+- principle_id: P097
+  statement: Reach good design in legacy code incrementally, accepting that some steps
+    to make code changeable may temporarily make it uglier, and never let best be
+    the enemy of better.
+  derived_from_claims:
+  - C00005
+  - C00006
+  - C00007
+  confidence: medium
+  applies_when:
+  - improving the design of legacy code under real constraints
+  operational_mapping:
+    profile_rule: true
+- principle_id: P098
+  statement: Use Parameterize Method to pass a method-created object in while keeping
+    a no-argument forwarding method, naming the new method after the parameter type
+    when overloading would confuse, and consider Extract and Override Factory Method
+    instead when leaking new types to clients through Parameterize Method or Parameterize
+    Constructor is a concern.
+  derived_from_claims:
+  - C00549
+  - C00550
+  - C00551
+  confidence: medium
+  applies_when:
+  - a method creates an object internally that you must replace
+  operational_mapping:
+    profile_rule: true
+- principle_id: P099
+  statement: When singleton or global dependencies are extensive, Extract Interface
+    or Extract Implementer on the class and lean on the compiler, remembering that
+    Introduce Static Setter gets tests in but does not remove the globals, whereas
+    Parameterize Method or Parameterize Constructor trade a global for a method temporary
+    or object field at their own cost.
+  derived_from_claims:
+  - C00217
+  - C00218
+  - C00219
+  confidence: medium
+  applies_when:
+  - global dependencies are pervasive
+  operational_mapping:
+    profile_rule: true
+- principle_id: P100
+  statement: Let the change you are making right now reveal which responsibility to
+    extract rather than being overwhelmed by all of them, and get better at spotting
+    responsibilities by reading design-pattern books and other people's code.
+  derived_from_claims:
+  - C00405
+  - C00406
+  - C00407
+  confidence: medium
+  applies_when:
+  - overwhelmed by the number of responsibilities in a class
+  operational_mapping:
+    profile_rule: true
+- principle_id: P101
+  statement: Choose between Skeletonize (extract a conditional's test and body separately,
+    leaving only the control structure) and Find Sequences (extract them together
+    to reveal an overarching sequence) by whether the control structure needs refactoring
+    or a sequence would clarify, leaning toward sequences for bulleted methods and
+    skeletonizing for snarled ones, guided by the design insight you get while extracting.
+  derived_from_claims:
+  - C00462
+  - C00463
+  - C00464
+  confidence: medium
+  applies_when:
+  - extracting from a conditional inside a large method
+  operational_mapping:
+    profile_rule: true
+- principle_id: P102
+  statement: Prefer plain classes with instance data over static-only utility classes,
+    which arise when no common abstraction is found, and break static cling with Introduce
+    Instance Delegator by adding a delegating instance method and passing the object
+    in for an object seam, then once every call goes through delegators move the static
+    bodies into instance methods and delete the statics.
+  derived_from_claims:
+  - C00535
+  - C00536
+  - C00537
+  confidence: medium
+  applies_when:
+  - a static method with a hard dependency blocks testing
+  operational_mapping:
+    profile_rule: true
+- principle_id: P103
+  statement: Use Replace Function with Function Pointer in C by declaring a same-named
+    pointer, renaming the original to a production name, and initializing the pointer,
+    giving a compile-time seam with minimal build impact that can vary behavior in
+    production unlike Link Substitution; treat function pointers as risky but useful
+    with care, and consider upgrading a C project to C++ for richer seams.
+  derived_from_claims:
+  - C00559
+  - C00560
+  - C00561
+  confidence: medium
+  applies_when:
+  - breaking a small dependency in C with function-pointer support
+  operational_mapping:
+    profile_rule: true
+- principle_id: P104
+  statement: Use Template Redefinition in C++ by parameterizing the class on the type
+    to replace with a typedef preserving the name, but bias toward inheritance-based
+    techniques because templatizing moves code into headers and increases dependencies
+    and recompiles, reserving it for dependencies already in templatized code; and
+    use Text Redefinition to redefine a method on the fly in interpreted languages
+    like Ruby, aware the redefinition persists to program end so a forgotten one can
+    affect later tests.
+  derived_from_claims:
+  - C00575
+  - C00576
+  - C00577
+  confidence: medium
+  applies_when:
+  - breaking a dependency in templatized C++ or interpreted-language code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P105
+  statement: 'Treat dependency as the central obstacle to testing legacy code: difficulty
+    creating an object or running a method in a test harness is a dependency problem,
+    and much legacy work is breaking dependencies so change becomes easier.'
+  derived_from_claims:
+  - C00042
+  - C00043
+  confidence: high
+  applies_when:
+  - a class or method is hard to get into a test harness
+  operational_mapping:
+    profile_rule: true
+- principle_id: P106
+  statement: Accept coarse first refactorings to get logic testable and clean up afterward,
+    remembering that the most hazardous part of tool-assisted refactoring is the manual
+    editing between safe automated steps, so extracting methods with poor names to
+    get tests in is fine; safety first.
+  derived_from_claims:
+  - C00258
+  - C00259
+  confidence: high
+  applies_when:
+  - breaking down code to get an initial test in place
+  operational_mapping:
+    profile_rule: true
+- principle_id: P107
+  statement: Create an object seam by passing the collaborator in as a parameter (enabling
+    point is the argument list) or, for a static or private method, removing static
+    and making it protected so a testing subclass can override it.
+  derived_from_claims:
+  - C00082
+  - C00083
+  confidence: high
+  applies_when:
+  - turning a hard-coded call into a substitutable one
+  operational_mapping:
+    profile_rule: true
+- principle_id: P108
+  statement: Treat the up-front cost of breaking dependencies and writing tests as
+    usually paying back, because it avoids unknown debugging time and makes problems
+    easier to find, and because changes cluster so you will likely return to the same
+    code soon.
+  derived_from_claims:
+  - C00101
+  - C00102
+  confidence: high
+  applies_when:
+  - weighing whether it is worth investing in tests for a change
+  operational_mapping:
+    profile_rule: true
+- principle_id: P109
+  statement: Do one thing at a time with TDD, writing code or refactoring but never
+    both at once, and for legacy code add a step zero to get the class under test
+    first while trying not to change existing code as you make a test pass.
+  derived_from_claims:
+  - C00168
+  - C00169
+  confidence: high
+  applies_when:
+  - applying TDD in legacy code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P110
+  statement: 'Remember that instantiating a class is only half the battle: to test
+    its methods use Expose Static Method when the method uses little instance data
+    or Break Out Method Object when it is long and difficult, and diagnose the four
+    method-in-harness problems (inaccessible method, hard-to-build parameters, bad
+    side effects, or needing to sense through an object).'
+  derived_from_claims:
+  - C00237
+  - C00238
+  confidence: high
+  applies_when:
+  - a method resists being run in a test harness
+  operational_mapping:
+    profile_rule: true
+- principle_id: P111
+  statement: Use Replace Global Reference with Getter by introducing a protected getter
+    for each global (a call to a static method on a class counts as a global) and
+    overriding it via Subclass and Override Method or Extract Interface under test.
+  derived_from_claims:
+  - C00562
+  - C00563
+  confidence: high
+  applies_when:
+  - a class reaches globals or class-static methods directly
+  operational_mapping:
+    profile_rule: true
+- principle_id: P112
+  statement: Use Push Down Dependency for pervasive problematic dependencies beyond
+    Subclass and Override Method or repeated Extract Interface by making the current
+    class abstract, pushing the pervasive dependencies such as UI into a production
+    subclass, and subclassing the abstract class for testing, then afterward pulling
+    shared logic back up and isolating the environment-specific calls in one class.
+  derived_from_claims:
+  - C00557
+  - C00558
+  confidence: high
+  applies_when:
+  - problematic dependencies are pervasive throughout a class
+  operational_mapping:
+    profile_rule: true
+- principle_id: P113
+  statement: 'Apply Command/Query Separation: a method should be a command that changes
+    state and returns nothing or a query that returns a value and changes nothing,
+    but not both, primarily so a query can be called repeatedly without reading its
+    body to check for side effects.'
+  derived_from_claims:
+  - C00255
+  - C00256
+  confidence: high
+  applies_when:
+  - designing or reviewing a method's signature and effects
+  operational_mapping:
+    profile_rule: true
+- principle_id: P114
+  statement: Treat encapsulation as a tool for understanding rather than an end, since
+    many dependency-breaking techniques break it; when encapsulation and test coverage
+    conflict, bias toward test coverage, because good explanatory tests let you reason
+    about the code directly and often help you regain encapsulation later.
+  derived_from_claims:
+  - C00283
+  - C00284
+  confidence: high
+  applies_when:
+  - a dependency-breaking change would reduce encapsulation
+  operational_mapping:
+    profile_rule: true
+- principle_id: P115
+  statement: Test one level back, at a single public method for changes in several
+    private methods or at one object's interface for a collaboration it holds, to
+    cover several changes and gain refactoring cover, treating higher-level covering
+    tests as a first step toward unit tests rather than a substitute and expecting
+    them to be easier to change than feared.
+  derived_from_claims:
+  - C00285
+  - C00286
+  confidence: high
+  applies_when:
+  - several closely related classes or methods must change together
+  operational_mapping:
+    profile_rule: true
+- principle_id: P116
+  statement: Listen to design conversations and align code concepts with conversation
+    concepts, turning a recurring concept such as a locking policy into a named class
+    rather than inline code, and treating a weak overlap as a signal that either the
+    code has not adapted to the team's understanding or the team must understand it
+    differently, then putting that understanding into the code.
+  derived_from_claims:
+  - C00357
+  - C00358
+  confidence: high
+  applies_when:
+  - the vocabulary of discussion diverges from the code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P117
+  statement: Apply the Single Responsibility Principle so that each class has one
+    responsibility and one reason to change, treating the discovery of responsibilities
+    in existing code as the same design skill as formulating them for new code.
+  derived_from_claims:
+  - C00386
+  - C00388
+  confidence: high
+  applies_when:
+  - evaluating whether a class does too much
+  operational_mapping:
+    profile_rule: true
+- principle_id: P118
+  statement: Value judgment over holding the whole system in your head and practice
+    single-goal editing, treating programming as the art of doing one thing at a time
+    by picking one thing and noting the rest, since deliberate one-thing work is faster
+    than thrashing across multiple pending changes.
+  derived_from_claims:
+  - C00473
+  - C00474
+  confidence: high
+  applies_when:
+  - tempted to fix several things at once mid-edit
+  operational_mapping:
+    profile_rule: true
+- principle_id: P119
+  statement: Treat naming as a key part of design, since good names reinforce understanding
+    of a system while poor names make life hellish for those who follow, and do not
+    prefix interface names with I unless it is already the convention, because a mix
+    of I-prefixed and non-prefixed type names makes you guess wrong about half the
+    time.
+  derived_from_claims:
+  - C00524
+  - C00525
+  confidence: high
+  applies_when:
+  - naming a new interface or class
+  operational_mapping:
+    profile_rule: true
+- principle_id: P120
+  statement: Understand what behavior is at risk before making a change, because the
+    hard part of preserving behavior is not its volume but not knowing how much of
+    it a change can affect.
+  derived_from_claims:
+  - C00021
+  - C00022
+  confidence: medium
+  applies_when:
+  - scoping a change in unfamiliar code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P121
+  statement: To break dependencies in object-oriented code, first try to instantiate
+    the needed classes in a test harness (often just importing their declarations),
+    and when a class is huge or has overwhelming dependencies, cut out a larger chunk
+    of code and put it under test at a pinch point.
+  derived_from_claims:
+  - C00148
+  - C00149
+  confidence: medium
+  applies_when:
+  - starting to bring a dependency-heavy class under test
+  operational_mapping:
+    profile_rule: true
+- principle_id: P122
+  statement: 'Achieve testability deliberately, since code is generally poorly suited
+    to testing: write tests as you develop or design for testability, and expect to
+    break many dependencies when pulling classes out for unit testing regardless of
+    how good the design looks.'
+  derived_from_claims:
+  - C00064
+  - C00066
+  confidence: medium
+  applies_when:
+  - building new code or assessing why existing code resists testing
+  operational_mapping:
+    profile_rule: true
+- principle_id: P123
+  statement: Prefer simple hand-written fake objects, and reach for a mock object
+    (a fake that asserts internally) only when you must write many fakes and the language
+    has a mock framework, since simple fakes suffice in most situations.
+  derived_from_claims:
+  - C00062
+  - C00063
+  confidence: medium
+  applies_when:
+  - choosing between a plain fake and a mock framework
+  operational_mapping:
+    profile_rule: true
+- principle_id: P124
+  statement: Run the team experiment of making no change for an iteration without
+    a test that covers it, holding a quick meeting whenever someone believes a test
+    cannot be written, and remember that code is your house and you have to live in
+    it.
+  derived_from_claims:
+  - C00103
+  - C00104
+  confidence: medium
+  applies_when:
+  - a team wants to build a testing habit
+  operational_mapping:
+    profile_rule: true
+- principle_id: P125
+  statement: Use Primitivize Parameter (a free function on a simplified primitive
+    representation plus a delegating class method) to add a tested feature when a
+    class is too costly to instantiate, but only when confident you will bring the
+    class under test later, since it leaves code in a poor state by exposing the representation,
+    adding untested glue, duplicating data, and deferring the real dependency-breaking,
+    and it is often a predecessor to Sprout Class.
+  derived_from_claims:
+  - C00552
+  - C00553
+  confidence: medium
+  applies_when:
+  - a domain class is impractically expensive to bring into a harness
+  operational_mapping:
+    profile_rule: true
+- principle_id: P126
+  statement: 'Treat the static area of a class as a staging area for code that does
+    not yet belong: when a class cannot be instantiated for a sprout, consider Pass
+    Null or a public static method, and later extract a new class from statics that
+    share variables.'
+  derived_from_claims:
+  - C00113
+  - C00114
+  confidence: medium
+  applies_when:
+  - a sprout is blocked by inability to construct the class
+  operational_mapping:
+    profile_rule: true
+- principle_id: P127
+  statement: Reserve Definition Completion (a C or C++ alternate definition in the
+    test file) for the worst dependency cases, since it needs a separate test executable
+    and duplicate definitions that burden maintenance and debuggers, using it only
+    to break initial dependencies and then bringing the class under test quickly.
+  derived_from_claims:
+  - C00500
+  - C00501
+  confidence: medium
+  applies_when:
+  - severe C or C++ dependency with no better seam
+  operational_mapping:
+    profile_rule: true
+- principle_id: P128
+  statement: Use Naked CRC, laying down and moving blank index cards to convey the
+    typical objects and their interactions, to make a system tangible and memorable,
+    with cards representing instances rather than classes and overlapping cards showing
+    a collection.
+  derived_from_claims:
+  - C00355
+  - C00356
+  confidence: medium
+  applies_when:
+  - explaining how parts of a system interact
+  operational_mapping:
+    profile_rule: true
+- principle_id: P129
+  statement: Use Link Substitution in procedural languages by building a dummy library
+    of same-signature functions and recording calls for sensing, most useful for faking
+    external libraries that are mostly pure data sinks, and it also works in Java
+    through same-named classes and classpath changes.
+  derived_from_claims:
+  - C00544
+  - C00545
+  confidence: medium
+  applies_when:
+  - faking procedural functions or an external library
+  operational_mapping:
+    profile_rule: true
+- principle_id: P130
+  statement: 'Follow the Legacy Code Change Algorithm: identify change points, find
+    test points, break dependencies, write tests, then make changes and refactor.'
+  derived_from_claims:
+  - C00047
+  confidence: high
+  applies_when:
+  - starting a change in a legacy code base
+  operational_mapping:
+    profile_rule: true
+- principle_id: P131
+  statement: In particularly nasty legacy code, modify the code as little as possible
+    while getting tests in place, using the seams your language offers to work more
+    safely than direct editing would.
+  derived_from_claims:
+  - C00084
+  confidence: high
+  applies_when:
+  - getting a first test around fragile untested code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P132
+  statement: 'Mitigate the risk of any change by answering three questions: what changes
+    must be made, how will we know we made them correctly, and how will we know we
+    have not broken anything.'
+  derived_from_claims:
+  - C00023
+  confidence: high
+  applies_when:
+  - planning a risky change
+  operational_mapping:
+    profile_rule: true
+- principle_id: P133
+  statement: Make each programming episode deliver functional value while bringing
+    more of the system under test, so that tested areas of the code base steadily
+    grow.
+  derived_from_claims:
+  - C00048
+  confidence: high
+  applies_when:
+  - planning day-to-day legacy work
+  operational_mapping:
+    profile_rule: true
+- principle_id: P134
+  statement: Apply dependency-breaking refactorings without tests as the deliberate
+    exception to test-first, purely as a means of getting the first tests in place.
+  derived_from_claims:
+  - C00008
+  confidence: high
+  applies_when:
+  - breaking dependencies to get initial tests around untested code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P135
+  statement: Break a dependency with Subclass and Override Method by overriding the
+    offending method in a testing subclass, but only when the override does not change
+    the behavior you intend to test.
+  derived_from_claims:
+  - C00197
+  confidence: high
+  applies_when:
+  - a localized method call must be neutralized for a test
+  operational_mapping:
+    profile_rule: true
+- principle_id: P136
+  statement: Never treat design as over while changes continue, because design is
+    design regardless of when it happens, and once it is considered finished new code
+    lands in poor places and classes bloat since no one feels free to introduce new
+    abstraction.
+  derived_from_claims:
+  - C00359
+  confidence: high
+  applies_when:
+  - a project treats a design phase as complete but keeps changing code
+  operational_mapping:
+    profile_rule: true
+- principle_id: P137
+  statement: Make a collaborator fakeable by introducing a seam such as extracting
+    an interface, so the class under test can hold either the real collaborator or
+    a fake.
+  derived_from_claims:
+  - C00057
+  confidence: high
+  applies_when:
+  - a collaborator is hard to substitute under test
+  operational_mapping:
+    profile_rule: true
+- principle_id: P138
+  statement: 'Choose the right seam type: prefer explicit object seams in object-oriented
+    languages, and reserve the less-explicit link and preprocessing seams for pervasive
+    dependencies with no better alternative, since tests that depend on them are harder
+    to maintain.'
+  derived_from_claims:
+  - C00085
+  confidence: high
+  applies_when:
+  - multiple seam types are available for a dependency
+  operational_mapping:
+    profile_rule: true
+- principle_id: P139
+  statement: For an irritating parameter that is slow, unreliable, or has side effects
+    under test, extract an interface on it and pass a fake that supplies only the
+    values the code under test needs.
+  derived_from_claims:
+  - C00188
+  confidence: high
+  applies_when:
+  - a required collaborator parameter is awkward under test
+  operational_mapping:
+    profile_rule: true
+- principle_id: P140
+  statement: When you find a bug while characterizing, fix it if the system was never
+    deployed, but if deployed analyze how to fix it without ripple effects since someone
+    may depend on the behavior, biasing toward fixing clear errors promptly and marking
+    and escalating suspected ones.
+  derived_from_claims:
+  - C00312
+  confidence: high
+  applies_when:
+  - a suspected bug surfaces during characterization
+  operational_mapping:
+    profile_rule: true
+- principle_id: P141
+  statement: Pair when using dependency-breaking techniques, because it is easy to
+    break software unknowingly and legacy work is surgery where doctors do not operate
+    alone, and pairing raises quality and spreads knowledge.
+  derived_from_claims:
+  - C00482
+  confidence: high
+  applies_when:
+  - performing risky dependency-breaking work
+  operational_mapping:
+    profile_rule: true
+- principle_id: P142
+  statement: Copy and modify code in a new method as a legitimate legacy tactic for
+    seeing a change side by side with the old code, provided you remove the resulting
+    duplication afterward.
+  derived_from_claims:
+  - C00166
+  confidence: medium
+  applies_when:
+  - modifying awful code where side-by-side comparison helps
+  operational_mapping:
+    profile_rule: true
+- principle_id: P143
+  statement: Keep excessive preprocessing out of production code, because conditional-compilation
+    directives amount to several programs in one source and macros do blind text replacement
+    that can hide obscure bugs.
+  derived_from_claims:
+  - C00071
+  confidence: medium
+  applies_when:
+  - working in C or C++ with heavy macro or conditional-compilation use
+  operational_mapping:
+    profile_rule: true
+- principle_id: P144
+  statement: 'Choose between sprouting and wrapping by intent: use Sprout Method when
+    the existing method already communicates a clear algorithm, and move to Wrap Method
+    when the new feature is as important as the work already there.'
+  derived_from_claims:
+  - C00135
+  confidence: medium
+  applies_when:
+  - deciding between sprout and wrap for a change
+  operational_mapping:
+    profile_rule: true
+- principle_id: P145
+  statement: Treat Rename Class as one of the most powerful refactorings, because
+    a better class name changes how people see the code and reveals possibilities
+    they had not considered.
+  derived_from_claims:
+  - C00177
+  confidence: medium
+  applies_when:
+  - a class name no longer reflects its responsibility
+  operational_mapping:
+    profile_rule: true
