@@ -1,0 +1,144 @@
+schema_version: golden-tests-v1
+subagent_slug: calibration-forecasting-reviewer
+generated_at: '2026-07-10'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+  - test_id: GT-001
+    description: Positive routing — overconfident single-outcome forecast built from a vivid story
+    prompt: >-
+      An analyst says "I'm 95% confident this regime falls within 12 months" from a detailed story
+      of protests and elite defections — no base rate, no track record. Review it before we brief it.
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review flagging base-rate neglect (inside view, no reference class), overconfidence (a 95%
+      too-tight interval on a contingent event), and narrative-over-calculus, with the corrections
+      and the residual uncertainty.
+    must_do:
+      - Flag base-rate neglect and require leading with the reference-class base rate, regressing the extreme toward it
+      - Flag the 95% as overconfident / too tight and cap stated certainty short of 1.0
+      - Flag reasoning from a vivid story (illusion of validity) and judge likelihood with the probability calculus
+      - Make the residual odds explicit and hand the estimate and decision back to the team
+    must_not_do:
+      - Supply the substantive forecast or make the decision
+      - Endorse the 95% as calibrated
+    principle_coverage: [P006, P007, P073, P078, P072, P020, P080]
+  - test_id: GT-002
+    description: Positive routing — scoring a forecaster without a baseline
+    prompt: >-
+      Our forecaster's average Brier score last quarter was 0.18. Does that mean they're good? How
+      should we judge it?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Advice that a Brier score is meaningful only against a named baseline on a level playing field,
+      decomposed into calibration and resolution/discrimination, same-question and same-period.
+    must_do:
+      - Require comparison to a naive baseline (e.g. predict-no-change) on the same questions and period
+      - Decompose accuracy into calibration and resolution/discrimination
+      - Separate skill from task difficulty
+      - State the residual uncertainty a single-quarter score leaves
+    must_not_do:
+      - Declare the forecaster good or bad from the raw score alone
+      - Present one metric as complete
+    principle_coverage: [P059, P015, P065, P013, P068]
+  - test_id: GT-003
+    description: Positive routing — inside-view estimate ignoring the reference class
+    prompt: >-
+      Our team is sure this new product hits 40% market share in year one because our demo wowed
+      everyone. Sanity-check the forecast.
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      A review that leads with the outside-view base rate for comparable launches, regresses the
+      intuitive extreme toward it, treats status-quo/typical outcome as the default, and states the
+      residual uncertainty.
+    must_do:
+      - Identify the reference class and lead with its base rate for comparable launches
+      - Regress the 40% intuitive extreme toward the baseline by the fraction equal to predictability
+      - Treat a typical / status-quo outcome as the more likely default
+      - State the residual uncertainty and hand the estimate back
+    must_not_do:
+      - Endorse the 40% at face value
+      - Produce the team's forecast for them
+    principle_coverage: [P006, P007, P067, P049, P051]
+  - test_id: GT-004
+    description: Positive routing — designing a forecasting process / tournament
+    prompt: >-
+      We want to stand up an internal forecasting tournament to get better estimates. How should we
+      design the scoring, aggregation, and accountability?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Advice on public scorekeeping with a proper rule against a baseline, aggregation (consensus
+      averaging, extremizing a diverse crowd, Delphi/markets), and cultivating fox-style forecasters.
+    must_do:
+      - Recommend public tournaments and scorekeeping with a proper scoring rule and a named baseline
+      - Recommend averaging and extremizing a diverse crowd only when information is unshared
+      - Recommend cultivating self-critical, flexible (fox) forecasters over credentials/fame
+      - Note calibration does not transfer across domains, so practise with feedback per domain
+    must_not_do:
+      - Make the org's design decision for them
+      - Present a single method as sufficient
+    principle_coverage: [P011, P015, P059, P044, P060, P061, P064]
+  - test_id: GT-005
+    description: Positive routing — compare ways to express an uncertain estimate
+    prompt: >-
+      Should we report our estimate as a single point, a 90% interval, or a probability on a defined
+      outcome? Compare the options for scoring later.
+    expected_route: invoke
+    expected_mode: compare
+    minimum_output: >-
+      A comparison of point vs interval vs defined-outcome probability against scoreability and
+      calibration, favouring an outcome defined precisely enough to pass a clairvoyance test, with
+      the betting test as a check.
+    must_do:
+      - Compare each option on scoreability, calibration, and the clairvoyance test
+      - Favour defining the outcome precisely enough to be scored, with a proper rule
+      - Apply the betting test to the stated probability
+      - End with a calibration-weighted recommendation and the residual uncertainty
+    must_not_do:
+      - Pick a number for the caller's actual estimate
+    principle_coverage: [P050, P075, P073, P015, P090]
+negative_routing_tests:
+  - test_id: NR-001
+    description: Negative routing — database performance, not judgment under uncertainty
+    prompt: >-
+      Our PostgreSQL dashboard query is slow. Which indexes should we add and how do we rewrite the
+      query plan?
+    expected_route: do_not_invoke
+    must_not_do:
+      - Offer a calibration or forecasting review of a deterministic database-tuning task
+    principle_coverage: []
+  - test_id: NR-002
+    description: Negative routing — asking for production code to be written
+    prompt: >-
+      Write the Python service that ingests our sales data and computes the monthly totals for us.
+    expected_route: do_not_invoke
+    must_not_do:
+      - Produce the implementation; this reviewer critiques calibration and reasoning, not code
+    principle_coverage: []
+missing_context_tests:
+  - test_id: MC-001
+    description: Missing context — "is our forecast calibrated?" with nothing supplied
+    prompt: Is our forecasting well-calibrated?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for:
+      - The forecasts and the probabilities that were stated
+      - The realized outcomes / track record to score them against
+      - The horizon and exactly what was being predicted
+      - The baseline or reference class to compare against
+    principle_coverage: [P015, P059, P050]
+  - test_id: MC-002
+    description: Missing context — "should we trust this estimate?" with no reasoning or reference class
+    prompt: Should we trust this estimate?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for:
+      - The estimate and the reasoning behind it
+      - The reference class or base rate, if any
+      - The evidence and how diagnostic it is
+      - The horizon and what exactly is being predicted
+    principle_coverage: [P006, P022, P003]
