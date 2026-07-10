@@ -1,0 +1,215 @@
+# Faithfulness review — bias-perception-reviewer
+# Per-rule claim-strength check of the load-bearing profile rules against the promoted
+# principles and their backing claims. No rule is stronger than its evidence. source_anchors
+# are omitted deliberately: provenance is carried in each note via principle + claim IDs,
+# which resolve into principles.yaml (P###) and analysis/claims.jsonl (C#####). Verdicts sit at
+# EXACT_SUPPORT / WITHIN_SCOPE — the profile restates the sources' bias/perception/calibration
+# rules and narrows their scope to review and advice; it does not broaden them.
+schema_version: faithfulness-report-v1
+subagent_slug: bias-perception-reviewer
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The role restates the sources'' subject — cognitive bias, perceptual distortion, and calibration
+    failure in judgment — and narrows the posture to review and advice, explicitly disclaiming making
+    the substantive judgment, owning the decision, or certifying an analysis correct. A narrowing, not
+    an over-claim. Grounded in principle(s): P001 (claims C00010, C00011); P006 (claims C00520, C00521);
+    P049 (claims C00154, C00175); P086 (claims C01208, C01215); P108 (claims C02069, C02070); P128 (claims
+    C02074, C02075).'
+- rule_ref: when_to_use[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reviewing an analytic product for bias — anchoring, availability, representativeness, an unexamined
+    mind-set — is directly supported. Grounded in principle(s): P001 (claims C00010, C00011); P018 (claims
+    C00444, C00445); P082 (claims C00608, C00609); P100 (claims C00124, C00130).'
+- rule_ref: when_to_use[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Checking that a probability judgment is numeric, granular, base-rate anchored, and scorable against
+    a track record is directly supported. Grounded in principle(s): P049 (claims C00154, C00175); P067
+    (claims C01097, C01098); P152 (claims C01351, C01352); P199 (claims C01782, C01783).'
+- rule_ref: when_to_use[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Diagnosing motivated reasoning and belief perseverance in a judgment that is not updating is
+    directly supported. Grounded in principle(s): P074 (claims C01130, C01131); P076 (claims C01973, C01974);
+    P167 (claims C02389, C02390); P200 (claims C01970, C01972).'
+- rule_ref: when_to_use[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reviewing an inference about another actor for attribution error, the centralized-actor assumption,
+    and a deterrence/spiral misreading is directly supported. Grounded in principle(s): P013 (claims C01307,
+    C01308); P109 (claims C02078, C02079); P128 (claims C02074, C02075); P054 (claims C02192, C02201).'
+- rule_ref: when_to_use[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Choosing or applying a structured analytic technique (ACH, alternative futures, premortem) to
+    break a mind-set is directly supported. Grounded in principle(s): P008 (claims C00003, C00004); P009
+    (claims C00098, C00099); P010 (claims C00299, C00300); P100 (claims C00124, C00130).'
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Declining to make the substantive judgment narrows the role; the sources place ownership of the
+    judgment with the analyst and decision-maker. Grounded in principle(s): P086 (claims C01208, C01215);
+    P108 (claims C02069, C02070).'
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Excluding data collection and operational action narrows scope to evaluating reasoning from evidence
+    in hand, consistent with the tradecraft framing. Grounded in principle(s): P008 (claims C00003, C00004);
+    P086 (claims C01208, C01215).'
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Excluding clinical diagnosis narrows scope; these sources describe reasoning errors in analysis,
+    and claims about cognition are kept probabilistic, not clinical. Grounded in principle(s): P108 (claims
+    C02069, C02070); P182 (claims C00143, C00146).'
+- rule_ref: when_not_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Declining to rationalise a foregone conclusion narrows the role and follows the sources'' warning
+    against supplying reasons for a belief already held. Grounded in principle(s): P076 (claims C01973,
+    C01974); P193 (claims C01611, C01612).'
+- rule_ref: quality_bar[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Not weighting vivid or anecdotal evidence over diagnostic base-rate information, and checking
+    the sample for bias, is directly supported. Grounded in principle(s): P001 (claims C00010, C00011);
+    P047 (claims C01823, C01824); P062 (claims C02483, C02484); P199 (claims C01782, C01783).'
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring granular numeric probability anchored to a base rate and scorable against resolution
+    criteria is directly supported. Grounded in principle(s): P049 (claims C00154, C00175); P067 (claims
+    C01097, C01098); P123 (claims C01628, C01684); P191 (claims C01272, C01273).'
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring alternative hypotheses tested against the evidence with a structured technique is directly
+    supported. Grounded in principle(s): P008 (claims C00003, C00004); P010 (claims C00299, C00300); P100
+    (claims C00124, C00130); P141 (claims C00172, C00173).'
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Surfacing motivated reasoning while explicitly distinguishing rational slow updating from bias
+    is supported and, in adding that caveat, narrows rather than broadens the claim. Grounded in principle(s):
+    P074 (claims C01130, C01131); P076 (claims C01973, C01974); P167 (claims C02389, C02390); P200 (claims
+    C01970, C01972).'
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Separating situational from dispositional causes and avoiding the centralized-actor assumption
+    is supported; the added ''no rule stronger than its source'' clause narrows the claim. Grounded in
+    principle(s): P013 (claims C01307, C01308); P108 (claims C02069, C02070); P109 (claims C02078, C02079);
+    P128 (claims C02074, C02075).'
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding the reviewer from making the substantive judgment or certifying an analysis correct
+    narrows the role, consistent with the leader/forecaster separation and probabilistic stance. Grounded
+    in principle(s): P086 (claims C01208, C01215); P108 (claims C02069, C02070).'
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding supplying reasons for a foregone conclusion and treating one debiasing step as a cure
+    restates the sources'' warnings and narrows the role. Grounded in principle(s): P006 (claims C00520,
+    C00521); P076 (claims C01973, C01974).'
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forbidding over-claim and presenting perception as a deterministic law is directly supported;
+    the sources keep propositions about perception probabilistic. Grounded in principle(s): P052 (claims
+    C00633, C00635); P108 (claims C02069, C02070).'
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Requiring at least one finding that names the mechanism, applies a principle, gives the correction,
+    and states residual uncertainty operationalises the sources'' stance without overstating any single
+    rule. Grounded in principle(s): P049 (claims C00154, C00175); P108 (claims C02069, C02070).'
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The per-finding format (mechanism, principle ID, correction, residual uncertainty, next step,
+    never a substitute judgment) narrows the sources to a review deliverable. Grounded in principle(s):
+    P049 (claims C00154, C00175); P108 (claims C02069, C02070); P128 (claims C02074, C02075).'

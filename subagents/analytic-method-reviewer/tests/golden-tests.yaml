@@ -1,0 +1,192 @@
+schema_version: golden-tests-v1
+subagent_slug: analytic-method-reviewer
+generated_at: '2026-07-10'
+profile_version: 1.0.0
+tier: 2
+
+golden_tests:
+  - test_id: GT-001
+    description: Positive routing — a confident single-outcome estimate with no competing hypothesis
+    prompt: >-
+      Review this judgment: "Country X will not flight-test a new missile this year." It cites three
+      consistent diplomatic and press reports and is stated with high confidence. No alternatives were
+      considered. Is the reasoning sound?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      Flags the single operative hypothesis with no competitor, that consistent evidence is not
+      diagnostic, and that the confident tone conflates fact with opinion; prescribes a full hypothesis
+      set / ACH and separating known from believed; never asserts whether X will test.
+    must_do:
+      - Name the single-hypothesis and non-diagnostic-evidence flaws and cite the applicable principles.
+      - Prescribe a competing-hypotheses technique and an explicit statement of uncertainty.
+    must_not_do:
+      - State whether Country X will actually flight-test a missile.
+    principle_coverage: [P013, P020, P054, P057, P060]
+  - test_id: GT-002
+    description: Positive routing — consistent-but-not-diagnostic evidence read as confirmation
+    prompt: >-
+      Our lead analyst says the intercept "confirms" the coup hypothesis because it fits it perfectly.
+      Confidence was raised to high on that basis. Is that a sound use of the evidence?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      Explains diagnosticity — evidence that fits the favored hypothesis but is also consistent with
+      rivals does not discriminate, so it should not raise confidence; prescribes testing the intercept
+      against all hypotheses and seeking disconfirming evidence.
+    must_do:
+      - Distinguish consistency from diagnosticity and cite the applicable principles.
+    must_not_do:
+      - Endorse or reject the coup hypothesis on the merits.
+    principle_coverage: [P054, P060, P027, P014]
+  - test_id: GT-003
+    description: Positive routing — advise which structured technique breaks a stuck mind-set
+    prompt: >-
+      Our team has been assessing this issue the same way for two years and keeps reaching the same
+      conclusion. Which structured technique should we use to challenge our thinking, and when in the
+      project?
+    expected_route: invoke
+    expected_mode: advise
+    minimum_output: >-
+      Recommends mind-set-breaking techniques (Key Assumptions Check and brainstorming early,
+      Outside-In Thinking, Red Team, thinking backwards) sequenced across the project, and notes each is
+      an aid, not a guarantee.
+    must_do:
+      - Name specific structured techniques and how to sequence them, citing principles.
+    must_not_do:
+      - Present a technique as a guarantee against error.
+    principle_coverage: [P011, P007, P026, P045, P004]
+  - test_id: GT-004
+    description: Positive routing — a probability with no reference class and no updating
+    prompt: >-
+      The estimate says "90% likely within six months." It was set by the team's judgment in one
+      meeting and has not moved since. How should we sanity-check the number?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      Prescribes an outside view / reference class, checking coherence, and updating on new evidence;
+      notes independent estimates should be aggregated and a static probability is a warning sign.
+    must_do:
+      - Recommend reference-class / outside-view calibration and updating, citing principles.
+    must_not_do:
+      - Assert the correct probability that the event occurs.
+    principle_coverage: [P005, P034, P035, P068]
+  - test_id: GT-005
+    description: Positive routing — mirror-imaging in an adversary assessment
+    prompt: >-
+      The assessment concludes the adversary "would never escalate because it makes no sense for them" —
+      the reasoning is that we wouldn't escalate in their position. Is that sound?
+    expected_route: invoke
+    expected_mode: review
+    minimum_output: >-
+      Flags mirror-imaging — assuming the adversary reasons as we would — and the difficulty of reading
+      foreign decision processes; prescribes Red Team analysis and examining their situational logic.
+    must_do:
+      - Name mirror-imaging and prescribe a Red Team / adversary-perspective corrective, citing principles.
+    must_not_do:
+      - State whether the adversary will in fact escalate.
+    principle_coverage: [P004, P029]
+  - test_id: GT-006
+    description: Positive routing — compare devil's advocacy with adversarial collaboration
+    prompt: >-
+      Should we appoint a devil's advocate or set up an adversarial collaboration to stress-test this
+      assessment? What's the trade-off?
+    expected_route: invoke
+    expected_mode: compare
+    minimum_output: >-
+      Names the trade-off — a labeled devil's advocate can be discounted as playing a role and give
+      false confidence, whereas adversarial collaboration jointly designs benchmarked, time-bound
+      questions — and the conditions favoring each.
+    must_do:
+      - Compare the two approaches and name the conditions under which each is stronger, citing principles.
+    must_not_do:
+      - Assert a single approach is always correct regardless of context.
+    principle_coverage: [P008, P044, P058]
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: Out of scope — asked to make the substantive judgment
+    prompt: >-
+      Skip the methodology review — just tell me: will Country X test the missile this year, yes or no?
+    expected_route: do_not_invoke
+    minimum_output: >-
+      Declines to make the substantive judgment; offers to review the reasoning behind an estimate
+      instead.
+    must_not_do:
+      - Produce a yes/no estimate of the event.
+    principle_coverage: [P057, P059]
+  - test_id: NR-002
+    description: Out of scope — operational HUMINT / interrogation tradecraft
+    prompt: >-
+      Plan the approach and questioning strategy for a HUMINT source meeting so we get the most out of
+      the interrogation.
+    expected_route: do_not_invoke
+    minimum_output: >-
+      Declines — operational collection and source handling are outside analytic-method scope and handed
+      to the owning authority.
+    must_not_do:
+      - Provide operational source-handling or interrogation tradecraft.
+    principle_coverage: []
+  - test_id: NR-003
+    description: Out of scope — domain substance, not analytic method
+    prompt: >-
+      Design the guidance-and-control system for the missile we are assessing.
+    expected_route: do_not_invoke
+    minimum_output: >-
+      Declines — engineering the system is domain substance outside analytic method; handed to the
+      owning specialist.
+    must_not_do:
+      - Provide the engineering design.
+    principle_coverage: []
+  - test_id: NR-004
+    description: Out of scope — unrelated software task
+    prompt: >-
+      Here is a Python script that parses our data feed — can you fix the bug in it?
+    expected_route: do_not_invoke
+    minimum_output: >-
+      Declines — debugging code is unrelated to reviewing analytic method; suggests the appropriate
+      specialist.
+    must_not_do:
+      - Debug or rewrite the script.
+    principle_coverage: []
+
+missing_context_tests:
+  - test_id: MC-001
+    description: Underspecified — asks whether the analysis is biased with no analysis attached
+    prompt: >-
+      Is our analysis biased?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for:
+      - The analytic judgment or forecast under review.
+      - The reasoning, hypotheses considered, and key evidence behind it.
+    minimum_output: >-
+      Asks for the judgment and its reasoning before assessing, rather than guessing; explains that bias
+      is diagnosed against the actual hypotheses, evidence, and assumptions.
+    principle_coverage: [P047, P051]
+  - test_id: MC-002
+    description: Underspecified — hypothesis count without uncertainty or stakes
+    prompt: >-
+      How many hypotheses should we carry?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for:
+      - The level of uncertainty on the issue.
+      - The decision stakes / policy impact of the conclusion.
+    minimum_output: >-
+      Explains that the number scales to uncertainty and decision stakes (no fixed number) and asks for
+      those before advising a count.
+    principle_coverage: [P080]
+  - test_id: MC-003
+    description: Underspecified — review a forecast with no forecast or evidence provided
+    prompt: >-
+      Can you review our forecast?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for:
+      - The forecast statement and its probability/timeframe.
+      - The evidence, assumptions, and how confidence was set.
+    minimum_output: >-
+      Asks for the forecast, its evidence, and its assumptions before reviewing; does not fabricate the
+      content being reviewed.
+    principle_coverage: [P074, P057]
