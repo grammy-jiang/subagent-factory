@@ -47,6 +47,28 @@ def test_placeholder_token_fails(tmp_path):
     assert any(lvl == "FAIL" and "TODO" in m for lvl, m in validate_adapter_quality(base))
 
 
+def test_uppercase_placeholder_token_fails(tmp_path):
+    base = _adapter(tmp_path, _GOOD + "\n## Notes\n\nReplace PLACEHOLDER with the real value.\n")
+    assert any(lvl == "FAIL" and "PLACEHOLDER" in m for lvl, m in validate_adapter_quality(base))
+
+
+def test_template_placeholder_marker_fails(tmp_path):
+    base = _adapter(tmp_path, _GOOD + "\n## Notes\n\nSee <placeholder> for details.\n")
+    assert any(lvl == "FAIL" and "placeholder" in m for lvl, m in validate_adapter_quality(base))
+
+
+def test_lowercase_placeholder_word_in_prose_passes(tmp_path):
+    # A real English word in distilled prose is not a stub token (the ``:`` null utility is a
+    # "do-nothing placeholder"). Case-sensitive PLACEHOLDER must not false-positive on it.
+    body = (
+        _GOOD + "\n## Notes\n\nUse `:` as a do-nothing placeholder where a command is required.\n"
+    )
+    assert not any(
+        lvl == "FAIL" and "PLACEHOLDER" in m
+        for lvl, m in validate_adapter_quality(_adapter(tmp_path, body))
+    )
+
+
 def test_stub_status_marker_fails(tmp_path):
     base = _adapter(tmp_path, _GOOD + "\n> **STATUS: STUB**\n")
     assert any(lvl == "FAIL" and "STATUS: STUB" in m for lvl, m in validate_adapter_quality(base))

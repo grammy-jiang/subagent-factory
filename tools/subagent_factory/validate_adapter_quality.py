@@ -25,11 +25,16 @@ import yaml
 
 # Clear stub markers; deliberately omits ambiguous ones (XXX/TBD) to avoid false positives in
 # synthesized prose. Each entry is (regex, human label).
+# ``PLACEHOLDER`` is matched case-SENSITIVELY (like TODO/FIXME): the stub-token convention is the
+# upper-case word, whereas the lower-case "placeholder" is an ordinary English term that legitimately
+# appears in distilled prose (e.g. a bash principle: the ``:`` null utility is a "do-nothing
+# placeholder where the grammar needs a command"). The template-marker form ``<placeholder…`` is still
+# caught case-insensitively by its own entry below, so real placeholders do not slip through.
 _PLACEHOLDERS = [
     (re.compile(r"\bTODO\b"), "TODO"),
     (re.compile(r"\bFIXME\b"), "FIXME"),
     (re.compile(r"STATUS:\s*STUB", re.IGNORECASE), "STATUS: STUB"),
-    (re.compile(r"\bPLACEHOLDER\b", re.IGNORECASE), "PLACEHOLDER"),
+    (re.compile(r"\bPLACEHOLDER\b"), "PLACEHOLDER"),
     (re.compile(r"lorem ipsum", re.IGNORECASE), "lorem ipsum"),
     (re.compile(r"\bTKTK\b", re.IGNORECASE), "TKTK"),
     (re.compile(r"to be (?:authored|written|filled)", re.IGNORECASE), "to be authored/written"),
