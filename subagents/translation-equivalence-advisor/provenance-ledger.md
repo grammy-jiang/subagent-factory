@@ -14,7 +14,7 @@ tags, per repo convention.)
 | source_id | title | author | year | rights |
 |-----------|-------|--------|------|--------|
 | in-other-words-baker-8e6c3cb1 | In Other Words: A Coursebook on Translation | Mona Baker | 1992 | distillation-only |
-| dynamic-formal-equiv-e6872198 | Toward a Science of Translating: dynamic and formal equivalence | Eugene A. Nida | 1964 | distillation-only |
+| dynamic-formal-equiv-e6872198 | Toward a Science of Translating (secondary extract on dynamic and formal equivalence; a derived ~10k-word extract, not the primary monograph) | Eugene A. Nida | 1964 | distillation-only |
 
 Both sources are **distillation-only**: paraphrase and restructure only, no verbatim quotation
 (see `.claude/rules/rights-and-quotation-policy.md`; enforced by `quote_scan`).
@@ -49,6 +49,35 @@ The five high-confidence principles (P009, P024, P037, P038, P058) are compiled 
 
 ## Version history
 
+- **v1.2.0** (2026-07-12) — review-loop r2 fixes (supersession, no spine change; every edited rule still
+  restates principles already in the spine, no new claim):
+  - MF-1 (faithfulness): the receptor-response over-claim fixed in `quality_bar[6]` at v1.1.0 was still
+    live verbatim in four non-profile artifacts — the `dynamic-and-formal-equivalence` skill Purpose and
+    anti-pattern, the key-concepts Adequacy entry, and golden test GT-004. All propagated to the
+    brief-conditioned wording (P021, P034, P035, P022 — P022 grounds closeness-to-source-form for readers
+    who need that access). `.build/authoring/gen.py` corrected so regeneration will not reintroduce it.
+    Faithfulness-report `quality_bar[6]` note extended to record the propagated loci.
+  - MF-2 (faithfulness): `quality_bar[1]` reversed P044's hedge ("assume no idiom has a target
+    equivalent" = presume none) → restored to P044's agnostic "do not assume an idiom has a target
+    equivalent", matching `always_on[1]` and unblocking P014's similar-meaning-and-form idiom strategy.
+    Faithfulness-report `quality_bar[1]` note corrected (was inaccurately "no strengthening").
+  - SF-1 (routing): `when_to_use` reordered so the most distinctive triggers (culture-specific
+    item/idiom/collocation/marked-structure/poetic-form; whole-text review) fill the first two slots the
+    router `description` samples (no principle grounding — scope statement).
+  - SF-2 (scope): `review` mode output now states "correction" = strategy/target-language device, not
+    verbatim replacement prose (consistent with `forbidden_behaviours[0]`; no new citation).
+  - SF-3 (advise-mode fit): eight skill `## Output` sections gained a no-draft branch (state the
+    recommended strategy and its principle directly when no draft is supplied). No grounding change.
+  - SF-5 (provenance): Nida citation corrected — fabricated subtitle dropped; recorded as a derived
+    secondary extract, not the primary monograph (Sources table above updated).
+  - SF-6 (size): `quality_bar` clauses trimmed to hold the body under the 1000-word limit; all principle
+    citations preserved.
+  - SF-7/SF-8 (test hygiene): `golden-tests.yaml` `profile_version` → 1.2.0; GT-004 `principle_coverage`
+    gains P022; Phase-8 `test-results.md` regenerated against the v1.2.0 profile.
+  - Deferred (out of grounding scope — would need claims absent from this spine): SF-9 back-translation
+    QA/validation role, SF-10 Nida-1986 "functional equivalence" rename, SF-11 Mandarin 被 era-drift,
+    SF-12 contrastive-rhetoric critique, SF-13 equivalent-effect unmeasurability, SF-14 inclusive-language
+    policy, and the N-tier nice-to-haves that import outside sources.
 - **v1.1.0** (2026-07-12) — review-loop r1 fixes (supersession, no spine change; every edited rule still
   restates principles already in the spine, no new claim):
   - M2 (faithfulness): `quality_bar[6]` over-claim removed — the universal negation "adequacy is judged

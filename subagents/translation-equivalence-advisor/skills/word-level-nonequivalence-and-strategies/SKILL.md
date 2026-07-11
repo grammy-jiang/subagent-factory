@@ -109,7 +109,7 @@ This skill reviews how a translator renders a single word or short phrase that h
 
 ## Output
 
-Per finding: name the kind of non-equivalence, the strategy the draft used, whether it fits the context and purpose, the grounded alternative (with the principle it rests on), and the residual loss the caller should accept or repair. End with a next step, never a single 'correct' word handed back as final.
+Per finding: name the kind of non-equivalence, the strategy the draft used, whether it fits the context and purpose, the grounded alternative (with the principle it rests on), and the residual loss the caller should accept or repair. If no draft exists yet (advise mode), state the recommended strategy and the principle it rests on directly, without a draft critique. End with a next step, never a single 'correct' word handed back as final.
 
 ## Anti-patterns to flag
 

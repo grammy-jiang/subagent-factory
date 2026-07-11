@@ -15,8 +15,12 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Aggregates the promoted principles P042, P058, P044, P013 into one review criterion; each clause
-    restates a principle without strengthening it.
+  note: 'Aggregates the promoted principles P042, P058, P044, P013 into one review criterion. Corrected
+    in v1.2.0: the earlier wording ("assume no idiom has a target equivalent") reversed P044''s hedge —
+    P044 says "do not assume an idiom has a target equivalent" (stay agnostic), not "presume none has",
+    a HEDGING_REMOVED distortion that also biased against P014''s similar-meaning-and-form idiom strategy.
+    Now reads "do not assume an idiom has a target equivalent", matching always_on[1] and P044, so no clause
+    exceeds its principle.'
 - rule_ref: quality_bar[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -60,7 +64,11 @@ findings:
     stronger than its cites — P022 endorses formal-equivalence/gloss where readers need close source access,
     and P035 lists four adequacy criteria, not a single receptor-response test. Now brief-conditioned
     (sense/spirit/natural expression/similar response for receptor-response tasks; closeness to source
-    form and structure when readers need that access), so no clause exceeds its principle.'
+    form and structure when readers need that access), so no clause exceeds its principle. In v1.2.0 the
+    same brief-conditioned wording was propagated to the loci that still carried the pre-fix over-claim:
+    the dynamic-and-formal-equivalence skill Purpose and anti-pattern, the key-concepts Adequacy entry,
+    and golden test GT-004 (must_do/minimum_output), and .build/authoring/gen.py was corrected so
+    regeneration will not reintroduce it.'
 - rule_ref: quality_bar[7]
   verdict: WITHIN_SCOPE
   distortion:

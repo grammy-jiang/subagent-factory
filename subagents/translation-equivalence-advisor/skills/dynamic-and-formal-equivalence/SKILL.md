@@ -93,7 +93,7 @@ provenance:
 
 ## Purpose
 
-This skill reviews the orientation decision at the heart of Nida's model: whether a translation should aim for formal equivalence (close access to source form and structure) or dynamic equivalence (an equivalent effect on the receptor). Its rule is that the choice follows from the message type, purpose, and audience, and that adequacy is judged by receptor response, not by formal closeness alone.
+This skill reviews the orientation decision at the heart of Nida's model: whether a translation should aim for formal equivalence (close access to source form and structure) or dynamic equivalence (an equivalent effect on the receptor). Its rule is that the choice follows from the message type, purpose, and audience, and that adequacy is judged by the brief's own criterion — receptor response for a dynamic task, or closeness to source form and structure when readers need that access.
 
 ## When to use
 
@@ -126,7 +126,7 @@ Per finding: state whether formal or dynamic equivalence fits the brief and why,
 ## Anti-patterns to flag
 
 - Defaulting to formal or dynamic equivalence without reading the message type, purpose, and audience (P021).
-- Judging adequacy by formal closeness alone rather than receptor response (P035).
+- Judging adequacy by a single fixed test rather than the brief's own criterion — receptor response for a dynamic task, closeness to source form where readers need that access (P035, P022).
 - Carrying a culturally non-matching referent across untreated, or erasing it, instead of choosing among the grounded options (P023).
 
 ## References

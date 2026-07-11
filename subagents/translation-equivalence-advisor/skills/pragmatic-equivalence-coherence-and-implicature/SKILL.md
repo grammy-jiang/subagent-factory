@@ -108,7 +108,7 @@ This skill reviews meaning in use — what a text implies, presupposes, and does
 
 ## Output
 
-Per finding: state the implied or interactional meaning at stake, the wrong implicature or coherence gap the draft risks, and the correction that lets the target reader build the intended sense. End with a next step.
+Per finding: state the implied or interactional meaning at stake, the wrong implicature or coherence gap the draft risks, and the correction that lets the target reader build the intended sense. If no draft exists yet (advise mode), state the recommended approach and its principle directly, without a draft critique. End with a next step.
 
 ## Anti-patterns to flag
 

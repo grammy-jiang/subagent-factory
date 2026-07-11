@@ -23,7 +23,7 @@ PARTITION = json.load(open(BASE / ".build" / "partition.json"))
 PRIN = {p["principle_id"]: p for p in DATA["principles"]}
 PSRC = DATA["psrc"]  # principle_id -> [source_id]
 
-AGENT_VERSION = "1.0.0"
+AGENT_VERSION = "1.2.0"
 DATE = "2026-07-11"
 SLUG = "translation-equivalence-advisor"
 
@@ -526,7 +526,8 @@ SKILLS: list[dict] = [
             "translation should aim for formal equivalence (close access to source form and "
             "structure) or dynamic equivalence (an equivalent effect on the receptor). Its rule is "
             "that the choice follows from the message type, purpose, and audience, and that adequacy "
-            "is judged by receptor response, not by formal closeness alone."
+            "is judged by the brief's own criterion — receptor response for a dynamic task, or "
+            "closeness to source form and structure when readers need that access."
         ),
         "when": [
             "The team must choose between formal and dynamic equivalence for a brief.",
@@ -574,7 +575,9 @@ SKILLS: list[dict] = [
         "antipatterns": [
             "Defaulting to formal or dynamic equivalence without reading the message type, purpose, "
             "and audience (P021).",
-            "Judging adequacy by formal closeness alone rather than receptor response (P035).",
+            "Judging adequacy by a single fixed test rather than the brief's own criterion — "
+            "receptor response for a dynamic task, closeness to source form where readers need that "
+            "access (P035, P022).",
             "Carrying a culturally non-matching referent across untreated, or erasing it, instead of "
             "choosing among the grounded options (P023).",
         ],
@@ -731,8 +734,8 @@ QUALITY_BAR = [
     {
         "text": (
             "Collocations and idioms are read as patterns, not lone words: combinations are judged "
-            "by target typicality, a word is read through its collocation, and no idiom is assumed to "
-            "have a target equivalent (P042, P058, P044, P013)."
+            "by target typicality, a word is read through its collocation, and no idiom is assumed "
+            "in advance to have a target equivalent (P042, P058, P044, P013)."
         ),
         "pids": ["P042", "P058", "P044", "P013"],
     },
@@ -770,8 +773,10 @@ QUALITY_BAR = [
     {
         "text": (
             "The formal-versus-dynamic orientation follows the brief: tactics come from message "
-            "type, purpose, and audience; adequacy is judged by receptor response, not formal "
-            "closeness (P021, P034, P022, P035)."
+            "type, purpose, and audience; adequacy is judged by the brief's own criterion — sense, "
+            "spirit, natural expression, and similar response for receptor-response tasks, or "
+            "closeness to source form and structure when readers need that access "
+            "(P021, P034, P035, P022)."
         ),
         "pids": ["P021", "P034", "P022", "P035"],
     },
@@ -1234,14 +1239,16 @@ def build_golden() -> dict:
                 "expected_mode": "compare",
                 "minimum_output": (
                     "A comparison choosing orientation from message type, purpose, and audience, "
-                    "judging adequacy by receptor response."
+                    "judging adequacy by the brief's own criterion — for this receptor-response "
+                    "marketing task, by receptor response."
                 ),
                 "must_do": [
                     "Derive the orientation from message type, purpose, and audience",
-                    "Judge adequacy by receptor response, not formal closeness alone",
+                    "Judge adequacy by the brief's own criterion — for this receptor-response "
+                    "marketing task, by receptor response",
                 ],
                 "must_not_do": ["Default to one orientation without reading the brief"],
-                "principle_coverage": ["P021", "P034", "P035"],
+                "principle_coverage": ["P021", "P034", "P035", "P022"],
             },
             {
                 "test_id": "GT-005",
@@ -1485,8 +1492,10 @@ def render_reference_concepts() -> str:
          "Collocation is the largely arbitrary co-occurrence of words, judged by typicality; an "
          "idiom is a frozen pattern whose meaning cannot be deduced from its words (P042, P013)."),
         ("Adequacy",
-         "A translation's adequacy is judged by sense, source spirit and manner, natural receptor "
-         "expression, and similar audience response — not by formal closeness alone (P035)."),
+         "A translation's adequacy is judged by the brief's own criterion — by sense, source spirit "
+         "and manner, natural receptor expression, and similar audience response for a "
+         "receptor-response task, or by closeness to source form and structure where readers need "
+         "that access (P035, P022)."),
     ]
     lines = [f"---\n{front}\n---", "", "# Translation Equivalence — Key Concepts", ""]
     lines += ["A short glossary of the equivalence vocabulary used across the skills. Each entry "

@@ -101,7 +101,7 @@ This skill reviews decisions forced by differences in grammar. Its rule is that 
 
 ## Output
 
-Per finding: name the grammatical category at issue, whether the draft copied form or rendered function, what the target forced that the source left open, and the function-based correction. End with a next step.
+Per finding: name the grammatical category at issue, whether the draft copied form or rendered function, what the target forced that the source left open, and the function-based correction. If no draft exists yet (advise mode), state the recommended function-based rendering and its principle directly, without a draft critique. End with a next step.
 
 ## Anti-patterns to flag
 

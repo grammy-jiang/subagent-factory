@@ -3,6 +3,42 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.0] — 2026-07-12
+
+### Changed
+- **Faithfulness (must-fix MF-1):** the receptor-response over-claim corrected in `quality_bar[6]` at
+  v1.1.0 was still live verbatim in four non-profile artifacts — the `dynamic-and-formal-equivalence`
+  skill Purpose and anti-pattern, the key-concepts glossary Adequacy entry, and golden test GT-004
+  (`must_do`/`minimum_output`). All rewritten brief-conditioned (receptor response for a dynamic task;
+  closeness to source form and structure where readers need that access, per P022/P035). Root cause
+  `.build/authoring/gen.py` fixed so regeneration will not reintroduce it.
+- **Faithfulness (must-fix MF-2):** `quality_bar[1]` reversed P044's hedge — "assume no idiom has a
+  target equivalent" (presume none) instead of P044's "do not assume an idiom has a target equivalent"
+  (stay agnostic), which also biased against P014's similar-meaning-and-form idiom strategy. Reworded to
+  match `always_on[1]` and P044. `faithfulness-report.yaml` `quality_bar[1]` note corrected.
+- **Routing (should-fix SF-1):** `when_to_use` reordered so the most distinctive triggers
+  (culture-specific item/idiom/collocation/marked-structure/poetic-form and whole-text review) occupy
+  the first two slots the exported router `description` samples, instead of dropping them.
+- **Scope clarity (should-fix SF-2):** `review` mode output now states that "correction" names the
+  strategy or target-language device, not verbatim replacement prose that would reconstruct the finished
+  text (consistent with `forbidden_behaviours[0]`).
+- **Provenance (should-fix SF-5):** the Nida source citation dropped the fabricated subtitle "dynamic
+  and formal equivalence" and now records that this source is a derived ~10k-word secondary extract, not
+  the primary monograph (matching `sources/metadata` `authority: secondary`).
+- **Profile size (should-fix SF-6):** `quality_bar` clauses trimmed to keep the body under the 1000-word
+  hard limit after the MF-1 propagation.
+- **Advise-mode fit (should-fix SF-3):** eight skill `## Output` sections gained a no-draft branch —
+  in `advise` mode (no draft supplied) state the recommended strategy and its principle directly rather
+  than critique a draft that does not exist.
+- **Test hygiene (should-fix SF-7/SF-8):** `golden-tests.yaml` `profile_version` bumped to 1.2.0 and the
+  Phase-8 `test-results.md` self-check regenerated against the v1.2.0 profile.
+
+### Grounding
+- No new claim introduced: every edited rule restates principles already in `principles/principles.yaml`
+  (P001–P116). SF-9…SF-14 and NICE items that would require claims from outside the two grounded sources
+  (regulatory back-translation mandates, Nida's 1986 "functional equivalence" relabel, Kaplan-critique
+  hedges, inclusive-language policy) were deliberately NOT applied.
+
 ## [1.1.0] — 2026-07-12
 
 ### Changed

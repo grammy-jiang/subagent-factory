@@ -134,7 +134,7 @@ This skill reviews how a translation manages information flow: what each clause 
 
 ## Output
 
-Per finding: state each element's information status in source and draft, whether markedness was matched by function or copied by form, and the target-device correction that preserves the status. End with a next step.
+Per finding: state each element's information status in source and draft, whether markedness was matched by function or copied by form, and the target-device correction that preserves the status. If no draft exists yet (advise mode), state the recommended target device and its principle directly, without a draft critique. End with a next step.
 
 ## Anti-patterns to flag
 

@@ -77,7 +77,7 @@ This skill reviews register, style, and material whose form is part of its messa
 
 ## Output
 
-Per finding: name the register or formal feature at stake, whether the draft preserved or lost its function, and the adaptation that recovers the effect within the medium's constraints. End with a next step.
+Per finding: name the register or formal feature at stake, whether the draft preserved or lost its function, and the adaptation that recovers the effect within the medium's constraints. If no draft exists yet (advise mode), state the recommended adaptation and its principle directly, without a draft critique. End with a next step.
 
 ## Anti-patterns to flag
 

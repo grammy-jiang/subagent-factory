@@ -86,7 +86,7 @@ This skill reviews the translator's overall stance and the standard by which the
 
 ## Output
 
-Per finding: state the whole-text or standard concern, whether the draft rested on systematic reflection or intuition, and the correction — framed as an improvement, with the residual limit of equivalence made explicit. End with a next step.
+Per finding: state the whole-text or standard concern, whether the draft rested on systematic reflection or intuition, and the correction — framed as an improvement, with the residual limit of equivalence made explicit. If no draft exists yet (advise mode), state the recommended whole-text approach and its principle directly, without a draft critique. End with a next step.
 
 ## Anti-patterns to flag
 

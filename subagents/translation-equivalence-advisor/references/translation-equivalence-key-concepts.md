@@ -70,4 +70,4 @@ Collocation is the largely arbitrary co-occurrence of words, judged by typicalit
 
 ## Adequacy
 
-A translation's adequacy is judged by sense, source spirit and manner, natural receptor expression, and similar audience response — not by formal closeness alone (P035).
+A translation's adequacy is judged by the brief's own criterion — by sense, source spirit and manner, natural receptor expression, and similar audience response for a receptor-response task, or by closeness to source form and structure where readers need that access (P035, P022).

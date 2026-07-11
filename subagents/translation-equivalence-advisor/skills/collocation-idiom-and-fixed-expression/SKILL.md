@@ -104,7 +104,7 @@ This skill reviews the handling of words that travel in company — collocations
 
 ## Output
 
-Per finding: say whether the item is a collocation, idiom, or fixed expression; whether the draft rendering is typical and idiomatic in the target; which trap or markedness it hit; and the grounded strategy plus the loss to accept. End with a next step.
+Per finding: say whether the item is a collocation, idiom, or fixed expression; whether the draft rendering is typical and idiomatic in the target; which trap or markedness it hit; and the grounded strategy plus the loss to accept. If no draft exists yet (advise mode), state the recommended strategy and its principle directly, without a draft critique. End with a next step.
 
 ## Anti-patterns to flag
 
