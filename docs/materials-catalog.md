@@ -1,6 +1,6 @@
 # Materials Catalog
 
-Every source processed in this repo — **255 items**, keyed by `sha256`.
+Every source processed in this repo — **284 items**, keyed by `sha256`.
 
 > **Generated file.** Refresh: `python -m tools.subagent_factory.materials_catalog build`
 >
@@ -33,6 +33,7 @@ Every source processed in this repo — **255 items**, keyed by `sha256`.
 | `457ef5c3` | arxiv-mcp-sok-2512.08290 | markdown | 16369 | distillation-only | 92 | mcp-security-advisor |
 | `c5ec2b54` | arxiv-mcptox-2508.14925 | markdown | 5539 | distillation-only | 13 | mcp-security-advisor |
 | `05cb6ffe` | automated-root-cause-48a3ae4a | markdown | 8857 | distillation-only | 18 | devops-sre-advisor |
+| `8707406d` | blueprint-contract | markdown | 8244 | distillation-only | 57 | product-blueprint-reviewer |
 | `a8659148` | building-agents-with-skills-equipping-agents-for-specialized-work | markdown | 1717 | distillation-only | 13 | agent-skills-advisor |
 | `bb93dea1` | building-effective-agents | markdown | 2739 | distillation-only | 14 | agent-skills-advisor |
 | `11ebbc81` | caching-at-scale-wit-20260612101948 | markdown | 20083 | distillation-only | 40 | caching-strategy-advisor |
@@ -65,7 +66,7 @@ Every source processed in this repo — **255 items**, keyed by `sha256`.
 | `e3c9db39` | copilot-custom-instructions | markdown | 1991 | distillation-only | 11 | agent-skills-advisor |
 | `c2aa0db4` | copilot-customization-cheat-sheet | markdown | 885 | distillation-only | 10 | agent-skills-advisor |
 | `9385a2ff` | copilot-response-customization | markdown | 6374 | distillation-only | 14 | agent-skills-advisor |
-| `515304c3` | cosai-mcp-security | markdown | 9259 | distillation-only | 28 | mcp-security-advisor |
+| `515304c3` | cosai-mcp-security | markdown | 9259 | open | 28 | mcp-security-advisor |
 | `989d68cc` | cosmic-python | markdown | 74135 | distillation-only | 115 | domain-driven-design-reviewer |
 | `f888cfc0` | cui20-moore | markdown | 3057 | distillation-only | 16 | ux-design-advisor |
 | `9e0c1e6c` | ddd-evans-full | markdown | 131595 | distillation-only | 149 | domain-driven-design-reviewer |
@@ -78,22 +79,32 @@ Every source processed in this repo — **255 items**, keyed by `sha256`.
 | `9b3c3a53` | docs-like-code-stories | markdown | - | distillation-only | 33 | documentation-as-code-advisor |
 | `b348d1cb` | docs-to-descriptions-smell-aware-2602.18914 | markdown | 9706 | distillation-only | 15 | mcp-quality-advisor |
 | `c0958e02` | dont-make-me-think-krug | markdown | 45525 | distillation-only | 54 | ux-design-advisor |
+| `34ce671d` | double-cross-system | markdown | 76056 | distillation-only | 240 | deception-detection-reviewer |
 | `107bd586` | effective-context-engineering-for-ai-agents | markdown | 3111 | distillation-only | 18 | agent-skills-advisor |
 | `f71acdfe` | effective-harnesses-for-long-running-agents | markdown | 2160 | distillation-only | 14 | agent-skills-advisor |
+| `fc16a030` | effective-shell | markdown | 145110 | distillation-only | 115 | bash-shell-scripting-advisor |
 | `a8da44b1` | effective-software-testing-aniche | markdown | 133260 | distillation-only | 244 | software-testing-advisor |
 | `7c1177d0` | elements-of-ux-garrett | markdown | 37528 | distillation-only | 71 | ux-design-advisor |
 | `8afa2d6e` | Enterprise Integration Patterns | markdown | - | distillation-only | 145 | software-architecture |
 | `b2e7bb6f` | equipping-agents-for-the-real-world-with-agent-skills | markdown | 1535 | distillation-only | 10 | agent-skills-advisor |
+| `8988bab5` | escaping-the-build-trap-perri | markdown | 59765 | distillation-only | 93 | product-blueprint-reviewer |
 | `37d2b8d9` | escaping-the-build-trap-perri | markdown | 58613 | distillation-only | 120 | product-design-advisor |
+| `5da0a790` | expert-political-judgment | markdown | 127345 | distillation-only | 260 | analytic-method-reviewer, bias-perception-reviewer, calibration-forecasting-reviewer |
 | `772a4479` | extending-claude-capabilities-with-skills-mcp-servers | markdown | 1736 | distillation-only | 10 | agent-skills-advisor |
 | `48702eca` | faas-platforms-mcp-agentic | markdown | 12169 | distillation-only | 24 | mcp-quality-advisor |
 | `5c81071a` | Fluent Python: Clear, Concise, and Effective Programming (2nd Edition) | markdown | - | distillation-only | 100 | python-reviewer |
 | `d95ad6b6` | Fundamentals of Software Architecture | markdown | - | distillation-only | 100 | software-architecture |
 | `d12f463d` | getting-started-with-loops | markdown | 1554 | distillation-only | 18 | agent-skills-advisor |
 | `4910b3c6` | github-mcp-offline-evaluation | markdown | 1459 | distillation-only | 12 | mcp-quality-advisor |
+| `ece374b5` | gnu-bash-reference-manual | markdown | 80122 | distillation-only | 230 | bash-shell-scripting-advisor |
+| `457d1113` | google-shell-style-guide | markdown | 5721 | distillation-only | 53 | bash-shell-scripting-advisor |
 | `3ae5f96e` | google-tech-writing | markdown | - | distillation-only | 69 | documentation-as-code-advisor |
+| `05f06662` | greg-bash-pitfalls | markdown | 15428 | distillation-only | 54 | bash-shell-scripting-advisor |
+| `dd4e9d25` | greg-bashguide-full | markdown | 36760 | distillation-only | 59 | bash-shell-scripting-advisor |
 | `ed2ddca7` | growing-oo-software-guided-by-tests | markdown | 105172 | distillation-only | 120 | software-testing-advisor |
 | `27f56709` | harness-design-long-running-apps | markdown | 5270 | distillation-only | 29 | agent-skills-advisor |
+| `7631b6ed` | harness-engineering-guide | markdown | 9116 | distillation-only | 36 | harness-engineering-advisor |
+| `a4430459` | harness-engineering-research-report | markdown | 19843 | distillation-only | 40 | harness-engineering-advisor |
 | `eed3b927` | harness-mcp-server-redesign | markdown | 3738 | distillation-only | 14 | mcp-quality-advisor |
 | `46752b70` | horvitz-mixed-initiative | markdown | 5548 | distillation-only | 21 | product-design-advisor |
 | `8375b55a` | how-anthropic-enables-self-service-data-analytics-with-claude | markdown | 4932 | distillation-only | 35 | agent-skills-advisor |
@@ -112,25 +123,27 @@ Every source processed in this repo — **255 items**, keyed by `sha256`.
 | `e7b74866` | just-enough-research-hall | markdown | 43981 | distillation-only | 87 | ux-design-advisor |
 | `abd33196` | K6 Guideline | pdf | 2109 | distillation-only | - | k6-load-test-scripting-advisor |
 | `66f36d45` | Kafka Best Practices | pdf | 10520 | distillation-only | - | kafka-client-performance-advisor |
+| `2a049107` | lean-startup-katila-2020 | markdown | 15233 | distillation-only | 16 | product-blueprint-reviewer |
 | `6124b61e` | lean-ux-gothelf-seiden | markdown | 38406 | distillation-only | 95 | product-design-advisor |
 | `53c9120d` | lessons-from-building-claude-code-how-we-use-skills | markdown | 2660 | distillation-only | 21 | agent-skills-advisor |
 | `a4fb490b` | lewis-rag | markdown | 10070 | distillation-only | 31 | ai-agent-engineering-reviewer |
+| `2583cb6c` | linux-pocket-guide | markdown | 71785 | distillation-only | 92 | bash-shell-scripting-advisor |
 | `eaca3d50` | livemcpbench-2508.01780 | markdown | 9872 | distillation-only | 33 | mcp-quality-advisor |
 | `a3e5d595` | managed-agents | markdown | 2066 | distillation-only | 16 | agent-skills-advisor |
 | `b6b7517b` | mcp-atlas-2602.00933 | markdown | 11620 | distillation-only | 46 | mcp-quality-advisor |
-| `a136f0ee` | mcp-conformance-framework | markdown | 16603 | distillation-only | 92 | mcp-quality-advisor |
-| `9a2be171` | mcp-debugging-guide | markdown | 1098 | distillation-only | 15 | mcp-quality-advisor |
-| `2eae1d32` | mcp-inspector-docs | markdown | 464 | distillation-only | 9 | mcp-quality-advisor |
-| `799a28bd` | mcp-inspector-repo | markdown | 3107 | distillation-only | 16 | mcp-quality-advisor |
-| `19746336` | mcp-python-sdk-inmemory-client | markdown | 2071 | distillation-only | 18 | mcp-quality-advisor |
-| `1d5543a1` | mcp-python-sdk-testing | markdown | 314 | distillation-only | 6 | mcp-quality-advisor |
+| `a136f0ee` | mcp-conformance-framework | markdown | 16603 | open | 92 | mcp-quality-advisor |
+| `9a2be171` | mcp-debugging-guide | markdown | 1098 | open | 15 | mcp-quality-advisor |
+| `2eae1d32` | mcp-inspector-docs | markdown | 464 | open | 9 | mcp-quality-advisor |
+| `799a28bd` | mcp-inspector-repo | markdown | 3107 | open | 16 | mcp-quality-advisor |
+| `19746336` | mcp-python-sdk-inmemory-client | markdown | 2071 | open | 18 | mcp-quality-advisor |
+| `1d5543a1` | mcp-python-sdk-testing | markdown | 314 | open | 6 | mcp-quality-advisor |
 | `22497acd` | mcp-runtime-faults-taxonomy-2606.05339 | markdown | 11483 | distillation-only | 26 | mcp-quality-advisor |
 | `28f43d99` | mcp-servers-evaluation-report-2504.11094 | markdown | 4126 | distillation-only | 14 | mcp-quality-advisor |
 | `0b6ac42d` | mcp-spec-architecture | markdown | 720 | open | 14 | mcp-protocol-advisor |
-| `b5eaaf20` | mcp-spec-basic-authorization | markdown | 4830 | distillation-only | 26 | mcp-security-advisor |
+| `b5eaaf20` | mcp-spec-basic-authorization | markdown | 4830 | open | 26 | mcp-security-advisor |
 | `88472000` | mcp-spec-basic-lifecycle | markdown | 1044 | open | 11 | mcp-protocol-advisor |
 | `a504a340` | mcp-spec-basic-overview | markdown | 1487 | open | 16 | mcp-protocol-advisor |
-| `d59e5c41` | mcp-spec-basic-security-best-practices | markdown | 4921 | distillation-only | 17 | mcp-security-advisor |
+| `d59e5c41` | mcp-spec-basic-security-best-practices | markdown | 4921 | open | 17 | mcp-security-advisor |
 | `5a86d66a` | mcp-spec-basic-transports | markdown | 2187 | open | 25 | mcp-protocol-advisor |
 | `01bfb448` | mcp-spec-client-elicitation | markdown | 4069 | open | 21 | mcp-protocol-advisor |
 | `992d141a` | mcp-spec-client-roots | markdown | 557 | open | 10 | mcp-protocol-advisor |
@@ -149,20 +162,20 @@ Every source processed in this repo — **255 items**, keyed by `sha256`.
 | `8df00bee` | mcp-spec-util-tasks | markdown | 4668 | open | 29 | mcp-protocol-advisor |
 | `4f99907b` | mcp-spec-versioning-changelog | markdown | 1847 | open | 14 | mcp-protocol-advisor |
 | `1a9237db` | mcp-tool-descriptions-are-smelly-2602.14878 | markdown | 26327 | distillation-only | 46 | mcp-quality-advisor |
-| `911ddde2` | mcp-typescript-sdk-inmemory-test | markdown | 1305 | distillation-only | 10 | mcp-quality-advisor |
-| `c3e4e099` | mcp-typescript-sdk-protocol | markdown | 786 | distillation-only | 13 | mcp-quality-advisor |
+| `911ddde2` | mcp-typescript-sdk-inmemory-test | markdown | 1305 | open | 10 | mcp-quality-advisor |
+| `c3e4e099` | mcp-typescript-sdk-protocol | markdown | 786 | open | 13 | mcp-quality-advisor |
 | `46bbfd26` | mcp-universe-2508.14704 | markdown | 20895 | distillation-only | 29 | mcp-quality-advisor |
-| `74c00514` | mcp-validation-redhat | markdown | 5254 | distillation-only | 21 | mcp-quality-advisor |
+| `74c00514` | mcp-validation-redhat | markdown | 5254 | open | 21 | mcp-quality-advisor |
 | `c9831865` | mcp-vision-systems-audit-2509.22814 | markdown | 6302 | distillation-only | 12 | mcp-quality-advisor |
 | `2c66587b` | measurement-study-mcp-ecosystem | markdown | 10202 | distillation-only | 34 | mcp-security-advisor |
-| `a36be0e9` | Microservice Pattern Language | pdf | 856 | distillation-only | - | microservice-patterns-advisor |
-| `4bb1a621` | Microservices Patterns: With examples in Java | pdf | 190008 | distillation-only | - | microservice-patterns-advisor |
+| `a51cf685` | Microservice Pattern Language | pdf | 856 | distillation-only | 18 | microservice-patterns-advisor |
+| `19016f24` | Microservices Patterns: With examples in Java | pdf | 190020 | distillation-only | 146 | microservice-patterns-advisor |
 | `d06c3bb5` | mitchell-model-cards | markdown | 8109 | distillation-only | 23 | ai-agent-engineering-reviewer |
 | `e5f0853c` | Mockito for Spring | pdf | - | distillation-only | - | mockito-unit-testing-advisor |
 | `a39afdcf` | mohammadi-llm-agent-eval-survey | markdown | 10787 | distillation-only | 26 | ai-agent-engineering-reviewer |
 | `da6e3e92` | multi-agent-research-system | markdown | 3777 | distillation-only | 25 | agent-skills-advisor |
 | `195d8af2` | Never Split the Difference: Negotiating As If Your Life Depended On It | pdf | 93589 | distillation-only | - | negotiation-tactics-advisor |
-| `dcbba5b2` | nsa-csi-mcp-security | markdown | 5205 | distillation-only | 19 | mcp-security-advisor |
+| `dcbba5b2` | nsa-csi-mcp-security | markdown | 5205 | open | 19 | mcp-security-advisor |
 | `217629b3` | obra-anthropic-best-practices | markdown | 5803 | distillation-only | 27 | agent-skills-advisor |
 | `2445eb66` | onboarding-claude-code-like-a-new-developer-lessons-from-17-years-of-development | markdown | 1476 | distillation-only | 12 | agent-skills-advisor |
 | `abff5e7f` | Optimizing Your Apache Kafka Deployment | pdf | 8543 | distillation-only | - | kafka-client-performance-advisor |
@@ -175,16 +188,22 @@ Every source processed in this repo — **255 items**, keyed by `sha256`.
 | `163dcf34` | Original | markdown | - | distillation-only | 16 | postgresql-sqlite-advisor |
 | `9269d920` | Original | markdown | - | distillation-only | 11 | postgresql-sqlite-advisor |
 | `78ffa022` | Original | markdown | - | distillation-only | 26 | postgresql-sqlite-advisor |
-| `c82772e8` | owasp-ai-agent-security-cheatsheet | markdown | 3000 | distillation-only | 23 | mcp-security-advisor |
-| `e6ab8dd9` | owasp-mcp-security-cheatsheet | markdown | 1878 | distillation-only | 18 | mcp-security-advisor |
-| `fa0ccb38` | owasp-mcp-top-10 | markdown | 10010 | distillation-only | 13 | mcp-security-advisor |
+| `c82772e8` | owasp-ai-agent-security-cheatsheet | markdown | 3000 | open | 23 | mcp-security-advisor |
+| `a1edef21` | owasp-command-injection-attack | markdown | 1372 | distillation-only | 10 | bash-shell-scripting-advisor |
+| `e6ab8dd9` | owasp-mcp-security-cheatsheet | markdown | 1878 | open | 18 | mcp-security-advisor |
+| `fa0ccb38` | owasp-mcp-top-10 | markdown | 10010 | open | 13 | mcp-security-advisor |
+| `10824bdf` | owasp-os-command-injection-defense | markdown | 1511 | distillation-only | 10 | bash-shell-scripting-advisor |
 | `73827be0` | parecki-enterprise-ready-mcp | markdown | 2634 | distillation-only | 10 | mcp-security-advisor |
 | `c8cf335b` | parecki-mcp-auth-nov2025-spec | markdown | 1437 | distillation-only | 11 | mcp-security-advisor |
 | `f505bd2a` | park-generative-agents | markdown | 19963 | distillation-only | 26 | ai-agent-engineering-reviewer |
 | `760c8117` | Patterns of Enterprise Application Architecture | markdown | - | distillation-only | 272 | software-architecture |
 | `7fe74e3a` | Payment Systems and Performance Improvement: Participation in Payment System Design | pdf | 3055 | distillation-only | - | employee-payment-scheme-advisor |
+| `a445f294` | perception-and-misperception | markdown | 255019 | distillation-only | 411 | analytic-method-reviewer, bias-perception-reviewer, calibration-forecasting-reviewer |
 | `7f54213f` | pipeline-as-code-con-2e091c45 | markdown | 113576 | distillation-only | 69 | devops-sre-advisor |
+| `07b8d355` | posix-shell-command-language | markdown | 27926 | distillation-only | 75 | bash-shell-scripting-advisor |
 | `dfe0874c` | promcp-token-flows-latency | markdown | 7912 | distillation-only | 17 | mcp-quality-advisor |
+| `3a2b4f82` | psychology-of-intelligence-analysis | markdown | 67347 | distillation-only | 157 | analytic-method-reviewer, bias-perception-reviewer, calibration-forecasting-reviewer |
+| `0a32f97f` | pure-bash-bible | markdown | 7074 | distillation-only | 22 | bash-shell-scripting-advisor |
 | `2bf21990` | Python Distilled | markdown | - | distillation-only | 233 | python-reviewer |
 | `44deffe9` | python-testing-with-pytest-okken | markdown | 53936 | distillation-only | 60 | python-testing-advisor |
 | `aee4982c` | refactoring-ui-wathan-schoger | markdown | 18944 | distillation-only | 48 | ui-design-advisor |
@@ -208,10 +227,12 @@ Every source processed in this repo — **255 items**, keyed by `sha256`.
 | `4bc1908b` | Software Architecture Patterns | markdown | - | distillation-only | 31 | software-architecture |
 | `8e56ab27` | Software Architecture: The Hard Parts | markdown | - | distillation-only | 35 | software-architecture |
 | `bbac4c57` | speakeasy-reduce-token-usage-100x | markdown | 1731 | distillation-only | 13 | mcp-quality-advisor |
+| `f4cae146` | stage-boundaries | markdown | 6149 | distillation-only | 31 | product-blueprint-reviewer |
 | `3f36f834` | steering-claude-code-skills-hooks-rules-subagents-and-more | markdown | 2609 | distillation-only | 15 | agent-skills-advisor |
 | `ba9cc038` | StrengthsFinder | pdf | 37913 | distillation-only | - | strengths-based-development-coach |
 | `2ce71747` | StrengthsFinder 2.0 | pdf | 37289 | distillation-only | - | strengths-based-development-coach |
 | `8e2d20f7` | Summary: Never Split the Difference — Negotiating As If Your Life Depended On It (EssentialInsight Summaries) | pdf | 13810 | distillation-only | - | negotiation-tactics-advisor |
+| `e3c7c0b4` | superforecasting | markdown | 101077 | distillation-only | 72 | analytic-method-reviewer, bias-perception-reviewer, calibration-forecasting-reviewer |
 | `e5bd744b` | tdd-with-python-percival | markdown | 57489 | distillation-only | 79 | python-testing-advisor |
 | `e619fe9a` | Test-Driven Development By Example | markdown | 55299 | distillation-only | 131 | test-driven-development-advisor |
 | `8cdadfe3` | testing-in-python-robust | markdown | 35655 | distillation-only | 73 | python-testing-advisor |
@@ -220,7 +241,10 @@ Every source processed in this repo — **255 items**, keyed by `sha256`.
 | `13ff3ba5` | The Pragmatic Programmer: From Journeyman to Master | pdf | 91498 | distillation-only | 79 | pragmatic-programming-advisor |
 | `db4fccde` | The Software Architect Elevator | markdown | - | distillation-only | 227 | software-architecture |
 | `861f0551` | the-devops-handbook-c4933b3c | markdown | 161245 | distillation-only | 64 | devops-sre-advisor |
+| `c8604455` | the-linux-command-line | markdown | 147301 | distillation-only | 170 | bash-shell-scripting-advisor |
+| `d88ef771` | thinking-fast-and-slow | markdown | 91287 | distillation-only | 131 | analytic-method-reviewer, bias-perception-reviewer, calibration-forecasting-reviewer |
 | `b0365df1` | tool-attention-dynamic-gating-lazy-schema | markdown | 7959 | distillation-only | 27 | mcp-quality-advisor |
+| `6ec9d9fb` | tradecraft-primer | markdown | 13162 | distillation-only | 20 | analytic-method-reviewer, bias-perception-reviewer, calibration-forecasting-reviewer |
 | `6954b218` | trailofbits-line-jumping-mcp | markdown | 1382 | distillation-only | 12 | mcp-security-advisor |
 | `b4bcb3ed` | unit42-mcp-prompt-injection-sampling | markdown | 4038 | distillation-only | 13 | mcp-security-advisor |
 | `d3719142` | Use-Case 2.0: The Guide to Succeeding with Use Cases | pdf | 6310 | distillation-only | 23 | requirements-use-case-advisor |
@@ -236,7 +260,7 @@ Every source processed in this repo — **255 items**, keyed by `sha256`.
 | `3d98983c` | Web Application Security: Exploitation and Countermeasures for Modern Web Applications | markdown | 94479 | distillation-only | 68 | application-security-reviewer |
 | `c8bbfe0c` | web-form-design-wroblewski | markdown | 44362 | distillation-only | 74 | ui-design-advisor |
 | `2d3959ea` | workflow-engine-mcp | markdown | 5601 | distillation-only | 13 | mcp-quality-advisor |
-| `e072e493` | Working Effectively with Legacy Code | pdf | 128052 | distillation-only | - | legacy-code-change-advisor |
+| `1d83dc6f` | Working Effectively with Legacy Code | pdf | 131673 | distillation-only | 148 | legacy-code-change-advisor |
 | `be2d4265` | Writing Effective Use Cases | pdf | 82160 | distillation-only | 57 | requirements-use-case-advisor |
 | `a0c96ef1` | writing-tools-for-agents | markdown | 3384 | distillation-only | 17 | agent-skills-advisor |
 | `11f28a21` | xunit-test-patterns-meszaros | markdown | 278652 | distillation-only | 61 | software-testing-advisor |
@@ -251,16 +275,21 @@ Every source processed in this repo — **255 items**, keyed by `sha256`.
 | `a547bab6` | book-clean-architecture-robert-cecil-martin | book | - | - | 33 | _mapped-not-built_ |
 | `ddde058a` | designing-event-driven-systems | book | - | - | 20 | _mapped-not-built_ |
 | `be84e4ec` | enterprise-integration-patterns-designing-building-and-deplo | book | - | - | 42 | _mapped-not-built_ |
+| `22c4f88d` | fm-2-22-3-humint | book | - | - | 249 | _mapped-not-built_ |
 | `6b15bd8c` | fundamentals-of-software-architecture | book | - | - | 42 | _mapped-not-built_ |
 | `8afbdb74` | mark-richards-software-architecture-patterns-2015-oreilly | book | - | - | 18 | _mapped-not-built_ |
 | `448aa145` | mcp-authorization | book | - | - | 14 | _mapped-not-built_ |
 | `86b7bd7d` | mcp-security-best-practices | book | - | - | 25 | _mapped-not-built_ |
 | `6504b3c9` | mcp-spec-2025-11-25 | book | - | - | 12 | _mapped-not-built_ |
+| `caa3d319` | OSINT Techniques, 11th Edition | book | - | - | 346 | _mapped-not-built_ |
+| `da5fcf0b` | owasp-mcp05-command-injection | book | - | - | 13 | _mapped-not-built_ |
 | `fbd95667` | patterns-of-enterprise-application-architecture | book | - | - | 47 | _mapped-not-built_ |
 | `745dee44` | scalability-rules | book | - | - | 52 | _mapped-not-built_ |
 | `705fce79` | scalable-architectures | book | - | - | 34 | _mapped-not-built_ |
 | `1c336f5c` | software-architecture-the-hard-parts-neal-ford-mark-richards | book | - | - | 15 | _mapped-not-built_ |
 | `1c336f5c` | software-architecture-the-hard-parts-neal-ford-mark-richards | book | - | - | 15 | _mapped-not-built_ |
+| `6b85c42a` | strategic-intelligence | book | - | - | 132 | _mapped-not-built_ |
 | `0deb1568` | tau-bench-2406.12045 | book | - | - | 35 | _mapped-not-built_ |
 | `b04a0296` | tau2-bench-readme | book | - | - | 16 | _mapped-not-built_ |
 | `4c5d1da2` | terminal-bench-2601.11868 | book | - | - | 37 | _mapped-not-built_ |
+| `1fbb7502` | we-are-bellingcat | book | - | - | 66 | _mapped-not-built_ |
