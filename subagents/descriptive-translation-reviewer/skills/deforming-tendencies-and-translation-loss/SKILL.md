@@ -1,6 +1,6 @@
 ---
 name: deforming-tendencies-and-translation-loss
-description: Use when reviewing a literary translation, translation choice, or translation-studies
+description: Reviews a literary translation, translation choice, or translation-studies
   analysis for Berman's deforming tendencies, subtractive and paratextual losses,
   over-clarification, and normalization; this skill critiques the translation and
   does not produce the finished translation or make the publication decision.
@@ -35,7 +35,7 @@ provenance:
   - C00724
   evidence: []
   source_anchors: []
-  authored_from_digest: 3928c2089d698a1d2e04cfb516d55e013aae7210631f809ef3c6a6f0a801b3f6
+  authored_from_digest: bb838cd0650df10c7c0a1fc72cca9a38402519d76c005b6be7000e3f672017f8
 ---
 
 # Deforming Tendencies And Translation Loss
@@ -54,7 +54,7 @@ This skill reviews a literary translation, a translation choice, or a translatio
 
 ## Procedure
 
-1. Screen the translation for Berman's twelve deforming tendencies — rationalization, clarification, expansion, ennoblement, qualitative and quantitative impoverishment, destruction of rhythms, of underlying networks of signification, of linguistic patternings, and of vernacular networks or their exoticization, destruction of expressions and idioms, and effacement of the superimposition of languages — and confirm the translator refused to replace a source idiom with a target equivalent or hunt for a target vernacular for a source vernacular, favouring instead a positive labour on the letter (P014).
+1. Screen the translation for Berman's twelve deforming tendencies — rationalization, clarification, expansion, ennoblement and popularization, qualitative and quantitative impoverishment, destruction of rhythms, of underlying networks of signification, of linguistic patternings, and of vernacular networks or their exoticization, destruction of expressions and idioms, and effacement of the superimposition of languages — and confirm the translator refused to replace a source idiom with a target equivalent or hunt for a target vernacular for a source vernacular, favouring instead a positive labour on the letter (P014).
 2. Check the translation for the subtractive changes that flatten a carefully constructed source text: paratextual and typographic losses, mishandling of the source's own foreign or translated words, morphological simplification that strips a term of its systemic value, semantic-neighbour substitution when a more literal alternative exists, phrase-level changes that set aside a concept or reverse an argument, assimilation to target discourse norms that gives a theoretical text a falsely immediate tenor, and the dropping of repetition, parallelism, or a key term's polysemy that carries argumentative structure (P025).
 3. Beware that over-clarifying a culture-specific detail to help the target reader can destroy the indirect, figurative meaning it carries across the text, and confirm that any cohesion shift the translator made was an optional stylistic choice rather than one dictated by the two grammars before treating it as evidence of a translation trend (P026).
 4. Catch expansion and the two poles of stylistic distortion and impoverishment — empty added length that muffles the work's voice and slackens its rhythm, ennoblement's false elegance and its popularizing opposite that together annihilate the original's authentic orality, qualitative impoverishment that strips a term of its sonorous or iconic richness, and quantitative impoverishment that flattens a proliferation of unfixed signifiers into fewer signifiers (P081).

@@ -3,6 +3,57 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.5.0] — 2026-07-12
+
+Consolidated review-loop round: applied the must-fix and the high-value should-fixes, staying grounded in
+the existing 180-principle spine (no new claim introduced). Supersedes the open `r5.review.md` round (its
+two must-fixes were re-triaged to should/nice and downgraded), resolving the `status: ready`-vs-open-round
+contradiction.
+
+### Fixed
+- **M1 — `text-type-skopos-and-the-brief` written in translate-it-yourself voice** — rewrote every
+  Procedure step (1–15) from production-imperative voice ("Make/Drive/Adjust/Orient/Take/Apply/Treat…") into
+  reviewer voice ("Check/Verify/Confirm that…"), matching the other 11 skills and the no-production boundary.
+  Same principle citations; no claim changed.
+- **S2 — `meaning-signification-and-equivalence-critique` step 6 leaked into equivalence-mechanism territory**
+  — reworded to stay on the theory-of-meaning side (which descriptive level a claim rests on) and cross-reference
+  the sibling `translation-equivalence-advisor` for the mechanism it must not evaluate (still cites P109).
+- **S13 — `literal-free-strategy-history-and-retranslation` steps 4 & 15 in imperative voice** — reworded
+  step 4 (P036) and step 15 (P173) into review checks ("Check that the translator defaulted…/chose…").
+
+### Changed
+- **S1 / S6 — `when_not_to_use`** — `[0]` now leads with the highest-stakes boundary ("does not translate or
+  certify a rendering correct"), which the exporter surfaces in the router `description`, followed by three
+  **parallel** `route … to \`sibling\`` clauses; folded the redundant "produced end to end" bullet into the
+  guaranteed-correct-rendering bullet.
+- **S8 — `when_to_use[0]`** — split the garden-path clause ("…by descriptive method — reviewing losses against
+  the source and the brief, not scored against a fixed quality metric").
+- **S3 — `knowledge_partition.always_on[11]`** — added a sibling differentiator (evaluation-method soundness
+  stays here; corpus/QA scoring output routes to `translation-quality-reviewer`); always-on tier is free of the
+  body budget.
+- **S11 — skill `description` lead-ins** — standardized the four "Use when…" descriptions (deforming,
+  descriptive-method, hermeneutics, text-type) to the third-person "Reviews…" pattern.
+- **S12 — `register-discourse-and-audiovisual-constraints` description** — front-loaded distinctive trigger
+  vocabulary (Hallidayan field/tenor/mode, House's overt/covert axes, subtitling/AVT), dropped the generic
+  "flagging violations of the cited principles" boilerplate.
+- **S10 — `examples`** — added one `advise` (operative-text orientation) and one `compare` (formal vs dynamic
+  liturgical verse) worked example (examples are outside the body-word budget).
+- **S5 / S7 / S9 — body trims** — split `forbidden_behaviours[3]` into two singly-cited bullets (P075; P062/P038),
+  deleted the `handoff_rules[1]` authoring meta-sentence, keeping the body under the 1000-word hard cap.
+- **S4 — `source_of_truth_policy.precedence`** — dropped the mis-cited **P114**, replaced with **P107**
+  (Vermeer's skopos grounds "the brief's purpose governs").
+- **N6 — `quality_bar[3]`** — added **P052** (re-coding, not omission).
+- **S14 — P014** — restored Berman's canonical pairing "ennoblement and popularization" (grounded in P081),
+  echoed in `deforming-tendencies-and-translation-loss` step 1.
+- **S15 — P010** — named the term "initial norm" (adequacy vs acceptability), cross-referencing P023's
+  adequacy-acceptability axis, so Toury's initial→preliminary→operational structure is named whole.
+- **`tests/golden-tests.yaml`** re-stamped `profile_version: 1.4.0 → 1.5.0`.
+- `agent_version` 1.4.0 → 1.5.0.
+
+### Deferred
+- NICE N1–N5, N7–N9 (principle-annotation hedges and cross-references) — polish on a passing package, left to
+  a dedicated pass to avoid regression risk.
+
 ## [1.4.0] — 2026-07-12
 
 Review-loop round 4 (`reports/review-loop/descriptive-translation-reviewer.r4.review.md`): applied the

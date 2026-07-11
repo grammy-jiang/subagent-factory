@@ -1,10 +1,10 @@
 ---
 name: text-type-skopos-and-the-brief
-description: Use when a translation, translation choice, or translation-studies analysis
-  needs to be checked against an explicit brief and the source's predominant text-type
-  function, and against the skopos hierarchy (purpose, then intratextual coherence,
-  then source fidelity); this skill reviews the reasoning behind a translation, it
-  does not produce the finished translation or make the publication decision.
+description: Reviews a translation, translation choice, or translation-studies analysis
+  against an explicit brief and the source's predominant text-type function, and against
+  the skopos hierarchy (purpose, then intratextual coherence, then source fidelity);
+  this skill reviews the reasoning behind a translation, it does not produce the finished
+  translation or make the publication decision.
 kind: skill
 status: ready
 provenance:
@@ -62,21 +62,21 @@ This skill reviews whether a translation is driven by an explicit brief (commiss
 
 ## Procedure
 
-1. Make the translation commission — Vermeer's Auftrag — an explicit instruction stating both the goal and the conditions for attaining it (P009).
-2. Drive a translation from the brief and source analysis (P038).
-3. Work at the level of the whole text and map its predominant function to a method (P060).
-4. Recognize that most texts are hybrids carrying several coexisting functions, that the target function may legitimately differ from the source function, and that the method depends on far more than text type (P061).
-5. Apply Vermeer's skopos rules in hierarchical order (P062).
-6. Adjust for the audience and medium (P063).
-7. Let the commissioner's constraints set the macro-level characteristics and overall strategy while the translator decides the micro-level procedures, conditioning translator's notes on genre and skopos (P070).
-8. Understand why mere trans-coding will not produce a serviceable translatum (P078).
-9. Orient every translation toward a set of addressees even when that set is indeterminate and fuzzy (P079).
-10. Treat translation as purpose-driven human interaction that guides cooperation across cultural barriers (P107).
-11. Do not let a fulfilled skopos excuse micro-level neglect (P108).
-12. Take Reiss's frame: interlingual translation is bilingual mediated communication aiming at a target text functionally equivalent to the source, with the translator as a secondary sender, so some change of message is inevitable (P128).
-13. Apply Reiss's governing thesis that the text type determines the general method of translating while the text variety demands the target language's structural and stylistic conventions (P129).
-14. Treat text types as prototypes on a continuum without rigid divisions, incorporating the relevant non-linguistic disciplines (P145).
-15. Assess a target text against Reiss's adequacy criteria (P165).
+1. Check that the translation commission — Vermeer's Auftrag — was made an explicit instruction stating both the goal and the conditions for attaining it (P009).
+2. Verify the translation was driven from the brief and source analysis (P038).
+3. Check that the whole text is worked at as the unit and that its predominant function was mapped to a method (P060).
+4. Confirm that most texts are recognized as hybrids carrying several coexisting functions, that the target function may legitimately differ from the source function, and that the method depends on far more than text type (P061).
+5. Verify that Vermeer's skopos rules were applied in hierarchical order (P062).
+6. Check that the rendering was adjusted for the audience and medium (P063).
+7. Confirm the commissioner's constraints set the macro-level characteristics and overall strategy while the translator decided the micro-level procedures, with translator's notes conditioned on genre and skopos (P070).
+8. Check that the review recognizes why mere trans-coding will not produce a serviceable translatum (P078).
+9. Confirm every translation is oriented toward a set of addressees even when that set is indeterminate and fuzzy (P079).
+10. Check that translation is treated as purpose-driven human interaction that guides cooperation across cultural barriers (P107).
+11. Confirm a fulfilled skopos is not used to excuse micro-level neglect (P108).
+12. Check against Reiss's frame: interlingual translation is bilingual mediated communication aiming at a target text functionally equivalent to the source, with the translator as a secondary sender, so some change of message is inevitable (P128).
+13. Verify against Reiss's governing thesis that the text type determines the general method of translating while the text variety demands the target language's structural and stylistic conventions (P129).
+14. Check that text types are treated as prototypes on a continuum without rigid divisions, incorporating the relevant non-linguistic disciplines (P145).
+15. Check that the target text is assessed against Reiss's adequacy criteria (P165).
 16. Rank every finding from these checks by impact — a broken skopos hierarchy or an absent brief outweighs a single mishandled redundancy — and report the highest-impact findings first.
 
 ## Inputs

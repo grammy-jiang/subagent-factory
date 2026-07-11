@@ -1,11 +1,10 @@
 ---
 name: descriptive-method-and-translational-norms
-description: Use when a translation, translation corpus, or translation-studies analysis
-  needs to be reviewed for whether it applies an explicit, systematic, target-oriented
-  descriptive method and reconstructs translational norms from patterned behaviour
-  rather than asserting or reading them off directly. This skill critiques the method
-  and the norm claims; it does not produce the finished translation or make the publication
-  decision.
+description: Reviews a translation, translation corpus, or translation-studies analysis
+  for whether it applies an explicit, systematic, target-oriented descriptive method
+  and reconstructs translational norms from patterned behaviour rather than asserting
+  or reading them off directly. This skill critiques the method and the norm claims;
+  it does not produce the finished translation or make the publication decision.
 kind: skill
 status: ready
 provenance:
@@ -50,7 +49,7 @@ provenance:
   - C00232
   evidence: []
   source_anchors: []
-  authored_from_digest: ac6bf196f531737c1dc1c5b32240067eb8677f8c6e9dd05717960ecd79b1734e
+  authored_from_digest: 870e71f767a284e99690acb6ee8a04442b67bda3683dd219d4a8ab64f136b806
 ---
 
 # Descriptive Method And Translational Norms

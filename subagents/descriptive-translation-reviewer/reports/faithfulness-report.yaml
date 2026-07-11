@@ -79,7 +79,16 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P075/P062/P038; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+  note: Restates P075 (no single deterministic answer); within the source's scope, no strengthening. Split
+    (r5-loop, S5) from the former bundled bullet so each prohibition cites only its grounding. No over-claim.
+- rule_ref: forbidden_behaviours[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P062/P038 (do not ignore the brief, audience, and function the rendering must serve); within
+    the source's scope, no strengthening. Split (r5-loop, S5) from the former bundled bullet. No over-claim.
 - rule_ref: when_to_use[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -280,18 +289,21 @@ findings:
   - none
   severity: low
   action: add_condition
-  note: Sibling-axis routing (equivalence mechanism → translation-equivalence-advisor; QA scoring →
-    translation-quality-reviewer; technical terminology → technical-translation-advisor). Reworded (r3, S5)
-    so the routed-away scope is the equivalence mechanism, disjoint from this package's orientation-fit
-    judgment (P106/P109). Scope boundary, uncited by design; no source over-claim.
+  note: Review-vs-produce boundary (does not translate or certify a rendering correct) plus sibling-axis
+    routing (equivalence mechanism → translation-equivalence-advisor; corpus/QA scoring →
+    translation-quality-reviewer; technical terminology → technical-translation-advisor). Restructured (r5-loop,
+    S1/S6) so the highest-stakes boundary leads (surfaced in the exported description) followed by three
+    parallel route clauses; routed-away scope is the equivalence mechanism, disjoint from this package's
+    orientation-fit judgment (P106/P109). Product-scope boundary, uncited by design; no source over-claim.
 - rule_ref: when_not_to_use[1]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Review-vs-produce scope boundary (does not produce the finished/revised translation). Product-scope
-    decision, uncited by design like forbidden_behaviours[0]; no source over-claim.
+  note: Scope boundary grounded in the quality-is-probabilistic stance (one guaranteed-correct rendering
+    produced end to end is out of remit — quality is a range of valid answers, not one certified rendering);
+    consistent with P075. No over-claim.
 - rule_ref: when_not_to_use[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -301,14 +313,6 @@ findings:
   note: Scope boundary (subject-matter correctness / legal validity with a knowable answer is out of remit).
     Product-scope decision, uncited by design; no source over-claim.
 - rule_ref: when_not_to_use[3]
-  verdict: WITHIN_SCOPE
-  distortion:
-  - none
-  severity: low
-  action: accept_with_note
-  note: Scope boundary grounded in the quality-is-probabilistic stance (a range of valid answers, not one
-    certified rendering); consistent with P075. No over-claim.
-- rule_ref: when_not_to_use[4]
   verdict: WITHIN_SCOPE
   distortion:
   - none

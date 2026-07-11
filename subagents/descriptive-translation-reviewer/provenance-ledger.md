@@ -35,6 +35,42 @@ references index and ground them.
 
 ## Version History
 
+- **1.5.0** (2026-07-12) — Consolidated review-loop fixes (no prior decision silently overwritten).
+  **Supersession of the open round:** the earlier `r5.review.md` (which ended `MUST_FIX_COUNT: 2`) is
+  **superseded by this consolidated round** — its two must-fixes were re-triaged (the Anti-pattern↔Procedure
+  mirroring is justified reviewer redundancy at tier-2 cost, not a defect; the Venuti-adjacent skill overlap
+  already carries tie-breaker/boundary language) and downgraded, so no orphan open-must-fix report survives
+  this release. **Must-fix:** **M1** — rewrote every `text-type-skopos-and-the-brief` Procedure step from
+  translate-it-yourself imperative voice ("Make/Drive/Adjust/Orient/Take/Apply/Treat…") into reviewer voice
+  ("Check/Verify/Confirm that…"), matching the other 11 skills and the profile's no-production boundary
+  (same principle citations; no claim changed). **Should-fix:** **S1/S6** — restructured `when_not_to_use`
+  so `[0]` leads with the highest-stakes boundary ("does not translate or certify a rendering correct" — now
+  surfaced in the exported router `description`) followed by three **parallel** `route … to \`sibling\``
+  clauses (`translation-equivalence-advisor`, `translation-quality-reviewer`, `technical-translation-advisor`);
+  folded the redundant "produced end to end" bullet into the guaranteed-correct-rendering bullet.
+  **S2** — reworded `meaning-signification-and-equivalence-critique` Procedure step 6 to stay on the theory-of-
+  meaning side (which descriptive level a claim rests on) and cross-reference `translation-equivalence-advisor`
+  for the equivalence **mechanism** it must not evaluate. **S3** — added a sibling differentiator to
+  `knowledge_partition.always_on[11]` (evaluation-method soundness stays here; corpus/QA scoring output routes
+  to `translation-quality-reviewer`) — always-on tier is free of the body budget. **S8** — split the garden-path
+  `when_to_use[0]`. **S13** — reworded `literal-free-strategy-history-and-retranslation` Procedure steps 4 (P036)
+  and 15 (P173) into review voice. **S11** — standardized the four "Use when…" skill `description` lead-ins to
+  the third-person "Reviews…" pattern (deforming, descriptive-method, hermeneutics, text-type) and fixed the
+  imperative literal-free description. **S12** — front-loaded distinctive trigger vocabulary in the
+  `register-discourse-and-audiovisual-constraints` description, dropping the generic "flagging violations"
+  boilerplate. **S10** — added one `advise` and one `compare` worked example (examples are outside the body
+  budget). **S5/S7/S9** — split `forbidden_behaviours[3]` into two singly-cited bullets, deleted the
+  `handoff_rules[1]` authoring meta-sentence, and applied these trims to keep the body under budget.
+  **Field→grounding changes:** `source_of_truth_policy.precedence` **P114 → P107** (S4 — P107 grounds
+  "brief's purpose governs" via Vermeer's skopos; P114 was selective-preservation, mis-cited); `quality_bar[3]`
+  **+P052** (N6 — re-coding-not-omission most precisely grounded by P052); `forbidden_behaviours` now `[3]`
+  cites P075 alone and `[4]` cites P062/P038 (S5 — split, citations unchanged); **P010** statement gains the
+  term "initial norm" (adequacy vs acceptability; grounded in Toury, cross-referencing P023's adequacy-
+  acceptability axis) (S15); **P014** statement pairs "ennoblement and popularization" (S14 — restoring Berman's
+  canonical pairing already grounded in P081), echoed in `deforming-tendencies-and-translation-loss` step 1;
+  two new `examples` cite P059/P129/P062/P108 (advise) and P104/P162/P059/P105/P118/P062/P036 (compare), all
+  already-promoted principles. Adapter re-exported. **Deferred:** NICE N1-N5, N7-N9 (principle-annotation
+  hedges and cross-references) — polish on a passing package, left to a dedicated pass.
 - **1.4.0** (2026-07-12) — Review-loop round 4 fixes (no prior decision silently overwritten). (1)
   **M1** — repaired the truncated router `description` "Not for" clause at its root: front-loaded
   `when_not_to_use[0]` so a complete self-contained clause ("Route to `translation-equivalence-advisor` for

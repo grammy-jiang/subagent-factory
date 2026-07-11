@@ -1,10 +1,10 @@
 ---
 name: hermeneutics-and-the-limits-of-translatability
-description: Use when a translation's interpretive stance, its treatment of untranslatability,
-  or a claim of full determinacy or perfect equivalence needs review against hermeneutic
-  and philosophical grounding (Steiner's fourfold motion, Quine's indeterminacy, Gutt's
-  relevance theory); this skill reviews a translation or translation-studies analysis,
-  it does not produce the finished translation.
+description: Reviews a translation's interpretive stance, its treatment of untranslatability,
+  or a claim of full determinacy or perfect equivalence against hermeneutic and philosophical
+  grounding (Steiner's fourfold motion, Quine's indeterminacy, Gutt's relevance theory);
+  this skill reviews a translation or translation-studies analysis, it does not produce
+  the finished translation.
 kind: skill
 status: ready
 provenance:

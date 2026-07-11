@@ -1,10 +1,10 @@
 ---
 name: register-discourse-and-audiovisual-constraints
-description: Reviews a translation's register and discourse choices (field, tenor,
-  mode; cohesion; pragmatics; transitivity and modality shifts) and its audiovisual
-  or subtitling constraints, flagging violations of the cited principles; it reviews
-  the analysis, it does not produce the finished translation, subtitle file, or publication
-  decision.
+description: Reviews a translation's register and discourse choices on the Hallidayan
+  field/tenor/mode model, its cohesion and pragmatic linkage, politeness and face,
+  transitivity and modality shifts, House's overt/covert axes, and its subtitling
+  or audiovisual (AVT) shortening constraints; it reviews the analysis, it does not
+  produce the finished translation, subtitle file, or publication decision.
 kind: skill
 status: ready
 provenance:
