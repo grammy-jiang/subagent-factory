@@ -3,6 +3,8 @@
 This repository is a local Claude Code subagent-authoring factory.
 
 Use `/author-subagent` to create or update generated subagent packages under `./subagents/`.
+After a package is generated, use `/review-subagent <slug>` to review, improve, and adversarially
+verify it (domain-reviewer panel → grounded fix → independent re-verify → converge to zero must-fix).
 
 Generated subagent source packages must not be placed directly in `.claude/`.
 

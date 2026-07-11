@@ -30,6 +30,9 @@ MAXROUNDS="${MAXROUNDS:-3}"
 MODEL="${MODEL:-claude-opus-4-8}"
 REV_EFFORT="${REV_EFFORT:-high}"
 FIX_EFFORT="${FIX_EFFORT:-high}"
+# Space-separated agent names for the DOMAIN panel (accuracy cross-check). Chosen DYNAMICALLY by the
+# review-subagent skill from the live .claude/agents/ roster + the target's domain; empty = structural-only.
+DOMAIN_REVIEWERS="${DOMAIN_REVIEWERS:-}"
 LOGDIR="$REPO/campaign/logs"; mkdir -p "$LOGDIR"
 
 say(){ printf '[revloop] %s\n' "$*" | tee -a "$LOGDIR/review-loop.log"; }
@@ -44,7 +47,13 @@ run_fresh_claude(){
 }
 
 review_prompt(){ # SLUG ROUND
-  local slug="$1" round="$2"
+  local slug="$1" round="$2" r dblock=""
+  if [ -n "$DOMAIN_REVIEWERS" ]; then
+    dblock=$(printf '\n\nPLUS these DOMAIN-expertise reviewers, dynamically selected for the domain of this subagent — each\ngives an INDEPENDENT cross-check that the guidance is correct, complete, and current for that domain; flag\ndomain errors, missing best-practices, or advice a domain expert would dispute. ALTITUDE: domain ACCURACY of\nthe content ONLY (not skill prose / agent design / over-claim, which the four lenses above already own). Spawn\neach via Task; skip any not deployed under .claude/agents/:')
+    for r in $DOMAIN_REVIEWERS; do
+      dblock="$dblock$(printf '\n  - %s -> subagents/%s/{principles/principles.yaml, skills/*/SKILL.md, profile.yaml}: is the domain guidance accurate and complete?' "$r" "$slug")"
+    done
+  fi
   cat <<EOF
 You are running ONE review pass on a generated Claude Code subagent PACKAGE: subagents/$slug/ (cwd = repo
 root $REPO). REVIEW ONLY — do NOT edit any file except the single review report named at the end.
@@ -65,7 +74,7 @@ severity-ranked (must-fix|should-fix|nice) with a MUST_FIX_COUNT; hand each ONLY
   - ai-agent-engineering-reviewer -> .claude/agents/generated/$slug.md (the adapter) + profile.yaml. The
     subagent's DESIGN AS AN AGENT: role coherence, tool-boundary (Read/Grep/Glob only), when-to/not clarity,
     no over-reach/authority creep. ALTITUDE CONSTRAINT: review the agent design ONLY; do NOT re-litigate
-    skill prose (agent-skills' job) or domain content (faithfulness' job).
+    skill prose (agent-skills' job) or domain content (faithfulness' job).$dblock
 
 STEP 3 — CONSOLIDATE all findings into ONE report (deterministic FAILs ARE must-fix). Dedup across lenses;
 most-severe first; for each: where | severity | problem | fix. WRITE it to EXACTLY this path:
@@ -92,7 +101,9 @@ principles; a skill body must cite ONLY its own principle IDs):
     to apply' dump. PRESERVE each skill's frontmatter provenance block VERBATIM.
   - Profile issues -> edit subagents/$slug/profile.yaml (role / when_to_use / etc.).
   - Faithfulness over-claim -> weaken the offending profile rule to match its source support.
-  - Then: bump agent_version + add a CHANGELOG.md entry; re-export the adapter
+  - Then: bump agent_version + add a CHANGELOG.md entry AND a matching provenance-ledger.md Version History
+    entry (supersession rule — every bump needs a ledger entry; refresh any field->grounding rows whose principle
+    citations changed); re-export the adapter
     (python -m tools.subagent_factory.cli export $slug); if digest WARNs appear, python -m
     tools.subagent_factory.cli stale --stamp $slug; and run
     python -m tools.subagent_factory.validate_generated_package subagents/$slug until it PASSES (0 FAIL).
