@@ -3,6 +3,30 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.1.0] — 2026-07-12
+
+### Changed
+- **Faithfulness (must-fix M2):** `quality_bar[6]` no longer asserts the universal negation "adequacy
+  is judged by receptor response, **not** formal closeness" (stronger than P021/P034/P035/P022 — P022
+  endorses formal-equivalence/gloss for close source access; P035 lists four adequacy criteria). Rewritten
+  brief-conditioned: adequacy judged by the brief's own criterion (sense/spirit/natural expression/similar
+  response for receptor-response tasks; closeness to source form and structure when readers need it).
+- **Faithfulness (should-fix S9):** `source_of_truth_policy.precedence` reworded from "preserve it only
+  where…" to the graded "preserving it more strongly where…" to match P005's graded wording.
+- **Routing (should-fix S1):** `when_to_use[0]` split so its first sentence is a complete clause, giving
+  the exported router `description` a well-formed, scope-signalling trigger instead of a mid-list cut.
+- **Profile size (should-fix S2):** `quality_bar` compressed (shared "function, not form" framing tightened)
+  to reclaim body-word headroom against the 1000-word hard limit.
+- **Skill lens-fit (should-fix S8):** `text-level-approach-and-limits-of-equivalence` "When to use"
+  tightened to its distinct whole-text/relative-standard trigger (was overlapping every sibling skill).
+- **Adapter (must-fix M1):** re-exported so the `## Operating invariants (must hold)` layer emits P038
+  and P058 whole (the stale adapter truncated them mid-clause with a trailing `…`; `compile_invariants`
+  was already fixed upstream, this package's adapter predated the fix).
+
+### Grounding
+- No new claim introduced: every edited rule restates principles already in `principles/principles.yaml`
+  (P001–P116). Faithfulness-report entries for `quality_bar[6]` and `precedence` updated accordingly.
+
 ## [1.0.0] — 2026-07-11
 
 ### Added

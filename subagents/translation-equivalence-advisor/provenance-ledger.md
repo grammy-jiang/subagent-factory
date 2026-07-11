@@ -49,6 +49,24 @@ The five high-confidence principles (P009, P024, P037, P038, P058) are compiled 
 
 ## Version history
 
+- **v1.1.0** (2026-07-12) — review-loop r1 fixes (supersession, no spine change; every edited rule still
+  restates principles already in the spine, no new claim):
+  - M2 (faithfulness): `quality_bar[6]` over-claim removed — the universal negation "adequacy is judged
+    by receptor response, **not** formal closeness" exceeded its cites (P022 endorses formal-equivalence/gloss
+    for close source access; P035 gives four adequacy criteria). Reworded brief-conditioned; grounding
+    unchanged (P021, P034, P035, P022). Faithfulness-report `quality_bar[6]` note updated.
+  - S9 (faithfulness): `source_of_truth_policy.precedence` regraded "preserve it only where…" →
+    "preserving it more strongly where…" to match P005's graded wording (grounding P005, P021, P078,
+    P051 unchanged). Faithfulness-report `precedence` note updated.
+  - S1 (routing): `when_to_use[0]` split into two sentences so the exported router `description` gets a
+    complete, scope-signalling first clause (no principle grounding — scope statement).
+  - S2 (size): `quality_bar` compressed for body-word headroom; all principle citations preserved.
+  - S8 (lens-fit): `text-level-approach-and-limits-of-equivalence` "When to use" narrowed to its distinct
+    whole-text/relative-standard trigger (P006, P051, P078; no new citation).
+  - M1 (adapter): re-exported so P038/P058 invariants emit whole (stale adapter had a mid-clause `…`).
+  - Deferred (out of grounding scope — would need claims absent from this spine): S3 back-translation
+    QA role, S5 equivalent-effect unverifiability, S6 Mandarin 被 era-drift, S7 Nida-1986 "functional
+    equivalence" rename, and the N-tier nice-to-haves.
 - **v1.0.0** (2026-07-11) — initial LLM-authored layer (profile, nine skills, two references,
   faithfulness report, golden + principle-behaviour tests, adapter) generated over the pre-built
   distilled spine. Distilled spine unchanged.

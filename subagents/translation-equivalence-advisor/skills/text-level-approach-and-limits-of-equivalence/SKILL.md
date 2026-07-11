@@ -64,10 +64,9 @@ This skill reviews the translator's overall stance and the standard by which the
 
 ## When to use
 
-- A whole text is being approached for translation or review.
-- A translation decision must be made or justified.
-- How closely a translation matches its source is being assessed.
-- A translation is being critiqued overall.
+- A caller asks whether a translation is "right," "literal enough," or "faithful" overall, without naming a single equivalence level.
+- Findings from a specific level-skill (word, grammar, cohesion, pragmatics, register) must be weighed against the whole-text standard.
+- How closely a whole translation matches its source is being assessed against a relative, partial standard rather than an absolute one.
 
 ## Procedure
 

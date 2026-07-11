@@ -55,8 +55,12 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Aggregates the promoted principles P021, P034, P022, P035 into one review criterion; each clause
-    restates a principle without strengthening it.
+  note: 'Aggregates P021, P034, P035, P022 into one review criterion. Corrected in v1.1.0: the earlier
+    wording ("adequacy is judged by receptor response, not formal closeness") was a universal negation
+    stronger than its cites — P022 endorses formal-equivalence/gloss where readers need close source access,
+    and P035 lists four adequacy criteria, not a single receptor-response test. Now brief-conditioned
+    (sense/spirit/natural expression/similar response for receptor-response tasks; closeness to source
+    form and structure when readers need that access), so no clause exceeds its principle.'
 - rule_ref: quality_bar[7]
   verdict: WITHIN_SCOPE
   distortion:
@@ -203,7 +207,9 @@ findings:
   severity: low
   action: accept_with_note
   note: 'Precedence rule grounded in P005, P021, P078, P051: purpose and reader coherence govern, form
-    is weighted by function, and equivalence stays relative.'
+    is weighted by function, and equivalence stays relative. Corrected in v1.1.0 from "preserve it only
+    where…" to the graded "preserving it more strongly where…" to match P005''s graded wording (no hedging
+    removed).'
 - rule_ref: outputs.modes[advise].trigger
   verdict: WITHIN_SCOPE
   distortion:
