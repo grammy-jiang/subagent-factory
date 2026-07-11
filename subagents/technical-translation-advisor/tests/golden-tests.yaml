@@ -1,0 +1,194 @@
+schema_version: golden-tests-v1
+subagent_slug: technical-translation-advisor
+generated_at: '2026-07-11'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — audience/brief analysis
+  prompt: We're translating a power-tool user manual from English into German for DIY home users sold
+    across the EU. Where do we start before touching the wording?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: Advice to establish audience, tasks, purpose and distribution from the brief (asking
+    the client the standard questions if thin), build a document profile, and note the EU-language legal
+    requirement — before wording.
+  must_do:
+  - Drive the decision from audience, tasks and the brief/Skopos, not the source alone
+  - Ask the standard brief questions when the brief is thin
+  - Flag the EU country-of-sale translation requirement and safety status
+  must_not_do:
+  - Produce the finished German manual
+  - Make the client's commercial decision
+  principle_coverage:
+  - P002
+  - P020
+  - P024
+  - P055
+  - P090
+  - P129
+- test_id: GT-002
+  description: Positive routing — strategy/procedure choice
+  prompt: A sentence in a maintenance manual is ambiguous and badly ordered in the source. Should I translate
+    it literally or restructure it?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: 'Advice that target-user function governs: restructure/expand to serve the reader where
+    the source is poorly ordered, choosing the procedure from the situation and text type, and flagging
+    any apparent source error to the client.'
+  must_do:
+  - Let target-user function govern over a literal rendering
+  - Choose the procedure (restructuring, expansion) from the situation, not a maxim
+  - Advise notifying the client of the apparent source defect
+  must_not_do:
+  - Assert 'always translate literally' or 'always restructure' as a universal rule
+  principle_coverage:
+  - P014
+  - P015
+  - P133
+  - P132
+  - P141
+  - P023
+- test_id: GT-003
+  description: Positive routing — terminology/units/mandated naming
+  prompt: The client's style guide says use 'cancel' not 'abort'. The source uses 'abort', and there are
+    SI units and a product name. How do I handle these?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: Advice to honour the mandated terminology, keep SI units unchanged (conversion is risky),
+    and never alter the product name — with the reasons.
+  must_do:
+  - Honour the client's mandated preferred terminology
+  - Leave SI units unchanged wherever possible; conversion risks precision
+  - Never modify the product/brand name
+  must_not_do:
+  - Substitute your own preferred term over the client's mandate
+  - Convert units without the client's rounding precision
+  principle_coverage:
+  - P103
+  - P104
+  - P144
+  - P093
+- test_id: GT-004
+  description: Positive routing — usability evaluation design
+  prompt: We want to prove our translated user guide is actually usable. How should we test it?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: Advice to run representative task-based usability testing with observable criteria and
+    appropriate small-sample statistics, control confounds, and pilot first — not rely on readability
+    formulas or design confidence.
+  must_do:
+  - Use representative task-based testing with observable, product-relevant criteria
+  - Control confounds and pilot before the main study
+  - Establish usability by evaluation, not design confidence alone
+  must_not_do:
+  - Claim usability from a readability formula alone
+  - Present an untested opinion as an evaluated finding
+  principle_coverage:
+  - P006
+  - P040
+  - P049
+  - P065
+  - P066
+  - P084
+- test_id: GT-005
+  description: Positive routing — safety/warning content review
+  prompt: Review my draft translation of the safety warnings section of a machinery manual.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: 'A review that treats warning content as high-stakes: explicit, correctly signalled,
+    legally weighted, and escalated to the client if the source is deficient — highest-impact first.'
+  must_do:
+  - Treat safety/warning content as a matter of accuracy and legal weight
+  - Make it explicit and escalate a deficient source to the client
+  - Ground each finding in a named principle
+  must_not_do:
+  - Weaken or drop warning content for style
+  - Sign off the translation as safe
+  principle_coverage:
+  - P081
+  - P117
+  - P146
+  - P011
+- test_id: GT-006
+  description: Positive routing — iconic linkage / consistency
+  prompt: The source repeats the same instruction with slightly different wording each time. Should my
+    translation vary it for style?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: Advice to apply iconic linkage — render recurring, semantically identical information
+    with one uniform construction — where standardisation is practical, and scale it with a style guide
+    / translation memory.
+  must_do:
+  - 'Apply iconic linkage: one uniform construction for recurring identical information'
+  - Note it reduces memory load and errors, not just style
+  - Scale consistency with controlled language / style guide / TM
+  must_not_do:
+  - Recommend varying identical instructions purely for stylistic elegance
+  principle_coverage:
+  - P021
+  - P134
+  - P074
+  - P075
+negative_routing_tests:
+- test_id: NR-001
+  description: Negative — literary translation, no technical dimension
+  prompt: Translate this poem's closing stanza into French, keeping the rhyme and mood.
+  expected_route: do_not_invoke
+  expected_mode: null
+  minimum_output: 'Decline: literary/creative translation with no technical or usability dimension is
+    out of scope.'
+  principle_coverage:
+  - P068
+  - P091
+- test_id: NR-002
+  description: Negative — pure commercial/pricing decision
+  prompt: What price and deadline should I quote the client for this 40-page translation?
+  expected_route: do_not_invoke
+  expected_mode: null
+  minimum_output: 'Decline: the commercial decision (price, deadline) rests with the translator and commissioner,
+    not this advisor.'
+  principle_coverage:
+  - P056
+  - P090
+- test_id: NR-003
+  description: Negative — CAT/DTP software operation
+  prompt: How do I configure the segmentation rules and TM server in memoQ on my machine?
+  expected_route: do_not_invoke
+  expected_mode: null
+  minimum_output: 'Decline: operating specific CAT/DTP software is out of scope; the advisor covers the
+    translation decision the tool supports, not tool setup.'
+  principle_coverage:
+  - P078
+  - P079
+missing_context_tests:
+- test_id: MC-001
+  description: Missing context — no audience or brief
+  prompt: Should I translate this manual literally or freely?
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for:
+  - Who the target readers are and their tasks/prior knowledge
+  - The purpose and distribution of the target text (the brief/Skopos)
+  - The document type and any client style guide or mandated terminology
+  minimum_output: Ask for the audience, brief/Skopos, and document type before advising, since strategy
+    is chosen from the communicative situation.
+  principle_coverage:
+  - P002
+  - P024
+  - P056
+- test_id: MC-002
+  description: Missing context — usability claim, no test data
+  prompt: Is our translated guide usable enough to ship?
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for:
+  - What usability criteria and metrics were defined
+  - Whether representative task-based testing was run, and its results
+  - The target users, tasks, and context of use
+  minimum_output: Ask for the evaluation criteria and test results before judging usability, since usability
+    is established by evaluation, not design confidence.
+  principle_coverage:
+  - P040
+  - P049
+  - P084

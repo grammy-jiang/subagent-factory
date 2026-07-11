@@ -1,0 +1,198 @@
+---
+name: technical-translation-evidence-notes
+description: Confidence, source spread and grounding notes for the promoted principles.
+kind: reference
+status: ready
+provenance:
+  principles:
+  - P001
+  - P002
+  - P003
+  - P004
+  - P005
+  - P006
+  - P007
+  - P008
+  - P009
+  - P010
+  - P011
+  - P012
+  - P013
+  - P014
+  - P015
+  - P016
+  - P017
+  - P018
+  - P019
+  - P020
+  - P021
+  - P022
+  - P023
+  - P024
+  - P025
+  - P026
+  - P027
+  - P028
+  - P029
+  - P030
+  - P031
+  - P032
+  - P033
+  - P034
+  - P035
+  - P036
+  - P037
+  - P038
+  - P039
+  - P040
+  - P041
+  - P042
+  - P043
+  - P044
+  - P045
+  - P046
+  - P047
+  - P048
+  - P049
+  - P050
+  - P051
+  - P052
+  - P053
+  - P054
+  - P055
+  - P056
+  - P057
+  - P058
+  - P059
+  - P060
+  - P061
+  - P062
+  - P063
+  - P064
+  - P065
+  - P066
+  - P067
+  - P068
+  - P069
+  - P070
+  - P071
+  - P072
+  - P073
+  - P074
+  - P075
+  - P076
+  - P077
+  - P078
+  - P079
+  - P080
+  - P081
+  - P082
+  - P083
+  - P084
+  - P085
+  - P086
+  - P087
+  - P088
+  - P089
+  - P090
+  - P091
+  - P092
+  - P093
+  - P094
+  - P095
+  - P096
+  - P097
+  - P098
+  - P099
+  - P100
+  - P101
+  - P102
+  - P103
+  - P104
+  - P105
+  - P106
+  - P107
+  - P108
+  - P109
+  - P110
+  - P111
+  - P112
+  - P113
+  - P114
+  - P115
+  - P116
+  - P117
+  - P118
+  - P119
+  - P120
+  - P121
+  - P122
+  - P123
+  - P124
+  - P125
+  - P126
+  - P127
+  - P128
+  - P129
+  - P130
+  - P131
+  - P132
+  - P133
+  - P134
+  - P135
+  - P136
+  - P137
+  - P138
+  - P139
+  - P140
+  - P141
+  - P142
+  - P143
+  - P144
+  - P145
+  - P146
+  - P147
+  - P148
+  - P149
+  - P150
+  claims: []
+  evidence: []
+  source_anchors: []
+  authored_from_digest: c6c2271d59a10c872be3bbaab9630abd8599415a700be780ab89ad3d05eaf51f
+---
+
+# Technical Translation Evidence Notes
+
+Grounding notes for the 150 promoted principles, distilled from Jody Byrne's *Technical Translation: Usability Strategies for Translating Technical Documentation* (2006) and *Scientific and Technical Translation Explained* (2012) (distillation-only). Confidence is the promotion grade recorded in `principles/principles.yaml`; every principle resolves into `analysis/claims.jsonl` and `evidence/evidence-records.yaml` via its `derived_from_claims`.
+
+## Corpus
+
+- Sources: 2 (both Jody Byrne).
+- Claims: 850. Evidence records: 713.
+- Principles: 150 — 129 high-confidence, 21 medium-confidence.
+
+## Confidence and faithfulness
+
+- A recommendation may never be stated more strongly than its principle's confidence and source support (see `reports/faithfulness-report.yaml`).
+- Medium-confidence principles carry a weaker evidence base and should be offered as context-dependent guidance, not universal rules:
+  - **P057**: Use repetition and practice to support procedural automaticity without creating unnecessary dependence.
+  - **P072**: Classify document type by communicative purpose before deciding content, structure, and rhetorical strategy.
+  - **P073**: Familiarize participants with context, acclimate them to recording, and capture useful informal comments without letting them drive scoring.
+  - **P074**: Do not assume consistency is disruptive; inconsistent instruction phrasing may be more harmful than repeated structures.
+  - **P075**: Scale consistency through controlled language, style guides, translation memory, and improved semantic-match tooling.
+  - **P076**: Preserve usability-study instruments and participant-level tables so study procedures and results can be audited.
+  - **P077**: Expect scientific texts to use a broader range of linguistic devices (longer, more complex sentences, figurative language) because they aim to create an effect, and treat metaphors as a valuable tool in both scientific…
+  - **P078**: Be able to recognize the specialized file types and software of the client's industry and be comfortable (not necessarily expert) with markup and scripting such as HTML and XML, so you can identify and translate the tex…
+  - **P079**: Apply CAT tools where they fit: translation memory helps only with high-repetition or frequently-updated (chiefly technical) texts, terminology management helps where a large volume of terms must stay consistent, and TM…
+  - **P080**: Treat a case study as a marketing text with a standard structure (identify the client, its needs as the 'problem', the solution and its implementation, a testimonial, and closing company details) that is demanding to tr…
+  - **P106**: Choose delivery medium according to how users actually read and use the documentation.
+  - **P107**: Know the equivalence toolkit: formal equivalence matches source form and content; dynamic equivalence matches the source's effect on its audience; and Koller's five levels are denotational, connotational, textual-norm,…
+  - **P108**: Categorize readers by role (Horton's novice, occasional, transfer, expert, rote; Markel's experts, technicians, managers, general) to reveal how they use a text — experts skim, novices read in sequence, rote users jump…
+  - **P109**: Analyze the target culture as more than nationality: cultural norms shape slang and jargon, forms of address, shared-knowledge references, and conventions for date, time, currency, and legal or institutional references;…
+  - **P110**: Expect information conveyed as bare facts and specifications (bullet lists or tables in technical texts, sentences in scientific ones) and as cross-references to laws, standards, books, or interface items that avoid ove…
+  - **P111**: Make tutorials gentle, supportive, and never confusing, too-advanced, or wrong — because readers tend to blame themselves for problems following instructions even when the text is substandard — keeping information densi…
+  - **P112**: Treat user guides as structured instructional documents in simple language supported by graphics whose usability rests on broadly universal human cognition but also carries culture-specific features and rarely targets a…
+  - **P113**: Know the profiles of common technical text types: a technical data sheet covers a product's composition, properties, and applications plus safety, legal, and environmental information; test instructions are standard ope…
+  - **P114**: Understand that literal translation is more sophisticated than word-for-word replacement — shifting from word to group to clause once the target stops complying with target-language grammar, and avoiding additions, omis…
+  - **P115**: Respect that technical information is usually in logical or chronological sequence but rearrange it when culture requires: alter the sequencing and the proportion of given and new information within paragraphs (foregrou…
+  - **P116**: Use House's covert/overt distinction — a covert translation is functionally equivalent and reads as though originally written in the target language, while an overt translation is evidently a translation whose source is…
