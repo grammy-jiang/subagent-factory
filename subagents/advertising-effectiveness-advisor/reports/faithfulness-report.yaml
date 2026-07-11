@@ -1,0 +1,336 @@
+schema_version: faithfulness-report-v1
+subagent_slug: advertising-effectiveness-advisor
+findings:
+- rule_ref: quality_bar[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0015
+  - the-end-of-advertisi-20260609104350-t0120
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: '"Advertising is not an art form. It''s about selling more stuff..." (L148-149),
+    "Awareness is absolutely worthless unless it leads to sales" (L153), and the demand
+    to "measure how effective your advertising initiatives are" (L1196) directly support
+    tying spend to a measurable selling outcome rather than to awareness/impressions/award
+    value.'
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0093
+  - the-end-of-advertisi-20260609104350-t0117
+  - the-end-of-advertisi-20260609104350-t0155
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: '"Get lots of data" -> "Get relevant data" (Table 1.2, L941; L1169) and "keep
+    it relevant to consumers" (L1529) support relevant-data-over-volume and a customer-first
+    starting point. Valid inference, not stated as one sentence in the source.'
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0093
+  - the-end-of-advertisi-20260609104350-t0069
+  - the-end-of-advertisi-20260609104350-t0030
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: '"Marketing is an expense" -> "Marketing is an investment" (Table 1.2, L942),
+    "its a science whose results are 100 percent measurable" (L675), and "How do you
+    measure them?" (L289) exactly support treating marketing as a measured investment.'
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0011
+  - the-end-of-advertisi-20260609104350-t0100
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Chapter "Fish Where the Fish Are" (L99) and "everyone knows McDonalds, but
+    not everyone who eats fast food eats at McDonalds... everyone knows Honda, but
+    not everyone... buys a Honda" (L1002-1004) support targeting relevant customers
+    over the whole market. "Winnable" is a faithful gloss on the source, not a broadening.
+- rule_ref: forbidden_behaviours[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0015
+  - the-end-of-advertisi-20260609104350-t0058
+  - the-end-of-advertisi-20260609104350-t0133
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: '"Awareness is absolutely worthless unless it leads to sales" (L153), "Awareness
+    doesnt sell" (L566), and "differentiation for differen[tiations] sake" (L1306)
+    support forbidding spend justified only by awareness/differentiation/creative
+    recognition. Source still values differentiation that creates value (L1890), and
+    the rule correctly forbids only differentiation "for its own sake".'
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0011
+  - the-end-of-advertisi-20260609104350-t0100
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: '"Fish Where the Fish Are" (L99) and the McDonalds/Honda examples (L1002-1004)
+    support not chasing the whole market and fishing where relevant customers are.'
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0037
+  - the-end-of-advertisi-20260609104350-t0652
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: '"debunk the myth that any publicity is good publicity" (L370), "Despite the
+    old adage that any publicity is good publicity, the truth is..." (L6668), and
+    "Free media is rarely free... if you dont manage it properly, the consequences
+    can be incredibly expensive" (L6670-6673) exactly support the rule.'
+- rule_ref: forbidden_behaviours[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0015
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Agent-scoping boundary (do not produce finished creative) rather than a source
+    claim. Consistent with "Advertising is not an art form" (L148) de-emphasizing
+    creative production; does not exceed or contradict the source.
+- rule_ref: when_to_use[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0015
+  - the-end-of-advertisi-20260609104350-t0120
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Justifying spend by sales return, not reach/impressions/awareness, is the
+    books central thesis (L153, L1196).
+- rule_ref: when_to_use[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0011
+  - the-end-of-advertisi-20260609104350-t0026
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Chapter "Success Can Be Deadly - Dont Take Your Brand Awareness for Granted"
+    (L97) and "Weve got 70 percent awareness" anecdote (L258) support challenging
+    a well-known brand with flat sales.
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0011
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Endorsers (L101), packaging (L104), sponsorship (L106), and free media (L108)
+    are each dedicated chapters, so framing these bounded decisions around selling
+    is in scope.
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0057
+  - the-end-of-advertisi-20260609104350-t0121
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Critiquing visibility that produced no measurable result follows from "awareness
+    doesnt get you sales" (L562) and "no one felt pressure to actually measure whether
+    the ads" worked (L1203).
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0015
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Agent-scoping boundary (critiques strategy, does not produce creative). Consistent
+    with the source de-emphasizing advertising as an art form (L148); not a source
+    over-claim.
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0069
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Boundary excluding legal/accounting/econometric-attribution work. The source
+    claims results are measurable (L675) but does not supply the statistical model,
+    so deferring the model is faithful scoping.
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0015
+  - the-end-of-advertisi-20260609104350-t0062
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: '"the goal of advertising is to sell more stuff to more people..." (L612)
+    makes a defined selling goal the premise; without a transaction to drive there
+    is no basis for the advice. Faithful inference.'
+- rule_ref: outputs.modes[0]
+  triplet:
+    head: advise mode
+    relation: grounds recommendation in
+    tail: selling-not-awareness principle
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0062
+  - the-end-of-advertisi-20260609104350-t0058
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Recommending from who the real customer is and what makes them buy, tied to
+    selling, matches the goal-of-advertising thesis (L612) and the awareness-doesnt-
+    sell claim (L566).
+- rule_ref: outputs.modes[1]
+  triplet:
+    head: review mode
+    relation: critiques against
+    tail: chasing awareness / differentiation / wrong market
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0058
+  - the-end-of-advertisi-20260609104350-t0133
+  - the-end-of-advertisi-20260609104350-t0100
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: The named mistakes (awareness L566, differentiation-for-its-own-sake L1306,
+    wrong market L1002-1004) are all source-attested failure modes.
+- rule_ref: outputs.modes[2]
+  triplet:
+    head: compare mode
+    relation: ranks options by
+    tail: expected selling return
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0011
+  - the-end-of-advertisi-20260609104350-t0037
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Bounded either/or framing (e.g. "To Sponsor or Not to Sponsor", L106) and
+    "should get a return on their sponsorship dollars" (L363) support ranking options
+    by selling return.
+- rule_ref: outputs.modes[3]
+  triplet:
+    head: validate mode
+    relation: gates spend against
+    tail: a measurable selling criterion
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0120
+  - the-end-of-advertisi-20260609104350-t0069
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Pass/fail gating against a measurable selling result follows from the results-oriented,
+    100-percent-measurable stance (L1196, L675).
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0015
+  - the-end-of-advertisi-20260609104350-t0062
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: A single selling-accountability judgement with one reason and one redirected
+    action is a faithful minimal expression of the books selling thesis (L153, L612).
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0058
+  - the-end-of-advertisi-20260609104350-t0059
+  - the-end-of-advertisi-20260609104350-t0851
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: '"Awareness doesnt sell. All it does is get you into the consideration set.
+    And then you still have to sell" (L566-567) is near-verbatim support; "everything
+    you do communicates" / "everything is advertising" (L587, L8712) support the rest.
+    The rule is if anything slightly more hedged than the source (which says "awareness
+    is irrelevant", Table 1.2 L936).'
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0093
+  - the-end-of-advertisi-20260609104350-t0069
+  - the-end-of-advertisi-20260609104350-t0068
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: '"Marketing is an investment" (L942), "results are 100 percent measurable"
+    (L675), and "more people more often and for more money" (L667) support measured
+    investment proven by concrete selling outcomes from every dollar.'
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0093
+  - the-end-of-advertisi-20260609104350-t0011
+  - the-end-of-advertisi-20260609104350-t0100
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: '"Get relevant data" (L941/L1169) and "Fish Where the Fish Are" (L99, L1002-1004)
+    support segment-to-the-winnable-customer plus relevant-over-lots-of-data.'
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - the-end-of-advertisi-20260609104350-t0011
+  - the-end-of-advertisi-20260609104350-t0037
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Endorsers (L101), packaging (L104), sponsorship (L106), and free media (L108)
+    chapters, plus "get a return on their sponsorship dollars" (L363), support judging
+    these bounded decisions by whether they sell rather than by visibility.

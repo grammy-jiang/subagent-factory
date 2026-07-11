@@ -1,0 +1,880 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: scalability-mr
+generated_at: '2026-06-22'
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  mode: review
+  prompt: 'Review our approach: hyper-growth or rapidly growing production environments. Is there a scalability
+    problem and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Scale out, not up.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P001.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P002
+  principle_id: P002
+  mode: advise
+  prompt: We're deciding what to do when introducing new data or data structures into a system. What do
+    you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Use the right storage tool for the data.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P002.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P003
+  principle_id: P003
+  mode: compare
+  prompt: Compare our options for any system with repetitive queries, computations, or servable content.
+    Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Cache in depth — CDN, page cache, application cache, object cache — using
+    HTTP headers (not meta tags) and monitoring hit ratios.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P003.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P004
+  principle_id: P004
+  mode: review
+  prompt: 'Review our approach: any system, service, or database expected to grow rapidly. Is there a
+    scalability problem and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Use the AKF Scale Cube as the framework for scaling.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P004.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P005
+  principle_id: P005
+  mode: advise
+  prompt: We're deciding what to do when web pages where performance matters. What do you advise, and
+    what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Trim work the browser must do.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P005.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P006
+  principle_id: P006
+  mode: compare
+  prompt: Compare our options for a rapidly growing business planning disaster recovery or spiky-demand
+    capacity. Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Design for three or more live data centers and leverage the cloud for spiky
+    demand, rather than a two-site hot/cold pair.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P006.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P007
+  principle_id: P007
+  mode: review
+  prompt: 'Review our approach: designing any large or complex system or project. Is there a scalability
+    problem and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Default to simplicity.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P007.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P008
+  principle_id: P008
+  mode: advise
+  prompt: We're deciding what to do when splitting databases or services to scale, and seeking fault isolation.
+    What do you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Design fault-isolative swimlanes along Y/Z boundaries.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P008.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P009
+  principle_id: P009
+  mode: compare
+  prompt: Compare our options for architecture reviews and new designs. Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Eliminate single points of failure and avoid components in series.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P009.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P010
+  principle_id: P010
+  mode: review
+  prompt: 'Review our approach: designing or redesigning any multi-tenant system. Is there a scalability
+    problem and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Strive for statelessness.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P010.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P011
+  principle_id: P011
+  mode: advise
+  prompt: We're deciding what to do when managing code and configuration for a production system. What
+    do you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Put everything under version control — application code and production configuration
+    alike — with atomic commits, on every platform you operate, and use it for deployment and change-tracking,
+    not just development.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P011.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P012
+  principle_id: P012
+  mode: compare
+  prompt: Compare our options for always — after incidents and when validating product changes. Which
+    fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Build a learning organization.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P012.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P013
+  principle_id: P013
+  mode: review
+  prompt: 'Review our approach: Require capable-monitoring features. Is there a scalability problem and
+    what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Require capable-monitoring features.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P013.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P014
+  principle_id: P014
+  mode: advise
+  prompt: We're deciding what to do when every code and database release. What do you advise, and what
+    does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Always be able to roll back.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P014.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P015
+  principle_id: P015
+  mode: compare
+  prompt: Compare our options for distributed transactions or cursor development on a relational database.
+    Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Avoid lock-and-wait database patterns.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P015.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P016
+  principle_id: P016
+  mode: review
+  prompt: 'Review our approach: re-architecting an existing platform or selecting which rules to adopt.
+    Is there a scalability problem and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Prioritize scalability work by risk reduction minus cost (R - C = P), measuring
+    availability by revenue impact, and codify chosen rules as enforced architectural principles.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P016.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P017
+  principle_id: P017
+  mode: advise
+  prompt: We're deciding what to do when any product expected to grow. What do you advise, and what does
+    it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Design scale in early with the D-I-D process — design for 20x, implement for
+    3x, deploy for ~1.5x — so capacity arrives just in time.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P017.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P018
+  principle_id: P018
+  mode: compare
+  prompt: Compare our options for designing the data model or adding tables, columns, or queries. Which
+    fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Design the data model up front, because relationships dictate how the database
+    can be split and fixing the model later can cost ~100x.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P018.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P019
+  principle_id: P019
+  mode: review
+  prompt: 'Review our approach: a message bus is part of the architecture. Is there a scalability problem
+    and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Treat the message bus as a scalable, fault-isolated component (Y/Z splits,
+    not X) and avoid overcrowding it by publishing only value-justified traffic.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P019.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P020
+  principle_id: P020
+  mode: advise
+  prompt: We're deciding what to do when using a relational database under high transaction volume. What
+    do you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Manage database locking for concurrency.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P020.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P021
+  principle_id: P021
+  mode: compare
+  prompt: Compare our options for calls between services and tiers. Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Favor asynchronous communication to decouple services and prevent cascading
+    failure.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P021.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P022
+  principle_id: P022
+  mode: review
+  prompt: 'Review our approach: selecting availability and scaling technology. Is there a scalability
+    problem and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Treat high availability and load balancing as orthogonal — HA is resilience
+    to failure, LB is about scale — and define which (or both) a system needs before implementing.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P022.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P023
+  principle_id: P023
+  mode: advise
+  prompt: We're deciding what to do when scaling high availability horizontally or geographically. What
+    do you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Prefer peer-based high availability — where the cluster owns the services
+    and IP addresses and each node negotiates a subset — over idle hot-standby pairs and dedicated HA
+    hardware as you scale horizontally or across sites.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P023.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P024
+  principle_id: P024
+  mode: compare
+  prompt: Compare our options for know your tools. Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Know your tools.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P024.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P025
+  principle_id: P025
+  mode: review
+  prompt: 'Review our approach: any write path in a high-transaction product. Is there a scalability problem
+    and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Do not duplicate work.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P025.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P026
+  principle_id: P026
+  mode: advise
+  prompt: We're deciding what to do when staffing testing in a growing engineering organization. What
+    do you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Use QA to lower cost and raise throughput and defect detection, not to add
+    quality, since you cannot test quality into a system.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P026.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P027
+  principle_id: P027
+  mode: compare
+  prompt: Compare our options for plan ssl/ip consumption deliberately. Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Plan SSL/IP consumption deliberately.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P027.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P028
+  principle_id: P028
+  mode: review
+  prompt: 'Review our approach: evaluating a vendor feature or product for scaling. Is there a scalability
+    problem and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Own your scalability.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P028.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P029
+  principle_id: P029
+  mode: advise
+  prompt: We're deciding what to do when designing logging for a multi-node architecture. What do you
+    advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Deliver all logs reliably in real-time over a publish/subscribe substrate
+    with reliable IP multicast, and separate logging roles (publish, journal, analyze) so each scales
+    independently.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P029.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P030
+  principle_id: P030
+  mode: compare
+  prompt: Compare our options for turn the log stream into real-time business-level monitors and build
+    your own cluster tooling from it. Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Turn the log stream into real-time business-level monitors and build your
+    own cluster tooling from it.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P030.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P031
+  principle_id: P031
+  mode: review
+  prompt: 'Review our approach: considering a constraint that an object hold a state between user actions.
+    Is there a scalability problem and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Relax temporal constraints and embrace eventual consistency (BASE), because
+    CAP makes strong consistency expensive to scale.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P031.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P032
+  principle_id: P032
+  mode: advise
+  prompt: We're deciding what to do when integrating internal company systems with the product. What do
+    you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Separate business intelligence from transaction processing.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P032.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P033
+  principle_id: P033
+  mode: compare
+  prompt: Compare our options for adding or changing modules of the code base. Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Design applications to be monitored, driving monitoring from business metrics
+    first (''Is there a problem?''), then ''Where'', then ''What''.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P033.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P034
+  principle_id: P034
+  mode: review
+  prompt: 'Review our approach: operating any internet service or commerce solution. Is there a scalability
+    problem and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Be competent in every component you deploy — build-vs-buy is not an excuse
+    for incompetence — because to the customer every problem is yours.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P034.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P035
+  principle_id: P035
+  mode: advise
+  prompt: We're deciding what to do when treat scalability and performance as distinct properties. What
+    do you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Treat scalability and performance as distinct properties.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P035.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P036
+  principle_id: P036
+  mode: compare
+  prompt: Compare our options for greenfield or major architecture design. Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Design for scalability from the beginning for the parts that will need it.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P036.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P037
+  principle_id: P037
+  mode: review
+  prompt: 'Review our approach: Build architectures from autonomous, independently scalable components
+    so a demand spike stresses only one or two. Is there a scalability problem and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Build architectures from autonomous, independently scalable components so
+    a demand spike stresses only one or two.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P037.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P038
+  principle_id: P038
+  mode: advise
+  prompt: We're deciding what to do when keep architectures simple (kiss). What do you advise, and what
+    does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Keep architectures simple (KISS).'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P038.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P039
+  principle_id: P039
+  mode: compare
+  prompt: Compare our options for any controlled change to the production architecture. Which fits and
+    why?
+  expected_behaviour:
+  - 'Applies the principle: Require a complete push plan for every production change.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P039.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P040
+  principle_id: P040
+  mode: review
+  prompt: 'Review our approach: Master the five aspects of a mission-critical environment — high availability,
+    monitoring, software management, avoiding overcomplication, and optimization — and never entrust the
+    architecture to a single person. Is there a scalability problem and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Master the five aspects of a mission-critical environment — high availability,
+    monitoring, software management, avoiding overcomplication, and optimization — and never entrust the
+    architecture to a single person.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P040.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P041
+  principle_id: P041
+  mode: advise
+  prompt: We're deciding what to do when run three environments — development, staging, and production
+    — and make staging as close to production as possible (ideally identical down to versions). What do
+    you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Run three environments — development, staging, and production — and make staging
+    as close to production as possible (ideally identical down to versions).'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P041.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P042
+  principle_id: P042
+  mode: compare
+  prompt: Compare our options for eliminate single points of failure, including the load balancer itself
+    (deploy two with an ha solution). Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Eliminate single points of failure, including the load balancer itself (deploy
+    two with an HA solution).'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P042.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P043
+  principle_id: P043
+  mode: review
+  prompt: 'Review our approach: more than one active node holds virtual IPs. Is there a scalability problem
+    and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: For peer-based HA with multiple active machines, each node must serve authoritatively
+    and tolerate concurrent use.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P043.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P044
+  principle_id: P044
+  mode: advise
+  prompt: We're deciding what to do when let requirements, not convenience, dictate the load-balancing
+    solution. What do you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Let requirements, not convenience, dictate the load-balancing solution.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P044.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P045
+  principle_id: P045
+  mode: compare
+  prompt: Compare our options for most content is static, so serve it from a lightweight, single-purpose
+    server segregated from dynamic content, allowing each to scale independently. Which fits and why?
+  expected_behaviour:
+  - 'Applies the principle: Most content is static, so serve it from a lightweight, single-purpose server
+    segregated from dynamic content, allowing each to scale independently.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P045.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P046
+  principle_id: P046
+  mode: review
+  prompt: 'Review our approach: Use a reverse-proxy cache to offload origins. Is there a scalability problem
+    and what should we change?'
+  expected_behaviour:
+  - 'Applies the principle: Use a reverse-proxy cache to offload origins.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P046.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P047
+  principle_id: P047
+  mode: advise
+  prompt: We're deciding what to do when distributing content geographically. What do you advise, and
+    what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Optimize for the user''s network proximity, not geography, and combine Anycast
+    DNS (using connectionless UDP) with unique per-node IPs to route clients to the nearest cluster —
+    Anycast breaks TCP.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P047.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P048
+  principle_id: P048
+  mode: compare
+  prompt: Compare our options for cache per-user data in the user's own cookie — a wildly scalable, user-centric
+    cache — and secure it with encryption for confidentiality plus a digest for integrity. Which fits
+    and why?
+  expected_behaviour:
+  - 'Applies the principle: Cache per-user data in the user''s own cookie — a wildly scalable, user-centric
+    cache — and secure it with encryption for confidentiality plus a digest for integrity.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P048.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P049
+  principle_id: P049
+  mode: review
+  prompt: 'Review our approach: Limit the number of distinct products and use the same product for the
+    same job unless the new demand genuinely differs. Is there a scalability problem and what should we
+    change?'
+  expected_behaviour:
+  - 'Applies the principle: Limit the number of distinct products and use the same product for the same
+    job unless the new demand genuinely differs.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P049.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P050
+  principle_id: P050
+  mode: advise
+  prompt: We're deciding what to do when instrumenting a new service. What do you advise, and what does
+    it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Set up metric collection and visualization before problems occur, define your
+    metrics precisely, and graph the right breakdown so anomalies are obvious.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P050.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P051
+  principle_id: P051
+  mode: review
+  prompt: Review our approach to performance that is surprising and a planned optimization. Is there a
+    scalability problem, and what should we change?
+  expected_behaviour:
+  - 'Applies the principle: Profile rather than guess; test on production-representative data after warm-up.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P051.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P062
+  principle_id: P062
+  mode: advise
+  prompt: We're dealing with scaling a read-heavy database workload. What do you advise, and what does
+    it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Use master-slave replication to scale reads horizontally — writes at master,
+    reads on slaves.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P062.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P063
+  principle_id: P063
+  mode: compare
+  prompt: For a scaling decision under capital, complexity, maintenance, and time pressure, what are the
+    options and which do you recommend, with the trade-offs?
+  expected_behaviour:
+  - 'Applies the principle: Weigh every scaling decision as a cost-benefit trade-off; the best technical
+    option is not always the right business one.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P063.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P064
+  principle_id: P064
+  mode: review
+  prompt: Review our approach to writing a SQL SELECT or INSERT. Is there a scalability problem, and what
+    should we change?
+  expected_behaviour:
+  - 'Applies the principle: Name columns explicitly; never use SELECT * or an unnamed INSERT.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P064.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P065
+  principle_id: P065
+  mode: advise
+  prompt: We're dealing with designing a distributed cache across multiple nodes. What do you advise,
+    and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Use a collaborative distributed cache and replicate hot, rarely-changed data
+    to every node.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P065.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P066
+  principle_id: P066
+  mode: compare
+  prompt: For capacity planning for a cluster, what are the options and which do you recommend, with the
+    trade-offs?
+  expected_behaviour:
+  - 'Applies the principle: Expect sublinear horizontal scaling; plan capacity at about 70% per server
+    on clusters of three or more.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P066.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P067
+  principle_id: P067
+  mode: review
+  prompt: Review our approach to a project suffering feature creep and loose version control. Is there
+    a scalability problem, and what should we change?
+  expected_behaviour:
+  - 'Applies the principle: Recognize and resist uncontrolled change (feature creep, milestone hopping,
+    sloppy version control) with disciplined process.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P067.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P068
+  principle_id: P068
+  mode: advise
+  prompt: We're dealing with deciding what to monitor for a scaled system. What do you advise, and what
+    does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Monitor both bottom-up systems metrics and top-down business metrics.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P068.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P069
+  principle_id: P069
+  mode: compare
+  prompt: For an architecture that changed while monitoring stayed the same and reliance on an HA solution,
+    what are the options and which do you recommend, with the trade-offs?
+  expected_behaviour:
+  - 'Applies the principle: Keep monitoring in lock-step with architecture changes; do not blindly trust
+    an HA solution.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P069.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P070
+  principle_id: P070
+  mode: review
+  prompt: Review our approach to configuring load balancing across servers. Is there a scalability problem,
+    and what should we change?
+  expected_behaviour:
+  - 'Applies the principle: Load-balance on effective resource utilization, not the stale system load
+    average.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P070.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P071
+  principle_id: P071
+  mode: advise
+  prompt: We're dealing with pinning each user to one server to hold their session state. What do you
+    advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Do not confuse session stickiness with load balancing — pinning a user to
+    a server is a single point of failure.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P071.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P072
+  principle_id: P072
+  mode: compare
+  prompt: For sticky sessions that are hurting load balancing, what are the options and which do you recommend,
+    with the trade-offs?
+  expected_behaviour:
+  - 'Applies the principle: Split session data — hot parts in the client cookie, cold parts in a central
+    store — to remove sticky sessions.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P072.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P073
+  principle_id: P073
+  mode: review
+  prompt: Review our approach to sizing or selecting a serving platform. Is there a scalability problem,
+    and what should we change?
+  expected_behaviour:
+  - 'Applies the principle: Set explicit performance goals and benchmark candidates on your own hardware
+    and workload.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P073.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P074
+  principle_id: P074
+  mode: advise
+  prompt: We're dealing with deciding whether to cache or recompute an expensive result. What do you advise,
+    and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Apply computational reuse and caching where re-finding beats recomputing —
+    it buys performance, not scalability.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P074.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P075
+  principle_id: P075
+  mode: compare
+  prompt: For designing what data a computer cache holds, what are the options and which do you recommend,
+    with the trade-offs?
+  expected_behaviour:
+  - 'Applies the principle: Treat a computer cache as an optimization: a miss costs only time, so give
+    data an explicit TTL and keep it purgeable.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P075.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P076
+  principle_id: P076
+  mode: review
+  prompt: Review our approach to adding a cache over changing data. Is there a scalability problem, and
+    what should we change?
+  expected_behaviour:
+  - 'Applies the principle: Choose cache semantics deliberately: TTL is easy and approximate, explicit
+    invalidation is complex and correct.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P076.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P077
+  principle_id: P077
+  mode: advise
+  prompt: We're dealing with choosing a database replication strategy while considering multimaster. What
+    do you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Replication is hard because of ACID; you cannot get both availability and
+    performance from multimaster.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P077.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P078
+  principle_id: P078
+  mode: compare
+  prompt: For building replication replay and choosing how to track 'since', what are the options and
+    which do you recommend, with the trade-offs?
+  expected_behaviour:
+  - 'Applies the principle: Replay replication by transaction ID, not timestamp, because ''since'' means
+    since-commit.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P078.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P079
+  principle_id: P079
+  mode: review
+  prompt: Review our approach to adding a feature or choosing a component. Is there a scalability problem,
+    and what should we change?
+  expected_behaviour:
+  - 'Applies the principle: Define the size and scope of the problem before building; match the tool to
+    the problem rather than defaulting to what is there.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P079.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P080
+  principle_id: P080
+  mode: advise
+  prompt: We're dealing with a request handler that also runs a non-essential side task synchronously.
+    What do you advise, and what does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: Never make a non-essential side task synchronous with serving a request; process
+    derived data passively from the log stream.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P080.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P088
+  principle_id: P088
+  mode: compare
+  prompt: For deciding what and how to cache, what are the options and which do you recommend, with the
+    trade-offs?
+  expected_behaviour:
+  - 'Applies the principle: The key to caching is understanding your data: how often it changes and where
+    it is used.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P088.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P089
+  principle_id: P089
+  mode: review
+  prompt: Review our approach to clients tightly coupled to servers that you want to decouple. Is there
+    a scalability problem, and what should we change?
+  expected_behaviour:
+  - 'Applies the principle: Use a publish-to-a-group messaging bus to decouple clients from servers and
+    fan out reliably.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P089.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P090
+  principle_id: P090
+  mode: advise
+  prompt: We're dealing with deciding what makes a service truly scalable. What do you advise, and what
+    does it cost us?
+  expected_behaviour:
+  - 'Applies the principle: A service scales when it collects information outside the critical path so
+    it can run everywhere.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P090.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P091
+  principle_id: P091
+  mode: compare
+  prompt: For selecting hardware for a cluster, what are the options and which do you recommend, with
+    the trade-offs?
+  expected_behaviour:
+  - 'Applies the principle: Prefer commodity current- or prior-generation hardware for ROI over the fastest,
+    biggest box.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P091.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
+- test_id: PB-P092
+  principle_id: P092
+  mode: review
+  prompt: Review our approach to a security or crippling functional emergency. Is there a scalability
+    problem, and what should we change?
+  expected_behaviour:
+  - 'Applies the principle: Apply emergency releases (security exploit or crippling bug) with extreme
+    haste but as safely as possible.'
+  - States the trade-off or residual consequence rather than giving a one-sided answer.
+  - Cites P092.
+  must_not:
+  - Recommend the technique while omitting the trade-off, cost, or consequence it carries.
