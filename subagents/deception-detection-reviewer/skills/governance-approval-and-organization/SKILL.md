@@ -1,10 +1,10 @@
 ---
 name: governance-approval-and-organization
-description: Reviews the organisational and approval machinery behind a suspected deception,
-  and the reviewing team's own governance hygiene, for coordination signatures, approval gates,
-  staffing differentiation, and disciplined release decisions; use when an assessment claims a
-  coordinated adversary deception, when a D&D case policy or approval model was set by one
-  officer alone, or when a reviewer is hesitating to raise an unwelcome deduction.
+description: Reviews the organisational and approval machinery behind a suspected deception —
+  coordination signatures, approval gates, staffing differentiation, and disciplined release
+  decisions; use when an assessment claims a coordinated adversary deception, when a D&D case
+  policy or approval model was set by one officer alone, or when an analyst on the case is
+  hesitating to raise an unwelcome deduction.
 kind: skill
 status: ready
 provenance:
@@ -47,10 +47,10 @@ provenance:
 A deception large enough to matter over time needs coordinated top-level direction,
 differentiated staffing, and a single approval gate that keeps every signal it sends consistent —
 the presence, absence, or visible seams in that coordination are themselves evidence about who is
-running the operation and how centrally it is controlled. This skill audits an evidence chain for
-those adversary coordination signatures, and — in the same pass — audits the reviewing team's own
-case policy, approval routing, and integrity against the same discipline it is judging the
-adversary against. It never advises on how to build a deception organisation.
+running the operation and how centrally it is controlled. This skill audits the case or evidence
+chain under review for those adversary coordination signatures. It never advises on how to build a
+deception organisation, and it does not audit the reviewing team's own governance — process and
+approval-routing quality of the review itself belong to the owning specialist.
 
 ## When to use
 
@@ -85,25 +85,18 @@ adversary against. It never advises on how to build a deception organisation.
 2. Look for the signature of a single approval gate in the traffic or record under review: a
    centrally-run deception disciplines every outgoing signal through one documented sign-off, so
    a consistent pattern across channels supports central control while a split-authority pattern
-   — or none at all — argues against it. Apply the identical check to the reviewing team's own
-   outgoing findings: they should reach the customer through one documented approval, not
-   piecemeal (P033).
+   — or none at all — argues against it (P033).
 3. Where governance is visible — the adversary's apparatus or the reviewing team's own — check
    for a two-layer structure: a senior board with final sign-off authority, and a standing
    working committee, spanning more than one department and including a non-military approving
-   voice, that actually handles day-to-day clearance and liaison. Its absence on the reviewing
-   side is a gap to close before trusting the review's own output (P028).
+   voice, that actually handles day-to-day clearance and liaison (P028).
 4. Check whether the record shows the kind of functional differentiation a working apparatus
    needs: policy and accept-or-reject decisions kept apart from day-to-day case handling, from
-   technical channel management, from records, and from exploiting what comes back. The reviewing
-   team should keep the same separation itself, so no single function's blind spot goes unchecked
-   (P006).
+   technical channel management, from records, and from exploiting what comes back (P006).
 5. Test whether a genuine-seeming, sometimes costly disclosure reaching the reviewed side through
    a suspect channel was examined as a possible calculated release, weighed case by case by
    whoever knows the asset's standing together with whoever holds the technical or subject
-   expertise, rather than accepted at face value as proof of good faith. Apply the same joint,
-   case-by-case weighing before the reviewing team releases its own finding or judgment outward
-   (P016).
+   expertise, rather than accepted at face value as proof of good faith (P016).
 6. Confirm case policy for the matter under review was set at the section or board level rather
    than by the single officer or analyst running the case: unchecked ownership breeds an
    outsized personal stake in one case's cleanliness (P025).
@@ -113,16 +106,16 @@ adversary against. It never advises on how to build a deception organisation.
    win (P027).
 8. Check for the inter-departmental or inter-service cooperation a genuinely coordinated effort
    requires: its presence in the record supports a claim of centralised adversary direction, its
-   absence argues against one. Separately, check the reviewing team is not siloed in a way that
-   would blind it to the very coordination it is trying to detect (P049).
+   absence argues against one (P049).
 9. Where a governance body is visible, weigh whether its members actually put the shared
    objective ahead of their own department's turf and thrash out decisions by discussion rather
    than a headcount vote (P056).
-10. Check every officer or analyst on the reviewing side for freedom from profit motive,
-    prestige-seeking, or any personal stake that could bend a finding, and apply the same check to
-    the adversary's own personnel as the likeliest crack in their organisation (P042).
-11. Confirm a reviewer who reached a significant, uncomfortable deduction actually raised it to
-    whoever needed to hear it (P076), and confirm the approval step has not calcified into a body
+10. Check the officers or analysts credited with running the case under review for freedom from
+    profit motive, prestige-seeking, or any personal stake that could bend judgment, treating
+    self-interest as the likeliest crack in the adversary's own organisation (P042).
+11. Confirm an analyst on the case under review who reached a significant, uncomfortable deduction
+    actually raised it to whoever needed to hear it (P076), and confirm the approval step has not
+    calcified into a body
     that only ever says no, with nothing it actively helps move forward (P079).
 12. Where a D&D governance or approval model is being extended to a new theatre, team, or growing
     case load, check whether it mirrors an approach already shown to work rather than routing
@@ -168,23 +161,22 @@ approval/routing records for each raid before re-scoring the claim.
 - Crediting a single controlled channel or a two-tier governance structure on evidence that is
   actually inconsistent, undocumented, or shows no single-authority sign-off (P033, P028).
 - A record with no differentiation between who sets policy, who handles the case, who runs the
-  technical or comms side, who keeps records, and who exploits what comes back — on either side
-  of the case (P006).
+  technical or comms side, who keeps records, and who exploits what comes back (P006).
 - Taking a genuine-seeming, sometimes costly disclosure at face value as proof of a channel's
   good faith, without checking whether it reads as a calculated case-by-case release (P016).
 - A single officer or analyst setting case policy out of attachment to their own record, instead
   of routing it to the section or board level (P025).
 - Treating a channel's long-term strategic value and its short-term tactical use as
-  interchangeable, burning a patiently-built asset for a quick win, on either side of the
-  deception (P027).
+  interchangeable, burning a patiently-built asset for a quick win (P027).
 - Assuming coordination is present without checking for the inter-departmental or inter-service
-  cooperation a genuinely coordinated effort requires — or letting the reviewing team's own
-  siloing blind it to the coordination it is looking for (P049).
+  cooperation a genuinely coordinated effort requires (P049).
 - Crediting a governance body's soundness to a clean charter rather than checking whether its
   members actually put the shared goal ahead of department turf (P056), or overlooking
-  self-interest, profit, or prestige as the likeliest exploitable flaw on either side (P042).
-- A reviewer staying quiet about a significant, uncomfortable deduction, or an approval step that
-  has become a body that only ever says no and never actively enables the mission (P076, P079).
+  self-interest, profit, or prestige as the likeliest exploitable flaw in the adversary's
+  organisation (P042).
+- An analyst on the case under review staying quiet about a significant, uncomfortable deduction,
+  or an approval step that has become a body that only ever says no and never actively enables the
+  mission (P076, P079).
 - Routing a growing review or approval workload back through a single overloaded hub instead of
   replicating a governance model already proven to work (P092).
 
@@ -194,8 +186,7 @@ See `../../references/deception-detection-principles-index.md` for the full prin
 catalogue. For adjacent concerns, see the sibling skills: `network-security-and-compartmentation`
 covers the compartmentation this governance approves traffic across; `strategic-stewardship-and-timing`
 covers the top-level strategic direction this coordination signature serves;
-`counter-deception-and-the-mirror` covers whether the reviewing side itself is being deceived,
-which this skill's own-process checks feed into.
+`counter-deception-and-the-mirror` covers whether the reviewing side itself is being deceived.
 
 ## Provenance
 
