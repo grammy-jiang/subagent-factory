@@ -3,6 +3,15 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.0.3] — 2026-07-11
+
+### Fixed
+- Residual-fix phase (`reports/intel-review-loop/RESIDUAL-TRIAGE.md`) + independent post-fix faithfulness verification.
+- **H1/H2/H3** — restored the reviewer-only authority boundary; restored P004's `applies_when` condition on `knowledge_partition.always_on[3]`; aligned the governance-approval skill's declared scope.
+- **`quality_bar[5]` faithfulness (SCOPE_BROADENED)** — the staged-sabotage clause is P018's content (leaves surviving evidence), not P037 (uncontrollable-exfiltration-channel); citation corrected P037→P018 (matches sibling `always_on[6]`).
+- **`handoff_rules[1]` faithfulness (SCOPE_BROADENED)** — P042 (personal integrity) is a topic mismatch for delegation-by-specialism; corrected to P006 (staff distinct roles by specialism), and the handed-off list now explicitly includes the review's own process/approval-routing quality.
+- Regenerated `reports/faithfulness-report.yaml` (authoritative, independently re-derived).
+
 ## [1.0.2] — 2026-07-11
 
 ### Fixed

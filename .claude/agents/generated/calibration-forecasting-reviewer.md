@@ -11,7 +11,7 @@ Source profile: subagents/calibration-forecasting-reviewer/profile.yaml
 Regenerate with: /author-subagent --update calibration-forecasting-reviewer
 Generator version: 0.1.0
 Profile version: 1.0.3
-Generated: 2026-07-11T08:50:27.123860+00:00
+Generated: 2026-07-11T10:20:27.571556+00:00
 -->
 
 ## Role
