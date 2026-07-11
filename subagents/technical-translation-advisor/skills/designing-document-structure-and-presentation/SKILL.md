@@ -43,14 +43,13 @@ provenance:
   - E00178
   - E00185
   source_anchors: []
-  authored_from_digest: aa43b9bcdd850c631b26dfd9930cd0105fb7c07c6388daff4d9263f7a7ca0816
 ---
 
 # Designing Document Structure and Presentation
 
 ## Purpose
 
-This skill guides the translator on treat layout, typography, white space, structure, graphics/screenshots, the table of contents and space constraints as communicative usability factors, and build modular, navigable, task-centred guides. It advises on the decision; it
+This skill guides the translator to treat layout, typography, white space, structure, graphics/screenshots, the table of contents and space constraints as communicative usability factors, and build modular, navigable, task-centred guides. It advises on the decision; it
 does not produce the final translation, override the client's brief, or sign off safety-critical or
 legally-mandated content — those are handed back to the translator and the commissioner.
 
@@ -78,10 +77,10 @@ legally-mandated content — those are handed back to the translator and the com
 8. Use graphics deliberately and control translated screenshots against the final localized interface. (P047)
 9. Choose user-guide structure from product nature, audience background, and user tasks while avoiding information overload. (P083)
 10. Choose delivery medium according to how users actually read and use the documentation. (P106)
-11. Where a document contains screenshots, treat it as bound to the external software interface: accurately reproduce the text shown in the interface, phrase all references to the software consistently, and update the document whenever the sof… (P124)
-12. Do not translate an auto-generated table of contents first or in place: it is a projection of the actual heading text, so a translation typed into it is lost when the document is printed or updated — translate the real headings instead — a… (P147)
-13. Meet strict space constraints (single-sheet leaflets, software string limits, diagram labels), knowing a translation naturally expands or contracts by language combination and direction, by using short simple words and sentences, clear abb… (P148)
-14. Emit recommendations against the anti-patterns below, highest-impact first, in the format under Output.
+11. Where a document contains screenshots, treat it as bound to the external software interface: accurately reproduce the text shown in the interface, phrase all references to the software consistently, and update the document whenever the software changes, since a picture of the screen is far more effective than verbal description. (P124)
+12. Do not translate an auto-generated table of contents first or in place: it is a projection of the actual heading text, so a translation typed into it is lost when the document is printed or updated — translate the real headings instead — and leave the table of contents until last, after the sections it describes, to avoid mistranslating headings out of context. (P147)
+13. Meet strict space constraints (single-sheet leaflets, software string limits, diagram labels), knowing a translation naturally expands or contracts by language combination and direction, by using short simple words and sentences, clear abbreviations (preferably company or subject ones, without overuse), deviation from the source structure where a shorter target grammar allows, imperative verb forms, and flexible use of modulation, transposition, and adaptation. (P148)
+14. Emit recommendations highest-impact first, in the format under Output, flagging where a draft or plan departs from the principles above.
 
 ## Inputs
 
@@ -97,22 +96,6 @@ target-text function, state the trade-off or residual uncertainty, and end with 
 Order recommendations highest-impact first. The advisor never delivers the translation or makes the
 client's commercial or final linguistic decision — that is handed back to the translator and the
 commissioner.
-
-## Anti-patterns to flag
-
-- Neglecting to: Design visual presentation around human perception: balance contrast, limit color codes, avoid all-cap running text, and use Gestalt grouping deliberately. (P004)
-- Neglecting to: Treat appearance, layout, typography, white space, and format as communicative usability factors, not decoration. (P005)
-- Neglecting to: Make user guides task-centered teaching interfaces rather than repositories of system information. (P012)
-- Neglecting to: Build modular, navigable guides with small functional task units, meaningful headings, useful overviews, and reader progress points. (P016)
-- Neglecting to: Match target-language technical conventions and required document form while preserving correctness and usability. (P028)
-- Neglecting to: Design user guides to support starting, productivity, troubleshooting, and experience-level differences. (P029)
-- Neglecting to: Support both reading-to-learn and reading-to-do, including sequential reading and random lookup. (P038)
-- Neglecting to: Use graphics deliberately and control translated screenshots against the final localized interface. (P047)
-- Neglecting to: Choose user-guide structure from product nature, audience background, and user tasks while avoiding information overload. (P083)
-- Neglecting to: Choose delivery medium according to how users actually read and use the documentation. (P106)
-- Neglecting to: Where a document contains screenshots, treat it as bound to the external software interface: accurately reproduce the text shown in the interface, phrase all references to the software consistently,… (P124)
-- Neglecting to: Do not translate an auto-generated table of contents first or in place: it is a projection of the actual heading text, so a translation typed into it is lost when the document is printed or updated —… (P147)
-- Neglecting to: Meet strict space constraints (single-sheet leaflets, software string limits, diagram labels), knowing a translation naturally expands or contracts by language combination and direction, by using sho… (P148)
 
 ## References
 

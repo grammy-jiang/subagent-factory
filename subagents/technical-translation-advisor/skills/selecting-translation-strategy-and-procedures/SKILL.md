@@ -46,14 +46,13 @@ provenance:
   - E00625
   - E00630
   source_anchors: []
-  authored_from_digest: 5e614e49e792788933fcf63d72c6ce9556494e4ef95ce2ca1d69adadf2155903
 ---
 
 # Selecting Translation Strategy and Procedures
 
 ## Purpose
 
-This skill guides the translator on choose an overall strategy and the local procedures (direct/oblique, equivalence level, generalising/particularising, expansion, adaptation, restructuring) from the communicative situation rather than from universal maxims. It advises on the decision; it
+This skill guides the translator to choose an overall strategy and the local procedures (direct/oblique, equivalence level, generalising/particularising, expansion, adaptation, restructuring) from the communicative situation rather than from universal maxims. It advises on the decision; it
 does not produce the final translation, override the client's brief, or sign off safety-critical or
 legally-mandated content — those are handed back to the translator and the commissioner.
 
@@ -73,21 +72,21 @@ legally-mandated content — those are handed back to the translator and the com
 
 1. Choose technical-translation strategy from the communicative situation and project criteria rather than universal maxims. (P014)
 2. Balance fidelity, intelligibility, speed, cost, audience need, and target-culture acceptability instead of pursuing abstract perfection. (P015)
-3. Establish whether the job is an instrumental translation (used in place of the source as a freestanding target text — so errors must be corrected) or a documentary translation (describing what the source said and how, as in back-translatio… (P035)
+3. Establish whether the job is an instrumental translation (used in place of the source as a freestanding target text — so errors must be corrected) or a documentary translation (describing what the source said and how, as in back-translation or judicial use — so errors are preserved and shown, and back-translation is a limited quality check); in an instrumental translation the translator, as the expert, corrects simple linguistic errors, incorrect line breaks, text-versus-diagram mismatches, and obviously wrong units of measure (e.g. a 250 kg tablet where kg should be mg). (P035)
 4. Combine literal translation, paraphrase, modification, addition, omission, and other strategies locally under one communicative purpose. (P046)
-5. Know the four oblique procedures and when each applies: equivalence replaces source elements with completely different wording that replicates the situation (for idioms, fixed phrases, and warning signs and labels); transposition changes a… (P070)
-6. Choose which level of equivalence to prioritize by text type — denotational meaning for an instruction manual, linguistic form for a popular-science article, textual norms for a certificate of conformity — accepting lower equivalence on th… (P089)
-7. Apply generalizing and particularizing deliberately: generalize (replace a specific term with a generic one) only when the specific term is not essential and can be inferred or relocated, otherwise keep it; and particularize (use a more sp… (P100)
-8. Know the equivalence toolkit: formal equivalence matches source form and content; dynamic equivalence matches the source's effect on its audience; and Koller's five levels are denotational, connotational, textual-norm, pragmatic, and lingu… (P107)
-9. Understand that literal translation is more sophisticated than word-for-word replacement — shifting from word to group to clause once the target stops complying with target-language grammar, and avoiding additions, omissions, and paraphras… (P114)
-10. Respect that technical information is usually in logical or chronological sequence but rearrange it when culture requires: alter the sequencing and the proportion of given and new information within paragraphs (foregrounding, omitting, or… (P115)
-11. Use House's covert/overt distinction — a covert translation is functionally equivalent and reads as though originally written in the target language, while an overt translation is evidently a translation whose source is tied to a specific… (P116)
-12. Use Vinay and Darbelnet's direct strategies knowingly: direct translation (literal translation, borrowing, calquing) requires less intervention and less deviation from the source, while oblique translation is reserved for when the grammati… (P130)
-13. Reserve adaptation as a last resort for a source situation or concept absent from the target culture, and apply its procedures in order: cultural substitution first, then descriptive paraphrase, and only then omission — omitting only as a… (P131)
-14. Use expansion — making implicit source content explicit by adding explanatory phrases or connectors — to make the target clearer, improve flow, or compensate for a weaker target-audience background, as when the source was written by an unt… (P132)
-15. Rearrange information within sentences, paragraphs, or chapters as needed — including to fix a poorly ordered source (for example, instructions that say to delete a file before backing it up) — but do not move entire chapters or sections w… (P133)
-16. For quoted material from another publication, use an authoritative published target-language translation if one exists and can be obtained, rather than your own; if none is available, present a paraphrase that does not purport to be offici… (P136)
-17. Emit recommendations against the anti-patterns below, highest-impact first, in the format under Output.
+5. Know the four oblique procedures and when each applies: equivalence replaces source elements with completely different wording that replicates the situation (for idioms, fixed phrases, and warning signs and labels); transposition changes a word's class without changing meaning (nominalization to verb, passive to active or imperative); modulation shifts the point of view (positive to negative, abstract to concrete, part for whole); and adaptation, the fourth, replaces a source situation or concept absent from the target culture with a functional equivalent, reserved as a last resort (see P131 for its ordered sub-procedures). (P070)
+6. Choose which level of equivalence to prioritize by text type — denotational meaning for an instruction manual, linguistic form for a popular-science article, textual norms for a certificate of conformity — accepting lower equivalence on the other levels, and use equivalence levels as translation-time tools rather than post-hoc rules that dictate how the text must be produced. (P089)
+7. Apply generalizing and particularizing deliberately: generalize (replace a specific term with a generic one) only when the specific term is not essential and can be inferred or relocated, otherwise keep it; and particularize (use a more specific term) when the source term is too broad, ambiguous, or wrongly connoted — which requires understanding the subject well enough to pick the right term, consulting the author, client, or a subject-matter expert. (P100)
+8. Know the equivalence toolkit: formal equivalence matches source form and content; dynamic equivalence matches the source's effect on its audience; and Koller's five levels are denotational, connotational, textual-norm, pragmatic, and linguistic-form equivalence. (P107)
+9. Understand that literal translation is more sophisticated than word-for-word replacement — shifting from word to group to clause once the target stops complying with target-language grammar, and avoiding additions, omissions, and paraphrasing — and is in fact one of the most frequently used strategies in technical texts. (P114)
+10. Respect that technical information is usually in logical or chronological sequence but rearrange it when culture requires: alter the sequencing and the proportion of given and new information within paragraphs (foregrounding, omitting, or repeating), because a structure that is logical for one language audience can be confusing for another. (P115)
+11. Use House's covert/overt distinction — a covert translation is functionally equivalent and reads as though originally written in the target language, while an overt translation is evidently a translation whose source is tied to a specific time, culture, or language — and keep a text's purpose (its ultimate intended use) distinct from its function (its effect on the audience). (P116)
+12. Use Vinay and Darbelnet's direct strategies knowingly: direct translation (literal translation, borrowing, calquing) requires less intervention and less deviation from the source, while oblique translation is reserved for when the grammatical, pragmatic, and lexical differences between source and target are too great for a direct approach. (P130)
+13. Reserve adaptation as a last resort for a source situation or concept absent from the target culture, and apply its procedures in order: cultural substitution first, then descriptive paraphrase, and only then omission — omitting only as a fully justifiable last resort, since technical documentation is concerned first and foremost with information. (P131)
+14. Use expansion — making implicit source content explicit by adding explanatory phrases or connectors — to make the target clearer, improve flow, or compensate for a weaker target-audience background, as when the source was written by an untrained writer, the target audience is less expert, or a high-context source is read by a low-context audience; the resulting semantic redundancy is well tolerated by technical texts. (P132)
+15. Rearrange information within sentences, paragraphs, or chapters as needed — including to fix a poorly ordered source (for example, instructions that say to delete a file before backing it up) — but do not move entire chapters or sections without the client's permission, at minimum informing the client. (P133)
+16. For quoted material from another publication, use an authoritative published target-language translation if one exists and can be obtained, rather than your own; if none is available, present a paraphrase that does not purport to be official — either omit the quote where the document permits, or give the source text with your paraphrase in square brackets marked as supplementary. (P136)
+17. Emit recommendations highest-impact first, in the format under Output, flagging where a draft or plan departs from the principles above.
 
 ## Inputs
 
@@ -103,25 +102,6 @@ target-text function, state the trade-off or residual uncertainty, and end with 
 Order recommendations highest-impact first. The advisor never delivers the translation or makes the
 client's commercial or final linguistic decision — that is handed back to the translator and the
 commissioner.
-
-## Anti-patterns to flag
-
-- Neglecting to: Choose technical-translation strategy from the communicative situation and project criteria rather than universal maxims. (P014)
-- Neglecting to: Balance fidelity, intelligibility, speed, cost, audience need, and target-culture acceptability instead of pursuing abstract perfection. (P015)
-- Neglecting to: Establish whether the job is an instrumental translation (used in place of the source as a freestanding target text — so errors must be corrected) or a documentary translation (describing what the so… (P035)
-- Neglecting to: Combine literal translation, paraphrase, modification, addition, omission, and other strategies locally under one communicative purpose. (P046)
-- Neglecting to: Know the four oblique procedures and when each applies: equivalence replaces source elements with completely different wording that replicates the situation (for idioms, fixed phrases, and warning si… (P070)
-- Neglecting to: Choose which level of equivalence to prioritize by text type — denotational meaning for an instruction manual, linguistic form for a popular-science article, textual norms for a certificate of confor… (P089)
-- Neglecting to: Apply generalizing and particularizing deliberately: generalize (replace a specific term with a generic one) only when the specific term is not essential and can be inferred or relocated, otherwise k… (P100)
-- Neglecting to: Know the equivalence toolkit: formal equivalence matches source form and content; dynamic equivalence matches the source's effect on its audience; and Koller's five levels are denotational, connotati… (P107)
-- Neglecting to: Understand that literal translation is more sophisticated than word-for-word replacement — shifting from word to group to clause once the target stops complying with target-language grammar, and avoi… (P114)
-- Neglecting to: Respect that technical information is usually in logical or chronological sequence but rearrange it when culture requires: alter the sequencing and the proportion of given and new information within… (P115)
-- Neglecting to: Use House's covert/overt distinction — a covert translation is functionally equivalent and reads as though originally written in the target language, while an overt translation is evidently a transla… (P116)
-- Neglecting to: Use Vinay and Darbelnet's direct strategies knowingly: direct translation (literal translation, borrowing, calquing) requires less intervention and less deviation from the source, while oblique trans… (P130)
-- Neglecting to: Reserve adaptation as a last resort for a source situation or concept absent from the target culture, and apply its procedures in order: cultural substitution first, then descriptive paraphrase, and… (P131)
-- Neglecting to: Use expansion — making implicit source content explicit by adding explanatory phrases or connectors — to make the target clearer, improve flow, or compensate for a weaker target-audience background,… (P132)
-- Neglecting to: Rearrange information within sentences, paragraphs, or chapters as needed — including to fix a poorly ordered source (for example, instructions that say to delete a file before backing it up) — but d… (P133)
-- Neglecting to: For quoted material from another publication, use an authoritative published target-language translation if one exists and can be obtained, rather than your own; if none is available, present a parap… (P136)
 
 ## References
 

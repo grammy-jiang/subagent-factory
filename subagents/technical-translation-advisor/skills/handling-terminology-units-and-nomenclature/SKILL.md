@@ -42,14 +42,13 @@ provenance:
   - E00661
   - E00666
   source_anchors: []
-  authored_from_digest: 3afe68a81b666be538b24574e8601c013c66fd36924688d0fe21a8f2cf2526ea
 ---
 
 # Handling Terminology, Units and Nomenclature
 
 ## Purpose
 
-This skill guides the translator on handle the technical precision layer — terminology, Latin nomenclature, SI units and formulae, regulatory specification terms, mandated/regional naming, acronyms and abbreviations — with the right resources. It advises on the decision; it
+This skill guides the translator to handle the technical precision layer — terminology, Latin nomenclature, SI units and formulae, regulatory specification terms, mandated/regional naming, acronyms and abbreviations — with the right resources. It advises on the decision; it
 does not produce the final translation, override the client's brief, or sign off safety-critical or
 legally-mandated content — those are handed back to the translator and the commissioner.
 
@@ -67,19 +66,19 @@ legally-mandated content — those are handed back to the translator and the com
 
 ## Procedure
 
-1. Handle Latin scientific and anatomical nomenclature (binomial genus-species names, stable and free of connotation) by retaining it (in italics, usually best for accuracy), explaining it (adding the common target-language name in parenthese… (P071)
-2. Apply CAT tools where they fit: translation memory helps only with high-repetition or frequently-updated (chiefly technical) texts, terminology management helps where a large volume of terms must stay consistent, and TM filters reduce the… (P079)
-3. Handle terminology carefully even though it is only about 5-10% of a technical text: abbreviations and acronyms can mean different things by subject, context, or producing organization, and ordinary-looking general words often carry specif… (P093)
-4. Handle formulae, scientific notation, and units precisely: numbers quantify a physical quantity via units governed largely by SI (seven base units modifiable by prefixes such as micro-, milli-, nano-), and although metric is the internatio… (P094)
-5. Treat regulatory and normative documents (directives, laws, and standards from bodies such as ISO, DIN, BSI) as unambiguous specification rule-sets with a legal dimension — carrying legal terminology, and, for patents, protecting the right… (P098)
-6. For EU texts between official languages, consult EUR-Lex for the authoritative translations of terminology and directive names; a directive carries a short reference code (year/identifier/abbreviation) plus a descriptive name, and because… (P101)
-7. Accommodate the client's mandated preferred terminology even when its rules (e.g. (P103)
-8. Leave units of measure unchanged wherever possible, especially SI quantities, because conversion is risky — the required rounding precision may be unknown, and in chemistry 1.06 mg differs significantly from 1.1 mg — and confusable prefixe… (P104)
-9. Handle regional language variety and product/drug naming deliberately: not all terminology or cultural references are universally standardized, and the same product is often marketed under different names by market, so swap product or drug… (P122)
-10. Handle acronyms and abbreviations (used for brevity) by a chosen strategy: transfer (keep a well-known source acronym), reconstitute (build a new target acronym from the translated name, for non-specialized or ad-hoc cases), define (replac… (P140)
-11. Use the Internet as a terminology and subject resource: find parallel texts (restricting a search by the format a document type is typically published in) and use search operators — a tilde for synonyms, a minus for exclusion, and a source… (P149)
-12. Assess online sources critically: rely on translator-forum answers only with extreme caution (there is no quality mechanism and answerers may lack your context), trust international, government, and state sites, use company sites for termi… (P150)
-13. Emit recommendations against the anti-patterns below, highest-impact first, in the format under Output.
+1. Handle Latin scientific and anatomical nomenclature (binomial genus-species names, stable and free of connotation) by retaining it (in italics, usually best for accuracy), explaining it (adding the common target-language name in parentheses for a lay or mixed audience, as in a patient information sheet), or replacing it (with the common name where the audience or language has no Latin exposure); find a Latin term's target meaning by searching it with a related target-language word, using a fuzzy or shorter-fragment search if it appears misspelled. (P071)
+2. Apply CAT tools where they fit: translation memory helps only with high-repetition or frequently-updated (chiefly technical) texts, terminology management helps where a large volume of terms must stay consistent, and TM filters reduce the need to master multiple DTP applications; familiarity with these tools often decides whether a project is awarded. (P079)
+3. Handle terminology carefully even though it is only about 5-10% of a technical text: abbreviations and acronyms can mean different things by subject, context, or producing organization, and ordinary-looking general words often carry specific technical meanings that must not be translated as everyday vocabulary. (P093)
+4. Handle formulae, scientific notation, and units precisely: numbers quantify a physical quantity via units governed largely by SI (seven base units modifiable by prefixes such as micro-, milli-, nano-), and although metric is the international norm, Imperial units still appear in some languages and text types, so always identify the unit system in use. (P094)
+5. Treat regulatory and normative documents (directives, laws, and standards from bodies such as ISO, DIN, BSI) as unambiguous specification rule-sets with a legal dimension — carrying legal terminology, and, for patents, protecting the right to exclude others from making, using, selling, or importing — and translate them with meticulous factual accuracy and compliance with their specific linguistic requirements. (P098)
+6. For EU texts between official languages, consult EUR-Lex for the authoritative translations of terminology and directive names; a directive carries a short reference code (year/identifier/abbreviation) plus a descriptive name, and because the abbreviation differs by language (EC, EG, ES, EY, EF, EK, KE, CE), select the correct short code for the target language and never leave the codes unchanged. (P101)
+7. Accommodate the client's mandated preferred terminology even when its rules (e.g. cancel but not abort, run but not execute) seem counterintuitive, because terminology problems are usually people-driven rather than about meaning; and require being notified of terminological and stylistic preferences and given the resources (style guides, glossaries) at the start, since a client cannot fairly complain about terminology they never supplied. (P103)
+8. Leave units of measure unchanged wherever possible, especially SI quantities, because conversion is risky — the required rounding precision may be unknown, and in chemistry 1.06 mg differs significantly from 1.1 mg — and confusable prefixes and symbols (deci/deca, the micro sign versus u) invite error; leaving units alone ensures accuracy and prevents translator-induced error, especially for specialist audiences who know or can convert them. (P104)
+9. Handle regional language variety and product/drug naming deliberately: not all terminology or cultural references are universally standardized, and the same product is often marketed under different names by market, so swap product or drug names for generic or country-specific equivalents when needed. (P122)
+10. Handle acronyms and abbreviations (used for brevity) by a chosen strategy: transfer (keep a well-known source acronym), reconstitute (build a new target acronym from the translated name, for non-specialized or ad-hoc cases), define (replace with a definition, useful for Latin abbreviations), combine (transfer plus definition once at first use), write out the source-language full name (for audiences who know the source culture), or translate (use an official translated name and its acronym). (P140)
+11. Use the Internet as a terminology and subject resource: find parallel texts (restricting a search by the format a document type is typically published in) and use search operators — a tilde for synonyms, a minus for exclusion, and a source term plus a related target-language word to surface bilingual pages likely to contain a translation or glossary. (P149)
+12. Assess online sources critically: rely on translator-forum answers only with extreme caution (there is no quality mechanism and answerers may lack your context), trust international, government, and state sites, use company sites for terminology (a localized one gives a bilingual resource), distrust supposedly impartial review sites and personal or free-hosted sites, and never rely on Wikipedia alone — corroborate anything found there. (P150)
+13. Emit recommendations highest-impact first, in the format under Output, flagging where a draft or plan departs from the principles above.
 
 ## Inputs
 
@@ -95,21 +94,6 @@ target-text function, state the trade-off or residual uncertainty, and end with 
 Order recommendations highest-impact first. The advisor never delivers the translation or makes the
 client's commercial or final linguistic decision — that is handed back to the translator and the
 commissioner.
-
-## Anti-patterns to flag
-
-- Neglecting to: Handle Latin scientific and anatomical nomenclature (binomial genus-species names, stable and free of connotation) by retaining it (in italics, usually best for accuracy), explaining it (adding the c… (P071)
-- Neglecting to: Apply CAT tools where they fit: translation memory helps only with high-repetition or frequently-updated (chiefly technical) texts, terminology management helps where a large volume of terms must sta… (P079)
-- Neglecting to: Handle terminology carefully even though it is only about 5-10% of a technical text: abbreviations and acronyms can mean different things by subject, context, or producing organization, and ordinary-… (P093)
-- Neglecting to: Handle formulae, scientific notation, and units precisely: numbers quantify a physical quantity via units governed largely by SI (seven base units modifiable by prefixes such as micro-, milli-, nano-… (P094)
-- Neglecting to: Treat regulatory and normative documents (directives, laws, and standards from bodies such as ISO, DIN, BSI) as unambiguous specification rule-sets with a legal dimension — carrying legal terminology… (P098)
-- Neglecting to: For EU texts between official languages, consult EUR-Lex for the authoritative translations of terminology and directive names; a directive carries a short reference code (year/identifier/abbreviatio… (P101)
-- Neglecting to: Accommodate the client's mandated preferred terminology even when its rules (e.g. (P103)
-- Neglecting to: Leave units of measure unchanged wherever possible, especially SI quantities, because conversion is risky — the required rounding precision may be unknown, and in chemistry 1.06 mg differs significan… (P104)
-- Neglecting to: Handle regional language variety and product/drug naming deliberately: not all terminology or cultural references are universally standardized, and the same product is often marketed under different… (P122)
-- Neglecting to: Handle acronyms and abbreviations (used for brevity) by a chosen strategy: transfer (keep a well-known source acronym), reconstitute (build a new target acronym from the translated name, for non-spec… (P140)
-- Neglecting to: Use the Internet as a terminology and subject resource: find parallel texts (restricting a search by the format a document type is typically published in) and use search operators — a tilde for synon… (P149)
-- Neglecting to: Assess online sources critically: rely on translator-forum answers only with extreme caution (there is no quality mechanism and answerers may lack your context), trust international, government, and… (P150)
 
 ## References
 

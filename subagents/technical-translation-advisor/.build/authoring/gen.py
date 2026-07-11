@@ -42,8 +42,18 @@ def first_sentence(text: str, limit: int = 240) -> str:
     m = re.search(r"(?<=[a-z0-9\)])\.(?:\s|$)", text)
     s = text[: m.start() + 1] if m else text
     if len(s) > limit:
-        s = s[: limit - 1].rstrip() + "…"
+        # truncate on a word boundary so we never sever a word mid-character
+        s = s[:limit].rsplit(" ", 1)[0].rstrip(" ,;:—-") + "…"
     return s
+
+
+def full_statement(pid: str) -> str:
+    """The complete, whitespace-normalised principle statement — no truncation.
+
+    Procedure steps are the recipe the agent executes, so they must render the whole
+    principle, never a fixed-length slice (which previously severed steps mid-clause).
+    """
+    return " ".join(P[pid]["statement"].split())
 
 
 def skill_claims(pids: list[str], cap: int = 12) -> list[str]:
@@ -116,18 +126,17 @@ def write_skill(slug: str, meta: dict) -> None:
     when = applies_when_bullets(pids)
     proc_steps = []
     for i, pid in enumerate(pids, 1):
-        proc_steps.append(f"{i}. {first_sentence(P[pid]['statement'])} ({pid})")
+        proc_steps.append(f"{i}. {full_statement(pid)} ({pid})")
     proc_steps.append(
-        f"{len(pids) + 1}. Emit recommendations against the anti-patterns below, highest-impact "
-        "first, in the format under Output."
+        f"{len(pids) + 1}. Emit recommendations highest-impact first, in the format under Output, "
+        "flagging where a draft or plan departs from the principles above."
     )
-    anti = [f"- Neglecting to: {first_sentence(P[pid]['statement'], 200)} ({pid})" for pid in pids]
 
     body = f"""# {title}
 
 ## Purpose
 
-This skill guides the translator on {desc[0].lower() + desc[1:]} It advises on the decision; it
+This skill guides the translator to {desc[0].lower() + desc[1:]} It advises on the decision; it
 does not produce the final translation, override the client's brief, or sign off safety-critical or
 legally-mandated content — those are handed back to the translator and the commissioner.
 
@@ -153,10 +162,6 @@ target-text function, state the trade-off or residual uncertainty, and end with 
 Order recommendations highest-impact first. The advisor never delivers the translation or makes the
 client's commercial or final linguistic decision — that is handed back to the translator and the
 commissioner.
-
-## Anti-patterns to flag
-
-""" + "\n".join(anti) + f"""
 
 ## References
 
@@ -193,7 +198,7 @@ def write_reference_index() -> None:
     for s, meta in SKILLS.items():
         parts.append(f"\n## {meta['title']}\n\n_Skill: `{s}`_\n")
         for pid in meta["principles"]:
-            parts.append(f"- **{pid}** ({P[pid]['confidence']}): {first_sentence(P[pid]['statement'], 300)}")
+            parts.append(f"- **{pid}** ({P[pid]['confidence']}): {full_statement(pid)}")
     (BASE / "references").mkdir(exist_ok=True)
     (BASE / "references" / f"{slug}.md").write_text(
         f"---\n{fm_yaml}---\n\n" + "\n".join(parts) + "\n", encoding="utf-8"
@@ -280,6 +285,11 @@ FAITH = [
      "The advice format — name the principle, tie to audience/brief/function, state the trade-off, give "
      "a next step — operationalises the sources' audience-driven, purpose-led stance without adding claims.",
      ["P002", "P014", "P015"]),
+    ("outputs.modes", "WITHIN_SCOPE",
+     "The advise/review/compare modes are output shapes for the same audience-driven advice — compare "
+     "lays options side by side and weights the choice by audience and the test question — and add no "
+     "claim beyond the sources' contextual, purpose-led stance.",
+     ["P014", "P015", "P039"]),
     ("quality_bar[0]", "EXACT_SUPPORT", "Audience/tasks/brief-driven decisions are directly supported.",
      ["P002", "P020", "P024", "P069", "P121"]),
     ("quality_bar[1]", "EXACT_SUPPORT", "Strategy from situation and text type, not maxims, is supported.",
@@ -290,8 +300,12 @@ FAITH = [
      ["P093", "P094", "P098", "P103", "P104"]),
     ("quality_bar[4]", "EXACT_SUPPORT", "Grounding usability claims in evaluation, not design confidence, is supported.",
      ["P006", "P040", "P049", "P051", "P065"]),
-    ("quality_bar[5]", "EXACT_SUPPORT", "Honouring and escalating safety/legal/brand/style constraints is supported.",
-     ["P081", "P102", "P117", "P144", "P146"]),
+    ("quality_bar[5]", "WITHIN_SCOPE",
+     "Honouring safety, legal, brand and style constraints is supported (the legal/standards-QA half is "
+     "grounded in P011); the escalate-on-source-deficiency duty is scoped to safety-critical/warning "
+     "content (P081), while style and brand constraints are honoured (P102, P144) without a blanket "
+     "escalation duty.",
+     ["P011", "P081", "P102", "P117", "P144", "P146"]),
     ("forbidden_behaviours[0]", "EXACT_SUPPORT",
      "The commission and delivery rest with the commissioner; refusing to sign off or decide commercially is supported.",
      ["P090", "P056"]),
@@ -307,13 +321,69 @@ FAITH = [
     ("forbidden_behaviours[4]", "EXACT_SUPPORT",
      "Not presenting an untested usability opinion as an evaluated finding is directly supported.",
      ["P040", "P049"]),
+    ("forbidden_behaviours[5]", "WITHIN_SCOPE",
+     "Not certifying/signing off safety-critical or legally-mandated content as compliant or safe — the "
+     "advisor flags and escalates. The safety-content duty is grounded in P081/P117/P146; the "
+     "certification-is-the-client's-process half rests on the regulatory-compliance remit (P098, the same "
+     "citation handoff_rules uses for that claim). A within-scope narrowing, not an over-claim.",
+     ["P081", "P098", "P117", "P146"]),
     ("handoff_rules[0]", "EXACT_SUPPORT",
      "The brief, commercial decision, and final linguistic sign-off belong to the client/commissioner.",
      ["P056", "P090", "P121"]),
     ("handoff_rules[1]", "WITHIN_SCOPE",
-     "Handing subject-matter accuracy, legal certification, and DTP/engineering to the owning specialist "
-     "follows from the sources' division of remit.",
+     "Final legal/regulatory certification (the client's compliance process) and heavy DTP/engineering "
+     "beyond the translator's baseline file-handling competency being specialist work follows from the "
+     "sources: P078 sets the baseline competency (heavy work is beyond it), P098 the legal-specification remit.",
      ["P078", "P098"]),
+    ("source_of_truth_policy.precedence", "WITHIN_SCOPE",
+     "The precedence order — for instrumental and denotational/functional-priority text, target-user "
+     "function governs and denotational meaning/usability is preserved over literal wording (P023, P089); "
+     "for documentary translation (back-translation, judicial use) the source is preserved faithfully, "
+     "showing errors rather than correcting them, as the governing function (P035); reorder within "
+     "sentences/paragraphs/chapters as needed for instrumental work but a whole chapter or section "
+     "as a block needs the "
+     "client's permission, at minimum informing them (P133); a principle is an adaptable guide not a "
+     "fixed rule (P014, P046); no recommendation exceeds its source support (P015); safety and "
+     "legally-mandated content is never weakened for style (P081, P146) — restates the sources' "
+     "contextual stance with their hedges intact; a narrowing, not an over-claim.",
+     ["P014", "P015", "P023", "P035", "P046", "P081", "P089", "P133", "P146"]),
+    # knowledge_partition.always_on — the load-bearing runtime rules. Each bullet is a faithful summary
+    # of its skill's principles (no clause strengthened beyond its cited principle); graded so the
+    # "no over-claim" conclusion is on record for the operative content, not only the meta rules.
+    ("knowledge_partition.always_on[0]", "WITHIN_SCOPE",
+     "Audience/brief-driven decisions, with 'nearly every' matching P069's own hedge; a faithful summary.",
+     ["P002", "P020", "P024", "P056", "P069", "P090", "P121", "P129"]),
+    ("knowledge_partition.always_on[1]", "WITHIN_SCOPE",
+     "Strategy from situation not maxims, with P133's client-permission caveat for whole-section moves "
+     "carried; a faithful summary.",
+     ["P014", "P015", "P035", "P046", "P070", "P089", "P130", "P133"]),
+    ("knowledge_partition.always_on[2]", "WITHIN_SCOPE",
+     "Reader-cognition summary — minimise processing effort and working-memory load; no clause strengthened.",
+     ["P003", "P009", "P025", "P045", "P137"]),
+    ("knowledge_partition.always_on[3]", "WITHIN_SCOPE",
+     "Technical-precision summary; Latin nomenclature kept audience-conditional (P071), SI units hedged "
+     "'wherever the source system can be preserved' (P104), web consultation framed as advice to the "
+     "translator (Read/Grep/Glob toolset); a faithful summary.",
+     ["P071", "P093", "P094", "P098", "P103", "P104", "P140"]),
+    ("knowledge_partition.always_on[4]", "WITHIN_SCOPE",
+     "Iconic-linkage summary — one uniform construction only where standardisation is practical; faithful.",
+     ["P013", "P021", "P074", "P075", "P134"]),
+    ("knowledge_partition.always_on[5]", "WITHIN_SCOPE",
+     "Document-type/genre summary — classify by communicative purpose before translating; faithful.",
+     ["P068", "P072", "P080", "P091", "P128"]),
+    ("knowledge_partition.always_on[6]", "WITHIN_SCOPE",
+     "Presentation-as-communication summary — layout/typography/structure as usability factors; faithful.",
+     ["P004", "P005", "P016", "P124", "P147"]),
+    ("knowledge_partition.always_on[7]", "WITHIN_SCOPE",
+     "Evaluation-planning summary — method chosen from the test question, observable criteria/metrics; faithful.",
+     ["P006", "P018", "P040", "P041", "P084"]),
+    ("knowledge_partition.always_on[8]", "WITHIN_SCOPE",
+     "Study-conduct summary — representative participants, pilot, control confounds, small-sample stats; faithful.",
+     ["P019", "P027", "P051", "P065", "P066"]),
+    ("knowledge_partition.always_on[9]", "WITHIN_SCOPE",
+     "Quality/safety/practice summary; footnote avoidance scoped to flagging confusion/queries (P139), "
+     "safety content made explicit and a deficient source escalated (P081); a faithful summary.",
+     ["P001", "P011", "P081", "P117", "P139", "P141", "P144", "P146"]),
 ]
 
 
@@ -342,6 +412,11 @@ def write_faithfulness() -> None:
         "# source support: rules are EXACT_SUPPORT or a deliberate WITHIN_SCOPE narrowing (advice-only\n"
         "# posture, source scope). source_anchors are omitted deliberately — provenance is carried in\n"
         "# each note via principle + claim IDs, which resolve into the spine.\n"
+        "# NOTE (review-loop): P146's principle body was hedged to name external warning-label standards\n"
+        "# (ANSI Z535, ISO 3864, IEC 82079-1) and the common severity ranking. That standard content is\n"
+        "# ADVISOR-ADDED verification context for safety, not a Byrne source claim (C00820/C00821 cover\n"
+        "# only 'warnings need care' + Byrne's own illustrative table); it makes the guidance more\n"
+        "# cautious, never less, and is flagged here rather than presented as source-grounded.\n"
     )
     (BASE / "reports" / "faithfulness-report.yaml").write_text(
         header + yaml.safe_dump(doc, sort_keys=False, allow_unicode=True, width=100), encoding="utf-8"
@@ -461,6 +536,19 @@ GOLDEN = [
                   "Scale consistency with controlled language / style guide / TM"],
          must_not_do=["Recommend varying identical instructions purely for stylistic elegance"],
          principle_coverage=["P021", "P134", "P074", "P075"]),
+    dict(test_id="GT-007", description="Positive routing — compare options (compare mode)",
+         prompt="Should we evaluate our translated user guide with an expert analytical review or a "
+                "task-based user test? Compare the two options for our situation.",
+         expected_route="invoke", expected_mode="compare",
+         minimum_output="A side-by-side of what each evaluation method favours and costs "
+                        "(analytical/inspection vs empirical/task-based), chosen from the test "
+                        "question, ending in an audience- and usability-weighted recommendation.",
+         must_do=["Lay out what each option favours and costs, side by side",
+                  "Choose the method from the test question (formative/summative, analytical/empirical)",
+                  "Weight the recommendation by audience and usability, and ground it in named principles"],
+         must_not_do=["Present an untested opinion as an evaluated finding",
+                      "Recommend one option without stating the trade-off it carries"],
+         principle_coverage=["P039", "P040", "P041", "P049", "P084"]),
 ]
 
 NEGATIVE = [
@@ -510,8 +598,8 @@ def write_golden() -> None:
     doc = {
         "schema_version": "golden-tests-v1",
         "subagent_slug": SLUG,
-        "generated_at": "2026-07-11",
-        "profile_version": "1.0.0",
+        "generated_at": "2026-07-12",
+        "profile_version": "1.1.0",
         "tier": 2,
         "golden_tests": GOLDEN,
         "negative_routing_tests": NEGATIVE,
@@ -555,6 +643,22 @@ def write_provenance() -> None:
         lines.append(f"| {s} | {len(meta['principles'])} | {', '.join(meta['principles'])} |")
     lines += [
         "\n## Version history\n",
+        "- **v1.1.0** (2026-07-12): Review-loop convergence **plus a 6-lens independent adversarial "
+        "verification** via `/review-subagent` (structural lenses + documentation-as-code + ux-design, "
+        "and the translation-equivalence / descriptive-translation / translation-quality domain lenses) "
+        "— the verify pass caught real holes the loop missed, each fix grounded in the existing spine. "
+        "Adapter render (MF1): the invariant compiler truncated must-hold rules at 160 chars and gutted "
+        "P146's safety hedge from the deployed adapter — now renders complete first sentences, with a "
+        "validate gate on truncated invariants. Content: untruncated skill bodies (MF2); P146 rewritten "
+        "so its first sentence carries the verify-the-governing-standard duty, with Byrne's table flagged "
+        "as reversing the common ranking (MF3); P003 de-imperative and the adapter template fixed so "
+        "invariants are subordinate to the role boundary and forbidden behaviours (MF8); safety/legal "
+        "sign-off forbidden behaviour added (MF4); manufactured P045 anchor dropped (MF5); escalation "
+        "narrowed to safety in both quality_bar[5] and forbidden[3] (MF6); P133/P104 hedges and the "
+        "Latin-nomenclature and footnote scopes restored (MF7 + faithfulness); precedence scoped for "
+        "documentary/form-priority translations (P035/P089); P070 completed with adaptation (P131). "
+        "Graded the precedence rule and all 10 always_on bullets in the faithfulness report. "
+        "Supersedes — does not delete — the v1.0.0 decisions below.",
         "- **v1.0.0** (2026-07-11): Initial LLM-authored layer (profile, faithfulness, 10 skills, "
         "2 references, tests, adapter) derived from the deterministically-valid 2-source, "
         f"{len(PRIN)}-principle distilled spine. Rights: distillation-only; no verbatim source "
@@ -567,6 +671,44 @@ def write_changelog() -> None:
     (BASE / "CHANGELOG.md").write_text(
         "# Changelog — technical-translation-advisor\n\n"
         "All notable changes to this generated subagent package.\n\n"
+        "## 1.1.0 — 2026-07-12\n\n"
+        "### Changed\n"
+        "- Review-loop convergence **plus independent adversarial verification** (`/review-subagent`): "
+        "resolved every must-fix from the structural + domain panel across two passes — the headless "
+        "review loop, then a 6-lens adversarial re-verify (faithfulness + documentation-as-code + "
+        "ux-design + the translation-equivalence / descriptive-translation / translation-quality domain "
+        "reviewers) that caught real holes the loop missed — each fix grounded in the existing spine.\n"
+        "- **MF1 (adapter render, safety)** — the invariant compiler (`compile_invariants.py`) truncated "
+        "each must-hold rule to 160 chars, gutting P146's warning-severity hedge (and P141, P102) from "
+        "the *deployed adapter*; it now renders each invariant as a complete first sentence and "
+        "`validate` fails on any truncated (`…`) invariant.\n"
+        "- **MF2** — regenerated all 10 skill bodies without the fixed-length truncation that had "
+        "severed Procedure steps mid-clause; the generator now renders full statements and rejects any "
+        "body containing a truncation ellipsis.\n"
+        "- **MF3 (P146, safety)** — rewrote so the first sentence carries the complete duty to verify "
+        "the notice-severity hierarchy against the market's governing warning-label standard (ANSI Z535, "
+        "ISO 3864, IEC 82079-1); Byrne's table is now a clearly-bracketed example with an explicit flag "
+        "that its Warning/Caution assignment is the reverse of the common standard ranking "
+        "(DANGER > WARNING > CAUTION > NOTICE).\n"
+        "- **MF8 (P003 + adapter template)** — de-imperative'd P003, and fixed the shared adapter "
+        "template so the Operating-invariants section is explicitly subordinate to the role boundary and "
+        "Forbidden behaviours, resolving the invariants-vs-boundary contradiction.\n"
+        "- **MF4** — added a forbidden behaviour against certifying/signing off safety-critical or "
+        "legally-mandated content (grounded in the commissioner's sign-off remit, P090).\n"
+        "- **Faithfulness** — dropped a manufactured evidence anchor (P045) from precedence; restored "
+        "P133's client-permission caveat and P104's hedge; narrowed the source-deficiency escalation to "
+        "safety-critical content in **both** quality_bar[5] and forbidden_behaviours[3]; softened "
+        "'every'→'nearly every' in **both** quality_bar[0] and always_on[0]; kept Latin nomenclature "
+        "audience-conditional (P071) and footnote-avoidance scoped to queries (P139); corrected the P078 "
+        "handoff citation; and graded the precedence rule and all 10 always_on bullets.\n"
+        "- **Domain accuracy** — scoped precedence so documentary (P035) and form-priority (P089) "
+        "translations keep literal fidelity, with P133's reorder threshold corrected; P070 now names "
+        "adaptation as the fourth oblique procedure (P131); P042 distinguishes concurrent from "
+        "retrospective think-aloud (C00379); P018 prefers a pre-tested questionnaire (C00387); P080 is "
+        "scoped to marketing case studies with a genre-check flag (P072/P128).\n"
+        "- **SF9/SF10/NH1** — added routing triggers for the iconic-linkage and document-type skills, a "
+        "sibling-disambiguation when-not-to-use line, reframed web/EUR-Lex consultation as advice to the "
+        "caller (Read/Grep/Glob toolset), and fixed the skill Purpose grammar.\n\n"
         "## 1.0.0 — 2026-07-11\n\n"
         "### Added\n"
         "- Initial LLM-authored layer over the deterministically-valid distilled spine "
@@ -587,6 +729,11 @@ def write_changelog() -> None:
 if __name__ == "__main__":
     for slug, meta in SKILLS.items():
         write_skill(slug, meta)
+    # MF2 regression guard: no skill body may carry a fixed-length truncation ellipsis.
+    for slug in SKILLS:
+        _body = (BASE / "skills" / slug / "SKILL.md").read_text(encoding="utf-8")
+        if "…" in _body:
+            raise SystemExit(f"FAIL: skill {slug} still contains a truncation ellipsis")
     write_reference_index()
     write_reference_evidence()
     write_faithfulness()

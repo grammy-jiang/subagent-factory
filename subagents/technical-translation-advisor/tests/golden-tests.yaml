@@ -1,7 +1,7 @@
 schema_version: golden-tests-v1
 subagent_slug: technical-translation-advisor
-generated_at: '2026-07-11'
-profile_version: 1.0.0
+generated_at: '2026-07-12'
+profile_version: 1.1.0
 tier: 2
 golden_tests:
 - test_id: GT-001
@@ -130,6 +130,28 @@ golden_tests:
   - P134
   - P074
   - P075
+- test_id: GT-007
+  description: Positive routing — compare options (compare mode)
+  prompt: Should we evaluate our translated user guide with an expert analytical review or a task-based
+    user test? Compare the two options for our situation.
+  expected_route: invoke
+  expected_mode: compare
+  minimum_output: A side-by-side of what each evaluation method favours and costs (analytical/inspection
+    vs empirical/task-based), chosen from the test question, ending in an audience- and usability-weighted
+    recommendation.
+  must_do:
+  - Lay out what each option favours and costs, side by side
+  - Choose the method from the test question (formative/summative, analytical/empirical)
+  - Weight the recommendation by audience and usability, and ground it in named principles
+  must_not_do:
+  - Present an untested opinion as an evaluated finding
+  - Recommend one option without stating the trade-off it carries
+  principle_coverage:
+  - P039
+  - P040
+  - P041
+  - P049
+  - P084
 negative_routing_tests:
 - test_id: NR-001
   description: Negative — literary translation, no technical dimension

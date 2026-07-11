@@ -49,14 +49,13 @@ provenance:
   - E00425
   - E00433
   source_anchors: []
-  authored_from_digest: 62171aafe1013cdd1d623e4de761710d6bbe4dcda55a31f716922ecb1b48d118
 ---
 
 # Running and Analyzing Usability Studies
 
 ## Purpose
 
-This skill guides the translator on run a valid usability study: recruit and protect representative participants, pilot, control confounds and contamination, choose observation methods, apply small-sample statistics and triangulate objective with subjective measures. It advises on the decision; it
+This skill guides the translator to run a valid usability study: recruit and protect representative participants, pilot, control confounds and contamination, choose observation methods, apply small-sample statistics and triangulate objective with subjective measures. It advises on the decision; it
 does not produce the final translation, override the client's brief, or sign off safety-critical or
 legally-mandated content — those are handed back to the translator and the commissioner.
 
@@ -93,7 +92,7 @@ legally-mandated content — those are handed back to the translator and the com
 17. Use screen logging or recording suited to the application interaction style instead of over-shoulder observation. (P087)
 18. Ensure comparative groups have enough participants and protect sessions from cross-participant contamination. (P088)
 19. Use unchanged layout/content controls and multi-metric improvements to rule out likely confounds. (P120)
-20. Emit recommendations against the anti-patterns below, highest-impact first, in the format under Output.
+20. Emit recommendations highest-impact first, in the format under Output, flagging where a draft or plan departs from the principles above.
 
 ## Inputs
 
@@ -109,28 +108,6 @@ target-text function, state the trade-off or residual uncertainty, and end with 
 Order recommendations highest-impact first. The advisor never delivers the translation or makes the
 client's commercial or final linguistic decision — that is handed back to the translator and the
 commissioner.
-
-## Anti-patterns to flag
-
-- Neglecting to: Measure retention, task time, error rates, and satisfaction with explicit instruments and report the aggregate outcomes. (P019)
-- Neglecting to: Analyze very small usability comparisons with exact nonparametric tests, aggregate measures, and exclusion of fixed-duration tasks from timing. (P027)
-- Neglecting to: Drop, redefine, or redesign metrics and tasks that cannot be observed reliably or that are confounded by participant traits or prior knowledge. (P033)
-- Neglecting to: Run main studies with realistic users and settings while preserving comparability with the pilot and handling venue constraints. (P034)
-- Neglecting to: Prefer indirect overt recording when observer effects would distort performance, while preserving ethical recording practice. (P050)
-- Neglecting to: Recruit representative participants, balance relevant skills across comparative groups, and use small-sample statistics appropriate to usability studies. (P051)
-- Neglecting to: Choose test software and tasks that make participants rely on the guide rather than prior product knowledge. (P052)
-- Neglecting to: Protect participants through informed consent, anonymized identifiers, confidentiality, and a comfortable realistic test environment. (P053)
-- Neglecting to: Screen and consent participants with role-specific profiles, data-collection disclosure, confidentiality, and clear session tracking. (P054)
-- Neglecting to: In comparative documentation studies, isolate the manipulated variable and keep fonts, layout, graphics, content, and other confounds equivalent. (P065)
-- Neglecting to: Use the pilot to correct tasks, tools, methods, criteria, and materials before running the main study. (P066)
-- Neglecting to: Triangulate subjective ratings with objective performance and recall measures. (P067)
-- Neglecting to: Familiarize participants with context, acclimate them to recording, and capture useful informal comments without letting them drive scoring. (P073)
-- Neglecting to: Preserve usability-study instruments and participant-level tables so study procedures and results can be audited. (P076)
-- Neglecting to: Prefer post-task or private ratings over concurrent public questioning when task integrity and candidness matter. (P085)
-- Neglecting to: Prepare users and materials so participants critique the product and guide, not themselves, without being distracted by avoidable text errors. (P086)
-- Neglecting to: Use screen logging or recording suited to the application interaction style instead of over-shoulder observation. (P087)
-- Neglecting to: Ensure comparative groups have enough participants and protect sessions from cross-participant contamination. (P088)
-- Neglecting to: Use unchanged layout/content controls and multi-metric improvements to rule out likely confounds. (P120)
 
 ## References
 
