@@ -3,6 +3,42 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.4.0] — 2026-07-12
+
+Review-loop round 4 (`reports/review-loop/descriptive-translation-reviewer.r4.review.md`): applied the
+must-fix and the high-value should-fixes, staying grounded in the existing 180-principle spine (no new claim
+introduced).
+
+### Fixed
+- **M1 — truncated router `description` "Not for" clause** — the exported frontmatter `description` (the
+  dispatch field) ended on a bare noun: `…Route to \`translation-equivalence-advisor\` when the
+  linguistic-equivalence mechanism`. Root cause: `_clean_clause`'s 85-char clip landed on a word boundary
+  because `when_not_to_use[0]`'s first comma fell past the clip. Front-loaded `when_not_to_use[0]` so a
+  complete self-contained clause ("…for the equivalence mechanism itself") sits before its first comma
+  within ~85 chars; the dispatch clause now reads as a finished thought. Meaning preserved (mechanism →
+  sibling; orientation-fit → here). Re-exported.
+
+### Changed
+- **S — `inputs.required`** — split the single omnibus bullet (5 bundled asks) into 5 discrete list items
+  (artifact under review, source+target, orientation/strategy, brief/function, quality claim) so
+  missing-context detection has per-item checks.
+- **S — `knowledge_partition.always_on[5]` (register/discourse/AV)** — restored the P090 caveats dropped at
+  profile level: a source-target register/cohesion mismatch may be a legitimate strategy (explicitation,
+  compensation) rather than automatically an error, and the Hallidayan/Gricean apparatus is applied with
+  caution outside English-oriented language pairs. Grounded in P090 (already cited); always-on tier is free
+  of the body-size budget.
+- **S — `tests/golden-tests.yaml`** — re-stamped `profile_version: 1.2.0 → 1.4.0` (stale since v1.3.0) and
+  added **NR-003**, the missing negative-routing test for the thrice-reworked `when_not_to_use[0]` sibling
+  clause (a word/idiom-level equivalence-mechanism prompt routes to `translation-equivalence-advisor`).
+- `agent_version` 1.3.0 → 1.4.0.
+
+### Deferred
+- Skill-body polish (level-1 `description` trims on 2 skills, compound-step splits on 4 dense skills, one
+  worked example per skill's Output) and principles-annotation notes (House secondary-grounding note on
+  P021/P065/P168, P023-vs-P165 adequacy-homonym note, P111 Chesterman three-vs-four recount) — should/nice
+  polish on a converged, passing package; left to a dedicated pass to avoid regression risk, consistent with
+  the S7 deferral in v1.2.0/v1.3.0.
+
 ## [1.3.0] — 2026-07-12
 
 Review-loop round 3 (`reports/review-loop/descriptive-translation-reviewer.r3.review.md`): applied the

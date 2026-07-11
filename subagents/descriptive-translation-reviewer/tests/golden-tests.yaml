@@ -1,7 +1,7 @@
 schema_version: golden-tests-v1
 subagent_slug: descriptive-translation-reviewer
 generated_at: '2026-07-12'
-profile_version: 1.2.0
+profile_version: 1.4.0
 tier: 2
 golden_tests:
 - test_id: GT-001
@@ -132,6 +132,12 @@ negative_routing_tests:
 - test_id: NR-002
   description: Subject-matter correctness with a knowable answer, no translation dimension.
   prompt: Is the interest calculation in this loan contract mathematically correct?
+  expected_route: do_not_invoke
+- test_id: NR-003
+  description: Word/idiom-level equivalence mechanism — routes to the `translation-equivalence-advisor` sibling,
+    not this orientation-fit reviewer (when_not_to_use[0]).
+  prompt: The English idiom "kick the bucket" has no direct match in our target language. Which equivalence
+    strategy should we use at the word/idiom level to render it?
   expected_route: do_not_invoke
 missing_context_tests:
 - test_id: MC-001

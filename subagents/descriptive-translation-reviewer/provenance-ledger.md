@@ -35,6 +35,23 @@ references index and ground them.
 
 ## Version History
 
+- **1.4.0** (2026-07-12) — Review-loop round 4 fixes (no prior decision silently overwritten). (1)
+  **M1** — repaired the truncated router `description` "Not for" clause at its root: front-loaded
+  `when_not_to_use[0]` so a complete self-contained clause ("Route to `translation-equivalence-advisor` for
+  the equivalence mechanism itself") lands within the exporter's ~85-char `_clean_clause` budget before its
+  first comma, instead of clipping to the bare noun "…the linguistic-equivalence mechanism". Routing meaning
+  unchanged (equivalence mechanism → sibling; orientation-fit → here); adapter re-exported. (2) **S** — split
+  `inputs.required` into 5 discrete asks for per-item missing-context detection. (3) **S** — restored the
+  **P090** caveats to `knowledge_partition.always_on[5]` (register/cohesion mismatch may be a legitimate
+  explicitation/compensation strategy, not automatically an error; Hallidayan/Gricean apparatus applied with
+  caution outside English-oriented pairs) — grounded in the already-cited P090, no claim strengthened.
+  (4) **S** — `tests/golden-tests.yaml` re-stamped `profile_version: 1.2.0 → 1.4.0` and gained **NR-003**, the
+  negative-routing test for the `when_not_to_use[0]` sibling clause. **Field→grounding changes:** none —
+  `when_not_to_use[0]` and `inputs` are descriptive/routing fields (uncited by convention); `always_on[5]`
+  keeps its existing P090 citation. **Deferred:** skill-body polish (2 description trims, 4 dense-skill step
+  splits, per-skill Output worked examples) and principles-annotation notes (House P021/P065/P168 secondary
+  grounding, P023-vs-P165 adequacy homonym, P111 Chesterman recount) — polish on a converged package, left to
+  a dedicated pass (as with S7 in v1.2.0/v1.3.0).
 - **1.3.0** (2026-07-12) — Review-loop round 3 fixes (no prior decision silently overwritten). (1)
   **M1** — dropped the stale `P070, P100` citation from `examples[1].ideal_response`'s never-translate/
   never-sign-off note so it matches the uncited-by-design `forbidden_behaviours[0]` (the v1.2.0 decision
