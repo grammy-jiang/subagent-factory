@@ -1,0 +1,538 @@
+schema_version: faithfulness-report-v1
+subagent_slug: strengths-based-development-coach
+
+# Summary
+# Rules reviewed: 22
+# Verdict distribution:
+#   EXACT_SUPPORT:    13
+#   WITHIN_SCOPE:      9
+#   SCOPE_BROADENED:   0
+#   HEDGING_REMOVED:   0
+#   CONTRADICTED:      0
+# Flags requiring action before release: 0 (all resolved)
+
+findings:
+
+  # ── QUALITY BAR ────────────────────────────────────────────────────────────
+
+  - rule_ref: quality_bar[0]
+    triplet:
+      head: "Guidance"
+      relation: "must be anchored to"
+      tail: "specific named themes in the person's top five"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0065
+      - strengthsfinder-20260611011808-t0066
+      - strengthsfinder-20260611011808-t0067
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      P-001 grounded in ER-001/CL-001. The requirement to name themes in every
+      recommendation is a direct operational mapping of the core growth-potential
+      principle. Claim matches source exactly.
+
+  - rule_ref: quality_bar[1]
+    triplet:
+      head: "action ideas"
+      relation: "are drawn from"
+      tail: "the per-theme ideas library; favour specificity and role-relevance over abstract platitudes"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0139
+      - strengthsfinder-20260611011808-t0140
+      - strengthsfinder-20260611011808-t0141
+      - strengthsfinder-20260611011808-t0142
+      - strengthsfinder-20260611011808-t0143
+      - strengthsfinder-20260611011808-t0511
+      - strengthsfinder-20260611011808-t0512
+      - strengthsfinder-20260611011808-t0513
+      - strengthsfinder-20260611011808-t0514
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Prior version imposed a "ten per theme" benchmark that elevated a product
+      count (CL-033/ER-027, CL-040/ER-028) into an operational output requirement.
+      Current text correctly says "drawn from the per-theme ideas library; favour
+      specificity and role-relevance" — this directly reflects the source's
+      description of the per-theme ideas library without inflating it into a fixed
+      count benchmark. EXACT_SUPPORT after downgrade.
+
+  - rule_ref: quality_bar[2]
+    triplet:
+      head: "lesser-talent areas"
+      relation: "must be addressed through"
+      tail: "avoidance, system design, or partnering — not deficit-fix prescriptions"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0395
+      - strengthsfinder-20260611011808-t0396
+      - strengthsfinder-20260611011808-t0397
+      - strengthsfinder-20260611011808-t0398
+      - strengthsfinder-20260611011808-t0403
+      - strengthsfinder-20260611011808-t0408
+      - strengthsfinder-20260611011808-t0413
+      - strengthsfinder-20260611011808-t0418
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      P-004 grounded in ER-021/CL-024, ER-022/CL-025, ER-023/CL-026. Three-strategy
+      sequence (avoidance, systems, partnering) is directly stated in the source with
+      explanation and examples for each strategy. Goal stated as "manage around
+      weakness, not correct it" matches the source framing.
+
+  - rule_ref: quality_bar[3]
+    triplet:
+      head: "theme descriptions"
+      relation: "must acknowledge"
+      tail: "double-edged nature: blind spots and over-expression risks alongside strength benefit"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0422
+      - strengthsfinder-20260611011808-t0423
+      - strengthsfinder-20260611011808-t0424
+      - strengthsfinder-20260611011808-t0425
+      - strengthsfinder-20260611011808-t0426
+      - strengthsfinder-20260611011808-t0427
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      P-005 grounded in ER-024/CL-027. Source explicitly states every dominant talent
+      theme carries over-expression risks. ER-024 limitation acknowledges only two
+      themes are illustrated, but the principle is asserted universally for all 34
+      themes in the source text.
+
+  - rule_ref: quality_bar[4]
+    triplet:
+      head: "partnering recommendations"
+      relation: "must name"
+      tail: "specific complementary themes rather than vague advice"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0474
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      P-009 grounded in ER-031/CL-036 with medium confidence. The source describes
+      the team strengths grid as identifying "complementary pairings" by talent theme.
+      Requiring specific theme names in recommendations is a valid inference from the
+      framework's theme-specificity throughout. ER-031 limitation notes utility is
+      framework-asserted rather than empirically evaluated; the inference is reasonable
+      and does not exceed the source's own claim framing.
+
+  # ── FORBIDDEN BEHAVIOURS ───────────────────────────────────────────────────
+
+  - rule_ref: forbidden_behaviours[0]
+    triplet:
+      head: "deficit-correction programmes as primary development path"
+      relation: "must not be prescribed"
+      tail: "because amplifying dominant talents yields far greater return"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0065
+      - strengthsfinder-20260611011808-t0066
+      - strengthsfinder-20260611011808-t0067
+      - strengthsfinder-20260611011808-t0258
+      - strengthsfinder-20260611011808-t0261
+      - strengthsfinder-20260611011808-t0262
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      P-001 (ER-001/CL-001) and P-004 (ER-021/CL-024) jointly ground this rule.
+      The source directly supports the claim that people have several times more growth
+      potential in dominant talent areas and that deficit-correction is not the
+      framework's primary recommended path.
+
+  - rule_ref: forbidden_behaviours[1]
+    triplet:
+      head: "20-second instinctive response format"
+      relation: "cannot reliably be substituted"
+      tail: "per the instrument's design rationale"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0337
+      - strengthsfinder-20260611011808-t0338
+      - strengthsfinder-20260611011808-t0339
+      - strengthsfinder-20260611011808-t0340
+      - strengthsfinder-20260611011808-t0341
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      P-007 grounded in ER-017/CL-020. CL-020 states instinctive responses "more
+      accurately reveal natural talent than deliberated answers." ER-017 limitation
+      notes the rationale is "asserted by the instrument designers; no external
+      validation study is cited in the source." The prior version removed this hedging
+      ("essential to valid measurement and cannot be replaced"). The current version
+      correctly conditions the claim with "per the instrument's design rationale" and
+      uses "cannot reliably be substituted" rather than "cannot be replaced" —
+      faithfully preserving the comparative and design-rationale framing of the source.
+      WITHIN_SCOPE: valid inference from CL-020 without asserting external validation
+      the source does not provide.
+
+  - rule_ref: forbidden_behaviours[2]
+    triplet:
+      head: "claim that any person can achieve anything through sufficient effort alone"
+      relation: "must not be made"
+      tail: "the framework provides strong evidence against this maxim, while allowing that considerable effort may add some talent where little exists"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0258
+      - strengthsfinder-20260611011808-t0261
+      - strengthsfinder-20260611011808-t0262
+      - strengthsfinder-20260611011808-t0362
+      - strengthsfinder-20260611011808-t0363
+      - strengthsfinder-20260611011808-t0364
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      P-006 grounded in ER-011/CL-011 and ER-019/CL-022. CL-011 is classified as a
+      value claim; ER-011 limitation states "This is an authorial value claim supported
+      by accumulated Gallup research; the revised maxim is presented as a normative
+      conclusion, not a finding." CL-022 exception explicitly records: "With
+      considerable effort it may be possible to add some talent where little exists,
+      but research suggests this is not the best use of time." The current rule
+      accurately says "provides strong evidence against this maxim" (not "explicitly
+      rejects") and preserves the exception ("while allowing that considerable effort
+      may add some talent where little exists"). Both the evidential framing and the
+      exception are now present, matching the source exactly. EXACT_SUPPORT after
+      downgrade.
+
+  - rule_ref: forbidden_behaviours[3]
+    triplet:
+      head: "themes"
+      relation: "must not be framed as"
+      tail: "purely positive — over-expression risks must be acknowledged alongside benefit"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0422
+      - strengthsfinder-20260611011808-t0423
+      - strengthsfinder-20260611011808-t0424
+      - strengthsfinder-20260611011808-t0425
+      - strengthsfinder-20260611011808-t0426
+      - strengthsfinder-20260611011808-t0427
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      P-005 grounded in ER-024/CL-027. The source directly supports this prohibition.
+      See also quality_bar[3] finding above.
+
+  - rule_ref: forbidden_behaviours[4]
+    triplet:
+      head: "Gallup Q12 engagement items"
+      relation: "must not be reproduced or paraphrased verbatim"
+      tail: "engagement statistics derived from Q12 research are citable but not item wording"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0006
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      P-008 grounded in ER-029/CL-041. Source copyright notice directly states Q12
+      items are "proprietary information protected by law" and "may not be reproduced
+      or used in a survey without written consent from Gallup." The distinction between
+      citable statistics and protected item wording is a valid and faithful inference
+      from the legal notice.
+
+  - rule_ref: forbidden_behaviours[5]
+    triplet:
+      head: "verbatim passages from either source"
+      relation: "must not be reproduced"
+      tail: "distil and paraphrase only per distillation-only rights status"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0006
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      This rule is grounded in the rights-and-quotation-policy (repository policy,
+      not a source claim) and the copyright notice at t0006. Within scope: the source
+      copyright notice supports the "no verbatim reproduction" constraint; the
+      "distillation-only" label comes from factory policy applied to a copyrighted
+      commercial book, which is a valid classification.
+
+  # ── ALWAYS-ON KNOWLEDGE ────────────────────────────────────────────────────
+
+  - rule_ref: knowledge_partition.always_on[0]
+    triplet:
+      head: "34 Clifton StrengthsFinder theme names"
+      relation: "are stable across"
+      tail: "both sources and across v1.0 and v2.0"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t3391
+      - strengthsfinder-20260611011808-t3392
+      - strengthsfinder-20260611011808-t3393
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      ER-025/CL-030 directly states the theme language is unchanged between v1.0 and
+      v2.0. The 34 theme names are enumerated consistently in both sources.
+
+  - rule_ref: knowledge_partition.always_on[1]
+    triplet:
+      head: "strengths formula"
+      relation: "is"
+      tail: "Talent multiplied by the sum of Knowledge, Skills, and Practice equals Strength"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0362
+      - strengthsfinder-20260611011808-t0363
+      - strengthsfinder-20260611011808-t0364
+      - strengthsfinder-20260611011808-t0365
+      - strengthsfinder-20260611011808-t0366
+      - strengthsfinder-20260611011808-t0367
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      ER-019/CL-022 grounds this formula. The source presents it as Talent x
+      Investment = Strength, where investment components include knowledge, skills,
+      and practice. The profile unpacks "Investment" explicitly as "(Knowledge +
+      Skills + Practice)" — an accurate decomposition consistent with how the source
+      describes the components. Valid inference; not a distortion.
+
+  - rule_ref: knowledge_partition.always_on[2]
+    triplet:
+      head: "growth potential"
+      relation: "is several times greater in"
+      tail: "dominant talent areas than in correcting lesser-talent areas"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0065
+      - strengthsfinder-20260611011808-t0066
+      - strengthsfinder-20260611011808-t0067
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      ER-001/CL-001 directly states "several times more potential for growth."
+      The profile reproduces this language accurately. ER-001 limitation notes the
+      multiplier is not precisely quantified in the source, but the "several times"
+      framing is the source's own language.
+
+  - rule_ref: knowledge_partition.always_on[3]
+    triplet:
+      head: "manager-focus on strengths"
+      relation: "yields active disengagement of"
+      tail: "approximately 1% (vs 22% weakness-focus, 40% ignoring)"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0097
+      - strengthsfinder-20260611011808-t0098
+      - strengthsfinder-20260611011808-t0099
+      - strengthsfinder-20260611011808-t0108
+      - strengthsfinder-20260611011808-t0111
+      - strengthsfinder-20260611011808-t0112
+      - strengthsfinder-20260611011808-t0113
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      ER-005/CL-005 and ER-006/CL-006 directly support all three figures (~1%, ~22%,
+      ~40%) with the "approximately" hedge preserved in the profile. ER-005 limitation
+      notes these figures are from a separate 2005 Gallup manager-focus study whose
+      sample size is not stated in the source; the profile's "approximately" language
+      faithfully carries the source's own hedging.
+
+  - rule_ref: knowledge_partition.always_on[4]
+    triplet:
+      head: "people in their strengths zone"
+      relation: "are"
+      tail: "six times more likely to be engaged and more than three times as likely to report excellent quality of life"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0092
+      - strengthsfinder-20260611011808-t0093
+      - strengthsfinder-20260611011808-t0094
+      - strengthsfinder-20260611011808-t0095
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      ER-004/CL-004 directly states these figures verbatim. ER-004 limitation notes
+      the finding is correlational; the profile does not assert causation, so the
+      causal direction limitation does not constitute a distortion.
+
+  - rule_ref: knowledge_partition.always_on[5]
+    triplet:
+      head: "three strategies for managing lesser-talent areas"
+      relation: "are in order"
+      tail: "avoidance, systems and workarounds, partnering"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0395
+      - strengthsfinder-20260611011808-t0396
+      - strengthsfinder-20260611011808-t0403
+      - strengthsfinder-20260611011808-t0408
+      - strengthsfinder-20260611011808-t0413
+      - strengthsfinder-20260611011808-t0418
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      ER-021/CL-024, ER-022/CL-025, ER-023/CL-026 ground each strategy in order.
+      The three strategies are presented sequentially in the source text.
+
+  - rule_ref: knowledge_partition.always_on[6]
+    triplet:
+      head: "every dominant theme"
+      relation: "has"
+      tail: "characteristic over-expression risks that must be named alongside the strength benefit"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0422
+      - strengthsfinder-20260611011808-t0423
+      - strengthsfinder-20260611011808-t0424
+      - strengthsfinder-20260611011808-t0425
+      - strengthsfinder-20260611011808-t0426
+      - strengthsfinder-20260611011808-t0427
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      ER-024/CL-027 grounds this. The "every" universality matches the source's
+      own language. ER-024 limitation acknowledges only two themes are illustrated
+      but the universal assertion is the source's.
+
+  - rule_ref: knowledge_partition.always_on[7]
+    triplet:
+      head: "Q12 item wording"
+      relation: "may not be reproduced while"
+      tail: "engagement statistics from Q12 research are freely citable"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0006
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      ER-029/CL-041 grounds this directly from the copyright notice. The distinction
+      between protected item wording and citable statistics is a valid interpretation
+      of the copyright notice's scope.
+
+  # ── MODE TRIGGERS ──────────────────────────────────────────────────────────
+
+  - rule_ref: outputs.modes[0].trigger
+    triplet:
+      head: "advise mode"
+      relation: "triggered by"
+      tail: "caller provides theme names and context, wants interpretation or action ideas"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0065
+      - strengthsfinder-20260611011808-t0139
+      - strengthsfinder-20260611011808-t0147
+      - strengthsfinder-20260611011808-t0148
+      - strengthsfinder-20260611011808-t0149
+      - strengthsfinder-20260611011808-t0150
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Mode triggers are operational routing decisions, not source claims. The advise
+      mode maps to the core use case described throughout the source: theme
+      interpretation and action-idea application. The trigger conditions are a valid
+      inference from how the source describes using the framework.
+
+  - rule_ref: outputs.modes[1].trigger
+    triplet:
+      head: "produce mode"
+      relation: "triggered by"
+      tail: "caller asks for a written artefact such as Strength-Based Action Plan"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0139
+      - strengthsfinder-20260611011808-t0140
+      - strengthsfinder-20260611011808-t0141
+      - strengthsfinder-20260611011808-t0142
+      - strengthsfinder-20260611011808-t0143
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      The source (CL-033/ER-027) describes a Strengths-Based Action Plan and
+      development plan structure provided by the product. The produce mode trigger
+      is a valid operational mapping of this concept to an agent output mode.
+
+  - rule_ref: outputs.modes[2].trigger
+    triplet:
+      head: "extract mode"
+      relation: "triggered by"
+      tail: "caller provides team members and top-five themes, asks for team strengths grid"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0474
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      CL-036/ER-031 grounds the team strengths grid concept. The extract mode trigger
+      is a direct operational mapping of this source-described tool. ER-031 limitation
+      notes utility is framework-asserted, not empirically evaluated, but the trigger
+      condition itself is faithful to the source description.
+
+  # ── ROLE STATEMENT ─────────────────────────────────────────────────────────
+
+  - rule_ref: role
+    triplet:
+      head: "agent role"
+      relation: "is"
+      tail: "expert advisor grounded in the published StrengthsFinder framework (StrengthsFinder 2.0, Rath 2007; Clifton StrengthsFinder, Gallup Press 2015)"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - strengthsfinder-20260611011808-t0065
+      - strengthsfinder-20260611011808-t0066
+      - strengthsfinder-20260611011808-t0067
+      - strengthsfinder-20260611011808-t0068
+      - strengthsfinder-20260611011808-t0069
+      - strengthsfinder-20260611011808-t0070
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Prior version was CONTRADICTED because it claimed expertise "grounded in
+      Gallup's 40-year strengths research" — treating the agent as an authoritative
+      proxy for a proprietary research programme whose methodology is not disclosed in
+      the consumer books (ER-001 limitation). The current version correctly scopes the
+      grounding to "the published StrengthsFinder framework" and cites the two specific
+      consumer books that are the actual sources. CL-032 confirms the assessment was
+      "created based on Gallup's 40-year study" but the agent's authority derives from
+      the published framework descriptions, not the underlying research programme. The
+      current phrasing is accurate and does not exceed what the sources support.
+      WITHIN_SCOPE: the role statement is a valid inference from the published sources
+      without overclaiming access to unpublished research methodology.

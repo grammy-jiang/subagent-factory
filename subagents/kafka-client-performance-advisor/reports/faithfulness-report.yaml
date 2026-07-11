@@ -1,0 +1,377 @@
+schema_version: faithfulness-report-v1
+subagent_slug: kafka-client-performance-advisor
+findings:
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - kafka-best-practices-20260608223304-t0056
+  - kafka-best-practices-20260608223304-t0478
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Choosing default vs. non-default client params before production is the explicit
+    purpose of the Optimizations section; "benchmark before you go to production"
+    (L1082-1084) supports the pre-production framing.
+- rule_ref: when_to_use[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - kafka-best-practices-20260608223304-t0329
+  - kafka-best-practices-20260608223304-t0341
+  - kafka-best-practices-20260608223304-t0386
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: "Source names produce-throttle-time-avg (L779) and fetch-throttle-time-max\
+    \ (L885) as throttle indicators and offers \"two options\" \u2014 modify the client\
+    \ or escalate \u2014 matching the optimise-client-or-escalate trigger."
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - kafka-best-practices-20260608223304-t0484
+  - kafka-best-practices-20260608223304-t0495
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source frames throughput/latency/durability/availability as goals with trade-offs
+    and ties optimisation to chosen goal; translating a prioritised goal into params
+    is a valid inference.
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - kafka-best-practices-20260608223304-t0399
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source presents records-lag-max as the consumer lag metric to monitor; using
+    a growing lag as the trigger for consumer config guidance is within scope.
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - kafka-best-practices-20260608223304-t0826
+  - kafka-best-practices-20260608223304-t0888
+  - kafka-best-practices-20260608223304-t0719
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source covers Streams topology optimisation, num.standby.replicas, and processing.guarantee=EXACTLY_ONCE;
+    the Streams/ksqlDB trigger maps directly.
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - kafka-best-practices-20260608223304-t0049
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source scope is client application development/tuning/monitoring; deferring
+    broker/ZooKeeper/provisioning is a faithful scope boundary, not a source claim
+    that exceeds support.
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source addresses only client credential/security config; deferring org-level
+    security architecture to separate Confluent docs is a scope boundary consistent
+    with the source's coverage.
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - kafka-best-practices-20260608223304-t0049
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Excluding business logic / schema design / message contents is consistent
+    with the source's exclusive focus on configuration parameters and monitoring metrics.
+- rule_ref: outputs.primary_format
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source presents four "Summary of Configurations for Optimizing <goal>" tables;
+    the prescribed table-grouped-by-service-goal output mirrors the source structure.
+- rule_ref: outputs.modes[0].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Advise-on-goal trigger maps to the source's goal-then-parameter structure.
+- rule_ref: outputs.modes[0].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Ordered params with values + trade-off + a named verification metric recombines
+    the source's per-goal config tables with its JMX/Metrics catalogue; valid inference.
+- rule_ref: outputs.modes[1].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Reviewing a config against documented best-practice values is supported by
+    the tables.
+- rule_ref: outputs.modes[1].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Per-parameter deviation assessment + benchmark-before-production validation
+    is a faithful recombination of the tables and the benchmarking guidance.
+- rule_ref: outputs.modes[2].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Monitoring a deployed goal via JMX / Metrics API readings is directly supported.
+- rule_ref: outputs.modes[2].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Named JMX metrics + Metrics API queries with interpretation thresholds is
+    supported; explicit numeric thresholds are caller/context-dependent and left to
+    the agent.
+- rule_ref: quality_bar[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Both cited example ranges are verbatim from the throughput table (L1412, L1414);
+    the source itself supplies concrete ranges rather than vague adjectives.
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: "Source repeatedly pairs a throughput gain with its cost (e.g. larger batch/linger\
+    \ \u2192 higher latency, L1274); requiring an explicit trade-off statement matches\
+    \ the source."
+- rule_ref: quality_bar[2]
+  verdict: SCOPE_BROADENED
+  distortion:
+  - scope_broadened
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: add_condition
+  note: Source strongly emphasises monitoring and supplies a JMX/Metrics catalogue,
+    but does not state that EVERY recommendation must name a specific metric. The
+    universal "every" is an operational quality standard slightly broader than the
+    source's framing; kept as a deliberate agent bar (not a misattributed source claim),
+    flagged for reviewer note.
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source shows librdkafka uses a distinct config file (L216-218) and that Streams
+    requires producerPrefix/consumerPrefix wrappers (L555-559). The Streams-prefix
+    requirement is explicit; the "note the Java-vs-librdkafka naming difference" rule
+    is a reasonable inference from the source distinguishing the two bindings.
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source mandates benchmarking before production and benchmarking with representative
+    (cleansed production) data, warning against unrepresentative mock data. "Before
+    and after" is supported by the start-at-default-then-repeat-benchmark procedure.
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The Summary-of-Configurations format is taken from the source; each per-goal
+    table lists 4+ parameters (throughput: batch.size, linger.ms, compression.type,
+    acks, ...), so the "minimum four parameters" floor is an agent-set output bound
+    consistent with the source, not an over-claim about the source.'
+- rule_ref: forbidden_behaviours[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source explicitly and strongly recommends benchmarking before production;
+    the prohibition matches.
+- rule_ref: forbidden_behaviours[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Verbatim support: "For performance, we generally recommend using lz4. We
+    strongly recommend not using gzip because it''s much more compute intensive relative
+    to the other codecs." The prohibition does not exceed the source.'
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Direct quote support at L1119/L1135; forbidding the all-goals-maximised claim
+    is exact.
+- rule_ref: forbidden_behaviours[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Forbidding broker-side / ZooKeeper / provisioning advice is a faithful scope
+    boundary consistent with the source's client-application focus.
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Four goals and their non-co-maximisability are stated directly.
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Producer batching params and their throughput/latency interaction are explicit.
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: acks=0/1/all semantics with durability/latency trade-offs are stated.
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source describes idempotent producer using incrementing sequence numbers to
+    avoid duplicates and preserve ordering during retries; the rule is a faithful
+    summary.
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: "All four consumer params appear; fetch.min.bytes/fetch.max.wait.ms latency\
+    \ trade-off is explicit. max.poll.records/interval support is present though latency\
+    \ framing is a mild inference \u2014 within scope."
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source presents records-lag-max as the lag indicator; "canonical" is a mild
+    but fair characterisation.
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Codec list, lz4-for-performance recommendation, and avoid-gzip are all explicit.
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Confluent Cloud's enforced replication factor 3 and the acks=all / in-sync-replicas
+    durability interaction are stated; min.insync.replicas pairing is a faithful inference.
+- rule_ref: knowledge_partition.always_on[8]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: All three DNS-caching values are given verbatim in the source.
+- rule_ref: knowledge_partition.always_on[9]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors: []
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: "Source states Metrics API gives server-side metrics but not client-side,\
+    \ and JMX exposes client-side metrics \u2014 the distinction the rule encodes."

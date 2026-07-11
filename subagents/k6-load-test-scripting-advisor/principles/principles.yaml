@@ -1,0 +1,188 @@
+schema_version: principles-v1
+principles:
+
+  - principle_id: k6-p001
+    statement: >-
+      Checks validate response conditions during a k6 run but never halt or fail
+      the test; a failed check is recorded but execution continues regardless.
+    derived_from_claims:
+      - k6-c019
+      - k6-c020
+    confidence: high
+    applies_when:
+      - The caller asks whether a failing condition will stop the k6 run.
+      - The caller is choosing between checks and thresholds for response validation.
+    does_not_apply_when:
+      - The caller asks about thresholds, which do determine pass/fail status.
+    operational_mapping:
+      profile_rule: true
+      skill: k6-thresholds-and-checks
+      reference: k6-terminology-glossary
+      test_cases:
+        - GT-002
+
+  - principle_id: k6-p002
+    statement: >-
+      Thresholds define pass/fail criteria against k6 metrics; when a threshold
+      condition is not met the test ends with a failed status.
+    derived_from_claims:
+      - k6-c024
+      - k6-c025
+    confidence: high
+    applies_when:
+      - The caller wants to make the k6 run return a non-zero exit code on poor performance.
+      - The caller is setting pass/fail criteria for a CI gate.
+    does_not_apply_when:
+      - The caller only wants to observe response conditions without affecting run outcome
+        (use checks instead).
+    operational_mapping:
+      profile_rule: true
+      skill: k6-thresholds-and-checks
+      reference: k6-terminology-glossary
+      test_cases:
+        - GT-002
+        - MC-001
+
+  - principle_id: k6-p003
+    statement: >-
+      Checks and thresholds serve distinct purposes that must not be conflated:
+      checks validate response conditions and never stop the run, whereas thresholds
+      set pass/fail criteria and cause a failed test status when unmet.
+    derived_from_claims:
+      - k6-c050
+    confidence: high
+    applies_when:
+      - The caller must choose between checks and thresholds for a requirement.
+      - The caller is confused about whether a failing condition will abort the test.
+    does_not_apply_when:
+      - Checks and thresholds are being used together for complementary purposes
+        (validating individual responses while also gating overall run outcome).
+    operational_mapping:
+      profile_rule: true
+      skill: k6-thresholds-and-checks
+      reference: k6-terminology-glossary
+      test_cases:
+        - GT-002
+
+  - principle_id: k6-p004
+    statement: >-
+      Stages ramp virtual users toward a target count over a specified duration,
+      allowing realistic load profiles with ramp-up, sustain, and ramp-down phases;
+      stages is a shortcut for the ramping-vus executor.
+    derived_from_claims:
+      - k6-c013
+      - k6-c014
+      - k6-c015
+      - k6-c047
+    confidence: high
+    applies_when:
+      - The caller wants to express a ramp-up, sustain, or ramp-down load shape.
+      - The caller is configuring multiple load phases in the options object.
+    does_not_apply_when:
+      - The caller wants a fixed VU count for the entire test duration (use vus and
+        duration without stages).
+      - Advanced executor options (startVUs, gracefulRampDown) beyond what stages
+        provides are needed.
+    operational_mapping:
+      profile_rule: true
+      skill: k6-options-and-stages-configuration
+      reference: k6-terminology-glossary
+      test_cases:
+        - GT-001
+
+  - principle_id: k6-p005
+    statement: >-
+      The http_req_duration metric measures total HTTP request duration from send
+      to response receipt; the http_req_failed metric counts requests that returned
+      non-2xx or non-3xx status codes. These are the primary built-in metrics for
+      expressing performance and reliability thresholds.
+    derived_from_claims:
+      - k6-c029
+      - k6-c030
+    confidence: high
+    applies_when:
+      - The caller is writing threshold expressions for response time or error rate.
+      - The caller asks what a k6 built-in metric measures.
+    does_not_apply_when:
+      - The caller is working with custom or non-HTTP metrics.
+    operational_mapping:
+      profile_rule: true
+      skill: k6-metrics-interpretation
+      reference: k6-terminology-glossary
+      test_cases:
+        - GT-002
+        - GT-003
+
+  - principle_id: k6-p006
+    statement: >-
+      p95 (the 95th percentile response time) represents the value below which 95%
+      of all requests fall and is the conventional threshold anchor for HTTP
+      response-time SLOs; p90 is the analogous measure at the 90th percentile.
+      Lower values indicate better performance.
+    derived_from_claims:
+      - k6-c027
+    confidence: high
+    applies_when:
+      - The caller is interpreting k6 percentile output or writing p(95) threshold
+        expressions.
+      - The caller asks what p95 or p90 means in k6 results.
+    does_not_apply_when:
+      - The caller needs mean, median, or maximum response-time statistics (use Trend
+        metric aggregations instead).
+    operational_mapping:
+      profile_rule: true
+      skill: k6-metrics-interpretation
+      reference: k6-terminology-glossary
+      test_cases:
+        - GT-002
+        - GT-003
+
+  - principle_id: k6-p007
+    statement: >-
+      k6 metrics fall into four types: Counters (sum values), Gauges (track
+      smallest, largest, and latest values), Rates (track how frequently a non-zero
+      value occurs), and Trends (compute statistics such as mean, median, or
+      percentile). Choosing the correct type is necessary to interpret aggregated
+      output.
+    derived_from_claims:
+      - k6-c022
+    confidence: high
+    applies_when:
+      - The caller asks which metric type applies to a measurement such as response
+        time, error rate, or request count.
+      - The caller is interpreting k6 output and needs to understand what aggregation
+        a metric uses.
+    does_not_apply_when:
+      - The caller is implementing a custom metric; the source documents the four types
+        at a conceptual level only.
+    operational_mapping:
+      profile_rule: true
+      skill: k6-metrics-interpretation
+      reference: k6-terminology-glossary
+      test_cases:
+        - GT-003
+
+  - principle_id: k6-p008
+    statement: >-
+      Scenarios configure distinct load patterns within a single k6 script; each
+      scenario executes an independent JavaScript function in parallel, and the
+      ramping-vus executor is the underlying mechanism for gradual VU ramp-up or
+      ramp-down within a scenario.
+    derived_from_claims:
+      - k6-c036
+      - k6-c037
+      - k6-c046
+    confidence: high
+    applies_when:
+      - The caller is defining multiple independent user journeys in one k6 test.
+      - The caller needs to configure executor-level ramping behaviour beyond what
+        the top-level stages shortcut provides.
+    does_not_apply_when:
+      - A single default scenario with the stages shortcut is sufficient for the
+        caller's load shape.
+    operational_mapping:
+      profile_rule: true
+      skill: k6-scenarios-and-executors
+      reference: k6-terminology-glossary
+      test_cases:
+        - GT-001

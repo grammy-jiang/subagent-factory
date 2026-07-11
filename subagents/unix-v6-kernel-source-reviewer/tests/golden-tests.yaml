@@ -1,0 +1,119 @@
+schema_version: golden-tests-v1
+subagent_slug: unix-v6-kernel-source-reviewer
+generated_at: "2026-06-09"
+
+golden_tests:
+  - test_id: GT-001
+    description: >-
+      Positive routing (advise mode) — caller asks what the swtch procedure
+      does and how it relates to the sleep/wakeup scheduling loop.
+    prompt: >-
+      Can you walk me through what the swtch procedure does in the V6 kernel
+      and how it connects to sleep and wakeup?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: >-
+      At least one paragraph explaining swtch's purpose, the key data
+      structures or register state involved, and an explicit cross-reference
+      to at least one related procedure (e.g. sleep, savu, retu, or sched).
+    must_not_do:
+      - Reproduce verbatim passages from the Lions commentary
+      - Make claims about V7 or later kernel behaviour
+      - Omit a cross-reference to a related procedure
+
+  - test_id: GT-002
+    description: >-
+      Positive routing (review mode) — caller flags an apparently anomalous
+      coding pattern in getblk and asks whether it is a defect.
+    prompt: >-
+      In getblk there is a loop that tests B_BUSY and then calls sleep — is
+      that a correct locking pattern or does it have a race condition?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: >-
+      An annotated critique of the getblk sleep-loop locking pattern,
+      identifying whether the pattern is correct or anomalous, with any
+      speculative claims explicitly labelled.
+    must_not_do:
+      - Reproduce verbatim passages from the Lions commentary
+      - Answer without referencing B_BUSY or B_WANTED flag semantics
+      - Extend the answer to post-V6 buffer cache implementations
+
+  - test_id: GT-003
+    description: >-
+      Positive routing (extract mode) — caller asks for a structured list of
+      the proc structure fields and their meanings.
+    prompt: >-
+      Please give me a structured summary of the fields in the proc structure
+      as used in the V6 kernel, and what each field is for.
+    expected_route: invoke
+    expected_mode: extract
+    must_ask_for: []
+    minimum_output: >-
+      A structured enumeration of at least five proc structure fields with a
+      brief explanation of each field's purpose, derived from V6 source
+      evidence.
+    must_not_do:
+      - Reproduce verbatim passages from the Lions commentary
+      - Describe fields from a post-V6 proc structure
+      - Present the list without any source grounding
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: >-
+      Negative routing — caller asks about the Linux kernel scheduler, which
+      is outside V6 scope.
+    prompt: >-
+      How does the Linux CFS completely fair scheduler decide which process
+      to run next?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >-
+      A clear statement that the subagent covers only UNIX Sixth Edition on
+      PDP-11 and cannot address Linux or post-V6 kernels.
+    must_not_do:
+      - Attempt to answer Linux scheduler questions
+      - Invent V6 equivalents for Linux-specific concepts
+      - Proceed as if Linux CFS falls within V6 scope
+
+  - test_id: NR-002
+    description: >-
+      Negative routing — caller asks about a user-space utility (the shell),
+      which is outside kernel-nucleus scope.
+    prompt: >-
+      How does the V6 sh shell parse a command line and fork a child process?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >-
+      A clear statement that the subagent covers only the permanently-resident
+      kernel nucleus and cannot explain user-space utility programs such as sh.
+    must_not_do:
+      - Explain the user-space sh source code
+      - Conflate user-space fork usage with the kernel fork implementation
+      - Proceed without noting the scope exclusion
+
+missing_context_tests:
+  - test_id: MC-001
+    description: >-
+      Missing required input — caller asks for a review without naming a
+      specific procedure or line range.
+    prompt: >-
+      Can you review the kernel for me?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for:
+      - >-
+        The specific kernel procedure name(s), line number range(s), or
+        subsystem topic the caller wants reviewed or explained.
+    minimum_output: >-
+      A clear statement of what specific reference point (procedure name,
+      line range, or subsystem topic) is needed before a grounded answer
+      can be produced.
+    must_not_do:
+      - Proceed as if a specific procedure was named
+      - Hallucinate procedure names or line numbers
+      - Produce a generic OS-theory answer not grounded in V6 source
