@@ -41,14 +41,13 @@ provenance:
   - E00345
   - E00356
   source_anchors: []
-  authored_from_digest: 6c2a9c1b9aed74fcdab9af4e716caf174bfeaa27ddac7d473d7a4fa422ebe96f
 ---
 
 # Planning Usability Evaluations
 
 ## Purpose
 
-This skill guides the translator on decide how to evaluate documentation usability: pick methods (formative/summative, analytical/empirical, absolute/comparative) from the test question, set observable criteria and metrics, and build usability in from the start. It advises on the decision; it
+This skill guides the translator to decide how to evaluate documentation usability: pick methods (formative/summative, analytical/empirical, absolute/comparative) from the test question, set observable criteria and metrics, and build usability in from the start. It advises on the decision; it
 does not produce the final translation, override the client's brief, or sign off safety-critical or
 legally-mandated content — those are handed back to the translator and the commissioner.
 
@@ -77,7 +76,7 @@ legally-mandated content — those are handed back to the translator and the com
 9. Evaluate usability for specified users, goals, and contexts through effectiveness, efficiency, and satisfaction. (P049)
 10. Build guide quality early and improve it iteratively with user involvement and pilot studies. (P064)
 11. Define a small, observable, product-relevant set of performance criteria before testing. (P084)
-12. Emit recommendations against the anti-patterns below, highest-impact first, in the format under Output.
+12. Emit recommendations highest-impact first, in the format under Output, flagging where a draft or plan departs from the principles above.
 
 ## Inputs
 
@@ -93,20 +92,6 @@ target-text function, state the trade-off or residual uncertainty, and end with 
 Order recommendations highest-impact first. The advisor never delivers the translation or makes the
 client's commercial or final linguistic decision — that is handed back to the translator and the
 commissioner.
-
-## Anti-patterns to flag
-
-- Neglecting to: Evaluate user guides holistically with representative task-based usability testing; readability formulas are only partial indicators. (P006)
-- Neglecting to: Combine objective observation with carefully designed subjective instruments. (P018)
-- Neglecting to: Evaluate documentation strategies through summative user testing that collects both performance and satisfaction data and is refined by pilot work. (P022)
-- Neglecting to: Build usability from the start using cognetics, explicit goals, and measurable criteria. (P032)
-- Neglecting to: Implement usability through a hierarchy of principles, guidelines, local rules, and style guides, while still validating with users. (P039)
-- Neglecting to: Establish usability with evaluation rather than design confidence alone. (P040)
-- Neglecting to: Select evaluation methods from the test question and required data, distinguishing formative, summative, analytical, empirical, absolute, and comparative methods. (P041)
-- Neglecting to: Avoid think-aloud protocols when representative task performance is the measurement target. (P042)
-- Neglecting to: Evaluate usability for specified users, goals, and contexts through effectiveness, efficiency, and satisfaction. (P049)
-- Neglecting to: Build guide quality early and improve it iteratively with user involvement and pilot studies. (P064)
-- Neglecting to: Define a small, observable, product-relevant set of performance criteria before testing. (P084)
 
 ## References
 

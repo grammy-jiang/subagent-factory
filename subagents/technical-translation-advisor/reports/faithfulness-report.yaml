@@ -121,6 +121,17 @@ findings:
     give a next step — operationalises the sources'' audience-driven, purpose-led stance without adding
     claims. Grounded in principle(s): P002 (claims C00035, C00036, C00037); P014 (claims C00014, C00015,
     C00030); P015 (claims C00070, C00071, C00072).'
+- rule_ref: outputs.modes
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The advise/review/compare modes are output shapes for the same audience-driven advice — compare
+    lays options side by side and weights the choice by audience and the test question — and add no claim
+    beyond the sources'' contextual, purpose-led stance. Grounded in principle(s): P014 (claims C00014,
+    C00015, C00030); P015 (claims C00070, C00071, C00072); P039 (claims C00332, C00333, C00334).'
 - rule_ref: quality_bar[0]
   verdict: EXACT_SUPPORT
   distortion:
@@ -172,15 +183,17 @@ findings:
     P006 (claims C00235, C00236, C00237); P040 (claims C00362, C00363, C00365); P049 (claims C00248, C00249,
     C00250); P051 (claims C00390, C00391, C00392); P065 (claims C00415, C00425, C00426).'
 - rule_ref: quality_bar[5]
-  verdict: EXACT_SUPPORT
+  verdict: WITHIN_SCOPE
   distortion:
   - none
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'Honouring and escalating safety/legal/brand/style constraints is supported. Grounded in principle(s):
-    P081 (claims C00059, C00060, C00061); P102 (claims C00768, C00769, C00770); P117 (claims C00137, C00138);
-    P144 (claims C00812, C00813); P146 (claims C00820, C00821).'
+  note: 'Honouring safety, legal, brand and style constraints is supported; the escalate-on-source-deficiency
+    duty is scoped to safety-critical/warning content (P081), while style and brand constraints are honoured
+    (P102, P144) without a blanket escalation duty. Grounded in principle(s): P081 (claims C00059, C00060,
+    C00061); P102 (claims C00768, C00769, C00770); P117 (claims C00137, C00138); P144 (claims C00812,
+    C00813); P146 (claims C00820, C00821).'
 - rule_ref: forbidden_behaviours[0]
   verdict: EXACT_SUPPORT
   distortion:
@@ -230,6 +243,17 @@ findings:
   action: accept_with_note
   note: 'Not presenting an untested usability opinion as an evaluated finding is directly supported. Grounded
     in principle(s): P040 (claims C00362, C00363, C00365); P049 (claims C00248, C00249, C00250).'
+- rule_ref: forbidden_behaviours[5]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Not certifying, signing off, or declaring safety-critical/warning/legally-mandated content compliant,
+    correct, or safe — the advisor flags concerns and escalates; certification is the client''s compliance
+    process — is directly supported. Grounded in principle(s): P081 (claims C00059, C00060, C00061); P117
+    (claims C00137, C00138); P146 (claims C00820, C00821).'
 - rule_ref: handoff_rules[0]
   verdict: EXACT_SUPPORT
   distortion:
@@ -247,6 +271,23 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'Handing subject-matter accuracy, legal certification, and DTP/engineering to the owning specialist
-    follows from the sources'' division of remit. Grounded in principle(s): P078 (claims C00585, C00586,
-    C00587); P098 (claims C00686, C00687, C00688).'
+  note: 'Final legal/regulatory certification (the client''s compliance process) and heavy DTP/engineering
+    beyond the translator''s baseline file-handling competency being specialist work follows from the
+    sources: P078 sets the baseline competency (heavy work is beyond it), P098 the legal-specification
+    remit. Grounded in principle(s): P078 (claims C00585, C00586, C00587); P098 (claims C00686, C00687,
+    C00688).'
+- rule_ref: source_of_truth_policy.precedence
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The precedence order — target-user function governs a literal rendering at sentence/paragraph
+    level (moving whole chapters or sections still needs the client''s permission), a principle is an
+    adaptable guide not a fixed rule, no recommendation is stated more confidently than the source supports,
+    and safety or legally-mandated content is never weakened for style — restates the sources'' contextual,
+    audience-driven stance with their own hedges intact; a narrowing, not an over-claim. Grounded in principle(s):
+    P014 (claims C00014, C00015, C00030); P015 (claims C00070, C00071, C00072); P023 (claims C00001, C00002,
+    C00009); P046 (claims C00113, C00114, C00115); P081 (claims C00059, C00060, C00061); P133 (claims
+    C00745, C00746).'

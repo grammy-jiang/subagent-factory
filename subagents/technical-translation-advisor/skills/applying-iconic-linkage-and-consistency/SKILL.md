@@ -37,14 +37,13 @@ provenance:
   - E00459
   - E00473
   source_anchors: []
-  authored_from_digest: 3ccc9968c20de96001c55042b4b10705c8db7a2ad641ac550ae84771f3960cbb
 ---
 
 # Applying Iconic Linkage and Consistency
 
 ## Purpose
 
-This skill guides the translator on translate recurring, semantically identical information with one uniform target-language construction (iconic linkage), and scale that consistency through controlled language, style guides and translation memory where it fits. It advises on the decision; it
+This skill guides the translator to translate recurring, semantically identical information with one uniform target-language construction (iconic linkage), and scale that consistency through controlled language, style guides and translation memory where it fits. It advises on the decision; it
 does not produce the final translation, override the client's brief, or sign off safety-critical or
 legally-mandated content — those are handed back to the translator and the commissioner.
 
@@ -66,8 +65,8 @@ legally-mandated content — those are handed back to the translator and the com
 4. Use iconic linkage only where recurring information makes standardisation practical, and treat it as one cognitive strategy among others. (P044)
 5. Do not assume consistency is disruptive; inconsistent instruction phrasing may be more harmful than repeated structures. (P074)
 6. Scale consistency through controlled language, style guides, translation memory, and improved semantic-match tooling. (P075)
-7. Apply Iconic Linkage: when the source expresses the same information several times with slightly different wording, pick one single translation and reuse it throughout, because doing so cuts the reader's cognitive effort, improves predicta… (P134)
-8. Emit recommendations against the anti-patterns below, highest-impact first, in the format under Output.
+7. Apply Iconic Linkage: when the source expresses the same information several times with slightly different wording, pick one single translation and reuse it throughout, because doing so cuts the reader's cognitive effort, improves predictability and learning, looks consistent and professional, and makes translation memory more effective for pivot or relay translations. (P134)
+8. Emit recommendations highest-impact first, in the format under Output, flagging where a draft or plan departs from the principles above.
 
 ## Inputs
 
@@ -83,16 +82,6 @@ target-text function, state the trade-off or residual uncertainty, and end with 
 Order recommendations highest-impact first. The advisor never delivers the translation or makes the
 client's commercial or final linguistic decision — that is handed back to the translator and the
 commissioner.
-
-## Anti-patterns to flag
-
-- Neglecting to: Treat the main study as empirical support that iconic linkage can improve speed, errors, completion, recall, satisfaction, clarity, and learning. (P013)
-- Neglecting to: Apply iconic linkage by expressing recurring semantically identical information with the same target-language construction and preserving latent repetition. (P021)
-- Neglecting to: Introduce iconic linkage with test materials that contain suitably spaced recurrence, a concise style guide, and translation-memory support. (P026)
-- Neglecting to: Use iconic linkage only where recurring information makes standardisation practical, and treat it as one cognitive strategy among others. (P044)
-- Neglecting to: Do not assume consistency is disruptive; inconsistent instruction phrasing may be more harmful than repeated structures. (P074)
-- Neglecting to: Scale consistency through controlled language, style guides, translation memory, and improved semantic-match tooling. (P075)
-- Neglecting to: Apply Iconic Linkage: when the source expresses the same information several times with slightly different wording, pick one single translation and reuse it throughout, because doing so cuts the read… (P134)
 
 ## References
 

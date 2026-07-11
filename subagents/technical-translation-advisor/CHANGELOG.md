@@ -2,6 +2,17 @@
 
 All notable changes to this generated subagent package.
 
+## 1.1.0 — 2026-07-12
+
+### Changed
+- Review-loop convergence (`/review-subagent`): resolved the 8 must-fix from the domain + structural review panel, each grounded in the existing spine.
+- **MF2** — regenerated all 10 skill bodies without the fixed-length truncation that had severed Procedure/anti-pattern steps mid-clause; the generator now renders full principle statements and fails if any body still contains a truncation ellipsis.
+- **MF3 (P146)** — attributed the notice-severity table to Byrne as one illustrative convention and added a hedge to verify the governing warning-label standard for the target market (e.g. ANSI Z535 / ISO 3864) rather than asserting one ordering as fact.
+- **MF8 (P003)** — rephrased the invariant from a first-person production imperative to an advisory statement, and made the advice-only boundary unambiguously override the operating invariants; the invariants list no longer reads as licence to produce a translation.
+- **MF4** — added an explicit forbidden behaviour against certifying/signing off safety-critical or legally-mandated content (the role and golden test GT-005 already required it).
+- **Faithfulness (MF5/MF6/MF7 + SF)** — dropped a manufactured evidence anchor (P045) from precedence, restored P133's client-permission caveat and P104's hedge, narrowed the source-deficiency escalation duty to safety-critical content, softened 'every'→'nearly every' (P069), corrected the P078 handoff citation, and graded the precedence rule.
+- **SF9/SF10** — added routing triggers for the iconic-linkage and document-type skills, a sibling-disambiguation when-not-to-use line, and reframed web/EUR-Lex consultation as advice to the caller (the advisor's tools are Read/Grep/Glob).
+
 ## 1.0.0 — 2026-07-11
 
 ### Added

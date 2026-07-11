@@ -42,8 +42,18 @@ def first_sentence(text: str, limit: int = 240) -> str:
     m = re.search(r"(?<=[a-z0-9\)])\.(?:\s|$)", text)
     s = text[: m.start() + 1] if m else text
     if len(s) > limit:
-        s = s[: limit - 1].rstrip() + "…"
+        # truncate on a word boundary so we never sever a word mid-character
+        s = s[:limit].rsplit(" ", 1)[0].rstrip(" ,;:—-") + "…"
     return s
+
+
+def full_statement(pid: str) -> str:
+    """The complete, whitespace-normalised principle statement — no truncation.
+
+    Procedure steps are the recipe the agent executes, so they must render the whole
+    principle, never a fixed-length slice (which previously severed steps mid-clause).
+    """
+    return " ".join(P[pid]["statement"].split())
 
 
 def skill_claims(pids: list[str], cap: int = 12) -> list[str]:
@@ -116,18 +126,17 @@ def write_skill(slug: str, meta: dict) -> None:
     when = applies_when_bullets(pids)
     proc_steps = []
     for i, pid in enumerate(pids, 1):
-        proc_steps.append(f"{i}. {first_sentence(P[pid]['statement'])} ({pid})")
+        proc_steps.append(f"{i}. {full_statement(pid)} ({pid})")
     proc_steps.append(
-        f"{len(pids) + 1}. Emit recommendations against the anti-patterns below, highest-impact "
-        "first, in the format under Output."
+        f"{len(pids) + 1}. Emit recommendations highest-impact first, in the format under Output, "
+        "flagging where a draft or plan departs from the principles above."
     )
-    anti = [f"- Neglecting to: {first_sentence(P[pid]['statement'], 200)} ({pid})" for pid in pids]
 
     body = f"""# {title}
 
 ## Purpose
 
-This skill guides the translator on {desc[0].lower() + desc[1:]} It advises on the decision; it
+This skill guides the translator to {desc[0].lower() + desc[1:]} It advises on the decision; it
 does not produce the final translation, override the client's brief, or sign off safety-critical or
 legally-mandated content — those are handed back to the translator and the commissioner.
 
@@ -153,10 +162,6 @@ target-text function, state the trade-off or residual uncertainty, and end with 
 Order recommendations highest-impact first. The advisor never delivers the translation or makes the
 client's commercial or final linguistic decision — that is handed back to the translator and the
 commissioner.
-
-## Anti-patterns to flag
-
-""" + "\n".join(anti) + f"""
 
 ## References
 
@@ -193,7 +198,7 @@ def write_reference_index() -> None:
     for s, meta in SKILLS.items():
         parts.append(f"\n## {meta['title']}\n\n_Skill: `{s}`_\n")
         for pid in meta["principles"]:
-            parts.append(f"- **{pid}** ({P[pid]['confidence']}): {first_sentence(P[pid]['statement'], 300)}")
+            parts.append(f"- **{pid}** ({P[pid]['confidence']}): {full_statement(pid)}")
     (BASE / "references").mkdir(exist_ok=True)
     (BASE / "references" / f"{slug}.md").write_text(
         f"---\n{fm_yaml}---\n\n" + "\n".join(parts) + "\n", encoding="utf-8"
@@ -280,6 +285,11 @@ FAITH = [
      "The advice format — name the principle, tie to audience/brief/function, state the trade-off, give "
      "a next step — operationalises the sources' audience-driven, purpose-led stance without adding claims.",
      ["P002", "P014", "P015"]),
+    ("outputs.modes", "WITHIN_SCOPE",
+     "The advise/review/compare modes are output shapes for the same audience-driven advice — compare "
+     "lays options side by side and weights the choice by audience and the test question — and add no "
+     "claim beyond the sources' contextual, purpose-led stance.",
+     ["P014", "P015", "P039"]),
     ("quality_bar[0]", "EXACT_SUPPORT", "Audience/tasks/brief-driven decisions are directly supported.",
      ["P002", "P020", "P024", "P069", "P121"]),
     ("quality_bar[1]", "EXACT_SUPPORT", "Strategy from situation and text type, not maxims, is supported.",
@@ -290,7 +300,10 @@ FAITH = [
      ["P093", "P094", "P098", "P103", "P104"]),
     ("quality_bar[4]", "EXACT_SUPPORT", "Grounding usability claims in evaluation, not design confidence, is supported.",
      ["P006", "P040", "P049", "P051", "P065"]),
-    ("quality_bar[5]", "EXACT_SUPPORT", "Honouring and escalating safety/legal/brand/style constraints is supported.",
+    ("quality_bar[5]", "WITHIN_SCOPE",
+     "Honouring safety, legal, brand and style constraints is supported; the escalate-on-source-"
+     "deficiency duty is scoped to safety-critical/warning content (P081), while style and brand "
+     "constraints are honoured (P102, P144) without a blanket escalation duty.",
      ["P081", "P102", "P117", "P144", "P146"]),
     ("forbidden_behaviours[0]", "EXACT_SUPPORT",
      "The commission and delivery rest with the commissioner; refusing to sign off or decide commercially is supported.",
@@ -307,13 +320,26 @@ FAITH = [
     ("forbidden_behaviours[4]", "EXACT_SUPPORT",
      "Not presenting an untested usability opinion as an evaluated finding is directly supported.",
      ["P040", "P049"]),
+    ("forbidden_behaviours[5]", "EXACT_SUPPORT",
+     "Not certifying, signing off, or declaring safety-critical/warning/legally-mandated content "
+     "compliant, correct, or safe — the advisor flags concerns and escalates; certification is the "
+     "client's compliance process — is directly supported.",
+     ["P081", "P117", "P146"]),
     ("handoff_rules[0]", "EXACT_SUPPORT",
      "The brief, commercial decision, and final linguistic sign-off belong to the client/commissioner.",
      ["P056", "P090", "P121"]),
     ("handoff_rules[1]", "WITHIN_SCOPE",
-     "Handing subject-matter accuracy, legal certification, and DTP/engineering to the owning specialist "
-     "follows from the sources' division of remit.",
+     "Final legal/regulatory certification (the client's compliance process) and heavy DTP/engineering "
+     "beyond the translator's baseline file-handling competency being specialist work follows from the "
+     "sources: P078 sets the baseline competency (heavy work is beyond it), P098 the legal-specification remit.",
      ["P078", "P098"]),
+    ("source_of_truth_policy.precedence", "WITHIN_SCOPE",
+     "The precedence order — target-user function governs a literal rendering at sentence/paragraph level "
+     "(moving whole chapters or sections still needs the client's permission), a principle is an adaptable "
+     "guide not a fixed rule, no recommendation is stated more confidently than the source supports, and "
+     "safety or legally-mandated content is never weakened for style — restates the sources' contextual, "
+     "audience-driven stance with their own hedges intact; a narrowing, not an over-claim.",
+     ["P014", "P015", "P023", "P046", "P081", "P133"]),
 ]
 
 
@@ -461,6 +487,19 @@ GOLDEN = [
                   "Scale consistency with controlled language / style guide / TM"],
          must_not_do=["Recommend varying identical instructions purely for stylistic elegance"],
          principle_coverage=["P021", "P134", "P074", "P075"]),
+    dict(test_id="GT-007", description="Positive routing — compare options (compare mode)",
+         prompt="Should we evaluate our translated user guide with an expert analytical review or a "
+                "task-based user test? Compare the two options for our situation.",
+         expected_route="invoke", expected_mode="compare",
+         minimum_output="A side-by-side of what each evaluation method favours and costs "
+                        "(analytical/inspection vs empirical/task-based), chosen from the test "
+                        "question, ending in an audience- and usability-weighted recommendation.",
+         must_do=["Lay out what each option favours and costs, side by side",
+                  "Choose the method from the test question (formative/summative, analytical/empirical)",
+                  "Weight the recommendation by audience and usability, and ground it in named principles"],
+         must_not_do=["Present an untested opinion as an evaluated finding",
+                      "Recommend one option without stating the trade-off it carries"],
+         principle_coverage=["P039", "P040", "P041", "P049", "P084"]),
 ]
 
 NEGATIVE = [
@@ -510,8 +549,8 @@ def write_golden() -> None:
     doc = {
         "schema_version": "golden-tests-v1",
         "subagent_slug": SLUG,
-        "generated_at": "2026-07-11",
-        "profile_version": "1.0.0",
+        "generated_at": "2026-07-12",
+        "profile_version": "1.1.0",
         "tier": 2,
         "golden_tests": GOLDEN,
         "negative_routing_tests": NEGATIVE,
@@ -555,6 +594,17 @@ def write_provenance() -> None:
         lines.append(f"| {s} | {len(meta['principles'])} | {', '.join(meta['principles'])} |")
     lines += [
         "\n## Version history\n",
+        "- **v1.1.0** (2026-07-12): Review-loop convergence via `/review-subagent` — resolved the 8 "
+        "must-fix from the review panel (structural lenses + documentation-as-code + ux-design, plus "
+        "the translation-equivalence and descriptive-translation domain lenses at adversarial verify), "
+        "each grounded in the existing spine: regenerated all 10 skill bodies without the fixed-length "
+        "truncation (MF2); attributed the P146 notice-severity table to Byrne and hedged to the "
+        "governing warning-label standard (MF3); rephrased invariant P003 from a production imperative "
+        "to advisory (MF8); added an explicit safety/legal sign-off forbidden behaviour (MF4); dropped "
+        "a manufactured evidence anchor (P045) from precedence (MF5), narrowed the source-deficiency "
+        "escalation to safety-critical content (MF6), and restored P133's client-permission caveat "
+        "(MF7). Also graded the precedence rule in the faithfulness report and corrected the P078 "
+        "handoff citation. Supersedes — does not delete — the v1.0.0 decisions below.",
         "- **v1.0.0** (2026-07-11): Initial LLM-authored layer (profile, faithfulness, 10 skills, "
         "2 references, tests, adapter) derived from the deterministically-valid 2-source, "
         f"{len(PRIN)}-principle distilled spine. Rights: distillation-only; no verbatim source "
@@ -567,6 +617,28 @@ def write_changelog() -> None:
     (BASE / "CHANGELOG.md").write_text(
         "# Changelog — technical-translation-advisor\n\n"
         "All notable changes to this generated subagent package.\n\n"
+        "## 1.1.0 — 2026-07-12\n\n"
+        "### Changed\n"
+        "- Review-loop convergence (`/review-subagent`): resolved the 8 must-fix from the domain + "
+        "structural review panel, each grounded in the existing spine.\n"
+        "- **MF2** — regenerated all 10 skill bodies without the fixed-length truncation that had "
+        "severed Procedure/anti-pattern steps mid-clause; the generator now renders full principle "
+        "statements and fails if any body still contains a truncation ellipsis.\n"
+        "- **MF3 (P146)** — attributed the notice-severity table to Byrne as one illustrative "
+        "convention and added a hedge to verify the governing warning-label standard for the target "
+        "market (e.g. ANSI Z535 / ISO 3864) rather than asserting one ordering as fact.\n"
+        "- **MF8 (P003)** — rephrased the invariant from a first-person production imperative to an "
+        "advisory statement, and made the advice-only boundary unambiguously override the operating "
+        "invariants; the invariants list no longer reads as licence to produce a translation.\n"
+        "- **MF4** — added an explicit forbidden behaviour against certifying/signing off "
+        "safety-critical or legally-mandated content (the role and golden test GT-005 already required it).\n"
+        "- **Faithfulness (MF5/MF6/MF7 + SF)** — dropped a manufactured evidence anchor (P045) from "
+        "precedence, restored P133's client-permission caveat and P104's hedge, narrowed the "
+        "source-deficiency escalation duty to safety-critical content, softened 'every'→'nearly every' "
+        "(P069), corrected the P078 handoff citation, and graded the precedence rule.\n"
+        "- **SF9/SF10** — added routing triggers for the iconic-linkage and document-type skills, a "
+        "sibling-disambiguation when-not-to-use line, and reframed web/EUR-Lex consultation as advice "
+        "to the caller (the advisor's tools are Read/Grep/Glob).\n\n"
         "## 1.0.0 — 2026-07-11\n\n"
         "### Added\n"
         "- Initial LLM-authored layer over the deterministically-valid distilled spine "
@@ -587,6 +659,11 @@ def write_changelog() -> None:
 if __name__ == "__main__":
     for slug, meta in SKILLS.items():
         write_skill(slug, meta)
+    # MF2 regression guard: no skill body may carry a fixed-length truncation ellipsis.
+    for slug in SKILLS:
+        _body = (BASE / "skills" / slug / "SKILL.md").read_text(encoding="utf-8")
+        if "…" in _body:
+            raise SystemExit(f"FAIL: skill {slug} still contains a truncation ellipsis")
     write_reference_index()
     write_reference_evidence()
     write_faithfulness()
