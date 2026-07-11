@@ -324,9 +324,9 @@ FAITH = [
     ("forbidden_behaviours[5]", "WITHIN_SCOPE",
      "Not certifying/signing off safety-critical or legally-mandated content as compliant or safe — the "
      "advisor flags and escalates. The safety-content duty is grounded in P081/P117/P146; the "
-     "ownership-of-certification half rests on the commissioner's sign-off remit (P090). A within-scope "
-     "narrowing of the sources' division of authority, not an over-claim.",
-     ["P081", "P090", "P117", "P146"]),
+     "certification-is-the-client's-process half rests on the regulatory-compliance remit (P098, the same "
+     "citation handoff_rules uses for that claim). A within-scope narrowing, not an over-claim.",
+     ["P081", "P098", "P117", "P146"]),
     ("handoff_rules[0]", "EXACT_SUPPORT",
      "The brief, commercial decision, and final linguistic sign-off belong to the client/commissioner.",
      ["P056", "P090", "P121"]),
@@ -336,13 +336,14 @@ FAITH = [
      "sources: P078 sets the baseline competency (heavy work is beyond it), P098 the legal-specification remit.",
      ["P078", "P098"]),
     ("source_of_truth_policy.precedence", "WITHIN_SCOPE",
-     "The precedence order — target-user function governs for instrumental/functional-priority text, "
-     "while documentary translations and form-priority text types keep literal fidelity as the governing "
-     "function (P035, P089); reorder freely within sentences/paragraphs/chapters but a whole chapter or "
-     "section as a block needs the client's permission (P133); a principle is an adaptable guide not a "
-     "fixed rule (P014, P046); no recommendation exceeds its source support (P015); safety/legally-"
-     "mandated content is never weakened for style (P081) — restates the sources' contextual stance with "
-     "their hedges intact; a narrowing, not an over-claim.",
+     "The precedence order — for instrumental and denotational/functional-priority text, target-user "
+     "function governs and denotational meaning/usability is preserved over literal wording (P023, P089); "
+     "documentary and form-priority text keep literal or form fidelity as the governing function (P035, "
+     "P089); reorder freely within sentences/paragraphs/chapters but a whole chapter or section as a block "
+     "needs the client's permission, at minimum informing them (P133); a principle is an adaptable guide "
+     "not a fixed rule (P014, P046); no recommendation exceeds its source support (P015); "
+     "safety/legally-mandated content is never weakened for style (P081) — restates the sources' "
+     "contextual stance with their hedges intact; a narrowing, not an over-claim.",
      ["P014", "P015", "P023", "P035", "P046", "P081", "P089", "P133"]),
     # knowledge_partition.always_on — the load-bearing runtime rules. Each bullet is a faithful summary
     # of its skill's principles (no clause strengthened beyond its cited principle); graded so the
