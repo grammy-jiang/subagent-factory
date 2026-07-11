@@ -2,9 +2,9 @@
 # Per-rule claim-strength check of load-bearing profile rules against the promoted principles
 # and their backing claims/evidence. No rule is stronger than its evidence.
 #
-# Grounding convention (v1.0.3): each note names the PRINCIPAL principle(s) that ground the rule's
-# content, chosen to match that rule's subject (not a uniform template). Where a rule tags more
-# principles than the note lists, the note is REPRESENTATIVE — the rule's full principle set is
+# Grounding convention (profile v1.0.3): each note names the PRINCIPAL principle(s) that ground the
+# rule's content, chosen to match that rule's subject (not a uniform template). Where a rule tags
+# more principles than the note lists, the note is REPRESENTATIVE — the rule's full principle set is
 # carried in its profile `(Pxxx)` tag list and partitioned across the eight skills (see
 # provenance-ledger.md "Profile -> principle mapping"). Pure scope / role / input-output-shape and
 # advisory-boundary rules (e.g. "the reviewer does not make the decision or produce the forecast")
@@ -12,6 +12,33 @@
 # principle over-claim; where such a rule echoes principle content, that grounding is named.
 # source_anchors are omitted deliberately — provenance is carried in each note via principle + claim
 # IDs, which resolve into principles.yaml (P###) and analysis/claims.jsonl (C#####).
+#
+# Independent re-verification pass (this revision): every principle_id cited below was confirmed to
+# exist in principles.yaml and to thematically support its rule, and every cited claim_id was read
+# directly from analysis/claims.jsonl (the claim's own statement text, not recalled) to confirm it
+# actually contains the language attributed to it — a principle's derived_from_claims list can bundle
+# claims on unrelated sub-topics from the same source section, so list-membership alone is not proof
+# of on-topic support. Four claim_id mis-citations were found and corrected; in every case the
+# principle-level grounding was already correct, only the specific claim_id evidence was wrong:
+#   - forbidden_behaviours[2]: P025 -> C01801 (+C01800), not C00992/C00993 (P025's own claims about
+#     the unrelated wrong-side-of-maybe fallacy).
+#   - when_to_use[1]: P065 -> C01364, not C01339/C01340 (P065's own claims about problem scorability
+#     and causal methods for unique events, not the discrimination/calibration dimensions).
+#   - handoff_rules[1]: P037 -> C01734, not C01397/C01398 (P037's own claims about stable-system
+#     base rates and reputational fragility, not the marketplace-of-ideas claim).
+#   - knowledge_partition.always_on[3]: P012 -> C01126/C01128, not C00984/C01034 (P012's own claims
+#     about post-surprise hindsight narratives and accountability metrics, not steering
+#     under-/overreaction in small increments).
+# forbidden_behaviours[2] and [3] additionally had a verdict/field mismatch: both were WITHIN_SCOPE
+# with a note declaring the prior hedge-removed/flat-ban distortion already fixed in profile.yaml,
+# yet still carried distortion: [hedge_removed], severity: medium, and action: add_condition — the
+# fields for an UNRESOLVED finding still awaiting an owner fix. Since the condition is already
+# present in profile.yaml's rule text (verified against profile.yaml directly), these are corrected
+# to distortion: [none], severity: low, action: accept_with_note, matching the convention this
+# report uses elsewhere for a verified, already-resolved mis-attribution. No rule_ref, verdict, or
+# principle_id changed as a result of this pass; only claim_id citations and the two
+# distortion/severity/action fields were corrected. All 35 rule_refs below were re-checked for
+# resolution against profile.yaml (list lengths, mode names, dotted paths) and all resolve.
 schema_version: faithfulness-report-v1
 subagent_slug: calibration-forecasting-reviewer
 findings:
@@ -47,12 +74,16 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'Trigger: scoring a forecast against a baseline with the right proper rule and a
+  note: >-
+    Trigger: scoring a forecast against a baseline with the right proper rule and a
     calibration/resolution decomposition. Grounded in the scoring principles — calibration AND
     resolution via a proper (Brier) score (P015 claims C00996/C00998), read only against a named
     baseline on a level playing field (P059 claims C01001/C01002), proper scoring + the betting test
-    (P075 claims C01291/C01299), discrimination + calibration (P065 claims C01339/C01340). A
-    within-scope restatement.'
+    (P075 claims C01291/C01299), discrimination + calibration (P065 claims C01364). A within-scope
+    restatement. (Corrected in this pass: the prior cite for the P065 clause, claims
+    C01339/C01340, are P065's own claims about problem-tractability and causal methods for a unique
+    non-occurring event, not the discrimination/calibration-dimensions statement; C01364 is the
+    claim that actually states it, near-verbatim.)
 - rule_ref: when_to_use[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -266,33 +297,52 @@ findings:
 - rule_ref: forbidden_behaviours[2]
   verdict: WITHIN_SCOPE
   distortion:
-  - hedge_removed
+  - none
   support_granularity: section
-  severity: medium
-  action: add_condition
-  note: 'The narrative-over-calculus ban is high-confidence and unqualified — do not read vividness,
-    fame, or one "great call" as accuracy (P072 claims C01723/C01726; P021 claims C01013/C01016; P020
-    claims C00588/C00685). But P025 and P086 are GRADUATED, not flat: P025 penalizes the "almost
+  severity: low
+  action: accept_with_note
+  note: >-
+    The narrative-over-calculus ban is high-confidence and unqualified — do not read vividness,
+    fame, or one "great call" as accuracy (P072 claims C01723/C01726; P021 claims C01013/C01016;
+    P020 claims C00588/C00685). P025 and P086 are GRADUATED, not flat: P025 penalizes the "almost
     right" excuse *in proportion to how rarely the same forecaster admits being merely lucky when
-    right* (claims C00992/C00993), and P086 grants *only a small fraction of the credit* discounted by
-    selective invocation (claims C01813) — not zero credit. The rule was reworded from a flat ban on
-    "scoring almost right / off on timing as success" to forbidding scoring it as FULL (rather than
-    proportionally discounted) success, so the P025/P086 clause now carries its source hedge and
-    matches the proportional wording in always_on[7]. P083 (off-on-timing as a red flag, claims
-    C01522) is unqualified and directly supports its clause. No longer a hedge-removed over-claim.'
+    right* (claims C01800/C01801), and P086 grants *only a small fraction of the credit* discounted
+    by selective invocation (claims C01813) — not zero credit. The rule was reworded from a flat ban
+    on "scoring almost right / off on timing as success" to forbidding scoring it as FULL (rather
+    than proportionally discounted) success, so the P025/P086 clause now carries its source hedge
+    and matches the proportional wording in always_on[7]. P083 (off-on-timing as a red flag, claims
+    C01522) is unqualified and directly supports its clause. No longer a hedge-removed over-claim.
+    (Corrected in this pass, two issues: (1) claim citation — the prior cite for the P025 clause,
+    claims C00992/C00993, are P025's own claims about the unrelated wrong-side-of-maybe fallacy, not
+    the "almost right"/proportional-discount statement; C01800/C01801 are the claims that actually
+    state it, C01801 near-verbatim so. (2) field consistency — this finding was WITHIN_SCOPE with a
+    note declaring the fix already applied in profile.yaml, yet still carried distortion:
+    [hedge_removed], severity: medium, and action: add_condition, the state for an unresolved
+    finding still awaiting an owner fix. Since the condition is already present in profile.yaml's
+    rule text — "as full rather than proportionally discounted success" — verified directly, the
+    fields now read distortion: [none], severity: low, action: accept_with_note, matching the
+    convention this report uses elsewhere, e.g. when_to_use[3] and forbidden_behaviours[0], for a
+    verified, already-resolved mis-attribution.)
 - rule_ref: forbidden_behaviours[3]
   verdict: WITHIN_SCOPE
   distortion:
-  - hedge_removed
+  - none
   support_granularity: section
-  severity: medium
-  action: add_condition
-  note: 'P059 (baseline-relative scoring, claims C01001/C01002) and P035 (nonfalsifiable-parity
-    adjustment, claims C01488/C01495) are high-confidence and support an unqualified prohibition. P031
-    (granularity theatre, medium, claims C01100/C01102) only guards granularity NOT validated against
-    real frequencies — it does not forbid granularity as such. Condition added to the rule ("where
-    finer distinctions have not been validated against real frequencies") so the P031 clause carries
-    its source hedge and is no longer a flat ban.'
+  severity: low
+  action: accept_with_note
+  note: >-
+    P059 (baseline-relative scoring, claims C01001/C01002) and P035 (nonfalsifiable-parity
+    adjustment, claims C01488/C01495) are high-confidence and support an unqualified prohibition.
+    P031 (granularity theatre, medium, claims C01100/C01102) only guards granularity NOT validated
+    against real frequencies — it does not forbid granularity as such. The rule already carries the
+    needed condition — profile.yaml reads "granularity claimed as precision without validating that
+    finer distinctions track real frequencies" — so the P031 clause carries its source hedge and is
+    no longer a flat ban. (Corrected in this pass, field consistency: this finding was WITHIN_SCOPE
+    with a note declaring the fix already applied, yet still carried distortion: [hedge_removed],
+    severity: medium, and action: add_condition, the state for an unresolved finding still awaiting
+    an owner fix. Since the condition is already present in profile.yaml, verified directly, the
+    fields now read distortion: [none], severity: low, action: accept_with_note, matching the
+    convention this report uses elsewhere for a verified, already-resolved mis-attribution.)
 - rule_ref: handoff_rules[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -312,11 +362,15 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'Handoff/scope boundary: concerns outside calibration and forecasting reasoning go to the
-    owning specialist. The adjacent topics named as handed off — organizational accountability of
-    prediction (P037 claims C01397/C01398) and forecasting-process/aggregation design (P044 claims
+  note: >-
+    Handoff/scope boundary: concerns outside calibration and forecasting reasoning go to the owning
+    specialist. The adjacent topics named as handed off — organizational accountability of
+    prediction (P037 claims C01734) and forecasting-process/aggregation design (P044 claims
     C01557/C01558) — are their domain, but the handoff itself is a scope design decision, not an
-    over-claim.'
+    over-claim. (Corrected in this pass: the prior cite for the P037 clause, claims C01397/C01398,
+    are P037's own claims about stable-system base-rate predictability and the fragility of a
+    reputation for genius, not the marketplace-of-ideas-does-not-self-correct statement; C01734 is
+    the claim that actually states it, near-verbatim.)
 - rule_ref: knowledge_partition.always_on[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -364,11 +418,17 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'Bayesian-updating rule. Move in small increments sized to diagnosticity via likelihood-ratio
+  note: >-
+    Bayesian-updating rule. Move in small increments sized to diagnosticity via likelihood-ratio
     times prior-odds, do not read slow rational updating as irrationality, estimate against the
-    strongest rival, watch asymmetric updating, and make the residual probability explicit — all held
-    at the sources'' evidenced scope, no correction stated as certainty. Grounded in principle(s): P022
-    (claims C01145/C01146); P012 (claims C00984/C01034); P080 (claims C00513).'
+    strongest rival, watch asymmetric updating, and make the residual probability explicit — all
+    held at the sources' evidenced scope, no correction stated as certainty. Grounded in
+    principle(s): P022 (claims C01145/C01146); P012 (claims C01126/C01128); P080 (claims C00513).
+    (Corrected in this pass: the prior cite for the P012 clause, claims C00984/C01034, are P012's
+    own claims about post-surprise hindsight narratives and the need for accountability metrics, not
+    the steer-between-under-/overreaction-in-small-increments statement; C01126/C01128 are the
+    claims that actually state it — hunting subtle diagnostic lead indicators and steering between
+    under- and overreaction.)
 - rule_ref: knowledge_partition.always_on[4]
   verdict: WITHIN_SCOPE
   distortion:

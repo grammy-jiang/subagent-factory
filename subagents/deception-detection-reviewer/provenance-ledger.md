@@ -60,6 +60,15 @@ weigh, not doctrine.
 
 ## Version History
 
+### v1.0.3 — 2026-07-11
+
+Residual-fix phase + independent faithfulness verification. Restored the reviewer-only authority
+boundary and P004's `applies_when` on `always_on[3]` (H1/H2/H3). Faithfulness corrections:
+`quality_bar[5]` P037→P018 (the staged-sabotage "surviving evidence" clause is P018's content, not
+P037's exfiltration-channel content); `handoff_rules[1]` P042→P006 (delegation-by-specialism), with
+the handed-off scope extended to the review's own process/approval-routing quality. Prior decisions
+below are retained (supersession rule).
+
 ### v1.0.2 — 2026-07-11
 R2 remediation. Weakened four rules to their source support without adding any claim: restored P035's
 "where it can be avoided" qualifier on the irrevocable-act rule (`always_on[5]`, `quality_bar[4]`),
