@@ -1,0 +1,161 @@
+schema_version: faithfulness-report-v1
+subagent_slug: xv6-kernel-internals-reviewer
+
+# Tier-1 faithfulness review of profile.yaml v0.3.0 rules against
+# evidence/evidence-records.yaml and principles/principles.yaml (pr-001..pr-012).
+# Five-level scale: EXACT_SUPPORT -> WITHIN_SCOPE -> SCOPE_BROADENED ->
+# HEDGING_REMOVED -> CONTRADICTED. No CONTRADICTED or unsupported rules.
+# Three over-claims found in the first pass (quality_bar[2], forbidden_behaviours[2],
+# always_on[1]) were resolved in-place by adding the principles' does_not_apply_when
+# scope qualifiers; they are recorded here with action add_condition.
+
+findings:
+  - rule_ref: role
+    verdict: WITHIN_SCOPE
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Role scopes the reviewer to xv6 internals and the evidence-backed principles
+      pr-001..pr-012; matches the source's coverage.
+
+  - rule_ref: knowledge_partition.always_on[0]
+    verdict: WITHIN_SCOPE
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Isolation + ecall/trap framing traces to pr-001/pr-002, both EXACT-supported
+      by evidence records.
+
+  - rule_ref: knowledge_partition.always_on[1]
+    verdict: HEDGING_REMOVED
+    distortion:
+      - hedge_removed
+    support_granularity: section
+    severity: medium
+    action: add_condition
+    note: >-
+      Original phrasing applied the concurrency discipline "whenever kernel code
+      touches shared state", dropping pr-006/pr-007 does_not_apply_when carve-outs
+      (sleep-lock sections, amoswap outside lock primitives, very short critical
+      sections). Resolved: narrowed the trigger to "acquires or evaluates locks on
+      shared state" and re-attached the pr-006/pr-007 scope carve-outs.
+
+  - rule_ref: knowledge_partition.always_on[2]
+    verdict: WITHIN_SCOPE
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Filesystem correctness frame traces to pr-010/pr-011/pr-012; includes the
+      stated orphan-inode limitation rather than over-promising recovery.
+
+  - rule_ref: quality_bar[0]
+    verdict: EXACT_SUPPORT
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Traceability requirement mirrors the evidence protocol; not an over-claim.
+
+  - rule_ref: quality_bar[1]
+    verdict: WITHIN_SCOPE
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Concurrency-invariant checklist enumerates pr-004..pr-008 within their stated
+      scope.
+
+  - rule_ref: quality_bar[2]
+    verdict: SCOPE_BROADENED
+    distortion:
+      - scope_broadened
+    support_granularity: section
+    severity: medium
+    action: add_condition
+    note: >-
+      Original "a trap or isolation claim traces the full uservec/... sequence"
+      applied pr-002 to kernel-only traps, which pr-002 explicitly exempts
+      (kernel-only traps that never touch user page tables). Resolved: re-scoped to
+      "a trap-from-user-space or isolation claim" and noted the exemption.
+
+  - rule_ref: quality_bar[3]
+    verdict: WITHIN_SCOPE
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Filesystem/crash-recovery checks map to pr-010/pr-011/pr-012 as stated.
+
+  - rule_ref: quality_bar[4]
+    verdict: EXACT_SUPPORT
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      "Never present xv6 as production-grade" matches the source's repeated
+      real-world caveats.
+
+  - rule_ref: forbidden_behaviours[0]
+    verdict: EXACT_SUPPORT
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Source is explicit that xv6 simplifies for teaching (e.g. all processes run
+      as root); flagging such gaps is exactly supported (pr-001).
+
+  - rule_ref: forbidden_behaviours[1]
+    verdict: WITHIN_SCOPE
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Prohibition on inventing absent mechanisms (COW fork, demand paging, orphan
+      recovery) is within scope; pr-012 supports the orphan-inode case. Principle
+      citation pr-002 is imprecise but the behaviour is faithful.
+
+  - rule_ref: forbidden_behaviours[2]
+    verdict: SCOPE_BROADENED
+    distortion:
+      - scope_broadened
+    support_granularity: section
+    severity: medium
+    action: add_condition
+    note: >-
+      Original forbade approving code that "omits a required memory barrier or
+      push_off discipline (pr-006)" without qualification; pr-006 does_not_apply to
+      sleep-lock sections or amoswap used outside lock primitives. Resolved:
+      qualified to "in a spinlock critical section" and noted the carve-outs.
+
+  - rule_ref: forbidden_behaviours[3]
+    verdict: EXACT_SUPPORT
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Self-referential faithfulness rule ("no rule stronger than its source", e.g.
+      not "always use spinlocks") matches pr-007.
+
+  - rule_ref: outputs.modes.advise.output
+    verdict: WITHIN_SCOPE
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Anchors explanations to principles pr-001..pr-012; faithful.
+
+  - rule_ref: outputs.modes.review.output
+    verdict: WITHIN_SCOPE
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: Names invariants at risk and the grounding principle; within evidence.
+
+  - rule_ref: outputs.modes.compare.output
+    verdict: WITHIN_SCOPE
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Contrasts xv6 simplification vs production alternative; grounded in the
+      source's Real-world sections (real-world-os-comparisons reference).

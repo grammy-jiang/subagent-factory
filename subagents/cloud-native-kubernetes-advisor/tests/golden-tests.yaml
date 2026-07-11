@@ -1,0 +1,130 @@
+schema_version: golden-tests-v1
+subagent_slug: cloud-native-kubernetes-advisor
+generated_at: "2026-06-14"
+
+golden_tests:
+  - test_id: GT-001
+    description: >-
+      Positive routing — advise mode: managed-vs-self-hosted decision for a
+      startup engineering team on AWS.
+    prompt: >-
+      We are a startup with a 3-person engineering team deploying our first
+      production workload on AWS. We are deciding between running our own
+      Kubernetes cluster using kops and using Amazon EKS. What do you recommend?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: >-
+      A named recommendation (EKS or managed service over self-hosting) with
+      primary rationale referencing team size, control-plane operational burden,
+      and at least one specific trade-off.
+    must_not_do:
+      - >-
+        Recommend self-hosting without flagging the sustained operational
+        investment required across HA, security, upgrades, and monitoring.
+      - >-
+        Omit team size or ops headcount as a qualifying factor in the
+        recommendation.
+      - >-
+        Assert that managed service feature comparisons are current without
+        directing the team to verify against provider documentation.
+
+  - test_id: GT-002
+    description: >-
+      Positive routing — validate mode: production-readiness check for a
+      proposed self-managed cluster architecture.
+    prompt: >-
+      Our platform team plans to self-host Kubernetes on-prem using Kubespray.
+      We have designed 2 control-plane nodes and 6 worker nodes all in the same
+      data centre rack. We plan to use etcd on the control-plane nodes. Is this
+      production-ready?
+    expected_route: invoke
+    expected_mode: validate
+    must_ask_for: []
+    minimum_output: >-
+      A production-readiness assessment that explicitly identifies the 2-node
+      control-plane as insufficient for etcd quorum, recommends a minimum of 3
+      control-plane nodes, and flags single-rack placement as a failure-domain
+      risk.
+    must_not_do:
+      - >-
+        Approve the design without flagging the 2-node etcd quorum failure risk.
+      - >-
+        Omit the requirement for minimum 3 control-plane nodes for production HA.
+      - >-
+        Ignore worker-node failure-domain distribution as a production-readiness
+        criterion.
+
+  - test_id: GT-003
+    description: >-
+      Positive routing — produce mode: request for a minimal Dockerfile for a
+      Go service.
+    prompt: >-
+      Can you give me a minimal Dockerfile for a Go web service that I can use
+      as a starting point for our Kubernetes deployment?
+    expected_route: invoke
+    expected_mode: produce
+    must_ask_for: []
+    minimum_output: >-
+      A multi-stage Dockerfile that separates the build stage from the final
+      minimal image stage, with inline commentary explaining the multi-stage
+      pattern and a note that the artefact is a starting point for the team to
+      adapt.
+    must_not_do:
+      - >-
+        Produce a single-stage Dockerfile that includes the build toolchain in
+        the final image without noting the security and size trade-off.
+      - >-
+        Present the Dockerfile as a production-final artefact without marking
+        it as a starting point for adaptation.
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: >-
+      Negative routing — do not invoke for application source code debugging
+      request.
+    prompt: >-
+      My Go HTTP handler is returning a 500 error when parsing JSON request
+      bodies. Can you help me debug the JSON unmarshalling logic in my
+      application code?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >-
+      A clear statement that application source code debugging is outside scope,
+      with a note that this advisor covers infrastructure, operations, and
+      deployment rather than software feature development or code logic.
+    must_not_do:
+      - >-
+        Attempt to debug or rewrite the application source code.
+      - >-
+        Expand scope into software feature development to satisfy the request.
+
+missing_context_tests:
+  - test_id: MC-001
+    description: >-
+      Missing required input — advise mode called without infrastructure context
+      or team size; advisor must request before proceeding.
+    prompt: >-
+      Should we use managed Kubernetes or self-host?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for:
+      - >-
+        Target infrastructure context (cloud provider, on-prem, or hybrid) and
+        existing tooling ecosystem.
+      - >-
+        Team size and dedicated ops headcount to determine self-hosting viability.
+      - >-
+        Workload characteristics and production criticality to determine minimum
+        HA requirements.
+    minimum_output: >-
+      A clear statement of what context is needed before a recommendation can be
+      made, naming at least infrastructure context and team size as required
+      inputs.
+    must_not_do:
+      - >-
+        Issue a generic managed-service recommendation without first gathering
+        team size, infrastructure context, and workload criticality.
+      - >-
+        Proceed as if context was provided when it was not.

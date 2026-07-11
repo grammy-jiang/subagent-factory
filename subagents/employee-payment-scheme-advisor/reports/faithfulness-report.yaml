@@ -1,0 +1,414 @@
+schema_version: faithfulness-report-v1
+subagent_slug: employee-payment-scheme-advisor
+findings:
+- rule_ref: quality_bar[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0006
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Rule reproduces the source claim verbatim in substance. No hedging removed, no scope broadened.
+    | rule: Recommendations are grounded in the source''s evidence that scheme success is associated with
+    the extent of consultation about design and implementation, not ass | support: "success is associated
+    with the extent of consultation about the design and implementation of a scheme"'
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0006
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Previously SCOPE_BROADENED (v0.2.x). The revised rule now correctly restricts the "small effect"
+    qualifier to non-social environmental characteristics (terminology, market, location, size), and explicitly
+    notes that scheme structure is "not unimportant" — matching "This is not to say that the incentive
+    scheme itself is totally unimportant." The "decisive" claim for participation is supported by the
+    same paragraph. All three claim elements are grounded at sentence granularity. No remaining distortion.
+    | rule: Advice distinguishes the participative process, which the source shows is decisive, from non-social
+    environmental characteristics (terminology, market, location | support: "This is not to say that the
+    incentive scheme itself is totally unimportant. However … achieving a match between the payment system
+    and the expectations, motivations, patterns of inter-personal relati'
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0007
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Both named failure modes (subversion by groups pursuing other objectives; gradual decay/weakening
+    lower down the organisation) appear verbatim in the source section. No over-claim. | rule: Guidance
+    names the specific failure modes the source identifies: a scheme being modified or subverted by groups
+    pursuing other objectives, and the gradual decay | support: "a company''s strategic policy could be
+    modified or subverted by lower levels of management pursuing other goals and objectives … The gradual
+    weakening of a policy by individuals or groups pursuing oth'
+- rule_ref: quality_bar[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0016
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Rule is a direct paraphrase of the source claim without strengthening. | rule: Advice ties any
+    proposed payment mechanism to the productivity improvement produced by participation, treating extra
+    pay as a reward for performance rather than | support: "the extra pay is by way of being a reward
+    for the extra effort and improved performance resulting from the changes made by the participating
+    teams. It is not the extra pay which motivates the workfor'
+- rule_ref: quality_bar[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0010
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Source draws this boundary explicitly. Rule restates it without broadening. | rule: Recommendations
+    respect the boundary between issues suitable for participative team decision and issues that belong
+    to negotiation channels. | support: "Issues about which it is reasonable for the workforce to be involved
+    but on which management and the workforce are likely to disagree fundamentally are better left for
+    the normal channels of negotiat'
+- rule_ref: forbidden_behaviours[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0006
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Previously SCOPE_BROADENED (v0.2.x). The revised rule now explicitly names the non-social environmental
+    characteristics (terminology, market, location, size) as the demoted category, matching the source''s
+    parenthetical enumeration. It forbids treating technical structure as more decisive than participation
+    while preserving the "not totally unimportant" caveat from the source. All three claim elements are
+    grounded at sentence granularity. No remaining distortion. | rule: Do not credit a scheme''s non-social
+    environmental fit (terminology, market, location, size) as a primary driver of success, nor treat
+    its technical structure as | support: "This is not to say that the incentive scheme itself is totally
+    unimportant. However … achieving a match between the payment system and the expectations, motivations,
+    patterns of inter-personal relati'
+- rule_ref: forbidden_behaviours[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0016
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Rule is a precise paraphrase of the source. No distortion. | rule: Do not treat extra incentive
+    pay as the thing that motivates the workforce rather than as a reward for performance improvement
+    produced by participation. | support: "It is not the extra pay which motivates the workforce to improve
+    efficiency. It is a mistake to think of incentive pay as analogous to the petrol which drives an engine;
+    it is more like the oil which'
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0010
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Rule reproduces source instruction without over-claim. | rule: Do not bring into participative
+    team design those issues the source assigns to negotiation channels or on which management and workforce
+    fundamentally disagree. | support: "care should be taken to recognise any such issues and transfer
+    them as soon as possible or avoid bringing them into team discussions."'
+- rule_ref: forbidden_behaviours[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0009
+  - payment-systems-and-20260612115310-h0007
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Both conditions (top-level management commitment; operating systems and controls) are stated
+    as necessary in the source. Rule matches. | rule: Do not recommend a participative scheme without
+    the management commitment and operating controls the source identifies as necessary for it to make
+    its intended  | support: h0009: "The first requirement is for commitment to a programme of change
+    to be made at the top of the organisation." h0007: "without the necessary operating systems and controls,
+    schemes can fail to m'
+- rule_ref: forbidden_behaviours[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0005
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Scope fence derived from the subject matter of the entire source, which covers employee incentive/reward
+    schemes exclusively and never addresses transactional payment processing. Valid inference from source
+    scope; no factual over-claim. | rule: Do not advise on technical or financial payment-processing systems,
+    which are outside the employee-reward domain this source covers.'
+- rule_ref: outputs.modes[advise].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0009
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational routing condition. The source provides prescriptive guidance on how to design and
+    install a participative scheme; routing callers asking for that guidance to an "advise" mode is consistent
+    with the source purpose. No factual over-claim.
+- rule_ref: outputs.modes[advise].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0009
+  - payment-systems-and-20260612115310-h0016
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Promises prescriptive guidance naming participative actions and the participation-productivity-reward
+    link — both elements are drawn directly from the source. No over-claim.
+- rule_ref: outputs.modes[review].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0007
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational routing condition for reviewing an underperforming scheme against participation and
+    scheme-decay failure modes. Consistent with source content; no factual claim to assess.
+- rule_ref: outputs.modes[review].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0007
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Critique tied to named failure modes (subversion by groups with other objectives; gradual decay)
+    and weak operating controls — all present in h0007. No over-claim.
+- rule_ref: outputs.modes[validate].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0008
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Operational routing condition for checking a scheme against source success criteria before adoption.
+    Consistent with source purpose; no factual claim.
+- rule_ref: outputs.modes[validate].output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0008
+  - payment-systems-and-20260612115310-h0007
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Success criteria named (consultation; operating systems and controls) both come directly from
+    the source. No over-claim.
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0008
+  - payment-systems-and-20260612115310-h0009
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Consistent with the source''s stated purpose: managers introducing or redesigning a payment scheme
+    should consult and involve employees so the scheme improves productivity rather than being resisted.
+    No over-claim.'
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0007
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Diagnosing weak consultation, missing controls, and gradual subversion maps directly to the failure-mode
+    discussion in h0007. No over-claim.
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0010
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source describes establishing small cross-level groups of six to eight people from the same section/department
+    to tackle productivity problems. Rule restates this use case. No over-claim.
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0010
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source distinguishes decisions suitable for participative teams from those belonging to normal
+    negotiation channels. Rule reflects that boundary. No over-claim.
+- rule_ref: when_to_use[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0008
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Rule closely paraphrases this sentence. No over-claim. | support: "a company facing possible
+    closure can rally its staff and workforce through a system of involvement and consultation and turn
+    the company around from one with poor quality, unreliable delivery, high'
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0005
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Scope fence: the entire source addresses employee incentive/reward schemes. Excluding transactional
+    payment-processing is a valid inference from the source subject matter. Mirrors forbidden_behaviours[4].'
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0016
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: Source de-emphasises formula construction ("The simplest possible mechanism and links should be
+    devised"). Declining pure formula requests with no participation question is a valid scope inference,
+    not a factual over-claim.
+- rule_ref: when_not_to_use[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0010
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Rule is a direct paraphrase of the source sentence. No over-claim. | support: "Issues about which
+    it is reasonable for the workforce to be involved but on which management and the workforce are likely
+    to disagree fundamentally are better left for the normal channels of negotiat'
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0008
+  - payment-systems-and-20260612115310-h0009
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Operational output floor: name a participative action or failure mode from the source tied to
+    a productivity outcome. Consistent with source content; no factual over-claim.'
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0006
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Previously SCOPE_BROADENED (v0.2.x). The revised rule now correctly partitions the three elements:
+    (1) participation is decisive — supported by "success is associated with the extent of consultation";
+    (2) non-social environmental factors have only a small effect — supported by the source''s explicit
+    parenthetical "(such as terminology, market, location, and size)" paired with "do have a small effect
+    on results"; (3) scheme structure is not unimportant but less decisive than participation — supported
+    by "This is not to say that the incentive scheme itself is totally unimportant." All three claim elements
+    are grounded at sentence granularity against the source. No remaining distortion. | rule: The central
+    thesis that the success of an incentive payment scheme depends chiefly on the participative process
+    of consulting and involving employees in its des | support: "This is not to say that the incentive
+    scheme itself is totally unimportant. However … achieving a match between the payment system and the
+    expectations, motivations, patterns of inter-personal relati'
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0007
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Both failure modes appear verbatim in substance in the source. No over-claim. | rule: The two
+    principal failure modes for an incentive scheme: it being modified or subverted by individuals or
+    groups pursuing other objectives, and the gradual weak | support: "a company''s strategic policy could
+    be modified or subverted by lower levels of management pursuing other goals and objectives … The gradual
+    weakening of a policy by individuals or groups pursuing oth'
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0009
+  - payment-systems-and-20260612115310-h0016
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Rule is a direct paraphrase of these source sentences. No over-claim. | rule: The relationship
+    between participation, productivity, and pay, where participation produces the productivity improvement
+    and the payment system rewards that imp | support: h0009: "It is not the payment system which will
+    lead to improved productivity: a payment system can only reward productivity improvement." h0016:
+    "the extra pay is by way of being a reward for the ext'
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0010
+  support_granularity: heading
+  severity: low
+  action: accept_with_note
+  note: 'Rule is a close paraphrase combining both boundary sentences. No over-claim. | rule: The boundary
+    rule that participative team design covers methods of working, organisation of work, and efficiency,
+    while issues of fundamental management-workfor | support: "The area of operation for such a participative
+    approach includes all the issues associated with getting the work done more effectively — such as
+    methods of working, ways of organising work, systems f'
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0010
+  - payment-systems-and-20260612115310-h0017
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Source repeatedly affirms the manager retains authority and responsibility for the decision (h0010:
+    "The manager still has his authority and responsibility for the decision in the end"); handing recommendations
+    to managers is consistent with source framing. No factual over-claim.'
+- rule_ref: source_of_truth_policy.precedence
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  source_anchors:
+  - payment-systems-and-20260612115310-h0017
+  - payment-systems-and-20260612115310-h0010
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Source is framed as advisory throughout (h0017: "The blueprint outlined in this article … lead
+    us to believe that it is overwhelmingly a more effective approach"). Managers hold authority; this
+    advisor informs decisions. No over-claim.'

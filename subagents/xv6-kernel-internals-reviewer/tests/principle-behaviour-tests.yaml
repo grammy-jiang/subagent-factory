@@ -1,0 +1,206 @@
+schema_version: principle-behaviour-tests-v1
+
+# Behavioural tests for the xv6 Kernel Internals Reviewer.
+# Each high-confidence principle (pr-001..pr-012) is exercised by at least one
+# test that references it via principle_id. Prompts are paraphrased review
+# scenarios; the source ("xv6: a simple, Unix-like teaching operating system",
+# distillation-only) is never quoted verbatim. expected_behaviour and must_not
+# encode the reviewer behaviour the principle should drive.
+
+principle_behaviour_tests:
+
+  # ── pr-001: process isolation triple ──────────────────────────────────────
+  - test_id: PB-001
+    principle_id: pr-001
+    prompt: >
+      A change lets user code reach a kernel routine by jumping to a fixed
+      address instead of issuing ecall, "to save a few cycles on the syscall
+      path." Is this acceptable for isolation?
+    expected_behaviour:
+      - flags that the only legitimate privilege-boundary entry is the
+        kernel-controlled ecall path, not a user-reachable jump target
+      - states the process-isolation triple — mode flag, private page table,
+        time-sliced scheduling — must stay intact
+      - cites pr-001
+    must_not:
+      - approves a user-reachable kernel entry as a performance optimisation
+      - treats isolation as preserved merely because the code "works" in testing
+
+  # ── pr-002: full trap path from user space ────────────────────────────────
+  - test_id: PB-002
+    principle_id: pr-002
+    prompt: >
+      Explain what has to happen between a user program issuing a system call
+      and the kernel C handler running, and what restores user state afterward.
+    expected_behaviour:
+      - traces uservec saving registers to the trapframe and switching to the
+        kernel page table and stack, usertrap handling the cause, and
+        usertrapret/userret restoring state and executing sret
+      - notes the trampoline must be mapped at the same virtual address in every
+        address space so it runs before satp is switched
+      - cites pr-002
+    must_not:
+      - applies the user-space trap sequence to a kernel-only trap
+      - invents register or handler steps the mechanism does not perform
+
+  # ── pr-003: user-pointer validation ───────────────────────────────────────
+  - test_id: PB-003
+    principle_id: pr-003
+    prompt: >
+      A new system call receives a char* from user space and reads it directly
+      with a normal pointer dereference inside the kernel. Review it.
+    expected_behaviour:
+      - flags the direct dereference of a user-supplied pointer as a
+        privilege-escalation risk
+      - requires copyinstr/copyin to translate through the user page table and
+        bounds-check before any byte is read
+      - cites pr-003
+    must_not:
+      - accepts the direct dereference because the address "looks valid"
+      - confuses this with kernel-to-kernel pointer passing in one address space
+
+  # ── pr-004: locks cover multi-field invariants ────────────────────────────
+  - test_id: PB-004
+    principle_id: pr-004
+    prompt: >
+      A shared structure has two fields that must change together, but the code
+      takes one lock for the first field and a different lock for the second.
+      Any concern?
+    expected_behaviour:
+      - identifies that a single lock must cover the complete multi-field
+        invariant so no CPU observes a transiently violated state
+      - explains the split-lock arrangement exposes an inconsistent intermediate
+        state
+      - cites pr-004
+    must_not:
+      - approves per-field locking when the invariant spans both fields
+      - assumes the fields are independent without checking the invariant
+
+  # ── pr-005: global lock-ordering / deadlock ───────────────────────────────
+  - test_id: PB-005
+    principle_id: pr-005
+    prompt: >
+      One filesystem path takes the inode lock then the buffer lock; another new
+      path takes the buffer lock then the inode lock. Is this safe?
+    expected_behaviour:
+      - flags the inconsistent acquisition order as a potential deadlock
+      - requires all paths to follow one global lock order
+      - cites pr-005
+    must_not:
+      - dismisses the reversed order because each path "looks correct" alone
+      - proposes a timeout/retry hack instead of a consistent ordering
+
+  # ── pr-006: spinlock acquire/release discipline ───────────────────────────
+  - test_id: PB-006
+    principle_id: pr-006
+    prompt: >
+      Review a spinlock acquire that sets the locked flag first and then calls
+      push_off, with no memory barrier between setting the flag and entering the
+      critical section.
+    expected_behaviour:
+      - requires push_off strictly before the locked flag is set
+      - requires __sync_synchronize barriers in both acquire and release to stop
+        reordering across the critical-section boundary
+      - cites pr-006
+    must_not:
+      - applies this spinlock discipline to a sleep-lock section
+      - approves the missing barrier as harmless on a single core
+
+  # ── pr-007: sleep-lock vs spinlock choice ─────────────────────────────────
+  - test_id: PB-007
+    principle_id: pr-007
+    prompt: >
+      A driver holds a spinlock across a disk transfer that can take many
+      milliseconds. Is a spinlock the right choice here?
+    expected_behaviour:
+      - flags holding a spinlock across a long blocking operation as a busy-wait
+        hazard
+      - recommends a sleep-lock for long-held / blocking waits, while noting
+        sleep-locks must not be used in interrupt handlers or inside spinlock
+        critical sections
+      - cites pr-007
+    must_not:
+      - recommends "always use spinlocks" regardless of operation duration
+      - suggests a sleep-lock inside an interrupt handler
+
+  # ── pr-008: sleep/wakeup lost-wakeup avoidance ────────────────────────────
+  - test_id: PB-008
+    principle_id: pr-008
+    prompt: >
+      A consumer checks a condition, releases the lock, then calls sleep; it also
+      calls sleep once with a plain if, not a loop. Review the wait logic.
+    expected_behaviour:
+      - identifies the lost-wakeup window — the lock must be held through the
+        condition check and passed to sleep so it is released atomically on entry
+      - requires sleep inside a loop that re-checks the condition after waking
+      - cites pr-008
+    must_not:
+      - accepts releasing the lock before sleep as equivalent
+      - accepts a single if-guarded sleep against spurious wakeups
+
+  # ── pr-009: scheduler / context-switch lock handoff ───────────────────────
+  - test_id: PB-009
+    principle_id: pr-009
+    prompt: >
+      In yield, the code acquires p->lock, changes state, calls swtch, and then
+      releases p->lock in the same function before returning. Review the
+      scheduler hand-off.
+    expected_behaviour:
+      - explains p->lock must be acquired in yield and released in the scheduler
+        after the stack switch, because it protects invariants spanning the swtch
+        boundary
+      - may note the known kill/sleep race around p->killed and wakeup
+      - cites pr-009
+    must_not:
+      - approves releasing p->lock in the same thread before the scheduler runs
+      - assumes a cooperative scheduler model that xv6 does not use
+
+  # ── pr-010: seven-layer filesystem frame ──────────────────────────────────
+  - test_id: PB-010
+    principle_id: pr-010
+    prompt: >
+      Where does a bug in block allocation belong in the xv6 file system, and how
+      should I reason about which layer to inspect?
+    expected_behaviour:
+      - frames the analysis with the seven-layer model (disk, buffer cache,
+        logging, inode, directory, pathname, file descriptor)
+      - locates the defect in the appropriate layer and notes each layer should
+        invoke only the one immediately below it
+      - cites pr-010
+    must_not:
+      - analyses the bug without reference to the layered structure
+      - assumes a merged/log-structured design xv6 does not use
+
+  # ── pr-011: write-ahead logging atomicity ─────────────────────────────────
+  - test_id: PB-011
+    principle_id: pr-011
+    prompt: >
+      A filesystem routine updates three disk blocks but does not wrap them in
+      begin_op/end_op. What is the crash-recovery risk?
+    expected_behaviour:
+      - requires multi-block operations to be wrapped in a begin_op/end_op
+        transaction so write-ahead logging makes them atomic
+      - explains recovery replays a complete transaction or discards an
+        incomplete one, and notes log_write absorption should not be bypassed
+      - cites pr-011
+    must_not:
+      - treats three unlogged block writes as safe because each write is atomic
+      - ignores the partial-update window after a crash
+
+  # ── pr-012: inode-cache concurrency ───────────────────────────────────────
+  - test_id: PB-012
+    principle_id: pr-012
+    prompt: >
+      Review code that takes a pointer to a cached inode and then releases
+      icache.lock before incrementing its ref count, and later assumes a crash
+      cannot leave an inode with nlink 0 but ref greater than 0.
+    expected_behaviour:
+      - flags that iget must increment ref before releasing icache.lock so the
+        inode cannot be evicted between pointer acquisition and locking
+      - checks the four protections (icache.lock, ref via iget, per-inode
+        sleep-lock via ilock, nlink) and notes xv6 does not recover orphaned
+        inodes after a crash
+      - cites pr-012
+    must_not:
+      - approves releasing icache.lock before the ref increment
+      - claims xv6 recovers orphaned inodes automatically

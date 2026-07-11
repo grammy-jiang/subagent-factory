@@ -1,0 +1,242 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Default to simplicity: avoid overengineering, simplify scope/design/implementation, and reuse proven solutions before building your own."
+   },
+   {
+    "idx": 41,
+    "statement": "Focus on the nature of the solution, not the implementation language: solutions scale, languages do not."
+   }
+  ]
+ },
+ {
+  "group": 4,
+  "members": [
+   {
+    "idx": 4,
+    "statement": "Use the AKF Scale Cube as the framework for scaling: clone (X) for transactions, split different things (Y) by function/resource, split similar things (Z) by customer."
+   },
+   {
+    "idx": 80,
+    "statement": "For horizontal read scaling, use master-slave replication (the only approach that scales horizontally): writes at the master, read-only queries on slaves."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 5,
+    "statement": "Scale out on commodity hardware, not up on big high-end systems, because scaling up follows a power-law cost curve and eventually hits a ceiling."
+   },
+   {
+    "idx": 27,
+    "statement": "Own your scalability: scale your own system rather than relying on vendor/proprietary features, keeping destiny, simplicity, and total cost in your control."
+   },
+   {
+    "idx": 33,
+    "statement": "Scale out, not up: prefer horizontal scaling by adding more of the same commodity hardware, and reserve vertical scaling for problems with no horizontally-scalable solution."
+   },
+   {
+    "idx": 36,
+    "statement": "Account for scaling down as well as up: keep the application able to run on a smaller footprint so falling demand can cut operating cost."
+   },
+   {
+    "idx": 42,
+    "statement": "Weigh every scaling decision as a cost-benefit trade-off across capital, complexity, maintenance, and time, remembering the best technical option is not always the right business one."
+   }
+  ]
+ },
+ {
+  "group": 7,
+  "members": [
+   {
+    "idx": 7,
+    "statement": "Use the right storage tool for the data: reserve RDBMS for ACID/relationship needs and choose file systems or NoSQL otherwise, recognizing relationships trade flexibility against scale."
+   },
+   {
+    "idx": 92,
+    "statement": "Do not use an RDBMS when ACID is not needed; 'too slow' usually means the wrong tool, so choose data structures and a platform that answer your exact questions cheaply."
+   }
+  ]
+ },
+ {
+  "group": 9,
+  "members": [
+   {
+    "idx": 9,
+    "statement": "Actively use log files — aggregate out-of-band, monitor with automated tools, and assign owners to fix what they reveal — while logging asynchronously to limit cost."
+   },
+   {
+    "idx": 86,
+    "statement": "Deliver all logs reliably in real-time over a publish/subscribe substrate with reliable IP multicast, and separate logging roles (publish, journal, analyze) so each scales independently."
+   },
+   {
+    "idx": 88,
+    "statement": "Turn the log stream into real-time business-level monitors and build your own cluster tooling from it; correlate technical and business metrics to spot a forming problem."
+   }
+  ]
+ },
+ {
+  "group": 13,
+  "members": [
+   {
+    "idx": 13,
+    "statement": "Cache in depth — CDN, page cache, application cache, object cache — using HTTP headers (not meta tags) and monitoring hit ratios."
+   },
+   {
+    "idx": 78,
+    "statement": "The key to caching is understanding your data: how often it changes and where it is used."
+   }
+  ]
+ },
+ {
+  "group": 24,
+  "members": [
+   {
+    "idx": 24,
+    "statement": "Strive for statelessness; if state is required, push it to the browser, and otherwise use a distributed cache without affinity or replication."
+   },
+   {
+    "idx": 75,
+    "statement": "Use a collaborative distributed cache so one node's result benefits all and no single failure threatens availability; replicate frequently-read, rarely-changed data to every node since cache replication can be lazy."
+   },
+   {
+    "idx": 77,
+    "statement": "Push stable, shared page content out to the web server with two-tier execution so neither the database nor a remote cache is touched, since whole-page transparent caching fails when only part of a page is cacheable."
+   }
+  ]
+ },
+ {
+  "group": 26,
+  "members": [
+   {
+    "idx": 26,
+    "statement": "Treat the message bus as a scalable, fault-isolated component (Y/Z splits, not X) and avoid overcrowding it by publishing only value-justified traffic."
+   },
+   {
+    "idx": 97,
+    "statement": "Use a publish-to-a-group messaging bus to decouple clients from servers so a client sends one message and the bus fans it out reliably to all participants."
+   }
+  ]
+ },
+ {
+  "group": 32,
+  "members": [
+   {
+    "idx": 34,
+    "statement": "Treat scalability and performance as distinct properties: a fast component can still fail to scale, and a single slow or non-scaling component can cap or capsize the whole architecture."
+   },
+   {
+    "idx": 35,
+    "statement": "Design for scalability from the beginning for the parts that will need it: size for current demand but architect so growth needs no application or architectural redesign."
+   },
+   {
+    "idx": 37,
+    "statement": "Build architectures from autonomous, independently scalable components so a demand spike stresses only one or two; component architectures scale better than monoliths."
+   },
+   {
+    "idx": 94,
+    "statement": "A service scales when it collects information outside the critical path, so it can run everywhere without loading other components; that, not per-box throughput, is real scalability."
+   }
+  ]
+ },
+ {
+  "group": 36,
+  "members": [
+   {
+    "idx": 43,
+    "statement": "Use version control for everything as the baseline failure-avoidance practice: require atomic commits, run it on every platform you operate, and leverage it for deployment, not just development."
+   },
+   {
+    "idx": 47,
+    "statement": "Keep production configuration under version control so non-bare-metal failures are tracked and recoverable; understanding how configuration changed over time beats a point-in-time restore."
+   }
+  ]
+ },
+ {
+  "group": 48,
+  "members": [
+   {
+    "idx": 56,
+    "statement": "Treat high availability and load balancing as orthogonal — HA is resilience to failure, LB is about scale — and define which (or both) a system needs before implementing."
+   },
+   {
+    "idx": 57,
+    "statement": "Eliminate single points of failure, including the load balancer itself (deploy two with an HA solution); hardware needed for routine load is not redundant, and selling points are not buying points."
+   },
+   {
+    "idx": 58,
+    "statement": "Prefer peer-based high availability — where the cluster owns the services and IP addresses and each node negotiates a subset — over idle hot-standby pairs and dedicated HA hardware as you scale horizontally or across sites."
+   }
+  ]
+ },
+ {
+  "group": 51,
+  "members": [
+   {
+    "idx": 61,
+    "statement": "Base load balancing on effective utilization of available resources, not system load average, which is too stale for short web requests."
+   },
+   {
+    "idx": 63,
+    "statement": "Let requirements, not convenience, dictate the load-balancing solution: if a web switch or IPVS cannot meet a functional need it is eliminated, and application-layer balancers buy features (SSL-content and business-rule routing) at a performance cost."
+   }
+  ]
+ },
+ {
+  "group": 53,
+  "members": [
+   {
+    "idx": 64,
+    "statement": "Do not confuse session stickiness with load balancing: pinning a user to a server for locally stored session state creates a single point of failure."
+   },
+   {
+    "idx": 65,
+    "statement": "Split session data — frequently used parts in the client's cookie, rarely used parts in a central store — to remove sticky sessions and radically improve load balancing."
+   }
+  ]
+ },
+ {
+  "group": 55,
+  "members": [
+   {
+    "idx": 67,
+    "statement": "Most content is static, so serve it from a lightweight, single-purpose server segregated from dynamic content, allowing each to scale independently."
+   },
+   {
+    "idx": 71,
+    "statement": "Align static- and dynamic-content distribution mechanisms to reduce human error, and keep dynamic code consistent across all nodes."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 73,
+    "statement": "A computer cache is only an optimization — a miss costs only time — so design cacheable data to carry an explicit TTL and treat the cache as purgeable at will."
+   },
+   {
+    "idx": 74,
+    "statement": "Choose cache semantics deliberately: TTL caching is easy and approximate, explicit invalidation is complex and correct; for high read-to-write data you control, prefer caching indefinitely and invalidating on change."
+   }
+  ]
+ },
+ {
+  "group": 62,
+  "members": [
+   {
+    "idx": 79,
+    "statement": "Replication is hard because of ACID and you cannot get both availability and performance from multimaster replication; pick the technique that matches the need rather than assuming multimaster."
+   },
+   {
+    "idx": 83,
+    "statement": "Survive network partitions in multimaster replication with a quorum algorithm (at most one quorum at any time), tunable to business priorities; EVS gives ordered messaging without 2PC's cost."
+   }
+  ]
+ }
+]
