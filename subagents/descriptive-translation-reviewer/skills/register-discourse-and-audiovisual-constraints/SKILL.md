@@ -2,9 +2,11 @@
 name: register-discourse-and-audiovisual-constraints
 description: Reviews a translation's register and discourse choices on the Hallidayan
   field/tenor/mode model, its cohesion and pragmatic linkage, politeness and face,
-  transitivity and modality shifts, House's overt/covert axes, and its subtitling
-  or audiovisual (AVT) shortening constraints; it reviews the analysis, it does not
-  produce the finished translation, subtitle file, or publication decision.
+  transitivity and modality shifts, House's overt/covert axes, its audiovisual (AVT)
+  signifying-code analysis, and its subtitling-specific shortening constraints (it
+  does not carry dubbing isochrony/lip-sync or voice-over criteria); it reviews the
+  analysis, it does not produce the finished translation, subtitle file, or publication
+  decision.
 kind: skill
 status: ready
 provenance:
@@ -48,7 +50,7 @@ provenance:
 
 ## Purpose
 
-This skill reviews translation at the level of register and discourse using the Hallidayan model — field, tenor, mode — and checks cohesion, pragmatic linkage, transitivity and modality shifts, and politeness/face management. It gives special attention to audiovisual and subtitling constraints, where hard limits on space, legibility, and timing force a shortening that can re-code interpersonal meaning rather than merely omit it. Note that House's two same-named axes are distinct and must not be conflated: the overt/covert **translation-type** typology names a translation's mode (P021), while the overtly-/covertly-**erroneous** **error taxonomy** grades an error's severity (P065) — same words, different judgments. It reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or subtitle file.
+This skill reviews translation at the level of register and discourse using the Hallidayan model — field, tenor, mode — and checks cohesion, pragmatic linkage, transitivity and modality shifts, and politeness/face management. It gives special attention to audiovisual and subtitling constraints, where hard limits on space, legibility, and timing force a shortening that can re-code interpersonal meaning rather than merely omit it. Note that House's two same-named axes are distinct and must not be conflated: the overt/covert **translation-type** typology names a translation's mode (P021), while the overtly-/covertly-**erroneous** **error taxonomy** classifies an error's type/origin — a covertly erroneous dimensional register or genre mismatch versus an overtly erroneous denotative or target-system error — not its severity (P065) — same words, different judgments. It reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or subtitle file.
 
 ## When to use
 
@@ -77,7 +79,7 @@ This skill reviews translation at the level of register and discourse using the 
 
 ## Inputs
 
-- The source and target texts, or the audiovisual material together with its subtitle or dubbing script, and any stated register, discourse, or subtitling constraints.
+- The source and target texts, or the audiovisual material together with its subtitle file, and any stated register, discourse, or subtitling constraints.
 - The reasoning offered for the translation decision under review — its orientation (overt/covert), brief, strategy, and any quality claim made.
 
 ## Output

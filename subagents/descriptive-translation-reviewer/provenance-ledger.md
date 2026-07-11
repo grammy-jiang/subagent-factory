@@ -35,12 +35,52 @@ references index and ground them.
 
 ## Version History
 
+- **1.6.0** (2026-07-12) — Consolidated review-loop round r2 (no prior decision silently overwritten).
+  Applied all three must-fixes and the high-value should-fixes on the existing 180-principle spine; no new
+  claim introduced. **Must-fix:** **MF-1** — corrected the inverted Koller framing ("escalate through … trying
+  denotative", which contradicts P106's own body) in the `principles-index` P106 summary, the
+  `equivalence-orientations-and-effect` Purpose sentence, and the PB-P106 test `expected_behaviour`, and
+  reframed the matching P106 anti-pattern, to P106's own "simultaneous competing frames, not a fixed-order
+  ladder" language (cites P106 only; no claim changed). **MF-2** — added a same-package boundary/tie-breaker to
+  `domestication-foreignization-and-visibility` (owns fluency-illusion + domesticating/foreignizing-axis
+  judgment) and `culture-ideology-power-and-rewriting` (owns institutional/agent, reception, ideology
+  judgment), mirrored into each skill `description` and `knowledge_partition.always_on[6]`/`[7]`. **This
+  corrects the v1.5.0 entry's claim that the overlap "already carries tie-breaker/boundary language": grep of
+  both SKILL.md files and the profile confirmed no such text existed before this round; the tie-breaker is
+  added here, not re-triaged away.** **MF-3** — hand-repaired ~24 truncated/ungrammatical one-line summaries
+  in `references/descriptive-translation-principles-index.md` (P003, P024, P029, P033, P034, P037, P040, P050,
+  P061, P064, P066, P069, P093, P106, P111, P112, P113, P121, P128, P139, P172, P174, P175, P180), each snapped
+  to a clause boundary and grounded in the full principle statement. **Should-fix:** **SF-1** — narrowed the
+  `register-discourse-and-audiovisual-constraints` `description`/Inputs to subtitling-specific shortening
+  constraints (no dubbing isochrony/lip-sync/voice-over criteria), removing the "dubbing script" input to match
+  `profile.yaml`. **SF-2** — reworded that skill's Purpose so House's overtly-/covertly-erroneous taxonomy
+  "classifies an error's type/origin, not its severity" (grounded in P065). **SF-5** — added a same-package
+  routing cue to the three equivalence-adjacent skill descriptions (`equivalence-orientations-and-effect`,
+  `meaning-signification-and-equivalence-critique`, `translation-procedures-and-shifts`).
+  **Field→grounding / statement changes:** **SF-3** — **P121 statement** now enumerates Koller's fifth relation,
+  "formal (formal-aesthetic/expressive)", matching P106's five and its dependent adapter invariant (grounded in
+  the same Munday/Koller basis as P106; citing fields — `always_on[2]`, `source_of_truth_policy.precedence` —
+  keep the P121 id unchanged). **N3** — **P047 statement** drops "always" (Blum-Kulka explicitation is a
+  contested *tendency*, not an absolute; reduces claim strength, no field-citation change). **N1** — dropped the
+  unsourced "1960s-70s" date from the P121 index gloss. **N4** — normalised the `Literal-Free` index heading
+  en-dash to a hyphen. Adapter re-exported; skill/reference digests re-stamped after the principle-statement
+  edits. **Deferred:** **SF-4** (partial — the open r4/r5 items are now named in this Deferred list),
+  **SF-6** (frontmatter "Not for" sibling clause — the exporter clips the router `description` at ~85 chars
+  before the first comma, so three sibling names do not fit; the body `when_not_to_use` already carries the
+  full three-way routing), **SF-7**/**SF-8** (procedure-step scannability and anti-pattern-as-smell rewrites
+  across all 12 skills — a broad structural pass with faithfulness-regression risk, not a defect), **SF-9**
+  (imperative-voice adapter invariants — the preamble/handoff already state the review-only boundary), **N2**
+  (P010 "at the base by" wording), **N5** (worked mini-examples), **N7**/**N9**/**N10** (profile
+  scan-ability/word-count polish), **N8** (load-on-demand partition), **N11** (uncited-by-design exception
+  pointer), and the MF-3 generator-lint (a factory-level tooling change outside this package).
 - **1.5.0** (2026-07-12) — Consolidated review-loop fixes (no prior decision silently overwritten).
   **Supersession of the open round:** the earlier `r5.review.md` (which ended `MUST_FIX_COUNT: 2`) is
   **superseded by this consolidated round** — its two must-fixes were re-triaged (the Anti-pattern↔Procedure
   mirroring is justified reviewer redundancy at tier-2 cost, not a defect; the Venuti-adjacent skill overlap
   already carries tie-breaker/boundary language) and downgraded, so no orphan open-must-fix report survives
-  this release. **Must-fix:** **M1** — rewrote every `text-type-skopos-and-the-brief` Procedure step from
+  this release. **[Corrected in 1.6.0 MF-2: the "already carries tie-breaker/boundary language" claim was
+  false — no such text existed in either skill or the profile; the tie-breaker was actually added in 1.6.0.]**
+  **Must-fix:** **M1** — rewrote every `text-type-skopos-and-the-brief` Procedure step from
   translate-it-yourself imperative voice ("Make/Drive/Adjust/Orient/Take/Apply/Treat…") into reviewer voice
   ("Check/Verify/Confirm that…"), matching the other 11 skills and the profile's no-production boundary
   (same principle citations; no claim changed). **Should-fix:** **S1/S6** — restructured `when_not_to_use`

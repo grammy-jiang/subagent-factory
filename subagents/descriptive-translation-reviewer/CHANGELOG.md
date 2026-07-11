@@ -3,6 +3,54 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.6.0] — 2026-07-12
+
+Consolidated review-loop round r2: applied all three must-fixes and the high-value should-fixes, staying
+grounded in the existing 180-principle spine (no new claim introduced).
+
+### Fixed
+- **MF-1 — Koller's five relations inverted into a "fixed-order ladder"** — replaced the
+  "escalate through … trying denotative" framing (which contradicts P106's own body) in all three condensed
+  restatements: the `references/descriptive-translation-principles-index.md` P106 summary, the
+  `equivalence-orientations-and-effect` Purpose sentence, and the PB-P106 `expected_behaviour` in
+  `tests/principle-behaviour-tests.yaml` — now "weigh Koller's five equivalence relations against each other
+  by the needs of the communicative situation, as simultaneous competing frames rather than a fixed-order
+  ladder"; reframed the matching P106 anti-pattern to match. Cites P106 only.
+- **MF-2 — two same-package skills overlapped with no tie-breaker** — added a boundary sentence to
+  `domestication-foreignization-and-visibility` (owns the fluency-illusion + domesticating/foreignizing-axis
+  judgment) and `culture-ideology-power-and-rewriting` (owns the institutional/agent, reception, and ideology
+  judgment; on overlap each leads with its own), mirrored into each skill's frontmatter `description` and into
+  `profile.yaml` `knowledge_partition.always_on[6]`/`[7]`. The prior v1.5.0 ledger's "already carries
+  tie-breaker/boundary language" claim was false and is corrected in the ledger.
+- **MF-3 — ~20 truncated / ungrammatical index summaries** — hand-repaired every one-line summary in
+  `references/descriptive-translation-principles-index.md` that ended on an article/conjunction/preposition or
+  a bare possessive (P003, P024, P029, P033, P034, P037, P040, P050, P061, P064, P066, P069, P093, P106, P111,
+  P112, P113, P121, P128, P139, P172, P174, P175, P180), snapping each to a clause boundary and grounded in the
+  full principle statement.
+- **SF-1 — AVT skill invited a "dubbing script" it had no criteria for** — narrowed the
+  `register-discourse-and-audiovisual-constraints` `description` and Inputs to audiovisual signifying-code
+  analysis + subtitling-specific shortening constraints (states it carries no dubbing isochrony/lip-sync or
+  voice-over criteria); removed "or dubbing script" from Inputs, matching `profile.yaml`.
+- **SF-2 — House error taxonomy mischaracterised as a severity gradient** — reworded the same skill's Purpose
+  from "grades an error's severity (P065)" to "classifies an error's type/origin … not its severity", grounded
+  in P065's covertly-erroneous (dimensional) vs overtly-erroneous (denotative/target-system) distinction.
+- **SF-3 — P121 omitted Koller's fifth (formal/expressive) relation** — added "formal (formal-aesthetic/
+  expressive)" to P121's Koller enumeration, matching P106's five relations and its dependent adapter invariant.
+- **SF-5 — three same-package equivalence skills had no cross-cue** — added a one-line same-package routing cue
+  to the `equivalence-orientations-and-effect`, `meaning-signification-and-equivalence-critique`, and
+  `translation-procedures-and-shifts` descriptions (orientation/effect → the first; theory-of-meaning premise →
+  the second; procedure/shift naming → the third).
+
+### Changed
+- **N1** — dropped the unsourced "1960s-70s" date qualifier from the P121 index gloss.
+- **N3** — dropped "always" from P047 (Blum-Kulka explicitation *tendency*, not an absolute).
+- **N4** — normalised the `Literal-Free …` index heading en-dash to a hyphen to match the slug.
+
+### Deferred
+- **SF-4 (partial), SF-6, SF-7, SF-8, SF-9, N2, N5, N7, N8, N9, N10, N11**, and the MF-3 generator-lint —
+  see the provenance-ledger v1.6.0 Deferred list for the per-item reason. These are structural/stylistic or
+  factory-level items on a passing package, left to a dedicated pass.
+
 ## [1.5.0] — 2026-07-12
 
 Consolidated review-loop round: applied the must-fix and the high-value should-fixes, staying grounded in

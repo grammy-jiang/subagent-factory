@@ -1,8 +1,11 @@
 ---
 name: domestication-foreignization-and-visibility
 description: Reviews where a translation sits on the domestication-foreignization
-  axis and whether its fluency or readability masks the translator's presence; review-only
-  — does not produce the finished translation or make the publication decision.
+  axis and whether its fluency or readability masks the translator's presence. Owns
+  the fluency-illusion and domesticating/foreignizing-axis judgment; the institutional/agent,
+  reception, and ideology judgment routes to the same-package `culture-ideology-power-and-rewriting`.
+  Review-only — does not produce the finished translation or make the publication
+  decision.
 kind: skill
 status: ready
 provenance:
@@ -40,14 +43,14 @@ provenance:
   - C00381
   evidence: []
   source_anchors: []
-  authored_from_digest: f1bb7fef7c2a5913c54b250da12fd9ceb7cc85fb80e60ed970228464c16b0226
+  authored_from_digest: 52747f27bc1c33964abde55252202bf62eaca812ff6b407e6e84b88a0bf279a9
 ---
 
 # Domestication, Foreignization And Translator Visibility
 
 ## Purpose
 
-This skill reviews where a translation, translation choice, or translation-studies analysis sits on the domestication-foreignization axis and interrogates the ideal of fluency that renders a translator invisible. It checks for the illusion of transparency that lets a fluent translation pass for the original, names the recurrent strategy dichotomies (free/literal, dynamic/formal, domesticating/foreignizing), and treats "reads smoothly" as a suspect criterion rather than praise. It reviews; it does not produce the finished translation or make the publication decision.
+This skill reviews where a translation, translation choice, or translation-studies analysis sits on the domestication-foreignization axis and interrogates the ideal of fluency that renders a translator invisible. It checks for the illusion of transparency that lets a fluent translation pass for the original, names the recurrent strategy dichotomies (free/literal, dynamic/formal, domesticating/foreignizing), and treats "reads smoothly" as a suspect criterion rather than praise. On overlap with the same-package `culture-ideology-power-and-rewriting` skill, this skill owns the fluency-illusion and domesticating/foreignizing-axis judgment, while the institutional/agent, reception, and ideology judgment routes there; on a mixed finding, lead with the axis judgment. It reviews; it does not produce the finished translation or make the publication decision.
 
 ## When to use
 

@@ -8,7 +8,9 @@ description: Reviews micro-level translation decisions using the precise metalan
   equivalent to choose (word, collocation, idiom, grammar, or information-structure
   equivalence), route it instead to the sibling translation-equivalence-advisor; this
   skill stays on naming and diagnosing the procedure or shift itself, not on selecting
-  among candidate equivalents.
+  among candidate equivalents. Within this package, procedure/shift naming stays here;
+  formal-versus-dynamic orientation/effect fit routes to `equivalence-orientations-and-effect`
+  and the theory-of-meaning premise to `meaning-signification-and-equivalence-critique`.
 kind: skill
 status: ready
 provenance:

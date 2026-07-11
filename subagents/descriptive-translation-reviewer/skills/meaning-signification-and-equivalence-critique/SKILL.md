@@ -7,6 +7,9 @@ description: Reviews the theory of meaning and signification underlying an equiv
   practical linguistic equivalence mechanism itself (choosing a word, collocation,
   idiom, grammatical, or information-structure equivalent) routes to the sibling `translation-equivalence-advisor`;
   this skill stays on the theory of meaning, not the mechanism of producing an equivalent.
+  Within this package, the theory-of-meaning premise stays here; formal-versus-dynamic
+  orientation/effect fit routes to `equivalence-orientations-and-effect` and procedure/shift
+  naming to `translation-procedures-and-shifts`.
 kind: skill
 status: ready
 provenance:
@@ -41,7 +44,7 @@ provenance:
   - C00391
   evidence: []
   source_anchors: []
-  authored_from_digest: 4b97c51752f23e3024bf5f3e96a9be584bb28a3942161b5d70260398ea748330
+  authored_from_digest: 78dbedaf645ad6c005ecfce05bb32069fdc154255dba44f7ca4b1b1bbb948d70
 ---
 
 # Meaning, Signification And The Equivalence Critique

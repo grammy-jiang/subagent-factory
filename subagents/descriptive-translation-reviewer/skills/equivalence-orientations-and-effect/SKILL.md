@@ -5,7 +5,9 @@ description: Reviews a translation's formal-versus-dynamic equivalence orientati
   and audience. Reviews that turn on the linguistic equivalence mechanism itself (word,
   collocation, idiom, grammar, or information-structure equivalence) route to the
   sibling `translation-equivalence-advisor`; this skill stays on the formal-versus-dynamic
-  equivalence orientation and equivalent-effect claims.
+  equivalence orientation and equivalent-effect claims. Within this package, orientation/effect
+  fit stays here; the theory-of-meaning premise routes to `meaning-signification-and-equivalence-critique`
+  and procedure/shift naming to `translation-procedures-and-shifts`.
 kind: skill
 status: ready
 provenance:
@@ -53,7 +55,7 @@ provenance:
 
 ## Purpose
 
-This skill reviews where a translation sits on the formal-versus-dynamic equivalence axis and whether that orientation, together with any equivalent-effect or "same response" claim, actually fits the text's purpose, type, and audience. It checks whether the review or the translation correctly escalates through the available equivalence relations, tests naturalness across the areas that matter, and treats equivalent effect as the graded, unverifiable goal it is rather than a guaranteed outcome. It is review-only: it audits a translation, a translation choice, or a translation-studies analysis, and does not produce the finished rendering or decide publication.
+This skill reviews where a translation sits on the formal-versus-dynamic equivalence axis and whether that orientation, together with any equivalent-effect or "same response" claim, actually fits the text's purpose, type, and audience. It checks whether the review or the translation correctly weighs the available equivalence relations against each other by the needs of the communicative situation — as simultaneous competing frames, not a fixed-order ladder — tests naturalness across the areas that matter, and treats equivalent effect as the graded, unverifiable goal it is rather than a guaranteed outcome. It is review-only: it audits a translation, a translation choice, or a translation-studies analysis, and does not produce the finished rendering or decide publication.
 
 ## When to use
 
@@ -100,7 +102,7 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 - The rendering carries crude vulgarity into dignified discourse, contemporary slang into a historical setting, or a legalese inflation of a plain original, while the passage's irony, class marker, or dialect is left flattened (P076).
 - A genuine lexical gap is declared "untranslatable" instead of resolved through the obligatory category it reflects, or a non-poetic passage is waved off as untranslatable when only poetry's fused form and sound warrant that verdict (P104).
 - A gloss-style rendering close to source form is used for a text aimed at natural reception, or an adapted, receptor-tailored rendering is used for an academic or legal text that needs source-language access (P105).
-- The review stops at denotative equivalence without checking connotative, text-normative, pragmatic, or formal fit, or a connotative mismatch in formality, register, or emotion is passed over as good enough (P106).
+- The review privileges one equivalence relation (e.g. denotative) as a default starting rung instead of weighing all five as competing frames by the needs of the communicative situation, or a connotative mismatch in formality, register, or emotion is passed over as good enough (P106).
 - A finding is built on matching individual words rather than the overall impression the message makes, or a dictionary-supplied "solution" is accepted without checking whether the two texts create the same situation (P118).
 - A rendering is labelled "formal equivalence" without terminological concordance or source comparison, or an untranslatable feature such as a pun or acrostic is silently dropped instead of flagged with a marginal note (P124).
 - The rendering conveys sense but not the spirit and manner of the original, or reads naturally but produces a response unlike the original's, and the finding credits it as a good translation anyway (P125).

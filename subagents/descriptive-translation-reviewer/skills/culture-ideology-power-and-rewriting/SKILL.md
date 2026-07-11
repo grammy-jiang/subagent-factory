@@ -2,9 +2,11 @@
 name: culture-ideology-power-and-rewriting
 description: Reviews a translation, translation choice, or translation-studies analysis
   for its grounding in culture, ideology, power, and institutional rewriting — applying
-  refraction, patronage, feminist, postcolonial, and Bourdieusian lenses. It critiques
-  the translation or analysis; it does not produce the finished translation or decide
-  publication.
+  refraction, patronage, feminist, postcolonial, and Bourdieusian lenses. Owns the
+  institutional/agent, reception, and ideology judgment; the fluency-illusion and
+  domesticating/foreignizing-axis judgment routes to the same-package `domestication-foreignization-and-visibility`.
+  It critiques the translation or analysis; it does not produce the finished translation
+  or decide publication.
 kind: skill
 status: ready
 provenance:
@@ -55,7 +57,7 @@ provenance:
 
 ## Purpose
 
-This skill reviews translation as a culturally and ideologically situated act of rewriting, not as an isolated linguistic transfer. It applies refraction, patronage, feminist, postcolonial, and Bourdieusian (field/habitus/capital) lenses to surface how ideology, institutional power, and target-culture norms shape a translation's choices, and it reads reception through reviews and paratexts rather than judging the work on its own. It critiques a translation, a translation choice, or a translation-studies analysis against these lenses; it does not produce the finished translation or make the publication decision.
+This skill reviews translation as a culturally and ideologically situated act of rewriting, not as an isolated linguistic transfer. It applies refraction, patronage, feminist, postcolonial, and Bourdieusian (field/habitus/capital) lenses to surface how ideology, institutional power, and target-culture norms shape a translation's choices, and it reads reception through reviews and paratexts rather than judging the work on its own. On overlap with the same-package `domestication-foreignization-and-visibility` skill, this skill owns the institutional/agent, reception, and ideology judgment, while the fluency-illusion and domesticating/foreignizing-axis judgment routes there; on a mixed finding, lead with the institutional judgment. It critiques a translation, a translation choice, or a translation-studies analysis against these lenses; it does not produce the finished translation or make the publication decision.
 
 ## When to use
 
