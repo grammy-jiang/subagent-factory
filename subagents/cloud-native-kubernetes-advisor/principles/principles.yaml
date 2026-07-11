@@ -1,0 +1,248 @@
+schema_version: principles-v1
+
+principles:
+
+  - principle_id: P001
+    statement: >-
+      Prefer managed Kubernetes services over self-hosting the control plane. Managing cluster
+      installation, configuration, security, upgrades, and reliability is undifferentiated heavy
+      lifting that does not differentiate a business. Managed services handle scheduling,
+      monitoring, failover, and security patching at a cost-effective rate for almost all
+      organizations; self-hosting is justifiable only when requirements cannot be met by any
+      managed provider.
+    derived_from_claims:
+      - CL046
+      - CL054
+      - CL053
+    confidence: high
+    applies_when:
+      - Advising on cluster hosting strategy
+      - Evaluating build-vs-buy trade-off for Kubernetes control plane
+      - Organization is assessing total operational cost of Kubernetes
+    does_not_apply_when:
+      - Organization has regulatory, compliance, or air-gap requirements that no managed provider
+        supports
+      - Specific features or hardware (e.g., bare-metal GPU clusters) are unavailable on managed offerings
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: []
+
+  - principle_id: P002
+    statement: >-
+      Production Kubernetes control planes must run a minimum of three nodes to maintain etcd
+      quorum and survive the loss of one node. etcd uses a Raft-based quorum that requires more
+      than half of replicas to be available; with two nodes, any single failure causes total loss
+      of quorum. Control plane failure stops new deployments and breaks controllers even while
+      existing Pods continue running.
+    derived_from_claims:
+      - CL038
+      - CL037
+    confidence: high
+    applies_when:
+      - Sizing or reviewing a self-managed or managed Kubernetes control plane for production
+      - Auditing cluster HA readiness
+    does_not_apply_when:
+      - Non-production, development, or single-node local clusters where downtime is acceptable
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: []
+
+  - principle_id: P003
+    statement: >-
+      Distribute Kubernetes worker nodes across at least two, preferably three, cloud availability
+      zones. Zone-level outages are rare but real; concentrating all nodes in a single zone means
+      any zone failure takes down all workloads. When applications run with more than one replica,
+      a single worker node failure is tolerated because Kubernetes detects the failure and
+      reschedules Pods on surviving nodes.
+    derived_from_claims:
+      - CL040
+    confidence: high
+    applies_when:
+      - Configuring node pools or auto-scaling groups for production clusters
+      - Reviewing node topology for HA compliance
+    does_not_apply_when:
+      - Regions with only a single availability zone
+      - Development or test clusters where multi-zone cost is not justified
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: []
+
+  - principle_id: P004
+    statement: >-
+      Build minimal container images using multi-stage Dockerfile builds. Keep build toolchains,
+      compilers, and intermediate artifacts out of the final production image. Minimal images
+      improve deployment speed through faster upload, download, and startup times, and reduce the
+      security attack surface because fewer included programs mean fewer potential vulnerabilities.
+    derived_from_claims:
+      - CL032
+    confidence: high
+    applies_when:
+      - Reviewing or authoring Dockerfiles for any language or runtime
+      - Assessing container image size or security posture
+    does_not_apply_when:
+      - Debug or development images intentionally including toolchains for troubleshooting
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: []
+
+  - principle_id: P005
+    statement: >-
+      Observability — structured logging, metrics collection, distributed tracing, and alerting —
+      is a first-class architectural requirement for cloud-native distributed systems. Distributed
+      microservice architectures are inherently harder to inspect and debug than monolithic
+      applications; without instrumentation built in from the start, diagnosing failures becomes
+      intractable at scale.
+    derived_from_claims:
+      - CL025
+    confidence: high
+    applies_when:
+      - Designing or reviewing a microservice architecture
+      - Advising on operational readiness for production workloads
+      - Evaluating whether a system is ready for production
+    does_not_apply_when:
+      - Simple single-container or monolithic applications with minimal inter-service communication
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: []
+
+  - principle_id: P006
+    statement: >-
+      Prefer managed database services over running stateful workloads such as databases inside
+      Kubernetes. Database replicas are not interchangeable — each has unique state requiring
+      careful coordination for restarts, data consistency, and schema migrations across replicas.
+      Achieving enterprise-grade reliability for stateful workloads in Kubernetes requires a large
+      engineering investment that managed database services absorb.
+    derived_from_claims:
+      - CL020
+    confidence: high
+    applies_when:
+      - Deciding where to host a relational or NoSQL database in a cloud-native system
+      - Advising on stateful workload placement in Kubernetes
+    does_not_apply_when:
+      - Organization has a dedicated team with deep Kubernetes stateful-workload expertise and
+        a specific need (e.g., cost, data sovereignty) that managed services cannot meet
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: []
+
+  - principle_id: P007
+    statement: >-
+      Treat microservices as a deliberate architectural choice that introduces inherent distributed
+      systems complexity, not a default modernization strategy. Microservice architectures are
+      difficult to observe and prone to surprising failures; monoliths are easier to understand and
+      trace but harder to scale. Running a monolith in containers can deliver significant cloud
+      value and may serve as a transitional step before gradually extracting services.
+    derived_from_claims:
+      - CL027
+    confidence: high
+    applies_when:
+      - Evaluating a migration from a monolith to microservices
+      - Advising on the appropriate decomposition level for a new system
+    does_not_apply_when:
+      - System complexity and team scale already justify the operational overhead of microservices
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: []
+
+  - principle_id: P008
+    statement: >-
+      Cloud-native applications achieve high availability through inherent distribution, redundancy,
+      and graceful degradation rather than relying on the reliability of individual nodes. Run
+      workloads with multiple replicas spread across failure domains; Kubernetes detects node
+      failures and reschedules Pods automatically, but only when redundancy is configured in
+      advance.
+    derived_from_claims:
+      - CL024
+    confidence: high
+    applies_when:
+      - Designing deployment configurations for production workloads
+      - Reviewing replica counts and pod disruption budgets
+    does_not_apply_when:
+      - Batch or single-run jobs where replica redundancy is not meaningful
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: []
+
+  - principle_id: P009
+    statement: >-
+      Use Kubernetes rolling updates for zero-downtime deployments as the default strategy. Rolling
+      updates start containers with the new version, wait until they pass health checks, then shut
+      down old ones. For higher-risk releases, use canary deployments (graduate rollout one server
+      at a time, monitoring for errors) or blue-green deployments (spin up the new version fully
+      before switching traffic).
+    derived_from_claims:
+      - CL015
+    confidence: high
+    applies_when:
+      - Planning any production deployment or release
+      - Advising on risk mitigation strategies for new versions
+    does_not_apply_when:
+      - Breaking schema changes or migrations that require coordinated cutover and cannot tolerate
+        mixed-version traffic
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: []
+
+  - principle_id: P010
+    statement: >-
+      Small and mid-sized teams should start with containers on a single managed Kubernetes
+      offering and grow from there. Multi-cloud Kubernetes infrastructure adds complexity and cost
+      that is not justified at early scale. Progress to multi-cluster or multi-cloud architecture
+      only when specific availability, regulatory, or cost requirements make it necessary.
+    derived_from_claims:
+      - CL059
+    confidence: high
+    applies_when:
+      - Advising a small or mid-sized team on initial Kubernetes infrastructure strategy
+      - Evaluating whether multi-cloud architecture is warranted
+    does_not_apply_when:
+      - Organization has an established multi-cloud strategy, contractual obligations, or disaster
+        recovery requirements spanning multiple providers
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: []
+
+  - principle_id: P011
+    statement: >-
+      Self-hosting Kubernetes is an ongoing operational investment, not a one-time setup cost. It
+      requires production-readiness work across at least eight areas — control-plane HA, worker-node
+      HA, cluster security (TLS, RBAC, etcd access control), service security, conformance,
+      node configuration management, data backup and restore, and ongoing maintenance. Beyond
+      initial setup, teams must monitor, alert, upgrade, and periodically chaos-test the cluster.
+      When self-hosting is unavoidable, use mature tools such as kops (AWS/multi-cloud) or
+      Kubespray (on-premises/any cloud via Ansible).
+    derived_from_claims:
+      - CL042
+      - CL043
+      - CL060
+    confidence: high
+    applies_when:
+      - Organization has determined it must self-host Kubernetes
+      - Reviewing production-readiness of a self-managed cluster
+    does_not_apply_when:
+      - Using a managed Kubernetes service where the provider handles control-plane operations
+    operational_mapping:
+      profile_rule: true
+      skill: null
+      reference: null
+      test_cases: []

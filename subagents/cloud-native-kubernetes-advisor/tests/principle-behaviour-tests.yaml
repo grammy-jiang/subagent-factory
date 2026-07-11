@@ -1,0 +1,163 @@
+schema_version: principle-behaviour-tests-v1
+principle_behaviour_tests:
+  - test_id: PB-001
+    principle_id: P001
+    prompt: >-
+      We have a 6-person product team on AWS and want to run Kubernetes in
+      production. Should we stand up and manage our own control plane on EC2, or
+      use EKS?
+    expected_behaviour:
+      - Recommends a managed service (EKS) over self-hosting the control plane
+      - Grounds the recommendation in operational trade-offs (staffing, HA, maintenance)
+      - cites P001
+    must_not:
+      - Recommends self-hosting the control plane without a sound business reason
+
+  - test_id: PB-002
+    principle_id: P002
+    prompt: >-
+      Our production cluster runs a single control-plane node to save cost. Is
+      that acceptable for production readiness?
+    expected_behaviour:
+      - States production control planes need a minimum of three nodes for etcd quorum
+      - Flags the single-node control plane as a production-readiness gap
+      - cites P002
+    must_not:
+      - Approves a single control-plane node for production
+
+  - test_id: PB-003
+    principle_id: P003
+    prompt: >-
+      All our worker nodes are in one availability zone. How should we lay out
+      workers for resilience?
+    expected_behaviour:
+      - Recommends distributing workers across at least two, preferably three, availability zones
+      - cites P003
+    must_not:
+      - Endorses keeping all workers in a single availability zone
+
+  - test_id: PB-004
+    principle_id: P004
+    prompt: >-
+      Our container image is 1.2 GB and built from a single Dockerfile stage.
+      How should we approach the image build?
+    expected_behaviour:
+      - Recommends a multi-stage build producing a minimal runtime image
+      - Notes benefits to size, speed, and attack surface
+      - cites P004
+    must_not:
+      - Treats image size and build approach as irrelevant
+
+  - test_id: PB-005
+    principle_id: P005
+    prompt: >-
+      We are about to put a new microservice into production. What operational
+      requirements should we confirm first?
+    expected_behaviour:
+      - Surfaces observability (logging, metrics, tracing, alerting) as a first-class requirement
+      - cites P005
+    must_not:
+      - Omits observability from production requirements
+
+  - test_id: PB-006
+    principle_id: P006
+    prompt: >-
+      We want to run our primary PostgreSQL database as a StatefulSet inside our
+      Kubernetes cluster. Good idea?
+    expected_behaviour:
+      - Recommends a managed database service as the default
+      - Flags the engineering investment of running stateful databases on Kubernetes
+      - cites P006
+    must_not:
+      - Recommends a database StatefulSet without flagging the engineering cost
+
+  - test_id: PB-007
+    principle_id: P007
+    prompt: >-
+      Should we split our monolith into microservices as part of moving to
+      Kubernetes?
+    expected_behaviour:
+      - Treats microservices as a deliberate architectural choice with inherent complexity
+      - Does not present microservices as a default modernisation step
+      - cites P007
+    must_not:
+      - Recommends microservices by default as part of a Kubernetes migration
+
+  - test_id: PB-008
+    principle_id: P008
+    prompt: >-
+      How does a cloud-native application on Kubernetes actually achieve high
+      availability?
+    expected_behaviour:
+      - Explains HA through distribution and redundancy of components
+      - cites P008
+    must_not:
+      - Attributes HA to a single node or component
+
+  - test_id: PB-009
+    principle_id: P009
+    prompt: >-
+      What deployment strategy should we use for zero-downtime releases of a
+      stateless web service on Kubernetes?
+    expected_behaviour:
+      - Recommends rolling updates as the default zero-downtime strategy
+      - May mention canary or blue-green as alternatives
+      - cites P009
+    must_not:
+      - Recommends an all-at-once replace that causes downtime as the default
+
+  - test_id: PB-010
+    principle_id: P010
+    prompt: >-
+      We are a small team new to Kubernetes. Should we start with a multi-cloud,
+      multi-cluster setup for resilience?
+    expected_behaviour:
+      - Steers the team to a single managed cluster before multi-cluster or multi-cloud
+      - cites P010
+    must_not:
+      - Recommends multi-cloud or multi-cluster complexity to a small new team
+
+  - test_id: PB-011
+    principle_id: P011
+    prompt: >-
+      We are confident we can self-host Kubernetes. What should we weigh before
+      committing?
+    expected_behaviour:
+      - Frames self-hosting as an ongoing operational investment, not a one-time setup
+      - Surfaces the readiness questions the team must answer first
+      - cites P011
+    must_not:
+      - Treats self-hosting as a one-time setup cost
+
+  - test_id: PB-NR-001
+    principle_id: P001
+    prompt: >-
+      My Go application throws a nil-pointer panic on startup inside the
+      container. Can you debug the application code?
+    expected_behaviour:
+      - Declines application source-code debugging as out of scope
+      - Redirects to the development team
+    must_not:
+      - Attempts to debug or rewrite the application source code
+
+  - test_id: PB-NR-002
+    principle_id: P011
+    prompt: >-
+      Our etcd cluster is failing to elect a leader and a worker node's kubelet
+      keeps crashing. Walk me through the low-level repair.
+    expected_behaviour:
+      - Declines deep cluster-operations troubleshooting as out of scope
+      - Refers to a cluster-operations specialist resource
+    must_not:
+      - Provides a detailed node-repair or etcd-internals repair procedure
+
+  - test_id: PB-PS-001
+    principle_id: P004
+    prompt: >-
+      Give us a starter Dockerfile for our Go service so we can deploy a first
+      container.
+    expected_behaviour:
+      - Produces a minimal multi-stage Dockerfile as a starting point
+      - Marks the artefact as a starting point to adapt and validate, not production-final
+    must_not:
+      - Presents the generated Dockerfile as a production-final artefact

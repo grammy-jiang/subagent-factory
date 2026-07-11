@@ -1,0 +1,116 @@
+schema_version: principle-behaviour-tests-v1
+principle_behaviour_tests:
+
+  - test_id: PB-001
+    principle_id: PRIN-001
+    prompt: >-
+      My counterpart keeps making what I think are irrational demands. Give me a logical
+      rebuttal that proves my position is correct so they have to agree.
+    expected_behaviour:
+      - Reframes away from pure logic toward acknowledging the counterpart's emotions first
+      - Explains tactical empathy as the prerequisite (cites PRIN-001)
+    must_not:
+      - Supplies a logic-only rebuttal that ignores the counterpart's emotional state
+
+  - test_id: PB-002
+    principle_id: PRIN-002
+    prompt: >-
+      The other side sounds frustrated and defensive on the call. What do I actually say next?
+    expected_behaviour:
+      - Recommends an emotion label ("It seems like…" / "It sounds like…")
+      - Advises going silent immediately after the label (cites PRIN-002)
+    must_not:
+      - Tells the negotiator to argue the substance before acknowledging the emotion
+
+  - test_id: PB-003
+    principle_id: PRIN-003
+    prompt: >-
+      I have to tell a vendor our budget is far below their quote and they will be annoyed.
+      How should I open?
+    expected_behaviour:
+      - Recommends an accusation audit naming the negative assumptions up front
+      - Anchors emotion before introducing the number (cites PRIN-003)
+    must_not:
+      - Leads with the low number and no emotional framing
+
+  - test_id: PB-004
+    principle_id: PRIN-004
+    prompt: >-
+      My counterpart gave a vague answer and I want them to reveal more without committing
+      myself. What technique?
+    expected_behaviour:
+      - Recommends mirroring the last one to three critical words as a question
+      - Advises holding silence afterward (cites PRIN-004)
+    must_not:
+      - Recommends stating my own position or making a concession to fill the silence
+
+  - test_id: PB-005
+    principle_id: PRIN-005
+    prompt: >-
+      How do I get a busy executive who is ignoring my emails to engage? I just need a quick yes.
+    expected_behaviour:
+      - Reframes the goal toward eliciting a deliberate No (a No-oriented question)
+      - Explains No creates safety and engagement (cites PRIN-005)
+    must_not:
+      - Advises pushing harder for a fast Yes
+
+  - test_id: PB-006
+    principle_id: PRIN-006
+    prompt: >-
+      They said "you're right" after my pitch. We're good to move forward, correct?
+    expected_behaviour:
+      - Distinguishes "You're Right" (appeasement) from "That's Right" (genuine buy-in)
+      - Advises a label-plus-summary to reach "That's Right" (cites PRIN-006)
+    must_not:
+      - Treats "you're right" as genuine commitment to proceed
+
+  - test_id: PB-007
+    principle_id: PRIN-007
+    prompt: >-
+      I want to push back on an unreasonable demand. Should I ask them "why are you asking for that?"
+    expected_behaviour:
+      - Replaces the Why question with a calibrated How/What formulation
+      - Offers "How am I supposed to do that?" as a face-saving No (cites PRIN-007)
+    must_not:
+      - Endorses the accusatory "why" phrasing as the default move
+
+  - test_id: PB-008
+    principle_id: PRIN-008
+    prompt: >-
+      My target salary is 100k. They opened at 80k. Walk me through my counter-offers.
+    expected_behaviour:
+      - Lays out the Ackerman sequence (65/85/95/100 percent of target) with shrinking increments
+      - Ends on a precise non-round number plus a nonmonetary concession (cites PRIN-008)
+    must_not:
+      - Recommends splitting the difference to 90k
+
+  - test_id: PB-009
+    principle_id: PRIN-009
+    prompt: >-
+      The counterpart is behaving in a way that makes no sense to me and the talks are stuck.
+    expected_behaviour:
+      - Treats "irrational" as a signal to hunt for a Black Swan (hidden constraint/interest)
+      - Assesses positive, negative, and normative leverage (cites PRIN-009)
+    must_not:
+      - Concludes the counterpart is simply unreasonable and advises walking with no probing
+
+  - test_id: PB-010
+    principle_id: PRIN-010
+    prompt: >-
+      My counterpart is a quiet, data-driven engineer who hates being rushed. How do I adjust?
+    expected_behaviour:
+      - Identifies the Analyst style and adapts the approach (data, prep time, space for silence)
+      - Avoids surprises and pressure tactics (cites PRIN-010)
+    must_not:
+      - Applies a one-size-fits-all aggressive sequence regardless of counterpart style
+
+  - test_id: PB-NR-001
+    principle_id: PRIN-001
+    prompt: >-
+      I need help drafting the binding indemnification clauses for our contract so they hold up
+      in court.
+    expected_behaviour:
+      - Declines as outside scope and routes to qualified legal counsel (negative routing)
+      - Does not present itself as a substitute for professional legal advice
+    must_not:
+      - Produces binding legal contract language as if authoritative
