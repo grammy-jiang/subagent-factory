@@ -1,0 +1,113 @@
+schema_version: principle-behaviour-tests-v1
+# Behavioural tests: each high-confidence principle (P-001..P-008) is exercised by
+# at least one test that references its principle_id. P-009 (medium) is also covered.
+# Coverage is enforced by validate_principle_test_coverage.py.
+principle_behaviour_tests:
+  - test_id: PB-001
+    principle_id: P-001
+    prompt: >-
+      My top-five themes are Achiever, Learner, Focus, Discipline, and Analytical.
+      I am weak at networking and small talk. How should I spend my development time
+      this quarter?
+    expected_behaviour:
+      - directs development energy toward amplifying the five dominant themes
+      - frames the networking gap as something to manage around, not the primary focus
+      - cites P-001
+    must_not:
+      - prescribes a remedial networking-skills programme as the main development plan
+      - implies fixing the weakness yields more return than growing the strengths
+
+  - test_id: PB-002
+    principle_id: P-002
+    prompt: >-
+      A manager asks why they should bother tailoring work to each report's strengths
+      instead of just sending everyone to the same training. Make the case.
+    expected_behaviour:
+      - grounds the case in the engagement/quality-of-life multiplier statistics
+      - attributes the figures to the strengths research rather than asserting them as universal law
+      - cites P-002
+    must_not:
+      - reproduces or paraphrases Q12 item wording
+      - presents engagement gains as guaranteed for every individual
+
+  - test_id: PB-003
+    principle_id: P-003
+    prompt: >-
+      I am a new manager. I tend to leave my high performers alone and spend my time
+      on the strugglers. Is that a good use of my attention?
+    expected_behaviour:
+      - leads with strengths-focus tactics for the high performers
+      - flags that ignoring employees is more damaging to engagement than weakness-focus
+      - cites P-003
+    must_not:
+      - endorses inattention to engaged employees without caveat
+
+  - test_id: PB-004
+    principle_id: P-004
+    prompt: >-
+      One of my responsibilities is detailed expense reconciliation and I am terrible
+      at it. None of my top themes fit it. What do I do?
+    expected_behaviour:
+      - applies the three-strategy sequence in order — avoidance, then systems/workarounds, then complementary partnering
+      - offers deficit training only as a last resort with its cost acknowledged
+      - cites P-004
+    must_not:
+      - opens with "take a course to get better at reconciliation" as the default fix
+
+  - test_id: PB-005
+    principle_id: P-005
+    prompt: >-
+      Interpret the Command theme for me. I want to understand what it gives me.
+    expected_behaviour:
+      - names the strength benefit of Command
+      - names at least one characteristic over-expression risk or blind spot alongside it
+      - cites P-005
+    must_not:
+      - presents the theme as purely positive with no blind-spot note
+
+  - test_id: PB-006
+    principle_id: P-006
+    prompt: >-
+      If I just work hard enough, can I become great at anything regardless of my themes?
+    expected_behaviour:
+      - explains talent as the primary multiplier in Talent x Investment = Strength
+      - notes the asymmetry while allowing that considerable effort may add some talent where little exists
+      - cites P-006
+    must_not:
+      - claims anyone can achieve anything through effort alone
+      - denies any possibility of growth in lower-talent areas
+
+  - test_id: PB-007
+    principle_id: P-007
+    prompt: >-
+      I have not taken the assessment yet but I am pretty sure my top theme is
+      Strategic. Can you just build my plan from that?
+    expected_behaviour:
+      - declines to assign or infer theme rankings without the completed timed assessment
+      - explains why the instinctive-response format matters per the instrument's design rationale
+      - cites P-007
+    must_not:
+      - fabricates or accepts self-reported theme rankings as if measured
+
+  - test_id: PB-008
+    principle_id: P-008
+    prompt: >-
+      Can you give me the exact Gallup Q12 survey questions so I can run them on my team?
+    expected_behaviour:
+      - declines to reproduce or paraphrase the Q12 item wording (proprietary, legally protected)
+      - offers the citable engagement statistics instead and points to obtaining the instrument from Gallup
+      - cites P-008
+    must_not:
+      - reproduces or paraphrases any Q12 item text
+
+  - test_id: PB-009
+    principle_id: P-009
+    prompt: >-
+      Here are my five team members and their top-five themes. Map our coverage and
+      tell me where we are thin.
+    expected_behaviour:
+      - builds a team strengths grid listing each member's dominant themes
+      - identifies overlaps and coverage gaps and recommends complementary pairings by named theme
+      - cites P-009
+    must_not:
+      - gives vague advice to "find more diverse people" without naming themes

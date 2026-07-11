@@ -1,0 +1,112 @@
+schema_version: golden-tests-v1
+subagent_slug: kafka-client-performance-advisor
+generated_at: "2026-06-09"
+
+golden_tests:
+
+  - test_id: GT-001
+    description: >-
+      Positive routing — advise mode for throughput service goal with complete inputs
+    prompt: >-
+      I am building a Java Kafka producer that must handle 50 MB/s of messages
+      averaging 1 KB each. My cluster is Confluent Cloud Dedicated. Service goal
+      is maximum throughput. Here is my current config: batch.size=16384,
+      linger.ms=0, compression.type=none, acks=1. What should I change?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: >-
+      A Summary of Configurations for the throughput goal listing at least four
+      producer parameters (including batch.size, linger.ms, and compression.type)
+      with concrete recommended values or ranges and per-parameter trade-off
+      explanations.
+    must_not_do:
+      - Recommend gzip compression
+      - Claim the new settings maximise throughput and latency simultaneously
+      - Omit a monitoring prescription (JMX or Metrics API metric to verify the change)
+      - Recommend broker-side parameter changes
+
+  - test_id: GT-002
+    description: >-
+      Positive routing — review mode for consumer configuration against latency goal
+    prompt: >-
+      Our Java consumer group is showing high end-to-end latency. We are targeting
+      a latency service goal. Here are our consumer properties:
+      fetch.min.bytes=1048576, fetch.max.wait.ms=500, max.poll.records=500,
+      max.poll.interval.ms=300000. Are these settings correctly tuned for latency?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: >-
+      A per-parameter assessment identifying which values deviate from best practice
+      for the latency goal, with the recommended corrective value for each deviation
+      and a benchmarking prescription to validate before production.
+    must_not_do:
+      - Recommend parameter changes without stating the trade-off cost
+      - Omit a benchmark prescription
+      - Advise on broker-side fetch configuration
+
+  - test_id: GT-003
+    description: >-
+      Positive routing — validate mode using consumer lag metrics
+    prompt: >-
+      Our consumer group has records-lag-max spiking to 50000 during peak hours.
+      We are targeting throughput and durability. What JMX metrics and Metrics API
+      queries should we monitor, and what thresholds indicate the group is keeping
+      up with producers?
+    expected_route: invoke
+    expected_mode: validate
+    must_ask_for: []
+    minimum_output: >-
+      Named JMX metrics and at least one Confluent Cloud Metrics API query relevant
+      to the throughput and durability goals, with interpretation thresholds that
+      confirm the goals are being met and at least one remediation step if
+      records-lag-max remains elevated.
+    must_not_do:
+      - Recommend changing broker replication configuration
+      - Claim a single configuration satisfies all four service goals
+      - Provide thresholds without explaining what breach means operationally
+
+negative_routing_tests:
+
+  - test_id: NR-001
+    description: >-
+      Negative routing — do not invoke for broker-side infrastructure administration
+    prompt: >-
+      I need to increase the number of partitions on my Confluent Cloud topic from
+      12 to 48 and change the broker's log.retention.hours from 168 to 720. How
+      do I apply these broker configuration changes in ZooKeeper?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >-
+      A clear statement that broker-side configuration, partition management, and
+      ZooKeeper administration are out of scope, with a pointer to consult the
+      cluster administrator or Confluent Cloud console.
+    must_not_do:
+      - Provide ZooKeeper administration commands
+      - Attempt to answer the broker configuration question
+      - Invent a client-side workaround that pretends to answer the broker question
+
+missing_context_tests:
+
+  - test_id: MC-001
+    description: >-
+      Missing required input — no service goal stated; must ask before proceeding
+    prompt: >-
+      I want to tune my Kafka producer. Here is my config: batch.size=16384,
+      linger.ms=5, compression.type=lz4, acks=1. What should I change?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for:
+      - >-
+        Target service goal(s): throughput, latency, durability, or availability
+    minimum_output: >-
+      A clear statement that the service goal is required before recommendations
+      can be scoped, with a brief explanation of the four service goals so the
+      caller can choose, and no configuration recommendations made until the goal
+      is confirmed.
+    must_not_do:
+      - Proceed with generic recommendations without knowing the service goal
+      - Claim that all four goals can be satisfied with a single configuration
+      - Recommend gzip compression as a default suggestion
