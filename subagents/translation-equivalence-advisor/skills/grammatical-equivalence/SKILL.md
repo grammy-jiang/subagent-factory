@@ -111,6 +111,10 @@ Per finding: name the grammatical category at issue, whether the draft copied fo
 - Mapping modality or gender literally instead of by function (P085, P015).
 - Silently inventing information the target forces without flagging the forced choice (P057).
 
+## Worked example
+
+Source: "The samples were analyzed" (passive); a draft into a target where that passive reads unnaturally keeps it passive on the grounds the source used it. Diagnosis — voice copied by form, not rendered by function (P009). If the target's natural active rendering forces an agent the source left unstated, that is a forced specification to flag, not to invent silently (P057); where a gender or number the target forces is arbitrary here, restructure rather than default to the unmarked form (P015, P064). Residual loss — the target may add or drop information the source left open; flag each forced choice, and hand the wording back.
+
 ## References
 
 See `../../references/translation-equivalence-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/translation-equivalence-key-concepts.md` for the equivalence vocabulary this skill uses.

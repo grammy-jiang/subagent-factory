@@ -51,6 +51,36 @@ The five high-confidence principles (P009, P024, P037, P038, P058) are compiled 
 
 ## Version history
 
+- **v1.2.6** (2026-07-12) — review-loop r1 consolidated-panel fixes (no spine change; every edited rule and
+  worked example restates principles already in the spine, citing only ids already present; no new claim):
+  - MF1 (test hygiene): Phase-8 self-check and golden artifacts were stale relative to shipped `agent_version`
+    (`golden-tests.yaml` `profile_version` 1.2.4; `test-results.md` pre-v1.2.5). `test-results.md` regenerated
+    via `cli selfcheck`, `profile_version` → 1.2.6, adapter re-exported, body-size WARNING re-confirmed against
+    the fresh count. No citation changed.
+  - SF5/SF6 (routing/scope): `when_not_to_use[0]` reworded to name the disambiguating axis — sibling-axis
+    "review my translation" (norm-evidence / domestication-foreignization / translator-visibility → descriptive;
+    *systematic ST-vs-TT register profile* / corpus metrics → quality; technical usability/terminology →
+    technical) vs the linguistic equivalence mechanism (typicality, cohesive-tie fit, register as one local
+    factor) which stays here. Wording only, no citation.
+  - SF7 (faithfulness): `handoff_rules[1]` "terminology consistency" → "source-term concordance (stylistic or
+    study tracking, not subject-matter glossary consistency)", carrying the v1.2.5 P094 narrowing; citation
+    unchanged (P094, P115).
+  - SF4 (faithfulness): `pragmatic-equivalence-coherence-and-implicature` step 3 hedged — cited discourse/
+    rhetoric norms read as loose tendencies to verify against the actual target readership, not fixed national
+    patterns (grounded in P033 culture-relative + P019/P020, both already in the skill's provenance).
+  - SF8 (agent design): fourth `examples` entry exercises `compare` mode (formal vs dynamic for one emotive
+    segment under a brief; cites P021, P034, P035, P022, P005, P008, P052, P078 — all in the spine).
+  - SF9 (skill-authoring): one grounded `## Worked example` added to each of the nine skills, citing only that
+    skill's own principle ids.
+  - SF10 (skill-authoring): run-on decision-table steps reformatted into nested bullets (`word-level` step 5;
+    `dynamic-and-formal-equivalence` steps 2/5/8); `collocation-idiom` step 5 was single-clause, example only.
+  - Reference drift (r5 MF1 / out-of-scope note): `references/translation-equivalence-principles-index.md`
+    P094/P100 lines aligned to the current `principles.yaml` wording.
+  - No field→grounding row above changed its principle citation.
+  - Deferred: SF1 (inclusive-language) and SF3 (regulated-domain back-translation QA) require claims outside
+    Baker 1992 / Nida 1964 (same as v1.2.0 S5, v1.2.3 S6); SF2 (Relevance→Relation) NOT applied — P032 and
+    Baker name the maxim "Relevance", so the change would reduce source faithfulness. N1–N14 non-blocking.
+
 - **v1.2.5** (2026-07-12) — review-loop r4 consolidated-panel fixes (no spine change; every edited rule
   still restates principles already in the spine, no new claim; the two principle rewordings only *narrow*
   their source support):

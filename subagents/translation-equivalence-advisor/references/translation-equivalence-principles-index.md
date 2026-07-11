@@ -245,10 +245,10 @@ Every promoted principle (P001–P116), grouped by the skill that owns it. Each 
 - **P054** — Diagnose linguistic and cultural distance before translating, watching for false friends and for cultural gaps that may matter more than grammar..
 - **P056** — Preserve the source’s total stylistic impression by adapting style norms, emotional tone, authorial stance, and character voice for receptor-language effect..
 - **P074** — When retaining source forms, idioms, or added target-language words in a formal translation, make the support visible through notes or markers when needed for comprehension..
-- **P094** — Use concordant terminology only where it helps readers track important source terms; relax it when consistency produces unnatural or meaningless receptor text..
+- **P094** — Use concordant terminology only where it helps readers track important source terms for study or interpretation, and relax it for stylistic or literary concordance when consistency produces unnatural or meaningless receptor text; this is stylistic concordance, not subject-matter terminology consistency..
 - **P097** — Infer both the original audience and the receptor audience before targeting equivalent response; do not assume either audience is the general public..
 - **P098** — Use expansion and redundancy to support equivalent communication load and decoding rate, but scope additions to the message, audience, setting, and publication purpose..
-- **P100** — Use back-translation only to expose a target text's morphological, syntactic, or lexical structure, remembering it is a theoretically unsound compromise that never reproduces the original's meaning..
+- **P100** — As a pedagogical illustration of structural differences, use back-translation only to expose a target text's morphological, syntactic, or lexical structure; used this way it is a theoretically unsound compromise that never reproduces the original's meaning, so it is not by itself a general test of translation quality..
 - **P115** — Account for cultural expectations about faithfulness, existing translations, and publication format before deciding how far dynamic equivalence may go..
 
 ## Register, Style, and Literary Form

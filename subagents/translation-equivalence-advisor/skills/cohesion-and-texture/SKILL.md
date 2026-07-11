@@ -110,6 +110,10 @@ Per finding: name the cohesive device, whether the draft transferred the source'
 - Reproducing conjunction or lexical-cohesion frequency literally against target norms (P017, P069).
 - Letting a mistranslated polysemous item break lexical coherence (P112).
 
+## Worked example
+
+Source chains pronoun references and repeats an additive connector at nearly every sentence; a draft transfers both one-for-one and reads choppy and over-explicit. Diagnosis — cohesive devices transferred, not reworked to the target's own preferences and frequencies (P004, P038, P069): rework reference to the target's anaphora norms and adjust conjunction, whose density is genre-specific (P031, P068, P017, P049). Check no mistranslated polysemous item has broken lexical coherence (P112). Whether to follow source cohesion or approximate target norms is decided by the translation's purpose (P091). Residual loss — reworked ties shift explicitness slightly; note it, and hand the wording back.
+
 ## References
 
 See `../../references/translation-equivalence-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/translation-equivalence-key-concepts.md` for the equivalence vocabulary this skill uses.

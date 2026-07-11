@@ -3,6 +3,54 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.6] — 2026-07-12
+
+### Fixed
+- **Test hygiene (r1 MF1):** the Phase-8 self-check and golden-test artifacts were stale relative to the
+  shipped `agent_version` — `golden-tests.yaml` `profile_version` read 1.2.4 and `tests/test-results.md` was
+  generated pre-v1.2.5. Regenerated `test-results.md` via `cli selfcheck` against the current profile, bumped
+  `golden-tests.yaml` `profile_version` → 1.2.6, re-confirmed the body-size WARNING against the fresh count,
+  and re-exported the adapter.
+
+### Changed
+- **Routing/scope (r1 SF5, SF6):** `when_not_to_use[0]` reworded to name the real disambiguating axis rather
+  than theory-topics — a sibling-axis "review my translation" (equivalence-as-evidence-for-a-norm,
+  domestication/foreignization, translator (in)visibility → descriptive; a *systematic ST-vs-TT register
+  profile* (House field/tenor/mode) or corpus metrics → quality-reviewer; technical usability/terminology →
+  technical) versus the linguistic equivalence mechanism itself (typicality, cohesive-tie fit, register as one
+  local factor), which stays here. No profile claim changed.
+- **Faithfulness (r1 SF7):** `handoff_rules[1]` reworded so the unqualified "terminology consistency" now reads
+  "source-term concordance (stylistic or study tracking, not subject-matter glossary consistency)", carrying
+  the v1.2.5 P094 scope-narrowing instead of re-claiming the narrowed-away subject-matter scope (P094, P115).
+- **Faithfulness (r1 SF4):** `pragmatic-equivalence-coherence-and-implicature` step 3 hedged — any cited
+  discourse/rhetoric norm is read as a loose tendency to verify against the actual target readership, not a
+  fixed national pattern (grounded in P033's culture-relative claim + P019/P020 target-reader assessment).
+- **Reference drift (r5 MF1 / out-of-scope note):** `references/translation-equivalence-principles-index.md`
+  P094 and P100 lines updated to the current `principles.yaml` wording (the round-4 stylistic-concordance and
+  pedagogical-illustration narrowings), which the index had not carried.
+
+### Added
+- **Agent design (r1 SF8):** a fourth `examples` entry (`kind: happy-path`) exercising `compare` mode — a
+  side-by-side of formal vs dynamic equivalence for one emotive segment under a stated brief, ending in a
+  purpose-weighted recommendation (P021, P034, P035, P022, P005, P078).
+- **Skill-authoring (r1 SF9):** one grounded `## Worked example` (source snippet → flaw at that lens →
+  strategy → residual loss, citing only that skill's own principle ids) added to all nine skills, closing the
+  operational-recipe gap the earlier rounds deferred.
+- **Skill-authoring (r1 SF10):** run-on decision-table procedure steps reformatted into nested bullet lists —
+  `word-level-nonequivalence-and-strategies` step 5 and `dynamic-and-formal-equivalence` steps 2/5/8 — one
+  option/strategy + citation per line for live-review scannability. (`collocation-idiom` step 5 was a
+  single-clause step, not a crammed table, so only the worked example was added there.)
+
+### Deferred
+- **SF1 (inclusive-language / singular-they options)** and **SF3 (regulated-domain back-translation QA role)**
+  require claims absent from the two grounded sources (Baker 1992, Nida 1964) — same deferral as v1.2.0 (S5)
+  and v1.2.3 (S6); applying them would introduce ungrounded claims.
+- **SF2 (relabel Grice's fourth maxim "Relevance" → "Relation")** NOT applied: P032 and Baker's own *In Other
+  Words* name the maxim "Relevance"; switching to "Relation" would make the package *less* faithful to its
+  source, not more. Left as-is.
+- **N1–N14** — non-blocking NICE items (dated-source hedges, ledger archiving, adapter-template phrasing),
+  carried forward with the same discipline as prior rounds.
+
 ## [1.2.5] — 2026-07-12
 
 ### Fixed

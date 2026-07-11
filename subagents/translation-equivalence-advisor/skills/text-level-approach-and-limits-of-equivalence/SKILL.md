@@ -95,6 +95,10 @@ Per finding: state the whole-text or standard concern, whether the draft rested 
 - Presenting a rendering as the single correct one rather than a relative approximation (P078, P051).
 - Judging an unusual rendering from the translator's view rather than the reader's (P111).
 
+## Worked example
+
+A caller asks only "is this translation faithful enough?" with no single level named. Diagnosis — judge at the whole-text level, not by isolated word matches (P006, P039), and base the verdict on systematic reflection rather than intuition (P010). Treat equivalence as relative and only partially achievable (P051, P078): report the translation as a set of strengths and weaknesses open to improvement, not simply good or bad (P079), judging any unusual rendering from the reader's point of view, not the translator's (P111). Residual loss — no rendering is the single correct one; make the residual limit explicit, and hand the wording back.
+
 ## References
 
 See `../../references/translation-equivalence-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/translation-equivalence-key-concepts.md` for the equivalence vocabulary this skill uses.

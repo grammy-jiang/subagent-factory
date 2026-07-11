@@ -143,6 +143,10 @@ Per finding: state each element's information status in source and draft, whethe
 - Copying source word order and losing or inventing markedness (P024, P030).
 - Reading theme by initial position alone in a free-word-order language (P003, P066).
 
+## Worked example
+
+Source fronts an object for emphasis ("This book, I read in a day"); a draft into a target with freer word order copies the fronting, which there reads as neutral and loses the emphasis. Diagnosis — markedness copied by form, not matched by function (P024, P030): read markedness as meaning and use the target's own device — a cleft, particle, or definiteness marker — to place the same information focus (P016, P002). In a free-word-order or topic-prominent target, do not read theme by initial position alone (P003, P066). Residual loss — the emphasis is carried by a different device with slightly different force; name it, and hand the wording back.
+
 ## References
 
 See `../../references/translation-equivalence-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/translation-equivalence-key-concepts.md` for the equivalence vocabulary this skill uses.

@@ -107,13 +107,19 @@ This skill reviews the orientation decision at the heart of Nida's model: whethe
 ## Procedure
 
 1. Choose tactics from the message type, communicative purpose, and intended audience rather than a single default, first inferring both the original and the receptor audience (P021, P097).
-2. Use formal-equivalence or gloss strategies when readers need close access to source form, terminology, and structure, making the support for retained forms and added words visible; use dynamic-equivalence strategies when the task is to reproduce the receptor effect (P022, P074, P034).
+2. Match the strategy family to the reader's need:
+   - formal-equivalence or gloss strategies when readers need close access to source form, terminology, and structure, making the support for retained forms and added words visible (P022, P074);
+   - dynamic-equivalence strategies when the task is to reproduce the receptor effect (P034).
 3. In dynamic equivalence, make formal adjustments where literary form, idioms, or culturally embedded emotive meanings would not transfer, and prefer receptor-language idioms that make the message meaningful (P008, P052).
 4. For culturally non-matching referents, choose deliberately among a formal term plus note, a functional equivalent, a borrowed term, or a cultural substitute; diagnose linguistic and cultural distance and false friends before translating (P023, P054).
-5. Calibrate vocabulary, style, explanation, and explicitness to the audience's decoding capacity, experience, and interest, and use expansion and redundancy to support the communication load and decoding rate, scoping additions to the message (P053, P098).
+5. Calibrate to the audience:
+   - tune vocabulary, style, explanation, and explicitness to the audience's decoding capacity, experience, and interest (P053);
+   - use expansion and redundancy to support the communication load and decoding rate, scoping additions to the message (P098).
 6. Use concordant (consistent) terminology only for stylistic or literary concordance — where it helps readers track important source terms and preserve the source's total stylistic impression by adapting style norms and tone — and do not relax it for subject-matter terminology, whose consistency is a domain decision to route to technical-translation-advisor (P094, P056).
 7. Use back-translation only as a pedagogical illustration of a target text's structure, not by itself a general quality test, remembering its theoretical limits; account for the receptor community's faithfulness traditions and publication format before deciding how literal to be (P100, P115).
-8. Evaluate adequacy by sense, source spirit and manner, natural receptor expression, and similar audience response, and test naturalness across the receptor language, the local message context, and the intended audience (P035, P036).
+8. Evaluate adequacy against the brief's own criterion:
+   - sense, source spirit and manner, natural receptor expression, and similar audience response (P035);
+   - test naturalness across the receptor language, the local message context, and the intended audience (P036).
 
 ## Inputs
 
@@ -131,6 +137,10 @@ Per finding: state whether formal or dynamic equivalence fits the brief and why,
 - Judging adequacy by a single fixed test rather than the brief's own criterion — receptor response for a dynamic task, closeness to source form where readers need that access (P035, P022).
 - Carrying a culturally non-matching referent across untreated, or erasing it, instead of choosing among the grounded options (P023).
 - Treating a fluent, natural receptor read as proof of equivalent effect: adequacy admits multiple valid solutions and requires naturalness that still preserves source meaning, so judge "similar audience response" as a directional target tested across audience and context, not a single pass/fail (P035, P036).
+
+## Worked example
+
+Source: a public-health leaflet for a general, low-literacy audience uses a formal figurative phrase for infection; the brief targets reader uptake. A draft keeps the figure's form literally and reads oddly. Diagnosis — orientation mismatch: the task is receptor effect, so dynamic equivalence fits, not a formal transfer of the figure (P021, P034). Make the formal adjustment where the figure would not transfer, prefer a receptor-language device of similar force, and calibrate explicitness to the audience's decoding capacity (P008, P052, P053). Judge adequacy by the brief's own criterion — natural expression and similar audience response, tested across the intended audience — not by closeness to source form (P035, P036). Residual loss — the source's exact figure is gone; accept that for reader uptake, and hand the wording back.
 
 ## References
 

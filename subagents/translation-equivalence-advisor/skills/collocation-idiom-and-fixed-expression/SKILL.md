@@ -115,6 +115,10 @@ Per finding: say whether the item is a collocation, idiom, or fixed expression; 
 - Assuming an idiom has a target equivalent, or taking a literal reading of a misleading idiom (P044, P083).
 - Choosing an idiom strategy on meaning-match alone, ignoring style and register (P109).
 
+## Worked example
+
+Source has "strong tea"; a draft into a language whose typical pairing is "heavy/dense tea" keeps "strong," which is merely admissible, not typical. Diagnosis — the combination is judged by admissibility, not target typicality (P042, P043); use the target's own natural phraseology (P110). Separately, a line like "he kicked the bucket" is a misleading idiom with a plausible literal reading (P083): do not take it literally — it is a frozen pattern whose meaning is not deducible from its words (P013, P044). Choose an idiom strategy by style, register, and rhetorical effect, not because a similar-meaning target idiom merely exists (P014, P109). Residual loss — an idiomatic rendering may shift the source's exact imagery or register; name the shift, accept the smaller loss, and hand the wording back.
+
 ## References
 
 See `../../references/translation-equivalence-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/translation-equivalence-key-concepts.md` for the equivalence vocabulary this skill uses.

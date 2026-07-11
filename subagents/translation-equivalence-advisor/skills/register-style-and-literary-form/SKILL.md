@@ -86,6 +86,10 @@ Per finding: name the register or formal feature at stake, whether the draft pre
 - Mismatching register along field, tenor, or mode for the intended receivers, except where the brief deliberately gives the reader a flavour of the source culture (P041).
 - Trying to preserve a sound effect by form where only approximation is possible (P099).
 
+## Worked example
+
+Source is a rhyming advertising slogan; a draft translates the words literally and the rhyme and punch are gone. Diagnosis — the form that carries the message's function was not weighted (P005): match register to the intended receivers along field, tenor, and mode (P041), and treat the sound effect as an effect to approximate opportunistically, not a form to preserve (P099) — recast for comparable feeling rather than word-for-word correspondence (P076). Residual loss — the exact wording changes to recover the effect; name what shifted, and hand the wording back.
+
 ## References
 
 See `../../references/translation-equivalence-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/translation-equivalence-key-concepts.md` for the equivalence vocabulary this skill uses.

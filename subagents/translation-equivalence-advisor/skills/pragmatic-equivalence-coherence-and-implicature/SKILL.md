@@ -96,7 +96,7 @@ This skill reviews meaning in use — what a text implies, presupposes, and does
 
 1. Treat coherence as the reader's judgement — the conceptual relations they build under the surface text — and aim for explanatory coherence that justifies the continuity of sense, not merely supplemental coherence (P007, P070).
 2. Adjust the translation to the target context's realities and ordering conventions, which supply the premises for inference, and assess and supply the target reader's background knowledge deliberately (P019, P020).
-3. Use the Co-operative Principle and its maxims (Quantity, Quality, Relevance, Manner) as orientation points rather than rules, treating them as culture-relative since politeness can override them (P032, P033).
+3. Use the Co-operative Principle and its maxims (Quantity, Quality, Relevance, Manner) as orientation points rather than rules, treating them as culture-relative since politeness can override them; read any cited discourse or rhetoric norm as a loose tendency to verify against the actual target readership, not a fixed national pattern (P032, P033).
 4. Examine anything that would violate the target reader's expectations and adjust it to avoid wrong implicatures (P050).
 5. Handle implicature carefully, since implicatures are often indeterminate and a rendering can eliminate or invent one (P071).
 6. Identify each reference well enough to interpret the associations it triggers, not just its referent, and read utterances by their implicit function using speech-act theory alongside implicature (P072, P113).
@@ -117,6 +117,10 @@ Per finding: state the implied or interactional meaning at stake, the wrong impl
 - Treating coherence as a property of the text rather than the reader's judgement (P007).
 - Leaving a rendering that creates a wrong implicature or violates target expectations (P050, P071).
 - Applying Gricean maxims as universal rules across cultures (P033).
+
+## Worked example
+
+Source assumes background the target reader lacks, so a literal rendering implies something unintended — a wrong implicature. Diagnosis — coherence treated as a property of the text rather than the reader's judgement (P007, P070): assess and supply the background the target reader needs to build the intended sense (P019, P020), and check the rendering creates no implicature the source did not (P050, P071). Weigh politeness and taboo against accuracy where they bear (P073, P092). Residual loss — supplying background adds text or shifts subtlety; name the trade-off, and hand the wording back.
 
 ## References
 

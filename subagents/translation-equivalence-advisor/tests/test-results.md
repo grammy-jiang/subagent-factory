@@ -1,6 +1,6 @@
 # Test Results — translation-equivalence-advisor
 
-**Generated:** 2026-07-11T19:46:38.736424+00:00
+**Generated:** 2026-07-11T20:31:56.464230+00:00
 
 ## Phase 8 Profile Self-Check
 
@@ -21,7 +21,7 @@
 | 11 | quality-bar | PASS | 9 evidence-citing checks |
 | 12 | forbidden-behaviours | INFO | 4 rules; source traceability delegated to profile-reviewer |
 | 13 | no-procedure-in-body | PASS | no ordered procedure detected in body |
-| 14 | body-size | WARNING | profile body ~974 words (> 800); 174 over the 800-word budget; heaviest: quality_bar 248w, forbidden_behaviours 115w, when_not_to_use 108w |
+| 14 | body-size | WARNING | profile body ~981 words (> 800); 181 over the 800-word budget; heaviest: quality_bar 237w, when_not_to_use 118w, forbidden_behaviours 115w |
 | 15 | platform-neutral | PASS | core is platform-neutral |
 | 16 | provenance-ledger | PASS | present |
 | 17 | no-unresolved-conflict | INFO | conflict resolution review delegated to profile-reviewer / Phase 7 merge log |

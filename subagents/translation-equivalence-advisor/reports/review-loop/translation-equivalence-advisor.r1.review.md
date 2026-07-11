@@ -1,125 +1,181 @@
-# Review Loop — translation-equivalence-advisor (round r1)
+# Review-loop report — translation-equivalence-advisor (r1)
 
-Consolidated single-pass review. Deterministic gates + 4 lens reviewers (agent-skills,
-profile, faithfulness, agent-engineering) + 3 domain reviewers (descriptive-translation,
-translation-quality, technical-translation). Findings deduped across lenses, most-severe first.
+**Date:** 2026-07-12
+**Package:** `subagents/translation-equivalence-advisor/` (agent_version 1.2.5, Tier 2)
+**Lenses run:** deterministic gates + 4 factory lenses (agent-skills, profile, faithfulness,
+ai-agent-engineering) + 3 domain cross-checks (descriptive-translation, translation-quality,
+technical-translation).
 
 ## Deterministic gates (STEP 1)
 
 | Gate | Result |
 |------|--------|
-| `validate_generated_package` | **PASS** (0 FAIL; phase8 WARNING only — see MF-2) |
+| `validate_generated_package` | **PASS** (0 FAIL; phase8 self-check WARNING only) |
 | `quote_scan` | PASS — no verbatim quotation |
-| truncation `…` grep (skills + adapter) | clean |
-| adapter invariant severed-parenthetical grep | clean |
+| truncation `…` ellipsis grep | clean |
+| adapter invariant-severance grep | clean |
 
-No deterministic FAILs.
-
----
-
-## MUST-FIX
-
-### MF-1 — No independent re-verify (verify2) confirming v1.2.1 converged to zero must-fix
-- **Where**: `reports/review-loop/` — has `verify1.md` (found MF-1, MF-2) + `vfix.done`, no `verify2.md`.
-- **Problem**: `verify1.md` documents that a prior self-reported `must-fix=0` ("CLEAN") was **wrong** — the independent panel found 2 real must-fix defects the loop missed. v1.2.1 records fixes for both, and the fixes are textually present, but this is the exact self-reported-clean pattern already proven unreliable once for this package. CLAUDE.md's process ("domain-reviewer panel → grounded fix → independent re-verify → converge to zero must-fix") requires an independent re-verify round on the v1.2.1 state before release. (This r1 pass is that round.)
-- **Fix**: Treat this r1 report as the independent re-verify of v1.2.1; apply the fixes below then run one more converge pass. No new domain/skill/agent defect surfaced here that blocks — the only must-fix items are this process gate and MF-2.
-
-### MF-2 — Phase 8 self-check artifact (`tests/test-results.md`) is stale / not tied to v1.2.1
-- **Where**: `tests/test-results.md` (`Generated: 2026-07-11T18:33:14`) vs `profile.yaml` v1.2.1 (2026-07-12).
-- **Problem**: Timestamp predates all three post-1.0.0 bumps (v1.1.0/1.2.0/1.2.1) that touched body word count near the Phase 8 hard limits. v1.2.0 SF-6 records the body was trimmed "to keep under the 1000-word hard limit after the MF-1 propagation" (implies transient FAIL mid-fix). Recorded check-14 = ~992w (WARNING), ~8w under the 1000w FAIL cutoff = no headroom, and the file carries no `profile_version` tag proving which revision it measured. Plausibly still accurate, but plausibility ≠ verification; validate's `phase8: WARNING` is the same soft signal.
-- **Fix**: Re-run `python -m tools.subagent_factory.profile_self_check subagents/translation-equivalence-advisor` (or `cli validate`) against current `profile.yaml`; regenerate `tests/test-results.md` with a fresh timestamp so check-14 body-size is verifiably tied to v1.2.1.
+Deterministic FAIL count = **0**. (Note: validate only checks the self-check/test artifacts
+*exist*, not that they match `agent_version` — see MF1, caught by the profile lens, not by the gate.)
 
 ---
 
-## SHOULD-FIX
+## Findings (most-severe first, deduped across lenses)
 
-### SF-1 — 7 of 9 skill descriptions frame with "Reviews" only, under-triggering pre-draft advise mode
-- **Where**: SKILL.md frontmatter `description` in `collocation-idiom-and-fixed-expression`, `grammatical-equivalence`, `thematic-and-information-structure`, `cohesion-and-texture`, `pragmatic-equivalence-coherence-and-implicature`, `register-style-and-literary-form`, `text-level-approach-and-limits-of-equivalence`.
-- **Problem**: Every body builds a first-class advise-mode path and the profile charter treats pre-draft advice as core, but the description (sole load-time trigger) opens with "Reviews," skewing matches to draft-exists requests. `word-level-nonequivalence-and-strategies` already models the better "Diagnoses…and reviews…" pattern.
-- **Fix**: Broaden each opening verb to cover diagnose/advise + review, mirroring the word-level skill.
+### MUST-FIX
 
-### SF-2 — `compare` mode has no body-level output support in any skill
-- **Where**: `## Output` in all 9 skills; most acute in `dynamic-and-formal-equivalence` and `text-level-approach-and-limits-of-equivalence`.
-- **Problem**: Profile advertises a `compare` mode (side-by-side of what each option favours/costs → weighted recommendation), but no skill Output section describes that shape — only advise (single rec) or review (per-finding). The two skills most likely to get compare requests lack the format the charter promises.
-- **Fix**: Add a compare-mode output branch to at least those two skills: "If comparing two options for one segment, lay out what each favours and costs side by side before recommending."
-
-### SF-3 — `quality_bar[0]` drops the hedge on one-to-one word matching (HEDGING_REMOVED)
-- **Where**: `profile.yaml` `quality_bar[0]`.
-- **Problem**: "No one-to-one match at word level…" states categorically that no match exists; cited P037 only cautions against *assuming* one-to-one correspondence (a match may hold). As a governing review criterion this could flag an accurate one-to-one rendering as a defect. Every sibling formulation (`always_on[0]`, the example, `forbidden_behaviours[1]`) correctly hedges as "don't assume/assert." This outlier is a fresh finding (not the earlier quality_bar[1]/[6] fixes).
-- **Fix**: Reword headline to "Don't assume a one-to-one match at word level: diagnose the non-equivalence, weigh its significance in context, and choose from an open set (P037, P001, P103, P106)."
-
-### SF-4 — Back-translation characterized too narrowly + too skeptically (raised by 2 domain reviewers)
-- **Where**: `principles/principles.yaml` P100; `skills/dynamic-and-formal-equivalence/SKILL.md` Procedure step 7.
-- **Problem**: Frames back-translation only as exposing morphological/syntactic/lexical structure and brands it flatly "theoretically unsound…never reproduces meaning." Nida's own methodology uses it as a *semantic-equivalence testing* technique, and it remains a mandated QA step in regulated domains (clinical/PRO, pharmacovigilance, legal — ISPOR/FDA-style). Narrowed scope + unqualified "never" understates its real role.
-- **Fix**: Reframe to reflect its meaning-check purpose and current QA role, while keeping the legitimate caution that a matching back-translation doesn't *guarantee* equivalence (a shared error survives the round trip). NOTE: verify the reframe stays within P100's source support; keep the caveat.
-
-### SF-5 — "Masculine as unmarked" stated without inclusive-language currency caveat (raised by 2 domain reviewers)
-- **Where**: `principles/principles.yaml` P015; `skills/grammatical-equivalence/SKILL.md` step 3.
-- **Problem**: Accurate as a structural-linguistic description, but as unqualified advice it reads as license to default to generic masculine. Current institutional/legal/publisher style guides (EU/UN, corporate) and non-binary source-language handling increasingly treat generic-masculine defaults as contested.
-- **Fix**: Add a caveat: "masculine-as-unmarked" is a structural fact, not a translator default; check the brief/style guide, which often now mandates gender-neutral resolution (singular they, paired forms, restructuring). Existing restructure clause already points this way.
-
-### SF-6 — `examples[1].ideal_response` genre-defaults marketing→dynamic equivalence (SCOPE_BROADENED)
-- **Where**: `profile.yaml` `examples[1].ideal_response` ("marketing text usually calls for dynamic equivalence", P034/P041). Same pattern in `tests/golden-tests.yaml` GT-004 (root cause `.build/authoring/gen.py`).
-- **Problem**: P034/P041 are task/purpose-conditioned, not genre-defaulted; no source states a genre-level default. Contradicts the package's own precedence rule (brief governs) and `forbidden_behaviours[2]` (mechanical type→strategy mapping). "usually" hedge + illustrative context keep it below must-fix.
-- **Fix**: Reframe as brief-conditioned: "a marketing brief typically prioritizes receptor response, so ask what this brief's purpose favours before defaulting the orientation (P034, P041, P021)." Fix GT-004 at the generator too.
-
-### SF-7 — Nida "dynamic equivalence" presented as live term without the "functional equivalence" reframing (raised by 2 domain reviewers)
-- **Where**: `skills/dynamic-and-formal-equivalence/SKILL.md`; `references/translation-equivalence-key-concepts.md`; P021/P034/P035/P036.
-- **Problem**: Nida (with de Waard, 1986, *From One Language to Another*) replaced "dynamic equivalence" with "functional equivalence" specifically to curb misreading "dynamic" as license for loose paraphrase. Package's own source disclosure notes it's a derived extract of the 1964 monograph. Currency gap for a package meant to reflect current practice.
-- **Fix**: Add one line in the skill Purpose + key-concepts entry: "Nida's 1964 term; later reframed as 'functional equivalence' (1986) to curb over-reading 'dynamic' as license for paraphrase." No strategy change.
-
-### SF-8 — Adequacy defined only by Nida's criteria; no note on unfalsifiability of "equivalent response"
-- **Where**: `skills/dynamic-and-formal-equivalence/SKILL.md` step 8; P035/P036; key-concepts "Adequacy".
-- **Problem**: "Similar receptor response" is empirically unverifiable (can't measure against the unavailable original audience) — a central translation-studies critique. `quality_bar` softens generally but nothing flags the specific unfalsifiability of equivalent-response testing.
-- **Fix**: Add caveat/anti-pattern: treat "similar audience response" as a directional target, not a measurable outcome; a fluent read is not proof of equivalent effect.
-
-### SF-9 — P084 mislabels the grammar/lexis contrast as "morphology vs syntax"
-- **Where**: `principles/principles.yaml` P084; `skills/grammatical-equivalence/SKILL.md` step 6.
-- **Problem**: Header says "Distinguish morphology from syntax," but the substance (and Baker Ch.3) contrasts grammar (morphology+syntax, closed/obligatory) vs lexis (open/optional). Mislabel could send a reader hunting a morphology-vs-syntax distinction that isn't the point.
-- **Fix**: Rephrase to "Distinguish grammar (morphology and syntax together, a closed, largely obligatory system) from lexis (an open, largely optional system)" in principle + skill step. NOTE: verify against P084's actual claim text before editing.
-
-### SF-10 — `golden-tests.yaml` profile_version one revision behind
-- **Where**: `tests/golden-tests.yaml:4` (`1.2.0`) vs `profile.yaml:4` (`1.2.1`).
-- **Problem**: Dependent artifact should track version bumps; reader can't tell if GT-004 etc. were validated against current text.
-- **Fix**: Bump `profile_version` to `1.2.1` (content appears unaffected by v1.2.1 fixes — metadata-only), or record the intentional lag.
-
-### SF-11 — Adapter `description` compresses to 1 of 3 modes + 1 of 3 exclusions
-- **Where**: adapter `description` (line 3) vs profile `when_to_use`/`when_not_to_use`.
-- **Problem**: Drops the `review` and `compare` triggers (half the modes) and 2 of 3 exclusions from the orchestrator's discovery signal, narrowing selection for review/compare use cases. Shared generator-template pattern (same truncation in sibling adapters) → fix belongs in the adapter-export description-synthesis step.
-- **Fix**: Have description-synthesis sample across modes/bullets or name the three mode triggers.
-
-### SF-12 — Provenance ledger overclaims universal per-field citation
-- **Where**: `provenance-ledger.md:8-9`.
-- **Problem**: States every quality_bar/forbidden_behaviours/handoff/always_on/source_of_truth value cites its principle, but `forbidden_behaviours[0]` (profile:83-84) has no inline citation — correct by design (faithfulness-report marks it declared scope, not a distillation claim). Blanket sentence reads like an orphan-field violation.
-- **Fix**: Qualify: "…cites the promoted principle(s) it restates, or is marked as declared advisory-boundary policy in the faithfulness report (see forbidden_behaviours[0])."
-
-### SF-13 — faithfulness-report `quality_bar[0]` note not updated for v1.2.1 correction
-- **Where**: `reports/faithfulness-report.yaml:4-11`; `CHANGELOG.md` v1.2.1.
-- **Problem**: v1.1.0/v1.2.0 changelog entries each record "Faithfulness-report note updated"; v1.2.1 (MF-2 narrowing "word or phrase"→"word level") does not, and the note text is unchanged. Audit trail inconsistent with prior practice at the same rule_ref.
-- **Fix**: Add a short note to the `quality_bar[0]` entry recording the MF-2 scope correction.
-
-### SF-14 — faithfulness-report coverage gap on uncited profile sections
-- **Where**: `reports/faithfulness-report.yaml`.
-- **Problem**: Report covers 27 rule_refs but has no entries for `role`, `when_to_use[*]`, `when_not_to_use[*]`, `inputs.required`, `minimum_useful_output`, `examples[*].ideal_response` — yet its scope claims "every profile rule." SF-6 (in examples[1]) is exactly the kind of over-claim this gap misses.
-- **Fix**: Add rule_ref entries for those sections, including the SF-6 SCOPE_BROADENED finding.
+**MF1 — Self-check / test artifacts are stale relative to shipped `agent_version` 1.2.5**
+- **Where:** `tests/golden-tests.yaml:4` (`profile_version: 1.2.4`) and `tests/test-results.md:3`
+  (`Generated: 2026-07-11T19:46:38`, pre-v1.2.5 body-size row) vs `profile.yaml:4`
+  (`agent_version: 1.2.5`); `CHANGELOG.md` `[1.2.5]` omits the "Test hygiene" regeneration line
+  that every prior version entry (1.2.0/1.2.2/1.2.3/1.2.4) carried.
+- **Severity:** must-fix (release-readiness). **Verified independently** by direct file read.
+- **Problem:** v1.2.5 changed `_compose_description` and trimmed the profile body — exactly what
+  Phase 8 self-check + Phase 10 golden tests re-verify — but those artifacts were never
+  regenerated. `validate PASS` does not certify freshness. Same issue as the package's own
+  r5 MF2, never fixed.
+- **Fix:** Re-run Phase 8 self-check against current v1.2.5 `profile.yaml`; regenerate
+  `tests/test-results.md`; bump `golden-tests.yaml` `profile_version` → `1.2.5`; add the matching
+  "Test hygiene" CHANGELOG/ledger line; re-confirm the body-word-count WARNING against the fresh
+  number.
 
 ---
 
-## NICE
+### SHOULD-FIX
 
-- **N-1** — Body word count at edge of 1000w hard FAIL with no durable headroom; `quality_bar` carries 9 bullets (registry expects 3–5), the structural reason for repeated ceiling bumps. Consolidate into fewer denser bullets to reclaim headroom. (`profile.yaml` quality_bar)
-- **N-2** — Gricean third maxim labeled "Relevance" (faithful to Baker) risks conflation with Sperber & Wilson Relevance Theory. Add parenthetical: "Relevance (Grice's Maxim of Relation, 'be relevant' — distinct from Relevance Theory)." (P032/P033/P073; pragmatic skill)
-- **N-3** — Chinese "bei" passive-as-adversity stated as flat fact; modern journalistic/internet Mandarin (post-2008 "被XX") has broadened it to neutral/satirical. Note the association is register/era-dependent. (P009)
-- **N-4** — `dynamic-and-formal-equivalence` H1 "…and Receptor Response" diverges from the title-cased-name pattern of the other 8 skills. Rename H1 or fold into Purpose.
-- **N-5** — Only 2 of 9 skill Output sections carry a "never hand back X as final" closing clause, and they reinforce different boundaries. Standardize or accept redundant-elsewhere coverage.
-- **N-6** — Skill descriptions assume translation-studies vocabulary ("unlexicalized", "false friend", "FSP"); a plain-language trigger phrase per description would widen matching.
-- **N-7** — `cohesion-and-texture` uses "coherence" (P112, lexical sense) while its boundary hands reader-coherence to the pragmatic sibling; term overlap could blur routing. Phrase as "lexical continuity/lexical coherence".
-- **N-8** — Baker 1st ed. (1992) grounding; 2nd (2011)/3rd (2018) editions exist with corpus-informed collocation refinements. Optionally note later editions in source-of-truth for cross-check.
-- **N-9** — `inputs.required` bundles 3 distinct inputs (source segment / draft / brief) into one compound sentence; split into three bullets.
-- **N-10** — Role paragraph names adapter-specific mechanic ("the invariants below"); soften to platform-neutral phrasing so it holds across future adapters.
-- **N-11** — `when_to_use[2]` / adapter line 43 grammatically broken: "They want which strategy fits" → "and wants to know which strategy fits."
-- **N-12** — Adapter role narrative never names `compare` mode explicitly though it's 1 of 3 modes; add an explicit clause.
+**SF1 — Gender/pronoun guidance omits gender-neutral / inclusive-language rendering**
+*(dedup: descriptive-TS + translation-quality both raised P015 independently)*
+- **Where:** `principles/principles.yaml` P015 (and P026); `skills/grammatical-equivalence/SKILL.md`
+  procedure step 3.
+- **Problem:** Guidance covers masculine-as-unmarked and "restructure to avoid specifying gender,"
+  but never names gender-neutral/inclusive strategies (singular *they*, epicene forms, neologism,
+  translator's note, EU/UN & style-guide inclusive-language norms) — a live mainstream problem in
+  professional translation, and squarely in this skill's stated scope, so a real gap not an
+  out-of-scope deferral.
+- **Fix:** Add an explicit branch: when source referent gender is genuinely unspecified and the
+  target has an established neutral device, offer that device as a primary option *before*
+  defaulting to masculine-as-unmarked or restructuring away.
+
+**SF2 — Grice's fourth maxim mislabeled "Relevance" (should be "Relation")**
+- **Where:** `principles/principles.yaml` P032 (lines 674–694);
+  `skills/pragmatic-equivalence-coherence-and-implicature/SKILL.md` line 99.
+- **Problem:** Grice's (1975) canonical maxim is **Relation** ("Be relevant"). "Relevance" names a
+  distinct later rival framework (Sperber & Wilson Relevance Theory); labeling Grice's maxim
+  "Relevance" conflates two theoretical accounts — a pragmatics reviewer would dispute it.
+- **Fix:** Reword both loci to "Quantity, Quality, Relation (often glossed as Relevance), and
+  Manner."
+
+**SF3 — Back-translation framed as "only pedagogical," eliding recognized professional QA use**
+- **Where:** `principles/principles.yaml` P100; `skills/dynamic-and-formal-equivalence/SKILL.md`
+  procedure step 7.
+- **Problem:** States back-translation is "only a pedagogical illustration… not by itself a general
+  test of translation quality." Omits that it is an established (if contested, insufficient-alone)
+  professional QA step in regulated domains — clinical-trial/PRO (ISPOR/ISO), informed consent,
+  legal, market research. "Only pedagogical" over-narrows.
+- **Fix:** Note back-translation also functions as one recognized professional QA technique in
+  regulated domains, while keeping the caution that it must never be the sole quality test.
+  *(Cross-check: this is the r4 SF1 narrowing; may have over-corrected — reconcile with that history.)*
+
+**SF4 — Contrastive-rhetoric claims stated as settled fact, not a contested hypothesis**
+- **Where:** `principles/principles.yaml` P033 (lines 695–716);
+  `skills/pragmatic-equivalence-coherence-and-implicature/SKILL.md` procedure step 3.
+- **Problem:** Asserts national/cultural discourse patterns (German digression, Arabic
+  repetition-by-assertion, Japanese linkless anecdote) as established facts. This is Kaplan's 1966
+  contrastive-rhetoric hypothesis, substantially critiqued (Connor 1996, Kubota 1999) as
+  essentializing. Stating as flat fact overreaches.
+- **Fix:** Hedge to "loose tendencies to verify against the actual target readership, not fixed
+  national patterns"; keep the well-supported underlying point (maxims are culture-relative).
+
+**SF5 — when_not_to_use boundary vs descriptive-translation-reviewer names theory-topics, not the real overlap**
+- **Where:** `profile.yaml:24-27` (`when_not_to_use` bullet 1); adapter lines 48-51.
+- **Problem:** Redirect sends "generic review my translation" to descriptive-translation-reviewer
+  for "norms, retranslation, translator (in)visibility" — but the actual overlap is *linguistic-level
+  equivalence review itself* (descriptive's own when_to_use claims equivalence/register/cohesion at
+  the same levels). A caller can't disambiguate from either package's text.
+- **Fix:** Name the real axis: equivalence-as-evidence-for-a-norm / domestication-foreignization /
+  translator-visibility → descriptive; the linguistic mechanism itself (is this collocation typical,
+  does this cohesive tie fit target convention) → here. Flag as symmetric handoff note for the
+  descriptive-reviewer package too.
+
+**SF6 — "register profile" redirect conflicts with this package's own register quality-bar item**
+- **Where:** `profile.yaml:27` (redirect to translation-quality-reviewer) vs `profile.yaml:73-75`
+  (`quality_bar` register-by-field/tenor/mode) + `register-style-and-literary-form` skill.
+- **Problem:** Excludes "a register profile" yet keeps a standing quality bar judging register by
+  field/tenor/mode (same House categories the sibling uses). Distinction plausibly exists (local
+  factor vs systematic ST/TT profile comparison) but is never stated.
+- **Fix:** Make redirect specific: systematic ST-vs-TT register *profile* comparison (House
+  field/tenor/mode, overt/covert) → translation-quality-reviewer; register as one local factor in a
+  rendering-strategy decision → stays here.
+
+**SF7 — `handoff_rules[1]` wording doesn't carry the v1.2.5 P094 scope-narrowing**
+- **Where:** `profile.yaml:95-97`.
+- **Problem:** P094 (principles.yaml:1773-1777) was narrowed in v1.2.5 to "stylistic concordance,
+  not subject-matter terminology consistency." But handoff_rules[1]'s unqualified "terminology
+  consistency," sitting right after "subject-matter terminology," can be read as re-claiming the
+  narrowed-away scope.
+- **Fix:** Reword: "…flags where source-term concordance (stylistic/study tracking, not
+  subject-matter glossary consistency) or the receptor community's faithfulness expectations bear
+  (P094, P115)."
+
+**SF8 — No worked `compare`-mode example in the profile example gallery**
+- **Where:** `profile.yaml:176-214` (`examples:`), cf. `outputs.modes[2]` (`profile.yaml:52-56`).
+- **Problem:** All 3 example entries cover advise/review/decline; compare mode's distinct contract
+  (side-by-side of two options → purpose-weighted recommendation) is exercised only by golden test
+  GT-004, never in the gallery that most concretely teaches response shape.
+- **Fix:** Add a fourth `examples` entry (`kind: happy-path`) with a compare-mode `ideal_response`
+  (e.g. formal-vs-dynamic for one segment under a stated brief).
+
+**SF9 — No worked example in any of the 9 SKILL.md files**
+- **Where:** all `skills/*/SKILL.md` (esp. cohesion, thematic/information-structure, pragmatics,
+  register/form — the most abstract lenses).
+- **Problem:** Each skill's Output section describes finding *shape* abstractly; none shows a concrete
+  before/after instance. Falls short of the operational-recipe bar (procedure + I/O example).
+- **Fix:** Add one short worked example per skill (1–2 sentence source snippet → flaw named at that
+  lens → strategy/correction → residual loss), prioritizing the four hardest-to-picture lenses.
+
+**SF10 — Procedure steps overload a full decision table into one run-on sentence**
+- **Where:** `word-level-nonequivalence-and-strategies/SKILL.md` step 5;
+  `dynamic-and-formal-equivalence/SKILL.md` steps 2/5/8; `collocation-idiom-and-fixed-expression/SKILL.md`
+  step 5.
+- **Problem:** Full strategy set + citations crammed into one dense clause — reduces scannability at
+  live-review time, the moment the step must work as a checklist.
+- **Fix:** Reformat as a short nested bullet list (one option/strategy + citation per line), keeping
+  the step's opening sentence as header.
+
+**SF11 — Body-size WARNING has near-zero headroom and is currently unverifiable**
+- **Where:** `profile.yaml` body budget (~968/1000 words claimed at v1.2.5, `CHANGELOG.md:38-39`).
+- **Problem:** 800-word PASS already exceeded; ~3% headroom to the 1000-word hard-fail; the artifact
+  that would confirm the count is stale (MF1), so true count unverified.
+- **Fix:** After regenerating test-results (MF1), if confirmed count >900, trim further (collapse
+  remaining `quality_bar` per-clause citation lists) or move detail into
+  `knowledge_partition.always_on` (exempt from body budget).
 
 ---
 
-MUST_FIX_COUNT: 2
+### NICE
+
+- **N1 — `dynamic → functional equivalence (1986)` succession not noted.** `skills/dynamic-and-formal-equivalence/SKILL.md` Purpose / P034. Nida & de Waard (1986) renamed "dynamic" to "functional equivalence" precisely because "dynamic" was misread as "free/emotive"; readers hitting the later term elsewhere will want the mapping. Add one sentence. *(descriptive + quality both flagged the terminology-succession area.)*
+- **N2 — `quality_bar[2]` conflates obligatory-category compliance with function-over-form choices.** `profile.yaml`. Gender/number/tense are obligatory categories (P025/P057); voice (P009) and modality (P085) are function-over-form, not obligatory slots. Reword: "render voice and modality by function, and gender/number/tense-aspect by the target's obligatory categories."
+- **N3 — P009 scientific-English passive example lacks a currency caveat.** `principles/principles.yaml` P009; `grammatical-equivalence/SKILL.md`. Current STEM style guidance (Nature/ACS/IEEE/CSE) has moved toward active voice; add "(a convention increasingly displaced by active-voice style guidance in current STEM writing)."
+- **N4 — P009 Chinese adversative-passive claim slightly overconfident at "high".** `principles/principles.yaml` P009. 被-passive has broadened to neutral use in contemporary/translated Chinese; downgrade to medium or add a diachronic caveat (check register/period).
+- **N5 — P015 "masculine as unmarked" hedge lives only in the skill, not the principle.** `principles/principles.yaml` P015. Fold the descriptive-not-prescriptive clause (already in `grammatical-equivalence` step 3) into the principle text so direct principles.yaml readers get it too.
+- **N6 — Compensation scoped only to idioms (P014), not surfaced as Baker's general text-level strategy.** Cross-reference P014 from `register-style-and-literary-form` sound-effects guidance (P099), or add a cross-cutting principle.
+- **N7 — "Explanatory vs supplemental coherence" (P070) terminology unverified against source wording.** `principles/principles.yaml` P070; pragmatics skill step 1. Spot-check against Baker's actual coherence chapter next faithfulness pass; soften if it's the distillation's own paraphrase.
+- **N8 — `always_on[6]` citation list includes P100 though its prose never mentions back-translation.** `profile.yaml`. Citation noise, no over-claim; drop P100 or add a short back-translation clause if touched.
+- **N9 — Skopos-theory convergence unnoted.** Brief-driven tactic selection (P021/P097) parallels Reiss & Vermeer Skopos; optional one-line "see also," or explicitly leave out-of-scope given two-source grounding.
+- **N10 — H1 heading drift.** `dynamic-and-formal-equivalence/SKILL.md` H1 adds "and Receptor Response" not in the slug/description. Match slug or fold into frontmatter description.
+- **N11 — Frontmatter `description` is a dense semicolon/dash run-on** (adapter line 3 + all 9 skill descriptions). Router/scan parse speed; consider clause-broken phrasing. Adapter-export-template concern, not profile authoring.
+- **N12 — Redundant restatement of the advisory-boundary precedence rule** (adapter lines 19 & 23). Consolidate to one statement + cross-reference.
+- **N13 — Single-sentence Role guard against 5 imperative must-hold invariants.** `profile.yaml:9-14` vs compiled `## Operating invariants`. Reword invariant surface forms to be self-evidently advisory ("Flag a draft that renders X mechanically…") rather than relying solely on the Role disclaimer. Future cycle.
+- **N14 — Ledger version-history now 13 entries in one file** (`provenance-ledger.md:52-238`). Consider archiving entries older than N versions to `provenance-ledger-history.md`.
+
+---
+
+## Out-of-scope note (not counted)
+
+`reports/review-loop/translation-equivalence-advisor.r5.review.md` MF1 reports
+`references/translation-equivalence-principles-index.md` still carries pre-round-4 P094/P100 wording
+(drifted from `principles.yaml`). Reference-file/domain-content drift — resolve in the same pass as
+MF1, since both stem from round-5 fixes never applied.
+
+MUST_FIX_COUNT: 1
