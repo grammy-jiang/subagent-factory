@@ -49,6 +49,18 @@ The five high-confidence principles (P009, P024, P037, P038, P058) are compiled 
 
 ## Version history
 
+- **v1.2.1** (2026-07-12) — adversarial-verify (verify1) fixes (no spine change; every edited rule still
+  restates principles already in the spine, no new claim):
+  - MF-1 (faithfulness): `skills/grammatical-equivalence/SKILL.md` step 7 conflated a term-TYPE with a
+    STRATEGY — classified terms as "ordinary parallels, functional equivalents, or borrowings", swapping
+    P055's diagnostic third category "culture-specific items" for the strategy "borrowings" and dropping
+    "cultural" from the second. Restated to P055's exact sense (ordinary parallels / functional cultural
+    analogues / culture-specific items) with strategy choice deferred to the word-level skill, restoring
+    the no-map-type-to-strategy discipline.
+  - MF-2 (faithfulness): `profile.yaml` `quality_bar[0]` broadened word-scoped P037/P001 to "word or
+    phrase level" (SCOPE_BROADENED — phrase/collocation is governed by P042/P043 typicality). Narrowed to
+    "word level"; phrase/collocation/idiom coverage remains in `quality_bar[1]`.
+
 - **v1.2.0** (2026-07-12) — review-loop r2 fixes (supersession, no spine change; every edited rule still
   restates principles already in the spine, no new claim):
   - MF-1 (faithfulness): the receptor-response over-claim fixed in `quality_bar[6]` at v1.1.0 was still

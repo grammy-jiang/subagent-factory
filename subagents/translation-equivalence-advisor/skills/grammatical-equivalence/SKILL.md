@@ -91,7 +91,7 @@ This skill reviews decisions forced by differences in grammar. Its rule is that 
 4. Do not map tense and aspect mechanically, and render modality (certainty, possibility, obligation) by its function rather than its literal form (P046, P085).
 5. When translating pronouns into a language that marks formality, gender, or inclusive/exclusive reference, resolve what the source leaves implicit deliberately (P026).
 6. Distinguish morphology from syntax when weighing a grammatical against a lexical choice (P084).
-7. Adapt grammar and lexicon to receptor-language requirements, first classifying terms as ordinary parallels, functional equivalents, or borrowings; always satisfy obligatory receptor features, but flag any forced addition, specification, or omission when the source is silent (P055, P057).
+7. Adapt grammar and lexicon to receptor-language requirements, first classifying terms as ordinary parallels, functional cultural analogues, or culture-specific items — and only then choosing a strategy (e.g. borrowing, paraphrase, cultural substitution) for the culture-specific class, per the word-level skill; always satisfy obligatory receptor features, but flag any forced addition, specification, or omission when the source is silent (P055, P057).
 
 ## Inputs
 

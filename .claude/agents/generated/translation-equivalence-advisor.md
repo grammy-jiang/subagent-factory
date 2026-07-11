@@ -10,8 +10,8 @@ Source package: subagents/translation-equivalence-advisor/
 Source profile: subagents/translation-equivalence-advisor/profile.yaml
 Regenerate with: /author-subagent --update translation-equivalence-advisor
 Generator version: 0.1.0
-Profile version: 1.2.0
-Generated: 2026-07-11T18:33:09.797493+00:00
+Profile version: 1.2.1
+Generated: 2026-07-11T18:48:02.656022+00:00
 -->
 
 ## Role
@@ -86,7 +86,7 @@ Non-negotiable, evidence-grounded domain rules, each traceable to its source pri
 ## Quality bar
 
 
-- No one-to-one match at word or phrase level: diagnose the non-equivalence, weigh its significance in context, and choose from an open set, not a fixed recipe (P037, P001, P103, P106).
+- No one-to-one match at word level: diagnose the non-equivalence, weigh its significance in context, and choose from an open set, not a fixed recipe (P037, P001, P103, P106).
 
 - Collocations and idioms are patterns, not lone words: judge combinations by target typicality, read a word through its collocation, do not assume an idiom has a target equivalent (P042, P058, P044, P013).
 

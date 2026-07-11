@@ -3,6 +3,21 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.1] — 2026-07-12
+
+### Fixed
+- **Faithfulness (verify1 MF-1):** `skills/grammatical-equivalence/SKILL.md` step 7 conflated a
+  term-TYPE with a STRATEGY — it classified terms as "ordinary parallels, functional equivalents, or
+  borrowings", silently swapping P055's diagnostic third category "culture-specific items" for the
+  strategy "borrowings" and dropping "cultural" from the second. Restated to P055's sense (ordinary
+  parallels / functional cultural analogues / culture-specific items), with strategy choice deferred to
+  the word-level skill — restoring the package's own no-map-type-to-strategy discipline.
+- **Faithfulness (verify1 MF-2):** `profile.yaml` `quality_bar[0]` broadened word-scoped P037/P001 to
+  "word **or phrase** level" — a SCOPE_BROADENED extension the citations do not support (phrase/
+  collocation level is governed by P042/P043 target-typicality, which presupposes typical target
+  patterns often exist). Narrowed to "word level"; phrase/collocation/idiom coverage stays in
+  `quality_bar[1]`.
+
 ## [1.2.0] — 2026-07-12
 
 ### Changed
