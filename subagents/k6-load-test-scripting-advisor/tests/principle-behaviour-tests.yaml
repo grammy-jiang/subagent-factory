@@ -1,0 +1,101 @@
+schema_version: principle-behaviour-tests-v1
+principle_behaviour_tests:
+  - test_id: PB-001
+    principle_id: k6-p001
+    prompt: >-
+      My k6 run finished and the summary shows several failed checks, but the
+      run still reported success and exited 0. Why didn't the failing checks
+      stop or fail the test?
+    expected_behaviour:
+      - "explains that checks validate response conditions but never halt or fail the run"
+      - "directs the caller to thresholds when they need the run outcome to fail"
+      - "cites k6-p001"
+    must_not:
+      - "claims a failed check aborts the run or sets a failing exit status"
+
+  - test_id: PB-002
+    principle_id: k6-p002
+    prompt: >-
+      I want my k6 run to return a non-zero exit code and fail the CI gate when
+      the error rate or response time is too high. How do I make that happen?
+    expected_behaviour:
+      - "recommends defining thresholds as pass/fail criteria against k6 metrics"
+      - "explains an unmet threshold ends the test with a failed status"
+      - "cites k6-p002"
+    must_not:
+      - "tells the caller to rely on checks alone to fail the run"
+
+  - test_id: PB-003
+    principle_id: k6-p003
+    prompt: >-
+      I'm confused about checks versus thresholds in k6. Aren't they basically
+      the same thing for validating responses?
+    expected_behaviour:
+      - "distinguishes checks (validate responses, never stop the run) from thresholds (set pass/fail, can fail the run)"
+      - "warns against conflating the two purposes"
+      - "cites k6-p003"
+    must_not:
+      - "treats checks and thresholds as interchangeable for run pass/fail"
+
+  - test_id: PB-004
+    principle_id: k6-p004
+    prompt: >-
+      I need to ramp up to 100 VUs over 2 minutes, hold there for 5 minutes,
+      then ramp back down to 0. How do I express that load shape in k6?
+    expected_behaviour:
+      - "uses the stages option with target and duration to express ramp-up, sustain, and ramp-down phases"
+      - "notes stages is a shortcut for the ramping-vus executor"
+      - "cites k6-p004"
+    must_not:
+      - "recommends a fixed vus/duration without stages for this ramping load shape"
+
+  - test_id: PB-005
+    principle_id: k6-p005
+    prompt: >-
+      In my k6 results, what exactly do http_req_duration and http_req_failed
+      measure, and which should I use for a response-time threshold versus an
+      error-rate threshold?
+    expected_behaviour:
+      - "states http_req_duration measures total request time from send to response receipt"
+      - "states http_req_failed counts requests with non-2xx/non-3xx status codes"
+      - "cites k6-p005"
+    must_not:
+      - "misattributes error-rate gating to http_req_duration or vice versa"
+
+  - test_id: PB-006
+    principle_id: k6-p006
+    prompt: >-
+      My threshold is written as p(95)<500. What does p(95) actually mean, and
+      is a lower or higher number better?
+    expected_behaviour:
+      - "explains p95 is the value below which 95% of requests fall (95th percentile)"
+      - "states lower values indicate better performance and that p95 is the conventional SLO anchor"
+      - "cites k6-p006"
+    must_not:
+      - "describes p95 as a mean or as the worst-case maximum response time"
+
+  - test_id: PB-007
+    principle_id: k6-p007
+    prompt: >-
+      When I read k6 output, how do I know what aggregation each metric uses? I
+      have a request count, an error rate, and a response time and I'm not sure
+      how to interpret them.
+    expected_behaviour:
+      - "names the four k6 metric types: Counter, Gauge, Rate, and Trend"
+      - "maps request count to Counter, error rate to Rate, and response time to Trend"
+      - "cites k6-p007"
+    must_not:
+      - "interprets a Rate or Trend metric as if it were a simple summed Counter"
+
+  - test_id: PB-008
+    principle_id: k6-p008
+    prompt: >-
+      My test has two distinct user journeys (browsing and checkout) that I want
+      to run with different independent load patterns in the same script, with
+      custom ramping for each. How should I structure this?
+    expected_behaviour:
+      - "recommends defining separate scenarios, each running its own JavaScript function in parallel"
+      - "uses the ramping-vus executor for per-scenario gradual ramp-up/ramp-down beyond the top-level stages shortcut"
+      - "cites k6-p008"
+    must_not:
+      - "forces both journeys into a single default scenario with one top-level stages shortcut"

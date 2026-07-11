@@ -1,0 +1,359 @@
+schema_version: faithfulness-report-v1
+subagent_slug: kafka-benchmarking-advisor
+
+# Tier 0 package (no evidence/ records; CHANGELOG marks Tier 0) → faithfulness-v0:
+# each profile rule compared against the raw ingested source text
+# (sources/markdown/kafka-optimization-b-20260608223929.md).
+# Source is a dense, quantified Intel benchmark guide; most rules track exact
+# source numbers. No CONTRADICTED findings. Worst finding is one SCOPE_BROADENED
+# ("LZ4 fastest") inferred from the Fig 7 throughput chart rather than stated.
+
+findings:
+  # ---------- when_to_use ----------
+  - rule_ref: when_to_use[0]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      §1.1/§1.2 give m5 vs. m6i throughput/latency both Encryption OFF (30%
+      throughput) and ON (33% throughput, 12% latency). Matches the use case.
+
+  - rule_ref: when_to_use[1]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      §4.1 / Figure 7 compares gzip, snappy, zstd, lz4 on quantified throughput
+      and P99 latency. Exact match.
+
+  - rule_ref: when_to_use[2]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      §2 / §2.1 state i4i CPU scaling gives "linear % Max Throughput improvement"
+      with Producers/Brokers/Consumers/partitions scaled along (4x). Supported.
+
+  - rule_ref: when_to_use[3]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      §3 states JDK 11+ provides Intel Crypto/VAES acceleration vs. no support in
+      JDK 8; Overview ties VAES to OpenJDK 11.0.11+. Supported.
+
+  - rule_ref: when_to_use[4]
+    verdict: WITHIN_SCOPE
+    distortion: [scope_broadened]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      §4.2/§5 present ISA-L (IGZIP) and IPP gzip as Intel improvements over native
+      Java gzip; IPP described as a "patched version of native Java gzip" with a
+      Zlib interface. "drop-in replacement" is a fair inference from the Zlib
+      interface but is not the source's exact wording.
+
+  # ---------- when_not_to_use ----------
+  - rule_ref: when_not_to_use[0]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Entire source is Intel-Xeon-specific (Ice Lake / 3rd Gen, VAES/AVX-512/AES-NI).
+      Restricting conclusions away from AMD/ARM is a faithful scope limit.
+
+  - rule_ref: when_not_to_use[1]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Overview states verbatim "Apache Kafka does not directly support any form of
+      encryption-at-rest for data stored at a broker." Exact support.
+
+  - rule_ref: when_not_to_use[2]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Source covers only infrastructure/perf benchmarking; schema/topic/consumer-group
+      design are absent. Scope-limiting by absence is faithful.
+
+  # ---------- outputs.modes (trigger + output checked together per mode) ----------
+  - rule_ref: outputs.modes[0]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      advise mode: prioritised config changes with quantified improvement +
+      citations. Source supplies the underlying quantified findings (§1–§4.2);
+      packaging them as advice is a valid behaviour, not an over-claim.
+
+  - rule_ref: outputs.modes[1]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      compare mode: head-to-head normalised throughput/P99 ratios. Figures 1-8 are
+      already presented as normalised ratios (baseline 1.0), so the ratio tables
+      are drawn from the source, not invented.
+
+  - rule_ref: outputs.modes[2]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - kafka-optimization-b-20260608223929-h0000
+      - kafka-optimization-b-20260608223929-h0001
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      validate mode checklist (median of three runs, anti-affinity pod placement,
+      partitions/producers = 2x vCPU, replication factor) maps to Process/Methodology
+      (median of three runs; anti-affinity; replication factor 1) and Appendix A
+      config tables (PARTITIONS/#PRODUCERS = *Twice # of vCPUs). Exact.
+
+  # ---------- quality_bar ----------
+  - rule_ref: quality_bar[0]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Source ties every figure to a specific scenario (instance, JDK, encryption,
+      compression). Requiring scenario-bound claims faithfully reflects the source's
+      own discipline.
+
+  - rule_ref: quality_bar[1]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      KPI section defines exactly two KPIs (Max Throughput, Producer P99 Latency) and
+      the report consistently presents both together. "always together" matches the
+      source's own presentation.
+
+  - rule_ref: quality_bar[2]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      §4.1: "P99 Latency is better when 'gzip' compression is applied ... Excluding
+      'gzip' other compression methods are showing better Throughput." Figure 7
+      confirms gzip lowest latency, lz4/zstd higher throughput. Exact.
+
+  - rule_ref: quality_bar[3]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      §4.2 states verbatim ISA-L 1.47x throughput / 34% latency and IPP 1.15x
+      throughput / 8% latency vs. Java native gzip. Numbers reproduced exactly; no
+      specificity inflation.
+
+  - rule_ref: quality_bar[4]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - kafka-optimization-b-20260608223929-h0000
+      - kafka-optimization-b-20260608223929-h0001
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      BATCH_SIZE, LINGER_MS, PARTITIONS, REPLICATION_FACTOR, RECORD_SIZE all appear
+      in Appendix A Tables 2.1-2.4. Faithful reference.
+
+  # ---------- minimum_useful_output ----------
+  - rule_ref: minimum_useful_output
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Example "JDK 8 -> JDK 11 = 26% throughput gain with encryption ON" matches §3.2
+      verbatim, but that 26% is specific to i4i.4xlarge with Zstd. The example omits
+      the instance/compression scope; advisor must surface them per quality_bar[0].
+
+  # ---------- forbidden_behaviours ----------
+  - rule_ref: forbidden_behaviours[0]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Source has zero AMD/ARM data; forbidding extrapolation off Intel is a faithful
+      guardrail consistent with when_not_to_use[0].
+
+  - rule_ref: forbidden_behaviours[1]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Mirrors the Overview's explicit exclusion of encryption-at-rest. Faithful.
+
+  - rule_ref: forbidden_behaviours[2]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      "Do not fabricate numbers beyond the source" is a faithfulness guardrail itself;
+      strictly more conservative than the source, so no over-claim.
+
+  - rule_ref: forbidden_behaviours[3]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Appendix A dates testing April 12 - Sept 21, 2022 on Kafka 2.8.1/3.0/3.2 and
+      JDK 8/11/17. Cautioning that newer releases may differ is a faithful, conservative
+      temporal hedge.
+
+  # ---------- knowledge_partition.always_on ----------
+  - rule_ref: knowledge_partition.always_on[0]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      KPI section names exactly two KPIs (Max Throughput MB/s, Producer P99 Latency).
+      Exact.
+
+  - rule_ref: knowledge_partition.always_on[1]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Source: TLS AES-GCM "can be CPU intensive"; VAES/AES-NI on 3rd Gen reduce crypto
+      cycles, yielding 33% throughput / 12% latency improvement vs. m5. "Materially"
+      is justified by the measured deltas; not an unhedged absolute.
+
+  - rule_ref: knowledge_partition.always_on[2]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Overview ("OpenJDK 11.0.11 and later") and §3 ("OpenJDK version 11.0.11+";
+      JDK 8 no Crypto support) match the 11.0.11 threshold exactly.
+
+  - rule_ref: knowledge_partition.always_on[3]
+    verdict: SCOPE_BROADENED
+    distortion: [scope_broadened]
+    support_granularity: section
+    severity: low
+    action: add_condition
+    note: >-
+      Source explicitly states only that gzip has the highest compression ratio and
+      slowest speed (§4 / §4.2). "LZ4 fastest" is inferred from Figure 7's throughput
+      bars (lz4 tied-highest) and is not asserted as a speed ranking in text. Defensible
+      but slightly broader than the prose; flagged for reviewer awareness. Rest of the
+      rule (throughput up, storage/network down, producer CPU latency added) is exact.
+
+  - rule_ref: knowledge_partition.always_on[4]
+    verdict: WITHIN_SCOPE
+    distortion: [scope_broadened]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      §4.2/§5 give ISA-L (IGZIP) and IPP gzip measured uplifts on 3rd Gen Xeon vs.
+      native Java gzip. "drop-in replacement" inferred from IPP's Zlib interface /
+      "patched version of native Java gzip"; faithful inference, not source wording.
+
+  - rule_ref: knowledge_partition.always_on[5]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - kafka-optimization-b-20260608223929-h0004
+      - kafka-optimization-b-20260608223929-h0006
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      §2/§2.1 state i4i CPU scaling gives linear Max Throughput improvement with
+      Brokers/Consumers/partitions scaled proportionally (Figure 4: 1 -> 1.91 -> 3.86).
+      "Linear" is the source's own word. Exact.
+
+  - rule_ref: knowledge_partition.always_on[6]
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - kafka-optimization-b-20260608223929-h0000
+      - kafka-optimization-b-20260608223929-h0001
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Process/Methodology: "Median value of three Runs"; Replication factor 1; scripts
+      kafka-producer-perf-test.sh / kafka-consumer-perf-test.sh. Appendix A:
+      PARTITIONS / #PRODUCERS = *Twice # of vCPUs. Exact.
+
+  # ---------- handoff_rules (completeness) ----------
+  - rule_ref: handoff_rules[0]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Engineer-retains-decision is an advisory-role policy, not a source claim; the
+      source's disclaimer ("Your costs and results may vary") supports deferring final
+      decisions to the operator. Faithful.
+
+  - rule_ref: handoff_rules[1]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      "Validate against your specific environment/SLA" echoes the source's Performance
+      Benchmark Test note that environments/workloads have specific needs. Faithful.
+
+  - rule_ref: handoff_rules[2]
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >-
+      Tested range (Kafka 2.8.1-3.2; JDK 8/11.0.15/17.0.1) is taken from Appendix A
+      Tables 2.1-2.4. Flagging out-of-range versions is a faithful, conservative hedge.

@@ -1,0 +1,171 @@
+quarantined:
+- finding: 6
+  rule_ref: when_not_to_use[1]
+  dropped: "kafka-best-practices \xA7Security (client credential config)"
+- finding: 8
+  rule_ref: outputs.primary_format
+  dropped: L1408 Summary of Configurations for Optimizing Throughput
+- finding: 8
+  rule_ref: outputs.primary_format
+  dropped: L1575
+- finding: 8
+  rule_ref: outputs.primary_format
+  dropped: L1827
+- finding: 8
+  rule_ref: outputs.primary_format
+  dropped: L1970
+- finding: 9
+  rule_ref: outputs.modes[0].trigger
+  dropped: L1094-1135 service goals
+- finding: 9
+  rule_ref: outputs.modes[0].trigger
+  dropped: L1408-1970 per-goal tables
+- finding: 10
+  rule_ref: outputs.modes[0].output
+  dropped: L1408-1483 throughput/latency tables
+- finding: 10
+  rule_ref: outputs.modes[0].output
+  dropped: "\xA7Producers/Consumers metrics L588-919"
+- finding: 11
+  rule_ref: outputs.modes[1].trigger
+  dropped: L1408-1970 best-practice values
+- finding: 11
+  rule_ref: outputs.modes[1].trigger
+  dropped: L962-1084 benchmarking
+- finding: 12
+  rule_ref: outputs.modes[1].output
+  dropped: L1408-1970 default/recommended values
+- finding: 12
+  rule_ref: outputs.modes[1].output
+  dropped: L1082-1084 benchmark before production
+- finding: 13
+  rule_ref: outputs.modes[2].trigger
+  dropped: "\xA7Metrics API L586-602"
+- finding: 13
+  rule_ref: outputs.modes[2].trigger
+  dropped: "\xA7Client JMX Metrics L720-724"
+- finding: 14
+  rule_ref: outputs.modes[2].output
+  dropped: "\xA7Metrics API L586-602"
+- finding: 14
+  rule_ref: outputs.modes[2].output
+  dropped: "\xA7JMX metrics L720-919"
+- finding: 15
+  rule_ref: quality_bar[0]
+  dropped: L1412 batch.size 100000-200000
+- finding: 15
+  rule_ref: quality_bar[0]
+  dropped: L1414 linger.ms 10-100
+- finding: 15
+  rule_ref: quality_bar[0]
+  dropped: L1202 'we provide a range of reasonable values'
+- finding: 16
+  rule_ref: quality_bar[1]
+  dropped: L1119-1135 trade-offs
+- finding: 16
+  rule_ref: quality_bar[1]
+  dropped: L1274 batching trade-off = higher latency
+- finding: 17
+  rule_ref: quality_bar[2]
+  dropped: "\xA7Producers/Consumers metrics L588-919"
+- finding: 17
+  rule_ref: quality_bar[2]
+  dropped: L1023 'available JMX metrics'
+- finding: 18
+  rule_ref: quality_bar[3]
+  dropped: L216-218 librdkafka config file
+- finding: 18
+  rule_ref: quality_bar[3]
+  dropped: L540-559 StreamsConfig producerPrefix/consumerPrefix
+- finding: 19
+  rule_ref: quality_bar[4]
+  dropped: L1082-1084 benchmark before production
+- finding: 19
+  rule_ref: quality_bar[4]
+  dropped: L988-1039 start at default then repeat
+- finding: 19
+  rule_ref: quality_bar[4]
+  dropped: L1019 cleansed production data
+- finding: 19
+  rule_ref: quality_bar[4]
+  dropped: L1007-1011 mock-data caution
+- finding: 20
+  rule_ref: minimum_useful_output
+  dropped: L1408-1420 throughput table (>=4 params)
+- finding: 21
+  rule_ref: forbidden_behaviours[0]
+  dropped: L1082-1084 'strongly recommend benchmarking your application before you
+    go to production'
+- finding: 21
+  rule_ref: forbidden_behaviours[0]
+  dropped: L988 start with default config
+- finding: 22
+  rule_ref: forbidden_behaviours[1]
+  dropped: L1284-1288 'strongly recommend not using gzip because it's much more compute
+    intensive'
+- finding: 23
+  rule_ref: forbidden_behaviours[2]
+  dropped: L1119 'you can't maximize all goals at the same time'
+- finding: 23
+  rule_ref: forbidden_behaviours[2]
+  dropped: L1135
+- finding: 24
+  rule_ref: forbidden_behaviours[3]
+  dropped: "\xA7scope L106-123 (client applications)"
+- finding: 25
+  rule_ref: knowledge_partition.always_on[0]
+  dropped: L1094 four goals
+- finding: 25
+  rule_ref: knowledge_partition.always_on[0]
+  dropped: L1119/L1135 can't maximize all
+- finding: 26
+  rule_ref: knowledge_partition.always_on[1]
+  dropped: L1253-1274 batching
+- finding: 26
+  rule_ref: knowledge_partition.always_on[1]
+  dropped: L1412-1420 batch.size/linger.ms/buffer.memory
+- finding: 27
+  rule_ref: knowledge_partition.always_on[2]
+  dropped: L1337-1341 acks=1
+- finding: 27
+  rule_ref: knowledge_partition.always_on[2]
+  dropped: L1510 acks=0
+- finding: 27
+  rule_ref: knowledge_partition.always_on[2]
+  dropped: L1618-1620 acks=all
+- finding: 28
+  rule_ref: knowledge_partition.always_on[3]
+  dropped: L1669-1689 enable.idempotence=true
+- finding: 28
+  rule_ref: knowledge_partition.always_on[3]
+  dropped: L1724 sequence numbers/ordering
+- finding: 29
+  rule_ref: knowledge_partition.always_on[4]
+  dropped: L1371-1389 fetch.min.bytes/fetch.max.wait.ms
+- finding: 29
+  rule_ref: knowledge_partition.always_on[4]
+  dropped: L1927-1929 max.poll.interval.ms/max.poll.records
+- finding: 30
+  rule_ref: knowledge_partition.always_on[5]
+  dropped: L911-919 records-lag-max
+- finding: 31
+  rule_ref: knowledge_partition.always_on[6]
+  dropped: L1282-1288 codecs lz4/snappy/zstd/gzip; use lz4; avoid gzip
+- finding: 32
+  rule_ref: knowledge_partition.always_on[7]
+  dropped: L337/L1610 replication factor of 3 enforced
+- finding: 32
+  rule_ref: knowledge_partition.always_on[7]
+  dropped: L1618-1620 acks=all + ISRs
+- finding: 33
+  rule_ref: knowledge_partition.always_on[8]
+  dropped: L510-525 networkaddress.cache.ttl=30 / negative.ttl
+- finding: 33
+  rule_ref: knowledge_partition.always_on[8]
+  dropped: L540-559 client.dns.lookup=use_all_dns_ips
+- finding: 34
+  rule_ref: knowledge_partition.always_on[9]
+  dropped: L588-594 Metrics API server-side, no client-side
+- finding: 34
+  rule_ref: knowledge_partition.always_on[9]
+  dropped: L720-724 client JMX metrics

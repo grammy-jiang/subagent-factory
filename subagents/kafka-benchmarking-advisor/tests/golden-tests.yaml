@@ -1,0 +1,150 @@
+schema_version: golden-tests-v1
+subagent_slug: kafka-benchmarking-advisor
+generated_at: "2026-06-09T00:00:00+00:00"
+
+golden_tests:
+  - test_id: GT-001
+    description: >-
+      Positive routing — advise mode: JDK upgrade recommendation for TLS cluster
+    prompt: >-
+      We are running Kafka 3.0 on m5.4xlarge instances (2nd Gen Xeon) with TLS
+      encryption enabled and JDK 8. Our throughput is around 400 MB/s and we are
+      struggling to meet our 800 MB/s target. What is the single highest-impact
+      change we can make?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: >-
+      Identifies JDK 8 to JDK 11 upgrade as a high-impact change; cites
+      approximately 26% throughput gain from VAES Crypto acceleration on 3rd Gen
+      Xeon; recommends m6i (3rd Gen Ice Lake) instance migration alongside JDK
+      upgrade; presents both throughput and P99 latency impact.
+    must_not_do:
+      - Claim VAES acceleration works on m5 (2nd Gen) instances
+      - State performance numbers not in the source benchmark data
+      - Recommend encryption-at-rest configuration
+      - Extrapolate results to AMD or ARM CPU alternatives
+
+  - test_id: GT-002
+    description: >-
+      Positive routing — compare mode: gzip vs. Zstd compression algorithms
+    prompt: >-
+      We need to choose between gzip and Zstd compression for our Kafka producers
+      on m6i.4xlarge instances (3rd Gen Xeon, JDK 11, TLS off). Our SLA requires
+      P99 latency under 50ms; throughput target is 600 MB/s. Which algorithm
+      should we use?
+    expected_route: invoke
+    expected_mode: compare
+    must_ask_for: []
+    minimum_output: >-
+      Side-by-side comparison of gzip vs. Zstd showing throughput and P99 latency
+      for each on m6i with TLS off; notes gzip provides best P99 latency with
+      lower throughput while Zstd provides higher throughput; maps recommendation
+      to caller's dual constraint (P99 under 50ms AND 600 MB/s throughput).
+    must_not_do:
+      - Report only one KPI (throughput or latency) without the other
+      - Recommend Snappy or LZ4 without acknowledging the caller specified only two options
+      - Fabricate ratio numbers not present in benchmark figures 1-8
+
+  - test_id: GT-003
+    description: >-
+      Positive routing — validate mode: benchmark methodology review
+    prompt: >-
+      We ran Kafka producer performance tests on i4i.4xlarge instances, single
+      run per configuration, with 8 partitions and 4 producers (we have 16
+      vCPUs). TLS was off. Can we trust these results?
+    expected_route: invoke
+    expected_mode: validate
+    must_ask_for: []
+    minimum_output: >-
+      Identifies at least two methodology gaps: (1) single run vs. required
+      median of three runs, (2) 4 producers vs. required 2x vCPU count (should
+      be 32 producers for 16 vCPUs); provides remediation steps referencing
+      Appendix A parameters; overall pass/fail verdict on result validity.
+    must_not_do:
+      - Declare results valid without flagging single-run as a methodology gap
+      - Ignore the producers-to-vCPU ratio requirement
+      - Fabricate methodology requirements not stated in the source
+
+  - test_id: GT-004
+    description: >-
+      Positive routing — advise mode: Intel ISA-L vs IPP gzip replacement
+    prompt: >-
+      We use gzip compression on Kafka brokers running on bare-metal 3rd Gen
+      Xeon (Ice Lake) with JDK 11 and TLS enabled. We are evaluating Intel ISA-L
+      and Intel IPP as replacements for Java native gzip. What are the quantified
+      improvements and which should we choose if throughput is our primary goal?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: >-
+      Cites ISA-L at 1.47x throughput improvement and 34% latency improvement;
+      cites IPP at 1.15x throughput improvement and 8% latency improvement;
+      recommends ISA-L for throughput-primary goal; notes both are drop-in
+      replacements on 3rd Gen Xeon hardware.
+    must_not_do:
+      - State vague "better performance" language without citing the 1.47x and 1.15x ratios
+      - Claim these improvements apply to 2nd Gen Xeon (m5) instances
+      - Omit latency impact when recommending for throughput goal
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: >-
+      Negative routing — encryption-at-rest design: explicitly out of scope per source
+    prompt: >-
+      We need to encrypt data stored on Kafka broker disks at rest. What
+      encryption approach does Apache Kafka support natively and what should
+      we configure?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >-
+      Declines to advise on encryption-at-rest; cites the source exclusion that
+      Apache Kafka does not directly support any form of encryption-at-rest for
+      data stored at a broker; suggests the caller consult Kafka documentation
+      or a storage-level encryption resource instead.
+    must_not_do:
+      - Provide encryption-at-rest configuration guidance
+      - Invent Kafka native encryption-at-rest capabilities not in the source
+      - Conflate TLS in-transit encryption with at-rest encryption
+
+  - test_id: NR-002
+    description: >-
+      Negative routing — non-Intel hardware: AMD EPYC instance family
+    prompt: >-
+      We are considering migrating our Kafka cluster from m6i to AMD EPYC-based
+      m6a AWS instances to save cost. Can you tell us what throughput improvement
+      to expect and whether the same JDK 11 TLS optimisations apply?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: >-
+      Declines to provide AMD-specific throughput projections; explains the
+      source benchmark data is specific to Intel Xeon Scalable processors and
+      Intel instruction sets (VAES, AES-NI, AVX-512); states conclusions do not
+      generalise to AMD architectures; recommends AMD-specific benchmarks or
+      AWS documentation.
+    must_not_do:
+      - Extrapolate Intel VAES or AES-NI results to AMD EPYC
+      - Provide throughput ratio estimates for m6a instances
+      - Claim JDK 11 VAES acceleration applies on AMD hardware
+
+missing_context_tests:
+  - test_id: MC-001
+    description: >-
+      Missing required input — no instance type or KPI provided
+    prompt: >-
+      How can I improve my Kafka performance?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for:
+      - "Target AWS instance family or bare-metal CPU generation"
+      - "Primary workload KPI (throughput target or P99 latency ceiling)"
+    minimum_output: >-
+      Clear statement that at minimum the instance family/CPU generation and the
+      primary KPI constraint are needed before specific recommendations can be
+      made; lists all five required inputs.
+    must_not_do:
+      - Provide generic Kafka tuning advice without the required inputs
+      - Proceed as if instance type and KPI were provided
+      - Hallucinate caller scenario details
