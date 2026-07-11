@@ -4,7 +4,8 @@ description: Diagnoses word-level non-equivalence — a culture-specific, unlexi
   or semantically complex item with no direct target equivalent — and reviews the
   chosen rendering strategy against context and purpose; owns lexical meaning and
   the single-word/short-phrase gap, not collocation and idiom patterning, which collocation-idiom-and-fixed-expression
-  owns.
+  owns. Use when a caller says there is no target word for a term and asks whether
+  to keep, gloss, or substitute it.
 kind: skill
 status: ready
 provenance:
@@ -109,7 +110,7 @@ This skill reviews how a translator renders a single word or short phrase that h
 
 ## Output
 
-Per finding: name the kind of non-equivalence, the strategy the draft used, whether it fits the context and purpose, the grounded alternative (with the principle it rests on), and the residual loss the caller should accept or repair. If no draft exists yet (advise mode), state the recommended strategy and the principle it rests on directly, without a draft critique. When comparing two rendering strategies for one item (compare mode), set out side by side what each strategy favours and costs in this context before recommending by the text's purpose (P106). End with a next step, never a single 'correct' word handed back as final.
+Per finding: name the kind of non-equivalence, the strategy the draft used, whether it fits the context and purpose, the grounded alternative (with the principle it rests on), and the residual loss the caller should accept or repair; in compare mode weigh two rendering strategies for one item by the text's purpose (P106). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 

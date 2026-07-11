@@ -1,10 +1,10 @@
 ---
 name: text-level-approach-and-limits-of-equivalence
-description: Diagnoses and reviews the whole-text approach and the standard applied — systematic
-  reflection, guarding against interference, and treating equivalence as relative
-  and partial; owns the overarching stance and evaluation frame, not any single linguistic
-  level. Use when a caller asks whether a translation is "right," "literal enough," or "faithful"
-  overall without naming a single equivalence level.
+description: Diagnoses and reviews the whole-text approach and the standard applied
+  — systematic reflection, guarding against interference, and treating equivalence
+  as relative and partial; owns the overarching stance and evaluation frame, not any
+  single linguistic level. Use when a caller asks whether a translation is "right,"
+  "literal enough," or "faithful" overall without naming a single equivalence level.
 kind: skill
 status: ready
 provenance:
@@ -87,7 +87,7 @@ This skill reviews the translator's overall stance and the standard by which the
 
 ## Output
 
-Per finding: state the whole-text or standard concern, whether the draft rested on systematic reflection or intuition, and the correction — framed as an improvement, with the residual limit of equivalence made explicit. If no draft exists yet (advise mode), state the recommended whole-text approach and its principle directly, without a draft critique. When comparing two whole-text approaches or standards (compare mode), set out side by side what each favours and its residual weaknesses before recommending, since a translation is a set of strengths and weaknesses open to improvement rather than simply good or bad (P079). End with a next step.
+Per finding: state the whole-text or standard concern, whether the draft rested on systematic reflection or intuition, and the correction — framed as an improvement, with the residual limit of equivalence made explicit; in compare mode weigh two whole-text approaches by their residual strengths and weaknesses, since a translation is open to improvement rather than simply good or bad (P079). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 

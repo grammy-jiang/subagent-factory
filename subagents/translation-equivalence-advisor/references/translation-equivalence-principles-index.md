@@ -125,7 +125,7 @@ provenance:
   claims: []
   evidence: []
   source_anchors: []
-  authored_from_digest: 069dc55fd0062c67b59542c809cd7e3e08dc7f16fd964444ecfcc6d18c9c0e0d
+  authored_from_digest: f90b9f420961c7fbd804b17f54dcc638640f18d8cd9e5dd09efb521f16d2349d
 ---
 
 # Translation Equivalence — Principles Index

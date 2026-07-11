@@ -3,7 +3,9 @@ name: dynamic-and-formal-equivalence
 description: Reviews the choice between formal and dynamic equivalence for a brief
   and audience — receptor response, cultural adjustment, audience decoding capacity,
   and adequacy evaluation; owns the equivalence-orientation decision, not the register
-  and literary form that register-style-and-literary-form owns.
+  and literary form that register-style-and-literary-form owns. Use when a caller
+  asks whether a rendering should be literal or free, or formal or dynamic for this
+  brief.
 kind: skill
 status: ready
 provenance:
@@ -86,14 +88,14 @@ provenance:
   - C00406
   evidence: []
   source_anchors: []
-  authored_from_digest: 0fbfee6916d05ec0a6056beda854595367e4b80fd0739c8a53b5abdd5ac01f36
+  authored_from_digest: 11667240522c91d60a2fcf4bcb149c30b38f9955e6290c9da5ebf25bc005ef90
 ---
 
 # Dynamic and Formal Equivalence and Receptor Response
 
 ## Purpose
 
-This skill reviews the orientation decision at the heart of Nida's model: whether a translation should aim for formal equivalence (close access to source form and structure) or dynamic equivalence (an equivalent effect on the receptor). Its rule is that the choice follows from the message type, purpose, and audience, and that adequacy is judged by the brief's own criterion — receptor response for a dynamic task, or closeness to source form and structure when readers need that access.
+This skill reviews the orientation decision at the heart of Nida's model: whether a translation should aim for formal equivalence (close access to source form and structure) or dynamic equivalence (an equivalent effect on the receptor). "Dynamic equivalence" is Nida's own (1964) term for the receptor-response orientation and is used in that sense here — an effect-oriented aim, not a licence for free paraphrase. Its rule is that the choice follows from the message type, purpose, and audience, and that adequacy is judged by the brief's own criterion — receptor response for a dynamic task, or closeness to source form and structure when readers need that access.
 
 ## When to use
 
@@ -109,8 +111,8 @@ This skill reviews the orientation decision at the heart of Nida's model: whethe
 3. In dynamic equivalence, make formal adjustments where literary form, idioms, or culturally embedded emotive meanings would not transfer, and prefer receptor-language idioms that make the message meaningful (P008, P052).
 4. For culturally non-matching referents, choose deliberately among a formal term plus note, a functional equivalent, a borrowed term, or a cultural substitute; diagnose linguistic and cultural distance and false friends before translating (P023, P054).
 5. Calibrate vocabulary, style, explanation, and explicitness to the audience's decoding capacity, experience, and interest, and use expansion and redundancy to support the communication load and decoding rate, scoping additions to the message (P053, P098).
-6. Use concordant (consistent) terminology only where it helps readers track important source terms, and preserve the source's total stylistic impression by adapting style norms and tone (P094, P056).
-7. Use back-translation only to expose a target text's structure, remembering its limits; account for the receptor community's faithfulness traditions and publication format before deciding how literal to be (P100, P115).
+6. Use concordant (consistent) terminology only for stylistic or literary concordance — where it helps readers track important source terms and preserve the source's total stylistic impression by adapting style norms and tone — and do not relax it for subject-matter terminology, whose consistency is a domain decision to route to technical-translation-advisor (P094, P056).
+7. Use back-translation only as a pedagogical illustration of a target text's structure, not by itself a general quality test, remembering its theoretical limits; account for the receptor community's faithfulness traditions and publication format before deciding how literal to be (P100, P115).
 8. Evaluate adequacy by sense, source spirit and manner, natural receptor expression, and similar audience response, and test naturalness across the receptor language, the local message context, and the intended audience (P035, P036).
 
 ## Inputs
@@ -121,7 +123,7 @@ This skill reviews the orientation decision at the heart of Nida's model: whethe
 
 ## Output
 
-Per finding: state whether formal or dynamic equivalence fits the brief and why, the cultural or formal adjustment required, and how adequacy should be judged for this audience. When comparing two orientations for one segment (compare mode), lay out side by side what each favours and costs before recommending, weighted by the brief's purpose and audience (P021). End with a next step, never a claim of a single correct rendering.
+Per finding: state whether formal or dynamic equivalence fits the brief and why, the cultural or formal adjustment required, and how adequacy should be judged for this audience; in compare mode weigh two orientations for one segment by the brief's purpose and audience (P021). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 

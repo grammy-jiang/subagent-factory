@@ -1,9 +1,10 @@
 ---
 name: thematic-and-information-structure
-description: Diagnoses and reviews information flow — theme and rheme, given and new, markedness,
-  and functional sentence perspective — matching each element's status by the target's
-  own devices; owns clause-level information dynamics, not the surface cohesive ties
-  that cohesion-and-texture owns.
+description: Diagnoses and reviews information flow — theme and rheme, given and new,
+  markedness, and functional sentence perspective — matching each element's status
+  by the target's own devices; owns clause-level information dynamics, not the surface
+  cohesive ties that cohesion-and-texture owns. Use when a caller asks what should
+  come first, or says the emphasis or word order feels wrong.
 kind: skill
 status: ready
 provenance:
@@ -122,7 +123,7 @@ This skill reviews how a translation manages information flow: what each clause 
 2. Know at least one functional-sentence-perspective model (communicative dynamism, theme–transition–rheme, context-dependence) because it explains free-word-order languages better than the Hallidayan positional account, whose limits you should recognise (P003, P066).
 3. Analyse each clause as a theme (what it is about, in initial position) plus a rheme, and attend to the text's information dynamics (P047, P027).
 4. Know the marked-theme devices and handle marked information focus and thematic markedness by the target's means, matching markedness by function, not form, and reading markedness as meaning (P016, P030, P024, P065).
-5. Judge givenness by what the speaker assumes is in the addressee's consciousness, and trace participants across the text through reference (P067).
+5. Judge givenness by what the speaker assumes is in the addressee's consciousness, reading only the given/new status of a referenced participant (P067); the reference-tracking mechanics themselves — how anaphora and reference ties are reworked to target norms — belong to cohesion-and-texture, so route those there.
 6. Maintain a discernible thematic method of development, preserving the source's thematic patterning where its elements sit naturally in target theme position and presenting a similar perspective where word order allows (P028, P088, P090).
 7. Treat word order as significant beyond grammar, serving syntactic, semantic, and communicative functions at once, and draw on the strategies for resolving tension between syntax and information flow (P086, P089, P048).
 
@@ -134,7 +135,7 @@ This skill reviews how a translation manages information flow: what each clause 
 
 ## Output
 
-Per finding: state each element's information status in source and draft, whether markedness was matched by function or copied by form, and the target-device correction that preserves the status. If no draft exists yet (advise mode), state the recommended target device and its principle directly, without a draft critique. When comparing two information-structure devices for one segment (compare mode), set out side by side what each favours and costs before recommending the device that matches markedness by function (P024). End with a next step.
+Per finding: state each element's information status in source and draft, whether markedness was matched by function or copied by form, and the target-device correction that preserves the status; in compare mode weigh two information-structure devices by which matches markedness by function (P024). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 

@@ -3,7 +3,9 @@ name: collocation-idiom-and-fixed-expression
 description: Diagnoses collocation, idiom, and fixed-expression non-equivalence and
   reviews a chosen rendering — typicality, markedness, the two idiom traps, and register-specific
   collocability — owning multi-word patterning, not the single-word lexical gap that
-  word-level-nonequivalence-and-strategies owns.
+  word-level-nonequivalence-and-strategies owns. Use when a caller asks whether an
+  idiom or phrase sounds natural in the target, or how to render a saying or fixed
+  expression.
 kind: skill
 status: ready
 provenance:
@@ -104,7 +106,7 @@ This skill reviews the handling of words that travel in company — collocations
 
 ## Output
 
-Per finding: say whether the item is a collocation, idiom, or fixed expression; whether the draft rendering is typical and idiomatic in the target; which trap or markedness it hit; and the grounded strategy plus the loss to accept. If no draft exists yet (advise mode), state the recommended strategy and its principle directly, without a draft critique. When comparing two idiom or collocation strategies for one item (compare mode), lay out side by side what each favours and costs — including the loss or shift each accepts — before recommending by style, register, and rhetorical effect (P044). End with a next step.
+Per finding: say whether the item is a collocation, idiom, or fixed expression; whether the draft rendering is typical and idiomatic in the target; which trap or markedness it hit; and the grounded strategy plus the loss to accept; in compare mode weigh two idiom or collocation strategies — including the loss or shift each accepts — by style, register, and rhetorical effect (P044). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 

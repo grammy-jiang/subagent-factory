@@ -3,6 +3,46 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.5] — 2026-07-12
+
+### Fixed
+- **Routing (r4 MF1):** the exported adapter `description` — the only pre-dispatch signal an orchestrator
+  sees — kept only the first `when_to_use`/`when_not_to_use` bullet, dropping the review-mode trigger and
+  the load-bearing sibling-redirect clause (a misrouting risk across four near-identical siblings). General
+  compiler fix in `tools/subagent_factory/export_claude_agent.py` `_compose_description`: budget 320→640 and
+  per-clause clips widened (exclusion 85→320, triggers 85→90) so a second trigger and a full sibling-redirect
+  exclusion survive; `when_not_to_use` reordered so the sibling-redirect is the primary exclusion. No profile
+  claim changed.
+
+### Changed
+- **Faithfulness (r4 SF1):** P100 back-translation scoped to its pedagogical-illustration origin (Baker) so
+  the rule no longer reads as a blanket "never use back-translation"; it is "not by itself a general test of
+  translation quality." `dynamic-and-formal-equivalence` step 7 reworded to match.
+- **Faithfulness (r4 SF2):** P094 concordance narrowed to stylistic/literary concordance and scoped out of
+  subject-matter terminology consistency (routed to `technical-translation-advisor`); step 6 reworded to match.
+- **Terminology (r4 SF3):** grounded provenance note that "dynamic equivalence" is Nida's own (1964) term
+  added to the `dynamic-and-formal-equivalence` skill and the key-concepts glossary (no operational change;
+  the external "functional equivalence" reframing is out of source scope and not added).
+- **Terminology (r4 SF4):** key-concepts "Adequacy" entry disambiguated — it is Nida's fitness-for-brief
+  sense here, not a source-oriented technical label, so it is not read as the antonym of "acceptable" when a
+  finding is carried into a descriptive-norms review.
+- **Skill-authoring (r4 SF5):** the repeated advise/review/compare Output boilerplate (9×) moved once into
+  the key-concepts "Response-shape protocol" section; each skill `Output` now states only its domain-specific
+  finding fields plus a pointer.
+- **Skill-authoring (r4 SF6):** a concrete "Use when a caller asks/says…" trigger added to the eight skill
+  descriptions that lacked one, prioritising the confusable pairs (thematic vs cohesion; pragmatic vs cohesion).
+- **Skill-authoring (r4 SF7):** `thematic-and-information-structure` step 5 now notes reference-tracking
+  mechanics belong to `cohesion-and-texture`; this skill only reads a referenced participant's given/new status.
+- **Agent design (r4 SF8):** a third worked example added exercising `review` mode (a short draft returned as
+  a findings list across pragmatic/collocation/information-structure levels).
+- **Body-size (r4 SF10):** two quality_bar clauses tightened to buy back headroom under the 1000-word
+  hard-fail (~968 words).
+
+### Deferred
+- N1–N4 (dated-source hedges, inline-citation widening, Baker 3rd-ed. fold-in, ledger polish) — non-blocking
+  NICE items. The external parts of SF3/SF4 (Nida's later "functional equivalence"; Toury's adequate/acceptable
+  dichotomy) are out of this package's source scope and were addressed only via grounded, self-referential notes.
+
 ## [1.2.4] — 2026-07-12
 
 ### Fixed

@@ -1,9 +1,11 @@
 ---
 name: cohesion-and-texture
-description: Diagnoses and reviews the surface cohesive network — reference, substitution, ellipsis,
-  conjunction, and lexical cohesion — reworked to the target language's own preferences;
-  owns the surface ties that bind a text, not the reader's coherence judgement, which
-  pragmatic-equivalence-coherence-and-implicature owns.
+description: Diagnoses and reviews the surface cohesive network — reference, substitution,
+  ellipsis, conjunction, and lexical cohesion — reworked to the target language's
+  own preferences; owns the surface ties that bind a text, not the reader's coherence
+  judgement, which pragmatic-equivalence-coherence-and-implicature owns. Use when
+  a caller says the pronouns or connectors feel off, the references don't track, or
+  the text reads choppy.
 kind: skill
 status: ready
 provenance:
@@ -100,7 +102,7 @@ This skill reviews the surface network of relations — reference, substitution,
 
 ## Output
 
-Per finding: name the cohesive device, whether the draft transferred the source's or reworked to the target's norms, and the correction that restores natural target texture. If no draft exists yet (advise mode), state the recommended cohesion approach and its principle directly, without a draft critique. When comparing whether to follow source cohesion or approximate target norms for one segment (compare mode), set out side by side what each favours and costs before recommending by the translation's purpose (P091). End with a next step.
+Per finding: name the cohesive device, whether the draft transferred the source's ties or reworked them to the target's norms, and the correction that restores natural target texture; in compare mode weigh following source cohesion against approximating target norms by the translation's purpose (P091). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 

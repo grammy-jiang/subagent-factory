@@ -1,9 +1,11 @@
 ---
 name: pragmatic-equivalence-coherence-and-implicature
-description: Diagnoses and reviews meaning in use — the reader's coherence judgement, implicature,
-  speech-act force, background knowledge, and politeness — checking a rendering does
-  not create wrong implicatures; owns inferred and interactional meaning, not the
-  surface ties that cohesion-and-texture owns.
+description: Diagnoses and reviews meaning in use — the reader's coherence judgement,
+  implicature, speech-act force, background knowledge, and politeness — checking a
+  rendering does not create wrong implicatures; owns inferred and interactional meaning,
+  not the surface ties that cohesion-and-texture owns. Use when a caller asks whether
+  readers will misread the implication, or whether the rendering lands the intended
+  meaning or politeness.
 kind: skill
 status: ready
 provenance:
@@ -108,7 +110,7 @@ This skill reviews meaning in use — what a text implies, presupposes, and does
 
 ## Output
 
-Per finding: state the implied or interactional meaning at stake, the wrong implicature or coherence gap the draft risks, and the correction that lets the target reader build the intended sense. If no draft exists yet (advise mode), state the recommended approach and its principle directly, without a draft critique. When comparing two ways to handle a deviation or implicature for one segment (compare mode), set out side by side what each favours and costs before recommending the option that best lets the target reader build the intended sense (P050). End with a next step.
+Per finding: state the implied or interactional meaning at stake, the wrong implicature or coherence gap the draft risks, and the correction that lets the target reader build the intended sense; in compare mode weigh two ways to handle a deviation or implicature by which best lets the reader build that sense (P050). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 

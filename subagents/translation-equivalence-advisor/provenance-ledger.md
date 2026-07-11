@@ -51,6 +51,38 @@ The five high-confidence principles (P009, P024, P037, P038, P058) are compiled 
 
 ## Version history
 
+- **v1.2.5** (2026-07-12) — review-loop r4 consolidated-panel fixes (no spine change; every edited rule
+  still restates principles already in the spine, no new claim; the two principle rewordings only *narrow*
+  their source support):
+  - MF1 (routing / adapter description): the exported frontmatter `description` truncated to the first
+    `when_to_use`/`when_not_to_use` bullet, dropping the review trigger and the sibling-redirect clause — the
+    same adapter-truncation class that previously gutted must-hold rules in a sibling. Fixed generally in
+    `tools/subagent_factory/export_claude_agent.py` `_compose_description` (budget 320→640; clips: exclusion
+    85→320, triggers 85→90) and locally by reordering `when_not_to_use` so the sibling-redirect is the primary
+    exclusion. Adapter re-exported. No citation changed.
+  - SF1 (faithfulness): P100 statement scoped to its pedagogical-illustration origin (derived_from C00016) —
+    no longer a blanket "never"; `dynamic-and-formal-equivalence` step 7 reworded to match. A narrowing, so
+    faithfulness is unaffected.
+  - SF2 (faithfulness): P094 statement narrowed to stylistic/literary concordance and scoped out of
+    subject-matter terminology (routed to `technical-translation-advisor`); step 6 reworded. A narrowing.
+  - SF3/SF4 (terminology): grounded, self-referential notes only — "dynamic equivalence" flagged as Nida's
+    own (1964) term (source year); "adequacy" flagged as Nida's fitness-for-brief sense, not a source-oriented
+    label. The external claims (Nida's later "functional equivalence"; Toury's adequate/acceptable) are out of
+    this package's two sources and were NOT added.
+  - SF5 (skill-authoring): the 9× advise/review/compare Output boilerplate consolidated into a single
+    "Response-shape protocol" section in `translation-equivalence-key-concepts.md`; each skill `Output` now
+    carries only its domain-specific fields plus a pointer (P021, P078 already in the reference's provenance).
+  - SF6 (routing): concrete caller-trigger clauses added to the eight thin skill descriptions.
+  - SF7 (routing): `thematic-and-information-structure` step 5 hands reference-tracking mechanics to
+    `cohesion-and-texture`, keeping only given/new status (P067).
+  - SF8 (agent design): a third `examples` entry exercises `review` mode (findings list across
+    pragmatic/collocation/information-structure levels; cites P070, P020, P044, P024, P078, P051 — all in the
+    spine).
+  - SF10 (body-size): two quality_bar clauses tightened; body ~968 words, off the hard-fail edge.
+  - No field→grounding row above changed its principle citation; `principles/principles.yaml` P094/P100
+    rewordings are narrowings within their existing `derived_from_claims`.
+  - Deferred: N1–N4 (non-blocking NICE) and the out-of-source parts of SF3/SF4.
+
 - **v1.2.4** (2026-07-12) — review-loop r3 consolidated-panel fixes (no spine change; every edited rule
   still restates principles already in the spine, no new claim):
   - MF-1 (faithfulness): `forbidden_behaviours[3]` restated P038 as a flat cohesion absolute and omitted

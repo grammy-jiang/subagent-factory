@@ -3,7 +3,8 @@ name: register-style-and-literary-form
 description: Diagnoses and reviews register, style, and form-bound material — field/tenor/mode,
   marked language, poetry, song, and sound effects — weighting form by its communicative
   function; owns style and the form/content trade-off, not the formal-vs-dynamic orientation
-  that dynamic-and-formal-equivalence owns.
+  that dynamic-and-formal-equivalence owns. Use when a caller asks whether the tone
+  or formality is right, or how to translate a poem, song, or pun.
 kind: skill
 status: ready
 provenance:
@@ -77,7 +78,7 @@ This skill reviews register, style, and material whose form is part of its messa
 
 ## Output
 
-Per finding: name the register or formal feature at stake, whether the draft preserved or lost its function, and the adaptation that recovers the effect within the medium's constraints. If no draft exists yet (advise mode), state the recommended adaptation and its principle directly, without a draft critique. When comparing two adaptations of a register or form feature for one passage (compare mode), set out side by side what each favours and costs before recommending by how far the form carries the message's function (P005). End with a next step.
+Per finding: name the register or formal feature at stake, whether the draft preserved or lost its function, and the adaptation that recovers the effect within the medium's constraints; in compare mode weigh two adaptations by how far the form carries the message's function (P005). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 

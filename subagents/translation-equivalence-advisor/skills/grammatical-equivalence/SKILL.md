@@ -1,9 +1,11 @@
 ---
 name: grammatical-equivalence
-description: Diagnoses and reviews rendering across grammatical systems — obligatory categories,
-  voice, gender, number, tense and aspect, modality, and pronouns of address — by
-  function rather than form; owns grammar-driven shifts, not information structure,
-  which thematic-and-information-structure owns.
+description: Diagnoses and reviews rendering across grammatical systems — obligatory
+  categories, voice, gender, number, tense and aspect, modality, and pronouns of address
+  — by function rather than form; owns grammar-driven shifts, not information structure,
+  which thematic-and-information-structure owns. Use when a caller asks how to handle
+  a tense, aspect, gender, number, voice/passive, or politeness form that the target
+  forces.
 kind: skill
 status: ready
 provenance:
@@ -101,7 +103,7 @@ This skill reviews decisions forced by differences in grammar. Its rule is that 
 
 ## Output
 
-Per finding: name the grammatical category at issue, whether the draft copied form or rendered function, what the target forced that the source left open, and the function-based correction. If no draft exists yet (advise mode), state the recommended function-based rendering and its principle directly, without a draft critique. When comparing two function-based renderings of a grammatical category for one segment (compare mode), set out side by side what each favours and costs — including the extra meaning each target form carries — before recommending by function (P046). End with a next step.
+Per finding: name the grammatical category at issue, whether the draft copied form or rendered function, what the target forced that the source left open, and the function-based correction; in compare mode weigh two function-based renderings — including the extra meaning each target form carries — by function (P046). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 
