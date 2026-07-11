@@ -297,6 +297,12 @@ PID 1) survives. MAP/filter escaped this earlier only because a long-lived `--fg
 
 ### Review → fix → improve loop
 
+> **Two different reviews.** The log-tier table below is for a *generation run's health* (did it
+> validate?). To review a generated package's *quality* — domain-reviewer panel → grounded fix →
+> **independent adversarial re-verify** → converge to zero must-fix — use the
+> **`/review-subagent <slug>`** skill (`.claude/skills/review-subagent/`, driver
+> `campaign/review-subagent-loop.sh`).
+
 | Tier | Artifact | Use for |
 | --- | --- | --- |
 | 1 | `campaign/logs/review-<slug>.md` (`python3 campaign/review-run.py <slug>`) | READY y/n, validate verdict, FAIL/WARN lines, real over-claims, log failure signatures |
