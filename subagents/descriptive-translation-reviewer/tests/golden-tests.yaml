@@ -1,0 +1,152 @@
+schema_version: golden-tests-v1
+subagent_slug: descriptive-translation-reviewer
+generated_at: '2026-07-12'
+profile_version: 1.0.0
+tier: 1
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — fluency praised, no source comparison
+  prompt: Here is our English translation of a French novel. We think it's excellent because it reads
+    smoothly and you'd never know it was a translation. Review it.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Flag 'reads smoothly' / fluency as a suspect criterion, not proof of quality
+  - Require comparison against the French source in the source language
+  - Name the domestication and the translator's invisibility at work
+  - Screen for normalization and other deforming tendencies
+  must_not_do:
+  - Certify the translation correct or make the publication decision
+  - Accept fluency alone as evidence of fidelity
+  principle_coverage:
+  - P176
+  - P044
+  - P020
+  - P088
+  - P024
+  - P014
+- test_id: GT-002
+  description: Positive routing — choose orientation for a legal text
+  prompt: We're translating a bilingual contract that must be equally authentic in both languages. How
+    should we orient the translation?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Recommend a technique close to formal equivalence with little room for adjustment
+  - Tie the orientation to the text's function and legal status
+  - State the residual trade-off (naturalness vs formal correspondence)
+  must_not_do:
+  - Prescribe a single 'correct' rendering as if deterministic
+  principle_coverage:
+  - P162
+  - P124
+  - P105
+  - P075
+- test_id: GT-003
+  description: Positive routing — a 'norm' claim in an analysis
+  prompt: Our study concludes that translators into Hebrew in the 1930s followed a norm of domestication.
+    Review the claim.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Check the norm was reconstructed from patterned behaviour, not asserted
+  - Ask for contextualization by sector, subsystem position, and period
+  - Check preliminary vs operational norms are not conflated
+  must_not_do:
+  - Treat the norm as a fixed all-or-nothing rule
+  principle_coverage:
+  - P011
+  - P101
+  - P103
+  - P057
+  - P046
+- test_id: GT-004
+  description: Positive routing — subtitle re-codes politeness
+  prompt: Review these English subtitles of a Japanese film; the translator dropped most of the honorific
+    and politeness markers to save space.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Check whether shortening merely omitted or actively re-coded interpersonal meaning
+  - Weigh the space/time/legibility constraints of subtitling
+  - Assess the shift in face and its effect
+  must_not_do:
+  - Ignore the medium's hard constraints
+  principle_coverage:
+  - P052
+  - P069
+  - P085
+  - P091
+- test_id: GT-005
+  description: Positive routing — foreignizing vs domesticating for a classic
+  prompt: Should our new translation of an ancient text foreground its foreignness or read as fluent modern
+    prose? Compare the options.
+  expected_route: invoke
+  expected_mode: compare
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Lay out what foreignizing vs domesticating each preserves and costs
+  - Reference the ethics of preserving the foreign in domestic terms
+  - Weight the choice by the brief and readership
+  must_not_do:
+  - Declare one axis universally correct
+  principle_coverage:
+  - P175
+  - P024
+  - P049
+  - P170
+  - P167
+- test_id: GT-006
+  description: Positive routing — skopos used to excuse neglect
+  prompt: Our translation fulfils its purpose (a working instruction manual), so we ignored the author's
+    stylistic choices. Is that fine?
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Affirm the skopos hierarchy (purpose first) but flag that it does not excuse micro-level neglect
+  - Map the text type to method
+  - State the residual stylistic/connotative trade-off
+  must_not_do:
+  - Accept a fulfilled skopos as a blanket license
+  principle_coverage:
+  - P062
+  - P108
+  - P129
+  - P060
+negative_routing_tests:
+- test_id: NR-001
+  description: Asks for the finished translation, not a review.
+  prompt: Translate this 300-word product description from English into Spanish for us.
+  expected_route: do_not_invoke
+- test_id: NR-002
+  description: Subject-matter correctness with a knowable answer, no translation dimension.
+  prompt: Is the interest calculation in this loan contract mathematically correct?
+  expected_route: do_not_invoke
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified request
+  prompt: Is this a good translation?
+  expected_route: invoke
+  must_ask_for:
+  - The source text and the target text to compare
+  - 'The brief: intended function, audience, medium'
+  - Any specific quality concern or claim to check
+- test_id: MC-002
+  description: Underspecified request
+  prompt: Should we domesticate or foreignize?
+  expected_route: invoke
+  must_ask_for:
+  - The source text and its genre/period
+  - The target readership and the publication's purpose
+  - The brief or commission constraints
