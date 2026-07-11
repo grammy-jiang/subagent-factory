@@ -1,0 +1,129 @@
+schema_version: golden-tests-v1
+subagent_slug: translation-equivalence-advisor
+generated_at: '2026-07-11'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Word-level non-equivalence — culture-specific term
+  prompt: The source has a culture-specific food term with no English word. Should I keep it, gloss it,
+    or swap in a local dish? Advise.
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A diagnosis of the non-equivalence type and grounded strategy options (loan word, superordinate,
+    paraphrase, cultural substitution) with the residual loss, handing the final wording back.
+  must_do:
+  - Reject a one-to-one word/meaning assumption
+  - Lay out grounded strategy options rather than a single answer
+  - State the residual loss and hand the wording back to the translator
+  must_not_do:
+  - Deliver the finished translation as final
+  - Map the type to one fixed strategy ignoring purpose
+  principle_coverage:
+  - P037
+  - P001
+  - P059
+  - P081
+- test_id: GT-002
+  description: Grammatical equivalence — voice by function
+  prompt: My source sentence is passive but a passive sounds wrong in the target. Do I keep the passive?
+    Review my instinct to preserve it.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A correction to translate voice by function not form, with the target's obligatory categories
+    respected.
+  must_do:
+  - Advise rendering voice by function, not by copying source form
+  - Flag any information the target forces that the source left open
+  must_not_do:
+  - Insist the passive be preserved because the source used it
+  principle_coverage:
+  - P009
+  - P025
+  - P057
+- test_id: GT-003
+  description: Cohesion — do not transfer source devices
+  prompt: Reviewing a translation that reproduces the source's conjunctions and reference chains one-for-one;
+    it reads oddly. What's wrong?
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A finding that cohesive devices were transferred rather than reworked to the target's
+    own preferences and frequencies.
+  must_do:
+  - Identify transferred cohesive devices as the flaw
+  - Require reworking reference/conjunction to target norms
+  must_not_do:
+  - Endorse the one-for-one transfer as faithful
+  principle_coverage:
+  - P038
+  - P004
+  - P069
+- test_id: GT-004
+  description: Orientation — formal vs dynamic for a brief
+  prompt: 'Marketing copy for a general audience: should the translation be formal (close to source) or
+    dynamic (equivalent effect)? Compare.'
+  expected_route: invoke
+  expected_mode: compare
+  minimum_output: A comparison choosing orientation from message type, purpose, and audience, judging
+    adequacy by receptor response.
+  must_do:
+  - Derive the orientation from message type, purpose, and audience
+  - Judge adequacy by receptor response, not formal closeness alone
+  must_not_do:
+  - Default to one orientation without reading the brief
+  principle_coverage:
+  - P021
+  - P034
+  - P035
+- test_id: GT-005
+  description: Information structure — thematic markedness by function
+  prompt: The source fronts an object for emphasis. My draft keeps the same word order in the target.
+    Is that right? Review.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A finding that markedness must be matched by function using the target's own devices,
+    not by copying source word order.
+  must_do:
+  - Check whether markedness was matched by function or copied by form
+  - Recommend the target's own device for the same information focus
+  must_not_do:
+  - Approve copied word order that loses or invents markedness
+  principle_coverage:
+  - P024
+  - P016
+  - P030
+negative_routing_tests:
+- test_id: NR-001
+  description: Out of scope — tool selection
+  prompt: Which machine-translation API is cheapest for German? Recommend one.
+  expected_route: do_not_invoke
+  principle_coverage: []
+- test_id: NR-002
+  description: Out of scope — deliver the finished translation
+  prompt: Here is a 40-page contract. Translate the whole thing into Spanish and send me the final file.
+  expected_route: do_not_invoke
+  principle_coverage: []
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified — no brief or audience
+  prompt: Is my translation good?
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for:
+  - The source and draft target text
+  - 'The translation brief: purpose, audience, and medium'
+  - Whether receptor response or close source access is primary
+  principle_coverage:
+  - P021
+  - P079
+- test_id: MC-002
+  description: Underspecified — orientation with no purpose
+  prompt: Should this be a formal or a dynamic translation?
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for:
+  - The message type and communicative purpose
+  - The intended audience and their decoding capacity
+  principle_coverage:
+  - P021
+  - P097

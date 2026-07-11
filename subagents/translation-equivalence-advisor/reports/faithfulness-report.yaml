@@ -1,0 +1,235 @@
+schema_version: faithfulness-report-v1
+subagent_slug: translation-equivalence-advisor
+findings:
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Aggregates the promoted principles P037, P001, P103, P106 into one review criterion; each clause
+    restates a principle without strengthening it.
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Aggregates the promoted principles P042, P058, P044, P013 into one review criterion; each clause
+    restates a principle without strengthening it.
+- rule_ref: quality_bar[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Aggregates the promoted principles P009, P025, P046, P057 into one review criterion; each clause
+    restates a principle without strengthening it.
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Aggregates the promoted principles P002, P024, P029, P065 into one review criterion; each clause
+    restates a principle without strengthening it.
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Aggregates the promoted principles P038, P004, P069, P017 into one review criterion; each clause
+    restates a principle without strengthening it.
+- rule_ref: quality_bar[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Aggregates the promoted principles P007, P020, P050, P070 into one review criterion; each clause
+    restates a principle without strengthening it.
+- rule_ref: quality_bar[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Aggregates the promoted principles P021, P034, P022, P035 into one review criterion; each clause
+    restates a principle without strengthening it.
+- rule_ref: quality_bar[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Aggregates the promoted principles P041, P005, P076, P099 into one review criterion; each clause
+    restates a principle without strengthening it.
+- rule_ref: quality_bar[8]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Aggregates the promoted principles P006, P078, P010, P062 into one review criterion; each clause
+    restates a principle without strengthening it.
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: The advisory (do-not-produce-the-translation) boundary is the package's declared scope, not a
+    source over-claim; consistent with the whole-text/relative-equivalence stance (P006, P078).
+- rule_ref: forbidden_behaviours[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates the boundary carried by P037, P078, P051.
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates the boundary carried by P001, P102.
+- rule_ref: forbidden_behaviours[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates the boundary carried by P038, P024, P009, P046.
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Delegation rule grounded in P010, P078.
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Delegation rule grounded in P094, P115.
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Skill summary restating principles P001, P011, P012, P037, P059, P060, P080, P081, P082, P095,
+    P102, P103, P104, P105, P106; the always-on line is a faithful digest of that cluster.
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Skill summary restating principles P013, P014, P040, P042, P043, P044, P058, P061, P063, P083,
+    P107, P108, P109, P110; the always-on line is a faithful digest of that cluster.
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Skill summary restating principles P009, P015, P025, P026, P045, P046, P055, P057, P064, P084,
+    P085; the always-on line is a faithful digest of that cluster.
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Skill summary restating principles P002, P003, P016, P024, P027, P028, P029, P030, P047, P048,
+    P065, P066, P067, P086, P088, P089, P090; the always-on line is a faithful digest of that cluster.
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Skill summary restating principles P004, P017, P018, P031, P038, P049, P068, P069, P087, P091,
+    P112; the always-on line is a faithful digest of that cluster.
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Skill summary restating principles P007, P019, P020, P032, P033, P050, P070, P071, P072, P073,
+    P092, P093, P113; the always-on line is a faithful digest of that cluster.
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Skill summary restating principles P008, P021, P022, P023, P034, P035, P036, P052, P053, P054,
+    P056, P074, P094, P097, P098, P100, P115; the always-on line is a faithful digest of that cluster.
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Skill summary restating principles P005, P041, P075, P076, P077, P099, P114, P116; the always-on
+    line is a faithful digest of that cluster.
+- rule_ref: knowledge_partition.always_on[8]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Skill summary restating principles P006, P010, P039, P051, P062, P078, P079, P096, P101, P111;
+    the always-on line is a faithful digest of that cluster.
+- rule_ref: source_of_truth_policy.canonical_owner
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: The translator/commissioner ownership and the two named authorities follow the systematic-decision
+    principle P010 and the package's advisory scope.
+- rule_ref: source_of_truth_policy.precedence
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Precedence rule grounded in P005, P021, P078, P051: purpose and reader coherence govern, form
+    is weighted by function, and equivalence stays relative.'
+- rule_ref: outputs.modes[advise].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Mode trigger consistent with P021, P102.
+- rule_ref: outputs.modes[review].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Mode trigger consistent with P079, P035.
+- rule_ref: outputs.modes[compare].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Mode trigger consistent with P021, P023.
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: The principle-cited findings format with residual loss reflects the relative, strengths-and-weaknesses
+    evaluation stance (P078, P079).
