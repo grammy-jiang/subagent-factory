@@ -1,0 +1,159 @@
+schema_version: golden-tests-v1
+subagent_slug: translation-quality-reviewer
+generated_at: '2026-07-12'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — translationese score used as a quality grade
+  prompt: We graded this English-to-Chinese translation low because our translationese classifier flagged
+    it. No other analysis. Review our judgement.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Flag translationese as not a direct proxy for quality
+  - Require a source-text profile comparison and meaning-preservation evidence
+  - Distinguish the third code from a defect; treat a distinctive profile non-evaluatively unless error
+    is shown
+  - Operationalise the indicators as distinct constructs, not one label
+  must_not_do:
+  - Certify the translation correct or make the accept/reject decision
+  - Accept the translationese score alone as evidence of quality
+  principle_coverage:
+  - P002
+  - P006
+  - P139
+  - P114
+  - P079
+- test_id: GT-002
+  description: Positive routing — choose a corpus type for an equivalence study
+  prompt: We want to study equivalence and alignment between source texts and their translations. Should
+    we build a parallel or a comparable corpus?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Recommend a parallel corpus for equivalence and alignment questions
+  - Require comparability, metadata, copyright, and alignment controls
+  - Match the measure to the research question
+  - State the residual trade-off
+  must_not_do:
+  - Attribute differences to translation status without controls
+  principle_coverage:
+  - P003
+  - P068
+  - P050
+  - P078
+- test_id: GT-003
+  description: Positive routing — overt/covert and cultural filter in a mission statement
+  prompt: Review our translated corporate mission statement; we applied a cultural filter to make it sound
+    natural in the target language.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Check whether the case is overt or covert and whether the filter change is justified or produces a
+    covert version
+  - Analyse Tenor shifts in positivity, indirect request, and perlocutionary force
+  - Assess functional equivalence against the source-text profile
+  - Name the residual trade-off
+  must_not_do:
+  - Treat a natural-sounding target as automatic proof of quality
+  principle_coverage:
+  - P007
+  - P011
+  - P070
+  - P072
+  - P137
+- test_id: GT-004
+  description: Positive routing — a claimed translation universal from one dataset
+  prompt: Our study concludes that explicitation is a translation universal, based on one English-German
+    comparable corpus. Review the claim.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Treat explicitation as a hypothesis to be measured, not presumed
+  - Scope the universal as a tendency and test language-pair/culture explanations
+  - Classify the study target (universal vs mediator style vs source response)
+  - Keep the finding tentative and generalise only after cross-genre testing
+  must_not_do:
+  - Upgrade a single-dataset finding into a settled law
+  principle_coverage:
+  - P001
+  - P115
+  - P055
+  - P143
+  - P035
+- test_id: GT-005
+  description: Positive routing — Europeanized vs idiomatic Chinese prose
+  prompt: 'Compare two Chinese renderings of an English essay: one closely follows the English syntax,
+    the other reads as idiomatic Chinese. Which is better?'
+  expected_route: invoke
+  expected_mode: compare
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Weigh concision, flexible syntax, and rhythmic force against Europeanized wording
+  - Treat established idioms as live resources, not decorative or wordy substitutes
+  - Prefer concrete subjects and event clauses over abstract nominalized ones
+  - Weight the choice by clarity and naturalness, not a fixed rule
+  must_not_do:
+  - Declare Europeanized or idiomatic universally correct
+  principle_coverage:
+  - P119
+  - P120
+  - P149
+  - P150
+- test_id: GT-006
+  description: Positive routing — a Russian-field multifactorial claim
+  prompt: Our Russian interpreting study reports a difference in one lexical frequency between modes and
+    concludes an interference effect. Review it.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Require multifactorial modelling rather than an isolated frequency
+  - Ask for significance testing with effect sizes and clear marker operationalisation
+  - Check corpus scarcity, fragmentation, and metadata as design constraints
+  - Avoid strong Russian interpreting generalisations from thin data
+  must_not_do:
+  - Accept a single-frequency difference as an established interference law
+  principle_coverage:
+  - P056
+  - P057
+  - P058
+  - P019
+  - P146
+negative_routing_tests:
+- test_id: NR-001
+  description: Asks for the finished translation, not a review.
+  prompt: Translate this 400-word product manual from English into Russian for us.
+  expected_route: do_not_invoke
+- test_id: NR-002
+  description: Subject-matter correctness with a knowable answer, no translation-quality dimension.
+  prompt: Is the tax amount computed in this bilingual invoice arithmetically correct?
+  expected_route: do_not_invoke
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified request
+  prompt: Is this a good translation?
+  expected_route: invoke
+  must_ask_for:
+  - The source text and the target text to compare
+  - 'The source-text profile: intended function, audience, and the commission''s purpose and risk level'
+  - Any specific quality concern or claim to check
+- test_id: MC-002
+  description: Underspecified request
+  prompt: Are these corpus results reliable?
+  expected_route: invoke
+  must_ask_for:
+  - The corpus type (parallel or comparable) and its comparability and metadata
+  - The measure applied and whether frequencies were normalised across subcorpora
+  - The research question or hypothesis being tested
