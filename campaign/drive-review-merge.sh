@@ -27,8 +27,9 @@ source "$REPO/campaign/_claude_run.sh"
 
 [ "$#" -ge 1 ] || { echo "usage: drive-review-merge.sh <slug> [<slug>...]" >&2; exit 2; }
 SLUGS=("$@")
-MAXROUNDS="${MAXROUNDS:-3}"       # rounds inside the review loop
-VMAX="${VMAX:-2}"                 # adversarial-verify fix+re-verify cycles
+MAXROUNDS="${MAXROUNDS:-5}"       # rounds inside each review-loop invocation (fresh bare-spine
+                                 # subagents need >3 — the DRY_RUN capped at 3 with residual)
+VMAX="${VMAX:-3}"                # convergence cycles: each = full loop -> adversarial verify (+vfix)
 QUOTA_MAX="${QUOTA_MAX:-70}"      # block a review while five_hour.utilization >= this (%)
 MODEL="${MODEL:-claude-opus-4-8}"
 BASE="${BASE:-origin/master}"
@@ -99,7 +100,8 @@ run_claude(){ local eff="$1" prompt="$2" log="$3" argv; build_claude_argv argv "
 
 # ------------------------------------------------------------------ per-slug pipeline
 review_one(){
-  local slug="$1" wt="$WT_ROOT/review-$slug" v mf vr
+  local slug="$1" wt v mf vr clean converged
+  wt="$WT_ROOT/review-$slug"
   [ -f "$REPO/subagents/$slug/profile.yaml" ] || { say "$slug: no package — skip"; return 1; }
   git fetch origin master >>"$LOG" 2>&1 || true
   git worktree remove --force "$wt" 2>/dev/null || true
@@ -107,37 +109,49 @@ review_one(){
     || { say "$slug: worktree add failed — skip"; return 1; }
   say "=== $slug: worktree $wt on review/$slug @ $BASE ==="
 
-  # 1) converge via the hardened loop (commits every round that validates)
-  quota_gate
-  say "$slug: review loop (converge, maxrounds=$MAXROUNDS)"
-  REPO="$wt" NO_BRANCH=1 MAXROUNDS="$MAXROUNDS" DOMAIN_REVIEWERS="$DOMAIN_REVIEWERS" \
-    bash "$REPO/campaign/review-subagent-loop.sh" "$slug" >>"$LOG" 2>&1 || true
-
-  # 2) adversarial-verify gate: fix+re-verify until clean or VMAX
+  # CONVERGENCE (full-auto gate): cycle [ full review loop -> INDEPENDENT adversarial verify ] until
+  # BOTH the loop reaches must-fix=0 (its .CLEAN marker = full-panel mf=0 AND validate PASS) AND the
+  # adversarial verify reaches must-fix=0. Merge ONLY on that joint gate. A loop that caps with
+  # residual is NOT converged (the DRY_RUN lesson: gating on validate alone would merge residual
+  # must-fix) — after VMAX cycles without joint convergence the slug STOPS for human triage.
+  clean="$wt/subagents/$slug/reports/review-loop/$slug.CLEAN"
+  converged=0
   for v in $(seq 1 "$VMAX"); do
     quota_gate
+    rm -f "$clean"
+    say "$slug: converge cycle $v/$VMAX (review loop, maxrounds=$MAXROUNDS)"
+    REPO="$wt" NO_BRANCH=1 MAXROUNDS="$MAXROUNDS" DOMAIN_REVIEWERS="$DOMAIN_REVIEWERS" \
+      bash "$REPO/campaign/review-subagent-loop.sh" "$slug" >>"$LOG" 2>&1 || true
+    if [ ! -f "$clean" ]; then
+      say "$slug: cycle $v — loop capped with RESIDUAL must-fix (not converged)"
+      [ "$v" = "$VMAX" ] && { say "$slug: NOT converged after $VMAX cycles — STOP, NOT merging (triage $wt)"; return 1; }
+      continue   # next cycle re-runs the loop, which keeps fixing (it commits each round it validates)
+    fi
+    quota_gate
     vr="$wt/subagents/$slug/reports/review-loop/$slug.verify$v.md"
-    say "$slug: adversarial verify pass $v"
+    say "$slug: cycle $v — loop reached must-fix=0; INDEPENDENT adversarial verify"
     run_claude high "$(verify_prompt "$slug" "$wt" "$v")" "$LOG.$slug.verify$v" "$wt" || true
-    [ -f "$vr" ] || { say "$slug: verify pass $v produced no report — STOP (triage $wt)"; return 1; }
+    [ -f "$vr" ] || { say "$slug: verify $v produced no report — STOP (triage $wt)"; return 1; }
     mf="$(mustfix_of "$vr")"
     say "$slug: verify$v MUST_FIX=$mf"
-    [ "$mf" = "0" ] && break
+    if [ "$mf" = "0" ]; then converged=1; break; fi
     [ "$v" = "$VMAX" ] && { say "$slug: verify still mf=$mf at VMAX — STOP (triage $wt)"; return 1; }
     quota_gate
-    say "$slug: verify-fix pass $v"
+    say "$slug: verify-fix cycle $v (grounded)"
     run_claude high "$(vfix_prompt "$slug" "$wt" "$vr")" "$LOG.$slug.vfix$v" "$wt" || true
     ( cd "$wt" && git add -A "subagents/$slug" ".claude/agents/generated/$slug.md" \
       && git reset -q -- "subagents/$slug/sources/markdown" "subagents/$slug/sources/assets" \
         "subagents/$slug/sources/original" "subagents/$slug/sources/maps" 2>/dev/null; \
-      git commit --no-verify -m "review($slug): adversarial-verify fix pass $v" ) >>"$LOG" 2>&1 || true
+      git commit --no-verify -m "review($slug): adversarial-verify fix cycle $v" ) >>"$LOG" 2>&1 || true
+    # next cycle re-runs the FULL loop to re-confirm must-fix=0 after the vfix
   done
+  [ "$converged" = "1" ] || { say "$slug: not converged — STOP (triage $wt)"; return 1; }
 
-  # 3) hard gate: validate PASS on disk
+  # hard gate: validate PASS on disk (belt-and-suspenders; the loop .CLEAN already implies it)
   ( cd "$wt" && python -m tools.subagent_factory.validate_generated_package "subagents/$slug" ) >>"$LOG" 2>&1 \
     || { say "$slug: NOT validate-clean — STOP, NOT merging (triage $wt)"; return 1; }
 
-  if [ -n "$DRY_RUN" ]; then say "$slug: DRY_RUN — converged + verified, stopping before push ($wt)"; return 0; fi
+  if [ -n "$DRY_RUN" ]; then say "$slug: DRY_RUN — CONVERGED (loop mf=0 AND verify mf=0), stopping before push ($wt)"; return 0; fi
 
   # 4) push -> PR -> CI -> squash-merge
   ( cd "$wt" && git push --no-verify -u origin "review/$slug" ) >>"$LOG" 2>&1 \
