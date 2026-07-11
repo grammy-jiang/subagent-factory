@@ -1,0 +1,205 @@
+schema_version: golden-tests-v1
+subagent_slug: java-concurrency-reviewer
+generated_at: "2026-06-08T00:00:00+00:00"
+profile_version: "0.2.0"
+
+golden_tests:
+  - test_id: GT-001
+    description: "Positive routing — invoke for primary review trigger (synchronized
+                  counter suspected of atomicity gap)"
+    prompt: >
+      Please review this Java class for concurrency safety. The class is a shared
+      counter used by multiple threads. It has a synchronized increment() method and
+      a non-synchronized get() method that returns the current count. Threads call
+      both methods concurrently.
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: "At least one named safety finding — e.g., visibility error or
+                     atomicity gap — explaining that the unsynchronized get() provides
+                     no memory-model guarantee, with a recommendation naming the
+                     applicable corrective approach (e.g., fully synchronized objects
+                     policy or synchronized get)."
+    must_not_do:
+      - "Approve the design without examining the unsynchronized get() method"
+      - "Claim the design is safe because increment() is synchronized"
+      - "Invent fairness or ordering guarantees beyond what Java's memory model provides"
+
+  - test_id: GT-002
+    description: "Positive routing — invoke for advise mode (pattern selection for
+                  producer-consumer pipeline)"
+    prompt: >
+      We are building a Java service where one thread produces work items and multiple
+      worker threads consume them. Should we use a shared synchronized queue with
+      wait/notify, or create a new thread per work item? What are the liveness and
+      overhead tradeoffs?
+    expected_route: invoke
+    expected_mode: advise
+    must_ask_for: []
+    minimum_output: "Prescriptive guidance naming the patterns involved — thread-per-
+                     message and worker-thread pool — and explaining the latency vs.
+                     throughput tradeoff and thread-construction overhead as selection
+                     criteria."
+    must_not_do:
+      - "Recommend one approach without addressing liveness considerations"
+      - "Give a generic preference without referencing selection criteria"
+      - "Invent JVM scheduling guarantees about fairness or ordering"
+
+  - test_id: GT-003
+    description: "Positive routing — invoke for compare mode (two wait/notify designs
+                  for a bounded buffer)"
+    prompt: >
+      I have two Java designs for a bounded buffer. Design A uses a single if-check
+      before calling wait(). Design B uses a while-loop guard around wait() and calls
+      notifyAll() after every state change. Which is safer and why?
+    expected_route: invoke
+    expected_mode: compare
+    must_ask_for: []
+    minimum_output: "Side-by-side evaluation identifying Design A's vulnerability to
+                     spurious wakeups and missed notifications (guarded-loop violation),
+                     confirming Design B follows the correct guarded-suspension pattern,
+                     with a reasoned recommendation."
+    must_not_do:
+      - "Recommend Design A without addressing the spurious-wakeup hazard"
+      - "Treat a single if-check as equivalent to a while-loop guard"
+      - "Omit explanation of why notifyAll is preferred over notify in the general case"
+
+  - test_id: GT-004
+    description: "Positive routing — invoke for patch-suggest mode (minimal volatile
+                  correction on a thread-stop flag)"
+    prompt: >
+      My Java thread uses a boolean field 'done' to signal it should stop. The main
+      thread sets done = true and the worker thread checks while (!done) in its run
+      loop. The worker sometimes never sees the updated value. Can you give me the
+      minimal code correction?
+    expected_route: invoke
+    expected_mode: patch-suggest
+    must_ask_for: []
+    minimum_output: "A minimal corrective suggestion — declaring the 'done' field as
+                     volatile — with an explanation that without volatile the worker
+                     thread has no memory-model guarantee it will observe the main
+                     thread's write to 'done'; the fix must be an original derivation,
+                     not copied from any source text."
+    must_not_do:
+      - "Recommend Thread.stop() as a solution"
+      - "Claim synchronized on the field declaration fixes visibility (that is not valid Java syntax for a field)"
+      - "Produce a multi-step refactor when only a volatile annotation is needed"
+      - "Reproduce verbatim text from either source"
+
+  - test_id: GT-005
+    description: "Positive routing — invoke for Executor/thread-pool configuration
+                  review (new trigger from source 2)"
+    prompt: >
+      We are using ThreadPoolExecutor with corePoolSize=2, maximumPoolSize=2, and an
+      unbounded LinkedBlockingQueue. Under high load tasks queue up indefinitely. Is
+      this configuration correct and what are the risks?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: "A finding identifying the risk of an unbounded queue with a fixed
+                     pool size — tasks can accumulate without bound, leading to memory
+                     exhaustion or starvation of later tasks; a recommendation to consider
+                     a bounded queue with a rejection policy or to tune pool size bounds
+                     to match throughput requirements."
+    must_not_do:
+      - "Approve the configuration without assessing the unbounded queue risk"
+      - "Claim unbounded queues are always safe"
+      - "Invent guarantees about thread scheduling fairness under this configuration"
+
+  - test_id: GT-006
+    description: "Positive routing — invoke for scheduling/priority hazard review
+                  (new trigger from source 2)"
+    prompt: >
+      Our Java application sets a processing thread to Thread.MAX_PRIORITY and a
+      background thread to Thread.MIN_PRIORITY. The processing thread acquires a lock,
+      does work, and releases. The background thread also acquires that same lock
+      occasionally. We have seen the processing thread block for unexpectedly long
+      times. What could cause this?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for: []
+    minimum_output: "A finding identifying priority inversion: the high-priority
+                     processing thread blocks on a lock held by the low-priority
+                     background thread; since the JVM does not guarantee priority
+                     inheritance, the background thread may not be scheduled promptly
+                     while holding the lock, causing the high-priority thread to wait
+                     longer than expected. A recommendation should address the lock
+                     contention or locking strategy."
+    must_not_do:
+      - "Claim setting Thread.MAX_PRIORITY guarantees preemption on all JVM/OS combinations"
+      - "Recommend JVM flags or OS scheduler configuration (out of scope)"
+      - "Approve the design without identifying the priority inversion risk"
+
+negative_routing_tests:
+  - test_id: NR-001
+    description: "Negative routing — do not invoke for purely sequential algorithm
+                  review with no concurrency constructs"
+    prompt: >
+      Can you review my Java merge sort implementation for correctness? It runs on a
+      single thread and has no shared state — I just want to know if the algorithm
+      is correct.
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: "Explanation that this is a sequential algorithm correctness review
+                     with no concurrency constructs; the Java Concurrency Reviewer's
+                     expertise is concurrent design and this request is out of scope."
+    must_not_do:
+      - "Perform the sequential algorithm review"
+      - "Invent a concurrency concern to justify invocation"
+      - "Proceed as if concurrency constructs were present"
+
+  - test_id: NR-002
+    description: "Negative routing — do not invoke for OS or JVM scheduler tuning
+                  request"
+    prompt: >
+      How do I configure thread priorities in the JVM to make my high-priority thread
+      always preempt low-priority threads on Linux? What JVM flags should I set?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: "Explanation that OS-level and JVM scheduler flag configuration is
+                     outside scope; the reviewer cannot make fairness or preemption
+                     guarantees because JVM scheduler priority behaviour is
+                     implementation-dependent and OS scheduling is not addressable here."
+    must_not_do:
+      - "Recommend JVM flags or OS scheduler configuration"
+      - "Invent priority-preemption guarantees not provided by the Java platform"
+      - "Reframe the question as a concurrency pattern question to justify invocation"
+
+  - test_id: NR-003
+    description: "Negative routing — do not invoke for distributed-system architecture
+                  design (new exclusion from source 2)"
+    prompt: >
+      We are designing a microservice architecture where Service A and Service B must
+      coordinate via a distributed transaction. How should we handle distributed locks
+      and network partition failures to ensure consistency?
+    expected_route: do_not_invoke
+    expected_mode: null
+    must_ask_for: []
+    minimum_output: "Explanation that distributed-system coordination (distributed
+                     transactions, network protocols, microservice locks) is outside the
+                     reviewer's scope; this reviewer covers in-process JVM threading only."
+    must_not_do:
+      - "Provide guidance on distributed transactions or network partition strategies"
+      - "Reframe as a Java threading question to justify invocation"
+      - "Conflate in-process thread safety with distributed-system consistency"
+
+missing_context_tests:
+  - test_id: MC-001
+    description: "Missing required input — review requested without any code artifact"
+    prompt: >
+      Can you review my AccountTransfer class for concurrency safety?
+    expected_route: invoke
+    expected_mode: review
+    must_ask_for:
+      - "The actual Java source code or interface definition for AccountTransfer,
+         including any synchronized methods or blocks, wait/notify usage, thread
+         creation, volatile fields, Executor configuration, or shared mutable state"
+    minimum_output: "Clear statement that the review cannot proceed without the actual
+                     code or design description, and a specific request for the
+                     concurrent constructs used in AccountTransfer."
+    must_not_do:
+      - "Proceed as if the code was provided"
+      - "Hallucinate what AccountTransfer might contain and review that instead"
+      - "Produce safety or liveness findings without seeing any code"
