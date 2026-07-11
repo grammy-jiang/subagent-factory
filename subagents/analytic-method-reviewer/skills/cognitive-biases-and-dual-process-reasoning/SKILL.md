@@ -1,6 +1,6 @@
 ---
 name: cognitive-biases-and-dual-process-reasoning
-description: Audits an analytic judgment or forecast for fast, intuitive System 1 biases — motivated skepticism, asymmetric scrutiny, the affect heuristic — before it is finalized.
+description: Audits an analytic judgment or forecast for fast, intuitive System 1 biases — motivated skepticism, asymmetric scrutiny, the affect heuristic — before it is finalized; not the analyst's stored schemata and mind-sets (see mindsets-schemata-and-perception).
 kind: skill
 status: ready
 provenance:
@@ -140,42 +140,36 @@ review's own substantive judgment, forecast, or estimate for the one under revie
 
 ## Anti-patterns to flag
 
-- A confirming result waved through without question while a disconfirming result of
-  equal quality is picked apart on method, motive, or authenticity — the same double
-  standard dressed up as rigor (P009, P051).
-- A written case that runs heavily one-directional, offering barely a
-  counter-consideration, with no check on how lopsided the pro-versus-con ratio has
-  actually become (P053).
-- A prediction resting on information that was sitting available and significant, but
-  nobody went and looked for it, waved through as a neutral gap rather than a reasoning
-  failure (P038).
-- An argument that tracks the reviewed party's likes and dislikes more closely than the
-  evidence — the most emotionally comfortable conclusion is also the one argued most
-  forcefully (P064).
-- A validated formula set aside for "extra case knowledge" that is really just more of
-  the same kind of information the formula already used, rather than a rare, decisive
-  individuating fact (P065).
-- A single case elevated into a stable philosophy of history or a general lesson, or a
-  judgment built on preconception alone or raw data alone with nothing to check either
-  against the other (P066).
-- A performance claim that reports only the subjectively adjusted score, or shows a wide
-  gap between raw and adjusted figures with no explanation, blurring genuine ex ante
-  accuracy with ex post credit (P067).
-- A conclusion delivered with total conviction and no room, even nominally, for the
-  possibility that it is wrong (P082).
+- Asymmetric-scrutiny double standard: confirming evidence waved through, disconfirming
+  evidence of equal quality picked apart on method/motive/authenticity (P009, P051).
+- Lopsided pro-versus-con ratio in the written case, uncounted and unchecked (P053).
+- Available, significant evidence never actively sought, treated as a neutral gap rather
+  than a reasoning failure (P038).
+- Affect heuristic: argument selection tracking the reviewed party's likes/dislikes rather
+  than the evidence (P064).
+- Formula override justified by ordinary case knowledge dressed up as a rare individuating
+  ("broken-leg") fact (P065).
+- Single-case overgeneralization into a stable lesson, or judgment built on preconception
+  alone or raw data alone (P066).
+- Unexplained raw-versus-adjusted performance gap, or only the adjusted score reported
+  (P067).
+- Missing declaratory hedge: conclusion delivered with total, unqualified conviction
+  (P082).
 
 ## References
 
-See `../../references/analytic-method-principles-index.md` for the full principle catalogue. For
-adjacent concerns, see the sibling skills: `competing-hypotheses-and-diagnostic-evidence`
-owns the structured technique — weighing evidence by diagnosticity and driving toward
-refutation — that corrects the asymmetric-scrutiny and motivated-skepticism bias this
-skill catches; `mindsets-schemata-and-perception` owns the wider mental-model and schema
-catalogue this skill's fast pattern-matching runs inside;
-`probabilistic-judgment-and-calibration` owns the coherence and calibration mechanics of a
-probability estimate itself, while this skill catches the psychological source of a
-distortion — the affect heuristic, a raw-versus-adjusted gap — before it reaches the
-numbers.
+See `../../references/analytic-method-principles-index.md` for the full principle catalogue.
+See `../../references/analytic-method-evidence-notes.md` for how each principle's
+provenance is grounded and how to trace a principle ID back to its source claim and
+evidence. For adjacent concerns, see the sibling skills:
+`competing-hypotheses-and-diagnostic-evidence` owns the structured technique — weighing
+evidence by diagnosticity and driving toward refutation — that corrects the
+asymmetric-scrutiny and motivated-skepticism bias this skill catches;
+`mindsets-schemata-and-perception` owns the wider mental-model and schema catalogue this
+skill's fast pattern-matching runs inside; `probabilistic-judgment-and-calibration` owns
+the coherence and calibration mechanics of a probability estimate itself, while this skill
+catches the psychological source of a distortion — the affect heuristic, a
+raw-versus-adjusted gap — before it reaches the numbers.
 
 ## Provenance
 

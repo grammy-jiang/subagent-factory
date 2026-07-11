@@ -4,7 +4,10 @@ Canonical record of what grounds this subagent. The profile, skills, references,
 report, and tests are all derived from the distilled spine in this package
 (`principles/principles.yaml` → `analysis/claims.jsonl` → `evidence/evidence-records.yaml` →
 `sources/anchors/*.anchors.jsonl`), which was assembled by the map→reduce build. No profile field
-value is an orphan: every load-bearing rule cites the promoted principle(s) it restates.
+load-bearing rule field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`,
+`knowledge_partition.always_on`, and `source_of_truth_policy` value cites the promoted principle(s) it
+restates. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs` — carry no inline tags, per
+repo convention.)
 
 ## Sources
 
@@ -56,6 +59,29 @@ laws (P045). The 28 medium-confidence principles carry that caveat and are treat
 weigh, not doctrine.
 
 ## Version History
+
+### v1.0.2 — 2026-07-11
+R2 remediation. Weakened four rules to their source support without adding any claim: restored P035's
+"where it can be avoided" qualifier on the irrevocable-act rule (`always_on[5]`, `quality_bar[4]`),
+P063's "consider terminating" on `always_on[2]`, P051's "usually/ordinarily" hedge on the
+long-truthful-record rule (`quality_bar[1]`, `always_on[1]`, example), and P056's comparative
+governance form (`always_on[4]`); scoped `source_of_truth_policy.precedence` to P063's linked-asset
+trigger (dropping an invented evidentiary override) and re-added P053's "when suitable agents are
+numerous" trigger. Added a `quality_bar` bullet exercising the physical-and-technical-deception-craft
+skill (P037, P041, P044, P046, P081). Added sibling-boundary clauses to two skill descriptions;
+capitalized one skill H1; scoped this ledger's no-orphan claim to load-bearing rule fields. No prior
+decision silently overwritten.
+
+### v1.0.1 — 2026-07-11
+R1 remediation. Removed two fabricated `knowledge_partition.always_on` clauses that carried citation
+lists but had no source (the "champion slow to see undermining evidence" governance clause, replaced
+with P056's grounded framing; the "cap certainty short of the endpoints" mirror clause, removed —
+P070/P045 already carry the intent). Restored P059's "in part" hedge on prevention-by-absence.
+Reworded `role` to drop "J. C." so the adapter exporter no longer truncates the router description.
+`source_of_truth_policy.precedence` now cites its grounding principles (P013, P045, P063, P069, P089).
+`reports/faithfulness-report.yaml` gained findings for all eight `always_on` bullets,
+`source_of_truth_policy`, and the three mode triggers. Re-authored all eight `SKILL.md` bodies to gold
+shape. No prior profile decision silently overwritten; all supersessions recorded above.
 
 ### v1.0.0 — 2026-07-11
 Initial release. LLM-authored layer (profile, 8 skills, 2 references, faithfulness report, golden +

@@ -1,6 +1,6 @@
 ---
 name: bayesian-belief-updating
-description: "Audit whether a probability's move from prior to posterior was sized to the evidence's true diagnosticity; use when a belief was, or should have been, revised after new evidence."
+description: "Audits whether a probability's move from prior to posterior was sized to the evidence's true diagnosticity; use when a belief was, or should have been, revised after new evidence."
 kind: skill
 status: ready
 provenance:

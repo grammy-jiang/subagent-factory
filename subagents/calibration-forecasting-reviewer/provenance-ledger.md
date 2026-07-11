@@ -44,14 +44,48 @@ the principles they restate. Coverage:
 | scenarios-horizon-and-tail-risk | P004, P026, P040, P047, P055, P056, P079, P081, P084, P085, P087, P089 |
 | forecasting-accountability-and-communication | P037, P043, P062, P072, P083, P086 |
 
+**Skill-only principles (not restated in the profile).** `P023` (base-rates skill) and `P087`
+(scenarios skill) are cited by their skill bodies but were removed from the profile `always_on` rules
+in v1.0.1 — `P023` carries a moral caveat and `profile_rule: false`; `P087` was a stray cite. They
+partition into the skills but the profile does **not** restate them, so no profile-level grounding
+depends on them.
+
 ## Faithfulness
 
-`reports/faithfulness-report.yaml` grades each load-bearing profile rule against its promoted
-principles on the five-level claim-strength scale. All findings are `WITHIN_SCOPE` — no rule is
-stronger than its evidence. `source_anchors` are omitted deliberately; provenance is carried in
-each finding's note via principle + claim IDs.
+`reports/faithfulness-report.yaml` grades each load-bearing profile rule — including the eight
+`knowledge_partition.always_on` runtime rules — against its promoted principles on the five-level
+claim-strength scale. Every finding is `WITHIN_SCOPE`; one (`forbidden_behaviours[3]`) carries an
+`add_condition` action, where a validation condition was added so the medium-confidence P031 clause
+keeps its source hedge rather than reading as a flat ban. No rule is stronger than its evidence.
+`source_anchors` are omitted deliberately; provenance is carried in each finding's note via principle
++ claim IDs.
 
 ## Version History
+
+### v1.0.2 — 2026-07-11
+Review r2 faithfulness and release-readiness fixes (no new claims):
+- Qualified `forbidden_behaviours[3]`: the P031 (medium) clause now reads "where finer distinctions
+  have not been validated against real frequencies, treating granularity as precision", restoring the
+  source hedge (was HEDGING_REMOVED against high-confidence P059/P035).
+- Faithfulness report: added per-rule findings for all eight `knowledge_partition.always_on` runtime
+  rules with rule-specific citations; flipped the `forbidden_behaviours[3]` finding to `add_condition`
+  documenting the P031 validation condition.
+- Provenance ledger: backfilled this Version History; annotated P023/P087 as skill-only (not
+  profile-restated) and updated the Faithfulness section.
+- Bumped `tests/golden-tests.yaml` `profile_version` to match; rewrote all eight skill `description`
+  fields to third person; folded a sibling-disambiguation clause into the `forecast-scoring-and-evaluation`
+  and `forecasting-accountability-and-communication` descriptions.
+
+### v1.0.1 — 2026-07-11
+Review r1 citation-integrity and over-claim fixes (no new claims). Dropped the P023 citation and the
+"use causal base rates" clause from the outside-view `always_on` rule (P023 is `profile_rule: false`
+and carries a moral caveat; P006/P007 ground the uncaveated content); dropped the stray P087 cite from
+the horizon/tail-risk `always_on` rule; corrected `forbidden_behaviours[1]` cite P003→P021; added P025
+to `forbidden_behaviours[2]` and P033 to the cognitive-trap `quality_bar` rule; removed the "off only
+on timing" clause from the `forecast-scoring-and-evaluation` skill anti-pattern (owned by
+`forecasting-accountability-and-communication`/P083); softened the granularity-theatre
+`forbidden_behaviours` clause to its P031 source; regenerated the adapter `description` on re-export.
+No prior profile decisions superseded beyond the corrected citations above.
 
 ### v1.0.0 — 2026-07-10
 Initial release. LLM-authored layer (profile, 8 skills, 2 references, faithfulness report, golden +

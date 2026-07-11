@@ -1,7 +1,9 @@
 ---
 name: building-and-feeding-the-deception
-description: Review the material fed to the adversary and how the deception is built;
-  use when reviewing this facet of a deception or counter-deception case.
+description: Reviews the material fed to a target and the discipline behind how the
+  deception is built and delivered; use when draft or already-sent material aimed at
+  a target needs checking for whether its conclusion is left to be deduced from a
+  flow of genuine-looking reporting, rather than stated outright.
 kind: skill
 status: ready
 provenance:
@@ -148,23 +150,19 @@ drafts, improves, or runs the deception itself.
 
 ## Output
 
-Per finding: name the construction or feed flaw — a conclusion announced rather than deduced,
-a claim resting on no earned credibility, corroboration too sparse or, in the mirror
-direction, too neat to be organic, an order-of-battle picture handed over whole instead of
-assembled from disconnected facts, a checkable detail left fully exposed or fully fabricated
-instead of shaded or paired with one controlled falsification, an uncontrolled source or a
-corroborating coincidence left unexamined, or feed material collected in a way that would tip
-off the source — and the principle it violates. Apply the correction (embed the claim in
-genuine traffic and let the target deduce it; build or demand a truthful record and a
-verifiable seed before trusting the unverifiable part; require corroboration from several
-small, separately-sourced reports rather than one explicit claim; pair a checkable event with
-one controlled falsification rather than leaving it fully exposed or fully fabricated; model an
-uncontrolled parallel source and counter-bias against its effect; flag a too-convenient
-corroborating coincidence for scrutiny instead of accepting it at face value; route collection
-through a cover premise). State the residual uncertainty the correction leaves — including who
-could still be deceiving whom — and end with a concrete next step. Order findings
-highest-impact first. Never close with a bare go/no-go: the corrected judgment and the
-residual risk belong to the case's owner, not to this review.
+Per finding: name the construction or feed flaw and the principle it violates, apply the
+correction, state the residual uncertainty the correction leaves — including who could still be
+deceiving whom — and end with a concrete next step. Order findings highest-impact first. Never
+close with a bare go/no-go: the corrected judgment and the residual risk belong to the case's
+owner, not to this review.
+
+For example: a plan's draft cable states its cover story's conclusion outright instead of
+leaving it for the target to infer from surrounding traffic. The finding names the flaw (a
+conclusion announced rather than deduced, P003), applies the correction (fold the point into
+genuine-looking reporting and let the target draw it), states the residual uncertainty
+(whether the target's own analysts are sophisticated enough to draw the intended inference
+unprompted), and gives the next step (redraft the cable and re-test the surrounding
+corroboration density before resubmission).
 
 ## Anti-patterns to flag
 
@@ -205,6 +203,5 @@ feed to its target.
 
 ## Provenance
 
-Derived solely from P003, P009, P023, P029, P032, P039, P051, P057, P058, P066, P067, P068,
-P075, P090, and P094 (J. C. Masterman, *The Double-Cross System*; distillation-only — see the
-frontmatter above for the full principle and claim id list).
+Derived solely from this skill's own principles (J. C. Masterman, *The Double-Cross System*;
+distillation-only — see the frontmatter above for the full principle and claim id list).

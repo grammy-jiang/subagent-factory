@@ -1,6 +1,6 @@
 ---
 name: perception-misperception-and-signaling
-description: Audits whether an analytic product tested — not merely assumed — how an adversary reads our signals, firmness, or resolve; invoke whenever a judgment characterizes how the adversary perceives us.
+description: Audits whether an analytic product tested — not merely assumed — how an adversary reads our signals, firmness, or resolve; invoke whenever a judgment characterizes how the adversary perceives us; not the analyst's own schemata and mind-sets (see mindsets-schemata-and-perception).
 kind: skill
 status: ready
 provenance:
@@ -146,33 +146,27 @@ reviewer's own claim about what the adversary perceives in place of this structu
 
 ## Anti-patterns to flag
 
-- A rejection of an adversary's proposal, or a default to splitting the difference, with no
-  reading of the goal or interest actually behind it and no examination of the analyst's own
-  means-ends chain (P021).
-- A running incident-by-incident debate over whether the adversary is hostile or cooperative
-  that never sets out and compares two whole, opposed images of that adversary (P023).
-- A near-term or long-range call about the adversary built entirely on a read of its internal
-  mental or bureaucratic workings, with no check for mirror-imaging and no comparative theory
-  brought in for the longer view (P029).
-- An adversary's stance explained as "where they stand depends on where they sit" with the
-  bureaucratic positions asserted only after the fact (P036), or a "compromise" label offered
-  with no theory that predicted in advance how those positions would map to the outcome, and no
-  weighing of a leadership- or society-wide value clash as the deeper cause (P037).
-- A general framework — situational logic, bureaucratic politics, or a theory of signaling —
-  applied to an ambiguous case as an automatic fit, with the difficulty of bridging that theory
-  to the specific facts left unstated (P056).
-- A posture or approach toward the adversary recommended as though it dominates every possible
-  reading, with no statement of what the adversary is expected to infer or of the cost if that
-  inference is wrong (P069).
-- A claim that firmness on one issue will read to the adversary as narrowly bounded, asserted
-  with no test of what general principle would tie the firmness to a bounded reading (P077).
-- A conciliatory or de-escalatory initiative toward a possibly aggressive adversary waved
-  through with less scrutiny than a deterrent move would get, never asking whether the adversary
-  might read it as an opening to expand rather than as reassurance (P078).
+- Unexamined adversary goal/interest behind a rejected proposal or split-the-difference default,
+  own means-ends chain unexamined (P021).
+- Incident-by-incident hostility debate standing in for two whole, opposed adversary images
+  (P023).
+- Near/long-range adversary call built solely on internal-process reading, no mirror-imaging
+  check, no comparative theory (P029).
+- "Where they stand depends on where they sit" with positions asserted only after the fact, or
+  a "compromise" label with no predictive theory and no leadership/society value-clash check
+  (P036, P037).
+- General framework (situational logic, bureaucratic politics, signaling theory) applied to an
+  ambiguous case as an automatic fit, bridging difficulty left unstated (P056).
+- Posture toward the adversary presented as dominating every reading, no stated inference or
+  cost-if-wrong (P069).
+- Firmness-reads-as-bounded claim asserted with no test of the tying principle (P077).
+- De-escalatory initiative given less scrutiny than a comparable deterrent move, no check on an
+  expand-not-reassure reading (P078).
 
 ## References
 
-See `../../references/analytic-method-principles-index.md` for the full principle catalogue. For
+See `../../references/analytic-method-principles-index.md` for the full principle catalogue and
+`../../references/analytic-method-evidence-notes.md` for the underlying evidence records. For
 adjacent concerns, see the sibling skills: `mindsets-schemata-and-perception` owns the analyst's
 own mental models and schemata — this skill instead audits how one actor reads another's
 signals and images; `competing-hypotheses-and-diagnostic-evidence` owns weighing any general

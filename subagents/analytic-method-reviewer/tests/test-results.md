@@ -1,10 +1,10 @@
 # Test Results — analytic-method-reviewer
 
-**Generated:** 2026-07-10T11:34:40.384626+00:00
+**Generated:** 2026-07-11T01:29:28.508508+00:00
 
 ## Phase 8 Profile Self-Check
 
-**Verdict:** FAIL
+**Verdict:** PASS
 
 | # | Check | Level | Detail |
 |---|-------|-------|--------|
@@ -21,7 +21,7 @@
 | 11 | quality-bar | PASS | 5 evidence-citing checks |
 | 12 | forbidden-behaviours | INFO | 4 rules; source traceability delegated to profile-reviewer |
 | 13 | no-procedure-in-body | PASS | no ordered procedure detected in body |
-| 14 | body-size | FAIL | profile body ~1134 words (> 1000); 334 over the 800-word budget; heaviest: quality_bar 203w, when_to_use 158w, modes 140w |
+| 14 | body-size | PASS | ~800 words |
 | 15 | platform-neutral | PASS | core is platform-neutral |
 | 16 | provenance-ledger | PASS | present |
 | 17 | no-unresolved-conflict | INFO | conflict resolution review delegated to profile-reviewer / Phase 7 merge log |

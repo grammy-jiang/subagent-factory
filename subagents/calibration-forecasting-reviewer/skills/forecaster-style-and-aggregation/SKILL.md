@@ -1,6 +1,6 @@
 ---
 name: forecaster-style-and-aggregation
-description: "Review whether a forecaster or team is cultivated and judged to build calibration, and whether multiple forecasts are aggregated well; use when assessing forecaster development or combining forecasts."
+description: "Reviews whether a forecaster or team is cultivated and judged to build calibration, and whether multiple forecasts are aggregated well; use when assessing forecaster development or combining forecasts."
 kind: skill
 status: ready
 provenance:

@@ -1,8 +1,11 @@
 ---
 name: counter-deception-and-the-mirror
-description: Review the reasoning about whether you are the one being deceived — the
-  mirror discipline that keeps a running deceiver honest; use when reviewing this
-  facet of a deception or counter-deception case.
+description: Reviews the counter-deception reasoning behind a claim that a channel
+  is controlled, a case is clean, or that the reviewing side is not being deceived,
+  checking whether that confidence has been tested against the possibility that the
+  reviewing side itself is the one being played; reviews whether our own side is
+  being deceived, not how far the enemy trusts a given channel, which
+  assessing-enemy-trust-and-belief owns.
 kind: skill
 status: ready
 provenance:
@@ -41,13 +44,10 @@ provenance:
 This skill audits the evidence chain behind a deception or counter-deception judgment for the
 one failure mode the other skills in this package cannot catch: that the reviewing side is
 itself the one being deceived. It puts the mirror question to a claim that a channel is
-controlled, that a case is clean, or that "we are not being deceived" — checking whether
-confidence was calibrated to the wartime and theatre asymmetry that should set it, whether the
-enemy's own tradecraft habits were turned to advantage rather than merely watched for, whether
-an absence of enemy activity was credited as evidence rather than discounted as silence, and
-whether the judgment still leaves room for a stray signal or a changed circumstance to
-overturn it. This is a review of the counter-deception reasoning itself, never an instruction
-to run a deception, recruit or turn an agent, or make the operational call.
+controlled, that a case is clean, or that "we are not being deceived" — the denial-and-deception
+risk is that unexamined confidence in one's own control is exactly the condition an opposing
+service would want to exploit. This is a review of the counter-deception reasoning itself, never
+an instruction to run a deception, recruit or turn an agent, or make the operational call.
 
 ## When to use
 
@@ -106,10 +106,8 @@ to run a deception, recruit or turn an agent, or make the operational call.
 7. Confirm the case treats its control methods as adaptable guides for present circumstances,
    not as fixed rules carried over from a different operation, theatre, or opponent, since the
    favourable conditions behind them are not guaranteed to recur (P045).
-8. Emit findings highest-impact first in the format set out under Output, keyed to whichever
-   check failed above: the mirror question, asymmetry-miscalibrated confidence, an
-   unexploited enemy habit, success measured by presence alone, a missed or mishandled
-   recruitment, an unsafe tasking left running, or stale doctrine.
+8. Emit findings against the categories in Anti-patterns to flag, highest-impact first, in the
+   format set out under Output.
 
 ## Inputs
 
@@ -130,18 +128,18 @@ to run a deception, recruit or turn an agent, or make the operational call.
 
 ## Output
 
-Per finding: name the counter-deception flaw (mirror question left unasked, confidence
-miscalibrated to the wrong side of the wartime asymmetry, an enemy habit unexploited, success
-measured only by presence and not absence, a recruitment opportunity missed or mishandled, an
-unsafe tasking left running, control methods frozen into fixed rules), apply the correction
-(ask whether the enemy could be running the same play back, recalibrate confidence to the
-theatre and season, cross-check the fallback-contact and stay-behind angles, credit an
-absence of enemy activity as intelligence, recruit the volunteer or redirect the genuine
-contact, limit or drop the unsafe tasking, treat control methods as adaptable guides), state
-the residual uncertainty — including who could still be deceiving whom — and end with a
-concrete next step. Order findings highest-impact first. Never issue the caller's go/no-go,
-and never certify a channel controlled or clean: the corrected judgment and the residual risk
-are handed back to the case's owner.
+Per finding: name the flaw, apply the correction, state the residual uncertainty — including
+who could still be deceiving whom — and end with a concrete next step. Order findings
+highest-risk first. Never issue the caller's go/no-go, and never certify a channel controlled
+or clean: the corrected judgment and the residual risk are handed back to the case's owner.
+
+For example, if a review certifies a foreign-territory agent as "controlled" on the strength
+of an unbroken run of successful deliveries alone, the flaw is the unasked mirror question
+(P070); the correction is to note that an unbroken run is exactly what a genuine, uncontrolled
+spy would also produce, so it cannot stand alone as proof; the residual uncertainty is that the
+agent's own handler, not the reviewing side, may be the one still deceived; and the next step
+is to cross-check the agent's fallback contacts against the controlled roster before any
+further tasking is authorized.
 
 ## Anti-patterns to flag
 

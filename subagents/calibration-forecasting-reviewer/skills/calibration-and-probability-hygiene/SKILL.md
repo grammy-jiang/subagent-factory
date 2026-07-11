@@ -1,6 +1,6 @@
 ---
 name: calibration-and-probability-hygiene
-description: "Review a single stated probability or confidence judgment, and its reasoning, for the failure modes that make numbers miscalibrated; use when checking one forecast's number."
+description: "Reviews a single stated probability or confidence judgment, and its reasoning, for the failure modes that make numbers miscalibrated; use when checking one forecast's number."
 kind: skill
 status: ready
 provenance:
