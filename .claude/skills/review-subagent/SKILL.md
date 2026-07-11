@@ -131,3 +131,27 @@ verified package sits on `review/<slug>`; the human reviews + merges (CI-gate th
   accuracy, not code correctness, not fix completeness. The adversarial verify (Step 6) is the real gate.
 - **`pkill -f <pat>`** self-kills the Bash-tool shell when the pattern is in your own command line (exit
   144). Kill by explicit PID or process-group; use the `[c]laude` bracket trick for pgrep.
+- **Shared-working-tree fix-loss (root cause of "phantom fixes").** The loop used to commit only on
+  CLEAN, so each round's fix edits sat *uncommitted* on the review branch — a **concurrent `git checkout`
+  in the same working tree** (e.g. a human merging sibling PRs) silently discarded them, and the next
+  `.fix.done` marker then claimed a version the disk never had. Fixes: the loop now (a) runs with an
+  **overridable `REPO`** so a manager can point it at an **isolated `git worktree`**, and (b) **commits
+  every round that reaches `validate` PASS** (durable). When taking a review over in-session, do the same
+  — work in a worktree (`git worktree add -B review/<slug> <path> <base>`), not the shared main tree.
+- **Marker-vs-disk.** A `.fix.done` marker is written by a possibly-dead/cap-killed session; it is not
+  truth. Gate on the package's **actual `validate` state + `agent_version` on disk**, never the marker.
+  A dead headless session may already be valid — check the package, not the marker.
+- **Silent adapter/skill truncation is a whole class, and only a domain lens catches it.** A generator can
+  render a *complete-looking* but truncated must-hold invariant or skill step (a 160-char cut, or a first
+  sentence split inside `(e.g. …)`), silently dropping a safety hedge from the artifact the agent loads —
+  and `validate`'s coverage check only sees the `[Pxxx]` **tag**, not the surviving **content**. The loop
+  now has a deterministic truncation gate (`grep '…'` / dangling `(e.g`), and `compile_invariants` renders
+  complete first sentences + fails on a truncated invariant — but the read that *found* this was
+  `translation-quality-reviewer` (a domain lens on the safety skill), which 3 loop rounds + 5 other
+  verifiers missed. Keep a safety-relevant domain lens on the panel for any safety/legal-bearing subagent.
+- **The precedence / any multi-principle tie-breaker field is the hardest to converge** — it will surface
+  a real, *distinct* finding for several rounds (scope → citation → inversion → conflation). Ground each
+  clause STRICTLY to one principle's claim; don't over-trim (a trim inverted "governs *over* a literal
+  rendering") and don't over-trust a domain reviewer's *suggested* wording without re-checking the corpus
+  grounds it (a suggestion manufactured a P080 clinical-case-study anchor). Re-verify only the changed
+  clause each round.

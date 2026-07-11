@@ -20,7 +20,11 @@
 # Env: MAXROUNDS(3) MODEL(claude-opus-4-8) REV_EFFORT(high) FIX_EFFORT(high)
 set -uo pipefail
 
-REPO="/home/grammy-jiang/projects/subagent-factory"; cd "$REPO"
+# REPO is overridable so a manager (e.g. drive-review-merge.sh) can point the whole loop at an
+# ISOLATED git worktree: uncommitted fix edits on the main tree were once discarded by a concurrent
+# `git checkout` in that shared tree. With REPO=<worktree> every review/fix session, validate, and
+# per-round commit happens inside the worktree, immune to main-tree git ops.
+REPO="${REPO:-/home/grammy-jiang/projects/subagent-factory}"; cd "$REPO"
 # shellcheck source=/dev/null
 source "$REPO/campaign/_claude_run.sh"
 
@@ -61,6 +65,10 @@ root $REPO). REVIEW ONLY — do NOT edit any file except the single review repor
 STEP 1 — deterministic gates (run via Bash; note every FAIL/finding, they count as must-fix):
   python -m tools.subagent_factory.validate_generated_package subagents/$slug
   python -m tools.subagent_factory.quote_scan subagents/$slug
+  # truncation gate: any hit is a SILENTLY-TRUNCATED skill body or adapter invariant (must-fix) —
+  # a "…" ellipsis, or an invariant line severed inside a parenthetical (ending "(e.g").
+  grep -rn '…' subagents/$slug/skills/*/SKILL.md subagents/$slug/adapters/claude-code/$slug.md 2>/dev/null
+  grep -nE '\(e\.g\$|\([^)]*\$' subagents/$slug/adapters/claude-code/$slug.md 2>/dev/null | grep -F '**['
 
 STEP 2 — spawn these reviewer subagents via the Task tool, IN PARALLEL, each returning findings
 severity-ranked (must-fix|should-fix|nice) with a MUST_FIX_COUNT; hand each ONLY its scope:
@@ -124,14 +132,28 @@ validate_pass(){ # SLUG -> 0 if PASS
   python -m tools.subagent_factory.validate_generated_package "subagents/$1" >/dev/null 2>&1
 }
 
+commit_round(){ # SLUG ROUND — durably commit this round's package state to the CURRENT branch, so a
+  # concurrent main-tree git op cannot discard uncommitted fixes (the lost-fixes bug). Keeps .build
+  # (tracked gen.py) but drops the large/distill-only raw sources.
+  local slug="$1" r="$2" pkg="subagents/$1"
+  git add -f "$pkg" ".claude/agents/generated/$slug.md" >>"$LOGDIR/review-loop.log" 2>&1 || true
+  git reset -q -- "$pkg/sources/markdown" "$pkg/sources/assets" "$pkg/sources/original" \
+    "$pkg/sources/maps" 2>/dev/null || true
+  git commit --no-verify -m "review-loop($slug): round $r (validate PASS)" \
+    >>"$LOGDIR/review-loop.log" 2>&1 && say "$slug r$r: committed (validate PASS)" || true
+}
+
 for SLUG in "${SLUGS[@]}"; do
   PKG="subagents/$SLUG"
   [ -f "$PKG/profile.yaml" ] || { say "$SLUG: no package, skip"; continue; }
   mkdir -p "$PKG/reports/review-loop"
   DONE="$PKG/reports/review-loop/$SLUG.CLEAN"
   [ -f "$DONE" ] && { say "$SLUG: already CLEAN, skip"; continue; }
-  git checkout -B "review/$SLUG" >>"$LOGDIR/review-loop.log" 2>&1 || say "$SLUG: branch note"
-  say "=== $SLUG: start (maxrounds=$MAXROUNDS) ==="
+  # A manager (drive-review-merge.sh) pre-creates an isolated worktree already on review/$SLUG and
+  # sets NO_BRANCH=1; standalone, the loop makes the branch itself in the (main) tree.
+  [ -n "${NO_BRANCH:-}" ] || git checkout -B "review/$SLUG" >>"$LOGDIR/review-loop.log" 2>&1 \
+    || say "$SLUG: branch note"
+  say "=== $SLUG: start on $(git branch --show-current) (maxrounds=$MAXROUNDS) ==="
 
   slug_clean=0
   for r in $(seq 1 "$MAXROUNDS"); do
@@ -151,16 +173,20 @@ for SLUG in "${SLUGS[@]}"; do
     say "$SLUG round $r: FIX (fresh session)"
     run_fresh_claude "$FIX_EFFORT" "$(fix_prompt "$SLUG" "$r")" "$LOGDIR/review-loop-$SLUG.r$r.fix.jsonl" \
       || say "$SLUG r$r fix rc=$?"
-    [ -f "$PKG/reports/review-loop/$SLUG.r$r.fix.done" ] || say "$SLUG r$r: fix marker missing (check validate)"
+    # marker-vs-disk: trust the package's ACTUAL validate state, not the .fix.done marker (a dead or
+    # cap-killed fix session can leave a stale/misleading marker — the r1.fix.done that claimed v1.1.0
+    # over a v1.0.0 disk). Commit every round that reaches PASS so the work is durable.
+    if validate_pass "$SLUG"; then
+      commit_round "$SLUG" "$r"
+    else
+      say "$SLUG r$r: fix left package INVALID on disk (marker $( [ -f "$PKG/reports/review-loop/$SLUG.r$r.fix.done" ] && echo present || echo missing ) — next round re-reviews)"
+    fi
   done
 
   if [ "$slug_clean" = "1" ]; then
     echo "CLEAN after review-loop $(date -u +%FT%TZ)" > "$DONE"
-    git add -f "$PKG" ".claude/agents/generated/$SLUG.md" >>"$LOGDIR/review-loop.log" 2>&1 || true
-    git reset -q -- "$PKG/sources/markdown" "$PKG/.build" 2>/dev/null || true
-    git commit --no-verify -m "review-loop($SLUG): converged to must-fix=0" >>"$LOGDIR/review-loop.log" 2>&1 \
-      || say "$SLUG: nothing to commit"
-    say "=== $SLUG: DONE (clean, committed on review/$SLUG) ==="
+    commit_round "$SLUG" "final"   # commits the .CLEAN marker alongside the converged package
+    say "=== $SLUG: DONE (clean, committed on $(git branch --show-current)) ==="
   else
     say "=== $SLUG: STOPPED with residual (see the last review report) ==="
   fi
