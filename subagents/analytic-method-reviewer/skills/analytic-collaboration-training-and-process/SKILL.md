@@ -149,43 +149,38 @@ verdict for this structure, and never produce the substantive analytic judgment 
 
 ## Anti-patterns to flag
 
-- A devil's-advocate or similar role credited as proof the group considered dissent, with the
-  false confidence of having been open-minded substituted for evidence of genuine independent
+- Devil's-advocate role credited as proof dissent was heard, not weighed for genuine independent
   convergence (P008).
-- A team or group lacking psychological safety or genuine diversity of perspective, credited with
-  an aggregation gain its composition could not structurally have produced (P015).
-- A high-stakes or deception-prone issue carried on a single-outcome analysis with no mandate for
-  a systematic method like Analysis of Competing Hypotheses, no stated alternatives, and no
-  acknowledgment that events may diverge from expectation (P010).
-- Training and self-examination aimed only at writing quality, organizational procedure, or the
-  substantive topic, never turned inward on the analyst's own thinking and reasoning (P001, P022).
-- Analytic-thinking development delivered as one-off classroom instruction with no coaching and
-  no practice-by-doing (P071).
-- An intelligence failure or a suspiciously well-confirmed conclusion blamed solely on one
-  analyst's psychology, with the organization's incentive structure, culture, or neglected
-  negative evidence never examined (P024).
-- Analysis run only incrementally, with key problems never re-examined from the ground up, and
-  consumers never told what analysis cannot do (P040).
-- A process design with no institutionalized competing-view procedure — no analytic debate,
-  devil's advocacy, competitive analysis, peer review, or outside expertise sought — and the
-  first credible hypothesis rewarded over weighing several (P058).
-- Pre-publication review performed only by same-branch colleagues who share the analyst's
-  mind-set, without asking what assumptions were unstated, what alternatives were rejected and
-  why, or what would change the analyst's mind (P063).
-- Coding or scoring performed by coders who know the hypotheses, or by the analyst themselves,
-  letting bias leak into the measurement (P081).
+- Team or group credited with an aggregation gain its psychological safety or diversity could not
+  structurally have produced (P015).
+- High-stakes or deception-prone issue on a single-outcome analysis, no ACH-style method mandated
+  (P010).
+- Training and self-examination aimed at writing, procedure, or topic — never turned inward on
+  the analyst's own reasoning (P001, P022).
+- Analytic-thinking development delivered as one-off classroom instruction, no coaching, no
+  practice-by-doing (P071).
+- Intelligence failure or suspiciously well-confirmed conclusion blamed solely on one analyst's
+  psychology, organizational incentive/culture/neglected negative evidence unexamined (P024).
+- Analysis run only incrementally, no ground-up re-examination, consumers not told what analysis
+  cannot do (P040).
+- No institutionalized competing-view procedure; first credible hypothesis rewarded over weighing
+  several (P058).
+- Pre-publication review performed only by same-branch colleagues, no probing of unstated
+  assumptions, rejected alternatives, or mind-changing evidence (P063).
+- Coding or scoring performed by non-blind coders or the analyst themselves (P081).
 
 ## References
 
-See `../../references/analytic-method-principles-index.md` for the full principle catalogue. For
-adjacent concerns, see the sibling skills: `competing-hypotheses-and-diagnostic-evidence` runs
-the Analysis of Competing Hypotheses matrix itself — diagnosticity weighing and
-refutation-seeking — once this skill's review confirms formalization was warranted;
-`structured-analytic-techniques` selects and sequences which technique to apply;
-`assumptions-framing-and-analytic-writing` reviews an individual draft's explicit linchpin
-assumptions and its separation of fact from opinion; `cognitive-biases-and-dual-process-reasoning`
-covers the individual analyst's bias catalogue that the team, training, and review design in
-this skill exist to counter.
+See `../../references/analytic-method-principles-index.md` for the full principle catalogue, and
+`../../references/analytic-method-evidence-notes.md` to trace any principle ID above to its
+underlying claims and evidence. For adjacent concerns, see the sibling skills:
+`competing-hypotheses-and-diagnostic-evidence` runs the Analysis of Competing Hypotheses matrix
+itself — diagnosticity weighing and refutation-seeking — once this skill's review confirms
+formalization was warranted; `structured-analytic-techniques` selects and sequences which
+technique to apply; `assumptions-framing-and-analytic-writing` reviews an individual draft's
+explicit linchpin assumptions and its separation of fact from opinion;
+`cognitive-biases-and-dual-process-reasoning` covers the individual analyst's bias catalogue that
+the team, training, and review design in this skill exist to counter.
 
 ## Provenance
 

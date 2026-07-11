@@ -1,6 +1,6 @@
 ---
 name: competing-hypotheses-and-diagnostic-evidence
-description: Audits whether an analytic judgment weighed a full hypothesis set by diagnostic evidence rather than fit; invoke before finalizing a hypothesis-driven judgment or forecast.
+description: Audits whether an analytic judgment weighed a full hypothesis set by diagnostic evidence rather than fit; invoke before finalizing a hypothesis-driven judgment or forecast; not the choice/sequencing of the wider technique set (see structured-analytic-techniques).
 kind: skill
 status: ready
 provenance:
@@ -145,36 +145,37 @@ for the analyst's own conclusion.
 
 ## Anti-patterns to flag
 
-- A judgment built and defended around one hypothesis, with no rival ever built out or
-  made to contend against it (P013, P020, P032).
-- Evidence treated as confirming because it is merely consistent with the favored
-  hypothesis, when it is equally consistent with a rival and so carries no diagnostic
-  weight (P054, P060, P014).
-- A conclusion reached by accumulating consistent-but-non-diagnostic evidence, or by
-  satisficing, incrementalism, consensus, analogy, or a maxim, rather than by an active
-  attempt to disprove the weaker hypotheses (P027, P032).
-- An image or interpretation read as though no observed event, whichever way it went,
-  could have counted against it (P003).
-- "There is no evidence of X" written or implied with no check on whether that evidence
-  would even be expected to surface if X were true — unproven treated as disproved
-  (P013).
-- A matrix's tally substituted for the analyst's own judgment, or a disagreement with the
-  matrix left unexplained instead of traced to an omitted factor (P061).
-- Several contending factors held as an unstructured mental impression rather than
-  written down and decomposed (P028).
-- A claim clashing with an established theory accepted or dismissed on the raw evidence
-  alone, with no visible reasoning about its fit to that theory (P070).
-- A judgment on a still-evolving situation published as settled, with no milestone set
-  for a different course (P062).
+- Single uncontested hypothesis — one hypothesis built and defended, no rival made to
+  contend against it (P013, P020, P032).
+- Fit mistaken for diagnosticity — evidence credited as confirming because merely
+  consistent with the favored hypothesis, though equally consistent with a rival
+  (P054, P060, P014).
+- Confirmation-seeking accumulation — conclusion reached by piling up consistent-but-
+  non-diagnostic evidence, satisficing, incrementalism, consensus, analogy, or a maxim,
+  instead of an active refutation pass (P027, P032).
+- Unfalsifiable image — interpretation immune to any observed event, whichever way it
+  went (P003).
+- Absence-of-evidence fallacy — "no evidence of X" treated as disproof with no check on
+  whether that evidence would even be expected to surface (P013).
+- Matrix as verdict — tally substituted for the analyst's own judgment, or a disagreement
+  left unexplained instead of traced to an omitted factor (P061).
+- Unexternalized tally — several contending factors held as an unstructured mental
+  impression rather than written down and decomposed (P028).
+- Theory-fit ignored — a claim clashing with an established theory accepted or dismissed
+  on the raw evidence alone, with no visible reasoning about its fit (P070).
+- Premature finality — a still-evolving judgment published as settled, with no milestone
+  set for a different course (P062).
 
 ## References
 
-See `../../references/analytic-method-principles-index.md` for the full principle catalogue.
-For adjacent concerns, see the sibling skills: `structured-analytic-techniques` owns
-choosing and sequencing the wider technique set — a Key Assumptions Check, Outside-In
-Thinking, Red Team, Alternative Futures, Indicators — that ACH sits alongside, including
-how many hypotheses a project should carry; `probabilistic-judgment-and-calibration`
-checks the coherence of the probability estimate once the hypotheses have been weighed;
+See `../../references/analytic-method-principles-index.md` for the full principle catalogue,
+and `../../references/analytic-method-evidence-notes.md` for how each finding's principle
+provenance is grounded and how to trace a principle ID back to its claims and evidence. For
+adjacent concerns, see the sibling skills: `structured-analytic-techniques` owns choosing
+and sequencing the wider technique set — a Key Assumptions Check, Outside-In Thinking, Red
+Team, Alternative Futures, Indicators — that ACH sits alongside, including how many
+hypotheses a project should carry; `probabilistic-judgment-and-calibration` checks the
+coherence of the probability estimate once the hypotheses have been weighed;
 `cognitive-biases-and-dual-process-reasoning` covers the broader fast-intuitive bias
 catalogue behind a premature lock onto one hypothesis.
 

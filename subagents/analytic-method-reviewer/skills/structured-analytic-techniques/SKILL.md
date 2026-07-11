@@ -1,6 +1,6 @@
 ---
 name: structured-analytic-techniques
-description: Reviews an analytic product's use of structured techniques (Red Team, Alternative Futures, brainstorming, Outside-In, Indicators); invoke when choosing or sequencing one too.
+description: Reviews an analytic product's use of structured techniques (Red Team, Alternative Futures, brainstorming, Outside-In, Indicators); invoke when choosing or sequencing one too; not the ACH evidence-weighing itself (see competing-hypotheses-and-diagnostic-evidence).
 kind: skill
 status: ready
 provenance:
@@ -181,42 +181,33 @@ structure.
 
 ## Anti-patterns to flag
 
-- A single-outcome forecast or unchallenged hypothesis published with no Red Team or
-  Alternative Futures pass ever attempted, despite real competing views or high
-  uncertainty (P004, P006).
-- A judgment about a foreign actor argued from what the analyst would do in that
-  situation, with no team steeped in the actor's own culture and organization ever
-  staffed to test it (P004).
-- Anomalies accumulating against a prevailing account explained away one at a time, with
-  no perspective technique — assuming the surprising event happened and working backward
-  from it — ever used to test the alternative directly (P007).
-- A technique run at the wrong project stage: brainstorming or a Key Assumptions Check
-  skipped at the start, Indicators or ACH abandoned once set instead of revisited as
-  evidence arrives, or no Devil's Advocacy run against an unquestioned consensus before
-  publication (P011).
-- A brainstorming session run with ideas censored on the spot, killer phrases allowed, no
-  outsider present, or rank pulled to set an official line (P026).
-- A stalled or unproductive brainstorming or technique-selection effort blamed on the
-  analysts' talent, when the likelier cause is unfavorable conditions — no autonomy, no
-  professional security, a hands-on superior, or an oversized project (P030).
-- A situation tracked with no Indicators or Signposts list, or a rival-hypothesis debate
-  argued personally with no agreed, depersonalizing list of observable events (P033).
-- Analysis narrowed straight to the familiar, controllable factors with no Outside-In
-  pass across the uncontrollable social, technological, economic, environmental, or
-  political forces first (P039).
-- An ill-posed or constraining question answered as given, with no push back up the
-  chain for a better formulation (P042).
-- A tradeoff argued qualitatively with no problem structure chosen first, or a real
-  tradeoff never run through multiattribute utility and a sensitivity analysis (P043).
-- A stale topic worked by the same analyst or team indefinitely with no lightweight
-  political-gaming exercise or outside newcomer's view ever brought in (P072, P079).
-- A hypothesis count fixed at some conventional number regardless of the uncertainty and
-  policy stakes involved, with no grouping applied once the set grows past about seven
-  (P080).
+- No Red Team or Alternative Futures run against a single-outcome forecast or unchallenged
+  hypothesis (P004, P006).
+- Foreign-actor judgment argued from the analyst's own reasoning, no actor-steeped Red
+  Team staffed (P004).
+- Anomalies explained away piecemeal, no thinking-backwards/perspective technique run
+  (P007).
+- Technique run at the wrong project stage, or no Devil's Advocacy before publication
+  (P011).
+- Brainstorming run with ideas censored, killer phrases allowed, no outsider, or rank
+  pulled (P026).
+- Stalled technique-selection effort blamed on analyst talent instead of unfavorable
+  working conditions (P030).
+- No Indicators/Signposts list, or a rival-hypothesis debate argued personally (P033).
+- Analysis narrowed to familiar factors with no Outside-In pass (P039).
+- Ill-posed or constraining question answered as given, no pushback for reformulation
+  (P042).
+- Tradeoff argued qualitatively with no problem structure, multiattribute utility, or
+  sensitivity analysis (P043).
+- Stale topic worked indefinitely with no political-gaming exercise or newcomer's view
+  (P072, P079).
+- Hypothesis count fixed by convention, no grouping past about seven (P080).
 
 ## References
 
 See `../../references/analytic-method-principles-index.md` for the full principle catalogue.
+See `../../references/analytic-method-evidence-notes.md` for how each finding's principle
+provenance is grounded and how to trace a principle ID back to its source claim.
 For adjacent concerns, see the sibling skills: `competing-hypotheses-and-diagnostic-evidence`
 owns the ACH matrix and evidence-diagnosticity work that the Indicators-and-ACH sequencing
 in P011 leans on; `assumptions-framing-and-analytic-writing` owns the Key Assumptions Check

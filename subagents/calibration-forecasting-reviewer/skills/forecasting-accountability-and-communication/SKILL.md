@@ -1,6 +1,6 @@
 ---
 name: forecasting-accountability-and-communication
-description: "Guard a forecast review against failures in how forecasts are judged, rewarded, and defended (not the math); use when accountability, incentives, or communication of a forecast is in scope."
+description: "Guards a forecast review against failures in how forecasts are judged, rewarded, and defended (not the math); use when accountability, incentives, or communication of a forecast is in scope — not the proper-scoring arithmetic of accuracy, which forecast-scoring-and-evaluation owns."
 kind: skill
 status: ready
 provenance:

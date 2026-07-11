@@ -1,8 +1,12 @@
 ---
 name: strategic-stewardship-and-timing
-description: 'Review the long-horizon stewardship of a deception capability: when
-  to build it, hold it, spend it, and wind it down; use when reviewing this facet
-  of a deception or counter-deception case.'
+description: 'Reviews whether an analytic product''s judgment of a case''s long-horizon
+  trajectory - build-up, quiet periods, and any proposal to spend or wind it down
+  - has weighed deliberate stewardship (advance positioning, restraint, unglamorous
+  maintenance) against a premature read of exhaustion or safety; use when a product
+  judges a quiet or seemingly spent case no longer worth attention, or proposes
+  cashing in, burning, or taking irrevocable action against a case whose status
+  is still doubtful.'
 kind: skill
 status: ready
 provenance:
@@ -46,7 +50,7 @@ provenance:
 
 ## Purpose
 
-Audit whether an analytic product's read of a case's long-horizon trajectory — its build-up, its quiet periods, and any proposal to spend or wind it down — has weighed the alternative that apparent inactivity, modesty, or scale is deliberate stewardship: a capability positioned early, held in reserve, and disciplined against premature or irrevocable use so that it survives to a decisive moment whose timing cannot be known in advance. Masterman's stewardship tradecraft supplies the signatures to test the record against: advance positioning and a ready bench, restraint from cashing in or burning a case too soon, unglamorous maintenance mistaken for exhaustion, and scale mistaken for security. This skill checks the case's temporal and stewardship reasoning — never whether, or how, to actually build, time, or spend a deception.
+Audit whether an analytic product's read of a case's long-horizon trajectory — its build-up, its quiet periods, and any proposal to spend or wind it down — has weighed the alternative that apparent inactivity, modesty, or scale is deliberate stewardship: a capability positioned early, held in reserve, and disciplined against premature or irrevocable use so that it survives to a decisive moment whose timing cannot be known in advance. This skill checks the case's temporal and stewardship reasoning — never whether, or how, to actually build, time, or spend a deception.
 
 ## When to use
 
@@ -66,7 +70,6 @@ Audit whether an analytic product's read of a case's long-horizon trajectory —
 5. Check a case run cautiously under the reviewed side's own political or safety constraints is not written off as low-value or low-ceiling — those constraints can themselves limit or even threaten a case's plausibility, yet an exceptionally well-placed asset can still become the most valuable case even from a guarded start — and separately check that a case being asked questions too high-grade to answer safely and plausibly is pulled back from that exposure rather than left to sustain an unsustainable case (P086, P087, P088).
 6. Check the assessment does not credit a case's apparent scale or run of success as proof of security or durability — the capability that looks strongest can be closest to failure, and that gap between appearance and evidenced control is itself a timing risk worth flagging (P089).
 7. Check the record used to establish this build-hold-spend trajectory is a contemporaneous operational log rather than a retrospective account — a tidy story of patient, disciplined stewardship is exactly the kind of narrative a retrospective account is liable to become as propaganda or self-justification (P071).
-8. Emit findings highest-impact first, each in the name-the-flaw / correction / residual-uncertainty / next-step format, naming who — the reviewed side or the adversary — could still be husbanding this case for a payoff not yet visible.
 
 ## Inputs
 
@@ -79,7 +82,9 @@ Audit whether an analytic product's read of a case's long-horizon trajectory —
 
 ## Output
 
-Per finding: name the stewardship flaw (a legend or bench assembled too late, an irrevocable act against a doubtful case, a long-built case cashed in for a quick bonus, a busy roster diluting attention, quiet maintenance misread as exhaustion, a constrained case's ceiling written off early, an over-exposed case left on the firing line, scale mistaken for security, a reconstructed timeline standing in for a contemporaneous record), apply the correction (extend positioning and refresh the bench, hold rather than act irrevocably, weigh the case's ongoing worth and danegeld against the immediate bonus, favour quality over quantity, credit invisible maintenance and repositioning, keep the case's ceiling open, pull an over-asked case back, demand direct evidence of control before crediting scale as security, demand the contemporaneous log), state the residual uncertainty the correction leaves — including who, reviewed side or adversary, could still be husbanding this case for a payoff not yet visible — and end with a concrete next step. Order findings highest-impact first. Never close a review with a bare go/no-go in place of this structure.
+Per finding: name the stewardship flaw, apply the correction the Procedure step above establishes, state the residual uncertainty the correction leaves — including who, reviewed side or adversary, could still be husbanding this case for a payoff not yet visible — and end with a concrete next step. Order findings highest-impact first. Never close a review with a bare go/no-go in place of this structure; hand that call back to the case owner.
+
+For example: a product concludes a network's month of silence means the case is exhausted and recommends closing it. The finding names the flaw as quiet maintenance misread as exhaustion, applies the correction by checking whether the network's positioning and bench were kept ready and whether the silence tracks repositioning rather than depletion, states the residual uncertainty as whether the adversary — not the reviewed side — is the one husbanding this case for a payoff neither side has yet revealed, and gives the next step of pulling the contemporaneous activity log before any closure recommendation goes forward.
 
 ## Anti-patterns to flag
 
@@ -99,4 +104,4 @@ See [`../../references/deception-detection-principles-index.md`](../../reference
 
 ## Provenance
 
-Derived solely from P014, P034, P035, P040, P043, P047, P052, P053, P060, P061, P071, P083, P086, P087, P088, P089, and P093 (J. C. Masterman, *The Double-Cross System*; distillation-only). The frontmatter `provenance` block above lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived solely from P014, P034, P035, P040, P043, P047, P052, P053, P060, P061, P071, P083, P086, P087, P088, P089, and P093 (J. C. Masterman, *The Double-Cross System*; distillation-only), which resolve via the frontmatter `provenance` block above into `principles/principles.yaml` and `analysis/claims.jsonl`.
