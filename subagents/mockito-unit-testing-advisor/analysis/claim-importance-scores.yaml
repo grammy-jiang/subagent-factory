@@ -1,0 +1,769 @@
+schema_version: importance-scores-v1
+candidate_units:
+  - id: CL001
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Unit testing is the basis of TDD: failing test first, then code, then refactor."
+    scores:
+      authority: 4
+      actionability: 3
+      reusability: 5
+      risk_impact: 3
+      evidence_strength: 4
+      uniqueness: 3
+      transferability: 5
+      stability: 5
+      operational_fit: 4
+    total: 36
+    decision: keep
+
+  - id: CL002
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Mixing print statements with production code for testing is bad practice (complexity, readability, execution time)."
+    scores:
+      authority: 4
+      actionability: 4
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 4
+      uniqueness: 3
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 39
+    decision: keep
+
+  - id: CL003
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Test classes go in same package as source class but in a separate test source folder."
+    scores:
+      authority: 4
+      actionability: 5
+      reusability: 5
+      risk_impact: 3
+      evidence_strength: 4
+      uniqueness: 3
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 39
+    decision: keep
+
+  - id: CL004
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Tests performing DB, SMTP, Internet, or file I/O tasks are integration tests and run slowly."
+    scores:
+      authority: 5
+      actionability: 4
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 43
+    decision: keep
+
+  - id: CL005
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "TDD tests that take hours defeat quick feedback; each test should run in milliseconds."
+    scores:
+      authority: 4
+      actionability: 3
+      reusability: 4
+      risk_impact: 4
+      evidence_strength: 4
+      uniqueness: 3
+      transferability: 5
+      stability: 5
+      operational_fit: 4
+    total: 36
+    decision: keep
+
+  - id: CL006
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Unit tests mock external dependencies using Mockito to isolate logic and run in milliseconds."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 44
+    decision: keep
+
+  - id: CL007
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Tests against real DB/Internet are non-deterministic; mock them to assert stable constant values."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 44
+    decision: keep
+
+  - id: CL008
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Mockito.mock() creates proxy objects; @Mock annotation is the declarative alternative."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 3
+      transferability: 5
+      stability: 4
+      operational_fit: 5
+    total: 41
+    decision: keep
+
+  - id: CL009
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "@Mock requires MockitoAnnotations.initMocks(this) or @RunWith(MockitoJUnitRunner.class) to initialise."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 4
+      operational_fit: 5
+    total: 43
+    decision: keep
+
+  - id: CL010
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Mockito cannot mock final classes/methods, static methods, enums, private methods, equals/hashCode, primitives, anonymous classes."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 5
+      transferability: 5
+      stability: 3
+      operational_fit: 5
+    total: 43
+    decision: keep
+
+  - id: CL011
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "PowerMockito can mock private/static but violates encapsulation; prefer refactoring for testability."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 4
+      uniqueness: 4
+      transferability: 5
+      stability: 3
+      operational_fit: 5
+    total: 41
+    decision: keep
+
+  - id: CL012
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Unstubbed mock methods return false, null, or 0 by default."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 3
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 42
+    decision: keep
+
+  - id: CL013
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "when(mock.method(matcher)).thenReturn(value) stubs a method to return a specific value."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 3
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 43
+    decision: keep
+
+  - id: CL014
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Four stubbing actions: thenReturn, thenThrow, thenAnswer, thenCallRealMethod."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 3
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 42
+    decision: keep
+
+  - id: CL015
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Void methods are auto-stubbed; use verify() to assert they were called with correct arguments."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 44
+    decision: keep
+
+  - id: CL016
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "verify(mock).method(args) asserts a method was called; raises exception if not invoked."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 3
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 43
+    decision: keep
+
+  - id: CL017
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "verify() invocation modes: times(n), never(), atLeastOnce(), atLeast(n), atMost(n), only(), timeout(millis)."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 4
+      operational_fit: 5
+    total: 42
+    decision: keep
+
+  - id: CL018
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "verifyZeroInteractions(mocks) asserts no methods were called on the given mocks."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 4
+      operational_fit: 5
+    total: 42
+    decision: keep
+
+  - id: CL019
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "verifyNoMoreInteractions guards against unexpected extra method calls after all expected verifications."
+    scores:
+      authority: 5
+      actionability: 4
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 4
+      operational_fit: 5
+    total: 41
+    decision: keep
+
+  - id: CL020
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "thenThrow for non-void stubs; doThrow().when(mock).voidMethod() for void stubs."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 44
+    decision: keep
+
+  - id: CL021
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Controller unit test pattern: @Mock service, new controller in @Before, inject via setter, run with MockitoJUnitRunner."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 4
+      operational_fit: 5
+    total: 43
+    decision: keep
+
+  - id: CL022
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Each controller test method covers exactly one scenario and stubs mock service for that scenario."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 43
+    decision: keep
+
+  - id: CL023
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Service layer test pattern: @Mock DAO interface, new service in @Before, inject via setter."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 4
+      operational_fit: 5
+    total: 43
+    decision: keep
+
+  - id: CL024
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Use doThrow().when(dao).voidMethod() to test service error-handling when DAO create() fails."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 44
+    decision: keep
+
+  - id: CL025
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "DAO layer test pattern: @Mock JdbcTemplate, construct DAO in @Before, use ArgumentCaptor to verify SQL param order."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 5
+      transferability: 5
+      stability: 4
+      operational_fit: 5
+    total: 44
+    decision: keep
+
+  - id: CL026
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "ArgumentCaptor.forClass(T.class) captures arguments; getAllValues() returns them in invocation order."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 5
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 44
+    decision: keep
+
+  - id: CL027
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Integration tests (real DB/SMTP) are explicitly distinct from unit tests (all dependencies mocked)."
+    scores:
+      authority: 5
+      actionability: 4
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 43
+    decision: keep
+
+  - id: CL028
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "@Transactional + @TransactionConfiguration(defaultRollback=true) automatically rolls back Spring integration tests."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 4
+      stability: 3
+      operational_fit: 5
+    total: 41
+    decision: keep
+
+  - id: CL029
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "@RunWith(SpringJUnit4ClassRunner) enables TestContext features; cannot combine with MockitoJUnitRunner."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 4
+      stability: 3
+      operational_fit: 5
+    total: 41
+    decision: keep
+
+  - id: CL030
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "@ContextConfiguration specifies XML or @Configuration classes for loading the Spring ApplicationContext."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 3
+      transferability: 4
+      stability: 4
+      operational_fit: 5
+    total: 40
+    decision: keep
+
+  - id: CL031
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Spring profiles allow environment-specific beans; @ActiveProfiles selects which profile(s) to load in tests."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 43
+    decision: keep
+
+  - id: CL032
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Beans without a profile name are always loaded; profile-named beans only load when that profile is active."
+    scores:
+      authority: 5
+      actionability: 4
+      reusability: 5
+      risk_impact: 3
+      evidence_strength: 5
+      uniqueness: 3
+      transferability: 5
+      stability: 5
+      operational_fit: 4
+    total: 39
+    decision: keep
+
+  - id: CL033
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "MockEnvironment/MockPropertySource override property values in tests via ApplicationContextInitializer."
+    scores:
+      authority: 4
+      actionability: 4
+      reusability: 4
+      risk_impact: 3
+      evidence_strength: 4
+      uniqueness: 4
+      transferability: 4
+      stability: 3
+      operational_fit: 4
+    total: 34
+    decision: keep
+
+  - id: CL034
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "JNDI lookup can be mocked in out-of-container tests with SimpleNamingContextBuilder in ApplicationContextInitializer."
+    scores:
+      authority: 4
+      actionability: 4
+      reusability: 3
+      risk_impact: 3
+      evidence_strength: 4
+      uniqueness: 4
+      transferability: 3
+      stability: 3
+      operational_fit: 4
+    total: 32
+    decision: keep
+
+  - id: CL035
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "ReflectionTestUtils accesses private fields and protected setters in Spring beans for testing."
+    scores:
+      authority: 4
+      actionability: 5
+      reusability: 5
+      risk_impact: 3
+      evidence_strength: 4
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 40
+    decision: keep
+
+  - id: CL036
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "MockMvc tests Spring MVC controllers performing real HTTP requests/responses without a servlet container."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 4
+      operational_fit: 5
+    total: 42
+    decision: keep
+
+  - id: CL037
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "MockMvc setup: @WebAppConfiguration + autowire WebApplicationContext + MockMvcBuilders.webAppContextSetup().build()."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 4
+      operational_fit: 5
+    total: 42
+    decision: keep
+
+  - id: CL038
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Spring TestContext framework is annotation-driven, convention-over-configuration, non-invasive for JUnit/TestNG."
+    scores:
+      authority: 5
+      actionability: 3
+      reusability: 5
+      risk_impact: 3
+      evidence_strength: 5
+      uniqueness: 3
+      transferability: 5
+      stability: 5
+      operational_fit: 4
+    total: 38
+    decision: keep
+
+  - id: CL039
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Custom @TestExecutionListeners replaces default listeners; use MERGE_WITH_DEFAULTS to keep both."
+    scores:
+      authority: 4
+      actionability: 4
+      reusability: 4
+      risk_impact: 3
+      evidence_strength: 4
+      uniqueness: 3
+      transferability: 4
+      stability: 4
+      operational_fit: 4
+    total: 34
+    decision: keep
+
+  - id: CL040
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "@DirtiesContext marks context as modified; framework closes and removes it from cache so next test gets a fresh context."
+    scores:
+      authority: 4
+      actionability: 4
+      reusability: 4
+      risk_impact: 3
+      evidence_strength: 4
+      uniqueness: 3
+      transferability: 4
+      stability: 5
+      operational_fit: 4
+    total: 35
+    decision: keep
+
+  - id: CL041
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Layered Spring app unit-test principle: each layer's tests mock the layer below; no real cross-layer implementation called."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 44
+    decision: keep
+
+  - id: CL042
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Introduce a DAO interface between service and data access so the service can be unit-tested with a mocked interface."
+    scores:
+      authority: 5
+      actionability: 5
+      reusability: 5
+      risk_impact: 5
+      evidence_strength: 5
+      uniqueness: 4
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 44
+    decision: keep
+
+  - id: CL043
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Request/session-scoped beans tested via @WebAppConfiguration + MockHttpServletRequest/MockHttpSession autowiring."
+    scores:
+      authority: 4
+      actionability: 5
+      reusability: 4
+      risk_impact: 3
+      evidence_strength: 4
+      uniqueness: 4
+      transferability: 4
+      stability: 4
+      operational_fit: 5
+    total: 37
+    decision: keep
+
+  - id: CL044
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Automated unit tests provide regression safety net and reduce over-engineering in TDD."
+    scores:
+      authority: 4
+      actionability: 3
+      reusability: 5
+      risk_impact: 3
+      evidence_strength: 4
+      uniqueness: 2
+      transferability: 5
+      stability: 5
+      operational_fit: 4
+    total: 35
+    decision: keep
+
+  - id: CL045
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "JUnit 4 is annotation-based and non-invasive; @Test, @Before, @After replace JUnit 3 inheritance model."
+    scores:
+      authority: 4
+      actionability: 3
+      reusability: 4
+      risk_impact: 2
+      evidence_strength: 4
+      uniqueness: 2
+      transferability: 4
+      stability: 5
+      operational_fit: 4
+    total: 32
+    decision: keep
+
+  - id: CL046
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "JUnit 4 has better Mockito support than TestNG, including the MockitoJUnitRunner."
+    scores:
+      authority: 4
+      actionability: 3
+      reusability: 4
+      risk_impact: 2
+      evidence_strength: 3
+      uniqueness: 3
+      transferability: 3
+      stability: 3
+      operational_fit: 4
+    total: 29
+    decision: review
+
+  - id: CL047
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "TestExecutionListener logic is reusable across test class hierarchies; @Before/@After are test-class-specific."
+    scores:
+      authority: 4
+      actionability: 3
+      reusability: 5
+      risk_impact: 2
+      evidence_strength: 4
+      uniqueness: 3
+      transferability: 5
+      stability: 5
+      operational_fit: 3
+    total: 34
+    decision: keep
+
+  - id: CL048
+    source_id: mockito-for-spring-l-20260610164325
+    summary: "Divide Spring apps into data access, service, and controller layers for loose coupling and independent changeability."
+    scores:
+      authority: 4
+      actionability: 4
+      reusability: 5
+      risk_impact: 4
+      evidence_strength: 4
+      uniqueness: 2
+      transferability: 5
+      stability: 5
+      operational_fit: 5
+    total: 38
+    decision: keep

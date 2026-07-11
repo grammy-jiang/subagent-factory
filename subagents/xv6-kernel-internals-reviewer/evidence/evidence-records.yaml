@@ -1,0 +1,468 @@
+schema_version: evidence-records-v1
+evidence_records:
+
+  # --- Ch2: ecall entry control ---
+  - evidence_id: ev-001
+    claim_id: cl-011
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0056
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity; no sub-section anchors for this content."
+
+  # --- Ch2: process abstraction + isolation ---
+  - evidence_id: ev-002
+    claim_id: cl-013
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0059
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch3: trampoline + trapframe mapping ---
+  - evidence_id: ev-003
+    claim_id: cl-020
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0070
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity; diagram context in original PDF not captured in markdown."
+
+  # --- Ch4: user trap path ---
+  - evidence_id: ev-004
+    claim_id: cl-024
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0082
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch4: copyinstr pointer validation ---
+  - evidence_id: ev-005
+    claim_id: cl-027
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0085
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch5: race condition + lost-update canonical example ---
+  - evidence_id: ev-006
+    claim_id: cl-029
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0092
+      - a-simple-unix-like-t-20260613000613-c0093
+      - a-simple-unix-like-t-20260613000613-c0094
+    support_granularity: section
+    evidence_type: case
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Code blocks c0093/c0094 show the race interleaving concretely."
+
+  # --- Ch5: lock protects invariants, not just variables ---
+  - evidence_id: ev-007
+    claim_id: cl-032
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0100
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch5: global lock ordering prevents deadlock ---
+  - evidence_id: ev-008
+    claim_id: cl-033
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0101
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch5: spinlock + interrupt disable ---
+  - evidence_id: ev-009
+    claim_id: cl-035
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0102
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch5: push_off ordering requirement ---
+  - evidence_id: ev-010
+    claim_id: cl-036
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0102
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity; no separate sub-anchor for this specific paragraph."
+
+  # --- Ch5: memory barriers in acquire/release ---
+  - evidence_id: ev-011
+    claim_id: cl-037
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0103
+      - a-simple-unix-like-t-20260613000613-c0104
+      - a-simple-unix-like-t-20260613000613-c0105
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Code blocks c0104/c0105 show the acquire/release barrier placement."
+
+  # --- Ch5: sleep-lock vs spinlock policy ---
+  - evidence_id: ev-012
+    claim_id: cl-038
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0106
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch6: p->lock cross-thread discipline ---
+  - evidence_id: ev-013
+    claim_id: cl-041
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0113
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch6: lost-wakeup problem ---
+  - evidence_id: ev-014
+    claim_id: cl-043
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0115
+      - a-simple-unix-like-t-20260613000613-c0120
+      - a-simple-unix-like-t-20260613000613-c0121
+    support_granularity: section
+    evidence_type: case
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Code blocks c0120/c0121 show the broken sleep pattern that admits the race."
+
+  # --- Ch6: sleep condition lock closes lost-wakeup ---
+  - evidence_id: ev-015
+    claim_id: cl-044
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0115
+      - a-simple-unix-like-t-20260613000613-c0124
+      - a-simple-unix-like-t-20260613000613-c0125
+      - a-simple-unix-like-t-20260613000613-c0126
+      - a-simple-unix-like-t-20260613000613-c0127
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Code blocks c0124-c0127 show the corrected sleep(chan, lk) implementation."
+
+  # --- Ch6: sleep must be called in a loop ---
+  - evidence_id: ev-016
+    claim_id: cl-045
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0128
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch6: kill mechanism ---
+  - evidence_id: ev-017
+    claim_id: cl-048
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0130
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch6: kill/sleep race defect ---
+  - evidence_id: ev-018
+    claim_id: cl-049
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0131
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section is 6.9 Real world; acknowledged limitation, not a code-demonstrated bug trace."
+
+  # --- Ch7: write-ahead logging atomicity ---
+  - evidence_id: ev-019
+    claim_id: cl-054
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0140
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch7: inode four protection mechanisms ---
+  - evidence_id: ev-020
+    claim_id: cl-058
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0148
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch7: iget/ilock separation avoids deadlock ---
+  - evidence_id: ev-021
+    claim_id: cl-060
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0149
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch7: orphan-inode limitation ---
+  - evidence_id: ev-022
+    claim_id: cl-061
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0149
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: moderate
+    support_level: partially_supported
+    confidence: high
+    quote_allowed: false
+    limitations: "Acknowledged as a known limitation in xv6; no code trace demonstrating the crash scenario."
+
+  # --- Ch7: sys_link atomicity via transactions ---
+  - evidence_id: ev-023
+    claim_id: cl-065
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0154
+    support_granularity: section
+    evidence_type: case
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch8: two-level locking pattern ---
+  - evidence_id: ev-024
+    claim_id: cl-066
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0159
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch5: fs lock chain (longest in xv6) ---
+  - evidence_id: ev-025
+    claim_id: cl-034
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0101
+    support_granularity: section
+    evidence_type: case
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch1: fork/exec separation enables I/O redirection ---
+  - evidence_id: ev-026
+    claim_id: cl-002
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0005
+      - a-simple-unix-like-t-20260613000613-c0016
+      - a-simple-unix-like-t-20260613000613-c0017
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Code blocks c0016/c0017 demonstrate the shell's use of close/dup between fork and exec."
+
+  # --- Ch6: context switch two-swtch mechanics ---
+  - evidence_id: ev-027
+    claim_id: cl-040
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0112
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch7: seven-layer fs structure ---
+  - evidence_id: ev-028
+    claim_id: cl-050
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0137
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Section-level granularity."
+
+  # --- Ch5: spinlock amoswap implementation ---
+  - evidence_id: ev-029
+    claim_id: cl-030
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0097
+      - a-simple-unix-like-t-20260613000613-c0098
+      - a-simple-unix-like-t-20260613000613-c0099
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Code blocks c0098/c0099 show acquire and release implementations."
+
+  # --- Ch7: log_write absorption ---
+  - evidence_id: ev-030
+    claim_id: cl-056
+    source_ids:
+      - a-simple-unix-like-t-20260613000613
+    source_anchors:
+      - a-simple-unix-like-t-20260613000613-h0142
+      - a-simple-unix-like-t-20260613000613-c0143
+      - a-simple-unix-like-t-20260613000613-c0144
+    support_granularity: section
+    evidence_type: explanation
+    evidence_strength: strong
+    support_level: entailed
+    confidence: high
+    quote_allowed: false
+    limitations: "Code blocks c0143/c0144 show log_write with absorption logic."

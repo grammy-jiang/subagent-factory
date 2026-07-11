@@ -1,0 +1,290 @@
+schema_version: golden-tests-v1
+subagent_slug: cloud-native-kubernetes-advisor
+generated_at: '2026-06-14'
+golden_tests:
+- test_id: GT-001
+  prompt: Advising on cluster hosting strategy. What do you advise, and why?
+  principle_coverage:
+  - P001
+  expected_route: invoke
+  minimum_output: Prefer managed Kubernetes services over self-hosting the control plane. Managing cluster
+    installation, configuration, security, upgrades, and reliability is undifferentiated heavy lifting
+    that does not differentiate a business. Managed services handle scheduling, monitoring, failover,
+    and security patching at a cost-effective rate for almost all organizations; self-hosting is justifiable
+    only when requirements cannot be met by any managed provider
+- test_id: GT-002
+  prompt: Sizing or reviewing a self-managed or managed Kubernetes control plane for production. What
+    do you advise, and why?
+  principle_coverage:
+  - P002
+  expected_route: invoke
+  minimum_output: Production Kubernetes control planes must run a minimum of three nodes to maintain etcd
+    quorum and survive the loss of one node. etcd uses a Raft-based quorum that requires more than half
+    of replicas to be available; with two nodes, any single failure causes total loss of quorum. Control
+    plane failure stops new deployments and breaks controllers even while existing Pods continue running
+- test_id: GT-003
+  prompt: Configuring node pools or auto-scaling groups for production clusters. What do you advise, and
+    why?
+  principle_coverage:
+  - P003
+  expected_route: invoke
+  minimum_output: Distribute Kubernetes worker nodes across at least two, preferably three, cloud availability
+    zones. Zone-level outages are rare but real; concentrating all nodes in a single zone means any zone
+    failure takes down all workloads. When applications run with more than one replica, a single worker
+    node failure is tolerated because Kubernetes detects the failure and reschedules Pods on surviving
+    nodes
+- test_id: GT-004
+  prompt: Reviewing or authoring Dockerfiles for any language or runtime. What do you advise, and why?
+  principle_coverage:
+  - P004
+  expected_route: invoke
+  minimum_output: Build minimal container images using multi-stage Dockerfile builds. Keep build toolchains,
+    compilers, and intermediate artifacts out of the final production image. Minimal images improve deployment
+    speed through faster upload, download, and startup times, and reduce the security attack surface because
+    fewer included programs mean fewer potential vulnerabilities
+- test_id: GT-005
+  prompt: Designing or reviewing a microservice architecture. What do you advise, and why?
+  principle_coverage:
+  - P005
+  expected_route: invoke
+  minimum_output: Observability — structured logging, metrics collection, distributed tracing, and alerting
+    — is a first-class architectural requirement for cloud-native distributed systems. Distributed microservice
+    architectures are inherently harder to inspect and debug than monolithic applications; without instrumentation
+    built in from the start, diagnosing failures becomes intractable at scale
+- test_id: GT-006
+  prompt: Deciding where to host a relational or NoSQL database in a cloud-native system. What do you
+    advise, and why?
+  principle_coverage:
+  - P006
+  expected_route: invoke
+  minimum_output: Prefer managed database services over running stateful workloads such as databases inside
+    Kubernetes. Database replicas are not interchangeable — each has unique state requiring careful coordination
+    for restarts, data consistency, and schema migrations across replicas. Achieving enterprise-grade
+    reliability for stateful workloads in Kubernetes requires a large engineering investment that managed
+    database services absorb
+- test_id: GT-007
+  prompt: Evaluating a migration from a monolith to microservices. What do you advise, and why?
+  principle_coverage:
+  - P007
+  expected_route: invoke
+  minimum_output: Treat microservices as a deliberate architectural choice that introduces inherent distributed
+    systems complexity, not a default modernization strategy. Microservice architectures are difficult
+    to observe and prone to surprising failures; monoliths are easier to understand and trace but harder
+    to scale. Running a monolith in containers can deliver significant cloud value and may serve as a
+    transitional step before gradually extracting services
+- test_id: GT-008
+  prompt: Designing deployment configurations for production workloads. What do you advise, and why?
+  principle_coverage:
+  - P008
+  expected_route: invoke
+  minimum_output: Cloud-native applications achieve high availability through inherent distribution, redundancy,
+    and graceful degradation rather than relying on the reliability of individual nodes. Run workloads
+    with multiple replicas spread across failure domains; Kubernetes detects node failures and reschedules
+    Pods automatically, but only when redundancy is configured in advance
+- test_id: GT-009
+  prompt: Planning any production deployment or release. What do you advise, and why?
+  principle_coverage:
+  - P009
+  expected_route: invoke
+  minimum_output: Use Kubernetes rolling updates for zero-downtime deployments as the default strategy.
+    Rolling updates start containers with the new version, wait until they pass health checks, then shut
+    down old ones. For higher-risk releases, use canary deployments (graduate rollout one server at a
+    time, monitoring for errors) or blue-green deployments (spin up the new version fully before switching
+    traffic)
+- test_id: GT-010
+  prompt: Advising a small or mid-sized team on initial Kubernetes infrastructure strategy. What do you
+    advise, and why?
+  principle_coverage:
+  - P010
+  expected_route: invoke
+  minimum_output: Small and mid-sized teams should start with containers on a single managed Kubernetes
+    offering and grow from there. Multi-cloud Kubernetes infrastructure adds complexity and cost that
+    is not justified at early scale. Progress to multi-cluster or multi-cloud architecture only when specific
+    availability, regulatory, or cost requirements make it necessary
+- test_id: GT-011
+  prompt: Organization has determined it must self-host Kubernetes. What do you advise, and why?
+  principle_coverage:
+  - P011
+  expected_route: invoke
+  minimum_output: Self-hosting Kubernetes is an ongoing operational investment, not a one-time setup cost.
+    It requires production-readiness work across at least eight areas — control-plane HA, worker-node
+    HA, cluster security (TLS, RBAC, etcd access control), service security, conformance, node configuration
+    management, data backup and restore, and ongoing maintenance. Beyond initial setup, teams must monitor,
+    alert, upgrade, and periodically chaos-test the cluster. When self-hosting is unavoidable, use mature
+    tools such as kops (AWS/multi-cloud) or Kubespray (on-premises/any cloud via Ansible)
+negative_routing_tests:
+- test_id: NR-001
+  prompt: Organization has regulatory, compliance, or air-gap requirements that no managed provider supports.
+    Can you handle this for us?
+  principle_coverage:
+  - P001
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-002
+  prompt: Non-production, development, or single-node local clusters where downtime is acceptable. Can
+    you handle this for us?
+  principle_coverage:
+  - P002
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-003
+  prompt: Regions with only a single availability zone. Can you handle this for us?
+  principle_coverage:
+  - P003
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-004
+  prompt: Debug or development images intentionally including toolchains for troubleshooting. Can you
+    handle this for us?
+  principle_coverage:
+  - P004
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-005
+  prompt: Simple single-container or monolithic applications with minimal inter-service communication.
+    Can you handle this for us?
+  principle_coverage:
+  - P005
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-006
+  prompt: Organization has a dedicated team with deep Kubernetes stateful-workload expertise and a specific
+    need (e.g., cost, data sovereignty) that managed services cannot meet. Can you handle this for us?
+  principle_coverage:
+  - P006
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-007
+  prompt: System complexity and team scale already justify the operational overhead of microservices.
+    Can you handle this for us?
+  principle_coverage:
+  - P007
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-008
+  prompt: Batch or single-run jobs where replica redundancy is not meaningful. Can you handle this for
+    us?
+  principle_coverage:
+  - P008
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-009
+  prompt: Breaking schema changes or migrations that require coordinated cutover and cannot tolerate mixed-version
+    traffic. Can you handle this for us?
+  principle_coverage:
+  - P009
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-010
+  prompt: Organization has an established multi-cloud strategy, contractual obligations, or disaster recovery
+    requirements spanning multiple providers. Can you handle this for us?
+  principle_coverage:
+  - P010
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-011
+  prompt: Using a managed Kubernetes service where the provider handles control-plane operations. Can
+    you handle this for us?
+  principle_coverage:
+  - P011
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+missing_context_tests:
+- test_id: MC-001
+  prompt: Advising on cluster hosting strategy. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P001
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-002
+  prompt: Sizing or reviewing a self-managed or managed Kubernetes control plane for production. (Key
+    specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P002
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-003
+  prompt: Configuring node pools or auto-scaling groups for production clusters. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - P003
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-004
+  prompt: Reviewing or authoring Dockerfiles for any language or runtime. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P004
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-005
+  prompt: Designing or reviewing a microservice architecture. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - P005
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-006
+  prompt: Deciding where to host a relational or NoSQL database in a cloud-native system. (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P006
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-007
+  prompt: Evaluating a migration from a monolith to microservices. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P007
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-008
+  prompt: Designing deployment configurations for production workloads. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - P008
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-009
+  prompt: Planning any production deployment or release. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - P009
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-010
+  prompt: Advising a small or mid-sized team on initial Kubernetes infrastructure strategy. (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - P010
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-011
+  prompt: Organization has determined it must self-host Kubernetes. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - P011
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated

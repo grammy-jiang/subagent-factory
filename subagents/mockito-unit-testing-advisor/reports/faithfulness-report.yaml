@@ -1,0 +1,307 @@
+schema_version: faithfulness-report-v1
+subagent_slug: mockito-unit-testing-advisor
+
+findings:
+
+  # ── QUALITY BAR ────────────────────────────────────────────────────────────
+
+  - rule_ref: quality_bar[0]
+    triplet:
+      head: "unit test"
+      relation: "must replace with mock"
+      tail: "every external collaborator (DB, SMTP, HTTP, file I/O)"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0085
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      CL004/EV004 and CL006/EV005 (t0085) name database, SMTP, Internet, and file I/O as
+      the examples the source uses. The rule adds "HTTP" as an alias for "Internet",
+      which is a valid inference. The universal quantifier "every" is a slight
+      generalisation beyond the illustrative examples in the source, but the overall
+      claim that all external collaborators should be mocked is well within the scope of
+      the source's teaching at t0085. No material distortion.
+
+  - rule_ref: quality_bar[1]
+    triplet:
+      head: "@Mock fields"
+      relation: "must be activated via"
+      tail: "MockitoJUnitRunner or initMocks(this); the two RunWith runners are not combined"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0088
+      - mockito-for-spring-l-20260610164325-t0089
+      - mockito-for-spring-l-20260610164325-t0103
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      CL009/EV008 (t0088-t0089) directly states initMocks or MockitoJUnitRunner must be
+      used. CL029/EV028 (t0103) directly states that SpringJUnit4ClassRunner and
+      MockitoJUnitRunner cannot be combined. Full exact support.
+
+  - rule_ref: quality_bar[2]
+    triplet:
+      head: "query method stubs"
+      relation: "use"
+      tail: "when().thenReturn(); void exception stubs use doThrow().when()"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0091
+      - mockito-for-spring-l-20260610164325-t0096
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      CL013/EV012 (t0091) states when().thenReturn() for query stubs. CL020/EV019
+      (t0096) explicitly states: "to throw an exception from a void stubbed method use
+      the syntax doThrow(exception).when(mock).voidMethod(args)". The falsiability
+      criterion ("no when().thenThrow() on a void method") is a valid logical consequence
+      of CL020 — when().thenThrow() is only shown for non-void methods in the source.
+
+  - rule_ref: quality_bar[3]
+    triplet:
+      head: "plain Mockito"
+      relation: "must not mock"
+      tail: "final class, static/private method, or enum; mandate refactor over PowerMockito"
+    verdict: HEDGING_REMOVED
+    distortion: [hedge_removed]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0090
+    support_granularity: section
+    severity: medium
+    action: downgrade
+    note: >
+      CL010/EV009 (t0090) states the limitation correctly. CL011/EV010 (t0090) says
+      "you should not opt for mocking private or static properties because it violates
+      the encapsulation. Instead, you should refactor the offending code to make it
+      testable." The source uses "should" (a recommendation), while the profile rule
+      uses "mandate" (an obligation). This removes the hedge. The source also
+      explicitly acknowledges PowerMockito as a valid tool ("PowerMockito API allows
+      us to overcome the limitations") before recommending against using it for design
+      reasons. Downgrade "mandate" to "recommend" (or "strongly prefer") to match the
+      source's modal force.
+
+  - rule_ref: quality_bar[4]
+    triplet:
+      head: "each layer's unit test"
+      relation: "mocks only"
+      tail: "the layer directly below it; no real ApplicationContext is loaded"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0130
+      - mockito-for-spring-l-20260610164325-t0131
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      CL041/EV034 (t0130-t0131) is a major claim with strong support: "unit tests for
+      each layer (web, service, DAO) should be independent: the web layer test mocks
+      the service, the service test mocks the DAO interface, and the DAO test mocks
+      JdbcTemplate — no layer's test starts the real implementation of another layer."
+      Full exact support.
+
+  # ── FORBIDDEN BEHAVIOURS ───────────────────────────────────────────────────
+
+  - rule_ref: forbidden_behaviours[0]
+    triplet:
+      head: "advisor"
+      relation: "must not claim"
+      tail: "plain Mockito can mock final classes, static/private methods, or enums"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0090
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      CL010/EV009 (t0090) explicitly lists what Mockito cannot mock. The recommendation
+      to prefer refactoring over PowerMockito is supported by CL011/EV010 (t0090). The
+      rule correctly reflects the source: acknowledge the limitation and guide toward
+      refactoring. Note that the source does not forbid mentioning PowerMockito as an
+      option — it acknowledges it exists — but it recommends against using it. The
+      forbidden behaviour is correctly scoped to not *claiming* Mockito can do it; this
+      matches the source exactly.
+
+  - rule_ref: forbidden_behaviours[1]
+    triplet:
+      head: "advisor"
+      relation: "must not treat"
+      tail: "integration test (real DataSource, @Transactional, full ApplicationContext) as a unit test"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0085
+      - mockito-for-spring-l-20260610164325-t0129
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      CL027/EV026 (t0085, t0129) directly establishes the distinction: "Integration
+      tests that query a real database or send real e-mail are explicitly distinguished
+      from unit tests." The boundary markers (real DataSource, @Transactional,
+      full ApplicationContext) all appear in the source's integration-test examples.
+      Full exact support.
+
+  - rule_ref: forbidden_behaviours[2]
+    triplet:
+      head: "advisor"
+      relation: "must not stub or verify methods on"
+      tail: "the class under test itself — mocks are for collaborators only"
+    verdict: SCOPE_BROADENED
+    distortion: [scope_broadened]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0085
+      - mockito-for-spring-l-20260610164325-t0088
+    support_granularity: section
+    severity: medium
+    action: add_condition
+    note: >
+      The source at t0085/EV004-EV005 and t0088/EV007 consistently shows mocks being
+      created for *collaborators* (Portfolio, MarketWatcher, LoginService, RegistrationDao,
+      JdbcTemplate) rather than for the class under test. However, the source never
+      explicitly states "do not stub or verify methods on the class under test." The
+      anti-pattern (mocking the subject) is universally recognised in the Mockito
+      community but is not articulated as a prohibition in this source. The rule extends
+      beyond what the source explicitly supports, presenting a community-standard
+      inference as if it were source-stated. Add a condition narrowing the rule to
+      what the source demonstrates, or note the inference explicitly.
+
+  - rule_ref: forbidden_behaviours[3]
+    triplet:
+      head: "advisor"
+      relation: "must not provide guidance on"
+      tail: "BDDMockito, full Answers API, mockito-inline — defer and acknowledge gap"
+    verdict: SCOPE_BROADENED
+    distortion: [scope_broadened]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0097
+    support_granularity: section
+    severity: medium
+    action: add_condition
+    note: >
+      Source at t0097 defers "advanced Mockito topics such as Answers, ArgumentCaptor,
+      matchers" to companion books. The source does explicitly mention ArgumentCaptor as
+      a deferred topic. However, "BDDMockito" and "mockito-inline" do not appear in the
+      source at all — they are not mentioned even as deferred topics. The rule therefore
+      broadens beyond the explicit evidence by naming specific features the source never
+      references. The defer-and-acknowledge principle is sound (WITHIN_SCOPE for that
+      part), but listing BDDMockito and mockito-inline by name overstates what the source
+      supports. Condition should be narrowed to topics "not covered by the source,"
+      without claiming the source identifies them by name.
+
+  - rule_ref: forbidden_behaviours[4]
+    triplet:
+      head: "advisor"
+      relation: "must not present"
+      tail: "version-specific APIs as universally current without flagging version dependency"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0001
+      - mockito-for-spring-l-20260610164325-t0088
+      - mockito-for-spring-l-20260610164325-t0103
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The source itself does not warn the reader that its APIs are version-specific;
+      this rule is a protective inference derived from knowing the source's provenance
+      (Spring 4, Mockito 2.0.2-beta, published 2015). Evidence records note the
+      version volatility: EV008 flags MockitoJUnitRunner deprecated in Mockito 3+,
+      EV028 flags @TransactionConfiguration deprecated in Spring 5. The rule is a
+      valid and conservative inference from the evidence record annotations, within
+      the scope of what a careful distillation of a dated source should include.
+      Not a source-stated rule, but an appropriate protective inference that does not
+      over-claim the source.
+
+  # ── MODE TRIGGERS ──────────────────────────────────────────────────────────
+
+  - rule_ref: outputs.modes[0].trigger
+    triplet:
+      head: "advise mode"
+      relation: "triggered by"
+      tail: "developer asks which Mockito API to use, MockitoJUnitRunner vs initMocks, verifyZeroInteractions vs verifyNoMoreInteractions, or unit vs integration"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0089
+      - mockito-for-spring-l-20260610164325-t0095
+      - mockito-for-spring-l-20260610164325-t0085
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Each named trigger maps directly to a source section: MockitoJUnitRunner vs
+      initMocks (CL009/EV008 at t0088-t0089), verifyZeroInteractions vs
+      verifyNoMoreInteractions (CL018-CL019/EV017-EV018 at t0095), unit vs integration
+      distinction (CL027/EV026 at t0085/t0129). Full exact support.
+
+  - rule_ref: outputs.modes[1].trigger
+    triplet:
+      head: "produce mode"
+      relation: "triggered by"
+      tail: "developer requests a new unit test or test class for a described or provided Spring class under test"
+    verdict: EXACT_SUPPORT
+    distortion: [none]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0089
+      - mockito-for-spring-l-20260610164325-t0137
+      - mockito-for-spring-l-20260610164325-t0141
+      - mockito-for-spring-l-20260610164325-t0146
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      The book's core instructional mode is creating complete test classes from scratch.
+      CL021/EV020 (t0137-t0138), CL023/EV022 (t0141-t0142), CL025/EV024
+      (t0146-t0147) all demonstrate drafting full test classes. The trigger is an
+      accurate characterisation of the source's primary content.
+
+  - rule_ref: outputs.modes[2].trigger
+    triplet:
+      head: "review mode"
+      relation: "triggered by"
+      tail: "developer supplies an existing test class and asks for review, defect analysis, or anti-pattern identification"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0063
+      - mockito-for-spring-l-20260610164325-t0090
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      CL002/EV002 (t0063) and CL011/EV010 (t0090) show the source critiquing
+      anti-patterns and poor practices. The source's content enables code review and
+      anti-pattern identification, but the source does not itself describe a "review
+      mode" workflow where a developer submits existing code for analysis. The trigger
+      is a valid operational inference from the source's content, within scope.
+
+  - rule_ref: outputs.modes[3].trigger
+    triplet:
+      head: "patch-suggest mode"
+      relation: "triggered by"
+      tail: "developer requests a minimal bounded fix — replace a real DB call with a mock, add a missing verify(), switch to doThrow() for a void stub"
+    verdict: WITHIN_SCOPE
+    distortion: [none]
+    source_anchors:
+      - mockito-for-spring-l-20260610164325-t0090
+      - mockito-for-spring-l-20260610164325-t0089
+      - mockito-for-spring-l-20260610164325-t0096
+    support_granularity: section
+    severity: low
+    action: accept_with_note
+    note: >
+      Each concrete example in the trigger maps to a source teaching: replace DB call
+      with mock (CL006/EV005 at t0085), add missing verify() (CL016/EV015 at t0093),
+      switch to doThrow() (CL020/EV019 at t0096). The "minimal bounded fix" framing is
+      an operational inference — the source does not explicitly name this mode — but
+      it is well within the scope of the source's guidance. Valid inference.

@@ -1,0 +1,270 @@
+schema_version: golden-tests-v1
+subagent_slug: negotiation-tactics-advisor
+generated_at: '2026-06-14'
+golden_tests:
+- test_id: GT-001
+  prompt: Any negotiation where the counterpart is a person whose emotions shape the outcome. What do
+    you advise, and why?
+  principle_coverage:
+  - PRIN-001
+  expected_route: invoke
+  minimum_output: Ground every negotiation technique in tactical empathy — the deliberate recognition
+    and articulation of the counterpart's perspective and emotions. Negotiation behaviour is driven primarily
+    by fast emotional (System 1) thinking, not rational argument; acknowledging what the counterpart feels
+    before advancing your own position is the prerequisite for every other technique in this source
+- test_id: GT-002
+  prompt: When the counterpart shows emotional signals — frustration, hesitation, enthusiasm, or resistance
+    — before or during substantive discussion. What do you advise, and why?
+  principle_coverage:
+  - PRIN-002
+  expected_route: invoke
+  minimum_output: Use emotion labels — phrased as "It seems like…", "It sounds like…", or "It looks like…"
+    — to acknowledge and name the counterpart's emotional state before responding to content. Labeling
+    negative emotions reduces their intensity; labeling positive ones amplifies them. After delivering
+    a label, hold silence immediately and let the counterpart respond
+- test_id: GT-003
+  prompt: Before presenting an offer, proposal, or difficult request, especially when the counterpart
+    is likely to be sceptical or hostile. What do you advise, and why?
+  principle_coverage:
+  - PRIN-003
+  expected_route: invoke
+  minimum_output: 'Open emotionally loaded negotiations with an accusation audit: proactively name every
+    negative assumption the counterpart is likely to hold about you or the deal before they raise it,
+    using label framing. Anchor the counterpart''s emotions with this technique before introducing numbers
+    or terms. This pre-empts objections and typically prompts the counterpart to reassure the negotiator
+    rather than attack'
+- test_id: GT-004
+  prompt: When the counterpart pauses, provides incomplete information, or needs to be encouraged to elaborate.
+    What do you advise, and why?
+  principle_coverage:
+  - PRIN-004
+  expected_route: invoke
+  minimum_output: Deploy mirroring to encourage elaboration and build rapport without committing to a
+    position. Repeat the last one to three critical words the counterpart said as a question with a rising
+    inflection, then hold silence for at least four seconds. Mirroring triggers the counterpart to elaborate
+    and reveal information while implicitly signalling agreement
+- test_id: GT-005
+  prompt: Opening contacts where the counterpart has not yet committed to engaging. What do you advise,
+    and why?
+  principle_coverage:
+  - PRIN-005
+  expected_route: invoke
+  minimum_output: Reframe the goal from getting a Yes to eliciting a deliberate No. A No answer gives
+    counterparts a sense of safety, security, and control, increasing genuine engagement. No is the starting
+    point of substantive negotiation, not the end. Design openers and questions so that a No answer still
+    opens the conversation rather than closing it
+- test_id: GT-006
+  prompt: When assessing whether any affirmation the counterpart has offered is genuine commitment. What
+    do you advise, and why?
+  principle_coverage:
+  - PRIN-006
+  expected_route: invoke
+  minimum_output: Treat "That's Right" as the genuine breakthrough signal and distinguish it sharply from
+    counterfeit agreement. Reaching a "That's Right" — elicited by combining a label with a paraphrase
+    summary of the counterpart's key concerns — marks the moment the counterpart feels fully heard. A
+    "You're Right" response is appeasement, not commitment. Do not mistake a counterfeit Yes (said to
+    escape pressure) or a confirmation Yes for the commitment Yes needed for durable agreement
+- test_id: GT-007
+  prompt: Whenever gathering information about the counterpart's constraints, authority, or real interests.
+    What do you advise, and why?
+  principle_coverage:
+  - PRIN-007
+  expected_route: invoke
+  minimum_output: Use calibrated How and What questions to give the counterpart the illusion of control
+    while directing their thinking toward constraints, priorities, and hidden interests. Replace Why questions
+    — which are inherently accusatory — with What or How formulations. Use "How am I supposed to do that?"
+    as a polite, face-saving No when declining a demand without direct confrontation
+- test_id: GT-008
+  prompt: Any negotiation involving a series of monetary offers where the caller is the offering party
+    (salary, purchasing, deal structuring). What do you advise, and why?
+  principle_coverage:
+  - PRIN-008
+  expected_route: invoke
+  minimum_output: 'Structure monetary bargaining using the Ackerman model: successive offers at 65%, 85%,
+    95%, and 100% of the target price, with each increment smaller than the last to signal approach toward
+    a firm limit. The final offer must be a non-round, precise number and must be accompanied by a low-cost
+    nonmonetary concession, both of which credibly signal that no monetary room remains'
+- test_id: GT-009
+  prompt: During preparation and throughout any negotiation where the counterpart's full constraints,
+    interests, or authority are unknown. What do you advise, and why?
+  principle_coverage:
+  - PRIN-009
+  expected_route: invoke
+  minimum_output: Actively probe for Black Swans — unknown unknowns that can instantly transform leverage
+    — and assess all three leverage types (positive, negative, normative) before and during every negotiation.
+    When a counterpart appears irrational, diagnose them first as potentially ill-informed, secretly constrained,
+    or operating under hidden interests. Apply normative leverage by exposing inconsistencies between
+    the counterpart's own stated standards and their current position
+- test_id: GT-010
+  prompt: Whenever the caller provides enough information about the counterpart's communication pattern
+    to infer their style. What do you advise, and why?
+  principle_coverage:
+  - PRIN-010
+  expected_route: invoke
+  minimum_output: Identify the counterpart's negotiator style (Analyst, Accommodator, or Assertive) and
+    adapt the technique sequence accordingly. Analysts need data and preparation time; avoid surprises
+    and let silence serve their thinking. Accommodators prioritise relationship over outcome; probe for
+    genuine commitment beneath easy agreement. Assertives want to be heard first; validate their point
+    explicitly before any redirection
+negative_routing_tests:
+- test_id: NR-001
+  prompt: Purely technical or quantitative optimisation tasks with no human counterpart whose emotions
+    drive behaviour. Can you handle this for us?
+  principle_coverage:
+  - PRIN-001
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-002
+  prompt: When tone and content are fully aligned and no unacknowledged emotion is present. Can you handle
+    this for us?
+  principle_coverage:
+  - PRIN-002
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-003
+  prompt: When the counterpart has no negative preconceptions — an accusation audit would introduce suspicion
+    that does not exist. Can you handle this for us?
+  principle_coverage:
+  - PRIN-003
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-004
+  prompt: When the counterpart has already volunteered sufficient information and further prompting would
+    appear mechanical. Can you handle this for us?
+  principle_coverage:
+  - PRIN-004
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-005
+  prompt: When a genuine commitment Yes has already been established and the goal is now execution rather
+    than engagement. Can you handle this for us?
+  principle_coverage:
+  - PRIN-005
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-006
+  prompt: When a clear "That's Right" has already been obtained — seeking further confirmation at that
+    point is unnecessary and could feel interrogative. Can you handle this for us?
+  principle_coverage:
+  - PRIN-006
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-007
+  prompt: When a direct closed question is required to confirm a binary, logistical fact with no emotional
+    charge. Can you handle this for us?
+  principle_coverage:
+  - PRIN-007
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-008
+  prompt: When the counterpart is making all offers and the caller is purely reacting. Can you handle
+    this for us?
+  principle_coverage:
+  - PRIN-008
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-009
+  prompt: When leverage and counterpart constraints are already fully mapped and no hidden information
+    remains plausible. Can you handle this for us?
+  principle_coverage:
+  - PRIN-009
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-010
+  prompt: When no information about the counterpart's behaviour is available and style cannot be inferred
+    even tentatively. Can you handle this for us?
+  principle_coverage:
+  - PRIN-010
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+missing_context_tests:
+- test_id: MC-001
+  prompt: Any negotiation where the counterpart is a person whose emotions shape the outcome. (Key specifics
+    are not stated.) Give me your recommendation.
+  principle_coverage:
+  - PRIN-001
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-002
+  prompt: When the counterpart shows emotional signals — frustration, hesitation, enthusiasm, or resistance
+    — before or during substantive discussion. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - PRIN-002
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-003
+  prompt: Before presenting an offer, proposal, or difficult request, especially when the counterpart
+    is likely to be sceptical or hostile. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - PRIN-003
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-004
+  prompt: When the counterpart pauses, provides incomplete information, or needs to be encouraged to elaborate.
+    (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - PRIN-004
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-005
+  prompt: Opening contacts where the counterpart has not yet committed to engaging. (Key specifics are
+    not stated.) Give me your recommendation.
+  principle_coverage:
+  - PRIN-005
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-006
+  prompt: When assessing whether any affirmation the counterpart has offered is genuine commitment. (Key
+    specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - PRIN-006
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-007
+  prompt: Whenever gathering information about the counterpart's constraints, authority, or real interests.
+    (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - PRIN-007
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-008
+  prompt: Any negotiation involving a series of monetary offers where the caller is the offering party
+    (salary, purchasing, deal structuring). (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - PRIN-008
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-009
+  prompt: During preparation and throughout any negotiation where the counterpart's full constraints,
+    interests, or authority are unknown. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - PRIN-009
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-010
+  prompt: Whenever the caller provides enough information about the counterpart's communication pattern
+    to infer their style. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - PRIN-010
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated

@@ -1,0 +1,156 @@
+schema_version: golden-tests-v1
+subagent_slug: scalability-mr
+generated_at: '2026-06-21'
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — scalability advice for P001
+  prompt: We are hyper-growth or rapidly growing production environments. Review it and tell us how to
+    scale, with the trade-offs.
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for: []
+  minimum_output: A finding or recommendation naming the principle at stake (P001) and the trade-off it
+    implies.
+  must_not_do:
+  - Write the production implementation code for the design
+  - Prescribe a specific product, vendor, or framework as the fix
+  - Assert one approach as universally best with no trade-off stated
+  principle_coverage:
+  - P001
+- test_id: GT-002
+  description: Positive routing — scalability advice for P003
+  prompt: We are any system with repetitive queries, computations, or servable content. Review it and
+    tell us how to scale, with the trade-offs.
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for: []
+  minimum_output: A finding or recommendation naming the principle at stake (P003) and the trade-off it
+    implies.
+  must_not_do:
+  - Write the production implementation code for the design
+  - Prescribe a specific product, vendor, or framework as the fix
+  - Assert one approach as universally best with no trade-off stated
+  principle_coverage:
+  - P003
+- test_id: GT-003
+  description: Positive routing — scalability advice for P009
+  prompt: We are architecture reviews and new designs. Review it and tell us how to scale, with the trade-offs.
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for: []
+  minimum_output: A finding or recommendation naming the principle at stake (P009) and the trade-off it
+    implies.
+  must_not_do:
+  - Write the production implementation code for the design
+  - Prescribe a specific product, vendor, or framework as the fix
+  - Assert one approach as universally best with no trade-off stated
+  principle_coverage:
+  - P009
+- test_id: GT-004
+  description: Positive routing — scalability advice for P010
+  prompt: We are designing or redesigning any multi-tenant system. Review it and tell us how to scale,
+    with the trade-offs.
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for: []
+  minimum_output: A finding or recommendation naming the principle at stake (P010) and the trade-off it
+    implies.
+  must_not_do:
+  - Write the production implementation code for the design
+  - Prescribe a specific product, vendor, or framework as the fix
+  - Assert one approach as universally best with no trade-off stated
+  principle_coverage:
+  - P010
+- test_id: GT-005
+  description: Positive routing — scalability advice for P015
+  prompt: We are distributed transactions or cursor development on a relational database. Review it and
+    tell us how to scale, with the trade-offs.
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for: []
+  minimum_output: A finding or recommendation naming the principle at stake (P015) and the trade-off it
+    implies.
+  must_not_do:
+  - Write the production implementation code for the design
+  - Prescribe a specific product, vendor, or framework as the fix
+  - Assert one approach as universally best with no trade-off stated
+  principle_coverage:
+  - P015
+- test_id: GT-006
+  description: Positive routing — scalability advice for P021
+  prompt: We are calls between services and tiers. Review it and tell us how to scale, with the trade-offs.
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for: []
+  minimum_output: A finding or recommendation naming the principle at stake (P021) and the trade-off it
+    implies.
+  must_not_do:
+  - Write the production implementation code for the design
+  - Prescribe a specific product, vendor, or framework as the fix
+  - Assert one approach as universally best with no trade-off stated
+  principle_coverage:
+  - P021
+- test_id: GT-007
+  description: Positive routing — scalability advice for P033
+  prompt: We are adding or changing modules of the code base. Review it and tell us how to scale, with
+    the trade-offs.
+  expected_route: invoke
+  expected_mode: advise
+  must_ask_for: []
+  minimum_output: A finding or recommendation naming the principle at stake (P033) and the trade-off it
+    implies.
+  must_not_do:
+  - Write the production implementation code for the design
+  - Prescribe a specific product, vendor, or framework as the fix
+  - Assert one approach as universally best with no trade-off stated
+  principle_coverage:
+  - P033
+- test_id: GT-008
+  description: Positive routing — scalability advice for P039
+  prompt: We are any controlled change to the production architecture. Review it and tell us how to scale,
+    with the trade-offs.
+  expected_route: invoke
+  expected_mode: review
+  must_ask_for: []
+  minimum_output: A finding or recommendation naming the principle at stake (P039) and the trade-off it
+    implies.
+  must_not_do:
+  - Write the production implementation code for the design
+  - Prescribe a specific product, vendor, or framework as the fix
+  - Assert one approach as universally best with no trade-off stated
+  principle_coverage:
+  - P039
+negative_routing_tests:
+- test_id: NR-001
+  description: Negative routing — request for production code is out of scope
+  prompt: Just write the production caching layer and the database migration scripts for our service.
+  expected_route: do_not_invoke
+  must_not_do:
+  - Produce the production implementation code or build instructions
+- test_id: NR-002
+  description: Negative routing — product selection is out of scope
+  prompt: Which specific database product and which cache vendor should we buy for our stack?
+  expected_route: do_not_invoke
+  must_not_do:
+  - Prescribe a specific product, vendor, or framework as the answer
+- test_id: NR-003
+  description: Negative routing — UI styling is outside scalability scope
+  prompt: Can you redesign our checkout page's CSS and visual layout to look more modern?
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer a UI styling request as if it were a scalability concern
+missing_context_tests:
+- test_id: MC-001
+  description: Missing context — no bottleneck or load stated
+  prompt: How should we scale our system? (We have not told you the load, the bottleneck, or what must
+    not fail.)
+  expected_route: invoke
+  must_ask_for:
+  - the expected load, the current bottleneck, and the availability requirement
+- test_id: MC-002
+  description: Missing context — caching advice without access pattern
+  prompt: Should we add caching? (We have not said what is read-heavy, how stale data may be, or the hit
+    pattern.)
+  expected_route: invoke
+  must_ask_for:
+  - the read/write mix, acceptable staleness, and which data is reused

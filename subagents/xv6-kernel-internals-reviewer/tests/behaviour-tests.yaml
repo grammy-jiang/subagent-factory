@@ -1,0 +1,309 @@
+schema_version: golden-tests-v1
+subagent_slug: xv6-kernel-internals-reviewer
+generated_at: '2026-06-14'
+golden_tests:
+- test_id: GT-001
+  prompt: Reviewing kernel entry paths, syscall dispatch, or privilege transitions. What do you advise,
+    and why?
+  principle_coverage:
+  - pr-001
+  expected_route: invoke
+  minimum_output: When reviewing process isolation, verify that every privilege boundary enforcement point
+    relies on a kernel-controlled ecall entry rather than any user-reachable jump target, and that the
+    process abstraction combines a mode flag, a private page table, and time-sliced scheduling — any gap
+    in this triple exposes one process to corruption by another
+- test_id: GT-002
+  prompt: Explaining the user-space trap entry/exit path. What do you advise, and why?
+  principle_coverage:
+  - pr-002
+  expected_route: invoke
+  minimum_output: When explaining or critiquing the trap path, trace the full sequence — uservec saves
+    registers to the trapframe and switches to the kernel page table and stack, usertrap handles the cause,
+    and usertrapret/userret restores user state and executes sret — and check that the trampoline is mapped
+    at an identical virtual address in every address space so the handler can begin executing before satp
+    is switched
+- test_id: GT-003
+  prompt: Reviewing any syscall implementation that accepts a pointer argument. What do you advise, and
+    why?
+  principle_coverage:
+  - pr-003
+  expected_route: invoke
+  minimum_output: When a system call receives a user-space pointer, flag any direct dereference as a privilege-escalation
+    risk; the correct pattern is to validate and copy through copyinstr (or copyin), which translates
+    the virtual address through the user page table in software and checks bounds before touching a single
+    byte
+- test_id: GT-004
+  prompt: Auditing any shared data structure guarded by a lock. What do you advise, and why?
+  principle_coverage:
+  - pr-004
+  expected_route: invoke
+  minimum_output: 'When reviewing shared data structures, check that locks protect multi-field invariants
+    rather than individual variables: if an invariant spans several memory locations, all must be covered
+    by one lock so no concurrent CPU ever observes a transiently violated state'
+- test_id: GT-005
+  prompt: Reviewing any code path that holds two or more locks simultaneously. What do you advise, and
+    why?
+  principle_coverage:
+  - pr-005
+  expected_route: invoke
+  minimum_output: 'When reviewing code that acquires multiple locks, verify that acquisition order follows
+    the global ordering (e.g., in the filesystem path: directory lock → inode lock → buffer lock → vdisk_lock
+    → p->lock) and flag any code path that acquires them in a different order as a potential deadlock'
+- test_id: GT-006
+  prompt: Reviewing spinlock acquire/release implementations. What do you advise, and why?
+  principle_coverage:
+  - pr-006
+  expected_route: invoke
+  minimum_output: 'When reviewing spinlock acquire/release, verify: (a) push_off is called strictly before
+    lk->locked is set, (b) __sync_synchronize() barriers appear in both acquire and release to prevent
+    reordering across critical section boundaries, and (c) no spinlock is held across a sleep or blocking
+    operation'
+- test_id: GT-007
+  prompt: Choosing or evaluating lock types for a given critical section. What do you advise, and why?
+  principle_coverage:
+  - pr-007
+  expected_route: invoke
+  minimum_output: When reviewing sleep-lock versus spinlock choice, flag spinlocks used for long-held
+    operations (file I/O, disk wait) as a busy-wait hazard; flag sleep-locks used inside interrupt handlers
+    or inside spinlock critical sections as a correctness violation because they may yield the CPU in
+    a context that forbids it
+- test_id: GT-008
+  prompt: Reviewing any producer/consumer pattern using sleep and wakeup. What do you advise, and why?
+  principle_coverage:
+  - pr-008
+  expected_route: invoke
+  minimum_output: 'When reviewing sleep/wakeup usage, check: (a) the condition lock is held when checking
+    the condition and passed to sleep so it is atomically released on entry — closing the lost-wakeup
+    window; (b) sleep is always called inside a loop that re-checks the condition after waking, guarding
+    against spurious wakeups'
+- test_id: GT-009
+  prompt: Reviewing the yield/scheduler/swtch context-switch path. What do you advise, and why?
+  principle_coverage:
+  - pr-009
+  expected_route: invoke
+  minimum_output: When reviewing the scheduler and context switch, verify that p->lock is acquired in
+    yield (before state change) and released in the scheduler (after stack switch), not in the same thread,
+    because p->lock protects invariants that span the swtch boundary; also note the known kill/sleep race
+    where kill may set p->killed and call wakeup in the window between the victim's condition check and
+    its sleep call
+- test_id: GT-010
+  prompt: Analysing any filesystem component or bug. What do you advise, and why?
+  principle_coverage:
+  - pr-010
+  expected_route: invoke
+  minimum_output: When reviewing the filesystem, use the seven-layer model (disk, buffer cache, logging,
+    inode, directory, pathname, file-descriptor) as the analytical frame; identify which layer a defect
+    or design choice belongs to, and verify that each layer only invokes the one immediately below it
+- test_id: GT-011
+  prompt: Reviewing any filesystem operation that touches more than one disk block. What do you advise,
+    and why?
+  principle_coverage:
+  - pr-011
+  expected_route: invoke
+  minimum_output: 'When reviewing crash-recovery correctness, verify that every multi-block operation
+    is wrapped in a transaction (begin_op/end_op) so write-ahead logging guarantees atomicity: all writes
+    go to the log first, the commit record is written last, and recovery replays a complete transaction
+    or discards an incomplete one; also verify that log_write absorption (multiple writes to the same
+    block within one transaction coalesce to one log slot) is not bypassed'
+- test_id: GT-012
+  prompt: Reviewing inode cache access patterns (iget/ilock/iunlock/iput). What do you advise, and why?
+  principle_coverage:
+  - pr-012
+  expected_route: invoke
+  minimum_output: 'When reviewing inode concurrency, verify that all four protection mechanisms are respected:
+    icache.lock guards cache membership and ref counts; iget increments ref before releasing icache.lock
+    so the inode cannot be evicted between pointer acquisition and locking; ilock acquires the per-inode
+    sleep-lock before touching fields; nlink count prevents disk deallocation while directory entries
+    exist; note that xv6 does not recover orphaned inodes (nlink==0, ref>0) after a crash — that is a
+    known limitation. Also apply the two-level locking pattern check: the coarse set lock (icache.lock)
+    must be released before the per-item lock (ip->lock) is held long-term to allow concurrency'
+negative_routing_tests:
+- test_id: NR-001
+  prompt: Reviewing inter-process communication channels that are intentionally shared. Can you handle
+    this for us?
+  principle_coverage:
+  - pr-001
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-002
+  prompt: Kernel-only traps that never touch user page tables. Can you handle this for us?
+  principle_coverage:
+  - pr-002
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-003
+  prompt: Kernel-to-kernel pointer passing within a single address space. Can you handle this for us?
+  principle_coverage:
+  - pr-003
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-004
+  prompt: Single-field atomic updates where the invariant is trivially one variable. Can you handle this
+    for us?
+  principle_coverage:
+  - pr-004
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-005
+  prompt: Code paths that only ever hold one lock at a time. Can you handle this for us?
+  principle_coverage:
+  - pr-005
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-006
+  prompt: Sleep-lock (acquiresleep/releasesleep) critical sections, which have different rules. Can you
+    handle this for us?
+  principle_coverage:
+  - pr-006
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-007
+  prompt: Very short critical sections where spinning is cheaper than a context switch. Can you handle
+    this for us?
+  principle_coverage:
+  - pr-007
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-008
+  prompt: Single-waiter patterns where spurious wakeup is structurally impossible. Can you handle this
+    for us?
+  principle_coverage:
+  - pr-008
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-009
+  prompt: Non-preemptive or cooperative-only schedulers without per-CPU scheduler threads. Can you handle
+    this for us?
+  principle_coverage:
+  - pr-009
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-010
+  prompt: Log-structured or stackless filesystem designs that merge these layers. Can you handle this
+    for us?
+  principle_coverage:
+  - pr-010
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-011
+  prompt: Single-block operations where atomicity is guaranteed by the hardware sector write. Can you
+    handle this for us?
+  principle_coverage:
+  - pr-011
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+- test_id: NR-012
+  prompt: Direct disk inode access bypassing the inode cache (mkfs tool only). Can you handle this for
+    us?
+  principle_coverage:
+  - pr-012
+  expected_route: do_not_invoke
+  must_not_do:
+  - Answer as if the request were in scope when it is not
+missing_context_tests:
+- test_id: MC-001
+  prompt: Reviewing kernel entry paths, syscall dispatch, or privilege transitions. (Key specifics are
+    not stated.) Give me your recommendation.
+  principle_coverage:
+  - pr-001
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-002
+  prompt: Explaining the user-space trap entry/exit path. (Key specifics are not stated.) Give me your
+    recommendation.
+  principle_coverage:
+  - pr-002
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-003
+  prompt: Reviewing any syscall implementation that accepts a pointer argument. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - pr-003
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-004
+  prompt: Auditing any shared data structure guarded by a lock. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - pr-004
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-005
+  prompt: Reviewing any code path that holds two or more locks simultaneously. (Key specifics are not
+    stated.) Give me your recommendation.
+  principle_coverage:
+  - pr-005
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-006
+  prompt: Reviewing spinlock acquire/release implementations. (Key specifics are not stated.) Give me
+    your recommendation.
+  principle_coverage:
+  - pr-006
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-007
+  prompt: Choosing or evaluating lock types for a given critical section. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - pr-007
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-008
+  prompt: Reviewing any producer/consumer pattern using sleep and wakeup. (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - pr-008
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-009
+  prompt: Reviewing the yield/scheduler/swtch context-switch path. (Key specifics are not stated.) Give
+    me your recommendation.
+  principle_coverage:
+  - pr-009
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-010
+  prompt: Analysing any filesystem component or bug. (Key specifics are not stated.) Give me your recommendation.
+  principle_coverage:
+  - pr-010
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-011
+  prompt: Reviewing any filesystem operation that touches more than one disk block. (Key specifics are
+    not stated.) Give me your recommendation.
+  principle_coverage:
+  - pr-011
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
+- test_id: MC-012
+  prompt: Reviewing inode cache access patterns (iget/ilock/iunlock/iput). (Key specifics are not stated.)
+    Give me your recommendation.
+  principle_coverage:
+  - pr-012
+  expected_route: invoke
+  must_ask_for:
+  - the decision-relevant specifics the request leaves unstated
