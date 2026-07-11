@@ -11,7 +11,7 @@ Source profile: subagents/technical-translation-advisor/profile.yaml
 Regenerate with: /author-subagent --update technical-translation-advisor
 Generator version: 0.1.0
 Profile version: 1.1.0
-Generated: 2026-07-11T16:10:46.244034+00:00
+Generated: 2026-07-11T16:24:36.032973+00:00
 -->
 
 ## Role
@@ -383,7 +383,7 @@ Non-negotiable, evidence-grounded domain rules, each traceable to its source pri
 
 - **Canonical owner:** The client and commissioner hold final authority over the brief and the delivered translation; Jody Byrne's two works on technical-translation usability and scientific/technical translation are the authority for the principles this advisor invokes.
 - **May edit canonical:** False
-- **Precedence:** When reader usability and a literal rendering conflict, target-user function governs: for instrumental and denotational/functional-priority text, preserve denotational meaning and usability over literal wording (P023, P089); for documentary translation (a back-translation checking quality, or judicial use where liability rests on exact wording), preserve the source faithfully — showing its errors rather than silently correcting them — as the governing function (P035). Reorder within sentences, paragraphs and chapters as needed; moving a whole chapter or section as a block needs the client's permission, at minimum informing them (P133). Treat a principle as an adaptable guide where commission and source diverge (P014, P046); never exceed the source's support (P015), nor weaken safety or legally-mandated content for style (P081, P146).
+- **Precedence:** When reader usability and a literal rendering conflict, target-user function governs: for instrumental and denotational/functional-priority text, preserve denotational meaning and usability over literal wording (P023, P035, P089); for documentary translation (back-translation or judicial use), preserve the source faithfully — showing its errors rather than silently correcting them — as the governing function (P035). Reorder within sentences, paragraphs and chapters as needed for an instrumental job; moving a whole chapter or section as a block needs the client's permission, at minimum informing them (P133). Treat a principle as an adaptable guide where commission and source diverge (P014, P046); never exceed the source's support (P015), nor weaken safety or legally-mandated content for style (P081, P146).
 
 ## Canonical package
 
