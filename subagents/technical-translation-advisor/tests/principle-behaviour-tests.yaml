@@ -1,0 +1,2619 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: technical-translation-advisor
+generated_at: '2026-07-11'
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Be a good technical writer in order to be a good technical translator — their
+    principal stylistic goals coincide — and adopt technical writers'' writing strategies and audience-analysis
+    methods, while accepting that information design, typography, and layout a…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P001.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P002
+  principle_id: P002
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Base translation decisions on who will read the text, how they will use it,
+    and how it will be distributed, and establish these via a translation brief specifying at minimum
+    the target audience, the intended purpose (information vs publication), and any styli…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P002.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P003
+  principle_id: P003
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat scientific and technical translation as a communicative service for
+    people and produce a target text that functions as an authentic target-language document, because
+    users care most about accessing its information effectively.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P003.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P004
+  principle_id: P004
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Design visual presentation around human perception: balance contrast, limit
+    color codes, avoid all-cap running text, and use Gestalt grouping deliberately.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P004.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P005
+  principle_id: P005
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat appearance, layout, typography, white space, and format as communicative
+    usability factors, not decoration.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P005.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P006
+  principle_id: P006
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate user guides holistically with representative task-based usability
+    testing; readability formulas are only partial indicators.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P006.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P007
+  principle_id: P007
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Let target-user needs govern additions, omissions, condensation, restructuring,
+    and explicitness.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P007.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P008
+  principle_id: P008
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Write concise, direct, audience-fit user-guide language without ambiguity,
+    obscuring euphemism, unnecessary jargon, or unexplained acronyms.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P008.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P009
+  principle_id: P009
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Reduce working-memory burden through chunking, short retention gaps, familiar
+    groupings, relevant visuals, and recognition-based cues.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P009.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P010
+  principle_id: P010
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prime and teach new material by linking it to related concepts, existing schemes,
+    examples, habits, and visible reinforcement.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P010.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P011
+  principle_id: P011
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Subject user documentation to legal, standards, accuracy, completeness, safety,
+    readability, layout, and hands-on usability quality assurance.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P011.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P012
+  principle_id: P012
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Make user guides task-centered teaching interfaces rather than repositories
+    of system information.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P012.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P013
+  principle_id: P013
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat the main study as empirical support that iconic linkage can improve
+    speed, errors, completion, recall, satisfaction, clarity, and learning.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P013.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P014
+  principle_id: P014
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Choose technical-translation strategy from the communicative situation and
+    project criteria rather than universal maxims.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P014.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P015
+  principle_id: P015
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Balance fidelity, intelligibility, speed, cost, audience need, and target-culture
+    acceptability instead of pursuing abstract perfection.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P015.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P016
+  principle_id: P016
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build modular, navigable guides with small functional task units, meaningful
+    headings, useful overviews, and reader progress points.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P016.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P017
+  principle_id: P017
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use one-idea sentences and uniform phrasing to reduce memory load, build habits,
+    improve recognition, and free attention for the task.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P017.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P018
+  principle_id: P018
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Combine objective observation with carefully designed subjective instruments.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P018.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P019
+  principle_id: P019
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Measure retention, task time, error rates, and satisfaction with explicit
+    instruments and report the aggregate outcomes.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P019.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P020
+  principle_id: P020
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Plan documentation around specific readers, their tasks, prior knowledge,
+    problems, and objectives.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P020.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P021
+  principle_id: P021
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Apply iconic linkage by expressing recurring semantically identical information
+    with the same target-language construction and preserving latent repetition.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P021.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P022
+  principle_id: P022
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate documentation strategies through summative user testing that collects
+    both performance and satisfaction data and is refined by pilot work.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P022.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P023
+  principle_id: P023
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat technical translation as target-user usability work, not as source-text
+    transfer alone.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P023.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P024
+  principle_id: P024
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Define target-text function pragmatically from purpose, audience, initiator,
+    translator, and situation; do not infer it from the source text alone.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P024.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P025
+  principle_id: P025
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Minimize target-reader processing effort by making context, intended interpretation,
+    and given-new progression easy to follow.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P025.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P026
+  principle_id: P026
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Introduce iconic linkage with test materials that contain suitably spaced
+    recurrence, a concise style guide, and translation-memory support.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P026.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P027
+  principle_id: P027
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Analyze very small usability comparisons with exact nonparametric tests, aggregate
+    measures, and exclusion of fixed-duration tasks from timing.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P027.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P028
+  principle_id: P028
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Match target-language technical conventions and required document form while
+    preserving correctness and usability.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P028.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P029
+  principle_id: P029
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Design user guides to support starting, productivity, troubleshooting, and
+    experience-level differences.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P029.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P030
+  principle_id: P030
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Minimize attention switching because reading the guide and doing the task
+    draw on the same limited cognitive capacity.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P030.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P031
+  principle_id: P031
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Help users frame problems correctly, surface misconceptions, and provide enough
+    declarative background before expecting fluent action.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P031.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P032
+  principle_id: P032
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build usability from the start using cognetics, explicit goals, and measurable
+    criteria.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P032.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P033
+  principle_id: P033
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Drop, redefine, or redesign metrics and tasks that cannot be observed reliably
+    or that are confounded by participant traits or prior knowledge.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P033.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P034
+  principle_id: P034
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Run main studies with realistic users and settings while preserving comparability
+    with the pilot and handling venue constraints.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P034.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P035
+  principle_id: P035
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Establish whether the job is an instrumental translation (used in place of
+    the source as a freestanding target text — so errors must be corrected) or a documentary translation
+    (describing what the source said and how, as in back-translation or judicial use —…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P035.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P036
+  principle_id: P036
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Preserve user trust by making guides correct, confidence-building, and clearly
+    oriented to customer needs.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P036.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P037
+  principle_id: P037
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use repetition, sentence flow, and parallel structure only when they reinforce
+    action, memory, clarity, or habit formation.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P037.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P038
+  principle_id: P038
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Support both reading-to-learn and reading-to-do, including sequential reading
+    and random lookup.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P038.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P039
+  principle_id: P039
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Implement usability through a hierarchy of principles, guidelines, local rules,
+    and style guides, while still validating with users.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P039.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P040
+  principle_id: P040
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Establish usability with evaluation rather than design confidence alone.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P040.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P041
+  principle_id: P041
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Select evaluation methods from the test question and required data, distinguishing
+    formative, summative, analytical, empirical, absolute, and comparative methods.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P041.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P042
+  principle_id: P042
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Avoid think-aloud protocols when representative task performance is the measurement
+    target.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P042.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P043
+  principle_id: P043
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Ground technical translation in target-audience communicative service, Skopos
+    purpose, and reader cognitive demands.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P043.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P044
+  principle_id: P044
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use iconic linkage only where recurring information makes standardisation
+    practical, and treat it as one cognitive strategy among others.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P044.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P045
+  principle_id: P045
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Make target-relevant information easy to find, select, assimilate, and proportionally
+    redundant.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P045.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P046
+  principle_id: P046
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Combine literal translation, paraphrase, modification, addition, omission,
+    and other strategies locally under one communicative purpose.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P046.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P047
+  principle_id: P047
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use graphics deliberately and control translated screenshots against the final
+    localized interface.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P047.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P048
+  principle_id: P048
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Be honest, comprehensive enough, accurate, and ethically adequate at the point
+    of need.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P048.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P049
+  principle_id: P049
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate usability for specified users, goals, and contexts through effectiveness,
+    efficiency, and satisfaction.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P049.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P050
+  principle_id: P050
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prefer indirect overt recording when observer effects would distort performance,
+    while preserving ethical recording practice.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P050.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P051
+  principle_id: P051
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Recruit representative participants, balance relevant skills across comparative
+    groups, and use small-sample statistics appropriate to usability studies.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P051.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P052
+  principle_id: P052
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Choose test software and tasks that make participants rely on the guide rather
+    than prior product knowledge.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P052.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P053
+  principle_id: P053
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Protect participants through informed consent, anonymized identifiers, confidentiality,
+    and a comfortable realistic test environment.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P053.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P054
+  principle_id: P054
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Screen and consent participants with role-specific profiles, data-collection
+    disclosure, confidentiality, and clear session tracking.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P054.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P055
+  principle_id: P055
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: For products sold in the EU, ensure all technical documentation is translated
+    into the country-of-sale language(s), treat the translated documentation as an original target-language
+    document subject to target-language technical-writing regulations, and give c…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P055.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P056
+  principle_id: P056
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Accept that the translation brief has no settled form and often forces educated
+    guesses, so ask the client a short standard set of questions — kept small so as not to seem unprofessional,
+    since the translator is usually the expert — covering at minimum the ta…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P056.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P057
+  principle_id: P057
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use repetition and practice to support procedural automaticity without creating
+    unnecessary dependence.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P057.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P058
+  principle_id: P058
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Shape translated documentation around reader cognition, including perception,
+    memory, attention, learning, and problem solving.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P058.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P059
+  principle_id: P059
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use source-external resources and technical-writing interventions whenever
+    the source text alone is insufficient for target-user function.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P059.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P060
+  principle_id: P060
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Provide enough information for the current user purpose, avoiding both overload
+    and under-specification.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P060.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P061
+  principle_id: P061
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Apply function plus loyalty: meet target-reader expectations while respecting
+    source-side intentions and stakeholder relationships.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P061.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P062
+  principle_id: P062
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Serve multiple proficiency levels with predictable novice support and efficient
+    reference for experienced users.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P062.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P063
+  principle_id: P063
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prevent likely errors, make recovery easy, and use consistent familiar terminology
+    and interaction patterns.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P063.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P064
+  principle_id: P064
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build guide quality early and improve it iteratively with user involvement
+    and pilot studies.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P064.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P065
+  principle_id: P065
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: In comparative documentation studies, isolate the manipulated variable and
+    keep fonts, layout, graphics, content, and other confounds equivalent.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P065.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P066
+  principle_id: P066
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use the pilot to correct tasks, tools, methods, criteria, and materials before
+    running the main study.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P066.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P067
+  principle_id: P067
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Triangulate subjective ratings with objective performance and recall measures.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P067.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P068
+  principle_id: P068
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Distinguish scientific from technical texts by their aim — a technical text
+    exists to convey information as clearly and effectively as possible, while a scientific text analyzes,
+    synthesizes, theorizes, and persuades — because the differing aim drives differe…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P068.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P069
+  principle_id: P069
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Make the audience the primary driver of translation: nearly every decision
+    (term choice, rewording for clarity or tone, resequencing) depends on understanding it, and in translation
+    the audience factors double because two languages and cultures are involved —…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P069.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P070
+  principle_id: P070
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Know the four oblique procedures and when each applies: equivalence replaces
+    source elements with completely different wording that replicates the situation (for idioms, fixed
+    phrases, and warning signs and labels); transposition changes a word''s class withou…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P070.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P071
+  principle_id: P071
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Handle Latin scientific and anatomical nomenclature (binomial genus-species
+    names, stable and free of connotation) by retaining it (in italics, usually best for accuracy), explaining
+    it (adding the common target-language name in parentheses for a lay or mixed…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P071.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P072
+  principle_id: P072
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Classify document type by communicative purpose before deciding content, structure,
+    and rhetorical strategy.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P072.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P073
+  principle_id: P073
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Familiarize participants with context, acclimate them to recording, and capture
+    useful informal comments without letting them drive scoring.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P073.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P074
+  principle_id: P074
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not assume consistency is disruptive; inconsistent instruction phrasing
+    may be more harmful than repeated structures.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P074.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P075
+  principle_id: P075
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Scale consistency through controlled language, style guides, translation memory,
+    and improved semantic-match tooling.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P075.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P076
+  principle_id: P076
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Preserve usability-study instruments and participant-level tables so study
+    procedures and results can be audited.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P076.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P077
+  principle_id: P077
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Expect scientific texts to use a broader range of linguistic devices (longer,
+    more complex sentences, figurative language) because they aim to create an effect, and treat metaphors
+    as a valuable tool in both scientific and technical texts for naming abstracti…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P077.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P078
+  principle_id: P078
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Be able to recognize the specialized file types and software of the client''s
+    industry and be comfortable (not necessarily expert) with markup and scripting such as HTML and XML,
+    so you can identify and translate the text without damaging the technical parts o…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P078.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P079
+  principle_id: P079
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Apply CAT tools where they fit: translation memory helps only with high-repetition
+    or frequently-updated (chiefly technical) texts, terminology management helps where a large volume
+    of terms must stay consistent, and TM filters reduce the need to master multi…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P079.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P080
+  principle_id: P080
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat a case study as a marketing text with a standard structure (identify
+    the client, its needs as the ''problem'', the solution and its implementation, a testimonial, and
+    closing company details) that is demanding to translate because it mixes complex technic…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P080.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P081
+  principle_id: P081
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Make safety-critical information explicit, repeated where needed, and escalated
+    to the client when the source is deficient.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P081.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P082
+  principle_id: P082
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Concentrate strategy decisions on target audience needs and native-quality
+    technical communication.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P082.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P083
+  principle_id: P083
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Choose user-guide structure from product nature, audience background, and
+    user tasks while avoiding information overload.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P083.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P084
+  principle_id: P084
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Define a small, observable, product-relevant set of performance criteria before
+    testing.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P084.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P085
+  principle_id: P085
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prefer post-task or private ratings over concurrent public questioning when
+    task integrity and candidness matter.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P085.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P086
+  principle_id: P086
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prepare users and materials so participants critique the product and guide,
+    not themselves, without being distracted by avoidable text errors.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P086.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P087
+  principle_id: P087
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use screen logging or recording suited to the application interaction style
+    instead of over-shoulder observation.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P087.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P088
+  principle_id: P088
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Ensure comparative groups have enough participants and protect sessions from
+    cross-participant contamination.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P088.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P089
+  principle_id: P089
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Choose which level of equivalence to prioritize by text type — denotational
+    meaning for an instruction manual, linguistic form for a popular-science article, textual norms for
+    a certificate of conformity — accepting lower equivalence on the other levels, and…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P089.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P090
+  principle_id: P090
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Determine first what type of translation the client wants, because it drives
+    what is translated, how, and how long it takes: a selective translation renders only certain sections;
+    a gist translation is a rough summary needing less care over style; an informat…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P090.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P091
+  principle_id: P091
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Frame sci-tech translation as part of technical communication — creating,
+    designing, and transmitting technical information so people can understand it easily and use it safely,
+    effectively, and efficiently (Markel) — and treat the target audience as the sing…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P091.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P092
+  principle_id: P092
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat every technical document as a task-oriented tool addressed to a specific
+    audience for a specific purpose — a means to an end, not entertainment or a showcase for the writer
+    — whose goal is to convey the right information to the right people in the right…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P092.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P093
+  principle_id: P093
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Handle terminology carefully even though it is only about 5-10% of a technical
+    text: abbreviations and acronyms can mean different things by subject, context, or producing organization,
+    and ordinary-looking general words often carry specific technical meaning…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P093.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P094
+  principle_id: P094
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Handle formulae, scientific notation, and units precisely: numbers quantify
+    a physical quantity via units governed largely by SI (seven base units modifiable by prefixes such
+    as micro-, milli-, nano-), and although metric is the international norm, Imperial u…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P094.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P095
+  principle_id: P095
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: For procedural (cookbook-style) manuals use a prerequisites list plus numbered
+    steps and control the information flow so the reader is not overloaded; never combine multiple tasks
+    in a single sentence — split a crammed source sentence into separate ordered st…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P095.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P096
+  principle_id: P096
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Translate scientific-paper sections to their conventions: keep correct spelling
+    and orthography in the Materials section (proprietary and trademarked names); demand absolute consistency
+    and clarity in the Procedure section, since errors threaten the repeatabi…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P096.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P097
+  principle_id: P097
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: For presentations, resolve the inherent ambiguity of bullet-point slides by
+    requesting the speaker''s notes or the full paper, and watch translation length: because text boxes
+    do not resize, a longer translation shrinks the font or overflows the slide, so do n…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P097.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P098
+  principle_id: P098
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat regulatory and normative documents (directives, laws, and standards
+    from bodies such as ISO, DIN, BSI) as unambiguous specification rule-sets with a legal dimension —
+    carrying legal terminology, and, for patents, protecting the right to exclude others f…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P098.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P099
+  principle_id: P099
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Understand why a text is structured as it is — function, circumstances of
+    use, logical progression, and cultural norms — and distinguish linked, cohesive texts from discrete-section
+    texts; in discrete-section texts read in unpredictable order, avoid anaphoric…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P099.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P100
+  principle_id: P100
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Apply generalizing and particularizing deliberately: generalize (replace a
+    specific term with a generic one) only when the specific term is not essential and can be inferred
+    or relocated, otherwise keep it; and particularize (use a more specific term) when th…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P100.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P101
+  principle_id: P101
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: For EU texts between official languages, consult EUR-Lex for the authoritative
+    translations of terminology and directive names; a directive carries a short reference code (year/identifier/abbreviation)
+    plus a descriptive name, and because the abbreviation dif…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P101.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P102
+  principle_id: P102
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Comply with the client''s style guide governing grammar, sentence structure,
+    terminology, punctuation, address, headings, and product names: even a source-language style guide
+    is useful, it may force you to change an initial choice (tense, direct speech, term)…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P102.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P103
+  principle_id: P103
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Accommodate the client''s mandated preferred terminology even when its rules
+    (e.g.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P103.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P104
+  principle_id: P104
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Leave units of measure unchanged wherever possible, especially SI quantities,
+    because conversion is risky — the required rounding precision may be unknown, and in chemistry 1.06
+    mg differs significantly from 1.1 mg — and confusable prefixes and symbols (deci/…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P104.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P105
+  principle_id: P105
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Assume humour does not travel and gently remove jokes from technical texts
+    (telling the client if unsure), and treat congratulatory content as potentially insincere or patronizing
+    in some cultures; where humour must be kept because it serves a function (as in…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P105.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P106
+  principle_id: P106
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Choose delivery medium according to how users actually read and use the documentation.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P106.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P107
+  principle_id: P107
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Know the equivalence toolkit: formal equivalence matches source form and content;
+    dynamic equivalence matches the source''s effect on its audience; and Koller''s five levels are denotational,
+    connotational, textual-norm, pragmatic, and linguistic-form equivalen…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P107.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P108
+  principle_id: P108
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Categorize readers by role (Horton''s novice, occasional, transfer, expert,
+    rote; Markel''s experts, technicians, managers, general) to reveal how they use a text — experts skim,
+    novices read in sequence, rote users jump to steps — which for the translator mean…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P108.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P109
+  principle_id: P109
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Analyze the target culture as more than nationality: cultural norms shape
+    slang and jargon, forms of address, shared-knowledge references, and conventions for date, time, currency,
+    and legal or institutional references; do not equate one culture with one lang…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P109.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P110
+  principle_id: P110
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Expect information conveyed as bare facts and specifications (bullet lists
+    or tables in technical texts, sentences in scientific ones) and as cross-references to laws, standards,
+    books, or interface items that avoid overloading the reader and can also signal…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P110.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P111
+  principle_id: P111
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Make tutorials gentle, supportive, and never confusing, too-advanced, or wrong
+    — because readers tend to blame themselves for problems following instructions even when the text
+    is substandard — keeping information density low and always including the hazard w…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P111.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P112
+  principle_id: P112
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat user guides as structured instructional documents in simple language
+    supported by graphics whose usability rests on broadly universal human cognition but also carries
+    culture-specific features and rarely targets a single culture, so translating them is…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P112.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P113
+  principle_id: P113
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Know the profiles of common technical text types: a technical data sheet covers
+    a product''s composition, properties, and applications plus safety, legal, and environmental information;
+    test instructions are standard operating procedures of step-by-step inspec…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P113.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P114
+  principle_id: P114
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Understand that literal translation is more sophisticated than word-for-word
+    replacement — shifting from word to group to clause once the target stops complying with target-language
+    grammar, and avoiding additions, omissions, and paraphrasing — and is in fact…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P114.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P115
+  principle_id: P115
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Respect that technical information is usually in logical or chronological
+    sequence but rearrange it when culture requires: alter the sequencing and the proportion of given
+    and new information within paragraphs (foregrounding, omitting, or repeating), because…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P115.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P116
+  principle_id: P116
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use House''s covert/overt distinction — a covert translation is functionally
+    equivalent and reads as though originally written in the target language, while an overt translation
+    is evidently a translation whose source is tied to a specific time, culture, or la…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P116.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P117
+  principle_id: P117
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Protect reader safety and prevent product damage before pursuing other instructional
+    goals.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P117.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P118
+  principle_id: P118
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Judge efficiency from the user total task, and keep guide information clear,
+    digestible, and concise.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P118.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P119
+  principle_id: P119
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat administrator help as a guide-failure signal by directing users to the
+    guide first and counting each escalation.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P119.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P120
+  principle_id: P120
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use unchanged layout/content controls and multi-metric improvements to rule
+    out likely confounds.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P120.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P121
+  principle_id: P121
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Let the purpose of the target text (its Skopos), as specified by commissioner
+    and translator, govern the translation rather than the source text; a source is an offer of information
+    from which many valid translations follow once the intended purpose is known.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P121.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P122
+  principle_id: P122
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Handle regional language variety and product/drug naming deliberately: not
+    all terminology or cultural references are universally standardized, and the same product is often
+    marketed under different names by market, so swap product or drug names for generic o…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P122.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P123
+  principle_id: P123
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Keep language clear, simple, and to the point as a core value of technical
+    communication: use simple declarative sentences rather than complex ones and give instructions in
+    chronological or logical cause-and-effect order, especially for readers who are hurrie…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P123.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P124
+  principle_id: P124
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Where a document contains screenshots, treat it as bound to the external software
+    interface: accurately reproduce the text shown in the interface, phrase all references to the software
+    consistently, and update the document whenever the software changes, since…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P124.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P125
+  principle_id: P125
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: For reference manuals and any cross-referenced document, treat topics as independent,
+    dipped-into units (repeating information where needed to spare readers from skipping back and forth),
+    and keep the names of referenced topics, sections, or documents accurat…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P125.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P126
+  principle_id: P126
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: For heterogeneous or hybrid documents whose sections differ in function and
+    style (proposals, tenders, reports, case studies, marketing material), recognize each section''s change
+    in function and apply a single document-level macrostrategy supported by local,…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P126.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P127
+  principle_id: P127
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Translate an abstract, together with its title, as a self-contained text —
+    it is published separately in abstracting services and readers judge from it whether to read the whole
+    paper — so never leave anything awkward or unclear in an abstract on the assumpti…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P127.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P128
+  principle_id: P128
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Recognize a text''s type and genre conventions as a prerequisite to translating
+    it (Bell, Schaffner): genres are socially embedded, some highly culture-specific and some universal,
+    and even ostensibly universal conventions require different micro-level strateg…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P128.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P129
+  principle_id: P129
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Create a document profile — identifying subject, audience, text function,
+    key features, and potential problems along with strategies for them — as a method for preparing to
+    translate a given text type effectively.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P129.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P130
+  principle_id: P130
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use Vinay and Darbelnet''s direct strategies knowingly: direct translation
+    (literal translation, borrowing, calquing) requires less intervention and less deviation from the
+    source, while oblique translation is reserved for when the grammatical, pragmatic, and…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P130.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P131
+  principle_id: P131
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Reserve adaptation as a last resort for a source situation or concept absent
+    from the target culture, and apply its procedures in order: cultural substitution first, then descriptive
+    paraphrase, and only then omission — omitting only as a fully justifiable la…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P131.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P132
+  principle_id: P132
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use expansion — making implicit source content explicit by adding explanatory
+    phrases or connectors — to make the target clearer, improve flow, or compensate for a weaker target-audience
+    background, as when the source was written by an untrained writer, the t…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P132.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P133
+  principle_id: P133
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Rearrange information within sentences, paragraphs, or chapters as needed
+    — including to fix a poorly ordered source (for example, instructions that say to delete a file before
+    backing it up) — but do not move entire chapters or sections without the client''s…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P133.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P134
+  principle_id: P134
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Apply Iconic Linkage: when the source expresses the same information several
+    times with slightly different wording, pick one single translation and reuse it throughout, because
+    doing so cuts the reader''s cognitive effort, improves predictability and learning,…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P134.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P135
+  principle_id: P135
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: In update projects, ethically and commercially tell the client that only a
+    proportion of the text needs translating, accept translation-memory matches as is because they are
+    already client-approved and changes ripple into relay translations, translate only th…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P135.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P136
+  principle_id: P136
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: For quoted material from another publication, use an authoritative published
+    target-language translation if one exists and can be obtained, rather than your own; if none is available,
+    present a paraphrase that does not purport to be official — either omit the…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P136.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P137
+  principle_id: P137
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Optimize for usability — how well readers can read, understand, and perform
+    or remember the task, and how unstressed they are afterward — by giving the right information in the
+    right proportions at the right time and format, using these strategies: consistent…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P137.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P138
+  principle_id: P138
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: When revising another translator''s work, find and fix errors rather than
+    rewrite it as your own: verify that all information is accurate, terminology is correct and consistent,
+    style suits the text and audience, and spelling, orthography, and punctuation are…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P138.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P139
+  principle_id: P139
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Never use footnotes in a professional translation to flag confusion or queries
+    — because the translation may reach the end reader unreviewed, exposing your confusion and undermining
+    credibility (annotated footnotes are only a student aid) — and instead keep a…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P139.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P140
+  principle_id: P140
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Handle acronyms and abbreviations (used for brevity) by a chosen strategy:
+    transfer (keep a well-known source acronym), reconstitute (build a new target acronym from the translated
+    name, for non-specialized or ad-hoc cases), define (replace with a definition,…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P140.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P141
+  principle_id: P141
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: On spotting an apparent error, notify the client and choose — by the text''s
+    length, subject, deadline, and the client''s preference — whether to raise queries as you go or at
+    delivery; handle errors by type: fix simple linguistic errors quietly, refer complete…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P141.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P142
+  principle_id: P142
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Recognize and handle program code without being a programmer: commands and
+    arguments resemble English words, but words written entirely in uppercase and multi-word tokens joined
+    without spaces or by underscores (e.g.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P142.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P143
+  principle_id: P143
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Respect the syntax that runtime variables impose: where a string has two identical
+    variables (e.g.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P143.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P144
+  principle_id: P144
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Never modify product or brand names even when they look funny, ungrammatical,
+    or wrong, because they are proper names central to the product''s identity and to its copyright protection
+    (based on a specific spelling); transfer a specific brand named for a reaso…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P144.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P145
+  principle_id: P145
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: For a brand unknown in the target culture, do not blindly substitute a comparable
+    target brand, since the two products may differ in characteristics or composition with consequences
+    for repeatability or safety (e.g.'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P145.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P146
+  principle_id: P146
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Translate warning and advisory information with particular care — it can be
+    a matter of life or death and carries legal weight — and apply the notice severity hierarchy correctly
+    (Note, then Warning for minor injury, Caution for equipment or data damage, Dang…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P146.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P147
+  principle_id: P147
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not translate an auto-generated table of contents first or in place: it
+    is a projection of the actual heading text, so a translation typed into it is lost when the document
+    is printed or updated — translate the real headings instead — and leave the table o…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P147.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P148
+  principle_id: P148
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Meet strict space constraints (single-sheet leaflets, software string limits,
+    diagram labels), knowing a translation naturally expands or contracts by language combination and
+    direction, by using short simple words and sentences, clear abbreviations (preferab…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P148.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P149
+  principle_id: P149
+  mode: advise
+  prompt: We are advising on a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use the Internet as a terminology and subject resource: find parallel texts
+    (restricting a search by the format a document type is typically published in) and use search operators
+    — a tilde for synonyms, a minus for exclusion, and a source term plus a related…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P149.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
+- test_id: PB-P150
+  principle_id: P150
+  mode: review
+  prompt: We are reviewing a technical-translation task and want the relevant principle applied. Given
+    the audience, brief and target-text function, what should we do here, why, and what trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Assess online sources critically: rely on translator-forum answers only with
+    extreme caution (there is no quality mechanism and answerers may lack your context), trust international,
+    government, and state sites, use company sites for terminology (a localized…'
+  - Ties the recommendation to the audience, brief and target-text function, and states the trade-off
+    or residual uncertainty.
+  - Cites P150.
+  must_not:
+  - Deliver the final translation or make the client's commercial or final linguistic decision for the
+    caller.
+  - State the rule more strongly than the source supports, or weaken safety-critical or legally-mandated
+    content for style.
