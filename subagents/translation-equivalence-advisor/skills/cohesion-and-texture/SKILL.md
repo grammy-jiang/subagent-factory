@@ -1,9 +1,11 @@
 ---
 name: cohesion-and-texture
-description: Reviews the surface cohesive network — reference, substitution, ellipsis,
-  conjunction, and lexical cohesion — reworked to the target language's own preferences;
-  owns the surface ties that bind a text, not the reader's coherence judgement, which
-  pragmatic-equivalence-coherence-and-implicature owns.
+description: Diagnoses and reviews the surface cohesive network — reference, substitution,
+  ellipsis, conjunction, and lexical cohesion — reworked to the target language's
+  own preferences; owns the surface ties that bind a text, not the reader's coherence
+  judgement, which pragmatic-equivalence-coherence-and-implicature owns. Use when
+  a caller says the pronouns or connectors feel off, the references don't track, or
+  the text reads choppy.
 kind: skill
 status: ready
 provenance:
@@ -100,13 +102,17 @@ This skill reviews the surface network of relations — reference, substitution,
 
 ## Output
 
-Per finding: name the cohesive device, whether the draft transferred the source's or reworked to the target's norms, and the correction that restores natural target texture. End with a next step.
+Per finding: name the cohesive device, whether the draft transferred the source's ties or reworked them to the target's norms, and the correction that restores natural target texture; in compare mode weigh following source cohesion against approximating target norms by the translation's purpose (P091). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 
 - Transferring the source's cohesive devices unchanged into the target (P038).
 - Reproducing conjunction or lexical-cohesion frequency literally against target norms (P017, P069).
 - Letting a mistranslated polysemous item break lexical coherence (P112).
+
+## Worked example
+
+Source chains pronoun references and repeats an additive connector at nearly every sentence; a draft transfers both one-for-one and reads choppy and over-explicit. Diagnosis — cohesive devices transferred, not reworked to the target's own preferences and frequencies (P004, P038, P069): rework reference to the target's anaphora norms and adjust conjunction, whose density is genre-specific (P031, P068, P017, P049). Check no mistranslated polysemous item has broken lexical coherence (P112). Whether to follow source cohesion or approximate target norms is decided by the translation's purpose (P091). Residual loss — reworked ties shift explicitness slightly; note it, and hand the wording back.
 
 ## References
 

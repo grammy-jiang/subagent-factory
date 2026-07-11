@@ -1,6 +1,6 @@
 # Test Results — translation-equivalence-advisor
 
-**Generated:** 2026-07-11T13:45:24.491245+00:00
+**Generated:** 2026-07-11T20:31:56.464230+00:00
 
 ## Phase 8 Profile Self-Check
 
@@ -10,7 +10,7 @@
 |---|-------|-------|--------|
 | 1 | slug | PASS | slug 'translation-equivalence-advisor' is kebab-case and role-based |
 | 2 | when-to-use | PASS | 4 triggers |
-| 3 | when-not-to-use | PASS | 3 exclusions |
+| 3 | when-not-to-use | PASS | 4 exclusions |
 | 4 | modes-evidence | INFO | mode source-evidence traceability delegated to profile-reviewer |
 | 5 | inputs-required | PASS | 1 required input(s) |
 | 6 | primary-format | PASS | A structured, principle-cited recommendation or findings li… |
@@ -21,7 +21,7 @@
 | 11 | quality-bar | PASS | 9 evidence-citing checks |
 | 12 | forbidden-behaviours | INFO | 4 rules; source traceability delegated to profile-reviewer |
 | 13 | no-procedure-in-body | PASS | no ordered procedure detected in body |
-| 14 | body-size | WARNING | profile body ~984 words (> 800); 184 over the 800-word budget; heaviest: quality_bar 277w, forbidden_behaviours 106w, modes 104w |
+| 14 | body-size | WARNING | profile body ~981 words (> 800); 181 over the 800-word budget; heaviest: quality_bar 237w, when_not_to_use 118w, forbidden_behaviours 115w |
 | 15 | platform-neutral | PASS | core is platform-neutral |
 | 16 | provenance-ledger | PASS | present |
 | 17 | no-unresolved-conflict | INFO | conflict resolution review delegated to profile-reviewer / Phase 7 merge log |

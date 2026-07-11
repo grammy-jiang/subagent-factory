@@ -1,9 +1,10 @@
 ---
 name: register-style-and-literary-form
-description: Reviews register, style, and form-bound material — field/tenor/mode,
+description: Diagnoses and reviews register, style, and form-bound material — field/tenor/mode,
   marked language, poetry, song, and sound effects — weighting form by its communicative
   function; owns style and the form/content trade-off, not the formal-vs-dynamic orientation
-  that dynamic-and-formal-equivalence owns.
+  that dynamic-and-formal-equivalence owns. Use when a caller asks whether the tone
+  or formality is right, or how to translate a poem, song, or pun.
 kind: skill
 status: ready
 provenance:
@@ -63,7 +64,7 @@ This skill reviews register, style, and material whose form is part of its messa
 ## Procedure
 
 1. Weight content and form by their communicative function, preserving form more strongly when it carries genre, emotional, or other formal effects that are part of the message (P005).
-2. Match the translation to the register expectations of its intended receivers along field, tenor, and mode, and check register and discourse fit locally where slang, ritual, imitative, or swear vocabulary is used (P041, P075).
+2. Match the translation to the register expectations of its intended receivers along field, tenor, and mode, unless the brief deliberately gives the reader a flavour of the source culture, and check register and discourse fit locally where slang, ritual, imitative, or swear vocabulary is used (P041, P075).
 3. Treat literary form and delivery medium as real constraints on how much dynamic equivalence is achievable (P114).
 4. Translate poetry as receptor-language poetry that elicits comparable feeling rather than as word-for-word formal correspondence (P076).
 5. When music is preserved, fit words to the musical vehicle first — phrase length, syllable count, stress, rhyme — allowing metrical adaptation, rearrangement, omission, or addition while keeping the lyric's force (P116, P077).
@@ -77,13 +78,17 @@ This skill reviews register, style, and material whose form is part of its messa
 
 ## Output
 
-Per finding: name the register or formal feature at stake, whether the draft preserved or lost its function, and the adaptation that recovers the effect within the medium's constraints. End with a next step.
+Per finding: name the register or formal feature at stake, whether the draft preserved or lost its function, and the adaptation that recovers the effect within the medium's constraints; in compare mode weigh two adaptations by how far the form carries the message's function (P005). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 
 - Copying poetic or musical form word-for-word and losing the effect (P076, P116).
-- Mismatching register along field, tenor, or mode for the intended receivers (P041).
+- Mismatching register along field, tenor, or mode for the intended receivers, except where the brief deliberately gives the reader a flavour of the source culture (P041).
 - Trying to preserve a sound effect by form where only approximation is possible (P099).
+
+## Worked example
+
+Source is a rhyming advertising slogan; a draft translates the words literally and the rhyme and punch are gone. Diagnosis — the form that carries the message's function was not weighted (P005): match register to the intended receivers along field, tenor, and mode (P041), and treat the sound effect as an effect to approximate opportunistically, not a form to preserve (P099) — recast for comparable feeling rather than word-for-word correspondence (P076). Residual loss — the exact wording changes to recover the effect; name what shifted, and hand the wording back.
 
 ## References
 

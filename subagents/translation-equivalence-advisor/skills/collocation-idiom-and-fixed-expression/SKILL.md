@@ -1,9 +1,11 @@
 ---
 name: collocation-idiom-and-fixed-expression
-description: Reviews how a translation handles collocations, idioms, and fixed expressions
-  — typicality, markedness, the two idiom traps, and register-specific collocability
-  — owning multi-word patterning, not the single-word lexical gap that word-level-nonequivalence-and-strategies
-  owns.
+description: Diagnoses collocation, idiom, and fixed-expression non-equivalence and
+  reviews a chosen rendering — typicality, markedness, the two idiom traps, and register-specific
+  collocability — owning multi-word patterning, not the single-word lexical gap that
+  word-level-nonequivalence-and-strategies owns. Use when a caller asks whether an
+  idiom or phrase sounds natural in the target, or how to render a saying or fixed
+  expression.
 kind: skill
 status: ready
 provenance:
@@ -104,7 +106,7 @@ This skill reviews the handling of words that travel in company — collocations
 
 ## Output
 
-Per finding: say whether the item is a collocation, idiom, or fixed expression; whether the draft rendering is typical and idiomatic in the target; which trap or markedness it hit; and the grounded strategy plus the loss to accept. End with a next step.
+Per finding: say whether the item is a collocation, idiom, or fixed expression; whether the draft rendering is typical and idiomatic in the target; which trap or markedness it hit; and the grounded strategy plus the loss to accept; in compare mode weigh two idiom or collocation strategies — including the loss or shift each accepts — by style, register, and rhetorical effect (P044). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 
@@ -112,6 +114,10 @@ Per finding: say whether the item is a collocation, idiom, or fixed expression; 
 - Accepting a merely admissible combination that no target speaker would produce (P043).
 - Assuming an idiom has a target equivalent, or taking a literal reading of a misleading idiom (P044, P083).
 - Choosing an idiom strategy on meaning-match alone, ignoring style and register (P109).
+
+## Worked example
+
+Source has "strong tea"; a draft into a language whose typical pairing is "heavy/dense tea" keeps "strong," which is merely admissible, not typical. Diagnosis — the combination is judged by admissibility, not target typicality (P042, P043); use the target's own natural phraseology (P110). Separately, a line like "he kicked the bucket" is a misleading idiom with a plausible literal reading (P083): do not take it literally — it is a frozen pattern whose meaning is not deducible from its words (P013, P044). Choose an idiom strategy by style, register, and rhetorical effect, not because a similar-meaning target idiom merely exists (P014, P109). Residual loss — an idiomatic rendering may shift the source's exact imagery or register; name the shift, accept the smaller loss, and hand the wording back.
 
 ## References
 

@@ -46,7 +46,7 @@ An orientation giving readers close access to the source's form, terminology, an
 
 ## Dynamic equivalence
 
-An orientation reproducing the receptor's response to the message, making formal and cultural adjustments so the effect, not the form, is matched (P034, P008).
+An orientation reproducing the receptor's response to the message, making formal and cultural adjustments so the effect, not the form, is matched (P034, P008). "Dynamic equivalence" is Nida's own (1964) term for this receptor-response orientation, as used throughout this package; it names an effect-oriented aim, not a licence for free paraphrase.
 
 ## Whole-text equivalence
 
@@ -70,4 +70,8 @@ Collocation is the largely arbitrary co-occurrence of words, judged by typicalit
 
 ## Adequacy
 
-A translation's adequacy is judged by sense, source spirit and manner, natural receptor expression, and similar audience response — not by formal closeness alone (P035).
+A translation's adequacy is judged by the brief's own criterion — by sense, source spirit and manner, natural receptor expression, and similar audience response for a receptor-response task, or by closeness to source form and structure where readers need that access (P035, P022). Here "adequacy" means fitness for the brief in Nida's everyday sense; it is not used as a source-oriented technical label, so do not read it as the opposite of "acceptable" when carrying a finding into a descriptive-norms review.
+
+## Response-shape protocol (advise / review / compare)
+
+Every skill returns findings in the same shape, so each skill's Output states only its own domain-specific finding fields and points here. In **review** mode, per finding name the flaw, the correction (a strategy or target-language device, not verbatim prose), the residual loss, and a next step — highest-impact first. In **advise** mode (no draft yet), state the recommended approach and the principle it rests on directly, without a draft critique. In **compare** mode, set out side by side what each option favours and costs before recommending by the brief's purpose and audience. Always end with a next step, and never hand back a single rendering as the one correct answer (P021, P078).
