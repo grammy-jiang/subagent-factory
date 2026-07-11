@@ -1,6 +1,6 @@
 ---
 name: cognitive-bias-and-mindset-control
-description: "Surface the cognitive traps that corrupt a forecast's reasoning (as distinct from its data or math); use when a defensible-looking forecast may rest on biased judgment."
+description: "Surfaces the cognitive traps that corrupt a forecast's reasoning (as distinct from its data or math); use when a defensible-looking forecast may rest on biased judgment."
 kind: skill
 status: ready
 provenance:

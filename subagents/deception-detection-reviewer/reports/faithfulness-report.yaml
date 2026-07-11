@@ -1,10 +1,80 @@
 # Faithfulness review — deception-detection-reviewer
-# Per-rule claim-strength check of the load-bearing profile rules against the promoted
-# principles and their backing claims. No rule is stronger than its evidence. source_anchors
-# are omitted deliberately: provenance is carried in each note via principle + claim IDs,
-# which resolve into principles.yaml (P###) and analysis/claims.jsonl (C#####). Verdicts sit
-# at EXACT_SUPPORT / WITHIN_SCOPE — the profile restates the source's double-agent /
-# counter-deception tradecraft and narrows it to review and advice; it does not broaden it.
+# INDEPENDENT VERIFICATION PASS (verification gate, not the editing agent). The prior editing
+# agent that produced profile.yaml v1.0.3 was killed before its own faithfulness-report.yaml
+# update could be checked; this file is the re-verified, authoritative replacement, produced by
+# comparing every load-bearing profile rule against principles.yaml (and, where cited,
+# analysis/claims.jsonl) from scratch — the prior report's claims were treated as unverified
+# until independently re-derived. source_anchors are omitted deliberately: provenance is carried
+# in each note via principle + claim IDs, which resolve into principles.yaml (P###) and
+# analysis/claims.jsonl (C#####).
+#
+# Corrections made in this pass relative to the prior (unverified) report:
+#   - knowledge_partition.always_on[3] (P004 restoration, the flagged recently-changed rule):
+#     INDEPENDENTLY RE-VERIFIED. The bullet now carries P004's applies_when qualifier ("the
+#     enemy service is trusted by its own high command") inline as "where his own service is
+#     itself trusted by its high command" on the "strongest guarantor" claim. Confirmed this is
+#     no longer a standing/unconditional claim. EXACT_SUPPORT, unchanged from the prior report,
+#     but re-derived rather than trusted.
+#   - quality_bar[5]: DOWNGRADED from EXACT_SUPPORT to SCOPE_BROADENED. The clause "a staged
+#     sabotage does no serious harm yet leaves surviving evidence" is P018's content (verified
+#     against backing claim C00212: "A controlled act of sabotage must leave surviving evidence
+#     ... too effective an explosion destroys the very clues"), but P018 is absent from this
+#     rule's citation list, which instead carries P037 (seeding an uncontrollable exfiltration
+#     channel — a different technical-craft topic with no textual counterpart in this bullet).
+#     The correctly-cited sibling bullet is knowledge_partition.always_on[6], which does cite
+#     P018 for the same content.
+#   - handoff_rules[1]: DOWNGRADED from WITHIN_SCOPE to SCOPE_BROADENED. P042 ("Treat absolute
+#     personal integrity and the exclusion of all personal considerations, profit, prestige, or
+#     self-interest ... as the first and fundamental condition of success," backing claims
+#     C00257/C00300) is cited to support handing "policy or legal choice, physical operation"
+#     concerns to an owning specialist — a claim about organisational delegation that P042's
+#     text, on inspection, does not address at all (it is about individual officers' personal
+#     conduct, not division of labour). Also flags a second, related gap: the
+#     governance-approval-and-organization skill this rule partially reflects explicitly states
+#     in its Purpose that it "never advises on how to build a deception organisation, and it
+#     does not audit the reviewing team's own governance — process and approval-routing quality
+#     of the review itself belong to the owning specialist." That specific carve-out (the
+#     review's own process/approval-routing is out of scope) is not reflected anywhere in
+#     profile.yaml (not here, not in when_not_to_use, not in forbidden_behaviours), so the
+#     profile's stated scope is silently broader than what its own underlying skill authorizes.
+#   - forbidden_behaviours[3] and when_not_to_use[3]: notes corrected, verdict unchanged
+#     (WITHIN_SCOPE). Both rules carry NO inline citation in the current profile.yaml text — a
+#     categorical real-world-harm safety boundary, not a claim drawn from Masterman. The prior
+#     report's notes nonetheless attributed "Grounded in principle(s): P042 ...; P025 ..." to
+#     both. P042 is an integrity principle and does not ground a no-real-world-attack rule; P025
+#     (case policy set at section level, not by the case officer alone) does not either. The
+#     false attribution is removed; the rule itself does not over-claim, since it claims no
+#     principle-level grounding.
+#   - forbidden_behaviours[0], handoff_rules[0], source_of_truth_policy.canonical_owner (P025
+#     used analogically for the reviewer/caller decision-authority boundary): re-examined and
+#     KEPT at WITHIN_SCOPE, not flagged as mis-citation like handoff_rules[1]'s P042. P025's
+#     underlying value — an individual actor immersed in a case must not unilaterally set policy
+#     that binds the whole system; that authority sits one level up — transfers by legitimate
+#     analogy to "the reviewer does not unilaterally decide for its caller." This is a
+#     values-preserving structural analogy, explicitly licensed by the package's own
+#     source_of_truth_policy ("treat the correction as an adaptable guide," P045) and by the
+#     role's "not instructions to act" framing. P042-for-delegation has no such preserved value
+#     in common; it is a plain topic mismatch, not an analogy.
+#   - outputs.modes[2].trigger: claim-ID slip corrected (P040's backing claims are C00176/
+#     C00201, not C00090 as the prior report cited); principle-level grounding unaffected.
+#
+# Reviewer-only boundary check (special scrutiny item): role, when_not_to_use[0], when_not_to_use[2],
+# forbidden_behaviours[0], forbidden_behaviours[3], handoff_rules[0], and source_of_truth_policy.
+# canonical_owner were cross-read together. All consistently place operational/command authority
+# with "the operation's owner and the commander," never the reviewer; the worked examples (both
+# happy-path and failure-recovery) end by handing the go/no-go back to the case owner rather than
+# issuing one. No authority-escalation to an operator/operational voice found. The imperative
+# mood used in knowledge_partition.always_on and quality_bar (e.g. "Turn and run a controlled
+# agent...", "Govern and organize the operation...") is explicitly scoped by the role field as
+# "review criteria for judging a plan ... not instructions to act," which this pass treats as
+# holding uniformly across all eight always_on bullets, consistent with the identical framing
+# used in each skill's own Purpose section (each skill audits/inverts the tradecraft into a
+# detection or audit checklist rather than prescribing it).
+#
+# All other findings independently re-derived against principles.yaml text and, where cited,
+# analysis/claims.jsonl; no further over-claims found. Verdicts sit at EXACT_SUPPORT /
+# WITHIN_SCOPE except the two SCOPE_BROADENED items above, which still need an owner fix —
+# this review pass is read-only (verify + report; profile.yaml is unedited).
 schema_version: faithfulness-report-v1
 subagent_slug: deception-detection-reviewer
 findings:
@@ -17,9 +87,10 @@ findings:
   action: accept_with_note
   note: 'The role restates the source''s subject — running double agents and detecting deception — and
     narrows the posture to review and advice, explicitly disclaiming running the operation, making the
-    command decision, or certifying a channel (un)compromised. A narrowing, not an over-claim. Grounded
-    in principle(s): P001 (claims C00001, C00002); P025 (claims C00058, C00066); P070 (claims C00299);
-    P013 (claims C00143, C00144).'
+    command decision, or certifying a channel (un)compromised. A narrowing, not an over-claim. This
+    review-only framing is verified consistent with when_not_to_use, forbidden_behaviours, handoff_rules,
+    and source_of_truth_policy.canonical_owner (see header note). Grounded in principle(s): P001 (claims
+    C00001, C00002); P025 (claims C00058, C00066); P070 (claims C00299); P013 (claims C00143, C00144).'
 - rule_ref: when_to_use[0]
   verdict: EXACT_SUPPORT
   distortion:
@@ -38,8 +109,10 @@ findings:
   severity: low
   action: accept_with_note
   note: 'Examining a claim that a channel is trusted/controlled/blown, and the mirror risk of being deceived,
-    is directly supported. Grounded in principle(s): P013 (claims C00143, C00144); P021 (claims C00087,
-    C00088); P070 (claims C00299).'
+    is directly supported, and correctly keeps the two concerns distinct per the sibling-skill split
+    (assessing-enemy-trust-and-belief owns enemy belief; counter-deception-and-the-mirror owns whether the
+    reviewer''s own side is deceived). Grounded in principle(s): P013 (claims C00143, C00144); P021 (claims
+    C00087, C00088); P070 (claims C00299).'
 - rule_ref: when_to_use[2]
   verdict: EXACT_SUPPORT
   distortion:
@@ -78,8 +151,10 @@ findings:
   severity: low
   action: accept_with_note
   note: 'Declining to run the operation or make the command decision narrows the role; the source places
-    the case and the decision with the operation''s owner. Grounded in principle(s): P025 (claims C00058,
-    C00066); P017 (claims C00150, C00182).'
+    the case and the decision with the operation''s owner. P025''s underlying value (an individual actor
+    does not unilaterally set policy binding the whole system) transfers by legitimate analogy to the
+    reviewer/caller boundary; kept at WITHIN_SCOPE on re-examination (see header note). Grounded in
+    principle(s): P025 (claims C00058, C00066); P017 (claims C00150, C00182).'
 - rule_ref: when_not_to_use[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -107,9 +182,12 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'Declining to produce a real-world operational attack plan narrows the role to analytic/historical
-    tradecraft reasoning; a safety boundary, not an over-claim. Grounded in principle(s): P042 (claims
-    C00257, C00300); P025 (claims C00058, C00066).'
+  note: 'CORRECTED NOTE (prior report falsely attributed grounding here — see header). The current
+    profile.yaml text carries no inline citation for this rule, and none is needed: declining to produce a
+    real-world operational attack plan is a categorical safety boundary imposed on the reviewer''s own
+    scope, not a claim drawn from Masterman''s tradecraft. P042 (personal integrity/exclusion of
+    self-interest) does not address real-world attack planning and must not be cited as grounding for this
+    rule; P025 (case-policy governance) does not either. No principle citation is claimed or required.'
 - rule_ref: quality_bar[0]
   verdict: EXACT_SUPPORT
   distortion:
@@ -129,9 +207,11 @@ findings:
   severity: low
   action: accept_with_note
   note: 'Requiring credibility by deduction — embedded in genuine reporting, seeded with truth, on a long
-    truthful record, able to withstand scrutiny — is directly supported. Grounded in principle(s): P003
-    (claims C00006, C00040); P029 (claims C00196, C00197); P039 (claims C00152, C00229); P051 (claims
-    C00042); P058 (claims C00158).'
+    truthful record, able to withstand scrutiny — is directly supported, and correctly keeps P051''s
+    "usually/ordinarily" hedge (the rule reads "ordinarily on a long truthful record", matching P051''s
+    "usually a necessary precondition" rather than asserting it as an absolute rule). Grounded in
+    principle(s): P003 (claims C00006, C00040); P029 (claims C00196, C00197); P039 (claims C00152, C00229);
+    P051 (claims C00042); P058 (claims C00158).'
 - rule_ref: quality_bar[2]
   verdict: EXACT_SUPPORT
   distortion:
@@ -151,8 +231,12 @@ findings:
   severity: low
   action: accept_with_note
   note: 'Requiring the adversary''s trust to be evidenced, control confirmed only gradually, and scale
-    not mistaken for security, is directly supported. Grounded in principle(s): P004 (claims C00057, C00074);
-    P013 (claims C00143, C00144); P015 (claims C00026, C00027); P089 (claims C00242).'
+    not mistaken for security, is directly supported. This bullet does not restate P004''s "strongest
+    guarantor" superlative (it only says trust is "re-assessed from ... investment"), so P004''s
+    applies_when condition does not need to be carried here; the condition-bearing restatement lives in
+    knowledge_partition.always_on[3] and was independently re-verified there (see header note). Grounded
+    in principle(s): P004 (claims C00057, C00074); P013 (claims C00143, C00144); P015 (claims C00026,
+    C00027); P089 (claims C00242).'
 - rule_ref: quality_bar[4]
   verdict: WITHIN_SCOPE
   distortion:
@@ -162,8 +246,31 @@ findings:
   action: accept_with_note
   note: 'Requiring governance and the mirror question — single approval gate, policy above the case officer,
     no irrevocable act on a doubtful case — restates the source and adds the standing mirror discipline;
-    a narrowing, not a broadening. Grounded in principle(s): P025 (claims C00058, C00066); P033 (claims
+    a narrowing, not a broadening. Correctly keeps P035''s "where they can be [avoided]" qualifier, not an
+    unconditional prohibition. Grounded in principle(s): P025 (claims C00058, C00066); P033 (claims
     C00046, C00055); P035 (claims C00089, C00091); P070 (claims C00299).'
+- rule_ref: quality_bar[5]
+  verdict: SCOPE_BROADENED
+  distortion:
+  - scope_broadened
+  support_granularity: section
+  severity: medium
+  action: downgrade
+  note: 'MIS-CITATION, independently found in this pass (not flagged by the prior report). The clause "a
+    staged sabotage does no serious harm yet leaves surviving evidence" is P018''s content verbatim
+    ("leave surviving evidence that points to sabotage ... too effective an explosion destroys the very
+    clues", confirmed against backing claim C00212), but P018 is absent from this rule''s citation list.
+    The list instead carries P037 ("Do not try to close an uncontrollable exfiltration channel such as the
+    diplomatic bag ... seed it with your own dictated content") — a different technical-craft topic
+    (exfiltration-channel seeding, not sabotage) with no textual counterpart anywhere in this bullet. The
+    sibling rule knowledge_partition.always_on[6] restates the identical sabotage clause and correctly
+    cites P018 there. Needed fix: replace P037 with P018 in this rule''s citation parenthetical (P041,
+    P044, P046, P081 remain reasonable section-level anchors for the persona/exaggeration clauses even
+    though P044/P046''s specific content is not separately spelled out in this compressed bullet).
+    Grounded in principle(s) as currently cited: P037 (claims C00124, C00125 — does not support this
+    clause); P041 (claims C00224, C00225); P044 (claims C00288, C00290); P046 (claims C00033, C00171);
+    P081 (claims C00209). Correct grounding for the sabotage clause: P018 (claims C00212, C00213, C00220,
+    C00222, C00265).'
 - rule_ref: forbidden_behaviours[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -172,8 +279,11 @@ findings:
   severity: low
   action: accept_with_note
   note: 'Forbidding the reviewer from running the operation or making the command decision narrows the
-    role, consistent with policy set above the operator. Grounded in principle(s): P025 (claims C00058,
-    C00066).'
+    role, consistent with policy set above the operator. P025''s underlying value (policy/decision
+    authority sits one level above the immersed individual actor) transfers by legitimate, explicitly-
+    licensed analogy to the reviewer/caller boundary (see header note); this is a structural analogy, not
+    a mis-citation like handoff_rules[1]''s P042, since the value genuinely carries over. Grounded in
+    principle(s): P025 (claims C00058, C00066).'
 - rule_ref: forbidden_behaviours[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -182,8 +292,10 @@ findings:
   severity: low
   action: accept_with_note
   note: 'Forbidding over-claim of control/trust and letting success stand as proof against being deceived
-    restates the source''s assessment discipline and mirror warning; a narrowing. Grounded in principle(s):
-    P013 (claims C00143, C00144); P070 (claims C00299); P089 (claims C00242).'
+    restates the source''s assessment discipline and mirror warning; a narrowing. P089 ("do not mistake
+    apparent scale and strength for security") is a loose but defensible anchor for "more strongly than
+    its evidence supports" rather than an exact restatement; kept at WITHIN_SCOPE. Grounded in
+    principle(s): P013 (claims C00143, C00144); P070 (claims C00299); P089 (claims C00242).'
 - rule_ref: forbidden_behaviours[2]
   verdict: EXACT_SUPPORT
   distortion:
@@ -192,8 +304,8 @@ findings:
   severity: low
   action: accept_with_note
   note: 'Forbidding a deception that announces itself, rests a coup on one channel, or relaxes vigilance
-    on a turned agent is directly supported. Grounded in principle(s): P003 (claims C00006, C00040); P005
-    (claims C00178, C00181); P008 (claims C00068, C00069).'
+    on a turned agent is directly supported, clause for clause. Grounded in principle(s): P003 (claims
+    C00006, C00040); P005 (claims C00178, C00181); P008 (claims C00068, C00069).'
 - rule_ref: forbidden_behaviours[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -201,9 +313,13 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'Forbidding production of a real-world attack plan narrows the role to tradecraft reasoning; a
-    safety boundary consistent with the integrity condition. Grounded in principle(s): P042 (claims C00257,
-    C00300); P025 (claims C00058, C00066).'
+  note: 'CORRECTED NOTE (prior report falsely attributed grounding here — see header). The current
+    profile.yaml text carries no inline citation for this rule, and none is needed: this is a categorical
+    real-world-harm safety boundary on the reviewer''s own scope, not a claim drawn from Masterman''s
+    tradecraft. P042 is an integrity principle (absolute personal integrity, exclusion of self-interest
+    among officers) and must NOT be cited to support a no-real-world-attack rule — it does not address
+    real-world attack planning at all. P025 (case-policy governance) does not ground it either. No
+    principle citation is claimed or required.'
 - rule_ref: minimum_useful_output
   verdict: WITHIN_SCOPE
   distortion:
@@ -232,14 +348,226 @@ findings:
   severity: low
   action: accept_with_note
   note: 'Handing the case and decision back to the owner/commander narrows the role and restates the policy/operator
-    separation. Grounded in principle(s): P025 (claims C00058, C00066); P017 (claims C00150, C00182).'
+    separation. Consistent with source_of_truth_policy.canonical_owner and the reviewer-only boundary
+    verified across the package (see header note). Grounded in principle(s): P025 (claims C00058, C00066);
+    P017 (claims C00150, C00182).'
 - rule_ref: handoff_rules[1]
+  verdict: SCOPE_BROADENED
+  distortion:
+  - scope_broadened
+  support_granularity: section
+  severity: medium
+  action: downgrade
+  note: 'MIS-CITATION, independently found in this pass (prior report accepted this at WITHIN_SCOPE).
+    P042''s actual statement — "Treat absolute personal integrity and the exclusion of all personal
+    considerations, profit, prestige, or self-interest, among every officer as the first and fundamental
+    condition of success ... and is the flaw to exploit in the adversary" (backing claims C00257, C00300)
+    — is about individual officers'' personal conduct/integrity. It does not address, and cannot ground,
+    "concerns outside deception tradecraft ... policy or legal choice, physical operation — are handed to
+    the owning specialist." There is no topical or values-preserving connection between the two, unlike
+    forbidden_behaviours[0]/handoff_rules[0]''s defensible P025 analogy. P016 (joint profit-and-loss
+    judgment by case-knowledge and technical-knowledge holders) is a loose but reasonable partial anchor;
+    P006 ("Staff a double-agent section with distinct roles: ... policy ... case officers ... technical
+    wireless officer ... records ... intelligence") is a materially better fit for a delegation-to-
+    specialists claim and should replace or supplement P042. SECOND GAP flagged here: the
+    governance-approval-and-organization skill this rule partially reflects states in its own Purpose
+    that it "never advises on how to build a deception organisation, and it does not audit the reviewing
+    team''s own governance — process and approval-routing quality of the review itself belong to the
+    owning specialist." That specific carve-out (this reviewer does not audit its own review process''s
+    governance/approval-routing) is asserted by the skill but is not reflected anywhere in profile.yaml —
+    not in this rule, not in when_not_to_use, not in forbidden_behaviours — so the profile''s stated scope
+    is silently broader than what its own underlying skill authorizes. Needed fix: drop P042 (replace with
+    P006, keep P016), and extend this rule''s handed-off-concerns list to include the review''s own
+    process/approval-routing quality.'
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The turn-and-run bullet restates the source''s controlled-agent tradecraft (secret fast turning,
+    early generous terms, minute pruned record, sustained vigilance, immersed case officer, agent-keyed
+    wireless with a trained substitute, initiative to provoke answerable questions, quick decisive start).
+    Citation set independently verified to match turning-and-running-a-controlled-agent SKILL.md''s
+    frontmatter provenance.principles list exactly. A direct restatement, not a broadening; some cited
+    principles (e.g. P001, P065, P072, P073) are section-level thematic anchors whose distinct content is
+    not separately spelled out in this compressed bullet, which is expected at support_granularity:
+    section and does not itself over-claim. Grounded in principle(s): P001, P002, P008, P012, P019, P020,
+    P026, P030, P031, P036, P055, P065, P072, P073, P080 (backing claims resolve via each principle''s
+    derived_from_claims in principles.yaml).'
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The build-and-feed bullet restates deduction-driven deception (embed the lie in genuine reporting,
+    seed verifiable truths and advance scoops, build a long truthful record, corroborate indirectly, withstand
+    scrutiny of every phrase, shade rather than fabricate what is checkable). Citation set independently
+    verified to match building-and-feeding-the-deception SKILL.md''s frontmatter provenance.principles list
+    exactly. A direct restatement. Grounded in principle(s): P003, P009, P023, P029, P032, P039, P051,
+    P057, P058, P066, P067, P068, P075, P090, P094 (backing claims via derived_from_claims).'
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The network-security bullet restates compartmentation tradecraft (independent agents so one blow
+    does not cascade, withhold best secret sources from a returnable agent, restrict definite deception
+    to the most-trusted channels, firewall or terminate a compromised case, run the riskiest deceptions
+    through the most expendable agents). Citation set independently verified to match
+    network-security-and-compartmentation SKILL.md''s frontmatter provenance.principles list exactly.
+    Correctly keeps P063''s "consider terminating" framing rather than a flat mandate. A direct
+    restatement. Grounded in principle(s): P005, P007, P010, P015, P024, P054, P062, P063, P069 (backing
+    claims via derived_from_claims).'
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'SPECIAL-SCRUTINY ITEM, independently re-verified in this pass. The assess-belief bullet restates
+    trust-on-evidence tradecraft (gauge enemy trust from questions, payments, and investment; read the
+    handler''s personal investment; grade an agent by verifiable facts; expect a well-established agent to
+    be hard to blow; value rear over forward sources; weight a veteran channel above a new one). Checked
+    directly against principles.yaml: P004''s statement — "this deep investment is the strongest guarantor
+    of the case" — carries a structured applies_when condition, "the enemy service is trusted by its own
+    high command." The profile clause reads "read a handler''s deep personal investment as the strongest
+    guarantor of the case where his own service is itself trusted by its high command" — the qualifier is
+    present and correctly attached to the superlative claim, so this is NOT a standing/unconditional
+    claim. Confirmed restored; no residual over-claim. The other six principles cited here (P013, P021,
+    P022, P038, P064, P091) all carry an empty applies_when in principles.yaml, so no further conditions
+    are owed. Citation set independently verified to match assessing-enemy-trust-and-belief SKILL.md''s
+    frontmatter provenance.principles list exactly. Grounded in principle(s): P004, P013, P021, P022, P038,
+    P064, P091 (backing claims via derived_from_claims).'
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The govern-and-organize bullet restates governance tradecraft (distinct staff roles; policy set
+    above the zealous case officer; two-tier governance with a single documented approval gate;
+    multi-purpose system kept from short-term spenders; inter-service cooperation and personal integrity
+    as fundamental conditions; an enabling not merely censoring approval body; a governance body works
+    only when members subordinate their department''s interest to the common goal, per P056; replicate a
+    proven model per theatre). Citation set independently verified to match
+    governance-approval-and-organization SKILL.md''s frontmatter provenance.principles list exactly (all
+    13 principles legitimately governance-related; no mis-citation within this bullet''s own text). Every
+    clause traces to a cited principle. NOTE: this skill''s Purpose also states it "does not audit the
+    reviewing team''s own governance — process and approval-routing quality of the review itself belong to
+    the owning specialist" — that carve-out is not restated in this bullet or elsewhere in profile.yaml;
+    see the SCOPE_BROADENED finding on handoff_rules[1], which is the more natural home for that gap since
+    it already discusses concerns handed off to owning specialists. Grounded in principle(s): P006, P016,
+    P017, P025, P027, P028, P033, P042, P049, P056, P076, P079, P092 (backing claims via
+    derived_from_claims).'
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The time-and-steward bullet restates stewardship tradecraft (cover plan after the real plan and
+    tracking every change, position agents far in advance, never an irrevocable act against a doubtful
+    case, weigh the danegeld against channel value, favour quality over quantity, hold a balanced bench
+    for an unknown decisive moment, resist premature action, do not dissolve a proven weapon on optimism).
+    Correctly keeps P035''s "where it can be avoided" qualifier (not an unconditional prohibition).
+    Citation set independently verified to match strategic-stewardship-and-timing SKILL.md''s frontmatter
+    provenance.principles list exactly. A direct restatement. Grounded in principle(s): P014, P034, P035,
+    P040, P043, P047, P052, P053, P060, P061, P071, P083, P086, P087, P088, P089, P093 (backing claims via
+    derived_from_claims).'
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The physical-craft bullet restates plant-construction tradecraft (staged controlled sabotage that
+    leaves surviving evidence yet does no serious harm, a planted personality built on exhaustively documented
+    real papers, a site with good enemy access but hard forensics, seeding an uncontrollable exfiltration
+    channel, exaggeration within a disciplined bound, plausible commercial funding). Correctly cites P018
+    for the staged-sabotage clause (contrast quality_bar[5], which restates the identical clause but
+    mis-cites P037 in its place — see that finding). Citation set independently verified to match
+    physical-and-technical-deception-craft SKILL.md''s frontmatter provenance.principles list exactly. A
+    direct restatement. Grounded in principle(s): P018, P037, P041, P044, P046, P081, P082, P084, P085
+    (backing claims via derived_from_claims).'
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The detect-and-mirror bullet restates counter-deception tradecraft (constantly ask whether the
+    enemy is turning the same weapon on you and never let apparent success persuade you otherwise; the
+    wartime asymmetry favouring counterespionage; exploit the enemy''s fallback-contact habit; treat prevention
+    as an invisible success measured IN PART by the absence of enemy activity, per P059''s hedge; recruit
+    the amateur poacher; steer a man with genuine prior enemy contact back into their service; treat evolved
+    methods as adaptable guides). P074''s applies_when ("a real prior enemy connection already exists") is
+    correctly carried inline as "a man with genuine prior enemy contact." Citation set independently
+    verified to match counter-deception-and-the-mirror SKILL.md''s frontmatter provenance.principles list
+    exactly. Every clause traces to a cited principle. A direct restatement. Grounded in principle(s):
+    P011, P045, P048, P050, P059, P070, P074, P077, P078 (backing claims via derived_from_claims).'
+- rule_ref: source_of_truth_policy.canonical_owner
   verdict: WITHIN_SCOPE
   distortion:
   - none
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'Handing non-tradecraft concerns (substantive judgment, collection, policy/legal, physical operation)
-    to the owning specialist narrows scope. Grounded in principle(s): P016 (claims C00045, C00065); P042
-    (claims C00257, C00300).'
+  note: 'Placing final authority over the case and the decision with the operation''s owner and commander,
+    and naming Masterman''s history as the authority for the invoked tradecraft principles, narrows the
+    role and restates the policy/operator separation. Grounded in principle(s): P025 (claims C00058, C00066);
+    P017 (claims C00150, C00182).'
+- rule_ref: source_of_truth_policy.precedence
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Ranking network security above a single case''s value unless specific evidence justifies the risk
+    (P063, P069), treating the correction as an adaptable guide where wartime conditions differ (P045),
+    and never endorsing a control/trust claim more confident than the source supports (P013, P089) each
+    trace to a cited principle. Correctly uses P063''s "consider terminating" language, not a flat mandate.
+    A narrowing, not a broadening.'
+- rule_ref: outputs.modes[0].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The review mode (critique a submitted deception plan, agent case, or counter-deception assessment)
+    restates the source''s subject as a review deliverable. Grounded in principle(s): P003 (claims C00006,
+    C00040); P033 (claims C00046, C00055); P070 (claims C00299).'
+- rule_ref: outputs.modes[1].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The advise mode (name which principle fits a deception/counter-deception decision) narrows the
+    source to situational advice, not the decision itself. Grounded in principle(s): P013 (claims C00143,
+    C00144); P070 (claims C00299).'
+- rule_ref: outputs.modes[2].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The compare mode (weigh one channel or several, run or terminate a doubtful case, act now or hold)
+    restates the source''s stewardship and security trade-offs as an option comparison. Claim-ID correction
+    from the prior report: P040''s backing claims are C00176 and C00201 (not C00090, which belongs to a
+    different claim); principle-level grounding is unaffected. Grounded in principle(s): P005 (claims
+    C00178, C00181); P035 (claims C00089, C00091); P040 (claims C00176, C00201).'

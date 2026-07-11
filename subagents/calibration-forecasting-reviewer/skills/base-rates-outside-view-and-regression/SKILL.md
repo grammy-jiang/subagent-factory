@@ -1,6 +1,6 @@
 ---
 name: base-rates-outside-view-and-regression
-description: "Audit whether an estimate anchored to its reference-class base rate (the outside view) before case detail moved it; use when a forecast leans on inside-view specifics or ignores regression to the mean."
+description: "Audits whether an estimate anchored to its reference-class base rate (the outside view) before case detail moved it; use when a forecast leans on inside-view specifics or ignores regression to the mean."
 kind: skill
 status: ready
 provenance:

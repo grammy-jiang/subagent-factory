@@ -1,6 +1,6 @@
 ---
 name: limits-of-expertise-and-prediction
-description: Audits an analytic judgment's use of theory, generalizations, and prediction limits — data- vs. concept-driven method and the mosaic fallacy — before the judgment is finalized.
+description: Audits an analytic judgment's use of theory, generalizations, and prediction limits — data- vs. concept-driven method and the mosaic fallacy — before the judgment is finalized; not the coherence/calibration of the probability number itself (see probabilistic-judgment-and-calibration).
 kind: skill
 status: ready
 provenance:
@@ -124,27 +124,18 @@ highest-impact first. Never issue the substantive judgment in place of this stru
 
 ## Anti-patterns to flag
 
-- A dispute over an actor's intentions or behavior fought fact-by-fact or by citing the most
-  recent behavior alone, with the rival general images or frameworks behind each side's
-  interpretation never named or debated (P018).
-- Imaginative or speculative hypotheses left unpruned — carried forward with no plausibility
-  check — in the name of open-mindedness, letting confusion substitute for judgment (P019).
-- A general theory, doctrine, or historical "lesson" applied to the case as if self-sufficient,
-  with no elaboration into time-bound, checkable early-warning indicators (P041).
-- A conceptually-driven judgment — resting on an implicit, contested mental model — argued with
-  the confidence proper only to a data-driven determination built on a correct, teachable model
-  (P048).
-- A call for more collection offered as the fix for an unclear picture, when the real gap is
-  that no hypothesis yet exists to organize the pieces already in hand (P049).
-- A generalization, base rate, or outside-view estimate applied to the case with no boundary
-  conditions stated and no reference class named, as though the subjective-objective tension did
-  not exist (P052).
-- A theory or covering law invoked to explain or predict the case with its antecedent conditions
-  assumed rather than checked against the case's actual facts (P076).
+- Framework dispute fought fact-only / most-recent-behavior-only, rival images never named (P018).
+- Speculative or imaginative hypotheses left unpruned (P019).
+- General theory or "lesson" applied with no time-bound early-warning indicators (P041).
+- Conceptually-driven judgment argued with data-driven-level confidence (P048).
+- More-collection call masking a missing hypothesis (P049).
+- Generalization or base rate applied with no boundary conditions or reference class (P052).
+- Covering law invoked with antecedent conditions assumed, not checked (P076).
 
 ## References
 
-See `../../references/analytic-method-principles-index.md` for the full principle catalogue. For
+See `../../references/analytic-method-principles-index.md` for the full principle catalogue and
+`../../references/analytic-method-evidence-notes.md` for the underlying evidence records. For
 adjacent concerns, see the sibling skills: `probabilistic-judgment-and-calibration` owns the
 coherence and calibration mechanics once a reference class or outside-view estimate is chosen;
 `competing-hypotheses-and-diagnostic-evidence` owns building and testing the hypothesis set once

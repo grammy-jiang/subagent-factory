@@ -1,8 +1,10 @@
 ---
 name: network-security-and-compartmentation
-description: Review the structure of a controlled network for the security that keeps
-  one blown agent from collapsing the rest; use when reviewing this facet of a deception
-  or counter-deception case.
+description: Reviews the structural security of a deception network or an analyst's
+  own source base — compartmentation, independence, and linkage — for exposure that
+  could collapse the whole network if one part is blown; use when a deception plan or
+  double-agent network is being structured or reviewed and its compartmentation,
+  independence, and linkage need checking before it is committed.
 kind: skill
 status: ready
 provenance:
@@ -45,10 +47,8 @@ weight rests on one point, and how fast a shared secret would leak as the compar
 grows. A controlled network and an analyst's own source base are built the same way, so
 this skill carries the mirror question into network shape: several "independent"
 reporting streams could themselves be one adversary-run channel dressed up as
-corroboration, and an analyst's own collection could be exposed to feedback that lets
-the target learn what is being asked and shape the answer accordingly. This skill
-audits exposure, linkage, and control-claims — the credibility of any one piece of fed
-material belongs to the sibling skills.
+corroboration. This skill audits exposure, linkage, and control-claims — the
+credibility of any one piece of fed material belongs to the sibling skills.
 
 ## When to use
 
@@ -137,21 +137,19 @@ material belongs to the sibling skills.
 
 ## Output
 
-Per finding: name the network-security flaw (harmful linkage between reported-
-independent parts, premature certainty about a network's control or independence, a
-decisive conclusion staked on one channel, crown-jewel material exposed to an
-uncertain-loyalty channel, unmanaged cross-channel awareness, an unexplained gap where a
-channel was silenced, an unweighed leak-risk as the compartment grows, or risk
-misallocated onto a valuable or well-connected channel), apply the correction (separate
-or firewall the linked parts, require cross-referenced evidence before crediting a
-control or independence claim, back the decisive channel with a corroborating one,
-compartment the crown-jewel material, manage what channels know of each other and of
-the case, retire a channel behind a plausible corroborated cover story, cut the
-compromised link now, or reroute risk onto isolated and expendable channels), state the
-residual uncertainty the correction leaves — including whether the reviewed network
-could itself be adversary-controlled — and end with a concrete next step. Order
-findings highest-impact first. Never close a review with a bare go/no-go in place of
-this structure.
+Per finding: name the network-security flaw, apply the correction, state the residual
+uncertainty the correction leaves — including who could still be deceiving whom, and
+whether the reviewed network could itself be adversary-controlled — and end with a
+concrete next step. Order findings highest-impact first. Never issue a go/no-go call in
+place of this structure; hand the structural judgment back to the case owner.
+
+For example: an assessment cites three "independent" sources for a decisive judgment
+about enemy intentions. The review finds all three share an undisclosed handler (P010),
+finds no cross-referenced evidence that they are actually independent (P015), and finds
+the decisive judgment has no back-up channel (P005) — the case owner is told to
+separate or firewall the linked sources, require corroborating evidence before crediting
+independence, and back the decisive judgment with an unrelated channel before the
+assessment goes forward.
 
 ## Anti-patterns to flag
 
@@ -187,7 +185,7 @@ reviewed source network could itself be adversary-controlled.
 
 ## Provenance
 
-Derived solely from P005, P007, P010, P015, P024, P054, P062, P063, and P069 (J. C.
-Masterman, *The Double-Cross System*; distillation-only). The frontmatter provenance
-block above lists the exact principle and claim ids, which resolve into
-`principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived solely from J. C. Masterman, *The Double-Cross System* (distillation-only), via
+this skill's own principles P005, P007, P010, P015, P024, P054, P062, P063, and P069.
+The frontmatter provenance block above lists the exact principle and claim ids, which
+resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

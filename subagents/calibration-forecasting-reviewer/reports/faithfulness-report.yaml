@@ -1,7 +1,44 @@
 # Faithfulness review — calibration-forecasting-reviewer
 # Per-rule claim-strength check of load-bearing profile rules against the promoted principles
-# and their backing claims/evidence. No rule is stronger than its evidence. source_anchors are
-# omitted deliberately — provenance is carried in each note via principle + claim IDs.
+# and their backing claims/evidence. No rule is stronger than its evidence.
+#
+# Grounding convention (profile v1.0.3): each note names the PRINCIPAL principle(s) that ground the
+# rule's content, chosen to match that rule's subject (not a uniform template). Where a rule tags
+# more principles than the note lists, the note is REPRESENTATIVE — the rule's full principle set is
+# carried in its profile `(Pxxx)` tag list and partitioned across the eight skills (see
+# provenance-ledger.md "Profile -> principle mapping"). Pure scope / role / input-output-shape and
+# advisory-boundary rules (e.g. "the reviewer does not make the decision or produce the forecast")
+# are DESIGN DECISIONS that narrow scope, not restatements of a source claim, so they carry no
+# principle over-claim; where such a rule echoes principle content, that grounding is named.
+# source_anchors are omitted deliberately — provenance is carried in each note via principle + claim
+# IDs, which resolve into principles.yaml (P###) and analysis/claims.jsonl (C#####).
+#
+# Independent re-verification pass (this revision): every principle_id cited below was confirmed to
+# exist in principles.yaml and to thematically support its rule, and every cited claim_id was read
+# directly from analysis/claims.jsonl (the claim's own statement text, not recalled) to confirm it
+# actually contains the language attributed to it — a principle's derived_from_claims list can bundle
+# claims on unrelated sub-topics from the same source section, so list-membership alone is not proof
+# of on-topic support. Four claim_id mis-citations were found and corrected; in every case the
+# principle-level grounding was already correct, only the specific claim_id evidence was wrong:
+#   - forbidden_behaviours[2]: P025 -> C01801 (+C01800), not C00992/C00993 (P025's own claims about
+#     the unrelated wrong-side-of-maybe fallacy).
+#   - when_to_use[1]: P065 -> C01364, not C01339/C01340 (P065's own claims about problem scorability
+#     and causal methods for unique events, not the discrimination/calibration dimensions).
+#   - handoff_rules[1]: P037 -> C01734, not C01397/C01398 (P037's own claims about stable-system
+#     base rates and reputational fragility, not the marketplace-of-ideas claim).
+#   - knowledge_partition.always_on[3]: P012 -> C01126/C01128, not C00984/C01034 (P012's own claims
+#     about post-surprise hindsight narratives and accountability metrics, not steering
+#     under-/overreaction in small increments).
+# forbidden_behaviours[2] and [3] additionally had a verdict/field mismatch: both were WITHIN_SCOPE
+# with a note declaring the prior hedge-removed/flat-ban distortion already fixed in profile.yaml,
+# yet still carried distortion: [hedge_removed], severity: medium, and action: add_condition — the
+# fields for an UNRESOLVED finding still awaiting an owner fix. Since the condition is already
+# present in profile.yaml's rule text (verified against profile.yaml directly), these are corrected
+# to distortion: [none], severity: low, action: accept_with_note, matching the convention this
+# report uses elsewhere for a verified, already-resolved mis-attribution. No rule_ref, verdict, or
+# principle_id changed as a result of this pass; only claim_id citations and the two
+# distortion/severity/action fields were corrected. All 35 rule_refs below were re-checked for
+# resolution against profile.yaml (list lengths, mode names, dotted paths) and all resolve.
 schema_version: faithfulness-report-v1
 subagent_slug: calibration-forecasting-reviewer
 findings:
@@ -12,9 +49,12 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Scope/summary statement. Its review behaviours restate the principle families the reviewer
+    applies — proper scoring (P015 claims C00996/C00998), outside-view base rates (P006 claims
+    C00732/C00733), Bayesian updating (P022 claims C01145/C01146), and cognitive-bias control (P008
+    claims C00299/C00300; P020 claims C00588/C00685). The advisory boundary ("does not make the
+    decision or produce the forecast") is a design decision that narrows scope, not a source claim. A
+    narrowing, not an over-claim.'
 - rule_ref: when_to_use[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -22,9 +62,11 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Trigger: a calibration review checking overconfidence and coherence. Grounded in the
+    calibration-hygiene principles it names — over-tight assessed intervals (P073 claims
+    C00891/C00892), cap certainty short of the endpoints (P078 claims C01810/C01811), coherence /
+    flag subadditivity (P076 claims C01373/C01732), and information past the minimum breeding
+    overconfidence (P003 claims C00111/C00112). A within-scope restatement.'
 - rule_ref: when_to_use[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -32,9 +74,16 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: >-
+    Trigger: scoring a forecast against a baseline with the right proper rule and a
+    calibration/resolution decomposition. Grounded in the scoring principles — calibration AND
+    resolution via a proper (Brier) score (P015 claims C00996/C00998), read only against a named
+    baseline on a level playing field (P059 claims C01001/C01002), proper scoring + the betting test
+    (P075 claims C01291/C01299), discrimination + calibration (P065 claims C01364). A within-scope
+    restatement. (Corrected in this pass: the prior cite for the P065 clause, claims
+    C01339/C01340, are P065's own claims about problem-tractability and causal methods for a unique
+    non-occurring event, not the discrimination/calibration-dimensions statement; C01364 is the
+    claim that actually states it, near-verbatim.)
 - rule_ref: when_to_use[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -42,9 +91,11 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Trigger: leading an estimate with the outside-view base rate, regression, and the status-quo
+    default. Grounded in the outside-view principles — inside vs outside view / anchor on the
+    reference class (P006 claims C00732/C00733), nonregressive intuitive extremes corrected toward the
+    baseline (P007 claims C00661/C00662), regression to the mean (P005 claims C00653/C00654),
+    status-quo as the common outcome (P067 claims C01446/C01455). A within-scope restatement.'
 - rule_ref: when_to_use[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -52,9 +103,13 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Trigger: surfacing a cognitive trap (mind-set, anchoring, illusion of validity, hindsight,
+    small-sample faith). Grounded in the cognitive-bias family the trigger enumerates — break a fixed
+    mind-set (P008 claims C00299/C00300), illusion of validity (P020 claims C00588/C00685), anchoring
+    (P038 claims C00608/C00609), offsetting hindsight/unpacking errors (P034 claims C01392/C01393),
+    the law of small numbers (P057 claims C00526/C00600). (Corrects the earlier boilerplate
+    P015/P006/P022 cite, which named scoring/base-rate/Bayesian principles unrelated to this
+    cognitive-trap trigger.)'
 - rule_ref: when_to_use[4]
   verdict: WITHIN_SCOPE
   distortion:
@@ -62,9 +117,11 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Trigger: reviewing a forecasting process or tournament for accountability, aggregation, and
+    horizon calibration. Grounded in the process/aggregation principles — public tournaments and
+    scorekeeping (P011 claims C00915/C00917), the four approaches that improve forecasting (P044
+    claims C01557/C01558), extremizing a diverse crowd (P060 claims C01039/C01040), and calibrating to
+    the horizon (P040 claims C00920/C00924). A within-scope restatement.'
 - rule_ref: when_not_to_use[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -72,9 +129,10 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Advisory-boundary design decision: the reviewer critiques calibration and reasoning and does
+    not supply the estimate or own the call. This narrows scope; it is not a restatement of a source
+    claim, so it carries no principle over-claim. (Corrects the earlier boilerplate P015/P006/P022
+    cite — no principle grounds role-separation; it is a factory design decision.)'
 - rule_ref: when_not_to_use[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -82,9 +140,9 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Scope-boundary design decision: a deterministic calculation or a question with a knowable
+    answer is out of scope because calibration review adds nothing where there is no judgment under
+    uncertainty. A negative scope statement, not a source claim.'
 - rule_ref: when_not_to_use[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -92,9 +150,11 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Declining to certify a specific future outcome. Grounded in the horizon/indeterminacy
+    principles — accuracy decays past the reliable horizon (P040 claims C00920/C00924), reject both
+    "forecasting is a formula" and "forecasting is bunk" (P047 claims C01242/C01243), fat tails and
+    radical indeterminacy (P026 claims C01252/C01253) — combined with the advisory-boundary design
+    decision. A narrowing, not an over-claim.'
 - rule_ref: inputs.required[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -102,9 +162,11 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Input-shape design decision. The specific inputs requested are motivated by the principles
+    they enable — the reference class / base rate (P006 claims C00732/C00733), the horizon (P040
+    claims C00920/C00924), a precisely-defined predicted outcome (P050 claims C01365/C01366), and a
+    track record for baseline-relative scoring (P059 claims C01001/C01002). The required-input list is
+    a design decision, not a source claim.'
 - rule_ref: outputs.primary_format
   verdict: WITHIN_SCOPE
   distortion:
@@ -112,9 +174,11 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Output-shape design decision. The corrections it names restate cited principles — regress
+    toward the base rate (P007 claims C00661/C00662), recompute via the likelihood ratio (P022 claims
+    C01145/C01146), rescore with a proper rule against a baseline (P075 claims C01291/C01299; P059
+    claims C01001/C01002), widen the interval (P073 claims C00891/C00892). The per-finding SHAPE is a
+    design decision; the corrections it lists are grounded.'
 - rule_ref: outputs.modes[review].trigger
   verdict: WITHIN_SCOPE
   distortion:
@@ -122,9 +186,8 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Mode-routing design decision: which caller intent (submitting a forecast/scoring scheme for
+    critique) maps to the review mode. A routing shape, not a source claim.'
 - rule_ref: outputs.modes[advise].trigger
   verdict: WITHIN_SCOPE
   distortion:
@@ -132,9 +195,9 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Mode-routing design decision: which caller intent (wanting the approach that fits a
+    judgment-under-uncertainty decision) maps to the advise mode. A routing shape, not a source
+    claim.'
 - rule_ref: outputs.modes[compare].trigger
   verdict: WITHIN_SCOPE
   distortion:
@@ -142,9 +205,8 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Mode-routing design decision: which caller intent (weighing approaches for one goal) maps to
+    the compare mode. A routing shape, not a source claim.'
 - rule_ref: minimum_useful_output
   verdict: WITHIN_SCOPE
   distortion:
@@ -152,9 +214,9 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Quality-floor design decision (at least one grounded finding with its residual uncertainty).
+    Its "residual uncertainty" element restates making the residual probability explicit (P080 claims
+    C00513). The floor itself is a design decision, not an over-claim.'
 - rule_ref: quality_bar[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -162,9 +224,10 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P002 (claims C00700/C00701);
-    P003 (claims C00111/C00112); P032 (claims C01310/C01311).'
+  note: 'Probability-discipline bar. Representative grounding (rule tags P002, P003, P032, P073, P078,
+    P076, P018): control extremeness by predictability (P002 claims C00700/C00701), information breeds
+    overconfidence not accuracy (P003 claims C00111/C00112), no default 0.5 (P032 claims
+    C01310/C01311). Each clause is at its principle''s evidenced scope.'
 - rule_ref: quality_bar[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -172,9 +235,10 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P050 (claims C01365/C01366);
-    P015 (claims C00996/C00998); P059 (claims C01001/C01002).'
+  note: 'Scoreable-and-scored bar. Representative grounding (rule tags P050, P015, P059, P065, P075):
+    clairvoyance-test precision (P050 claims C01365/C01366), calibration AND resolution (P015 claims
+    C00996/C00998), baseline-relative reading on a level playing field (P059 claims C01001/C01002).
+    Within scope.'
 - rule_ref: quality_bar[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -182,9 +246,9 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P006 (claims C00732/C00733);
-    P007 (claims C00661/C00662); P067 (claims C01446/C01455).'
+  note: 'Outside-view bar. Representative grounding (rule tags P006, P007, P067, P012, P022): lead with
+    the reference-class base rate (P006 claims C00732/C00733), regress nonregressive extremes (P007
+    claims C00661/C00662), status-quo default (P067 claims C01446/C01455). Within scope.'
 - rule_ref: quality_bar[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -192,9 +256,11 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P008 (claims C00299/C00300);
-    P020 (claims C00588/C00685); P038 (claims C00608/C00609).'
+  note: 'Cognitive-trap bar. Representative grounding (rule tags P008, P020, P038, P034, P057, P016,
+    P045, P033): break a fixed mind-set (P008 claims C00299/C00300), illusion of validity (P020 claims
+    C00588/C00685), anchoring (P038 claims C00608/C00609). P034 is stated as two offsetting errors to
+    MANAGE (hindsight erases contingency while unpacking inflates possibility), its caveat preserved.
+    Within scope.'
 - rule_ref: quality_bar[4]
   verdict: WITHIN_SCOPE
   distortion:
@@ -202,9 +268,10 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P040 (claims C00920/C00924);
-    P026 (claims C01252/C01253); P080 (claims C00513).'
+  note: 'Horizon-and-tail bar. Representative grounding (rule tags P040, P026, P080, P081, P047):
+    accuracy decays past the reliable horizon (P040 claims C00920/C00924), fat tails and radical
+    indeterminacy (P026 claims C01252/C01253), residual odds made explicit (P080 claims C00513). Each
+    clause voiced as a caution at its principle''s scope.'
 - rule_ref: forbidden_behaviours[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -212,8 +279,10 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P039 (claims C01331/C01343).'
+  note: 'Advisory-boundary design decision: the reviewer does not make the caller''s decision or
+    produce the forecast. A scope narrowing, not a source claim, so it carries no principle
+    over-claim. (Corrects the earlier P039 cite — P039 concerns the definition of good judgment and
+    measurement progress, not role-separation; the mis-attribution is removed.)'
 - rule_ref: forbidden_behaviours[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -221,9 +290,10 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P032 (claims C01310/C01311);
-    P078 (claims C01810/C01811); P076 (claims C01373/C01732).'
+  note: 'Forbidding endorsement of an uncalibrated/incoherent judgment. Grounded in the coherence and
+    track-record principles it cites — no default 0.5 (P032 claims C01310/C01311), never a stated
+    1.0/0.0 (P078 claims C01810/C01811), flag subadditivity (P076 claims C01373/C01732), discount
+    hollow track records (P021 claims C01013/C01016). A within-scope restatement.'
 - rule_ref: forbidden_behaviours[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -231,9 +301,28 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P072 (claims C01723/C01726);
-    P021 (claims C01013/C01016); P020 (claims C00588/C00685).'
+  note: >-
+    The narrative-over-calculus ban is high-confidence and unqualified — do not read vividness,
+    fame, or one "great call" as accuracy (P072 claims C01723/C01726; P021 claims C01013/C01016;
+    P020 claims C00588/C00685). P025 and P086 are GRADUATED, not flat: P025 penalizes the "almost
+    right" excuse *in proportion to how rarely the same forecaster admits being merely lucky when
+    right* (claims C01800/C01801), and P086 grants *only a small fraction of the credit* discounted
+    by selective invocation (claims C01813) — not zero credit. The rule was reworded from a flat ban
+    on "scoring almost right / off on timing as success" to forbidding scoring it as FULL (rather
+    than proportionally discounted) success, so the P025/P086 clause now carries its source hedge
+    and matches the proportional wording in always_on[7]. P083 (off-on-timing as a red flag, claims
+    C01522) is unqualified and directly supports its clause. No longer a hedge-removed over-claim.
+    (Corrected in this pass, two issues: (1) claim citation — the prior cite for the P025 clause,
+    claims C00992/C00993, are P025's own claims about the unrelated wrong-side-of-maybe fallacy, not
+    the "almost right"/proportional-discount statement; C01800/C01801 are the claims that actually
+    state it, C01801 near-verbatim so. (2) field consistency — this finding was WITHIN_SCOPE with a
+    note declaring the fix already applied in profile.yaml, yet still carried distortion:
+    [hedge_removed], severity: medium, and action: add_condition, the state for an unresolved
+    finding still awaiting an owner fix. Since the condition is already present in profile.yaml's
+    rule text — "as full rather than proportionally discounted success" — verified directly, the
+    fields now read distortion: [none], severity: low, action: accept_with_note, matching the
+    convention this report uses elsewhere, e.g. when_to_use[3] and forbidden_behaviours[0], for a
+    verified, already-resolved mis-attribution.)
 - rule_ref: forbidden_behaviours[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -241,9 +330,19 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P059 (claims C01001/C01002);
-    P035 (claims C01488/C01495); P031 (claims C01100/C01102).'
+  note: >-
+    P059 (baseline-relative scoring, claims C01001/C01002) and P035 (nonfalsifiable-parity
+    adjustment, claims C01488/C01495) are high-confidence and support an unqualified prohibition.
+    P031 (granularity theatre, medium, claims C01100/C01102) only guards granularity NOT validated
+    against real frequencies — it does not forbid granularity as such. The rule already carries the
+    needed condition — profile.yaml reads "granularity claimed as precision without validating that
+    finer distinctions track real frequencies" — so the P031 clause carries its source hedge and is
+    no longer a flat ban. (Corrected in this pass, field consistency: this finding was WITHIN_SCOPE
+    with a note declaring the fix already applied, yet still carried distortion: [hedge_removed],
+    severity: medium, and action: add_condition, the state for an unresolved finding still awaiting
+    an owner fix. Since the condition is already present in profile.yaml, verified directly, the
+    fields now read distortion: [none], severity: low, action: accept_with_note, matching the
+    convention this report uses elsewhere for a verified, already-resolved mis-attribution.)
 - rule_ref: handoff_rules[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -251,9 +350,11 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P039 (claims C01331/C01343);
-    P080 (claims C00513).'
+  note: 'Handing the forecast, domain judgment, and decision back to the forecaster/decision-maker.
+    The "makes the residual odds explicit" clause is grounded in P080 (claims C00513); the
+    role-separation clause ("does not make the estimate or the decision") is an advisory-boundary
+    design decision, not a source claim. (Corrects the earlier P039 cite — P039 does not ground
+    role-separation; the mis-attribution is removed, P080 retained.)'
 - rule_ref: handoff_rules[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -261,9 +362,126 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P044 (claims C01557/C01558);
-    P037 (claims C01397/C01398).'
+  note: >-
+    Handoff/scope boundary: concerns outside calibration and forecasting reasoning go to the owning
+    specialist. The adjacent topics named as handed off — organizational accountability of
+    prediction (P037 claims C01734) and forecasting-process/aggregation design (P044 claims
+    C01557/C01558) — are their domain, but the handoff itself is a scope design decision, not an
+    over-claim. (Corrected in this pass: the prior cite for the P037 clause, claims C01397/C01398,
+    are P037's own claims about stable-system base-rate predictability and the fragility of a
+    reputation for genius, not the marketplace-of-ideas-does-not-self-correct statement; C01734 is
+    the claim that actually states it, near-verbatim.)
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Probability-discipline rule. Each clause restates a cited principle at its evidenced scope:
+    control extremeness by predictability, no default 0.5, cap certainty short of 1.0/0.0, widen
+    over-tight intervals, multiply (not average) a conjunction, and flag subadditivity — all review
+    checks the sources support directly, none strengthened past its principle. The one medium-confidence
+    member (P031) keeps its "validate finer distinctions against real frequencies" hedge here. Grounded
+    in principle(s): P032 (claims C01310/C01311); P073 (claims C00891/C00892); P078 (claims C01810/C01811).'
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Scoreable-and-scored-honestly rule. Restates the scoring principles within scope: define
+    outcomes to pass a clairvoyance test, score on calibration AND resolution/discrimination with a
+    proper rule, read a score only against a named baseline on a level playing field, treat metrics as
+    tools not totems, and reject nonfalsifiable-parity adjustments. No clause claims more than its
+    principle; the medium-confidence P090 (confidence-band scoreability) keeps its conditional form.
+    Grounded in principle(s): P015 (claims C00996/C00998); P050 (claims C01365/C01366); P059 (claims
+    C01001/C01002).'
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Outside-view rule. Lead with the reference-class base rate, regress nonregressive intuitive
+    extremes toward it, match the performance baseline to the regime, and treat status-quo/regime
+    survival as the common outcome — each a within-scope restatement. P023 (causal-vs-statistical base
+    rates, which carries a moral caveat) was deliberately dropped from this rule in v1.0.1 and is not
+    cited here; the uncaveated base-rate content rests on P006/P007. Grounded in principle(s): P006
+    (claims C00732/C00733); P007 (claims C00661/C00662); P067 (claims C01446/C01455).'
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: >-
+    Bayesian-updating rule. Move in small increments sized to diagnosticity via likelihood-ratio
+    times prior-odds, do not read slow rational updating as irrationality, estimate against the
+    strongest rival, watch asymmetric updating, and make the residual probability explicit — all
+    held at the sources' evidenced scope, no correction stated as certainty. Grounded in
+    principle(s): P022 (claims C01145/C01146); P012 (claims C01126/C01128); P080 (claims C00513).
+    (Corrected in this pass: the prior cite for the P012 clause, claims C00984/C01034, are P012's
+    own claims about post-surprise hindsight narratives and the need for accountability metrics, not
+    the steer-between-under-/overreaction-in-small-increments statement; C01126/C01128 are the
+    claims that actually state it — hunting subtle diagnostic lead indicators and steering between
+    under- and overreaction.)
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Cognitive-trap rule. Surface and counter mind-set, the illusion of validity, anchoring,
+    hindsight, and small-sample faith, and run a structured post-mortem against the recorded
+    prediction. P034 is stated as two offsetting errors to MANAGE (hindsight erases contingency while
+    unpacking inflates possibility), not eliminate — its caveat is preserved. Grounded in principle(s):
+    P008 (claims C00299/C00300); P020 (claims C00588/C00685); P034 (claims C01392/C01393).'
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forecaster-cultivation-and-aggregation rule. Hold humility alongside confidence, discount
+    luck/fame/credentials for cognitive style, prefer foxes, average-and-extremize a diverse crowd,
+    and follow the superforecaster process — within scope. The medium-confidence P088 keeps its hedge
+    that calibration does NOT reliably transfer across domains, stated as a caution not an absolute.
+    Grounded in principle(s): P021 (claims C01013/C01016); P044 (claims C01557/C01558); P088 (medium,
+    claims C01169).'
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Horizon-and-tail rule. Use alternative-futures scenarios when uncertainty is too high for one
+    outcome, calibrate predictability to the horizon, respect fat tails, keep prediction separate from
+    explanation, and stay reluctant at the extremes. Its members P056/P079/P089 are medium-confidence
+    and are voiced as cautions (keep prediction and explanation separate; question tight causal
+    coupling; treat parsimony as a liability), not as strengthened rules. P087 was dropped from this
+    rule in v1.0.1 and is not cited here. Grounded in principle(s): P040 (claims C00920/C00924); P026
+    (claims C01252/C01253); P056 (medium, claims C01367/C01368).'
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Accountability-and-communication rule. Do not trust the marketplace of ideas to self-correct
+    political prediction, watch kto-kogo tribal scoring, use narrative to understand but the calculus
+    to judge likelihoods, treat the "off on timing" defence as a red flag, and discount the "it almost
+    happened" excuse in proportion to how selectively it is invoked — each within its principle''s
+    scope. This proportional wording is the source-faithful form that forbidden_behaviours[2] was
+    re-grounded to match. Grounded in principle(s): P072 (claims C01723/C01726); P083 (claims C01522);
+    P086 (claims C01813).'
 - rule_ref: source_of_truth_policy.precedence
   verdict: WITHIN_SCOPE
   distortion:
@@ -271,6 +489,9 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P015 (claims C00996/C00998);
-    P006 (claims C00732/C00733); P022 (claims C01145/C01146).'
+  note: 'Precedence rule: a well-supported base rate governs over a compelling case-based story unless
+    specific diagnostic evidence justifies departure, and never endorse a judgment less calibrated
+    than the source supports. Grounded in the outside-view-governs principles — anchor on the
+    reference class adjusted only by validity (P006 claims C00732/C00733), human forecasters fall
+    below extrapolation when a vivid story overrides base rates (P049 claims C01345/C01346) — plus the
+    faithfulness stance itself. (Corrects the earlier boilerplate P015/P006/P022 cite.)'

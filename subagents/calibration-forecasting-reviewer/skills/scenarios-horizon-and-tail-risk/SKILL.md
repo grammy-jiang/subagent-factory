@@ -1,6 +1,6 @@
 ---
 name: scenarios-horizon-and-tail-risk
-description: "Check whether a forecast's precision, form, and confidence match what is knowable at its horizon and its subject's tail behaviour; use when reviewing scenario, range, or tail-risk framing."
+description: "Checks whether a forecast's precision, form, and confidence match what is knowable at its horizon and its subject's tail behaviour; use when reviewing scenario, range, or tail-risk framing."
 kind: skill
 status: ready
 provenance:

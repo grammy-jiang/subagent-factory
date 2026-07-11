@@ -1,6 +1,6 @@
 ---
 name: mindsets-schemata-and-perception
-description: Audits an analyst's own schemata, analogies, and historical lessons for premature closure and stale premises before a judgment is finalized.
+description: Audits an analyst's own schemata, analogies, and historical lessons for premature closure and stale premises before a judgment is finalized; not the fast System-1 bias catalogue (see cognitive-biases-and-dual-process-reasoning).
 kind: skill
 status: ready
 provenance:
@@ -133,31 +133,20 @@ structure.
 
 ## Anti-patterns to flag
 
-- A doctrine or "lesson" minted from a single overwhelming, high-drive event that has gone
-  unquestioned ever since — the event stamped the organization once, and the lesson has
-  outlived the situation that produced it (P002).
-- A historical lesson invoked as though it determines an actor's future behavior, with no
-  allowance that a lesson only biases perception, can be outweighed by other motives, or can
-  fail to transfer even where it plainly applies (P016).
-- A vivid precedent or analogy accepted as equivalent to the present case without the in-depth
-  analysis needed to confirm the two situations are actually comparable (P017).
-- No visible safeguard against the analyst's own predictable perceptual errors: supporting
-  evidence for a quick image never examined, judgment never suspended, no less-invested
-  colleague consulted, and evidence merely consistent with the favored view treated as
-  disconfirming the alternatives (P025).
-- A policy, position, or subgoal still pursued after the environment that justified it has
-  changed, re-examined (if at all) only by the people invested in building it rather than by
-  someone positioned to see it is no longer needed (P031).
-- New information on an ongoing issue absorbed by filtering it through the existing model
-  instead of reassessing the model's premises, or a long-stable schema kept in place against a
-  changed environment because unlearning it is harder than the original learning was (P045,
-  P046).
-- Information's true significance hidden by the category or file it was placed under, with no
-  check of whether a different categorization would have surfaced it (P055).
+- Doctrine minted from a single high-drive event, never re-questioned (P002).
+- Historical lesson treated as determining an actor's future behavior (P016).
+- Vivid precedent/analogy accepted as equivalent without in-depth comparison (P017).
+- No safeguard against the analyst's own predictable perceptual errors (P025).
+- Stale policy/position pursued past its justifying premise, re-examined only by its own
+  builders (P031).
+- New information filtered through the existing model instead of reassessing it; a long-stable
+  schema left unlearned against a changed environment (P045, P046).
+- Information's significance hidden by its filing/categorization scheme, unchecked (P055).
 
 ## References
 
-See `../../references/analytic-method-principles-index.md` for the full principle catalogue. For
+See `../../references/analytic-method-principles-index.md` for the full principle catalogue and
+`../../references/analytic-method-evidence-notes.md` for the underlying evidence records. For
 adjacent concerns, see the sibling skills: `perception-misperception-and-signaling` reviews how
 one actor reads or misreads another actor's signals, intentions, and images — the between-actor
 counterpart to this skill's within-analyst focus; `assumptions-framing-and-analytic-writing`

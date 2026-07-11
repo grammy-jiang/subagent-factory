@@ -1,6 +1,6 @@
 ---
 name: assumptions-framing-and-analytic-writing
-description: Audits an analytic product's assumption explicitness, question framing, and fact/opinion/uncertainty write-up; invoke before a judgment or forecast is finalized.
+description: Audits an analytic product's assumption explicitness, question framing, and fact/opinion/uncertainty write-up; invoke before a judgment or forecast is finalized; not the underlying mind-set that produced the assumptions (see mindsets-schemata-and-perception).
 kind: skill
 status: ready
 provenance:
@@ -114,25 +114,17 @@ place of this structure.
 
 ## Anti-patterns to flag
 
-- An assumption doing real work in the argument that is never named, leaving a reader no way to
-  see — let alone challenge — the premise the conclusion actually rests on (P073, P047).
-- A judgment that treats "objective" as meaning "free of assumptions," or as best achieved through
-  exhaustive, assumption-free data collection, rather than through explicit, challengeable
-  hypotheses — a preference the source found more accurate even in medical diagnosis (P047).
-- Opinion written in the same register as fact, with no evidence cited and no sense that the claim
-  could be challenged on a show-me-your-evidence standard (P057).
-- A stated confidence with no degree or source behind it — a bare "likely" or "assessed with high
-  confidence" standing in for an actual chain of inference (P074).
-- An assessment that keeps its original call after new evidence arrives, not because the evidence
-  was weighed and found wanting, but because the call is already in print and both the analyst and
-  the organization now have a vested interest in it (P059).
-- A task answered exactly as originally posed with no check on whether it was the right question,
-  and no record that a quality-versus-deadline tradeoff was ever surfaced to whoever set the task
-  (P075).
+- Linchpin assumption never named (P073, P047).
+- "Objective" equated with assumption-free rather than explicit-and-challengeable (P047).
+- Opinion written in fact's register, uncited (P057).
+- Confidence stated with no degree or source (P074).
+- Original call frozen after new evidence — premature closure / sunk cost of print (P059).
+- Task answered as posed, no scoping check or quality/deadline tradeoff surfaced (P075).
 
 ## References
 
-See `../../references/analytic-method-principles-index.md` for the full principle catalogue. For
+See `../../references/analytic-method-principles-index.md` for the full principle catalogue, and
+`../../references/analytic-method-evidence-notes.md` for the underlying evidence records. For
 adjacent concerns, see the sibling skills: `structured-analytic-techniques` runs the Key
 Assumptions Check and other structured correctives once an assumption or scoping problem is
 flagged here; `mindsets-schemata-and-perception` owns actually reassessing the underlying premise
