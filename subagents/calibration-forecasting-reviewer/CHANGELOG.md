@@ -3,6 +3,27 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.0.3] — 2026-07-11
+
+### Fixed
+- Review r3 residual faithfulness fixes (no new claims):
+  - MUST (M1, HEDGING_REMOVED) — `forbidden_behaviours[2]` reworded from a flat ban on scoring
+    "almost right" / "off on timing" as success to forbidding it as **full rather than proportionally
+    discounted** success, restoring the graduated P025/P086 hedge (the excuse earns only a small
+    proportional fraction of credit, not zero) and matching `always_on[7]`; the report finding flips
+    to `add_condition`.
+  - MUST (M2) — `reports/faithfulness-report.yaml`: replaced the byte-identical `P015/P006/P022`
+    citation shared by ~16 findings with per-rule content-specific groundings; corrected the
+    `when_to_use[3]` cognitive-trap trigger (now P008/P020/P038/P034/P057) and the role-separation
+    rules (`when_not_to_use[0]`, `forbidden_behaviours[0]`, `handoff_rules[0]`), which are marked
+    advisory-boundary design decisions instead of the mis-attributed P039; multi-cite notes labelled
+    representative.
+  - Profile: dropped the mis-attributed `(P039)` from `forbidden_behaviours[0]` and the failure-recovery
+    example; reduced `handoff_rules[0]` to `(P080)`.
+  - LOW (L2) — `role` credits Gardner ("Tetlock (with Gardner)") as Superforecasting co-author;
+    tightened role prose to keep the profile body under the word budget.
+  - Provenance ledger + CHANGELOG updated; adapter re-exported.
+
 ## [1.0.2] — 2026-07-11
 
 ### Fixed

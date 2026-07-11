@@ -3,8 +3,11 @@
 Canonical record of what grounds this subagent. The profile, skills, references, faithfulness
 report, and tests are all derived from the distilled spine in this package
 (`principles/principles.yaml` → `analysis/claims.jsonl` → `evidence/evidence-records.yaml` →
-`sources/anchors/*.anchors.jsonl`), which was assembled by the map→reduce build. No profile field
-value is an orphan: every load-bearing rule cites the promoted principle(s) it restates.
+`sources/anchors/*.anchors.jsonl`), which was assembled by the map→reduce build. No load-bearing rule
+that restates a source claim is an orphan: each cites the promoted principle(s) it restates. Pure
+scope / role / input-output-shape and advisory-boundary clauses (e.g. "the reviewer does not make the
+decision or produce the forecast") are design decisions that narrow scope, not restatements of a
+source claim, so they carry no principle tag.
 
 ## Sources
 
@@ -54,13 +57,36 @@ depends on them.
 
 `reports/faithfulness-report.yaml` grades each load-bearing profile rule — including the eight
 `knowledge_partition.always_on` runtime rules — against its promoted principles on the five-level
-claim-strength scale. Every finding is `WITHIN_SCOPE`; one (`forbidden_behaviours[3]`) carries an
-`add_condition` action, where a validation condition was added so the medium-confidence P031 clause
-keeps its source hedge rather than reading as a flat ban. No rule is stronger than its evidence.
-`source_anchors` are omitted deliberately; provenance is carried in each finding's note via principle
-+ claim IDs.
+claim-strength scale. Each finding cites the PRINCIPAL principle(s) matching that rule's subject
+(representative where a rule tags more — the full set is in the profile tag list and the skill
+partition above); pure scope / role / output-shape and advisory-boundary rules are marked design
+decisions, not source claims. Every finding is `WITHIN_SCOPE`; two (`forbidden_behaviours[2]` and
+`forbidden_behaviours[3]`) carry an `add_condition` action, where a condition restores a source hedge
+(the P025/P086 proportional discount on the "almost right" excuse, and the P031 validated-granularity
+guard) so neither reads as a flat ban. No rule is stronger than its evidence. `source_anchors` are
+omitted deliberately; provenance is carried in each finding's note via principle + claim IDs.
 
 ## Version History
+
+### v1.0.3 — 2026-07-11
+Review r3 faithfulness fixes (no new claims):
+- `forbidden_behaviours[2]` (M1, HEDGING_REMOVED): reworded the flat ban on scoring "almost right" /
+  "off on timing" as success to forbid FULL rather than proportionally discounted credit, restoring
+  the P025/P086 source hedge (a losing forecaster's excuse earns only a small proportional fraction,
+  not zero) and matching the proportional wording in `always_on[7]`; the report finding flips to
+  `add_condition`.
+- `reports/faithfulness-report.yaml` (M2): replaced the templated `P015/P006/P022` citation carried by
+  ~16 findings with per-rule, content-specific groundings; corrected two mis-attributions —
+  `when_to_use[3]` (cognitive-trap trigger) now cites the cognitive-bias family (P008/P020/P038/P034/
+  P057) not scoring/base-rate/Bayesian, and the role-separation clauses (`forbidden_behaviours[0]`,
+  `handoff_rules[0]`, `when_not_to_use[0]`) are marked advisory-boundary design decisions rather than
+  grounded to P039 (which concerns the definition of good judgment, not role-separation); multi-cite
+  notes labelled representative.
+- Profile: dropped the mis-attributed `(P039)` from `forbidden_behaviours[0]` and the failure-recovery
+  example, and reduced `handoff_rules[0]` from `(P039, P080)` to `(P080)` (P080 grounds "makes the
+  residual odds explicit"; the role-separation clause is a design decision).
+- `role` (L2): credited Gardner as Superforecasting co-author ("Tetlock (with Gardner)") and tightened
+  prose to hold the profile body under the word budget. Re-exported the adapter.
 
 ### v1.0.2 — 2026-07-11
 Review r2 faithfulness and release-readiness fixes (no new claims):
