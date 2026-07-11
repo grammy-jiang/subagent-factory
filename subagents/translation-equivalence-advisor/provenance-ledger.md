@@ -51,6 +51,15 @@ The five high-confidence principles (P009, P024, P037, P038, P058) are compiled 
 
 ## Version history
 
+- **v1.2.7** (2026-07-12) — adversarial-verify triage residual (in-session finish after the
+  auto-merge driver triage-stopped at must-fix=1). Fixed the P094 CONTRADICTION the review-loop's own
+  r4 narrowing introduced: P094 restated as a formal-equivalence device grounded in C00360 (useful
+  especially for technical/philosophical key-term tracking) + C00361 (relax where the receptor text
+  becomes meaningless); the "stylistic-only, not subject-matter" redefinition removed. Skill step 6 and
+  profile `handoff_rules` re-synced to route mandated subject-matter *glossary governance* to
+  technical-translation-advisor as an ownership boundary. No spine change beyond the P094 statement;
+  adapter re-exported.
+
 - **v1.2.6** (2026-07-12) — review-loop r1 consolidated-panel fixes (no spine change; every edited rule and
   worked example restates principles already in the spine, citing only ids already present; no new claim):
   - MF1 (test hygiene): Phase-8 self-check and golden artifacts were stale relative to shipped `agent_version`

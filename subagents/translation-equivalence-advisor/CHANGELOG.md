@@ -3,6 +3,20 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.7] — 2026-07-12
+
+### Fixed
+- **P094 CONTRADICTION (adversarial-verify triage residual).** The review-loop's own r4 narrowing
+  over-corrected P094 into "this is stylistic concordance, not subject-matter terminology
+  consistency", which CONTRADICTS its source claim C00360 (concordant rendering is useful
+  *especially for key terms in technical or philosophical texts*). Restated P094 as a
+  formal-equivalence device — keep concordance where readers must track a recurring key term (incl.
+  technical/philosophical texts) for study/interpretation, relax it where rigid consistency makes the
+  receptor text unnatural or meaningless (C00360/C00361). Re-synced the dynamic-and-formal-equivalence
+  skill step 6 and profile `handoff_rules`: mandated subject-matter *glossary governance* routes to
+  technical-translation-advisor as an ownership boundary, not a redefinition of concordance. Adapter
+  re-exported.
+
 ## [1.2.6] — 2026-07-12
 
 ### Fixed
