@@ -1,6 +1,6 @@
 ---
 name: forecast-scoring-and-evaluation
-description: "Make a forecast or track record scoreable and score it without a story or excuse standing in for the arithmetic; use when evaluating forecast accuracy or a proper score."
+description: "Makes a forecast or track record scoreable and scores it without a story or excuse standing in for the arithmetic; use when evaluating forecast accuracy or a proper score — not the incentives, tribal scoring, or 'it almost happened' defence of a forecast, which forecasting-accountability-and-communication owns."
 kind: skill
 status: ready
 provenance:
@@ -111,7 +111,7 @@ Hand the forecast, the decision, and any adjustment call back to the forecaster 
 
 - An outcome so vague or oracular it cannot be scored without asking the forecaster what they meant (P050).
 - A score quoted with no stated baseline, or compared across different questions or time periods (P059).
-- Crediting "almost right," "off only on timing," or a lucky call as evidence of skill — especially from a forecaster who never credits luck when wrong (P025).
+- Crediting "almost right" or a lucky call as evidence of skill — especially from a forecaster who never credits luck when wrong (P025).
 - Judging accuracy from resolution/discrimination alone, when a decisively wrong-but-consistent forecaster can still score well on that term (P015, P065, P068).
 - Separate value scales for over-prediction and under-prediction errors, which can flatter a broken-clock forecaster (P077).
 - A difficulty, stakes, or value adjustment so generous it makes a real skill gap unfalsifiable (P035).
@@ -124,6 +124,8 @@ Hand the forecast, the decision, and any adjustment call back to the forecaster 
 ## References
 
 - `../../references/calibration-forecasting-principles-index.md` — the package's full principle index (statement, confidence, and applies-when conditions for every principle, including the fourteen this skill applies); consult it for the exact wording behind any Pxxx cited above and for the sibling scoring-adjacent principles this skill does not cover.
+- `../forecasting-accountability-and-communication/SKILL.md` — the sibling skill that owns the "off on timing" / timing-excuse check; this scoring skill deliberately leaves that excuse to it and covers only the "almost right" defense and disputed-outcome bracketing here.
+- `../../references/forecasting-evidence-notes.md` — supporting evidence notes for the claims behind this skill's principles, reachable via progressive disclosure.
 
 ## Provenance
 

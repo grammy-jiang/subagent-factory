@@ -1,8 +1,13 @@
 ---
 name: assessing-enemy-trust-and-belief
-description: Review how far the adversary is judged to trust a channel — the belief
-  on which every deception rests; use when reviewing this facet of a deception or
-  counter-deception case.
+description: Reviews whether a claim that the enemy trusts, doubts, or has "blown"
+  a channel is grounded in his own observable behaviour rather than analyst
+  confidence or the calendar; use when a product asserts such a belief about a
+  channel that is about to carry a critical task, and the judgment needs checking
+  against the enemy's own behaviour rather than a stale assessment or an
+  unblown-track-record read as unblowable; reviews the enemy's belief about our
+  channel, not whether our own side is the one being deceived, which
+  counter-deception-and-the-mirror owns.
 kind: skill
 status: ready
 provenance:
@@ -40,11 +45,9 @@ This skill audits whether an analytic product's claim that the adversary trusts,
 has "blown" a channel is actually grounded in evidence the enemy himself has produced — his
 questions, his payments, the codes and resources he has entrusted, his handler's conduct, and
 any secret intelligence on his own state of mind — rather than asserted from the analyst's
-confidence or a run of apparent success. It also checks that an agent's value in that chain is
-graded by the verifiable facts he supplies rather than his social standing, and that "not yet
-blown" is never quietly read as "unblowable." Trust is the belief on which every deception
-rests, so a chain that inflates, stales, or under-evidences it is the specific denial-and-
-deception risk this skill exists to surface.
+confidence or a run of apparent success. Trust is the belief on which every deception rests, so
+a chain that inflates, stales, or under-evidences it is the specific denial-and-deception risk
+this skill exists to surface.
 
 ## When to use
 
@@ -103,7 +106,7 @@ deception risk this skill exists to surface.
    value. Flag a comparison that defaults to the forward source's immediacy without applying
    this positional discount (P091).
 9. Emit findings highest-impact first, each in the name-the-flaw / correction / residual-
-   uncertainty / next-step format, keyed to the trust-and-belief flaw class.
+   uncertainty / next-step format, keyed to the trust-and-belief flaw class checked above.
 
 ## Inputs
 
@@ -124,19 +127,23 @@ deception risk this skill exists to surface.
 
 ## Output
 
-Per finding: name the trust-and-belief flaw (an asserted-not-evidenced trust claim, a stale
-assessment carried into a critical task, a handler-investment claim resting on a showing
-weaker than the strongest signature, an agent graded by access rather than fact, an "unblown"
-reading treated as "unblowable," a recovery narrative that over- or under-escalates, a service
-horizon mismatched to demonstrated confidence, or a reliability ranking that ignores
-rear-versus-forward positioning), apply the correction (re-derive the trust level from the
-enemy's questions, payments, and investment; re-grade the agent against the facts he supplies;
-name the benign story the enemy could be telling itself; recalibrate the escalation; reassign
-the agent's service horizon; reweight source reliability by position), state the residual
-uncertainty the correction leaves — including whether the analyst's own confidence in the
-channel could itself be a product of the enemy's management — and end with a concrete next
-step. Order findings highest-impact first. Never issue the caller's go/no-go: the corrected
-judgment and the residual risk are handed back to the operation's owner.
+Per finding: name the trust-and-belief flaw, apply the correction the matching Procedure step
+prescribes (re-derive the trust level from the enemy's own behaviour; re-grade the agent
+against the facts he supplies; name the benign story the enemy could be telling itself;
+recalibrate the escalation; reassign the agent's service horizon; reweight source reliability by
+position), and state the residual uncertainty the correction leaves — including whether the
+analyst's own confidence in the channel could itself be a product of the enemy's management, so
+who could still be deceiving whom is left explicit. End with a concrete next step. Order
+findings highest-impact first. Never issue the caller's go/no-go: the corrected judgment and the
+residual risk are handed back to the operation's owner.
+
+For example: a product proposes a long-running agent for a critical upcoming task, calling him
+"fully trusted" solely because he has never been caught. The finding names the unblown-read-as-
+unblowable flaw, applies the correction by asking for evidence of the enemy's own recent
+behaviour — payments, entrusted codes, personal contact — rather than the absence of a bad
+outcome, states the residual uncertainty that the enemy may simply prefer the benign
+explanation over admitting deception, and hands back a next step: refresh the trust assessment
+from the enemy's own behaviour before the task proceeds.
 
 ## Anti-patterns to flag
 

@@ -3,6 +3,52 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml` (semver).
 
+## [1.1.1] — 2026-07-11
+
+### Fixed
+- Review R2 fix pass (`reports/intel-review-loop/subagent-analytic-method-reviewer.r2.review.md`),
+  all changes grounded in existing principle IDs — no new claims.
+- Faithfulness: dropped the P001/P059 citations from `handoff_rules[0]` — neither principle
+  establishes decision-authority, so citing them false-grounded the analyst/organization ownership
+  assertion; now an uncited scope boundary. Dropped P010 from `knowledge_partition.always_on` bullet 7
+  (P010 is a conditional ACH-mandate, not an ownership claim; it stays cited in
+  `forbidden_behaviours[1]`).
+- Adapter routing `description`: reworded `when_to_use[0]` and `when_not_to_use[0]` so the exported
+  description retains the inclusion keys (hypotheses, evidence, assumptions, uncertainty) and the full
+  operational exclusion list (collection tasking, HUMINT, interrogation, targeting, covert action)
+  within the truncation budget.
+- Removed a stray `</content>` generation-tooling tag from
+  `skills/limits-of-expertise-and-prediction/SKILL.md`.
+- Provenance ledger: added the previously-missing 1.1.0 and this 1.1.1 Version History entries; added
+  P080 to the `quality_bar[4]` field→grounding row and P010 to the `forbidden_behaviours` row (both
+  cited in profile since 1.1.0 but stale in the table).
+- `tests/golden-tests.yaml` `profile_version` bumped 1.0.0 → 1.1.1 (no golden expectation changed).
+- Re-exported the adapter so all cited principles (through P082) render and the routing description
+  reflects the above.
+
+## [1.1.0] — 2026-07-11
+
+### Changed
+- Review R1 fix pass (`reports/intel-review-loop/subagent-analytic-method-reviewer.r1.review.md`),
+  all changes grounded in existing principle IDs — no new claims.
+- `profile.yaml` body trimmed to the ~800-word budget so `profile_self_check` check 14 (body-size)
+  now PASSes instead of failing the hard cap; role/`when_to_use`/`modes`/`quality_bar` tightened
+  without dropping any principle citation.
+- Faithfulness: weakened two over-claims to their source support —
+  - `quality_bar[5]` no longer states an unconditional "no hypothesis without a competitor"; it now
+    scopes Red Team / Alternative Futures / competing-view procedures to where stakes and cost justify
+    them, with hypothesis count scaled to uncertainty and policy impact (adds P080).
+  - `forbidden_behaviours[1]` scopes the single-outcome prohibition to key/high-stakes issues where
+    the cost of error is high or deception is a serious possibility (adds P010).
+- Adapter routing `description` regenerated: `when_not_to_use` reordered so the
+  operational/collection/HUMINT/targeting exclusion is surfaced first, preventing an operational
+  request from mis-routing to this read-only analytic-method reviewer.
+- All nine `skills/*/SKILL.md` refined (surgical): each `description` gained a negative
+  routing boundary naming its most-confusable sibling; each `## References` now points to
+  `analytic-method-evidence-notes.md`; each `## Anti-patterns to flag` compressed to terse
+  flaw-name + principle-ID bullets (removing the near-duplicate restatement of the Procedure).
+  Procedure steps and provenance frontmatter preserved verbatim.
+
 ## [1.0.0] — 2026-07-10
 
 ### Added

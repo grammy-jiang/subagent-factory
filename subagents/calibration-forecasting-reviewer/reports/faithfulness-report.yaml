@@ -237,13 +237,17 @@ findings:
 - rule_ref: forbidden_behaviours[3]
   verdict: WITHIN_SCOPE
   distortion:
-  - none
+  - hedge_removed
   support_granularity: section
-  severity: low
-  action: accept_with_note
-  note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
-    the sources directly support, not an over-claim. Grounded in principle(s): P059 (claims C01001/C01002);
-    P035 (claims C01488/C01495); P031 (claims C01100/C01102).'
+  severity: medium
+  action: add_condition
+  note: 'P059 (baseline-relative scoring) and P035 (nonfalsifiable-parity adjustment) are high-confidence
+    and support an unqualified prohibition. P031 (granularity theatre) is medium-confidence and only
+    guards granularity that is NOT validated against real frequencies — it does not forbid granularity
+    as such. Condition added to the rule ("where finer distinctions have not been validated against
+    real frequencies") so the P031 clause carries its source hedge and is no longer a flat ban.
+    Grounded in principle(s): P059 (claims C01001/C01002); P035 (claims C01488/C01495); P031 (medium,
+    claims C01100/C01102).'
 - rule_ref: handoff_rules[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -264,6 +268,110 @@ findings:
   note: 'The rule restates promoted principles at or within their evidenced scope — a review behaviour
     the sources directly support, not an over-claim. Grounded in principle(s): P044 (claims C01557/C01558);
     P037 (claims C01397/C01398).'
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Probability-discipline rule. Each clause restates a cited principle at its evidenced scope:
+    control extremeness by predictability, no default 0.5, cap certainty short of 1.0/0.0, widen
+    over-tight intervals, multiply (not average) a conjunction, and flag subadditivity — all review
+    checks the sources support directly, none strengthened past its principle. The one medium-confidence
+    member (P031) keeps its "validate finer distinctions against real frequencies" hedge here. Grounded
+    in principle(s): P032 (claims C01310/C01311); P073 (claims C00891/C00892); P078 (claims C01810/C01811).'
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Scoreable-and-scored-honestly rule. Restates the scoring principles within scope: define
+    outcomes to pass a clairvoyance test, score on calibration AND resolution/discrimination with a
+    proper rule, read a score only against a named baseline on a level playing field, treat metrics as
+    tools not totems, and reject nonfalsifiable-parity adjustments. No clause claims more than its
+    principle; the medium-confidence P090 (confidence-band scoreability) keeps its conditional form.
+    Grounded in principle(s): P015 (claims C00996/C00998); P050 (claims C01365/C01366); P059 (claims
+    C01001/C01002).'
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Outside-view rule. Lead with the reference-class base rate, regress nonregressive intuitive
+    extremes toward it, match the performance baseline to the regime, and treat status-quo/regime
+    survival as the common outcome — each a within-scope restatement. P023 (causal-vs-statistical base
+    rates, which carries a moral caveat) was deliberately dropped from this rule in v1.0.1 and is not
+    cited here; the uncaveated base-rate content rests on P006/P007. Grounded in principle(s): P006
+    (claims C00732/C00733); P007 (claims C00661/C00662); P067 (claims C01446/C01455).'
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Bayesian-updating rule. Move in small increments sized to diagnosticity via likelihood-ratio
+    times prior-odds, do not read slow rational updating as irrationality, estimate against the
+    strongest rival, watch asymmetric updating, and make the residual probability explicit — all held
+    at the sources'' evidenced scope, no correction stated as certainty. Grounded in principle(s): P022
+    (claims C01145/C01146); P012 (claims C00984/C01034); P080 (claims C00513).'
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Cognitive-trap rule. Surface and counter mind-set, the illusion of validity, anchoring,
+    hindsight, and small-sample faith, and run a structured post-mortem against the recorded
+    prediction. P034 is stated as two offsetting errors to MANAGE (hindsight erases contingency while
+    unpacking inflates possibility), not eliminate — its caveat is preserved. Grounded in principle(s):
+    P008 (claims C00299/C00300); P020 (claims C00588/C00685); P034 (claims C01392/C01393).'
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Forecaster-cultivation-and-aggregation rule. Hold humility alongside confidence, discount
+    luck/fame/credentials for cognitive style, prefer foxes, average-and-extremize a diverse crowd,
+    and follow the superforecaster process — within scope. The medium-confidence P088 keeps its hedge
+    that calibration does NOT reliably transfer across domains, stated as a caution not an absolute.
+    Grounded in principle(s): P021 (claims C01013/C01016); P044 (claims C01557/C01558); P088 (medium,
+    claims C01169).'
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Horizon-and-tail rule. Use alternative-futures scenarios when uncertainty is too high for one
+    outcome, calibrate predictability to the horizon, respect fat tails, keep prediction separate from
+    explanation, and stay reluctant at the extremes. Its members P056/P079/P089 are medium-confidence
+    and are voiced as cautions (keep prediction and explanation separate; question tight causal
+    coupling; treat parsimony as a liability), not as strengthened rules. P087 was dropped from this
+    rule in v1.0.1 and is not cited here. Grounded in principle(s): P040 (claims C00920/C00924); P026
+    (claims C01252/C01253); P056 (medium, claims C01367/C01368).'
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Accountability-and-communication rule. Do not trust the marketplace of ideas to self-correct
+    political prediction, watch kto-kogo tribal scoring, use narrative to understand but the calculus
+    to judge likelihoods, treat the "off on timing" defence as a red flag, and discount the "it almost
+    happened" excuse in proportion to how selectively it is invoked — each within its principle''s
+    scope. Grounded in principle(s): P072 (claims C01723/C01726); P083 (claims C01522); P086 (claims
+    C01813).'
 - rule_ref: source_of_truth_policy.precedence
   verdict: WITHIN_SCOPE
   distortion:

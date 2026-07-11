@@ -1,7 +1,10 @@
 ---
 name: turning-and-running-a-controlled-agent
-description: Review how a captured or walk-in agent is turned and then run day to
-  day; use when reviewing this facet of a deception or counter-deception case.
+description: Reviews how a captured or walk-in agent is turned and then run day to
+  day for the tradecraft signatures of a professionally controlled channel; use
+  when a source's capture story reads suspiciously fast and quiet, its case
+  record has never actually been checked for real supervision friction, or its
+  reporting still leans on a source that has gone dormant.
 kind: skill
 status: ready
 provenance:
@@ -143,18 +146,18 @@ doubled or controlled — and an analyst who has never tested for them cannot ru
 
 ## Output
 
-Per finding: name the control signature (an unexplained gap in the capture or turn timeline, a
-case record too clean or never actually reviewed, premature confidence paired with an
-over-consistent persona, a stylistic or technical match never baselined, a tasking or financial
-fit too neat to be organic, an untested operational excuse, or a dormant source still relied
-upon), apply the correction (pull and test the timeline, read the continuous record for real
-friction, re-test vigilance and persona variability, baseline and re-check the stylistic
-signature, examine the tasking/incentive fit, independently test the operational excuse, or
-justify the continued reliance), state the residual uncertainty — including whether the source
-reads as controlled by the caller's own side, controlled by the adversary, or genuinely
-independent — and end with a concrete next step. Order findings highest-impact first. Never
-certify a source controlled, doubled, or clean: that determination, and any decision to keep
-relying on it, belongs to the operation's owner.
+Per finding: name the flaw, apply the correction, state the residual uncertainty — including who
+could still be deceiving whom (the caller's own side, the adversary, or neither) — and give a
+concrete next step. Order findings highest-risk first. Never issue the go/no-go on whether the
+source is controlled, doubled, or clean; hand that determination, and any decision to keep relying
+on the source, back to the case owner.
+
+For example: a defector's file shows contact secured within two days of first approach, and the
+early exchanges were never checked for a hidden signal. The finding names the untested
+capture-timeline gap, recommends pulling and reading those early exchanges against the signal
+convention on file, and states the residual uncertainty — the source could be genuinely
+independent, already turned before recruitment, or run by the caller's own side to test the
+channel — with a next step to interview the officer who took the original contact.
 
 ## Anti-patterns to flag
 
@@ -191,6 +194,6 @@ control signatures should be firewalled within the wider network.
 
 ## Provenance
 
-Derived solely from P001, P002, P008, P012, P019, P020, P026, P030, P031, P036, P055, P065, P072,
-P073, and P080 (J. C. Masterman, *The Double-Cross System*; distillation-only; see the frontmatter
-above for the full claim list).
+Derived solely from this skill's own principles (P001, P002, P008, P012, P019, P020, P026, P030,
+P031, P036, P055, P065, P072, P073, P080) sourced from J. C. Masterman, *The Double-Cross System*
+(distillation-only; see the frontmatter above for the full claim list).

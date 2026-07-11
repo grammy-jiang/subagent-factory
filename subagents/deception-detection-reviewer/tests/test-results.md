@@ -21,7 +21,7 @@
 | 11 | quality-bar | PASS | 5 evidence-citing checks |
 | 12 | forbidden-behaviours | INFO | 4 rules; source traceability delegated to profile-reviewer |
 | 13 | no-procedure-in-body | PASS | no ordered procedure detected in body |
-| 14 | body-size | INFO | profile body within/near budget |
+| 14 | body-size | WARNING | profile body ~994 words (> 800-word budget); heaviest: quality_bar 228w, when_to_use 112w, role 105w — non-blocking |
 | 15 | platform-neutral | PASS | core is platform-neutral |
 | 16 | provenance-ledger | PASS | present |
 | 17 | no-unresolved-conflict | INFO | conflict resolution delegated to profile-reviewer |

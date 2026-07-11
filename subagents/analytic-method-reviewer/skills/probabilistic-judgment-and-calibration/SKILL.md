@@ -1,6 +1,6 @@
 ---
 name: probabilistic-judgment-and-calibration
-description: Audits a stated probability or forecast for coherence, aggregation, and calibration; invoke also to advise on or compare aggregation approaches before one is finalized.
+description: Audits a stated probability or forecast for coherence, aggregation, and calibration; invoke also to advise on or compare aggregation approaches before one is finalized; not the limits of what is predictable at all (see limits-of-expertise-and-prediction).
 kind: skill
 status: ready
 provenance:
@@ -142,29 +142,23 @@ it still leaves. Never let this substitute for the review once a number exists.
 
 ## Anti-patterns to flag
 
-- A judgment delivered as a single unstructured pass, with no separate framing,
-  evidence-collection, and reflection stage, and no shared vocabulary of bias terms offered for
-  others to push back with (P005).
-- A cautious or hedged call defended as "the right mistake to make" with no stated asymmetry
-  between the two error types, or a caution never revisited as evidence accumulates; an
-  outside-view input taken at face value despite a known systematic bias in its source (P012).
-- An inside-view case asserted once and merged with the outside view without ever being tested
-  against the reasons it might be wrong — a hypothesis stated, not investigated (P034).
-- Independent estimates folded into one number by seeking consensus or discarding outliers,
-  instead of a respect-weighted average that treats their spread as signal; or unanimous agreement
-  accepted at face value with no check for groupthink (P035).
-- A polarized, testable dispute left unresolved or settled by authority instead of a precise,
-  benchmarked, time-bound forecast run through adversarial collaboration; a split outcome from
-  that process treated as a failure rather than an accepted result (P044).
-- Confidence in a judgment rising because the same view was repeated by more voices, rather than
-  because independent methods, evidence, or experts actually converged on it (P050).
-- A probability set presented as coherent when it is sub-additive — exhaustive, exclusive outcomes
-  whose probabilities sum to less than one — with no additive-rule, multiplicative-rule, or
-  updating check ever run (P068).
+- No separate framing/evidence-collection/reflection stages, no shared bias vocabulary for
+  pushback (P005).
+- "Right mistake" defense with no stated error-type asymmetry, never revisited; outside-view input
+  taken at face value despite a known source bias (P012).
+- Inside-view case asserted, not investigated, merged with the outside view unchallenged (P034).
+- Independent estimates forced to consensus or outliers discarded instead of a respect-weighted
+  average; unanimity accepted with no groupthink check (P035).
+- Polarized testable dispute left unresolved or settled by authority instead of adversarial
+  collaboration; a split outcome treated as failure (P044).
+- Confidence rising from repetition by more voices rather than independent convergence (P050).
+- Sub-additive probability set presented as coherent with no additive/multiplicative/updating
+  check run (P068).
 
 ## References
 
-See `../../references/analytic-method-principles-index.md` for the full principle catalogue. For
+See `../../references/analytic-method-principles-index.md` for the full principle catalogue and
+`../../references/analytic-method-evidence-notes.md` for the underlying evidence records. For
 adjacent concerns, see the sibling skills: `competing-hypotheses-and-diagnostic-evidence` for
 hypothesis-set completeness and evidence diagnosticity, `structured-analytic-techniques` for which
 technique to run and how to sequence it, and `analytic-collaboration-training-and-process` for the
