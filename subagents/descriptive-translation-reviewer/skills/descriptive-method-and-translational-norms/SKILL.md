@@ -50,7 +50,7 @@ provenance:
   - C00232
   evidence: []
   source_anchors: []
-  authored_from_digest: cc43b4f4d9c1bc18fb45aebce08c7845d8173163d7b994549ef5add4e14010d8
+  authored_from_digest: ac6bf196f531737c1dc1c5b32240067eb8677f8c6e9dd05717960ecd79b1734e
 ---
 
 # Descriptive Method And Translational Norms
@@ -69,7 +69,7 @@ This skill reviews whether a translation, corpus, or translation-studies analysi
 
 ## Procedure
 
-1. Check whether translated literature in the case under review is credited with a central, innovating position only when the receiving system is young, peripheral or weak, or at a turning point, crisis, or vacuum, and flag any claim of centrality that ignores this precondition (P002).
+1. Check, in Even-Zohar's polysystem theory, whether translated literature in the case under review is credited with a central, innovating position only when the receiving system is young, peripheral or weak, or at a turning point, crisis, or vacuum, and flag any claim of centrality that ignores this precondition (P002).
 2. Verify that the analysis uses Toury's structure of translational norms, separating preliminary norms (translation policy and directness) from operational norms (matricial and textual-linguistic), rather than treating norms as one undifferentiated category (P010).
 3. Check that any norm claim is reconstructed from norm-governed behaviour and its textual and extratextual traces rather than read directly off a stated rule or asserted without evidence (P011).
 4. Verify that the analysis distinguishes source-norm orientation, target-norm orientation, and mixed compromises along the adequacy-acceptability axis instead of collapsing the distinction (P023).

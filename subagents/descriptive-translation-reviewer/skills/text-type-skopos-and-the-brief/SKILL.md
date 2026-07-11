@@ -43,7 +43,7 @@ provenance:
   - C00148
   evidence: []
   source_anchors: []
-  authored_from_digest: 637cfa52ead9d0342caa4f2c833066c854dbf7bdccd72b9444206ab2d648adf6
+  authored_from_digest: 02c0889da801612125e25c10f6718fd0c2d1911d182be66e8357690fca58976d
 ---
 
 # Text Type, Skopos And The Brief
@@ -62,11 +62,11 @@ This skill reviews whether a translation is driven by an explicit brief (commiss
 
 ## Procedure
 
-1. Make the translation commission an explicit instruction stating both the goal and the conditions for attaining it (P009).
+1. Make the translation commission — Vermeer's Auftrag — an explicit instruction stating both the goal and the conditions for attaining it (P009).
 2. Drive a translation from the brief and source analysis (P038).
 3. Work at the level of the whole text and map its predominant function to a method (P060).
 4. Recognize that most texts are hybrids carrying several coexisting functions, that the target function may legitimately differ from the source function, and that the method depends on far more than text type (P061).
-5. Apply the skopos rules in hierarchical order (P062).
+5. Apply Vermeer's skopos rules in hierarchical order (P062).
 6. Adjust for the audience and medium (P063).
 7. Let the commissioner's constraints set the macro-level characteristics and overall strategy while the translator decides the micro-level procedures, conditioning translator's notes on genre and skopos (P070).
 8. Understand why mere trans-coding will not produce a serviceable translatum (P078).

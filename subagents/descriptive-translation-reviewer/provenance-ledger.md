@@ -5,11 +5,13 @@ report, and tests are all derived from the distilled spine in this package
 (`principles/principles.yaml` -> `analysis/claims.jsonl` -> `evidence/evidence-records.yaml` ->
 `sources/anchors/*.anchors.jsonl`), assembled by the map->reduce build. No load-bearing profile rule
 field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`,
-`knowledge_partition.always_on`, and `source_of_truth_policy` value cites the promoted principle(s)
-it restates — except a small number of product-scope boundaries (`forbidden_behaviours[0]`,
-`handoff_rules[1]`) that state a review-vs-produce decision rather than a source claim and are left
-uncited by design. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs` — carry no inline
-tags, per repo convention.)
+`knowledge_partition.always_on`, `source_of_truth_policy`, and `examples` value cites the promoted
+principle(s) it restates — except a small number of product-scope boundaries (`forbidden_behaviours[0]`,
+the never-translate/never-sign-off note in `examples[1]`, `handoff_rules[1]`) that state a review-vs-produce
+decision rather than a source claim and are left uncited by design. Inline `examples` citations are audited
+on the same footing as rule fields and are re-checked whenever a cited field's grounding changes on a
+version bump. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs` — carry no inline tags, per
+repo convention.)
 
 ## Sources
 
@@ -33,6 +35,29 @@ references index and ground them.
 
 ## Version History
 
+- **1.3.0** (2026-07-12) — Review-loop round 3 fixes (no prior decision silently overwritten). (1)
+  **M1** — dropped the stale `P070, P100` citation from `examples[1].ideal_response`'s never-translate/
+  never-sign-off note so it matches the uncited-by-design `forbidden_behaviours[0]` (the v1.2.0 decision
+  that dropped those two citations); this removes the last dangling `P100` reference in the profile.
+  (2) **S2** — the citation-accounting sentence above now lists `examples` and declares example citations
+  audited + re-checked on every version bump (M1's root cause). (3) **S3** — broadened
+  `minimum_useful_output` to gate all three modes (advise/compare, not review alone). (4) **S4** — reworded
+  the garden-path `when_to_use[2]` fluency/visibility trigger. (5) **S5 + S6** — reworded `when_not_to_use[0]`
+  so the routed-away scope is the linguistic-equivalence **mechanism** (disjoint from this package's
+  orientation-fit judgment in P106/P109) and the exported routing `description` now surfaces the
+  `translation-equivalence-advisor` sibling cue. (6) **S8** — `register-discourse-and-audiovisual-constraints`
+  Purpose now states House's overt/covert translation-**type** (P021) and overtly-/covertly-**erroneous**
+  error taxonomy (P065) are distinct axes, not one judgment. (7) **S9** — named the originating theorists at
+  point of use: **Lefevere** in P001/P050 (refraction/rewriting), **Even-Zohar/polysystem** in P002,
+  **Vermeer** (Auftrag/skopos) in P009/P062, with the echoing steps in
+  `culture-ideology-power-and-rewriting`, `descriptive-method-and-translational-norms`, and
+  `text-type-skopos-and-the-brief` updated to match — attribution only, no claim strengthened.
+  (8) **S1** — `faithfulness-report.yaml` extended with the 12 `knowledge_partition.always_on` bullets,
+  `minimum_useful_output`, and `when_not_to_use[0..4]` (all WITHIN_SCOPE, no over-claim). Adapter
+  re-exported; digests re-stamped. **Field→grounding changes:** `examples[1]` P070/P100 dropped (now
+  uncited by design). **Deferred:** S7 (skill-body footprint) — an optimization on a passing package; all
+  12 skills already sit under the 500-line factory limit, so trimming is left to a dedicated pass to avoid
+  regression risk. NICE items N1-N14 not applied.
 - **1.2.0** (2026-07-12) — Review-loop round 2 fixes (no prior decision silently overwritten). (1)
   **M1** — corrected the Chaume signifying-code count in **P019** (1+4+6 = 11 → "one linguistic,
   three acoustic and six visual" = 10) and the matching `register-discourse-and-audiovisual-constraints`

@@ -48,7 +48,7 @@ provenance:
 
 ## Purpose
 
-This skill reviews translation at the level of register and discourse using the Hallidayan model — field, tenor, mode — and checks cohesion, pragmatic linkage, transitivity and modality shifts, and politeness/face management. It gives special attention to audiovisual and subtitling constraints, where hard limits on space, legibility, and timing force a shortening that can re-code interpersonal meaning rather than merely omit it. It reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or subtitle file.
+This skill reviews translation at the level of register and discourse using the Hallidayan model — field, tenor, mode — and checks cohesion, pragmatic linkage, transitivity and modality shifts, and politeness/face management. It gives special attention to audiovisual and subtitling constraints, where hard limits on space, legibility, and timing force a shortening that can re-code interpersonal meaning rather than merely omit it. Note that House's two same-named axes are distinct and must not be conflated: the overt/covert **translation-type** typology names a translation's mode (P021), while the overtly-/covertly-**erroneous** **error taxonomy** grades an error's severity (P065) — same words, different judgments. It reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or subtitle file.
 
 ## When to use
 

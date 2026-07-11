@@ -48,7 +48,7 @@ provenance:
   - C00271
   evidence: []
   source_anchors: []
-  authored_from_digest: d90badfa747bed21eaee1b961a535b7aef1d0c490cf07bdfce8a881f6176f882
+  authored_from_digest: 3c54f1f782e8fe2e74d6d110966db5a16b81e58632a235ec816464252209bd05
 ---
 
 # Culture, Ideology, Power And Rewriting
@@ -68,7 +68,7 @@ This skill reviews translation as a culturally and ideologically situated act of
 
 ## Procedure
 
-1. Locate the deep problem of translating a foreign work not in the dictionary or semantic equivalence but in a compromise between two poetics in which the receiving system's poetics dominates, and account for changes explicable only by ideology — playing down charged content, raising loaded words to a nobler register, removing profanity — rather than by comprehension, judging no single translation in isolation since a later source-faithful version can afford its fidelity only because an earlier compromising one built the bridgehead (P001).
+1. Locate, with Lefevere, the deep problem of translating a foreign work not in the dictionary or semantic equivalence but in a compromise between two poetics in which the receiving system's poetics dominates, and account for changes explicable only by ideology — playing down charged content, raising loaded words to a nobler register, removing profanity — rather than by comprehension, judging no single translation in isolation since a later source-faithful version can afford its fidelity only because an earlier compromising one built the bridgehead (P001).
 2. Explain a translation's minimization or amplification of a marked identity-discourse by the target culture's prevailing conception of human subjectivity, and check that a source identity category is not conflated with the target's own understanding of it (P012).
 3. Study the translation's reception through reviews and paratexts, distinguishing peritexts from epitexts, and check whether those reviews actually discuss the translation or merely treat the translator's words as the author's own (P013).
 4. Recognize that translating identity-marked discourse such as camp is target-culture-dependent, and judge whether the translation's fluent invisibility masks an appropriative domestication or whether a foreignizing alternative could have registered the source's difference (P018).
@@ -77,7 +77,7 @@ This skill reviews translation as a culturally and ideologically situated act of
 7. Recognize that a colonial writer's or translator's dilemma is sharpened by diglossia rather than bilingualism, and check whether a translation's claim to restore "the people's voice" instead masks an elite institutional reappropriation that ordinary speakers would not recognize as their own (P028).
 8. Analyse the translation sociologically with Bourdieu's field, habitus, and capital, checking the translator's weak, low-paid, often-uncredited position against the decisive power that publishers and domesticating editors hold over whether and how a work is translated (P029).
 9. Contest value-free descriptions of the translation and trace the value-driven institutional network behind it — the publishers and editors who chose, commissioned, paid, and dictated method, plus the agents, marketing, and reviewers around it — and note whether fluent translation is producing the translator's invisibility (P040).
-10. Treat translation, criticism, editing, and historiography as forms of refraction or rewriting that carry a work between literary systems and conservatively shape canonization through anthologies and education, and check the analysis for the Romantic assumptions — the ex-nihilo genius, the untouchable sacred text, recoverable authorial intention, judging on intrinsic merit alone — that a refraction lens should have displaced (P050).
+10. Treat translation, criticism, editing, and historiography, with Lefevere, as forms of refraction or rewriting that carry a work between literary systems and conservatively shape canonization through anthologies and education, and check the analysis for the Romantic assumptions — the ex-nihilo genius, the untouchable sacred text, recoverable authorial intention, judging on intrinsic merit alone — that a refraction lens should have displaced (P050).
 11. Check whether the review relies on close, intimate knowledge of the medium's history and gender-specific tone rather than a distant reading that flattens it, and confirm the analysis distinguishes resistant from conformist writing rather than assuming correct cultural politics is enough on its own (P051).
 12. Attend to power in the cross-cultural translation under review, checking whether it flattens a less-powerful literature into homogenizing translatese or instead works from an intimate understanding of the source and treats the translator as a non-neutral agent in the third space (P055).
 13. Recognize that the translation is produced under non-linguistic constraints that often outweigh the semantic ones, and check whether its degree of deference to source versus target poetics tracks the source author's canonical reputation and the receiving system's evolutionary need for that work (P080).

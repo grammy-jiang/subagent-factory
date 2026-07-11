@@ -3,6 +3,42 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.3.0] — 2026-07-12
+
+Review-loop round 3 (`reports/review-loop/descriptive-translation-reviewer.r3.review.md`): applied the
+must-fix and the high-value should-fixes, staying grounded in the existing 180-principle spine.
+
+### Fixed
+- **M1 — stale citation in `examples[1]`** — the never-translate/never-sign-off note cited
+  `(forbidden behaviours, P070, P100)`, but v1.2.0 had dropped P070/P100 from the matching
+  `forbidden_behaviours[0]` as an uncited-by-design product-scope boundary. P100 appeared nowhere else,
+  making it a dangling citation. Changed to `(forbidden behaviours)` so the example matches the rule.
+- **S3 — `minimum_useful_output`** — the bar was phrased only in review-mode "flaw" terms; broadened to
+  gate `advise` (recommendation + orientation) and `compare` (brief-weighted side-by-side) as well.
+- **S4 — `when_to_use[2]`** — reworded the garden-path/comma-spliced fluency-and-visibility trigger into
+  a single unambiguous sentence (it seeds the exported routing description).
+- **S5 / S6 — `when_not_to_use[0]`** — narrowed the routed-away scope to the linguistic-equivalence
+  **mechanism** (disjoint from this package's orientation-fit judgment in P106/P109), and reordered so the
+  exported `description` surfaces the `translation-equivalence-advisor` sibling cue within the router's
+  character budget.
+- **S8 — House's two same-named axes** — `register-discourse-and-audiovisual-constraints` Purpose now
+  states the overt/covert translation-**type** typology (P021) and the overtly-/covertly-**erroneous**
+  error taxonomy (P065) name different judgments and are not to be conflated.
+- **S9 — theorist attribution** — named the originators at point of use: Lefevere (refraction/rewriting,
+  P001/P050), Even-Zohar/polysystem (P002), Vermeer (Auftrag/skopos, P009/P062), with the echoing skill
+  steps updated to match. Attribution only; no claim strengthened.
+
+### Changed
+- **S1 — faithfulness coverage** — `faithfulness-report.yaml` extended from 20 to 35 findings, adding the
+  12 `knowledge_partition.always_on` bullets, `minimum_useful_output`, and `when_not_to_use[0..4]`
+  (all WITHIN_SCOPE, no over-claim).
+- **S2 — provenance accounting** — the ledger's citation-accounting sentence now lists `examples` and
+  declares example citations audited + re-checked on every version bump (M1's root cause).
+
+### Deferred
+- **S7 — skill-body footprint** — an optimization on a passing package; all 12 skills already sit under
+  the 500-line factory limit. Left to a dedicated pass to avoid regression risk. NICE items N1-N14 not applied.
+
 ## [1.2.0] — 2026-07-12
 
 Review-loop round 2 (`reports/review-loop/descriptive-translation-reviewer.r2.review.md`): applied
