@@ -6,15 +6,17 @@ report, and tests are all derived from the distilled spine in this package
 `sources/anchors/*.anchors.jsonl`), which was assembled by the map→reduce build. No load-bearing
 profile rule field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`,
 `knowledge_partition.always_on`, and `source_of_truth_policy` value cites the promoted principle(s)
-it restates. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs` — carry no inline
-tags, per repo convention.)
+it restates, or is marked as declared advisory-boundary policy in the faithfulness report — as with
+`forbidden_behaviours[0]` (the "do not deliver the finished translation" boundary), which is a
+declared scope, not a distillation claim, and so carries no inline citation. (Descriptive fields —
+`role`, `when_to_use`, `inputs`, `outputs` — carry no inline tags, per repo convention.)
 
 ## Sources
 
 | source_id | title | author | year | rights |
 |-----------|-------|--------|------|--------|
 | in-other-words-baker-8e6c3cb1 | In Other Words: A Coursebook on Translation | Mona Baker | 1992 | distillation-only |
-| dynamic-formal-equiv-e6872198 | Toward a Science of Translating: dynamic and formal equivalence | Eugene A. Nida | 1964 | distillation-only |
+| dynamic-formal-equiv-e6872198 | Toward a Science of Translating (secondary extract on dynamic and formal equivalence; a derived ~10k-word extract, not the primary monograph) | Eugene A. Nida | 1964 | distillation-only |
 
 Both sources are **distillation-only**: paraphrase and restructure only, no verbatim quotation
 (see `.claude/rules/rights-and-quotation-policy.md`; enforced by `quote_scan`).
@@ -49,6 +51,227 @@ The five high-confidence principles (P009, P024, P037, P038, P058) are compiled 
 
 ## Version history
 
+- **v1.2.7** (2026-07-12) — adversarial-verify triage residual (in-session finish after the
+  auto-merge driver triage-stopped at must-fix=1). Fixed the P094 CONTRADICTION the review-loop's own
+  r4 narrowing introduced: P094 restated as a formal-equivalence device grounded in C00360 (useful
+  especially for technical/philosophical key-term tracking) + C00361 (relax where the receptor text
+  becomes meaningless); the "stylistic-only, not subject-matter" redefinition removed. Skill step 6 and
+  profile `handoff_rules` re-synced to route mandated subject-matter *glossary governance* to
+  technical-translation-advisor as an ownership boundary. No spine change beyond the P094 statement;
+  adapter re-exported.
+
+- **v1.2.6** (2026-07-12) — review-loop r1 consolidated-panel fixes (no spine change; every edited rule and
+  worked example restates principles already in the spine, citing only ids already present; no new claim):
+  - MF1 (test hygiene): Phase-8 self-check and golden artifacts were stale relative to shipped `agent_version`
+    (`golden-tests.yaml` `profile_version` 1.2.4; `test-results.md` pre-v1.2.5). `test-results.md` regenerated
+    via `cli selfcheck`, `profile_version` → 1.2.6, adapter re-exported, body-size WARNING re-confirmed against
+    the fresh count. No citation changed.
+  - SF5/SF6 (routing/scope): `when_not_to_use[0]` reworded to name the disambiguating axis — sibling-axis
+    "review my translation" (norm-evidence / domestication-foreignization / translator-visibility → descriptive;
+    *systematic ST-vs-TT register profile* / corpus metrics → quality; technical usability/terminology →
+    technical) vs the linguistic equivalence mechanism (typicality, cohesive-tie fit, register as one local
+    factor) which stays here. Wording only, no citation.
+  - SF7 (faithfulness): `handoff_rules[1]` "terminology consistency" → "source-term concordance (stylistic or
+    study tracking, not subject-matter glossary consistency)", carrying the v1.2.5 P094 narrowing; citation
+    unchanged (P094, P115).
+  - SF4 (faithfulness): `pragmatic-equivalence-coherence-and-implicature` step 3 hedged — cited discourse/
+    rhetoric norms read as loose tendencies to verify against the actual target readership, not fixed national
+    patterns (grounded in P033 culture-relative + P019/P020, both already in the skill's provenance).
+  - SF8 (agent design): fourth `examples` entry exercises `compare` mode (formal vs dynamic for one emotive
+    segment under a brief; cites P021, P034, P035, P022, P005, P008, P052, P078 — all in the spine).
+  - SF9 (skill-authoring): one grounded `## Worked example` added to each of the nine skills, citing only that
+    skill's own principle ids.
+  - SF10 (skill-authoring): run-on decision-table steps reformatted into nested bullets (`word-level` step 5;
+    `dynamic-and-formal-equivalence` steps 2/5/8); `collocation-idiom` step 5 was single-clause, example only.
+  - Reference drift (r5 MF1 / out-of-scope note): `references/translation-equivalence-principles-index.md`
+    P094/P100 lines aligned to the current `principles.yaml` wording.
+  - No field→grounding row above changed its principle citation.
+  - Deferred: SF1 (inclusive-language) and SF3 (regulated-domain back-translation QA) require claims outside
+    Baker 1992 / Nida 1964 (same as v1.2.0 S5, v1.2.3 S6); SF2 (Relevance→Relation) NOT applied — P032 and
+    Baker name the maxim "Relevance", so the change would reduce source faithfulness. N1–N14 non-blocking.
+
+- **v1.2.5** (2026-07-12) — review-loop r4 consolidated-panel fixes (no spine change; every edited rule
+  still restates principles already in the spine, no new claim; the two principle rewordings only *narrow*
+  their source support):
+  - MF1 (routing / adapter description): the exported frontmatter `description` truncated to the first
+    `when_to_use`/`when_not_to_use` bullet, dropping the review trigger and the sibling-redirect clause — the
+    same adapter-truncation class that previously gutted must-hold rules in a sibling. Fixed generally in
+    `tools/subagent_factory/export_claude_agent.py` `_compose_description` (budget 320→640; clips: exclusion
+    85→320, triggers 85→90) and locally by reordering `when_not_to_use` so the sibling-redirect is the primary
+    exclusion. Adapter re-exported. No citation changed.
+  - SF1 (faithfulness): P100 statement scoped to its pedagogical-illustration origin (derived_from C00016) —
+    no longer a blanket "never"; `dynamic-and-formal-equivalence` step 7 reworded to match. A narrowing, so
+    faithfulness is unaffected.
+  - SF2 (faithfulness): P094 statement narrowed to stylistic/literary concordance and scoped out of
+    subject-matter terminology (routed to `technical-translation-advisor`); step 6 reworded. A narrowing.
+  - SF3/SF4 (terminology): grounded, self-referential notes only — "dynamic equivalence" flagged as Nida's
+    own (1964) term (source year); "adequacy" flagged as Nida's fitness-for-brief sense, not a source-oriented
+    label. The external claims (Nida's later "functional equivalence"; Toury's adequate/acceptable) are out of
+    this package's two sources and were NOT added.
+  - SF5 (skill-authoring): the 9× advise/review/compare Output boilerplate consolidated into a single
+    "Response-shape protocol" section in `translation-equivalence-key-concepts.md`; each skill `Output` now
+    carries only its domain-specific fields plus a pointer (P021, P078 already in the reference's provenance).
+  - SF6 (routing): concrete caller-trigger clauses added to the eight thin skill descriptions.
+  - SF7 (routing): `thematic-and-information-structure` step 5 hands reference-tracking mechanics to
+    `cohesion-and-texture`, keeping only given/new status (P067).
+  - SF8 (agent design): a third `examples` entry exercises `review` mode (findings list across
+    pragmatic/collocation/information-structure levels; cites P070, P020, P044, P024, P078, P051 — all in the
+    spine).
+  - SF10 (body-size): two quality_bar clauses tightened; body ~968 words, off the hard-fail edge.
+  - No field→grounding row above changed its principle citation; `principles/principles.yaml` P094/P100
+    rewordings are narrowings within their existing `derived_from_claims`.
+  - Deferred: N1–N4 (non-blocking NICE) and the out-of-source parts of SF3/SF4.
+
+- **v1.2.4** (2026-07-12) — review-loop r3 consolidated-panel fixes (no spine change; every edited rule
+  still restates principles already in the spine, no new claim):
+  - MF-1 (faithfulness): `forbidden_behaviours[3]` restated P038 as a flat cohesion absolute and omitted
+    P091 (purpose-driven licence to follow source cohesion) — the P038-vs-P091 conflict already reconciled
+    in `always_on[4]` but not propagated here. Split so P024/P009/P046 (thematic markedness, voice,
+    tense/aspect) stay absolute while the cohesion clause is conditioned and cites P038, P091; citation now
+    (P024, P009, P046, P038, P091). Faithfulness-report re-graded EXACT_SUPPORT → WITHIN_SCOPE.
+  - SF-1 (faithfulness): `quality_bar[4]` cohesion criterion conditioned "reworked by default … unless the
+    translation's purpose favours following source patterns" and P091 added (P038, P004, P069, P017, P091);
+    faithfulness-report note updated.
+  - SF-7 (routing): fourth `when_not_to_use` entry names the three corpus siblings by their distinct lenses
+    (norms/retranslation/visibility → descriptive; corpus quality metrics/register profile → quality;
+    technical-document usability/terminology → technical); wording only, no citation.
+  - MF-3 (body-size): profile body trimmed off the 1000-word hard-fail edge (0 → ~26 words headroom) while
+    absorbing the MF-1/SF-1/SF-7 additions — `quality_bar` per-clause citation lists collapsed to their
+    primary principle IDs (full clusters retained in `always_on` and the faithfulness report) and the two
+    heaviest clauses plus `modes`/`role`/`handoff`/`precedence` tightened. Residual WARNING is
+    grounding-bounded (nine hedged equivalence levels).
+  - MF-2 (test hygiene): `tests/test-results.md` regenerated and adapter re-exported against v1.2.4;
+    `golden-tests.yaml` `profile_version` → 1.2.4.
+  - Deferred (out of grounding scope or lower value): SF-2 (P009 confidence — compiled adapter invariant,
+    out of scope for a faithfulness patch), SF-3 (P066 typology — domain critique, not a source over-claim),
+    SF-4/SF-5/SF-6/SF-8/SF-9 and NICE items (skill-authoring / source-addition cycle).
+
+- **v1.2.3** (2026-07-12) — review-loop r2 consolidated-panel fixes (no spine change; every edited rule
+  still restates principles already in the spine, no new claim; supersedes the r3-flagged S3/S4 loci left
+  unlogged at v1.2.2):
+  - M1 (faithfulness): `knowledge_partition.always_on[0]` — the closing "never erase a culturally embedded
+    item merely to sound natural" (unconditional, HEDGING_REMOVED against P095) reworded to "…when its
+    foreignness carries meaning for the text (P095)"; citations unchanged.
+  - M2 (faithfulness): `knowledge_partition.always_on[4]` — the absolute P038 opener contradicted its own
+    P091 purpose-conditioned close; reframed default-with-exception ("As a default (P038)… but, as a
+    purpose-driven exception (P091)…"); citations unchanged.
+  - S1 (faithfulness): `quality_bar[7]` and `always_on[7]` restored P041's "unless the brief calls for
+    preserving source-culture flavour" exception; `register-style-and-literary-form` step 2 + anti-pattern
+    carry the same exception; citations unchanged (P041, P005, P076, P099).
+  - S2 (faithfulness): `examples[1].ideal_response` dropped the "typically prioritizes the receptor's
+    response" genre default it instructs the advisor not to assume; now "…without defaulting by genre
+    (P034, P041, P021)".
+  - S4 (mode coverage): the remaining seven skills' `## Output` gained a `compare`-mode branch — P106
+    (word-level), P044 (collocation-idiom), P024 (thematic), P091 (cohesion), P050 (pragmatic), P005
+    (register), P046 (grammatical) — each citing a principle already in that skill's partition.
+  - S7 (routing): `when_to_use[1]` tightened so the exported router `description` surfaces the review-mode
+    trigger; wording only, no citation.
+  - S8 (routing): `text-level-approach-and-limits-of-equivalence` frontmatter `description` folds in the
+    concrete caller phrasing ("right"/"literal enough"/"faithful"); wording only.
+  - S3 (faithfulness-report): `always_on[0]`, `always_on[4]`, `quality_bar[7]`, `always_on[7]` notes
+    re-graded from silently-clean to documented "Corrected in v1.2.3" entries.
+  - S10 (test hygiene): `tests/test-results.md` regenerated and adapter re-exported against v1.2.3.
+  - Deferred (out of grounding scope): S5 (P015 inclusive-language / singular-they options) and S6 (P100
+    regulated-domain back-translation QA role) require claims absent from the two grounded sources; S9
+    (missing v1.2.2 review-loop artifact) and NICE items are non-blocking.
+
+- **v1.2.2** (2026-07-12) — review-loop r1 independent re-verify fixes (no spine change; every edited
+  rule still restates principles already in the spine, no new claim):
+  - SF-1 (routing): seven skill `description` openers broadened from "Reviews …" to "Diagnoses and
+    reviews …" so the sole load-time trigger covers the pre-draft advise/diagnose path the bodies already
+    build (mirrors the `word-level` skill; scope statement, no principle grounding).
+  - SF-2 (mode coverage): `dynamic-and-formal-equivalence` and `text-level-approach-and-limits-of-equivalence`
+    `## Output` gained a `compare`-mode branch (side-by-side favours/costs before a purpose-weighted
+    recommendation) — P021 for the orientation compare, P079 for the whole-text compare.
+  - SF-3 (faithfulness): `profile.yaml` `quality_bar[0]` headline "No one-to-one match at word level" →
+    "Don't assume a one-to-one match at word level" to restore P037's hedge ("never *assume* a
+    one-to-one correspondence"); citations unchanged (P037, P001, P103, P106).
+  - SF-5 (grammatical, grounded subset): `grammatical-equivalence` step 3 adds that "masculine as
+    unmarked" describes the source system, not a target default, and to restructure (e.g. passive) where
+    the distinction is arbitrary or need not be specified — the grounded part of P015 only (no
+    inclusive-language *policy* claim, which stays deferred as out of spine scope).
+  - SF-6 (faithfulness): `profile.yaml` `examples[1].ideal_response` de-genre-defaulted — "a marketing
+    text usually calls for dynamic equivalence" → "a marketing brief typically prioritizes the receptor's
+    response, so ask what this brief's purpose and audience favour before setting the orientation"
+    (P034, P041, P021), consistent with the brief-governs precedence and `forbidden_behaviours[2]`. Root
+    cause `.build/authoring/gen.py` fixed so regeneration will not reintroduce it.
+  - SF-8 (dynamic-formal, grounded subset): anti-pattern added that a fluent receptor read is not proof
+    of equivalent effect and "similar audience response" is a directional target tested across audience
+    and context, not a single pass/fail — grounded in P035 (multiple valid solutions) and P036
+    (naturalness that preserves meaning). Does not assert the ungrounded unmeasurability critique, which
+    stays deferred.
+  - SF-9 (grammatical): step 6 relabelled from "Distinguish morphology from syntax" to P084's load-bearing
+    contrast — grammar (morphology and syntax together, a closed, largely obligatory system) vs lexis (an
+    open, largely optional system); citation unchanged (P084).
+  - SF-10 (test hygiene): `golden-tests.yaml` `profile_version` → 1.2.2 (metadata only; GT-004 content
+    unaffected).
+  - SF-12 (ledger): the per-field citation claim above qualified to note `forbidden_behaviours[0]` is a
+    declared advisory-boundary policy carrying no inline citation by design.
+  - SF-13 (faithfulness-report): `quality_bar[0]` note extended to record the SF-3 hedge restoration.
+  - MF-2 / Phase 8: `tests/test-results.md` regenerated against the v1.2.2 profile.
+  - Deferred again (out of grounding scope): SF-4/prior-SF-9 back-translation QA role and SF-7/prior-SF-10
+    Nida-1986 "functional equivalence" rename — both require claims absent from this spine; SF-11 adapter
+    description-synthesis is a shared factory-template concern, not a package-grounding fix.
+
+- **v1.2.1** (2026-07-12) — adversarial-verify (verify1) fixes (no spine change; every edited rule still
+  restates principles already in the spine, no new claim):
+  - MF-1 (faithfulness): `skills/grammatical-equivalence/SKILL.md` step 7 conflated a term-TYPE with a
+    STRATEGY — classified terms as "ordinary parallels, functional equivalents, or borrowings", swapping
+    P055's diagnostic third category "culture-specific items" for the strategy "borrowings" and dropping
+    "cultural" from the second. Restated to P055's exact sense (ordinary parallels / functional cultural
+    analogues / culture-specific items) with strategy choice deferred to the word-level skill, restoring
+    the no-map-type-to-strategy discipline.
+  - MF-2 (faithfulness): `profile.yaml` `quality_bar[0]` broadened word-scoped P037/P001 to "word or
+    phrase level" (SCOPE_BROADENED — phrase/collocation is governed by P042/P043 typicality). Narrowed to
+    "word level"; phrase/collocation/idiom coverage remains in `quality_bar[1]`.
+
+- **v1.2.0** (2026-07-12) — review-loop r2 fixes (supersession, no spine change; every edited rule still
+  restates principles already in the spine, no new claim):
+  - MF-1 (faithfulness): the receptor-response over-claim fixed in `quality_bar[6]` at v1.1.0 was still
+    live verbatim in four non-profile artifacts — the `dynamic-and-formal-equivalence` skill Purpose and
+    anti-pattern, the key-concepts Adequacy entry, and golden test GT-004. All propagated to the
+    brief-conditioned wording (P021, P034, P035, P022 — P022 grounds closeness-to-source-form for readers
+    who need that access). `.build/authoring/gen.py` corrected so regeneration will not reintroduce it.
+    Faithfulness-report `quality_bar[6]` note extended to record the propagated loci.
+  - MF-2 (faithfulness): `quality_bar[1]` reversed P044's hedge ("assume no idiom has a target
+    equivalent" = presume none) → restored to P044's agnostic "do not assume an idiom has a target
+    equivalent", matching `always_on[1]` and unblocking P014's similar-meaning-and-form idiom strategy.
+    Faithfulness-report `quality_bar[1]` note corrected (was inaccurately "no strengthening").
+  - SF-1 (routing): `when_to_use` reordered so the most distinctive triggers (culture-specific
+    item/idiom/collocation/marked-structure/poetic-form; whole-text review) fill the first two slots the
+    router `description` samples (no principle grounding — scope statement).
+  - SF-2 (scope): `review` mode output now states "correction" = strategy/target-language device, not
+    verbatim replacement prose (consistent with `forbidden_behaviours[0]`; no new citation).
+  - SF-3 (advise-mode fit): eight skill `## Output` sections gained a no-draft branch (state the
+    recommended strategy and its principle directly when no draft is supplied). No grounding change.
+  - SF-5 (provenance): Nida citation corrected — fabricated subtitle dropped; recorded as a derived
+    secondary extract, not the primary monograph (Sources table above updated).
+  - SF-6 (size): `quality_bar` clauses trimmed to hold the body under the 1000-word limit; all principle
+    citations preserved.
+  - SF-7/SF-8 (test hygiene): `golden-tests.yaml` `profile_version` → 1.2.0; GT-004 `principle_coverage`
+    gains P022; Phase-8 `test-results.md` regenerated against the v1.2.0 profile.
+  - Deferred (out of grounding scope — would need claims absent from this spine): SF-9 back-translation
+    QA/validation role, SF-10 Nida-1986 "functional equivalence" rename, SF-11 Mandarin 被 era-drift,
+    SF-12 contrastive-rhetoric critique, SF-13 equivalent-effect unmeasurability, SF-14 inclusive-language
+    policy, and the N-tier nice-to-haves that import outside sources.
+- **v1.1.0** (2026-07-12) — review-loop r1 fixes (supersession, no spine change; every edited rule still
+  restates principles already in the spine, no new claim):
+  - M2 (faithfulness): `quality_bar[6]` over-claim removed — the universal negation "adequacy is judged
+    by receptor response, **not** formal closeness" exceeded its cites (P022 endorses formal-equivalence/gloss
+    for close source access; P035 gives four adequacy criteria). Reworded brief-conditioned; grounding
+    unchanged (P021, P034, P035, P022). Faithfulness-report `quality_bar[6]` note updated.
+  - S9 (faithfulness): `source_of_truth_policy.precedence` regraded "preserve it only where…" →
+    "preserving it more strongly where…" to match P005's graded wording (grounding P005, P021, P078,
+    P051 unchanged). Faithfulness-report `precedence` note updated.
+  - S1 (routing): `when_to_use[0]` split into two sentences so the exported router `description` gets a
+    complete, scope-signalling first clause (no principle grounding — scope statement).
+  - S2 (size): `quality_bar` compressed for body-word headroom; all principle citations preserved.
+  - S8 (lens-fit): `text-level-approach-and-limits-of-equivalence` "When to use" narrowed to its distinct
+    whole-text/relative-standard trigger (P006, P051, P078; no new citation).
+  - M1 (adapter): re-exported so P038/P058 invariants emit whole (stale adapter had a mid-clause `…`).
+  - Deferred (out of grounding scope — would need claims absent from this spine): S3 back-translation
+    QA role, S5 equivalent-effect unverifiability, S6 Mandarin 被 era-drift, S7 Nida-1986 "functional
+    equivalence" rename, and the N-tier nice-to-haves.
 - **v1.0.0** (2026-07-11) — initial LLM-authored layer (profile, nine skills, two references,
   faithfulness report, golden + principle-behaviour tests, adapter) generated over the pre-built
   distilled spine. Distilled spine unchanged.

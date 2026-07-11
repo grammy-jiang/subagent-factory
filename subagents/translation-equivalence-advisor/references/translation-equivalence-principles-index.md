@@ -125,7 +125,7 @@ provenance:
   claims: []
   evidence: []
   source_anchors: []
-  authored_from_digest: 069dc55fd0062c67b59542c809cd7e3e08dc7f16fd964444ecfcc6d18c9c0e0d
+  authored_from_digest: f90b9f420961c7fbd804b17f54dcc638640f18d8cd9e5dd09efb521f16d2349d
 ---
 
 # Translation Equivalence — Principles Index
@@ -245,10 +245,10 @@ Every promoted principle (P001–P116), grouped by the skill that owns it. Each 
 - **P054** — Diagnose linguistic and cultural distance before translating, watching for false friends and for cultural gaps that may matter more than grammar..
 - **P056** — Preserve the source’s total stylistic impression by adapting style norms, emotional tone, authorial stance, and character voice for receptor-language effect..
 - **P074** — When retaining source forms, idioms, or added target-language words in a formal translation, make the support visible through notes or markers when needed for comprehension..
-- **P094** — Use concordant terminology only where it helps readers track important source terms; relax it when consistency produces unnatural or meaningless receptor text..
+- **P094** — Use concordant rendering (one consistent target term for a recurring key source term) where readers must track that term for study or interpretation — a formal-equivalence device useful especially for technical or philosophical texts — and relax it where rigid consistency makes the receptor text unnatural or relatively meaningless.
 - **P097** — Infer both the original audience and the receptor audience before targeting equivalent response; do not assume either audience is the general public..
 - **P098** — Use expansion and redundancy to support equivalent communication load and decoding rate, but scope additions to the message, audience, setting, and publication purpose..
-- **P100** — Use back-translation only to expose a target text's morphological, syntactic, or lexical structure, remembering it is a theoretically unsound compromise that never reproduces the original's meaning..
+- **P100** — As a pedagogical illustration of structural differences, use back-translation only to expose a target text's morphological, syntactic, or lexical structure; used this way it is a theoretically unsound compromise that never reproduces the original's meaning, so it is not by itself a general test of translation quality..
 - **P115** — Account for cultural expectations about faithfulness, existing translations, and publication format before deciding how far dynamic equivalence may go..
 
 ## Register, Style, and Literary Form

@@ -1,9 +1,10 @@
 ---
 name: text-level-approach-and-limits-of-equivalence
-description: Reviews the whole-text approach and the standard applied — systematic
-  reflection, guarding against interference, and treating equivalence as relative
-  and partial; owns the overarching stance and evaluation frame, not any single linguistic
-  level.
+description: Diagnoses and reviews the whole-text approach and the standard applied
+  — systematic reflection, guarding against interference, and treating equivalence
+  as relative and partial; owns the overarching stance and evaluation frame, not any
+  single linguistic level. Use when a caller asks whether a translation is "right,"
+  "literal enough," or "faithful" overall without naming a single equivalence level.
 kind: skill
 status: ready
 provenance:
@@ -64,10 +65,9 @@ This skill reviews the translator's overall stance and the standard by which the
 
 ## When to use
 
-- A whole text is being approached for translation or review.
-- A translation decision must be made or justified.
-- How closely a translation matches its source is being assessed.
-- A translation is being critiqued overall.
+- A caller asks whether a translation is "right," "literal enough," or "faithful" overall, without naming a single equivalence level.
+- Findings from a specific level-skill (word, grammar, cohesion, pragmatics, register) must be weighed against the whole-text standard.
+- How closely a whole translation matches its source is being assessed against a relative, partial standard rather than an absolute one.
 
 ## Procedure
 
@@ -87,13 +87,17 @@ This skill reviews the translator's overall stance and the standard by which the
 
 ## Output
 
-Per finding: state the whole-text or standard concern, whether the draft rested on systematic reflection or intuition, and the correction — framed as an improvement, with the residual limit of equivalence made explicit. End with a next step.
+Per finding: state the whole-text or standard concern, whether the draft rested on systematic reflection or intuition, and the correction — framed as an improvement, with the residual limit of equivalence made explicit; in compare mode weigh two whole-text approaches by their residual strengths and weaknesses, since a translation is open to improvement rather than simply good or bad (P079). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 
 - Optimising word- or phrase-level matches at the expense of whole-text equivalence (P006).
 - Presenting a rendering as the single correct one rather than a relative approximation (P078, P051).
 - Judging an unusual rendering from the translator's view rather than the reader's (P111).
+
+## Worked example
+
+A caller asks only "is this translation faithful enough?" with no single level named. Diagnosis — judge at the whole-text level, not by isolated word matches (P006, P039), and base the verdict on systematic reflection rather than intuition (P010). Treat equivalence as relative and only partially achievable (P051, P078): report the translation as a set of strengths and weaknesses open to improvement, not simply good or bad (P079), judging any unusual rendering from the reader's point of view, not the translator's (P111). Residual loss — no rendering is the single correct one; make the residual limit explicit, and hand the wording back.
 
 ## References
 

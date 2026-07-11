@@ -7,16 +7,23 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Aggregates the promoted principles P037, P001, P103, P106 into one review criterion; each clause
-    restates a principle without strengthening it.
+  note: 'Aggregates the promoted principles P037, P001, P103, P106 into one review criterion; each clause
+    restates a principle without strengthening it. Corrected in v1.2.2: the headline "No one-to-one match
+    at word level" (categorical) was reworded to "Don''t assume a one-to-one match at word level" to
+    restore P037''s hedge ("never assume a one-to-one correspondence"), matching the sibling formulations
+    in always_on[0] and forbidden_behaviours[1].'
 - rule_ref: quality_bar[1]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Aggregates the promoted principles P042, P058, P044, P013 into one review criterion; each clause
-    restates a principle without strengthening it.
+  note: 'Aggregates the promoted principles P042, P058, P044, P013 into one review criterion. Corrected
+    in v1.2.0: the earlier wording ("assume no idiom has a target equivalent") reversed P044''s hedge —
+    P044 says "do not assume an idiom has a target equivalent" (stay agnostic), not "presume none has",
+    a HEDGING_REMOVED distortion that also biased against P014''s similar-meaning-and-form idiom strategy.
+    Now reads "do not assume an idiom has a target equivalent", matching always_on[1] and P044, so no clause
+    exceeds its principle.'
 - rule_ref: quality_bar[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -39,8 +46,12 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Aggregates the promoted principles P038, P004, P069, P017 into one review criterion; each clause
-    restates a principle without strengthening it.
+  note: 'Aggregates the promoted principles P038, P004, P069, P017 into one review criterion. Corrected
+    in v1.2.4: the criterion stated "Cohesion is reworked, not transferred" as a categorical, restating
+    P038 as an absolute and omitting P091, which licenses following source cohesion when the translation''s
+    purpose calls for it (SCOPE_BROADENED against the default-with-exception already reconciled in
+    always_on[4]). Reworded to "reworked by default, not transferred … unless the translation''s purpose
+    favours following source patterns" and P091 added to the citation, so no clause exceeds its principle.'
 - rule_ref: quality_bar[5]
   verdict: WITHIN_SCOPE
   distortion:
@@ -55,16 +66,26 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Aggregates the promoted principles P021, P034, P022, P035 into one review criterion; each clause
-    restates a principle without strengthening it.
+  note: 'Aggregates P021, P034, P035, P022 into one review criterion. Corrected in v1.1.0: the earlier
+    wording ("adequacy is judged by receptor response, not formal closeness") was a universal negation
+    stronger than its cites — P022 endorses formal-equivalence/gloss where readers need close source access,
+    and P035 lists four adequacy criteria, not a single receptor-response test. Now brief-conditioned
+    (sense/spirit/natural expression/similar response for receptor-response tasks; closeness to source
+    form and structure when readers need that access), so no clause exceeds its principle. In v1.2.0 the
+    same brief-conditioned wording was propagated to the loci that still carried the pre-fix over-claim:
+    the dynamic-and-formal-equivalence skill Purpose and anti-pattern, the key-concepts Adequacy entry,
+    and golden test GT-004 (must_do/minimum_output), and .build/authoring/gen.py was corrected so
+    regeneration will not reintroduce it.'
 - rule_ref: quality_bar[7]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Aggregates the promoted principles P041, P005, P076, P099 into one review criterion; each clause
-    restates a principle without strengthening it.
+  note: 'Aggregates the promoted principles P041, P005, P076, P099 into one review criterion. Corrected
+    in v1.2.3: the register clause restated P041 as unconditional register-matching (HEDGING_REMOVED — P041
+    adds "unless the purpose is deliberately to give the reader a flavour of the source culture"); appended
+    "unless the brief calls for preserving source-culture flavour" so no clause exceeds its principle.'
 - rule_ref: quality_bar[8]
   verdict: WITHIN_SCOPE
   distortion:
@@ -96,12 +117,18 @@ findings:
   action: accept_with_note
   note: Restates the boundary carried by P001, P102.
 - rule_ref: forbidden_behaviours[3]
-  verdict: EXACT_SUPPORT
+  verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Restates the boundary carried by P038, P024, P009, P046.
+  note: 'Restates the boundary carried by P024, P009, P046 (thematic markedness, voice, tense/aspect — absolute)
+    and P038/P091 (cohesion — default-with-exception). Corrected in v1.2.4: the earlier single clause forbade
+    "transferring the source text''s cohesive devices … unchanged" as a flat absolute (P038 only), omitting
+    P091''s purpose-driven licence to follow source cohesion — the same P038-vs-P091 conflict already
+    reconciled in always_on[4]. Split so the three form/voice categories stay absolute while the cohesion
+    clause is conditioned "where the purpose does not call for following source cohesion" and P091 is cited,
+    so no clause exceeds its principle.'
 - rule_ref: handoff_rules[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -122,8 +149,11 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Skill summary restating principles P001, P011, P012, P037, P059, P060, P080, P081, P082, P095,
-    P102, P103, P104, P105, P106; the always-on line is a faithful digest of that cluster.
+  note: 'Skill summary restating principles P001, P011, P012, P037, P059, P060, P080, P081, P082, P095,
+    P102, P103, P104, P105, P106. Corrected in v1.2.3: the closing clause "never erase a culturally embedded
+    item merely to sound natural" was unconditional (HEDGING_REMOVED against P095, which retains/describes/annotates
+    only "when the foreign setting is part of the message"); reworded to "when its foreignness carries meaning
+    for the text" so the always-on line stays a faithful digest of that cluster.'
 - rule_ref: knowledge_partition.always_on[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -154,8 +184,11 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Skill summary restating principles P004, P017, P018, P031, P038, P049, P068, P069, P087, P091,
-    P112; the always-on line is a faithful digest of that cluster.
+  note: 'Skill summary restating principles P004, P017, P018, P031, P038, P049, P068, P069, P087, P091,
+    P112. Corrected in v1.2.3: the clause opened with an absolute "Do not transfer the source text''s cohesive
+    devices" (P038) yet closed with a purpose-conditioned exception (P091), an internal contradiction; reframed
+    as default-with-exception ("As a default (P038)… but, as a purpose-driven exception (P091), decide…by
+    the translation''s purpose") so the two principles no longer conflict.'
 - rule_ref: knowledge_partition.always_on[5]
   verdict: WITHIN_SCOPE
   distortion:
@@ -178,8 +211,10 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Skill summary restating principles P005, P041, P075, P076, P077, P099, P114, P116; the always-on
-    line is a faithful digest of that cluster.
+  note: 'Skill summary restating principles P005, P041, P075, P076, P077, P099, P114, P116. Corrected in
+    v1.2.3: the register clause matched register "along field, tenor, and mode" unconditionally (same P041
+    HEDGING_REMOVED as quality_bar[7]); appended "unless the brief calls for preserving source-culture flavour"
+    to restore P041''s exception, so the always-on line stays a faithful digest of that cluster.'
 - rule_ref: knowledge_partition.always_on[8]
   verdict: WITHIN_SCOPE
   distortion:
@@ -203,7 +238,9 @@ findings:
   severity: low
   action: accept_with_note
   note: 'Precedence rule grounded in P005, P021, P078, P051: purpose and reader coherence govern, form
-    is weighted by function, and equivalence stays relative.'
+    is weighted by function, and equivalence stays relative. Corrected in v1.1.0 from "preserve it only
+    where…" to the graded "preserving it more strongly where…" to match P005''s graded wording (no hedging
+    removed).'
 - rule_ref: outputs.modes[advise].trigger
   verdict: WITHIN_SCOPE
   distortion:

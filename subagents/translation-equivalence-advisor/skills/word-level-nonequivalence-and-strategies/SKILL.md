@@ -4,7 +4,8 @@ description: Diagnoses word-level non-equivalence — a culture-specific, unlexi
   or semantically complex item with no direct target equivalent — and reviews the
   chosen rendering strategy against context and purpose; owns lexical meaning and
   the single-word/short-phrase gap, not collocation and idiom patterning, which collocation-idiom-and-fixed-expression
-  owns.
+  owns. Use when a caller says there is no target word for a term and asks whether
+  to keep, gloss, or substitute it.
 kind: skill
 status: ready
 provenance:
@@ -97,7 +98,14 @@ This skill reviews how a translator renders a single word or short phrase that h
 2. Separate the item's propositional, expressive, presupposed, and evoked meaning before judging any rendering, and read its value against the items it contrasts with in its semantic field (P011, P012).
 3. Diagnose the specific type of non-equivalence — culture-specific concept, unlexicalized concept, semantic complexity, a missing superordinate or hyponym, a perspective or form difference, a loan word or false friend — but do not map that type to a strategy one-to-one, since context and purpose favour some strategies and rule out others (P001, P102).
 4. Assess the gap's significance in the given context and reproduce only what the context requires before deciding how to handle it (P103).
-5. Choose deliberately from an open, non-exhaustive strategy set: a more general word / superordinate (P104), a loan word optionally explained once so it can then stand alone (P059), paraphrase with a related or unrelated word (P060), cultural substitution for a similar impact (P081), illustration for a picturable physical entity under space constraints (P105), a more neutral word when the equivalent's expressive load is wrong (P080), and omission only as a last resort for a non-vital item (P082).
+5. Choose deliberately from an open, non-exhaustive strategy set, matching the option to the gap and purpose rather than to the non-equivalence type:
+   - a more general word / superordinate (P104);
+   - a loan word, optionally explained once so it can then stand alone (P059);
+   - paraphrase with a related or unrelated word (P060);
+   - cultural substitution for a similar impact but different propositional meaning (P081);
+   - illustration for a picturable physical entity under space constraints (P105);
+   - a more neutral word when the equivalent's expressive load is wrong (P080);
+   - omission only as a last resort, for a non-vital item (P082).
 6. Do not erase a culturally embedded source item merely to sound natural; retain, describe, or annotate it when the foreignness carries meaning (P095).
 7. Treat the catalogue of strategies as open rather than exhaustive and keep studying professional practice (P106).
 
@@ -109,7 +117,7 @@ This skill reviews how a translator renders a single word or short phrase that h
 
 ## Output
 
-Per finding: name the kind of non-equivalence, the strategy the draft used, whether it fits the context and purpose, the grounded alternative (with the principle it rests on), and the residual loss the caller should accept or repair. End with a next step, never a single 'correct' word handed back as final.
+Per finding: name the kind of non-equivalence, the strategy the draft used, whether it fits the context and purpose, the grounded alternative (with the principle it rests on), and the residual loss the caller should accept or repair; in compare mode weigh two rendering strategies for one item by the text's purpose (P106). Follow the shared advise/review/compare response protocol in `../../references/translation-equivalence-key-concepts.md`.
 
 ## Anti-patterns to flag
 
@@ -117,6 +125,10 @@ Per finding: name the kind of non-equivalence, the strategy the draft used, whet
 - Mapping a non-equivalence type to a fixed strategy regardless of context or purpose (P001, P102).
 - Using omission for an item that is not in fact dispensable, or before cheaper strategies were tried (P082).
 - Flattening a culturally embedded item to sound natural, losing the meaning its foreignness carried (P095, P080).
+
+## Worked example
+
+Source: a memoir names a specific regional flatbread the target culture has no word for, and the food evokes home. Draft renders it simply "bread." Diagnosis — culture-specific concept; the flat "bread" drops the evoked home-meaning that is load-bearing here, so refuse the one-to-one gloss (P037, P001, P011). Because its foreignness carries meaning, do not flatten it to sound natural (P095): keep it as a loan word explained once so it can then stand alone, or add a brief gloss (P059); cultural substitution with a familiar local bread is available but trades the referent away (P081). Residual loss — the reader still meets an unfamiliar word; accept that for the retained sense, and hand the final wording back.
 
 ## References
 

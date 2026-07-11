@@ -1,0 +1,23 @@
+FIXED — verify1 must-fix=2 resolved, strictly grounded (no new claim), v1.2.0 → v1.2.1.
+
+MF-1 (grammatical-equivalence/SKILL.md step 7): term-TYPE/STRATEGY conflation.
+  Was: classify terms as "ordinary parallels, functional equivalents, or borrowings" (P055, P057)
+       — swapped P055's diagnostic third category "culture-specific items" for the strategy
+       "borrowings", dropped "cultural" from the second.
+  Now: "ordinary parallels, functional cultural analogues, or culture-specific items — and only
+       then choosing a strategy (borrowing, paraphrase, cultural substitution) for the
+       culture-specific class, per the word-level skill." Matches P055 verbatim sense; restores
+       the package's own no-map-type-to-strategy discipline.
+
+MF-2 (profile.yaml quality_bar[0]): SCOPE_BROADENED over word-scoped P037/P001.
+  Was: "No one-to-one match at word or phrase level ... (P037, P001, P103, P106)."
+  Now: "No one-to-one match at word level ..." — narrowed to the cited principles' word scope.
+       Phrase/collocation/idiom coverage stays in quality_bar[1] (P042/P043 target-typicality).
+
+Grounding: no principle introduced; both edits weaken to cited principle. Safety hedges intact.
+
+Version: agent_version 1.2.0 → 1.2.1 (profile.yaml). CHANGELOG.md + provenance-ledger.md updated.
+Re-export: adapter re-exported + installed to .claude/agents/generated/.
+Validate: VALIDATION PASSED — 0 FAIL.
+
+NICE items N1–N15 recorded in verify1.md left as deferred/batch (not must-fix).

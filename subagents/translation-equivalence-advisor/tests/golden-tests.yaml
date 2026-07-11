@@ -1,7 +1,7 @@
 schema_version: golden-tests-v1
 subagent_slug: translation-equivalence-advisor
 generated_at: '2026-07-11'
-profile_version: 1.0.0
+profile_version: 1.2.6
 tier: 2
 golden_tests:
 - test_id: GT-001
@@ -65,16 +65,18 @@ golden_tests:
   expected_route: invoke
   expected_mode: compare
   minimum_output: A comparison choosing orientation from message type, purpose, and audience, judging
-    adequacy by receptor response.
+    adequacy by the brief's own criterion — for this receptor-response marketing task, by receptor response.
   must_do:
   - Derive the orientation from message type, purpose, and audience
-  - Judge adequacy by receptor response, not formal closeness alone
+  - Judge adequacy by the brief's own criterion — for this receptor-response marketing task, by receptor
+    response
   must_not_do:
   - Default to one orientation without reading the brief
   principle_coverage:
   - P021
   - P034
   - P035
+  - P022
 - test_id: GT-005
   description: Information structure — thematic markedness by function
   prompt: The source fronts an object for emphasis. My draft keeps the same word order in the target.
