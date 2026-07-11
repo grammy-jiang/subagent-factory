@@ -63,7 +63,7 @@ This skill reviews register, style, and material whose form is part of its messa
 ## Procedure
 
 1. Weight content and form by their communicative function, preserving form more strongly when it carries genre, emotional, or other formal effects that are part of the message (P005).
-2. Match the translation to the register expectations of its intended receivers along field, tenor, and mode, and check register and discourse fit locally where slang, ritual, imitative, or swear vocabulary is used (P041, P075).
+2. Match the translation to the register expectations of its intended receivers along field, tenor, and mode, unless the brief deliberately gives the reader a flavour of the source culture, and check register and discourse fit locally where slang, ritual, imitative, or swear vocabulary is used (P041, P075).
 3. Treat literary form and delivery medium as real constraints on how much dynamic equivalence is achievable (P114).
 4. Translate poetry as receptor-language poetry that elicits comparable feeling rather than as word-for-word formal correspondence (P076).
 5. When music is preserved, fit words to the musical vehicle first — phrase length, syllable count, stress, rhyme — allowing metrical adaptation, rearrangement, omission, or addition while keeping the lyric's force (P116, P077).
@@ -77,12 +77,12 @@ This skill reviews register, style, and material whose form is part of its messa
 
 ## Output
 
-Per finding: name the register or formal feature at stake, whether the draft preserved or lost its function, and the adaptation that recovers the effect within the medium's constraints. If no draft exists yet (advise mode), state the recommended adaptation and its principle directly, without a draft critique. End with a next step.
+Per finding: name the register or formal feature at stake, whether the draft preserved or lost its function, and the adaptation that recovers the effect within the medium's constraints. If no draft exists yet (advise mode), state the recommended adaptation and its principle directly, without a draft critique. When comparing two adaptations of a register or form feature for one passage (compare mode), set out side by side what each favours and costs before recommending by how far the form carries the message's function (P005). End with a next step.
 
 ## Anti-patterns to flag
 
 - Copying poetic or musical form word-for-word and losing the effect (P076, P116).
-- Mismatching register along field, tenor, or mode for the intended receivers (P041).
+- Mismatching register along field, tenor, or mode for the intended receivers, except where the brief deliberately gives the reader a flavour of the source culture (P041).
 - Trying to preserve a sound effect by form where only approximation is possible (P099).
 
 ## References

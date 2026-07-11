@@ -3,7 +3,8 @@ name: text-level-approach-and-limits-of-equivalence
 description: Diagnoses and reviews the whole-text approach and the standard applied — systematic
   reflection, guarding against interference, and treating equivalence as relative
   and partial; owns the overarching stance and evaluation frame, not any single linguistic
-  level.
+  level. Use when a caller asks whether a translation is "right," "literal enough," or "faithful"
+  overall without naming a single equivalence level.
 kind: skill
 status: ready
 provenance:

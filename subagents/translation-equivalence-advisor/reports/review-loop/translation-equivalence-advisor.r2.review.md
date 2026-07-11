@@ -1,84 +1,202 @@
-# Review Loop — translation-equivalence-advisor — Round 2
+# Review Loop — translation-equivalence-advisor (r2)
 
-Package: `subagents/translation-equivalence-advisor/` (v1.1.0, HEAD `e519936`)
-Lenses: deterministic gates + 7 subagent reviewers (skill-authoring, profile-readiness,
-faithfulness, agent-design, + 3 domain: descriptive-translation, translation-quality,
-technical-translation). Findings deduped across lenses; most-severe first.
+Consolidated review pass. Seven reviewer lenses (agent-skills, profile, faithfulness,
+ai-agent-engineering) + three domain lenses (descriptive-translation, translation-quality,
+technical-translation) plus deterministic gates.
 
-## Deterministic gates — ALL PASS (0 must-fix)
+## Deterministic gates
 
-- `validate_generated_package` → VALIDATION PASSED (Phase 8 self-check WARNING only)
-- `quote_scan` → PASS, no verbatim quotation
-- ellipsis truncation grep → none
-- adapter invariant severed-parenthetical grep → none
+| Gate | Result |
+|------|--------|
+| `validate_generated_package` | PASS (0 FAIL; Phase-8 self-check WARNING only) |
+| `quote_scan` | PASS (no verbatim quotation) |
+| truncation grep (`…` / severed invariant) | clean |
 
----
-
-## MUST-FIX (2)
-
-### MF-1 — Receptor-response over-claim (M2 fix from r1) still live in 4 non-profile artifacts + generator
-- **Where:**
-  - `skills/dynamic-and-formal-equivalence/SKILL.md:96` (Purpose: "adequacy is judged by receptor response, not by formal closeness alone")
-  - same file `:129` (Anti-pattern: "Judging adequacy by formal closeness alone rather than receptor response (P035)")
-  - `references/translation-equivalence-key-concepts.md:73` (Adequacy entry: "…not by formal closeness alone (P035)")
-  - `tests/golden-tests.yaml:71` (GT-004 `must_do`: "Judge adequacy by receptor response, not formal closeness alone")
-  - root cause: `.build/authoring/gen.py` (emits all four; regeneration reproduces the defect)
-- **Problem:** r1's M2 corrected this over-claim in `profile.yaml` quality_bar[6] (brief-conditioned adequacy), but the same pre-fix wording remains verbatim in the skill, reference, and golden test. It is a genuine domain misstatement of Nida's dual-criterion model: when formal equivalence is the deliberate orientation (P022 — reader needs close access to source form/terminology/structure, e.g. legal/philosophical/scholarly-apparatus text), the correct adequacy test *is* closeness to source form, not receptor response. As written, the advisor would tell a caller doing a correct formal/gloss translation that they are judging adequacy wrong. GT-004 will also re-validate the very over-claim v1.1.0 fixed.
-- **Fix:** Propagate the brief-conditioned wording from `profile.yaml` quality_bar into skill Purpose/anti-pattern (`:96`, `:129`), the glossary Adequacy entry (ref `:73`), and GT-004 (`must_do`/`minimum_output`). Fix `gen.py` so regeneration doesn't reintroduce it. Extend `faithfulness-report.yaml` to cover these loci, not just quality_bar[6].
-
-### MF-2 — quality_bar[1] reverses P044's hedge (idiom equivalence)
-- **Where:** `profile.yaml:60` — quality_bar[1]: "…assume no idiom has a target equivalent (P042, P058, P044, P013)."
-- **Problem:** P044 (`principles.yaml:900-911`) says *"do not assume an idiom has a target equivalent"* — stay agnostic. The profile rewrites this as an affirmative "assume no idiom has an equivalent" (HEDGING_REMOVED): "don't presume yes" became "presume no." Contradicts P014 (`principles.yaml:294-315`), which lists "a target idiom of similar meaning and form" as a real strategy — the reversed wording biases the advisor away from ever recommending it. The package's own `knowledge_partition.always_on[1]` (`profile.yaml:116`) states P044 correctly ("do not assume an idiom or fixed expression has a target equivalent"), so the two P044-citing passages now contradict each other.
-- **Fix:** Change quality_bar[1] to match always_on[1]: "…do not assume an idiom has a target equivalent…" (drop "assume no … has"). Re-run faithfulness pass on quality_bar[1] and correct `faithfulness-report.yaml:12-19` verdict/note (currently WITHIN_SCOPE/accept_with_note "no strengthening" — inaccurate for pre-fix text).
+Deterministic FAILs: **0**.
 
 ---
 
-## SHOULD-FIX (14)
+## MUST-FIX
 
-- **SF-1 — Router description under-represents scope (drops 3–5 of 9 domains).** `.claude/agents/generated/translation-equivalence-advisor.md:3` (root: `profile.yaml:9-24` role + when_to_use ordering). Composed `description` samples role clause + first 2 when_to_use bullets positionally, silently dropping collocation/idiom, register/style/literary form, and whole-text review from what a dispatcher sees → under-routes idiom/register/cohesion/whole-text requests. Fix: reorder when_to_use so the most distinctive triggers (idiom/marked-structure/poetic-form, currently 4th) sit in the first two slots, then re-export the adapter. *(profile-reviewer #6 + agent-design #1)*
+### M1 — `always_on[0]` hardens conditional P095 into an unconditional prohibition
+- **where**: `profile.yaml:109-115` (`knowledge_partition.always_on[0]`)
+- **severity**: must-fix (faithfulness HEDGING_REMOVED; Phase-8 check 17)
+- **problem**: Clause ends "…never erase a culturally embedded item merely to sound natural
+  (…P095…)" — unconditional. P095 is conditional: retain/describe/annotate *when the
+  foreignness carries meaning*. The package's own `word-level-nonequivalence-and-strategies/
+  SKILL.md:101` and `profile.yaml examples[0].ideal_response` already carry the correct
+  conditional wording, so this field is internally inconsistent. Flagged as S3 in
+  `r3.review.md:37-40`, never fixed nor logged deferred in the v1.2.2 CHANGELOG.
+  `faithfulness-report.yaml:134-141` still grades it WITHIN_SCOPE / no distortion.
+- **fix**: Reword to "…never erase a culturally embedded item merely to sound natural when its
+  foreignness carries meaning for the text (P095)"; update the faithfulness-report finding.
 
-- **SF-2 — "correction" ambiguity in `review` mode could reconstruct a finished translation.** `profile.yaml:46-50` (outputs.modes[review]) / adapter `:73-76`, tension with forbidden_behaviours[0] (`profile.yaml:80-82`). "Correction" is ambiguous between naming a strategy/device (in-scope) and supplying verbatim replacement wording; applied span-by-span the latter reconstructs the finished text the forbidden behaviour bars. Fix: state explicitly that "correction" names the strategy/target-language device, not verbatim replacement prose. *(agent-design #2)*
-
-- **SF-3 — Skill `## Output` sections assume a draft always exists (breaks `advise` mode).** 7 skills: `word-level-…:112`, `collocation-idiom-…:107`, `grammatical-equivalence:104`, `thematic-and-information-structure:137`, `cohesion-and-texture:103`, `pragmatic-…:111`, `register-style-…:80`, `text-level-…:89`. Output says "the strategy the draft used" etc., but `advise` mode has no draft (profile's own worked example `:174-186` is exactly this case). Inputs already hedge "(if any)"; Output doesn't. Fix: add a no-draft branch to each Output ("if none exists yet, state the recommended strategy directly and its principle"); `dynamic-and-formal-equivalence:124` already does this — use as template. *(skill-authoring #1)*
-
-- **SF-4 — No per-skill worked example.** All 9 `skills/*/SKILL.md`. Only two worked examples exist, at profile level; under progressive disclosure a skill loads in isolation with no concrete input→output anchor. Fix: add a short `## Example` (one input scenario → one ideal per-finding output) to each skill, scoped to its lens. *(skill-authoring #2)*
-
-- **SF-5 — Nida source citation: fabricated subtitle + secondary extract cited as primary monograph.** `profile.yaml:205-210` (sources[1]). Title "Toward a Science of Translating: dynamic and formal equivalence" is wrong (real subtitle: "With Special Reference to Principles and Procedures Involved in Bible Translating"); `sources/metadata/dynamic-formal-equiv-e6872198.metadata.json:13` records `authority: secondary`, `word_count: 10406` — a derived extract, not the ~300pp primary text. Neither fixed nor logged as deferred (`provenance-ledger.md:67-69` lists only S3/S5/S6/S7). Fix: correct the title; if a secondary extract, say so at the profile citation level and log in the ledger. *(profile-reviewer #5 + technical #4 + translation-quality nice#2)*
-
-- **SF-6 — Body-size ~984/1000w leaves no fold-in headroom.** `profile.yaml:56-76` quality_bar. r1's S2 "compression" reclaimed ~0 words; any 3rd-source fold-in hard-fails the 1000w body budget day one. Fix: real compression — the shared "judged by function, not form" clause repeats across quality_bar[2]/[3]/[4]/[7]; state once, then lead each bullet with only its distinguishing content. *(profile-reviewer #4)*
-
-- **SF-7 — `test-results.md` Phase-8 self-check pre-dates the v1.1.0 fixes.** `tests/test-results.md:1-28` stamped `2026-07-11T13:45:24`, before M1/M2/S* landed 2026-07-12; still reports the pre-fix 984w WARNING. Not evidence of current state. Fix: regenerate against v1.1.0 profile. *(profile-reviewer #3)*
-
-- **SF-8 — `golden-tests.yaml` `profile_version` stale.** `tests/golden-tests.yaml:4` = `1.0.0`; profile is `1.1.0`. Fix: bump / re-derive per generated-artifact-policy re-export rule. *(profile-reviewer #2)*
-
-- **SF-9 — Back-translation framed only as "theoretically unsound," omits mandated QA role.** `principles.yaml:1863-1868` (P100); `skills/dynamic-and-formal-equivalence/SKILL.md:113`. One-sided vs current practice: back-translation is a mandated validation step in pharma/clinical linguistic-validation (ISPOR, FDA PRO guidance, WHO instrument protocols); sibling technical-translation-advisor already frames it as "a limited quality check." Fix: add that it is also a recognized (limited) checking/validation device in high-stakes/regulated domains. *(descriptive #3 + technical)*
-
-- **SF-10 — "Dynamic equivalence" used without Nida's own later "functional equivalence" revision.** `principles.yaml:717-735` (P034); `skills/dynamic-and-formal-equivalence/SKILL.md:92-96`; `references/translation-equivalence-key-concepts.md:47-49`. Nida & de Waard (1986) renamed it "functional equivalence" precisely because "dynamic" was misread as licensing free/loose translation. Fix: one line noting the later preferred term. *(translation-quality #1 + descriptive #4 + technical)*
-
-- **SF-11 — Adversative-passive rule overstated for contemporary Mandarin.** `principles.yaml:192-212` (P009); `skills/grammatical-equivalence/SKILL.md:89`; `profile.yaml:61-62` quality_bar[2]. Faithful to Baker 1992 but 被(bèi)'s unfavorable bias has weakened since the 1990s (neutral/positive uses now routine). Reliable for Japanese (迷惑受身), register/era-sensitive for Mandarin. Fix: qualify — strongest for Japanese; a tendency (not a rule) for Mandarin, check text type before inferring adversity. *(descriptive #2 + technical)*
-
-- **SF-12 — Contrastive-rhetoric patterns stated as fixed national norms.** `principles.yaml:695-716` (P033); `skills/pragmatic-…:97`. "German digression / Arabic repetition / Japanese linkless anecdote" descends from Kaplan (1966), substantially critiqued as essentializing (Kubota 1997, Zamel 1997). Unhedged → advisor over-applies a stereotype to an individual text (also violates package's own P102). Fix: hedge as contested genre/text-type tendencies to check against the actual text, not fixed cultural rules. *(translation-quality #2 + descriptive N2 + technical)*
-
-- **SF-13 — "Similar audience response" treated as a checkable test, not an argued judgment.** `principles.yaml:717-771` (P034–P036); `skills/dynamic-and-formal-equivalence/SKILL.md:114,122-124`. TS scholarship since van den Broeck (1978) treats equivalent effect as unmeasurable — an interpretive claim the translator argues for, not a pass/fail criterion. Fix: reframe as an informed approximation to reason about and defend. *(technical)*
-
-- **SF-14 — Gender-neutral/inclusive-language check absent from grammatical-gender guidance.** `principles.yaml:316-336` (P015); `skills/grammatical-equivalence/SKILL.md:90`. Gives only "masculine-as-unmarked / restructure to avoid" but EU/UN/corporate/legal style guides now often mandate inclusive phrasing even into heavily-gendered targets (écriture inclusive, Gendersternchen). Fix: add a step to check the brief's inclusive-language policy before defaulting. *(technical + translation-quality nice#1 + descriptive N4)*
+### M2 — `always_on[4]` is internally contradictory (absolute P038 vs. purpose-conditioned P091)
+- **where**: `profile.yaml:132-136` (`knowledge_partition.always_on[4]`)
+- **severity**: must-fix (faithfulness internal contradiction; Phase-8 check 17)
+- **problem**: Opens "Do not transfer the source text's cohesive devices…" (absolute, P038) then
+  in the same sentence "…decide whether to follow source cohesion or approximate target norms by
+  the translation's purpose (…P091…)" — a purpose-conditioned exception that contradicts the
+  absolute opener. Flagged as S4 in `r3.review.md:42-45`; not fixed nor logged deferred.
+  `faithfulness-report.yaml:166-173` still grades it WITHIN_SCOPE / no distortion.
+- **fix**: Reframe as default-with-exception, e.g. "As a default, rework rather than transfer
+  source cohesive devices to the target's own preferences/frequencies, but decide whether to
+  follow source cohesion or approximate target norms by the translation's purpose (P038 as
+  default; P091 as the purpose-driven exception)"; update the faithfulness-report finding.
 
 ---
 
-## NICE (11)
+## SHOULD-FIX
 
-- **N-1** — Gricean maxim labeled "Relevance"; Grice's canonical term is "Relation" (invites conflation with Sperber & Wilson Relevance Theory). Add "(Grice's maxim of Relation)" once. `principles.yaml:674-716` (P032); `skills/pragmatic-…:97`. *(descriptive N1 + technical)*
-- **N-2** — Passive-for-"objectivity in scientific English" dated; Nature/APA/CSE now push active voice. Reframe "was long associated with." `principles.yaml:192-212` (P009). *(descriptive N3 + technical)*
-- **N-3** — `handoff_rules[1]` (`profile.yaml:93-95`) asserts ownership/delegation ("belongs to the domain expert and commissioner") with more certainty than cited P094/P115 establish; it's a design/governance inference. Soften or mark as boundary decision. *(faithfulness #3)*
-- **N-4** — `when_not_to_use[3]` (`profile.yaml:30-31`) "guarantee of a single correct rendering" restates forbidden_behaviours[1] caveat, not a recognizable redirect trigger; near-dup of forbidden_behaviours[0] wording too. Drop or reframe as an actual trigger. *(agent-design #3 + profile-reviewer #7)*
-- **N-5** — `forbidden_behaviours[0]` (`profile.yaml:80-82`) carries no principle citation (it's an advisory-scope boundary). Add "(advisory-scope boundary, not a source claim)" so it doesn't read as an orphan. *(profile-reviewer #8 + agent-design #4)*
-- **N-6** — Operating invariants (`profile.yaml:26-34`) phrased as translator-imperatives ("render", "never assume") not advisor-diagnostic voice ("flag", "check"). Role preamble neutralizes the risk; optional wording pass. *(agent-design #4)*
-- **N-7** — Densest skills (thematic `:121,:126`; dynamic-formal `:107-114`) pack 2–3 instructions+citations per numbered step. Split for scannability. *(skill-authoring #3)*
-- **N-8** — Skill frontmatter carries factory-internal fields (`kind`/`status`/`provenance`) beside `name`/`description`; harmless on current adapter Read-pointer path, only matters if ever exported as literal standalone Agent Skills. *(skill-authoring #4)*
-- **N-9** — Nida D-E/F-E framework's Bible-translation origin unstated in `skills/dynamic-and-formal-equivalence/SKILL.md:92-96`; expansion/decoding-rate advice transfers less directly to technical/legal text. One line of origin context. *(technical)*
-- **N-10** — Adapter header `Generated: 2026-07-11T18:17:10` vs Profile version 1.1.0 (CHANGELOG dates 1.1.0 to 2026-07-12); content confirms re-export happened, so cosmetic date only. `adapter:14`. *(profile-reviewer #9)*
-- **N-11** — Scope currency: no Skopos/functionalist (Reiss & Vermeer, Nord), Vinay & Darbelnet procedures, or error-typology QA (MQM/DQF). Legitimate disclosed 2-source scope; sibling packages own the broader terrain. Future fold-in candidate, not a current defect. *(technical + translation-quality nice#2)*
+### S1 — `quality_bar[7]` / `always_on[7]` drop P041's foreignization exception (register)
+- **where**: `profile.yaml:75-76` (`quality_bar[7]`) and `profile.yaml:150-154`
+  (`always_on[7]`); mis-assessed at `faithfulness-report.yaml:75-82` and `:190-197` (both
+  WITHIN_SCOPE / distortion:none).
+- **problem**: Both restate P041 as unconditional register-matching. P041
+  (`principles.yaml:846-850`) is conditional: "…**unless the purpose is deliberately to give the
+  reader a flavour of the source culture**." Same HEDGING_REMOVED shape already corrected for
+  P021/P034/P035/P022 in `quality_bar[6]`. An advisor following it literally would flag a
+  deliberate foreignizing rendering as a register error. Same drop propagated to
+  `register-style-and-literary-form/SKILL.md:66,85` and `.build/authoring/gen.py:621/644`.
+- **fix**: Append "…unless the brief calls for preserving source-culture flavour (P041)" to both
+  clauses; re-grade the two faithfulness-report findings to HEDGING_REMOVED with an active fix.
+  (Borderline must-fix — same class as M1/M2; kept should-fix because the faithfulness lens graded
+  it so.)
+
+### S2 — `examples[1].ideal_response` still asserts a genre default it tells the advisor not to assume
+- **where**: `profile.yaml:198-200`
+- **problem**: v1.2.2 SF-6 fix left "…a marketing brief typically prioritizes the receptor's
+  response, so ask what this brief's purpose and audience favour…" — asserts a genre default
+  ("typically prioritizes") while instructing the advisor to ask rather than assume. Partially
+  undoes its own fix.
+- **fix**: Drop the genre-default clause: "…ask what this brief's purpose and audience favour
+  before setting the orientation, without defaulting by genre (P034, P041, P021)."
+
+### S3 — Faithfulness-report stale on M1/M2 loci
+- **where**: `reports/faithfulness-report.yaml:134-141,166-173` (and :75-82,:190-197 per S1)
+- **problem**: `always_on[0]`, `always_on[4]` (and the S1 register loci) graded clean despite the
+  distortions above; should be re-graded to accept_with_note / HEDGING_REMOVED once fixed, not
+  left silently marked clean.
+- **fix**: Re-grade after M1/M2/S1 fixes land.
+
+### S4 — Compare-mode output shape absent from 7 of 9 skills
+- **where**: `word-level-nonequivalence-and-strategies/SKILL.md:110-112`,
+  `collocation-idiom-and-fixed-expression/SKILL.md:105-107`,
+  `thematic-and-information-structure/SKILL.md:135-137`, `cohesion-and-texture/SKILL.md:101-103`,
+  `pragmatic-equivalence-coherence-and-implicature/SKILL.md:109-111`,
+  `register-style-and-literary-form/SKILL.md:78-80`, `grammatical-equivalence/SKILL.md:102-104`
+- **problem**: `profile.yaml:53-57` makes `compare` a first-class mode triggered generically
+  ("strategy A versus B"), but only `dynamic-and-formal-equivalence` and
+  `text-level-approach-and-limits-of-equivalence` describe a compare-mode output shape. The other
+  7 Output sections cover only review/advise, though comparisons routinely happen at their level.
+- **fix**: Add one compare-mode output sentence to each of the 7, mirroring the two skills that
+  already have it.
+
+### S5 — P015 (masculine-as-unmarked) stated without inclusive-language / gender-system caveat
+- **where**: `principles.yaml:316-321` (P015); `grammatical-equivalence/SKILL.md:90`
+  (3 domain lenses flagged independently)
+- **problem**: P015 states flatly "the masculine is usually the unmarked term" and restructures
+  (passive) only "when neither marked nor unmarked gender fits." Reproduces Baker's 1992 framing
+  with no caveat that (a) it holds only for binary masc/fem grammatical-gender systems, not
+  universally, and (b) the masculine-generic default is now widely contested (singular "they,"
+  écriture inclusive, EU/UN style guides). Applied literally in 2026, risks a rendering that
+  clashes with house style or a non-binary referent. Skill step 3 has a partial note; the
+  principle text itself (the reused locus) does not — the two loci disagree.
+- **fix**: Qualify P015: "in languages with a masculine/feminine grammatical-gender system, the
+  masculine is traditionally the unmarked term"; add a brief/house-style inclusive-language check
+  and singular-they recasting as a live option to P015 and the skill step; align both loci.
+
+### S6 — P100 (back-translation) one-sidedly framed as an "unsound compromise"
+- **where**: `principles.yaml:1862-1868` (P100); `dynamic-and-formal-equivalence/SKILL.md:113`
+  (2 domain lenses flagged independently)
+- **problem**: P100 says back-translation is used "only to expose … structure" and is "a
+  theoretically unsound compromise." Omits its legitimate, still-mandated QA role in regulated
+  domains (clinical/PRO instruments, pharmacovigilance, legal). Sibling
+  `technical-translation-advisor` treats it as "a limited quality check," which P100 contradicts
+  in tone — could steer a reviewer away from a sometimes-required check.
+- **fix**: Broaden P100 to acknowledge the limited-but-legitimate QA use (keeping the valid
+  caution that a matching back-translation doesn't certify equivalence — a shared error survives).
+
+### S7 — Adapter frontmatter description under-represents review/compare modes
+- **where**: `.claude/agents/generated/translation-equivalence-advisor.md:3` (routing line) vs.
+  `profile.yaml:16-25` (when_to_use) — ai-agent-engineering + agent-skills lenses concur
+- **problem**: One-line description compresses to only the first when_to_use bullet
+  (culture-specific item / idiom), never surfacing the review-mode trigger ("review a draft
+  translation…") or compare-mode. Two of three modes — and arguably the most common invocation
+  (submitting a draft for critique) — are invisible at routing time.
+- **fix**: Extend the frontmatter description to cover review (and compare) explicitly, e.g.
+  append "; reviews a draft translation or rendering decision against equivalence principles."
+
+### S8 — `text-level-approach-and-limits-of-equivalence` description lacks concrete caller phrasing
+- **where**: `skills/text-level-approach-and-limits-of-equivalence/SKILL.md` frontmatter
+  `description` (concrete phrasing only in body `When to use`, line 67)
+- **problem**: The "is this translation 'right,' 'literal enough,' or 'faithful'?" caller phrasing
+  that most naturally selects this skill lives only in the body; the frontmatter description is
+  the sole routing-time signal, so the skill under-triggers. (r3 S7, unaddressed.)
+- **fix**: Fold the concrete caller phrasing into the frontmatter description.
+
+### S9 — Missing review-loop artifact for the v1.2.2 fix round
+- **where**: `reports/review-loop/` (has r1/r2/r3/verify1 + `.done`, none for the SF-1…SF-13
+  v1.2.2 round the CHANGELOG/ledger attribute fixes to)
+- **problem**: Audit trail for the latest, currently-shipping round is absent from the package
+  though the ledger describes it in detail.
+- **fix**: Add the corresponding review report for traceability.
+
+### S10 — Stale generation timestamps on test-results + adapter
+- **where**: `tests/test-results.md:3`, `adapters/claude-code/translation-equivalence-advisor.md:14`
+- **problem**: Both show `Generated: 2026-07-11T19:03…` though ledger/CHANGELOG claim v1.2.2
+  (2026-07-12) regenerated both. Adapter *content* matches v1.2.2 (re-stamp quirk), but
+  `test-results.md` still reports the pre-r3 self-check and was not re-run against M1/M2.
+- **fix**: Regenerate both after M1/M2 land.
 
 ---
+
+## NICE
+
+- N1 — Profile body ~992/800 words (`tests/test-results.md:24`): WARNING band, under 1000-word
+  hard limit, but no headroom after additive fixes. Trim before next revision.
+- N2 — word-level vs. dynamic-formal skills give overlapping open strategy sets for a
+  culture-specific single item with different taxonomies and no cross-reference
+  (`word-level-nonequivalence-and-strategies/SKILL.md:100` vs.
+  `dynamic-and-formal-equivalence/SKILL.md:110`). Add a one-line disambiguator.
+- N3 — `grammatical-equivalence/SKILL.md:94` introduces a 3-way taxonomy (ordinary parallels /
+  functional cultural analogues / culture-specific items) not defined in the key-concepts
+  reference — progressive-disclosure dead-end. Add a glossary entry or inline definition.
+- N4 — Advise vs. compare mode triggers overlap in wording ("which strategy fits" vs. "strategy
+  A vs. B"); distinguished only by output shape (`profile.yaml:43-46` vs. `:53-57`). Tighten the
+  trigger text (advise = no candidate options named yet; compare = ≥2 named).
+- N5 — P009 passive "adversity in Japanese and Chinese" stated without a modern-Mandarin
+  currency qualifier (被 broadened beyond adversative) (`principles.yaml:192-197`). Add
+  "traditionally/historically" framing. (3 domain lenses concur.)
+- N6 — P033 contrastive-rhetoric national-style claims (German digression / Arabic repetition /
+  Japanese linkless anecdote) presented as settled fact rather than a contested (Kaplan-style)
+  tradition (`principles.yaml:695-702`). Soften to "criticized by some scholars…".
+- N7 — Dynamic-equivalence terminology not noted as later relabeled "functional equivalence"
+  (Nida & de Waard 1986) to curb the "dynamic = license for paraphrase" misreading
+  (`dynamic-and-formal-equivalence/SKILL.md`). Add a one-line currency note.
+- N8 — P001 bundles "loan word" and "false friend" in one non-equivalence-type bullet; false
+  friend is a mistranslation risk, a different failure mode (`principles.yaml:4-9`,
+  `word-level-nonequivalence-and-strategies/SKILL.md:98`). Split into two clauses.
+- N9 — Nida coverage intentionally partial (secondary ~10k-word extract; kernel-sentence /
+  componential-analysis / analysis-transfer-restructuring absent). Note in provenance ledger so a
+  future reviewer doesn't assume they were considered and excluded (`profile.yaml:208-214`).
+- N10 — Consider a `when_not_to_use` / `handoff_rules` pointer to sibling packages covering
+  Catford / House / Koller / Vinay-Darbelnet equivalence frameworks, so callers wanting broader
+  equivalence-theory coverage route correctly.
+- N11 — Adapter router `description` truncates domain scope mid-clause (shared factory-template
+  concern, correctly deferred in ledger) — not a package-specific fix.
+- N12 — Precedence rule (role + forbidden override invariants) stated twice in slightly different
+  words (adapter lines 19 and 23); optional consolidation if body size becomes a concern.
+
+---
+
+## Non-findings (verified sound)
+
+Tool boundary (Read/Grep/Glob only, `may_edit_canonical: false`, empty mcp/caller_supplied),
+canonical-ownership assignment, and the advisory / no-final-text boundary are correctly and
+explicitly engineered (ai-agent-engineering: 0 must-fix). Domain coverage of non-equivalence
+types, idiom/collocation strategy, theme/rheme & FSP, cohesion, Gricean pragmatics, and the
+formal/dynamic orientation tracks Baker + Nida accurately — all three domain lenses returned 0
+must-fix. Absence of MQM/LISA/ISO-17100 and CAT/MT tooling is intentional and in-scope-excluded.
 
 MUST_FIX_COUNT: 2

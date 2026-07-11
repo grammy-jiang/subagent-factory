@@ -104,7 +104,7 @@ This skill reviews the handling of words that travel in company — collocations
 
 ## Output
 
-Per finding: say whether the item is a collocation, idiom, or fixed expression; whether the draft rendering is typical and idiomatic in the target; which trap or markedness it hit; and the grounded strategy plus the loss to accept. If no draft exists yet (advise mode), state the recommended strategy and its principle directly, without a draft critique. End with a next step.
+Per finding: say whether the item is a collocation, idiom, or fixed expression; whether the draft rendering is typical and idiomatic in the target; which trap or markedness it hit; and the grounded strategy plus the loss to accept. If no draft exists yet (advise mode), state the recommended strategy and its principle directly, without a draft critique. When comparing two idiom or collocation strategies for one item (compare mode), lay out side by side what each favours and costs — including the loss or shift each accepts — before recommending by style, register, and rhetorical effect (P044). End with a next step.
 
 ## Anti-patterns to flag
 

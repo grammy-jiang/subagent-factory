@@ -91,7 +91,8 @@ SKILLS: list[dict] = [
             "gap's significance in context first, then choose deliberately from an open set — "
             "superordinate, loan word (once explained), paraphrase, cultural substitution, "
             "illustration, a more neutral word, or omission as a last resort — and never erase a "
-            "culturally embedded item merely to sound natural"
+            "culturally embedded item merely to sound natural when its foreignness carries meaning "
+            "for the text"
         ),
         "purpose": (
             "This skill reviews how a translator renders a single word or short phrase that has no "
@@ -377,11 +378,12 @@ SKILLS: list[dict] = [
             "pragmatic-equivalence-coherence-and-implicature owns."
         ),
         "always_on": (
-            "Do not transfer the source text's cohesive devices; rework reference, substitution, "
-            "ellipsis, conjunction, and lexical cohesion to the target language's own preferences, "
-            "frequencies, and combinations, accepting that lexical-cohesion networks cannot be "
-            "reproduced identically, and decide whether to follow source cohesion or approximate "
-            "target norms by the translation's purpose"
+            "As a default (P038), rework rather than transfer the source text's cohesive devices — "
+            "reference, substitution, ellipsis, conjunction, and lexical cohesion — to the target "
+            "language's own preferences, frequencies, and combinations, accepting that "
+            "lexical-cohesion networks cannot be reproduced identically, but, as a purpose-driven "
+            "exception (P091), decide whether to follow source cohesion or approximate target norms "
+            "by the translation's purpose"
         ),
         "purpose": (
             "This skill reviews the surface network of relations — reference, substitution, "
@@ -595,7 +597,8 @@ SKILLS: list[dict] = [
         "always_on": (
             "Weight content and form by their communicative function, preserving form more strongly "
             "when it carries genre, emotional, or aesthetic effect; match register along field, "
-            "tenor, and mode, check register and discourse fit locally for marked language, and "
+            "tenor, and mode unless the brief calls for preserving source-culture flavour, check "
+            "register and discourse fit locally for marked language, and "
             "translate poetry as receptor-language poetry that elicits comparable feeling — allowing "
             "metrical adaptation for song and approximating sound effects opportunistically rather "
             "than preserving them by form"
@@ -617,7 +620,8 @@ SKILLS: list[dict] = [
             "when it carries genre, emotional, or other formal effects that are part of the message "
             "(P005).",
             "Match the translation to the register expectations of its intended receivers along "
-            "field, tenor, and mode, and check register and discourse fit locally where slang, "
+            "field, tenor, and mode, unless the brief deliberately gives the reader a flavour of the "
+            "source culture, and check register and discourse fit locally where slang, "
             "ritual, imitative, or swear vocabulary is used (P041, P075).",
             "Treat literary form and delivery medium as real constraints on how much dynamic "
             "equivalence is achievable (P114).",
@@ -641,7 +645,8 @@ SKILLS: list[dict] = [
         ),
         "antipatterns": [
             "Copying poetic or musical form word-for-word and losing the effect (P076, P116).",
-            "Mismatching register along field, tenor, or mode for the intended receivers (P041).",
+            "Mismatching register along field, tenor, or mode for the intended receivers, except "
+            "where the brief deliberately gives the reader a flavour of the source culture (P041).",
             "Trying to preserve a sound effect by form where only approximation is possible (P099).",
         ],
     },
@@ -783,7 +788,8 @@ QUALITY_BAR = [
     {
         "text": (
             "Register and form are weighted by function: register matches field, tenor, and mode, "
-            "and poetry, song, and sound effects are adapted rather than copied where a formal copy "
+            "unless the brief calls for preserving source-culture flavour, and poetry, song, and "
+            "sound effects are adapted rather than copied where a formal copy "
             "would defeat the effect (P041, P005, P076, P099)."
         ),
         "pids": ["P041", "P005", "P076", "P099"],
@@ -939,9 +945,8 @@ EXAMPLES = [
             "review instead: ask for the brief and audience so the formal-versus-dynamic orientation "
             "can be set from message type and purpose (P021), and for the draft so it can be checked "
             "against the equivalence levels. Note up front that equivalence is relative and there is "
-            "no single correct rendering (P078, P051), and that a marketing brief typically prioritizes "
-            "the receptor's response, so ask what this brief's purpose and audience favour before setting "
-            "the orientation (P034, P041, P021). Hand the "
+            "no single correct rendering (P078, P051), and ask what this brief's purpose and audience "
+            "favour before setting the orientation, without defaulting by genre (P034, P041, P021). Hand the "
             "translation itself back to the translator, with the review offered as the next step."
         ),
     },

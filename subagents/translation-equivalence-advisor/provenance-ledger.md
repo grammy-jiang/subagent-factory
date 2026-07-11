@@ -51,6 +51,35 @@ The five high-confidence principles (P009, P024, P037, P038, P058) are compiled 
 
 ## Version history
 
+- **v1.2.3** (2026-07-12) — review-loop r2 consolidated-panel fixes (no spine change; every edited rule
+  still restates principles already in the spine, no new claim; supersedes the r3-flagged S3/S4 loci left
+  unlogged at v1.2.2):
+  - M1 (faithfulness): `knowledge_partition.always_on[0]` — the closing "never erase a culturally embedded
+    item merely to sound natural" (unconditional, HEDGING_REMOVED against P095) reworded to "…when its
+    foreignness carries meaning for the text (P095)"; citations unchanged.
+  - M2 (faithfulness): `knowledge_partition.always_on[4]` — the absolute P038 opener contradicted its own
+    P091 purpose-conditioned close; reframed default-with-exception ("As a default (P038)… but, as a
+    purpose-driven exception (P091)…"); citations unchanged.
+  - S1 (faithfulness): `quality_bar[7]` and `always_on[7]` restored P041's "unless the brief calls for
+    preserving source-culture flavour" exception; `register-style-and-literary-form` step 2 + anti-pattern
+    carry the same exception; citations unchanged (P041, P005, P076, P099).
+  - S2 (faithfulness): `examples[1].ideal_response` dropped the "typically prioritizes the receptor's
+    response" genre default it instructs the advisor not to assume; now "…without defaulting by genre
+    (P034, P041, P021)".
+  - S4 (mode coverage): the remaining seven skills' `## Output` gained a `compare`-mode branch — P106
+    (word-level), P044 (collocation-idiom), P024 (thematic), P091 (cohesion), P050 (pragmatic), P005
+    (register), P046 (grammatical) — each citing a principle already in that skill's partition.
+  - S7 (routing): `when_to_use[1]` tightened so the exported router `description` surfaces the review-mode
+    trigger; wording only, no citation.
+  - S8 (routing): `text-level-approach-and-limits-of-equivalence` frontmatter `description` folds in the
+    concrete caller phrasing ("right"/"literal enough"/"faithful"); wording only.
+  - S3 (faithfulness-report): `always_on[0]`, `always_on[4]`, `quality_bar[7]`, `always_on[7]` notes
+    re-graded from silently-clean to documented "Corrected in v1.2.3" entries.
+  - S10 (test hygiene): `tests/test-results.md` regenerated and adapter re-exported against v1.2.3.
+  - Deferred (out of grounding scope): S5 (P015 inclusive-language / singular-they options) and S6 (P100
+    regulated-domain back-translation QA role) require claims absent from the two grounded sources; S9
+    (missing v1.2.2 review-loop artifact) and NICE items are non-blocking.
+
 - **v1.2.2** (2026-07-12) — review-loop r1 independent re-verify fixes (no spine change; every edited
   rule still restates principles already in the spine, no new claim):
   - SF-1 (routing): seven skill `description` openers broadened from "Reviews …" to "Diagnoses and

@@ -3,6 +3,41 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.3] — 2026-07-12
+
+### Fixed
+- **Faithfulness (r2 M1):** `knowledge_partition.always_on[0]` hardened conditional P095 into an
+  unconditional prohibition — "never erase a culturally embedded item merely to sound natural"
+  (HEDGING_REMOVED). Reworded to "…when its foreignness carries meaning for the text (P095)", restoring
+  P095's condition and aligning with the word-level skill and `examples[0]`.
+- **Faithfulness (r2 M2):** `knowledge_partition.always_on[4]` opened with an absolute "Do not transfer
+  the source text's cohesive devices" (P038) yet closed with a purpose-conditioned exception (P091) — an
+  internal contradiction. Reframed as default-with-exception: "As a default (P038)… but, as a
+  purpose-driven exception (P091), decide … by the translation's purpose."
+- **Faithfulness (r2 S1):** `quality_bar[7]` and `always_on[7]` restated P041 as unconditional
+  register-matching (HEDGING_REMOVED). Appended "unless the brief calls for preserving source-culture
+  flavour" (P041) to both; `skills/register-style-and-literary-form` step 2 and its anti-pattern carry the
+  same exception.
+- **Faithfulness (r2 S2):** `examples[1].ideal_response` dropped the genre-default clause ("a marketing
+  brief typically prioritizes the receptor's response") it told the advisor not to assume — now "ask what
+  this brief's purpose and audience favour before setting the orientation, without defaulting by genre
+  (P034, P041, P021)".
+- **Mode coverage (r2 S4):** added a `compare`-mode branch to the `## Output` of the remaining seven
+  skills — word-level (P106), collocation-idiom (P044), thematic (P024), cohesion (P091), pragmatic
+  (P050), register (P005), grammatical (P046) — mirroring the two skills that already had it.
+- **Routing (r2 S7):** `when_to_use[1]` tightened so the exported router `description` surfaces the
+  review-mode trigger alongside the culture-specific-item trigger.
+- **Routing (r2 S8):** `skills/text-level-approach-and-limits-of-equivalence` frontmatter `description`
+  folds in the concrete caller phrasing ("right," "literal enough," "faithful") that most naturally selects it.
+- **Faithfulness-report (r2 S3):** notes for `always_on[0]`, `always_on[4]`, `quality_bar[7]`, and
+  `always_on[7]` re-graded from silently-clean to documented "Corrected in v1.2.3" entries.
+- **Test hygiene (r2 S10):** Phase-8 `test-results.md` regenerated and adapter re-exported against v1.2.3.
+
+Deferred (out of grounding scope): S5 (P015 inclusive-language / singular-they options) and S6 (P100
+regulated-domain back-translation QA role) require claims absent from the two grounded sources (Baker 1992,
+Nida 1964); S9 (missing v1.2.2 review-loop artifact) and the NICE items are non-blocking. Same discipline
+as the v1.2.0/v1.2.2 deferrals.
+
 ## [1.2.2] — 2026-07-12
 
 ### Fixed

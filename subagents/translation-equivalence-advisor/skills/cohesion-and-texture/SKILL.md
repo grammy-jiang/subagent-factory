@@ -100,7 +100,7 @@ This skill reviews the surface network of relations — reference, substitution,
 
 ## Output
 
-Per finding: name the cohesive device, whether the draft transferred the source's or reworked to the target's norms, and the correction that restores natural target texture. If no draft exists yet (advise mode), state the recommended cohesion approach and its principle directly, without a draft critique. End with a next step.
+Per finding: name the cohesive device, whether the draft transferred the source's or reworked to the target's norms, and the correction that restores natural target texture. If no draft exists yet (advise mode), state the recommended cohesion approach and its principle directly, without a draft critique. When comparing whether to follow source cohesion or approximate target norms for one segment (compare mode), set out side by side what each favours and costs before recommending by the translation's purpose (P091). End with a next step.
 
 ## Anti-patterns to flag
 
