@@ -3,6 +3,38 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.1.0] — 2026-07-12
+
+Review-loop round 1 (`reports/review-loop/descriptive-translation-reviewer.r1.review.md`): applied
+all must-fixes and the high-value should-fixes, staying grounded in the existing 180-principle spine.
+
+### Fixed
+- **Adapter invariant layer truncation** — the installed/canonical adapter had 101 `…`-severed
+  invariant lines and a mid-clause frontmatter `description`. Re-exported through the current
+  `compile_invariants`/`export_claude_agent` path so each invariant renders its full principle
+  sentence and the routing description ends at a clause boundary.
+- **Skill bodies re-authored to the GOLD shape** — all 12 `skills/*/SKILL.md` rewritten so every
+  Procedure and Anti-patterns bullet is a complete, self-contained sentence before its `(Pxxx)` cite
+  (removing the mid-clause truncations such as "Surface a translation's (P113)."), Anti-patterns now
+  cover every principle in the skill (not a silent 7-item cap) as concrete bad-finding symptoms, and
+  each gains a `description:` frontmatter field for routing. Frontmatter provenance preserved.
+- **Faithfulness re-grounding** — `handoff_rules[0]` re-anchored to P029 (publisher holds the publish
+  decision) + P070 (macro/micro split), dropping the mis-grounded P009/P162/P080; `handoff_rules[1]`
+  re-anchored to P029 for commercial/economic constraints. `faithfulness-report.yaml` gains entries
+  for `handoff_rules[0..2]` and `canonical_owner`.
+- **Cross-sibling routing** — `when_not_to_use` + `handoff_rules` now name `translation-equivalence-advisor`,
+  `translation-quality-reviewer`, and `technical-translation-advisor` by slug/axis; `when_to_use[0]`
+  differentiated from the quality-reviewer sibling.
+- **Faithfulness weakening** — P047 no longer states Blum-Kulka's explicitation hypothesis as
+  "confirmed by corpus study" (now a proposed, contested tendency with varying support); P115 frames
+  the technical-texts-easier point as Ortega's comparative observation and marks technical/scientific
+  subject-matter risk out of remit.
+
+### Changed
+- `tier: 1` → `tier: 2` (3-source manifest; matches siblings and the build record).
+- Profile body trimmed (removed quality_bar/forbidden redundancy) toward the word budget.
+- `agent_version` 1.0.0 → 1.1.0.
+
 ## [1.0.0] — 2026-07-12
 
 ### Added

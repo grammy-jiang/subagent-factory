@@ -133,3 +133,38 @@ findings:
   action: accept_with_note
   note: Restates P046/P102/P062/P114/P138/P121; within the source's scope, no strengthening. Adaptable-guide
     + brief-governs + no-over-claim, all source-grounded.
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: add_condition
+  note: Re-anchored. Publication authority now cites P029 (publishers wield the decisive power over whether
+    a work is translated) instead of the mis-grounded P070/P009; the macro-/micro-level split is P070's
+    exact support. No strengthening beyond the sources.
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: add_condition
+  note: Re-anchored. Prior citations P162 (legal-text method) and P080 (refraction) were mismatched and
+    dropped; the publisher's commercial/economic constraints are grounded in P029 (political and economic
+    constraints, publishers). Legal-validity/typesetting is left as an uncited, defensible scope boundary,
+    not a source over-claim.
+- rule_ref: handoff_rules[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Routing directive only — names sibling subagents by slug for cross-reviewer disambiguation. Carries
+    no source claim, so it cites no principle; exempt from grounding.
+- rule_ref: source_of_truth_policy.canonical_owner
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P029/P070 authority split (translator + commissioning publisher hold the text and the
+    publish decision); descriptive statement of ownership, no strengthening.
