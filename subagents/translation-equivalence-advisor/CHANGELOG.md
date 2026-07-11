@@ -3,6 +3,40 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.4] — 2026-07-12
+
+### Fixed
+- **Faithfulness (r3 MF-1):** `forbidden_behaviours[3]` restated P038 ("rework, don't transfer cohesion")
+  as a hard-forbidden absolute, omitting **P091** (which licenses following source cohesion when the
+  translation's purpose calls for it) — the same P038-vs-P091 conflict already reconciled in
+  `always_on[4]`. Split so thematic markedness / voice / tense-aspect stay absolute (P024, P009, P046)
+  while the cohesion clause is conditioned "where the purpose does not call for following source cohesion"
+  and cites P038, P091. Faithfulness-report `forbidden_behaviours[3]` re-graded EXACT_SUPPORT → WITHIN_SCOPE
+  with the correction note.
+- **Faithfulness (r3 SF-1):** `quality_bar[4]` cohesion criterion "reworked, not transferred" (categorical,
+  P091 omitted) → "reworked by default, not transferred … unless the translation's purpose favours
+  following source patterns (P038 … P091)"; faithfulness-report note updated.
+- **Routing (r3 SF-7):** added a fourth `when_not_to_use` disambiguator naming the three corpus siblings and
+  their distinct lenses — norms/retranslation/visibility → descriptive-translation-reviewer; corpus quality
+  metrics or register profile → translation-quality-reviewer; technical-document usability/terminology →
+  technical-translation-advisor.
+- **Body-size (r3 MF-3):** trimmed the profile body off the 1000-word hard-fail edge (was ~1000, 0 headroom)
+  to ~974 while absorbing the MF-1/SF-1/SF-7 additions — collapsed the `quality_bar` per-clause citation
+  lists to their primary principle IDs (the full clusters remain in `knowledge_partition.always_on` and the
+  faithfulness report) and tightened the two heaviest clauses plus `modes`, `role`, `handoff`, and
+  `precedence`. Residual body-size **WARNING** is grounding-bounded: the body faithfully encodes nine
+  equivalence levels with their source hedges, which cannot be cut further without HEDGING_REMOVED
+  regressions.
+- **Test hygiene (r3 MF-2):** Phase-8 `tests/test-results.md` regenerated and the adapter re-exported against
+  v1.2.4 (both prior artifacts still read 2026-07-11 / v1.2.2); `golden-tests.yaml` `profile_version` → 1.2.4.
+
+Deferred (out of grounding scope or lower value): SF-2 (P009 confidence downgrade — P009 is a compiled
+adapter invariant; a confidence change alters the must-hold invariant set, out of scope for a faithfulness
+patch), SF-3 (P066 "always-definite" — a domain-typology critique, not a source over-claim; softening would
+understate Baker), SF-4/SF-5/SF-6/SF-8/SF-9 and the NICE items (glossary coverage, per-skill worked
+examples, procedure sub-bullets, report-filename traceability, Nida-1986 "functional equivalence" note) —
+carried to a future skill-authoring / source-addition cycle, same discipline as the v1.2.0–v1.2.3 deferrals.
+
 ## [1.2.3] — 2026-07-12
 
 ### Fixed

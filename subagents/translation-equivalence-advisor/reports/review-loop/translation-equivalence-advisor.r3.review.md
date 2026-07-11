@@ -1,97 +1,102 @@
 # Review Loop — round 3 — `translation-equivalence-advisor`
 
-**Date:** 2026-07-12
-**Profile version reviewed:** 1.2.0
-**Method:** deterministic gates (validate, quote-scan, truncation) + 7 parallel reviewer lenses
-(agent-skills, profile-readiness, faithfulness/over-claim, agent-design, and 3 domain
-cross-checks: descriptive-translation-reviewer, translation-quality-reviewer,
-technical-translation-advisor). Findings deduped across lenses; deterministic FAILs count as must-fix.
+Consolidated one-pass review. 7 reviewer lenses (skill-authoring, profile-readiness,
+faithfulness, agent-design, + 3 domain: descriptive / quality / technical) plus deterministic gates.
+Findings deduped across lenses, most-severe first.
 
-## Deterministic gates — ALL PASS
+## Deterministic gates
 
-- `validate_generated_package` → **VALIDATION PASSED** (Phase 8 WARNING only: body 992w, under 1000w hard limit; all skill/reference authoring OK; all grounding unchanged).
-- `quote_scan` → **PASS** — no potential verbatim quotation.
-- ellipsis truncation grep → **no hits**.
-- adapter invariant-truncation grep → **no hits**.
+| Gate | Result |
+|------|--------|
+| `validate_generated_package` | PASSED (Phase-8 self-check verdict: **WARNING** — body-size) |
+| `quote_scan` | PASS — no verbatim quotation |
+| ellipsis-truncation grep (skills + adapter) | clean |
+| adapter severed-invariant grep | clean |
 
-No deterministic FAILs. No round-3 must-fix from any lens. This round confirms round-2's v1.2.0
-fixes (MF-1 receptor-response over-claim, MF-2 reversed P044 idiom hedge) are genuinely closed at
-every locus — independently re-verified, not merely trusted from the ledger.
+0 deterministic FAILs (the self-check body-size WARNING is surfaced as MF-3 below by profile-reviewer judgment).
 
 ---
 
-## Findings (all should-fix / nice; none must-fix)
+## MUST-FIX
 
-### SHOULD-FIX
+### MF-1 — forbidden_behaviours[3] cohesion clause is an absolute; omits P091 purpose-driven exception
+- **Where:** `profile.yaml` `forbidden_behaviours[3]` ("Transferring the source text's cohesive devices, thematic markedness, voice, or tense/aspect unchanged ... (P038, P024, P009, P046).")
+- **Severity:** must-fix (faithfulness — HEDGING_REMOVED / internal inconsistency)
+- **Problem:** The *cohesive-devices* clause restates P038 ("rework, don't transfer cohesion") as a hard-forbidden absolute with no citation of **P091**, which explicitly licenses following source cohesion when the translation's purpose calls for it. The same P038-vs-P091 conflict was already reconciled in `knowledge_partition.always_on[4]` ("default P038 … but purpose-driven exception P091") but that fix was **not** propagated here. The faithfulness-report entry for `forbidden_behaviours[3]` (`EXACT_SUPPORT`) is therefore stale. Confirmed: current text cites `P038, P024, P009, P046`, no P091.
+- **Fix:** Split the cohesion clause out and condition it — keep thematic-markedness/voice/tense-aspect absolute (P024, P009, P046), reword cohesion to "transferring cohesive devices unchanged **where the translation's purpose does not call for following source cohesion**, instead of reworking them to the target's own preferences by default (P038, P091)." Update the faithfulness-report finding from `EXACT_SUPPORT` to reflect the correction (mirror the note on `always_on[4]`).
 
-**S1 — P015 "masculine as unmarked" stated as flat cross-linguistic fact** *(domain — flagged independently by all 3 domain reviewers; highest cross-lens agreement)*
-- Where: `principles/principles.yaml` P015; `skills/grammatical-equivalence/SKILL.md` step 3.
-- Problem: "the masculine is usually the unmarked term" is unqualified. Only holds for binary masculine/feminine gender systems (chiefly Indo-European); many languages have no grammatical gender, and "masculine-as-default" is not universal. Also omits contemporary inclusive/non-binary strategies now standard practice (singular "they"; French point médian / "-e"; Spanish "elle"; noun repetition) and increasingly mandated by client/EU/corporate style guides — a brief-dependent choice, not a settled linguistic fact.
-- Fix: Qualify P015 to "in languages with a masculine/feminine grammatical-gender system, the masculine is traditionally the unmarked term"; add that inclusive/gender-neutral conventions frequently override this and the translator should check brief/style guide before defaulting, treating it as a deliberate flagged choice.
+### MF-2 — stale QA artifacts: test-results + adapter never regenerated for v1.2.1→v1.2.3; golden `profile_version` mismatch
+- **Where:** `tests/test-results.md:3` (`Generated: 2026-07-11T19:21:40`), `adapters/claude-code/translation-equivalence-advisor.md:14` (`Generated: 2026-07-11T19:21:22`), `tests/golden-tests.yaml:4` (`profile_version: 1.2.2`), vs `profile.yaml:4` `agent_version: 1.2.3` and ledger/CHANGELOG v1.2.0/v1.2.2/v1.2.3 entries dated 2026-07-12 claiming regen + re-export.
+- **Severity:** must-fix (release-readiness — orphan claim; violates generated-artifact-policy "Validation before release")
+- **Problem:** `run_tests.write_test_results` stamps `datetime.now(UTC)` at write time; a genuine 2026-07-12 regen would show a 2026-07-12 timestamp. Both artifacts still read **2026-07-11**, and `golden-tests.yaml` still declares **1.2.2** (never bumped to 1.2.3) — so the Phase-8 verdict and golden run are not verified against the current v1.2.3 profile, yet ledger/CHANGELOG assert they were. Same defect flagged in r1 (MF-2) and r2 (S10) and marked fixed — it was not. Confirmed by direct inspection.
+- **Fix:** Re-run self-check + `write_test_results` (or `cli validate`) against current `profile.yaml`; confirm `Generated:` ≥ 2026-07-12; bump `golden-tests.yaml` `profile_version` to `1.2.3`; re-export adapter so its `Generated:` matches; correct/annotate the v1.2.0/v1.2.2/v1.2.3 ledger + CHANGELOG entries that overstate what was done.
 
-**S2 — "similar audience response" / "equivalent effect" presented as a verifiable test** *(domain — flagged independently by descriptive-translation-reviewer AND translation-quality-reviewer)*
-- Where: `principles/principles.yaml` P035, P036; `skills/dynamic-and-formal-equivalence/SKILL.md` step 8 + Output (line ~114, ~124); `references/translation-equivalence-key-concepts.md` "Dynamic equivalence" entry.
-- Problem: Package treats "similar audience response" / "naturalness tested across the receptor culture" as a checkable adequacy criterion. This is the best-known durable critique of Nida's model (per Munday's survey): a source audience's original response is not independently measurable, so equivalent effect can only be inferred by analogy, never empirically verified. Risks the advisor certifying a rendering "adequate" on an unobservable criterion. Currency note: Nida & de Waard (1986) relabeled "dynamic" → "functional equivalence" to strip the emotive connotation; the glossary presents "dynamic equivalence" as settled final terminology.
-- Fix: Add a caveat to P035/P036 (and the skill Output + glossary entry): treat "similar audience response" as an aspirational/regulative heuristic to argue from, not a verifiable success criterion; evidence for it is necessarily indirect (informant reaction, back-translation, comprehension trials). Note the later "functional equivalence" relabeling for currency.
-
-**S3 — `always_on[0]` drops P095's conditional ("never erase" is absolute)** *(faithfulness — HEDGING_REMOVED)*
-- Where: `profile.yaml` `knowledge_partition.always_on[0]`.
-- Problem: "never erase a culturally embedded item merely to sound natural" is unconditional. Grounding P095 is explicitly conditional — retain/describe/annotate *when the foreign setting is part of the message*. The profile's own `examples[0].ideal_response` already gets this right ("where its foreignness carries meaning (P095)"), so the always_on line is internally inconsistent with its own example.
-- Fix: Restore the conditional: "…never erase a culturally embedded item merely to sound natural when its foreignness carries meaning for the text (P095)" — matching the example wording.
-
-**S4 — `always_on[4]` internally contradictory: absolute "do not transfer" vs purpose-driven P091** *(faithfulness)*
-- Where: `profile.yaml` `knowledge_partition.always_on[4]`.
-- Problem: Opens with an absolute prohibition ("Do not transfer the source text's cohesive devices") from P038, but the same sentence cites P091, which frames this as a purpose-dependent judgment ("following source norms minimizes meaning change"). The compound rule reads more absolute than its own cited grounding (P091) supports and is internally contradictory.
-- Fix: Reframe as default-with-exception: "As a default, rework rather than transfer source cohesive devices to the target's own preferences/frequencies, but decide whether to follow source cohesion or approximate target norms by the translation's purpose (P038 as default; P091 as the purpose-driven exception)."
-
-**S5 — `compare` mode declared in profile has no matching Output contract in any skill** *(skill-authoring)*
-- Where: `profile.yaml` outputs.modes `compare` (lines ~53-57); all 9 `skills/*/SKILL.md` `## Output` sections.
-- Problem: Profile declares a `compare` mode whose output is a side-by-side of what each option favours/costs ending in a weighted recommendation. No skill Output section describes a side-by-side shape; all are single-recommendation formats. Closest owner `dynamic-and-formal-equivalence` still doesn't produce the declared layout, and cross-strategy "A vs B" for a segment is owned by no skill — the declared mode contract is not executable from skill guidance.
-- Fix: Add an explicit compare-mode output clause to `dynamic-and-formal-equivalence/SKILL.md` Output (side-by-side favours/costs → purpose-weighted call), plus a one-line "lay out side-by-side before recommending" note to the level-specific skills whose Procedure already weighs options (word-level, collocation-idiom).
-
-**S6 — P100 scopes back-translation too narrowly; omits its legitimate QA role** *(domain — translation-quality-reviewer)*
-- Where: `principles/principles.yaml` P100; `skills/dynamic-and-formal-equivalence/SKILL.md` step 7.
-- Problem: Back-translation framed only as exposing target structure to a monolingual reader, "a theoretically unsound compromise that never reproduces meaning." Omits its most common real-world use: a standard QA check in regulated/high-stakes translation (pharma, medical, legal, patient-facing) routinely required by clients/regulators to catch meaning-distorting errors. Sibling `technical-translation-advisor` already treats it as a limited quality check; this narrower framing could mislead a caller into dismissing a legitimate technique.
-- Fix: Broaden P100 to acknowledge back-translation's limited-but-legitimate QA role (while keeping the caution that it cannot itself certify semantic equivalence).
-
-**S7 — Description omits concrete trigger phrasing for text-level skill** *(skill-authoring)*
-- Where: `skills/text-level-approach-and-limits-of-equivalence/SKILL.md` frontmatter `description`.
-- Problem: The one skill whose natural trigger is a *generic* caller phrasing ("is this translation 'right' / 'literal enough' / 'faithful'?"). That phrasing lives only in the body "When to use" (line ~67) — after the skill would already need selecting. The frontmatter (the sole routing signal) uses only academic vocabulary, a weaker lexical match to how callers actually phrase this → under-triggers.
-- Fix: Fold the concrete trigger phrase into the description, e.g. "Reviews whether a translation is 'right,' 'literal enough,' or 'faithful' overall against a relative, whole-text standard… for calls that don't name a single equivalence level."
-
-**S8 — Adapter frontmatter `description` truncates role + when-to-use mid-clause** *(agent-design)*
-- Where: `.claude/agents/generated/translation-equivalence-advisor.md` line 3 (auto-generated router description).
-- Problem: The dispatcher-matched one-liner stops at "…grammar, information structure" (drops cohesion, pragmatics, register/form, whole-text) and stops when-to-use at "marked structure" (drops the form-bound / receptor-language clause). A caller asking about register, cohesion, pragmatics, or whole-text equivalence has no routing-layer signal for those in-scope capabilities. NOTE: regenerate via export, do NOT hand-edit the adapter.
-- Fix: Regenerate the description to preserve complete clauses for domain scope + at least one full when-to-use item + the not-for item. If the generator truncates at a fixed char count, truncate at clause boundaries (or raise the budget) in the export template.
-
-**S9 — Untracked should-fix from round 2 (SF-4 per-skill example) + no recorded independent round-3 verification** *(profile-readiness / process)*
-- Where: `reports/review-loop/` (only r1/r2 artifacts); `provenance-ledger.md` + `CHANGELOG.md` v1.2.0.
-- Problem: Round-2 SF-4 ("add a short `## Example` to each of the 9 skills") was neither implemented (zero `## Example` hits) nor logged in the v1.2.0 "Deferred" list — it fell through the resolve-or-defer discipline. Separately, v1.2.0's own MF-1/MF-2 fixes were bundled into the round-2 commit with no independent post-fix pass recorded in the package (this r3 review now fills that gap and finds both fixes sound).
-- Fix: Either add per-skill worked examples (cheap — restate existing profile-level examples at skill scope) or add an explicit SF-4 deferred-with-reasoning line to the ledger/CHANGELOG. Record this r3 review as the independent must-fix=0 verification consistent with the driver's merge-gating rule.
-
-### NICE
-
-- **N1** — `quality_bar[0]` extends "no one-to-one match" to "phrase level" while cited P037 is word-scoped. Drop "or phrase" or add a phrase-level citation. *(faithfulness)*
-- **N2** — P009 Chinese adversative passive (被 bèi): accurate as traditional/classical default but connotation has weakened in modern/technical Mandarin (translationese influence). Add a currency note to check frequency-in-context rather than assume adversative reading. *(domain ×2)*
-- **N3** — P110 "let a translation pass for an original" presented as unqualified good; brushes the domestication/fluency critique (Venuti). Sibling `descriptive-translation-reviewer` owns that lens and package carries the P022/P074 counterweight, so low priority. Optional: note naturalness is register/brief-dependent. *(domain)*
-- **N4** — P033 states Gricean maxims "reflect English-culture values" as settled fact; soften to "have been criticized by some scholars as reflecting Anglo-communicative norms." *(domain)*
-- **N5** — Coverage: Baker's componential/semantic-feature analysis is a distinct word-level diagnostic not quite covered by the semantic-field treatment (P012). Optional: add a brief principle/procedure line. *(domain)*
-- **N6** — Near-identical surface wording "trace participants… through reference" in `thematic-and-information-structure` step 5 and `cohesion-and-texture` step 5 (different principles: givenness vs anaphora). Reword one to disambiguate lens. *(skill-authoring)*
-- **N7** — Identical advise/review boilerplate sentence repeated verbatim across all 9 `## Output` sections; optional DRY hoist into the key-concepts reference. *(skill-authoring)*
-- **N8** — Role sentence lists only advise+review, omits the third declared `compare` mode; add "recommends or compares" for role/mode coherence. *(agent-design)*
-- **N9** — Provenance currency: package distills Baker (1992, 1st ed.); a one-line "reflects the 1992 first edition" note pre-empts an edition-agnostic assumption (2011/2018 eds. add corpus/ethics). *(domain)*
-- **N10** — `golden-tests.yaml:3` `generated_at: 2026-07-11` not bumped with profile_version 1.2.0; cosmetic. *(profile-readiness)*
-- **N11** — Optional: point Skopos/House/DTS-norms questions to sibling packages via a `handoff_rules`/`when_not_to_use` line, so the two-source scope boundary is explicit not silent. *(domain)*
+### MF-3 — Phase-8 body-size WARNING unresolved, sitting at the hard-fail edge
+- **Where:** `profile.yaml` counted body fields; heaviest `quality_bar` 274w, `modes` 115w, `forbidden_behaviours` 106w. Self-check: `body ~1000 words (> 800); 200 over budget` (hard-FAIL line = 1000).
+- **Severity:** must-fix (release-readiness — WARNING at ~0 headroom below hard-fail, unimproved across v1.1.0 S2 + v1.2.0 SF-6 "trim" fixes, and v1.2.1–v1.2.3 added text).
+- **Problem:** Two prior dedicated size-reduction fixes netted no measurable reduction; later versions added counted text. Body is at the edge of the 1000-word hard-FAIL and cannot be safely called WARNING-not-FAIL until MF-2 regen confirms it.
+- **Fix:** After MF-2 regen, if still WARNING, trim for real headroom — collapse citation lists, tighten the two heaviest compound `quality_bar` clauses and/or `forbidden_behaviours` — rather than deferring a 4th time.
 
 ---
 
-## Verified clean (no issue)
+## SHOULD-FIX
 
-Tool boundary Read/Grep/Glob only (no Write/Bash/MCP) — correct read-only advisor; DO-NOT-EDIT
-adapter header present; principle→skill partition complete P001–P116, zero duplicates/orphans;
-progressive disclosure intact (references linked not inlined); no authority creep (never delivers
-final text, never certifies one answer); faithfulness report all 29 rule_refs
-EXACT_SUPPORT/WITHIN_SCOPE, none CONTRADICTED; both round-2 must-fixes genuinely closed;
-116 principle-behaviour tests + 5 golden + 4 routing/missing-context, schema-valid.
+### SF-1 — quality_bar[4] cohesion categorical omits P091 (same defect as MF-1)
+- **Where:** `profile.yaml` `quality_bar[4]` ("Cohesion is reworked, not transferred ... (P038, P004, P069, P017)"). Reword to "reworked by default, not transferred, unless the translation's purpose favours following source patterns …" and add P091. (Faithfulness.)
 
-MUST_FIX_COUNT: 0
+### SF-2 — P009 passive-adversity marked confidence: high overstates Mandarin evidence
+- **Where:** `principles/principles.yaml` P009; echoed `skills/grammatical-equivalence/SKILL.md` step 2.
+- **Problem:** Japanese adversative passive is settled; the Mandarin 被 (bèi) claim is much weaker (adversative bias eroded in modern usage). P009 is the only voice/grammar principle at `confidence: high` — overstates the Chinese half. (Quality-reviewer should-fix; descriptive nice — deduped.)
+- **Fix:** Downgrade to `medium`, or narrow: "signalling adversity in Japanese, and historically in Chinese though weaker in modern usage."
+
+### SF-3 — P066 "always-definite" topic overstates topic typology
+- **Where:** `principles/principles.yaml` P066; `skills/thematic-and-information-structure/SKILL.md`.
+- **Problem:** Topic-prominent languages have *characteristically* (not categorically) definite topics; indefinite topics occur in licensed constructions. "Always" risks faulting a legitimate indefinite-topic rendering. (Quality-reviewer.)
+- **Fix:** Soften to "characteristically/typically definite," consistent with P069's "likely near-universal" hedging.
+
+### SF-4 — key-concepts glossary under-covers terms skills claim it defines
+- **Where:** every skill's `## References` line vs `references/translation-equivalence-key-concepts.md` (~10 entries).
+- **Problem:** `grammatical-equivalence`, `thematic-and-information-structure`, `pragmatic-equivalence-coherence-and-implicature`, `register-style-and-literary-form` lean on undefined terms (obligatory grammatical categories, T/V distinction, FSP/communicative dynamism, markedness, speech-act force, Gricean maxims, register field/tenor/mode, concordant terminology, back-translation). Blanket pointer over-claims. (Skill-authoring.)
+- **Fix:** Add the missing entries, or reword the per-skill pointer to "concepts shared across skills" for skills whose core vocabulary isn't in the glossary.
+
+### SF-5 — no per-lens worked example in any of the 9 skill bodies
+- **Where:** all 9 `SKILL.md` `## Procedure`/`## Anti-patterns`. Only package-wide `profile.yaml examples:` (2) exist.
+- **Problem:** Dense 6–8-step procedures cite principles abstractly with no source-item→diagnosis→strategy→residual-loss walkthrough to pattern-match against. (Skill-authoring.)
+- **Fix:** Add a short `## Example` to each skill, or at least the three densest/most-confusable (`collocation-idiom-and-fixed-expression`, `thematic-and-information-structure`, `register-style-and-literary-form`).
+
+### SF-6 — multi-principle procedure steps compressed into run-on sentences
+- **Where:** e.g. `grammatical-equivalence` step 3 (~70w, P015+P064); `thematic-and-information-structure` step 6 (P028+P088+P090); `dynamic-and-formal-equivalence` step 6.
+- **Problem:** Rules buried mid-sentence get under-applied by a skimming agent; hurts the scannable/actionable bar. (Skill-authoring.)
+- **Fix:** Split into one-decision-per-line sub-bullets, principle citation attached to its own clause.
+
+### SF-7 — sibling-routing disambiguator missing from when_not_to_use
+- **Where:** `profile.yaml` `when_to_use[1]` + adapter mirror; 4 corpus-siblings expose near-identical "review my translation" triggers.
+- **Problem:** A generic "review my translation" request has no explicit routing signal to pick equivalence-advisor over the 3 siblings; disambiguation lives only in the dense `role` grounding clause. (Agent-design.)
+- **Fix:** Add one `when_not_to_use` disambiguator naming the siblings' distinct lenses (norms/visibility → descriptive; corpus-QA/register-profile → quality; technical-doc usability/terminology → technical) and stating this advisor works at word/collocation/grammar/info-structure/cohesion/pragmatics/register equivalence levels.
+
+### SF-8 — review-loop artifact traceability ambiguous (r2 S9 still open)
+- **Where:** `reports/review-loop/` r1/r2/r3 filenames reused across two passes; 5 post-1.0.0 versions can't be mapped to artifacts.
+- **Fix:** Version-scope historical report filenames (e.g. `<slug>.v1.2.2.review.md`) or add a round→version index to the ledger (Supersession rule). (Profile-reviewer.)
+
+### SF-9 — Nida "dynamic equivalence" currency note absent (dedup: 3 domain reviewers)
+- **Where:** `references/translation-equivalence-key-concepts.md` "Dynamic equivalence"; `skills/dynamic-and-formal-equivalence/SKILL.md`.
+- **Problem:** Nida later renamed "dynamic" → "functional equivalence" (with de Waard, 1986) to stop the free-rewrite misreading. Absent note may confuse a reader comparing to modern TS vocabulary. Faithful to the cited 1964 extract, so completeness not correctness. (Descriptive + quality + technical — deduped.)
+- **Fix:** One clause in the glossary entry + skill Purpose noting the 1986 "functional equivalence" relabel denotes the same orientation.
+
+---
+
+## NICE
+
+- **N1** `inputs.required` is one compound entry; golden MC-001 enumerates 3 → split into 3 items for consistency. (Profile.)
+- **N2** Collocation typicality (P043/P058/P063, `collocation-idiom-and-fixed-expression`) relies on intuition; Baker's later editions + corpus-TS recommend corpus consultation. Add a corpus-check step; flag 1992-edition grounding in role text. (Descriptive.)
+- **N3** P069 explicitation "likely near-universal" is dated; later corpus studies show it's genre/register-dependent. Add a one-clause caveat. (Descriptive.)
+- **N4** P015 masculine-as-unmarked: note inclusive/gender-neutral brief requirements override the default; cross-linguistic limit (non-IE noun-class systems). (Descriptive + technical.)
+- **N5** `dynamic-and-formal-equivalence` "similar audience response" is an unfalsifiable heuristic goal, not a measurable target — add an anti-pattern line. (Quality.)
+- **N6** Pragmatics skill is purely Gricean; relevance theory (Gutt/Sperber & Wilson) is the natural refinement if a 3rd source is ever added. No change within 2-source scope. (Technical.)
+- **N7** `grammatical-equivalence` step 7 says "per the word-level skill" unnamed → name `word-level-nonequivalence-and-strategies`. (Skill-authoring.)
+- **N8** `dynamic-and-formal-equivalence` H1 "…and Receptor Response" drifts from frontmatter `name`; align, or reflect "receptor response" in the description. (Skill-authoring.)
+- **N9** 9× near-identical advise/review/compare `## Output` boilerplate — could live once in a reference for maintainability (no runtime cost). (Skill-authoring.)
+- **N10** No worked example exercises the granted Read/Grep/Glob tools (caller-supplies-a-file path). Optional. (Agent-design.)
+- **N11** r2 S5 (P015 gender caveat) / S6 (P100 back-translation) deferred as out-of-grounding-scope — carry to a future source-addition cycle. (Profile.)
+
+MUST_FIX_COUNT: 3

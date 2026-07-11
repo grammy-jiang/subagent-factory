@@ -51,6 +51,30 @@ The five high-confidence principles (P009, P024, P037, P038, P058) are compiled 
 
 ## Version history
 
+- **v1.2.4** (2026-07-12) — review-loop r3 consolidated-panel fixes (no spine change; every edited rule
+  still restates principles already in the spine, no new claim):
+  - MF-1 (faithfulness): `forbidden_behaviours[3]` restated P038 as a flat cohesion absolute and omitted
+    P091 (purpose-driven licence to follow source cohesion) — the P038-vs-P091 conflict already reconciled
+    in `always_on[4]` but not propagated here. Split so P024/P009/P046 (thematic markedness, voice,
+    tense/aspect) stay absolute while the cohesion clause is conditioned and cites P038, P091; citation now
+    (P024, P009, P046, P038, P091). Faithfulness-report re-graded EXACT_SUPPORT → WITHIN_SCOPE.
+  - SF-1 (faithfulness): `quality_bar[4]` cohesion criterion conditioned "reworked by default … unless the
+    translation's purpose favours following source patterns" and P091 added (P038, P004, P069, P017, P091);
+    faithfulness-report note updated.
+  - SF-7 (routing): fourth `when_not_to_use` entry names the three corpus siblings by their distinct lenses
+    (norms/retranslation/visibility → descriptive; corpus quality metrics/register profile → quality;
+    technical-document usability/terminology → technical); wording only, no citation.
+  - MF-3 (body-size): profile body trimmed off the 1000-word hard-fail edge (0 → ~26 words headroom) while
+    absorbing the MF-1/SF-1/SF-7 additions — `quality_bar` per-clause citation lists collapsed to their
+    primary principle IDs (full clusters retained in `always_on` and the faithfulness report) and the two
+    heaviest clauses plus `modes`/`role`/`handoff`/`precedence` tightened. Residual WARNING is
+    grounding-bounded (nine hedged equivalence levels).
+  - MF-2 (test hygiene): `tests/test-results.md` regenerated and adapter re-exported against v1.2.4;
+    `golden-tests.yaml` `profile_version` → 1.2.4.
+  - Deferred (out of grounding scope or lower value): SF-2 (P009 confidence — compiled adapter invariant,
+    out of scope for a faithfulness patch), SF-3 (P066 typology — domain critique, not a source over-claim),
+    SF-4/SF-5/SF-6/SF-8/SF-9 and NICE items (skill-authoring / source-addition cycle).
+
 - **v1.2.3** (2026-07-12) — review-loop r2 consolidated-panel fixes (no spine change; every edited rule
   still restates principles already in the spine, no new claim; supersedes the r3-flagged S3/S4 loci left
   unlogged at v1.2.2):

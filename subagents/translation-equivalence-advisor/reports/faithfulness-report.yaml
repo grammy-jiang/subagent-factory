@@ -46,8 +46,12 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Aggregates the promoted principles P038, P004, P069, P017 into one review criterion; each clause
-    restates a principle without strengthening it.
+  note: 'Aggregates the promoted principles P038, P004, P069, P017 into one review criterion. Corrected
+    in v1.2.4: the criterion stated "Cohesion is reworked, not transferred" as a categorical, restating
+    P038 as an absolute and omitting P091, which licenses following source cohesion when the translation''s
+    purpose calls for it (SCOPE_BROADENED against the default-with-exception already reconciled in
+    always_on[4]). Reworded to "reworked by default, not transferred … unless the translation''s purpose
+    favours following source patterns" and P091 added to the citation, so no clause exceeds its principle.'
 - rule_ref: quality_bar[5]
   verdict: WITHIN_SCOPE
   distortion:
@@ -113,12 +117,18 @@ findings:
   action: accept_with_note
   note: Restates the boundary carried by P001, P102.
 - rule_ref: forbidden_behaviours[3]
-  verdict: EXACT_SUPPORT
+  verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Restates the boundary carried by P038, P024, P009, P046.
+  note: 'Restates the boundary carried by P024, P009, P046 (thematic markedness, voice, tense/aspect — absolute)
+    and P038/P091 (cohesion — default-with-exception). Corrected in v1.2.4: the earlier single clause forbade
+    "transferring the source text''s cohesive devices … unchanged" as a flat absolute (P038 only), omitting
+    P091''s purpose-driven licence to follow source cohesion — the same P038-vs-P091 conflict already
+    reconciled in always_on[4]. Split so the three form/voice categories stay absolute while the cohesion
+    clause is conditioned "where the purpose does not call for following source cohesion" and P091 is cited,
+    so no clause exceeds its principle.'
 - rule_ref: handoff_rules[0]
   verdict: WITHIN_SCOPE
   distortion:
