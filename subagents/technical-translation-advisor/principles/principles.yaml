@@ -1,0 +1,2777 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Be a good technical writer in order to be a good technical translator
+    — their principal stylistic goals coincide — and adopt technical writers' writing
+    strategies and audience-analysis methods, while accepting that information design,
+    typography, and layout are usually beyond the translator's remit.
+  derived_from_claims:
+  - C00004
+  - C00017
+  - C00019
+  - C00023
+  - C00024
+  - C00025
+  - C00531
+  - C00532
+  - C00533
+  - C00534
+  - C00602
+  - C00603
+  confidence: high
+  applies_when:
+  - A translator is producing or revising technical documentation for end users.
+  - Translator education or professional practice targets technical texts.
+  - translating technical documentation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: Base translation decisions on who will read the text, how they will use
+    it, and how it will be distributed, and establish these via a translation brief
+    specifying at minimum the target audience, the intended purpose (information vs
+    publication), and any stylistic or terminological requirements.
+  derived_from_claims:
+  - C00035
+  - C00036
+  - C00037
+  - C00038
+  - C00039
+  - C00040
+  - C00578
+  - C00581
+  - C00582
+  confidence: high
+  applies_when:
+  - Starting a technical-translation or localization project.
+  - starting any translation project
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: Treat scientific and technical translation as a communicative service
+    for people and produce a target text that functions as an authentic target-language
+    document, because users care most about accessing its information effectively.
+  derived_from_claims:
+  - C00127
+  - C00128
+  - C00129
+  - C00130
+  - C00131
+  - C00132
+  - C00143
+  - C00593
+  - C00595
+  confidence: high
+  applies_when:
+  - The document includes layout, graphics, publication tooling, or multiple contributors.
+  - any sci-tech translation delivered to end users
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: 'Design visual presentation around human perception: balance contrast,
+    limit color codes, avoid all-cap running text, and use Gestalt grouping deliberately.'
+  derived_from_claims:
+  - C00253
+  - C00254
+  - C00255
+  - C00256
+  - C00257
+  - C00258
+  - C00259
+  - C00260
+  - C00261
+  - C00262
+  - C00263
+  - C00264
+  - C00265
+  - C00266
+  - C00267
+  - C00268
+  confidence: high
+  applies_when:
+  - Laying out printed or visual instructional information.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Treat appearance, layout, typography, white space, and format as communicative
+    usability factors, not decoration.
+  derived_from_claims:
+  - C00177
+  - C00178
+  - C00179
+  - C00180
+  - C00181
+  - C00182
+  - C00183
+  - C00184
+  - C00185
+  - C00186
+  - C00187
+  - C00188
+  - C00189
+  confidence: high
+  applies_when:
+  - Readers must navigate, read, and trust printed or formatted documentation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: Evaluate user guides holistically with representative task-based usability
+    testing; readability formulas are only partial indicators.
+  derived_from_claims:
+  - C00235
+  - C00236
+  - C00237
+  - C00238
+  - C00239
+  - C00240
+  - C00241
+  - C00242
+  - C00243
+  - C00244
+  - C00245
+  - C00246
+  - C00247
+  confidence: high
+  applies_when:
+  - Assessing whether a guide actually supports user tasks.
+  - The guide affects whether users can operate the software or product.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: Let target-user needs govern additions, omissions, condensation, restructuring,
+    and explicitness.
+  derived_from_claims:
+  - C00042
+  - C00043
+  - C00044
+  - C00045
+  - C00046
+  - C00047
+  - C00052
+  - C00053
+  - C00056
+  - C00057
+  - C00058
+  - C00062
+  confidence: high
+  applies_when:
+  - Target users need a usable technical document rather than a surface replica.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Write concise, direct, audience-fit user-guide language without ambiguity,
+    obscuring euphemism, unnecessary jargon, or unexplained acronyms.
+  derived_from_claims:
+  - C00217
+  - C00218
+  - C00219
+  - C00220
+  - C00221
+  - C00222
+  - C00223
+  - C00224
+  - C00225
+  - C00232
+  - C00233
+  - C00234
+  confidence: high
+  applies_when:
+  - Readers must follow instructions without immediate feedback from the writer.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: Reduce working-memory burden through chunking, short retention gaps,
+    familiar groupings, relevant visuals, and recognition-based cues.
+  derived_from_claims:
+  - C00269
+  - C00270
+  - C00271
+  - C00272
+  - C00273
+  - C00274
+  - C00275
+  - C00276
+  - C00277
+  - C00278
+  - C00279
+  - C00280
+  confidence: high
+  applies_when:
+  - Readers must hold, retrieve, or apply procedural information while using the guide.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Prime and teach new material by linking it to related concepts, existing
+    schemes, examples, habits, and visible reinforcement.
+  derived_from_claims:
+  - C00288
+  - C00289
+  - C00291
+  - C00292
+  - C00293
+  - C00294
+  - C00295
+  - C00296
+  - C00297
+  - C00298
+  - C00299
+  - C00300
+  confidence: high
+  applies_when:
+  - Users must learn unfamiliar procedures or concepts.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Subject user documentation to legal, standards, accuracy, completeness,
+    safety, readability, layout, and hands-on usability quality assurance.
+  derived_from_claims:
+  - C00091
+  - C00096
+  - C00097
+  - C00108
+  - C00170
+  - C00171
+  - C00172
+  - C00173
+  - C00174
+  - C00175
+  - C00176
+  confidence: high
+  applies_when:
+  - Audience expectations affect coherence, acceptability, or quality evaluation.
+  - Documentation quality has legal, support, product-liability, or customer-success
+    implications.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Make user guides task-centered teaching interfaces rather than repositories
+    of system information.
+  derived_from_claims:
+  - C00136
+  - C00140
+  - C00147
+  - C00151
+  - C00152
+  - C00153
+  - C00154
+  - C00155
+  - C00156
+  - C00157
+  - C00158
+  confidence: high
+  applies_when:
+  - Users rely on the guide to learn or complete software tasks.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Treat the main study as empirical support that iconic linkage can improve
+    speed, errors, completion, recall, satisfaction, clarity, and learning.
+  derived_from_claims:
+  - C00482
+  - C00483
+  - C00484
+  - C00485
+  - C00492
+  - C00504
+  - C00505
+  - C00507
+  - C00508
+  - C00509
+  - C00513
+  confidence: high
+  applies_when:
+  - The translated or instructional guide contains recurring equivalent procedural
+    information.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Choose technical-translation strategy from the communicative situation
+    and project criteria rather than universal maxims.
+  derived_from_claims:
+  - C00014
+  - C00015
+  - C00030
+  - C00032
+  - C00064
+  - C00065
+  - C00066
+  - C00067
+  - C00068
+  - C00069
+  confidence: high
+  applies_when:
+  - Domain classification affects audience expectations, language use, or communicative
+    purpose.
+  - Project purpose, audience, constraints, and target norms can be identified.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: Balance fidelity, intelligibility, speed, cost, audience need, and target-culture
+    acceptability instead of pursuing abstract perfection.
+  derived_from_claims:
+  - C00070
+  - C00071
+  - C00072
+  - C00073
+  - C00074
+  - C00075
+  - C00076
+  - C00077
+  - C00078
+  - C00079
+  confidence: high
+  applies_when:
+  - Evaluating or planning professional technical translation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Build modular, navigable guides with small functional task units, meaningful
+    headings, useful overviews, and reader progress points.
+  derived_from_claims:
+  - C00201
+  - C00202
+  - C00203
+  - C00204
+  - C00205
+  - C00206
+  - C00207
+  - C00209
+  - C00210
+  - C00211
+  confidence: high
+  applies_when:
+  - Users need to navigate, learn, and reuse guide sections independently.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Use one-idea sentences and uniform phrasing to reduce memory load, build
+    habits, improve recognition, and free attention for the task.
+  derived_from_claims:
+  - C00349
+  - C00350
+  - C00351
+  - C00352
+  - C00353
+  - C00354
+  - C00355
+  - C00356
+  - C00357
+  - C00358
+  confidence: high
+  applies_when:
+  - Users must alternate between reading instructions and performing procedures.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Combine objective observation with carefully designed subjective instruments.
+  derived_from_claims:
+  - C00380
+  - C00381
+  - C00382
+  - C00383
+  - C00384
+  - C00385
+  - C00386
+  - C00387
+  - C00388
+  - C00389
+  confidence: high
+  applies_when:
+  - Usability includes satisfaction, preference, or perceived clarity.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: Measure retention, task time, error rates, and satisfaction with explicit
+    instruments and report the aggregate outcomes.
+  derived_from_claims:
+  - C00434
+  - C00435
+  - C00436
+  - C00543
+  - C00544
+  - C00546
+  - C00547
+  - C00548
+  - C00549
+  - C00550
+  confidence: high
+  applies_when:
+  - The study includes user attitudes or later recall.
+  - A documentation study needs evidence across recall, performance, errors, and attitudes.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: Plan documentation around specific readers, their tasks, prior knowledge,
+    problems, and objectives.
+  derived_from_claims:
+  - C00122
+  - C00123
+  - C00124
+  - C00125
+  - C00126
+  - C00139
+  - C00141
+  - C00142
+  - C00148
+  confidence: high
+  applies_when:
+  - Creating or translating user-facing technical documentation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Apply iconic linkage by expressing recurring semantically identical information
+    with the same target-language construction and preserving latent repetition.
+  derived_from_claims:
+  - C00336
+  - C00341
+  - C00342
+  - C00343
+  - C00344
+  - C00345
+  - C00346
+  - C00347
+  - C00348
+  confidence: high
+  applies_when:
+  - Equivalent procedural information recurs across a technical document.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Evaluate documentation strategies through summative user testing that
+    collects both performance and satisfaction data and is refined by pilot work.
+  derived_from_claims:
+  - C00495
+  - C00496
+  - C00497
+  - C00498
+  - C00499
+  - C00500
+  - C00501
+  - C00502
+  - C00503
+  confidence: high
+  applies_when:
+  - Claiming that a documentation strategy improves usability.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Treat technical translation as target-user usability work, not as source-text
+    transfer alone.
+  derived_from_claims:
+  - C00001
+  - C00002
+  - C00009
+  - C00016
+  - C00027
+  - C00029
+  - C00033
+  - C00034
+  confidence: high
+  applies_when:
+  - Technical or instructional documents must help readers perform real tasks.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: Define target-text function pragmatically from purpose, audience, initiator,
+    translator, and situation; do not infer it from the source text alone.
+  derived_from_claims:
+  - C00081
+  - C00082
+  - C00083
+  - C00094
+  - C00095
+  - C00099
+  - C00100
+  - C00101
+  confidence: high
+  applies_when:
+  - The final text type, medium, use, or audience is unclear or strategically important.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Minimize target-reader processing effort by making context, intended
+    interpretation, and given-new progression easy to follow.
+  derived_from_claims:
+  - C00085
+  - C00086
+  - C00087
+  - C00088
+  - C00089
+  - C00090
+  - C00092
+  - C00093
+  confidence: high
+  applies_when:
+  - Readers need to retrieve and use information quickly.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: Introduce iconic linkage with test materials that contain suitably spaced
+    recurrence, a concise style guide, and translation-memory support.
+  derived_from_claims:
+  - C00416
+  - C00418
+  - C00419
+  - C00420
+  - C00421
+  - C00422
+  - C00423
+  - C00424
+  confidence: high
+  applies_when:
+  - Applying iconic linkage at scale or evaluating its effect.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: Analyze very small usability comparisons with exact nonparametric tests,
+    aggregate measures, and exclusion of fixed-duration tasks from timing.
+  derived_from_claims:
+  - C00472
+  - C00473
+  - C00474
+  - C00475
+  - C00476
+  - C00477
+  - C00479
+  - C00480
+  confidence: high
+  applies_when:
+  - The study has small independent groups and multiple potential outcome measures.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: Match target-language technical conventions and required document form
+    while preserving correctness and usability.
+  derived_from_claims:
+  - C00005
+  - C00017
+  - C00018
+  - C00020
+  - C00021
+  - C00027
+  - C00028
+  confidence: high
+  applies_when:
+  - The target text must function as professional technical documentation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: Design user guides to support starting, productivity, troubleshooting,
+    and experience-level differences.
+  derived_from_claims:
+  - C00161
+  - C00162
+  - C00163
+  - C00164
+  - C00167
+  - C00168
+  - C00169
+  confidence: high
+  applies_when:
+  - A guide serves beginners, regular users, and advanced users across multiple use
+    scenarios.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Minimize attention switching because reading the guide and doing the
+    task draw on the same limited cognitive capacity.
+  derived_from_claims:
+  - C00282
+  - C00283
+  - C00284
+  - C00285
+  - C00286
+  - C00287
+  - C00290
+  confidence: high
+  applies_when:
+  - Users consult instructions while simultaneously operating software or equipment.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Help users frame problems correctly, surface misconceptions, and provide
+    enough declarative background before expecting fluent action.
+  derived_from_claims:
+  - C00303
+  - C00304
+  - C00305
+  - C00306
+  - C00307
+  - C00308
+  - C00309
+  confidence: high
+  applies_when:
+  - Novices face unfamiliar tasks or may transfer misleading prior assumptions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Build usability from the start using cognetics, explicit goals, and measurable
+    criteria.
+  derived_from_claims:
+  - C00314
+  - C00315
+  - C00316
+  - C00317
+  - C00318
+  - C00319
+  - C00320
+  confidence: high
+  applies_when:
+  - Designing or revising software user guides and interfaces.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Drop, redefine, or redesign metrics and tasks that cannot be observed
+    reliably or that are confounded by participant traits or prior knowledge.
+  derived_from_claims:
+  - C00451
+  - C00452
+  - C00453
+  - C00454
+  - C00455
+  - C00456
+  - C00457
+  confidence: high
+  applies_when:
+  - A pilot exposes invalid timing measures, vague criteria, scoring flaws, or non-compliance
+    risks.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Run main studies with realistic users and settings while preserving comparability
+    with the pilot and handling venue constraints.
+  derived_from_claims:
+  - C00461
+  - C00462
+  - C00465
+  - C00466
+  - C00467
+  - C00468
+  - C00469
+  confidence: high
+  applies_when:
+  - Ecological validity matters for the documentation evaluation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P035
+  statement: Establish whether the job is an instrumental translation (used in place
+    of the source as a freestanding target text — so errors must be corrected) or
+    a documentary translation (describing what the source said and how, as in back-translation
+    or judicial use — so errors are preserved and shown, and back-translation is a
+    limited quality check); in an instrumental translation the translator, as the
+    expert, corrects simple linguistic errors, incorrect line breaks, text-versus-diagram
+    mismatches, and obviously wrong units of measure (e.g. a 250 kg tablet where kg
+    should be mg).
+  derived_from_claims:
+  - C00753
+  - C00754
+  - C00755
+  - C00798
+  - C00799
+  - C00800
+  - C00803
+  confidence: high
+  applies_when:
+  - deciding whether to correct or preserve source content
+  - the source text contains apparent errors
+  - inferring instrumental vs documentary from stated purpose
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P036
+  statement: Preserve user trust by making guides correct, confidence-building, and
+    clearly oriented to customer needs.
+  derived_from_claims:
+  - C00144
+  - C00145
+  - C00146
+  - C00149
+  - C00150
+  - C00160
+  confidence: high
+  applies_when:
+  - Guide errors or poor documentation could damage product use, customer loyalty,
+    or user confidence.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P037
+  statement: Use repetition, sentence flow, and parallel structure only when they
+    reinforce action, memory, clarity, or habit formation.
+  derived_from_claims:
+  - C00226
+  - C00227
+  - C00228
+  - C00229
+  - C00230
+  - C00231
+  confidence: high
+  applies_when:
+  - Equivalent information, lists, or procedures recur in the guide.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P038
+  statement: Support both reading-to-learn and reading-to-do, including sequential
+    reading and random lookup.
+  derived_from_claims:
+  - C00326
+  - C00327
+  - C00328
+  - C00329
+  - C00330
+  - C00331
+  confidence: high
+  applies_when:
+  - A guide serves learning, task execution, scanning, searching, and reference use.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P039
+  statement: Implement usability through a hierarchy of principles, guidelines, local
+    rules, and style guides, while still validating with users.
+  derived_from_claims:
+  - C00332
+  - C00333
+  - C00334
+  - C00335
+  - C00339
+  - C00340
+  confidence: high
+  applies_when:
+  - Turning usability knowledge into repeatable documentation practice.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P040
+  statement: Establish usability with evaluation rather than design confidence alone.
+  derived_from_claims:
+  - C00362
+  - C00363
+  - C00365
+  - C00366
+  - C00367
+  - C00368
+  confidence: high
+  applies_when:
+  - A design or documentation strategy is claimed to improve usability.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P041
+  statement: Select evaluation methods from the test question and required data, distinguishing
+    formative, summative, analytical, empirical, absolute, and comparative methods.
+  derived_from_claims:
+  - C00363
+  - C00365
+  - C00366
+  - C00395
+  - C00396
+  - C00400
+  confidence: high
+  applies_when:
+  - Planning a usability evaluation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P042
+  statement: Avoid think-aloud protocols when representative task performance is the
+    measurement target.
+  derived_from_claims:
+  - C00371
+  - C00375
+  - C00376
+  - C00377
+  - C00378
+  - C00379
+  confidence: high
+  applies_when:
+  - The study measures task time, error rate, or normal task behaviour.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P043
+  statement: Ground technical translation in target-audience communicative service,
+    Skopos purpose, and reader cognitive demands.
+  derived_from_claims:
+  - C00515
+  - C00516
+  - C00517
+  - C00518
+  - C00519
+  - C00520
+  confidence: high
+  applies_when:
+  - Technical or instructional translation must support target-reader action.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
+  statement: Use iconic linkage only where recurring information makes standardisation
+    practical, and treat it as one cognitive strategy among others.
+  derived_from_claims:
+  - C00521
+  - C00522
+  - C00523
+  - C00524
+  - C00525
+  - C00526
+  confidence: high
+  applies_when:
+  - Instructional or technical text contains repeated equivalent concepts or procedures.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P045
+  statement: Make target-relevant information easy to find, select, assimilate, and
+    proportionally redundant.
+  derived_from_claims:
+  - C00102
+  - C00103
+  - C00104
+  - C00105
+  - C00106
+  confidence: high
+  applies_when:
+  - Not all source information is equally useful for the target task.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P046
+  statement: Combine literal translation, paraphrase, modification, addition, omission,
+    and other strategies locally under one communicative purpose.
+  derived_from_claims:
+  - C00113
+  - C00114
+  - C00115
+  - C00119
+  - C00120
+  confidence: high
+  applies_when:
+  - Different text segments require different treatments to serve the same target
+    purpose.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P047
+  statement: Use graphics deliberately and control translated screenshots against
+    the final localized interface.
+  derived_from_claims:
+  - C00193
+  - C00194
+  - C00195
+  - C00196
+  - C00197
+  confidence: high
+  applies_when:
+  - A guide uses illustrations, screenshots, or interface references.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P048
+  statement: Be honest, comprehensive enough, accurate, and ethically adequate at
+    the point of need.
+  derived_from_claims:
+  - C00212
+  - C00213
+  - C00214
+  - C00215
+  - C00216
+  confidence: high
+  applies_when:
+  - Instructions affect user success, confidence, safety, or cost.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P049
+  statement: Evaluate usability for specified users, goals, and contexts through effectiveness,
+    efficiency, and satisfaction.
+  derived_from_claims:
+  - C00248
+  - C00249
+  - C00250
+  - C00251
+  - C00252
+  confidence: high
+  applies_when:
+  - Defining success criteria for documentation or product usability.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
+  statement: Prefer indirect overt recording when observer effects would distort performance,
+    while preserving ethical recording practice.
+  derived_from_claims:
+  - C00369
+  - C00370
+  - C00372
+  - C00373
+  - C00374
+  confidence: high
+  applies_when:
+  - Participant behaviour may change under direct observation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P051
+  statement: Recruit representative participants, balance relevant skills across comparative
+    groups, and use small-sample statistics appropriate to usability studies.
+  derived_from_claims:
+  - C00390
+  - C00391
+  - C00392
+  - C00393
+  - C00394
+  confidence: high
+  applies_when:
+  - Testing with a control and experimental condition or a small usability sample.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: Choose test software and tasks that make participants rely on the guide
+    rather than prior product knowledge.
+  derived_from_claims:
+  - C00417
+  - C00430
+  - C00431
+  - C00432
+  - C00433
+  confidence: high
+  applies_when:
+  - The study aims to evaluate the guide rather than general user expertise.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
+  statement: Protect participants through informed consent, anonymized identifiers,
+    confidentiality, and a comfortable realistic test environment.
+  derived_from_claims:
+  - C00428
+  - C00429
+  - C00437
+  - C00438
+  - C00439
+  confidence: high
+  applies_when:
+  - Usability testing records or observes participants.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P054
+  statement: Screen and consent participants with role-specific profiles, data-collection
+    disclosure, confidentiality, and clear session tracking.
+  derived_from_claims:
+  - C00536
+  - C00537
+  - C00538
+  - C00539
+  - C00540
+  confidence: high
+  applies_when:
+  - Recruiting participants for a recorded usability study.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P055
+  statement: For products sold in the EU, ensure all technical documentation is translated
+    into the country-of-sale language(s), treat the translated documentation as an
+    original target-language document subject to target-language technical-writing
+    regulations, and give clear, comprehensible instructions with explicit risk warnings
+    — most stringently for regulated classes (general product safety, toys, medical
+    devices, cosmetics).
+  derived_from_claims:
+  - C00560
+  - C00561
+  - C00562
+  - C00563
+  - C00564
+  confidence: high
+  applies_when:
+  - products or documentation regulated for sale within the EU
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P056
+  statement: Accept that the translation brief has no settled form and often forces
+    educated guesses, so ask the client a short standard set of questions — kept small
+    so as not to seem unprofessional, since the translator is usually the expert —
+    covering at minimum the target language variety, the purpose (information vs publication),
+    the deadline, and any required terminology.
+  derived_from_claims:
+  - C00583
+  - C00756
+  - C00757
+  - C00758
+  - C00774
+  confidence: high
+  applies_when:
+  - the client supplies no usable brief
+  - establishing a translation brief
+  - no explicit style guidance is provided
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P057
+  statement: Use repetition and practice to support procedural automaticity without
+    creating unnecessary dependence.
+  derived_from_claims:
+  - C00281
+  - C00297
+  - C00298
+  - C00301
+  - C00302
+  confidence: medium
+  applies_when:
+  - Users need durable procedural skill rather than one-off task completion.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P058
+  statement: Shape translated documentation around reader cognition, including perception,
+    memory, attention, learning, and problem solving.
+  derived_from_claims:
+  - C00007
+  - C00008
+  - C00010
+  - C00011
+  confidence: high
+  applies_when:
+  - Documentation usability depends on readers understanding and applying instructions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P059
+  statement: Use source-external resources and technical-writing interventions whenever
+    the source text alone is insufficient for target-user function.
+  derived_from_claims:
+  - C00041
+  - C00048
+  - C00049
+  - C00051
+  confidence: high
+  applies_when:
+  - Parallel texts, experts, prior versions, or product materials can improve the
+    target document.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P060
+  statement: Provide enough information for the current user purpose, avoiding both
+    overload and under-specification.
+  derived_from_claims:
+  - C00054
+  - C00055
+  - C00070
+  - C00071
+  confidence: high
+  applies_when:
+  - Users need to act safely and efficiently with limited effort.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P061
+  statement: 'Apply function plus loyalty: meet target-reader expectations while respecting
+    source-side intentions and stakeholder relationships.'
+  derived_from_claims:
+  - C00109
+  - C00110
+  - C00111
+  - C00112
+  confidence: high
+  applies_when:
+  - Target function requires adaptation but stakeholders still have legitimate expectations.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P062
+  statement: Serve multiple proficiency levels with predictable novice support and
+    efficient reference for experienced users.
+  derived_from_claims:
+  - C00310
+  - C00311
+  - C00312
+  - C00313
+  confidence: high
+  applies_when:
+  - The guide is used by entry, beginner, intermediate, power, or ad-hoc users.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P063
+  statement: Prevent likely errors, make recovery easy, and use consistent familiar
+    terminology and interaction patterns.
+  derived_from_claims:
+  - C00323
+  - C00324
+  - C00337
+  - C00338
+  confidence: high
+  applies_when:
+  - Users are likely to make mistakes or reuse learned patterns.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P064
+  statement: Build guide quality early and improve it iteratively with user involvement
+    and pilot studies.
+  derived_from_claims:
+  - C00406
+  - C00412
+  - C00413
+  - C00414
+  confidence: high
+  applies_when:
+  - Developing documentation before a main evaluation or release.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P065
+  statement: In comparative documentation studies, isolate the manipulated variable
+    and keep fonts, layout, graphics, content, and other confounds equivalent.
+  derived_from_claims:
+  - C00415
+  - C00425
+  - C00426
+  - C00427
+  confidence: high
+  applies_when:
+  - Comparing two guide versions to test a specific intervention.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P066
+  statement: Use the pilot to correct tasks, tools, methods, criteria, and materials
+    before running the main study.
+  derived_from_claims:
+  - C00459
+  - C00460
+  - C00463
+  - C00464
+  confidence: high
+  applies_when:
+  - A main usability study follows a pilot.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P067
+  statement: Triangulate subjective ratings with objective performance and recall
+    measures.
+  derived_from_claims:
+  - C00487
+  - C00489
+  - C00493
+  - C00494
+  confidence: high
+  applies_when:
+  - Survey judgments may conflict with or be influenced by performance problems.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P068
+  statement: Distinguish scientific from technical texts by their aim — a technical
+    text exists to convey information as clearly and effectively as possible, while
+    a scientific text analyzes, synthesizes, theorizes, and persuades — because the
+    differing aim drives different language and a different translation strategy.
+  derived_from_claims:
+  - C00551
+  - C00554
+  - C00555
+  - C00556
+  confidence: high
+  applies_when:
+  - classifying or translating a scientific or technical text
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
+  statement: 'Make the audience the primary driver of translation: nearly every decision
+    (term choice, rewording for clarity or tone, resequencing) depends on understanding
+    it, and in translation the audience factors double because two languages and cultures
+    are involved — so identify the source-text and target-text audiences, reconcile
+    any incompatibility, and, when no brief is given, deduce the likely audience from
+    context and text type.'
+  derived_from_claims:
+  - C00617
+  - C00618
+  - C00619
+  - C00620
+  confidence: high
+  applies_when:
+  - any translation decision that depends on the reader
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P070
+  statement: 'Know the four oblique procedures and when each applies: equivalence
+    replaces source elements with completely different wording that replicates the
+    situation (for idioms, fixed phrases, and warning signs and labels); transposition
+    changes a word''s class without changing meaning (nominalization to verb, passive
+    to active or imperative); and modulation shifts the point of view (positive to
+    negative, abstract to concrete, part for whole).'
+  derived_from_claims:
+  - C00724
+  - C00725
+  - C00726
+  - C00727
+  confidence: high
+  applies_when:
+  - a direct rendering would be unacceptable in meaning, structure, idiom, or style
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P071
+  statement: Handle Latin scientific and anatomical nomenclature (binomial genus-species
+    names, stable and free of connotation) by retaining it (in italics, usually best
+    for accuracy), explaining it (adding the common target-language name in parentheses
+    for a lay or mixed audience, as in a patient information sheet), or replacing
+    it (with the common name where the audience or language has no Latin exposure);
+    find a Latin term's target meaning by searching it with a related target-language
+    word, using a fuzzy or shorter-fragment search if it appears misspelled.
+  derived_from_claims:
+  - C00826
+  - C00827
+  - C00828
+  - C00829
+  confidence: high
+  applies_when:
+  - translating Latin scientific or anatomical terminology
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P072
+  statement: Classify document type by communicative purpose before deciding content,
+    structure, and rhetorical strategy.
+  derived_from_claims:
+  - C00132
+  - C00133
+  - C00134
+  - C00135
+  confidence: medium
+  applies_when:
+  - A project contains proposals, reports, instructional documents, or mixed genres.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P073
+  statement: Familiarize participants with context, acclimate them to recording, and
+    capture useful informal comments without letting them drive scoring.
+  derived_from_claims:
+  - C00447
+  - C00448
+  - C00449
+  - C00450
+  confidence: medium
+  applies_when:
+  - Preparing participants for task testing and delayed retention measurement.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P074
+  statement: Do not assume consistency is disruptive; inconsistent instruction phrasing
+    may be more harmful than repeated structures.
+  derived_from_claims:
+  - C00490
+  - C00491
+  - C00510
+  - C00511
+  confidence: medium
+  applies_when:
+  - Equivalent instructions recur in user guides.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P075
+  statement: Scale consistency through controlled language, style guides, translation
+    memory, and improved semantic-match tooling.
+  derived_from_claims:
+  - C00527
+  - C00528
+  - C00529
+  - C00530
+  confidence: medium
+  applies_when:
+  - A translation workflow needs reuse, consistency, lower cost, or broader standardisation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P076
+  statement: Preserve usability-study instruments and participant-level tables so
+    study procedures and results can be audited.
+  derived_from_claims:
+  - C00535
+  - C00541
+  - C00542
+  - C00545
+  confidence: medium
+  applies_when:
+  - Reporting an empirical documentation evaluation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P077
+  statement: Expect scientific texts to use a broader range of linguistic devices
+    (longer, more complex sentences, figurative language) because they aim to create
+    an effect, and treat metaphors as a valuable tool in both scientific and technical
+    texts for naming abstractions and explaining processes through readers' existing
+    knowledge.
+  derived_from_claims:
+  - C00557
+  - C00558
+  - C00645
+  - C00646
+  confidence: medium
+  applies_when:
+  - source terminology carries metaphor or cultural connotation
+  - translating scientific or metaphor-rich technical text
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P078
+  statement: Be able to recognize the specialized file types and software of the client's
+    industry and be comfortable (not necessarily expert) with markup and scripting
+    such as HTML and XML, so you can identify and translate the text without damaging
+    the technical parts of the file — basic word processing alone is no longer enough
+    in sci-tech domains.
+  derived_from_claims:
+  - C00585
+  - C00586
+  - C00587
+  - C00588
+  confidence: medium
+  applies_when:
+  - handling non-plain-text or industry-specific source files
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P079
+  statement: 'Apply CAT tools where they fit: translation memory helps only with high-repetition
+    or frequently-updated (chiefly technical) texts, terminology management helps
+    where a large volume of terms must stay consistent, and TM filters reduce the
+    need to master multiple DTP applications; familiarity with these tools often decides
+    whether a project is awarded.'
+  derived_from_claims:
+  - C00589
+  - C00590
+  - C00591
+  - C00592
+  confidence: medium
+  applies_when:
+  - choosing tools for a technical translation project
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
+  statement: Treat a case study as a marketing text with a standard structure (identify
+    the client, its needs as the 'problem', the solution and its implementation, a
+    testimonial, and closing company details) that is demanding to translate because
+    it mixes complex technical data with opinion, reported speech, and persuasion,
+    and its language must stay positive without overstating or misrepresenting the
+    product.
+  derived_from_claims:
+  - C00681
+  - C00682
+  - C00714
+  - C00715
+  confidence: medium
+  applies_when:
+  - translating case studies
+  - translating technical case studies
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P081
+  statement: Make safety-critical information explicit, repeated where needed, and
+    escalated to the client when the source is deficient.
+  derived_from_claims:
+  - C00059
+  - C00060
+  - C00061
+  confidence: high
+  applies_when:
+  - Information affects safe operation, repair, maintenance, or hazard avoidance.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P082
+  statement: Concentrate strategy decisions on target audience needs and native-quality
+    technical communication.
+  derived_from_claims:
+  - C00116
+  - C00117
+  - C00118
+  confidence: high
+  applies_when:
+  - The translation must compete with or resemble original target-language technical
+    documentation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P083
+  statement: Choose user-guide structure from product nature, audience background,
+    and user tasks while avoiding information overload.
+  derived_from_claims:
+  - C00198
+  - C00199
+  - C00200
+  confidence: high
+  applies_when:
+  - Organizing a guide or restructuring a translation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P084
+  statement: Define a small, observable, product-relevant set of performance criteria
+    before testing.
+  derived_from_claims:
+  - C00397
+  - C00398
+  - C00399
+  confidence: high
+  applies_when:
+  - Performance is broad and must be made measurable.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P085
+  statement: Prefer post-task or private ratings over concurrent public questioning
+    when task integrity and candidness matter.
+  derived_from_claims:
+  - C00401
+  - C00402
+  - C00403
+  confidence: high
+  applies_when:
+  - Task performance or truthful satisfaction ratings are being measured.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P086
+  statement: Prepare users and materials so participants critique the product and
+    guide, not themselves, without being distracted by avoidable text errors.
+  derived_from_claims:
+  - C00404
+  - C00405
+  - C00407
+  confidence: high
+  applies_when:
+  - Running participant usability sessions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P087
+  statement: Use screen logging or recording suited to the application interaction
+    style instead of over-shoulder observation.
+  derived_from_claims:
+  - C00441
+  - C00442
+  - C00443
+  confidence: high
+  applies_when:
+  - A study needs a durable record of on-screen behaviour.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P088
+  statement: Ensure comparative groups have enough participants and protect sessions
+    from cross-participant contamination.
+  derived_from_claims:
+  - C00444
+  - C00445
+  - C00446
+  confidence: high
+  applies_when:
+  - Running a comparative usability study with separate participants.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P089
+  statement: Choose which level of equivalence to prioritize by text type — denotational
+    meaning for an instruction manual, linguistic form for a popular-science article,
+    textual norms for a certificate of conformity — accepting lower equivalence on
+    the other levels, and use equivalence levels as translation-time tools rather
+    than post-hoc rules that dictate how the text must be produced.
+  derived_from_claims:
+  - C00572
+  - C00573
+  - C00574
+  confidence: high
+  applies_when:
+  - deciding what aspect of the source to preserve most closely
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P090
+  statement: 'Determine first what type of translation the client wants, because it
+    drives what is translated, how, and how long it takes: a selective translation
+    renders only certain sections; a gist translation is a rough summary needing less
+    care over style; an information-purposes translation must convey all the information
+    but tolerates rough style for internal use; and a publication-purposes translation
+    demands the best content and flawless language, often with a second reviewer.'
+  derived_from_claims:
+  - C00597
+  - C00749
+  - C00750
+  confidence: high
+  applies_when:
+  - a client must assess a text before committing to full translation
+  - scoping a translation project
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P091
+  statement: Frame sci-tech translation as part of technical communication — creating,
+    designing, and transmitting technical information so people can understand it
+    easily and use it safely, effectively, and efficiently (Markel) — and treat the
+    target audience as the single most important variable.
+  derived_from_claims:
+  - C00599
+  - C00600
+  - C00601
+  confidence: high
+  applies_when:
+  - framing the goal of a technical translation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P092
+  statement: Treat every technical document as a task-oriented tool addressed to a
+    specific audience for a specific purpose — a means to an end, not entertainment
+    or a showcase for the writer — whose goal is to convey the right information to
+    the right people in the right format; where a text serves several readerships,
+    prioritize them and cater accordingly.
+  derived_from_claims:
+  - C00604
+  - C00605
+  - C00606
+  confidence: high
+  applies_when:
+  - translating task-oriented technical documents
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P093
+  statement: 'Handle terminology carefully even though it is only about 5-10% of a
+    technical text: abbreviations and acronyms can mean different things by subject,
+    context, or producing organization, and ordinary-looking general words often carry
+    specific technical meanings that must not be translated as everyday vocabulary.'
+  derived_from_claims:
+  - C00647
+  - C00648
+  - C00649
+  confidence: high
+  applies_when:
+  - translating specialized terminology, acronyms, or general-looking terms
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P094
+  statement: 'Handle formulae, scientific notation, and units precisely: numbers quantify
+    a physical quantity via units governed largely by SI (seven base units modifiable
+    by prefixes such as micro-, milli-, nano-), and although metric is the international
+    norm, Imperial units still appear in some languages and text types, so always
+    identify the unit system in use.'
+  derived_from_claims:
+  - C00655
+  - C00656
+  - C00657
+  confidence: high
+  applies_when:
+  - translating numeric data, formulae, or units of measure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P095
+  statement: For procedural (cookbook-style) manuals use a prerequisites list plus
+    numbered steps and control the information flow so the reader is not overloaded;
+    never combine multiple tasks in a single sentence — split a crammed source sentence
+    into separate ordered steps so the reader immediately knows what to do and in
+    what order.
+  derived_from_claims:
+  - C00662
+  - C00663
+  - C00664
+  confidence: high
+  applies_when:
+  - translating procedural or step-based instructional text
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P096
+  statement: 'Translate scientific-paper sections to their conventions: keep correct
+    spelling and orthography in the Materials section (proprietary and trademarked
+    names); demand absolute consistency and clarity in the Procedure section, since
+    errors threaten the repeatability of the experiment and the reliability of the
+    study, watching abbreviations, acronyms, units, and ellipsis; and in the Results
+    section translate reported speech exactly as written even if it is not grammatically
+    perfect.'
+  derived_from_claims:
+  - C00677
+  - C00678
+  - C00679
+  confidence: high
+  applies_when:
+  - translating the Materials, Procedure, or Results sections of a paper
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P097
+  statement: 'For presentations, resolve the inherent ambiguity of bullet-point slides
+    by requesting the speaker''s notes or the full paper, and watch translation length:
+    because text boxes do not resize, a longer translation shrinks the font or overflows
+    the slide, so do not add a slide without first checking the client on slide-count,
+    timing, and design limits.'
+  derived_from_claims:
+  - C00683
+  - C00684
+  - C00685
+  confidence: high
+  applies_when:
+  - translating presentation slides
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P098
+  statement: Treat regulatory and normative documents (directives, laws, and standards
+    from bodies such as ISO, DIN, BSI) as unambiguous specification rule-sets with
+    a legal dimension — carrying legal terminology, and, for patents, protecting the
+    right to exclude others from making, using, selling, or importing — and translate
+    them with meticulous factual accuracy and compliance with their specific linguistic
+    requirements.
+  derived_from_claims:
+  - C00686
+  - C00687
+  - C00688
+  confidence: high
+  applies_when:
+  - translating regulatory, normative, or patent documents
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P099
+  statement: Understand why a text is structured as it is — function, circumstances
+    of use, logical progression, and cultural norms — and distinguish linked, cohesive
+    texts from discrete-section texts; in discrete-section texts read in unpredictable
+    order, avoid anaphoric and cataphoric cross-references, instead making a reference
+    specific (naming the chapter) or repeating the necessary information.
+  derived_from_claims:
+  - C00692
+  - C00693
+  - C00694
+  confidence: high
+  applies_when:
+  - deciding structure and cross-reference handling for a text
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P100
+  statement: 'Apply generalizing and particularizing deliberately: generalize (replace
+    a specific term with a generic one) only when the specific term is not essential
+    and can be inferred or relocated, otherwise keep it; and particularize (use a
+    more specific term) when the source term is too broad, ambiguous, or wrongly connoted
+    — which requires understanding the subject well enough to pick the right term,
+    consulting the author, client, or a subject-matter expert.'
+  derived_from_claims:
+  - C00736
+  - C00737
+  - C00738
+  confidence: high
+  applies_when:
+  - adjusting the specificity of a term between source and target
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P101
+  statement: For EU texts between official languages, consult EUR-Lex for the authoritative
+    translations of terminology and directive names; a directive carries a short reference
+    code (year/identifier/abbreviation) plus a descriptive name, and because the abbreviation
+    differs by language (EC, EG, ES, EY, EF, EK, KE, CE), select the correct short
+    code for the target language and never leave the codes unchanged.
+  derived_from_claims:
+  - C00763
+  - C00764
+  - C00765
+  confidence: high
+  applies_when:
+  - translating EU legislation names or EU-related terminology
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
+  statement: 'Comply with the client''s style guide governing grammar, sentence structure,
+    terminology, punctuation, address, headings, and product names: even a source-language
+    style guide is useful, it may force you to change an initial choice (tense, direct
+    speech, term), and typical rules include second-person address, present tense,
+    positive constructions, consistent terminology, gerund rather than infinitive
+    headings, no possessive product names, and no anthropomorphism.'
+  derived_from_claims:
+  - C00768
+  - C00769
+  - C00770
+  confidence: high
+  applies_when:
+  - a client provides or maintains a style guide
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P103
+  statement: Accommodate the client's mandated preferred terminology even when its
+    rules (e.g. cancel but not abort, run but not execute) seem counterintuitive,
+    because terminology problems are usually people-driven rather than about meaning;
+    and require being notified of terminological and stylistic preferences and given
+    the resources (style guides, glossaries) at the start, since a client cannot fairly
+    complain about terminology they never supplied.
+  derived_from_claims:
+  - C00771
+  - C00772
+  - C00773
+  confidence: high
+  applies_when:
+  - a client imposes preferred terminology or style
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P104
+  statement: Leave units of measure unchanged wherever possible, especially SI quantities,
+    because conversion is risky — the required rounding precision may be unknown,
+    and in chemistry 1.06 mg differs significantly from 1.1 mg — and confusable prefixes
+    and symbols (deci/deca, the micro sign versus u) invite error; leaving units alone
+    ensures accuracy and prevents translator-induced error, especially for specialist
+    audiences who know or can convert them.
+  derived_from_claims:
+  - C00789
+  - C00790
+  - C00791
+  confidence: high
+  applies_when:
+  - translating quantities and units of measure
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P105
+  statement: Assume humour does not travel and gently remove jokes from technical
+    texts (telling the client if unsure), and treat congratulatory content as potentially
+    insincere or patronizing in some cultures; where humour must be kept because it
+    serves a function (as in popular science), ensure it suits the audience and fulfils
+    that function — by a non-humorous means if necessary.
+  derived_from_claims:
+  - C00793
+  - C00794
+  - C00795
+  confidence: high
+  applies_when:
+  - source text contains humour or congratulatory content
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P106
+  statement: Choose delivery medium according to how users actually read and use the
+    documentation.
+  derived_from_claims:
+  - C00190
+  - C00191
+  - C00192
+  confidence: medium
+  applies_when:
+  - Deciding between print, electronic, or mixed documentation delivery.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
+  statement: 'Know the equivalence toolkit: formal equivalence matches source form
+    and content; dynamic equivalence matches the source''s effect on its audience;
+    and Koller''s five levels are denotational, connotational, textual-norm, pragmatic,
+    and linguistic-form equivalence.'
+  derived_from_claims:
+  - C00568
+  - C00569
+  - C00571
+  confidence: medium
+  applies_when:
+  - reasoning about how a target text should relate to its source
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P108
+  statement: Categorize readers by role (Horton's novice, occasional, transfer, expert,
+    rote; Markel's experts, technicians, managers, general) to reveal how they use
+    a text — experts skim, novices read in sequence, rote users jump to steps — which
+    for the translator means consistent headings for navigation and short, simple
+    sentences for instructions; treat these categories as useful but oversimplified.
+  derived_from_claims:
+  - C00614
+  - C00615
+  - C00616
+  confidence: medium
+  applies_when:
+  - analyzing how an audience will use a document
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
+  statement: 'Analyze the target culture as more than nationality: cultural norms
+    shape slang and jargon, forms of address, shared-knowledge references, and conventions
+    for date, time, currency, and legal or institutional references; do not equate
+    one culture with one language, and treat cross-cultural models (Hall, Hofstede,
+    Hoft, Trompenaars) as rules of thumb rather than licence to stereotype.'
+  derived_from_claims:
+  - C00629
+  - C00630
+  - C00631
+  confidence: medium
+  applies_when:
+  - assessing cultural differences between source and target audiences
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P110
+  statement: Expect information conveyed as bare facts and specifications (bullet
+    lists or tables in technical texts, sentences in scientific ones) and as cross-references
+    to laws, standards, books, or interface items that avoid overloading the reader
+    and can also signal that a product is reliable and safe by conforming to a standard.
+  derived_from_claims:
+  - C00650
+  - C00651
+  - C00652
+  confidence: medium
+  applies_when:
+  - translating specifications, data, or referenced material
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P111
+  statement: Make tutorials gentle, supportive, and never confusing, too-advanced,
+    or wrong — because readers tend to blame themselves for problems following instructions
+    even when the text is substandard — keeping information density low and always
+    including the hazard warnings EU law requires; for transfer users, avoid explaining
+    every concept yet do not over-simplify to the point of patronizing them.
+  derived_from_claims:
+  - C00665
+  - C00666
+  - C00667
+  confidence: medium
+  applies_when:
+  - translating tutorials or introductory instructional material
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P112
+  statement: Treat user guides as structured instructional documents in simple language
+    supported by graphics whose usability rests on broadly universal human cognition
+    but also carries culture-specific features and rarely targets a single culture,
+    so translating them is not always straightforward.
+  derived_from_claims:
+  - C00668
+  - C00709
+  - C00710
+  confidence: medium
+  applies_when:
+  - translating guide-type documents with worked examples
+  - translating user guides
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P113
+  statement: 'Know the profiles of common technical text types: a technical data sheet
+    covers a product''s composition, properties, and applications plus safety, legal,
+    and environmental information; test instructions are standard operating procedures
+    of step-by-step inspection; and expert technical reports (associated with engineering)
+    give the object of study, the test circumstances, and the materials and methods,
+    often produced by an independent specialist.'
+  derived_from_claims:
+  - C00706
+  - C00707
+  - C00708
+  confidence: medium
+  applies_when:
+  - translating data sheets, test instructions, or expert reports
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P114
+  statement: Understand that literal translation is more sophisticated than word-for-word
+    replacement — shifting from word to group to clause once the target stops complying
+    with target-language grammar, and avoiding additions, omissions, and paraphrasing
+    — and is in fact one of the most frequently used strategies in technical texts.
+  derived_from_claims:
+  - C00719
+  - C00720
+  - C00730
+  confidence: medium
+  applies_when:
+  - applying literal translation
+  - a close rendering would be unidiomatic
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P115
+  statement: 'Respect that technical information is usually in logical or chronological
+    sequence but rearrange it when culture requires: alter the sequencing and the
+    proportion of given and new information within paragraphs (foregrounding, omitting,
+    or repeating), because a structure that is logical for one language audience can
+    be confusing for another.'
+  derived_from_claims:
+  - C00742
+  - C00743
+  - C00744
+  confidence: medium
+  applies_when:
+  - source sequencing does not suit the target audience
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P116
+  statement: Use House's covert/overt distinction — a covert translation is functionally
+    equivalent and reads as though originally written in the target language, while
+    an overt translation is evidently a translation whose source is tied to a specific
+    time, culture, or language — and keep a text's purpose (its ultimate intended
+    use) distinct from its function (its effect on the audience).
+  derived_from_claims:
+  - C00844
+  - C00847
+  - C00848
+  confidence: medium
+  applies_when:
+  - classifying a translation's relationship to its source
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P117
+  statement: Protect reader safety and prevent product damage before pursuing other
+    instructional goals.
+  derived_from_claims:
+  - C00137
+  - C00138
+  confidence: high
+  applies_when:
+  - Instructions involve possible hazards, damage, repair, maintenance, or irreversible
+    actions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P118
+  statement: Judge efficiency from the user total task, and keep guide information
+    clear, digestible, and concise.
+  derived_from_claims:
+  - C00321
+  - C00322
+  confidence: high
+  applies_when:
+  - Users decide whether documentation is worth using based on total effort and time.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P119
+  statement: Treat administrator help as a guide-failure signal by directing users
+    to the guide first and counting each escalation.
+  derived_from_claims:
+  - C00470
+  - C00471
+  confidence: high
+  applies_when:
+  - The guide is the intended support mechanism during testing.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P120
+  statement: Use unchanged layout/content controls and multi-metric improvements to
+    rule out likely confounds.
+  derived_from_claims:
+  - C00486
+  - C00514
+  confidence: high
+  applies_when:
+  - A documentation intervention also changes readability or phrasing in ways that
+    might be questioned.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P121
+  statement: Let the purpose of the target text (its Skopos), as specified by commissioner
+    and translator, govern the translation rather than the source text; a source is
+    an offer of information from which many valid translations follow once the intended
+    purpose is known.
+  derived_from_claims:
+  - C00576
+  - C00577
+  confidence: high
+  applies_when:
+  - deciding overall translation strategy
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P122
+  statement: 'Handle regional language variety and product/drug naming deliberately:
+    not all terminology or cultural references are universally standardized, and the
+    same product is often marketed under different names by market, so swap product
+    or drug names for generic or country-specific equivalents when needed.'
+  derived_from_claims:
+  - C00627
+  - C00628
+  confidence: high
+  applies_when:
+  - translating product names, drug names, or region-varying terminology
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P123
+  statement: 'Keep language clear, simple, and to the point as a core value of technical
+    communication: use simple declarative sentences rather than complex ones and give
+    instructions in chronological or logical cause-and-effect order, especially for
+    readers who are hurried, stressed, or non-native.'
+  derived_from_claims:
+  - C00643
+  - C00644
+  confidence: high
+  applies_when:
+  - translating technical (task-oriented) text
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P124
+  statement: 'Where a document contains screenshots, treat it as bound to the external
+    software interface: accurately reproduce the text shown in the interface, phrase
+    all references to the software consistently, and update the document whenever
+    the software changes, since a picture of the screen is far more effective than
+    verbal description.'
+  derived_from_claims:
+  - C00653
+  - C00654
+  confidence: high
+  applies_when:
+  - documents containing screenshots or software interface references
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P125
+  statement: For reference manuals and any cross-referenced document, treat topics
+    as independent, dipped-into units (repeating information where needed to spare
+    readers from skipping back and forth), and keep the names of referenced topics,
+    sections, or documents accurate and consistent — liaising with any other translator
+    handling a referenced section, since a translation memory only auto-suggests wording
+    you translated yourself.
+  derived_from_claims:
+  - C00670
+  - C00671
+  confidence: high
+  applies_when:
+  - reference manuals or documents with cross-references
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P126
+  statement: For heterogeneous or hybrid documents whose sections differ in function
+    and style (proposals, tenders, reports, case studies, marketing material), recognize
+    each section's change in function and apply a single document-level macrostrategy
+    supported by local, per-section microstrategies rather than one uniform strategy.
+  derived_from_claims:
+  - C00674
+  - C00695
+  confidence: high
+  applies_when:
+  - documents composed of heterogeneous or multi-function sections
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P127
+  statement: Translate an abstract, together with its title, as a self-contained text
+    — it is published separately in abstracting services and readers judge from it
+    whether to read the whole paper — so never leave anything awkward or unclear in
+    an abstract on the assumption it will become clear later.
+  derived_from_claims:
+  - C00676
+  - C00702
+  confidence: high
+  applies_when:
+  - translating abstracts and titles of papers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P128
+  statement: 'Recognize a text''s type and genre conventions as a prerequisite to
+    translating it (Bell, Schaffner): genres are socially embedded, some highly culture-specific
+    and some universal, and even ostensibly universal conventions require different
+    micro-level strategies per language (for example, giving instructions with imperatives
+    in English but infinitives in German).'
+  derived_from_claims:
+  - C00696
+  - C00697
+  confidence: high
+  applies_when:
+  - translating across genres and cultures
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P129
+  statement: Create a document profile — identifying subject, audience, text function,
+    key features, and potential problems along with strategies for them — as a method
+    for preparing to translate a given text type effectively.
+  derived_from_claims:
+  - C00705
+  - C00712
+  confidence: high
+  applies_when:
+  - preparing to translate an unfamiliar text type
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P130
+  statement: 'Use Vinay and Darbelnet''s direct strategies knowingly: direct translation
+    (literal translation, borrowing, calquing) requires less intervention and less
+    deviation from the source, while oblique translation is reserved for when the
+    grammatical, pragmatic, and lexical differences between source and target are
+    too great for a direct approach.'
+  derived_from_claims:
+  - C00717
+  - C00718
+  confidence: high
+  applies_when:
+  - selecting between direct and oblique translation procedures
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P131
+  statement: 'Reserve adaptation as a last resort for a source situation or concept
+    absent from the target culture, and apply its procedures in order: cultural substitution
+    first, then descriptive paraphrase, and only then omission — omitting only as
+    a fully justifiable last resort, since technical documentation is concerned first
+    and foremost with information.'
+  derived_from_claims:
+  - C00728
+  - C00729
+  confidence: high
+  applies_when:
+  - adapting culture-specific source content
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P132
+  statement: Use expansion — making implicit source content explicit by adding explanatory
+    phrases or connectors — to make the target clearer, improve flow, or compensate
+    for a weaker target-audience background, as when the source was written by an
+    untrained writer, the target audience is less expert, or a high-context source
+    is read by a low-context audience; the resulting semantic redundancy is well tolerated
+    by technical texts.
+  derived_from_claims:
+  - C00731
+  - C00732
+  confidence: high
+  applies_when:
+  - the target audience needs more explicit information than the source audience
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P133
+  statement: Rearrange information within sentences, paragraphs, or chapters as needed
+    — including to fix a poorly ordered source (for example, instructions that say
+    to delete a file before backing it up) — but do not move entire chapters or sections
+    without the client's permission, at minimum informing the client.
+  derived_from_claims:
+  - C00745
+  - C00746
+  confidence: high
+  applies_when:
+  - reordering information within a document
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P134
+  statement: 'Apply Iconic Linkage: when the source expresses the same information
+    several times with slightly different wording, pick one single translation and
+    reuse it throughout, because doing so cuts the reader''s cognitive effort, improves
+    predictability and learning, looks consistent and professional, and makes translation
+    memory more effective for pivot or relay translations.'
+  derived_from_claims:
+  - C00747
+  - C00748
+  confidence: high
+  applies_when:
+  - the same information recurs across a text with varied wording
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P135
+  statement: In update projects, ethically and commercially tell the client that only
+    a proportion of the text needs translating, accept translation-memory matches
+    as is because they are already client-approved and changes ripple into relay translations,
+    translate only the new sections while replicating the existing style and tone,
+    and flag anything downright wrong to the client — preferably before changing it.
+  derived_from_claims:
+  - C00751
+  - C00752
+  confidence: high
+  applies_when:
+  - translating an update of a previously translated document
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P136
+  statement: For quoted material from another publication, use an authoritative published
+    target-language translation if one exists and can be obtained, rather than your
+    own; if none is available, present a paraphrase that does not purport to be official
+    — either omit the quote where the document permits, or give the source text with
+    your paraphrase in square brackets marked as supplementary.
+  derived_from_claims:
+  - C00760
+  - C00761
+  confidence: high
+  applies_when:
+  - the source quotes another publication
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P137
+  statement: 'Optimize for usability — how well readers can read, understand, and
+    perform or remember the task, and how unstressed they are afterward — by giving
+    the right information in the right proportions at the right time and format, using
+    these strategies: consistent terminology without polysemy, clear simple language,
+    chronological instructions, direct and active language, no unnecessary information,
+    Iconic Linkage, and a minimum of tenses.'
+  derived_from_claims:
+  - C00777
+  - C00778
+  confidence: high
+  applies_when:
+  - improving the effectiveness of a translated text
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P138
+  statement: 'When revising another translator''s work, find and fix errors rather
+    than rewrite it as your own: verify that all information is accurate, terminology
+    is correct and consistent, style suits the text and audience, and spelling, orthography,
+    and punctuation are correct; provide a tracked-changes copy for the translator
+    and a clean copy for the client; distance yourself for fresh eyes; stay objective
+    and constructive; and never impose your own style — a change must be a genuine
+    improvement, not a preference.'
+  derived_from_claims:
+  - C00780
+  - C00781
+  confidence: high
+  applies_when:
+  - revising or editing another translator's work
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P139
+  statement: Never use footnotes in a professional translation to flag confusion or
+    queries — because the translation may reach the end reader unreviewed, exposing
+    your confusion and undermining credibility (annotated footnotes are only a student
+    aid) — and instead keep a query record with page number and source sentence, send
+    minor queries at delivery and serious ones by email while working, and reference
+    them in the cover email so a busy project manager does not miss them.
+  derived_from_claims:
+  - C00782
+  - C00783
+  confidence: high
+  applies_when:
+  - handling uncertainties and questions during translation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P140
+  statement: 'Handle acronyms and abbreviations (used for brevity) by a chosen strategy:
+    transfer (keep a well-known source acronym), reconstitute (build a new target
+    acronym from the translated name, for non-specialized or ad-hoc cases), define
+    (replace with a definition, useful for Latin abbreviations), combine (transfer
+    plus definition once at first use), write out the source-language full name (for
+    audiences who know the source culture), or translate (use an official translated
+    name and its acronym).'
+  derived_from_claims:
+  - C00784
+  - C00785
+  confidence: high
+  applies_when:
+  - translating acronyms and abbreviations
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P141
+  statement: 'On spotting an apparent error, notify the client and choose — by the
+    text''s length, subject, deadline, and the client''s preference — whether to raise
+    queries as you go or at delivery; handle errors by type: fix simple linguistic
+    errors quietly, refer completely incomprehensible meaning to the client, fix minor
+    factual errors but notify the client, and even for a serious error you are certain
+    of, still contact the client for clarification.'
+  derived_from_claims:
+  - C00801
+  - C00802
+  confidence: high
+  applies_when:
+  - deciding how to handle a specific source error
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P142
+  statement: 'Recognize and handle program code without being a programmer: commands
+    and arguments resemble English words, but words written entirely in uppercase
+    and multi-word tokens joined without spaces or by underscores (e.g. MENUITEM,
+    Style_Caption) are usually non-translatable identifiers to leave unchanged, and
+    in localization the translatable part is the on-screen strings.'
+  derived_from_claims:
+  - C00804
+  - C00805
+  confidence: high
+  applies_when:
+  - translating text that contains or documents program code
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P143
+  statement: 'Respect the syntax that runtime variables impose: where a string has
+    two identical variables (e.g. ''Click %s to update %s''), preserve their order
+    and rework the translation around it or the substitution will be wrong; and where
+    a language lacks a consistent plural marker, replace plural variables with a rendering
+    covering both forms (e.g. batch(es)), consulting the client or project manager
+    when in doubt.'
+  derived_from_claims:
+  - C00807
+  - C00808
+  confidence: high
+  applies_when:
+  - strings containing runtime variables or variable-generated plurals
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P144
+  statement: Never modify product or brand names even when they look funny, ungrammatical,
+    or wrong, because they are proper names central to the product's identity and
+    to its copyright protection (based on a specific spelling); transfer a specific
+    brand named for a reason unmodified, and transcribe an internationally recognized
+    brand exactly as in the source.
+  derived_from_claims:
+  - C00812
+  - C00813
+  confidence: high
+  applies_when:
+  - a text contains product or brand names
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P145
+  statement: For a brand unknown in the target culture, do not blindly substitute
+    a comparable target brand, since the two products may differ in characteristics
+    or composition with consequences for repeatability or safety (e.g. in a chemistry
+    paper); research first, then in specialist texts reproduce the brand name plus
+    a brief function phrase, and in general texts use a comparable product qualified
+    with 'such as' (to avoid implying endorsement) or a generic description.
+  derived_from_claims:
+  - C00814
+  - C00815
+  confidence: high
+  applies_when:
+  - a source brand does not exist in the target culture
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P146
+  statement: Translate warning and advisory information with particular care — it
+    can be a matter of life or death and carries legal weight — and apply the notice
+    severity hierarchy correctly (Note, then Warning for minor injury, Caution for
+    equipment or data damage, Danger for serious or fatal injury), neither understating
+    risk (so readers do not dismiss it) nor overstating it (using Danger where Warning
+    fits dilutes the impact of Danger when truly needed).
+  derived_from_claims:
+  - C00820
+  - C00821
+  confidence: high
+  applies_when:
+  - translating warnings, notices, and safety advice
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P147
+  statement: 'Do not translate an auto-generated table of contents first or in place:
+    it is a projection of the actual heading text, so a translation typed into it
+    is lost when the document is printed or updated — translate the real headings
+    instead — and leave the table of contents until last, after the sections it describes,
+    to avoid mistranslating headings out of context.'
+  derived_from_claims:
+  - C00832
+  - C00833
+  confidence: high
+  applies_when:
+  - documents with auto-generated tables of contents
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P148
+  statement: Meet strict space constraints (single-sheet leaflets, software string
+    limits, diagram labels), knowing a translation naturally expands or contracts
+    by language combination and direction, by using short simple words and sentences,
+    clear abbreviations (preferably company or subject ones, without overuse), deviation
+    from the source structure where a shorter target grammar allows, imperative verb
+    forms, and flexible use of modulation, transposition, and adaptation.
+  derived_from_claims:
+  - C00835
+  - C00836
+  confidence: high
+  applies_when:
+  - translating under strict space or character constraints
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P149
+  statement: 'Use the Internet as a terminology and subject resource: find parallel
+    texts (restricting a search by the format a document type is typically published
+    in) and use search operators — a tilde for synonyms, a minus for exclusion, and
+    a source term plus a related target-language word to surface bilingual pages likely
+    to contain a translation or glossary.'
+  derived_from_claims:
+  - C00839
+  - C00840
+  confidence: high
+  applies_when:
+  - researching subject matter or terminology online
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P150
+  statement: 'Assess online sources critically: rely on translator-forum answers only
+    with extreme caution (there is no quality mechanism and answerers may lack your
+    context), trust international, government, and state sites, use company sites
+    for terminology (a localized one gives a bilingual resource), distrust supposedly
+    impartial review sites and personal or free-hosted sites, and never rely on Wikipedia
+    alone — corroborate anything found there.'
+  derived_from_claims:
+  - C00841
+  - C00842
+  confidence: high
+  applies_when:
+  - judging the reliability of online information
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []

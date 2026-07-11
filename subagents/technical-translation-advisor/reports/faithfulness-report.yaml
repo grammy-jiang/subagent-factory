@@ -1,0 +1,252 @@
+# Faithfulness review — technical-translation-advisor
+# Each load-bearing profile rule graded against principles/principles.yaml (and, via each
+# principle's derived_from_claims, analysis/claims.jsonl). No rule is stronger than its
+# source support: rules are EXACT_SUPPORT or a deliberate WITHIN_SCOPE narrowing (advice-only
+# posture, source scope). source_anchors are omitted deliberately — provenance is carried in
+# each note via principle + claim IDs, which resolve into the spine.
+schema_version: faithfulness-report-v1
+subagent_slug: technical-translation-advisor
+findings:
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The role restates the sources'' subject — producing usable technical/scientific translations
+    — and narrows the posture to advice, explicitly disclaiming delivering the translation, signing off
+    safety-critical content, and overriding the brief. A narrowing, not an over-claim. Grounded in principle(s):
+    P001 (claims C00004, C00017, C00019); P002 (claims C00035, C00036, C00037); P003 (claims C00127, C00128,
+    C00129); P023 (claims C00001, C00002, C00009); P090 (claims C00597, C00749, C00750).'
+- rule_ref: when_to_use[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Analysing the audience, brief and target-text function before wording is directly supported.
+    Grounded in principle(s): P002 (claims C00035, C00036, C00037); P020 (claims C00122, C00123, C00124);
+    P024 (claims C00081, C00082, C00083); P069 (claims C00617, C00618, C00619); P129 (claims C00705, C00712).'
+- rule_ref: when_to_use[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Choosing strategy/procedures from the communicative situation and text type is directly supported.
+    Grounded in principle(s): P014 (claims C00014, C00015, C00030); P015 (claims C00070, C00071, C00072);
+    P046 (claims C00113, C00114, C00115); P089 (claims C00572, C00573, C00574); P130 (claims C00717, C00718).'
+- rule_ref: when_to_use[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Handling terminology, units, nomenclature, mandated naming and code strings is directly supported.
+    Grounded in principle(s): P093 (claims C00647, C00648, C00649); P094 (claims C00655, C00656, C00657);
+    P103 (claims C00771, C00772, C00773); P140 (claims C00784, C00785); P142 (claims C00804, C00805).'
+- rule_ref: when_to_use[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Designing, structuring and evaluating documentation usability is directly supported. Grounded
+    in principle(s): P004 (claims C00253, C00254, C00255); P016 (claims C00201, C00202, C00203); P040
+    (claims C00362, C00363, C00365); P049 (claims C00248, C00249, C00250); P006 (claims C00235, C00236,
+    C00237).'
+- rule_ref: when_to_use[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reviewing quality, safety, legal-compliance, revision and client-communication decisions is supported.
+    Grounded in principle(s): P011 (claims C00091, C00096, C00097); P081 (claims C00059, C00060, C00061);
+    P117 (claims C00137, C00138); P138 (claims C00780, C00781); P141 (claims C00801, C00802).'
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Declining to deliver the finished translation is consistent with the advice-only posture; the
+    sources locate the delivery and the commission with the translator/commissioner. Grounded in principle(s):
+    P090 (claims C00597, C00749, C00750); P056 (claims C00583, C00756, C00757).'
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Excluding general/literary/marketing work with no technical or specification dimension follows
+    from the sources'' scope, which is scientific and technical translation. Grounded in principle(s):
+    P068 (claims C00551, C00554, C00555); P091 (claims C00599, C00600, C00601).'
+- rule_ref: when_not_to_use[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The client''s commercial decision and binding legal sign-off rest with the commissioner, not
+    the translator; declining them is supported. Grounded in principle(s): P056 (claims C00583, C00756,
+    C00757); P090 (claims C00597, C00749, C00750).'
+- rule_ref: when_not_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Deferring the operation of specific CAT/DTP software (vs the translation decision it supports)
+    is consistent with the sources'' treatment of tools as aids. Grounded in principle(s): P078 (claims
+    C00585, C00586, C00587); P079 (claims C00589, C00590, C00591).'
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The advice format — name the principle, tie to audience/brief/function, state the trade-off,
+    give a next step — operationalises the sources'' audience-driven, purpose-led stance without adding
+    claims. Grounded in principle(s): P002 (claims C00035, C00036, C00037); P014 (claims C00014, C00015,
+    C00030); P015 (claims C00070, C00071, C00072).'
+- rule_ref: quality_bar[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Audience/tasks/brief-driven decisions are directly supported. Grounded in principle(s): P002
+    (claims C00035, C00036, C00037); P020 (claims C00122, C00123, C00124); P024 (claims C00081, C00082,
+    C00083); P069 (claims C00617, C00618, C00619); P121 (claims C00576, C00577).'
+- rule_ref: quality_bar[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Strategy from situation and text type, not maxims, is supported. Grounded in principle(s): P014
+    (claims C00014, C00015, C00030); P015 (claims C00070, C00071, C00072); P046 (claims C00113, C00114,
+    C00115); P089 (claims C00572, C00573, C00574); P130 (claims C00717, C00718).'
+- rule_ref: quality_bar[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Minimising reader processing effort and cognitive load is supported. Grounded in principle(s):
+    P003 (claims C00127, C00128, C00129); P009 (claims C00269, C00270, C00271); P025 (claims C00085, C00086,
+    C00087); P045 (claims C00102, C00103, C00104); P137 (claims C00777, C00778).'
+- rule_ref: quality_bar[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Precise, resourced terminology/units/nomenclature is supported. Grounded in principle(s): P093
+    (claims C00647, C00648, C00649); P094 (claims C00655, C00656, C00657); P098 (claims C00686, C00687,
+    C00688); P103 (claims C00771, C00772, C00773); P104 (claims C00789, C00790, C00791).'
+- rule_ref: quality_bar[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Grounding usability claims in evaluation, not design confidence, is supported. Grounded in principle(s):
+    P006 (claims C00235, C00236, C00237); P040 (claims C00362, C00363, C00365); P049 (claims C00248, C00249,
+    C00250); P051 (claims C00390, C00391, C00392); P065 (claims C00415, C00425, C00426).'
+- rule_ref: quality_bar[5]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Honouring and escalating safety/legal/brand/style constraints is supported. Grounded in principle(s):
+    P081 (claims C00059, C00060, C00061); P102 (claims C00768, C00769, C00770); P117 (claims C00137, C00138);
+    P144 (claims C00812, C00813); P146 (claims C00820, C00821).'
+- rule_ref: forbidden_behaviours[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The commission and delivery rest with the commissioner; refusing to sign off or decide commercially
+    is supported. Grounded in principle(s): P090 (claims C00597, C00749, C00750); P056 (claims C00583,
+    C00756, C00757).'
+- rule_ref: forbidden_behaviours[1]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Not stating a rule more strongly than the situation warrants is the sources'' own contextual
+    stance. Grounded in principle(s): P014 (claims C00014, C00015, C00030); P015 (claims C00070, C00071,
+    C00072).'
+- rule_ref: forbidden_behaviours[2]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Not altering mandated terminology, brand names, or units against the specification is directly
+    supported. Grounded in principle(s): P103 (claims C00771, C00772, C00773); P104 (claims C00789, C00790,
+    C00791); P144 (claims C00812, C00813).'
+- rule_ref: forbidden_behaviours[3]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Not weakening safety-critical/warning/legal content, and flagging a deficient source, is directly
+    supported. Grounded in principle(s): P081 (claims C00059, C00060, C00061); P117 (claims C00137, C00138);
+    P146 (claims C00820, C00821).'
+- rule_ref: forbidden_behaviours[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Not presenting an untested usability opinion as an evaluated finding is directly supported. Grounded
+    in principle(s): P040 (claims C00362, C00363, C00365); P049 (claims C00248, C00249, C00250).'
+- rule_ref: handoff_rules[0]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'The brief, commercial decision, and final linguistic sign-off belong to the client/commissioner.
+    Grounded in principle(s): P056 (claims C00583, C00756, C00757); P090 (claims C00597, C00749, C00750);
+    P121 (claims C00576, C00577).'
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Handing subject-matter accuracy, legal certification, and DTP/engineering to the owning specialist
+    follows from the sources'' division of remit. Grounded in principle(s): P078 (claims C00585, C00586,
+    C00587); P098 (claims C00686, C00687, C00688).'
