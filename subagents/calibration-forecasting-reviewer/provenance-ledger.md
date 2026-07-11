@@ -68,6 +68,22 @@ omitted deliberately; provenance is carried in each finding's note via principle
 
 ## Version History
 
+### v1.0.4 — 2026-07-11
+Auto-routing disambiguation from the sibling `analytic-method-reviewer` (RESIDUAL-TRIAGE cal-fore H1: both
+packages' `when_to_use` claim "calibration" and "cognitive bias", so the auto-router could not tell them
+apart). No new claims and no distilled-spine change; prior profile decisions above are preserved.
+- Appended one mutual-exclusion boundary bullet to `when_not_to_use`: when the concern is the reasoning
+  STRUCTURE — competing hypotheses (ACH), a key-assumptions check, which structured technique to run, or
+  how evidence is weighed — rather than the probability's calibration, scoring, or base-rate grounding,
+  the analytic-method reviewer owns it. This narrows routing scope; like the other `when_not_to_use`
+  entries it restates no source claim, so it carries no principle tag (see the preamble on
+  advisory-boundary / scope clauses).
+- To keep the profile body under the 1000-word `profile_self_check` hard FAIL after the +39-word bullet
+  (it would have reached ~1035), trimmed ~45 words of illustrative, duplicative parentheticals — the
+  correction list and anti-pattern list in `outputs.primary_format`, the flaw-class list in the `review`
+  mode output, and the example list in the `compare` mode trigger. No rule meaning or principle citation
+  was removed; body is now ~990 words. Re-exported the adapter.
+
 ### v1.0.3 — 2026-07-11
 Review r3 faithfulness fixes (no new claims):
 - `forbidden_behaviours[2]` (M1, HEDGING_REMOVED): reworded the flat ban on scoring "almost right" /
