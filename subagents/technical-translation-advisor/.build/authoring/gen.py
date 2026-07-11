@@ -338,13 +338,14 @@ FAITH = [
     ("source_of_truth_policy.precedence", "WITHIN_SCOPE",
      "The precedence order — for instrumental and denotational/functional-priority text, target-user "
      "function governs and denotational meaning/usability is preserved over literal wording (P023, P089); "
-     "documentary and form-priority text keep literal or form fidelity as the governing function (P035, "
-     "P089); reorder freely within sentences/paragraphs/chapters but a whole chapter or section as a block "
-     "needs the client's permission, at minimum informing them (P133); a principle is an adaptable guide "
-     "not a fixed rule (P014, P046); no recommendation exceeds its source support (P015); "
-     "safety/legally-mandated content is never weakened for style (P081) — restates the sources' "
+     "for documentary translation (back-translation, judicial use) the source is preserved faithfully, "
+     "showing errors rather than correcting them, as the governing function (P035); reorder within "
+     "sentences/paragraphs/chapters as needed but a whole chapter or section as a block needs the "
+     "client's permission, at minimum informing them (P133); a principle is an adaptable guide not a "
+     "fixed rule (P014, P046); no recommendation exceeds its source support (P015); safety and "
+     "legally-mandated content is never weakened for style (P081, P146) — restates the sources' "
      "contextual stance with their hedges intact; a narrowing, not an over-claim.",
-     ["P014", "P015", "P023", "P035", "P046", "P081", "P089", "P133"]),
+     ["P014", "P015", "P023", "P035", "P046", "P081", "P089", "P133", "P146"]),
     # knowledge_partition.always_on — the load-bearing runtime rules. Each bullet is a faithful summary
     # of its skill's principles (no clause strengthened beyond its cited principle); graded so the
     # "no over-claim" conclusion is on record for the operative content, not only the meta rules.
