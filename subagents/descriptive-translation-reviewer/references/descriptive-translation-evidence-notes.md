@@ -187,7 +187,7 @@ provenance:
   claims: []
   evidence: []
   source_anchors: []
-  authored_from_digest: 6f6f2b16bb5c421d11f7e5f60b009919968ea765dab3d15eb37bdefd575ecb2e
+  authored_from_digest: 21f8ee0bad845335e634e2390988b1dec1d4d966b4e8d12ce030b19cc964a3fc
 ---
 
 # Descriptive Translation Evidence Notes

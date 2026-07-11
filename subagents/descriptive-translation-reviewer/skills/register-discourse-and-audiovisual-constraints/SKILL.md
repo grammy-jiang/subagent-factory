@@ -41,7 +41,7 @@ provenance:
   - C00183
   evidence: []
   source_anchors: []
-  authored_from_digest: f68df84fd612cce14118a72fb673ba40fc0738663f43fb1cbdfde57fb235a0ee
+  authored_from_digest: 42fdf34ef6332f196c1a96d65b64e2c7b9fe570d0ac8c8a225fb126ef42626d6
 ---
 
 # Register, Discourse And Audiovisual Constraints
@@ -60,7 +60,7 @@ This skill reviews translation at the level of register and discourse using the 
 
 ## Procedure
 
-1. Analyse an audiovisual text across all of Chaume's ten signifying codes — the one linguistic code among four acoustic codes plus six visual codes — using multimodal transcription of frames, shots, and phases with a metafunctional interpretation, checking that the linguistic code reads with an oral register, that visual and colour codes are respected so an unfamiliar symbol is explained and coherence with the image is kept, and that the review accounts for subtitling's overt, vulnerable status and the subtitler's frequently uncredited work (P019).
+1. Analyse an audiovisual text across all of Chaume's ten signifying codes — one linguistic code, three further acoustic codes, and six visual codes — using multimodal transcription of frames, shots, and phases with a metafunctional interpretation, checking that the linguistic code reads with an oral register, that visual and colour codes are respected so an unfamiliar symbol is explained and coherence with the image is kept, and that the review accounts for subtitling's overt, vulnerable status and the subtitler's frequently uncredited work (P019).
 2. Decide, before judging any specific choice, whether the translation under review is functioning as overt — seeking second-level functional equivalence at language, register, and genre because its source is tied to a specific culture and time — or covert — reading as an original through a cultural filter — treat the distinction as a cline rather than a binary, and check that a version rather than a translation was produced where the source genre has no target equivalent (P021).
 3. Check whether subtitling's habitual preference for brevity has merely omitted politeness markers or has actively re-coded the interpersonal dynamics — for instance whether a concise, subject-dropping target style has flattened a source character's face-threatening directness into unwarranted familiarity — and verify that any dropped hedge, discordant interpersonal signal against the moving image, or untranslatable face-protecting pronoun is flagged as a systematic sacrifice rather than judged phrase by phrase (P052).
 4. Use politeness theory to pinpoint exactly how a translation shifts a face-threatening act and its irony, read a marked discourse such as camp as political rather than purely aesthetic, check that its minimization or amplification is read against the target culture that produced it rather than in isolation, and flag any collapsing of a subculture's internally distinct, ironic lexicon into one neutral mainstream term (P053).

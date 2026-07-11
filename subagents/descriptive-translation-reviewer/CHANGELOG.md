@@ -3,6 +3,43 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.0] — 2026-07-12
+
+Review-loop round 2 (`reports/review-loop/descriptive-translation-reviewer.r2.review.md`): applied
+the 3 must-fixes and the high-value should-fixes, staying grounded in the existing 180-principle spine.
+
+### Fixed
+- **M1 — Chaume signifying-code count** — P019 said "ten" but broke into 1+4+6 = 11. Corrected to
+  "one linguistic, three acoustic and six visual" (= 10) in P019, and reworded the matching
+  `register-discourse-and-audiovisual-constraints` Procedure step to "one linguistic code, three
+  further acoustic codes, and six visual codes" so principle and skill agree on one reading.
+- **M2 — `quality_bar[2]` over-claim** — "Translation **is** driven by an explicit brief and the
+  text's predominant function" stated a functionalist/skopos prescription as settled fact (the exact
+  anti-pattern `forbidden_behaviours[2]` forbids). Hedged to "Where a brief and predominant function
+  apply, translation is judged against them; a fulfilled skopos never excuses micro-level neglect".
+- **M3 — Adapter routing `description`** — the exported `description` truncated mid-clause
+  ("…wants its equivalence — Not for:") and dropped the sibling-routing disambiguator. Reworded
+  `when_to_use[0]` so its clipped clause reads as a complete sentence, and reordered `when_not_to_use`
+  so the sibling-axis routing bullet leads (surfacing it in the routing description); re-exported.
+  The v1.1.0 ledger claim that the description had already been repaired is corrected below.
+
+### Changed
+- **S1 — Profile body trimmed** from ~931 to ~851 words: dropped the duplicated sibling-routing
+  `handoff_rules[2]` (routing now stated once, in `when_not_to_use`) and tightened role, modes,
+  `quality_bar`, and `when_*` prose. Residual (~851w) is above the 800-word soft budget, so the
+  `body-size` self-check still emits a non-blocking WARNING (FAIL threshold is 1000).
+- **S4** — `quality_bar[1]` gains P059 (illusory equivalent effect), matching `knowledge_partition`.
+- **S5** — `forbidden_behaviours[0]` citations (P070, P100) dropped; the "never translate / never
+  sign off" boundary is a product-scope decision, left as an uncited scope boundary.
+- **S7** — P106 and `equivalence-orientations-and-effect` step 6 reworded: Koller's five relations
+  weighed against each other as simultaneous competing frames, not a fixed-order escalation ladder.
+- **S8** — P121 no longer mis-dates Newmark's semantic/communicative pair as "1960s-70s" theory;
+  the decade qualifier is dropped.
+- **S9(a)** — `meaning-signification-and-equivalence-critique` description no longer repeats the same
+  clause verbatim twice.
+- **S2** — `tests/golden-tests.yaml` re-stamped `profile_version: 1.2.0`, `tier: 2`.
+- `agent_version` 1.1.0 → 1.2.0.
+
 ## [1.1.0] — 2026-07-12
 
 Review-loop round 1 (`reports/review-loop/descriptive-translation-reviewer.r1.review.md`): applied

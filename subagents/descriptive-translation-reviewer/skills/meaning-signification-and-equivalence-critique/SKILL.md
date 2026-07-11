@@ -6,9 +6,7 @@ description: Reviews the theory of meaning and signification underlying an equiv
   as distinct from producing a translation. Tie-breaker — a review that turns on the
   practical linguistic equivalence mechanism itself (choosing a word, collocation,
   idiom, grammatical, or information-structure equivalent) routes to the sibling `translation-equivalence-advisor`;
-  this skill stays on the theory of meaning and signification underlying an equivalence
-  claim, the critique of naive cross-code identity, not the mechanism of producing
-  an equivalent.
+  this skill stays on the theory of meaning, not the mechanism of producing an equivalent.
 kind: skill
 status: ready
 provenance:
@@ -43,7 +41,7 @@ provenance:
   - C00391
   evidence: []
   source_anchors: []
-  authored_from_digest: aa64ce46b763fd3cb0bcc75e5ae13270db40732832ddcf1e5bd66218b8c5ffe0
+  authored_from_digest: 4b97c51752f23e3024bf5f3e96a9be584bb28a3942161b5d70260398ea748330
 ---
 
 # Meaning, Signification And The Equivalence Critique

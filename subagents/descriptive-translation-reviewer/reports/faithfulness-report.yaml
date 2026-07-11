@@ -15,16 +15,17 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P004/P105/P106/P118/P159; within the source's scope, no strengthening. Review criterion,
-    not a directive to translate.
+  note: Restates P004/P059/P105/P106/P118/P159 (P059 added for the illusory-equivalent-effect claim);
+    within the source's scope, no strengthening. Review criterion, not a directive to translate.
 - rule_ref: quality_bar[2]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
-  action: accept_with_note
-  note: Restates P009/P038/P060/P062/P108; within the source's scope, no strengthening. Review criterion,
-    not a directive to translate.
+  action: add_condition
+  note: Restates P009/P038/P060/P062/P108. Hedged (round 2, M2) from "Translation is driven by an explicit
+    brief…" to "Where a brief and predominant function apply, translation is judged against them…" so the
+    functionalist/skopos school is scoped, not stated as settled fact. Review criterion, not a directive.
 - rule_ref: quality_bar[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -54,8 +55,10 @@ findings:
   distortion:
   - none
   severity: low
-  action: accept_with_note
-  note: Restates P070/P100; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+  action: add_condition
+  note: Product-scope boundary (never produce the translation / never sign off). Round 2 (S5) dropped the
+    P070/P100 citations — it is a review-vs-produce scope decision, not a source claim, so it is left
+    uncited by design (like handoff_rules[1]). No over-claim.
 - rule_ref: forbidden_behaviours[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -152,14 +155,6 @@ findings:
     dropped; the publisher's commercial/economic constraints are grounded in P029 (political and economic
     constraints, publishers). Legal-validity/typesetting is left as an uncited, defensible scope boundary,
     not a source over-claim.
-- rule_ref: handoff_rules[2]
-  verdict: WITHIN_SCOPE
-  distortion:
-  - none
-  severity: low
-  action: accept_with_note
-  note: Routing directive only — names sibling subagents by slug for cross-reviewer disambiguation. Carries
-    no source claim, so it cites no principle; exempt from grounding.
 - rule_ref: source_of_truth_policy.canonical_owner
   verdict: WITHIN_SCOPE
   distortion:

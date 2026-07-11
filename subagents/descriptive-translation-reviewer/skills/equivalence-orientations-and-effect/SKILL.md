@@ -46,7 +46,7 @@ provenance:
   - C00081
   evidence: []
   source_anchors: []
-  authored_from_digest: c7d81875f6a081e2845a51ae1e2330a6addd784a767a8368b82d494e93b266ac
+  authored_from_digest: 12fe105743e4acf47ae1143ac04908cbc6bfef131dfaa76406bbc26692c77f61
 ---
 
 # Equivalence Orientations And Effect
@@ -59,7 +59,7 @@ This skill reviews where a translation sits on the formal-versus-dynamic equival
 
 - A translation or its rationale claims formal (source-oriented) or dynamic/functional (receptor-oriented) equivalence and the fit of that choice to the purpose, text type, or audience needs checking.
 - An "equivalent effect" or "same response" claim is being made and may be illusory given the text is received outside the source's space and time.
-- The analysis needs to escalate through Koller's denotative/connotative/text-normative/pragmatic/formal relations or test naturalness against the receptor language, message context, and audience.
+- The analysis needs to weigh Koller's denotative/connotative/text-normative/pragmatic/formal relations against each other, or test naturalness against the receptor language, message context, and audience.
 - A legal or equally-authentic multilingual text needs a technique close to formal equivalence with little room for adjustment.
 - A rendering's default to literal, word-for-word phrasing, or its shift to communicative translation, needs a check that it tracks whether equivalent effect is actually secured.
 
@@ -70,7 +70,7 @@ This skill reviews where a translation sits on the formal-versus-dynamic equival
 3. Judge the rendering's naturalness by what it avoids rather than by what it states: flag anomalies such as misplaced slang or over-precise legalese, flag anachronism, and confirm the positive stylistic elements — authorial tone, irony, and each participant's class, dialect, and individuality — are reconstructed for an audience competent to respond as the original audience did (P076).
 4. Confirm the review resolves the categories the source and target languages obligatorily force, such as gender, aspect, or kinship fields, without treating an ordinary lexical gap as untranslatable, reserving the untranslatable verdict for poetry where form and sound are inseparable from sense (P104).
 5. Check that the equivalence orientation was chosen by purpose: formal equivalence for academic or legal texts that give the reader access to the source language and customs, dynamic or functional equivalence — with no source interference — for texts aimed at natural reception (P105).
-6. Confirm the analysis escalates through Koller's five equivalence relations as the communicative situation demands — denotative, connotative, text-normative, pragmatic, and formal — and weighs connotative equivalence with particular care, since it is the hardest and only approximate (P106).
+6. Confirm the analysis weighs Koller's five equivalence relations against each other as the communicative situation demands — denotative, connotative, text-normative, pragmatic, and formal — as simultaneous competing frames rather than a fixed-order ladder, and weighs connotative equivalence with particular care, since it is the hardest and only approximate (P106).
 7. Judge equivalence at the level of the overall impression the message makes rather than element-by-element identity, anchoring the judgment in an identity of situations rather than matched words, since only the totality of the message shows whether two texts are adequate alternatives (P118).
 8. Confirm any claimed formal equivalence is genuinely source-oriented — constantly compared to the source for accuracy, reproducing grammatical units and terminological concordance, and supplemented with marginal notes for untranslatable features such as puns or acrostics — rather than a loose approximation dressed up with that label (P124).
 9. Hold the translation to the synthesized requirements — that it makes sense, conveys the spirit and manner of the original, has a natural and easy form of expression, and produces a response on its readers similar to the original's — and confirm the reviewer verified the source thematically and stylistically before crediting the claim (P125).

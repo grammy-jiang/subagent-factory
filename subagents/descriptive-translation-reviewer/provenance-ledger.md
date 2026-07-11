@@ -6,7 +6,9 @@ report, and tests are all derived from the distilled spine in this package
 `sources/anchors/*.anchors.jsonl`), assembled by the map->reduce build. No load-bearing profile rule
 field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`,
 `knowledge_partition.always_on`, and `source_of_truth_policy` value cites the promoted principle(s)
-it restates. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs` — carry no inline
+it restates — except a small number of product-scope boundaries (`forbidden_behaviours[0]`,
+`handoff_rules[1]`) that state a review-vs-produce decision rather than a source claim and are left
+uncited by design. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs` — carry no inline
 tags, per repo convention.)
 
 ## Sources
@@ -31,9 +33,30 @@ references index and ground them.
 
 ## Version History
 
+- **1.2.0** (2026-07-12) — Review-loop round 2 fixes (no prior decision silently overwritten). (1)
+  **M1** — corrected the Chaume signifying-code count in **P019** (1+4+6 = 11 → "one linguistic,
+  three acoustic and six visual" = 10) and the matching `register-discourse-and-audiovisual-constraints`
+  Procedure step. (2) **M2** — hedged `quality_bar[2]`: functionalist skopos no longer stated as
+  settled fact ("Translation **is** driven by…" → "Where a brief and predominant function apply,
+  translation is judged against them…"). (3) **M3** — repaired the routing **`description`** for real
+  (see the v1.1.0 correction note below): reworded `when_to_use[0]` so its clipped clause is a complete
+  sentence and reordered `when_not_to_use` so the sibling-routing bullet leads and surfaces in the
+  exported description; adapter re-exported. (4) **Field→grounding changes:** `quality_bar[1]` **+P059**
+  (illusory equivalent effect, matching `knowledge_partition`); `forbidden_behaviours[0]` citations
+  **P070, P100 dropped** (never-translate/never-sign-off is a product-scope boundary, left uncited like
+  `handoff_rules[1]`); removed `handoff_rules[2]` (the v1.1.0 sibling-routing directive) as a duplicate
+  of the `when_not_to_use` routing bullet — routing is now stated once. (5) Weakened two principle
+  statements to match source support: **P106** (Koller's five relations are simultaneous competing
+  frames, not a fixed-order escalation ladder; skill `equivalence-orientations-and-effect` step 6 to
+  match) and **P121** (dropped the "1960s-70s" mis-dating of Newmark's semantic/communicative pair).
+  (6) Trimmed `meaning-signification-and-equivalence-critique` description (verbatim-duplicated clause).
+  (7) Profile body trimmed ~931 → ~851 words; `tests/golden-tests.yaml` re-stamped to 1.2.0 / tier 2.
 - **1.1.0** (2026-07-12) — Review-loop round 1 fixes (no prior decision silently overwritten; the
   spine is unchanged except two faithfulness re-wordings below). (1) Re-exported the adapter to
-  repair the truncated invariant layer + frontmatter description. (2) Re-authored all 12 skills to the
+  repair the truncated invariant layer + frontmatter description. *(Correction, recorded in v1.2.0:
+  the invariant-layer repair shipped, but the frontmatter `description` remained truncated mid-clause
+  and missing the sibling-routing cue in the shipped v1.1.0 adapter — actually repaired in v1.2.0 via
+  the profile rewording above.)* (2) Re-authored all 12 skills to the
   GOLD shape (complete Procedure/Anti-pattern sentences before each `(Pxxx)`; Anti-patterns cover
   every principle in the skill; added `description:` frontmatter). (3) **Field→grounding changes:**
   `handoff_rules[0]` re-anchored **P070, P009 → P029, P070** (publication authority now grounded in
