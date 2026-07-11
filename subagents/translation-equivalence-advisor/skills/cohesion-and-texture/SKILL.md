@@ -1,6 +1,6 @@
 ---
 name: cohesion-and-texture
-description: Reviews the surface cohesive network — reference, substitution, ellipsis,
+description: Diagnoses and reviews the surface cohesive network — reference, substitution, ellipsis,
   conjunction, and lexical cohesion — reworked to the target language's own preferences;
   owns the surface ties that bind a text, not the reader's coherence judgement, which
   pragmatic-equivalence-coherence-and-implicature owns.

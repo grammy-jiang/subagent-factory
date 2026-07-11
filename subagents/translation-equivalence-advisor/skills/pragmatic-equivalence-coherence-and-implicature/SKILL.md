@@ -1,6 +1,6 @@
 ---
 name: pragmatic-equivalence-coherence-and-implicature
-description: Reviews meaning in use — the reader's coherence judgement, implicature,
+description: Diagnoses and reviews meaning in use — the reader's coherence judgement, implicature,
   speech-act force, background knowledge, and politeness — checking a rendering does
   not create wrong implicatures; owns inferred and interactional meaning, not the
   surface ties that cohesion-and-texture owns.

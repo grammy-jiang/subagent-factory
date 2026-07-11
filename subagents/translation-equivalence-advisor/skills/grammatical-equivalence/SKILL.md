@@ -1,6 +1,6 @@
 ---
 name: grammatical-equivalence
-description: Reviews rendering across grammatical systems — obligatory categories,
+description: Diagnoses and reviews rendering across grammatical systems — obligatory categories,
   voice, gender, number, tense and aspect, modality, and pronouns of address — by
   function rather than form; owns grammar-driven shifts, not information structure,
   which thematic-and-information-structure owns.
@@ -87,10 +87,10 @@ This skill reviews decisions forced by differences in grammar. Its rule is that 
 
 1. Expect grammar to act like a straitjacket: identify the obligatory categories the target forces and remember both lexical and grammatical resources determine what can be said (P025, P045).
 2. Translate voice by function, not form — do not preserve an active or passive merely because the source used it (P009).
-3. Handle grammatical gender by its function, and choose deliberately when moving between a number-marking and a numberless language (P015, P064).
+3. Handle grammatical gender by its function: "masculine as unmarked" describes the source system, not a default to carry into the target, so where the gender distinction is arbitrary or need not be specified, restructure (for example with the passive) rather than defaulting to it; and choose deliberately when moving between a number-marking and a numberless language (P015, P064).
 4. Do not map tense and aspect mechanically, and render modality (certainty, possibility, obligation) by its function rather than its literal form (P046, P085).
 5. When translating pronouns into a language that marks formality, gender, or inclusive/exclusive reference, resolve what the source leaves implicit deliberately (P026).
-6. Distinguish morphology from syntax when weighing a grammatical against a lexical choice (P084).
+6. When weighing a grammatical against a lexical choice, distinguish grammar (morphology and syntax together, a closed, largely obligatory system that rules out alternatives by default) from lexis (an open, largely optional system) (P084).
 7. Adapt grammar and lexicon to receptor-language requirements, first classifying terms as ordinary parallels, functional cultural analogues, or culture-specific items — and only then choosing a strategy (e.g. borrowing, paraphrase, cultural substitution) for the culture-specific class, per the word-level skill; always satisfy obligatory receptor features, but flag any forced addition, specification, or omission when the source is silent (P055, P057).
 
 ## Inputs

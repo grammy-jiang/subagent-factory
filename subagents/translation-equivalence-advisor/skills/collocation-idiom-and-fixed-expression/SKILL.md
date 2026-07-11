@@ -1,9 +1,9 @@
 ---
 name: collocation-idiom-and-fixed-expression
-description: Reviews how a translation handles collocations, idioms, and fixed expressions
-  — typicality, markedness, the two idiom traps, and register-specific collocability
-  — owning multi-word patterning, not the single-word lexical gap that word-level-nonequivalence-and-strategies
-  owns.
+description: Diagnoses collocation, idiom, and fixed-expression non-equivalence and
+  reviews a chosen rendering — typicality, markedness, the two idiom traps, and register-specific
+  collocability — owning multi-word patterning, not the single-word lexical gap that
+  word-level-nonequivalence-and-strategies owns.
 kind: skill
 status: ready
 provenance:

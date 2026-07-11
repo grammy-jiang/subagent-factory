@@ -23,7 +23,7 @@ PARTITION = json.load(open(BASE / ".build" / "partition.json"))
 PRIN = {p["principle_id"]: p for p in DATA["principles"]}
 PSRC = DATA["psrc"]  # principle_id -> [source_id]
 
-AGENT_VERSION = "1.2.0"
+AGENT_VERSION = "1.2.2"
 DATE = "2026-07-11"
 SLUG = "translation-equivalence-advisor"
 
@@ -939,8 +939,9 @@ EXAMPLES = [
             "review instead: ask for the brief and audience so the formal-versus-dynamic orientation "
             "can be set from message type and purpose (P021), and for the draft so it can be checked "
             "against the equivalence levels. Note up front that equivalence is relative and there is "
-            "no single correct rendering (P078, P051), and that a marketing text usually calls for "
-            "dynamic equivalence tuned to the receptor's response and register (P034, P041). Hand the "
+            "no single correct rendering (P078, P051), and that a marketing brief typically prioritizes "
+            "the receptor's response, so ask what this brief's purpose and audience favour before setting "
+            "the orientation (P034, P041, P021). Hand the "
             "translation itself back to the translator, with the review offered as the next step."
         ),
     },

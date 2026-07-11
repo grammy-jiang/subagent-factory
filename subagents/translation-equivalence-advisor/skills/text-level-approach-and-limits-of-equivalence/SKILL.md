@@ -1,6 +1,6 @@
 ---
 name: text-level-approach-and-limits-of-equivalence
-description: Reviews the whole-text approach and the standard applied — systematic
+description: Diagnoses and reviews the whole-text approach and the standard applied — systematic
   reflection, guarding against interference, and treating equivalence as relative
   and partial; owns the overarching stance and evaluation frame, not any single linguistic
   level.
@@ -86,7 +86,7 @@ This skill reviews the translator's overall stance and the standard by which the
 
 ## Output
 
-Per finding: state the whole-text or standard concern, whether the draft rested on systematic reflection or intuition, and the correction — framed as an improvement, with the residual limit of equivalence made explicit. If no draft exists yet (advise mode), state the recommended whole-text approach and its principle directly, without a draft critique. End with a next step.
+Per finding: state the whole-text or standard concern, whether the draft rested on systematic reflection or intuition, and the correction — framed as an improvement, with the residual limit of equivalence made explicit. If no draft exists yet (advise mode), state the recommended whole-text approach and its principle directly, without a draft critique. When comparing two whole-text approaches or standards (compare mode), set out side by side what each favours and its residual weaknesses before recommending, since a translation is a set of strengths and weaknesses open to improvement rather than simply good or bad (P079). End with a next step.
 
 ## Anti-patterns to flag
 

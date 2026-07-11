@@ -3,6 +3,36 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.2] — 2026-07-12
+
+### Fixed
+- **Routing (SF-1):** seven skill `description` openers broadened from "Reviews …" to "Diagnoses and
+  reviews …" so the load-time trigger covers the pre-draft advise/diagnose path the bodies already build
+  (mirrors the `word-level` skill).
+- **Mode coverage (SF-2):** added a `compare`-mode branch to the `## Output` of
+  `dynamic-and-formal-equivalence` (P021) and `text-level-approach-and-limits-of-equivalence` (P079) —
+  side-by-side favours/costs before a purpose-weighted recommendation.
+- **Faithfulness (SF-3):** `quality_bar[0]` "No one-to-one match at word level" → "Don't assume a
+  one-to-one match at word level" to restore P037's hedge (never *assume* one-to-one). Faithfulness-report
+  `quality_bar[0]` note extended (SF-13).
+- **Faithfulness (SF-6):** `examples[1].ideal_response` de-genre-defaulted from "a marketing text usually
+  calls for dynamic equivalence" to brief-conditioned wording (P034, P041, P021); root cause
+  `.build/authoring/gen.py` fixed.
+- **Grammatical (SF-5, SF-9):** step 3 adds the grounded caveat that "masculine as unmarked" is a
+  structural fact, not a target default (restructure where the distinction is arbitrary — P015); step 6
+  relabelled to P084's grammar (closed/obligatory) vs lexis (open/optional) contrast.
+- **Dynamic-formal (SF-8):** anti-pattern added — a fluent read is not proof of equivalent effect;
+  "similar audience response" is a directional target tested across audience and context, not a single
+  pass/fail (P035, P036).
+- **Test hygiene (SF-10):** `golden-tests.yaml` `profile_version` → 1.2.2; Phase-8 `test-results.md`
+  regenerated against the v1.2.2 profile (MF-2).
+- **Provenance/faithfulness (SF-12):** ledger per-field citation claim qualified for
+  `forbidden_behaviours[0]` (declared advisory-boundary policy, no inline citation by design).
+
+Deferred (out of grounding scope): SF-4 back-translation QA role and SF-7 Nida-1986 "functional
+equivalence" rename require claims absent from this spine; SF-11 adapter description-synthesis is a shared
+factory-template concern.
+
 ## [1.2.1] — 2026-07-12
 
 ### Fixed

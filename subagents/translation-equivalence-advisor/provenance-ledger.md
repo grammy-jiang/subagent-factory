@@ -6,8 +6,10 @@ report, and tests are all derived from the distilled spine in this package
 `sources/anchors/*.anchors.jsonl`), which was assembled by the map→reduce build. No load-bearing
 profile rule field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`,
 `knowledge_partition.always_on`, and `source_of_truth_policy` value cites the promoted principle(s)
-it restates. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs` — carry no inline
-tags, per repo convention.)
+it restates, or is marked as declared advisory-boundary policy in the faithfulness report — as with
+`forbidden_behaviours[0]` (the "do not deliver the finished translation" boundary), which is a
+declared scope, not a distillation claim, and so carries no inline citation. (Descriptive fields —
+`role`, `when_to_use`, `inputs`, `outputs` — carry no inline tags, per repo convention.)
 
 ## Sources
 
@@ -48,6 +50,44 @@ The five high-confidence principles (P009, P024, P037, P038, P058) are compiled 
 `## Operating invariants (must hold)` layer at export and each carries a behaviour test.
 
 ## Version history
+
+- **v1.2.2** (2026-07-12) — review-loop r1 independent re-verify fixes (no spine change; every edited
+  rule still restates principles already in the spine, no new claim):
+  - SF-1 (routing): seven skill `description` openers broadened from "Reviews …" to "Diagnoses and
+    reviews …" so the sole load-time trigger covers the pre-draft advise/diagnose path the bodies already
+    build (mirrors the `word-level` skill; scope statement, no principle grounding).
+  - SF-2 (mode coverage): `dynamic-and-formal-equivalence` and `text-level-approach-and-limits-of-equivalence`
+    `## Output` gained a `compare`-mode branch (side-by-side favours/costs before a purpose-weighted
+    recommendation) — P021 for the orientation compare, P079 for the whole-text compare.
+  - SF-3 (faithfulness): `profile.yaml` `quality_bar[0]` headline "No one-to-one match at word level" →
+    "Don't assume a one-to-one match at word level" to restore P037's hedge ("never *assume* a
+    one-to-one correspondence"); citations unchanged (P037, P001, P103, P106).
+  - SF-5 (grammatical, grounded subset): `grammatical-equivalence` step 3 adds that "masculine as
+    unmarked" describes the source system, not a target default, and to restructure (e.g. passive) where
+    the distinction is arbitrary or need not be specified — the grounded part of P015 only (no
+    inclusive-language *policy* claim, which stays deferred as out of spine scope).
+  - SF-6 (faithfulness): `profile.yaml` `examples[1].ideal_response` de-genre-defaulted — "a marketing
+    text usually calls for dynamic equivalence" → "a marketing brief typically prioritizes the receptor's
+    response, so ask what this brief's purpose and audience favour before setting the orientation"
+    (P034, P041, P021), consistent with the brief-governs precedence and `forbidden_behaviours[2]`. Root
+    cause `.build/authoring/gen.py` fixed so regeneration will not reintroduce it.
+  - SF-8 (dynamic-formal, grounded subset): anti-pattern added that a fluent receptor read is not proof
+    of equivalent effect and "similar audience response" is a directional target tested across audience
+    and context, not a single pass/fail — grounded in P035 (multiple valid solutions) and P036
+    (naturalness that preserves meaning). Does not assert the ungrounded unmeasurability critique, which
+    stays deferred.
+  - SF-9 (grammatical): step 6 relabelled from "Distinguish morphology from syntax" to P084's load-bearing
+    contrast — grammar (morphology and syntax together, a closed, largely obligatory system) vs lexis (an
+    open, largely optional system); citation unchanged (P084).
+  - SF-10 (test hygiene): `golden-tests.yaml` `profile_version` → 1.2.2 (metadata only; GT-004 content
+    unaffected).
+  - SF-12 (ledger): the per-field citation claim above qualified to note `forbidden_behaviours[0]` is a
+    declared advisory-boundary policy carrying no inline citation by design.
+  - SF-13 (faithfulness-report): `quality_bar[0]` note extended to record the SF-3 hedge restoration.
+  - MF-2 / Phase 8: `tests/test-results.md` regenerated against the v1.2.2 profile.
+  - Deferred again (out of grounding scope): SF-4/prior-SF-9 back-translation QA role and SF-7/prior-SF-10
+    Nida-1986 "functional equivalence" rename — both require claims absent from this spine; SF-11 adapter
+    description-synthesis is a shared factory-template concern, not a package-grounding fix.
 
 - **v1.2.1** (2026-07-12) — adversarial-verify (verify1) fixes (no spine change; every edited rule still
   restates principles already in the spine, no new claim):

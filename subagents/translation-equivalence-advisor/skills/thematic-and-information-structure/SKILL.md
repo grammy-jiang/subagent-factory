@@ -1,6 +1,6 @@
 ---
 name: thematic-and-information-structure
-description: Reviews information flow — theme and rheme, given and new, markedness,
+description: Diagnoses and reviews information flow — theme and rheme, given and new, markedness,
   and functional sentence perspective — matching each element's status by the target's
   own devices; owns clause-level information dynamics, not the surface cohesive ties
   that cohesion-and-texture owns.

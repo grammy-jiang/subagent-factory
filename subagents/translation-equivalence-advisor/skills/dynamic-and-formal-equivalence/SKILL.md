@@ -121,13 +121,14 @@ This skill reviews the orientation decision at the heart of Nida's model: whethe
 
 ## Output
 
-Per finding: state whether formal or dynamic equivalence fits the brief and why, the cultural or formal adjustment required, and how adequacy should be judged for this audience. End with a next step, never a claim of a single correct rendering.
+Per finding: state whether formal or dynamic equivalence fits the brief and why, the cultural or formal adjustment required, and how adequacy should be judged for this audience. When comparing two orientations for one segment (compare mode), lay out side by side what each favours and costs before recommending, weighted by the brief's purpose and audience (P021). End with a next step, never a claim of a single correct rendering.
 
 ## Anti-patterns to flag
 
 - Defaulting to formal or dynamic equivalence without reading the message type, purpose, and audience (P021).
 - Judging adequacy by a single fixed test rather than the brief's own criterion — receptor response for a dynamic task, closeness to source form where readers need that access (P035, P022).
 - Carrying a culturally non-matching referent across untreated, or erasing it, instead of choosing among the grounded options (P023).
+- Treating a fluent, natural receptor read as proof of equivalent effect: adequacy admits multiple valid solutions and requires naturalness that still preserves source meaning, so judge "similar audience response" as a directional target tested across audience and context, not a single pass/fail (P035, P036).
 
 ## References
 

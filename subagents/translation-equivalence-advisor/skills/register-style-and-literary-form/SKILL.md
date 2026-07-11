@@ -1,6 +1,6 @@
 ---
 name: register-style-and-literary-form
-description: Reviews register, style, and form-bound material — field/tenor/mode,
+description: Diagnoses and reviews register, style, and form-bound material — field/tenor/mode,
   marked language, poetry, song, and sound effects — weighting form by its communicative
   function; owns style and the form/content trade-off, not the formal-vs-dynamic orientation
   that dynamic-and-formal-equivalence owns.
