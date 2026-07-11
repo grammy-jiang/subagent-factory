@@ -57,6 +57,21 @@ The full per-principle statement and home skill is tabulated in
 
 ## Version History
 
+### 1.1.2 — 2026-07-11
+
+Auto-routing disambiguation from the sibling `calibration-forecasting-reviewer` (RESIDUAL-TRIAGE cal-fore
+H1: both packages' `when_to_use` claim "calibration" and "cognitive bias", so the auto-router could not
+tell them apart). No new claims and no distilled-spine change; superseded decisions stay visible above.
+
+- Appended one mutual-exclusion boundary bullet to `when_not_to_use`: when the concern is the PROBABILITY
+  itself — its calibration, proper scoring (Brier), base-rate and regression grounding, or overconfidence
+  in the number — rather than the reasoning structure, the calibration-forecasting reviewer owns it. This
+  narrows routing scope; like the other `when_not_to_use` entries it restates no source claim, so it
+  carries no principle tag, matching the uncited scope boundaries already in `when_not_to_use`.
+- Profile body is ~833 words after the +33-word bullet (was ~800), under the 1000-word hard FAIL, so no
+  prose was trimmed; the body-size self-check now WARNs over its 800-word soft budget. Re-exported the
+  adapter.
+
 ### 1.1.1 — 2026-07-11
 
 R2 review fix pass (`reports/intel-review-loop/subagent-analytic-method-reviewer.r2.review.md`); all

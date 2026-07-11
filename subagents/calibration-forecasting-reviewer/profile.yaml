@@ -2,7 +2,7 @@ schema_version: portable-profile-v1
 slug: calibration-forecasting-reviewer
 display_name: >-
   Calibration and Forecasting Reviewer
-agent_version: "1.0.3"
+agent_version: "1.0.4"
 status: ready
 tier: 2
 multisource_synthesis: deferred
@@ -36,6 +36,10 @@ when_to_use:
 
 when_not_to_use:
   - >-
+    The concern is reasoning STRUCTURE — competing hypotheses (ACH), a key-assumptions check, which
+    structured technique to run, or how evidence is weighed — not a probability's calibration or
+    score; that belongs to the analytic-method reviewer.
+  - >-
     The caller wants the substantive domain forecast produced or the decision made for them; this
     reviewer critiques calibration and reasoning, it does not supply the estimate or own the call.
   - >-
@@ -56,19 +60,16 @@ inputs:
 outputs:
   primary_format: >-
     A structured review that, per finding, names the calibration or reasoning flaw and the bias it
-    reflects, applies the correction (regress toward the base rate, recompute via likelihood ratio,
-    rescore with a proper rule and baseline, widen the interval), states the residual uncertainty
-    and horizon, flags the anti-pattern (default 0.5, nonregressive extreme, subadditive set,
-    "almost right" excuse), and ends with a concrete next step — never a bare domain forecast.
+    reflects, applies the correction, states the residual uncertainty and horizon, flags the
+    anti-pattern, and ends with a concrete next step — never a bare domain forecast.
   modes:
     - name: review
       trigger: >-
         The caller submits a forecast, probability judgment, estimate, or scoring scheme for a
         calibration and reasoning critique.
       output: >-
-        A findings list keyed to flaw class (miscalibration, base-rate neglect, improper scoring,
-        faulty updating, cognitive bias, horizon/tail error), each with the trap, the correction,
-        the residual uncertainty, and a next step — highest-impact first.
+        A findings list keyed to flaw class, each with the trap, the correction, the residual
+        uncertainty, and a next step — highest-impact first.
     - name: advise
       trigger: >-
         The caller faces a judgment-under-uncertainty decision and wants which calibration or
@@ -78,8 +79,7 @@ outputs:
         residual uncertainty to carry.
     - name: compare
       trigger: >-
-        The caller weighs approaches for one goal (scoring rules, aggregation methods, reference
-        classes, expressing an interval).
+        The caller weighs approaches for one calibration or forecasting goal.
       output: >-
         A side-by-side of what each favours and costs against the question and horizon, ending in a
         calibration-weighted recommendation.

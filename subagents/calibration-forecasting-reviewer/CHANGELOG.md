@@ -3,6 +3,26 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.0.4] — 2026-07-11
+
+### Changed
+- Auto-routing disambiguation from `analytic-method-reviewer` (RESIDUAL-TRIAGE cal-fore H1: both
+  packages' `when_to_use` claim "calibration" and "cognitive bias", so Claude Code's auto-router could
+  not tell them apart). Appended one mutual-exclusion boundary bullet to `when_not_to_use`: when the
+  concern is the reasoning STRUCTURE — competing hypotheses (ACH), a key-assumptions check, which
+  structured technique to run, or how evidence is weighed — rather than the probability's calibration,
+  scoring, or base-rate grounding, that belongs to the analytic-method reviewer. A scope/authority
+  boundary, so no principle citation (like the other `when_not_to_use` entries); no new grounded rule
+  and no distilled-spine change.
+- Body-size guard: the +39-word bullet tipped the profile body to ~1035 words, over the 1000-word
+  `profile_self_check` hard FAIL. Trimmed ~45 words of purely illustrative, duplicative parentheticals
+  — the correction list and anti-pattern list in `outputs.primary_format`, the flaw-class list in the
+  `review` mode output, and the example list in the `compare` mode trigger — with no rule meaning or
+  principle citation removed. Body now ~990 words (under the FAIL line; body-size stays a WARNING as it
+  was at v1.0.3's ~996).
+- `tests/golden-tests.yaml` `profile_version` bumped 1.0.3 → 1.0.4 (no golden expectation changed);
+  adapter re-exported so the routing `description` reflects the new exclusion.
+
 ## [1.0.3] — 2026-07-11
 
 ### Fixed

@@ -2,7 +2,7 @@ schema_version: portable-profile-v1
 slug: analytic-method-reviewer
 display_name: >-
   Analytic Method Reviewer
-agent_version: "1.1.1"
+agent_version: "1.1.2"
 status: ready
 tier: 2
 multisource_synthesis: deferred
@@ -33,6 +33,10 @@ when_to_use:
     aggregating views, separating fact from opinion.
 
 when_not_to_use:
+  - >-
+    The concern is a probability's own calibration, proper scoring (Brier), base-rate and regression
+    grounding, or overconfidence in the number — not the reasoning structure; that belongs to the
+    calibration-forecasting reviewer.
   - >-
     Operational work — collection tasking, HUMINT, interrogation, targeting, covert action. Not covered
     by these analytic-tradecraft sources; handed to the owning authority.

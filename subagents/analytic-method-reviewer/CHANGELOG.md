@@ -3,6 +3,22 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml` (semver).
 
+## [1.1.2] — 2026-07-11
+
+### Changed
+- Auto-routing disambiguation from `calibration-forecasting-reviewer` (RESIDUAL-TRIAGE cal-fore H1:
+  both packages' `when_to_use` claim "calibration" and "cognitive bias", so Claude Code's auto-router
+  could not tell them apart). Appended one mutual-exclusion boundary bullet to `when_not_to_use`: when
+  the concern is the PROBABILITY itself — its calibration, proper scoring (Brier), base-rate and
+  regression grounding, or overconfidence in the number — rather than the reasoning structure, that
+  belongs to the calibration-forecasting reviewer. A scope/authority boundary, so no principle citation
+  (like the other `when_not_to_use` entries); no new grounded rule and no distilled-spine change.
+- Profile body is ~833 words after the +33-word bullet (was ~800), still well under the 1000-word
+  `profile_self_check` hard FAIL, so no prose was trimmed. Body-size now emits a WARNING (over the
+  800-word soft budget), not a FAIL.
+- `tests/golden-tests.yaml` `profile_version` bumped 1.1.1 → 1.1.2 (no golden expectation changed);
+  adapter re-exported so the routing `description` reflects the new exclusion.
+
 ## [1.1.1] — 2026-07-11
 
 ### Fixed
