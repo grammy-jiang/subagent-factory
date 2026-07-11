@@ -54,7 +54,7 @@ principles:
     test_cases: []
 - principle_id: P003
   statement: Treat scientific and technical translation as a communicative service
-    for people and produce a target text that functions as an authentic target-language
+    for people, whose delivered target text should function as an authentic target-language
     document, because users care most about accessing its information effectively.
   derived_from_claims:
   - C00127
@@ -413,7 +413,9 @@ principles:
     reference: null
     test_cases: []
 - principle_id: P018
-  statement: Combine objective observation with carefully designed subjective instruments.
+  statement: Combine objective observation with carefully designed subjective
+    instruments, preferring a pre-designed, pre-tested questionnaire over authoring one
+    (which demands considerable psychometric and statistical expertise).
   derived_from_claims:
   - C00380
   - C00381
@@ -890,8 +892,10 @@ principles:
     reference: null
     test_cases: []
 - principle_id: P042
-  statement: Avoid think-aloud protocols when representative task performance is the
-    measurement target.
+  statement: Avoid concurrent think-aloud (thinking aloud while performing the task)
+    when representative task performance is the measurement target; use retrospective
+    think-aloud (commenting on a session recording afterwards) for improvement-oriented
+    insight, though it adds little when the goal is to quantify rather than to improve.
   derived_from_claims:
   - C00371
   - C00375
@@ -1378,8 +1382,11 @@ principles:
     replaces source elements with completely different wording that replicates the
     situation (for idioms, fixed phrases, and warning signs and labels); transposition
     changes a word''s class without changing meaning (nominalization to verb, passive
-    to active or imperative); and modulation shifts the point of view (positive to
-    negative, abstract to concrete, part for whole).'
+    to active or imperative); modulation shifts the point of view (positive to
+    negative, abstract to concrete, part for whole); and adaptation, the fourth,
+    replaces a source situation or concept absent from the target culture with a
+    functional equivalent, reserved as a last resort (see P131 for its ordered
+    sub-procedures).'
   derived_from_claims:
   - C00724
   - C00725
@@ -1553,12 +1560,14 @@ principles:
     reference: null
     test_cases: []
 - principle_id: P080
-  statement: Treat a case study as a marketing text with a standard structure (identify
-    the client, its needs as the 'problem', the solution and its implementation, a
-    testimonial, and closing company details) that is demanding to translate because
-    it mixes complex technical data with opinion, reported speech, and persuasion,
-    and its language must stay positive without overstating or misrepresenting the
-    product.
+  statement: Treat a vendor or marketing case study as a marketing text with a standard
+    structure (identify the client, its needs as the 'problem', the solution and its
+    implementation, a testimonial, and closing company details) that is demanding to
+    translate because it mixes complex technical data with opinion, reported speech, and
+    persuasion, and its language must stay positive without overstating or misrepresenting
+    the product; first classify the document by communicative purpose, since a
+    differently-purposed 'case study' is a different genre with its own conventions (P072,
+    P128).
   derived_from_claims:
   - C00681
   - C00682
@@ -2688,12 +2697,18 @@ principles:
     reference: null
     test_cases: []
 - principle_id: P146
-  statement: Translate warning and advisory information with particular care — it
-    can be a matter of life or death and carries legal weight — and apply the notice
-    severity hierarchy correctly (Note, then Warning for minor injury, Caution for
-    equipment or data damage, Danger for serious or fatal injury), neither understating
-    risk (so readers do not dismiss it) nor overstating it (using Danger where Warning
-    fits dilutes the impact of Danger when truly needed).
+  statement: Translate warning and advisory information with particular care — it can
+    be a matter of life or death and carries legal weight — and verify the notice
+    severity hierarchy (the signal words and their ranking) against the warning-label
+    standard governing the target market (for example ANSI Z535, ISO 3864, or IEC 82079-1
+    for EU instructions for use) rather than assuming any single ordering. Byrne
+    illustrates one convention (Note; Warning for minor injury; Caution for equipment or
+    data damage; Danger for serious or fatal injury), but this reverses the common
+    standard ranking — where Danger and Warning denote death or serious injury, Caution
+    denotes minor or moderate injury, and a separate Notice marks property-only risk — so
+    do not rely on Byrne's ordering without checking, and neither understate risk (so
+    readers do not dismiss it) nor overstate it (which dilutes the top level when truly
+    needed).
   derived_from_claims:
   - C00820
   - C00821

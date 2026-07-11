@@ -20,7 +20,7 @@ Generated: {{ generated_at }}
 {% if invariants %}
 ## Operating invariants (must hold)
 
-Non-negotiable, evidence-grounded rules. They take precedence over the softer guidance below; do not override them. Each is traceable to its source principle.
+Non-negotiable, evidence-grounded domain rules, each traceable to its source principle. They take precedence over the softer guidance below — except the role's stated boundary and the Forbidden behaviours section, which are this agent's highest-priority constraints and always win.
 
 {% for inv in invariants %}
 - **[{{ inv.principle_id }}]** {{ inv.invariant }}

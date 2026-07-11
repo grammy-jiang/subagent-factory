@@ -40,17 +40,36 @@ _PRINCIPLES = [
 # ---- _to_invariant ---------------------------------------------------------------------------
 
 
-def test_to_invariant_takes_rule_head_before_colon():
-    assert _to_invariant("Do X first: because reason") == "Do X first"
+def test_to_invariant_keeps_the_colon_tail():
+    # The rule tail after a colon carries operative detail (a concrete rule, or a safety hedge);
+    # it must survive — dropping it silently gutted P146's warning-severity caveat in the adapter.
+    assert (
+        _to_invariant("Apply the hierarchy: verify it against the governing standard")
+        == "Apply the hierarchy: verify it against the governing standard"
+    )
 
 
-def test_to_invariant_first_sentence_when_no_colon():
+def test_to_invariant_first_sentence_when_multi_sentence():
     assert _to_invariant("Keep it simple. Other detail follows.") == "Keep it simple"
 
 
-def test_to_invariant_truncates_long_head():
-    out = _to_invariant("word " * 60)
-    assert out.endswith("…") and len(out) <= 162
+def test_to_invariant_never_truncates_mid_clause():
+    # A long single sentence (no internal sentence break) renders in FULL — no "…" cut, so a
+    # safety rule cannot lose its own conditions. P146's statement has no colon/period internally,
+    # exactly the shape that previously fell through to a 160-char mid-clause cut.
+    stmt = (
+        "Translate warnings with particular care — it can be life or death — and verify the "
+        "severity hierarchy against the governing standard rather than assuming any single ordering"
+    )
+    out = _to_invariant(stmt)
+    assert "…" not in out and out == stmt
+
+
+def test_to_invariant_does_not_split_at_inline_abbreviation():
+    # A period inside "(e.g. ...)" is not a sentence end; the sentence must end at the real
+    # terminator, not stop dead at "(e.g" (which gutted P103/P142/P143 into non-instructive stubs).
+    stmt = "Leave code identifiers (e.g. FILE_NAME) unchanged. They are not prose."
+    assert _to_invariant(stmt) == "Leave code identifiers (e.g. FILE_NAME) unchanged"
 
 
 # ---- compile_invariants ----------------------------------------------------------------------
@@ -59,7 +78,11 @@ def test_to_invariant_truncates_long_head():
 def test_compile_selects_only_high_confidence_profile_rules():
     invs = compile_invariants(_PRINCIPLES)
     assert [i["principle_id"] for i in invs] == ["PRP-001"]
-    assert invs[0]["invariant"] == "Review the identity model first"
+    # First sentence in full (colon tail kept) — no head-before-colon reduction.
+    assert (
+        invs[0]["invariant"]
+        == "Review the identity model first: because you cannot authorize before you authenticate"
+    )
 
 
 def test_compile_empty_when_none_qualify():
@@ -127,3 +150,29 @@ def test_coverage_fails_on_stale_section(tmp_path):
     p = _pkg(tmp_path, _PRINCIPLES, body)
     errs = validate_invariant_coverage(p)
     assert errs and "PRP-001" in errs[0]
+
+
+def test_coverage_fails_on_truncated_invariant(tmp_path):
+    # Every id is present, but an invariant was truncated mid-clause (trailing "…") — content did
+    # not survive, so coverage-by-tag alone must not pass it (this is what shipped a gutted P146).
+    body = (
+        "## Operating invariants (must hold)\n"
+        "- **[PRP-001]** Review the identity model first: because you cannot au…\n"
+        "\n## When to use\n- always"
+    )
+    p = _pkg(tmp_path, _PRINCIPLES, body)
+    errs = validate_invariant_coverage(p)
+    assert errs and "truncates" in errs[0]
+
+
+def test_coverage_fails_on_dangling_parenthesis(tmp_path):
+    # An invariant split inside a parenthetical leaves an unbalanced "(" — content was dropped even
+    # though the [PRP-001] tag is present, so coverage-by-tag alone must not pass it.
+    body = (
+        "## Operating invariants (must hold)\n"
+        "- **[PRP-001]** Leave identifiers unchanged (e.g\n"
+        "\n## When to use\n- always"
+    )
+    p = _pkg(tmp_path, _PRINCIPLES, body)
+    errs = validate_invariant_coverage(p)
+    assert errs and "unbalanced" in errs[0]
