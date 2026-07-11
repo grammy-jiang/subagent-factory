@@ -42,14 +42,24 @@ def strip_invariant_section(adapter_text: str) -> str:
 
 
 def _to_invariant(statement: str, max_chars: int = _MAX_INVARIANT_CHARS) -> str:
-    """Reduce a principle statement to its terse rule head (deterministic)."""
+    """Reduce a principle statement to a complete, self-sufficient rule line (deterministic).
+
+    Renders the principle's **first sentence in full**. It never truncates mid-clause: an invariant
+    that silently drops its own conditions or hedges is worse than a longer line — for a safety rule
+    (e.g. the warning-severity caveat in P146) a mid-clause cut inverts the meaning, and the earlier
+    ``head-before-colon`` + 160-char ``…`` reduction did exactly that (it also dropped the operative
+    tail after a colon, e.g. every concrete style rule in P102). A principle whose whole rule must
+    survive should therefore be written so its FIRST sentence is self-sufficient; the fuller
+    elaboration lives in the skill body and the principles index. ``max_chars`` is retained for
+    signature compatibility but no longer severs a sentence.
+    """
+    import re
+
     s = " ".join(str(statement).split())
-    # The rule head is the clause before the first ': ' (principles are written "<rule>: <why>"),
-    # else the first sentence.
-    head = s.split(": ", 1)[0] if ": " in s else s.split(". ", 1)[0]
-    head = head.rstrip(" .;,")
-    if len(head) > max_chars:
-        head = head[:max_chars].rsplit(" ", 1)[0].rstrip(" .;,") + "…"
+    # First sentence, kept whole. Do NOT split on a colon: the tail after a colon routinely carries
+    # the operative detail (the concrete rule, or a safety hedge), which head-only truncation drops.
+    m = re.search(r"(?<=[a-z0-9\)])\.(?:\s|$)", s)
+    head = (s[: m.start() + 1] if m else s).rstrip(" .;,")
     return head
 
 
@@ -117,6 +127,20 @@ def validate_invariant_coverage(principles_path: str | Path) -> list[str]:
         return [
             "adapter invariant layer is stale — missing must-hold principle(s) "
             f"{', '.join(missing)} (re-export the adapter)"
+        ]
+    # Content-survival, not just tag-presence: an invariant truncated mid-clause (trailing "…")
+    # silently drops its rule tail — for safety-tier content this can invert meaning, and coverage
+    # by tag alone cannot see it (this is what shipped a gutted P146 warning-severity rule).
+    import re
+
+    section = re.search(
+        rf"{re.escape(INVARIANT_SECTION_HEADING)}(.*?)(?=\n## )", text, flags=re.S
+    )
+    if section and "…" in section.group(1):
+        truncated = [ln.strip() for ln in section.group(1).splitlines() if "…" in ln]
+        return [
+            "adapter invariant layer truncates rule content (trailing '…') — a compiled invariant "
+            "dropped its tail; fix compile_invariants and re-export: " + " | ".join(truncated[:3])
         ]
     return []
 

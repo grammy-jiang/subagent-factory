@@ -301,10 +301,11 @@ FAITH = [
     ("quality_bar[4]", "EXACT_SUPPORT", "Grounding usability claims in evaluation, not design confidence, is supported.",
      ["P006", "P040", "P049", "P051", "P065"]),
     ("quality_bar[5]", "WITHIN_SCOPE",
-     "Honouring safety, legal, brand and style constraints is supported; the escalate-on-source-"
-     "deficiency duty is scoped to safety-critical/warning content (P081), while style and brand "
-     "constraints are honoured (P102, P144) without a blanket escalation duty.",
-     ["P081", "P102", "P117", "P144", "P146"]),
+     "Honouring safety, legal, brand and style constraints is supported (the legal/standards-QA half is "
+     "grounded in P011); the escalate-on-source-deficiency duty is scoped to safety-critical/warning "
+     "content (P081), while style and brand constraints are honoured (P102, P144) without a blanket "
+     "escalation duty.",
+     ["P011", "P081", "P102", "P117", "P144", "P146"]),
     ("forbidden_behaviours[0]", "EXACT_SUPPORT",
      "The commission and delivery rest with the commissioner; refusing to sign off or decide commercially is supported.",
      ["P090", "P056"]),
@@ -320,11 +321,12 @@ FAITH = [
     ("forbidden_behaviours[4]", "EXACT_SUPPORT",
      "Not presenting an untested usability opinion as an evaluated finding is directly supported.",
      ["P040", "P049"]),
-    ("forbidden_behaviours[5]", "EXACT_SUPPORT",
-     "Not certifying, signing off, or declaring safety-critical/warning/legally-mandated content "
-     "compliant, correct, or safe — the advisor flags concerns and escalates; certification is the "
-     "client's compliance process — is directly supported.",
-     ["P081", "P117", "P146"]),
+    ("forbidden_behaviours[5]", "WITHIN_SCOPE",
+     "Not certifying/signing off safety-critical or legally-mandated content as compliant or safe — the "
+     "advisor flags and escalates. The safety-content duty is grounded in P081/P117/P146; the "
+     "ownership-of-certification half rests on the commissioner's sign-off remit (P090). A within-scope "
+     "narrowing of the sources' division of authority, not an over-claim.",
+     ["P081", "P090", "P117", "P146"]),
     ("handoff_rules[0]", "EXACT_SUPPORT",
      "The brief, commercial decision, and final linguistic sign-off belong to the client/commissioner.",
      ["P056", "P090", "P121"]),
@@ -334,12 +336,51 @@ FAITH = [
      "sources: P078 sets the baseline competency (heavy work is beyond it), P098 the legal-specification remit.",
      ["P078", "P098"]),
     ("source_of_truth_policy.precedence", "WITHIN_SCOPE",
-     "The precedence order — target-user function governs a literal rendering at sentence/paragraph level "
-     "(moving whole chapters or sections still needs the client's permission), a principle is an adaptable "
-     "guide not a fixed rule, no recommendation is stated more confidently than the source supports, and "
-     "safety or legally-mandated content is never weakened for style — restates the sources' contextual, "
-     "audience-driven stance with their own hedges intact; a narrowing, not an over-claim.",
-     ["P014", "P015", "P023", "P046", "P081", "P133"]),
+     "The precedence order — target-user function governs for instrumental/functional-priority text, "
+     "while documentary translations and form-priority text types keep literal fidelity as the governing "
+     "function (P035, P089); reorder freely within sentences/paragraphs/chapters but a whole chapter or "
+     "section as a block needs the client's permission (P133); a principle is an adaptable guide not a "
+     "fixed rule (P014, P046); no recommendation exceeds its source support (P015); safety/legally-"
+     "mandated content is never weakened for style (P081) — restates the sources' contextual stance with "
+     "their hedges intact; a narrowing, not an over-claim.",
+     ["P014", "P015", "P023", "P035", "P046", "P081", "P089", "P133"]),
+    # knowledge_partition.always_on — the load-bearing runtime rules. Each bullet is a faithful summary
+    # of its skill's principles (no clause strengthened beyond its cited principle); graded so the
+    # "no over-claim" conclusion is on record for the operative content, not only the meta rules.
+    ("knowledge_partition.always_on[0]", "WITHIN_SCOPE",
+     "Audience/brief-driven decisions, with 'nearly every' matching P069's own hedge; a faithful summary.",
+     ["P002", "P020", "P024", "P056", "P069", "P090", "P121", "P129"]),
+    ("knowledge_partition.always_on[1]", "WITHIN_SCOPE",
+     "Strategy from situation not maxims, with P133's client-permission caveat for whole-section moves "
+     "carried; a faithful summary.",
+     ["P014", "P015", "P035", "P046", "P070", "P089", "P130", "P133"]),
+    ("knowledge_partition.always_on[2]", "WITHIN_SCOPE",
+     "Reader-cognition summary — minimise processing effort and working-memory load; no clause strengthened.",
+     ["P003", "P009", "P025", "P045", "P137"]),
+    ("knowledge_partition.always_on[3]", "WITHIN_SCOPE",
+     "Technical-precision summary; Latin nomenclature kept audience-conditional (P071), SI units hedged "
+     "'wherever the source system can be preserved' (P104), web consultation framed as advice to the "
+     "translator (Read/Grep/Glob toolset); a faithful summary.",
+     ["P071", "P093", "P094", "P098", "P103", "P104", "P140"]),
+    ("knowledge_partition.always_on[4]", "WITHIN_SCOPE",
+     "Iconic-linkage summary — one uniform construction only where standardisation is practical; faithful.",
+     ["P013", "P021", "P074", "P075", "P134"]),
+    ("knowledge_partition.always_on[5]", "WITHIN_SCOPE",
+     "Document-type/genre summary — classify by communicative purpose before translating; faithful.",
+     ["P068", "P072", "P080", "P091", "P128"]),
+    ("knowledge_partition.always_on[6]", "WITHIN_SCOPE",
+     "Presentation-as-communication summary — layout/typography/structure as usability factors; faithful.",
+     ["P004", "P005", "P016", "P124", "P147"]),
+    ("knowledge_partition.always_on[7]", "WITHIN_SCOPE",
+     "Evaluation-planning summary — method chosen from the test question, observable criteria/metrics; faithful.",
+     ["P006", "P018", "P040", "P041", "P084"]),
+    ("knowledge_partition.always_on[8]", "WITHIN_SCOPE",
+     "Study-conduct summary — representative participants, pilot, control confounds, small-sample stats; faithful.",
+     ["P019", "P027", "P051", "P065", "P066"]),
+    ("knowledge_partition.always_on[9]", "WITHIN_SCOPE",
+     "Quality/safety/practice summary; footnote avoidance scoped to flagging confusion/queries (P139), "
+     "safety content made explicit and a deficient source escalated (P081); a faithful summary.",
+     ["P001", "P011", "P081", "P117", "P139", "P141", "P144", "P146"]),
 ]
 
 
@@ -368,6 +409,11 @@ def write_faithfulness() -> None:
         "# source support: rules are EXACT_SUPPORT or a deliberate WITHIN_SCOPE narrowing (advice-only\n"
         "# posture, source scope). source_anchors are omitted deliberately — provenance is carried in\n"
         "# each note via principle + claim IDs, which resolve into the spine.\n"
+        "# NOTE (review-loop): P146's principle body was hedged to name external warning-label standards\n"
+        "# (ANSI Z535, ISO 3864, IEC 82079-1) and the common severity ranking. That standard content is\n"
+        "# ADVISOR-ADDED verification context for safety, not a Byrne source claim (C00820/C00821 cover\n"
+        "# only 'warnings need care' + Byrne's own illustrative table); it makes the guidance more\n"
+        "# cautious, never less, and is flagged here rather than presented as source-grounded.\n"
     )
     (BASE / "reports" / "faithfulness-report.yaml").write_text(
         header + yaml.safe_dump(doc, sort_keys=False, allow_unicode=True, width=100), encoding="utf-8"
@@ -594,17 +640,22 @@ def write_provenance() -> None:
         lines.append(f"| {s} | {len(meta['principles'])} | {', '.join(meta['principles'])} |")
     lines += [
         "\n## Version history\n",
-        "- **v1.1.0** (2026-07-12): Review-loop convergence via `/review-subagent` — resolved the 8 "
-        "must-fix from the review panel (structural lenses + documentation-as-code + ux-design, plus "
-        "the translation-equivalence and descriptive-translation domain lenses at adversarial verify), "
-        "each grounded in the existing spine: regenerated all 10 skill bodies without the fixed-length "
-        "truncation (MF2); attributed the P146 notice-severity table to Byrne and hedged to the "
-        "governing warning-label standard (MF3); rephrased invariant P003 from a production imperative "
-        "to advisory (MF8); added an explicit safety/legal sign-off forbidden behaviour (MF4); dropped "
-        "a manufactured evidence anchor (P045) from precedence (MF5), narrowed the source-deficiency "
-        "escalation to safety-critical content (MF6), and restored P133's client-permission caveat "
-        "(MF7). Also graded the precedence rule in the faithfulness report and corrected the P078 "
-        "handoff citation. Supersedes — does not delete — the v1.0.0 decisions below.",
+        "- **v1.1.0** (2026-07-12): Review-loop convergence **plus a 6-lens independent adversarial "
+        "verification** via `/review-subagent` (structural lenses + documentation-as-code + ux-design, "
+        "and the translation-equivalence / descriptive-translation / translation-quality domain lenses) "
+        "— the verify pass caught real holes the loop missed, each fix grounded in the existing spine. "
+        "Adapter render (MF1): the invariant compiler truncated must-hold rules at 160 chars and gutted "
+        "P146's safety hedge from the deployed adapter — now renders complete first sentences, with a "
+        "validate gate on truncated invariants. Content: untruncated skill bodies (MF2); P146 rewritten "
+        "so its first sentence carries the verify-the-governing-standard duty, with Byrne's table flagged "
+        "as reversing the common ranking (MF3); P003 de-imperative and the adapter template fixed so "
+        "invariants are subordinate to the role boundary and forbidden behaviours (MF8); safety/legal "
+        "sign-off forbidden behaviour added (MF4); manufactured P045 anchor dropped (MF5); escalation "
+        "narrowed to safety in both quality_bar[5] and forbidden[3] (MF6); P133/P104 hedges and the "
+        "Latin-nomenclature and footnote scopes restored (MF7 + faithfulness); precedence scoped for "
+        "documentary/form-priority translations (P035/P089); P070 completed with adaptation (P131). "
+        "Graded the precedence rule and all 10 always_on bullets in the faithfulness report. "
+        "Supersedes — does not delete — the v1.0.0 decisions below.",
         "- **v1.0.0** (2026-07-11): Initial LLM-authored layer (profile, faithfulness, 10 skills, "
         "2 references, tests, adapter) derived from the deterministically-valid 2-source, "
         f"{len(PRIN)}-principle distilled spine. Rights: distillation-only; no verbatim source "
@@ -619,26 +670,42 @@ def write_changelog() -> None:
         "All notable changes to this generated subagent package.\n\n"
         "## 1.1.0 — 2026-07-12\n\n"
         "### Changed\n"
-        "- Review-loop convergence (`/review-subagent`): resolved the 8 must-fix from the domain + "
-        "structural review panel, each grounded in the existing spine.\n"
+        "- Review-loop convergence **plus independent adversarial verification** (`/review-subagent`): "
+        "resolved every must-fix from the structural + domain panel across two passes — the headless "
+        "review loop, then a 6-lens adversarial re-verify (faithfulness + documentation-as-code + "
+        "ux-design + the translation-equivalence / descriptive-translation / translation-quality domain "
+        "reviewers) that caught real holes the loop missed — each fix grounded in the existing spine.\n"
+        "- **MF1 (adapter render, safety)** — the invariant compiler (`compile_invariants.py`) truncated "
+        "each must-hold rule to 160 chars, gutting P146's warning-severity hedge (and P141, P102) from "
+        "the *deployed adapter*; it now renders each invariant as a complete first sentence and "
+        "`validate` fails on any truncated (`…`) invariant.\n"
         "- **MF2** — regenerated all 10 skill bodies without the fixed-length truncation that had "
-        "severed Procedure/anti-pattern steps mid-clause; the generator now renders full principle "
-        "statements and fails if any body still contains a truncation ellipsis.\n"
-        "- **MF3 (P146)** — attributed the notice-severity table to Byrne as one illustrative "
-        "convention and added a hedge to verify the governing warning-label standard for the target "
-        "market (e.g. ANSI Z535 / ISO 3864) rather than asserting one ordering as fact.\n"
-        "- **MF8 (P003)** — rephrased the invariant from a first-person production imperative to an "
-        "advisory statement, and made the advice-only boundary unambiguously override the operating "
-        "invariants; the invariants list no longer reads as licence to produce a translation.\n"
-        "- **MF4** — added an explicit forbidden behaviour against certifying/signing off "
-        "safety-critical or legally-mandated content (the role and golden test GT-005 already required it).\n"
-        "- **Faithfulness (MF5/MF6/MF7 + SF)** — dropped a manufactured evidence anchor (P045) from "
-        "precedence, restored P133's client-permission caveat and P104's hedge, narrowed the "
-        "source-deficiency escalation duty to safety-critical content, softened 'every'→'nearly every' "
-        "(P069), corrected the P078 handoff citation, and graded the precedence rule.\n"
-        "- **SF9/SF10** — added routing triggers for the iconic-linkage and document-type skills, a "
-        "sibling-disambiguation when-not-to-use line, and reframed web/EUR-Lex consultation as advice "
-        "to the caller (the advisor's tools are Read/Grep/Glob).\n\n"
+        "severed Procedure steps mid-clause; the generator now renders full statements and rejects any "
+        "body containing a truncation ellipsis.\n"
+        "- **MF3 (P146, safety)** — rewrote so the first sentence carries the complete duty to verify "
+        "the notice-severity hierarchy against the market's governing warning-label standard (ANSI Z535, "
+        "ISO 3864, IEC 82079-1); Byrne's table is now a clearly-bracketed example with an explicit flag "
+        "that its Warning/Caution assignment is the reverse of the common standard ranking "
+        "(DANGER > WARNING > CAUTION > NOTICE).\n"
+        "- **MF8 (P003 + adapter template)** — de-imperative'd P003, and fixed the shared adapter "
+        "template so the Operating-invariants section is explicitly subordinate to the role boundary and "
+        "Forbidden behaviours, resolving the invariants-vs-boundary contradiction.\n"
+        "- **MF4** — added a forbidden behaviour against certifying/signing off safety-critical or "
+        "legally-mandated content (grounded in the commissioner's sign-off remit, P090).\n"
+        "- **Faithfulness** — dropped a manufactured evidence anchor (P045) from precedence; restored "
+        "P133's client-permission caveat and P104's hedge; narrowed the source-deficiency escalation to "
+        "safety-critical content in **both** quality_bar[5] and forbidden_behaviours[3]; softened "
+        "'every'→'nearly every' in **both** quality_bar[0] and always_on[0]; kept Latin nomenclature "
+        "audience-conditional (P071) and footnote-avoidance scoped to queries (P139); corrected the P078 "
+        "handoff citation; and graded the precedence rule and all 10 always_on bullets.\n"
+        "- **Domain accuracy** — scoped precedence so documentary (P035) and form-priority (P089) "
+        "translations keep literal fidelity, with P133's reorder threshold corrected; P070 now names "
+        "adaptation as the fourth oblique procedure (P131); P042 distinguishes concurrent from "
+        "retrospective think-aloud (C00379); P018 prefers a pre-tested questionnaire (C00387); P080 is "
+        "scoped to marketing case studies with a genre-check flag (P072/P128).\n"
+        "- **SF9/SF10/NH1** — added routing triggers for the iconic-linkage and document-type skills, a "
+        "sibling-disambiguation when-not-to-use line, reframed web/EUR-Lex consultation as advice to the "
+        "caller (Read/Grep/Glob toolset), and fixed the skill Purpose grammar.\n\n"
         "## 1.0.0 — 2026-07-11\n\n"
         "### Added\n"
         "- Initial LLM-authored layer over the deterministically-valid distilled spine "

@@ -66,13 +66,13 @@ legally-mandated content — those are handed back to the translator and the com
 ## Procedure
 
 1. Evaluate user guides holistically with representative task-based usability testing; readability formulas are only partial indicators. (P006)
-2. Combine objective observation with carefully designed subjective instruments. (P018)
+2. Combine objective observation with carefully designed subjective instruments, preferring a pre-designed, pre-tested questionnaire over authoring one (which demands considerable psychometric and statistical expertise). (P018)
 3. Evaluate documentation strategies through summative user testing that collects both performance and satisfaction data and is refined by pilot work. (P022)
 4. Build usability from the start using cognetics, explicit goals, and measurable criteria. (P032)
 5. Implement usability through a hierarchy of principles, guidelines, local rules, and style guides, while still validating with users. (P039)
 6. Establish usability with evaluation rather than design confidence alone. (P040)
 7. Select evaluation methods from the test question and required data, distinguishing formative, summative, analytical, empirical, absolute, and comparative methods. (P041)
-8. Avoid think-aloud protocols when representative task performance is the measurement target. (P042)
+8. Avoid concurrent think-aloud (thinking aloud while performing the task) when representative task performance is the measurement target; use retrospective think-aloud (commenting on a session recording afterwards) for improvement-oriented insight, though it adds little when the goal is to quantify rather than to improve. (P042)
 9. Evaluate usability for specified users, goals, and contexts through effectiveness, efficiency, and satisfaction. (P049)
 10. Build guide quality early and improve it iteratively with user involvement and pilot studies. (P064)
 11. Define a small, observable, product-relevant set of performance criteria before testing. (P084)

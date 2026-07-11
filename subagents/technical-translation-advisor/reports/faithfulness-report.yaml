@@ -4,6 +4,11 @@
 # source support: rules are EXACT_SUPPORT or a deliberate WITHIN_SCOPE narrowing (advice-only
 # posture, source scope). source_anchors are omitted deliberately — provenance is carried in
 # each note via principle + claim IDs, which resolve into the spine.
+# NOTE (review-loop): P146's principle body was hedged to name external warning-label standards
+# (ANSI Z535, ISO 3864, IEC 82079-1) and the common severity ranking. That standard content is
+# ADVISOR-ADDED verification context for safety, not a Byrne source claim (C00820/C00821 cover
+# only 'warnings need care' + Byrne's own illustrative table); it makes the guidance more
+# cautious, never less, and is flagged here rather than presented as source-grounded.
 schema_version: faithfulness-report-v1
 subagent_slug: technical-translation-advisor
 findings:
@@ -189,9 +194,10 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'Honouring safety, legal, brand and style constraints is supported; the escalate-on-source-deficiency
-    duty is scoped to safety-critical/warning content (P081), while style and brand constraints are honoured
-    (P102, P144) without a blanket escalation duty. Grounded in principle(s): P081 (claims C00059, C00060,
+  note: 'Honouring safety, legal, brand and style constraints is supported (the legal/standards-QA half
+    is grounded in P011); the escalate-on-source-deficiency duty is scoped to safety-critical/warning
+    content (P081), while style and brand constraints are honoured (P102, P144) without a blanket escalation
+    duty. Grounded in principle(s): P011 (claims C00091, C00096, C00097); P081 (claims C00059, C00060,
     C00061); P102 (claims C00768, C00769, C00770); P117 (claims C00137, C00138); P144 (claims C00812,
     C00813); P146 (claims C00820, C00821).'
 - rule_ref: forbidden_behaviours[0]
@@ -244,16 +250,17 @@ findings:
   note: 'Not presenting an untested usability opinion as an evaluated finding is directly supported. Grounded
     in principle(s): P040 (claims C00362, C00363, C00365); P049 (claims C00248, C00249, C00250).'
 - rule_ref: forbidden_behaviours[5]
-  verdict: EXACT_SUPPORT
+  verdict: WITHIN_SCOPE
   distortion:
   - none
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'Not certifying, signing off, or declaring safety-critical/warning/legally-mandated content compliant,
-    correct, or safe — the advisor flags concerns and escalates; certification is the client''s compliance
-    process — is directly supported. Grounded in principle(s): P081 (claims C00059, C00060, C00061); P117
-    (claims C00137, C00138); P146 (claims C00820, C00821).'
+  note: 'Not certifying/signing off safety-critical or legally-mandated content as compliant or safe —
+    the advisor flags and escalates. The safety-content duty is grounded in P081/P117/P146; the ownership-of-certification
+    half rests on the commissioner''s sign-off remit (P090). A within-scope narrowing of the sources''
+    division of authority, not an over-claim. Grounded in principle(s): P081 (claims C00059, C00060, C00061);
+    P090 (claims C00597, C00749, C00750); P117 (claims C00137, C00138); P146 (claims C00820, C00821).'
 - rule_ref: handoff_rules[0]
   verdict: EXACT_SUPPORT
   distortion:
@@ -283,11 +290,124 @@ findings:
   support_granularity: section
   severity: low
   action: accept_with_note
-  note: 'The precedence order — target-user function governs a literal rendering at sentence/paragraph
-    level (moving whole chapters or sections still needs the client''s permission), a principle is an
-    adaptable guide not a fixed rule, no recommendation is stated more confidently than the source supports,
-    and safety or legally-mandated content is never weakened for style — restates the sources'' contextual,
-    audience-driven stance with their own hedges intact; a narrowing, not an over-claim. Grounded in principle(s):
-    P014 (claims C00014, C00015, C00030); P015 (claims C00070, C00071, C00072); P023 (claims C00001, C00002,
-    C00009); P046 (claims C00113, C00114, C00115); P081 (claims C00059, C00060, C00061); P133 (claims
-    C00745, C00746).'
+  note: 'The precedence order — target-user function governs for instrumental/functional-priority text,
+    while documentary translations and form-priority text types keep literal fidelity as the governing
+    function (P035, P089); reorder freely within sentences/paragraphs/chapters but a whole chapter or
+    section as a block needs the client''s permission (P133); a principle is an adaptable guide not a
+    fixed rule (P014, P046); no recommendation exceeds its source support (P015); safety/legally-mandated
+    content is never weakened for style (P081) — restates the sources'' contextual stance with their hedges
+    intact; a narrowing, not an over-claim. Grounded in principle(s): P014 (claims C00014, C00015, C00030);
+    P015 (claims C00070, C00071, C00072); P023 (claims C00001, C00002, C00009); P035 (claims C00753, C00754,
+    C00755); P046 (claims C00113, C00114, C00115); P081 (claims C00059, C00060, C00061); P089 (claims
+    C00572, C00573, C00574); P133 (claims C00745, C00746).'
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Audience/brief-driven decisions, with ''nearly every'' matching P069''s own hedge; a faithful
+    summary. Grounded in principle(s): P002 (claims C00035, C00036, C00037); P020 (claims C00122, C00123,
+    C00124); P024 (claims C00081, C00082, C00083); P056 (claims C00583, C00756, C00757); P069 (claims
+    C00617, C00618, C00619); P090 (claims C00597, C00749, C00750); P121 (claims C00576, C00577); P129
+    (claims C00705, C00712).'
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Strategy from situation not maxims, with P133''s client-permission caveat for whole-section moves
+    carried; a faithful summary. Grounded in principle(s): P014 (claims C00014, C00015, C00030); P015
+    (claims C00070, C00071, C00072); P035 (claims C00753, C00754, C00755); P046 (claims C00113, C00114,
+    C00115); P070 (claims C00724, C00725, C00726); P089 (claims C00572, C00573, C00574); P130 (claims
+    C00717, C00718); P133 (claims C00745, C00746).'
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Reader-cognition summary — minimise processing effort and working-memory load; no clause strengthened.
+    Grounded in principle(s): P003 (claims C00127, C00128, C00129); P009 (claims C00269, C00270, C00271);
+    P025 (claims C00085, C00086, C00087); P045 (claims C00102, C00103, C00104); P137 (claims C00777, C00778).'
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Technical-precision summary; Latin nomenclature kept audience-conditional (P071), SI units hedged
+    ''wherever the source system can be preserved'' (P104), web consultation framed as advice to the translator
+    (Read/Grep/Glob toolset); a faithful summary. Grounded in principle(s): P071 (claims C00826, C00827,
+    C00828); P093 (claims C00647, C00648, C00649); P094 (claims C00655, C00656, C00657); P098 (claims
+    C00686, C00687, C00688); P103 (claims C00771, C00772, C00773); P104 (claims C00789, C00790, C00791);
+    P140 (claims C00784, C00785).'
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Iconic-linkage summary — one uniform construction only where standardisation is practical; faithful.
+    Grounded in principle(s): P013 (claims C00482, C00483, C00484); P021 (claims C00336, C00341, C00342);
+    P074 (claims C00490, C00491, C00510); P075 (claims C00527, C00528, C00529); P134 (claims C00747, C00748).'
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Document-type/genre summary — classify by communicative purpose before translating; faithful.
+    Grounded in principle(s): P068 (claims C00551, C00554, C00555); P072 (claims C00132, C00133, C00134);
+    P080 (claims C00681, C00682, C00714); P091 (claims C00599, C00600, C00601); P128 (claims C00696, C00697).'
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Presentation-as-communication summary — layout/typography/structure as usability factors; faithful.
+    Grounded in principle(s): P004 (claims C00253, C00254, C00255); P005 (claims C00177, C00178, C00179);
+    P016 (claims C00201, C00202, C00203); P124 (claims C00653, C00654); P147 (claims C00832, C00833).'
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Evaluation-planning summary — method chosen from the test question, observable criteria/metrics;
+    faithful. Grounded in principle(s): P006 (claims C00235, C00236, C00237); P018 (claims C00380, C00381,
+    C00382); P040 (claims C00362, C00363, C00365); P041 (claims C00363, C00365, C00366); P084 (claims
+    C00397, C00398, C00399).'
+- rule_ref: knowledge_partition.always_on[8]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Study-conduct summary — representative participants, pilot, control confounds, small-sample stats;
+    faithful. Grounded in principle(s): P019 (claims C00434, C00435, C00436); P027 (claims C00472, C00473,
+    C00474); P051 (claims C00390, C00391, C00392); P065 (claims C00415, C00425, C00426); P066 (claims
+    C00459, C00460, C00463).'
+- rule_ref: knowledge_partition.always_on[9]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  support_granularity: section
+  severity: low
+  action: accept_with_note
+  note: 'Quality/safety/practice summary; footnote avoidance scoped to flagging confusion/queries (P139),
+    safety content made explicit and a deficient source escalated (P081); a faithful summary. Grounded
+    in principle(s): P001 (claims C00004, C00017, C00019); P011 (claims C00091, C00096, C00097); P081
+    (claims C00059, C00060, C00061); P117 (claims C00137, C00138); P139 (claims C00782, C00783); P141
+    (claims C00801, C00802); P144 (claims C00812, C00813); P146 (claims C00820, C00821).'
