@@ -65,6 +65,13 @@ def test_to_invariant_never_truncates_mid_clause():
     assert "…" not in out and out == stmt
 
 
+def test_to_invariant_does_not_split_at_inline_abbreviation():
+    # A period inside "(e.g. ...)" is not a sentence end; the sentence must end at the real
+    # terminator, not stop dead at "(e.g" (which gutted P103/P142/P143 into non-instructive stubs).
+    stmt = "Leave code identifiers (e.g. FILE_NAME) unchanged. They are not prose."
+    assert _to_invariant(stmt) == "Leave code identifiers (e.g. FILE_NAME) unchanged"
+
+
 # ---- compile_invariants ----------------------------------------------------------------------
 
 
@@ -156,3 +163,16 @@ def test_coverage_fails_on_truncated_invariant(tmp_path):
     p = _pkg(tmp_path, _PRINCIPLES, body)
     errs = validate_invariant_coverage(p)
     assert errs and "truncates" in errs[0]
+
+
+def test_coverage_fails_on_dangling_parenthesis(tmp_path):
+    # An invariant split inside a parenthetical leaves an unbalanced "(" — content was dropped even
+    # though the [PRP-001] tag is present, so coverage-by-tag alone must not pass it.
+    body = (
+        "## Operating invariants (must hold)\n"
+        "- **[PRP-001]** Leave identifiers unchanged (e.g\n"
+        "\n## When to use\n- always"
+    )
+    p = _pkg(tmp_path, _PRINCIPLES, body)
+    errs = validate_invariant_coverage(p)
+    assert errs and "unbalanced" in errs[0]

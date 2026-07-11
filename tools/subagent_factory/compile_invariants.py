@@ -28,6 +28,14 @@ import yaml
 
 INVARIANT_SECTION_HEADING = "## Operating invariants (must hold)"
 _MAX_INVARIANT_CHARS = 160
+# Inline abbreviations whose internal period must NOT be read as a sentence end (else a rule is
+# truncated at, e.g., "(e.g"). Parenthetical periods are handled separately by paren-depth tracking.
+_SENTENCE_ABBREVS = ("e.g.", "i.e.", "cf.", "etc.", "vs.", "al.", "no.", "fig.")
+
+
+def _ends_with_abbrev(text: str) -> bool:
+    low = text.lower()
+    return any(low.endswith(a) for a in _SENTENCE_ABBREVS)
 
 
 def strip_invariant_section(adapter_text: str) -> str:
@@ -44,23 +52,28 @@ def strip_invariant_section(adapter_text: str) -> str:
 def _to_invariant(statement: str, max_chars: int = _MAX_INVARIANT_CHARS) -> str:
     """Reduce a principle statement to a complete, self-sufficient rule line (deterministic).
 
-    Renders the principle's **first sentence in full**. It never truncates mid-clause: an invariant
-    that silently drops its own conditions or hedges is worse than a longer line — for a safety rule
-    (e.g. the warning-severity caveat in P146) a mid-clause cut inverts the meaning, and the earlier
-    ``head-before-colon`` + 160-char ``…`` reduction did exactly that (it also dropped the operative
-    tail after a colon, e.g. every concrete style rule in P102). A principle whose whole rule must
-    survive should therefore be written so its FIRST sentence is self-sufficient; the fuller
-    elaboration lives in the skill body and the principles index. ``max_chars`` is retained for
-    signature compatibility but no longer severs a sentence.
+    Renders the principle's **first sentence in full**, never severing a clause: an invariant that
+    silently drops its own conditions or hedges is worse than a longer line — for a safety rule (the
+    warning-severity caveat in P146) a mid-clause cut inverts the meaning. The sentence boundary is a
+    ``.``/``!``/``?`` at parenthesis depth 0 that is not the dot of an inline abbreviation ("e.g.",
+    "i.e."). Periods inside a parenthetical (``... (e.g. FILE_NAME) ...``) or an abbreviation are NOT
+    sentence ends — an earlier regex without those guards split rules at "(e.g", and the one before
+    that (head-before-colon + a 160-char ``…`` cut) dropped the operative tail after a colon. A
+    principle whose whole rule must survive should be written so its first sentence is
+    self-sufficient; fuller elaboration lives in the skill body and the principles index. ``max_chars``
+    is retained for signature compatibility but no longer severs a sentence.
     """
-    import re
-
     s = " ".join(str(statement).split())
-    # First sentence, kept whole. Do NOT split on a colon: the tail after a colon routinely carries
-    # the operative detail (the concrete rule, or a safety hedge), which head-only truncation drops.
-    m = re.search(r"(?<=[a-z0-9\)])\.(?:\s|$)", s)
-    head = (s[: m.start() + 1] if m else s).rstrip(" .;,")
-    return head
+    depth = 0
+    for i, ch in enumerate(s):
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth = max(0, depth - 1)
+        elif ch in ".!?" and depth == 0 and (i + 1 == len(s) or s[i + 1] == " "):
+            if i and (s[i - 1].isalnum() or s[i - 1] == ")") and not _ends_with_abbrev(s[: i + 1]):
+                return s[: i + 1].rstrip(" .;,")
+    return s.rstrip(" .;,")
 
 
 def compile_invariants(principles: list[dict]) -> list[dict]:
@@ -128,20 +141,27 @@ def validate_invariant_coverage(principles_path: str | Path) -> list[str]:
             "adapter invariant layer is stale — missing must-hold principle(s) "
             f"{', '.join(missing)} (re-export the adapter)"
         ]
-    # Content-survival, not just tag-presence: an invariant truncated mid-clause (trailing "…")
-    # silently drops its rule tail — for safety-tier content this can invert meaning, and coverage
-    # by tag alone cannot see it (this is what shipped a gutted P146 warning-severity rule).
+    # Content-survival, not just tag-presence: a compiled invariant must not be truncated mid-clause.
+    # Two signatures — a trailing "…" (the old 160-char cut) or an unbalanced "(" (a first-sentence
+    # split inside a parenthetical, e.g. a rule stopping at "(e.g"). For safety-tier content either
+    # can invert or hollow out the rule, and coverage-by-tag alone sees neither.
     import re
 
     section = re.search(
         rf"{re.escape(INVARIANT_SECTION_HEADING)}(.*?)(?=\n## |\Z)", text, flags=re.S
     )
-    if section and "…" in section.group(1):
-        truncated = [ln.strip() for ln in section.group(1).splitlines() if "…" in ln]
-        return [
-            "adapter invariant layer truncates rule content (trailing '…') — a compiled invariant "
-            "dropped its tail; fix compile_invariants and re-export: " + " | ".join(truncated[:3])
+    if section:
+        bad = [
+            ln.strip()
+            for ln in section.group(1).splitlines()
+            if ln.lstrip().startswith("- **[") and ("…" in ln or ln.count("(") > ln.count(")"))
         ]
+        if bad:
+            return [
+                "adapter invariant layer truncates rule content (trailing '…' or unbalanced "
+                "parenthesis) — a compiled invariant dropped its tail; fix compile_invariants and "
+                "re-export: " + " | ".join(bad[:3])
+            ]
     return []
 
 
