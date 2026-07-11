@@ -134,7 +134,7 @@ def validate_invariant_coverage(principles_path: str | Path) -> list[str]:
     import re
 
     section = re.search(
-        rf"{re.escape(INVARIANT_SECTION_HEADING)}(.*?)(?=\n## )", text, flags=re.S
+        rf"{re.escape(INVARIANT_SECTION_HEADING)}(.*?)(?=\n## |\Z)", text, flags=re.S
     )
     if section and "…" in section.group(1):
         truncated = [ln.strip() for ln in section.group(1).splitlines() if "…" in ln]
