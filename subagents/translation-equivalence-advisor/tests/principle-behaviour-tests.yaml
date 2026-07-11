@@ -1,0 +1,1413 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: translation-equivalence-advisor
+generated_at: '2026-07-11'
+tests:
+- test_id: PBT-P001
+  principle_id: P001
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: handling a word with no direct target equivalent
+  prompt: 'A translation situation where the concern is: handling a word with no direct target equivalent.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P001 — "Diagnose the specific type of word-level non-equivalence
+    — culture-specific concept, unlexicalized concept, semantic complexity, differing meaning distinctions,
+    a missing superordinate or hyponym, dif" — naming the strategy or correction and the residual loss,
+    and does not deliver the finished translation.
+  principle_coverage:
+  - P001
+- test_id: PBT-P002
+  principle_id: P002
+  skill: thematic-and-information-structure
+  applies_when: signalling given and new information in the target
+  prompt: 'A translation situation where the concern is: signalling given and new information in the target.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P002 — "Signal given and new information with the
+    device the target language uses, definiteness, grammatical subordination, cleft or pseudo-cleft structures,
+    or punctuation, rather than transferring the sourc" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P002
+- test_id: PBT-P003
+  principle_id: P003
+  skill: thematic-and-information-structure
+  applies_when: analysing information flow, especially in a free-word-order language
+  prompt: 'A translation situation where the concern is: analysing information flow, especially in a free-word-order
+    language. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P003 — "Understand that theme usually coincides with
+    given and rheme with new, and become familiar with at least one Functional Sentence Perspective model,
+    its communicative dynamism, the theme-transition-rhe" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P003
+- test_id: PBT-P004
+  principle_id: P004
+  skill: cohesion-and-texture
+  applies_when: managing the cohesive links of a text
+  prompt: 'A translation situation where the concern is: managing the cohesive links of a text. Advise
+    or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P004 — "Treat cohesion as the surface network of lexical
+    and grammatical relations, reference, substitution, ellipsis, conjunction, and lexical cohesion, that
+    links a text's parts, and rework it to each langu" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P004
+- test_id: PBT-P005
+  principle_id: P005
+  skill: register-style-and-literary-form
+  applies_when: The source genre makes meter, rhythm, lyric force, or other formal effects part of the
+    message
+  prompt: 'A translation situation where the concern is: The source genre makes meter, rhythm, lyric force,
+    or other formal effects part of the message. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P005 — "Weight content and form by their communicative
+    function, preserving form more strongly when it carries genre, emotional force, or poetic effect."
+    — naming the strategy or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P005
+- test_id: PBT-P006
+  principle_id: P006
+  skill: text-level-approach-and-limits-of-equivalence
+  applies_when: translating any complete text
+  prompt: 'A translation situation where the concern is: translating any complete text. Advise or review
+    against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P006 — "Aim for equivalence at the level of the whole
+    text rather than the word or phrase: read the source through at least once to grasp its gist before
+    translating, view the text as a whole at the start and" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P006
+- test_id: PBT-P007
+  principle_id: P007
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: judging whether a translation will make sense to its readers
+  prompt: 'A translation situation where the concern is: judging whether a translation will make sense
+    to its readers. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P007 — "Treat coherence as the reader's judgement,
+    the conceptual relations they build under the surface text, not a property of the text, so cohesive
+    markers alone cannot make a text cohere and a co-referenc" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P007
+- test_id: PBT-P008
+  principle_id: P008
+  skill: dynamic-and-formal-equivalence
+  applies_when: Source form, exocentric expression, or emotive association does not transfer naturally
+    into the receptor language
+  prompt: 'A translation situation where the concern is: Source form, exocentric expression, or emotive
+    association does not transfer naturally into the receptor language. Advise or review against the relevant
+    equivalence principle.'
+  expected_behaviour: The advisor applies principle P008 — "In dynamic equivalence, make formal adjustments
+    where literary form, idioms, or culturally embedded emotive meanings would otherwise block or distort
+    receptor understanding." — naming the strategy or correction and the residual loss, and does not deliver
+    the finished translation.
+  principle_coverage:
+  - P008
+- test_id: PBT-P009
+  principle_id: P009
+  skill: grammatical-equivalence
+  applies_when: rendering active or passive voice across languages
+  prompt: 'A translation situation where the concern is: rendering active or passive voice across languages.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P009 — "Translate voice by function, not form: never
+    render passive-by-passive and active-by-active mechanically, because the passive serves different
+    functions across languages, constructing agentless clause" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P009
+- test_id: PBT-P010
+  principle_id: P010
+  skill: text-level-approach-and-limits-of-equivalence
+  applies_when: making or justifying a translation decision
+  prompt: 'A translation situation where the concern is: making or justifying a translation decision.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P010 — "Base translation decisions on a systematic
+    understanding of language and reflect on them deliberately rather than relying on intuition or an
+    unexplained flair, since theoretical knowledge only deliver" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P010
+- test_id: PBT-P011
+  principle_id: P011
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: analysing what a word contributes to a message
+  prompt: 'A translation situation where the concern is: analysing what a word contributes to a message.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P011 — "Distinguish the propositional, expressive,
+    presupposed, and evoked meanings of a word or utterance when assessing a rendering, recognising that
+    a charge of inaccuracy usually concerns propositional me" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P011
+- test_id: PBT-P012
+  principle_id: P012
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: assessing an item's value or handling a lexical gap
+  prompt: 'A translation situation where the concern is: assessing an item''s value or handling a lexical
+    gap. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P012 — "Use the structure of semantic fields, comparing
+    an item against the alternatives it contrasts with, to assess its value and to fill target-language
+    gaps by moving up the superordinate/hyponym hierarch" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P012
+- test_id: PBT-P013
+  principle_id: P013
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: a stretch of language may be an idiom or fixed expression
+  prompt: 'A translation situation where the concern is: a stretch of language may be an idiom or fixed
+    expression. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P013 — "Treat idioms and fixed expressions as frozen,
+    largely invariant patterns whose meaning, for idioms, cannot be deduced from their parts, and make
+    recognising the idiom the first step, using the cue tha" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P013
+- test_id: PBT-P014
+  principle_id: P014
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: rendering an idiom into the target language
+  prompt: 'A translation situation where the concern is: rendering an idiom into the target language.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P014 — "Apply idiom strategies by fit: a target idiom
+    of similar meaning and form (rarely available, and a simultaneous literal-and-idiomatic play needs
+    form-and-meaning correspondence), a similar-meaning idi" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P014
+- test_id: PBT-P015
+  principle_id: P015
+  skill: grammatical-equivalence
+  applies_when: the target language forces a gender choice the source leaves open
+  prompt: 'A translation situation where the concern is: the target language forces a gender choice the
+    source leaves open. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P015 — "Handle grammatical gender by its function:
+    it matters most for human referents where the distinction is non-arbitrary, the masculine is usually
+    the unmarked term, a gender-neutral stance transfers poo" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P015
+- test_id: PBT-P016
+  principle_id: P016
+  skill: thematic-and-information-structure
+  applies_when: a source or target text foregrounds an element for emphasis
+  prompt: 'A translation situation where the concern is: a source or target text foregrounds an element
+    for emphasis. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P016 — "Know the marked-theme devices, fronted theme
+    (mildly marked for adjuncts but strongly for objects, complements, and predicators), predicated theme
+    (an it-cleft presenting its thematic element as new) " — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P016
+- test_id: PBT-P017
+  principle_id: P017
+  skill: cohesion-and-texture
+  applies_when: signalling relations between chunks of information
+  prompt: 'A translation situation where the concern is: signalling relations between chunks of information.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P017 — "Handle conjunction as the marking of a small
+    set of general relations, additive, adversative, causal, temporal, and continuative, whose realization
+    and frequency vary sharply across languages, adding " — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P017
+- test_id: PBT-P018
+  principle_id: P018
+  skill: cohesion-and-texture
+  applies_when: rebuilding a text's lexical networks in the target language
+  prompt: 'A translation situation where the concern is: rebuilding a text''s lexical networks in the
+    target language. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P018 — "Accept that lexical-cohesion networks cannot
+    be reproduced identically, since every strategy such as superordinate, paraphrase, or loan word and
+    every grammatical rewording produces different chains a" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P018
+- test_id: PBT-P019
+  principle_id: P019
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: source and target contexts or ordering conventions differ
+  prompt: 'A translation situation where the concern is: source and target contexts or ordering conventions
+    differ. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P019 — "Adjust a translation to the target context''s
+    realities and ordering conventions, because context supplies the premises for any implicature: a term
+    that denotes a different institution or a measure tak" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P019
+- test_id: PBT-P020
+  principle_id: P020
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: deciding how much background to make explicit
+  prompt: 'A translation situation where the concern is: deciding how much background to make explicit.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P020 — "Assess and supply the target reader''s background
+    knowledge deliberately: decide whether to explain a reference by the reader''s assumed familiarity
+    and your licence to intervene, remembering that write" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P020
+- test_id: PBT-P021
+  principle_id: P021
+  skill: dynamic-and-formal-equivalence
+  applies_when: Selecting among literal, formal, functional, adaptive, or explanatory renderings
+  prompt: 'A translation situation where the concern is: Selecting among literal, formal, functional,
+    adaptive, or explanatory renderings. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P021 — "Choose translation tactics from the message
+    type, communicative purpose, and intended audience rather than from a single universal method." —
+    naming the strategy or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P021
+- test_id: PBT-P022
+  principle_id: P022
+  skill: dynamic-and-formal-equivalence
+  applies_when: The audience is studying the source context, linguistic structure, philosophical terminology,
+    or formal features
+  prompt: 'A translation situation where the concern is: The audience is studying the source context,
+    linguistic structure, philosophical terminology, or formal features. Advise or review against the
+    relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P022 — "Use formal-equivalence or gloss strategies
+    when readers need close access to source form, terminology, structure, and source-cultural context."
+    — naming the strategy or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P022
+- test_id: PBT-P023
+  principle_id: P023
+  skill: dynamic-and-formal-equivalence
+  applies_when: The receptor culture lacks the source object, uses a similar object differently, or has
+    no formal or functional equivalent
+  prompt: 'A translation situation where the concern is: The receptor culture lacks the source object,
+    uses a similar object differently, or has no formal or functional equivalent. Advise or review against
+    the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P023 — "For culturally nonmatching referents, choose
+    deliberately among formal term plus note, functional equivalent, borrowed term with classifier, and
+    receptor-language description." — naming the strategy or correction and the residual loss, and does
+    not deliver the finished translation.
+  principle_coverage:
+  - P023
+- test_id: PBT-P024
+  principle_id: P024
+  skill: thematic-and-information-structure
+  applies_when: a structure's markedness differs between source and target
+  prompt: 'A translation situation where the concern is: a structure''s markedness differs between source
+    and target. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P024 — "Match thematic markedness by function, not
+    form: convert an unmarked source structure to an unmarked target one and an emphatic source structure
+    to a target emphasis device, replace structures far mor" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P024
+- test_id: PBT-P025
+  principle_id: P025
+  skill: grammatical-equivalence
+  applies_when: source and target grammars oblige different information
+  prompt: 'A translation situation where the concern is: source and target grammars oblige different information.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P025 — "Expect grammar to constrain the translation
+    like a straitjacket: because languages differ in which notions they oblige a writer to express, grammatical
+    differences add information when the target has " — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P025
+- test_id: PBT-P026
+  principle_id: P026
+  skill: grammatical-equivalence
+  applies_when: rendering pronouns of address across differing person systems
+  prompt: 'A translation situation where the concern is: rendering pronouns of address across differing
+    person systems. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P026 — "When translating pronouns into a language
+    that marks formality (the T/V distinction), gender, or inclusive/exclusive reference, make conscious
+    decisions about participants' relationships and social st" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P026
+- test_id: PBT-P027
+  principle_id: P027
+  skill: thematic-and-information-structure
+  applies_when: organizing information flow across sentences
+  prompt: 'A translation situation where the concern is: organizing information flow across sentences.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P027 — "Attend to a text''s information dynamics,
+    treating each clause as a message whose interactional organization drives a clean progression of links:
+    word order controls information flow, a sentence flows " — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P027
+- test_id: PBT-P028
+  principle_id: P028
+  skill: thematic-and-information-structure
+  applies_when: producing or reviewing a stretch of connected text
+  prompt: 'A translation situation where the concern is: producing or reviewing a stretch of connected
+    text. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P028 — "Maintain a discernible thematic method of
+    development in the target text, since the overall choice and ordering of themes rather than any single
+    theme provides orientation and continuity, different te" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P028
+- test_id: PBT-P029
+  principle_id: P029
+  skill: thematic-and-information-structure
+  applies_when: sequencing given and new information in the target
+  prompt: 'A translation situation where the concern is: sequencing given and new information in the target.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P029 — "Order information given-before-new, the hearer-oriented,
+    context-dependent default that aids comprehension and underlies end-focus and end-weight, and resolve
+    clashes between end-weight and a basic ta" — naming the strategy or correction and the residual loss,
+    and does not deliver the finished translation.
+  principle_coverage:
+  - P029
+- test_id: PBT-P030
+  principle_id: P030
+  skill: thematic-and-information-structure
+  applies_when: the source marks its information focus for emphasis or surprise
+  prompt: 'A translation situation where the concern is: the source marks its information focus for emphasis
+    or surprise. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P030 — "Handle marked information focus by the target''s
+    means: information structure is realized by tonicity, so a focus shifted for surprise or contrast,
+    a marked rheme with the theme stripped to foreground " — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P030
+- test_id: PBT-P031
+  principle_id: P031
+  skill: cohesion-and-texture
+  applies_when: tracing a participant across a text
+  prompt: 'A translation situation where the concern is: tracing a participant across a text. Advise or
+    review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P031 — "Trace participants and entities through reference,
+    the textual identity between expressions, most often pronouns, noting that a language's number and
+    gender pronoun distinctions and its reliance on si" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P031
+- test_id: PBT-P032
+  principle_id: P032
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: reasoning about how a hearer infers implied meaning
+  prompt: 'A translation situation where the concern is: reasoning about how a hearer infers implied meaning.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P032 — "Use the Co-operative Principle and its four
+    maxims, Quantity, Quality, Relevance, and Manner, as orientation points rather than strict rules:
+    readers attribute relevance even to seemingly unrelated co" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P032
+- test_id: PBT-P033
+  principle_id: P033
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: reasoning about communicative norms across cultures
+  prompt: 'A translation situation where the concern is: reasoning about communicative norms across cultures.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P033 — "Treat Grice's specific maxims as culture-relative
+    rather than universal, since Be polite overrides them in some cultures, discourse and rhetoric norms
+    differ (German digression, Arabic repetition-by-a" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P033
+- test_id: PBT-P034
+  principle_id: P034
+  skill: dynamic-and-formal-equivalence
+  applies_when: The translation brief prioritizes equivalent audience response, naturalness, or practical
+    comprehension
+  prompt: 'A translation situation where the concern is: The translation brief prioritizes equivalent
+    audience response, naturalness, or practical comprehension. Advise or review against the relevant
+    equivalence principle.'
+  expected_behaviour: The advisor applies principle P034 — "Use dynamic-equivalence strategies when the
+    target task is to reproduce the receptor effect or relationship to the message rather than to display
+    source form." — naming the strategy or correction and the residual loss, and does not deliver the
+    finished translation.
+  principle_coverage:
+  - P034
+- test_id: PBT-P035
+  principle_id: P035
+  skill: dynamic-and-formal-equivalence
+  applies_when: Assessing a translation against its intended purpose and audience impact
+  prompt: 'A translation situation where the concern is: Assessing a translation against its intended
+    purpose and audience impact. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P035 — "Evaluate translation adequacy by sense, source
+    spirit and manner, natural receptor expression, and similar audience response, while accepting multiple
+    valid solutions." — naming the strategy or correction and the residual loss, and does not deliver
+    the finished translation.
+  principle_coverage:
+  - P035
+- test_id: PBT-P036
+  principle_id: P036
+  skill: dynamic-and-formal-equivalence
+  applies_when: Revising a translation toward natural receptor response
+  prompt: 'A translation situation where the concern is: Revising a translation toward natural receptor
+    response. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P036 — "For dynamic equivalence, test naturalness
+    across receptor language and culture, the local message context, and the intended audience while preserving
+    source meaning." — naming the strategy or correction and the residual loss, and does not deliver the
+    finished translation.
+  principle_coverage:
+  - P036
+- test_id: PBT-P037
+  principle_id: P037
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: rendering a source word or expression into another language
+  prompt: 'A translation situation where the concern is: rendering a source word or expression into another
+    language. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P037 — "Never assume a one-to-one correspondence
+    between words and meanings across languages: each language articulates the world differently, so a
+    single source word may map to several target words, to none," — naming the strategy or correction
+    and the residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P037
+- test_id: PBT-P038
+  principle_id: P038
+  skill: cohesion-and-texture
+  applies_when: choosing cohesive devices for the target text
+  prompt: 'A translation situation where the concern is: choosing cohesive devices for the target text.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P038 — "Do not transfer the source text's cohesive
+    devices; rework the methods of establishing links to the target language's textual norms, because
+    each language's grammar and each genre's conventions favour" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P038
+- test_id: PBT-P039
+  principle_id: P039
+  skill: text-level-approach-and-limits-of-equivalence
+  applies_when: interpreting or reviewing a source or target text
+  prompt: 'A translation situation where the concern is: interpreting or reviewing a source or target
+    text. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P039 — "Analyse a text at both the level of its individual
+    forms and the level of the whole discourse, because the linguistic levels are not discrete and a word-
+    or grammar-level choice is shaped by, and has " — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P039
+- test_id: PBT-P040
+  principle_id: P040
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: checking whether a word combination is natural in the target language
+  prompt: 'A translation situation where the concern is: checking whether a word combination is natural
+    in the target language. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P040 — "Distinguish grammatical rules (exceptionless
+    restrictions on word classes) from lexical patterning (exception-admitting, individual-word regularities
+    of collocation and idiom), and treat differences i" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P040
+- test_id: PBT-P041
+  principle_id: P041
+  skill: register-style-and-literary-form
+  applies_when: choosing the level of formality and register for a target text
+  prompt: 'A translation situation where the concern is: choosing the level of formality and register
+    for a target text. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P041 — "Match the translation to the register expectations
+    of its intended receivers along field, tenor, and mode, deciding tenor by the perceived purpose of
+    the translation, unless the purpose is deliberatel" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P041
+- test_id: PBT-P042
+  principle_id: P042
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: judging whether a word combination is natural in a language
+  prompt: 'A translation situation where the concern is: judging whether a word combination is natural
+    in a language. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P042 — "Treat collocation, the regular co-occurrence
+    of words, as largely arbitrary and independent of propositional meaning and as reflecting a community's
+    preferred modes of expression rather than any order" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P042
+- test_id: PBT-P043
+  principle_id: P043
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: assessing the typicality of a word combination
+  prompt: 'A translation situation where the concern is: assessing the typicality of a word combination.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P043 — "Judge collocations by what is typical rather
+    than admissible: every word has a collocational range shaped by its generality and its number of senses,
+    ranges are open and grow over time, and a collocat" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P043
+- test_id: PBT-P044
+  principle_id: P044
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: deciding how to render a recognised idiom
+  prompt: 'A translation situation where the concern is: deciding how to render a recognised idiom. Advise
+    or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P044 — "Do not assume an idiom has a target equivalent,
+    since how a language expresses a meaning is unpredictable; containing culture-specific items does
+    not itself make an idiom untranslatable, as its meanin" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P044
+- test_id: PBT-P045
+  principle_id: P045
+  skill: grammatical-equivalence
+  applies_when: comparing what source and target grammars oblige a writer to express
+  prompt: 'A translation situation where the concern is: comparing what source and target grammars oblige
+    a writer to express. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P045 — "Recognise that both a language's lexical resources
+    and its grammatical system determine what can be said and how, since each language regularly makes
+    only certain distinctions explicit, such as time, " — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P045
+- test_id: PBT-P046
+  principle_id: P046
+  skill: grammatical-equivalence
+  applies_when: rendering tense and aspect between differing systems
+  prompt: 'A translation situation where the concern is: rendering tense and aspect between differing
+    systems. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P046 — "Do not map tense and aspect mechanically:
+    their systems vary in fineness and some encode modal or discourse meanings rather than time, so preserve
+    the target language''s natural signalling rather than " — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P046
+- test_id: PBT-P047
+  principle_id: P047
+  skill: thematic-and-information-structure
+  applies_when: examining how a clause distributes its information
+  prompt: 'A translation situation where the concern is: examining how a clause distributes its information.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P047 — "Analyse each clause as a theme, what it is
+    about placed in initial position and orienting back and forward, plus a rheme, what is said about
+    it and carrying the key information; theme-rheme is hierarc" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P047
+- test_id: PBT-P048
+  principle_id: P048
+  skill: thematic-and-information-structure
+  applies_when: target word order clashes with the source's information flow
+  prompt: 'A translation situation where the concern is: target word order clashes with the source''s
+    information flow. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P048 — "Draw on the strategies for resolving tension
+    between syntax and information flow: voice change (keeping the passive''s impersonality in the supplied
+    subject), change of verb (such as give and get or bu" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P048
+- test_id: PBT-P049
+  principle_id: P049
+  skill: cohesion-and-texture
+  applies_when: adjusting conjunctions or repackaging text into chunks
+  prompt: 'A translation situation where the concern is: adjusting conjunctions or repackaging text into
+    chunks. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P049 — "Adjust conjunction and chunking carefully,
+    because conjunction is genre-specific and reflects a text's rhetoric and line of argument so that
+    changing it can change content, and rechunk a text only for" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P049
+- test_id: PBT-P050
+  principle_id: P050
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: a text challenges or deviates from the reader's normal expectations
+  prompt: 'A translation situation where the concern is: a text challenges or deviates from the reader''s
+    normal expectations. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P050 — "Examine anything that would violate the target
+    reader's expectations and adjust it to avoid wrong implicatures, since an unmotivated deviant configuration
+    at any linguistic level blocks meaning, but a" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P050
+- test_id: PBT-P051
+  principle_id: P051
+  skill: text-level-approach-and-limits-of-equivalence
+  applies_when: Choosing or evaluating a translation strategy across languages with nonidentical forms
+    and meanings
+  prompt: 'A translation situation where the concern is: Choosing or evaluating a translation strategy
+    across languages with nonidentical forms and meanings. Advise or review against the relevant equivalence
+    principle.'
+  expected_behaviour: 'The advisor applies principle P051 — "Treat translation as an interpretive approximation:
+    seek the closest defensible equivalent, not exact identity between languages." — naming the strategy
+    or correction and the residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P051
+- test_id: PBT-P052
+  principle_id: P052
+  skill: dynamic-and-formal-equivalence
+  applies_when: A local idiom or natural expression carries the intended concept or required response
+    better than a semantic gloss
+  prompt: 'A translation situation where the concern is: A local idiom or natural expression carries the
+    intended concept or required response better than a semantic gloss. Advise or review against the relevant
+    equivalence principle.'
+  expected_behaviour: The advisor applies principle P052 — "Prefer receptor-language idioms and expressions
+    that make the message meaningful for the audience, especially when bare intelligibility would under-communicate
+    the intended force." — naming the strategy or correction and the residual loss, and does not deliver
+    the finished translation.
+  principle_coverage:
+  - P052
+- test_id: PBT-P053
+  principle_id: P053
+  skill: dynamic-and-formal-equivalence
+  applies_when: The target audience differs by literacy, age, expertise, cultural experience, or task
+    interest
+  prompt: 'A translation situation where the concern is: The target audience differs by literacy, age,
+    expertise, cultural experience, or task interest. Advise or review against the relevant equivalence
+    principle.'
+  expected_behaviour: The advisor applies principle P053 — "Calibrate vocabulary, style, explanation,
+    and explicitness to the audience’s decoding capacity, experience, and interests." — naming the strategy
+    or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P053
+- test_id: PBT-P054
+  principle_id: P054
+  skill: dynamic-and-formal-equivalence
+  applies_when: Source and receptor languages or cultures differ in affiliation, practice, institutions,
+    or apparent cognates
+  prompt: 'A translation situation where the concern is: Source and receptor languages or cultures differ
+    in affiliation, practice, institutions, or apparent cognates. Advise or review against the relevant
+    equivalence principle.'
+  expected_behaviour: The advisor applies principle P054 — "Diagnose linguistic and cultural distance
+    before translating, watching for false friends and for cultural gaps that may matter more than grammar."
+    — naming the strategy or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P054
+- test_id: PBT-P055
+  principle_id: P055
+  skill: grammatical-equivalence
+  applies_when: Selecting wording where source grammar or vocabulary does not map cleanly into the receptor
+    language
+  prompt: 'A translation situation where the concern is: Selecting wording where source grammar or vocabulary
+    does not map cleanly into the receptor language. Advise or review against the relevant equivalence
+    principle.'
+  expected_behaviour: The advisor applies principle P055 — "Adapt grammar and lexicon according to receptor-language
+    requirements, first classifying terms as ordinary parallels, functional cultural analogues, or culture-specific
+    items." — naming the strategy or correction and the residual loss, and does not deliver the finished
+    translation.
+  principle_coverage:
+  - P055
+- test_id: PBT-P056
+  principle_id: P056
+  skill: dynamic-and-formal-equivalence
+  applies_when: Style, tone, irony, social class, dialect, or characterization contributes to the source
+    message
+  prompt: 'A translation situation where the concern is: Style, tone, irony, social class, dialect, or
+    characterization contributes to the source message. Advise or review against the relevant equivalence
+    principle.'
+  expected_behaviour: The advisor applies principle P056 — "Preserve the source’s total stylistic impression
+    by adapting style norms, emotional tone, authorial stance, and character voice for receptor-language
+    effect." — naming the strategy or correction and the residual loss, and does not deliver the finished
+    translation.
+  principle_coverage:
+  - P056
+- test_id: PBT-P057
+  principle_id: P057
+  skill: grammatical-equivalence
+  applies_when: The receptor language requires categories or forms absent, implicit, ambiguous, or inappropriate
+    in the source
+  prompt: 'A translation situation where the concern is: The receptor language requires categories or
+    forms absent, implicit, ambiguous, or inappropriate in the source. Advise or review against the relevant
+    equivalence principle.'
+  expected_behaviour: The advisor applies principle P057 — "Always satisfy obligatory receptor-language
+    features, but flag forced additions, specifications, or omissions when the source does not directly
+    support them." — naming the strategy or correction and the residual loss, and does not deliver the
+    finished translation.
+  principle_coverage:
+  - P057
+- test_id: PBT-P058
+  principle_id: P058
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: interpreting a source word that occurs in a fixed combination
+  prompt: 'A translation situation where the concern is: interpreting a source word that occurs in a fixed
+    combination. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P058 — "At the interpretation stage, read a word through
+    its collocational pattern rather than substituting a dictionary equivalent, because a collocation's
+    meaning can differ from the sum of its parts and ev" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P058
+- test_id: PBT-P059
+  principle_id: P059
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: rendering a culture-specific item, modern concept, or buzz word
+  prompt: 'A translation situation where the concern is: rendering a culture-specific item, modern concept,
+    or buzz word. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P059 — "Translate with a loan word, optionally explained
+    once so it can then stand alone, for culture-specific items, modern concepts, and buzz words, weighing
+    that loan words may be chosen for evoked prestig" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P059
+- test_id: PBT-P060
+  principle_id: P060
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: no single target lexical item captures the source concept
+  prompt: 'A translation situation where the concern is: no single target lexical item captures the source
+    concept. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P060 — "Translate by paraphrase — a related word for
+    a differently-lexicalized concept, or unrelated words for an unlexicalized or semantically complex
+    one — accepting that paraphrase gives high propositional" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P060
+- test_id: PBT-P061
+  principle_id: P061
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: a source text uses an unusual or striking word combination
+  prompt: 'A translation situation where the concern is: a source text uses an unusual or striking word
+    combination. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P061 — "Recognise marked collocations, unusual combinations
+    that challenge reader expectations for effect, and judge markedness relative to the register's norm,
+    rendering a marked source collocation with a si" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P061
+- test_id: PBT-P062
+  principle_id: P062
+  skill: text-level-approach-and-limits-of-equivalence
+  applies_when: drafting or revising a target text
+  prompt: 'A translation situation where the concern is: drafting or revising a target text. Advise or
+    review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P062 — "Guard against source-language interference:
+    set a draft aside and re-read it as a target reader to avoid carrying over untypical source collocations,
+    beware misreading a source collocation or idiom th" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P062
+- test_id: PBT-P063
+  principle_id: P063
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: rendering an unmarked collocation with no exact target match
+  prompt: 'A translation situation where the concern is: rendering an unmarked collocation with no exact
+    target match. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P063 — "Balance typicality against accuracy when rendering
+    a collocation, accepting that some loss, addition, or skewing is unavoidable and judging any change
+    by its significance in context; favour establishe" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P063
+- test_id: PBT-P064
+  principle_id: P064
+  skill: grammatical-equivalence
+  applies_when: translating between a number-marking and a numberless language
+  prompt: 'A translation situation where the concern is: translating between a number-marking and a numberless
+    language. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P064 — "When moving between languages that differ
+    in the grammatical category of number, choose between omitting the number information and encoding
+    it lexically, but do not overspecify number that the target" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P064
+- test_id: PBT-P065
+  principle_id: P065
+  skill: thematic-and-information-structure
+  applies_when: judging whether a thematic choice is marked
+  prompt: 'A translation situation where the concern is: judging whether a thematic choice is marked.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P065 — "Read markedness as meaning: an element carries
+    meaning to the extent it is selected, so an obligatory position is unmarked and weak while an unexpected
+    choice is marked, meaningful, and in need of mot" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P065
+- test_id: PBT-P066
+  principle_id: P066
+  skill: thematic-and-information-structure
+  applies_when: translating to or from a topic-prominent language
+  prompt: 'A translation situation where the concern is: translating to or from a topic-prominent language.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P066 — "Recognise the limits of the Hallidayan initial-position
+    view of theme, its partial circularity and poor fit for verb-initial and topic-prominent languages,
+    and handle topic-prominent languages such as" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P066
+- test_id: PBT-P067
+  principle_id: P067
+  skill: thematic-and-information-structure
+  applies_when: deciding whether an item can be treated as given
+  prompt: 'A translation situation where the concern is: deciding whether an item can be treated as given.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P067 — "Judge givenness by what the speaker assumes
+    is in the addressee's consciousness, and reintroduce a previously mentioned element as new, for example
+    with an indefinite form, after enough intervening te" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P067
+- test_id: PBT-P068
+  principle_id: P068
+  skill: cohesion-and-texture
+  applies_when: tracing participants across differing reference systems
+  prompt: 'A translation situation where the concern is: tracing participants across differing reference
+    systems. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P068 — "Rework reference patterns to the target language's
+    norms, since anaphora varies within and across languages and by text type, English leaning on pronouns,
+    Hebrew and Brazilian Portuguese on names and " — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P068
+- test_id: PBT-P069
+  principle_id: P069
+  skill: cohesion-and-texture
+  applies_when: managing the overall texture and explicitness of a translation
+  prompt: 'A translation situation where the concern is: managing the overall texture and explicitness
+    of a translation. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P069 — "Remember that the five cohesive devices exist
+    in many languages but with different preferences, frequencies, and combinations, that cohesion is
+    also carried by tense continuity, stylistic consistency," — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P069
+- test_id: PBT-P070
+  principle_id: P070
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: interpreting what an utterance implies beyond its literal sense
+  prompt: 'A translation situation where the concern is: interpreting what an utterance implies beyond
+    its literal sense. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P070 — "Aim for explanatory coherence, which justifies
+    the continuity of sense, not merely supplemental coherence that supplies minimal links, and analyse
+    implicature, what a speaker implies beyond the litera" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P070
+- test_id: PBT-P071
+  principle_id: P071
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: rendering an utterance that carries implied meaning
+  prompt: 'A translation situation where the concern is: rendering an utterance that carries implied meaning.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P071 — "Handle implicature carefully in translation,
+    since implicatures are often indeterminate and a rendering can eliminate a source interpretation or
+    introduce a new one: any mistranslation of words or str" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P071
+- test_id: PBT-P072
+  principle_id: P072
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: a reference must be understood to draw the right inference
+  prompt: 'A translation situation where the concern is: a reference must be understood to draw the right
+    inference. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P072 — "Identify each reference well enough to interpret
+    the associations it triggers, not just who or what it is, since an unknown name or culture-specific
+    item breaks continuity and obscures relevance, a cu" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P072
+- test_id: PBT-P073
+  principle_id: P073
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: a rendering could offend or over- or under-inform the target reader
+  prompt: 'A translation situation where the concern is: a rendering could offend or over- or under-inform
+    the target reader. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P073 — "Weigh politeness and taboo against accuracy,
+    since in some contexts being polite outranks being accurate and a translator may omit or replace text
+    that would offend on a taboo subject, judge for the t" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P073
+- test_id: PBT-P074
+  principle_id: P074
+  skill: dynamic-and-formal-equivalence
+  applies_when: A retained source form, literal idiom, or supplied target word could otherwise be unclear
+    or mistaken for explicit source wording
+  prompt: 'A translation situation where the concern is: A retained source form, literal idiom, or supplied
+    target word could otherwise be unclear or mistaken for explicit source wording. Advise or review against
+    the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P074 — "When retaining source forms, idioms, or added
+    target-language words in a formal translation, make the support visible through notes or markers when
+    needed for comprehension." — naming the strategy or correction and the residual loss, and does not
+    deliver the finished translation.
+  principle_coverage:
+  - P074
+- test_id: PBT-P075
+  principle_id: P075
+  skill: register-style-and-literary-form
+  applies_when: The rendering uses slang, ritual vocabulary, imitative forms, swear categories, or other
+    socially marked language
+  prompt: 'A translation situation where the concern is: The rendering uses slang, ritual vocabulary,
+    imitative forms, swear categories, or other socially marked language. Advise or review against the
+    relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P075 — "Check register and discourse fit locally:
+    vocabulary, semantic classes, expressive forms, and cultural contexts may be natural in one receptor
+    setting and disruptive in another." — naming the strategy or correction and the residual loss, and
+    does not deliver the finished translation.'
+  principle_coverage:
+  - P075
+- test_id: PBT-P076
+  principle_id: P076
+  skill: register-style-and-literary-form
+  applies_when: The poem’s purpose is affective, aesthetic, or formally poetic
+  prompt: 'A translation situation where the concern is: The poem’s purpose is affective, aesthetic, or
+    formally poetic. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P076 — "Translate poetry as receptor-language poetry
+    that elicits comparable feeling, rather than as word-for-word formal correspondence." — naming the
+    strategy or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P076
+- test_id: PBT-P077
+  principle_id: P077
+  skill: register-style-and-literary-form
+  applies_when: The musical structure cannot support a close verbal or thematic rendering
+  prompt: 'A translation situation where the concern is: The musical structure cannot support a close
+    verbal or thematic rendering. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P077 — "When music is preserved, allow metrical adaptation,
+    theme rearrangement, omission, addition, or alteration, but keep lyric wording fully natural." — naming
+    the strategy or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P077
+- test_id: PBT-P078
+  principle_id: P078
+  skill: text-level-approach-and-limits-of-equivalence
+  applies_when: assessing how closely a translation matches its source
+  prompt: 'A translation situation where the concern is: assessing how closely a translation matches its
+    source. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P078 — "Treat equivalence as relative and only partially
+    achievable rather than an absolute standard, because it is shaped by linguistic and cultural factors;
+    equivalence is a convenient working term, not a f" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P078
+- test_id: PBT-P079
+  principle_id: P079
+  skill: text-level-approach-and-limits-of-equivalence
+  applies_when: reviewing or critiquing a translation
+  prompt: 'A translation situation where the concern is: reviewing or critiquing a translation. Advise
+    or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P079 — "Evaluate a translation as a set of strengths
+    and weaknesses open to improvement rather than as simply good or bad, and treat translation strategies
+    as options observed in real practice, not preconceiv" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P079
+- test_id: PBT-P080
+  principle_id: P080
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: a target equivalent differs in expressive load from the source
+  prompt: 'A translation situation where the concern is: a target equivalent differs in expressive load
+    from the source. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P080 — "When a target equivalent carries the wrong
+    expressive load, prefer a more neutral word and, if needed, restore expressive meaning with a modifier,
+    because it is easier to add expressive meaning than t" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P080
+- test_id: PBT-P081
+  principle_id: P081
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: a culture-specific item works mainly for expressive impact
+  prompt: 'A translation situation where the concern is: a culture-specific item works mainly for expressive
+    impact. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P081 — "Use cultural substitution — replacing a culture-specific
+    item with a target item of similar impact but different propositional meaning — when the item works
+    chiefly for expressive value, gauging its a" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P081
+- test_id: PBT-P082
+  principle_id: P082
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: an item is minor and would need distracting explanation
+  prompt: 'A translation situation where the concern is: an item is minor and would need distracting explanation.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P082 — "Use omission only as a last resort, when an
+    item is not vital to the text and rendering it would distract the reader, or to drop expressions that
+    betray a source-text orientation irrelevant to a diffe" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P082
+- test_id: PBT-P083
+  principle_id: P083
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: an expression could be read either literally or idiomatically
+  prompt: 'A translation situation where the concern is: an expression could be read either literally
+    or idiomatically. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P083 — "Watch for the two idiom traps, a misleading
+    idiom that also has a plausible literal reading and a source idiom whose target look-alike differs
+    in meaning, and examine the collocational environment of " — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P083
+- test_id: PBT-P084
+  principle_id: P084
+  skill: grammatical-equivalence
+  applies_when: weighing a grammatical against a lexical choice
+  prompt: 'A translation situation where the concern is: weighing a grammatical against a lexical choice.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P084 — "Distinguish morphology from syntax and remember
+    the key point for translation: grammatical choices come from closed systems and are largely obligatory,
+    ruling out alternatives by default, whereas lexi" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P084
+- test_id: PBT-P085
+  principle_id: P085
+  skill: grammatical-equivalence
+  applies_when: rendering modal or other grammatical-category meaning
+  prompt: 'A translation situation where the concern is: rendering modal or other grammatical-category
+    meaning. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P085 — "Render modality by its function rather than
+    its literal form, since certainty, possibility, and obligation take different forms across languages,
+    and investigate how other categories, mood, direct and" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P085
+- test_id: PBT-P086
+  principle_id: P086
+  skill: thematic-and-information-structure
+  applies_when: deciding the ordering of clause elements in the target
+  prompt: 'A translation situation where the concern is: deciding the ordering of clause elements in the
+    target. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P086 — "Treat word order as significant beyond grammar:
+    languages differ in how much they rely on it, fixed in English and Chinese but freer with case inflection
+    as in Russian, and it plays a major role in ma" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P086
+- test_id: PBT-P087
+  principle_id: P087
+  skill: cohesion-and-texture
+  applies_when: approaching a whole text for translation or review
+  prompt: 'A translation situation where the concern is: approaching a whole text for translation or review.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P087 — "Analyse a text through its levels of connection,
+    thematic and information structures for topic development, cohesion for surface links, and coherence
+    and implicature for underlying meaning, and use ge" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P087
+- test_id: PBT-P088
+  principle_id: P088
+  skill: thematic-and-information-structure
+  applies_when: the source's thematic pattern may not transfer naturally
+  prompt: 'A translation situation where the concern is: the source''s thematic pattern may not transfer
+    naturally. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P088 — "Preserve the source's thematic patterning
+    when its elements sit naturally in target theme position, but when preserving it would distort the
+    target, abandon it and give the target its own method of de" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P088
+- test_id: PBT-P089
+  principle_id: P089
+  skill: thematic-and-information-structure
+  applies_when: translating between languages of differing word-order freedom
+  prompt: 'A translation situation where the concern is: translating between languages of differing word-order
+    freedom. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P089 — "Recognise that word order serves syntactic,
+    semantic, and communicative functions at once and that languages prioritise them differently by how
+    fixed their order is, English leading with syntax and fr" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P089
+- test_id: PBT-P090
+  principle_id: P090
+  skill: thematic-and-information-structure
+  applies_when: the source's thematic organization cannot be fully preserved
+  prompt: 'A translation situation where the concern is: the source''s thematic organization cannot be
+    fully preserved. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P090 — "Present the target text from a similar perspective
+    to the source where possible, but where word-order restrictions, end-weight, or natural phraseology
+    prevent it, give the target text its own thematic" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P090
+- test_id: PBT-P091
+  principle_id: P091
+  skill: cohesion-and-texture
+  applies_when: weighing fidelity to source cohesion against target naturalness
+  prompt: 'A translation situation where the concern is: weighing fidelity to source cohesion against
+    target naturalness. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P091 — "Decide whether to follow source cohesion patterns
+    or approximate target ones by the translation's purpose and the licence to rechunk, knowing that following
+    source norms minimizes meaning change while" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P091
+- test_id: PBT-P092
+  principle_id: P092
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: choosing forms of address or culturally-marked conventions
+  prompt: 'A translation situation where the concern is: choosing forms of address or culturally-marked
+    conventions. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P092 — "Respect the target reader's sense of what
+    is socially and textually appropriate, the context for Be polite, including conventions like the expected
+    calendar, and adjust modes of address, titles, name " — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P092
+- test_id: PBT-P093
+  principle_id: P093
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: deciding how far to intervene for the target reader
+  prompt: 'A translation situation where the concern is: deciding how far to intervene for the target
+    reader. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P093 — "Minimize discrepancies between the source
+    text's model of the world and the target reader's, calibrating how much to intervene by the reader's
+    assessed knowledge, since more shared knowledge and world" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P093
+- test_id: PBT-P094
+  principle_id: P094
+  skill: dynamic-and-formal-equivalence
+  applies_when: A key source term needs to remain visible across the translation for study or interpretation
+  prompt: 'A translation situation where the concern is: A key source term needs to remain visible across
+    the translation for study or interpretation. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P094 — "Use concordant terminology only where it helps
+    readers track important source terms; relax it when consistency produces unnatural or meaningless
+    receptor text." — naming the strategy or correction and the residual loss, and does not deliver the
+    finished translation.
+  principle_coverage:
+  - P094
+- test_id: PBT-P095
+  principle_id: P095
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: Source terms, objects, institutions, or themes are deeply embedded in the source culture
+  prompt: 'A translation situation where the concern is: Source terms, objects, institutions, or themes
+    are deeply embedded in the source culture. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P095 — "Do not erase culturally embedded source items
+    merely to sound natural; retain, describe, or annotate them when the foreign setting is part of the
+    message." — naming the strategy or correction and the residual loss, and does not deliver the finished
+    translation.
+  principle_coverage:
+  - P095
+- test_id: PBT-P096
+  principle_id: P096
+  skill: text-level-approach-and-limits-of-equivalence
+  applies_when: Clarifying an ambiguous source passage or choosing historically marked terminology
+  prompt: 'A translation situation where the concern is: Clarifying an ambiguous source passage or choosing
+    historically marked terminology. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P096 — "Avoid solving ambiguity or historical distance
+    with phrasing that becomes technical, legalistic, anachronistic, or artificially archaic." — naming
+    the strategy or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P096
+- test_id: PBT-P097
+  principle_id: P097
+  skill: dynamic-and-formal-equivalence
+  applies_when: A phrase may have been intelligible to an insider audience or specialist community
+  prompt: 'A translation situation where the concern is: A phrase may have been intelligible to an insider
+    audience or specialist community. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P097 — "Infer both the original audience and the receptor
+    audience before targeting equivalent response; do not assume either audience is the general public."
+    — naming the strategy or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P097
+- test_id: PBT-P098
+  principle_id: P098
+  skill: dynamic-and-formal-equivalence
+  applies_when: The receptor audience would otherwise decode too slowly, miss implicit background, or
+    lose cultural meaning
+  prompt: 'A translation situation where the concern is: The receptor audience would otherwise decode
+    too slowly, miss implicit background, or lose cultural meaning. Advise or review against the relevant
+    equivalence principle.'
+  expected_behaviour: The advisor applies principle P098 — "Use expansion and redundancy to support equivalent
+    communication load and decoding rate, but scope additions to the message, audience, setting, and publication
+    purpose." — naming the strategy or correction and the residual loss, and does not deliver the finished
+    translation.
+  principle_coverage:
+  - P098
+- test_id: PBT-P099
+  principle_id: P099
+  skill: register-style-and-literary-form
+  applies_when: The source relies on puns, acrostics, rhyme, rhythm, or similar sound-based devices
+  prompt: 'A translation situation where the concern is: The source relies on puns, acrostics, rhyme,
+    rhythm, or similar sound-based devices. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P099 — "Treat source sound effects as effects to approximate
+    opportunistically, not as forms that can normally be preserved with close similarity." — naming the
+    strategy or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P099
+- test_id: PBT-P100
+  principle_id: P100
+  skill: dynamic-and-formal-equivalence
+  applies_when: illustrating or checking structural differences between source and target
+  prompt: 'A translation situation where the concern is: illustrating or checking structural differences
+    between source and target. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P100 — "Use back-translation only to expose a target
+    text's morphological, syntactic, or lexical structure, remembering it is a theoretically unsound compromise
+    that never reproduces the original's meaning." — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P100
+- test_id: PBT-P101
+  principle_id: P101
+  skill: text-level-approach-and-limits-of-equivalence
+  applies_when: interpreting a source item prior to rendering it
+  prompt: 'A translation situation where the concern is: interpreting a source item prior to rendering
+    it. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P101 — "Perceive the meaning of words and utterances
+    precisely in their specific context before rendering them, despite the inherently blurred and negotiable
+    edges of word meaning." — naming the strategy or correction and the residual loss, and does not deliver
+    the finished translation.
+  principle_coverage:
+  - P101
+- test_id: PBT-P102
+  principle_id: P102
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: selecting a strategy for a non-equivalence problem
+  prompt: 'A translation situation where the concern is: selecting a strategy for a non-equivalence problem.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P102 — "Resolve non-equivalence by context rather
+    than by absolute rules, because the suitable equivalent depends on linguistic and extra-linguistic
+    factors and on how both the source writer and the translato" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P102
+- test_id: PBT-P103
+  principle_id: P103
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: encountering any instance of non-equivalence
+  prompt: 'A translation situation where the concern is: encountering any instance of non-equivalence.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P103 — "Before deciding how to handle a non-equivalence,
+    assess its significance in the given context and reproduce only what is focal to the text, rather
+    than trying to render every aspect of every word in i" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P103
+- test_id: PBT-P104
+  principle_id: P104
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: the target lacks a specific equivalent but has a general term
+  prompt: 'A translation situation where the concern is: the target lacks a specific equivalent but has
+    a general term. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P104 — "Translate by a more general word (superordinate)
+    as a broadly applicable strategy for non-equivalence, especially of propositional meaning, since the
+    hierarchical structure of semantic fields is not l" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P104
+- test_id: PBT-P105
+  principle_id: P105
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: the untranslatable item denotes a picturable physical entity under space constraints
+  prompt: 'A translation situation where the concern is: the untranslatable item denotes a picturable
+    physical entity under space constraints. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P105 — "Translate by illustration when a word lacking
+    a target equivalent denotes a picturable physical entity and space constraints require the text to
+    stay short and concise." — naming the strategy or correction and the residual loss, and does not deliver
+    the finished translation.
+  principle_coverage:
+  - P105
+- test_id: PBT-P106
+  principle_id: P106
+  skill: word-level-nonequivalence-and-strategies
+  applies_when: building translation competence or choosing among strategies
+  prompt: 'A translation situation where the concern is: building translation competence or choosing among
+    strategies. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P106 — "Treat the catalogue of non-equivalence strategies
+    as open rather than exhaustive, and keep studying professional translations to discover further strategies
+    and to weigh each strategy's advantages and" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P106
+- test_id: PBT-P107
+  principle_id: P107
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: translating technical or specialized material
+  prompt: 'A translation situation where the concern is: translating technical or specialized material.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P107 — "For specialized texts, learn which collocates
+    are compatible with a term in both languages, because register-specific collocations extend well beyond
+    terminology and native-speaker intuition alone doe" — naming the strategy or correction and the residual
+    loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P107
+- test_id: PBT-P108
+  principle_id: P108
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: a source collocation carries culture-specific associations
+  prompt: 'A translation situation where the concern is: a source collocation carries culture-specific
+    associations. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P108 — "When translating a culture-specific collocation
+    that conveys unfamiliar associations, accept an unavoidable partial increase in information, since
+    the unfamiliar association cannot be introduced witho" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P108
+- test_id: PBT-P109
+  principle_id: P109
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: selecting among idiom translation strategies
+  prompt: 'A translation situation where the concern is: selecting among idiom translation strategies.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P109 — "Choose an idiom strategy by weighing style,
+    register, and rhetorical effect, not merely whether a similar-meaning target idiom exists, and resist
+    the strong urge to force in a receptor-language idiom " — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P109
+- test_id: PBT-P110
+  principle_id: P110
+  skill: collocation-idiom-and-fixed-expression
+  applies_when: aiming for a natural, fluent target text
+  prompt: 'A translation situation where the concern is: aiming for a natural, fluent target text. Advise
+    or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P110 — "Use the target language's natural phraseology,
+    its collocations, its own fixed and semi-fixed expressions, and the right level of idiomaticity, to
+    enhance readability and let a translation pass for an" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P110
+- test_id: PBT-P111
+  principle_id: P111
+  skill: text-level-approach-and-limits-of-equivalence
+  applies_when: assessing whether an unusual rendering is warranted
+  prompt: 'A translation situation where the concern is: assessing whether an unusual rendering is warranted.
+    Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P111 — "Judge whether a deviant configuration is
+    justified from the reader''s point of view, not the translator''s: a rendering is not acceptable merely
+    because it let the translator finish the job, since to be" — naming the strategy or correction and
+    the residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P111
+- test_id: PBT-P112
+  principle_id: P112
+  skill: cohesion-and-texture
+  applies_when: rendering a polysemous item that carries more than one relevant sense
+  prompt: 'A translation situation where the concern is: rendering a polysemous item that carries more
+    than one relevant sense. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P112 — "Guard coherence at the lexical level, since
+    a single mistranslated polysemous item can shift a text's coherence when the source exploits several
+    of its meanings and the target equivalent carries none " — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P112
+- test_id: PBT-P113
+  principle_id: P113
+  skill: pragmatic-equivalence-coherence-and-implicature
+  applies_when: an utterance's literal form does not match its communicative force
+  prompt: 'A translation situation where the concern is: an utterance''s literal form does not match its
+    communicative force. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: 'The advisor applies principle P113 — "Read utterances by their implicit function,
+    not only their form, using speech-act theory alongside implicature: a declarative may make a request
+    or an interrogative express reproof, so recover the ill" — naming the strategy or correction and the
+    residual loss, and does not deliver the finished translation.'
+  principle_coverage:
+  - P113
+- test_id: PBT-P114
+  principle_id: P114
+  skill: register-style-and-literary-form
+  applies_when: The message is poetry, song, film, or another form tied to a transmission vehicle
+  prompt: 'A translation situation where the concern is: The message is poetry, song, film, or another
+    form tied to a transmission vehicle. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P114 — "Treat literary form and delivery medium as
+    real constraints on how much dynamic equivalence a translation can achieve." — naming the strategy
+    or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P114
+- test_id: PBT-P115
+  principle_id: P115
+  skill: dynamic-and-formal-equivalence
+  applies_when: A receptor community already has translation traditions, strong literalness expectations,
+    or diglot/publication constraints
+  prompt: 'A translation situation where the concern is: A receptor community already has translation
+    traditions, strong literalness expectations, or diglot/publication constraints. Advise or review against
+    the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P115 — "Account for cultural expectations about faithfulness,
+    existing translations, and publication format before deciding how far dynamic equivalence may go."
+    — naming the strategy or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P115
+- test_id: PBT-P116
+  principle_id: P116
+  skill: register-style-and-literary-form
+  applies_when: The translation must be sung to existing or specified music
+  prompt: 'A translation situation where the concern is: The translation must be sung to existing or specified
+    music. Advise or review against the relevant equivalence principle.'
+  expected_behaviour: The advisor applies principle P116 — "For song translation, fit words to the musical
+    vehicle first, including phrase length, syllable count, stress, rhyme, and singable vowel quality."
+    — naming the strategy or correction and the residual loss, and does not deliver the finished translation.
+  principle_coverage:
+  - P116
