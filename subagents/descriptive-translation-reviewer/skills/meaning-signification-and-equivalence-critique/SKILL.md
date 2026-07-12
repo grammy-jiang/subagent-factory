@@ -1,5 +1,18 @@
 ---
 name: meaning-signification-and-equivalence-critique
+description: Reviews the theory of meaning and signification underlying an equivalence
+  claim — the critique of naive cross-code identity, dictionary-equivalence trust,
+  and the semiotic nature of meaning across word, grammar, and pragmatic levels —
+  as distinct from producing a translation. Tie-breaker — a review that turns on the
+  practical linguistic equivalence mechanism itself (choosing a word, collocation,
+  idiom, grammatical, or information-structure equivalent) routes to the sibling `translation-equivalence-advisor`;
+  this skill stays on the theory of meaning, not the mechanism of producing an equivalent.
+  Within this package, the theory-of-meaning premise stays here; formal-versus-dynamic
+  orientation/effect fit routes to `equivalence-orientations-and-effect` and procedure/shift
+  naming to `translation-procedures-and-shifts`. The indeterminacy-of-reference and
+  hermeneutic-motion critique (Quine's inscrutability, Steiner's fourfold motion)
+  routes to `hermeneutics-and-the-limits-of-translatability`; this skill stays on
+  the word- and sign-level signification premise.
 kind: skill
 status: ready
 provenance:
@@ -34,35 +47,38 @@ provenance:
   - C00391
   evidence: []
   source_anchors: []
-  authored_from_digest: aa64ce46b763fd3cb0bcc75e5ae13270db40732832ddcf1e5bd66218b8c5ffe0
+  authored_from_digest: 78dbedaf645ad6c005ecfce05bb32069fdc154255dba44f7ca4b1b1bbb948d70
 ---
 
 # Meaning, Signification And The Equivalence Critique
 
 ## Purpose
 
-This skill reviews the theory of meaning underlying an equivalence claim. It checks against naive cross-code identity — the referential argument that two dictionary equivalents share signification — and analyses equivalence across word, above-word, grammar, thematic structure, cohesion, and pragmatics, remembering that languages differ chiefly in what they must convey.
+This skill reviews the theory of meaning and signification underlying an equivalence claim — the critique of naive cross-code identity that treats two dictionary equivalents, or two items that share a referent, as automatically sharing signification. It checks that equivalence is analysed at the right level (word through pragmatics), that obligatory grammatical categories are recognized as forced choices rather than stylistic colouring, and that meaning is treated as a semiotic, sign-to-sign fact rather than a thing directly given by pointing at an object. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or select the actual target-language equivalent.
 
 ## When to use
 
 - An equivalence claim rests on dictionary or referential identity and needs the signification critique applied.
-- Obligatory grammatical categories (gender, aspect, kinship fields) force a resolution the target must make.
-- Meaning is being treated as a thing rather than a semiotic, context-bound fact.
-- A multi-level equivalence analysis (word to pragmatics) is being organised.
+- Obligatory grammatical categories (gender, aspect, number) force a target resolution and the review must check whether that resolution was recognized as forced rather than chosen.
+- A multi-level equivalence analysis (word to pragmatics) is being organized or checked for completeness.
+- An equivalence typology (dynamic/formal, semantic/communicative, covert/overt) is being invoked and its normative-versus-descriptive status needs surfacing.
+- Meaning is being treated as a fixed thing rather than a semiotic, context-bound, sign-to-sign fact.
+- The dispersion among competing translation variants is being judged as an error rather than checked against lexical segmentation and genre.
 
 ## Procedure
 
-1. Reject cross-code identity as the basis of translation (P004).
-2. Recognize that conventional translation of expository writing privileges the capture of signifieds (P008).
-3. Before assessing or producing a translation, fix its type and vocabulary (P058).
-4. Remember that languages differ essentially in what they must convey, not in what they may convey (P073).
-5. Do not equate sameness of referent with sameness of signification (P094).
-6. Analyse equivalence at multiple levels (P109).
-7. Distrust dictionary equivalence (P116).
-8. Recognize that 1960s-70s equivalence theory is fundamentally normative (P121).
-9. Expect the dispersion of possible translation variants to track the two languages' relative lexical segmentation (P127).
-10. Treat grammar as an embedded interpretation of reality (P148).
-11. Treat meaning as a semiotic fact, not a thing (P178).
+1. Reject cross-code identity as the basis of translation, since the referential argument fails because a word signifies through its systematic relations within its own code rather than through the object it names (P004).
+2. Check whether the review privileges only the capture of signifieds and demand that fidelity extend to the chain of signifiers, syntactic processes, and rhetorical strategies, not just semantic substance (P008).
+3. Before assessing or producing a translation, confirm its type — intralingual, interlingual, or intersemiotic — and name the source and target texts and languages (P058).
+4. Verify that obligatory grammatical categories such as aspect, gender, and number are treated as forced choices the source could leave open, not as optional stylistic colouring (P073).
+5. Confirm the analysis does not equate two items sharing a referent with their sharing a signification, since two words can intend the same object by different modes of intention (P094).
+6. Check that a meaning claim names which descriptive level it rests on — word, above-word, grammar, thematic structure, cohesion, or pragmatics — without treating any single level as the whole of meaning; selecting or evaluating an actual target rendering across those equivalence levels is the mechanism owned by the sibling `translation-equivalence-advisor`, so keep the review on which level the claim rests, not on choosing the equivalent (P109).
+7. Distrust any dictionary-equivalence claim and require that an author's deliberate deviation from habitual usage be reproduced rather than normalized away (P116).
+8. Identify whether the review is implicitly applying 1960s-70s equivalence theory as a normative standard rather than a descriptive tool, and name which of its multiple dimensions — denotative, connotative, text-normative, or pragmatic — is at stake (P121).
+9. Check that the expected dispersion of acceptable translation variants tracks the two languages' relative lexical segmentation and the source's genre and interpretive richness, rather than assuming a single correct rendering (P127).
+10. Treat grammar as an embedded interpretation of reality and require the review to discern which grammatical categories in a living language still inform thought versus which are fossil forms used only conventionally (P148).
+11. Confirm meaning is treated as a semiotic fact — a sign interpreted into a further sign — rather than as a thing directly given by non-linguistic acquaintance with an object (P178).
+12. Order every finding from these checks highest-impact first, since a mistaken premise about meaning or signification invalidates every equivalence judgment built on top of it.
 
 ## Inputs
 
@@ -71,17 +87,21 @@ This skill reviews the theory of meaning underlying an equivalence claim. It che
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or make the publication decision.
+For each finding, name the flaw and the principle it violates, apply the correction the principle implies, state the residual uncertainty or trade-off the correction produces, and end with a concrete next step; order findings highest-impact first, since a mistaken theory-of-meaning premise invalidates every equivalence judgment built on it. When the request is an advise or compare rather than a post-hoc critique, apply the same checks forward — in advise mode, a recommendation naming the governing principle(s) and orientation with its residual trade-off; in compare mode, a side-by-side of what each option preserves and costs, ending in a brief-weighted recommendation. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation, select the actual target-language equivalent, or make the publication decision.
 
 ## Anti-patterns to flag
 
-- The analysis fails to reject cross-code identity as the basis of translation (P004).
-- The analysis fails to recognize that conventional translation of expository writing privileges the capture of signifieds (P008).
-- The analysis fails to before assessing or producing a translation, fix its type and vocabulary (P058).
-- The analysis fails to remember that languages differ essentially in what they must convey, not in what they may convey (P073).
-- The analysis fails to do not equate sameness of referent with sameness of signification (P094).
-- The analysis fails to analyse equivalence at multiple levels (P109).
-- The analysis fails to distrust dictionary equivalence (P116).
+- The review accepts a dictionary equivalent as automatically translation-legitimate because it names the same object, treating point-by-point referential identity as sufficient (P004).
+- The review credits a rendering for capturing the "same message" while ignoring that it silently discarded the source's signifier chain, syntax, and rhetorical structure (P008).
+- The review evaluates a rendering without ever naming whether it is intralingual, interlingual, or intersemiotic, or without identifying the source and target languages and texts (P058).
+- The review treats a language's obligatory grammatical resolution — a gendered pronoun, a marked aspect — as a stylistic flourish the translator chose rather than a forced grammatical choice (P073).
+- The review declares two terms equivalent because they denote the same referent, without checking whether they share signification (P094).
+- The review judges equivalence only at the word level, missing shifts in thematic or information structure, or defends a calqued source word order as neutral (P109).
+- The review accepts two dictionary equivalents as interchangeable without checking each language's own "internal form," or normalizes away an author's deliberate stylistic deviation as if it were an error (P116).
+- The review invokes an equivalence typology (dynamic/formal, communicative/semantic, covert/overt) as a purely descriptive label while smuggling in a normative verdict (P121).
+- The review expects a single "correct" translation variant and flags dispersion among competing renderings as an error rather than tracking it to lexical segmentation and genre (P127).
+- The review treats a fossilized grammatical category as still semantically load-bearing, or the reverse, without discerning which is which (P148).
+- The review implies a word's meaning could be taught by pointing at an object, or otherwise treats meaning as a thing rather than a semiotic, sign-to-sign process (P178).
 
 ## References
 

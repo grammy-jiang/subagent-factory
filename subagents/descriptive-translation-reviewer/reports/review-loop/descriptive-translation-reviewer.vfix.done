@@ -1,0 +1,28 @@
+FIXED
+
+Adversarial-verify round 2 (verify2.md) — 1 surviving must-fix resolved, strictly grounded.
+
+MF (faithfulness, SCOPE_BROADENED): the liturgical-verse example's formal-orientation clause
+"...preserves the source's syntactic and formal features and its foreignness but risks
+unidiomatic, opaque target lines (P104, P162)" cited two out-of-scope principles:
+  - P162 is scoped to legal documents / equally valid multilingual treaties (grammatical
+    divergence causing legal confusion) — irrelevant to a liturgical verse.
+  - P104 concerns obligatorily-forced grammatical categories / the "untranslatable" poetry
+    verdict — does not assert formal orientation produces opacity.
+
+FIX (reground, no claim change, no new claim introduced):
+  (P104, P162) -> (P105, P036)
+  - P105: "formal equivalence ... matches source form and content closely" grounds the
+    form/foreignness-preservation part (already cited on this example's dynamic side).
+  - P036: "word-for-word rendering produces absurd and opaque target text; sacred/sensitive
+    texts an exception" grounds the "unidiomatic, opaque target lines" risk.
+
+Adjudicated non-must-fix left as ruled by verify report:
+  - A. Koller/Reiss "misattribution" — FALSE POSITIVE (P121 correctly attributes Koller's five
+    equivalence relations; Reiss's text types live separately). No change.
+  - B. House TQA / register-skill sibling-boundary overlap — DEFER (owner-decide; pre-existing
+    seam, remedy is a sibling-package edit this package can't make). No change.
+
+Version: profile.yaml 1.8.0 -> 1.8.1; CHANGELOG.md + provenance-ledger.md entries added.
+Re-exported adapter (cli export). validate_generated_package: VALIDATION PASSED, 0 FAIL.
+MUST_FIX_COUNT now 0. No other subagent touched.

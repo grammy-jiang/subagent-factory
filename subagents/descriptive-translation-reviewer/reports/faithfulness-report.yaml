@@ -15,16 +15,17 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P004/P105/P106/P118/P159; within the source's scope, no strengthening. Review criterion,
-    not a directive to translate.
+  note: Restates P004/P059/P105/P106/P118/P159 (P059 added for the illusory-equivalent-effect claim);
+    within the source's scope, no strengthening. Review criterion, not a directive to translate.
 - rule_ref: quality_bar[2]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
-  action: accept_with_note
-  note: Restates P009/P038/P060/P062/P108; within the source's scope, no strengthening. Review criterion,
-    not a directive to translate.
+  action: add_condition
+  note: Restates P009/P038/P060/P062/P108. Hedged (round 2, M2) from "Translation is driven by an explicit
+    brief…" to "Where a brief and predominant function apply, translation is judged against them…" so the
+    functionalist/skopos school is scoped, not stated as settled fact. Review criterion, not a directive.
 - rule_ref: quality_bar[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -54,8 +55,10 @@ findings:
   distortion:
   - none
   severity: low
-  action: accept_with_note
-  note: Restates P070/P100; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+  action: add_condition
+  note: Product-scope boundary (never produce the translation / never sign off). Round 2 (S5) dropped the
+    P070/P100 citations — it is a review-vs-produce scope decision, not a source claim, so it is left
+    uncited by design (like handoff_rules[1]'s subject-matter/legal/typesetting scope clause). No over-claim.
 - rule_ref: forbidden_behaviours[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -76,7 +79,16 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P075/P062/P038; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+  note: Restates P075 (no single deterministic answer); within the source's scope, no strengthening. Split
+    (r5-loop, S5) from the former bundled bullet so each prohibition cites only its grounding. No over-claim.
+- rule_ref: forbidden_behaviours[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P062/P038 (do not ignore the brief, audience, and function the rendering must serve); within
+    the source's scope, no strengthening. Split (r5-loop, S5) from the former bundled bullet. No over-claim.
 - rule_ref: when_to_use[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -133,3 +145,212 @@ findings:
   action: accept_with_note
   note: Restates P046/P102/P062/P114/P138/P121; within the source's scope, no strengthening. Adaptable-guide
     + brief-governs + no-over-claim, all source-grounded.
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: add_condition
+  note: Re-anchored. Publication authority now cites P029 (publishers wield the decisive power over whether
+    a work is translated) instead of the mis-grounded P070/P009; the macro-/micro-level split is P070's
+    exact support. No strengthening beyond the sources.
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: add_condition
+  note: Re-anchored. Prior citations P162 (legal-text method) and P080 (refraction) were mismatched and
+    dropped; the publisher's commercial/economic constraints are grounded in P029 (political and economic
+    constraints, publishers). Split (r3-loop, SF-3) into two sentences so the (P029) citation scopes only the
+    commercial/economic clause; the subject-matter/legal-validity/typesetting scope clause is a separate,
+    uncited-by-design boundary, not a source over-claim.
+- rule_ref: handoff_rules[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Sibling-routing bullet added (r4-loop) mirroring when_not_to_use[1..3] so handoff_rules is
+    self-sufficient — linguistic equivalence mechanism → translation-equivalence-advisor, corpus/QA scoring →
+    translation-quality-reviewer, technical terminology risk → technical-translation-advisor. Routing directive,
+    uncited by design; no source over-claim.
+- rule_ref: source_of_truth_policy.canonical_owner
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P029/P070 authority split (translator + commissioning publisher hold the text and the
+    publish decision); descriptive statement of ownership, no strengthening.
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P002/P010/P011/P023/P035/P039/P046/P054/P057/P101/P102/P103/P110/P146/P151-P156/P166
+    (descriptive method + norm reconstruction). Spot-checked for a dropped source hedge; graded-and-mobile
+    norm strength preserved. P002 now names Even-Zohar/polysystem — attribution only, no strengthening.
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P059/P074/P076/P104/P105/P106/P118/P124/P125/P126/P143/P159/P160/P161/P162/P179/P180
+    (formal-vs-dynamic orientation + equivalent-effect illusion). No hedge dropped; equivalent-effect kept
+    as a suspect claim, not asserted. Review criterion, not a directive to translate.
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P004/P008/P058/P073/P094/P109/P116/P121/P127/P148/P178 (theory of meaning + multi-level
+    equivalence). No strengthening; naive cross-code identity kept as the thing to guard against.
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P006/P015/P037/P072/P119/P120/P122/P163/P164/P168 (Vinay & Darbelnet procedures +
+    servitude/option shifts). Metalanguage restated, no source hedge removed.
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P009/P038/P060/P061/P062/P063/P070/P078/P079/P107/P108/P128/P129/P145/P165 (brief +
+    skopos hierarchy). Retains the hedge that a fulfilled skopos does not excuse micro-level neglect (P108).
+    P009/P062 now name Vermeer (Auftrag/skopos) — attribution only, no strengthening.
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P019/P021/P052/P053/P064/P065/P066/P067/P068/P069/P085/P090/P091 (Hallidayan register +
+    audiovisual constraints). Re-coding-not-omission hedge kept; P021 translation-type and P065 error-taxonomy
+    are distinct axes (now clarified in the skill), not conflated. No strengthening.
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P020/P024/P042/P047/P049/P086/P087/P088/P141/P167/P169/P170/P175/P176 (domestication-
+    foreignization + visibility). "Reads smoothly" kept as a suspect criterion, not a virtue. No strengthening.
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P001/P012/P013/P018/P022/P027/P028/P029/P040/P050/P051/P055/P080/P084/P111/P131/P133/P136/P139/P140
+    (culture/ideology/rewriting lenses). P001/P050 now name Lefevere (refraction/rewriting) — attribution only,
+    no strengthening; political-valence contingency preserved.
+- rule_ref: knowledge_partition.always_on[8]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P014/P025/P026/P081/P082/P083/P114/P115 (Berman's deforming tendencies + loss). Kept as
+    a negative analytic, not a mechanical checklist. No strengthening.
+- rule_ref: knowledge_partition.always_on[9]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P003/P005/P032/P056/P095/P096/P097/P098/P099/P117/P123/P130/P132/P134/P135/P137/P138/P144/P150
+    (hermeneutics + limits of translatability). "No perfect translation" kept as a stance, not a verdict. No
+    strengthening.
+- rule_ref: knowledge_partition.always_on[10]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P030/P031/P034/P036/P045/P048/P071/P077/P142/P149/P157/P158/P171-P174/P177 (literal-free
+    strategy history + retranslation). Historical prescriptions kept as period positions, not settled law.
+- rule_ref: knowledge_partition.always_on[11]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Compresses P007/P016/P017/P033/P041/P043/P044/P075/P089/P092/P093/P100/P112/P113/P147 (quality
+    assessment + applied/empirical studies). Quality kept as probabilistic (a range of valid answers); source-
+    language comparison retained. No strengthening.
+- rule_ref: minimum_useful_output
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates the per-mode output shapes from `outputs.modes` (review/advise/compare) and P075's residual-
+    trade-off requirement. Broadened (r3, S3) so it gates all three modes, not review alone. No strengthening.
+- rule_ref: when_not_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: add_condition
+  note: Review-vs-produce boundary (does not translate or certify a rendering correct). Split (r3-loop, SF-2)
+    so this highest-stakes boundary stands alone and leads (surfaced in the exported description), with the
+    three sibling routes moved to their own bullets [1..3]. Product-scope boundary, uncited by design; no
+    source over-claim.
+- rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Sibling-routing bullet (equivalence mechanism → translation-equivalence-advisor; orientation-fit stays
+    here). Routed-away scope is the equivalence mechanism, disjoint from this package's orientation-fit judgment
+    (P106/P109). Routing directive, uncited by design; no source over-claim.
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Sibling-routing bullet (corpus/QA scoring output → translation-quality-reviewer). Routing directive,
+    uncited by design; no source over-claim.
+- rule_ref: when_not_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Sibling-routing bullet (scientific/technical terminology risk → technical-translation-advisor). Routing
+    directive, uncited by design; no source over-claim.
+- rule_ref: when_not_to_use[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Scope boundary grounded in the quality-is-probabilistic stance (one guaranteed-correct rendering
+    produced end to end is out of remit — quality is a range of valid answers, not one certified rendering);
+    consistent with P075. No over-claim.
+- rule_ref: when_not_to_use[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Scope boundary (subject-matter correctness / legal validity with a knowable answer is out of remit).
+    Product-scope decision, uncited by design; no source over-claim.
+- rule_ref: when_not_to_use[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Scope boundary (no translation dimension — monolingual editing, typesetting, terminology lookup).
+    Product-scope decision, uncited by design; no source over-claim.

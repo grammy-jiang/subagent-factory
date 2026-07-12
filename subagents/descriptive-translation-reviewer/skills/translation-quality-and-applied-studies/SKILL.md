@@ -1,5 +1,11 @@
 ---
 name: translation-quality-and-applied-studies
+description: Reviews translation-quality judgments and applied or empirical translation-studies
+  work for evaluation-method soundness, discipline-map placement, and research-design
+  rigor. Requests to run corpus-based quality metrics or QA scoring and return the
+  scores route to the sibling `translation-quality-reviewer`; this skill reviews only
+  whether the evaluation method itself is sound. It critiques and reports findings
+  and does not itself finalize a quality score, a translation, or a publication decision.
 kind: skill
 status: ready
 provenance:
@@ -45,51 +51,62 @@ provenance:
 
 ## Purpose
 
-This skill reviews translation-quality assessment and applied/empirical translation studies. It requires evaluation by comparison against the source in the source language, treats quality as probabilistic (a range of valid answers), and situates work on Holmes's discipline map — training, aids, criticism — and within process research (think-aloud, keylogging), corpora and CAT tools, GILT/localization, and sound research design.
+This skill reviews translation-quality assessments and applied or empirical translation-studies work: whether a quality judgment was reached by sound comparison against the source, whether a study or task is correctly placed on the discipline map, and whether research design, process methods, corpora, CAT tools, and localization scope were used appropriately. It is review-only — it critiques the judgment, study, or commentary under review and does not itself produce the finished translation, run the study, or make the publication decision.
 
 ## When to use
 
-- A translation is being scored without comparison against the source in the source language.
-- Quality is being treated deterministically rather than as a range of valid answers.
-- A study's place on the discipline map, its research design, or its use of corpora, CAT, or process methods needs checking.
-- Localization/GILT scope or the translator's situated role and expertise is at issue.
+- A translation is being scored or approved without a documented comparison against the source in the source language.
+- Quality is being treated as a single correct answer rather than a range of valid answers.
+- A study, task, training method, or critique needs to be located on Holmes's discipline map or checked for research-design rigor.
+- A claim rests on translators' self-reports, a corpus, CAT/MT technology, or process-research data (think-aloud, keylogging, eye-tracking) whose limits need checking.
+- A reflective translation commentary, or a localization/internationalization deliverable, needs its underlying norms or framing made explicit.
+- Not this skill: a request to actually run corpus-based quality metrics or QA scoring and return the scores routes to the sibling `translation-quality-reviewer`; terminology risk or scientific/technical target-text correctness routes to `technical-translation-advisor`. This skill reviews only whether the evaluation or localization method itself is sound.
 
 ## Procedure
 
-1. Treat being a translator as playing a socially allotted role whose prerequisite is acquiring the norms for what is suitable and for manoeuvring among competing constraints (P007).
-2. Locate applied work within Holmes's four areas (P016).
-3. Locate any translation task or study on the discipline map before proceeding (P017).
-4. Weigh translators' self-accounts as evidence of method and stance while allowing for bias and their intuitive voice-led vocabulary, recognizing that much of the labour behind a translation is invisible and that a translation is a (P033).
-5. Use corpora of naturally occurring text to obtain collocation and usage evidence superior to intuition, choosing the corpus type by purpose (P041).
-6. Treat most so-called general theories of translation with suspicion (P043).
-7. Evaluate a translation by comparing it against the source in the source language, giving priority to the elements where error silently distorts or reverses the argument (P044).
-8. Judge translation quality by probabilistic, not deterministic, rules (P075).
-9. Investigate the translation process with think-aloud protocols triangulated with video observation, interviews and questionnaires, keystroke logging, and eye-tracking (P089).
-10. Use translation technology appropriately (P092).
-11. Design a translation-studies research project by defining a specific, motivated topic, setting scope (P093).
+1. Assess whether the translator's role is being judged as unconstrained personal choice rather than as a socially allotted role whose prerequisite is acquiring the norms for what is suitable and manoeuvring among competing constraints, and check that any claimed norm is reconstructed from regularities of actual behaviour rather than accepted at face value from what practitioners say they do (P007).
+2. Check that any applied claim about training, aids, policy, or criticism is located within Holmes's four areas of applied translation studies, and confirm the descriptive, theoretical, and applied branches are treated as dialectically interdependent rather than as isolated silos (P016).
+3. Confirm the task or study under review is first placed on the discipline map — distinguishing pure research (theoretical, descriptive) from applied work (training, aids, criticism, policy) — and that any partial-theory restrictions in play (medium, area, rank, text-type, time, problem) are named, since several may apply at once (P017).
+4. Weigh any translator self-account cited as evidence of method or stance for its bias and intuitive, voice-led vocabulary, and check that the analysis credits the labour behind a translation that stays invisible and treats the translation as a non-neutral critical act whose ideology resides in the translator's voicing, stance, and place of enunciation (P033).
+5. Verify any corpus-based claim draws on naturally occurring text with the corpus type matched to purpose (monolingual, comparable bilingual, or parallel), tests hypothesized features such as explicitation or simplification against non-translated language, combines quantitative and qualitative analysis, accounts for source-language interference, and distinguishes corpus-based from corpus-driven research (P041).
+6. Treat any claimed general theory of translation with suspicion, and check whether the real substance is actually a partial theory restricted by medium, area, rank, text type, time, or problem rather than a true general theory (P043).
+7. Confirm the translation was evaluated by direct comparison against the source in the source language, with priority given to elements whose error would silently distort or reverse the argument — negations, semantically loaded key terms, and the function words and qualifiers that carry a claim's scope — and check that a difficult passage's difficulty is rendered rather than elided (P044).
+8. Judge translation quality by probabilistic rather than deterministic rules, keeping the description of what kind of translation a text is separate from its evaluation, and recall that a work's resistance to translation can itself mark quality rather than a failing (P075).
+9. If the translation process itself was investigated, confirm it used think-aloud protocols triangulated with video observation, interviews and questionnaires, keystroke logging, or eye-tracking, and check the findings were treated cautiously given verbalization's known limits and the field's ongoing need for replication and standardization (P089).
+10. Check that translation technology is used appropriately — CAT-tool alignment, concordancing, term extraction, and translation memory for speed and term consistency, machine translation for assimilation or a post-edited first draft — that natural equivalence is distinguished from directional equivalence, and that the quality, fair-pay, and status ethics of any crowdsourced translation are weighed (P092).
+11. Confirm any translation-studies research project defines a specific, motivated topic and scope, poses research questions or hypotheses, reviews the literature to locate gaps, chooses a methodology across product-, process-, participant-, or context-oriented research with attention to ethics, and keeps to a realistic timeline (P093).
 12. Evaluate translation and translator expertise as culturally situated role performance, not only as bilingual linguistic production (P100).
-13. Ground a reflective translation commentary in the translation problem exploration space of purpose or skopos, method, and readership to establish the target norms, capturing them in a translation specification that records the (P112).
-14. Surface a translation's (P113).
-15. Situate translation within GILT (P147).
+13. Check that any reflective translation commentary grounds itself in the translation problem's exploration space of purpose or skopos, method, and readership, and that the target norms are captured in a translation specification recording the source's external features and the target's commissioner-set constraints, since without that specification the translation happens in a contextual vacuum where any procedure could be justified; whether the brief or skopos hierarchy was itself the right one and was actually followed routes to the sibling `text-type-skopos-and-the-brief`, while this skill reviews only whether the evaluation method documented that specification before it scored the translation (P112).
+14. Before judging a translation or a translation theory, surface its underlying assumptions about language — whether it treats language instrumentally, as communication of pre-existing meaning driving toward information-transfer and equivalence typologies, or hermeneutically, as constitutive interpretation driving toward creative values and social function (P113).
+15. Situate the work within GILT, checking whether localization is being handled as the superordinate adaptation of a product to the target locale, and, where internationalization is at issue, checking that equivalence is judged by the functionality of a constantly-updated interlingua version rather than by measurement against a fixed source; scope this to whether the localization/internationalization framing (fixed-source vs. locale-functionality) is sound, and route terminology risk or scientific/technical target-text correctness in the localization deliverable to `technical-translation-advisor` (P147).
+16. Synthesize the findings into a single ranked list, leading with issues that invalidate the quality judgment, corrupt the evaluation method, or misplace the study on the discipline map, before secondary framing or technology-use concerns.
 
 ## Inputs
 
-- The quality claim or applied/empirical study under review and the source it should be measured against.
-- The reasoning offered for the decision under review: the orientation, strategy, brief, and any quality claim made.
+- The quality claim, applied/empirical study, or reflective commentary under review, and the source it should be measured against.
+- The reasoning offered for the decision under review: the orientation, strategy, brief, research design, or quality claim made.
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step, ordering findings highest-impact first. When the request is an advise or compare rather than a post-hoc critique, apply the same checks forward — in advise mode, a recommendation naming the governing principle(s) and orientation with its residual trade-off; in compare mode, a side-by-side of what each option preserves and costs, ending in a brief-weighted recommendation. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation, run the study, or make the publication decision.
 
 ## Anti-patterns to flag
 
-- The analysis fails to treat being a translator as playing a socially allotted role whose prerequisite is acquiring the norms for what is suitable and for manoeuvring among competing (P007).
-- The analysis fails to locate applied work within Holmes's four areas (P016).
-- The analysis fails to locate any translation task or study on the discipline map before proceeding (P017).
-- The analysis fails to weigh translators' self-accounts as evidence of method and stance while allowing for bias and their intuitive voice-led vocabulary, recognizing that much of the labour (P033).
-- The analysis fails to use corpora of naturally occurring text to obtain collocation and usage evidence superior to intuition, choosing the corpus type by purpose (P041).
-- The analysis fails to treat most so-called general theories of translation with suspicion (P043).
-- The analysis fails to evaluate a translation by comparing it against the source in the source language, giving priority to the elements where error silently distorts or reverses the argument (P044).
+- The review credits a translator's stated intentions or a fluent read as sufficient evidence of professional norms, never checking those claims against regularities in the translator's actual output (P007).
+- The review scores a training method, glossary, policy recommendation, or critique as an isolated craft judgment, with no reference to Holmes's training/aids/policy/criticism map or the theory that necessarily underlies it (P016).
+- The review argues from a single hybrid case as though it were a pure-research finding, without noting which text-type, rank, or period restriction actually bounds the claim (P017).
+- The review treats a translator's own account of their method as neutral fact, missing the bias, voice-led vocabulary, and invisible labour that surround it (P033).
+- The review invokes a corpus finding drawn from an unmatched or unspecified corpus type, or reports occurrence counts with no non-translated baseline and no attention to source-language interference (P041).
+- The review anoints a single framework as a general theory of translation and applies it universally, ignoring the medium/area/rank/text-type/time/problem restrictions that actually bound it (P043).
+- The review approves a translation on fluency or plausibility alone, with no side-by-side check against the source language for dropped negations, altered key terms, or elided function words (P044).
+- The review scores a translation against one fixed "correct" answer, penalizing an equally valid alternative rendering as though only one correct translation existed (P075).
+- The review accepts a think-aloud transcript as a direct window on the translation process, with no triangulation from observation, keystroke logs, or eye-tracking and no caveat about verbalization's known distortions (P089).
+- The review credits or blames a CAT-tool or MT output without distinguishing natural from directional equivalence, or without weighing the fair-pay and status implications of crowdsourced input (P092).
+- The review calls a research design sound despite an unbounded topic, no stated research question, no literature review locating the gap, or a single-method design with no ethics consideration (P093).
+- The review measures translator competence purely as bilingual fluency, with no attention to the translator's culturally situated professional role (P100).
+- The review judges a translation commentary's choices with no translation specification on record, leaving purpose, method, and readership to be inferred rather than checked (P112).
+- The review applies an equivalence-typology standard to a text built on a hermeneutic, meaning-constituting view of language, or vice versa, without first surfacing which concept of language is actually in play (P113).
+- The review treats a localization or internationalization deliverable as a standard source-to-target translation, measuring it against a fixed source instead of against target-locale functionality (P147).
 
 ## References
 
