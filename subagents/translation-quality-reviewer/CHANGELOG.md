@@ -3,6 +3,25 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.5.0] — 2026-07-12
+
+### Fixed
+- **11 faithfulness over-claims (in-session finish after the auto-merge driver triage-stopped).** An
+  independent adversarial faithfulness verify caught 11 issues the review loop's own faithfulness-report
+  (a rubber-stamp: 40 findings all WITHIN_SCOPE) missed — all citation-integrity, none CONTRADICTED:
+  - Dropped the manufactured **P059/P134** citation from the four ownership/sign-off clauses
+    (forbidden_behaviours[0], handoff_rules[0], examples[0], examples[1]) — neither principle grounds
+    "who owns the text/decision"; these are advice-only role boundaries, now labelled as such.
+  - Removed **text-type-scoped** citations applied generally: P118 (Bible) from quality_bar[1] and the
+    corpus always_on bullet; P081 (Bible) from the applied-corpus always_on bullet; P044 (children's
+    books) from when_to_use[5] — the general claim is carried by the co-cited principles.
+  - Restored P042's "establish which House model is in force" hedge to the register always_on bullet
+    (Participation sits under Mode in the earlier model), removed the ungrounded Toury "translation
+    policy is a different norm level" clause from the descriptive-norms always_on bullet, and restated
+    examples[1]'s "equivalence stays close to formal" (Nida concept-bleed) in this package's own Koller
+    terms — denotative/text-normative demands (P030).
+  Adapter re-exported.
+
 ## [1.4.0] — 2026-07-12
 
 ### Fixed (review loop r4)

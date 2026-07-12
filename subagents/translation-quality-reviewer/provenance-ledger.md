@@ -35,6 +35,14 @@ the two references index and ground them.
 
 ## Version History
 
+- **v1.5.0** (2026-07-12) — In-session finish after the auto-merge driver triage-stopped: an independent
+  adversarial faithfulness verify found 11 citation-integrity over-claims the loop's rubber-stamp
+  faithfulness-report missed. Dropped the manufactured P059/P134 citation from four ownership/sign-off
+  clauses (now labelled advice-only role boundaries); removed text-type-scoped P118/P081 (Bible) and P044
+  (children's books) from general clauses; restored P042's House-model hedge; removed the ungrounded
+  Toury norm-level clause; restated examples[1]'s Nida "formal equivalence" bleed in the package's own
+  Koller terms (P030). No spine (principles) change; adapter re-exported.
+
 - **1.4.0** (2026-07-12) — Review-loop r4 fixes (supersedes 1.3.0 on the points below; earlier decisions
   remain visible). **M1** P042 self-contradiction: P042 described the revised Field/Tenor/Mode split while
   labelling it the earlier one and never stated the earlier split, making the register skill's
