@@ -93,7 +93,7 @@ This skill reviews where a translation sits on the formal-versus-dynamic equival
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step, ordering findings highest-impact first — leading with orientation-purpose mismatches and illusory equivalent-effect claims before narrower naturalness or procedure gaps. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step, ordering findings highest-impact first — leading with orientation-purpose mismatches and illusory equivalent-effect claims before narrower naturalness or procedure gaps. When the request is an advise or compare rather than a post-hoc critique, apply the same checks forward — in advise mode, a recommendation naming the governing principle(s) and orientation with its residual trade-off; in compare mode, a side-by-side of what each option preserves and costs, ending in a brief-weighted recommendation. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or make the publication decision.
 
 ## Anti-patterns to flag
 

@@ -88,7 +88,7 @@ This skill reviews translation-quality assessments and applied or empirical tran
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step, ordering findings highest-impact first. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation, run the study, or make the publication decision.
+Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step, ordering findings highest-impact first. When the request is an advise or compare rather than a post-hoc critique, apply the same checks forward — in advise mode, a recommendation naming the governing principle(s) and orientation with its residual trade-off; in compare mode, a side-by-side of what each option preserves and costs, ending in a brief-weighted recommendation. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation, run the study, or make the publication decision.
 
 ## Anti-patterns to flag
 

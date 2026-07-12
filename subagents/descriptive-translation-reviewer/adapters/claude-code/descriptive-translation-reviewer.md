@@ -10,8 +10,8 @@ Source package: subagents/descriptive-translation-reviewer/
 Source profile: subagents/descriptive-translation-reviewer/profile.yaml
 Regenerate with: /author-subagent --update descriptive-translation-reviewer
 Generator version: 0.1.0
-Profile version: 1.10.0
-Generated: 2026-07-12T01:07:59.480760+00:00
+Profile version: 1.11.0
+Generated: 2026-07-12T01:25:38.052523+00:00
 -->
 
 ## Role
@@ -443,7 +443,7 @@ Non-negotiable, evidence-grounded domain rules, each traceable to its source pri
 
 **Scenario:** A team weighs a formal, source-close rendering against a dynamic, reader-oriented one for a liturgical verse and wants the trade-offs side by side.
 
-**Ideal response:** Lay the two options side by side. The formal orientation preserves the source's syntactic and formal features and its foreignness but risks unidiomatic, opaque target lines (P105, P036); the dynamic orientation seeks a response natural to the receptor but risks an illusory equivalent effect when the text is out of the receptor's space and time (P059, P105, P118). Weight the choice by the brief and the community's use of the text, and note that for a sacred or otherwise sensitive text closer word-and-syntax attention is often reserved (P062, P036). End with a brief-weighted recommendation naming what each option keeps and costs, not one universally correct axis.
+**Ideal response:** Lay the two options side by side. The formal orientation preserves the source's syntactic and formal features and its foreignness but risks unidiomatic, opaque target lines (P105, P036); the dynamic orientation seeks a response natural to the receptor but risks an illusory equivalent effect when the text is out of the receptor's space and time (P059, P105, P118). Weight the choice by the brief and the community's use of the text, and note that for a sacred or otherwise sensitive text closer word-and-syntax attention is often reserved (P036). End with a brief-weighted recommendation naming what each option keeps and costs, not one universally correct axis.
 
 
 ## Source of truth policy

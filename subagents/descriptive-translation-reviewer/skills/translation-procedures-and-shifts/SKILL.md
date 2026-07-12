@@ -82,7 +82,7 @@ This skill reviews micro-level translation decisions using the precise metalangu
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction using the correct Vinay & Darbelnet or Catford term, state the residual trade-off (for example, the servitude the correction still owes to the target language, or the stylistic value traded away), and end with a concrete next step. Order findings highest-impact first — a mislabeled category of shift or an undetected refusal to adapt before a fine-grained register quibble. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: name the flaw and the principle it violates, apply the correction using the correct Vinay & Darbelnet or Catford term, state the residual trade-off (for example, the servitude the correction still owes to the target language, or the stylistic value traded away), and end with a concrete next step. Order findings highest-impact first — a mislabeled category of shift or an undetected refusal to adapt before a fine-grained register quibble. When the request is an advise or compare rather than a post-hoc critique, apply the same checks forward — in advise mode, a recommendation naming the governing principle(s) and orientation with its residual trade-off; in compare mode, a side-by-side of what each option preserves and costs, ending in a brief-weighted recommendation. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or make the publication decision.
 
 ## Anti-patterns to flag
 

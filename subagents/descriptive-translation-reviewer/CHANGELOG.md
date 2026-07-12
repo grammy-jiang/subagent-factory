@@ -3,6 +3,46 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.11.0] — 2026-07-12
+
+Review-loop round r3 (`reports/review-loop/descriptive-translation-reviewer.r3.review.md`): this round is the
+independent re-verify of the v1.10.0 fixes (SF-1), confirming `MUST_FIX_COUNT: 1` (MF-1 only) and RJ-1 rejected
+(the 141-bullet must-hold invariant layer is a correct deliberate subset, 0 must-hold missing). Applied MF-1 and
+the high-value should-fixes, grounded in the existing 180-principle spine — no new claim introduced; every added
+sentence is sibling-routing (no principle content) or a mode-mapping of checks already established by the
+profile's own `outputs.modes`.
+
+### Fixed
+- **MF-1 — test artifacts stale against shipped `agent_version`** — re-stamped `tests/golden-tests.yaml`
+  `profile_version` and the `tests/test-results.md` verdict from 1.9.0 to 1.11.0 (the v1.10.0 bump re-exported
+  the adapter but skipped the test artifacts; `generated-artifact-policy` requires version consistency).
+- **SF-4 — skill Output sections covered only `review` mode** — added one mode-mapping clause to every skill's
+  `## Output` (all 12): in advise mode a recommendation naming the governing principle(s) and orientation with
+  the residual trade-off, in compare mode a side-by-side of what each option preserves and costs ending in a
+  brief-weighted recommendation. Grounded in the profile's own `outputs.modes` (advise/compare) — no new claim.
+- **SF-7 — worked example over-cited P062** — the liturgical formal-vs-dynamic compare example's "sacred text
+  warrants closer word/syntax attention" clause cited `(P062, P036)`; P062 is skopos *ordering* (purpose >
+  coherence > fidelity), so the citation is now `(P036)` alone.
+- **SF-8 — missing sibling tie-breaker on the free/literal axis** — added a reciprocal routing clause to the
+  `literal-free-strategy-history-and-retranslation` and `domestication-foreignization-and-visibility`
+  descriptions (classical rhetoric-based literal/free strategy history vs. modern ideological
+  domestication/fluency).
+
+### Recorded
+- **SF-1 / SF-10** — this ledger entry records the r3 converged re-verify and adds a tracking pointer for the
+  cross-package register boundary open against `translation-quality-reviewer` (see Version History).
+
+### Deferred (rationale in provenance-ledger.md)
+- **SF-2** (adapter `description` is auto-composed from `when_not_to_use[0]` under an 85-char exclusion clip that
+  structurally cannot carry two sibling names; both siblings are already named in the body `when_not_to_use`).
+- **SF-3** (rewording invariant P058 touches faithfulness-reviewed principle text; the review-only boundary is
+  already defended by the `role` blanket reinterpretation — deferred as high-risk/low-value).
+- **SF-5** (Anti-pattern collapse removes grounded failure-mode content; deferred to avoid concision-driven loss).
+- **SF-6** (the review-only boundary restatements in `role`/`when_not_to_use[0]`/`forbidden_behaviours[0]` are
+  load-bearing safety guards; no profile words were added this round, so the margin is unchanged).
+- **SF-9** (Nord function-plus-loyalty is spine expansion — a new principle cannot be introduced in a grounded
+  fix; remains a durable deferral, as at CHANGELOG v1.4.0). NICE items as lower-value polish.
+
 ## [1.10.0] — 2026-07-12
 
 Review-loop round r2 (`reports/review-loop/descriptive-translation-reviewer.r2.review.md`): applied both

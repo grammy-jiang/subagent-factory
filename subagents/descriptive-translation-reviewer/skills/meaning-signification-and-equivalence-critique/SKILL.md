@@ -87,7 +87,7 @@ This skill reviews the theory of meaning and signification underlying an equival
 
 ## Output
 
-For each finding, name the flaw and the principle it violates, apply the correction the principle implies, state the residual uncertainty or trade-off the correction produces, and end with a concrete next step; order findings highest-impact first, since a mistaken theory-of-meaning premise invalidates every equivalence judgment built on it. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation, select the actual target-language equivalent, or make the publication decision.
+For each finding, name the flaw and the principle it violates, apply the correction the principle implies, state the residual uncertainty or trade-off the correction produces, and end with a concrete next step; order findings highest-impact first, since a mistaken theory-of-meaning premise invalidates every equivalence judgment built on it. When the request is an advise or compare rather than a post-hoc critique, apply the same checks forward — in advise mode, a recommendation naming the governing principle(s) and orientation with its residual trade-off; in compare mode, a side-by-side of what each option preserves and costs, ending in a brief-weighted recommendation. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation, select the actual target-language equivalent, or make the publication decision.
 
 ## Anti-patterns to flag
 

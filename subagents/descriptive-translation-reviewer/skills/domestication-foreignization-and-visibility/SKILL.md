@@ -4,8 +4,11 @@ description: Reviews where a translation sits on the domestication-foreignizatio
   axis and whether its fluency or readability masks the translator's presence. Owns
   the fluency-illusion and domesticating/foreignizing-axis judgment; the institutional/agent,
   reception, and ideology judgment routes to the same-package `culture-ideology-power-and-rewriting`.
-  Review-only — does not produce the finished translation or make the publication
-  decision.
+  On the shared free-versus-literal axis, the modern ideological domestication and
+  fluency concern stays here; the classical rhetoric-based literal/free and
+  metaphrase-paraphrase strategy history routes to the same-package
+  `literal-free-strategy-history-and-retranslation`. Review-only — does not produce
+  the finished translation or make the publication decision.
 kind: skill
 status: ready
 provenance:
@@ -86,7 +89,7 @@ This skill reviews where a translation, translation choice, or translation-studi
 
 ## Output
 
-For each finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty or trade-off it reflects (for example, that a foreignizing correction may cost some readability, or that Blum-Kulka's explicitation pattern is contested rather than settled), and end with a concrete next step; order findings highest-impact first, flaws that mask the translator's presence or invert the source's significance before single-instance strategy inconsistencies. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or make the publication decision.
+For each finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty or trade-off it reflects (for example, that a foreignizing correction may cost some readability, or that Blum-Kulka's explicitation pattern is contested rather than settled), and end with a concrete next step; order findings highest-impact first, flaws that mask the translator's presence or invert the source's significance before single-instance strategy inconsistencies. When the request is an advise or compare rather than a post-hoc critique, apply the same checks forward — in advise mode, a recommendation naming the governing principle(s) and orientation with its residual trade-off; in compare mode, a side-by-side of what each option preserves and costs, ending in a brief-weighted recommendation. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or make the publication decision.
 
 ## Anti-patterns to flag
 

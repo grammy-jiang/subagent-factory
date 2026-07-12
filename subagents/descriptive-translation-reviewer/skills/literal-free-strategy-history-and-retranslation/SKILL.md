@@ -4,7 +4,10 @@ description: Reviews a translation's placement on the metaphrase-paraphrase-imit
   and literal-free axes, its verse prosody and historical-register choices, its scholarly
   apparatus, and its reading against retranslation and a work's afterlife; this skill
   reviews an existing translation, translation choice, or translation-studies analysis
-  and does not produce the finished translation.
+  and does not produce the finished translation. On the shared free-versus-literal
+  axis, the classical rhetoric-based literal/free and metaphrase-paraphrase strategy
+  history stays here; a modern ideological domestication or fluency concern routes to
+  the same-package `domestication-foreignization-and-visibility`.
 kind: skill
 status: ready
 provenance:
@@ -90,7 +93,7 @@ This skill reviews a translation against the long strategy debate — Dryden's m
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. When the request is an advise or compare rather than a post-hoc critique, apply the same checks forward — in advise mode, a recommendation naming the governing principle(s) and orientation with its residual trade-off; in compare mode, a side-by-side of what each option preserves and costs, ending in a brief-weighted recommendation. This skill reviews a translation, a translation choice, or a translation-studies analysis; it does not produce the finished translation or make the publication decision.
 
 ## Anti-patterns to flag
 
