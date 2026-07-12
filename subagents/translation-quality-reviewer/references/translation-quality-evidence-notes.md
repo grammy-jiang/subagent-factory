@@ -157,7 +157,7 @@ provenance:
   claims: []
   evidence: []
   source_anchors: []
-  authored_from_digest: 48f1fca9186e53623584c5db7ccebcbdebb9b0290994172bceafcf23aa012b59
+  authored_from_digest: aa1045fec5d57940ee305cf94f10711dd2f760c966a94a97a4c9580decf792c0
 ---
 
 # Translation Quality Evidence Notes
@@ -171,7 +171,7 @@ Five distillation-only sources ground the package: Juliane House, *Translation Q
 ## Faithfulness discipline
 
 - No finding may state a rule more strongly than its source supports: a candidate universal or a tentative, small-sample finding stays tentative and is never upgraded into a law (P035, P115).
-- Translationese and the third code are describable systemic features, not a direct proxy for quality; quality needs separate evidence for meaning preservation (P002, P139).
+- The third code and distinctive translated-language profiles are describable systemic features, not a direct proxy for quality; quality needs separate evidence for meaning preservation (P002, P139, P114). Keep the two senses of "translationese" distinct: the label proper is reserved for competence-caused deviation (P139), whereas an automatic "translationese" classifier or corpus score measures the distinctive translated-vs-original profile — the third code or normal patterning — so a classifier flag is neither a competence diagnosis nor a quality verdict (P139, P114, P002).
 - Corpus statistics are prompts for recontextualised interpretation, not final answers, and a difference is attributed to translation only after comparability and normalisation are controlled (P108, P135).
 - Evaluate against a specified source-text profile and function; global impressionistic criteria are rejected unless made operationally checkable (P006, P036).
 
