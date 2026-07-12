@@ -1,14 +1,22 @@
-# Review Loop — descriptive-translation-reviewer — Round r2
+# Review Loop — descriptive-translation-reviewer — Round r2 (re-review)
 
-Consolidated review across deterministic gates + 7 reviewer lenses (agent-skills,
-profile, faithfulness, ai-agent-engineering, translation-equivalence,
-translation-quality, technical-translation). Deduped, most-severe first.
+Package: `subagents/descriptive-translation-reviewer/` · agent_version 1.9.0 · Tier 2.
+Consolidated across deterministic gates + 7 reviewer lenses (agent-skills, profile,
+faithfulness, ai-agent-engineering, translation-equivalence, translation-quality,
+technical-translation). Deduped, most-severe first.
 
-## Deterministic gates
+> Note: an earlier r2 report (against v1.5.0) raised 3 must-fix — MF-1 Koller "escalate
+> through" ladder, MF-2 domestication/culture-ideology overlap, MF-3 truncated index
+> summaries. All three are **verified resolved in v1.9.0**: no "escalate through/trying
+> denotative" text remains in references/skills/tests; the P113 index summary is now a
+> complete sentence; profile-reviewer confirms the two adjacent-skill boundaries carry
+> explicit "leads with" tie-breaker language. This report supersedes that one.
 
-- `validate_generated_package` → **VALIDATION PASSED** (0 FAIL; Phase 8 self-check WARN only).
+## Deterministic gates — ALL PASS (0 FAIL)
+
+- `validate_generated_package` → **VALIDATION PASSED** (0 FAIL; Phase 8 self-check WARN only — body ~978w, under 1000w FAIL line).
 - `quote_scan` → **PASS** (no verbatim quotation).
-- Truncation grep (ellipsis + severed adapter invariant) → **clean**.
+- Truncation grep (ellipsis + severed adapter invariant parenthetical) → **clean**.
 
 Deterministic FAILs = 0.
 
@@ -16,174 +24,184 @@ Deterministic FAILs = 0.
 
 ## MUST-FIX
 
-### MF-1 — Koller five-relations inverted into a "fixed-order ladder" (contradicts the principle itself; baked into the test suite)
-- **Where:** `principles/principles.yaml` P106 body (~L2354-2361) is correct
-  ("weigh as **simultaneous competing frames, not a fixed-order ladder**"), but every
-  condensed restatement inverts it:
-  - `references/descriptive-translation-principles-index.md:248` — "**Escalate through**
-    Koller's five equivalence relations … **trying denotative**"
-  - `skills/equivalence-orientations-and-effect/SKILL.md:56` (Purpose) — "correctly
-    **escalates through** the available equivalence relations"
-  - `tests/principle-behaviour-tests.yaml:1566-1577` (PB-P106 `expected_behaviour`) —
-    quotes the same "escalate through … trying denotative" line as the target behaviour.
-- **Severity:** must-fix (found independently by translation-equivalence-advisor;
-  self-contradictory within the package — Procedure step 6 gets it right).
-- **Problem:** Mischaracterises Koller's typology as a mandatory sequential checklist
-  starting from denotative equivalence. The test suite would *validate the wrong
-  behaviour* — an agent that "starts denotative and escalates" passes PB-P106 while
-  acting against the principle body and against Koller as presented in Munday.
-- **Fix:** Replace "escalate through … trying denotative" in all three places (index
-  summary, skill Purpose sentence, and PB-P106 `expected_behaviour`) with the principle's
-  own framing: "weigh Koller's five equivalence relations against each other by the needs
-  of the communicative situation, as simultaneous competing frames rather than a
-  sequential checklist." Reframe the matching anti-pattern in
-  `equivalence-orientations-and-effect/SKILL.md:103` to match.
+### M1 — `translation-quality-and-applied-studies` skill omits the sibling-subagent routing boundary at its trigger surface
+- **Where:** `skills/translation-quality-and-applied-studies/SKILL.md` — `description` (L3–6),
+  `## When to use` (L54–60), `## Procedure` (L62–79).
+- **Severity:** must-fix (agent-skills-advisor).
+- **Problem:** `profile.yaml:184-187` (`always_on` for this skill) + `when_not_to_use` (L35–36)
+  route "run corpus-based quality metrics / QA scoring and return the scores" to the sibling
+  `translation-quality-reviewer`. The SKILL.md — the only artifact scanned at trigger time —
+  never names that sibling anywhere. This is the skill most likely to catch a "score this
+  translation" request, so the single disambiguation that matters most is invisible where
+  triggering happens. Sibling skills (equivalence-orientations, meaning-signification,
+  translation-procedures) correctly thread their external-package tie-breaker into `description`.
+- **Fix:** add to `description` (mirror in a When-NOT bullet): "Requests to run corpus-based
+  quality metrics or QA scoring and return the scores route to the sibling
+  `translation-quality-reviewer`; this skill reviews only whether the evaluation method itself
+  is sound."
 
-### MF-2 — Two same-package skills overlap with no tie-breaker; ledger's "already resolved" claim is false
-- **Where:** `profile.yaml:140-149` (`knowledge_partition.always_on[6]`/`[7]`);
-  `skills/domestication-foreignization-and-visibility/SKILL.md` (desc + Purpose);
-  `skills/culture-ideology-power-and-rewriting/SKILL.md` (desc + Purpose);
-  `provenance-ledger.md:41-42` (v1.5.0 entry).
-- **Severity:** must-fix (profile-reviewer; `status: ready` rests on it).
-- **Problem:** Both skills cover fluency/invisibility + institutional/ideological framing
-  (culture-ideology's own P018 judges "whether fluent invisibility masks an appropriative
-  domestication" — territory domestication-foreignization owns). The r5 supersession record
-  claims this was re-triaged/downgraded because the overlap "already carries tie-breaker/
-  boundary language." Grep of both SKILL.md files + `profile.yaml` always_on[6]/[7]:
-  **no such tie-breaker text exists** in either skill. The `ready` state rests on an
-  unverified, incorrect self-triage.
-- **Fix:** Add one boundary sentence to each skill's description/Purpose (mirrored in
-  `always_on[6]`/`[7]`): domestication-foreignization owns the fluency-illusion +
-  domesticating/foreignizing-axis judgment; culture-ideology-power owns the
-  institutional/agent/reception/ideology judgment; on overlap, lead with one. Correct the
-  `provenance-ledger.md` v1.5.0 entry to record the actual fix, not the false "already
-  carries" claim.
+### M2 — same skill, Procedure step 15 (GILT/localization) invites scope creep with no boundary to `technical-translation-advisor`
+- **Where:** `skills/translation-quality-and-applied-studies/SKILL.md` `## Procedure` step 15 (L78).
+- **Severity:** must-fix (agent-skills-advisor).
+- **Problem:** `profile.yaml:37` routes "scientific/technical target text and terminology risk"
+  to `technical-translation-advisor`, but step 15 is the one procedure step across all 12 skills
+  that tells the reviewer to directly engage GILT/localization work — squarely technical-
+  translation territory. No file in the package names `technical-translation-advisor`, so nothing
+  redirects terminology-risk requests out of scope.
+- **Fix:** add a boundary clause to step 15 (or the description): "Terminology risk or
+  scientific/technical target-text correctness in a localization deliverable routes to
+  `technical-translation-advisor`; this skill reviews only whether the localization/
+  internationalization framing (fixed-source vs. locale-functionality) is sound."
 
-### MF-3 — Progressive-disclosure index has ~20 truncated / ungrammatical one-line summaries
-- **Where:** `references/descriptive-translation-principles-index.md` — L283, 299, 307,
-  320, 322, 325, 335, 346, 360-362, 367, 371, 391, 417, 428, 430, 440, 447, 449, 450
-  (~11% of 180 entries). Worst: L450 `- **P113** — Surface a translation's.` (bare
-  possessive, no predicate); L299 ends "…and that the method depends on far more than.";
-  L307 ends "…as a secondary sender, so some."; L447 (P093) drops the research-design
-  checklist tail.
-- **Severity:** must-fix (agent-skills-advisor). This is the file every SKILL.md's
-  `## References` points to as the principle catalogue; readers following the disclosure
-  path get garbled/misleading cues.
-- **Fix:** Regenerate the index summaries snapping to a clause/sentence boundary (or lift
-  the char cap); hand-repair the ~20 broken entries; add a generator lint rejecting any
-  summary ending in an article/conjunction/preposition ("and", "the", "a", "to", "plus",
-  "than", "some") so it can't regress silently.
+> Dedup: the ai-agent-engineering should-fix on the adapter `description` omitting the three
+> sibling exclusions (SF-1 below) is the **same root defect** as M1/M2 at a different location
+> (adapter/profile frontmatter vs. per-skill frontmatter). Closing the sibling-routing gap
+> should cover both surfaces.
 
 ---
 
 ## SHOULD-FIX
 
-### SF-1 — AVT skill invites a "dubbing script" but carries only subtitling criteria
-- **Where:** `skills/register-discourse-and-audiovisual-constraints/SKILL.md:6-7` (desc),
-  `:51` (Purpose), `:80` (Inputs "…or dubbing script"). All 13 procedure steps + 12
-  anti-patterns are subtitling-specific (char/line/second limits, ECR strategies); none
-  cover isochrony/lip-sync, kinesic synchrony, or voice-over. `profile.yaml:25-26` is more
-  honest (names only "subtitling constraints").
-- **Severity:** should-fix (technical-translation-advisor).
-- **Fix:** Either narrow desc/Inputs to subtitling only (match the profile), or add
-  dubbing-specific steps/anti-patterns grounded in the source's dubbing claim
-  (`analysis/claims.jsonl` C00320).
+### SF-1 — adapter/profile `description` omits the three sibling-routing exclusions *(same root as M1/M2)*
+- **Where:** `profile.yaml:1-6` → adapter line 3.
+- **Severity:** should-fix (ai-agent-engineering-reviewer).
+- **Problem:** the router-visible `description` surfaces only the first when_to/when_not bullet,
+  dropping the →`translation-equivalence-advisor` / →`translation-quality-reviewer` /
+  →`technical-translation-advisor` exclusions an orchestrator uses to keep the 4-way split
+  non-overlapping. A corpus-QA or terminology task could mis-route here on description-match alone.
+- **Fix:** compress the sibling-exclusion clauses into the `description` string (e.g. "Not for:
+  corpus QA scoring (→translation-quality-reviewer), word/collocation equivalence
+  (→translation-equivalence-advisor), technical terminology (→technical-translation-advisor)").
 
-### SF-2 — House error-taxonomy mischaracterised as a severity gradient
-- **Where:** `skills/register-discourse-and-audiovisual-constraints/SKILL.md:51` — "the
-  overtly-/covertly-erroneous error taxonomy **grades an error's severity** (P065)".
-- **Severity:** should-fix (profile-reviewer; flagged r4/r5, still present, untracked).
-- **Problem:** House's overtly/covertly-erroneous distinction is error type/detectability,
-  not a severity gradient; conflating cuts against `quality_bar[5]` ("errors that pass
-  silently").
-- **Fix:** Reword to "classifies an error's type/origin, not its severity." Log it in the
-  ledger (fixed or deferred).
+### SF-2 — `inputs.required` unconditionally demands source+target text, mismatching the analysis/norm-claim path
+- **Where:** `profile.yaml:43-49`.
+- **Severity:** should-fix (ai-agent-engineering-reviewer).
+- **Problem:** `when_to_use[1]` covers reviewing a translation-studies analysis / "norm" claim,
+  which may carry no source/target pair; `inputs.required` still lists both as required →
+  input-contract mismatch between promised scope and required inputs.
+- **Fix:** make source+target conditionally required (only for the rendering-critique path), or
+  add a note that the pair is required only when reviewing an actual rendering.
 
-### SF-3 — P121 omits Koller's fifth (formal/expressive) equivalence relation
-- **Where:** `principles/principles.yaml` P121 / `adapters/…/descriptive-translation-reviewer.md:218`.
-- **Severity:** should-fix (profile-reviewer). Internal inconsistency: P106 lists all five,
-  P121 lists four — matters for the literary/poetic equivalence critique.
-- **Fix:** Add "formal (formal-aesthetic/expressive)" to P121 and its dependent step, or
-  log the deferral with a reason.
+### SF-3 — `when_to_use[5]` bundles 4 distinct triggers into one run-on bullet
+- **Where:** `profile.yaml:27-29`.
+- **Severity:** should-fix (profile-reviewer + ai-agent-engineering agree).
+- **Problem:** ideology/institutional critique; hermeneutic/untranslatability claims; V&D/Catford
+  shift soundness; TQA-method soundness — 4 scenarios joined by "or"/";" in ~32 words. Passes the
+  3–6 count gate but hurts scannability; a caller likely misses that V&D/Catford or TQA-method
+  checks are in scope.
+- **Fix:** split into 2–3 single-scenario bullets (a documented excursion to 7–8 bullets is
+  acceptable — the deterministic gate only FAILs outside 3–6).
 
-### SF-4 — Provenance ledger "Deferred" bookkeeping incomplete
-- **Where:** `provenance-ledger.md:53-73` (v1.5.0 Deferred lists only NICE N1-N5, N7-N9).
-- **Severity:** should-fix (profile-reviewer). Open r4/r5 should-fix items (SF-2, SF-3,
-  and r5 S7 P021) are neither applied nor named as deferred — a ledger-only reader can't
-  tell if they were deprioritised or lost.
-- **Fix:** Name every open r4/r5 should-fix/nice item by its original ID in the Deferred list.
+### SF-4 — profile body word-count margin thin (~978w vs 1000w FAIL)
+- **Where:** `profile.yaml:8-15, 30-32, 84-86`.
+- **Severity:** should-fix (profile-reviewer).
+- **Problem:** the review-only boundary is stated at full strength 3× (`role` ~46w,
+  `when_not_to_use[0]` ~27w, `forbidden_behaviours[0]` ~23w); each additive review-loop round
+  shrinks the margin toward hard FAIL.
+- **Fix:** keep the full statement once (recommend `forbidden_behaviours[0]`), shorten the `role`
+  and `when_not_to_use[0]` restatements to cross-references (~40–60w reclaimed); confirm exact
+  count with `python -m tools.subagent_factory.profile_self_check`.
 
-### SF-5 — Skill routing: three same-package equivalence skills have no cross-cue
-- **Where:** `equivalence-orientations-and-effect/SKILL.md`,
-  `meaning-signification-and-equivalence-critique/SKILL.md`,
-  `translation-procedures-and-shifts/SKILL.md` (descriptions).
-- **Severity:** should-fix (agent-skills-advisor). All three disambiguate from the *sibling
-  package* but not from *each other* though they share adjacent ground (P106 vs P121 both
-  invoke Koller). Three plausible same-package entry points, cues buried in prose.
-- **Fix:** Add a one-line same-package routing cue to each description (orientation/effect →
-  here; theory-of-meaning premise → skill Y; procedure/shift naming → skill Z), or a small
-  routing table in a reference file.
+### SF-5 — reviewer-only reframing lives one section above the ~90 imperative invariants it governs
+- **Where:** `profile.yaml:8-15` (role) vs adapter Operating Invariants (L26–306).
+- **Severity:** should-fix (ai-agent-engineering-reviewer).
+- **Problem:** many invariants are 2nd-person imperatives to a translator (P045, P009, P038); read
+  in isolation they say "do this," not "check this." The single governing sentence is structurally
+  distant. `forbidden_behaviours` already blocks producing a translation, so this is hardening, not
+  a live contradiction.
+- **Fix:** repeat a short "each rule below is a criterion to check in someone else's translation,
+  not an action to perform" line directly under the "Operating invariants (must hold)" header.
 
-### SF-6 — Frontmatter `description` doesn't disambiguate from sibling reviewers
-- **Where:** `.claude/agents/generated/descriptive-translation-reviewer.md:3` (router-visible
-  frontmatter); overlaps `translation-quality-reviewer.md:3`.
-- **Severity:** should-fix (ai-agent-engineering-reviewer). Three-way sibling routing lives
-  only in the body `when_not_to_use`, which a selection pass over frontmatter may not read →
-  generic "review my translation" may mis-route.
-- **Fix:** Add a "Not for" clause to frontmatter naming the closest siblings + axis split,
-  mirroring `translation-equivalence-advisor`'s pattern.
+### SF-6 — missing reciprocal tie-breaker: `hermeneutics-and-the-limits-of-translatability` ↔ `meaning-signification-and-equivalence-critique`
+- **Where:** both files' `description` frontmatter.
+- **Severity:** should-fix (agent-skills-advisor).
+- **Problem:** both ground substantial Quine content (indeterminacy / inscrutability of reference);
+  no "X stays here / Y routes there" sentence → ambiguous or duplicated triggering on Quine-flavoured
+  meaning-theory questions.
+- **Fix:** add a reciprocal clause to each description (e.g. in meaning-signification: "the
+  indeterminacy-of-reference and hermeneutic-motion critique routes to
+  `hermeneutics-and-the-limits-of-translatability`; this skill stays on the word/sign-level
+  signification premise").
 
-### SF-7 — Procedure items are paragraph-length single sentences (not scannable)
-- **Where:** all 12 `skills/*/SKILL.md` `## Procedure` (e.g.
-  `descriptive-method-and-translational-norms/SKILL.md:84`, 95-word step).
-- **Severity:** should-fix (agent-skills-advisor). 40-100-word academic sentences resist
-  live checklist use.
-- **Fix:** Split each into a short imperative lead ("Check: X") with justification/citation
-  demoted to a trailing clause; one check per line.
+### SF-7 — `text-type-skopos-and-the-brief` Procedure under-specifies vs its own Anti-patterns and sibling skills
+- **Where:** `skills/text-type-skopos-and-the-brief/SKILL.md` `## Procedure` steps 2,3,6,8–10,12–15 (L66–79).
+- **Severity:** should-fix (agent-skills-advisor).
+- **Problem:** one-line paraphrase steps with no failure-mode detail, while this file's own
+  Anti-patterns bullets and every sibling Procedure carry that operational detail. An agent
+  following the Procedure alone gets materially less actionable guidance here than for the other 11.
+- **Fix:** fold the concrete failure-mode detail already in this file's Anti-patterns back into the
+  corresponding Procedure steps, matching the density of `equivalence-orientations-and-effect`.
 
-### SF-8 — Anti-patterns ≈ 1:1 negation of Procedure across all 12 skills
-- **Where:** all 12 `skills/*/SKILL.md` (e.g.
-  `descriptive-method-and-translational-norms/SKILL.md:71` vs `:105`).
-- **Severity:** should-fix (agent-skills-advisor; ai-agent noted the same doubling). Nearly
-  doubles body token cost for limited added signal.
-- **Fix:** Keep the affirmative Procedure check; rewrite Anti-patterns as short concrete
-  "smells" (one-line bad-example phrasings), not full restatements.
+### SF-8 — `register-discourse-and-audiovisual-constraints` still lacks the House-TQA boundary to sibling `translation-quality-reviewer`
+- **Where:** that SKILL.md `description` + Procedure step 6 (House overt/covert + field/tenor/mode, P021/P064/P065).
+- **Severity:** should-fix (agent-skills-advisor).
+- **Problem:** `reports/review-loop/…verify2.md` item B already flagged this overlap and deferred
+  it "owner-decide" pending a reciprocal fix on the sibling package; still unresolved. Same class as M1.
+- **Fix:** once the sibling package's reciprocal sentence lands, add the matching tie-breaker: a
+  House TQA judgment used to produce/certify a corpus-based quality score routes to
+  `translation-quality-reviewer`; this skill reviews only the register/discourse analysis method.
 
-### SF-9 — Operating invariants phrased as translator-facing imperatives
-- **Where:** `.claude/agents/generated/descriptive-translation-reviewer.md:26-306` (e.g. P045
-  L104 "Prepare a verse translation…"; P069 L144 "Subtitle within…"; P174 L294 "prescribe…").
-- **Severity:** should-fix (ai-agent-engineering-reviewer). Up-front "review criteria, not
-  instructions to translate" disclaimer can dilute over a 94-item imperative list; skill
-  loads may surface imperative phrasing without the adjacent disclaimer.
-- **Fix:** Reframe highest-risk invariants with a review verb ("Check that a verse
-  translation first maps…"), or insert a recurring review-only reminder every ~25-30 items;
-  confirm each SKILL.md preamble repeats the review-only framing.
+### SF-9 — Blum-Kulka explicitation mislabelled a "discourse type" (belongs to Frawley's third code)
+- **Where:** `principles/principles.yaml` P047 (~L1146–1152) + `skills/domestication-foreignization-and-visibility/SKILL.md` Procedure step 4.
+- **Severity:** should-fix (translation-equivalence-advisor).
+- **Problem:** explicitation is a hypothesised *process tendency / translation universal* (increased
+  cohesive explicitness), not a claim that translation is a distinct discourse type — that phrasing
+  re-merges exactly the Blum-Kulka/Frawley boundary the principle is trying to keep separate.
+- **Fix:** reword to "a proposed translating-specific process tendency (or 'universal')," not
+  "discourse type."
 
 ---
 
 ## NICE
 
-- **N1** — `references/…principles-index.md:272` P121 gloss adds an unsourced "1960s-70s"
-  date qualifier not in the principle. Drop or ground it. (translation-equivalence)
-- **N2** — `principles/principles.yaml:283` (P010) "governed **at the base by** the initial
-  norm" — Toury's initial norm is superordinate; reword to "governed overall by / at its
-  head". (translation-quality)
-- **N3** — `principles/principles.yaml:1144` (P047) "tends **always** to increase…" — drop
-  "always" (a tendency isn't absolute; surrounding hedge already correct). (translation-quality)
-- **N4** — `references/…index.md:411` heading uses en-dash `Literal–Free` vs the hyphen slug
-  everywhere else; normalise. (agent-skills)
-- **N5** — No skill carries a worked good/bad mini-example despite 15-21 principles each; add
-  one to the densest skills. (agent-skills)
-- **N6** — Skill H1 title-case capitalises function words ("And"/"The"); internally
-  consistent, cosmetic. (agent-skills)
-- **N7** — `profile.yaml:17-18` `when_to_use[0]` still a mild dangling construction. (profile)
-- **N8** — `knowledge_partition` is all `always_on`; consider `load_on_demand` for rarely-used
-  clusters (hermeneutics, culture-ideology) for context budget. (ai-agent)
-- **N9** — `profile.yaml:28-32` `when_not_to_use` packs three sibling-routing clauses into one
-  dense bullet; split into three for scan-ability. (ai-agent)
-- **N10** — Verify body word-count via `profile_self_check.py` (manual recount lands ~790-800w,
-  at the 800 WARN line); keep firmer margin under 800. (profile)
-- **N11** — `forbidden_behaviours[0]` uncited-by-design; point the exception at the named
-  review-vs-produce convention so traceability is self-contained. (profile)
+- **N1** — Redundant `## Provenance` body footer re-lists the full `provenance.principles` ID set
+  (already in frontmatter) in all 12 SKILL.md bodies (loads on every trigger); replace ID list with
+  a pointer to the frontmatter block. (agent-skills)
+- **N2** — Skill H1 titles don't consistently mirror the `name:` slug (e.g. domestication file adds
+  "Translator"); normalise or document a display-title convention. (agent-skills)
+- **N3** — `Inputs`/`Output` boilerplate repeated near-verbatim 12×; consolidation candidate only if
+  a future token-budget pass targets this package specifically. (agent-skills)
+- **N4** — Subtitling figures P069 (38 Roman / 13–15 CJK chars / ~6 s) stated as "near-universal";
+  house/platform style varies (cps-based reading-speed targets exist). Already disclosed via profile
+  `when_not_to_use` ~2016 scope boundary; soften to "widely used convention (house-style/platform
+  dependent)." (equivalence + quality + technical lenses concur — informational, no domain error)
+- **N5** — `principles.yaml` P081: the "semblante/rostro/cara" quantitative-impoverishment example
+  is attributed to "Arlt's" prose; spot-check the author against Berman's original if a page anchor
+  exists (concept itself stated correctly regardless). (technical lens)
+- **N6** — `always_on[11]` cites P089, the one principle flagged `operational_mapping.profile_rule:
+  false` in the spine; the profile only names the methods as a topic (no claim-strength violation),
+  but the owner should confirm why a `profile_rule:false` principle is cited in a profile rule.
+  (faithfulness)
+- **N7** — P147 GILT/internationalization framing ("interlingua replaces the source") is a narrower,
+  minority reading vs industry-standard internationalization; spot-check against the Munday passage
+  if the skill is ever extended. (technical + quality lenses)
+- **N8** — provenance-ledger Version History now 10 dense entries (1.0.0→1.9.0); a current-state
+  "Grounding Summary" (without deleting history) would aid maintainability. (profile-reviewer)
+- **N9** — role's "operating invariant" wording references the exported-adapter section name, not a
+  field in `profile.yaml`; a reader of the portable profile alone may find "below" ungrounded.
+  Harmless, sibling-consistent. (profile-reviewer)
 
-MUST_FIX_COUNT: 3
+---
+
+## Lens must-fix tally
+
+| Lens | must-fix |
+|---|---|
+| deterministic gates | 0 |
+| agent-skills-advisor | 2 (M1, M2) |
+| profile-reviewer | 0 |
+| faithfulness-reviewer | 0 |
+| ai-agent-engineering-reviewer | 0 |
+| translation-equivalence-advisor | 0 |
+| translation-quality-reviewer | 0 |
+| technical-translation-advisor | 0 |
+
+Deduped must-fix = **M1, M2** — both are the sibling-routing boundary missing from the
+`translation-quality-and-applied-studies` skill; the ai-agent adapter-description finding (SF-1) is
+the same defect at a second surface and is filed as should-fix to avoid double-counting. All three
+domain lenses PASS with no must-fix — theorist attributions verified correct across the full 180-
+principle corpus (Vinay & Darbelnet, Catford, Nida, Newmark, Reiss/Vermeer, Toury, House, Berman,
+Venuti, Steiner, Quine, Gutt, Chaume, Pedersen). Prior r2 must-fix (MF-1/2/3) verified resolved in
+v1.9.0.
+
+MUST_FIX_COUNT: 2

@@ -3,6 +3,50 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.10.0] — 2026-07-12
+
+Review-loop round r2 (`reports/review-loop/descriptive-translation-reviewer.r2.review.md`): applied both
+must-fixes (M1, M2) and the high-value should-fixes (SF-2, SF-3, SF-4, SF-6, SF-7, SF-9), staying grounded in
+the existing 180-principle spine — no new claim introduced; every added sentence is either sibling-routing
+(no principle content) or failure-mode detail already present in the same skill's own anti-patterns.
+
+### Fixed
+- **M1 — sibling-routing boundary missing from `translation-quality-and-applied-studies` trigger surface** —
+  added to that skill's `description` and a new `## When to use` bullet: requests to run corpus-based quality
+  metrics / QA scoring and return the scores route to the sibling `translation-quality-reviewer`; this skill
+  reviews only whether the evaluation method itself is sound.
+- **M2 — Procedure step 15 (GILT/localization) invited scope creep** — added a boundary clause: terminology
+  risk or scientific/technical target-text correctness in a localization deliverable routes to
+  `technical-translation-advisor`; the step is scoped to whether the localization/internationalization
+  framing (fixed-source vs. locale-functionality) is sound.
+- **SF-2 — `inputs.required` unconditionally demanded source+target** — made the source/target pair
+  conditionally required (only when reviewing an actual rendering); a translation-studies analysis or 'norm'
+  claim may omit it, matching the `when_to_use[1]` analysis path.
+- **SF-3 — `when_to_use[5]` bundled 4 triggers into one run-on bullet** — split the V&D/Catford/TQA-method
+  soundness trigger onto its own bullet and merged the equivalence-orientation and axis-placement triggers,
+  keeping the list at 6 (the deterministic gate hard-FAILs above 6).
+- **SF-4 — profile body word-count margin thin (~989w vs 1000w FAIL)** — kept the review-only boundary at full
+  strength once (`forbidden_behaviours[0]`) and shortened the `role` and `when_not_to_use[0]` restatements to
+  cross-references; body now ~985w.
+- **SF-6 — missing reciprocal tie-breaker between `hermeneutics-and-the-limits-of-translatability` and
+  `meaning-signification-and-equivalence-critique`** — added a reciprocal routing clause to each skill's
+  `description` (indeterminacy-of-reference / hermeneutic-motion vs. word/sign-level signification).
+- **SF-7 — `text-type-skopos-and-the-brief` Procedure under-specified vs its own anti-patterns** — folded the
+  concrete failure-mode detail already in this skill's anti-patterns back into the thin Procedure steps
+  (2, 3, 6, 8, 9, 10, 14, 15); no new principle or claim.
+- **SF-9 — Blum-Kulka explicitation mislabelled a "discourse type" (P047)** — reworded to "a proposed
+  translating-specific process tendency (or 'universal')", keeping it distinct from Frawley's third-code thesis.
+
+### Deferred
+- **SF-1** — the router-visible adapter `description` is auto-composed by `export_claude_agent` from
+  `role` + `when_to_use[:2]` + `when_not_to_use[:1]` under a 320-char / 85-char-per-clause budget; the primary
+  sibling routing (→`translation-quality-reviewer`) already surfaces via `role`, and M1/M2 close the same root
+  defect at the per-skill trigger surface. Forcing all three exclusions into the budgeted exclusion clause
+  would truncate mid-list.
+- **SF-5, SF-8, and NICE items** — SF-5 (repeat reviewer-only reframing in the generated adapter body) is
+  template-rendered, not hand-editable; SF-8 is `owner-decide`, blocked pending a reciprocal fix on the sibling
+  `translation-quality-reviewer` package.
+
 ## [1.9.0] — 2026-07-12
 
 Review-loop round r1 (`reports/review-loop/descriptive-translation-reviewer.r1.review.md`): applied all three

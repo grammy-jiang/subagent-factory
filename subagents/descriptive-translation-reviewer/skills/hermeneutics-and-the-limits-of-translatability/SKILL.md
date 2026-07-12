@@ -4,7 +4,10 @@ description: Reviews a translation's interpretive stance, its treatment of untra
   or a claim of full determinacy or perfect equivalence against hermeneutic and philosophical
   grounding (Steiner's fourfold motion, Quine's indeterminacy, Gutt's relevance theory);
   this skill reviews a translation or translation-studies analysis, it does not produce
-  the finished translation.
+  the finished translation. Tie-breaker — the word- and sign-level signification premise
+  (naive cross-code identity, dictionary-equivalence trust) routes to the sibling
+  `meaning-signification-and-equivalence-critique`; this skill stays on the interpretive
+  and philosophical grounding, indeterminacy of reference, and untranslatability.
 kind: skill
 status: ready
 provenance:

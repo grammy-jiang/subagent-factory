@@ -9,7 +9,10 @@ description: Reviews the theory of meaning and signification underlying an equiv
   this skill stays on the theory of meaning, not the mechanism of producing an equivalent.
   Within this package, the theory-of-meaning premise stays here; formal-versus-dynamic
   orientation/effect fit routes to `equivalence-orientations-and-effect` and procedure/shift
-  naming to `translation-procedures-and-shifts`.
+  naming to `translation-procedures-and-shifts`. The indeterminacy-of-reference and
+  hermeneutic-motion critique (Quine's inscrutability, Steiner's fourfold motion)
+  routes to `hermeneutics-and-the-limits-of-translatability`; this skill stays on
+  the word- and sign-level signification premise.
 kind: skill
 status: ready
 provenance:

@@ -43,7 +43,7 @@ provenance:
   - C00381
   evidence: []
   source_anchors: []
-  authored_from_digest: f0f11becba346f6ec8180cf58c21fb537f81cd3d5e50248f56ede190964e0814
+  authored_from_digest: ea3ab9540fd6344c26cdaa972008ed0d772f117cd151aa031c545d10e6468fb4
 ---
 
 # Domestication, Foreignization And Translator Visibility

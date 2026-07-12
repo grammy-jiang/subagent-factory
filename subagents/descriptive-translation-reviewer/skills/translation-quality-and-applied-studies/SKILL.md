@@ -2,8 +2,10 @@
 name: translation-quality-and-applied-studies
 description: Reviews translation-quality judgments and applied or empirical translation-studies
   work for evaluation-method soundness, discipline-map placement, and research-design
-  rigor; this skill critiques and reports findings and does not itself finalize a
-  quality score, a translation, or a publication decision.
+  rigor. Requests to run corpus-based quality metrics or QA scoring and return the
+  scores route to the sibling `translation-quality-reviewer`; this skill reviews only
+  whether the evaluation method itself is sound. It critiques and reports findings
+  and does not itself finalize a quality score, a translation, or a publication decision.
 kind: skill
 status: ready
 provenance:
@@ -58,6 +60,7 @@ This skill reviews translation-quality assessments and applied or empirical tran
 - A study, task, training method, or critique needs to be located on Holmes's discipline map or checked for research-design rigor.
 - A claim rests on translators' self-reports, a corpus, CAT/MT technology, or process-research data (think-aloud, keylogging, eye-tracking) whose limits need checking.
 - A reflective translation commentary, or a localization/internationalization deliverable, needs its underlying norms or framing made explicit.
+- Not this skill: a request to actually run corpus-based quality metrics or QA scoring and return the scores routes to the sibling `translation-quality-reviewer`; terminology risk or scientific/technical target-text correctness routes to `technical-translation-advisor`. This skill reviews only whether the evaluation or localization method itself is sound.
 
 ## Procedure
 
@@ -75,7 +78,7 @@ This skill reviews translation-quality assessments and applied or empirical tran
 12. Evaluate translation and translator expertise as culturally situated role performance, not only as bilingual linguistic production (P100).
 13. Check that any reflective translation commentary grounds itself in the translation problem's exploration space of purpose or skopos, method, and readership, and that the target norms are captured in a translation specification recording the source's external features and the target's commissioner-set constraints, since without that specification the translation happens in a contextual vacuum where any procedure could be justified; whether the brief or skopos hierarchy was itself the right one and was actually followed routes to the sibling `text-type-skopos-and-the-brief`, while this skill reviews only whether the evaluation method documented that specification before it scored the translation (P112).
 14. Before judging a translation or a translation theory, surface its underlying assumptions about language — whether it treats language instrumentally, as communication of pre-existing meaning driving toward information-transfer and equivalence typologies, or hermeneutically, as constitutive interpretation driving toward creative values and social function (P113).
-15. Situate the work within GILT, checking whether localization is being handled as the superordinate adaptation of a product to the target locale, and, where internationalization is at issue, checking that equivalence is judged by the functionality of a constantly-updated interlingua version rather than by measurement against a fixed source (P147).
+15. Situate the work within GILT, checking whether localization is being handled as the superordinate adaptation of a product to the target locale, and, where internationalization is at issue, checking that equivalence is judged by the functionality of a constantly-updated interlingua version rather than by measurement against a fixed source; scope this to whether the localization/internationalization framing (fixed-source vs. locale-functionality) is sound, and route terminology risk or scientific/technical target-text correctness in the localization deliverable to `technical-translation-advisor` (P147).
 16. Synthesize the findings into a single ranked list, leading with issues that invalidate the quality judgment, corrupt the evaluation method, or misplace the study on the discipline map, before secondary framing or technology-use concerns.
 
 ## Inputs
