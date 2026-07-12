@@ -2,6 +2,12 @@
 name: overt-covert-translation-and-equivalence
 kind: skill
 status: ready
+description: Review a House-model quality assessment — is the source-text profile
+  and function specified, is the case overt (source kept intact) or covert (cultural
+  filter for target pragmatics), and has unjustified filtering produced a covert version.
+  Use when an overt/covert classification or a functional-equivalence claim needs
+  situating; register detail goes to register-field-tenor-mode-analysis, error typing
+  to error-analysis-and-evaluation-discipline.
 provenance:
   principles:
   - P005
@@ -45,7 +51,7 @@ provenance:
   authored_from_digest: 44077a66590391a40c3c81618836df58db15c89e430d8918933b8eff77a3011e
 ---
 
-# Overt/Covert Translation And Functional Equivalence
+# Overt Covert Translation And Equivalence
 
 ## Purpose
 
@@ -59,6 +65,12 @@ This skill reviews a translation quality assessment built on House's model: whet
 - A covert/overt classification is asserted without checking addressee needs, source status, and whether the target could function as an original.
 
 ## Procedure
+
+**Triage first.** Decide which sub-case is on the table before working the detailed steps:
+- **Overt case** (source kept intact, second-level access to the source function is the goal): apply steps 1, 11, 18 directly.
+- **Covert case** (cultural filter applied for target pragmatics): apply steps 3, 4, 12, 15, 18.
+- **Disputed or unclear which case applies, or a translation/version boundary question**: resolve the classification first via steps 5, 10, 13, 16, 19, then apply the case-specific steps above.
+Steps 2, 6-9, 14, and 17 (profile specification, equivalence scope, and evidence currency) apply regardless of which sub-case this is.
 
 1. For overt translation, aim at second-level access to the source function, preserve the source as intact as possible, and balance necessary explanation against replacement of source-culture markedness (P005).
 2. Build the quality comparison from a detailed source-text profile that specifies the function to be sought in the target text (P006).
@@ -91,13 +103,25 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 
 ## Anti-patterns to flag
 
-- The analysis fails to for overt translation, aim at second-level access to the source function, preserve the source as intact as possible, and balance necessary explanation against (P005).
-- The analysis fails to build the quality comparison from a detailed source-text profile that specifies the function to be sought in the target text (P006).
-- The analysis fails to for covert translation, account for target pragmatics through cultural filters supported by multi-method research on register and genre variation across language pairs (P007).
-- The analysis fails to when evaluating covert translation, check whether titles, advertising, signs, or other target texts reveal shifts between explicit content, interpersonal address (P008).
-- The analysis fails to classify unjustified cultural-filter changes as covert versions, and classify added special-audience or special-purpose renderings as overt versions rather than ordinary (P011).
-- The analysis fails to treat equivalence as approximate value across differences, assessed at text level and prioritized case by case across denotative, connotative, pragmatic, text-normative (P030).
-- The analysis fails to define text function as use in a particular situational and cultural context, not as a direct projection from broad language-function typologies (P031).
+- Praising an overt translation for smoothing away source-culture markedness instead of aiming at second-level access to the source function and preserving the source as intact as possible (P005).
+- Judging a translation without first specifying the source-text profile and the function the target should seek (P006).
+- Accepting a cultural-filter change in a covert translation without grounding it in documented register and genre variation across the language pair (P007).
+- Overlooking title, advertising, sign, or other target-text shifts in explicitness, address, directness, and implicitness when evaluating a covert translation (P008).
+- Calling an unjustified cultural-filter change a translation rather than classifying it as a covert version, or treating an added special-audience rendering as an ordinary translation rather than an overt version (P011).
+- Reducing equivalence to a single dimension instead of weighing denotative, connotative, pragmatic, text-normative, and formal-aesthetic demands case by case at text level (P030).
+- Assigning text function from a broad language-function typology instead of from the text's actual situational and cultural use (P031).
+- Equating equivalence with preserved referential content while ignoring the pragmatic and textual dimensions of meaning (P038).
+- Accepting a purpose-oriented TQA method that omits an explicit textual-function definition, source-text-type identification, translation-method or shift comparison, or text-specific adequacy evaluation (P059).
+- Deciding translation type from source-text features alone instead of from source status, use, reception history, purpose, and brief (P062).
+- Applying overt-translation criticism criteria to a case that requires covert criteria, or the reverse, without first analyzing translation as frame and discourse-world movement (P063).
+- Permitting register or language/text manipulation in a covert translation that breaks the target-frame genre or the individual textual function it is meant to preserve (P064).
+- Classifying a case as covert without checking that source and target addressees have comparable contemporary needs and that the target can function as an original in its own culture (P093).
+- Applying a fixed overt/covert expectation when current corpus evidence shows reduced cultural filtering, English source-norm takeover, or an emerging overt-like hybrid type (P106).
+- Dismissing a dimensional profile mismatch as harmless because grammar and denotation are acceptable, instead of classifying it as a covert functional error (P127).
+- Dropping the source-target comparison once target-audience appropriateness or translation purpose is invoked to justify calling the product a version rather than a translation (P131).
+- Treating functional equivalence as a fixed linguistic property rather than as a matter of intercultural understanding enabling comparable function in a different context (P133).
+- Ignoring that overt translation co-activates source and target pragmatics while covert translation primarily activates target pragmatics when assessing the cognitive plausibility of a rendering (P136).
+- Asserting an overt/covert classification without stating which linkage and textual operation on the overt/covert cline and translation/version distinction is being evaluated (P138).
 
 ## References
 

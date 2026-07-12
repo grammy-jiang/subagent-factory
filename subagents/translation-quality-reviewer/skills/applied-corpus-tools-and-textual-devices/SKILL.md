@@ -2,6 +2,11 @@
 name: applied-corpus-tools-and-textual-devices
 kind: skill
 status: ready
+description: Review the applied use of corpus tools and textual analysis — keyword,
+  concordance, and collocation analysis, description of existing translations, and
+  tracking of textual devices (theme dynamics, clausal and iconic linkage, deixis)
+  — set against the commission's purpose and risk level. Use when concrete tooling
+  or textual-device tracking is under review; corpus design choices go to corpus-design-and-methodology.
 provenance:
   principles:
   - P017
@@ -73,13 +78,16 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 
 ## Anti-patterns to flag
 
-- The analysis fails to analyse simplification and conventionalisation through observable shifts such as title simplification, clearer syntax, shorter units, regularised punctuation, reduced (P017).
-- The analysis fails to use target-reader need, lexical availability, and meaning criticality to choose among superordinates, approximation, common synonyms, circumlocution, paraphrase (P027).
-- The analysis fails to use corpus comparison to examine addressee involvement, perspective, subjectivity, information organization, interactionality, and source-language shining-through (P033).
-- The analysis fails to include textual devices in the analysis by tracking theme dynamics, clausal linkage, iconic linkage, deictic dependence, and overall text organization (P039).
-- The analysis fails to use corpus-based tools in Bible translation to describe existing translations, explain their systemic conditions, and support quality, accessibility, and skopos-specific (P081).
-- The analysis fails to use keyword, concordance, and collocation analysis to investigate cultural or ideological meanings in translated texts (P082).
-- The analysis fails to analyze style and province as functional evidence by checking shared background, implicitness, formality, institutional convention, domain activity, topic, and (P089).
+- Reading a simplification or conventionalisation claim off vague impressions instead of observable shifts such as title simplification, clearer syntax, shorter units, regularised punctuation, or reduced repetition (P017).
+- Choosing a superordinate, approximation, circumlocution, or loan-word rendering without weighing it against target-reader need, lexical availability, and how critical the meaning is (P027).
+- Reading cultural or ideological significance into a corpus comparison without examining addressee involvement, perspective, subjectivity, information organization, interactionality, or source-language shining-through (P033).
+- Judging meaning preservation without tracking textual devices — theme dynamics, clausal linkage, iconic linkage, deictic dependence, and overall text organization (P039).
+- Using corpus-based tools on a Bible translation without describing existing translations, explaining their systemic conditions, or connecting the analysis to quality, accessibility, or skopos-specific decisions (P081).
+- Treating a keyword, concordance, or collocation finding about cultural or ideological meaning as established rather than as a hypothesis needing further testing (P082).
+- Assessing style and province without checking shared background, implicitness, formality, institutional convention, domain activity, topic, or production details as functional evidence (P089).
+- Approving or overlooking non-mother-tongue translation without appropriate competence and controls, such as qualified native-language revision or stylistic advice, where target-native expectations matter (P104).
+- Reporting fine-grained textual counts without connecting them to the cultural, ideological, pedagogical, or technological context needed to interpret them (P113).
+- Setting a quality requirement without reference to the commission's purpose and risk level, or applying the same bar to a basic-understanding use as to a publication, image, legal, or high-stakes use (P134).
 
 ## References
 

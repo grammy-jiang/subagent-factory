@@ -2,6 +2,11 @@
 name: russian-corpus-and-interpreting-research
 kind: skill
 status: ready
+description: Review corpus-based translation and interpreting work in the Russian
+  field, where corpus scarcity and fragmentation are hard design constraints — pressing
+  for multifactorial modelling, significance testing with effect sizes, metadata-rich
+  corpora, and inclusion of the Russian research tradition. Use when a Russian-field
+  corpus or interpreting study is under review; general corpus design goes to corpus-design-and-methodology.
 provenance:
   principles:
   - P019
@@ -52,11 +57,11 @@ This skill reviews corpus-based translation and interpreting work in the Russian
 
 ## Procedure
 
-1. For Russian interpreting research, treat corpus availability as a design constraint (P019).
-2. Prioritize corpus construction and study designs for underexplored Russian varieties, especially constrained communication, amateur translation, post-edited translation, second-language translation, translator qualifications, and (P020).
+1. For Russian interpreting research, treat corpus availability as a design constraint: expect scarcity, fragmentation, missing historical data, and no default Europarl Russian component (P019).
+2. Prioritize corpus construction and study designs for underexplored Russian varieties, especially constrained communication, amateur translation, post-edited translation, second-language translation, translator qualifications, and non-English language pairs (P020).
 3. When surveying Russian translation and interpreting corpora, include the Russian research tradition rather than assuming the field is represented only by better-known English, French, German, or Spanish work (P029).
 4. When recommending Russian interpreting data sources, describe UN Web TV, SIREN, and COINCOUT with their acquisition, transcription, size, domain, and access limitations (P051).
-5. Recommend supervised or unsupervised machine learning for Russian translation/interpreting only when the corpus is large, feature-rich, and metadata-suitable, and frame the result as pattern detection or classification rather than (P052).
+5. Recommend supervised or unsupervised machine learning for Russian translation/interpreting only when the corpus is large, feature-rich, and metadata-suitable, and frame the result as pattern detection or classification rather than automatic explanation (P052).
 6. For complex variation in translation or interpreting, discourage explanation from isolated frequencies or concordances and recommend multifactorial modelling when multiple explanatory variables are plausible (P056).
 7. In mode or producer comparisons, operationalize linguistic markers clearly and pair descriptive indicators with significance testing and effect sizes before interpreting group differences (P057).
 8. For Polish-Russian or Russian-Polish multifactorial studies, require metadata-rich corpora that record factors such as translation direction, delivery mode, and text variety before making explanatory claims (P058).
@@ -75,13 +80,17 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 
 ## Anti-patterns to flag
 
-- The analysis fails to for Russian interpreting research, treat corpus availability as a design constraint (P019).
-- The analysis fails to prioritize corpus construction and study designs for underexplored Russian varieties, especially constrained communication, amateur translation, post-edited translation (P020).
-- The analysis fails to when surveying Russian translation and interpreting corpora, include the Russian research tradition rather than assuming the field is represented only by better-known (P029).
-- The analysis fails to when recommending Russian interpreting data sources, describe UN Web TV, SIREN, and COINCOUT with their acquisition, transcription, size, domain, and access limitations (P051).
-- The analysis fails to recommend supervised or unsupervised machine learning for Russian translation/interpreting only when the corpus is large, feature-rich, and metadata-suitable, and frame (P052).
-- The analysis fails to for complex variation in translation or interpreting, discourage explanation from isolated frequencies or concordances and recommend multifactorial modelling when (P056).
-- The analysis fails to in mode or producer comparisons, operationalize linguistic markers clearly and pair descriptive indicators with significance testing and effect sizes before interpreting (P057).
+- Treating Russian interpreting corpus scarcity, fragmentation, or missing historical data as incidental rather than a governing design constraint (P019).
+- Approving a Russian corpus proposal that skips underexplored varieties — constrained communication, amateur translation, post-edited translation, second-language translation, translator qualifications, non-English language pairs — in favor of well-trodden ground (P020).
+- Surveying Russian translation/interpreting corpora while citing only English, French, German, or Spanish scholarship and omitting the Russian research tradition (P029).
+- Recommending UN Web TV, SIREN, or COINCOUT as interpreting data sources without noting their acquisition method, transcription state, size, domain, or access limitations (P051).
+- Endorsing a machine-learning approach on a small, feature-poor, or metadata-thin Russian corpus, or presenting its output as automatic explanation rather than pattern detection or classification (P052).
+- Accepting an explanation of complex translation or interpreting variation from isolated frequency counts or concordance lines when multiple explanatory variables are plausible and multifactorial modelling was never attempted (P056).
+- Reporting a mode or producer comparison with descriptive indicators but no significance testing and effect size, or with linguistic markers left un-operationalized (P057).
+- Accepting a Polish-Russian or Russian-Polish multifactorial explanatory claim from a corpus that lacks direction, delivery-mode, or text-variety metadata (P058).
+- Letting a claimed universal or strategy for Russian interpreting stand on a single corpus without checking lexical, syntactic, and discourse-level patterns or awaiting independent replication (P146).
+- Approving a Russian translationese study confined to newspaper text and a narrow feature set instead of larger corpora spanning lexical, morphological, syntactic, and genre-sensitive evidence (P147).
+- Reviewing advanced computational or process-oriented Russian corpus research without flagging the absence of interdisciplinary input from linguistic, literary, computational, NLP, or psychological expertise (P148).
 
 ## References
 

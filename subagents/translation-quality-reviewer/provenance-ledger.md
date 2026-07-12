@@ -34,6 +34,19 @@ the two references index and ground them.
 
 ## Version History
 
+- **1.1.0** (2026-07-12) — Review-loop r1 fixes (supersedes 1.0.0 on the points below; earlier
+  decisions remain visible above). Re-exported the adapter to restore truncated operating invariants.
+  Grounded principle rewrites: **P003** now names parallel / monolingual comparable / multilingual
+  comparable corpus types (monolingual-comparable sense grounded in P121); **P042** labels
+  participation-under-Mode as House's earlier model, superseded by **P075** (Tenor) in the revised
+  model; **P139** restores Baker's conditional framing (translationese only when a distribution is
+  clearly incompetence-driven), resolving the P002/P147 contradiction. All 12 skills re-authored to
+  gold shape (added `description:` frontmatter, complete skill-specific anti-patterns). Profile
+  faithfulness tightened: dropped spurious anchors P084 (quality_bar[0]) and P090 (quality_bar[2]);
+  narrowed `precedence` (P032/P047/P115) to its cultural-filter/universal-tendency scope; scoped the
+  register `always_on` bullet to mission statements and comparably exhortative institutional texts
+  (P010/P070-P075); re-marked `handoff_rules[1]` as profile-level scoping judgement (dropped
+  unrelated P052/P077); added `when_to_use` coverage for error-discipline and genre/accessibility.
 - **1.0.0** (2026-07-12) — Initial LLM-authored layer over the pre-built distilled spine: profile
   (role, three modes, quality bar, forbidden behaviours, 12-skill / 2-reference
   knowledge partition), faithfulness report, 12 skills, 2 references, golden +

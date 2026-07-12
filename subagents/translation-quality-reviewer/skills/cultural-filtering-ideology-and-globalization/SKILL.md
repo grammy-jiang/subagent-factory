@@ -2,6 +2,10 @@
 name: cultural-filtering-ideology-and-globalization
 kind: skill
 status: ready
+description: Review quality where culture, ideology, English-as-a-lingua-franca, and
+  globalization bear on the choices, grounding any power or ideology critique in detailed
+  linguistic form and function first. Use when a cultural-filter, ideology, or ELF/globalization
+  claim is under review; the overt/covert filtering judgement goes to overt-covert-translation-and-equivalence.
 provenance:
   principles:
   - P022
@@ -42,7 +46,7 @@ provenance:
   authored_from_digest: 3d7eed7c7ea772e0ec0db08a088fd6117f221c0f9d09ad252c0e6c25e0668cf0
 ---
 
-# Cultural Filtering, Ideology And Globalization
+# Cultural Filtering Ideology And Globalization
 
 ## Purpose
 
@@ -57,10 +61,12 @@ This skill reviews translation quality where culture, ideology, English-as-a-lin
 
 ## Procedure
 
+Triage the claim under review into its cluster first, then apply only the matching steps: interpersonal/pragmatic preservation (step 1); ELF and English-influence claims (steps 2, 5, 11, 13); cultural-filter currency (steps 3, 6, 7); globalization and recontextualization (steps 4, 8, 9, 10, 12); and power/ideology grounding (steps 14, 15, 16).
+
 1. Treat preservation of factual content as insufficient when target choices weaken addressee involvement, flattery, reassurance, indirectness, responsibility management, hedging, or interpersonal force (P022).
 2. Evaluate ELF communication by mutual intelligibility, efficiency, and multilingual multicompetence rather than by native-speaker correctness alone (P026).
 3. Keep cultural-filter judgements current with language-pair developments because empirical evidence reduces arbitrariness but communicative norms continue to change (P032).
-4. Account for translation’s double transmission and rupture by analyzing how texts are recontextualized across time, space, indexical orders, and language-cultural barriers (P045).
+4. Account for translation's double transmission and rupture by analyzing how texts are recontextualized across time, space, indexical orders, and language-cultural barriers (P045).
 5. Do not treat ELF as a threat that makes translation obsolete; check the complementary roles of ELF, native languages, translation, and localization in the domain (P046).
 6. Avoid permanent cultural-filter generalizations; reassess each case against current communicative norms, globalization, internal diversification, and corpus evidence (P047).
 7. Reduce stereotyping risk by testing contrastive findings against larger samples, bicultural expert interpretation, and multicultural comparison (P066).
@@ -85,13 +91,22 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 
 ## Anti-patterns to flag
 
-- The analysis fails to treat preservation of factual content as insufficient when target choices weaken addressee involvement, flattery, reassurance, indirectness, responsibility management (P022).
-- The analysis fails to evaluate ELF communication by mutual intelligibility, efficiency, and multilingual multicompetence rather than by native-speaker correctness alone (P026).
-- The analysis fails to keep cultural-filter judgements current with language-pair developments because empirical evidence reduces arbitrariness but communicative norms continue to change (P032).
-- The analysis fails to account for translation’s double transmission and rupture by analyzing how texts are recontextualized across time, space, indexical orders, and language-cultural (P045).
-- The analysis fails to do not treat ELF as a threat that makes translation obsolete; check the complementary roles of ELF, native languages, translation, and localization in the domain (P046).
-- The analysis fails to avoid permanent cultural-filter generalizations; reassess each case against current communicative norms, globalization, internal diversification, and corpus evidence (P047).
-- The analysis fails to reduce stereotyping risk by testing contrastive findings against larger samples, bicultural expert interpretation, and multicultural comparison (P066).
+- Accepting a translation as adequate because factual content is preserved while addressee involvement, flattery, reassurance, indirectness, responsibility management, hedging, or interpersonal force is weakened (P022).
+- Judging ELF communication by native-speaker grammatical correctness instead of mutual intelligibility, efficiency, and multilingual multicompetence (P026).
+- Applying a cultural-filter judgement as a fixed rule for a language pair without checking whether newer empirical evidence or changed communicative norms have superseded it (P032).
+- Analyzing a translation as a single-context transfer without examining how it is recontextualized across time, space, indexical orders, and language-cultural barriers (P045).
+- Treating ELF as a threat that renders translation obsolete instead of checking the complementary roles of ELF, native languages, translation, and localization in the domain (P046).
+- Restating a permanent cultural-filter generalization instead of reassessing the case against current communicative norms, globalization, internal diversification, and corpus evidence (P047).
+- Generalizing a contrastive cultural finding from a small or single-source sample without testing it against larger samples, bicultural expert interpretation, or multicultural comparison (P066).
+- Assuming a transported form under globalization keeps its source function without testing whether it has acquired new local value through orders of indexicality and local uptake (P067).
+- Explaining a cultural difference without specifying who makes culture relevant to whom, for what purpose, where, and in which context (P100).
+- Analyzing globalized discourse at only one level (e.g. lexical) instead of checking lexical, semantic, pragmatic-discourse, socio-semiotic, micro-process, and macro-process levels together (P101).
+- Flagging a borrowing or English import as an error without evaluating its contextual function — whether it threatens local resources, facilitates communication, develops new functions, or signals identity (P102).
+- Describing globalized text production as one-way transfer from source to target instead of as negotiation and accommodation within hybrid cultures (P103).
+- Checking only lexical borrowing for English influence and missing under-researched syntactic, pragmatic, discourse, or textualization-level effects (P105).
+- Drawing a macro-level socio-political, ethical, or power conclusion before any detailed linguistic analysis of the text's forms and functions (P123).
+- Dismissing target-culture directness, explicitness, or content orientation as a stylistic footnote when it submerges rhetorical strategies central to the source function (P137).
+- Explaining a recurring translational pattern from linguistic counts alone without including the socio-cultural context that produced it (P145).
 
 ## References
 

@@ -2,6 +2,11 @@
 name: genre-childrens-literature-and-accessibility
 kind: skill
 status: ready
+description: Review quality where genre and audience accessibility govern the choices
+  — connecting a text to its genre class and checking children's and stage texts against
+  the function they must serve, with accessibility claims backed by quantifiable textual
+  features. Use when a genre-fit or accessibility claim needs review; register detail
+  goes to register-field-tenor-mode-analysis.
 provenance:
   principles:
   - P014
@@ -38,7 +43,7 @@ provenance:
   authored_from_digest: eef5c895707b4d32f3e31e1ebf9fe8a27b44449035785c875a175113573143c2
 ---
 
-# Genre, Children's Literature And Accessibility
+# Genre Children's Literature And Accessibility
 
 ## Purpose
 
@@ -56,9 +61,9 @@ This skill reviews translation quality where genre and audience accessibility go
 1. Discover genre from everyday lingua-cultural practice, expect translation to remain in the source genre, and route null target-genre realizations to version or non-verbal alternatives when covert equivalence is desired (P014).
 2. Flag translations that normalize imaginative agency, over-simplify capable-reader syntax, or alter address and action descriptions in ways that infantilize characters or impose hierarchy (P023).
 3. Evaluate claims about stage suitability, speakability, or accessibility by comparing translated texts with corpus features that match the claimed function (P028).
-4. For children’s picture books, analyze whether lexis, syntax, cohesion, iconic linkage, sound patterning, and repetition support young listeners’ comprehension, drama, and involvement (P043).
-5. In children’s books, treat respect for readers and characters, naming, titles, conversational rituals, reassurance, and gentle socialization as core Tenor and genre-function evidence (P044).
-6. Evaluate title, ending, added material, and framing changes as functional shifts when they move a children’s text away from its source atmosphere or role relationships (P065).
+4. For children's picture books, analyze whether lexis, syntax, cohesion, iconic linkage, sound patterning, and repetition support young listeners' comprehension, drama, and involvement (P043).
+5. In children's books, treat respect for readers and characters, naming, titles, conversational rituals, reassurance, and gentle socialization as core Tenor and genre-function evidence (P044).
+6. Evaluate title, ending, added material, and framing changes as functional shifts when they move a children's text away from its source atmosphere or role relationships (P065).
 7. Treat poetic-aesthetic sources and foregrounding according to whether form is detachable from meaning and whether foregrounding serves expression itself or communicative effect (P092).
 8. Use Genre to connect individual texts to macro-contextual text classes and combine it with language/text and register to characterize textual function (P096).
 9. Do not assume children require domestication; consider overt access to foreignness or the original voice when covert adaptation substantially changes source function (P098).
@@ -77,13 +82,18 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 
 ## Anti-patterns to flag
 
-- The analysis fails to discover genre from everyday lingua-cultural practice, expect translation to remain in the source genre, and route null target-genre realizations to version or (P014).
-- The analysis fails to flag translations that normalize imaginative agency, over-simplify capable-reader syntax, or alter address and action descriptions in ways that infantilize characters or (P023).
-- The analysis fails to evaluate claims about stage suitability, speakability, or accessibility by comparing translated texts with corpus features that match the claimed function (P028).
-- The analysis fails to for children’s picture books, analyze whether lexis, syntax, cohesion, iconic linkage, sound patterning, and repetition support young listeners’ comprehension, drama (P043).
-- The analysis fails to in children’s books, treat respect for readers and characters, naming, titles, conversational rituals, reassurance, and gentle socialization as core Tenor and (P044).
-- The analysis fails to evaluate title, ending, added material, and framing changes as functional shifts when they move a children’s text away from its source atmosphere or role relationships (P065).
-- The analysis fails to treat poetic-aesthetic sources and foregrounding according to whether form is detachable from meaning and whether foregrounding serves expression itself or communicative (P092).
+- Failing to check that a translation's genre is discovered from everyday lingua-cultural practice and remains anchored in the source genre, or letting a null target-genre realization go unrouted to a version or non-verbal alternative (P014).
+- Missing a translation that normalizes a child character's imaginative agency, over-simplifies syntax meant for a capable reader, or alters address and action descriptions in ways that infantilize characters or impose an adult-over-child hierarchy (P023).
+- Accepting a claim of stage suitability, speakability, or accessibility without comparing the translated text against corpus features that match the claimed function (P028).
+- Overlooking whether a children's picture book's lexis, syntax, cohesion, iconic linkage, sound patterning, and repetition still support young listeners' comprehension, drama, and involvement (P043).
+- Treating a children's book's naming, titles, conversational rituals, reassurance, and gentle socialization as incidental rather than core Tenor and genre-function evidence, and so missing a shift in respect for readers or characters (P044).
+- Passing over a title, ending, added-material, or framing change in a children's text without evaluating it as a functional shift away from the source's atmosphere or role relationships (P065).
+- Judging a poetic-aesthetic source's foregrounding without first asking whether its form is detachable from meaning and whether the foregrounding serves expression itself or communicative effect (P092).
+- Assessing a translation's genre in isolation from its macro-contextual text class, or failing to combine Genre with language/text and register when characterizing textual function (P096).
+- Assuming a children's text must be domesticated and failing to consider overt access to foreignness or the original voice when covert adaptation has substantially changed source function (P098).
+- Accepting local cohesion as sufficient evidence of quality when the translation has lost the source's macrostructural parallelism, rhetorical guidance, oral-rhetorical effect, or summative closure (P110).
+- Letting an argumentation-structure comparison displace other linguistic or micro-textual evidence, or applying it to a genre it does not fit (P126).
+- Accepting an accessibility or audience-fit claim without quantifiable textual features, or failing to flag specialised content that needs reformulation for the target audience (P144).
 
 ## References
 

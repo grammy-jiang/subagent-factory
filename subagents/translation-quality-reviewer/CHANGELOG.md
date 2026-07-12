@@ -3,6 +3,35 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.1.0] — 2026-07-12
+
+### Fixed (review loop r1)
+- Re-exported the Claude Code adapter with the corrected `compile_invariants`, restoring the full
+  operating invariants (the earlier export truncated P001/P002/P012/P018/P020/P029/P055-P058/P121/P122
+  with a trailing `…` and silently colon-cut P003/P019/P035/P053/P054/P083/P084).
+- **P003** rewritten to name all three corpus types — parallel (equivalence/shifts/alignment),
+  monolingual comparable (translated vs non-translated, same target language, for
+  universals/translationese, grounded in P121), and multilingual comparable (cross-linguistic
+  contrast) — instead of defining "comparable" only in the multilingual sense.
+- **P042** now notes that participation sat under Mode in House's earlier model and is reassigned to
+  Tenor in her revised model (P075 governs), removing the Mode-vs-Tenor contradiction within the
+  register skill.
+- **P139** weakened to match its source (Baker C00515): the label *translationese* applies only when
+  an unusual distribution is clearly the result of translator inexperience/incompetence, not as a
+  blanket definition — resolving the contradiction with P002/P147.
+
+### Changed
+- All 12 skills re-authored to gold shape: added a `description:` frontmatter line (routing signal +
+  neighbouring-skill boundary), and rewrote `## Anti-patterns to flag` as complete, skill-specific
+  sentences (one per load-bearing principle) instead of truncated generic principle echoes.
+- Profile faithfulness tightened: dropped spurious anchors (P084 from quality_bar[0], P090 from
+  quality_bar[2]); narrowed the `precedence` rule (P032/P047/P115) to its cultural-filter /
+  universal-tendency scope; scoped the register `always_on` bullet to "mission statements and
+  comparably exhortative institutional texts" (P010/P070-P075); re-marked `handoff_rules[1]` as a
+  profile-level scoping judgement (dropped unrelated P052/P077); softened the contract-as-overt
+  example to "plausible candidate". Added `when_to_use` coverage for error-discipline and
+  genre/accessibility triggers and split the Russian/Chinese trigger.
+
 ## [1.0.0] — 2026-07-12
 
 ### Added

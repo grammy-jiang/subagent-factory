@@ -2,6 +2,10 @@
 name: register-field-tenor-mode-analysis
 kind: skill
 status: ready
+description: Review register fidelity through the Field/Tenor/Mode split, source-target
+  comparative, with attention to mission statements and comparably exhortative institutional
+  texts. Use when Field/Tenor/Mode assignment or a register shift needs review; the
+  overt/covert judgement it feeds goes to overt-covert-translation-and-equivalence.
 provenance:
   principles:
   - P010
@@ -39,10 +43,10 @@ provenance:
   - C00119
   evidence: []
   source_anchors: []
-  authored_from_digest: 321d9c0ae294b1d5d14831066de0e1c3fc9328a8e140a4c19cc08bf01e29239f
+  authored_from_digest: 2669b371b055955ba12cb4ec86f219edbf047d1ef9d5a2b2003c8ed4ca98dabe
 ---
 
-# Register: Field, Tenor And Mode Analysis
+# Register Field Tenor Mode Analysis
 
 ## Purpose
 
@@ -61,7 +65,7 @@ This skill reviews translation quality at the level of register using the Field/
 2. Break context into manageable situational dimensions and inspect medium, participation, social role, and social attitude through linguistic evidence (P013).
 3. Use linguistic cues such as spoken-mode absence, passivization, pronouns, requests, modality, and questions to diagnose medium, participation, and social-role effects (P040).
 4. Inspect pronouns, agency, passives, non-human subjects, syntactic markedness, information order, and text sequencing as evidence of interpersonal strategy (P041).
-5. Build register analysis from Field, Tenor, and Mode (P042).
+5. Treat Field, Tenor, and Mode — lexical granularity and subject matter; participant relations and stance; channel and oral-literate dimensions — as the foundational register split, and note that this reflects House's earlier model, which placed participation under Mode; her revised model reassigns Participation to Tenor (step 13, P075), which governs where the two models differ (P042).
 6. Treat text function as realized through situational dimensions and their syntactic, lexical, and textual correlates (P060).
 7. Use the updated Field/Tenor/Mode split to reduce category overlap (P069).
 8. Assess mission statements as both exposition and exhortation, with special attention to corporate values and indirect requests for employee alignment (P070).
@@ -85,13 +89,22 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 
 ## Anti-patterns to flag
 
-- The analysis fails to in Tenor analysis of mission statements, inspect missionizing stance, optimism, inclusive pronouns, persuasive positivity, grammatical metaphor, omitted agents, and (P010).
-- The analysis fails to break context into manageable situational dimensions and inspect medium, participation, social role, and social attitude through linguistic evidence (P013).
-- The analysis fails to use linguistic cues such as spoken-mode absence, passivization, pronouns, requests, modality, and questions to diagnose medium, participation, and social-role effects (P040).
-- The analysis fails to inspect pronouns, agency, passives, non-human subjects, syntactic markedness, information order, and text sequencing as evidence of interpersonal strategy (P041).
-- The analysis fails to build register analysis from Field, Tenor, and Mode (P042).
-- The analysis fails to treat text function as realized through situational dimensions and their syntactic, lexical, and textual correlates (P060).
-- The analysis fails to use the updated Field/Tenor/Mode split to reduce category overlap (P069).
+- Skipping the missionizing-stance check in Tenor analysis — optimism, inclusive pronouns, persuasive positivity, grammatical metaphor, omitted agents, and terminology register — when reviewing a mission statement's register (P010).
+- Treating a situational dimension holistically instead of separating medium, participation, social role, and social attitude and grounding each in linguistic evidence (P013).
+- Diagnosing medium, participation, or social-role effects from a single cue instead of the full set of linguistic markers — spoken-mode absence, passivization, pronouns, requests, modality, questions (P040).
+- Reading interpersonal strategy from tone alone instead of pronouns, agency, passives, non-human subjects, syntactic markedness, information order, and text sequencing (P041).
+- Placing Participation under Mode as current practice, when House's revised model reassigns it to Tenor and the earlier model is superseded on this point (P042).
+- Judging text function directly from genre labels instead of tracing it through the situational dimensions and their syntactic, lexical, and textual correlates (P060).
+- Reverting to an overlapping Field/Tenor/Mode split instead of the updated division separating lexis-and-process, stance-and-relations, and medium/theme-rheme/cohesion (P069).
+- Assessing a mission statement as pure exposition without weighing its exhortatory force, corporate-values framing, or indirect requests for employee alignment (P070).
+- Overlooking oral-rhetorical writtenness versus plain information delivery in Mode analysis of a mission statement, or skipping repetition, parallelism, macrostructure, and closure (P071).
+- Declaring a translated mission statement equivalent without checking for shifts in positivity, emotional engagement, indirectness, rhetorical cohesion, perlocutionary effect, and genre interpretation (P072).
+- Missing lexical or process shifts that quietly weaken persuasive function, such as negative shadow meanings, false friends, added material-action focus, specialist terminology, or lost colloquial accessibility (P073).
+- Failing to flag a Tenor shift that turns positive missionizing into conditions, effort, discipline, direct request, exhortation, or pressure on the addressee (P074).
+- Losing the source-target comparison in the revised model, or misassigning Participation, process types, textual aspects, or connectivity across Tenor, Field, and Mode (P075).
+- Reading Tenor or Mode from an isolated frequency count instead of a co-occurring feature cluster measured against an appropriate baseline (P116).
+- Characterizing formal style or province from a single marker instead of the full set — complex noun phrases, complete clauses, formal lexis, technical terminology, explicit alternatives, dating, figurative absence, cohesion (P129).
+- Stopping at a list of marked dimensions instead of synthesizing how they contribute to ideational and interpersonal function, including devices that serve both (P130).
 
 ## References
 

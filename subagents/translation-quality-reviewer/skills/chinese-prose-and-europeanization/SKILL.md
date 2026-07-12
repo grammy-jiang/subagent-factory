@@ -2,6 +2,11 @@
 name: chinese-prose-and-europeanization
 kind: skill
 status: ready
+description: Review Chinese target prose for Europeanized distortion — defending concision,
+  flexible syntax, and rhythmic force, matching connectors to the actual relation,
+  and preferring concrete subjects over abstract nominalizations. Use when a Chinese
+  target text's Europeanization is under review; translationese used as a quality
+  proxy goes to translation-universals-and-the-third-code.
 provenance:
   principles:
   - P119
@@ -55,10 +60,10 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 
 ## Anti-patterns to flag
 
-- The analysis fails to for ordinary Chinese prose, preserve concision, flexible syntax, and rhythmic force; resist Europeanized wording when it makes the sentence needlessly complex or stiff (P119).
-- The analysis fails to let coordinate Chinese words or phrases stand by juxtaposition when natural, and choose connectors that match progression, contrast, or adjustment instead of defaulting (P120).
-- The analysis fails to use established Chinese idioms as live resources, not as decorative substitutes for thought, and do not flatten them into wordy paraphrase when the idiom fits (P149).
-- The analysis fails to prefer concrete subjects, people, and event clauses over abstract nominalized subjects when revising Chinese sentences influenced by English syntax (P150).
+- Letting Europeanized wording make an ordinary Chinese sentence needlessly complex or stiff instead of defending its concision, flexible syntax, and rhythmic force (P119).
+- Inserting an English-like connector between coordinate Chinese words or phrases that would read naturally by juxtaposition, or choosing a connector that does not match the actual progression, contrast, or adjustment (P120).
+- Flattening an established Chinese idiom into wordy paraphrase, or deploying it as a decorative substitute for thought rather than a live resource, when the idiom fits (P149).
+- Leaving an abstract nominalized subject drawn from English syntax unrevised when a concrete subject, person, or event clause would serve the sentence better (P150).
 
 ## References
 

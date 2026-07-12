@@ -2,6 +2,11 @@
 name: cognition-pragmatics-and-contrastive-evidence
 kind: skill
 status: ready
+description: Review how cognitive and contrastive-pragmatic evidence is used — admitting
+  process research only where it clarifies comprehension or transfer, treating verbal
+  reports and neuroimaging as limited evidence, and triangulating pragmatic claims
+  across data types. Use when a cognition or contrastive-pragmatics claim underlies
+  a quality judgement; the descriptive-norm reconstruction it informs goes to descriptive-studies-and-translational-norms.
 provenance:
   principles:
   - P004
@@ -34,7 +39,7 @@ provenance:
   authored_from_digest: 53cffdd0611b9f22827b5040e2698d37233ba2dd80ab52ac006cdcde093ec21d
 ---
 
-# Cognition, Pragmatics And Contrastive Evidence
+# Cognition Pragmatics And Contrastive Evidence
 
 ## Purpose
 
@@ -69,13 +74,14 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 
 ## Anti-patterns to flag
 
-- The analysis fails to recognize that expert translators may use either conceptual processing or more direct transcoding, so process assumptions should be evidence-based rather than presumed (P004).
-- The analysis fails to use cognitive translation research to inform TQA only where it clarifies comprehension, transfer, problem solving, decision making, reconstitution, and bilingual (P009).
-- The analysis fails to treat verbal reports, behavioural process measures, and neuroimaging as limited evidence that cannot by itself establish underlying cognition or translation quality (P015).
-- The analysis fails to treat German-English pragmatic differences such as directness, content orientation, self-reference, routine use, and explicit justification as corpus- and study-bound (P024).
-- The analysis fails to analyze translations as discourse utterances whose illocutionary force depends on context, not as isolated sentence correspondences (P088).
-- The analysis fails to triangulate contrastive pragmatic evidence using elicited tasks, retrospective data, meta-pragmatic judgements, naturalistic data, and varied authority/familiarity (P099).
-- The analysis fails to integrate social-contextual and cognitive perspectives as complements, while keeping the assessment anchored in the textual evidence available for the source and target (P124).
+- Presuming a translator used conceptual processing or direct transcoding from the final text alone, instead of treating the process assumption as something that must be evidence-based (P004).
+- Using cognitive translation research to certify a translation's overall quality, rather than limiting its use to clarifying comprehension, transfer, problem solving, decision making, reconstitution, or bilingual pragmatics (P009).
+- Treating a verbal report, behavioural process measure, or neuroimaging finding as establishing underlying cognition or translation quality on its own (P015).
+- Restating a corpus- and study-bound German-English pragmatic tendency — directness, content orientation, self-reference, routine use, or explicit justification — as a fixed national trait (P024).
+- Judging a translation by isolated sentence-level correspondence instead of as a discourse utterance whose illocutionary force depends on context (P088).
+- Accepting a contrastive pragmatic claim that rests on a single data type instead of triangulating across elicited tasks, retrospective data, meta-pragmatic judgements, naturalistic data, and varied authority/familiarity relations (P099).
+- Letting a social-contextual or cognitive interpretation drift away from the textual evidence actually available in the source and target texts (P124).
+- Diagnosing a pragmatic difference without examining discourse openings, closings, supportive strategies, gambits, requests, complaints, directness, politeness, roles, rights, and obligations (P132).
 
 ## References
 
