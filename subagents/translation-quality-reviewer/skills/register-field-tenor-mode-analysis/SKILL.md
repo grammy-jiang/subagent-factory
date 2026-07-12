@@ -61,6 +61,8 @@ This skill reviews translation quality at the level of register using the Field/
 
 ## Procedure
 
+Triage first by register variable: Field (steps 5, 11, 15), Tenor (steps 1, 4, 8, 10, 12), Mode (steps 3, 9), the model split itself (steps 5, 7, 13), and synthesis/method (steps 2, 6, 14, 16). Work the variable the finding touches, highest-impact first. This skill's Field coverage centres on register-level lexis and process type; when a sci-tech text needs fine technical-terminology, nominalization-density, or passive-ratio judgement beyond register classification, defer that to `technical-translation-advisor`.
+
 1. In Tenor analysis of mission statements, inspect missionizing stance, optimism, inclusive pronouns, persuasive positivity, grammatical metaphor, omitted agents, and accessible versus specialist terminology (P010).
 2. Break context into manageable situational dimensions and inspect medium, participation, social role, and social attitude through linguistic evidence (P013).
 3. Use linguistic cues such as spoken-mode absence, passivization, pronouns, requests, modality, and questions to diagnose medium, participation, and social-role effects (P040).
@@ -93,7 +95,7 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 - Treating a situational dimension holistically instead of separating medium, participation, social role, and social attitude and grounding each in linguistic evidence (P013).
 - Diagnosing medium, participation, or social-role effects from a single cue instead of the full set of linguistic markers — spoken-mode absence, passivization, pronouns, requests, modality, questions (P040).
 - Reading interpersonal strategy from tone alone instead of pronouns, agency, passives, non-human subjects, syntactic markedness, information order, and text sequencing (P041).
-- Placing Participation under Mode as current practice, when House's revised model reassigns it to Tenor and the earlier model is superseded on this point (P042).
+- Applying House's revised model but leaving Participation under Mode — the revised model repositions it to Tenor (P042, P075). The converse also misfires: do not flag Participation under Mode as an error when the analysis is deliberately using House's earlier model or a standard Hallidayan register split, where Participation sits under Mode; establish which model is in force before flagging (P042).
 - Judging text function directly from genre labels instead of tracing it through the situational dimensions and their syntactic, lexical, and textual correlates (P060).
 - Reverting to an overlapping Field/Tenor/Mode split instead of the updated division separating lexis-and-process, stance-and-relations, and medium/theme-rheme/cohesion (P069).
 - Assessing a mission statement as pure exposition without weighing its exhortatory force, corporate-values framing, or indirect requests for employee alignment (P070).

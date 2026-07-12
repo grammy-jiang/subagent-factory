@@ -3,6 +3,53 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.0] — 2026-07-12
+
+### Fixed (review loop r2)
+- **P083** (M3) rewritten to preserve Toury's coupled-pairs method: a norm is identified from a corpus
+  of **source texts and their translations** (comparison across source–target pairs), not projected
+  from the source text's own features alone, an idealised target system, or a generic target-text
+  collection (grounded C00470 + C00472). The `descriptive-studies-and-translational-norms` step 10 and
+  its anti-pattern updated to match, so the reviewer no longer rejects ST–TT comparison as evidence.
+- **P076 procedure step** (M4) restored in `descriptive-studies-and-translational-norms` step 8: names
+  the two levels — matricial (omissions, additions, substitutions, transpositions in distribution) and
+  textual (collocation, speech treatment, title conventions) — inline, so the step is executable.
+- **Register skill** (M1): the anti-pattern no longer flags Participation-under-Mode as a blanket error.
+  Participation → Tenor is scoped to House's **revised** model (P042/P075); the standard/earlier
+  Hallidayan split (Participation under Mode) is not penalised — the reviewer establishes which model is
+  in force first.
+- **Translationese senses** (M2): `translation-universals-and-the-third-code` (step 7 + anti-pattern),
+  `profile.yaml` `examples[0]`, and `references/translation-quality-evidence-notes.md` now name which
+  sense of "translationese" is in play — an automatic classifier/corpus "translationese score" measures
+  the distinctive translated-vs-original profile (the third code / normal patterning, P139/P114), not a
+  competence diagnosis (P139) and not a quality verdict (P002).
+- **Faithfulness coverage** (M5): `faithfulness-report.yaml` extended from 17 to 40 findings — added a
+  verdict per `knowledge_partition.always_on` paragraph (12), each `handoff_rules` item (2), each
+  `outputs.modes` mode (3), and both `examples` (2). The ledger's full-coverage claim is now true at the
+  artifact level.
+
+### Changed
+- Restored P082's hedge "treat limited findings as hypotheses for further testing" in the applied-corpus
+  `always_on` paragraph (S4); scoped the metadata-rich-corpora sentence to multifactorial studies such as
+  Polish-Russian/Russian-Polish pairs (P058, S4).
+- Split `quality_bar[3]` (S5) so the co-occurring-feature-cluster method attaches to register only (P116);
+  cultural filtering is stated as source-to-target comparison (P056/P137) without borrowing that method.
+- Added `translation-universals` step-6 note (S6) routing explicitation-type (source-relative) claims to
+  parallel-corpus evidence, distinct from the monolingual-comparable design (P121) used for
+  simplification/normalisation.
+- Added a corpus-design-vs-engineering boundary to `handoff_rules[1]` (S11): choosing corpus type/controls
+  is in scope, building the pipeline/implementation is not (P003/P078).
+- `when_to_use[2]` now also routes cognitive-process / contrastive-pragmatic evidence claims (P132, S3);
+  `when_to_use[0]` broadened to a multi-surface trigger (quality / corpus-method / translationese-as-proxy)
+  so the exported adapter description carries more routing signal (S2).
+- Trimmed profile body fields to 800 words (S1), clearing the Phase-8 body-size WARNING.
+- Added triage/grouping lead-ins to `descriptive-studies-and-translational-norms` and
+  `register-field-tenor-mode-analysis` procedures (S15), a sci-tech Field defer to
+  `technical-translation-advisor` (S9), and folded operative nouns back into thin procedure steps (S14).
+- Corrected the 1.1.0 changelog wording below: v1.1.0 did **not** split the Russian/Chinese `when_to_use`
+  trigger (S3).
+- Re-exported the Claude Code adapter from the updated profile.
+
 ## [1.1.0] — 2026-07-12
 
 ### Fixed (review loop r1)
@@ -30,7 +77,7 @@ All notable changes to this generated subagent package are recorded here. Versio
   comparably exhortative institutional texts" (P010/P070-P075); re-marked `handoff_rules[1]` as a
   profile-level scoping judgement (dropped unrelated P052/P077); softened the contract-as-overt
   example to "plausible candidate". Added `when_to_use` coverage for error-discipline and
-  genre/accessibility triggers and split the Russian/Chinese trigger.
+  genre/accessibility triggers.
 
 ## [1.0.0] — 2026-07-12
 

@@ -42,7 +42,7 @@ provenance:
   - C00444
   evidence: []
   source_anchors: []
-  authored_from_digest: b24c48f44b1f7be2a9025ed0a89e588e34b0d9be0ccb6bb64aa528db717f5783
+  authored_from_digest: 83340d5ead4722e3b10bddcbd3ce9f07f485e4c300c3367a8448f90445f24163
 ---
 
 # Descriptive Studies And Translational Norms
@@ -60,16 +60,18 @@ This skill reviews whether translated text is being studied descriptively and ta
 
 ## Procedure
 
+Triage first: is the flaw a *frame* problem (source-derivation instead of target-orientation — steps 1–6), a *norm-reconstruction* problem (how norms are coded and evidenced — steps 8, 10), or an *attribution* problem (a pattern pinned to a translator too early — steps 7, 9, 11–14)? Route to the matching steps, highest-impact first.
+
 1. Explain translated-text features through target-culture norms, conventions, and historical systems rather than reducing them to source-text derivation (P016).
 2. Treat translated text as an object of study in its own right (P018).
 3. Treat language, knowledge, norms, culture, translator cognition, and social constraints as interrelated, situated phenomena when explaining translation choices (P025).
 4. Adopt a target-orientation (P034).
-5. Ground translation theory empirically (P053).
-6. Require a descriptive branch with an explicit, reproducible methodology (P054).
+5. Ground translation theory empirically — induce claims from actual translated texts, not from deductive argument or a corpus used only to illustrate rather than to test (P053).
+6. Require a descriptive branch with an explicit, reproducible methodology others could repeat on the same or another corpus, not a one-off case description (P054).
 7. Before selecting features or evidence, classify the study target as a general universal, a mediator-specific style, or a source-text response, then choose measurements that match that target (P055).
-8. Investigate operational norms through the corpus at two levels (P076).
+8. Investigate operational norms through the corpus at two levels: matricial norms (omissions, additions, substitutions, transpositions in the distribution of linguistic material) and textual norms (verbal formulation such as collocation choice, treatment of speech, and title conventions), expecting their content to differ by language, culture, and period (P076).
 9. Attribute a pattern to an individual translator only after testing author style, source-language preferences, and sociolect norms as alternative explanations (P080).
-10. Identify translational norms descriptively and only from a corpus (P083).
+10. Identify translational norms descriptively, only from a corpus of source texts and their translations — comparison across source–target pairs is the evidentiary base; do not project a norm from the source text's own features alone, an idealised target system, or a generic target-text collection (P083).
 11. Keep translation's double orientation visible by checking both fidelity to the prior source event and fit with target-language genre and reception expectations (P085).
 12. Model translation as a mediated communicative event (P111).
 13. Account for target-system norms and source-text status when interpreting normalisation (P117).
@@ -95,7 +97,7 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 - Selecting features or evidence before classifying whether the study target is a general universal, a mediator-specific style, or a source-text response, so the measurements chosen do not match the target (P055).
 - Coding corpus regularities without distinguishing matricial norms (omissions, additions, substitutions, transpositions in distribution) from textual norms (verbal formulation such as collocation, speech treatment, title conventions) (P076).
 - Attributing a recurring pattern to an individual translator's style before ruling out author style, source-language preferences, and sociolect norms as alternative explanations (P080).
-- Deducing a translational norm from the source text or the target system instead of a representative corpus of translated texts (P083).
+- Projecting a translational norm from the source text's own features alone, an idealised target system, or a generic target-text collection instead of reconstructing it from comparison across a representative corpus of source texts and their translations (P083).
 - Checking only fidelity to the source event or only fit with target-language genre and reception expectations, losing translation's double orientation (P085).
 - Attributing a translated-text pattern solely to source- or target-language interference instead of also considering that the mediated communicative event of translating is itself a constraint producing patterns specific to translated text (P111).
 - Interpreting a conventionalising or normalising shift without accounting for the target-system norms and source-text status that can increase or reduce that shift (P117).

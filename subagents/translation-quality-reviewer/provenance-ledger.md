@@ -34,6 +34,25 @@ the two references index and ground them.
 
 ## Version History
 
+- **1.2.0** (2026-07-12) — Review-loop r2 fixes (supersedes 1.1.0 on the points below; earlier decisions
+  remain visible). Grounded principle/skill rewrites: **P083** now identifies norms from a corpus of
+  source texts and their translations — comparison across source–target pairs — rather than "a
+  representative body of translated texts" alone (grounded C00470 + C00472), preserving Toury's
+  coupled-pairs method; the `descriptive-studies` skill (step 8 restores the matricial/textual two levels
+  of **P076**; step 10 and its anti-pattern track the corrected P083). Register skill anti-pattern scoped
+  Participation→Tenor to House's **revised** model (P042/P075), no longer flagging the earlier/standard
+  Mode placement as an error. Translationese senses disambiguated across `translation-universals` skill,
+  `examples[0]`, and evidence-notes: a classifier/corpus "translationese score" measures the distinctive
+  translated-vs-original profile (third code / patterning, P139/P114), not competence-translationese and
+  not a quality verdict (P002). Faithfulness coverage extended 17→40 findings (every `always_on`
+  paragraph, `handoff_rules`, `outputs.modes`, and `examples` now graded WITHIN_SCOPE) — the full-coverage
+  claim above is now accurate at the artifact level. Profile faithfulness tightened: restored P082's hedge
+  in the applied-corpus paragraph; scoped the P058 metadata-rich-corpora sentence to multifactorial
+  Polish-Russian/Russian-Polish studies; split `quality_bar[3]` so the feature-cluster method (P116)
+  attaches to register only. Added a corpus-design/engineering boundary to `handoff_rules[1]` (P003/P078),
+  a cognition/pragmatics `when_to_use` trigger (P132), an explicitation→parallel-corpus routing note
+  (P121/P001), procedure triage lead-ins and a sci-tech Field defer; trimmed the profile body to 800 words.
+  Re-exported the adapter.
 - **1.1.0** (2026-07-12) — Review-loop r1 fixes (supersedes 1.0.0 on the points below; earlier
   decisions remain visible above). Re-exported the adapter to restore truncated operating invariants.
   Grounded principle rewrites: **P003** now names parallel / monolingual comparable / multilingual
