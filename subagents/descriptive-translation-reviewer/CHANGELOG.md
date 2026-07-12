@@ -3,6 +3,47 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.9.0] — 2026-07-12
+
+Review-loop round r1 (`reports/review-loop/descriptive-translation-reviewer.r1.review.md`): applied all three
+must-fixes and the high-value should-fixes (SF-1..SF-6), staying grounded in the existing 180-principle spine
+(no new claim introduced). Deferred SF-7 (per-skill anti-pattern trimming, a token-economy refinement across
+all 12 skills) and the NICE items as lower-value polish, since trimming grounded per-principle coverage risks
+losing skill-level grounding.
+
+### Fixed
+- **MF-1 — operating invariants read as translation-production instructions** — the invariants are rendered
+  from the faithfulness-reviewed principle statements (shared adapter template), so the boundary was
+  strengthened at the point of highest salience: `role` now ends "read every operating invariant below as a
+  criterion for judging someone else's translation, never a step to perform yourself", which renders
+  immediately before the `## Operating invariants` heading. No principle text touched.
+- **MF-2 — `when_to_use` covered only 7 of 12 skills** — added two charter-level triggers routing to the
+  five uncovered skills: (a) ideology / institutional rewriting / patronage / reception and
+  hermeneutic/untranslatability grounding, (b) Vinay–Darbelnet procedure / Catford shift disputes and
+  translation-quality-assessment / applied-TS method soundness.
+- **MF-3 / SF-3 — stale version stamps** — re-stamped `tests/golden-tests.yaml` `profile_version` and the
+  `tests/test-results.md` self-check verdict to the new `agent_version` (were `1.8.0`).
+
+### Changed
+- **SF-1 — P020 applied as an unscoped universal criterion** — added `applies_when`
+  (literary/poetic/philosophical/experimental-deconstructive translation where the mode of signification, not
+  propositional content, is the object of fidelity) to P020, mirroring P034; rewrote
+  `domestication-foreignization-and-visibility` step 1 and its anti-pattern to keep "fluency is not proof of
+  quality" general while gating "reject reproduction of meaning" behind that text-type condition.
+- **SF-2 — worked example conflated Nida "dynamic equivalence" with Reiss/Newmark** — the operative-text
+  advise example now names Reiss's adaptive method and Newmark's communicative translation, with Nida's
+  "dynamic equivalence" marked as a parallel-but-distinct analogue.
+- **SF-4 — `outputs.primary_format` overstated per-mode uniformity** — reworded to the mode-agnostic common
+  thread (names the governing principle(s) + a residual trade-off, never a bare verdict), deferring shape to
+  the modes list.
+- **SF-5 — ledger orphan-field list omitted `handoff_rules[2]`** — added the sibling-routing bullet to the
+  intentionally-uncited enumeration.
+- **SF-6 — no temporal-currency boundary** — added a `when_not_to_use` note that the grounding is
+  foundational/classical theory (through ~2016) and post-2016 corpus methodology, NMT-era norm shifts, and
+  MQM/DQF typologies are out of scope.
+- Tightened uncited descriptive prose (`role`, `when_to_use`, `when_not_to_use`, `minimum_useful_output`) to
+  keep the profile body within the 1000-word FAIL budget after the additive fixes above.
+
 ## [1.8.1] — 2026-07-12
 
 Adversarial-verify round 2 (`reports/review-loop/descriptive-translation-reviewer.verify2.md`): fixed the one

@@ -1,137 +1,88 @@
-# Review — descriptive-translation-reviewer (r1)
+# Review — descriptive-translation-reviewer (round r1)
 
-One review pass over `subagents/descriptive-translation-reviewer/` (profile v1.4.0, `status: ready`, Tier 2, 180 principles / 12 skills / 2 references).
+Package: `subagents/descriptive-translation-reviewer/` · profile `agent_version: 1.8.1` · Tier 2 · 180 principles / 12 skills / 2 references.
 
 ## Deterministic gates (STEP 1)
 
 | Gate | Result |
 |------|--------|
-| `validate_generated_package` | **PASSED** — 0 FAIL (phase8 = WARNING only, within budget) |
+| `validate_generated_package` | **VALIDATION PASSED** (0 FAIL) |
 | `quote_scan` | PASS — no verbatim quotation |
-| truncation grep (`…` / severed invariant) | clean — 0 hits |
+| truncation `…` grep (skills + adapter) | no hits |
+| adapter invariant severed-parenthetical grep | no hits |
 
 No deterministic FAILs.
 
-## LLM reviewer panel (STEP 2)
+## Consolidated findings (deduped, most-severe first)
 
-7 reviewers: agent-skills-advisor (must=1), profile-reviewer (must=1), faithfulness-reviewer (must=0),
-ai-agent-engineering-reviewer (must=0), + 3 domain reviewers translation-equivalence / translation-quality /
-technical-translation (must=0 each). Findings deduped below, most-severe first.
+### MUST-FIX
 
----
+**MF-1 — Operating invariants phrased as translation-PRODUCTION instructions, in tension with the review-only role** (agent design)
+- Where: `.claude/agents/generated/descriptive-translation-reviewer.md` lines 21–306 (`## Operating invariants`); canonical source is `profile.yaml` (principle renderings, e.g. P045, P069, P063, P015, P036, P037, P072, P119, P120).
+- Problem: The highest-authority "must-hold" section reads item-by-item like a translator's playbook ("Prepare a verse translation by…", "Subtitle within… following…", "Adjust for the audience…"), not a reviewer's checklist. ~280 lines of production-imperative content are held in check only by the single Role-paragraph disclaimer and the Forbidden-behaviours list that bracket them. Over-reach / authority-creep risk against the declared read-only reviewer boundary.
+- Fix: In `profile.yaml` / the generator, prefix each principle rendered into a review-type agent with a review-framing verb ("Check whether the translation…", "Verify that the rendering…") instead of the raw imperative; OR at minimum add a salient boundary reminder immediately before the `## Operating invariants` heading ("Apply every invariant below as a criterion for judging someone else's translation — never as a step to perform yourself"). Re-export the adapter. Template/rendering-level fix — does not touch faithfulness-reviewed principle text.
 
-## MUST-FIX
+**MF-2 — `when_to_use` covers only 7 of 12 skills (~42% of corpus has no charter-level trigger)** (skill authoring)
+- Where: `profile.yaml` lines 17–40 (`when_to_use`).
+- Problem: No top-level trigger phrase points to `meaning-signification-and-equivalence-critique` (11 princ), `culture-ideology-power-and-rewriting` (20), `hermeneutics-and-the-limits-of-translatability` (19), `translation-procedures-and-shifts` (10), `translation-quality-and-applied-studies` (15) — ~75/180 principles. A caller wanting ideology/institutional critique, hermeneutic/untranslatability reasoning, Vinay–Darbelnet procedure-label disputes, or QA-method soundness finds no charter-level route, though dedicated skills exist.
+- Fix: Add 2–3 `when_to_use` bullets covering (a) ideology/institutional/reception critique, (b) hermeneutic grounding / untranslatability claims, (c) Vinay–Darbelnet procedure/shift naming disputes, (d) soundness of a translation-quality-assessment method or applied/empirical TS study — mirroring vocabulary already in those skills' descriptions.
 
-### M1 — `text-type-skopos-and-the-brief` skill written in translate-it-yourself voice
-- **where:** `skills/text-type-skopos-and-the-brief/SKILL.md` — Procedure steps 1–4, 6, 9, 12–14
-- **problem:** ~half this skill's Procedure section uses first-person production-imperative voice ("make," "drive," "work," "adjust," "orient," "take," "apply," "treat") instead of the reviewer "Check that / Verify / Confirm" pattern used consistently by all 11 sibling skills. The Procedure is the recipe the agent executes step-by-step, so this phrasing reads as an instruction to *construct* a commission/brief rather than to *review whether one exists and is sound* — directly at odds with the profile's `forbidden_behaviours` no-production boundary.
-- **fix:** Rewrite steps 1–4, 6, 9, 12–14 into "Check/Verify/Confirm that …" review voice matching the other 11 skills (e.g. "Check that the translation commission … was made an explicit instruction stating both the goal and the conditions for attaining it (P009)").
+**MF-3 — `tests/golden-tests.yaml` `profile_version` stale vs `agent_version` (recurrence of a previously-fixed defect)** (release readiness)
+- Where: `tests/golden-tests.yaml:4` (`profile_version: 1.8.0`) vs `profile.yaml:4` (`agent_version: 1.8.1`).
+- Problem: The v1.8.1 adversarial-verify fix bumped `agent_version` + CHANGELOG but did not re-stamp `golden-tests.yaml`. Exact defect class already fixed once at v1.7.0 (ledger MF-1, stale 1.5.0→1.7.0). No validator checks this drift, so it is silent. `tests/test-results.md:7` verdict is likewise still stamped v1.8.0 (see SF-3).
+- Fix: Re-stamp `golden-tests.yaml` `profile_version` to `1.8.1`; add a review-loop checklist item (or validator) so every version bump re-stamps all versioned test/report artifacts.
 
-### M2 — package declares `status: ready` with an open, unresolved review round
-- **where:** `reports/review-loop/descriptive-translation-reviewer.r5.review.md` (present) vs `profile.yaml` (`status: ready`, `agent_version: 1.4.0`), `CHANGELOG.md`, `provenance-ledger.md`
-- **problem:** `r5.review.md` ends `MUST_FIX_COUNT: 2` but has **no** matching `r5.fix.done` marker (rounds 1–4 each have one), no v1.5.0 CHANGELOG/ledger entry, and no version bump. The package still declares `ready` at v1.4.0 as if the loop had converged to zero must-fix, but the last recorded round left 2 must-fix open — contradicts the repo's converge-to-zero release rule. (Note: this r1 pass downgrades r5's two must-fixes — anti-pattern/Procedure duplication is now NICE N8, the skill-overlap is now should-fix S2 — so a fresh convergence assessment is warranted, but the open-round-vs-`ready` contradiction must be resolved either way.)
-- **fix:** Either (a) run the fix cycle, write `r5.fix.done` (or supersede it with this r1 loop), bump version, add CHANGELOG/ledger entries before calling ready; or (b) if r5 is stale, explicitly supersede it in the ledger Version History so no orphan open-must-fix report survives release.
+### SHOULD-FIX
 
----
+**SF-1 — P020 applied as an unscoped universal review criterion but states a contested minority stance** (domain: quality)
+- Where: `principles/principles.yaml` P020 (`applies_when: []`); operationalized in `skills/domestication-foreignization-and-visibility/SKILL.md` Procedure step 1 + matching anti-pattern.
+- Problem: P020's second clause ("reject reproduction of meaning as its aim") is Benjamin/de Man's avant-garde position, not domain consensus, and conflicts with the meaning-reproduction goal the rest of the package treats as normal (P044, P125, P160, P179). Sibling P034 is correctly scoped to literary/poetic/philosophical texts; P020 is not, yet the skill runs it as a check on any reviewed translation — a "prefer X here → always X" overclaim the package's own forbidden-behaviours warn against.
+- Fix: Add `applies_when: [literary/poetic/philosophical/experimental-deconstructive translation where mode of signification, not propositional content, is the object of fidelity]` to P020 (match P034); rewrite skill step 1 to keep "fluency is not proof of quality" general but gate "reject reproduction of meaning" behind a text-type condition.
 
-## SHOULD-FIX
+**SF-2 — Worked example conflates Nida "dynamic equivalence" with Newmark/Reiss frameworks** (domain: equivalence)
+- Where: `profile.yaml` operative-text worked example (~lines 234–245), cites P059/P129/P062 alongside "dynamic."
+- Problem: "Dynamic equivalence" is specifically Nida's term; Newmark's communicative and Reiss's operative-adaptive methods are parallel-but-distinct. Example risks reading as if the three are interchangeable, though the principles layer (P121/P167) carefully treats them as a family.
+- Fix: Name the operative orientation in Reiss/Newmark's own vocabulary ("adaptive method"/"communicative translation") and cite "dynamic equivalence" only as the Nida-family analogue, or add a one-clause "parallel frameworks, not one shared term" caveat.
 
-- **S1 — router `description` under-specifies boundary & sibling routes** *(profile-reviewer + ai-agent-engineering, deduped)*
-  - **where:** `.claude/agents/generated/descriptive-translation-reviewer.md` frontmatter `description` (line 3); source `profile.yaml` `when_not_to_use`.
-  - **problem:** The exported description (the only string the auto-router reads) collapses 5+5 bullet lists to one item each; it omits the highest-stakes boundary ("critiques, does not translate or certify") and 2 of the 3 sibling routes (`translation-quality-reviewer`, `technical-translation-advisor`). A translate-and-certify request could route here and be declined only mid-session.
-  - **fix:** Compress each list into one comprehensive sentence including the "does not translate/certify" boundary and all three sibling routes.
+**SF-3 — `tests/test-results.md` self-check verdict still stamped v1.8.0** (release readiness)
+- Where: `tests/test-results.md:7`.
+- Problem: Same root cause as MF-3 — v1.8.1 fix did not re-verify/re-stamp the recorded self-check verdict.
+- Fix: Re-stamp to v1.8.1 or note it was superseded by `reports/review-loop/…verify2.md` and is unchanged.
 
-- **S2 — `meaning-signification-and-equivalence-critique` step 6 leaks into equivalence-mechanism territory**
-  - **where:** `skills/meaning-signification-and-equivalence-critique/SKILL.md` Procedure step 6 (P109).
-  - **problem:** Step 6 instructs analysing/preserving equivalence "across word, above-word, grammar, thematic-structure, cohesion, pragmatic levels" — Baker's equivalence-levels mechanism the skill's own description assigns to sibling `translation-equivalence-advisor`. Crosses the stated theory-vs-mechanism line.
-  - **fix:** Reword to stay on the theory side (name which level the meaning claim rests on, without selecting/evaluating a target rendering) and cross-reference the sibling by name.
+**SF-4 — `outputs.primary_format` worded as review-mode-specific but presented for all three modes** (release readiness)
+- Where: `profile.yaml` lines 48–50.
+- Problem: "per finding… correction… next step" matches `review` mode but not `advise` (single recommendation) or `compare` (side-by-side, brief-weighted recommendation). `minimum_useful_output` already distinguishes per-mode; `primary_format` overstates uniformity.
+- Fix: Reword to the genuinely mode-agnostic common thread ("a structured critique that names the governing principle(s) and states a residual trade-off, never a bare verdict"); leave mode-specific shape in the `modes` list.
 
-- **S3 — quality-territory boundary vs `translation-quality-reviewer` under-differentiated**
-  - **where:** `profile.yaml` `knowledge_partition.always_on` (`translation-quality-and-applied-studies`) vs `when_not_to_use` ("corpus-based quality metrics/QA scoring → `translation-quality-reviewer`").
-  - **problem:** The only differentiator (corpus/QA scoring routes away) doesn't obviously exclude this reviewer's own quality content (Holmes map, process research, source-comparison quality judgement).
-  - **fix:** Add one worked contrast showing a quality question that stays here vs one that routes to the sibling.
+**SF-5 — `provenance-ledger.md` orphan-field exception list omits `handoff_rules[2]`** (release readiness)
+- Where: `provenance-ledger.md` lines 8–16.
+- Problem: The enumeration of intentionally-uncited fields omits `handoff_rules[2]` (sibling-routing bullet), whose uncited-by-design status is documented only in the faithfulness report. An auditor reading the ledger alone would flag it as an orphan.
+- Fix: Add `handoff_rules[2]` to the ledger's opening enumeration.
 
-- **S4 — precedence miscite P114**
-  - **where:** `profile.yaml` `source_of_truth_policy.precedence` (~L103–105).
-  - **problem:** "brief's purpose governs (P062, P114)" — P062 (skopos hierarchy) grounds it; P114 (selective-preservation trade-offs) does not. (Also flagged r5 S8, still open.)
-  - **fix:** Drop P114 or replace with a skopos-hierarchy principle (e.g. P107).
+**SF-6 — No explicit temporal-currency boundary for the classical/pre-2016 grounding** (domain: technical)
+- Where: `profile.yaml` role / `source_of_truth_policy`; package-wide (sources Munday 2016, Venuti ed. 2012, Toury 1995).
+- Problem: Grounding stops ~2016 and largely anthologizes 1980s–2000s essays; nothing flags that post-2016 corpus methodology, NMT-era norm shifts, and MQM/DQF error typologies are out of scope. Bears on the "current" prong.
+- Fix: Add one sentence noting the corpus is foundational/classical theory (through ~2016) and post-2016 developments are out of grounding.
 
-- **S5 — `forbidden_behaviours[3]` bundles two prohibitions under one citation set**
-  - **where:** `profile.yaml` `forbidden_behaviours[3]` (~L89–90).
-  - **problem:** "prescribing a single correct rendering" (grounded by P075) and "ignoring the brief/audience/function" (grounded by P062/P038) share one citation list. (r5 S13, open.)
-  - **fix:** Split into two bullets, each citing only its grounding principles.
+**SF-7 — Review-only disclaimer + full Anti-patterns mirror inflate every SKILL.md body** (skill authoring)
+- Where: all 12 `skills/*/SKILL.md` — disclaimer repeated in Purpose + Output (+ sometimes Anti-patterns lead); Anti-patterns is a near-1:1 negation of every Procedure step (bodies ~1200–1900 words); closing Provenance prose re-enumerates IDs already in frontmatter.
+- Problem: Each principle stated ~3× per file; real reference layer (`references/*.md`) exists but bodies don't defer the long tail to it — works against progressive-disclosure guidance.
+- Fix: State the review-only boundary once (Purpose); trim Anti-patterns to the 5–8 highest-impact/most-confusable failure modes and push exhaustive per-principle coverage into the reference index; shorten closing Provenance to a one-line source citation.
 
-- **S6 — `when_not_to_use[0]` mixes citation styles**
-  - **where:** `profile.yaml` `when_not_to_use[0]` (~L28–32).
-  - **problem:** Full prose for one sibling route, arrow-shorthand for the other two — inconsistent in the field that already drove 4 rounds of router churn. (r5 S9, open.)
-  - **fix:** Make all three sibling routes parallel in form.
+### NICE
 
-- **S7 — `handoff_rules[1]` carries authoring meta-commentary in a body-counted field**
-  - **where:** `profile.yaml` `handoff_rules[1]` trailing sentence (~L96–97).
-  - **problem:** "Sibling-axis routing is stated once under when_not_to_use." is documentation about the profile's own structure, not runtime guidance — spends ~9 words of a thin budget. (r5 S11, open.)
-  - **fix:** Delete the sentence; keep the note only in the ledger.
+- **N-1** (agent design): ~100 dense must-hold invariants sit between the two boundary-defining sections, diluting them; consider demoting some to skill-level guidance. Folds into MF-1 remediation. — adapter lines 21–306.
+- **N-2** (skill authoring): 4 profile worked examples never exercise the two largest skills (`culture-ideology-power-and-rewriting` 20 princ, `descriptive-method-and-translational-norms` 21). Add a norms/method example and an ideology-critique example. — `profile.yaml` lines 205–256.
+- **N-3** (skill authoring): large flat procedures (hermeneutics 19 steps, culture-ideology 21 steps) lack a triage/decision-tree entry point; add a 3–5 line "if X-type text → steps …" note.
+- **N-4** (skill authoring): `translation-procedures-and-shifts` + `equivalence-orientations-and-effect` omit the review-only clause from the frontmatter `description` (other 10 include it); add for consistency.
+- **N-5** (domain: equivalence): P059 skill step 1 compresses Newmark's causal chain — "illusory equivalent effect" is his reason to *reserve* semantic translation, not the reason communicative translation fits the majority; split the "because" clause per branch. `skills/equivalence-orientations-and-effect/SKILL.md` step 1.
+- **N-6** (domain: equivalence): P105 `applies_when` reads as a fixed either/or recipe in isolation, mild tension with the "open set, not fixed recipe" quality bar; soften with "typically… weighed against the brief, not by rule."
+- **N-7** (domain: quality): functionalist cluster omits Nord's "function plus loyalty" principle (the standard ethical safeguard on skopos freedom); add if Munday's chapter covers it, else a follow-up MAP pass. `skills/text-type-skopos-and-the-brief`.
+- **N-8** (domain: quality): Toury source cited as if "The Nature and Role of Norms in Translation" were a standalone 1995 book — it is ch.1 of *Descriptive Translation Studies and Beyond* (1995), also anthologized in the Venuti Reader (possible overlap). Correct citation / check duplication. `profile.yaml` sources.
+- **N-9** (faithfulness): `examples[0]` generalizes P176 (scoped to *verse* translation) to any literary review; cushioned by co-cited P088/P020 so not should-fix. Add "verse" qualifier or drop P176 from that sentence's citations.
+- **N-10** (domain: technical): P056 uses Quine's period example "Neutrinos lack mass" — neutrinos now known to have nonzero mass; add a parenthetical marking it as Quine's illustrative case, not current physics. `principles.yaml` P056 + hermeneutics skill step 4.
+- **N-11** (domain: technical): P069 subtitling figures (38 CPL, ~6s) stated more precisely than the field standardizes (Netflix ~42 CPL etc.); already hedged, optionally soften to a range. `principles.yaml` P069 + register skill step 10.
+- **N-12** (release readiness): `role` is one dense em-dash-heavy paragraph; splitting risks regressing exporter-clip tuning — polish only with adapter re-export verification. `profile.yaml` lines 8–16.
+- **N-13** (release readiness): `when_to_use[2]` phrased around caller intent rather than a concrete scenario; minor wording tighten. `profile.yaml` lines 22–23.
 
-- **S8 — `when_to_use[0]` garden-path clause**
-  - **where:** `profile.yaml` `when_to_use[0]` (~L17–18).
-  - **problem:** "…reviewing the losses against the source and the brief by descriptive method, not a quality metric" — ambiguous attachment; this field seeds the exported routing description. (r5 S12, open.)
-  - **fix:** Split into two clauses, e.g. "…assessed by descriptive method — reviewing losses against source and brief, not scored against a fixed quality metric."
-
-- **S9 — body word budget near hard-FAIL**
-  - **where:** `profile.yaml` body-counted fields collectively.
-  - **problem:** ~946 words vs 800 soft-WARN / 1000 hard-FAIL — ~54 words headroom; last three bumps added net words without applying deferred trims. One more addition risks a check-14 FAIL.
-  - **fix:** Apply the deferred trims (S7 delete, S8 tighten, S5 split without net add) now.
-
-- **S10 — examples cover only `review` mode** *(profile-reviewer + ai-agent-engineering, deduped)*
-  - **where:** `profile.yaml` `examples`.
-  - **problem:** Both examples exercise `review`; neither `advise` nor `compare` (2 of 3 declared modes) has a worked example, including the advise-vs-equivalence-advisor routing line.
-  - **fix:** Add one example each for `advise` and `compare`, or explicitly defer with owner/timeline in the ledger.
-
-- **S11 — inconsistent skill `description` lead-in mood across the 12 skills**
-  - **where:** all 12 `skills/*/SKILL.md` frontmatter `description`.
-  - **problem:** 4 open "Use when…", 7 open "Reviews…", 1 (`literal-free-strategy-history-and-retranslation`) opens with imperative "Review a translation's placement…". Mixed convention hurts scanning/maintenance of the sole load-time trigger signal.
-  - **fix:** Standardize on one lead-in pattern; fix the literal-free description to third person.
-
-- **S12 — `register-discourse-and-audiovisual-constraints` description spends budget on generic boilerplate**
-  - **where:** `skills/register-discourse-and-audiovisual-constraints/SKILL.md` frontmatter `description`.
-  - **problem:** "flagging violations of the cited principles" is true of all 12 skills — no differentiating trigger signal.
-  - **fix:** Drop the generic clause; front-load distinctive trigger vocabulary (register, discourse, subtitling/AVT, House's two axes).
-
-- **S13 — `literal-free-strategy-history-and-retranslation` steps 4 & 15 in imperative voice**
-  - **where:** `skills/literal-free-strategy-history-and-retranslation/SKILL.md` Procedure steps 4 (P036) & 15 (P173).
-  - **problem:** "Default to sense-for-sense…", "Choose the target register…" read as translation commands, not review checks (same drift as M1, isolated to 2 steps).
-  - **fix:** Reword to "Check that the translator defaulted to… / Check that the target register was chosen by…".
-
-- **S14 — Berman's twelve deforming tendencies: "popularization" dropped from the enumerated list** *(technical-translation should-fix; translation-equivalence nice — deduped, higher severity taken)*
-  - **where:** `principles/principles.yaml` P014; restated `skills/deforming-tendencies-and-translation-loss/SKILL.md` step 1.
-  - **problem:** Berman pairs "ennoblement and popularization" as one tendency; P014's list names only "ennoblement". A reviewer checking "the twelve" via P014 alone misses the popularizing pole (it appears only later, separately, in P081).
-  - **fix:** Amend P014 to "ennoblement and popularization" so the canonical pairing is visible where the twelve are enumerated.
-
-- **S15 — Toury's norm structure names only two of three terms**
-  - **where:** `principles/principles.yaml` P010 (with P023).
-  - **problem:** P010 names "preliminary" and "operational" norms but never the foundational "initial norm" (adequacy-vs-acceptability orientation) that governs both; P023 has the concept without the term.
-  - **fix:** Add the term "initial norm" to P010 or cross-reference from P023 so the initial→preliminary→operational structure is named whole.
-
----
-
-## NICE
-
-- **N1** — `principles.yaml` P047 (explicitation): "tends **always** to increase…" reads more absolute than Blum-Kulka's hedged original and pulls against the sentence's own "contested support" qualifier. Drop "always" → "tends to increase". *(translation-quality + technical, deduped.)*
-- **N2** — `principles.yaml` P069 subtitling limit "38 Roman" chars used as a hard pass/fail; Díaz Cintas & Remael commonly cite ~37 (35–42 by convention). Verify against Munday's cited source. *(technical.)*
-- **N3** — `principles.yaml` P150 / `hermeneutics…/SKILL.md` step 19: "principle of charity" is Wilson/Davidson's named label; Quine argues the substance without that tag. Drop the label or note "(later formalized by Davidson…)". *(translation-quality.)*
-- **N4** — `principles.yaml` P056: distinctive Quine phrasing ("cantilever fashion", "Neutrinos lack mass" example) worth a source-anchor spot-check. *(translation-equivalence, low-confidence.)*
-- **N5** — `reports/faithfulness-report.yaml` has no `rule_ref` for `examples[*].ideal_response`, `outputs.modes[*]`, `role`, `inputs` — all principle-cited but outside the 38 reviewed refs. Today's content checks out; add coverage next faithfulness pass. *(faithfulness.)*
-- **N6** — `profile.yaml` `quality_bar[3]` ("re-coding, not omission") is most precisely grounded by P052; add it to the citation list. *(faithfulness.)*
-- **N7** — `profile.yaml` `role` is one dense run-on bundling four claims; split so the review-only boundary stands alone. *(profile-reviewer / r5 N6.)*
-- **N8** — two largest skills (`culture-ideology-power-and-rewriting` 20 princ, `hermeneutics-and-the-limits-of-translatability` 19) restate each principle as a Procedure check + mirrored Anti-pattern; consider merging a few closely related anti-patterns to trim length (justified redundancy for a reviewer, tier-2 cost only). *(agent-skills.)*
-- **N9** — `descriptive-method-and-translational-norms` (P011/P101) and `translation-quality-and-applied-studies` (P007) both carry the "reconstruct-norm-from-behaviour-not-self-report" check; add a one-line cross-reference so the overlap reads as intentional. *(agent-skills.)*
-
----
-
-## Positive notes
-
-- All deterministic gates pass; no truncation, no verbatim quotation, adapter in sync, tier-consistency OK.
-- 12 skills share a consistent template (Purpose / When / Procedure / Inputs / Output / Anti-patterns / References / Provenance), valid frontmatter, correct progressive-disclosure reference links, uniform Output contract.
-- Domain grounding is unusually strong: three independent domain reviewers found **zero** theorist misattributions, garbled terms, or reversed claims across Jakobson/Catford/Vinay-Darbelnet/Nida/Newmark/Koller/Reiss/Vermeer/Nord/Toury/Even-Zohar/Chesterman/Venuti/House/Berman/Lefevere/Quine/Steiner/Spivak/Chaume/Pedersen. The register skill correctly disambiguates House's two same-named overt/covert axes.
-- Tool boundary correct (Read/Grep/Glob only); no authority creep — forbidden_behaviours + handoff_rules correctly prevent producing translations or certifying.
-
-MUST_FIX_COUNT: 2
+MUST_FIX_COUNT: 3

@@ -4,7 +4,7 @@
 
 ## Phase 8 Profile Self-Check
 
-**Verdict (v1.8.0):** PASS with one non-blocking WARNING (`body-size`, profile body under the 1000-word FAIL
+**Verdict (v1.9.0):** PASS with one non-blocking WARNING (`body-size`, profile body under the 1000-word FAIL
 threshold). Regenerate with `python -m tools.subagent_factory.validate_generated_package subagents/descriptive-translation-reviewer`.
 
 ## Behaviour test suites

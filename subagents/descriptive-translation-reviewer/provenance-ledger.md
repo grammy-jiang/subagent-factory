@@ -7,8 +7,9 @@ report, and tests are all derived from the distilled spine in this package
 field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`,
 `knowledge_partition.always_on`, `source_of_truth_policy`, and `examples` value cites the promoted
 principle(s) it restates — except a small number of product-scope boundaries (`forbidden_behaviours[0]`,
-the never-translate/never-sign-off note in `examples[1]`, and the subject-matter/legal/typesetting scope
-clause of `handoff_rules[1]`) that state a review-vs-produce decision rather than a source claim and are left
+the never-translate/never-sign-off note in `examples[1]`, the subject-matter/legal/typesetting scope
+clause of `handoff_rules[1]`, and the sibling-routing bullet `handoff_rules[2]`) that state a
+review-vs-produce or routing decision rather than a source claim and are left
 uncited by design; note that `handoff_rules[1]`'s other clause (the publisher's commercial/economic
 constraints) does carry a `(P029)` citation. Inline `examples` citations are audited
 on the same footing as rule fields and are re-checked whenever a cited field's grounding changes on a
@@ -36,6 +37,34 @@ partitioned across 12 skills, each principle owned by exactly one skill; the two
 references index and ground them.
 
 ## Version History
+
+- **1.9.0** (2026-07-12) — Review-loop round r1
+  (`reports/review-loop/descriptive-translation-reviewer.r1.review.md`; no prior decision silently
+  overwritten). Deterministic gates all clean; applied all three must-fixes and the high-value should-fixes
+  (SF-1..SF-6), grounded in the existing 180-principle spine (no new claim introduced); SF-7 (per-skill
+  anti-pattern trimming) and the NICE items deferred as lower-value polish. **Must-fix:** **MF-1** — the
+  operating invariants (rendered from faithfulness-reviewed principle statements via the shared adapter
+  template) read as production instructions; strengthened the review-only boundary at the point of highest
+  salience — `role` now closes "read every operating invariant below as a criterion for judging someone
+  else's translation, never a step to perform yourself", rendered immediately before the invariants heading
+  (no principle text changed). **MF-2** — `when_to_use` covered only 7/12 skills; added two triggers routing
+  to the five uncovered skills (ideology/institutional/reception + hermeneutics/untranslatability; V&D
+  procedure / Catford shift disputes + translation-quality-assessment / applied-TS method soundness).
+  **MF-3 / SF-3** — re-stamped `tests/golden-tests.yaml` `profile_version` and the `tests/test-results.md`
+  verdict from 1.8.0 to 1.9.0. **Should-fix:** **SF-1** — scoped **P020** with an `applies_when`
+  (literary/poetic/philosophical/experimental-deconstructive translation where the mode of signification,
+  not propositional content, is the object of fidelity), mirroring P034, and gated the
+  `domestication-foreignization-and-visibility` step-1 "reject reproduction of meaning" clause and its
+  anti-pattern behind that text-type condition. P020's profile citations (`quality_bar`,
+  `forbidden_behaviours`, `examples[0]`) keep the general "fluency is not proof of quality" reading, which
+  the new scope does not alter.
+  **SF-2** — the operative-text advise example names Reiss's adaptive method and Newmark's communicative
+  translation, with Nida's "dynamic equivalence" as a parallel-but-distinct analogue (P059/P129/P062
+  unchanged). **SF-4** — reworded `outputs.primary_format` to the mode-agnostic common thread. **SF-5** —
+  added the sibling-routing bullet `handoff_rules[2]` to this ledger's intentionally-uncited enumeration
+  above. **SF-6** — added a `when_not_to_use` temporal-currency boundary (grounding is
+  foundational/classical, through ~2016). Uncited descriptive prose was tightened to keep the profile body
+  within the 1000-word FAIL budget after these additive fixes.
 
 - **1.8.1** (2026-07-12) — Adversarial-verify round 2
   (`reports/review-loop/descriptive-translation-reviewer.verify2.md`; no prior decision silently overwritten).
