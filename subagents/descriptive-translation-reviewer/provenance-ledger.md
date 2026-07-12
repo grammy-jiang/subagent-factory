@@ -37,6 +37,17 @@ references index and ground them.
 
 ## Version History
 
+- **1.8.1** (2026-07-12) — Adversarial-verify round 2
+  (`reports/review-loop/descriptive-translation-reviewer.verify2.md`; no prior decision silently overwritten).
+  Fixed the one surviving must-fix (SCOPE_BROADENED, faithfulness): the liturgical-verse example's
+  formal-orientation clause cited **P162** (scoped to legal documents / equally valid multilingual treaties) and
+  **P104** (obligatorily-forced grammatical categories) — neither supports "preserves source form / risks
+  unidiomatic, opaque target lines." Regrounded to **P105** (formal equivalence matches source form and content
+  closely) for the form-preservation part and **P036** (word-for-word rendering produces opaque target text;
+  sacred/sensitive-text exception) for the opacity risk. Claim unchanged; no new claim introduced. The two
+  adjudicated non-must-fix items (Koller/Reiss false positive; House TQA sibling-boundary defer) were left as
+  the verify report ruled. Must-fix now 0.
+
 - **1.8.0** (2026-07-12) — Review-loop round r4
   (`reports/review-loop/descriptive-translation-reviewer.r4.review.md`; no prior decision silently
   overwritten). Deterministic gates all clean; applied all three must-fixes and the high-value should-fixes,
