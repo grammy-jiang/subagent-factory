@@ -2,6 +2,10 @@
 name: cultural-filtering-ideology-and-globalization
 kind: skill
 status: ready
+description: Review quality where culture, ideology, English-as-a-lingua-franca, and
+  globalization bear on the choices, grounding any power or ideology critique in detailed
+  linguistic form and function first. Use when a cultural-filter, ideology, or ELF/globalization
+  claim is under review; the overt/covert filtering judgement goes to overt-covert-translation-and-equivalence.
 provenance:
   principles:
   - P022
@@ -42,7 +46,7 @@ provenance:
   authored_from_digest: 3d7eed7c7ea772e0ec0db08a088fd6117f221c0f9d09ad252c0e6c25e0668cf0
 ---
 
-# Cultural Filtering, Ideology And Globalization
+# Cultural Filtering Ideology And Globalization
 
 ## Purpose
 
@@ -57,10 +61,12 @@ This skill reviews translation quality where culture, ideology, English-as-a-lin
 
 ## Procedure
 
+Triage the claim under review into its cluster first, then apply only the matching steps: interpersonal/pragmatic preservation (step 1); ELF and English-influence claims (steps 2, 5, 11, 13); cultural-filter currency (steps 3, 6, 7); globalization and recontextualization (steps 4, 8, 9, 10, 12); and power/ideology grounding (steps 14, 15, 16).
+
 1. Treat preservation of factual content as insufficient when target choices weaken addressee involvement, flattery, reassurance, indirectness, responsibility management, hedging, or interpersonal force (P022).
 2. Evaluate ELF communication by mutual intelligibility, efficiency, and multilingual multicompetence rather than by native-speaker correctness alone (P026).
 3. Keep cultural-filter judgements current with language-pair developments because empirical evidence reduces arbitrariness but communicative norms continue to change (P032).
-4. Account for translation’s double transmission and rupture by analyzing how texts are recontextualized across time, space, indexical orders, and language-cultural barriers (P045).
+4. Account for translation's double transmission and rupture by analyzing how texts are recontextualized across time, space, indexical orders, and language-cultural barriers (P045).
 5. Do not treat ELF as a threat that makes translation obsolete; check the complementary roles of ELF, native languages, translation, and localization in the domain (P046).
 6. Avoid permanent cultural-filter generalizations; reassess each case against current communicative norms, globalization, internal diversification, and corpus evidence (P047).
 7. Reduce stereotyping risk by testing contrastive findings against larger samples, bicultural expert interpretation, and multicultural comparison (P066).
@@ -81,17 +87,16 @@ This skill reviews translation quality where culture, ideology, English-as-a-lin
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation-quality claim, or a corpus-based translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. Scope: review only, not the finished translation or the publication decision.
 
 ## Anti-patterns to flag
 
-- The analysis fails to treat preservation of factual content as insufficient when target choices weaken addressee involvement, flattery, reassurance, indirectness, responsibility management (P022).
-- The analysis fails to evaluate ELF communication by mutual intelligibility, efficiency, and multilingual multicompetence rather than by native-speaker correctness alone (P026).
-- The analysis fails to keep cultural-filter judgements current with language-pair developments because empirical evidence reduces arbitrariness but communicative norms continue to change (P032).
-- The analysis fails to account for translation’s double transmission and rupture by analyzing how texts are recontextualized across time, space, indexical orders, and language-cultural (P045).
-- The analysis fails to do not treat ELF as a threat that makes translation obsolete; check the complementary roles of ELF, native languages, translation, and localization in the domain (P046).
-- The analysis fails to avoid permanent cultural-filter generalizations; reassess each case against current communicative norms, globalization, internal diversification, and corpus evidence (P047).
-- The analysis fails to reduce stereotyping risk by testing contrastive findings against larger samples, bicultural expert interpretation, and multicultural comparison (P066).
+- Passing a translation as adequate because propositional content survives while interpersonal force — involvement, flattery, indirectness, hedging — is flattened; factual fidelity is not the same claim as quality (P022).
+- Judging ELF text through a native-speaker deficit lens (grammar, idiomaticity) instead of asking whether it is mutually intelligible and functional; non-nativeness itself is not the error, and treating ELF as a threat that makes translation obsolete misreads its complementary role alongside native languages, translation, and localization (P026, P046).
+- Restating a cultural-filter finding as a stable rule for the language pair instead of re-testing its currency, and generalizing a contrastive finding from a small or single-source sample instead of checking it against larger samples or bicultural corroboration (P032, P047, P066).
+- Asserting a macro-level power, ideology, or ethical verdict from impression before any detailed linguistic analysis of the text's forms and functions — this cluster's signature altitude error (P123).
+- Stopping English-influence detection at obvious lexical borrowings and missing the harder-to-see syntactic, pragmatic, discourse, or textualization-level shifts (P105).
+- Explaining a recurring translational pattern from linguistic counts alone, omitting the socio-cultural context that motivates it (P145).
 
 ## References
 
@@ -99,4 +104,4 @@ See `../../references/translation-quality-principles-index.md` for the full prin
 
 ## Provenance
 
-Derived from P022, P026, P032, P045, P046, P047, P066, P067, P100, P101, P102, P103, P105, P123, P137, P145, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*; Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P022, P026, P032, P045, P046, P047, P066, P067, P100, P101, P102, P103, P105, P123, P137, P145, grounded in the distillation-only source House, *Translation Quality Assessment*. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

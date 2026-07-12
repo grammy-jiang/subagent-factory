@@ -7,7 +7,7 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P001/P079/P084/P139/P002; within the source's scope, no strengthening. Review criterion,
+  note: Restates P001/P079/P139/P002; within the source's scope, no strengthening. Review criterion,
     not a directive to translate.
 - rule_ref: quality_bar[1]
   verdict: WITHIN_SCOPE
@@ -23,7 +23,7 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P006/P038/P059/P090/P138; within the source's scope, no strengthening. Review criterion,
+  note: Restates P006/P038/P059/P138; within the source's scope, no strengthening. Review criterion,
     not a directive to translate.
 - rule_ref: quality_bar[3]
   verdict: WITHIN_SCOPE
@@ -31,8 +31,10 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P042/P069/P056/P116/P137; within the source's scope, no strengthening. Review criterion,
-    not a directive to translate.
+  note: The co-occurring-feature-cluster method is scoped to register and conditioned on corpus/frequency
+    evidence, softened to "prefer" to match P116's conditional framing (P042/P069/P116); cultural filtering
+    is stated as source-to-target comparison grounded in P137 only (P056 dropped — it concerns multifactorial
+    modelling of complex variation, not cultural filtering). Within scope, no strengthening.
 - rule_ref: quality_bar[4]
   verdict: WITHIN_SCOPE
   distortion:
@@ -47,8 +49,9 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P016/P018/P083/P114/P145; within the source's scope, no strengthening. Review criterion,
-    not a directive to translate.
+  note: Restates P016/P018/P083/P114/P145; within the source's scope, no strengthening. Norm reconstruction
+    now stated precisely — only from a corpus of source-and-target text pairs, never a generic or target-only
+    collection (P083). Review criterion, not a directive to translate.
 - rule_ref: forbidden_behaviours[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -83,24 +86,25 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P006/P059; within the source's scope, no strengthening. Routing trigger grounded in the
-    cited principles.
+  note: Restates P006/P001/P002; within the source's scope, no strengthening. Broad routing trigger (quality,
+    corpus-method rigour, translationese-as-proxy) grounded in the cited principles.
 - rule_ref: when_to_use[1]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P001/P083/P112; within the source's scope, no strengthening. Routing trigger grounded
-    in the cited principles.
+  note: Restates P001/P083/P112; within the source's scope, no strengthening. Routing trigger scoped to
+    quantitative/corpus-empirical norm, universal, or translationese claims (frequency evidence, corpus
+    design/comparability, source-and-target norm reconstruction), grounded in the cited principles.
 - rule_ref: when_to_use[2]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P002/P114; within the source's scope, no strengthening. Routing trigger grounded in the
-    cited principles.
+  note: Restates P002/P114/P132; within the source's scope, no strengthening. Routing trigger (translationese
+    proxy plus cognitive-process/contrastive-pragmatic evidence) grounded in the cited principles.
 - rule_ref: when_to_use[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -117,6 +121,15 @@ findings:
   action: accept_with_note
   note: Restates P056/P119; within the source's scope, no strengthening. Routing trigger grounded in the
     cited principles.
+- rule_ref: when_to_use[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P090/P061/P044/P116/P082; within the source's scope, no strengthening. Routing trigger
+    (evaluation-discipline, genre/accessibility, register Field/Tenor/Mode, and applied-corpus-tools
+    keyword/concordance/collocation review) grounded in the cited principles.
 - rule_ref: outputs.primary_format
   verdict: WITHIN_SCOPE
   distortion:
@@ -133,3 +146,161 @@ findings:
   action: accept_with_note
   note: Restates P032/P047/P115/P078/P003/P035/P056; within the source's scope, no strengthening. Adaptable-guide
     + question-governs-measure + no-over-claim, all source-grounded.
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Universals/third-code scope. Restates P001/P079/P084/P114/P115/P121/P139/P143 as hypotheses-to-be-measured;
+    no candidate universal upgraded to a law, third code kept distinct from translationese. Within scope.
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Corpus-design scope. Restates P003/P012/P050/P068/P077/P078/P097/P107/P108/P112/P118/P122/P135/P140/P141;
+    corpus-type-fits-question and controls-before-attribution, no strengthening. Within scope.
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: House TQA overt/covert scope. Restates P005/P006/P007/P008/P011/P030/P031/P038/P059/P062/P063/P064/P093/P106/P127/P131/P133/P136/P138;
+    functional equivalence as approximate value, no over-claim. Within scope.
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Register scope. Restates P010/P013/P040/P041/P042/P060/P069/P070/P071/P072/P073/P074/P075/P116/P129/P130.
+    Participation-under-Tenor is scoped to House's revised model (P042/P075), not asserted against the
+    earlier/standard split. Within scope.
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Evaluation-discipline scope. Restates P002/P021/P035/P036/P037/P048/P049/P061/P086/P087/P090/P091/P094/P095/P109/P125/P128;
+    tentative findings kept tentative, no strengthening. Within scope.
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Cognition/contrastive-pragmatics scope. Restates P004/P009/P015/P024/P088/P099/P124/P132; verbal
+    reports/behavioural/neuroimaging treated as limited evidence, no over-claim. Within scope.
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Culture/ideology scope. Restates P022/P026/P032/P045/P046/P047/P066/P067/P100/P101/P102/P103/P105/P123/P137/P145;
+    power critique grounded in linguistic analysis first, cultural-filter judgements kept current. Within scope.
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Descriptive/norms scope. Restates P016/P018/P025/P034/P053/P054/P055/P076/P080/P083/P085/P111/P117/P142.
+    The profile text now states P083 precisely — norms reconstructed only from a corpus of source-and-target
+    text pairs, never a generic or target-only collection — matching P083's high-confidence restriction, and
+    scopes P076 to operational (matricial/textual) norms so an orientation/policy claim is placed at its
+    level before the operational criteria apply. Individual attribution only after alternatives ruled out.
+    Within scope, no strengthening.
+- rule_ref: knowledge_partition.always_on[8]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Russian-field scope. Restates P019/P020/P029/P051/P052/P056/P057/P058/P146/P147/P148. The metadata-rich-corpora
+    requirement is scoped to multifactorial studies such as Polish-Russian/Russian-Polish pairs (P058),
+    not asserted package-wide. Within scope.
+- rule_ref: knowledge_partition.always_on[9]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Genre/accessibility scope. Restates P014/P023/P028/P043/P044/P065/P092/P096/P098/P110/P126/P144;
+    accessibility claims tied to quantifiable textual features, no strengthening. Within scope.
+- rule_ref: knowledge_partition.always_on[10]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Chinese-prose/Europeanization scope. Restates P119/P120/P149/P150; defends normal Chinese against
+    needless Europeanization, no over-claim. Within scope.
+- rule_ref: knowledge_partition.always_on[11]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Applied-corpus-tools scope. Restates P017/P027/P033/P039/P081/P082/P089/P104/P113/P134. P082's hedge
+    "treat limited findings as hypotheses for further testing" is restored, matching quality_bar[4]. Within scope.
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P059/P134; translator/commissioner hold the text and publication decision. Boundary restraint, no over-claim.
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Profile-level scoping judgement. Corpus-type/controls choice kept in scope, pipeline/statistical
+    implementation handed off (P003/P078). No principle stated more strongly than its source.
+- rule_ref: outputs.modes.review
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Output contract (findings keyed to flaw class, each with flaw/correction/residual trade-off/next
+    step) restates the per-finding review format (P061/P059). Descriptive contract, no over-claim.
+- rule_ref: outputs.modes.advise
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Recommendation names the principle(s)/method applied and the residual trade-off (P061/P134). Descriptive
+    contract, no over-claim.
+- rule_ref: outputs.modes.compare
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Side-by-side of what each option preserves and costs, purpose- and evidence-weighted (P078/P003/P061).
+    Descriptive contract, no over-claim.
+- rule_ref: examples[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Translationese-score example. Ideal response restates P002/P006/P038/P139/P114/P119/P061/P059;
+    names the classifier flag as a distinctive-distribution signal (third code / patterning), not diagnosed
+    translationese or a quality verdict. Within scope.
+- rule_ref: examples[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Decline-and-redirect example. Restates P059/P134/P006/P005/P038/P061; contract framed as a plausible
+    overt candidate, not certified. Boundary restraint, no over-claim.

@@ -2,6 +2,11 @@
 name: applied-corpus-tools-and-textual-devices
 kind: skill
 status: ready
+description: Review the applied use of corpus tools and textual analysis — keyword,
+  concordance, and collocation analysis, description of existing translations, and
+  tracking of textual devices (theme dynamics, clausal and iconic linkage, deixis)
+  — set against the commission's purpose and risk level. Use when concrete tooling
+  or textual-device tracking is under review; corpus design choices go to corpus-design-and-methodology.
 provenance:
   principles:
   - P017
@@ -51,6 +56,8 @@ This skill reviews the applied use of corpus tools and textual analysis in a qua
 
 ## Procedure
 
+The ten checks fall into three passes: textual-level shift and strategy analysis (1-2), corpus-based method and its context-linked interpretation (3-7, 9), and scope-setting for translator competence and quality bar (8, 10).
+
 1. Analyse simplification and conventionalisation through observable shifts such as title simplification, clearer syntax, shorter units, regularised punctuation, reduced repetition, and conventional collocation or dialogue formatting (P017).
 2. Use target-reader need, lexical availability, and meaning criticality to choose among superordinates, approximation, common synonyms, circumlocution, paraphrase, glossing, or loan-word retention (P027).
 3. Use corpus comparison to examine addressee involvement, perspective, subjectivity, information organization, interactionality, and source-language shining-through (P033).
@@ -69,17 +76,16 @@ This skill reviews the applied use of corpus tools and textual analysis in a qua
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation-quality claim, or a corpus-based translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: flaw, principle violated, correction, residual uncertainty/trade-off, next step — highest-impact first. Reviews the analysis or claim; does not produce the translation or the publication decision.
 
 ## Anti-patterns to flag
 
-- The analysis fails to analyse simplification and conventionalisation through observable shifts such as title simplification, clearer syntax, shorter units, regularised punctuation, reduced (P017).
-- The analysis fails to use target-reader need, lexical availability, and meaning criticality to choose among superordinates, approximation, common synonyms, circumlocution, paraphrase (P027).
-- The analysis fails to use corpus comparison to examine addressee involvement, perspective, subjectivity, information organization, interactionality, and source-language shining-through (P033).
-- The analysis fails to include textual devices in the analysis by tracking theme dynamics, clausal linkage, iconic linkage, deictic dependence, and overall text organization (P039).
-- The analysis fails to use corpus-based tools in Bible translation to describe existing translations, explain their systemic conditions, and support quality, accessibility, and skopos-specific (P081).
-- The analysis fails to use keyword, concordance, and collocation analysis to investigate cultural or ideological meanings in translated texts (P082).
-- The analysis fails to analyze style and province as functional evidence by checking shared background, implicitness, formality, institutional convention, domain activity, topic, and (P089).
+- Treating a keyword, concordance, or collocation finding about cultural or ideological meaning as an established result rather than a hypothesis flagged for further testing — a small sample supports "worth investigating," not "confirmed" (P082).
+- Judging meaning preservation from lexical or collocational equivalence alone while textual devices — theme dynamics, clausal linkage, iconic linkage, deictic dependence, overall organization — go unchecked: a lexical match is not a textual-device match (P039).
+- Reporting corpus-comparison counts (addressee involvement, subjectivity, source-language shining-through) as self-interpreting, without connecting them to the cultural, ideological, pedagogical, or technological context that gives the count its meaning (P033, P113).
+- Applying one quality bar across every commission: clearing the bar for a basic-understanding or information use is not evidence a translation clears the higher bar a publication, image, legal, or high-stakes use requires — the risk level sets the bar, not a fixed checklist (P134).
+- Approving a non-mother-tongue translation because it reads as grammatically correct, without the paired control — qualified native-language revision or stylistic advice — that target-native expectations actually require (P104).
+- Reading observable simplification or conventionalisation shifts (shorter units, regularised punctuation) as confirmation that a lexical strategy (superordinate, approximation, circumlocution) was the right choice: one describes what changed, the other justifies why it was chosen (P017, P027).
 
 ## References
 
@@ -87,4 +93,4 @@ See `../../references/translation-quality-principles-index.md` for the full prin
 
 ## Provenance
 
-Derived from P017, P027, P033, P039, P081, P082, P089, P104, P113, P134, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*; Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P017, P027, P033, P039, P081, P082, P089, P104, P113, P134, grounded in the distillation-only sources Kruger et al. (eds.), *Corpus-Based Translation Studies*, and House, *Translation Quality Assessment*. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

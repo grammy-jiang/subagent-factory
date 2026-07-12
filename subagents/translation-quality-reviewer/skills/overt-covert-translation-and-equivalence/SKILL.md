@@ -2,6 +2,12 @@
 name: overt-covert-translation-and-equivalence
 kind: skill
 status: ready
+description: Review a House-model quality assessment — is the source-text profile
+  and function specified, is the case overt (source kept intact) or covert (cultural
+  filter for target pragmatics), and has unjustified filtering produced a covert version.
+  Use when an overt/covert classification or a functional-equivalence claim needs
+  situating; register detail goes to register-field-tenor-mode-analysis, error typing
+  to error-analysis-and-evaluation-discipline.
 provenance:
   principles:
   - P005
@@ -45,7 +51,7 @@ provenance:
   authored_from_digest: 44077a66590391a40c3c81618836df58db15c89e430d8918933b8eff77a3011e
 ---
 
-# Overt/Covert Translation And Functional Equivalence
+# Overt Covert Translation And Equivalence
 
 ## Purpose
 
@@ -59,6 +65,12 @@ This skill reviews a translation quality assessment built on House's model: whet
 - A covert/overt classification is asserted without checking addressee needs, source status, and whether the target could function as an original.
 
 ## Procedure
+
+**Triage first.** Decide which sub-case is on the table before working the detailed steps:
+- **Overt case** (source kept intact, second-level access to the source function is the goal): apply steps 1, 11, 18 directly.
+- **Covert case** (cultural filter applied for target pragmatics): apply steps 3, 4, 12, 15, 18.
+- **Disputed or unclear which case applies, or a translation/version boundary question**: resolve the classification first via steps 5, 10, 13, 16, 19, then apply the case-specific steps above.
+Steps 2, 6-9, 14, and 17 (profile specification, equivalence scope, and evidence currency) apply regardless of which sub-case this is.
 
 1. For overt translation, aim at second-level access to the source function, preserve the source as intact as possible, and balance necessary explanation against replacement of source-culture markedness (P005).
 2. Build the quality comparison from a detailed source-text profile that specifies the function to be sought in the target text (P006).
@@ -87,17 +99,15 @@ This skill reviews a translation quality assessment built on House's model: whet
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation-quality claim, or a corpus-based translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. Reviews the translation or the TQA claim; does not produce the translation or decide publication.
 
 ## Anti-patterns to flag
 
-- The analysis fails to for overt translation, aim at second-level access to the source function, preserve the source as intact as possible, and balance necessary explanation against (P005).
-- The analysis fails to build the quality comparison from a detailed source-text profile that specifies the function to be sought in the target text (P006).
-- The analysis fails to for covert translation, account for target pragmatics through cultural filters supported by multi-method research on register and genre variation across language pairs (P007).
-- The analysis fails to when evaluating covert translation, check whether titles, advertising, signs, or other target texts reveal shifts between explicit content, interpersonal address (P008).
-- The analysis fails to classify unjustified cultural-filter changes as covert versions, and classify added special-audience or special-purpose renderings as overt versions rather than ordinary (P011).
-- The analysis fails to treat equivalence as approximate value across differences, assessed at text level and prioritized case by case across denotative, connotative, pragmatic, text-normative (P030).
-- The analysis fails to define text function as use in a particular situational and cultural context, not as a direct projection from broad language-function typologies (P031).
+- Conflating "version" and "translation": an unjustified cultural-filter change is a covert **version**, not a covert translation; an added special-audience or special-purpose rendering is an overt **version**, not an ordinary translation. Mislabeling either hides that the product needs a different kind of assessment (P011).
+- Classifying a rendering as covert on fluency or idiomaticity alone. Covert status requires two things together: source and target addressees have comparable contemporary needs, *and* the target could function as an original in its own culture — reading naturally satisfies neither on its own (P093).
+- Clearing a translation because it reads grammatically and denotationally correct while a dimensional-profile shift (register, genre, stance) has already changed its function. That is a covert functional error, not a pass (P127).
+- Reapplying a fixed textbook overt/covert expectation to a language pair or genre where current corpus evidence shows reduced cultural filtering, English source-norm takeover, or an emerging overt-like hybrid type — the classification itself may be stale, not just the filtering choice (P106).
+- Treating overt and covert translation as equally demanding to process: overt translation co-activates source and target pragmatics (dual-frame load), covert translation primarily activates target pragmatics. Attributing assessed difficulty to the wrong frame misdiagnoses the finding (P136).
 
 ## References
 
@@ -105,4 +115,4 @@ See `../../references/translation-quality-principles-index.md` for the full prin
 
 ## Provenance
 
-Derived from P005, P006, P007, P008, P011, P030, P031, P038, P059, P062, P063, P064, P093, P106, P127, P131, P133, P136, P138, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*; Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P005, P006, P007, P008, P011, P030, P031, P038, P059, P062, P063, P064, P093, P106, P127, P131, P133, P136, P138, grounded in the distillation-only source House, *Translation Quality Assessment*. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

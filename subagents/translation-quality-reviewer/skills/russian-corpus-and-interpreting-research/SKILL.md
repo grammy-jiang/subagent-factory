@@ -2,6 +2,11 @@
 name: russian-corpus-and-interpreting-research
 kind: skill
 status: ready
+description: Review corpus-based translation and interpreting work in the Russian
+  field, where corpus scarcity and fragmentation are hard design constraints — pressing
+  for multifactorial modelling, significance testing with effect sizes, metadata-rich
+  corpora, and inclusion of the Russian research tradition. Use when a Russian-field
+  corpus or interpreting study is under review; general corpus design goes to corpus-design-and-methodology.
 provenance:
   principles:
   - P019
@@ -52,11 +57,11 @@ This skill reviews corpus-based translation and interpreting work in the Russian
 
 ## Procedure
 
-1. For Russian interpreting research, treat corpus availability as a design constraint (P019).
-2. Prioritize corpus construction and study designs for underexplored Russian varieties, especially constrained communication, amateur translation, post-edited translation, second-language translation, translator qualifications, and (P020).
+1. For Russian interpreting research, treat corpus availability as a design constraint: expect scarcity, fragmentation, missing historical data, and no default Europarl Russian component (P019).
+2. Prioritize corpus construction and study designs for underexplored Russian varieties, especially constrained communication, amateur translation, post-edited translation, second-language translation, translator qualifications, and non-English language pairs (P020).
 3. When surveying Russian translation and interpreting corpora, include the Russian research tradition rather than assuming the field is represented only by better-known English, French, German, or Spanish work (P029).
 4. When recommending Russian interpreting data sources, describe UN Web TV, SIREN, and COINCOUT with their acquisition, transcription, size, domain, and access limitations (P051).
-5. Recommend supervised or unsupervised machine learning for Russian translation/interpreting only when the corpus is large, feature-rich, and metadata-suitable, and frame the result as pattern detection or classification rather than (P052).
+5. Recommend supervised or unsupervised machine learning for Russian translation/interpreting only when the corpus is large, feature-rich, and metadata-suitable, and frame the result as pattern detection or classification rather than automatic explanation (P052).
 6. For complex variation in translation or interpreting, discourage explanation from isolated frequencies or concordances and recommend multifactorial modelling when multiple explanatory variables are plausible (P056).
 7. In mode or producer comparisons, operationalize linguistic markers clearly and pair descriptive indicators with significance testing and effect sizes before interpreting group differences (P057).
 8. For Polish-Russian or Russian-Polish multifactorial studies, require metadata-rich corpora that record factors such as translation direction, delivery mode, and text variety before making explanatory claims (P058).
@@ -71,17 +76,16 @@ This skill reviews corpus-based translation and interpreting work in the Russian
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation-quality claim, or a corpus-based translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: flaw, principle, correction, trade-off, next step, highest-impact first — reviews the analysis, not the finished translation or the publication decision.
 
 ## Anti-patterns to flag
 
-- The analysis fails to for Russian interpreting research, treat corpus availability as a design constraint (P019).
-- The analysis fails to prioritize corpus construction and study designs for underexplored Russian varieties, especially constrained communication, amateur translation, post-edited translation (P020).
-- The analysis fails to when surveying Russian translation and interpreting corpora, include the Russian research tradition rather than assuming the field is represented only by better-known (P029).
-- The analysis fails to when recommending Russian interpreting data sources, describe UN Web TV, SIREN, and COINCOUT with their acquisition, transcription, size, domain, and access limitations (P051).
-- The analysis fails to recommend supervised or unsupervised machine learning for Russian translation/interpreting only when the corpus is large, feature-rich, and metadata-suitable, and frame (P052).
-- The analysis fails to for complex variation in translation or interpreting, discourage explanation from isolated frequencies or concordances and recommend multifactorial modelling when (P056).
-- The analysis fails to in mode or producer comparisons, operationalize linguistic markers clearly and pair descriptive indicators with significance testing and effect sizes before interpreting (P057).
+- Treating corpus scarcity or fragmentation as an excuse to drop the research question instead of a constraint that should redirect effort toward underexplored Russian varieties — constrained communication, amateur/post-edited/second-language translation, translator qualifications, non-English pairs — where scarcity is precisely what makes new data valuable (P019, P020).
+- Explaining complex translation/interpreting variation from isolated frequency counts or concordance lines when several explanatory variables are plausible and multifactorial modelling was never attempted (P056).
+- Reporting a mode or producer comparison as a real difference from descriptive indicators alone: a clearly operationalized marker is still an incomplete claim without a paired significance test and effect size (P057).
+- Presenting a machine-learning result on Russian data as an explanation ("the model shows X causes Y") rather than what it actually is — pattern detection or classification, and only reliable at that once the corpus is large, feature-rich, and metadata-suitable (P052).
+- Promoting a single-corpus finding to a Russian interpreting "universal" or "strategy" without checking it across lexical, syntactic, and discourse levels or waiting for independent replication (P146).
+- Presenting a bounded source as if it were the whole picture: surveying Russian corpora from Anglophone scholarship alone (P029); recommending UN Web TV, SIREN, or COINCOUT without their acquisition, transcription, or access caveats (P051); confining Russian translationese work to newspaper text and a narrow feature set (P147); accepting a Polish-Russian multifactorial claim from a corpus missing direction, mode, or variety metadata (P058); or reviewing advanced computational Russian corpus work without flagging the need for interdisciplinary input (P148).
 
 ## References
 
@@ -89,4 +93,4 @@ See `../../references/translation-quality-principles-index.md` for the full prin
 
 ## Provenance
 
-Derived from P019, P020, P029, P051, P052, P056, P057, P058, P146, P147, P148, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*; Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P019, P020, P029, P051, P052, P056, P057, P058, P146, P147, P148, grounded in the distillation-only source Dayter & Grabowski (eds.), corpus-based translation and interpreting studies in the Russian field. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
