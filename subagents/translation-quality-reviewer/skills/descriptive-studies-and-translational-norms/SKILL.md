@@ -65,7 +65,7 @@ Triage first: is the flaw a *frame* problem (source-derivation instead of target
 1. Explain translated-text features through target-culture norms, conventions, and historical systems rather than reducing them to source-text derivation (P016).
 2. Treat translated text as an object of study in its own right (P018).
 3. Treat language, knowledge, norms, culture, translator cognition, and social constraints as interrelated, situated phenomena when explaining translation choices (P025).
-4. Adopt a target-orientation (P034).
+4. Adopt a target-orientation (P034). Scope: this applies within descriptive corpus-norm reconstruction. It does not govern a House-model overt/covert equivalence assessment, where source-profile equivalence is the frame in force — route those cases to `overt-covert-translation-and-equivalence` instead of applying P034 as the sole evaluative lens there.
 5. Ground translation theory empirically — induce claims from actual translated texts, not from deductive argument or a corpus used only to illustrate rather than to test (P053).
 6. Require a descriptive branch with an explicit, reproducible methodology others could repeat on the same or another corpus, not a one-off case description (P054).
 7. Before selecting features or evidence, classify the study target as a general universal, a mediator-specific style, or a source-text response, then choose measurements that match that target (P055).
@@ -84,24 +84,16 @@ Triage first: is the flaw a *frame* problem (source-derivation instead of target
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation-quality claim, or a corpus-based translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. Scope: findings only — not the finished translation or the publication decision.
 
 ## Anti-patterns to flag
 
-- Explaining a translated-text feature as a direct reflex of the source text instead of through target-culture norms, conventions, and historical systems (P016).
-- Treating a translation as a defective copy to be justified or dismissed against its source instead of as a communicative event and object of study in its own right (P018).
-- Explaining a translation choice from language or norm evidence alone while ignoring the interrelated culture, translator-cognition, and social-constraint factors that also shape it (P025).
-- Using equivalence or faithfulness to the source as the sole evaluative frame instead of analysing the translation as belonging to the target textual system (P034).
-- Accepting a translation-theory claim that is argued deductively or from a corpus used only to illustrate rather than to test it, instead of requiring the claim to be induced from actual translated texts (P053).
-- Accepting a one-off case description or comparative analysis as descriptive-branch evidence when it offers no explicit, reproducible methodology that others could repeat on the same or another corpus (P054).
-- Selecting features or evidence before classifying whether the study target is a general universal, a mediator-specific style, or a source-text response, so the measurements chosen do not match the target (P055).
-- Coding corpus regularities without distinguishing matricial norms (omissions, additions, substitutions, transpositions in distribution) from textual norms (verbal formulation such as collocation, speech treatment, title conventions) (P076).
-- Attributing a recurring pattern to an individual translator's style before ruling out author style, source-language preferences, and sociolect norms as alternative explanations (P080).
-- Projecting a translational norm from the source text's own features alone, an idealised target system, or a generic target-text collection instead of reconstructing it from comparison across a representative corpus of source texts and their translations (P083).
-- Checking only fidelity to the source event or only fit with target-language genre and reception expectations, losing translation's double orientation (P085).
-- Attributing a translated-text pattern solely to source- or target-language interference instead of also considering that the mediated communicative event of translating is itself a constraint producing patterns specific to translated text (P111).
-- Interpreting a conventionalising or normalising shift without accounting for the target-system norms and source-text status that can increase or reduce that shift (P117).
-- Labelling an addition or omission a functional translation strategy without first checking clarity, coherence, aesthetic intent, complexity, and whether the omitted meaning was vital (P142).
+- Norm-level conflation: coding a title-convention shift (a textual norm) as if it were a matricial-norm data point, or the reverse — the two levels use different codebooks and don't average into one operational norm; a study that lumps them produces a claim nobody could replicate (P076).
+- Attribution shortcut: naming a recurring shift a translator's "signature" on the strength of one target text, without checking whether the same author's other translators show it too (source-language pull) or the author's own originals show it (author style) — both must be eliminated before the pattern is pinned on the translator, not just asserted absent (P080).
+- Norm sourced from the wrong evidence base: grounding a norm claim in the source text's own features, an idealised target-language system, or an untranslated target-text collection — none of these is a source–target comparison, and a norm claim needs a corpus of comparable pairs, not a one-sided description (P083).
+- Illustration masquerading as testing: selecting corpus examples that already fit the hypothesis (illustration) rather than assembling a corpus that could disconfirm it (test) — a claim "supported" only by confirming examples has not been tested (P053).
+- Study-target/measurement mismatch: measuring for a general universal (e.g., explicitation across language pairs) when the actual claim is about one translator's individual style, or the reverse — universal, mediator-specific-style, and source-text-response targets need different comparison sets, and swapping them invalidates the measurement before analysis starts (P055).
+- Omission-as-strategy without a vitality check: approving an omission as a "functional strategy" because the surrounding text still reads smoothly, without checking whether the omitted content was vital to meaning — smooth is not the same test as non-vital (P142).
 
 ## References
 
@@ -109,4 +101,4 @@ See `../../references/translation-quality-principles-index.md` for the full prin
 
 ## Provenance
 
-Derived from P016, P018, P025, P034, P053, P054, P055, P076, P080, P083, P085, P111, P117, P142, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*; Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P016, P018, P025, P034, P053, P054, P055, P076, P080, P083, P085, P111, P117, P142, grounded in the distillation-only sources (Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., eds., *Corpus-Based Translation Studies*; House, *Translation Quality Assessment*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

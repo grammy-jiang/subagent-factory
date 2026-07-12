@@ -99,27 +99,16 @@ Triage each finding into one of three lenses before writing it up: **overt-error
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation-quality claim, or a corpus-based translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: flaw, principle, correction, trade-off, next step — highest-impact first. Reviews the evaluation, not the translation itself or the publication decision.
 
 ## Anti-patterns to flag
 
-- Using translationese indicators (corpus features or classifier flags) as a stand-in for translation quality instead of gathering separate evidence for meaning preservation and pragmatic acceptability (P002).
-- Judging error seriousness by micro-, macro-, or superstructural level without a specified, text-context-sensitive procedure behind the judgement (P021).
-- Discarding or inflating the strength of the evidence, reporting a tentative, small-sample, or attributed finding as if it were established (P035).
-- Accepting a global, impressionistic, or self-contradictory assessment criterion that has not been converted into explicit, operationally checkable textual and contextual tests (P036).
-- Treating a target-only, reception-only, or response-only evaluation as sufficient when it cannot explain the source-translation relation or distinguish translation from adaptation (P037).
-- Letting a linguistic-textual finding stand in for, or be silently displaced by, an unstated social judgement (P048).
-- Letting social, political, ethical, publishing, marketing, reader, or purpose factors displace the linguistic-textual analysis instead of supplementing it (P049).
-- Presenting analyst judgement as settled fact rather than as an argued, evidence-constrained hypothesis, ignoring that equivalence and TQA retain non-absolute and subjective elements (P061).
-- Relying on usage norms, reader-response data, market response, or judge samples whose empirical basis and operational procedure are left implicit (P086).
-- Adopting an analytic category set that overlaps, lacks theoretical grounding, obscures text-context relations, or makes target-language evidence inaccessible to evaluators (P087).
-- Lumping overt errors together instead of classifying them separately as denotative omissions, additions, substitutions, wrong selections or combinations, ungrammaticality, and questionable acceptability (P090).
-- Making a dimensional error judgement without stating the assumptions and exceptions behind it, such as cultural comparability, intertranslatability, or an added special target function (P091).
-- Weighting errors by a fixed severity scale instead of by source-profile priorities, evaluation objective, and functional component, understating denotative mismatches when ideational function is central (P094).
-- Measuring revised-model quality without an analogous source/target profile-function analysis, or collapsing the distinction between dimensional and non-dimensional mismatches (P095).
-- Quantifying corpus interpretations before a controlled TQA model has supplied qualitative categories, risking stereotype-producing conclusions (P109).
-- Assigning evaluative responsibility for a translation difference without first separating obligatory system-driven shifts from optional translator choices (P125).
-- Ranking errors by a universal error hierarchy instead of by their effect on the individual text's ideational and interpersonal functional match (P128).
+- Treating a translationese or corpus-classifier flag (a stylistic-feature score) as the quality verdict itself, instead of a prompt to gather separate evidence for meaning preservation and pragmatic acceptability (P002).
+- Conflating "this finding is tentative" — a small-sample or attributed claim that must stay hedged (P035) — with "all TQA judgement is equally uncertain," as an excuse not to argue a judgement at all; analyst judgement is still an argued, evidence-constrained hypothesis, not a shrug (P061). The two hedges protect different things; neither licenses the other.
+- Flattening overt and covert errors onto one severity scale: an overt error (wrong word, ungrammaticality) is classified and counted on its own terms (P090), while a covert dimensional mismatch is only as serious as the centrality of the affected function to the source profile (P094) — a denotative slip where ideational function is peripheral does not automatically outrank a Tenor mismatch where it is central.
+- Accepting a criterion because it sounds rigorous — a named category set, a scoring rubric — without checking it is actually operationally checkable (P036), and separately, accepting reader-response or market data as if rigor on the reception side substitutes for explaining the source-translation relation (P037). Sounding rigorous and explaining the source-translation relation are different bars; passing one does not pass the other.
+- Correcting for "linguistic analysis doesn't settle every good/bad judgement" (P048) by dropping social, political, or purpose factors from the review entirely, rather than accounting for them without letting them displace the linguistic-textual analysis (P049) — the corrective is additive, not substitutive.
+- Assigning responsibility for a translation difference before checking whether it was an obligatory system-driven shift (no reviewable choice) or an optional translator choice (P125), then, once it is optional, ranking it by a generic severity table instead of by its effect on this text's ideational/interpersonal functional match (P128).
 
 ## References
 
@@ -127,4 +116,4 @@ See `../../references/translation-quality-principles-index.md` for the full prin
 
 ## Provenance
 
-Derived from P002, P021, P035, P036, P037, P048, P049, P061, P086, P087, P090, P091, P094, P095, P109, P125, P128, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*; Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P002, P021, P035, P036, P037, P048, P049, P061, P086, P087, P090, P091, P094, P095, P109, P125, P128, grounded in the distillation-only source House, *Translation Quality Assessment*. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

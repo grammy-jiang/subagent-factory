@@ -35,6 +35,34 @@ the two references index and ground them.
 
 ## Version History
 
+- **1.4.0** (2026-07-12) — Review-loop r4 fixes (supersedes 1.3.0 on the points below; earlier decisions
+  remain visible). **M1** P042 self-contradiction: P042 described the revised Field/Tenor/Mode split while
+  labelling it the earlier one and never stated the earlier split, making the register skill's
+  "establish which model is in force" anti-pattern unusable. Rewritten grounded in C00180/C00181/C00182
+  (earlier model: Field = subject matter/lexis; Tenor = participant roles/power/distance/stance;
+  **Mode = channel + participation**) and P075/C00418 (revised model repositions Participation into Tenor);
+  `register-field-tenor-mode-analysis` step 5 + its anti-pattern realigned. **M2** P056 mis-grounded citation:
+  `quality_bar[3]`'s cultural-filtering clause cited `(P056, P137)`, but P056 concerns multifactorial modelling
+  of complex variation, not cultural filtering — dropped P056 (P137 alone grounds it), corrected the matching
+  faithfulness-report note. **M3** anti-pattern 1:1 negation: in all 12 skills the "Anti-patterns to flag"
+  section was an exhaustive negated restatement of every Procedure step (doubling body token cost with zero new
+  signal, against the package's own progressive-disclosure bar P001/P005/P029/P088/P114); re-authored each to a
+  short skill-specific set (~4–6 bullets) adding thresholds, paired good/bad contrasts, and commonly-confused
+  distinctions, grounded only in each skill's own principle IDs. Also: **S1** scoped `quality_bar[3]`'s
+  co-occurring-cluster rule to corpus/frequency evidence and softened to "prefer", matching P116's conditional
+  framing; **S5** scoped P034 target-orientation to descriptive/corpus-norm reconstruction (not House-model
+  equivalence) in `descriptive-studies-and-translational-norms`; **S4** noted 的-stacking and 被-passive overuse
+  fall outside `chinese-prose-and-europeanization`'s distilled principle set (P119/P120/P149/P150); **S7** made
+  each skill's `## Provenance` name only the source(s) grounding its principles; **S8** shortened the repeated
+  scope-boundary in each skill's `## Output` to one clause; **S9/N10** added triage-grouping preambles to
+  `corpus-design-and-methodology` and `applied-corpus-tools-and-textual-devices`; **N3** kept House's
+  cohesion-device sense of "iconic linkage" distinct in the genre skill. **S2** body-size WARNING (~950w, under
+  the 1000w FAIL) accepted rather than trimmed — the r3 grounding text is load-bearing. No new principle added.
+  Re-exported the adapter.
+
+  Field→grounding rows affected: `quality_bar[3]` grounding changed from `(P042, P069, P116; P056, P137)` to
+  `(P042, P069, P116; P137)` — cultural-filtering half now grounded by P137 only (P056 removed as mis-grounded).
+  All other profile field→grounding rows unchanged.
 - **1.3.0** (2026-07-12) — Review-loop r3 fixes (supersedes 1.2.0 on the points below; earlier decisions
   remain visible). **MF1** sibling-routing collision: `when_to_use[1]` reworded to front-load the
   quantitative/corpus-empirical boundary (frequency evidence, corpus design/comparability,

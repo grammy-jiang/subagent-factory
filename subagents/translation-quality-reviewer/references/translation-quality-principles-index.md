@@ -173,7 +173,7 @@ provenance:
   - C00019
   evidence: []
   source_anchors: []
-  authored_from_digest: 795c2e176d3110c7d714ec2311c27520242fad9b5f1f1ece5697cc8b490057fa
+  authored_from_digest: f334a326cbb5062c414eb4d55ef9384a28e5ee5233c813dfd1f2d70390639e34
 ---
 
 # Translation Quality Principles Index

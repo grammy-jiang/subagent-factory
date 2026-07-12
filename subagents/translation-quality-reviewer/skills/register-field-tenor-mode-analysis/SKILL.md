@@ -43,7 +43,7 @@ provenance:
   - C00119
   evidence: []
   source_anchors: []
-  authored_from_digest: 2669b371b055955ba12cb4ec86f219edbf047d1ef9d5a2b2003c8ed4ca98dabe
+  authored_from_digest: 2d48912cc80e29e292aee03969e9f3917678aecf80c0cd28df1bff3863e6935f
 ---
 
 # Register Field Tenor Mode Analysis
@@ -67,7 +67,7 @@ Triage first by register variable: Field (steps 5, 11, 15), Tenor (steps 1, 4, 8
 2. Break context into manageable situational dimensions and inspect medium, participation, social role, and social attitude through linguistic evidence (P013).
 3. Use linguistic cues such as spoken-mode absence, passivization, pronouns, requests, modality, and questions to diagnose medium, participation, and social-role effects (P040).
 4. Inspect pronouns, agency, passives, non-human subjects, syntactic markedness, information order, and text sequencing as evidence of interpersonal strategy (P041).
-5. Treat Field, Tenor, and Mode — lexical granularity and subject matter; participant relations and stance; channel and oral-literate dimensions — as the foundational register split, and note that this reflects House's earlier model, which placed participation under Mode; her revised model reassigns Participation to Tenor (step 13, P075), which governs where the two models differ (P042).
+5. Treat Field, Tenor, and Mode as the foundational register split — subject matter and lexical granularity; participant roles, social power/distance, emotional charge, and stance; channel, participation, and oral-literate dimensions. This is House's earlier model, which places Participation under Mode; her revised model repositions Participation into Tenor (step 13, P075). Establish which model is in force before flagging a Tenor/Mode placement as an error, since the two models differ in where Participation sits (P042).
 6. Treat text function as realized through situational dimensions and their syntactic, lexical, and textual correlates (P060).
 7. Use the updated Field/Tenor/Mode split to reduce category overlap (P069).
 8. Assess mission statements as both exposition and exhortation, with special attention to corporate values and indirect requests for employee alignment (P070).
@@ -87,26 +87,15 @@ Triage first by register variable: Field (steps 5, 11, 15), Tenor (steps 1, 4, 8
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation-quality claim, or a corpus-based translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. Scope: reviews the translation, quality claim, or analysis — not the finished translation or the publication decision.
 
 ## Anti-patterns to flag
 
-- Skipping the missionizing-stance check in Tenor analysis — optimism, inclusive pronouns, persuasive positivity, grammatical metaphor, omitted agents, and terminology register — when reviewing a mission statement's register (P010).
-- Treating a situational dimension holistically instead of separating medium, participation, social role, and social attitude and grounding each in linguistic evidence (P013).
-- Diagnosing medium, participation, or social-role effects from a single cue instead of the full set of linguistic markers — spoken-mode absence, passivization, pronouns, requests, modality, questions (P040).
-- Reading interpersonal strategy from tone alone instead of pronouns, agency, passives, non-human subjects, syntactic markedness, information order, and text sequencing (P041).
-- Applying House's revised model but leaving Participation under Mode — the revised model repositions it to Tenor (P042, P075). The converse also misfires: do not flag Participation under Mode as an error when the analysis is deliberately using House's earlier model, where Participation sits under Mode; establish which model is in force before flagging (P042).
-- Judging text function directly from genre labels instead of tracing it through the situational dimensions and their syntactic, lexical, and textual correlates (P060).
-- Reverting to an overlapping Field/Tenor/Mode split instead of the updated division separating lexis-and-process, stance-and-relations, and medium/theme-rheme/cohesion (P069).
-- Assessing a mission statement as pure exposition without weighing its exhortatory force, corporate-values framing, or indirect requests for employee alignment (P070).
-- Overlooking oral-rhetorical writtenness versus plain information delivery in Mode analysis of a mission statement, or skipping repetition, parallelism, macrostructure, and closure (P071).
-- Declaring a translated mission statement equivalent without checking for shifts in positivity, emotional engagement, indirectness, rhetorical cohesion, perlocutionary effect, and genre interpretation (P072).
-- Missing lexical or process shifts that quietly weaken persuasive function, such as negative shadow meanings, false friends, added material-action focus, specialist terminology, or lost colloquial accessibility (P073).
-- Failing to flag a Tenor shift that turns positive missionizing into conditions, effort, discipline, direct request, exhortation, or pressure on the addressee (P074).
-- Losing the source-target comparison in the revised model, or misassigning Participation, process types, textual aspects, or connectivity across Tenor, Field, and Mode (P075).
-- Reading Tenor or Mode from an isolated frequency count instead of a co-occurring feature cluster measured against an appropriate baseline (P116).
-- Characterizing formal style or province from a single marker instead of the full set — complex noun phrases, complete clauses, formal lexis, technical terminology, explicit alternatives, dating, figurative absence, cohesion (P129).
-- Stopping at a list of marked dimensions instead of synthesizing how they contribute to ideational and interpersonal function, including devices that serve both (P130).
+- Flagging a Participation placement as wrong without first checking which House model is in force: her earlier model puts Participation under Mode, her revised model puts it under Tenor (step 13) — the same placement is correct in one and an error in the other (P042).
+- Reading a Tenor or Mode judgement off one isolated feature frequency instead of a co-occurring feature cluster measured against an appropriate baseline (P116).
+- Treating a mission statement as neutral exposition and missing its exhortatory force — the missionizing stance (optimism, inclusive pronouns, omitted agents, accessible terminology) and indirect requests for employee alignment that co-exist with the exposition (P010, P070).
+- Clearing a translated mission statement as equivalent without checking whether positive missionizing has tipped into conditions, direct request, discipline, or pressure on the addressee, or whether positivity, indirectness, perlocutionary effect, and genre interpretation have shifted (P072, P074).
+- Applying the pre-1997 overlapping Field/Tenor/Mode split — where the same feature can be read under more than one category — instead of the updated division that separates lexis-and-process, stance-and-relations, and medium/theme-rheme/cohesion (P069).
 
 ## References
 
@@ -114,4 +103,4 @@ See `../../references/translation-quality-principles-index.md` for the full prin
 
 ## Provenance
 
-Derived from P010, P013, P040, P041, P042, P060, P069, P070, P071, P072, P073, P074, P075, P116, P129, P130, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*; Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P010, P013, P040, P041, P042, P060, P069, P070, P071, P072, P073, P074, P075, P116, P129, P130, grounded in the distillation-only source House, *Translation Quality Assessment*. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

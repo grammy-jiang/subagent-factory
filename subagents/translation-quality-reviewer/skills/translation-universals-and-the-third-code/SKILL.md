@@ -70,18 +70,16 @@ This skill reviews claims about translation universals — explicitation, simpli
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation-quality claim, or a corpus-based translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: flaw, principle, correction, trade-off, next step, highest-impact first — this skill reviews, it does not produce the translation or decide publication.
 
 ## Anti-patterns to flag
 
-- Presuming a candidate universal (explicitation, simplification, disambiguation, conventional grammaticality) holds in the corpus instead of measuring it as a hypothesis against evidence (P001).
-- Treating explicitation, simplification, and normalisation as interchangeable labels instead of operationalising each as a distinct, measurable construct (P079).
-- Generalising a culture-specific norm into a universal by collapsing the distinction between constraint-driven, culture-invariant universals and socio-culturally bound, variable norms (P084).
-- Reading a distinctive translated-language profile as a quality defect without evidence of actual translator incompetence or error (P114).
-- Reporting a proposed universal as an established fact instead of scoping it as a tendency and testing whether a language-pair- or culture-specific explanation fits better (P115).
-- Claiming a pattern is a translation universal from a single target language or a single source-language pairing instead of cross-validating recurring patterns across source languages and across corpora translated into other target languages (P121).
-- Labelling every distinctive distribution of features as translationese instead of reserving that label for distributions clearly caused by translator inexperience or incompetence, and conflating translationese with the third code (P139) — in particular, reading an automatic "translationese" classifier flag or corpus score as diagnosed translationese or as a quality verdict, when it measures only the distinctive translated-vs-original profile: the third code or normal patterning (P139, P114, P002).
-- Generalising a simplification hypothesis from early or single-design evidence instead of testing it across genres, language pairs, and interpreted texts (P143).
+- Universal-vs-norm mixup: calling a culture- or period-bound preference a "universal" because it looks constraint-like. The separating test — does it hold outside this culture and period? — has not been run; untested, it is at most a candidate norm (P084).
+- Confirmation without a rival test: treating supporting evidence for a universal as sufficient without checking whether a language-pair- or culture-specific account predicts the same data equally well. Undefeated-by-a-rival is the bar; merely-consistent-with-the-data is not (P001, P115).
+- Single-corpus overreach: calling a pattern universal from one target language or one source-language pairing. The threshold is recurrence across several source languages into the same target language, cross-validated against corpora into other target languages — short of that, it is a target-language- or pair-specific result, not a universal (P121).
+- Blurred constructs: using "explicitation," "simplification," and "normalisation" interchangeably for one observed shift. Explicitation is source-relative (needs parallel, source–target evidence); simplification and normalisation are target-relative (measured against original target-language text) — each needs its own operational test before the label is assigned (P079).
+- Mislabelled distribution: reading an automatic translationese-classifier flag or corpus "translationese score" as diagnosed translator incompetence. The score measures a distinct translated-vs-original profile — third code, or normal patterning (P114) — not the competence-caused deviation the term translationese is reserved for, and never a quality verdict (P139).
+- Two related overreaches: reading a distinctive profile as a quality defect without evidence of actual error (P114), and generalising a simplification finding beyond the genre, language pair, or mode (written vs interpreted) it was actually measured in (P143).
 
 ## References
 
@@ -89,4 +87,4 @@ See `../../references/translation-quality-principles-index.md` for the full prin
 
 ## Provenance
 
-Derived from P001, P079, P084, P114, P115, P121, P139, P143, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*; Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P001, P079, P084, P114, P115, P121, P139, P143, grounded in the distillation-only sources Kruger et al. (eds.), *Corpus-Based Translation Studies*, and Baker, *Corpus Linguistics and Translation Studies*. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

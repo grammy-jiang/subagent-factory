@@ -78,22 +78,16 @@ This skill reviews translation quality where genre and audience accessibility go
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation-quality claim, or a corpus-based translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: flaw, principle, correction, trade-off, next step, highest-impact first. Reviews the translation, claim, or analysis; does not produce the finished translation or the publication decision.
 
 ## Anti-patterns to flag
 
-- Failing to check that a translation's genre is discovered from everyday lingua-cultural practice and remains anchored in the source genre, or letting a null target-genre realization go unrouted to a version or non-verbal alternative (P014).
-- Missing a translation that normalizes a child character's imaginative agency, over-simplifies syntax meant for a capable reader, or alters address and action descriptions in ways that infantilize characters or impose an adult-over-child hierarchy (P023).
-- Accepting a claim of stage suitability, speakability, or accessibility without comparing the translated text against corpus features that match the claimed function (P028).
-- Overlooking whether a children's picture book's lexis, syntax, cohesion, iconic linkage, sound patterning, and repetition still support young listeners' comprehension, drama, and involvement (P043).
-- Treating a children's book's naming, titles, conversational rituals, reassurance, and gentle socialization as incidental rather than core Tenor and genre-function evidence, and so missing a shift in respect for readers or characters (P044).
-- Passing over a title, ending, added-material, or framing change in a children's text without evaluating it as a functional shift away from the source's atmosphere or role relationships (P065).
-- Judging a poetic-aesthetic source's foregrounding without first asking whether its form is detachable from meaning and whether the foregrounding serves expression itself or communicative effect (P092).
-- Assessing a translation's genre in isolation from its macro-contextual text class, or failing to combine Genre with language/text and register when characterizing textual function (P096).
-- Assuming a children's text must be domesticated and failing to consider overt access to foreignness or the original voice when covert adaptation has substantially changed source function (P098).
-- Accepting local cohesion as sufficient evidence of quality when the translation has lost the source's macrostructural parallelism, rhetorical guidance, oral-rhetorical effect, or summative closure (P110).
-- Letting an argumentation-structure comparison displace other linguistic or micro-textual evidence, or applying it to a genre it does not fit (P126).
-- Accepting an accessibility or audience-fit claim without quantifiable textual features, or failing to flag specialised content that needs reformulation for the target audience (P144).
+- Defaulting to "children's texts must be domesticated" without first checking whether covert adaptation has actually changed the source function — the domestication call is a conclusion to test, not a starting assumption (P098).
+- Waving through a simplified sentence as a comprehension aid without checking whether it also changed address, action description, or agency — simpler vocabulary is fine; a shift that infantilizes the character or imposes an adult-over-child hierarchy is not, even when the surface reads as "more accessible" (P023).
+- Accepting a stage-suitability, speakability, or accessibility claim as self-evidently true; the absence of a corpus or quantifiable-feature comparison behind the claim is itself the finding, not a formality to wave through (P028, P144).
+- Conflating iconic linkage — the word-image cohesion device that supports young listeners in a picture book (P043) — with ordinary terminology or consistency checks; and conflating a title/ending/framing shift, which is a functional move away from source atmosphere (P065), with routine editorial license.
+- Confirming that sentence-level cohesion holds and stopping there, missing that the source's macrostructural parallelism, rhetorical guidance, or summative closure has been lost across the text (P110).
+- Applying an argumentation-structure comparison to a genre it does not fit (e.g., a narrative or children's text), letting it crowd out the lexical, cohesive, or micro-textual evidence that actually carries the genre's function (P126).
 
 ## References
 
@@ -101,4 +95,4 @@ See `../../references/translation-quality-principles-index.md` for the full prin
 
 ## Provenance
 
-Derived from P014, P023, P028, P043, P044, P065, P092, P096, P098, P110, P126, P144, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*; Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P014, P023, P028, P043, P044, P065, P092, P096, P098, P110, P126, P144, grounded in the distillation-only sources House, *Translation Quality Assessment*, and Kruger et al. (eds.), *Corpus-Based Translation Studies*. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

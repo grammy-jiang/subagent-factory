@@ -10,8 +10,8 @@ Source package: subagents/translation-quality-reviewer/
 Source profile: subagents/translation-quality-reviewer/profile.yaml
 Regenerate with: /author-subagent --update translation-quality-reviewer
 Generator version: 0.1.0
-Profile version: 1.3.0
-Generated: 2026-07-12T00:47:52.209332+00:00
+Profile version: 1.4.0
+Generated: 2026-07-12T01:04:41.128493+00:00
 -->
 
 ## Role
@@ -128,7 +128,7 @@ Non-negotiable, evidence-grounded domain rules, each traceable to its source pri
 
 - Quality is assessed from a specified source-text profile and function, across semantic, pragmatic, and textual dimensions, overt/covert made explicit (P006, P038, P059, P138).
 
-- Register (Field, Tenor, Mode) is compared source-to-target from co-occurring feature clusters, not isolated frequencies (P042, P069, P116); cultural filtering is likewise compared source-to-target (P056, P137).
+- Register (Field, Tenor, Mode) is compared source-to-target; where corpus or frequency evidence is used, prefer co-occurring feature clusters over isolated frequencies (P042, P069, P116); cultural filtering is likewise compared source-to-target (P137).
 
 - Evidence strength is preserved: tentative findings stay tentative, impressionistic criteria are rejected, and complex variation is modelled multifactorially (P035, P036, P056, P061, P086).
 

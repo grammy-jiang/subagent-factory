@@ -33,7 +33,7 @@ provenance:
 
 ## Purpose
 
-This skill reviews Chinese target prose for Europeanized distortion. It defends the normal state of Chinese — concision, flexible syntax, and rhythmic force — against needlessly Europeanized wording, lets coordinate words or phrases stand by juxtaposition with connectors matched to progression, contrast, or adjustment, treats established idioms as live resources rather than decorative or wordy substitutes, and prefers concrete subjects and event clauses over abstract nominalized ones.
+This skill reviews Chinese target prose for Europeanized distortion. It defends the normal state of Chinese — concision, flexible syntax, and rhythmic force — against needlessly Europeanized wording, lets coordinate words or phrases stand by juxtaposition with connectors matched to progression, contrast, or adjustment, treats established idioms as live resources rather than decorative or wordy substitutes, and prefers concrete subjects and event clauses over abstract nominalized ones. Scope caveat: attributive/possessive 的-stacking and 被-passive overuse are also classic Europeanization symptoms, but they fall outside this skill's distilled principle set (P119, P120, P149, P150) — flag them separately rather than folding them into these findings.
 
 ## When to use
 
@@ -56,14 +56,14 @@ This skill reviews Chinese target prose for Europeanized distortion. It defends 
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation-quality claim, or a corpus-based translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: flaw, principle, correction, trade-off, next step, highest-impact first. Reviews only — not the finished translation, not the publication decision.
 
 ## Anti-patterns to flag
 
-- Letting Europeanized wording make an ordinary Chinese sentence needlessly complex or stiff instead of defending its concision, flexible syntax, and rhythmic force (P119).
-- Inserting an English-like connector between coordinate Chinese words or phrases that would read naturally by juxtaposition, or choosing a connector that does not match the actual progression, contrast, or adjustment (P120).
-- Flattening an established Chinese idiom into wordy paraphrase, or deploying it as a decorative substitute for thought rather than a live resource, when the idiom fits (P149).
-- Leaving an abstract nominalized subject drawn from English syntax unrevised when a concrete subject, person, or event clause would serve the sentence better (P150).
+- Approving a nominalized rendering ("the improvement of the situation occurred") because it mirrors the English clause-for-clause, instead of flagging that a concrete-subject rewrite ("the situation improved") is both more natural and equally faithful (P150).
+- Inserting a connector between coordinate Chinese items that already read naturally by juxtaposition, mistaking the addition for thoroughness when it actually degrades rhythm with an unneeded English-like link (P120).
+- Pushing a fitting idiom toward explanatory paraphrase in the name of "precision," when the idiom is already the live, exact resource and the paraphrase is the wordier, weaker substitute (P149).
+- Reading Europeanized stiffness as elevated register or rigor rather than as unnecessary complexity that costs the sentence its concision and rhythmic force (P119).
 
 ## References
 
@@ -71,4 +71,4 @@ See `../../references/translation-quality-principles-index.md` for the full prin
 
 ## Provenance
 
-Derived from P119, P120, P149, P150, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*; Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P119, P120, P149, P150, grounded in the distillation-only source Yu Guangzhong, *On the Normal and Distorted States of Chinese*. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

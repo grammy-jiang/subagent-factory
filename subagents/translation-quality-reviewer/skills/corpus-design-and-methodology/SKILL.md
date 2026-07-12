@@ -74,6 +74,10 @@ quantitative patterns with recontextualised interpretation.
 
 ## Procedure
 
+Triage first: steps 1–2 and 10 select the corpus type and frame the study; steps 3, 5, 6, 11,
+and 13 set comparability, tooling, and normalisation controls; steps 4, 7, 8, 9, 12, 14, and 15
+integrate the corpus evidence with qualitative interpretation and the wider evidence set.
+
 1. Choose the corpus type by the question: a parallel corpus for equivalence, shifts, and
    alignment; a monolingual comparable corpus for translation universals and translationese; a
    multilingual comparable corpus for cross-linguistic feature contrasts (P003).
@@ -119,48 +123,33 @@ quantitative patterns with recontextualised interpretation.
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the
-residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order
-findings highest-impact first. This skill reviews a translation, a translation-quality claim, or
-a corpus-based translation-studies analysis; it does not produce the finished translation or
-make the publication decision.
+Per finding: flaw, principle, correction, trade-off, next step — highest-impact first. Reviews
+the study or claim, not the finished translation or the publication decision.
 
 ## Anti-patterns to flag
 
-- Choosing a multilingual comparable corpus (or a plain "comparable corpus") to investigate
-  translation universals or translationese instead of a monolingual comparable corpus matched
-  for domain, register, and period in the same target language (P003).
-- Justifying a corpus project only by how closely translations approximate target-language
-  patterns, instead of treating the corpus as a way to explain what translation is (P012).
-- Attributing an observed corpus difference to translation status without first checking
-  comparability, metadata, copyright clearance, and alignment between the subcorpora (P050).
-- Generalizing an equivalence claim from one or a few text pairs instead of verifying it against
-  a carefully designed, contextualized parallel or comparable corpus (P068).
-- Reporting corpus counts from an ad hoc text collection that is not machine-readable or that
-  lacks the software tooling needed to search, count, display, and analyse it (P077).
-- Applying a measure such as type-token ratio or a raw frequency list without first checking that
-  it matches the research question and controlling for its known limitations (P078).
-- Drawing conclusions about an individual text pair's translation choices without relating them
-  to genre-level norms and options in that genre and language pair (P097).
-- Treating corpus statistics as standalone proof of a translation phenomenon instead of one tool
-  among introspection, observation, textual analysis, and ethnographic evidence (P107).
-- Stopping at the quantitative pattern instead of using it as a prompt for qualitative,
-  recontextualized interpretation (P108).
-- Running a corpus study without an explicit hypothesis, varied data, and descriptive categories
-  capable of supporting both inductive and deductive questions (P112).
-- Explaining a corpus-observed difference without using available metadata to rule out regional
+- Reaching for a multilingual comparable corpus, or a vaguely-labelled "comparable corpus," to
+  study translation universals or translationese, when the question calls for a monolingual
+  comparable corpus matched for domain, register, and period in one target language; reserve
+  parallel corpora for equivalence, shift, and alignment questions (P003).
+- Attributing an observed difference to translation status without using comparability, metadata,
+  copyright, and alignment checks to rule out the confounds they exist to catch: regional
   variation, dialect, source-language interference, translator-mother-tongue effects,
-  institutional profile, team structure, target language, or source-text variants (P118).
-- Advising on corpus-based translation or interpreting research design from quantitative pattern
-  or qualitative interpretation alone, rather than grounding the advice in both together (P122).
-- Comparing raw frequencies from unequal subcorpora without normalising them, or inferring
-  translation influence from a frequency difference when the compared items serve different
-  functions (P135).
-- Confining a study to small-scale analysis when a large computerised corpus is needed to settle
-  questions about intermediate translation stages, unit-of-translation size, or the level of
-  equivalence actually achieved (P140).
-- Accepting a disputed or assumed claim about language patterning on analyst intuition alone
-  instead of checking it against natural-discourse corpus evidence (P141).
+  institutional profile, team structure, target-language variety, or source-text variants (P050,
+  P118).
+- Comparing raw frequencies across differently-sized subcorpora without normalising — and even
+  after normalising, crediting a gap to translation influence when the compared items serve
+  different functions in each subcorpus (P135).
+- Stopping at the frequency or statistic as the finding itself instead of treating it as a
+  prompt for qualitative, recontextualized interpretation, and treating the corpus as the sole
+  evidence rather than one tool alongside introspection, observation, textual, and ethnographic
+  analysis (P107, P108, P122).
+- Justifying a corpus project mainly by how much it improves human or machine translation
+  output, rather than by what it explains about how translation works — the practical
+  improvement is expected to follow from the explanation, not substitute for it (P012).
+- Substituting a small-scale, few-text-pair analysis for a large computerised corpus when the
+  question — intermediate translation stages, unit-of-translation size, or the level of
+  equivalence actually achieved — needs corpus scale to settle (P140).
 
 ## References
 
@@ -171,9 +160,7 @@ principles are grounded and kept faithful to the sources.
 ## Provenance
 
 Derived from P003, P012, P050, P068, P077, P078, P097, P107, P108, P112, P118, P122, P135, P140,
-P141, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker,
-*Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*;
-Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu
-Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block
-lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and
-`analysis/claims.jsonl`.
+P141, grounded in the distillation-only sources (Kruger et al., eds., *Corpus-Based Translation
+Studies*; House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation
+Studies*). The frontmatter `provenance` block lists the exact principle and claim ids, which
+resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

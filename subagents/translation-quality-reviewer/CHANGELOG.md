@@ -3,6 +3,44 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.4.0] — 2026-07-12
+
+### Fixed (review loop r4)
+- **P042 self-contradiction** (M1): P042 described the *revised* Field/Tenor/Mode split while calling it the
+  *earlier* one and never stated the earlier split. Rewritten grounded in C00180/181/182 + P075 (C00418):
+  House's **earlier** model keeps Participation under **Mode**; her **revised** model moves it to **Tenor**;
+  establish which model is in force before flagging a placement. `register-field-tenor-mode-analysis` step 5
+  and its anti-pattern aligned to the corrected principle.
+- **P056 mis-grounded citation** (M2): `quality_bar[3]`'s cultural-filtering clause cited `(P056, P137)`, but
+  P056 is about **multifactorial modelling of complex variation**, not cultural filtering. Dropped P056; P137
+  alone grounds the clause. Faithfulness-report note for `quality_bar[3]` corrected accordingly.
+- **Anti-patterns 1:1 negation** (M3): in all 12 skills the "Anti-patterns to flag" section was an exhaustive
+  negated restatement of every Procedure step (8-vs-8, 15-vs-15…), doubling body token cost with zero new
+  signal. Re-authored each to a short, skill-specific set (~4–6 bullets) adding thresholds, paired good/bad
+  contrasts, and commonly-confused distinctions — grounded only in each skill's own principle IDs.
+
+### Changed
+- **P116 over-broadening** (S1): `quality_bar[3]` scoped the co-occurring-cluster rule to where corpus/frequency
+  evidence is used and softened "not isolated frequencies" to "prefer … over isolated frequencies", matching
+  P116's conditional framing ("When adapting register-analysis tools to translation").
+- **Per-skill provenance** (S7): each skill's `## Provenance` sentence now names only the source(s) that
+  actually ground its principles, not all five.
+- **Scope-boundary boilerplate** (S8): each skill's `## Output` closing boundary shortened to a single clause
+  (the full boundary lives at profile level).
+- **corpus-design triage** (S9): added a "Triage first" preamble grouping the 15-step Procedure; light triage
+  preamble also added to `applied-corpus-tools-and-textual-devices` (N10).
+- **descriptive-norms scope note** (S5): P034 target-orientation scoped to descriptive/corpus-norm
+  reconstruction, not House-model overt/covert equivalence.
+- **chinese-prose coverage note** (S4): noted that 的-stacking and 被-passive overuse fall outside this skill's
+  distilled principle set (P119/P120/P149/P150), so a reviewer treats them separately.
+- **iconic-linkage gloss** (N3): genre skill keeps House's cohesion-device sense of "iconic linkage" distinct
+  from a terminology-reuse sense.
+
+### Known / accepted
+- **Body-size WARNING** (S2): profile body sits ~950w (Phase-8 WARN, under the 1000w FAIL). Accepted rather
+  than trimmed — the r3 MF1/MF3 grounding text (source-and-target-pairs precision, corpus/empirical routing)
+  is load-bearing and cannot be cut without weakening grounding. Non-blocking.
+
 ## [1.3.0] — 2026-07-12
 
 ### Fixed (review loop r3)

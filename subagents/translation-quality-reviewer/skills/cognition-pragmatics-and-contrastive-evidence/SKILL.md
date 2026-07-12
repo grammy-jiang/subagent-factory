@@ -70,18 +70,16 @@ This skill reviews how cognitive and contrastive-pragmatic evidence is used in a
 
 ## Output
 
-Per finding: name the flaw and the principle it violates, apply the correction, state the residual uncertainty and the trade-off it reflects, and end with a concrete next step. Order findings highest-impact first. This skill reviews a translation, a translation-quality claim, or a corpus-based translation-studies analysis; it does not produce the finished translation or make the publication decision.
+Per finding: flaw, principle, correction, trade-off, next step — highest-impact first. Reviews the analysis, not the translation or the publication decision.
 
 ## Anti-patterns to flag
 
-- Presuming a translator used conceptual processing or direct transcoding from the final text alone, instead of treating the process assumption as something that must be evidence-based (P004).
-- Using cognitive translation research to certify a translation's overall quality, rather than limiting its use to clarifying comprehension, transfer, problem solving, decision making, reconstitution, or bilingual pragmatics (P009).
-- Treating a verbal report, behavioural process measure, or neuroimaging finding as establishing underlying cognition or translation quality on its own (P015).
-- Restating a corpus- and study-bound German-English pragmatic tendency — directness, content orientation, self-reference, routine use, or explicit justification — as a fixed national trait (P024).
-- Judging a translation by isolated sentence-level correspondence instead of as a discourse utterance whose illocutionary force depends on context (P088).
-- Accepting a contrastive pragmatic claim that rests on a single data type instead of triangulating across elicited tasks, retrospective data, meta-pragmatic judgements, naturalistic data, and varied authority/familiarity relations (P099).
-- Letting a social-contextual or cognitive interpretation drift away from the textual evidence actually available in the source and target texts (P124).
-- Diagnosing a pragmatic difference without examining discourse openings, closings, supportive strategies, gambits, requests, complaints, directness, politeness, roles, rights, and obligations (P132).
+- Treating a verbal report, keylogging trace, or neuroimaging finding as proof of what the translator actually did or how good the result is, when the same data can only support a narrower claim about comprehension, transfer, or decision making, never quality on its own (P004, P009, P015).
+- Labeling a directness / content-orientation / self-reference / routine-use / justification gap as a fixed German-vs-English national trait, instead of the narrower, corpus- and study-bound tendency the data actually supports (P024).
+- Diagnosing a pragmatic mismatch from a general impression of "tone" or "politeness" instead of checking the specific discourse sites — openings, closings, supportive moves, gambits, requests, complaints — where the difference actually shows up (P132).
+- Scoring pragmatic equivalence sentence-by-sentence (does target sentence X "match" source sentence X) rather than asking whether the translated utterance carries the same illocutionary force in its discourse context (P088).
+- Accepting a single retrospective interview or one elicited-task result as settling a contrastive-pragmatic claim, when it needs corroborating naturalistic data or a different authority/familiarity relation before being treated as established (P099).
+- Letting a cognitive or social-contextual explanation for a translation choice run past what the source/target text itself shows, rather than treating cognition and context as complements anchored in the available textual evidence (P124).
 
 ## References
 
@@ -89,4 +87,4 @@ See `../../references/translation-quality-principles-index.md` for the full prin
 
 ## Provenance
 
-Derived from P004, P009, P015, P024, P088, P099, P124, P132, grounded in the distillation-only sources (House, *Translation Quality Assessment*; Baker, *Corpus Linguistics and Translation Studies*; Kruger et al., *Corpus-Based Translation Studies*; Dayter & Grabowski, eds., corpus translation & interpreting studies in the Russian field; Yu Guangzhong on the normal and distorted states of Chinese). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P004, P009, P015, P024, P088, P099, P124, P132, grounded in the distillation-only source House, *Translation Quality Assessment*. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
