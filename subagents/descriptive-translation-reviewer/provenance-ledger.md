@@ -37,6 +37,36 @@ references index and ground them.
 
 ## Version History
 
+- **1.8.0** (2026-07-12) — Review-loop round r4
+  (`reports/review-loop/descriptive-translation-reviewer.r4.review.md`; no prior decision silently
+  overwritten). Deterministic gates all clean; applied all three must-fixes and the high-value should-fixes,
+  staying grounded in the existing 180-principle spine (no new claim introduced). **Must-fix:** **MF-1** — the
+  Field/Tenor/Mode register apparatus was owned by two skills with no tie-breaker; added reciprocal boundary
+  sentences to `translation-procedures-and-shifts` step 10 (P168 — reads a marked register feature only far
+  enough to name the procedure/shift it motivates; full register profile routes to the register skill) and
+  `register-discourse-and-audiovisual-constraints` step 5 (P064 — owns the full field/tenor/mode
+  register-and-cohesion analysis; naming the V&D/Catford procedure a marked feature motivates routes back).
+  Cites P168/P064; no claim changed. **MF-2** — `translation-quality-and-applied-studies` step 13 (P112)
+  overlapped the skopos/brief territory of `text-type-skopos-and-the-brief`; added a boundary clause (whether
+  the brief/skopos hierarchy was right and followed routes to `text-type-skopos-and-the-brief`; this skill
+  reviews only whether the evaluation **method** documented the specification before scoring) and the reciprocal
+  pointer in `text-type-skopos-and-the-brief` step 1 (P009). **MF-3** — the exported router `description`
+  collided with the `translation-quality-reviewer` sibling (near-identical opener). **Field→grounding
+  change:** reworded `profile.yaml` `role` so the distinguishing lens leads the exported dispatch string
+  ("A reviewer of translation strategy and descriptive method — not corpus-based quality scoring, which routes
+  to translation-quality-reviewer …"); the `_compose_description` 120-char role clip now yields a
+  distinguishing-first opener naming the corpus-quality-scoring contrast. `role` is not a
+  `faithfulness-report.yaml`-tracked rule (grounding unchanged; it restates the same review-only scope).
+  **Should-fix:** added golden-tests **NR-004** (corpus/QA scoring → `translation-quality-reviewer`) and
+  **NR-005** (technical terminology risk → `technical-translation-advisor`), verifying two previously
+  untested `when_not_to_use` routes; added a `handoff_rules[2]` sibling-routes bullet mirroring
+  `when_not_to_use[1..3]` (with a matching `faithfulness-report.yaml` `handoff_rules[2]` entry — routing
+  directive, uncited by design) so `handoff_rules` is self-sufficient; corrected the `test-results.md`
+  negative-routing count (now 5) and inlined the v1.8.0 self-check verdict. Adapter re-exported; skill digests
+  re-stamped after the skill-body edits. **Deferred:** promoting Nord's function-plus-loyalty (C00155) — would
+  add a new principle to the spine, outside this grounded pass; the P105 formal/dynamic-continuum nuance, the
+  per-skill Provenance-body dedup across all 12 skills, and NICE items — polish on a passing package left to a
+  dedicated pass.
 - **1.7.0** (2026-07-12) — Review-loop round r3
   (`reports/review-loop/descriptive-translation-reviewer.r3.review.md`; no prior decision silently
   overwritten). Independent re-verify after the v1.6.0 fixes: deterministic gates (validate / quote_scan /

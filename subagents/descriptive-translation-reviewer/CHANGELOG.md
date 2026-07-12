@@ -3,6 +3,55 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.8.0] — 2026-07-12
+
+Review-loop round r4 (`reports/review-loop/descriptive-translation-reviewer.r4.review.md`): applied all three
+must-fixes and the high-value should-fixes, staying grounded in the existing 180-principle spine (no new claim
+introduced).
+
+### Fixed
+- **MF-1 — register apparatus owned by two skills with no tie-breaker** — `translation-procedures-and-shifts`
+  step 10 (P168) built a full Field/Tenor/Mode register profile that `register-discourse-and-audiovisual-constraints`
+  (P064) already owns. Added reciprocal boundary sentences: the procedures skill now reads a marked
+  Field/Tenor/Mode feature only far enough to name the procedure/shift it motivates and routes the full
+  register profile to the register skill; the register skill's step 5 states it owns the full field/tenor/mode
+  register-and-cohesion analysis while naming the specific V&D/Catford procedure a marked feature motivates
+  routes back to the procedures skill. Cites P168 / P064 respectively; no claim changed.
+- **MF-2 — skopos/brief territory overlapped `text-type-skopos-and-the-brief`** — `translation-quality-and-applied-studies`
+  step 13 (P112) reviewed whether a commentary grounded itself in purpose/skopos, method, readership, and a
+  translation specification. Added a boundary clause: whether the brief/skopos hierarchy was the right one and
+  was followed routes to `text-type-skopos-and-the-brief`; this skill reviews only whether the evaluation
+  **method** documented that specification before scoring. Added the reciprocal pointer to
+  `text-type-skopos-and-the-brief` step 1 (P009).
+- **MF-3 — router `description` collided with `translation-quality-reviewer`** — reworded the `profile.yaml`
+  `role` opener so the distinguishing lens leads the exported dispatch string: "A reviewer of translation
+  strategy and descriptive method — not corpus-based quality scoring, which routes to
+  translation-quality-reviewer …". The exported `description` opener now reads distinguishing-first and names
+  the corpus-quality-scoring contrast (the sibling's territory) instead of the generic
+  "reviewer of translations…" opener. Re-exported.
+
+### Changed
+- **SF (golden-tests coverage)** — added **NR-004** (corpus-based quality metrics / QA scoring →
+  `do_not_invoke`, `translation-quality-reviewer`) and **NR-005** (scientific/technical terminology risk →
+  `do_not_invoke`, `technical-translation-advisor`), the two load-bearing `when_not_to_use` routes previously
+  asserted but never behaviourally verified (matching the NR-003 pattern).
+- **SF (`handoff_rules` internal consistency)** — added a `handoff_rules` bullet listing the three sibling
+  routes (`translation-equivalence-advisor` / `translation-quality-reviewer` / `technical-translation-advisor`),
+  mirroring `when_not_to_use`, so the section is self-sufficient; added the matching `handoff_rules[2]`
+  `faithfulness-report.yaml` entry (routing directive, uncited by design).
+- **SF (`test-results.md` drift)** — corrected the negative-routing count (now 5) and inlined the actual
+  v1.8.0 self-check verdict (PASS with the non-blocking `body-size` WARNING) instead of pointing only at CLI
+  output.
+- `agent_version` 1.7.0 → 1.8.0; `tests/golden-tests.yaml` re-stamped `profile_version: 1.8.0`. Adapter
+  re-exported; skill digests re-stamped after the skill-body edits.
+
+### Deferred
+- **SF (Nord function-plus-loyalty)** — deferred: promoting C00155 would introduce a new principle into the
+  spine, outside this grounded fix pass (no new claim introduced).
+- **SF (P105 formal/dynamic continuum), SF (per-skill Provenance-body dedup across all 12 skills), and
+  NICE N-items** — polish/faithfulness-nuance on a passing package, left to a dedicated pass to avoid
+  regression risk.
+
 ## [1.7.0] — 2026-07-12
 
 Review-loop round r3 (`reports/review-loop/descriptive-translation-reviewer.r3.review.md`): independent

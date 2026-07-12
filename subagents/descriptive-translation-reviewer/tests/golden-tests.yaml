@@ -1,7 +1,7 @@
 schema_version: golden-tests-v1
 subagent_slug: descriptive-translation-reviewer
 generated_at: '2026-07-12'
-profile_version: 1.7.0
+profile_version: 1.8.0
 tier: 2
 golden_tests:
 - test_id: GT-001
@@ -138,6 +138,18 @@ negative_routing_tests:
     not this orientation-fit reviewer (when_not_to_use[0]).
   prompt: The English idiom "kick the bucket" has no direct match in our target language. Which equivalence
     strategy should we use at the word/idiom level to render it?
+  expected_route: do_not_invoke
+- test_id: NR-004
+  description: Corpus-based quality metrics / QA scoring — run the scores and return them — routes to the
+    `translation-quality-reviewer` sibling, not this descriptive-method reviewer (when_not_to_use[2]).
+  prompt: Run our corpus-based MQM/BLEU quality metrics on these 500 translated segments and return the
+    error-category scores so we can sign off the batch.
+  expected_route: do_not_invoke
+- test_id: NR-005
+  description: Scientific/technical target text and terminology risk routes to the `technical-translation-advisor`
+    sibling, not this descriptive-method reviewer (when_not_to_use[3]).
+  prompt: Check that the terminology in this German-to-English pharmacology datasheet is technically accurate
+    and the units are correctly converted.
   expected_route: do_not_invoke
 missing_context_tests:
 - test_id: MC-001

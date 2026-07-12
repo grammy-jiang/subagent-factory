@@ -62,7 +62,7 @@ This skill reviews whether a translation is driven by an explicit brief (commiss
 
 ## Procedure
 
-1. Check that the translation commission — Vermeer's Auftrag — was made an explicit instruction stating both the goal and the conditions for attaining it (P009).
+1. Check that the translation commission — Vermeer's Auftrag — was made an explicit instruction stating both the goal and the conditions for attaining it; this skill owns whether the brief and skopos hierarchy were the right ones and were followed, while whether a quality-evaluation method documented that specification before scoring routes to the sibling `translation-quality-and-applied-studies` (P009).
 2. Verify the translation was driven from the brief and source analysis (P038).
 3. Check that the whole text is worked at as the unit and that its predominant function was mapped to a method (P060).
 4. Confirm that most texts are recognized as hybrids carrying several coexisting functions, that the target function may legitimately differ from the source function, and that the method depends on far more than text type (P061).
