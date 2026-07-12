@@ -3,6 +3,50 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.7.0] — 2026-07-12
+
+Review-loop round r3 (`reports/review-loop/descriptive-translation-reviewer.r3.review.md`): independent
+re-verify after the v1.6.0 fixes; applied the must-fix and the high-value should-fixes, staying grounded in the
+existing 180-principle spine (no new claim introduced).
+
+### Fixed
+- **MF-1 — stale golden-tests version stamp** — `tests/golden-tests.yaml` still read `profile_version: 1.5.0`
+  (the v1.6.0 bump re-exported the adapter but skipped the golden re-stamp). Set to `1.7.0`, matching
+  `agent_version` and the exported adapter.
+
+### Changed
+- **SF-2 — `when_not_to_use[0]` run-on split** — the review-vs-produce boundary now stands alone in `[0]` (still
+  the clause the exporter surfaces in the router `description`) and the three sibling routes become three
+  separate bullets, one per sibling (`translation-equivalence-advisor` / `translation-quality-reviewer` /
+  `technical-translation-advisor`); `faithfulness-report.yaml` `when_not_to_use` entries remapped to `[0..6]`.
+- **SF-3 — `handoff_rules[1]` citation scope** — split into two sentences so `(P029)` scopes only the publisher's
+  commercial/economic clause; the subject-matter/legal/typesetting clause is a separate uncited-by-design scope
+  boundary. The ledger opening enumeration and the faithfulness note now say the *scope clause* is uncited, not
+  the whole rule.
+- **SF-5 — P047 Frawley/Blum-Kulka de-linked** — the **P047 statement** now marks Frawley's semiotic third-code
+  thesis and Blum-Kulka's empirical explicitation hypothesis as two independent lines (corpus findings on
+  explicitation neither confirm nor refute the third-code claim of relative autonomy); the matching
+  `domestication-foreignization-and-visibility` step 4 no longer cites explicitation as evidence of relative
+  autonomy. Cites P047 only; no claim strengthened.
+- **SF-7 — P053 Camus disambiguation** — the camp/register worked example in the **P053 statement** is now
+  attributed to *Renaud* Camus (author of *Tricks*), not Albert Camus.
+- **SF-9 — lens-specific ranking heuristics** — added a lens-anchored ranking criterion to the two skills that
+  closed on a bare "highest-impact first" (`descriptive-method-and-translational-norms` step 22;
+  `culture-ideology-power-and-rewriting` step 21), matching the other ten skills.
+- **SF-4** — recorded the converged independent re-verify (`MUST_FIX_COUNT: 0` after fixes) in the ledger
+  v1.7.0 entry.
+- `agent_version` 1.6.0 → 1.7.0. Adapter re-exported; skill/reference digests re-stamped.
+
+### Deferred / rejected
+- **SF-1** (name three sibling boundaries in the exported router `description`) — deferred: the exporter clips
+  the exclusion at its first sentence / ~85 chars, so with the review-vs-produce boundary correctly leading
+  `when_not_to_use[0]` the sibling names do not fit; the body carries the full routing (same disposition as the
+  v1.6.0 SF-6 defer — an exporter constraint, not a defect).
+- **SF-6** — rejected: the source (Munday, C00071) states formal equivalence "suits academic or legal settings",
+  so P105/P124's Nida/legal pairing is faithful; no change.
+- **SF-8** — verified, no change: P111's four Chesterman approaches faithfully paraphrase Munday (C00346).
+- NICE N1–N14 — polish on a passing package, left to a dedicated pass.
+
 ## [1.6.0] — 2026-07-12
 
 Consolidated review-loop round r2: applied all three must-fixes and the high-value should-fixes, staying

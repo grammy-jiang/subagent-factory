@@ -7,8 +7,10 @@ report, and tests are all derived from the distilled spine in this package
 field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`,
 `knowledge_partition.always_on`, `source_of_truth_policy`, and `examples` value cites the promoted
 principle(s) it restates — except a small number of product-scope boundaries (`forbidden_behaviours[0]`,
-the never-translate/never-sign-off note in `examples[1]`, `handoff_rules[1]`) that state a review-vs-produce
-decision rather than a source claim and are left uncited by design. Inline `examples` citations are audited
+the never-translate/never-sign-off note in `examples[1]`, and the subject-matter/legal/typesetting scope
+clause of `handoff_rules[1]`) that state a review-vs-produce decision rather than a source claim and are left
+uncited by design; note that `handoff_rules[1]`'s other clause (the publisher's commercial/economic
+constraints) does carry a `(P029)` citation. Inline `examples` citations are audited
 on the same footing as rule fields and are re-checked whenever a cited field's grounding changes on a
 version bump. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs` — carry no inline tags, per
 repo convention.)
@@ -35,6 +37,44 @@ references index and ground them.
 
 ## Version History
 
+- **1.7.0** (2026-07-12) — Review-loop round r3
+  (`reports/review-loop/descriptive-translation-reviewer.r3.review.md`; no prior decision silently
+  overwritten). Independent re-verify after the v1.6.0 fixes: deterministic gates (validate / quote_scan /
+  truncation grep) all clean, one must-fix and three should-fixes applied, staying grounded in the existing
+  180-principle spine (no new claim introduced). **Must-fix:** **MF-1** — re-stamped
+  `tests/golden-tests.yaml` `profile_version` (stale `1.5.0`, skipped by the v1.6.0 bump) to `1.7.0`, matching
+  `agent_version` and the exported adapter. **Should-fix:** **SF-2** — split `when_not_to_use[0]`'s run-on:
+  the review-vs-produce boundary now stands alone in `[0]` (still the clause surfaced in the exported router
+  `description`), and the three sibling routes are three separate bullets `[1..3]`
+  (`translation-equivalence-advisor` / `translation-quality-reviewer` / `technical-translation-advisor`);
+  faithfulness entries remapped to `[0..6]`. **SF-4** — this entry records the independent re-verify converging
+  to `MUST_FIX_COUNT: 0` after fixes (closing the v1.6.0 "SF-4 partial" item). **Field→grounding changes:**
+  **SF-3** — split `handoff_rules[1]` into two sentences so the `(P029)` citation scopes only the publisher's
+  commercial/economic clause; the subject-matter/legal-validity/typesetting clause is a separate
+  uncited-by-design scope boundary. The ledger opening enumeration and the `faithfulness-report.yaml` note are
+  corrected to say the *scope clause* (not the whole rule) is uncited. **SF-5** — **P047 statement** now marks
+  Frawley's semiotic third-code thesis and Blum-Kulka's empirical explicitation hypothesis as two independent
+  lines within the shared 1980s relative-autonomy assumption, not as evidence for one another (corpus findings
+  on explicitation neither confirm nor refute the third-code claim); the matching
+  `domestication-foreignization-and-visibility` step 4 no longer treats explicitation as evidence of relative
+  autonomy. Reduces over-linkage; cites P047 only; no claim strengthened. **SF-7** — **P053 statement** now
+  attributes the camp/register worked example to *Renaud* Camus (author of *Tricks*, the text Harvey's camp-talk
+  essay analyses), disambiguating from Albert Camus. **SF-9** — added a lens-anchored ranking heuristic to the
+  two skills that closed on a bare "highest-impact first"
+  (`descriptive-method-and-translational-norms` step 22 and `culture-ideology-power-and-rewriting` step 21),
+  matching the other ten skills' sibling pattern (uncited synthesis-ordering step). Adapter re-exported;
+  skill/reference digests re-stamped after the principle-statement + skill-body edits. **Deferred / rejected:**
+  **SF-1** (name the three sibling boundaries in the exported router `description` "Not for") — the exporter
+  clips the exclusion at its first sentence and ~85 chars, so with the highest-stakes review-vs-produce boundary
+  correctly leading `when_not_to_use[0]`, the sibling names do not fit; the body `when_not_to_use` carries the
+  full three-way routing (same disposition as the v1.6.0 SF-6 defer — a factory-level exporter constraint, not a
+  package defect). **SF-6 — rejected:** pairing Nida formal-equivalence with "academic or legal texts" is *not*
+  an over-claim: the source (Munday, claim C00071) states formal equivalence "suits academic or legal settings",
+  so P105/P124 are faithful; the gloss-translation case already leads both. **SF-8 — verified, no change:**
+  P111's "Chesterman's four approaches (textual, cognitive, sociological, cultural)" is a faithful paraphrase of
+  Munday (claim C00346, which attributes exactly those four to Chesterman); keeping it is correct under the
+  faithfulness rule. **NICE N1–N14** — structural/stylistic polish on a passing package, left to a dedicated
+  pass.
 - **1.6.0** (2026-07-12) — Consolidated review-loop round r2 (no prior decision silently overwritten).
   Applied all three must-fixes and the high-value should-fixes on the existing 180-principle spine; no new
   claim introduced. **Must-fix:** **MF-1** — corrected the inverted Koller framing ("escalate through … trying

@@ -89,7 +89,7 @@ This skill reviews whether a translation, corpus, or translation-studies analysi
 19. Check that frequency is used as evidence for norm status only with subgroup context and methodological caution, not as a direct proxy for norm strength (P155).
 20. Confirm that learned intuition is used pragmatically for corpus selection and hypothesis formation, while the analysis still seeks stronger systematic and statistical methods rather than resting on intuition alone (P156).
 21. Verify that Chesterman's product/expectancy and professional norms (accountability, communication, relation) are applied alongside Toury's norms rather than treated as rivals to them (P166).
-22. Emit findings highest-impact first.
+22. Emit findings highest-impact first: an unreplicable coupled-pair method or a norm claim asserted rather than reconstructed from patterned behaviour outranks a mis-weighted or under-contextualised frequency count.
 
 ## Inputs
 

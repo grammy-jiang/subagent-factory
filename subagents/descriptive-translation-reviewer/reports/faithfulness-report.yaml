@@ -58,7 +58,7 @@ findings:
   action: add_condition
   note: Product-scope boundary (never produce the translation / never sign off). Round 2 (S5) dropped the
     P070/P100 citations — it is a review-vs-produce scope decision, not a source claim, so it is left
-    uncited by design (like handoff_rules[1]). No over-claim.
+    uncited by design (like handoff_rules[1]'s subject-matter/legal/typesetting scope clause). No over-claim.
 - rule_ref: forbidden_behaviours[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -162,8 +162,9 @@ findings:
   action: add_condition
   note: Re-anchored. Prior citations P162 (legal-text method) and P080 (refraction) were mismatched and
     dropped; the publisher's commercial/economic constraints are grounded in P029 (political and economic
-    constraints, publishers). Legal-validity/typesetting is left as an uncited, defensible scope boundary,
-    not a source over-claim.
+    constraints, publishers). Split (r3-loop, SF-3) into two sentences so the (P029) citation scopes only the
+    commercial/economic clause; the subject-matter/legal-validity/typesetting scope clause is a separate,
+    uncited-by-design boundary, not a source over-claim.
 - rule_ref: source_of_truth_policy.canonical_owner
   verdict: WITHIN_SCOPE
   distortion:
@@ -289,13 +290,36 @@ findings:
   - none
   severity: low
   action: add_condition
-  note: Review-vs-produce boundary (does not translate or certify a rendering correct) plus sibling-axis
-    routing (equivalence mechanism → translation-equivalence-advisor; corpus/QA scoring →
-    translation-quality-reviewer; technical terminology → technical-translation-advisor). Restructured (r5-loop,
-    S1/S6) so the highest-stakes boundary leads (surfaced in the exported description) followed by three
-    parallel route clauses; routed-away scope is the equivalence mechanism, disjoint from this package's
-    orientation-fit judgment (P106/P109). Product-scope boundary, uncited by design; no source over-claim.
+  note: Review-vs-produce boundary (does not translate or certify a rendering correct). Split (r3-loop, SF-2)
+    so this highest-stakes boundary stands alone and leads (surfaced in the exported description), with the
+    three sibling routes moved to their own bullets [1..3]. Product-scope boundary, uncited by design; no
+    source over-claim.
 - rule_ref: when_not_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Sibling-routing bullet (equivalence mechanism → translation-equivalence-advisor; orientation-fit stays
+    here). Routed-away scope is the equivalence mechanism, disjoint from this package's orientation-fit judgment
+    (P106/P109). Routing directive, uncited by design; no source over-claim.
+- rule_ref: when_not_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Sibling-routing bullet (corpus/QA scoring output → translation-quality-reviewer). Routing directive,
+    uncited by design; no source over-claim.
+- rule_ref: when_not_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Sibling-routing bullet (scientific/technical terminology risk → technical-translation-advisor). Routing
+    directive, uncited by design; no source over-claim.
+- rule_ref: when_not_to_use[4]
   verdict: WITHIN_SCOPE
   distortion:
   - none
@@ -304,7 +328,7 @@ findings:
   note: Scope boundary grounded in the quality-is-probabilistic stance (one guaranteed-correct rendering
     produced end to end is out of remit — quality is a range of valid answers, not one certified rendering);
     consistent with P075. No over-claim.
-- rule_ref: when_not_to_use[2]
+- rule_ref: when_not_to_use[5]
   verdict: WITHIN_SCOPE
   distortion:
   - none
@@ -312,7 +336,7 @@ findings:
   action: accept_with_note
   note: Scope boundary (subject-matter correctness / legal validity with a knowable answer is out of remit).
     Product-scope decision, uncited by design; no source over-claim.
-- rule_ref: when_not_to_use[3]
+- rule_ref: when_not_to_use[6]
   verdict: WITHIN_SCOPE
   distortion:
   - none

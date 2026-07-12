@@ -90,7 +90,7 @@ This skill reviews translation as a culturally and ideologically situated act of
 18. Check whether the translation resists wholesale flattening into a homogenizing hegemonic-language translatese that erases distinct rhetoricity and inscribed gender difference, confirming it preserves the author's signature stylistic and ironic experiments and acknowledges difference rather than assuming sameness (P136).
 19. Read a culturally marked discourse's evaluation on both its micro-functional dimension, set by the immediate fictional context, and its macro-functional dimension, set by the target culture's identity communities, established minority literature, and the translator's own subcultural positioning, rather than merely matching comparable formal resources across languages (P139).
 20. Treat a marked identity's discourse as citational and appropriative rather than an empirical reflection of a group, and check whether the review's account of its formal repertoire also captures its interactive, ambivalent-solidarity dimension rather than reducing it to taxonomy (P140).
-21. Synthesize the findings from the checks above and emit them highest-impact first in the Output format below.
+21. Synthesize the findings from the checks above and emit them highest-impact first in the Output format below: a flattened institutional or ideological account that erases the human and institutional agents, power relations, and patronage shaping the translation outranks an isolated paratext- or reception-reading slip.
 
 ## Inputs
 

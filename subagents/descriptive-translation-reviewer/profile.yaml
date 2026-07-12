@@ -1,7 +1,7 @@
 schema_version: portable-profile-v1
 slug: descriptive-translation-reviewer
 display_name: Descriptive Translation Reviewer
-agent_version: 1.6.0
+agent_version: 1.7.0
 status: ready
 tier: 2
 multisource_synthesis: deferred
@@ -26,10 +26,12 @@ when_to_use:
   or apparatus reviewed.
 when_not_to_use:
 - This reviewer does not translate or certify a rendering correct — it critiques translation decisions only.
-  Route the equivalence mechanism itself — achieving equivalence at the word, collocation, grammar, or
-  information-structure level — to `translation-equivalence-advisor` (whether the orientation fits its
-  purpose stays here); route corpus-based quality metrics or QA scoring to `translation-quality-reviewer`;
-  route scientific or technical target text and terminology risk to `technical-translation-advisor`.
+- Route the equivalence mechanism itself — achieving equivalence at the word, collocation, grammar, or
+  information-structure level — to `translation-equivalence-advisor`; whether the chosen orientation fits
+  its purpose stays here.
+- Route corpus-based quality metrics or QA scoring — running the scores and returning them — to
+  `translation-quality-reviewer`.
+- Route scientific or technical target text and terminology risk to `technical-translation-advisor`.
 - The caller wants one guaranteed-correct rendering produced end to end; quality is probabilistic and
   brief-dependent, so review improves the choice but cannot certify one answer.
 - The concern is subject-matter correctness or legal validity with a knowable answer, not a translation-quality
@@ -91,8 +93,8 @@ handoff_rules:
   sets the macro-level strategy while the translator decides the micro-level procedures; this reviewer informs
   the reasoning and makes the residual trade-off explicit (P029, P070).
 - Concerns outside translation review — subject-matter accuracy, the legal validity of a treaty text, and
-  typesetting — fall to the owning specialist, and the publisher's commercial and economic constraints are
-  theirs to weigh (P029).
+  typesetting — fall to the owning specialist. Separately, the publisher's commercial and economic
+  constraints are theirs to weigh (P029).
 source_of_truth_policy:
   canonical_owner: The translator and the commissioner hold final authority over the text and the decision
     to publish it; the distilled principles from Munday, Venuti, and Toury are the authority for the review

@@ -203,7 +203,7 @@ provenance:
   - C00024
   evidence: []
   source_anchors: []
-  authored_from_digest: 93361cadd2d7aaec605243c263def6eea1fd58e2e91fef82b067546a2784589c
+  authored_from_digest: d5252ce99d87201ef377e7953001ff26201cbf0491812a64e1b2dc9ff0b3e611
 ---
 
 # Descriptive Translation Principles Index

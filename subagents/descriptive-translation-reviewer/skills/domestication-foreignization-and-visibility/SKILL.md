@@ -43,7 +43,7 @@ provenance:
   - C00381
   evidence: []
   source_anchors: []
-  authored_from_digest: 52747f27bc1c33964abde55252202bf62eaca812ff6b407e6e84b88a0bf279a9
+  authored_from_digest: f0f11becba346f6ec8180cf58c21fb537f81cd3d5e50248f56ede190964e0814
 ---
 
 # Domestication, Foreignization And Translator Visibility
@@ -65,7 +65,7 @@ This skill reviews where a translation, translation choice, or translation-studi
 1. Reject fluency ("reads as if originally written") as the measure of a good translation and reject reproduction of meaning as its aim, since word-for-word fidelity cannot reproduce connotation and what matters is the untranslatable nucleus of the source's mode of signification (P020).
 2. Orient the translation on the domestication-foreignization axis: check whether it reduces the foreign to receiving values through an ethnocentric, fluent, invisible method that moves the author toward the reader (the Anglo-American default), or whether it moves the reader toward the author through a non-fluent, estranging method realized in close structural adherence, calques, archaisms, or heterogeneous discourse, treating the axis as a historically contingent continuum rather than a binary (P024).
 3. Read the translation through the triad of relative autonomy, equivalence, and function, confirming the review does not treat any one of the three as a single fixed standard and that the text's autonomy from both the foreign original and native-written target texts is the reason translation is never transparent communication (P042).
-4. Weigh any explicitation found in the translation as evidence of the translated text's relative autonomy as an independent form of writing, but present increased explicitness, repetition, redundancy, or explanation as Blum-Kulka's proposed, contested translating-specific tendency rather than as a confirmed law, since later corpus studies report varying support for it (P047).
+4. Present any explicitation found in the translation — increased explicitness, repetition, redundancy, or explanation — as Blum-Kulka's proposed, contested translating-specific tendency rather than as a confirmed law, since later corpus studies report varying support for it, and keep that empirical hypothesis separate from Frawley's semiotic third-code thesis of relative autonomy: do not cite explicitation evidence as proof that the translated text is an autonomous form of writing, since the two are independent lines and neither confirms the other (P047).
 5. Judge any claim to preserve the foreign text's foreignness by whether it is actually practiced in domestic terms, through a domestic difference introduced at home, and treat that ethics as inseparable from a political agenda that disarranges the target culture's ranking of values, since no true source-invariant survives translation (P049).
 6. Check whether the domestic inscription has created a heterogeneous domestic community of interest around the translated text, an audience it decenters across lines of social differentiation, and note whether that community supports or challenges the prevailing canon rather than assuming the translation reaches one undifferentiated readership (P086).
 7. Recognize that translating a foreign work into the dominant translation discourse of the target culture is a canonizing gesture that can invert the source's actual significance, and check for a domesticating remainder invisible to a reader lacking either target-literary competence or source knowledge, visible only to a doubly-competent reader who has both (P087).
