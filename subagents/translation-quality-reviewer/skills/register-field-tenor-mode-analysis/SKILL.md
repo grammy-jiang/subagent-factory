@@ -50,7 +50,7 @@ provenance:
 
 ## Purpose
 
-This skill reviews translation quality at the level of register using the Field/Tenor/Mode split — Field for lexis and processes, Tenor for stance, participant relations, and interpersonal strategy, Mode for medium, channel, and connectivity — and keeps the analysis source-target comparative. It gives particular attention to persuasive and missionizing texts, where Tenor and Mode shifts can quietly re-code involvement, positivity, and perlocutionary force.
+This skill reviews translation quality at the level of register using the Field/Tenor/Mode split — Field for lexis and processes, Tenor for stance, participant relations, and interpersonal strategy, Mode for medium, channel, and connectivity — and keeps the analysis source-target comparative. It gives particular attention to mission statements and comparably exhortative institutional texts, where Tenor and Mode shifts can quietly re-code involvement, positivity, and perlocutionary force.
 
 ## When to use
 
@@ -95,7 +95,7 @@ Per finding: name the flaw and the principle it violates, apply the correction, 
 - Treating a situational dimension holistically instead of separating medium, participation, social role, and social attitude and grounding each in linguistic evidence (P013).
 - Diagnosing medium, participation, or social-role effects from a single cue instead of the full set of linguistic markers — spoken-mode absence, passivization, pronouns, requests, modality, questions (P040).
 - Reading interpersonal strategy from tone alone instead of pronouns, agency, passives, non-human subjects, syntactic markedness, information order, and text sequencing (P041).
-- Applying House's revised model but leaving Participation under Mode — the revised model repositions it to Tenor (P042, P075). The converse also misfires: do not flag Participation under Mode as an error when the analysis is deliberately using House's earlier model or a standard Hallidayan register split, where Participation sits under Mode; establish which model is in force before flagging (P042).
+- Applying House's revised model but leaving Participation under Mode — the revised model repositions it to Tenor (P042, P075). The converse also misfires: do not flag Participation under Mode as an error when the analysis is deliberately using House's earlier model, where Participation sits under Mode; establish which model is in force before flagging (P042).
 - Judging text function directly from genre labels instead of tracing it through the situational dimensions and their syntactic, lexical, and textual correlates (P060).
 - Reverting to an overlapping Field/Tenor/Mode split instead of the updated division separating lexis-and-process, stance-and-relations, and medium/theme-rheme/cohesion (P069).
 - Assessing a mission statement as pure exposition without weighing its exhortatory force, corporate-values framing, or indirect requests for employee alignment (P070).

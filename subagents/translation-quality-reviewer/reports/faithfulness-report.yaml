@@ -48,8 +48,9 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P016/P018/P083/P114/P145; within the source's scope, no strengthening. Review criterion,
-    not a directive to translate.
+  note: Restates P016/P018/P083/P114/P145; within the source's scope, no strengthening. Norm reconstruction
+    now stated precisely — only from a corpus of source-and-target text pairs, never a generic or target-only
+    collection (P083). Review criterion, not a directive to translate.
 - rule_ref: forbidden_behaviours[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -92,8 +93,9 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P001/P083/P112; within the source's scope, no strengthening. Routing trigger grounded
-    in the cited principles.
+  note: Restates P001/P083/P112; within the source's scope, no strengthening. Routing trigger scoped to
+    quantitative/corpus-empirical norm, universal, or translationese claims (frequency evidence, corpus
+    design/comparability, source-and-target norm reconstruction), grounded in the cited principles.
 - rule_ref: when_to_use[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -118,6 +120,15 @@ findings:
   action: accept_with_note
   note: Restates P056/P119; within the source's scope, no strengthening. Routing trigger grounded in the
     cited principles.
+- rule_ref: when_to_use[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P090/P061/P044/P116/P082; within the source's scope, no strengthening. Routing trigger
+    (evaluation-discipline, genre/accessibility, register Field/Tenor/Mode, and applied-corpus-tools
+    keyword/concordance/collocation review) grounded in the cited principles.
 - rule_ref: outputs.primary_format
   verdict: WITHIN_SCOPE
   distortion:
@@ -198,8 +209,11 @@ findings:
   severity: low
   action: accept_with_note
   note: Descriptive/norms scope. Restates P016/P018/P025/P034/P053/P054/P055/P076/P080/P083/P085/P111/P117/P142.
-    Norms reconstructed from a source-and-target corpus (P083 as corrected), individual attribution only
-    after alternatives ruled out. Within scope.
+    The profile text now states P083 precisely — norms reconstructed only from a corpus of source-and-target
+    text pairs, never a generic or target-only collection — matching P083's high-confidence restriction, and
+    scopes P076 to operational (matricial/textual) norms so an orientation/policy claim is placed at its
+    level before the operational criteria apply. Individual attribution only after alternatives ruled out.
+    Within scope, no strengthening.
 - rule_ref: knowledge_partition.always_on[8]
   verdict: WITHIN_SCOPE
   distortion:
