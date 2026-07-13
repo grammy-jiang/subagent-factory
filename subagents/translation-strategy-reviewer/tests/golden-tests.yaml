@@ -1,0 +1,157 @@
+schema_version: golden-tests-v1
+subagent_slug: translation-strategy-reviewer
+generated_at: '2026-07-13'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — fluent domestication chosen by default, no brief
+  prompt: Here is our English translation of a French novel. We think the approach is right because it
+    reads smoothly and you'd never know it was a translation. Review the strategy.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the strategy flaw(s), the principle(s), the correction, and the residual
+    trade-off, highest-impact first.
+  must_do:
+  - Name the strategy on the domestication-foreignization axis and treat fluent transparency as a decision
+    with costs, not the neutral default
+  - Require an explicit brief and skopos before endorsing the orientation
+  - Surface the remainder — the foreign difference the domesticating stance loses
+  - Ground the critique in concrete textual features, not an abstract verdict
+  must_not_do:
+  - Certify the strategy correct or make the publication decision
+  - Accept fluency alone as evidence of a sound strategy
+  principle_coverage:
+  - P020
+  - P002
+  - P145
+  - P120
+  - P128
+- test_id: GT-002
+  description: Positive routing — choose a method for a regulated technical manual
+  prompt: We're translating a safety-critical equipment manual for sale in Germany. What overall strategy
+    should we adopt?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A review naming the strategy flaw(s), the principle(s), the correction, and the residual
+    trade-off, highest-impact first.
+  must_do:
+  - Establish the skopos and target-user tasks before prescribing a method
+  - Let usability for the specified users govern additions, omissions, and restructuring
+  - Require safety-critical content to follow the severity hierarchy and official set phrases
+  - State the residual trade-off (fidelity vs usability and regulation)
+  must_not_do:
+  - Prescribe a single 'correct' rendering as if deterministic
+  - Treat the manual as a surface replica of the source
+  principle_coverage:
+  - P145
+  - P025
+  - P035
+  - P102
+  - P143
+- test_id: GT-003
+  description: Positive routing — a 'norm' claim in a descriptive corpus analysis
+  prompt: Our corpus study concludes that translators into Hebrew in the 1930s followed a norm of acceptability.
+    Review the strategy claim.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the strategy flaw(s), the principle(s), the correction, and the residual
+    trade-off, highest-impact first.
+  must_do:
+  - Check the norm was reconstructed from patterned behaviour, not asserted or read off
+  - Treat translated texts as primary and extratextual statements as persuasion-biased evidence
+  - Situate the claim by acceptability-vs-adequacy and the polysystem position
+  - Treat the norm as graded and historically mobile, not an all-or-nothing rule
+  must_not_do:
+  - Take the translators' stated norms at face value
+  principle_coverage:
+  - P111
+  - P077
+  - P110
+  - P064
+- test_id: GT-004
+  description: Positive routing — domesticate vs foreignize a postcolonial source
+  prompt: Should our English translation of a Third World woman writer's novel read fluently for a general
+    audience, or preserve its foreign rhetoric? Compare the strategies.
+  expected_route: invoke
+  expected_mode: compare
+  minimum_output: A review naming the strategy flaw(s), the principle(s), the correction, and the residual
+    trade-off, highest-impact first.
+  must_do:
+  - Lay out what each orientation preserves and costs on the ethical and discursive levels
+  - Warn against a homogenizing 'translatese' that effaces the source's rhetoricity
+  - Ground the cultural-political reading in concrete textual features
+  - Weight the choice by the brief, readership, and the translating culture's position
+  must_not_do:
+  - Declare one orientation universally correct
+  principle_coverage:
+  - P020
+  - P082
+  - P021
+  - P128
+- test_id: GT-005
+  description: Positive routing — text-type method for a mixed advertising-plus-information text
+  prompt: Our translator handled this product brochure — part technical description, part persuasive advertising
+    — with one uniform literal method. Review the strategy.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the strategy flaw(s), the principle(s), the correction, and the residual
+    trade-off, highest-impact first.
+  must_do:
+  - Identify the text type(s) and let the dominant type's method govern the mixed text
+  - 'Match method to type: informative by sense, operative adaptively for the persuasive part'
+  - Require the target language's structural and stylistic conventions for the variety
+  - State the residual trade-off when content and persuasive effect compete
+  must_not_do:
+  - Apply one method uniformly regardless of message type and purpose
+  principle_coverage:
+  - P078
+  - P107
+  - P108
+  - P026
+- test_id: GT-006
+  description: Positive routing — skopos used to excuse micro-level neglect
+  prompt: Our translator says the brief was just to convey the gist, so stylistic and semantic slips at
+    the sentence level don't matter. Review that reasoning.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the strategy flaw(s), the principle(s), the correction, and the residual
+    trade-off, highest-impact first.
+  must_do:
+  - Reject using a fulfilled skopos to excuse micro-level stylistic or semantic neglect
+  - Confirm the skopos and brief were actually explicit and negotiated
+  - Apply function plus loyalty — functionality is first but not a licence for anything
+  - Distinguish documentary from instrumental translation for the stated purpose
+  must_not_do:
+  - Accept 'the skopos was met' as a blanket defence of every micro decision
+  principle_coverage:
+  - P073
+  - P058
+  - P146
+  - P150
+negative_routing_tests:
+- test_id: NR-001
+  description: Asks for the finished translation, not a strategy review.
+  prompt: Translate this 300-word product description from English into Spanish for us.
+  expected_route: do_not_invoke
+- test_id: NR-002
+  description: Subject-matter correctness with a knowable answer, no translation-strategy dimension.
+  prompt: Is the interest calculation in this loan contract mathematically correct?
+  expected_route: do_not_invoke
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified request
+  prompt: Is this a good translation strategy?
+  expected_route: invoke
+  must_ask_for:
+  - The source text and the target text or draft
+  - 'The brief: intended purpose, function, audience, and medium'
+  - The overall orientation or the specific strategic concern to check
+- test_id: MC-002
+  description: Underspecified request
+  prompt: Should we domesticate or foreignize?
+  expected_route: invoke
+  must_ask_for:
+  - The source text and its text type
+  - The target readership and the publication's purpose
+  - The brief constraints and the cultural-political context
