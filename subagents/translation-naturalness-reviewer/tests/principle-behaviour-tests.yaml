@@ -1,0 +1,2245 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: translation-naturalness-reviewer
+generated_at: '2026-07-13'
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Base translation decisions on who will read the text, how they will use it,
+    and how it will be distributed, and establish these via a translation brief specifying at minimum
+    the target audience, the intended purpose.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P001.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P002
+  principle_id: P002
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Assess and supply the target reader''s background knowledge deliberately.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P002.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P003
+  principle_id: P003
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where technical translation and
+    usability is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Be a good technical writer in order to be a good technical translator.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P003.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P004
+  principle_id: P004
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Test a rendering''s naturalness against three areas at once.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P004.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P005
+  principle_id: P005
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where cognitive load and processing
+    effort is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat translation as inferential communication, making the target optimally
+    relevant so the receiver derives adequate contextual effects without unnecessary effort by supplying
+    communicative clues, and decide whether and how to communicate the informative intention, whether
+    to translate.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P005.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P006
+  principle_id: P006
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where descriptive norms and the
+    literary system is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use Toury''s structure of translational norms.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P006.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P007
+  principle_id: P007
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where descriptive norms and the
+    literary system is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Read a translation through Toury''s initial norm.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P007.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P008
+  principle_id: P008
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where technical translation and
+    usability is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate user guides holistically with representative task-based usability
+    testing; readability formulas are only partial indicators.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P008.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P009
+  principle_id: P009
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where documentation structure
+    and genre is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Write concise, direct, audience-fit user-guide language without ambiguity,
+    obscuring euphemism, unnecessary jargon, or unexplained acronyms.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P009.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P010
+  principle_id: P010
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where cognitive load and processing
+    effort is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Reduce working-memory burden through chunking, short retention gaps, familiar
+    groupings, relevant visuals, and recognition-based cues.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P010.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P011
+  principle_id: P011
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where usability testing and evaluation
+    is at issue. What flaw should we check for, what is the correction, and what residual trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Subject user documentation to legal, standards, accuracy, completeness, safety,
+    readability, layout, and hands-on usability quality assurance.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P011.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P012
+  principle_id: P012
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where documentation structure
+    and genre is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build modular, navigable guides with small functional task units, meaningful
+    headings, useful overviews, and reader progress points.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P012.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P013
+  principle_id: P013
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Plan documentation around specific readers, their tasks, prior knowledge,
+    problems, and objectives.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P013.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P014
+  principle_id: P014
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where audiovisual, subtitling
+    and multimodal is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Analyse an audiovisual text across its signifying codes.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P014.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P015
+  principle_id: P015
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: For covert translation, account for target pragmatics through cultural filters
+    supported by multi-method research on register and genre variation across language pairs.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P015.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P016
+  principle_id: P016
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where technical translation and
+    usability is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat technical translation as target-user usability work, not as source-text
+    transfer alone.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P016.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P017
+  principle_id: P017
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where cognitive load and processing
+    effort is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Minimize target-reader processing effort by making context, intended interpretation,
+    and given-new progression easy to follow.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P017.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P018
+  principle_id: P018
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where technical translation and
+    usability is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Introduce iconic linkage with test materials that contain suitably spaced
+    recurrence, a concise style guide, and translation-memory support.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P018.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P019
+  principle_id: P019
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where technical translation and
+    usability is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Match target-language technical conventions and required document form while
+    preserving correctness and usability.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P019.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P020
+  principle_id: P020
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where documentation structure
+    and genre is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Design user guides to support starting, productivity, troubleshooting, and
+    experience-level differences.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P020.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P021
+  principle_id: P021
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where cognitive load and processing
+    effort is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Minimize attention switching because reading the guide and doing the task
+    draw on the same limited cognitive capacity.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P021.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P022
+  principle_id: P022
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where cognitive load and processing
+    effort is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Help users frame problems correctly, surface misconceptions, and provide enough
+    declarative background before expecting fluent action.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P022.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P023
+  principle_id: P023
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where usability testing and evaluation
+    is at issue. What flaw should we check for, what is the correction, and what residual trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build usability from the start using cognetics, explicit goals, and measurable
+    criteria.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P023.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P024
+  principle_id: P024
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where pragmatics, culture and
+    politeness is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Beware that over-clarifying a culture-specific detail to help the target reader
+    can destroy the indirect, figurative meaning it carries across a text.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P024.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P025
+  principle_id: P025
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat German-English pragmatic differences such as directness, content orientation,
+    self-reference, routine use, and explicit justification as corpus- and study-bound tendencies rather
+    than fixed national traits.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P025.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P026
+  principle_id: P026
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where pragmatics, culture and
+    politeness is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate ELF communication by mutual intelligibility, efficiency, and multilingual
+    multicompetence rather than by native-speaker correctness alone.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P026.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P027
+  principle_id: P027
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where cohesion, coherence and
+    word order is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat coherence as the reader''s judgement, the conceptual relations they
+    build under the surface text, not a property of the text, so cohesive markers alone cannot make a
+    text cohere and a co-reference transparent to the source audience may need an explicit link for the
+    target reader; take account.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P027.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P028
+  principle_id: P028
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where cognitive load and processing
+    effort is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Support both reading-to-learn and reading-to-do, including sequential reading
+    and random lookup.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P028.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P029
+  principle_id: P029
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where usability testing and evaluation
+    is at issue. What flaw should we check for, what is the correction, and what residual trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Implement usability through a hierarchy of principles, guidelines, local rules,
+    and style guides, while still validating with users.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P029.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P030
+  principle_id: P030
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where usability testing and evaluation
+    is at issue. What flaw should we check for, what is the correction, and what residual trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Establish usability with evaluation rather than design confidence alone.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P030.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P031
+  principle_id: P031
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where pragmatics, culture and
+    politeness is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: For culturally nonmatching referents, choose deliberately among formal term
+    plus note, functional equivalent, borrowed term with classifier, and receptor-language description.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P031.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P032
+  principle_id: P032
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where information structure and
+    theme-rheme is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Know the marked-theme devices, fronted theme.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P032.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P033
+  principle_id: P033
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where usability testing and evaluation
+    is at issue. What flaw should we check for, what is the correction, and what residual trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Screen and consent participants with role-specific profiles, data-collection
+    disclosure, confidentiality, and clear session tracking.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P033.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P034
+  principle_id: P034
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Accept that the translation brief has no settled form and often forces educated
+    guesses, so ask the client a short standard set of questions.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P034.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P035
+  principle_id: P035
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Drive a translation from the brief and source analysis.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P035.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P036
+  principle_id: P036
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prepare a verse translation by first mapping both languages'' prosodic systems.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P036.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P037
+  principle_id: P037
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where cohesion, coherence and
+    word order is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use linguistic cues such as spoken-mode absence, passivization, pronouns,
+    requests, modality, and questions to diagnose medium, participation, and social-role effects.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P037.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P038
+  principle_id: P038
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where cohesion, coherence and
+    word order is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Inspect pronouns, agency, passives, non-human subjects, syntactic markedness,
+    information order, and text sequencing as evidence of interpersonal strategy.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P038.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P039
+  principle_id: P039
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build register analysis from Field, Tenor, and Mode.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P039.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P040
+  principle_id: P040
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: For children’s picture books, analyze whether lexis, syntax, cohesion, iconic
+    linkage, sound patterning, and repetition support young listeners’ comprehension, drama, and involvement.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P040.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P041
+  principle_id: P041
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: In children’s books, treat respect for readers and characters, naming, titles,
+    conversational rituals, reassurance, and gentle socialization as core Tenor and genre-function evidence.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P041.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P042
+  principle_id: P042
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where information structure and
+    theme-rheme is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Attend to a text''s information dynamics, treating each clause as a message
+    whose interactional organization drives a clean progression of links.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P042.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P043
+  principle_id: P043
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where information structure and
+    theme-rheme is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Maintain a discernible thematic method of development in the target text.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P043.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P044
+  principle_id: P044
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where information structure and
+    theme-rheme is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Order information given-before-new, the hearer-oriented, context-dependent
+    default that aids comprehension and underlies end-focus and end-weight, and resolve clashes between
+    end-weight and a basic target grammatical principle, such as English subject-before-predicate, rather
+    than letting a.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P044.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P045
+  principle_id: P045
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where information structure and
+    theme-rheme is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Handle marked information focus by the target''s means.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P045.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P046
+  principle_id: P046
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where cognitive load and processing
+    effort is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use the Co-operative Principle and its four maxims, Quantity, Quality, Relevance,
+    and Manner, as orientation points rather than strict rules.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P046.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P047
+  principle_id: P047
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where cognitive load and processing
+    effort is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Shape translated documentation around reader cognition, including perception,
+    memory, attention, learning, and problem solving.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P047.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P048
+  principle_id: P048
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where documentation structure
+    and genre is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Serve multiple proficiency levels with predictable novice support and efficient
+    reference for experienced users.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P048.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P049
+  principle_id: P049
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where usability testing and evaluation
+    is at issue. What flaw should we check for, what is the correction, and what residual trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build guide quality early and improve it iteratively with user involvement
+    and pilot studies.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P049.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P050
+  principle_id: P050
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where usability testing and evaluation
+    is at issue. What flaw should we check for, what is the correction, and what residual trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Triangulate subjective ratings with objective performance and recall measures.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P050.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P051
+  principle_id: P051
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Work at the level of the whole text and map its predominant function to a
+    method.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P051.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P052
+  principle_id: P052
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use the Hallidayan model to relate lexicogrammatical choices to a text''s
+    function in its sociocultural framework, analysing register as field, tenor, and mode mapped to the
+    ideational, interpersonal, and textual metafunctions, and reading patterns of transitivity, modality,
+    thematic structure, and.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P052.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P053
+  principle_id: P053
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Assess translation quality by comparing the source and target register profiles.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P053.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P054
+  principle_id: P054
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where cohesion, coherence and
+    word order is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Manage pragmatic meaning across cultures by making an implicit link explicit
+    for readers who lack the background.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P054.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P055
+  principle_id: P055
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where audiovisual, subtitling
+    and multimodal is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Subtitle within the hard space and time limits of about two lines of 38 Roman
+    or 13 to 15 Chinese or Japanese characters and around six seconds, respecting camera cuts and matching
+    duration to the dialogue rhythm, following the near-universal guidelines to simplify and clean up
+    grammar and lexis.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P055.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P056
+  principle_id: P056
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where idiom, collocation and
+    source interference is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Remember that languages differ essentially in what they must convey, not in
+    what they may convey.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P056.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P057
+  principle_id: P057
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where idiom, collocation and
+    source interference is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prefer receptor-language idioms and expressions that make the message meaningful
+    for the audience, especially when bare intelligibility would under-communicate the intended force.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P057.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P058
+  principle_id: P058
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Calibrate vocabulary, style, explanation, and explicitness to the audience’s
+    decoding capacity, experience, and interests.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P058.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P059
+  principle_id: P059
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Preserve the source’s total stylistic impression by adapting style norms,
+    emotional tone, authorial stance, and character voice for receptor-language effect.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P059.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P060
+  principle_id: P060
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Decide translation type from source status, use, reception history, purpose,
+    and brief, not from source-text features alone.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P060.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P061
+  principle_id: P061
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where usability testing and evaluation
+    is at issue. What flaw should we check for, what is the correction, and what residual trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Familiarize participants with context, acclimate them to recording, and capture
+    useful informal comments without letting them drive scoring.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P061.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P062
+  principle_id: P062
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where idiom, collocation and
+    source interference is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Distinguish grammatical rules.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P062.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P063
+  principle_id: P063
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Match the translation to the register expectations of its intended receivers
+    along field, tenor, and mode, deciding tenor by the perceived purpose of the translation, unless the
+    purpose is deliberately to give the reader a flavour of the source culture.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P063.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P064
+  principle_id: P064
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where information structure and
+    theme-rheme is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Analyse each clause as a theme, what it is about placed in initial position
+    and orienting back and forward, plus a rheme, what is said about it and carrying the key information;
+    theme-rheme is hierarchical and text-based, accounting for a sequence''s acceptability in context
+    rather than its.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P064.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P065
+  principle_id: P065
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where information structure and
+    theme-rheme is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Draw on the strategies for resolving tension between syntax and information
+    flow.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P065.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P066
+  principle_id: P066
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where cognitive load and processing
+    effort is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Examine anything that would violate the target reader''s expectations and
+    adjust it to avoid wrong implicatures.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P066.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P067
+  principle_id: P067
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where technical translation and
+    usability is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Be able to recognize the specialized file types and software of the client''s
+    industry and be comfortable.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P067.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P068
+  principle_id: P068
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where usability testing and evaluation
+    is at issue. What flaw should we check for, what is the correction, and what residual trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Investigate the translation process with think-aloud protocols triangulated
+    with video observation, interviews and questionnaires, keystroke logging, and eye-tracking.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P068.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P069
+  principle_id: P069
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use discourse and register analysis as a flexible toolkit rather than a rigid
+    one-to-one model, and heed its cautions.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P069.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P070
+  principle_id: P070
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where audiovisual, subtitling
+    and multimodal is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat subtitling as an overt, vulnerable translation constrained by on-screen
+    space, legibility, and timing that force shortening, and expect it to normalize informal sociolect
+    by increasing cohesion and using conventional grammar and to lose tenor markers such as a reported-speech
+    subjunctive.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P070.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P071
+  principle_id: P071
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where descriptive norms and the
+    literary system is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Study a translation''s reception through reviews and paratexts, distinguishing
+    peritexts.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P071.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P072
+  principle_id: P072
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where technical translation and
+    usability is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Concentrate strategy decisions on target audience needs and native-quality
+    technical communication.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P072.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P073
+  principle_id: P073
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where usability testing and evaluation
+    is at issue. What flaw should we check for, what is the correction, and what residual trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prepare users and materials so participants critique the product and guide,
+    not themselves, without being distracted by avoidable text errors.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P073.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P074
+  principle_id: P074
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where usability testing and evaluation
+    is at issue. What flaw should we check for, what is the correction, and what residual trade-off should
+    we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use screen logging or recording suited to the application interaction style
+    instead of over-shoulder observation.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P074.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P075
+  principle_id: P075
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Determine first what type of translation the client wants.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P075.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P076
+  principle_id: P076
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where documentation structure
+    and genre is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: For procedural (cookbook-style) manuals use a prerequisites list plus numbered
+    steps and control the information flow so the reader is not overloaded; never combine multiple tasks
+    in a single sentence.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P076.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P077
+  principle_id: P077
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where documentation structure
+    and genre is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: For presentations, resolve the inherent ambiguity of bullet-point slides by
+    requesting the speaker''s notes or the full paper, and watch translation length.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P077.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P078
+  principle_id: P078
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where documentation structure
+    and genre is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Understand why a text is structured as it is.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P078.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P079
+  principle_id: P079
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where professional practice and
+    revision is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Comply with the client''s style guide governing grammar, sentence structure,
+    terminology, punctuation, address, headings, and product names.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P079.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P080
+  principle_id: P080
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat translation as at once interpretation and creation, involving a choice
+    among the source''s possible interpretations and a choice among the target''s possible expressions
+    of that meaning, and expect the translator in practice to apply a pessimistic minimax strategy.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P080.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P081
+  principle_id: P081
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not translate from a position of monolingual superiority.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P081.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P082
+  principle_id: P082
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: For ordinary Chinese prose, preserve concision, flexible syntax, and rhythmic
+    force; resist Europeanized wording when it makes the sentence needlessly complex or stiff.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P082.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P083
+  principle_id: P083
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Let coordinate Chinese words or phrases stand by juxtaposition when natural,
+    and choose connectors that match progression, contrast, or adjustment instead of defaulting to English-like
+    and-linking.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P083.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P084
+  principle_id: P084
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Check register and discourse fit locally.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P084.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P085
+  principle_id: P085
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where descriptive norms and the
+    literary system is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Map operational norms across textual matrix, distribution, segmentation, and
+    target textual-linguistic selection instead of reducing them to wording choices alone.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P085.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P086
+  principle_id: P086
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use Genre to connect individual texts to macro-contextual text classes and
+    combine it with language/text and register to characterize textual function.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P086.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P087
+  principle_id: P087
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where professional practice and
+    revision is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Allow non-mother-tongue translation only with appropriate competence and controls
+    such as qualified native-language revision or stylistic advice when target-native expectations matter.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P087.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P088
+  principle_id: P088
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where descriptive norms and the
+    literary system is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Revise overt/covert expectations when current corpus evidence shows reduced
+    cultural filtering, dominant English source-norm takeover, or emerging overt-like hybrid translation
+    types.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P088.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P089
+  principle_id: P089
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where cognitive load and processing
+    effort is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Choose delivery medium according to how users actually read and use the documentation.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P089.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P090
+  principle_id: P090
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where idiom, collocation and
+    source interference is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Recognise marked collocations, unusual combinations that challenge reader
+    expectations for effect, and judge markedness relative to the register''s norm, rendering a marked
+    source collocation with a similarly marked target one where the target language and the translation''s
+    purpose allow.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P090.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P091
+  principle_id: P091
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where idiom, collocation and
+    source interference is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Guard against source-language interference.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P091.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P092
+  principle_id: P092
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where information structure and
+    theme-rheme is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Read markedness as meaning.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P092.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P093
+  principle_id: P093
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where information structure and
+    theme-rheme is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Recognise the limits of the Hallidayan initial-position view of theme, its
+    partial circularity and poor fit for verb-initial and topic-prominent languages, and handle topic-prominent
+    languages such as Chinese, Japanese, and Korean carefully.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P093.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P094
+  principle_id: P094
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where cohesion, coherence and
+    word order is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat cohesion as the surface network of lexical and grammatical relations,
+    reference, substitution, ellipsis, conjunction, and lexical cohesion, that links a text''s parts,
+    and rework it to each language''s own patterns for conveying the interrelationships of persons and
+    events.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P094.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P095
+  principle_id: P095
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where pragmatics, culture and
+    politeness is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Weigh politeness and taboo against accuracy.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P095.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P096
+  principle_id: P096
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Categorize readers by role.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P096.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P097
+  principle_id: P097
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where documentation structure
+    and genre is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Make tutorials gentle, supportive, and never confusing, too-advanced, or wrong.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P097.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P098
+  principle_id: P098
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use House''s covert/overt distinction.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P098.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P099
+  principle_id: P099
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: When no other guidance is given, follow the classic ranked prescriptions for
+    good translation.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P099.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P100
+  principle_id: P100
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where cognitive load and processing
+    effort is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat translation as an interpretive cognitive process.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P100.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P101
+  principle_id: P101
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat text types as prototypes on a continuum without rigid divisions, incorporating
+    the relevant non-linguistic disciplines.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P101.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P102
+  principle_id: P102
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where documentation structure
+    and genre is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Protect reader safety and prevent product damage before pursuing other instructional
+    goals.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P102.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P103
+  principle_id: P103
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where technical translation and
+    usability is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Judge efficiency from the user total task, and keep guide information clear,
+    digestible, and concise.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P103.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P104
+  principle_id: P104
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where documentation structure
+    and genre is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat administrator help as a guide-failure signal by directing users to the
+    guide first and counting each escalation.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P104.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P105
+  principle_id: P105
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where technical translation and
+    usability is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Keep language clear, simple, and to the point as a core value of technical
+    communication.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P105.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P106
+  principle_id: P106
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where documentation structure
+    and genre is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: For reference manuals and any cross-referenced document, treat topics as independent,
+    dipped-into units.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P106.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P107
+  principle_id: P107
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Create a document profile.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P107.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P108
+  principle_id: P108
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use Vinay and Darbelnet''s direct strategies knowingly.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P108.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P109
+  principle_id: P109
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where technical translation and
+    usability is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Apply Iconic Linkage: when the source expresses the same information several
+    times with slightly different wording, pick one single translation and reuse it throughout.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P109.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P110
+  principle_id: P110
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where technical translation and
+    usability is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Optimize for usability.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P110.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P111
+  principle_id: P111
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where professional practice and
+    revision is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: When revising another translator''s work, find and fix errors rather than
+    rewrite it as your own.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P111.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P112
+  principle_id: P112
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where professional practice and
+    revision is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Never use footnotes in a professional translation to flag confusion or queries.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P112.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P113
+  principle_id: P113
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where professional practice and
+    revision is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: On spotting an apparent error, notify the client and choose.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P113.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P114
+  principle_id: P114
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where professional practice and
+    revision is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not translate an auto-generated table of contents first or in place.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P114.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P115
+  principle_id: P115
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where professional practice and
+    revision is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Meet strict space constraints.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P115.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P116
+  principle_id: P116
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where professional practice and
+    revision is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Follow an explicit procedure from source to target.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P116.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P117
+  principle_id: P117
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Conduct micro-level analysis with the precise metalanguage of translation.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P117.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P118
+  principle_id: P118
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Name where a translation sits on the recurrent strategy dichotomies.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P118.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P119
+  principle_id: P119
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Recognize the foreignizing pole.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P119.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P120
+  principle_id: P120
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Recognize that the translator''s chief obstacle is often not the source language''s
+    difficulty but the dead, conventional register of his own language, and that there is no single target
+    language but a series of period- and author-specific idioms, so the translator must forge a working
+    idiom and.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P120.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P121
+  principle_id: P121
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat ''reads smoothly'' or ''readable'' as a suspect criterion rather than
+    praise.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P121.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P122
+  principle_id: P122
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where register, tenor, mode and
+    text type is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Establish the text''s variety.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P122.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P123
+  principle_id: P123
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where descriptive norms and the
+    literary system is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat translated literature as a system with its own repertoire, not a random
+    set of texts.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P123.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P124
+  principle_id: P124
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where descriptive norms and the
+    literary system is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Expect translated literature to assume a central, innovating position under
+    three conditions.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P124.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P125
+  principle_id: P125
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not treat translation as a catalogue of ''howlers''.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P125.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P126
+  principle_id: P126
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where naturalness, effect, poetics
+    and interpretation is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Aim beyond a stilted transfer of meanings to make the text work in the target
+    language with the texture of a piece written for that audience, adapting even the emphasis.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P126.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P127
+  principle_id: P127
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where cohesion, coherence and
+    word order is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Recognize that overt cohesion is tied to a language''s grammatical system,
+    so grammatical differences force different cohesive ties that can raise or lower a text''s explicitness.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P127.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P128
+  principle_id: P128
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where descriptive norms and the
+    literary system is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Judge whether a sociolect can be translated by the normative system of the
+    target literature, not by any intrinsic deficiency in the target language-system.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P128.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P129
+  principle_id: P129
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where pragmatics, culture and
+    politeness is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Weight the seriousness of a face-threatening act as a cultural variable set
+    by the social distance and relative power of the speakers.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P129.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P130
+  principle_id: P130
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where audiovisual, subtitling
+    and multimodal is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Understand that under its severe constraints the subtitler makes coherence
+    and easy readability for the mass audience the overriding priority and the interpersonal pragmatics
+    of the on-screen characters only a second priority, producing a systematic loss of the indicators
+    by which interlocutors.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P130.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P131
+  principle_id: P131
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use established Chinese idioms as live resources, not as decorative substitutes
+    for thought, and do not flatten them into wordy paraphrase when the idiom fits.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P131.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P132
+  principle_id: P132
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prefer concrete subjects, people, and event clauses over abstract nominalized
+    subjects when revising Chinese sentences influenced by English syntax.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P132.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P133
+  principle_id: P133
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Replace weak-verb plus abstract-noun constructions with direct Chinese verbs
+    whenever the phrase only repackages a plain action.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P133.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P134
+  principle_id: P134
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not use pseudo-technical abstract nouns merely to sound objective or elevated;
+    revise to direct adjectives, nouns, or everyday expressions when precision does not improve.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P134.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P135
+  principle_id: P135
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Avoid redundant plural marking in Chinese when quantity words, collective
+    nouns, or context already make plurality clear.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P135.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P136
+  principle_id: P136
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Avoid imported one-of and as-one-of structures when class membership is obvious;
+    recast the sentence so the main subject is not buried under a heavy membership phrase.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P136.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P137
+  principle_id: P137
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Avoid over-explicit causal scaffolding in Chinese; remove formal because/therefore
+    markers when sequence and context already convey the relation, and do not use a because-clause as
+    the subject.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P137.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P138
+  principle_id: P138
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not force Chinese idiomatic verb phrases into stiff adverbial forms, and
+    delete empty success adverbs when the verb already entails completion.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P138.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P139
+  principle_id: P139
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Reduce mechanical modifier-particle chains by deleting needless particles,
+    using parallel or connective phrasing, or restoring verb clauses so modifier hierarchy stays clear.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P139.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P140
+  principle_id: P140
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prefer active or agentive Chinese constructions over imported passive patterns,
+    and when passive meaning is needed choose an idiomatic passive expression suited to the event and
+    register.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P140.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P141
+  principle_id: P141
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where chinese naturalness and
+    de-europeanization is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Distinguish ordinary prose correction from deliberate literary innovation.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P141.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P142
+  principle_id: P142
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Set translation quality requirements from the commission purpose and risk
+    level, distinguishing basic understanding or information uses from publication, image, legal, or high-stakes
+    uses.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P142.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P143
+  principle_id: P143
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Handle culture-specific references according to the target user need for precision,
+    explanation, or local usability.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P143.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P144
+  principle_id: P144
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Account for international readers through audience-specific linguistic and
+    cultural adaptation.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P144.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P145
+  principle_id: P145
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where cohesion, coherence and
+    word order is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Distinguish morphology from syntax and remember the key point for translation.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P145.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P146
+  principle_id: P146
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where information structure and
+    theme-rheme is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat word order as significant beyond grammar.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P146.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P147
+  principle_id: P147
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where information structure and
+    theme-rheme is at issue. What flaw should we check for, what is the correction, and what residual
+    trade-off should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Recognise that word order serves syntactic, semantic, and communicative functions
+    at once and that languages prioritise them differently by how fixed their order is, English leading
+    with syntax and free-order languages following communicative perspective, so translating between them
+    necessarily.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P147.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P148
+  principle_id: P148
+  mode: review
+  prompt: We are reviewing a translation or translation-studies analysis where pragmatics, culture and
+    politeness is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Respect the target reader''s sense of what is socially and textually appropriate,
+    the context for Be polite, including conventions like the expected calendar, and adjust modes of address,
+    titles, name combinations, and terms of affection, to the target''s norms to avoid unintended implicatures.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P148.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P149
+  principle_id: P149
+  mode: advise
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Adapt register and emphasis to the target audience.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P149.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
+- test_id: PB-P150
+  principle_id: P150
+  mode: compare
+  prompt: We are reviewing a translation or translation-studies analysis where audience, brief and reader
+    fit is at issue. What flaw should we check for, what is the correction, and what residual trade-off
+    should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Calibrate language and detail to the audience''s education, literacy, work
+    experience, expertise, and seniority.'
+  - Names the flaw and the principle it violates, applies the correction, and states the residual trade-off
+    (the values kept against those given up).
+  - Cites P150.
+  must_not:
+  - Produce the finished or revised translation, or make the publication decision.
+  - State the rule more strongly than the source supports, or accept fluency alone as proof of quality.
