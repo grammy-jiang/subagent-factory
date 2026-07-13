@@ -1,0 +1,149 @@
+schema_version: golden-tests-v1
+subagent_slug: translation-faithfulness-reviewer
+generated_at: '2026-07-13'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — fluency praised, no source comparison
+  prompt: Here is our English translation of a French novel. We think it's excellent because it reads
+    smoothly and you'd never know it was a translation. Review it.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Flag 'reads smoothly' / fluency as a suspect criterion, not proof of quality
+  - Require comparison against the French source in the source language
+  - Screen for subtractive changes and deforming tendencies
+  - Caution against assuming the fluent target is representative of the language
+  must_not_do:
+  - Certify the translation correct or make the publication decision
+  - Accept fluency alone as evidence of fidelity
+  principle_coverage:
+  - P021
+  - P055
+  - P020
+  - P028
+  - P011
+- test_id: GT-002
+  description: Positive routing — choose orientation for a legal/academic text
+  prompt: We're translating a bilingual statute that must be equally authentic in both languages. How
+    should we orient the translation?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Recommend formal equivalence close to the source form with little room for adjustment
+  - Tie the orientation to the text's function and legal status
+  - State the residual trade-off (naturalness vs formal correspondence)
+  must_not_do:
+  - Prescribe a single 'correct' rendering as if deterministic
+  principle_coverage:
+  - P005
+  - P122
+  - P107
+  - P078
+- test_id: GT-003
+  description: Positive routing — a 'norm' claim in a corpus analysis
+  prompt: Our corpus study concludes that translators into Hebrew in the 1930s followed a norm of acceptability.
+    Review the claim.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Check the norm was reconstructed from patterned behaviour, not asserted
+  - Treat textual products as primary and extratextual statements as secondary evidence
+  - Warn against assuming the translated texts are representative of the language
+  must_not_do:
+  - Treat the norm as a fixed all-or-nothing rule
+  principle_coverage:
+  - P076
+  - P086
+  - P087
+  - P011
+- test_id: GT-004
+  description: Positive routing — safety-critical technical manual
+  prompt: Review this German translation of an equipment manual; the translator kept the source sentence
+    structure and left a hazard warning implicit as in the original.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Require safety-critical information to be explicit and escalated where the source is unclear
+  - Let target-user needs govern additions, omissions, and restructuring
+  - Balance fidelity against intelligibility and usability
+  must_not_do:
+  - Treat the translation as a surface replica of the source
+  principle_coverage:
+  - P104
+  - P015
+  - P017
+  - P018
+- test_id: GT-005
+  description: Positive routing — formal vs dynamic for a scripture/expressive text
+  prompt: Should our new translation preserve the source's formal features or aim for the closest natural
+    equivalent for today's readers? Compare the options.
+  expected_route: invoke
+  expected_mode: compare
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Lay out what formal vs dynamic equivalence each preserves and costs
+  - Warn that equivalent effect can be illusory once the text is out of its space and time
+  - Weight the choice by the brief, text type, and readership
+  must_not_do:
+  - Declare one orientation universally correct
+  principle_coverage:
+  - P005
+  - P009
+  - P072
+  - P118
+- test_id: GT-006
+  description: Positive routing — idiom rendered by dictionary gloss
+  prompt: Our translator rendered an English idiom word-for-word from the dictionary into Spanish. Is
+    that acceptable?
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Warn that an idiom's meaning cannot be deduced from its parts and may have no target equivalent
+  - Read the item through its collocational pattern, not a dictionary gloss
+  - Apply an idiom strategy by fit and state the residual loss
+  must_not_do:
+  - Assume a one-to-one target equivalent exists
+  principle_coverage:
+  - P042
+  - P095
+  - P106
+  - P043
+negative_routing_tests:
+- test_id: NR-001
+  description: Asks for the finished translation, not a review.
+  prompt: Translate this 300-word product description from English into Spanish for us.
+  expected_route: do_not_invoke
+- test_id: NR-002
+  description: Subject-matter correctness with a knowable answer, no translation dimension.
+  prompt: Is the interest calculation in this loan contract mathematically correct?
+  expected_route: do_not_invoke
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified request
+  prompt: Is this a good translation?
+  expected_route: invoke
+  must_ask_for:
+  - The source text and the target text to compare
+  - 'The brief: intended function, audience, medium'
+  - Any specific quality concern or claim to check
+- test_id: MC-002
+  description: Underspecified request
+  prompt: Should we use formal or dynamic equivalence?
+  expected_route: invoke
+  must_ask_for:
+  - The source text and its text type
+  - The target readership and the publication's purpose
+  - The brief or commission constraints
