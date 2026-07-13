@@ -1,0 +1,150 @@
+schema_version: golden-tests-v1
+subagent_slug: translation-naturalness-reviewer
+generated_at: '2026-07-13'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — fluency praised, no source comparison
+  prompt: Here is our English translation of a French novel. We think it's excellent because it reads
+    smoothly and you'd never know it was a translation. Review it.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Flag 'reads smoothly' / fluency as a suspect criterion, not proof of quality
+  - Require comparison against the source's register profile
+  - Test naturalness against the receptor language, message context, and audience
+  - Re-read the draft as a target reader for carried-over source interference
+  must_not_do:
+  - Certify the translation correct or make the publication decision
+  - Accept fluency alone as evidence of quality
+  principle_coverage:
+  - P121
+  - P053
+  - P004
+  - P126
+  - P091
+- test_id: GT-002
+  description: Positive routing — usability approach for a user manual
+  prompt: We're translating a software user manual for busy, non-native support staff. How should we approach
+    it so it reads naturally and is easy to use?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Treat the job as target-user usability work, not source-text transfer
+  - Recommend clear, simple, chronological, consistent language and iconic linkage
+  - Calibrate decisions and detail to the audience and the brief
+  must_not_do:
+  - Prescribe a single 'correct' rendering as if deterministic
+  principle_coverage:
+  - P016
+  - P110
+  - P105
+  - P001
+- test_id: GT-003
+  description: Positive routing — Europeanized Chinese draft
+  prompt: Review this Chinese translation from English; it uses lots of abstract nouns, imported passives,
+    and 'one of the ...' structures and feels stiff.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Prefer concrete subjects and direct verbs over abstract nominalized subjects
+  - Recast imported passive and membership structures into natural Chinese
+  - Check whether any departure is deliberate innovation before correcting
+  must_not_do:
+  - Treat Europeanized wording as automatically acceptable
+  principle_coverage:
+  - P132
+  - P133
+  - P140
+  - P136
+  - P141
+- test_id: GT-004
+  description: Positive routing — awkward information flow
+  prompt: Our translation is grammatically fine but reads jerkily; sentences seem to start with new information
+    and heavy subjects. Review the flow.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Require given-before-new information order
+  - Check for a discernible thematic method of development
+  - Resolve end-weight clashes with the target's grammar rather than leaving a heavy subject
+  must_not_do:
+  - Judge the text acceptable on grammaticality alone
+  principle_coverage:
+  - P044
+  - P043
+  - P042
+  - P064
+- test_id: GT-005
+  description: Positive routing — natural vs deliberate foreign air
+  prompt: Should our new translation of a classic read as fluent modern prose or keep a deliberate foreign
+    air? Compare the options.
+  expected_route: invoke
+  expected_mode: compare
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Name where each option sits on the domesticating-foreignizing axis
+  - Note that a deliberate foreign air can be less dangerous than a purist vernacular
+  - Weight the choice by the brief, text type, and readership
+  must_not_do:
+  - Declare one pole universally correct
+  principle_coverage:
+  - P118
+  - P119
+  - P121
+  - P149
+- test_id: GT-006
+  description: Positive routing — culture-specific detail over-clarified
+  prompt: Our translator added an explanation spelling out a culture-specific reference to help target
+    readers. Is that the right call?
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A review naming the flaw(s), the principle(s), the correction, and the residual trade-off,
+    highest-impact first.
+  must_do:
+  - Warn that over-clarifying can destroy the indirect, figurative meaning it carries
+  - Choose deliberately among note, functional equivalent, borrowing, or description
+  - Handle the reference by the target user's need for precision or usability
+  must_not_do:
+  - Assume explicitation is always an improvement
+  principle_coverage:
+  - P024
+  - P031
+  - P143
+  - P054
+negative_routing_tests:
+- test_id: NR-001
+  description: Asks for the finished translation, not a review.
+  prompt: Translate this 300-word product description from English into Spanish for us.
+  expected_route: do_not_invoke
+- test_id: NR-002
+  description: Subject-matter correctness with a knowable answer, no translation dimension.
+  prompt: Is the interest calculation in this loan contract mathematically correct?
+  expected_route: do_not_invoke
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified request
+  prompt: Does this translation read naturally?
+  expected_route: invoke
+  must_ask_for:
+  - The source text and the target text to compare
+  - 'The brief: intended audience, purpose, and medium'
+  - Any specific naturalness or usability concern to check
+- test_id: MC-002
+  description: Underspecified request
+  prompt: Should we make it read more naturally or keep it close to the source?
+  expected_route: invoke
+  must_ask_for:
+  - The source text and its text type
+  - The target readership and the publication's purpose
+  - The brief or commission constraints
