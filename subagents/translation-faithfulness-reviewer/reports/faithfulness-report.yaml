@@ -1,0 +1,149 @@
+schema_version: faithfulness-report-v1
+subagent_slug: translation-faithfulness-reviewer
+findings:
+- rule_ref: quality_bar[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P055/P016/P078; within the source's scope, no strengthening. Review criterion, not a
+    directive to translate.
+- rule_ref: quality_bar[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P006/P070/P107/P113/P118; within the source's scope, no strengthening. Review criterion,
+    not a directive to translate.
+- rule_ref: quality_bar[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P011/P076/P086/P114; within the source's scope, no strengthening. Review criterion, not
+    a directive to translate.
+- rule_ref: quality_bar[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P071/P075/P039/P129; within the source's scope, no strengthening. Review criterion, not
+    a directive to translate.
+- rule_ref: quality_bar[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P021/P020/P117/P028; within the source's scope, no strengthening. Review criterion, not
+    a directive to translate.
+- rule_ref: quality_bar[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P015/P017/P104; within the source's scope, no strengthening. Review criterion, not a
+    directive to translate.
+- rule_ref: forbidden_behaviours[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P078/P027; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+- rule_ref: forbidden_behaviours[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P021/P055; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+- rule_ref: forbidden_behaviours[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P012/P088; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+- rule_ref: forbidden_behaviours[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P078/P073/P074; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+- rule_ref: when_to_use[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P055/P113; within the source's scope, no strengthening. Routing trigger grounded in the
+    cited principles.
+- rule_ref: when_to_use[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P076/P088; within the source's scope, no strengthening. Routing trigger grounded in the
+    cited principles.
+- rule_ref: when_to_use[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P021/P055; within the source's scope, no strengthening. Routing trigger grounded in the
+    cited principles.
+- rule_ref: when_to_use[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P005/P072/P107; within the source's scope, no strengthening. Routing trigger grounded
+    in the cited principles.
+- rule_ref: when_to_use[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P015/P104/P135; within the source's scope, no strengthening. Routing trigger grounded
+    in the cited principles.
+- rule_ref: handoff_rules[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P027/P015; within the source's scope, no strengthening. Ownership boundary; source-grounded.
+- rule_ref: handoff_rules[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P110/P109; within the source's scope, no strengthening. Ownership boundary; source-grounded.
+- rule_ref: outputs.primary_format
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P078/P055; within the source's scope, no strengthening. The per-finding review format;
+    states residual trade-off rather than a bare verdict.
+- rule_ref: source_of_truth_policy.precedence
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P088/P078/P005/P107/P073/P012; within the source's scope, no strengthening. Adaptable-guide
+    + brief-governs + no-over-claim, all source-grounded.
