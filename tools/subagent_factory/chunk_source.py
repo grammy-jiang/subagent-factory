@@ -30,6 +30,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from tools.subagent_factory._common import CHARS_PER_TOKEN
+from tools.subagent_factory.prompt_injection_scan import scan_book_module
 
 # ATX heading. The trailing group strips ONLY a true ATX closing sequence — a whitespace-preceded
 # `#` run (`# Title ###` -> "Title") — not a `#` fused to the title text (`# C#` stays "C#").
@@ -253,6 +254,17 @@ def write_book_module(
             )
         )
     (base / "chunks.jsonl").write_text("\n".join(manifest_lines) + "\n", encoding="utf-8")
+
+    # Injection scan AT CHUNK TIME (approach A): the map-reduce path never populates per-package
+    # sources/markdown/, so the classic prompt_injection_scan is vacuous there. Scan the untrusted
+    # book text HERE — deterministically, before any MAP `claude -p` session reads it — and record
+    # findings as a module artifact. Advisory (non-blocking): map_book.sh gates/triage on it. Always
+    # written (0 lines when clean) so a downstream reader can tell "scanned, clean" from "not scanned".
+    injection = scan_book_module(base)
+    (base / "injection-scan.jsonl").write_text(
+        "".join(json.dumps(f, ensure_ascii=False) + "\n" for f in injection), encoding="utf-8"
+    )
+
     total_tok = sum(c.est_tokens for c in chunks)
     return {
         "sha": sha,
@@ -261,6 +273,7 @@ def write_book_module(
         "n_chunks": len(chunks),
         "est_tokens": total_tok,
         "module": str(base),
+        "n_injection_findings": len(injection),
     }
 
 

@@ -386,6 +386,22 @@ def prompt_injection_scan(subagent_dir: str | Path) -> list[dict]:
     return findings
 
 
+def scan_book_module(module_dir: str | Path) -> list[dict]:
+    """Scan a chunk_source book-extract module (``cache/book-extracts/<sha>/``) for injection payloads.
+
+    The map-reduce (Tier-1+) path never populates per-package ``sources/markdown/``, so
+    ``prompt_injection_scan`` above is vacuous there; the untrusted book text lives in the module's
+    ``source.md`` (the chunks are overlapping windows of it, so scanning ``source.md`` once covers
+    every chunk the MAP session reads). Same advisory finding shape and semantics — a hit means
+    *quarantine/escalate*, not *block*. ``file`` is the ``source.md`` path so a downstream redactor
+    can locate the span. Empty list = clean or no ``source.md``.
+    """
+    src = Path(module_dir) / "source.md"
+    if not src.exists():
+        return []
+    return _scan_file(src)
+
+
 def main() -> None:
     if len(sys.argv) < 2:
         print("Usage: python -m tools.subagent_factory.prompt_injection_scan subagents/<slug>")
