@@ -149,7 +149,9 @@ def _scan_markdown_prose(path: Path, source_texts: dict, findings: list) -> None
     if not source_texts:
         return
     try:
-        text = path.read_text(encoding="utf-8")
+        # errors="replace": invalid UTF-8 must not crash the gate (fail-closed — the file is still
+        # scanned with replacement chars rather than silently skipped on a UnicodeDecodeError).
+        text = path.read_text(encoding="utf-8", errors="replace")
     except OSError:
         return
 
