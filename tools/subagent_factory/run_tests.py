@@ -21,7 +21,14 @@ def run_tests(subagent_dir: str | Path) -> dict:
     passed = 0
 
     if not tests_dir.exists():
-        return {"passed": False, "total": 0, "results": [], "error": "tests/ directory missing"}
+        # passed_count keeps this return shape-compatible with the success path (main() indexes it).
+        return {
+            "passed": False,
+            "total": 0,
+            "passed_count": 0,
+            "results": [],
+            "error": "tests/ directory missing",
+        }
 
     for test_file in tests_dir.glob("*.yaml"):
         try:

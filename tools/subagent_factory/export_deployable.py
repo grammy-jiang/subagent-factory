@@ -22,7 +22,8 @@ from pathlib import Path
 import yaml
 
 from tools.subagent_factory._common import atomic_write_text
-from tools.subagent_factory.export_claude_agent import render_adapter
+from tools.subagent_factory.adapter_policy_scan import scan_rendered_adapter
+from tools.subagent_factory.export_claude_agent import _determine_tools, render_adapter
 
 _CANONICAL_MARKER = "\n## Canonical package"
 
@@ -133,6 +134,15 @@ def export_deployable(subagent_dir: str | Path, dest_root: str | Path) -> dict:
     refs = [r for r in kp.get("references", []) if _SAFE_SEGMENT.match(str(r))]
 
     md = render_adapter(profile, subagent_path)
+    # Gate the write on the SAME adapter-policy scan export_claude_agent enforces (fail closed, no
+    # bundle written). Scan the BASE render: tool-grant/escalation are properties of the base
+    # adapter, and the deployable-only `skills:` frontmatter injected below is not a tool grant.
+    policy_fail = scan_rendered_adapter(md, set(_determine_tools(profile)))
+    if policy_fail:
+        result["error"] = "adapter policy violation — not written: " + "; ".join(
+            f["issue"] for f in policy_fail
+        )
+        return result
     md = _strip_canonical_section(md)
     md = _rewrite_header(md, slug)
     md = _inject_skills_frontmatter(md, skills)

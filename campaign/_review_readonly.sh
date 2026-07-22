@@ -19,7 +19,7 @@
 review_readonly_snapshot() {
   local pkg="$1" before_out="$2" pre
   git ls-files --others --exclude-standard -- "$pkg" 2>/dev/null \
-    | grep -vE "^$pkg/reports/" | sort -u > "$before_out" 2>/dev/null || : > "$before_out"
+    | grep -Fv -- "$pkg/reports/" | sort -u > "$before_out" 2>/dev/null || : > "$before_out"
   pre="$(git stash create 2>/dev/null || true)"
   printf '%s' "${pre:-HEAD}"
 }
@@ -29,11 +29,11 @@ review_readonly_snapshot() {
 review_readonly_enforce() {
   local pkg="$1" pre="$2" before_file="$3" strays newf f
   # NON-report tracked files the session modified (diff vs the pre-review snapshot).
-  strays="$(git diff --name-only "$pre" -- "$pkg" 2>/dev/null | grep -vE "^$pkg/reports/" || true)"
+  strays="$(git diff --name-only "$pre" -- "$pkg" 2>/dev/null | grep -Fv -- "$pkg/reports/" || true)"
   # NON-report files newly created by the session = current untracked minus the pre-review untracked.
   newf="$(comm -13 "$before_file" \
     <(git ls-files --others --exclude-standard -- "$pkg" 2>/dev/null \
-        | grep -vE "^$pkg/reports/" | sort -u) 2>/dev/null || true)"
+        | grep -Fv -- "$pkg/reports/" | sort -u) 2>/dev/null || true)"
   printf '%s\n' "$strays" | while IFS= read -r f; do
     [ -n "$f" ] || continue
     git checkout "$pre" -- "$f" >/dev/null 2>&1 || true
