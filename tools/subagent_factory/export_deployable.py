@@ -78,7 +78,7 @@ def _inline_references(md: str, subagent_path: Path, refs: list[str]) -> tuple[s
         ref_path = subagent_path / "references" / f"{ref}.md"
         if not ref_path.exists():
             continue
-        blocks.append(f"## Reference — {ref}\n\n{ref_path.read_text().strip()}\n")
+        blocks.append(f"## Reference — {ref}\n\n{ref_path.read_text(encoding='utf-8').strip()}\n")
         inlined.append(ref)
     if not blocks:
         return md, inlined

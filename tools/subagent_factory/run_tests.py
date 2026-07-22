@@ -129,6 +129,8 @@ def main():
         sys.exit(1)
 
     result = run_tests(sys.argv[1])
+    if result.get("error"):
+        print(f"ERROR: {result['error']}")
     for r in result["results"]:
         print(f"[{r['status']}] {r.get('test_id', '?')}: {r['description']}")
 

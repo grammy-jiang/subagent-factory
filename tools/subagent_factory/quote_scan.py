@@ -40,7 +40,10 @@ MIN_WORDS_FOR_CONCERN = 40
 _MAX_REPORT_RUN = 200
 
 # Directories that ARE the source material — never scan
-_SOURCE_DIRS = {"sources/original", "sources/markdown", "sources/snapshots"}
+# markdown-raw is the redactor's pristine pre-redaction copy (injection quarantine) — source
+# material, excluded from the quote gate like the others. Listed explicitly now that the match is
+# segment-aware (it no longer rides on "sources/markdown" as a prefix).
+_SOURCE_DIRS = {"sources/original", "sources/markdown", "sources/markdown-raw", "sources/snapshots"}
 
 # Block-quote line marker, stripped so a `>`-fenced lift is detected like bare prose.
 _BLOCKQUOTE_MARKER = re.compile(r"(?m)^\s{0,3}>\s?")
@@ -102,7 +105,9 @@ def quote_scan(subagent_dir: str | Path) -> list[dict]:
 def _is_source_material(path: Path, base: Path) -> bool:
     rel = str(path.relative_to(base)).replace("\\", "/")
     for src_dir in _SOURCE_DIRS:
-        if rel.startswith(src_dir):
+        # Segment-aware: only the exact dir and its real children — a colliding sibling like
+        # `sources/markdownX/` must NOT be excluded (that would let it evade the verbatim-quote gate).
+        if rel == src_dir or rel.startswith(src_dir + "/"):
             return True
     return False
 
