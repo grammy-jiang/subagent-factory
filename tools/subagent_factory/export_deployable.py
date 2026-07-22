@@ -109,7 +109,9 @@ def export_deployable(subagent_dir: str | Path, dest_root: str | Path) -> dict:
         result["error"] = f"profile.yaml not found at {profile_path}"
         return result
 
-    profile = yaml.safe_load(profile_path.read_text(encoding="utf-8"))
+    # `or {}`: an empty / comment-only profile.yaml yields None; guard so `.get` follows the
+    # soft-error contract (matches export_claude_agent) instead of raising AttributeError.
+    profile = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
     slug = profile.get("slug")
     if not slug:
         result["error"] = "profile.yaml missing 'slug' field"

@@ -80,7 +80,9 @@ def load_source_texts(base: str | Path, source_ids: set[str] | None = None) -> d
         return texts
     ids = [p.stem for p in markdown_dir.glob("*.md")] if source_ids is None else list(source_ids)
     for source_id in ids:
-        md_path = markdown_dir / f"{source_id}.md"
+        # Basename the id before joining it into a path — a manifest-supplied source_id like
+        # "../../etc/passwd" must not read outside sources/markdown/ (matches redact's guard).
+        md_path = markdown_dir / f"{Path(source_id).name}.md"
         if md_path.exists():
             try:
                 texts[source_id] = normalize_ws(md_path.read_text(encoding="utf-8"))

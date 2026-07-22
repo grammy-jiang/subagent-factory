@@ -76,8 +76,13 @@ if [ -z "$ROUND" ]; then
     case "$nn" in ''|*[!0-9]*) ;; *) [ "$nn" -gt "$last" ] && last="$nn";; esac
   done
   ROUND=$((last + 1))
+  # Claim the round dir atomically: mkdir (no -p) fails if a concurrent run already took it → bump
+  # and retry, so two invocations can never clobber the same round's findings.
+  while ! mkdir "$DOG/round-$ROUND" 2>/dev/null; do ROUND=$((ROUND + 1)); done
+  RDIR="$DOG/round-$ROUND"
+else
+  RDIR="$DOG/round-$ROUND"; mkdir -p "$RDIR"  # explicit --round N: idempotent (allows re-run)
 fi
-RDIR="$DOG/round-$ROUND"; mkdir -p "$RDIR"
 FINDINGS="$RDIR/findings.json"
 
 # Prompt inputs: per-reviewer domain block + the prior-titles the instance must not repeat.
