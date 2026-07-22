@@ -1,3 +1,8 @@
+---
+name: adapter-optimization
+description: "Act as the LLM variant proposer inside the Step-12 optimize-adapter loop: given the current adapter and the behaviour tests it is failing, propose edited adapter variants that should score higher, for the deterministic driver to score and gate. Use only within optimize_adapter.py's propose step — the driver owns all scoring, gating, and keep-winner selection."
+---
+
 # Skill: adapter-optimization
 
 **Purpose:** Be the LLM **variant proposer** inside the Step-12 optimize-adapter loop — given the

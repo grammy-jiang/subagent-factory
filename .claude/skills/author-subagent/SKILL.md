@@ -1,3 +1,8 @@
+---
+name: author-subagent
+description: "Create or update a generated subagent package under subagents/<slug>/ from source files, PDFs, ePUBs, DOCX, Markdown, or public URLs — running the full pipeline (ingest, interrogate, claims/principles for Tier 1+, profile, faithfulness, export adapter, validate). Use when building a new advisor or reviewer subagent from a document or book, or updating an existing package with new sources. Invoked as /author-subagent <source...> [--topic <topic>]."
+---
+
 # Skill: author-subagent
 
 **Trigger:** `/author-subagent <source...> [--topic "<topic>"]`

@@ -1,3 +1,8 @@
+---
+name: profile-generation
+description: "Generate or update a package's profile.yaml and provenance-ledger.md from interrogation records — Phase 5 of the authoring cycle. Use when interrogation is complete and the profile (role, when-to-use, modes, quality bar, forbidden behaviours) must be derived or refreshed; normally invoked by the author-subagent pipeline at Step 7, not directly."
+---
+
 # Skill: profile-generation
 
 **Purpose:** Generate or update `profile.yaml` and `provenance-ledger.md` from

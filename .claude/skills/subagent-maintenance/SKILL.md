@@ -1,3 +1,8 @@
+---
+name: subagent-maintenance
+description: "Maintain an existing generated subagent package when its sources, converters, runtime behaviour, or requirements change — detect staleness, re-ingest or re-derive, re-export, and re-validate. Use when an already-authored package needs updating rather than authoring from scratch (Phase 12 of the authoring cycle)."
+---
+
 # Skill: subagent-maintenance
 
 **Purpose:** Maintain existing generated subagents when sources, converters,

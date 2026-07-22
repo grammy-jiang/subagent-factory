@@ -1,3 +1,8 @@
+---
+name: source-ingestion
+description: "Execute Phase 1.5 of authoring: convert approved source files (PDF, ePUB, DOCX, HTML, Markdown) into canonical Markdown with assets, anchors, metadata, conversion reports, and manifest updates. Use after sources are selected and rights-cleared, before interrogation, to produce the canonical source layer the rest of the pipeline reads."
+---
+
 # Skill: source-ingestion
 
 **Purpose:** Execute Phase 1.5 — convert approved source files into canonical Markdown with
