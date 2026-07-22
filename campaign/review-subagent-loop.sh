@@ -28,6 +28,8 @@ REPO="${REPO:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 cd "$REPO" || { echo "review-subagent-loop: cannot cd to REPO=$REPO" >&2; exit 3; }
 # shellcheck source=/dev/null
 source "$REPO/campaign/_claude_run.sh"
+# shellcheck source=/dev/null
+source "$REPO/campaign/_review_readonly.sh"
 
 [ "$#" -ge 1 ] || { echo "usage: review-subagent-loop.sh <slug> [<slug>...]" >&2; exit 2; }
 SLUGS=("$@")
@@ -162,8 +164,18 @@ for SLUG in "${SLUGS[@]}"; do
   for r in $(seq 1 "$MAXROUNDS"); do
     RF="$PKG/reports/review-loop/$SLUG.r$r.review.md"
     say "$SLUG round $r: REVIEW (fresh session)"
+    # Snapshot the package BEFORE the review session so the read-only guard below reverts only THIS
+    # review's writes (not an uncommitted prior-round fix).
+    _before_ut="$(mktemp)"
+    _pre="$(review_readonly_snapshot "$PKG" "$_before_ut")"
     run_fresh_claude "$REV_EFFORT" "$(review_prompt "$SLUG" "$r")" "$LOGDIR/review-loop-$SLUG.r$r.review.jsonl" review \
       || say "$SLUG r$r review rc=$?"
+    # Read-only enforcement: a review session may only write its report under reports/; revert any
+    # other file it touched in the package (Write can't be permission-scoped — see _claude_run.sh).
+    _reverted="$(review_readonly_enforce "$PKG" "$_pre" "$_before_ut")"; rm -f "$_before_ut"
+    if [ "${_reverted:-0}" -gt 0 ]; then
+      say "$SLUG r$r: read-only guard reverted $_reverted non-report file(s) written by the review session"
+    fi
     [ -f "$RF" ] || { say "$SLUG r$r: NO review file produced — aborting slug"; break; }
     mf="$(parse_mustfix "$RF")"
     say "$SLUG r$r: MUST_FIX_COUNT=$mf"
