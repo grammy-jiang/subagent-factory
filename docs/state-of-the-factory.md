@@ -91,3 +91,5 @@ declined to confirm an expected win:
 - `docs/enhancement-steps/research-integration-plan.md` — A/B/C track plan + status.
 - `CLAUDE.md` + `.claude/rules/` — repository boundaries, generated-artifact / rights / evidence /
   untrusted-source policies.
+- `docs/README.md` — **full map** of every doc under `docs/` (the completeness backstop for
+  anything not linked above, including historical/superseded docs).
