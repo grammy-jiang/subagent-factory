@@ -55,13 +55,28 @@ build_claude_argv() {
   for _d in "$@"; do
     _out+=(--add-dir "$_d")
   done
-  # `claude` rejects --dangerously-skip-permissions when the process runs as root
-  # ("permissions cannot be used with root/sudo privileges"); run these headless sessions as a
-  # non-root user so the bypass is accepted.
-  _out+=(--dangerously-skip-permissions --output-format stream-json --verbose)
+  # Permission flags by session role (CLAUDE_PERM_PROFILE). NOTE: `claude` rejects
+  # --dangerously-skip-permissions when the process runs as root ("permissions cannot be used with
+  # root/sudo privileges"); run these headless sessions as a non-root user so the bypass is accepted.
   case "${CLAUDE_PERM_PROFILE:-author}" in
-    review) _out+=(--disallowedTools Edit) ;;
+    review)
+      # Read-only-plus-report: keep bypass but deny in-place edits. Conservative — Write/Bash stay
+      # open (a review session can still overwrite via Write / shell redirection).
+      #
+      # The fully-scoped form the security review asked for is `--permission-mode dontAsk` + an
+      # explicit --allowedTools allowlist (deny-by-default, Write scoped to the report dir). Smoke-
+      # tested and DEFERRED: dontAsk's deny-by-default works (an out-of-scope Write IS blocked), but
+      # the model issues Write with ABSOLUTE paths, so a bare / `./`-relative
+      # `Write(subagents/*/reports/**)` entry does not match and denies the legitimate report write
+      # too. Scoping Write there needs an absolute `//`-prefixed --allowedTools pattern; pinning that
+      # syntax down for this claude version + a full review-loop run is the promotion step.
+      _out+=(--dangerously-skip-permissions --disallowedTools Edit)
+      ;;
+    *)  # author (default): full authority — author/fix sessions create and edit package files.
+      _out+=(--dangerously-skip-permissions)
+      ;;
   esac
+  _out+=(--output-format stream-json --verbose)
 }
 
 # claude_argv_str ARRAY_ELEMENT...
