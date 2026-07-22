@@ -61,7 +61,14 @@ refresh_queue(){ python3 "$CAMP/build-queue.py" "$COLLECTION" >/dev/null; }
 # Emit (idx, size, sha, relpath) for the first pending row. If build-queue.py
 # reorders columns, update this projection and the `read` binding below in lockstep.
 next_pending(){ awk -F'\t' 'NR>1 && $3=="pending"{print $1"\t"$2"\t"$5"\t"$6; exit}' "$QUEUE"; }
-done_slugs(){ ls -d "$REPO"/subagents/*/ 2>/dev/null | xargs -n1 basename 2>/dev/null | paste -sd, -; }
+done_slugs(){  # comma-joined slug list from subagents/*/ — glob, not `ls | xargs basename`
+  local d out=()
+  for d in "$REPO"/subagents/*/; do
+    [ -d "$d" ] || continue   # no-match: the literal glob is skipped (nullglob is off)
+    d="${d%/}"; out+=("${d##*/}")
+  done
+  local IFS=,; echo "${out[*]}"
+}
 
 echo "[campaign] repo=$REPO  model=$MODEL  count=$COUNT  collection=$COLLECTION"
 # A targeted --pdf run does not select from the queue, so skip the upfront full-collection
