@@ -97,14 +97,26 @@ echo "[map] chunks=$(grep -c . "$MODULE/chunks.jsonl")"
 # --block-on-injection (or MAP_BLOCK_ON_INJECTION=1) fails closed until the module is triaged. The
 # presence of source-safety-verdicts.yaml is the "triaged" signal that clears the warning/block.
 INJ="$MODULE/injection-scan.jsonl"
-if [ -s "$INJ" ] && [ ! -f "$MODULE/source-safety-verdicts.yaml" ]; then
-  n_inj="$(grep -c . "$INJ" 2>/dev/null || echo 0)"
-  echo "[map] ⚠ IPI: $n_inj un-triaged injection finding(s) in this book (see $INJ)." >&2
-  echo "[map]   Triage before distillation — record verdicts in $MODULE/source-safety-verdicts.yaml" >&2
-  echo "[map]   and redact suspicious spans, then re-run." >&2
-  if [ "$BLOCK_ON_INJECTION" -eq 1 ] && [ "$DRYRUN" -eq 0 ]; then
-    echo "[map]   --block-on-injection: refusing to launch MAP on un-triaged untrusted content." >&2
-    exit 5
+VERDICTS="$MODULE/source-safety-verdicts.yaml"
+if [ -s "$INJ" ]; then
+  if [ -f "$VERDICTS" ]; then
+    # Triaged: APPLY the verdict-driven redaction to source.md + chunks BEFORE the MAP session reads
+    # them (idempotent — rebuilds from the pristine copies each run). Fail closed if redaction errors.
+    if ! red="$(python3 -m tools.subagent_factory.redact_injection_spans --book-module "$MODULE" 2>&1)"; then
+      echo "[map] IPI: redaction FAILED — $red" >&2
+      [ "$DRYRUN" -eq 1 ] || exit 5
+    else
+      echo "[map] IPI: triaged — $red"
+    fi
+  else
+    n_inj="$(grep -c . "$INJ" 2>/dev/null || echo 0)"
+    echo "[map] ⚠ IPI: $n_inj un-triaged injection finding(s) in this book (see $INJ)." >&2
+    echo "[map]   Triage before distillation — record verdicts in $VERDICTS and re-run" >&2
+    echo "[map]   (map_book.sh then applies the redaction automatically)." >&2
+    if [ "$BLOCK_ON_INJECTION" -eq 1 ] && [ "$DRYRUN" -eq 0 ]; then
+      echo "[map]   --block-on-injection: refusing to launch MAP on un-triaged untrusted content." >&2
+      exit 5
+    fi
   fi
 fi
 

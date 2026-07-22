@@ -231,8 +231,31 @@ def redact_book_module(module_dir: str | Path) -> dict:
 
 def main() -> None:
     if len(sys.argv) < 2:
-        print("Usage: python -m tools.subagent_factory.redact_injection_spans subagents/<slug>")
+        print(
+            "Usage: python -m tools.subagent_factory.redact_injection_spans "
+            "(subagents/<slug> | --book-module <cache/book-extracts/<sha>>)"
+        )
         sys.exit(1)
+    # Book-module mode (map-reduce path): neutralize source.md + chunks from the module's verdicts.
+    if sys.argv[1] == "--book-module":
+        if len(sys.argv) < 3:
+            print("redact-injection-spans FAIL — --book-module requires a module dir")
+            sys.exit(1)
+        try:
+            bs = redact_book_module(sys.argv[2])
+        except ValueError as e:
+            print(f"redact-injection-spans FAIL — {e}")
+            sys.exit(1)
+        print(
+            f"redact-book-module — {bs['source_lines_redacted']} source line(s) + "
+            f"{bs['chunk_lines_redacted']} chunk line(s) neutralized "
+            f"({bs['suspicious']} suspicious verdict(s))"
+        )
+        if bs["unresolved"]:
+            for u in bs["unresolved"]:
+                print(f"  UNRESOLVED: line {u['line']} — {u['reason']}")
+            sys.exit(1)
+        return
     try:
         summary = redact_injection_spans(sys.argv[1])
     except ValueError as e:
