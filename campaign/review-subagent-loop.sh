@@ -18,13 +18,14 @@
 #
 # Launch (survivable):  bash campaign/detach.sh bash campaign/review-subagent-loop.sh <slug> [<slug>...]
 # Env: MAXROUNDS(3) MODEL(claude-opus-4-8) REV_EFFORT(high) FIX_EFFORT(high)
-set -uo pipefail
+set -euo pipefail
 
 # REPO is overridable so a manager (e.g. drive-review-merge.sh) can point the whole loop at an
 # ISOLATED git worktree: uncommitted fix edits on the main tree were once discarded by a concurrent
 # `git checkout` in that shared tree. With REPO=<worktree> every review/fix session, validate, and
 # per-round commit happens inside the worktree, immune to main-tree git ops.
-REPO="${REPO:-/home/grammy-jiang/projects/subagent-factory}"; cd "$REPO"
+REPO="${REPO:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+cd "$REPO" || { echo "review-subagent-loop: cannot cd to REPO=$REPO" >&2; exit 3; }
 # shellcheck source=/dev/null
 source "$REPO/campaign/_claude_run.sh"
 
