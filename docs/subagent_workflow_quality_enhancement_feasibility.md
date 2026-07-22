@@ -1,5 +1,9 @@
 # Subagent Workflow Quality Enhancement — Feasibility Assessment
 
+> **Historical — superseded.** Superseded for planning purposes by
+> [`subagent_enhancement_build_plan.md`](subagent_enhancement_build_plan.md); kept for provenance.
+> See [`docs/README.md`](README.md) for the full doc map.
+
 **Date:** 2026-06-10
 **Companion to:** `docs/subagent_workflow_quality_enhancement_plan.md`
 **Purpose:** Evaluate each proposed enhancement against the actual implementation in this repository, and state what must change in the plan before it is built.
