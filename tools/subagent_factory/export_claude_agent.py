@@ -115,6 +115,20 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
 
     rendered = render_adapter(profile, subagent_path)
 
+    # Least-privilege gate at the WRITE (reference-monitor placement): refuse to write an adapter
+    # that would widen tool authority beyond the profile's modes, or carry an escalation key in
+    # frontmatter, instead of relying on a later `validate` pass to catch it after it is already
+    # live. The normal render path cannot produce this (tools come from _determine_tools), so this is
+    # defense-in-depth against a future divergence/bug/tamper; it is fail-closed (no file written).
+    from tools.subagent_factory.adapter_policy_scan import scan_rendered_adapter
+
+    policy_fail = scan_rendered_adapter(rendered, set(_determine_tools(profile)))
+    if policy_fail:
+        result["error"] = "adapter policy violation — not written: " + "; ".join(
+            f["issue"] for f in policy_fail
+        )
+        return result
+
     # Write canonical adapter inside package (atomically — temp file + os.replace).
     adapter_dir = subagent_path / "adapters" / "claude-code"
     adapter_dir.mkdir(parents=True, exist_ok=True)
