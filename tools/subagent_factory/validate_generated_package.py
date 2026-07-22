@@ -41,6 +41,7 @@ from tools.subagent_factory.domain_policy import check_domain_policy
 from tools.subagent_factory.profile_self_check import profile_self_check
 from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
 from tools.subagent_factory.quote_scan import quote_scan
+from tools.subagent_factory.redact_injection_spans import PLACEHOLDER, load_verdicts
 from tools.subagent_factory.validate_adapter_quality import validate_adapter_quality
 from tools.subagent_factory.validate_anchor_index import validate_anchor_index
 from tools.subagent_factory.validate_behaviour_test_coverage import (
@@ -468,6 +469,59 @@ def _check_injection(base: Path, warn: _Emit, ok: _Emit) -> None:
         ok("injection-scan", "no injection payloads detected in source")
 
 
+# 11b. Injection-quarantine ENFORCEMENT — the code half of the source-safety gate. The scan above is
+# advisory; source-safety-reviewer records which spans are truly suspicious in
+# reports/source-safety-verdicts.yaml, and redact_injection_spans neutralizes them from the
+# interrogation input. This gate proves the neutralization happened: a confirmed-suspicious span still
+# present verbatim in sources/markdown/ FAILs, so the redactor cannot be silently skipped. Inert when
+# no verdicts file exists (every package that never triaged a hit — i.e. all current packages).
+def _check_injection_quarantine(base: Path, fail: _Emit, ok: _Emit) -> None:
+    if not (base / "reports" / "source-safety-verdicts.yaml").exists():
+        return  # no triage recorded → nothing to enforce
+    try:
+        verdicts = load_verdicts(base)
+    except ValueError as e:
+        # Fail closed: an unparseable verdicts file cannot be read as "no suspicious spans".
+        fail("injection-quarantine", f"reports/source-safety-verdicts.yaml: {e}")
+        return
+    suspicious = [v for v in verdicts if v.get("verdict") == "suspicious"]
+    if not suspicious:
+        ok("injection-quarantine", "source-safety verdicts present; no suspicious spans")
+        return
+    md_dir = base / "sources" / "markdown"
+    leaks = 0
+    for v in suspicious:
+        name = Path(str(v["file"])).name
+        target = md_dir / name
+        ln = v.get("line")
+        if not target.exists():
+            leaks += 1
+            fail(
+                "injection-quarantine",
+                f"confirmed-suspicious span {name}:{ln} — markdown file missing",
+            )
+            continue
+        lines = target.read_text(encoding="utf-8", errors="replace").splitlines()
+        if not isinstance(ln, int) or isinstance(ln, bool) or ln < 1 or ln > len(lines):
+            leaks += 1
+            fail(
+                "injection-quarantine",
+                f"confirmed-suspicious span {name}:{ln} — no such line to neutralize",
+            )
+        elif lines[ln - 1].strip() != PLACEHOLDER:
+            leaks += 1
+            fail(
+                "injection-quarantine",
+                f"confirmed-suspicious span reaches interrogation input at {name}:{ln} "
+                "— run `python -m tools.subagent_factory.redact_injection_spans`",
+            )
+    if leaks == 0:
+        ok(
+            "injection-quarantine",
+            f"{len(suspicious)} confirmed-suspicious span(s) redacted from interrogation input",
+        )
+
+
 # 12. Adapter-policy scan: tool-grant widening / escalation = FAIL; body injection = WARN.
 def _check_adapter_policy(base: Path, fail: _Emit, warn: _Emit) -> None:
     # Only FAIL/WARN are emitted (no OK branch); normalize non-FAIL → WARN before routing.
@@ -659,6 +713,7 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
     _check_phase8(base, fail, ok)
     _check_quote_scan(base, warn, ok)
     _check_injection(base, warn, ok)
+    _check_injection_quarantine(base, fail, ok)
     _check_adapter_policy(base, fail, warn)
     _check_patch_policy(base, profile, fail, ok)
     _check_domain_policy(profile, fail, ok)
