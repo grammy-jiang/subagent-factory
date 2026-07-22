@@ -52,6 +52,12 @@ _ESCALATION = (
     "dangerouslyskippermissions",
 )
 
+# Allowlist of the ONLY legitimate Claude Code adapter frontmatter keys (normalized: lowercased,
+# hyphens/underscores dropped). Any other key present is an escalation FAIL — strictly stronger than
+# enumerating known-bad tokens, which can only catch shapes already on the list. _ESCALATION is
+# retained to enrich the message when an unexpected key is a recognized escalation token.
+_ALLOWED_FRONTMATTER_KEYS = frozenset({"name", "description", "tools", "model"})
+
 
 def granted_tools(text: str) -> set[str]:
     """Public: the set of tool names an adapter's front-matter ``tools:`` grants (empty if none).
@@ -102,6 +108,42 @@ def _escalation_keys(fm: object) -> set[str]:
         for item in fm:
             keys |= _escalation_keys(item)
     return keys
+
+
+def _toolgrant_issue(text: str, allowed: set[str]) -> str | None:
+    """Tool-grant widening issue for an adapter string, or None. ``allowed`` = _determine_tools()."""
+    extra = granted_tools(text) - allowed
+    if extra:
+        return f"adapter grants tools beyond profile modes: {sorted(extra)} (allowed: {sorted(allowed)})"
+    return None
+
+
+def _escalation_issue(text: str) -> str | None:
+    """Escalation issue for an adapter string, or None: any frontmatter key outside the allowlist."""
+    keys = _escalation_keys(_parse_frontmatter(text))
+    unexpected = sorted(k for k in keys if k not in _ALLOWED_FRONTMATTER_KEYS)
+    if not unexpected:
+        return None
+    known = [k for k in unexpected if any(t in k for t in _ESCALATION)]
+    detail = f"; incl. known escalation token(s): {known}" if known else ""
+    return (
+        "unexpected adapter frontmatter key(s) — allowlist is name/description/tools/model: "
+        f"{unexpected}{detail}"
+    )
+
+
+def scan_rendered_adapter(text: str, allowed: set[str]) -> list[dict]:
+    """FAIL findings (tool-grant widening + escalation keys) for a RENDERED adapter string, checkable
+    BEFORE it is written. Lets export gate the write (reference-monitor placement) rather than relying
+    on a later validate pass to catch a widened adapter already at the live path. ``allowed`` =
+    ``set(_determine_tools(profile))``. Body-injection is excluded here — it is WARN-tier, and export
+    must not fail-closed on a WARN."""
+    out: list[dict] = []
+    if (iss := _toolgrant_issue(text, allowed)) is not None:
+        out.append({"level": "FAIL", "kind": "tool-grant", "issue": iss})
+    if (iss := _escalation_issue(text)) is not None:
+        out.append({"level": "FAIL", "kind": "escalation", "issue": iss})
+    return out
 
 
 def _body(text: str) -> str:
@@ -167,35 +209,14 @@ def adapter_policy_scan(subagent_dir: str | Path) -> list[dict]:
         seen.add(rp)
         text = ad.read_text(encoding="utf-8", errors="replace")
 
-        extra = granted_tools(text) - allowed
-        if extra:
-            findings.append(
-                {
-                    "file": str(ad),
-                    "level": "FAIL",
-                    "kind": "tool-grant",
-                    "issue": f"adapter grants tools beyond profile modes: {sorted(extra)} "
-                    f"(allowed: {sorted(allowed)})",
-                }
-            )
-
-        # Escalation is a frontmatter-KEY control: match against the parsed frontmatter keys
-        # (normalized), NOT a whole-document substring sweep. The substring approach false-FAILed a
-        # reviewer adapter whose body prose legitimately named "allowedTools"/"permissionMode" as
-        # concepts — the body is reviewed prose (WARN tier), only a real frontmatter key is an
-        # escalation. A corrupt/parseless adapter yields no keys here; its grant is already failed
-        # closed by granted_tools' sentinel.
-        keys = _escalation_keys(_parse_frontmatter(text))
-        esc = [t for t in _ESCALATION if any(t in k for k in keys)]
-        if esc:
-            findings.append(
-                {
-                    "file": str(ad),
-                    "level": "FAIL",
-                    "kind": "escalation",
-                    "issue": f"permission-escalation tokens in adapter: {esc}",
-                }
-            )
+        # Tool-grant widening + escalation-key checks, shared with scan_rendered_adapter (export's
+        # pre-write gate). Escalation is now an ALLOWLIST over the parsed frontmatter KEYS (Claude
+        # Code honors these as keys, not as body prose), so a reviewer adapter whose prose merely
+        # names "allowedTools" is not flagged, while ANY unexpected real key fails closed — stronger
+        # than the former known-bad-token denylist. A corrupt/parseless adapter yields no keys here;
+        # its grant is already failed closed by granted_tools' sentinel.
+        for iss in scan_rendered_adapter(text, allowed):
+            findings.append({"file": str(ad), **iss})
 
         for fam in _denylist_hits(_body(text)):
             findings.append(

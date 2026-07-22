@@ -26,6 +26,7 @@ import html
 import re
 import sys
 import unicodedata
+import urllib.parse
 from collections.abc import Callable
 from pathlib import Path
 
@@ -236,6 +237,9 @@ _TRANSFORMS: dict[str, Callable[[str], str]] = {
     "detagged": _strip_html_tags,
     "unescaped": html.unescape,
     "dewrapped": lambda s: _INTRAWORD_BREAK.sub("", s),
+    # Percent-decode: URL is a first-class ingested source type (fetch_url.py), where
+    # %69%67%6e%6f%72%65 → "ignore" is a zero-effort obfuscation channel not covered above.
+    "urldecoded": urllib.parse.unquote,
 }
 
 
@@ -348,8 +352,20 @@ def _scan_file(path: Path) -> list[dict]:
     """All findings for one markdown file: line-level + obfuscation fixpoint + CSS-hidden."""
     try:
         raw = path.read_text(encoding="utf-8", errors="replace")
-    except OSError:
-        return []
+    except OSError as e:
+        # Fail closed: "could not read" is a different (non-clean) state than "scanned, no
+        # concerns"; returning [] would let an unreadable source pass silently. Surface it for
+        # triage instead (mirrors adapter_policy_scan's fail-closed handling of unmodelled shapes).
+        return [
+            {
+                "file": str(path),
+                "line": 0,
+                "family": "scan-error",
+                "vector": "unreadable",
+                "severity": "high",
+                "excerpt": f"could not read file: {e.__class__.__name__}",
+            }
+        ]
     name = str(path)
     return [*_scan_lines(raw, name), *_decode_fixpoint(raw, name), *_scan_css(raw, name)]
 
@@ -381,6 +397,9 @@ def main() -> None:
         )
     if not findings:
         print("prompt-injection-scan PASS — no payloads detected")
+    # Advisory by design: this scanner is WARN/triage, never a hard block (untrusted-source-policy.md,
+    # WARN-not-block at a ~225:1 benign:attack base rate). It intentionally exits 0 even on findings;
+    # gating happens in validate_generated_package + source-safety triage, not in this entry point.
     sys.exit(0)
 
 

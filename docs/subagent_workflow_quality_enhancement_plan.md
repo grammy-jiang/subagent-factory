@@ -1,5 +1,9 @@
 # Subagent Factory Workflow Quality Enhancement Plan
 
+> **Historical — superseded.** Superseded for planning purposes by
+> [`subagent_enhancement_build_plan.md`](subagent_enhancement_build_plan.md); kept for provenance.
+> See [`docs/README.md`](README.md) for the full doc map.
+
 **Date:** 2026-06-10  
 **Purpose:** Explain why the current core workflow is already structurally sound, what quality gaps remain, and how to enhance each stage so the final subagents are more accurate, evidence-grounded, conflict-aware, safe, and operationally useful.
 

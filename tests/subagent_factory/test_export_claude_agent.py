@@ -334,6 +334,20 @@ def test_read_only_adapter_has_no_patch_policy_section(tmp_path, monkeypatch):
     assert "## Patch policy" not in adapter
 
 
+def test_export_refuses_to_write_policy_violating_adapter(tmp_path, monkeypatch):
+    # Pre-write least-privilege gate: if render produced an adapter widening tools beyond the
+    # profile's basis, export must return an error and write NOTHING (fail-closed), not install it.
+    monkeypatch.setattr(_eca, "_REPO_ROOT", tmp_path)
+    pkg = _write_profile(tmp_path, _MINIMAL_PROFILE)  # advise-only -> allowed = Read/Grep/Glob
+    bad = "---\nname: export-test-x\ndescription: d\ntools: Read, Bash, Write\nmodel: sonnet\n---\n# b\n"
+    monkeypatch.setattr(_eca, "render_adapter", lambda profile, path: bad)
+    result = export_claude_agent(pkg)
+    assert result["error"] and "policy violation" in result["error"]
+    assert result["adapter_path"] is None and result["installed_path"] is None
+    assert not (pkg / "adapters" / "claude-code" / "export-test-x.md").exists()
+    assert not (tmp_path / ".claude" / "agents" / "generated" / "export-test-x.md").exists()
+
+
 def test_export_writes_byte_identical_canonical_and_install(tmp_path, monkeypatch):
     # Point the install dir at the tmp repo so the test never touches the real .claude tree.
     monkeypatch.setattr(_eca, "_REPO_ROOT", tmp_path)
