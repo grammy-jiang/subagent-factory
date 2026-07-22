@@ -14,7 +14,12 @@
 #   targeted test, vs the default smallest-pending queue selection). Runs exactly once.
 set -euo pipefail
 
-REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# REPO is overridable so this autonomous, long-running, git-committing driver can be pointed at an
+# ISOLATED git worktree (REPO=<worktree>) instead of the shared main tree — the same protection
+# review-subagent-loop.sh adopted after a concurrent `git checkout` in the shared tree once
+# discarded a session's commit. cd into it so the headless claude session also runs there.
+REPO="${REPO:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+cd "$REPO" || { echo "campaign/run.sh: cannot cd to REPO=$REPO" >&2; exit 3; }
 CAMP="$REPO/campaign"
 # Single source of truth for the `claude -p` argv (shared with generate-subagent.sh).
 source "$CAMP/_claude_run.sh"
