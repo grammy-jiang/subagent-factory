@@ -95,7 +95,10 @@ EOF
 }
 
 mustfix_of(){ grep -oiE 'MUST_FIX_COUNT:[[:space:]]*[0-9]+' "$1" 2>/dev/null | tail -1 | grep -oE '[0-9]+' || echo 999; }
-run_claude(){ local eff="$1" prompt="$2" log="$3" argv; build_claude_argv argv "$MODEL" "$eff" "$4"
+run_claude(){ local eff="$1" prompt="$2" log="$3" perm="${5:-author}" argv
+  # $4 = --add-dir (worktree); $5 = permission profile (author|review). A verify session is
+  # read-only + its own report, so it runs `review` (Edit denied); a vfix session needs `author`.
+  CLAUDE_PERM_PROFILE="$perm" build_claude_argv argv "$MODEL" "$eff" "$4"
   printf '%s' "$prompt" | "${argv[@]}" >"$log" 2>&1; }
 
 # ------------------------------------------------------------------ per-slug pipeline
@@ -130,7 +133,7 @@ review_one(){
     quota_gate
     vr="$wt/subagents/$slug/reports/review-loop/$slug.verify$v.md"
     say "$slug: cycle $v — loop reached must-fix=0; INDEPENDENT adversarial verify"
-    run_claude high "$(verify_prompt "$slug" "$wt" "$v")" "$LOG.$slug.verify$v" "$wt" || true
+    run_claude high "$(verify_prompt "$slug" "$wt" "$v")" "$LOG.$slug.verify$v" "$wt" review || true
     [ -f "$vr" ] || { say "$slug: verify $v produced no report — STOP (triage $wt)"; return 1; }
     mf="$(mustfix_of "$vr")"
     say "$slug: verify$v MUST_FIX=$mf"
