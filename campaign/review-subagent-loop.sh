@@ -156,8 +156,10 @@ for SLUG in "${SLUGS[@]}"; do
   [ -f "$DONE" ] && { say "$SLUG: already CLEAN, skip"; continue; }
   # A manager (drive-review-merge.sh) pre-creates an isolated worktree already on review/$SLUG and
   # sets NO_BRANCH=1; standalone, the loop makes the branch itself in the (main) tree.
-  [ -n "${NO_BRANCH:-}" ] || git checkout -B "review/$SLUG" >>"$LOGDIR/review-loop.log" 2>&1 \
-    || say "$SLUG: branch note"
+  if [ -z "${NO_BRANCH:-}" ]; then
+    git checkout -B "review/$SLUG" >>"$LOGDIR/review-loop.log" 2>&1 \
+      || { say "$SLUG: FAILED to checkout review/$SLUG — skipping slug (refusing to commit fixes on the current branch)"; continue; }
+  fi
   say "=== $SLUG: start on $(git branch --show-current) (maxrounds=$MAXROUNDS) ==="
 
   slug_clean=0

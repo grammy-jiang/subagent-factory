@@ -15,6 +15,7 @@ References are inlined into the adapter body rather than copied: they have no ``
 home (only ``SKILL.md`` is auto-loaded), and the body is the subagent's private system prompt.
 """
 
+import re
 import shutil
 from pathlib import Path
 
@@ -24,6 +25,11 @@ from tools.subagent_factory._common import atomic_write_text
 from tools.subagent_factory.export_claude_agent import render_adapter
 
 _CANONICAL_MARKER = "\n## Canonical package"
+
+# A knowledge skill/reference name is a single path segment (no separators, no traversal). It is
+# joined into rmtree/copytree/read paths on a target repo, so a name like "../../x" would delete or
+# read outside the bundle. Reject anything that is not a bare identifier segment before use.
+_SAFE_SEGMENT = re.compile(r"^[a-z0-9][a-z0-9._-]*$")
 
 
 def _strip_canonical_section(md: str) -> str:
@@ -103,16 +109,26 @@ def export_deployable(subagent_dir: str | Path, dest_root: str | Path) -> dict:
         result["error"] = f"profile.yaml not found at {profile_path}"
         return result
 
-    profile = yaml.safe_load(profile_path.read_text())
+    profile = yaml.safe_load(profile_path.read_text(encoding="utf-8"))
     slug = profile.get("slug")
     if not slug:
         result["error"] = "profile.yaml missing 'slug' field"
         return result
+    # Path-traversal guard (see export_claude_agent): the slug is joined into the bundle write path,
+    # so require it equal the (already-validated) package directory name; fail closed on divergence.
+    if str(slug) != subagent_path.name:
+        result["error"] = (
+            f"profile.yaml slug {slug!r} does not match package directory "
+            f"{subagent_path.name!r} — refusing to export"
+        )
+        return result
     result["slug"] = slug
 
     kp = profile.get("knowledge_partition", {})
-    skills = list(kp.get("skills", []))
-    refs = list(kp.get("references", []))
+    # Drop any skill/reference name that is not a bare path segment before it reaches rmtree /
+    # copytree / read — a "../.." name would otherwise delete or disclose files outside the bundle.
+    skills = [s for s in kp.get("skills", []) if _SAFE_SEGMENT.match(str(s))]
+    refs = [r for r in kp.get("references", []) if _SAFE_SEGMENT.match(str(r))]
 
     md = render_adapter(profile, subagent_path)
     md = _strip_canonical_section(md)

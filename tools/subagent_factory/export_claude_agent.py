@@ -111,6 +111,16 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
         result["error"] = "profile.yaml missing 'slug' field"
         return result
 
+    # Path-traversal guard: the slug is joined into the adapter write paths, so a profile whose
+    # `slug` diverges from the (already-validated) package directory name — a tamper or bug — could
+    # write outside the package / generated dir. Require them equal and fail closed (no file written).
+    if str(slug) != subagent_path.name:
+        result["error"] = (
+            f"profile.yaml slug {slug!r} does not match package directory "
+            f"{subagent_path.name!r} — refusing to export"
+        )
+        return result
+
     result["slug"] = slug
 
     rendered = render_adapter(profile, subagent_path)

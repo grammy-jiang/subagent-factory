@@ -42,9 +42,15 @@ def load_restricted_source_ids(base: str | Path) -> set[str]:
     # (treated as "rights unknown" — and an unknown source is conservatively flagged restricted).
     with open(manifest_path, encoding="utf-8") as f:
         manifest = yaml.safe_load(f) or {}
+    base_resolved = base.resolve()
     for source in manifest.get("sources", []):
-        meta_path = base / source.get("metadata_path", "")
+        meta_path = (base / source.get("metadata_path", "")).resolve()
         sid = source.get("source_id")
+        # Traversal guard: a manifest-supplied metadata_path that escapes the package tree is
+        # untrusted — never read the out-of-tree file (inconsistent with redact_injection_spans' own
+        # basename guard otherwise).
+        if not meta_path.is_relative_to(base_resolved):
+            continue
         if not meta_path.exists():
             continue
         try:
