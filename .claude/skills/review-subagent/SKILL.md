@@ -1,3 +1,8 @@
+---
+name: review-subagent
+description: "Review, improve, and adversarially verify a generated subagent package (subagents/<slug>/): a reviewer panel finds real issues, then grounded fixes, then an independent adversarial re-verify, converging to zero must-fix. Use after a package is generated (e.g. by /author-subagent) to take it from validates to trustworthy. Invoked as /review-subagent <slug> [--rounds N]."
+---
+
 # Skill: review-subagent
 
 **Trigger:** `/review-subagent <slug> [--rounds N]` — run after a subagent package is

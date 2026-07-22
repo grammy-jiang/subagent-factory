@@ -18,13 +18,14 @@
 #
 # Launch (survivable):  bash campaign/detach.sh bash campaign/review-subagent-loop.sh <slug> [<slug>...]
 # Env: MAXROUNDS(3) MODEL(claude-opus-4-8) REV_EFFORT(high) FIX_EFFORT(high)
-set -uo pipefail
+set -euo pipefail
 
 # REPO is overridable so a manager (e.g. drive-review-merge.sh) can point the whole loop at an
 # ISOLATED git worktree: uncommitted fix edits on the main tree were once discarded by a concurrent
 # `git checkout` in that shared tree. With REPO=<worktree> every review/fix session, validate, and
 # per-round commit happens inside the worktree, immune to main-tree git ops.
-REPO="${REPO:-/home/grammy-jiang/projects/subagent-factory}"; cd "$REPO"
+REPO="${REPO:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+cd "$REPO" || { echo "review-subagent-loop: cannot cd to REPO=$REPO" >&2; exit 3; }
 # shellcheck source=/dev/null
 source "$REPO/campaign/_claude_run.sh"
 
@@ -43,8 +44,10 @@ say(){ printf '[revloop] %s\n' "$*" | tee -a "$LOGDIR/review-loop.log"; }
 
 # run_fresh_claude EFFORT PROMPT RUNLOG  — one FRESH `claude -p` session; prompt on stdin; stream-json to RUNLOG.
 run_fresh_claude(){
-  local eff="$1" prompt="$2" runlog="$3" argv
-  build_claude_argv argv "$MODEL" "$eff" "$REPO"
+  local eff="$1" prompt="$2" runlog="$3" perm="${4:-author}" argv
+  # perm (author|review) selects the permission profile; a review session gets Edit denied so it
+  # cannot modify the package it is reviewing. Passed as an explicit arg (not a leaked prefix var).
+  CLAUDE_PERM_PROFILE="$perm" build_claude_argv argv "$MODEL" "$eff" "$REPO"
   # prompt arrives on stdin via the pipe; a trailing </dev/null would clobber it (empty prompt -> instant rc=1).
   printf '%s' "$prompt" | "${argv[@]}" >"$runlog" 2>&1
   return $?
@@ -159,7 +162,7 @@ for SLUG in "${SLUGS[@]}"; do
   for r in $(seq 1 "$MAXROUNDS"); do
     RF="$PKG/reports/review-loop/$SLUG.r$r.review.md"
     say "$SLUG round $r: REVIEW (fresh session)"
-    run_fresh_claude "$REV_EFFORT" "$(review_prompt "$SLUG" "$r")" "$LOGDIR/review-loop-$SLUG.r$r.review.jsonl" \
+    run_fresh_claude "$REV_EFFORT" "$(review_prompt "$SLUG" "$r")" "$LOGDIR/review-loop-$SLUG.r$r.review.jsonl" review \
       || say "$SLUG r$r review rc=$?"
     [ -f "$RF" ] || { say "$SLUG r$r: NO review file produced — aborting slug"; break; }
     mf="$(parse_mustfix "$RF")"

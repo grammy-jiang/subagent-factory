@@ -181,6 +181,35 @@ def test_adapter_sync_mismatch_fails(tmp_path, monkeypatch):
     assert result["passed"] is False
 
 
+def _warn_check_names(result):
+    return {f["check"] for f in result["findings"] if f["level"] == "WARN"}
+
+
+def test_adapter_freshness_drift_warns(tmp_path, monkeypatch):
+    # _build writes a canned adapter body that is NOT a fresh render of profile.yaml, so canonical
+    # and installed match each other (adapter-sync OK) while both drift from the generator. That
+    # silent-rot case — the 31/38 stale-adapter failure mode — must WARN, not pass unnoticed.
+    pkg, _ = _build(tmp_path, monkeypatch)
+    result = vgp.validate_generated_package(pkg)
+    assert "adapter-fresh" in _warn_check_names(result)
+    assert result["passed"] is True  # freshness drift is a WARN, not a FAIL
+
+
+def test_adapter_freshness_match_ok(tmp_path, monkeypatch):
+    # When the stored adapter IS a fresh render of profile.yaml, freshness is OK (no drift WARN).
+    from tools.subagent_factory.export_claude_agent import render_adapter
+
+    pkg, slug = _build(tmp_path, monkeypatch)
+    fresh = render_adapter(_valid_profile(), pkg)
+    (pkg / "adapters" / "claude-code" / f"{slug}.md").write_text(fresh, encoding="utf-8")
+    (tmp_path / "repo" / ".claude" / "agents" / "generated" / f"{slug}.md").write_text(
+        fresh, encoding="utf-8"
+    )
+    result = vgp.validate_generated_package(pkg)
+    assert "adapter-fresh" not in _warn_check_names(result)
+    assert result["passed"] is True
+
+
 def test_missing_test_results_fails(tmp_path, monkeypatch):
     pkg, _ = _build(tmp_path, monkeypatch, with_test_results=False)
     result = vgp.validate_generated_package(pkg)

@@ -28,6 +28,7 @@ import yaml
 
 from tools.subagent_factory._common import atomic_write_text
 from tools.subagent_factory.emit_chunk_anchors import emit_anchors
+from tools.subagent_factory.generate_conversion_report import generate_conversion_report
 from tools.subagent_factory.generate_manifest import generate_manifest
 from tools.subagent_factory.generate_metadata import generate_metadata
 from tools.subagent_factory.reduce_principles import (
@@ -311,8 +312,8 @@ def _sync_source_layer(
     a single coherent identity instead of (unreliably) synthesising source files itself.
 
     Predecessor fields (title/author/year/rights/original_filename/file_type) are carried from an
-    existing metadata file matched by the input markdown's stem, so re-MAPping over an existing
-    package preserves provenance rather than degrading to stem-derived defaults.
+    existing metadata file matched by source_id (the stable content-sha id), so re-MAPping over an
+    existing package preserves provenance rather than degrading to stem-derived defaults.
     """
     import hashlib
 
@@ -339,7 +340,11 @@ def _sync_source_layer(
         sid = m["source_id"]
         src_md = m["dir"] / "source.md"
         input_path = sha_to_input.get(m["dir"].name)
-        pred = predecessors.get(input_path.stem) if input_path else None
+        # Match the predecessor by source_id — metadata files are named <source_id>.metadata.json,
+        # and source_id is the stable content-sha id, so re-MAPping the same book carries its prior
+        # provenance. (Keying on input_path.stem was wrong: the input file keeps its original name,
+        # never equal to the truncated-slug+sha8 source_id, so the lookup always missed.)
+        pred = predecessors.get(sid)
         text = src_md.read_text(encoding="utf-8") if src_md.exists() else ""
 
         if src_md.exists():
@@ -375,18 +380,33 @@ def _sync_source_layer(
             anchor_count=n_anchors,
             notes=(pred or {}).get("notes"),
         )
-        atomic_write_text(
-            sources_root / "reports" / f"{sid}.conversion-report.md",
-            f"# Conversion report: {sid}\n\n"
-            f"- source_id: {sid}\n- sha256: {meta['sha256']}\n"
-            f"- word_count: {meta['word_count']}\n- anchor_count: {n_anchors}\n"
-            f"- converter: {(pred or {}).get('converter_used') or 'map-reduce (pre-chunked markdown)'}\n",
+        orig_fn = (pred or {}).get("original_filename") or (
+            input_path.name if input_path else f"{sid}.md"
+        )
+        # DRY: write the conversion report through the shared writer (schema-conformant:
+        # schema_version, warnings/errors, human-review, stats) instead of a hand-rolled Markdown
+        # fragment that had drifted from it. sha256 + anchor_count live in the metadata JSON and the
+        # anchors file, which the standard report format does not duplicate.
+        generate_conversion_report(
+            source_id=sid,
+            original_filename=orig_fn,
+            conversion_result={
+                "conversion_status": "ok",
+                "converter_used": (pred or {}).get("converter_used")
+                or "map-reduce (pre-chunked markdown)",
+                "warnings": [],
+                "errors": [],
+                "stats": {
+                    "word_count": meta["word_count"],
+                    "page_count": (pred or {}).get("page_count"),
+                },
+            },
+            output_path=sources_root / "reports" / f"{sid}.conversion-report.md",
         )
         records.append(
             {
                 "source_id": sid,
-                "original_filename": (pred or {}).get("original_filename")
-                or (input_path.name if input_path else f"{sid}.md"),
+                "original_filename": orig_fn,
                 "sha256": meta["sha256"],
                 "conversion_status": "ok",
                 "metadata_path": f"sources/metadata/{sid}.metadata.json",

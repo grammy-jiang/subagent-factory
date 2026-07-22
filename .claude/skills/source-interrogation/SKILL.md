@@ -1,3 +1,8 @@
+---
+name: source-interrogation
+description: "Run the Q1–Q18 source interrogation against approved canonical Markdown sources to extract the fields needed to author a subagent profile (role, when-to-use, modes, evidence). Use after ingestion produces canonical Markdown and before profile derivation — Phase 3 of the authoring cycle."
+---
+
 # Skill: source-interrogation
 
 **Purpose:** Run Q1–Q18 against approved canonical Markdown sources to extract all

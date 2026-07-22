@@ -29,6 +29,18 @@ fi
 #   EFFORT          effort level, or "" to omit the --effort flag.
 #   ADD_DIR...      zero or more directories; each becomes its own --add-dir D.
 #
+# Least privilege by session role via the CLAUDE_PERM_PROFILE env var (default "author"):
+#   author  full authority — author/fix sessions legitimately create and edit package files.
+#   review  a REVIEW/VERIFY session must not modify the files under review; it only Writes its own
+#           report and Reads/greps/spawns sub-reviewers. Add `--disallowedTools Edit` so it cannot
+#           edit existing files in place. Deny rules apply even under --dangerously-skip-permissions,
+#           and in headless mode a denied call fails the session loudly (it never hangs). This is the
+#           conservative form; it does not yet scope Write to the report path. The stricter form
+#           (`--permission-mode dontAsk` + an explicit --allowedTools allowlist including
+#           `Write(subagents/*/reports/**)`, Read/Grep/Glob/Task and the Bash gate commands) fully
+#           scopes Write but needs one live headless smoke test first, because an incomplete
+#           allowlist auto-denies and aborts the session.
+#
 # The resulting array begins with `claude -p` and ends with the fixed trailing
 # flags. The caller runs it (e.g. `"${argv[@]}"`) or prints it for --dry-run.
 build_claude_argv() {
@@ -44,6 +56,9 @@ build_claude_argv() {
     _out+=(--add-dir "$_d")
   done
   _out+=(--dangerously-skip-permissions --output-format stream-json --verbose)
+  case "${CLAUDE_PERM_PROFILE:-author}" in
+    review) _out+=(--disallowedTools Edit) ;;
+  esac
 }
 
 # claude_argv_str ARRAY_ELEMENT...

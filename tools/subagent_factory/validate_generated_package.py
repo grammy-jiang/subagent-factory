@@ -360,7 +360,17 @@ def _check_reports(base: Path, warn: _Emit, ok: _Emit) -> None:
 
 
 # 7. Adapter check
-def _check_adapter(base: Path, slug: str, fail: _Emit, ok: _Emit) -> None:
+def _strip_generated_ts(text: str) -> str:
+    """Normalize the volatile ``Generated: <timestamp>`` line so a fresh render can be compared to a
+    stored adapter for CONTENT drift (the timestamp changes on every export)."""
+    import re
+
+    return re.sub(r"^Generated:.*$", "Generated: <ts>", text, flags=re.M)
+
+
+def _check_adapter(
+    base: Path, slug: str, profile: dict, fail: _Emit, warn: _Emit, ok: _Emit
+) -> None:
     adapter_path = base / "adapters" / "claude-code" / f"{slug}.md"
     if adapter_path.exists():
         ok("adapter", f"Canonical adapter {adapter_path.name} present")
@@ -380,6 +390,29 @@ def _check_adapter(base: Path, slug: str, fail: _Emit, ok: _Emit) -> None:
                 ok("adapter-sync", "Installed adapter matches canonical")
     else:
         fail("adapter-installed", f"Installed adapter not found at {installed_path}")
+
+    # Freshness: the stored adapter must match what the CURRENT generator renders from profile.yaml.
+    # adapter-sync above compares two STORED files (canonical vs installed); when both are stale
+    # together — a generator/template/compiler change that was never re-exported — it passes while
+    # both drift from the generator (the 31/38 stale-adapter failure mode). Re-render and compare,
+    # ignoring the volatile Generated: timestamp. WARN not FAIL: some drift is cosmetic (e.g.
+    # description composition) and re-export is a human call; harmful truncation is a separate FAIL.
+    if adapter_path.exists() and isinstance(profile, dict) and profile:
+        try:
+            from tools.subagent_factory.export_claude_agent import render_adapter
+
+            fresh = _strip_generated_ts(render_adapter(profile, base))
+            stored = _strip_generated_ts(adapter_path.read_text(encoding="utf-8"))
+            if fresh != stored:
+                warn(
+                    "adapter-fresh",
+                    "adapter drifts from a fresh render of profile.yaml (generator/template "
+                    "changed since export) — re-export with `cli export`",
+                )
+            else:
+                ok("adapter-fresh", "adapter matches a fresh render of profile.yaml")
+        except Exception as e:  # never let a render hiccup crash validation
+            warn("adapter-fresh", f"could not verify adapter freshness: {e}")
 
 
 # 8. Tests — golden tests and a test-results record are required (v0 §17)
@@ -621,7 +654,7 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
     _check_manifest(base, fail, ok)
     _check_anchors(base, fail, ok)
     _check_reports(base, warn, ok)
-    _check_adapter(base, slug, fail, ok)
+    _check_adapter(base, slug, profile, fail, warn, ok)
     _check_tests(base, fail, ok)
     _check_phase8(base, fail, ok)
     _check_quote_scan(base, warn, ok)

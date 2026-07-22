@@ -260,6 +260,80 @@ def test_export_profile_missing_slug_returns_error(tmp_path):
     assert result["error"] == "profile.yaml missing 'slug' field"
 
 
+def test_export_empty_profile_returns_error_not_raises(tmp_path):
+    # An empty / comment-only profile.yaml parses to None, not {}. It must follow the soft-error
+    # contract (missing 'slug'), never raise AttributeError on None.get(...).
+    pkg = tmp_path / "subagents" / "empty"
+    pkg.mkdir(parents=True)
+    (pkg / "profile.yaml").write_text("# nothing authored yet\n", encoding="utf-8")
+    result = export_claude_agent(pkg)
+    assert result["error"] == "profile.yaml missing 'slug' field"
+
+
+def test_export_null_profile_sections_do_not_crash(tmp_path, monkeypatch):
+    # A stub profile may carry explicit-null sections (outputs:/inputs:/knowledge_partition:/
+    # source_of_truth_policy:). dict.get(k, {}) returns None for those, so the chained `.get()`
+    # must be guarded with `or {}`; export should render, not raise AttributeError.
+    monkeypatch.setattr(_eca, "_REPO_ROOT", tmp_path)
+    profile = {
+        "slug": "null-sections-x",
+        "role": "An expert reviewer.",
+        "when_to_use": ["When asked to review."],
+        "attach_invariants": False,
+        "outputs": None,
+        "inputs": None,
+        "knowledge_partition": None,
+        "source_of_truth_policy": None,
+    }
+    pkg = _write_profile(tmp_path, profile)
+    result = export_claude_agent(pkg)
+    assert result["error"] is None
+    assert result["adapter_path"].endswith("adapters/claude-code/null-sections-x.md")
+
+
+def test_patch_suggest_adapter_surfaces_patch_policy(tmp_path, monkeypatch):
+    # An adapter granted Edit/Write (patch-suggest mode) must render its patch-policy gate inline,
+    # so the model holding the tool sees when direct patching is legitimate — not leave it unread
+    # in policy/patch-policy.yaml (least-privilege / capability-with-its-gate).
+    monkeypatch.setattr(_eca, "_REPO_ROOT", tmp_path)
+    profile = dict(
+        _MINIMAL_PROFILE,
+        slug="patch-x",
+        outputs={"modes": [{"name": "advise"}, {"name": "patch-suggest"}]},
+    )
+    pkg = _write_profile(tmp_path, profile)
+    (pkg / "policy").mkdir()
+    (pkg / "policy" / "patch-policy.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "default_mode": "patch_suggest_only",
+                "direct_patch_allowed_when": ["user_explicitly_requests_patch"],
+                "must_not": ["silently_edit_canonical_artifacts"],
+            }
+        ),
+        encoding="utf-8",
+    )
+    result = export_claude_agent(pkg)
+    assert result["error"] is None
+    adapter = (pkg / "adapters" / "claude-code" / "patch-x.md").read_text(encoding="utf-8")
+    assert "tools: Read, Edit, Write, Grep, Glob" in adapter
+    assert "## Patch policy — Edit/Write is gated" in adapter
+    assert "user_explicitly_requests_patch" in adapter
+    assert "silently_edit_canonical_artifacts" in adapter
+
+
+def test_read_only_adapter_has_no_patch_policy_section(tmp_path, monkeypatch):
+    # A read-only adapter (Read/Grep/Glob) must not carry a patch-policy section — it's gated on
+    # actually holding Edit/Write.
+    monkeypatch.setattr(_eca, "_REPO_ROOT", tmp_path)
+    pkg = _write_profile(tmp_path, _MINIMAL_PROFILE)  # advise-only -> read-only
+    result = export_claude_agent(pkg)
+    assert result["error"] is None
+    adapter = (pkg / "adapters" / "claude-code" / "export-test-x.md").read_text(encoding="utf-8")
+    assert "tools: Read, Grep, Glob" in adapter
+    assert "## Patch policy" not in adapter
+
+
 def test_export_writes_byte_identical_canonical_and_install(tmp_path, monkeypatch):
     # Point the install dir at the tmp repo so the test never touches the real .claude tree.
     monkeypatch.setattr(_eca, "_REPO_ROOT", tmp_path)
