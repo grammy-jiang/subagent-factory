@@ -25,11 +25,26 @@ def _yaml_scalar(value: str) -> str:
     return json.dumps("" if value is None else str(value), ensure_ascii=False)
 
 
-def render_adapter(profile: dict, subagent_path: Path) -> str:
-    """Render the Claude Code adapter Markdown from a loaded profile. Pure (no file I/O).
+def _load_patch_policy(subagent_path: Path) -> dict | None:
+    """Load ``policy/patch-policy.yaml`` so the adapter can surface the gate that bounds direct
+    patching. Returns None if absent/unreadable (the adapter's patch-policy section then renders
+    nothing)."""
+    path = Path(subagent_path) / "policy" / "patch-policy.yaml"
+    if not path.exists():
+        return None
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except yaml.YAMLError:
+        return None
+    return data if isinstance(data, dict) else None
 
-    Shared by export_claude_agent (the factory-installed adapter) and export_deployable
-    (a self-contained bundle for another repo), so both render through one code path.
+
+def render_adapter(profile: dict, subagent_path: Path) -> str:
+    """Render the Claude Code adapter Markdown from a loaded profile.
+
+    Reads package artifacts (principles for the invariant layer, patch-policy for the Edit/Write
+    gate) from ``subagent_path``. Shared by export_claude_agent (the factory-installed adapter) and
+    export_deployable (a self-contained bundle for another repo), so both render through one path.
     """
     ctx = _build_template_context(profile)
     # A3/A5: compile must-hold principles into a distinct enforced invariant layer, traceable to
@@ -40,6 +55,14 @@ def render_adapter(profile: dict, subagent_path: Path) -> str:
         ctx["invariants"] = compile_invariants(load_principles(subagent_path))
     else:
         ctx["invariants"] = []
+
+    # Least privilege: when the adapter holds Edit/Write (granted for a patch-suggest mode), render
+    # the patch policy inline so the model sees the gate that bounds direct patching — instead of it
+    # sitting unread in policy/patch-policy.yaml. A read-only adapter surfaces nothing.
+    if "Edit" in ctx["tools"] or "Write" in ctx["tools"]:
+        ctx["patch_policy"] = _load_patch_policy(subagent_path)
+    else:
+        ctx["patch_policy"] = None
 
     # Markdown (not HTML) from trusted profile data; HTML autoescape would corrupt punctuation.
     env = Environment(loader=FileSystemLoader(str(_TEMPLATES_DIR)), autoescape=False)  # nosec B701

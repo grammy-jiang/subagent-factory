@@ -64,7 +64,17 @@ Non-negotiable, evidence-grounded domain rules, each traceable to its source pri
 {% for behaviour in forbidden_behaviours %}
 - {{ behaviour }}
 {% endfor %}
+{% if patch_policy %}
+## Patch policy — Edit/Write is gated
 
+You hold `Edit`/`Write` only for the `patch-suggest` mode. Default: **{{ patch_policy.default_mode }}** — propose the change as a diff or sketch and leave application to the code owner; never edit files silently.
+
+Apply a patch directly ONLY when every one of these holds:
+{% for c in patch_policy.direct_patch_allowed_when %}- {{ c }}
+{% endfor %}
+Never:
+{% for c in patch_policy.must_not %}- {{ c }}
+{% endfor %}{% endif %}
 ## Handoff rules
 
 {% for rule in handoff_rules %}
