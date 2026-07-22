@@ -48,14 +48,13 @@ def _verdicts_path(base: Path) -> Path:
     return base / "reports" / "source-safety-verdicts.yaml"
 
 
-def load_verdicts(subagent_dir: str | Path) -> list[dict]:
-    """Load ``reports/source-safety-verdicts.yaml`` (schema source-safety-verdicts-v1).
+def _parse_verdicts(p: Path) -> list[dict]:
+    """Parse + validate a source-safety-verdicts-v1 file at an explicit path.
 
-    Returns ``[]`` when the file is absent (no triage recorded — the common case). Raises
-    ``ValueError`` on a malformed file: this is a security gate, so an unparseable/ill-formed
-    verdicts file fails closed rather than being read as "no suspicious spans".
+    Returns ``[]`` when absent. Raises ``ValueError`` on a malformed file: this is a security gate,
+    so an unparseable/ill-formed verdicts file fails closed rather than reading as "no suspicious
+    spans". Shared by the package path (reports/…) and the book-module path (module/…).
     """
-    p = _verdicts_path(Path(subagent_dir))
     if not p.exists():
         return []
     try:
@@ -76,6 +75,11 @@ def load_verdicts(subagent_dir: str | Path) -> list[dict]:
             raise ValueError(f"{p}: verdict[{i}] missing 'file'")
         out.append(v)
     return out
+
+
+def load_verdicts(subagent_dir: str | Path) -> list[dict]:
+    """Load a package's ``reports/source-safety-verdicts.yaml`` (schema source-safety-verdicts-v1)."""
+    return _parse_verdicts(_verdicts_path(Path(subagent_dir)))
 
 
 def _line_ending(s: str) -> str:
@@ -156,6 +160,73 @@ def redact_injection_spans(subagent_dir: str | Path) -> dict:
         "restored": restored,
         "unresolved": unresolved,
     }
+
+
+def redact_book_module(module_dir: str | Path) -> dict:
+    """Neutralize confirmed-``suspicious`` spans in a chunk_source book-extract module (approach A).
+
+    The map-reduce MAP session reads the module's ``chunks/*.md`` — verbatim copies of spans of
+    ``source.md``, which the injection scan flagged. Driven by
+    ``<module>/source-safety-verdicts.yaml`` (schema source-safety-verdicts-v1, ``file`` = source.md):
+    whole-line-redact each suspicious source line, then propagate to every chunk by matching the exact
+    pristine line text — so the payload is gone from BOTH source.md and every chunk before MAP reads
+    it. Chunk ids (filenames) are unchanged — only line contents are neutralized — so
+    content-addressing and anchors stay valid. Pristine copies (``source.md.raw``, ``chunks-raw/``)
+    are kept for audit and idempotent rebuild (each run redacts from pristine, never compounds).
+    """
+    base = Path(module_dir)
+    suspicious = [
+        v
+        for v in _parse_verdicts(base / "source-safety-verdicts.yaml")
+        if v.get("verdict") == "suspicious"
+    ]
+    summary: dict = {
+        "suspicious": len(suspicious),
+        "source_lines_redacted": 0,
+        "chunk_lines_redacted": 0,
+        "unresolved": [],
+    }
+    src = base / "source.md"
+    if not suspicious or not src.exists():
+        return summary
+
+    raw = base / "source.md.raw"
+    if not raw.exists():
+        raw.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
+    pristine = raw.read_text(encoding="utf-8").splitlines(keepends=True)
+    lines = list(pristine)
+    payloads: set[str] = set()
+    for v in suspicious:
+        ln = v.get("line")
+        if not isinstance(ln, int) or isinstance(ln, bool) or ln < 1 or ln > len(pristine):
+            summary["unresolved"].append({"line": ln, "reason": "line out of range"})
+            continue
+        text = pristine[ln - 1].strip()
+        if text:
+            payloads.add(text)
+        lines[ln - 1] = PLACEHOLDER + _line_ending(pristine[ln - 1])
+        summary["source_lines_redacted"] += 1
+    src.write_text("".join(lines), encoding="utf-8")
+
+    # Propagate to the chunks (what MAP actually reads) by exact pristine-line match.
+    chunks_dir = base / "chunks"
+    if payloads and chunks_dir.is_dir():
+        raw_chunks = base / "chunks-raw"
+        raw_chunks.mkdir(exist_ok=True)
+        for ch in sorted(chunks_dir.glob("*.md")):
+            praw = raw_chunks / ch.name
+            if not praw.exists():
+                praw.write_text(ch.read_text(encoding="utf-8"), encoding="utf-8")
+            clines = praw.read_text(encoding="utf-8").splitlines(keepends=True)
+            changed = False
+            for i, cl in enumerate(clines):
+                if cl.strip() and cl.strip() in payloads:
+                    clines[i] = PLACEHOLDER + _line_ending(cl)
+                    summary["chunk_lines_redacted"] += 1
+                    changed = True
+            if changed:
+                ch.write_text("".join(clines), encoding="utf-8")
+    return summary
 
 
 def main() -> None:
