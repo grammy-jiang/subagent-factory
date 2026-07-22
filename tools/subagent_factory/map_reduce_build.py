@@ -311,8 +311,8 @@ def _sync_source_layer(
     a single coherent identity instead of (unreliably) synthesising source files itself.
 
     Predecessor fields (title/author/year/rights/original_filename/file_type) are carried from an
-    existing metadata file matched by the input markdown's stem, so re-MAPping over an existing
-    package preserves provenance rather than degrading to stem-derived defaults.
+    existing metadata file matched by source_id (the stable content-sha id), so re-MAPping over an
+    existing package preserves provenance rather than degrading to stem-derived defaults.
     """
     import hashlib
 
@@ -339,7 +339,11 @@ def _sync_source_layer(
         sid = m["source_id"]
         src_md = m["dir"] / "source.md"
         input_path = sha_to_input.get(m["dir"].name)
-        pred = predecessors.get(input_path.stem) if input_path else None
+        # Match the predecessor by source_id — metadata files are named <source_id>.metadata.json,
+        # and source_id is the stable content-sha id, so re-MAPping the same book carries its prior
+        # provenance. (Keying on input_path.stem was wrong: the input file keeps its original name,
+        # never equal to the truncated-slug+sha8 source_id, so the lookup always missed.)
+        pred = predecessors.get(sid)
         text = src_md.read_text(encoding="utf-8") if src_md.exists() else ""
 
         if src_md.exists():

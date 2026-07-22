@@ -24,7 +24,10 @@ def _fake_embedder(stmts):
 
 
 def _mk_module(repo, sid, text, claims, principles):
-    sp = repo / "src" / f"{sid}.md"
+    # Input markdown is named after the ORIGINAL document, NOT the source_id: in production a
+    # source_id is a truncated-slug + sha8 (e.g. "luciano-ramalho-flue-5c81071a") while the input
+    # file keeps its full original stem. Keeping stem != sid here guards the predecessor-carry key.
+    sp = repo / "src" / f"raw-{sid}-doc.md"
     sp.parent.mkdir(parents=True, exist_ok=True)
     sp.write_text(text, encoding="utf-8")
     sha = hashlib.sha256(sp.read_bytes()).hexdigest()
@@ -211,7 +214,7 @@ def test_assemble_drops_classic_vestiges(tmp_path):
 
 
 def test_assemble_carries_predecessor_metadata(tmp_path):
-    # A prior ingest's metadata (matched by the input markdown stem) is carried onto the new id,
+    # A prior ingest's metadata (matched by source_id) is carried onto the new id,
     # so re-MAPping preserves title/rights/author instead of degrading to stem-derived defaults.
     sources = _fixture(tmp_path)
     pkg = tmp_path / "subagents" / "demo-carry"
