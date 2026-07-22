@@ -192,7 +192,10 @@ def adapter_policy_scan(subagent_dir: str | Path) -> list[dict]:
             )
         return findings
 
-    slug = str(profile.get("slug") or base.name)
+    # Use the (validated) package dir name for the installed-adapter path — NEVER the untrusted
+    # profile slug, which could traverse (`../../x`) and point the fail-closed policy gate at a file
+    # outside the generated dir. Export enforces slug == dir name, so this is the canonical location.
+    slug = base.name
     allowed = set(_determine_tools(profile))
     # Scan EVERY adapter file in the package's claude-code dir, not only {slug}.md: a file whose
     # name drifted from the slug (rename not propagated) must not escape the FAIL path. Plus the

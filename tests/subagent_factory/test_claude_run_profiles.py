@@ -36,11 +36,12 @@ def test_author_profile_denies_agent_network_tools():
 
 
 @pytest.mark.skipif(not _HELPER.exists(), reason="_claude_run.sh not present")
-def test_review_profile_denies_edit():
+def test_review_profile_denies_edit_and_network():
     argv = _argv("review")
-    assert "--disallowedTools Edit" in argv
-    # The review profile must NOT carry the author network deny (distinct role, distinct flags).
-    assert "WebFetch" not in argv
+    # A review/verify session denies in-place edits AND the agent's own network tools — it reads code
+    # and writes its report, with no legitimate need to fetch a URL (same trifecta reasoning as author).
+    assert "--disallowedTools 'Edit WebFetch WebSearch'" in argv
+    assert "--dangerously-skip-permissions" in argv
 
 
 @pytest.mark.skipif(not _HELPER.exists(), reason="_claude_run.sh not present")

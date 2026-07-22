@@ -13,9 +13,9 @@ def validate_metadata(metadata_path: str | Path) -> list[str]:
     """Return list of error strings. Empty list = valid."""
     path = Path(metadata_path)
     try:
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             data = json.load(f)
-        with open(_SCHEMA_PATH) as f:
+        with open(_SCHEMA_PATH, encoding="utf-8") as f:
             schema = json.load(f)
         jsonschema.validate(data, schema)
         return []

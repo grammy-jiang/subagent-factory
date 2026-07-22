@@ -136,9 +136,13 @@ def redact_injection_spans(subagent_dir: str | Path) -> dict:
     if raw_dir.exists():
         for raw in sorted(raw_dir.glob("*.md")):
             if raw.name not in by_file:
-                (md_dir / raw.name).write_text(raw.read_text(encoding="utf-8"), encoding="utf-8")
+                target = md_dir / raw.name
+                # Restore only a file that still exists — never re-materialize one deliberately
+                # deleted between runs; just drop the orphan snapshot.
+                if target.exists():
+                    target.write_text(raw.read_text(encoding="utf-8"), encoding="utf-8")
+                    restored.append(raw.name)
                 raw.unlink()
-                restored.append(raw.name)
         try:
             raw_dir.rmdir()  # drop the dir once it holds no snapshots
         except OSError:

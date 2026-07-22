@@ -23,11 +23,13 @@ stronger than its source support.
 
 ## At a glance
 
-- **28 packages**, all validating. **646 tests**, mypy + ruff clean.
+- **38 packages**, all validating. **1000+ tests**, mypy + ruff clean. (Counts are a snapshot — run
+  `ls -d subagents/*/ | wc -l` and `python -m pytest tests/ --co -q | tail -1` for live values.)
 - **81 tool modules**, **15 schemas**, **18 build-step specs** (`docs/enhancement-steps/`).
-- Build steps **0–9, 11, 12, 15, 16, 20** implemented; **13** partial (test-gen built, runtime
-  ask-gate deferred — black-box risk-signal gap); **14** routing-rule only (retrieval engine
-  deferred); **10 removed** (superseded by Step 20). See `docs/enhancement-steps/README.md`.
+- Build steps **0–9, 11, 12, 15, 16, 20** implemented; **13** partial (test-gen built; `ask_gate.py`
+  — the deterministic F1/F2 core — exists but is not yet wired into a CLI subcommand or the validate
+  gate, which is the real remaining gap); **14** routing-rule only (retrieval engine deferred);
+  **10 removed** (superseded by Step 20). See `docs/enhancement-steps/README.md`.
 
 ## Capabilities (the three research tracks)
 

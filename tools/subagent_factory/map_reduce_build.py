@@ -73,9 +73,12 @@ def load_modules(source_paths: Sequence[str | Path], cache_root: Path) -> list[d
         out.append(
             {
                 "dir": d,
-                "source_id": json.loads((d / "module.json").read_text(encoding="utf-8"))[
-                    "source_id"
-                ],
+                # Basename the LLM/MAP-authored source_id before it is used (it drives write paths in
+                # assemble/_sync_source_layer) — a "../.." id must not escape the package. Applied at
+                # the single read point so the id stays consistent as a dict key everywhere downstream.
+                "source_id": Path(
+                    json.loads((d / "module.json").read_text(encoding="utf-8"))["source_id"]
+                ).name,
                 "claims": [
                     json.loads(x)
                     for x in (d / "claims.jsonl").read_text(encoding="utf-8").splitlines()

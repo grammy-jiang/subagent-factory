@@ -17,6 +17,8 @@ from typing import Any
 import yaml
 from slugify import slugify
 
+from tools.subagent_factory._common import atomic_write_text
+
 
 def _stub_slug(text: str) -> str:
     """Derive a short kebab-case slug from the first words of a partition entry."""
@@ -117,7 +119,9 @@ def generate_stubs(subagent_dir: str | Path) -> dict:
             result["skills_existing"] += 1
             continue
         skill_dir.mkdir(parents=True, exist_ok=True)
-        skill_file.write_text(_skill_stub(slug, slug.replace("-", " "), entry), encoding="utf-8")
+        # Atomic: exists()-only idempotency above means a torn write would persist as a truncated
+        # stub and never be re-created; temp-file + os.replace makes a crash leave no file.
+        atomic_write_text(skill_file, _skill_stub(slug, slug.replace("-", " "), entry))
         result["skills_created"] += 1
 
     refs_dir = subagent_path / "references"
@@ -128,7 +132,7 @@ def generate_stubs(subagent_dir: str | Path) -> dict:
             result["references_existing"] += 1
             continue
         refs_dir.mkdir(parents=True, exist_ok=True)
-        ref_file.write_text(_reference_stub(slug, slug.replace("-", " "), entry), encoding="utf-8")
+        atomic_write_text(ref_file, _reference_stub(slug, slug.replace("-", " "), entry))
         result["references_created"] += 1
 
     return result

@@ -211,7 +211,10 @@ def ingest_source(
     sha256 = _sha256_file(source_file)
     manifest_path = subagent_path / "source-pack.manifest.yaml"
     if manifest_path.exists():
-        existing_manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8")) or {}
+        try:
+            existing_manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8")) or {}
+        except (OSError, yaml.YAMLError):
+            existing_manifest = {}  # unparseable own manifest → no dedup match, proceed (as cross-pkg)
         for existing_source in existing_manifest.get("sources", []):
             if existing_source.get("sha256") == sha256:
                 # Early return shares the same result shape as the happy path (every key is

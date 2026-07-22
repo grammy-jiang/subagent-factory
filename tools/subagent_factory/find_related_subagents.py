@@ -79,7 +79,7 @@ def find_related_subagents(
 
     for profile_path in base.glob("*/profile.yaml"):
         try:
-            with open(profile_path) as f:
+            with open(profile_path, encoding="utf-8") as f:
                 profile = yaml.safe_load(f) or {}
         except (OSError, yaml.YAMLError) as exc:
             # Surface the skip: a silently dropped candidate can flip the

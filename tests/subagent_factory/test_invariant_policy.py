@@ -105,7 +105,8 @@ def test_recommend_no_section_to_gate(tmp_path):
 
 
 def _export_pkg(tmp_path, attach: bool | None):
-    base = tmp_path / "sdpkg"
+    # dir name must equal the profile slug (export's path-traversal guard requires it)
+    base = tmp_path / "sdpkg-test-xyz"
     (base / "principles").mkdir(parents=True)
     profile = {
         "slug": "sdpkg-test-xyz",

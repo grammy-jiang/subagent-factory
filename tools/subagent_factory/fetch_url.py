@@ -291,12 +291,13 @@ def fetch_url(
             filename = _url_to_filename(url) + ext
             local_path = dest / filename
 
-            data = b""
+            buf = bytearray()  # bytearray extend is amortized O(1); `bytes += chunk` was O(n^2)
             for chunk in resp.iter_content(chunk_size=65536):
-                data += chunk
-                if len(data) > MAX_SIZE:
+                buf += chunk
+                if len(buf) > MAX_SIZE:
                     result["error"] = f"Response exceeds {MAX_SIZE} bytes limit"
                     return result
+            data = bytes(buf)
 
             local_path.write_bytes(data)
             result["local_path"] = str(local_path)

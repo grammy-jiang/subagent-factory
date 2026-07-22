@@ -40,15 +40,21 @@ def load_restricted_source_ids(base: str | Path) -> set[str]:
     # error would FAIL OPEN (a restricted source goes unflagged, allowing verbatim quotation). So a
     # manifest-level failure propagates; only a single unreadable/malformed per-source meta is skipped
     # (treated as "rights unknown" — and an unknown source is conservatively flagged restricted).
-    with open(manifest_path) as f:
+    with open(manifest_path, encoding="utf-8") as f:
         manifest = yaml.safe_load(f) or {}
+    base_resolved = base.resolve()
     for source in manifest.get("sources", []):
-        meta_path = base / source.get("metadata_path", "")
+        meta_path = (base / source.get("metadata_path", "")).resolve()
         sid = source.get("source_id")
+        # Traversal guard: a manifest-supplied metadata_path that escapes the package tree is
+        # untrusted — never read the out-of-tree file (inconsistent with redact_injection_spans' own
+        # basename guard otherwise).
+        if not meta_path.is_relative_to(base_resolved):
+            continue
         if not meta_path.exists():
             continue
         try:
-            with open(meta_path) as f:
+            with open(meta_path, encoding="utf-8") as f:
                 meta = json.load(f)
         except (OSError, json.JSONDecodeError):
             # rights unknown for this source → conservative floor: treat as restricted, don't skip it.
@@ -74,7 +80,9 @@ def load_source_texts(base: str | Path, source_ids: set[str] | None = None) -> d
         return texts
     ids = [p.stem for p in markdown_dir.glob("*.md")] if source_ids is None else list(source_ids)
     for source_id in ids:
-        md_path = markdown_dir / f"{source_id}.md"
+        # Basename the id before joining it into a path — a manifest-supplied source_id like
+        # "../../etc/passwd" must not read outside sources/markdown/ (matches redact's guard).
+        md_path = markdown_dir / f"{Path(source_id).name}.md"
         if md_path.exists():
             try:
                 texts[source_id] = normalize_ws(md_path.read_text(encoding="utf-8"))
