@@ -25,7 +25,7 @@ def generate_manifest(
 
     existing: dict[str, Any] = {}
     if manifest_path.exists():
-        with open(manifest_path) as f:
+        with open(manifest_path, encoding="utf-8") as f:
             existing = yaml.safe_load(f) or {}
 
     existing_sources = {s["source_id"]: s for s in existing.get("sources", [])}

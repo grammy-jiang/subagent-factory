@@ -82,7 +82,10 @@ build_claude_argv() {
       # run on a throwaway review/<slug> branch (standalone loop) or an isolated git worktree
       # (drive-review-merge.sh), gated by a fresh `validate`, with fixes applied by separate sessions.
       # Revisit if a future claude honours `Write(<path>)` — then this becomes a one-line change.
-      _out+=(--dangerously-skip-permissions --disallowedTools Edit)
+      # Also deny the agent's own network tools: a review/verify session reads code and writes its
+      # report — it has no legitimate need to fetch a URL or search the web (same trifecta reasoning
+      # as the author profile). Space-separated single value; bare-tool deny is honored.
+      _out+=(--dangerously-skip-permissions --disallowedTools "Edit WebFetch WebSearch")
       ;;
     *)  # author (default): full authority to create/edit files, but deny the agent's own network
         # tools. URL fetching is a deterministic pre-session step (prefetch → fetch_url), so the

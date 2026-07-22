@@ -40,7 +40,7 @@ def load_restricted_source_ids(base: str | Path) -> set[str]:
     # error would FAIL OPEN (a restricted source goes unflagged, allowing verbatim quotation). So a
     # manifest-level failure propagates; only a single unreadable/malformed per-source meta is skipped
     # (treated as "rights unknown" — and an unknown source is conservatively flagged restricted).
-    with open(manifest_path) as f:
+    with open(manifest_path, encoding="utf-8") as f:
         manifest = yaml.safe_load(f) or {}
     for source in manifest.get("sources", []):
         meta_path = base / source.get("metadata_path", "")
@@ -48,7 +48,7 @@ def load_restricted_source_ids(base: str | Path) -> set[str]:
         if not meta_path.exists():
             continue
         try:
-            with open(meta_path) as f:
+            with open(meta_path, encoding="utf-8") as f:
                 meta = json.load(f)
         except (OSError, json.JSONDecodeError):
             # rights unknown for this source → conservative floor: treat as restricted, don't skip it.

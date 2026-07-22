@@ -25,7 +25,7 @@ def run_tests(subagent_dir: str | Path) -> dict:
 
     for test_file in tests_dir.glob("*.yaml"):
         try:
-            with open(test_file) as f:
+            with open(test_file, encoding="utf-8") as f:
                 data = yaml.safe_load(f) or {}
         except Exception as e:
             results.append({"file": test_file.name, "status": "ERROR", "message": str(e)})
