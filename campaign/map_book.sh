@@ -27,6 +27,7 @@ EFFORT="${EFFORT:-max}"; RUN_TIMEOUT="${RUN_TIMEOUT:-7200}"
 CACHE="$REPO/cache/book-extracts"
 ENGINE="claude"; TAG=""
 BOOK=""; DRYRUN=0; FG=0; FORCE=0; MAX_ATTEMPTS=1
+BLOCK_ON_INJECTION="${MAP_BLOCK_ON_INJECTION:-0}"
 while [ $# -gt 0 ]; do
   case "$1" in
     --book) BOOK="$2"; shift 2;;
@@ -40,6 +41,7 @@ while [ $# -gt 0 ]; do
     --force) FORCE=1; shift;;
     --engine) ENGINE="$2"; shift 2;;
     --tag) TAG="$2"; shift 2;;
+    --block-on-injection) BLOCK_ON_INJECTION=1; shift;;  # fail closed on un-triaged injection findings
     *) echo "unknown arg: $1" >&2; exit 2;;
   esac
 done
@@ -88,6 +90,23 @@ REPO="$REPO" MODULE="$MODULE" SOURCE_ID="$SOURCE_ID" TITLE="$TITLE" \
   python3 "$CAMP/render-prompt.py" "$TMPL" > "$promptfile"
 echo "[map] book=$STEM  source_id=$SOURCE_ID  module=$MODULE  engine=$ENGINE"
 echo "[map] chunks=$(grep -c . "$MODULE/chunks.jsonl")"
+
+# IPI pre-flight (approach A): the injection scan runs at chunk time (chunk_source writes
+# injection-scan.jsonl). Surface findings BEFORE this untrusted book reaches the MAP session. Advisory
+# by default (the ~225:1 benign:attack base rate makes hard-blocking raw hits flood legit content);
+# --block-on-injection (or MAP_BLOCK_ON_INJECTION=1) fails closed until the module is triaged. The
+# presence of source-safety-verdicts.yaml is the "triaged" signal that clears the warning/block.
+INJ="$MODULE/injection-scan.jsonl"
+if [ -s "$INJ" ] && [ ! -f "$MODULE/source-safety-verdicts.yaml" ]; then
+  n_inj="$(grep -c . "$INJ" 2>/dev/null || echo 0)"
+  echo "[map] ⚠ IPI: $n_inj un-triaged injection finding(s) in this book (see $INJ)." >&2
+  echo "[map]   Triage before distillation — record verdicts in $MODULE/source-safety-verdicts.yaml" >&2
+  echo "[map]   and redact suspicious spans, then re-run." >&2
+  if [ "$BLOCK_ON_INJECTION" -eq 1 ] && [ "$DRYRUN" -eq 0 ]; then
+    echo "[map]   --block-on-injection: refusing to launch MAP on un-triaged untrusted content." >&2
+    exit 5
+  fi
+fi
 
 # Build the engine argv ONCE as an ARRAY (no generated script, no two-level quoting). The
 # claude case uses the shared build_claude_argv contract — with --effort and a single
