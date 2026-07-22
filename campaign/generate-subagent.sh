@@ -64,6 +64,9 @@ SOURCES=(); n=0; missing=0
 while IFS= read -r line; do
   line="${line%$'\r'}"; [ -z "$line" ] && continue
   case "$line" in \#*) continue;; esac
+  # URL sources pass through unresolved: they are prefetched (below) into the cache before the
+  # network-denied author session, which then ingests them offline (SUBAGENT_FACTORY_OFFLINE).
+  case "$line" in http://*|https://*) SOURCES+=("$line"); n=$((n+1)); continue;; esac
   abs="$line"; case "$abs" in /*) ;; *) abs="$REPO/$line";; esac
   if [ -r "$abs" ]; then SOURCES+=("$abs"); n=$((n+1))
   else echo "  MISSING source: $abs" >&2; missing=$((missing+1)); fi
@@ -92,6 +95,7 @@ fi
 # contain spaces). build_claude_argv() turns each into its own --add-dir D.
 declare -A _seen=(); ADDDIRS=()
 for s in "${SOURCES[@]}"; do
+  case "$s" in http://*|https://*) continue;; esac  # URLs have no local dir to grant
   d="$(dirname "$s")"; [ -n "${_seen[$d]:-}" ] && continue; _seen[$d]=1; ADDDIRS+=("$d")
 done
 
@@ -128,8 +132,21 @@ fi
 rcfile="$LOGS/$run.rc"
 run_driver() {
   cd "$REPO" || return 1
+  # Prefetch URL sources over the network HERE (in the manager, real runs only — never --dry-run),
+  # BEFORE the network-denied author session. The session then serves them from the warmed cache, so
+  # the trifecta's network leg is removed from the session that reads untrusted content.
+  local _urls=() _s
+  for _s in "${SOURCES[@]}"; do case "$_s" in http://*|https://*) _urls+=("$_s");; esac; done
+  if [ "${#_urls[@]}" -gt 0 ]; then
+    echo "[generate] prefetching ${#_urls[@]} URL source(s) into the cache (network-allowed, pre-session)…"
+    python3 -m tools.subagent_factory.prefetch_url_sources "${_urls[@]}" \
+      || { echo "[generate] prefetch failed — aborting before the offline author session." >&2; return 3; }
+  fi
   local rc=0
-  timeout "$RUN_TIMEOUT" "${claude_argv[@]}" < "$promptfile" > "$log" 2>&1 || rc=$?
+  # SUBAGENT_FACTORY_OFFLINE=1 scopes to the claude session (and its ingest children): URL sources
+  # are served from the prefetched cache, and any un-prefetched URL fails closed rather than fetching
+  # — enforcing the network-free author session (pairs with --disallowedTools WebFetch WebSearch).
+  SUBAGENT_FACTORY_OFFLINE=1 timeout "$RUN_TIMEOUT" "${claude_argv[@]}" < "$promptfile" > "$log" 2>&1 || rc=$?
   echo "[generate] claude exited rc=$rc — validating $SLUG ..."
   local venv_py="$REPO/.venv/bin/python"; [ -x "$venv_py" ] || venv_py=python3
   # `| tail` would mask the validate rc under pipefail, so capture PIPESTATUS[0].
