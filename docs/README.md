@@ -12,6 +12,8 @@ only by directory browse.
   tracks, the repair toolset, measured eval findings, and what's open.
 - [factory-ops.md](factory-ops.md) — operational guide: run and improve the factory, corpus-health,
   the converter-keyed cache, re-authoring, faithfulness/anchor repair, validate.
+- [dogfood-review.md](dogfood-review.md) — the repeatable practice of reviewing the factory with its
+  own generated subagents (area→reviewer map, what's automated).
 - [output-quality-eval.md](output-quality-eval.md) — how to evaluate whether a generated subagent
   gives *good advice* (not just whether it validates); the eval-driven multi-source grounding recipe.
 - [subagent-authoring-process-cycle.md](subagent-authoring-process-cycle.md) — the source→release
