@@ -78,8 +78,10 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
         result["error"] = f"profile.yaml not found at {profile_path}"
         return result
 
-    with open(profile_path) as f:
-        profile = yaml.safe_load(f)
+    # `or {}`: an empty / comment-only profile.yaml parses to None, not {}; without this the
+    # `.get("slug")` below would raise AttributeError instead of following the documented
+    # soft-error contract for an incomplete package. Explicit encoding matches the rest of the codebase.
+    profile = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
 
     slug = profile.get("slug")
     if not slug:
@@ -262,15 +264,18 @@ def _compose_description(profile: dict, max_chars: int = 320) -> str:
 
 
 def _build_template_context(profile: dict) -> dict:
-    modes = profile.get("outputs", {}).get("modes", [])
+    # `(… or {})` throughout: a profile key present with an explicit null (valid stub YAML) makes
+    # dict.get(key, {}) return None, not {}, so a chained `.get()` would raise. Matches the guard
+    # style already used in validate_generated_package.
+    modes = (profile.get("outputs") or {}).get("modes", [])
     tools = _determine_tools(profile)
 
     # Build description: role + top triggers + top exclusion (Phase 9 rule), JSON-encoded into a
     # valid single-line YAML scalar so an embedded quote can't break the adapter frontmatter.
     description = _yaml_scalar(_compose_description(profile))
 
-    kp = profile.get("knowledge_partition", {})
-    sot = profile.get("source_of_truth_policy", {})
+    kp = profile.get("knowledge_partition") or {}
+    sot = profile.get("source_of_truth_policy") or {}
     sources = profile.get("sources", [])
 
     return {
@@ -281,8 +286,8 @@ def _build_template_context(profile: dict) -> dict:
         "role": profile.get("role", ""),
         "when_to_use": profile.get("when_to_use", []),
         "when_not_to_use": profile.get("when_not_to_use", []),
-        "inputs_required": profile.get("inputs", {}).get("required", []),
-        "primary_format": profile.get("outputs", {}).get("primary_format", ""),
+        "inputs_required": (profile.get("inputs") or {}).get("required", []),
+        "primary_format": (profile.get("outputs") or {}).get("primary_format", ""),
         "modes": modes,
         "quality_bar": profile.get("quality_bar", []),
         "minimum_useful_output": profile.get("minimum_useful_output", ""),
@@ -304,7 +309,7 @@ def _build_template_context(profile: dict) -> dict:
 def _determine_tools(profile: dict) -> list[str]:
     # Read-only roles default to Read, Grep, Glob
     base = ["Read", "Grep", "Glob"]
-    modes = [m.get("name", "") for m in profile.get("outputs", {}).get("modes", [])]
+    modes = [m.get("name", "") for m in (profile.get("outputs") or {}).get("modes", [])]
     if "produce" in modes or "patch-suggest" in modes:
         base = ["Read", "Edit", "Write", "Grep", "Glob"]
     return base
