@@ -30,7 +30,15 @@ fi
 #   ADD_DIR...      zero or more directories; each becomes its own --add-dir D.
 #
 # Least privilege by session role via the CLAUDE_PERM_PROFILE env var (default "author"):
-#   author  full authority — author/fix sessions legitimately create and edit package files.
+#   author  full authority to create/edit package files, but NO agent-initiated network. Author/fix
+#           sessions read UNTRUSTED source content and hold powerful tools — the "lethal trifecta"
+#           closes only if the third leg (network egress) is removed. URL sources are fetched by a
+#           deterministic PREFETCH step BEFORE the session (fetch_url.py, SSRF-guarded), so the author
+#           session never needs WebFetch/WebSearch; denying them (bare-tool deny IS honored) strips the
+#           agent's own reach to the network after it has ingested untrusted text. Bash-level egress
+#           (curl) can't be closed by a permission flag — that is contained by the environment/network
+#           policy, which the prefetch + `SUBAGENT_FACTORY_OFFLINE` ingest make it safe to set to
+#           no-egress (in-session URL ingest is then a cache hit, never a live fetch).
 #   review  a REVIEW/VERIFY session must not modify the files under review; it only Writes its own
 #           report and Reads/greps/spawns sub-reviewers. Add `--disallowedTools Edit` so it cannot
 #           edit existing files in place. Deny rules apply even under --dangerously-skip-permissions,
@@ -76,8 +84,11 @@ build_claude_argv() {
       # Revisit if a future claude honours `Write(<path>)` — then this becomes a one-line change.
       _out+=(--dangerously-skip-permissions --disallowedTools Edit)
       ;;
-    *)  # author (default): full authority — author/fix sessions create and edit package files.
-      _out+=(--dangerously-skip-permissions)
+    *)  # author (default): full authority to create/edit files, but deny the agent's own network
+        # tools. URL fetching is a deterministic pre-session step (prefetch → fetch_url), so the
+        # session never legitimately needs these; denying them removes the trifecta's network leg
+        # from the agent's toolset. Space-separated single value (bare-tool deny, verified honored).
+      _out+=(--dangerously-skip-permissions --disallowedTools "WebFetch WebSearch")
       ;;
   esac
   _out+=(--output-format stream-json --verbose)

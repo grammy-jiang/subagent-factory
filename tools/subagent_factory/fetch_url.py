@@ -11,6 +11,8 @@ the operator picks the URL. Do not feed fetch_url URLs from an untrusted queue u
 
 import hashlib
 import ipaddress
+import json
+import os
 import re
 import socket
 import time
@@ -24,6 +26,91 @@ MAX_SIZE = 50 * 1024 * 1024  # 50 MB
 MAX_REDIRECTS = 5
 USER_AGENT = "subagent-factory/0.1.0 (research-tool)"
 _ALLOWED_SCHEMES = {"http", "https"}
+
+# URL snapshot cache (item #1, leg C). A PREFETCH step fetches source URLs over the network and
+# populates this cache; the network-denied author session's in-session ingest then reads the cache
+# instead of fetching, so the session needs no egress. Content-addressed by sha256(url) because the
+# snapshot filename is timestamped (not stable). Populated as a side effect of any online fetch that
+# is given a cache_dir; served (never re-fetched) when offline. Default location is repo-local and
+# gitignored; it holds only bytes the operator already chose to fetch.
+DEFAULT_URL_CACHE = Path(__file__).resolve().parents[2] / "inputs" / "url-cache"
+
+
+def cache_config_from_env() -> tuple[Path | None, bool]:
+    """Resolve (cache_dir, offline) from the environment.
+
+    - ``SUBAGENT_FACTORY_OFFLINE`` truthy → offline: serve URL fetches from cache, never touch the
+      network (a cache miss is a hard error, not a live fetch).
+    - ``SUBAGENT_FACTORY_URL_CACHE`` → explicit cache dir; defaults to ``DEFAULT_URL_CACHE`` when
+      offline is on but the path is unset.
+    - Neither set → ``(None, False)``: caching is OFF and ``fetch_url`` behaves exactly as before
+      (opt-in, so ordinary runs are unchanged).
+    """
+    raw = os.environ.get("SUBAGENT_FACTORY_URL_CACHE", "").strip()
+    offline = os.environ.get("SUBAGENT_FACTORY_OFFLINE", "").strip().lower() not in (
+        "",
+        "0",
+        "false",
+        "no",
+    )
+    if raw:
+        return Path(raw), offline
+    if offline:
+        return DEFAULT_URL_CACHE, offline
+    return None, offline
+
+
+def _cache_paths(cache_dir: Path, url: str) -> tuple[Path, Path]:
+    """(blob, meta) cache paths for a URL, keyed by sha256(url)."""
+    key = hashlib.sha256(url.encode("utf-8")).hexdigest()
+    return cache_dir / f"{key}.snapshot", cache_dir / f"{key}.json"
+
+
+def _serve_from_cache(url: str, dest: Path, cache_dir: Path, result: dict) -> dict | None:
+    """Write the cached snapshot for ``url`` into ``dest`` and fill ``result``; None on cache miss.
+
+    No network and no SSRF re-check: the cache is only ever populated by an online fetch that already
+    passed the SSRF guard, so serving cached bytes cannot reach a new host.
+    """
+    blob, meta_p = _cache_paths(cache_dir, url)
+    if not (blob.exists() and meta_p.exists()):
+        return None
+    try:
+        meta = json.loads(meta_p.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+    data = blob.read_bytes()
+    local_path = dest / (_url_to_filename(url) + meta.get("ext", ".html"))
+    local_path.write_bytes(data)
+    result["local_path"] = str(local_path)
+    result["content_type"] = meta.get("content_type")
+    result["final_url"] = meta.get("final_url", url)
+    result["sha256"] = meta.get("sha256") or hashlib.sha256(data).hexdigest()
+    return result
+
+
+def _populate_cache(
+    url: str, data: bytes, ext: str, content_type: str | None, final_url: str, cache_dir: Path
+) -> None:
+    """Store a fetched snapshot in the cache so a later offline session can serve it (best effort)."""
+    blob, meta_p = _cache_paths(cache_dir, url)
+    try:
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        blob.write_bytes(data)
+        meta_p.write_text(
+            json.dumps(
+                {
+                    "url": url,
+                    "final_url": final_url,
+                    "content_type": content_type,
+                    "sha256": hashlib.sha256(data).hexdigest(),
+                    "ext": ext,
+                }
+            ),
+            encoding="utf-8",
+        )
+    except OSError:
+        pass  # a cache-write failure must not fail the fetch itself
 
 
 def _ip_is_blocked(ip: str) -> bool:
@@ -89,15 +176,28 @@ AUTH_PATTERNS = [
 AUTH_RE = re.compile("|".join(AUTH_PATTERNS), re.IGNORECASE)
 
 
-def fetch_url(url: str, dest_dir: str | Path) -> dict:
+def fetch_url(
+    url: str,
+    dest_dir: str | Path,
+    *,
+    cache_dir: str | Path | None = None,
+    offline: bool = False,
+) -> dict:
     """
     Fetch a public URL and save snapshot to dest_dir.
 
     Returns dict with keys:
       local_path, content_type, final_url, sha256, needs_auth, error
+
+    ``cache_dir`` (opt-in) — after a successful online fetch the snapshot is also stored here, keyed
+    by sha256(url), so a later ``offline`` call can serve it without the network.
+    ``offline`` — never touch the network: serve the snapshot from ``cache_dir`` if present, else
+    fail closed with an error (a cache miss is NOT a live fetch). Used to run the network-denied
+    author session after a prefetch has warmed the cache.
     """
     dest = Path(dest_dir)
     dest.mkdir(parents=True, exist_ok=True)
+    cache = Path(cache_dir) if cache_dir else None
 
     result = {
         "url": url,
@@ -108,6 +208,17 @@ def fetch_url(url: str, dest_dir: str | Path) -> dict:
         "needs_auth": False,
         "error": None,
     }
+
+    # Offline: serve from cache or fail closed — NO network, not even DNS (the SSRF guard resolves
+    # the host, which offline mode must also avoid).
+    if offline:
+        served = _serve_from_cache(url, dest, cache, result) if cache else None
+        if served is None:
+            result["error"] = (
+                "offline mode (SUBAGENT_FACTORY_OFFLINE): URL not in prefetch cache — run the "
+                "prefetch step before the network-denied session"
+            )
+        return result
 
     # SSRF guard: validate the input URL's scheme + resolved address before any request.
     safety = _url_safety_error(url)
@@ -190,6 +301,8 @@ def fetch_url(url: str, dest_dir: str | Path) -> dict:
             local_path.write_bytes(data)
             result["local_path"] = str(local_path)
             result["sha256"] = hashlib.sha256(data).hexdigest()
+            if cache is not None:
+                _populate_cache(url, data, ext, content_type, resp.url, cache)
         finally:
             resp.close()
 
