@@ -60,16 +60,20 @@ build_claude_argv() {
   # root/sudo privileges"); run these headless sessions as a non-root user so the bypass is accepted.
   case "${CLAUDE_PERM_PROFILE:-author}" in
     review)
-      # Read-only-plus-report: keep bypass but deny in-place edits. Conservative — Write/Bash stay
-      # open (a review session can still overwrite via Write / shell redirection).
+      # Read-only-plus-report: keep bypass but deny in-place edits (bare-tool deny is honored —
+      # verified `--disallowedTools Edit` blocks Edit). Write/Bash stay open: a review session can
+      # still overwrite via Write / shell redirection.
       #
-      # The fully-scoped form the security review asked for is `--permission-mode dontAsk` + an
-      # explicit --allowedTools allowlist (deny-by-default, Write scoped to the report dir). Smoke-
-      # tested and DEFERRED: dontAsk's deny-by-default works (an out-of-scope Write IS blocked), but
-      # the model issues Write with ABSOLUTE paths, so a bare / `./`-relative
-      # `Write(subagents/*/reports/**)` entry does not match and denies the legitimate report write
-      # too. Scoping Write there needs an absolute `//`-prefixed --allowedTools pattern; pinning that
-      # syntax down for this claude version + a full review-loop run is the promotion step.
+      # The fully-scoped form the security review asked for (`--permission-mode dontAsk` + a Write
+      # rule scoped to the report dir) is NOT achievable on claude 2.1.217. Verified empirically:
+      # bare `Write` in an allowlist works, but ANY `Write(<path>)` specifier matches nothing and
+      # denies even the legitimate report write — tested glob, absolute (`/` and `//`), and an exact
+      # full path, via both `--allowedTools` and a `--settings` permissions.allow file. So Write
+      # cannot be path-scoped through the permission system in this version; deny-Edit is the best it
+      # allows. Residual Write/Bash mutation is contained OUT-OF-BAND instead: review/verify sessions
+      # run on a throwaway review/<slug> branch (standalone loop) or an isolated git worktree
+      # (drive-review-merge.sh), gated by a fresh `validate`, with fixes applied by separate sessions.
+      # Revisit if a future claude honours `Write(<path>)` — then this becomes a one-line change.
       _out+=(--dangerously-skip-permissions --disallowedTools Edit)
       ;;
     *)  # author (default): full authority — author/fix sessions create and edit package files.
