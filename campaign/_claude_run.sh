@@ -55,6 +55,9 @@ build_claude_argv() {
   for _d in "$@"; do
     _out+=(--add-dir "$_d")
   done
+  # `claude` rejects --dangerously-skip-permissions when the process runs as root
+  # ("permissions cannot be used with root/sudo privileges"); run these headless sessions as a
+  # non-root user so the bypass is accepted.
   _out+=(--dangerously-skip-permissions --output-format stream-json --verbose)
   case "${CLAUDE_PERM_PROFILE:-author}" in
     review) _out+=(--disallowedTools Edit) ;;
