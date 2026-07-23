@@ -19,6 +19,7 @@ from tools.subagent_factory.chunk_source import write_book_module
 from tools.subagent_factory.redact_injection_spans import (
     PLACEHOLDER,
     load_verdicts,
+    redact_and_verify_book_module,
     redact_book_module,
     redact_injection_spans,
     verify_book_module,
@@ -398,3 +399,14 @@ def test_verify_cli_clean_module_exits_zero(tmp_path):
     mod = _book_module(tmp_path, "# B\n\nordinary prose about indexes and joins.\n")
     r = _verify_cli(mod)
     assert r.returncode == 0
+
+
+def test_redact_and_verify_book_module_safe_entry_point(tmp_path):
+    """design#2: the fail-closed postcondition (redact THEN verify) is the library contract, not only
+    the CLI's — a Python caller gets redact summary + leaks + untriaged in one call."""
+    mod = _book_module(tmp_path, _BOOK_INJECTED)
+    _suspicious_at_injection(mod)
+    r = redact_and_verify_book_module(mod)
+    assert r["source_lines_redacted"] == 1
+    assert r["leaks"] == [] and r["untriaged"] == []  # redacted AND verified clean, in one contract
+    assert "Ignore all previous instructions" not in (mod / "source.md").read_text()

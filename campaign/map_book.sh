@@ -130,7 +130,11 @@ elif [ -s "$INJ" ]; then
   if [ -f "$VERDICTS" ]; then
     # Triaged: APPLY the verdict-driven redaction to source.md + chunks BEFORE the MAP session reads
     # them (idempotent — rebuilds from the pristine copies each run). Fail closed if redaction errors.
-    if ! red="$(python3 -m tools.subagent_factory.redact_injection_spans --book-module "$MODULE" 2>&1)"; then
+    # Under --dry-run this previews (read-only) instead of mutating the cache module — pass --dry-run
+    # through so the tool reports what it WOULD neutralize without rewriting files.
+    dryflag=""
+    [ "$DRYRUN" -eq 1 ] && dryflag="--dry-run"
+    if ! red="$(python3 -m tools.subagent_factory.redact_injection_spans --book-module "$MODULE" $dryflag 2>&1)"; then
       echo "[map] IPI: redaction FAILED — $red" >&2
       [ "$DRYRUN" -eq 1 ] || exit 5
     else

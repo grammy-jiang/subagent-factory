@@ -122,7 +122,7 @@ def test_malformed_scan_fails_closed(tmp_path):
 @pytest.mark.skipif(
     not (_repo_root() / "campaign" / "map_book.sh").exists(), reason="map_book.sh absent"
 )
-def test_triaged_module_applies_redaction(tmp_path):
+def test_triaged_module_dry_run_previews_without_mutating(tmp_path):
     book = tmp_path / "staged.md"
     book.write_text(_INJECTED, encoding="utf-8")
     cache = tmp_path / "cache"
@@ -137,11 +137,13 @@ def test_triaged_module_applies_redaction(tmp_path):
         encoding="utf-8",
     )
     r = _run_map(book, cache, "--dry-run")
-    assert "triaged" in r.stdout and "neutralized" in r.stdout  # redaction applied by the gate
-    # payload gone from source.md AND every chunk the MAP session would read
-    assert "Ignore all previous instructions" not in (mod / "source.md").read_text()
+    # bash#3: --dry-run PREVIEWS the redaction (reports what it would neutralize) but must NOT mutate
+    # the cache module — a dry run is a no-op preview. The actual redaction is unit-tested in
+    # test_redact_injection_spans (redact_book_module / redact_and_verify_book_module).
+    assert "triaged" in r.stdout and "would neutralize 1 suspicious" in r.stdout
+    assert "Ignore all previous instructions" in (mod / "source.md").read_text()  # NOT mutated
     for ch in (mod / "chunks").glob("*.md"):
-        assert "Ignore all previous instructions" not in ch.read_text()
+        assert "Ignore all previous instructions" in ch.read_text()  # NOT mutated
 
 
 @pytest.mark.skipif(

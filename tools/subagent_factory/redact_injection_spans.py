@@ -44,6 +44,12 @@ PLACEHOLDER = (
     "see reports/source-safety-verdicts.yaml]"
 )
 
+# Pristine pre-redaction copies a book module keeps for audit + idempotent rebuild. Named once here
+# (not as bare literals in redact_book_module AND verify_book_module) so the two cannot drift — the
+# mutator and its verifier MUST agree on where the pristine payload text lives.
+_SOURCE_MD_RAW = "source.md.raw"
+_CHUNKS_RAW = "chunks-raw"
+
 
 def _verdicts_path(base: Path) -> Path:
     return base / "reports" / "source-safety-verdicts.yaml"
@@ -191,7 +197,7 @@ def redact_book_module(module_dir: str | Path) -> dict:
     if not suspicious or not src.exists():
         return summary
 
-    raw = base / "source.md.raw"
+    raw = base / _SOURCE_MD_RAW
     if not raw.exists():
         raw.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
     pristine = raw.read_text(encoding="utf-8").splitlines(keepends=True)
@@ -212,7 +218,7 @@ def redact_book_module(module_dir: str | Path) -> dict:
     # Propagate to the chunks (what MAP actually reads) by exact pristine-line match.
     chunks_dir = base / "chunks"
     if payloads and chunks_dir.is_dir():
-        raw_chunks = base / "chunks-raw"
+        raw_chunks = base / _CHUNKS_RAW
         raw_chunks.mkdir(exist_ok=True)
         for ch in sorted(chunks_dir.glob("*.md")):
             praw = raw_chunks / ch.name
@@ -299,7 +305,7 @@ def verify_book_module(module_dir: str | Path) -> dict:
         and (_real_line(f) is not None or f.get("family") not in line_level_families)
     ]
 
-    raw = base / "source.md.raw"
+    raw = base / _SOURCE_MD_RAW
     raw_exists = raw.exists()
     pristine = raw.read_text(encoding="utf-8").splitlines() if raw_exists else []
     src_text = (
@@ -342,6 +348,38 @@ def verify_book_module(module_dir: str | Path) -> dict:
     return {"leaks": leaks, "untriaged": untriaged}
 
 
+def redact_and_verify_book_module(module_dir: str | Path) -> dict:
+    """Redact a book module's suspicious spans AND verify none survived — the SAFE library entry point.
+
+    The fail-closed postcondition (redact, then confirm no un-neutralized / untriaged payload remains)
+    lived only in the ``--book-module`` CLI branch, so a Python orchestrator that called
+    ``redact_book_module`` directly — the pattern ``build_map_reduce`` already uses for its sibling
+    ``write_book_module`` — silently lost it. This composes the two building blocks and returns
+    ``{**redact_summary, "leaks", "untriaged"}``, so any caller (CLI or Python) fails closed on the
+    same signal: a non-empty ``leaks``, ``untriaged``, or ``unresolved`` means do NOT feed the module
+    to a MAP session. ``redact_book_module`` / ``verify_book_module`` remain the building blocks."""
+    summary = redact_book_module(module_dir)
+    v = verify_book_module(module_dir)
+    return {**summary, "leaks": v["leaks"], "untriaged": v["untriaged"]}
+
+
+def preview_book_module(module_dir: str | Path) -> dict:
+    """Read-only preview of what ``redact_and_verify_book_module`` WOULD do — for ``--dry-run``.
+
+    Counts the ``suspicious`` verdicts that would be neutralized and lists the ``untriaged`` findings
+    that would fail the launch closed, WITHOUT mutating ``source.md`` / the chunks. (No leak check —
+    a leak is a post-redaction property; ``untriaged`` is scan-findings-vs-verdicts, independent of
+    redaction, so it is meaningful pre-run.) This makes ``--dry-run`` a true no-op preview rather than
+    a real, file-mutating redaction of the cache module."""
+    base = Path(module_dir)
+    suspicious = sum(
+        1
+        for v in _parse_verdicts(base / "source-safety-verdicts.yaml")
+        if v.get("verdict") == "suspicious"
+    )
+    return {"suspicious": suspicious, "untriaged": verify_book_module(module_dir)["untriaged"]}
+
+
 def main() -> None:
     if len(sys.argv) < 2:
         print(
@@ -375,8 +413,21 @@ def main() -> None:
         if len(sys.argv) < 3:
             print("redact-injection-spans FAIL — --book-module requires a module dir")
             sys.exit(1)
+        # --dry-run: preview only, no file mutation (a triaged cache module is not rewritten just to
+        # look at what the gate would do). Reports the counts and exits 0 — it never fails the preview.
+        if "--dry-run" in sys.argv[3:]:
+            try:
+                pv = preview_book_module(sys.argv[2])
+            except ValueError as e:
+                print(f"redact-injection-spans FAIL — {e}")
+                sys.exit(1)
+            print(
+                f"redact-book-module DRY-RUN — would neutralize {pv['suspicious']} suspicious "
+                f"span(s); {len(pv['untriaged'])} untriaged finding(s) would fail the launch closed"
+            )
+            sys.exit(0)
         try:
-            bs = redact_book_module(sys.argv[2])
+            bs = redact_and_verify_book_module(sys.argv[2])  # redact + verify in one safe contract
         except ValueError as e:
             print(f"redact-injection-spans FAIL — {e}")
             sys.exit(1)
@@ -387,9 +438,8 @@ def main() -> None:
         )
         # Fail closed if a suspicious payload survived / could not be verified removed (a bug), OR if
         # any scan finding was never triaged — map_book.sh gates on this rc, so both must exit non-zero.
-        verify = verify_book_module(sys.argv[2])
-        if verify["leaks"]:
-            for leak in verify["leaks"]:
+        if bs["leaks"]:
+            for leak in bs["leaks"]:
                 print(
                     f"  LEAK: suspicious span (source line {leak['line']}) still present in {leak['where']}"
                 )
@@ -398,8 +448,8 @@ def main() -> None:
             for u in bs["unresolved"]:
                 print(f"  UNRESOLVED: line {u['line']} — {u['reason']}")
             sys.exit(1)
-        if verify["untriaged"]:
-            for u in verify["untriaged"]:
+        if bs["untriaged"]:
+            for u in bs["untriaged"]:
                 print(f"  UNTRIAGED: {u['file']}:{u['line']} — scan finding with no verdict")
             sys.exit(1)
         return
