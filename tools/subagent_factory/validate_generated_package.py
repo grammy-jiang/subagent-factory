@@ -40,7 +40,7 @@ from tools.subagent_factory.detect_stale import detect_stale
 from tools.subagent_factory.domain_policy import check_domain_policy
 from tools.subagent_factory.profile_self_check import profile_self_check
 from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
-from tools.subagent_factory.quote_scan import quote_scan
+from tools.subagent_factory.quote_scan import quote_scan_report
 from tools.subagent_factory.redact_injection_spans import PLACEHOLDER, load_verdicts
 from tools.subagent_factory.validate_adapter_quality import validate_adapter_quality
 from tools.subagent_factory.validate_anchor_index import validate_anchor_index
@@ -446,9 +446,19 @@ def _check_phase8(base: Path, fail: _Emit, ok: _Emit) -> None:
 
 # 10. Quote scan
 def _check_quote_scan(base: Path, warn: _Emit, ok: _Emit) -> None:
-    quote_findings = quote_scan(base)
-    if quote_findings:
-        for qf in quote_findings:
+    r = quote_scan_report(base)
+    # "could not scan" ≠ "clean": restricted sources exist but no verbatim text was available (no
+    # sources/markdown/, no warm cache module). The old silent PASS hid exactly this — quote_scan
+    # returned [] on every package because the withheld sources left nothing to compare against.
+    if r["restricted"] and not r["scanned"]:
+        warn(
+            "quote-scan",
+            f"rights NOT verified — {r['restricted']} restricted source(s) but no source text "
+            "available (no sources/markdown/, no warm cache module); verbatim-quote gate could not run",
+        )
+        return
+    if r["findings"]:
+        for qf in r["findings"]:
             warn("quote-scan", f"{qf['file']}:{qf['line']}: {qf['issue']}")
     else:
         ok("quote-scan", "No potential verbatim quotation found")

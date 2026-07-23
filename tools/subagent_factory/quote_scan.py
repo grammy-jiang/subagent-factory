@@ -26,6 +26,7 @@ from pathlib import Path
 
 from tools.subagent_factory.source_text import (
     contains_span,
+    load_book_module_texts,
     load_restricted_source_ids,
     load_source_texts,
     normalize_ws,
@@ -75,31 +76,48 @@ def _normalize_for_match(text: str) -> str:
     return normalize_ws(text.translate(_MARKUP))
 
 
-def quote_scan(subagent_dir: str | Path) -> list[dict]:
-    """
-    Scan generated artifacts for potential verbatim quotation.
+def quote_scan_report(subagent_dir: str | Path, cache_root: str | Path | None = None) -> dict:
+    """Verbatim-quote scan PLUS the source-availability status, in one pass.
 
-    Returns list of findings: {file, line, issue, excerpt}
-    Empty list = no concerns.
-    """
+    Returns ``{"findings": [...], "restricted": <count>, "scanned": <bool>}``. Source text comes from
+    ``sources/markdown/`` when present; on the real corpus that is withheld (distillation-only), so this
+    falls back to the map-reduce cache modules the package was built from (``load_book_module_texts``) —
+    otherwise the gate is vacuous. ``scanned`` is False when there WAS restricted source material to
+    check but no verbatim text was available (neither sources/markdown/ nor a warm cache module): that
+    is *rights-not-verified*, which the validate gate must surface rather than pass silently — the exact
+    hole that made quote_scan return "clean" on all 38 packages. ``cache_root`` overrides the default
+    cache location (for tests)."""
     base = Path(subagent_dir)
-    findings: list[dict] = []
-
     restricted_sources = load_restricted_source_ids(base)
+    raw_texts = load_source_texts(base, restricted_sources)
+    # Only fall back to the cache when there ARE restricted sources to check but their verbatim text
+    # is absent (no restricted sources → nothing to scan, which is correct, not a cache miss).
+    if restricted_sources and not raw_texts:
+        raw_texts = load_book_module_texts(base, restricted_sources, cache_root=cache_root)
     # Re-normalize the source side through the SAME _normalize_for_match the output side uses, so
-    # the substring comparison is symmetric (load_source_texts only does normalize_ws).
-    source_texts = {
-        sid: _normalize_for_match(txt)
-        for sid, txt in load_source_texts(base, restricted_sources).items()
-    }
+    # the substring comparison is symmetric (the loaders only do normalize_ws).
+    source_texts = {sid: _normalize_for_match(txt) for sid, txt in raw_texts.items()}
 
+    findings: list[dict] = []
     # Scan markdown prose files (not YAML — those contain synthesised fields)
     for md_file in base.rglob("*.md"):
         if _is_source_material(md_file, base):
             continue
         _scan_markdown_prose(md_file, source_texts, findings)
 
-    return findings
+    return {
+        "findings": findings,
+        "restricted": len(restricted_sources),
+        "scanned": bool(source_texts),
+    }
+
+
+def quote_scan(subagent_dir: str | Path, cache_root: str | Path | None = None) -> list[dict]:
+    """Scan generated artifacts for potential verbatim quotation → list of {file, line, issue, excerpt}.
+
+    Thin wrapper over ``quote_scan_report`` (empty list = no concerns). Use ``quote_scan_report`` when
+    you also need the "could the gate actually run?" status (the validate gate does)."""
+    return quote_scan_report(subagent_dir, cache_root)["findings"]
 
 
 def _is_source_material(path: Path, base: Path) -> bool:
