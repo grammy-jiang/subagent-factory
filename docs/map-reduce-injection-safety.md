@@ -166,10 +166,14 @@ this pipeline and found real bypasses, since fixed on the branch:
   `validate_injection_scan` reports non-UTF-8 instead of crashing and splits on `\n` only; `--dry-run`
   previews without mutating the cache; `redact_and_verify_book_module` is the safe library entry point.
 
-**Follow-on (not yet done): SEC-1 localization.** An obfuscated payload is reported at `line: 0`, so it
-currently fails closed (blocked) but is not *resolvable* by line redaction — a reviewer cannot point a
-`suspicious` verdict at the encoded token's real line. Localizing obfuscation findings to their source
-line (per-line re-scan) would make them redactable, and would also give SEC-5 its per-token findings.
+**SEC-1 localization — done.** A per-line pass (`_localize_obfuscation`) applies each decode transform
+to every source line, so a *single-line* obfuscated payload (base64 / rot13 / reversed / inline-DOM) is
+reported at its **real, redactable line** — a reviewer marks that line `suspicious`, redaction
+neutralizes it, verify comes back clean. It is also a detection improvement (the whole-doc fixpoint
+misses base64 whose token is newline-adjacent to prose). **Residual:** a *layered* single-line payload
+(rot13∘base64) or a genuinely *cross-line* payload is still caught only by the whole-document fixpoint
+at `line 0` — blocked but not line-localized. Kept cheap (single-transform, depth-1) so it runs on
+every line.
 
 ## Status
 Complete end-to-end on branch `claude/map-reduce-injection-verify` (deterministic mechanism +
