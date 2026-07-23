@@ -230,6 +230,17 @@ def redact_book_module(module_dir: str | Path) -> dict:
     return summary
 
 
+def _real_line(f: dict) -> int | None:
+    """A finding's 1-indexed source line, or ``None`` for a whole-document (line-0 / obfuscated) hit.
+
+    Rejects ``bool`` (``True``/``False`` are ``int`` subclasses that would coerce to 1/0) and any
+    line < 1, so callers can branch on "has a real source line" without repeating the guard."""
+    ln = f.get("line")
+    if isinstance(ln, bool) or not isinstance(ln, int) or ln < 1:
+        return None
+    return ln
+
+
 def _load_scan_findings(path: Path) -> list[dict]:
     """Load a book module's injection-scan.jsonl (one JSON finding per line); [] if absent."""
     if not path.exists():
@@ -249,26 +260,48 @@ def _load_scan_findings(path: Path) -> list[dict]:
 def verify_book_module(module_dir: str | Path) -> dict:
     """Verify a book module after redaction. Returns ``{"leaks": [...], "untriaged": [...]}``.
 
-    - ``leaks``: a **suspicious** verdict whose pristine payload text still appears in ``source.md``
-      or a chunk — a redaction FAILURE, so callers must fail closed (this is a correctness assertion,
-      not a false-positive concern).
-    - ``untriaged``: a chunk-time scan finding (line ≥ 1) with no matching verdict — advisory (the
-      module still needs triage); mirrors the cross-check the classic gate lacked.
+    Both lists fail the gate closed (callers exit non-zero on either): "cannot prove the payload is
+    gone" must never read as clean.
+
+    - ``leaks``: a **suspicious** verdict that is not provably neutralized — either its pristine
+      payload text still appears in ``source.md``/a chunk (a redaction FAILURE), or it cannot be
+      checked at all: no pristine snapshot yet (redaction never ran), a line out of range, or a
+      verdict with no real source line (a line-0 obfuscated finding). An unverifiable suspicious
+      verdict is flagged ``unverified`` rather than silently skipped — the reviewer asserted the line
+      is a live payload, so "can't verify removed" is treated as a leak.
+    - ``untriaged``: a chunk-time scan finding with **no** matching verdict — a triage gap that fails
+      closed. A **genuinely-obfuscated** line-0 finding (decoded from base64/rot13/… with no
+      same-family line-level sibling) counts: it cannot be pinned to a source line, so it is the most
+      important to surface, not the least. A line-0 *base-seed duplicate* (``detagged``/``dewrapped``
+      normalization of a payload that IS also found at a real line — same family) does **not** count:
+      triaging/redacting that real line neutralizes it, so requiring a separate line-0 verdict would
+      permanently fail-close every plain injection. Clear a genuine obfuscated finding with a verdict
+      at line 0 (a whole-document acknowledgement).
     """
     base = Path(module_dir)
     findings = _load_scan_findings(base / "injection-scan.jsonl")
     verdicts = _parse_verdicts(base / "source-safety-verdicts.yaml")
     verdict_lines = {v.get("line") for v in verdicts}
+    # Families that appear at a real (≥1) line — a line-0 finding of such a family is a base-seed
+    # duplicate of that line-level finding, neutralized when the real line is triaged/redacted, so it
+    # must NOT independently keep the module untriaged (else every plain injection fails closed).
+    line_level_families = {f.get("family") for f in findings if _real_line(f) is not None}
     untriaged = [
-        {"file": Path(str(f.get("file", ""))).name, "line": f.get("line")}
+        {
+            "file": Path(str(f.get("file", ""))).name,
+            "line": f.get("line"),
+            "family": f.get("family"),
+            "vector": f.get("vector"),
+        }
         for f in findings
-        if isinstance(f.get("line"), int)
-        and f.get("line", 0) >= 1
-        and f.get("line") not in verdict_lines
+        if f.get("line") not in verdict_lines
+        # keep line-level findings + genuinely-obfuscated-only line-0 findings; drop base-seed dups.
+        and (_real_line(f) is not None or f.get("family") not in line_level_families)
     ]
 
     raw = base / "source.md.raw"
-    pristine = raw.read_text(encoding="utf-8").splitlines() if raw.exists() else []
+    raw_exists = raw.exists()
+    pristine = raw.read_text(encoding="utf-8").splitlines() if raw_exists else []
     src_text = (
         (base / "source.md").read_text(encoding="utf-8") if (base / "source.md").exists() else ""
     )
@@ -282,8 +315,22 @@ def verify_book_module(module_dir: str | Path) -> dict:
         if v.get("verdict") != "suspicious":
             continue
         ln = v.get("line")
-        if not isinstance(ln, int) or ln < 1 or ln > len(pristine):
-            continue  # no recoverable pristine payload (redaction not run) → covered by 'untriaged'
+        if not isinstance(ln, int) or isinstance(ln, bool) or ln < 1:
+            # A suspicious verdict with no real source line (e.g. a confirmed line-0 obfuscated
+            # finding) cannot be proven removed by pristine-line matching — fail closed as unverified.
+            leaks.append({"line": ln, "where": "unverifiable — no source line", "unverified": True})
+            continue
+        if not raw_exists or ln > len(pristine):
+            # No pristine snapshot (redaction never ran) or the line is out of range: we cannot prove
+            # the payload is gone. Treat "cannot verify removed" as a leak, not a silent clean.
+            leaks.append(
+                {
+                    "line": ln,
+                    "where": "unverified — redaction not run / line out of range",
+                    "unverified": True,
+                }
+            )
+            continue
         payload = pristine[ln - 1].strip()
         if not payload:
             continue
@@ -319,7 +366,10 @@ def main() -> None:
         for u in vr["untriaged"]:
             print(f"  UNTRIAGED: {u['file']}:{u['line']} (scan finding with no verdict)")
         print(f"verify-book-module — {len(vr['leaks'])} leak(s), {len(vr['untriaged'])} untriaged")
-        sys.exit(1 if vr["leaks"] else 0)
+        # Fail closed on EITHER: a leak (payload provably/unverifiably present) OR an untriaged
+        # finding (a scan hit nobody decided on). An untriaged finding that never gates is a safety
+        # net that is computed but not load-bearing — exactly the silent bypass this verify prevents.
+        sys.exit(1 if (vr["leaks"] or vr["untriaged"]) else 0)
     # Book-module mode (map-reduce path): neutralize source.md + chunks from the module's verdicts.
     if sys.argv[1] == "--book-module":
         if len(sys.argv) < 3:
@@ -335,7 +385,8 @@ def main() -> None:
             f"{bs['chunk_lines_redacted']} chunk line(s) neutralized "
             f"({bs['suspicious']} suspicious verdict(s))"
         )
-        # Fail closed if a suspicious payload survived redaction (a bug) — map_book.sh gates on this rc.
+        # Fail closed if a suspicious payload survived / could not be verified removed (a bug), OR if
+        # any scan finding was never triaged — map_book.sh gates on this rc, so both must exit non-zero.
         verify = verify_book_module(sys.argv[2])
         if verify["leaks"]:
             for leak in verify["leaks"]:
@@ -346,6 +397,10 @@ def main() -> None:
         if bs["unresolved"]:
             for u in bs["unresolved"]:
                 print(f"  UNRESOLVED: line {u['line']} — {u['reason']}")
+            sys.exit(1)
+        if verify["untriaged"]:
+            for u in verify["untriaged"]:
+                print(f"  UNTRIAGED: {u['file']}:{u['line']} — scan finding with no verdict")
             sys.exit(1)
         return
     try:
