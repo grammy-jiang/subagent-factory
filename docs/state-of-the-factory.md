@@ -80,9 +80,12 @@ declined to confirm an expected win:
 2. **Source-safety on the map-reduce path (approach A)** — implemented on branch
    `claude/map-reduce-injection-verify`, **off master by decision**. The classic
    `sources/markdown/` scan is vacuous on the real corpus (no package keeps verbatim sources); this
-   moves the IPI scan to the cache level (chunk-time scan → schema-validated artifact → pre-flight
-   gate → in-session auto-triage → redact → verify). Remaining: a live end-to-end run + the merge
-   decision. See [`map-reduce-injection-safety.md`](map-reduce-injection-safety.md).
+   moves BOTH the IPI scan (chunk-time scan → schema-validated artifact → pre-flight gate →
+   in-session auto-triage → redact → verify) AND the **rights/quote scan** (cache-level source text +
+   a *rights-not-verified* status when no source is available) to the cache level. Hardened via a full
+   dogfood security review (3 verified bypasses fixed). Remaining: a live end-to-end run, SEC-1
+   localization (obfuscated payloads block but aren't yet resolvable), + the merge decision. See
+   [`map-reduce-injection-safety.md`](map-reduce-injection-safety.md).
 
 Recently closed: **Step 13 ask-gate CLI wiring** (`ask-gate <slug>` runs the deterministic gate over a
 package's own missing-context tests + twins — report-only, no package-validity gate); **baseline-gated

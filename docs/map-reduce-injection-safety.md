@@ -20,6 +20,12 @@ source directories are never populated. The consequence, discovered while dogfoo
 - So on the actual corpus, the entire injection-triage layer **never fired**. The scans were
   *vacuous* — green because there was nothing to look at, not because the sources were clean.
 
+This doc covers the **injection** leg. The **rights/quote** leg got the same cache-level treatment:
+`quote_scan` falls back to the cache module source text (`load_book_module_texts`), and
+`quote_scan_report` / the validate gate report *rights-not-verified* when no source is available
+rather than a silent PASS — see `tools/subagent_factory/quote_scan.py` and the `quote-scan <slug>`
+CLI. The quarantine gate (leg three) was code-enforced separately in #88.
+
 Tier-1+ packages are built by **map-reduce** instead (see
 [`per-book-authoring-upgrade.md`](per-book-authoring-upgrade.md)): the book is converted once and
 `chunk_source.write_book_module()` writes a content-addressed module under
