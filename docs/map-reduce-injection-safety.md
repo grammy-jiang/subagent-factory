@@ -5,8 +5,8 @@ How the factory scans untrusted book text for indirect prompt injection (IPI) on
 cache-level analogue of the classic `sources/markdown/` scan documented in
 [`enhancement-steps/step-1-safety-faithfulness.md`](enhancement-steps/step-1-safety-faithfulness.md).
 
-> Status: implemented on branch `claude/map-reduce-injection-verify`; **not yet on master**
-> (kept off master by decision). Two validation steps remain — see [Status](#status).
+> Status: **on master** — approach A landed via #91; the quarantine-enforcement leg via #88. One
+> follow-up validation remains — see [Status](#status).
 
 ## The problem it fixes — vacuous scans
 
@@ -176,10 +176,11 @@ at `line 0` — blocked but not line-localized. Kept cheap (single-transform, de
 every line.
 
 ## Status
-Complete end-to-end on branch `claude/map-reduce-injection-verify` (deterministic mechanism +
-in-session auto-triage + schema/validator + the hardening above). Off master by decision — no PR yet.
-Remaining before it would merge:
+On master — merged 2026-07-23 via #91 (deterministic mechanism + in-session auto-triage +
+schema/validator + the hardening above); the quarantine-enforcement leg landed earlier in #88.
+Follow-up validation:
 1. A real end-to-end map-reduce run on a live book, to exercise the Step-0 auto-triage in an actual
    MAP session (currently covered only by unit tests).
-2. SEC-1 localization (above), if obfuscated payloads should be resolvable rather than only blocked.
-3. The merge/PR decision itself.
+2. Layered/cross-line SEC-1 localization — single-line obfuscated payloads are now line-localized
+   (see above); a *layered* (rot13∘base64) or genuinely *cross-line* payload is still caught only by
+   the whole-document fixpoint at line 0 (blocked, not line-localized).
