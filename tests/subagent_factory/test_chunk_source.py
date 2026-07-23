@@ -48,6 +48,29 @@ def test_neighbour_overlap_present_after_first_chunk():
     assert "neighbour-overlap" not in chunks[0].text  # first chunk has no predecessor
 
 
+def test_neighbour_overlap_carries_only_whole_lines():
+    """SEC-4: a raw char slice for the overlap can cut mid-line, leaving a truncated suffix of a
+    (possibly injection-flagged) line in the next chunk's header — a fragment that whole-line
+    redaction/verification cannot match. The overlap must start at a line boundary, so it carries
+    only complete source lines."""
+    lines = [f"source line {i:02d} distinctive content reasonably wide here" for i in range(40)]
+    md = "# H\n\n" + "\n".join(lines) + "\n"
+    src_lines = set(md.splitlines())
+    chunks = chunk_markdown(md, target_tokens=60, overlap_chars=90)
+    saw_overlap = False
+    for c in chunks:
+        if "neighbour-overlap" not in c.text:
+            continue
+        saw_overlap = True
+        block = c.text.split("for context only) -->\n", 1)[1].split(
+            "\n<!-- begin new content -->", 1
+        )[0]
+        for line in block.splitlines():
+            if line.strip():
+                assert line in src_lines, f"overlap carried a non-whole line: {line!r}"
+    assert saw_overlap  # the params actually produced overlaps (guard against a vacuous pass)
+
+
 def test_sha_stable_and_content_sensitive_chunk_ids():
     md = "# T\n\nbody\n"
     assert chunk_markdown(md)[0].chunk_id == chunk_markdown(md)[0].chunk_id

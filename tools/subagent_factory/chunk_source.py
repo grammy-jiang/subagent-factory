@@ -196,8 +196,17 @@ def chunk_markdown(
         breadcrumb = " > ".join(path) if path else "(preamble)"
         header = f"<!-- chunk {i} context: {breadcrumb} -->\n\n"
         if overlap_chars and prev_body:
+            # Start the overlap at a WHOLE-LINE boundary. A raw char slice can cut mid-line, leaving a
+            # truncated suffix of a (possibly injection-flagged) line in the next chunk's header that
+            # whole-line redaction/verification cannot match (SEC-4). Dropping the partial leading line
+            # guarantees the overlap carries only complete lines, so a flagged line here is redacted
+            # like any other. If the slice holds no newline (a single line longer than overlap_chars),
+            # there is no whole line to keep, so the overlap is omitted for that boundary.
             tail = prev_body[-overlap_chars:]
-            header += f"<!-- neighbour-overlap (prev chunk tail, for context only) -->\n{tail}\n<!-- begin new content -->\n\n"
+            nl = tail.find("\n")
+            tail = tail[nl + 1 :] if nl != -1 else ""
+            if tail:
+                header += f"<!-- neighbour-overlap (prev chunk tail, for context only) -->\n{tail}\n<!-- begin new content -->\n\n"
         fed = header + body
         chunks.append(
             Chunk(
