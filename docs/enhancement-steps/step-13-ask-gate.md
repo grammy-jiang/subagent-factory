@@ -55,6 +55,14 @@ confidence alone, which have a confidently-wrong failure mode (#1, #2).
     ask→answer-no-re-ask scenarios + the ASK-F1 (TP=asked-when-due, FP=over-ask, FN=silent-commit)
     eval metric. Calibration-that-updates-as-context-grows (residual #1) is approximated structurally
     (each step re-derives fill over the whole conversation → monotone confidence-to-answer).
+- **Runtime measurement surface — CLI-wired (2026-07-23).** `ask-gate <slug>` (a `cli_measure`
+  subcommand, `ask_gate.evaluate_tests`) runs the deterministic gate over a package's OWN behaviour
+  tests, no model calls: the **silent-commit guard** (every `missing_context` test must make the gate
+  `ask` — a test it would `answer` is a false-fill, surfaced) and the **over-ask diagnostic** (each
+  answerable twin should make it `answer`; because slot-fill is a lexical approximation, a twin that
+  signals sufficiency in prose reads as an over-ask — reported, not failed). **Report-only**
+  (`--strict` fails on a silent commit only); consistent with "no new package-validity gate", it is
+  *not* wired into `validate_generated_package`.
 - **Black-box single-turn calibrated risk score — still DEFERRED.** Hosted (API-only) Claude exposes
   no logprobs/latents, so the white-box answerability probe does not transfer (open ACADEMIC, below).
 
@@ -73,7 +81,8 @@ the VivaBench failure taxonomy** (see Caveats), choosing *what* to ask by inform
 
 | Path | Kind | Status | Purpose |
 |---|---|---|---|
-| `tools/subagent_factory/ask_gate.py` | tool | **BUILT** | Deterministic three-action gate `gate()` (answer/ask/abstain, anti-re-ask), schema-free `required_slots`, multi-turn `replay_conversation`, `ask_f1`. Single-turn calibrated risk score DEFERRED (no API logprobs). |
+| `tools/subagent_factory/ask_gate.py` | tool | **BUILT** | Deterministic three-action gate `gate()` (answer/ask/abstain, anti-re-ask), schema-free `required_slots`, multi-turn `replay_conversation`, `ask_f1`, and `evaluate_tests` (gate over a package's own tests). Single-turn calibrated risk score DEFERRED (no API logprobs). |
+| `ask-gate <slug>` in `cli_measure.py` | CLI | **BUILT** | Runtime measurement surface: runs `evaluate_tests` over a package's missing-context tests (+ answerable twins). Report-only; `--strict` fails on a silent commit only; not a package-validity gate. |
 | `.claude/skills/ask-gate/SKILL.md` | skill (LLM) | **BUILT** | Phrases the chosen action only — one information-gain question (Ask) / scoped escalation (Abstain); never re-decides the action. |
 | extend `behaviour_replay.py` | tool | **BUILT** | Two-axis `must_ask_for` scoring: reward one specific question, cap the reward on over-ask (silent-commit still penalised by coverage). |
 | `tests/subagent_factory/test_ask_gate.py` | fixtures | **BUILT** | Gate decisions + multi-turn replay + ASK-F1, fakes only (21 tests). Two-axis tests added to `test_behaviour_replay.py`. |

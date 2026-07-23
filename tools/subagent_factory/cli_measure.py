@@ -329,6 +329,102 @@ def cmd_gen_behaviour_tests(slug, ideator, candidates, validate):
         console.print("[green]coverage validator PASS[/green]")
 
 
+def _load_gate_tests(base):
+    """Raw-load a package's missing-context tests + answerable twins for the ask-gate.
+
+    Reads ``tests/*.yaml`` directly (not the flattened ``load_behaviour_tests``, which drops
+    ``twin_of``): each answerable twin inherits the ``must_ask_for`` of the missing-context test it
+    twins, so the gate sees the SAME required-context with (twin → should answer) and without
+    (missing-context → should ask) the answer present. Returns ``(missing_context, twins)`` as lists
+    of ``{test_id, prompt, must_ask_for}``.
+    """
+    import yaml
+
+    missing_context = []
+    by_id = {}
+    twin_src = []
+    for tf in sorted((base / "tests").glob("*.yaml")):
+        try:
+            data = yaml.safe_load(tf.read_text(encoding="utf-8")) or {}
+        except yaml.YAMLError:
+            continue
+        if not isinstance(data, dict):
+            continue
+        for m in data.get("missing_context_tests") or []:
+            if not isinstance(m, dict) or not m.get("prompt"):
+                continue
+            rec = {
+                "test_id": m.get("test_id"),
+                "prompt": m.get("prompt"),
+                "must_ask_for": m.get("must_ask_for") or [],
+            }
+            missing_context.append(rec)
+            by_id[m.get("test_id")] = rec["must_ask_for"]
+        for g in data.get("golden_tests") or []:
+            if isinstance(g, dict) and g.get("twin_of") and g.get("prompt"):
+                twin_src.append(g)
+    twins = [
+        {
+            "test_id": g.get("test_id"),
+            "prompt": g.get("prompt"),
+            # inherit the twinned missing-context test's slots; fall back to the twin's own if unlinked
+            "must_ask_for": by_id.get(g.get("twin_of"), g.get("must_ask_for") or []),
+        }
+        for g in twin_src
+    ]
+    return missing_context, twins
+
+
+@click.command("ask-gate")
+@click.argument("slug")
+@click.option(
+    "--strict",
+    is_flag=True,
+    help="Exit 1 if the gate would silently commit on any missing-context test. Opt-in only — this "
+    "is NOT a package-validity gate (Step-13 is measured, not enforced); it never runs in validate.",
+)
+def cmd_ask_gate(slug, strict):
+    """Step 13: run the deterministic Answer/Ask/Abstain gate over SLUG's OWN behaviour tests (no model calls).
+
+    Silent-commit guard: every missing-context test omits the required context it declares
+    (must_ask_for), so the gate MUST ask — a test it would answer instead is a false-fill (the prompt
+    lexically names the slot). Over-ask diagnostic (packages with answerable twins): each twin
+    supplies that context and ideally makes the gate answer; because slot-fill is a lexical
+    approximation, a twin that signals sufficiency in prose reads as an over-ask, so this is a
+    diagnostic, not a failure. Report-only by default; --strict fails on a silent commit only.
+    """
+    from tools.subagent_factory.ask_gate import evaluate_tests
+
+    base = subagent_path(slug)
+    missing_context, twins = _load_gate_tests(base)
+    if not missing_context and not twins:
+        console.print(
+            f"[yellow]no missing-context tests or twins under[/yellow] {base / 'tests'} — "
+            "package does not opt into the ask-gate"
+        )
+        return
+    r = evaluate_tests(missing_context, twins)
+    sc, oa = r["silent_commit"], r["over_ask"]
+    color = "green" if not sc["misses"] else "red"
+    console.print(
+        f"ask-gate silent-commit guard [{color}]{sc['asked']}/{sc['total']}[/{color}] "
+        f"missing-context tests → ask (ASK-F1 {sc['f1']['f1']})"
+    )
+    for m in sc["misses"]:
+        console.print(
+            f"  [red]silent-commit[/red] {m['test_id']}: gate would {m['action']} "
+            "(prompt lexically fills the declared slot)"
+        )
+    if oa["total"]:
+        console.print(
+            f"[dim]over-ask diagnostic (lexical approximation): answered {oa['answered']}/{oa['total']} "
+            f"twins; {len(oa['over_asked'])} lexical over-ask — twins whose sufficiency is not "
+            "lexically aligned with the declared slots (typical of template-mode tests).[/dim]"
+        )
+    if strict and sc["misses"]:
+        sys.exit(1)
+
+
 @click.command("grounding-check")
 @click.argument("slug")
 @click.argument("review")
@@ -416,6 +512,7 @@ COMMANDS = [
     cmd_replay_gate,
     cmd_optimize_adapter,
     cmd_gen_behaviour_tests,
+    cmd_ask_gate,
     cmd_grounding_check,
     cmd_grounding_richness,
 ]

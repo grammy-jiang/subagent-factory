@@ -11,6 +11,7 @@ from tools.subagent_factory.ask_gate import (
     Slot,
     already_asked,
     ask_f1,
+    evaluate_tests,
     filled_slots,
     gate,
     replay_conversation,
@@ -277,3 +278,71 @@ def test_ask_f1_penalizes_over_and_under_ask() -> None:
     assert m["tp"] == 0 and m["fp"] == 1 and m["fn"] == 1
     assert m["f1"] == 0.0
     assert m["exact_match"] is False
+
+
+# --- evaluate_tests (the Step-13 CLI measurement surface: gate over a package's own tests) -----
+
+_SLOT = ["the target database engine"]
+
+
+def test_evaluate_tests_silent_commit_all_ask() -> None:
+    # A missing-context test whose prompt omits the declared slot → the gate must ASK.
+    mc = [{"test_id": "MC-1", "prompt": "how do I speed this up?", "must_ask_for": _SLOT}]
+    r = evaluate_tests(mc)
+    assert r["silent_commit"]["asked"] == 1 and r["silent_commit"]["misses"] == []
+    assert r["silent_commit"]["f1"]["f1"] == 1.0  # ASK-F1 == ask-recall when every expected == ask
+
+
+def test_evaluate_tests_false_fill_is_a_miss() -> None:
+    # A missing-context test whose prompt LEXICALLY names the slot is a false-fill: the gate can't
+    # tell context is missing and answers — recorded as a silent-commit miss, not silently passed.
+    mc = [
+        {"test_id": "ok", "prompt": "how do I speed this up?", "must_ask_for": _SLOT},
+        {
+            "test_id": "leak",
+            "prompt": "for the target database engine, how?",
+            "must_ask_for": _SLOT,
+        },
+    ]
+    r = evaluate_tests(mc)
+    assert r["silent_commit"]["asked"] == 1
+    assert [m["test_id"] for m in r["silent_commit"]["misses"]] == ["leak"]
+    assert r["silent_commit"]["f1"]["recall"] == 0.5
+
+
+def test_evaluate_tests_twin_over_ask_is_diagnostic() -> None:
+    # An answerable twin that names the slot → gate answers; one that signals sufficiency only in
+    # prose → lexical over-ask (the schema-free-approximation diagnostic, not a failure).
+    twins = [
+        {
+            "test_id": "named",
+            "prompt": "the target database engine is postgres; advise",
+            "must_ask_for": _SLOT,
+        },
+        {
+            "test_id": "prose",
+            "prompt": "(every specific is provided) advise",
+            "must_ask_for": _SLOT,
+        },
+    ]
+    r = evaluate_tests([], twins)
+    assert r["over_ask"]["answered"] == 1
+    assert [t["test_id"] for t in r["over_ask"]["over_asked"]] == ["prose"]
+
+
+def test_evaluate_tests_empty_is_clean() -> None:
+    r = evaluate_tests([], [])
+    assert r["silent_commit"]["total"] == 0 and r["over_ask"]["total"] == 0
+    assert r["silent_commit"]["f1"]["f1"] == 1.0  # no tests → vacuously perfect, not undefined
+
+
+def test_ask_gate_cli_reports_and_exits_zero() -> None:
+    # End-to-end wiring: the `ask-gate <slug>` command loads a real package's tests, runs the gate,
+    # and reports the silent-commit guard. Report-only mode always exits 0.
+    from click.testing import CliRunner
+
+    from tools.subagent_factory.cli_measure import cmd_ask_gate
+
+    res = CliRunner().invoke(cmd_ask_gate, ["software-design"])
+    assert res.exit_code == 0
+    assert "silent-commit guard" in res.output

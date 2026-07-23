@@ -26,10 +26,11 @@ stronger than its source support.
 - **38 packages**, all validating. **1000+ tests**, mypy + ruff clean. (Counts are a snapshot — run
   `ls -d subagents/*/ | wc -l` and `python -m pytest tests/ --co -q | tail -1` for live values.)
 - **99 tool modules**, **17 schemas**, **18 build-step specs** (`docs/enhancement-steps/`).
-- Build steps **0–9, 11, 12, 15, 16, 20** implemented; **13** partial (test-gen built; `ask_gate.py`
-  — the deterministic F1/F2 core — exists but is not yet wired into a CLI subcommand or the validate
-  gate, which is the real remaining gap); **14** routing-rule only (retrieval engine deferred);
-  **10 removed** (superseded by Step 20). See `docs/enhancement-steps/README.md`.
+- Build steps **0–9, 11, 12, 13, 15, 16, 20** implemented; **13**'s deterministic F1/F2 core
+  (`ask_gate.py`) is now CLI-wired via the `ask-gate <slug>` measurement subcommand — report-only, no
+  package-validity gate (the single-turn calibrated risk score stays deferred: no API logprobs);
+  **14** routing-rule only (retrieval engine deferred); **10 removed** (superseded by Step 20). See
+  `docs/enhancement-steps/README.md`.
 
 ## Capabilities (the three research tracks)
 
@@ -76,17 +77,16 @@ declined to confirm an expected win:
 
 1. **B4 gold data** — human-label ~10–15 A/B comparisons → judge↔human κ (breaks circular eval).
    Harness built (`gold_eval.py`); needs human time, not model budget.
-2. **Step 13 ask-gate wiring** — `ask_gate.py` (the deterministic F1/F2 clarify-gate core) exists but
-   isn't wired into a CLI subcommand or the validate gate. The "real remaining gap" noted in *At a
-   glance* above.
-3. **Source-safety on the map-reduce path (approach A)** — implemented on branch
+2. **Source-safety on the map-reduce path (approach A)** — implemented on branch
    `claude/map-reduce-injection-verify`, **off master by decision**. The classic
    `sources/markdown/` scan is vacuous on the real corpus (no package keeps verbatim sources); this
    moves the IPI scan to the cache level (chunk-time scan → schema-validated artifact → pre-flight
    gate → in-session auto-triage → redact → verify). Remaining: a live end-to-end run + the merge
    decision. See [`map-reduce-injection-safety.md`](map-reduce-injection-safety.md).
 
-Recently closed: **baseline-gated invariant layer** (`invariant_policy.recommend_invariants` — attach
+Recently closed: **Step 13 ask-gate CLI wiring** (`ask-gate <slug>` runs the deterministic gate over a
+package's own missing-context tests + twins — report-only, no package-validity gate); **baseline-gated
+invariant layer** (`invariant_policy.recommend_invariants` — attach
 iff no-invariant replay baseline < 0.80, honoured by `export_claude_agent`'s `attach_invariants`
 flag); **C1 embedding clustering** (injectable `embedder` + `embed_minilm`; C1(c) margin-above-baseline
 fixes the raw-cosine over-merge; defaults `cos_threshold=0.5`, `margin=0.15`); and the **security
