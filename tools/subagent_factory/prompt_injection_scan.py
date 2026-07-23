@@ -146,6 +146,14 @@ _BASE64_DEWRAP = _dewrap(r"[A-Za-z0-9+/_=-]")
 _FIXPOINT_DEPTH = 3
 _MAX_DERIVED = 256
 
+# A run of base64-ish characters long enough to plausibly encode a denylist phrase (a layered
+# payload's inner base64 always leaves one). Its presence on a line is the trigger for the per-line
+# localizer to run the heavier COMPOSING fixpoint on that line — the only per-line path that peels a
+# second layer (rot13∘base64, base64∘base64) to a real, redactable line. Lines without such a token
+# take the cheap depth-1 path. Such tokens are rare in prose, so the fixpoint cost is paid only where
+# an encoded payload plausibly hides.
+_LONG_ENCODED_TOKEN = re.compile(r"[A-Za-z0-9+/=_-]{20,}")
+
 
 def _strip_zero_width(text: str) -> str:
     """Strip the explicit zero-width set, every Unicode Cf (format) char, and combining marks.
@@ -358,18 +366,38 @@ def _scan_css(raw: str, name: str) -> list[dict]:
 def _localize_obfuscation(
     raw: str, name: str, skip_lines: frozenset[int] = frozenset()
 ) -> list[dict]:
-    """Per-line obfuscation scan (SEC-1 localization): apply each decode transform to EACH source line
-    so a single-line obfuscated payload — a base64 blob, a reversed / rot13 line, an inline
-    DOM-fragmented line — is reported at its REAL source line and is therefore **redactable** (a
-    reviewer can point a ``suspicious`` verdict at that line), instead of only at whole-document
-    ``line 0``. This is a **single-transform** (depth-1) pass, deliberately cheaper than the full
-    composing ``_decode_fixpoint`` so it can run on every line: a LAYERED single-line payload
-    (rot13∘base64) is still caught by the whole-document fixpoint (at line 0), just not localized —
-    the documented residual, along with genuinely cross-line payloads. ``skip_lines`` are the lines
-    ``_scan_lines`` already flags plainly, so this adds no redundant finding there."""
+    """Per-line obfuscation scan (SEC-1 localization): report a single-line obfuscated payload — a
+    base64 blob, a reversed / rot13 line, an inline DOM-fragmented line — at its REAL source line so it
+    is **redactable** (a reviewer can point a ``suspicious`` verdict there), instead of only at
+    whole-document ``line 0``.
+
+    Two per-line strategies, chosen per line by a cheap token test:
+
+    - A line carrying a long base64-ish token (``_LONG_ENCODED_TOKEN``) gets the composing
+      ``_decode_fixpoint`` on that single line — the ONLY per-line path that peels a **LAYERED**
+      single-line payload (rot13∘base64, base64∘base64) down to its real line. The whole-doc fixpoint
+      would only ever pin such a payload at ``line 0``, and it can even MISS it: its base64 dewrap
+      merges the token with a base64-ish char on an adjacent prose line, corrupting the token. Run on
+      one line there is no neighbour to merge, so this both localizes AND detects. Bounded by
+      ``_MAX_DERIVED``; such tokens are rare in prose, so the fixpoint cost is paid only where a payload
+      plausibly hides.
+    - Every other line gets a cheap **single-transform** (depth-1) pass — the detagged line + one
+      application of each transform — which localizes a single-LAYER payload (lone base64, reversed,
+      rot13, inline DOM) without the fixpoint's expansion.
+
+    A genuinely *cross-line* payload (spanning several source lines) has no single line to point at and
+    stays a whole-document ``line 0`` finding — blocked, not localized (the fundamental residual).
+    ``skip_lines`` are the lines ``_scan_lines`` already flags plainly."""
     out: list[dict] = []
     for i, line in enumerate(raw.splitlines(), 1):
         if i in skip_lines or not line.strip():
+            continue
+        if _LONG_ENCODED_TOKEN.search(line):
+            # Composing fixpoint on THIS line only: localizes a LAYERED single-line payload (and detects
+            # a base64 token the whole-doc dewrap would corrupt by merging a prose neighbour). Its
+            # findings are line-0 (whole-"doc" == this one line); relabel to the real line i. The base
+            # seed can also hit here for an inline-DOM payload, subsuming the depth-1 detagged candidate.
+            out.extend({**f, "line": i} for f in _decode_fixpoint(line, name))
             continue
         base = _norm(_strip_html_tags(line))
         # Candidates: the detagged/normalized line itself (inline DOM fragmentation reveals the payload
@@ -428,7 +456,7 @@ def _scan_file(path: Path) -> list[dict]:
         # This also catches base64 the whole-doc pass misses when a token is newline-adjacent to prose
         # (the dewrap merges the neighbour into the token), so it is a detection improvement too.
         *_localize_obfuscation(raw, name, plain_lines),
-        # Whole-doc fixpoint (line 0): the backstop for genuinely cross-line / layered payloads.
+        # Whole-doc fixpoint (line 0): the backstop for genuinely cross-line payloads.
         *_decode_fixpoint(raw, name),
         *_scan_css(raw, name),
     ]

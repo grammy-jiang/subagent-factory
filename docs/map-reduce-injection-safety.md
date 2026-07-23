@@ -165,14 +165,18 @@ this pipeline and found real bypasses, since fixed on the branch:
   `validate_injection_scan` reports non-UTF-8 instead of crashing and splits on `\n` only; `--dry-run`
   previews without mutating the cache; `redact_and_verify_book_module` is the safe library entry point.
 
-**SEC-1 localization — done.** A per-line pass (`_localize_obfuscation`) applies each decode transform
-to every source line, so a *single-line* obfuscated payload (base64 / rot13 / reversed / inline-DOM) is
-reported at its **real, redactable line** — a reviewer marks that line `suspicious`, redaction
-neutralizes it, verify comes back clean. It is also a detection improvement (the whole-doc fixpoint
-misses base64 whose token is newline-adjacent to prose). **Residual:** a *layered* single-line payload
-(rot13∘base64) or a genuinely *cross-line* payload is still caught only by the whole-document fixpoint
-at `line 0` — blocked but not line-localized. Kept cheap (single-transform, depth-1) so it runs on
-every line.
+**SEC-1 localization — done, including layered payloads.** A per-line pass (`_localize_obfuscation`)
+reports a *single-line* obfuscated payload at its **real, redactable line** — a reviewer marks that line
+`suspicious`, redaction neutralizes it, verify comes back clean — instead of only whole-document
+`line 0`. It picks one of two per-line strategies cheaply: a line carrying a long base64-ish token
+(`_LONG_ENCODED_TOKEN`) runs the composing `_decode_fixpoint` on that single line, which peels a
+**layered** payload (rot13∘base64, base64∘base64) down to its line — and also *detects* a base64 token
+the whole-doc pass would corrupt by merging it with a base64-ish char on an adjacent prose line; every
+other line runs a cheap single-transform (depth-1) pass. The per-line fixpoint is bounded
+(`_MAX_DERIVED`) and such tokens are rare in prose, so the heavier cost is paid only where an encoded
+payload plausibly hides. **Residual:** a genuinely *cross-line* payload (spanning several source lines)
+has no single line to point at and is still caught only by the whole-document fixpoint at `line 0` —
+blocked, not line-localized (the fundamental residual).
 
 ## Status
 **Merged to master (#91)** — the full pipeline + the dogfood hardening + SEC-1 localization. The
@@ -181,5 +185,6 @@ demonstrated **live end-to-end** on a synthetic book, with the base64 payload lo
 line and the benign quoted-example preserved. Low-priority remainders:
 1. A full in-session MAP *extraction* run (Steps A–E) that spawns the reviewer from inside `claude -p` —
    the safety mechanism itself is proven; this only exercises the prompt wiring on a real book (budget).
-2. **SEC-1 residual:** a *layered* single-line payload (rot13∘base64) or a genuinely *cross-line*
-   payload is still caught only at whole-document `line 0` (blocked, not line-localized).
+2. **SEC-1 residual:** a genuinely *cross-line* payload (spanning several source lines) is still caught
+   only at whole-document `line 0` (blocked, not line-localized) — it has no single line to point at.
+   Single-line payloads, *including layered* ones (rot13∘base64), are now localized to their real line.
