@@ -77,17 +77,13 @@ declined to confirm an expected win:
 
 1. **B4 gold data** — human-label ~10–15 A/B comparisons → judge↔human κ (breaks circular eval).
    Harness built (`gold_eval.py`); needs human time, not model budget.
-2. **Source-safety on the map-reduce path (approach A)** — implemented on branch
-   `claude/map-reduce-injection-verify`, **off master by decision**. The classic
-   `sources/markdown/` scan is vacuous on the real corpus (no package keeps verbatim sources); this
-   moves BOTH the IPI scan (chunk-time scan → schema-validated artifact → pre-flight gate →
-   in-session auto-triage → redact → verify) AND the **rights/quote scan** (cache-level source text +
-   a *rights-not-verified* status when no source is available) to the cache level. Hardened via a full
-   dogfood security review (3 verified bypasses fixed). Remaining: a live end-to-end run, SEC-1
-   localization (obfuscated payloads block but aren't yet resolvable), + the merge decision. See
-   [`map-reduce-injection-safety.md`](map-reduce-injection-safety.md).
-
-Recently closed: **Step 13 ask-gate CLI wiring** (`ask-gate <slug>` runs the deterministic gate over a
+Recently closed: **Source-safety on the map-reduce path (approach A) — merged (#91).** The
+vacuous-scans fix — no package keeps `sources/markdown/`, so the classic injection AND rights scans
+never fired — moved BOTH to the map-reduce cache level (chunk-time scan → schema-validated artifact →
+pre-flight gate → in-session auto-triage → redact → verify; plus the quote-scan cache fallback + a
+*rights-not-verified* status). Hardened via a full dogfood security review (SEC-1/2/3 verified bypasses
++ SEC-4/5/6 + SEC-1 localization) and demonstrated live end-to-end — see
+[`map-reduce-injection-safety.md`](map-reduce-injection-safety.md). **Step 13 ask-gate CLI wiring** (`ask-gate <slug>` runs the deterministic gate over a
 package's own missing-context tests + twins — report-only, no package-validity gate); **baseline-gated
 invariant layer** (`invariant_policy.recommend_invariants` — attach
 iff no-invariant replay baseline < 0.80, honoured by `export_claude_agent`'s `attach_invariants`
