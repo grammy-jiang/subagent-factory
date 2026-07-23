@@ -164,6 +164,73 @@ def load_behaviour_tests_report(subagent_dir: str | Path) -> tuple[list[dict], l
     return out, skipped
 
 
+def load_gate_tests(subagent_dir: str | Path) -> tuple[list[dict], list[dict], list[str]]:
+    """Missing-context tests + answerable twins for the Step-13 ask-gate, read from ``tests/*.yaml``.
+
+    Reads the YAML directly because ``load_behaviour_tests`` flattens away ``twin_of``: each
+    answerable twin (a golden test with ``twin_of``) inherits the ``must_ask_for`` of the
+    missing-context test it twins, so the gate sees the same required-context with (twin → should
+    answer) and without (missing-context → should ask) the answer present.
+
+    Returns ``(missing_context, twins, problems)`` where each test dict is
+    ``{test_id, prompt, must_ask_for}`` and ``problems`` names every skipped/unparseable file,
+    duplicate ``test_id``, and dangling ``twin_of`` link. Nothing is dropped silently: a
+    green-but-smaller ask-gate run that hides a broken test file is itself the silent-overconfidence
+    failure the gate exists to catch, so the caller must surface ``problems``.
+    """
+    base = Path(subagent_dir)
+    tests_dir = base / "tests"
+    missing_context: list[dict] = []
+    twin_src: list[tuple[dict, str]] = []
+    problems: list[str] = []
+    by_id: dict = {}
+    if not tests_dir.exists():
+        return missing_context, [], problems
+    for tf in sorted(tests_dir.glob("*.yaml")):
+        try:
+            data = yaml.safe_load(tf.read_text(encoding="utf-8")) or {}
+        except (yaml.YAMLError, OSError) as e:
+            problems.append(f"{tf.name}: unparseable ({e.__class__.__name__}) — skipped")
+            continue
+        if not isinstance(data, dict):
+            problems.append(f"{tf.name}: not a mapping — skipped")
+            continue
+        for m in data.get("missing_context_tests") or []:
+            if not isinstance(m, dict) or not m.get("prompt"):
+                continue
+            tid = m.get("test_id")
+            if tid in by_id:
+                problems.append(
+                    f"duplicate test_id {tid!r} ({tf.name}) — twin inheritance keys on it, may be wrong"
+                )
+            rec = {
+                "test_id": tid,
+                "prompt": m.get("prompt"),
+                "must_ask_for": m.get("must_ask_for") or [],
+            }
+            missing_context.append(rec)
+            by_id[tid] = rec["must_ask_for"]
+        for g in data.get("golden_tests") or []:
+            if isinstance(g, dict) and g.get("twin_of") and g.get("prompt"):
+                twin_src.append((g, tf.name))
+    twins: list[dict] = []
+    for g, fname in twin_src:
+        tof = g.get("twin_of")
+        if tof not in by_id:
+            problems.append(
+                f"twin {g.get('test_id')!r} ({fname}) references unknown twin_of {tof!r} → "
+                "inherits no required-context, so the gate trivially 'answers' it (broken link)"
+            )
+        twins.append(
+            {
+                "test_id": g.get("test_id"),
+                "prompt": g.get("prompt"),
+                "must_ask_for": by_id.get(tof, g.get("must_ask_for") or []),
+            }
+        )
+    return missing_context, twins, problems
+
+
 def _declined(output: str) -> bool:
     low = output.lower()
     return len(output.strip()) < _DECLINE_MAX_CHARS and any(m in low for m in _DECLINE_MARKERS)

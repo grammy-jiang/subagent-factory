@@ -1,7 +1,7 @@
 # State of the factory
 
 Orientation doc — what this factory is, what's built, what's open. Start here, then follow the
-links. Snapshot: 2026-06-23.
+links. Snapshot: 2026-07-23.
 
 ## What it is
 
@@ -25,11 +25,12 @@ stronger than its source support.
 
 - **38 packages**, all validating. **1000+ tests**, mypy + ruff clean. (Counts are a snapshot — run
   `ls -d subagents/*/ | wc -l` and `python -m pytest tests/ --co -q | tail -1` for live values.)
-- **81 tool modules**, **15 schemas**, **18 build-step specs** (`docs/enhancement-steps/`).
-- Build steps **0–9, 11, 12, 15, 16, 20** implemented; **13** partial (test-gen built; `ask_gate.py`
-  — the deterministic F1/F2 core — exists but is not yet wired into a CLI subcommand or the validate
-  gate, which is the real remaining gap); **14** routing-rule only (retrieval engine deferred);
-  **10 removed** (superseded by Step 20). See `docs/enhancement-steps/README.md`.
+- **99 tool modules**, **17 schemas**, **18 build-step specs** (`docs/enhancement-steps/`).
+- Build steps **0–9, 11, 12, 13, 15, 16, 20** implemented; **13**'s deterministic F1/F2 core
+  (`ask_gate.py`) is now CLI-wired via the `ask-gate <slug>` measurement subcommand — report-only, no
+  package-validity gate (the single-turn calibrated risk score stays deferred: no API logprobs);
+  **14** routing-rule only (retrieval engine deferred); **10 removed** (superseded by Step 20). See
+  `docs/enhancement-steps/README.md`.
 
 ## Capabilities (the three research tracks)
 
@@ -76,14 +77,24 @@ declined to confirm an expected win:
 
 1. **B4 gold data** — human-label ~10–15 A/B comparisons → judge↔human κ (breaks circular eval).
    Harness built (`gold_eval.py`); needs human time, not model budget.
-2. ✅ **Baseline-gate the invariant layer** — `invariant_policy.recommend_invariants` measures the
-   no-invariant replay baseline and applies the rule (attach iff baseline < 0.80, the n=3 crossover);
-   `export_claude_agent` honours a profile `attach_invariants` flag. Apply per package when desired.
-3. ✅ **C1 embedding clustering — done, over-merge fixed.** Injectable `embedder` + validated
-   `embed_minilm`; **C1(c) margin-above-baseline** (a pair must stand out above each principle's
-   leave-one-out mean cosine to its cross-source peers) fixes the C1(b) raw-cosine over-merge — on a
-   single-topic package the 19-principle blob becomes tight 2-member candidate pairs at every
-   threshold. Defaults `cos_threshold=0.5`, `margin=0.15`. (C3 Hearst is-a still optional.)
+2. **Source-safety on the map-reduce path (approach A)** — implemented on branch
+   `claude/map-reduce-injection-verify`, **off master by decision**. The classic
+   `sources/markdown/` scan is vacuous on the real corpus (no package keeps verbatim sources); this
+   moves BOTH the IPI scan (chunk-time scan → schema-validated artifact → pre-flight gate →
+   in-session auto-triage → redact → verify) AND the **rights/quote scan** (cache-level source text +
+   a *rights-not-verified* status when no source is available) to the cache level. Hardened via a full
+   dogfood security review (3 verified bypasses fixed). Remaining: a live end-to-end run, SEC-1
+   localization (obfuscated payloads block but aren't yet resolvable), + the merge decision. See
+   [`map-reduce-injection-safety.md`](map-reduce-injection-safety.md).
+
+Recently closed: **Step 13 ask-gate CLI wiring** (`ask-gate <slug>` runs the deterministic gate over a
+package's own missing-context tests + twins — report-only, no package-validity gate); **baseline-gated
+invariant layer** (`invariant_policy.recommend_invariants` — attach
+iff no-invariant replay baseline < 0.80, honoured by `export_claude_agent`'s `attach_invariants`
+flag); **C1 embedding clustering** (injectable `embedder` + `embed_minilm`; C1(c) margin-above-baseline
+fixes the raw-cosine over-merge; defaults `cos_threshold=0.5`, `margin=0.15`); and the **security
+hardening track** shipped to master — read-only review guard (#87), code-enforced injection quarantine
+before interrogation (#88), author-session network scoping (#89), and the dogfood-review loop (#90).
 
 ## Where to read next
 

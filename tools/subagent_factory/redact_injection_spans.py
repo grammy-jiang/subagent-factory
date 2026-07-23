@@ -31,10 +31,13 @@ silently skipped. ``sources/markdown-raw/`` is skipped by ``quote_scan`` (its pa
 ``sources/markdown/*.md`` only), so the pristine copy adds no new rights or scan surface.
 """
 
+import json
 import sys
 from pathlib import Path
 
 import yaml
+
+from tools.subagent_factory._common import iter_jsonl_lines
 
 # Whole-line replacement text. Kept anchorless and whitespace-free so a `.strip()` compare in the
 # validate gate matches regardless of the neutralized line's original indentation / trailing space.
@@ -43,19 +46,24 @@ PLACEHOLDER = (
     "see reports/source-safety-verdicts.yaml]"
 )
 
+# Pristine pre-redaction copies a book module keeps for audit + idempotent rebuild. Named once here
+# (not as bare literals in redact_book_module AND verify_book_module) so the two cannot drift — the
+# mutator and its verifier MUST agree on where the pristine payload text lives.
+_SOURCE_MD_RAW = "source.md.raw"
+_CHUNKS_RAW = "chunks-raw"
+
 
 def _verdicts_path(base: Path) -> Path:
     return base / "reports" / "source-safety-verdicts.yaml"
 
 
-def load_verdicts(subagent_dir: str | Path) -> list[dict]:
-    """Load ``reports/source-safety-verdicts.yaml`` (schema source-safety-verdicts-v1).
+def _parse_verdicts(p: Path) -> list[dict]:
+    """Parse + validate a source-safety-verdicts-v1 file at an explicit path.
 
-    Returns ``[]`` when the file is absent (no triage recorded — the common case). Raises
-    ``ValueError`` on a malformed file: this is a security gate, so an unparseable/ill-formed
-    verdicts file fails closed rather than being read as "no suspicious spans".
+    Returns ``[]`` when absent. Raises ``ValueError`` on a malformed file: this is a security gate,
+    so an unparseable/ill-formed verdicts file fails closed rather than reading as "no suspicious
+    spans". Shared by the package path (reports/…) and the book-module path (module/…).
     """
-    p = _verdicts_path(Path(subagent_dir))
     if not p.exists():
         return []
     try:
@@ -78,12 +86,29 @@ def load_verdicts(subagent_dir: str | Path) -> list[dict]:
     return out
 
 
+def load_verdicts(subagent_dir: str | Path) -> list[dict]:
+    """Load a package's ``reports/source-safety-verdicts.yaml`` (schema source-safety-verdicts-v1)."""
+    return _parse_verdicts(_verdicts_path(Path(subagent_dir)))
+
+
 def _line_ending(s: str) -> str:
     if s.endswith("\r\n"):
         return "\r\n"
     if s.endswith("\n"):
         return "\n"
     return ""  # final line without a trailing newline
+
+
+def _snapshot_and_read_pristine(target: Path, pristine: Path) -> list[str]:
+    """Snapshot ``target`` → ``pristine`` ONCE (if not already present), then return the pristine lines
+    with line endings kept. This is the load-bearing idempotence guarantee — redaction ALWAYS rebuilds
+    from the pristine copy, so re-runs never compound and dropping a verdict restores the line.
+    Factored so the three redaction sites (classic source, book-module ``source.md``, book-module
+    chunk) share ONE implementation and cannot drift on the snapshot semantics."""
+    if not pristine.exists():
+        pristine.parent.mkdir(parents=True, exist_ok=True)
+        pristine.write_text(target.read_text(encoding="utf-8"), encoding="utf-8")
+    return pristine.read_text(encoding="utf-8").splitlines(keepends=True)
 
 
 def redact_injection_spans(subagent_dir: str | Path) -> dict:
@@ -116,11 +141,7 @@ def redact_injection_spans(subagent_dir: str | Path) -> dict:
     for name in sorted(by_file):
         target = md_dir / name
         raw = raw_dir / name
-        # Snapshot the pristine source ONCE; thereafter always redact from it (idempotent, no compounding).
-        if not raw.exists():
-            raw_dir.mkdir(parents=True, exist_ok=True)
-            raw.write_text(target.read_text(encoding="utf-8"), encoding="utf-8")
-        lines = raw.read_text(encoding="utf-8").splitlines(keepends=True)
+        lines = _snapshot_and_read_pristine(target, raw)  # idempotent: always redact from pristine
         for v in by_file[name]:
             ln = v.get("line")
             if not isinstance(ln, int) or isinstance(ln, bool) or ln < 1 or ln > len(lines):
@@ -158,10 +179,280 @@ def redact_injection_spans(subagent_dir: str | Path) -> dict:
     }
 
 
+def redact_book_module(module_dir: str | Path) -> dict:
+    """Neutralize confirmed-``suspicious`` spans in a chunk_source book-extract module (approach A).
+
+    The map-reduce MAP session reads the module's ``chunks/*.md`` — verbatim copies of spans of
+    ``source.md``, which the injection scan flagged. Driven by
+    ``<module>/source-safety-verdicts.yaml`` (schema source-safety-verdicts-v1, ``file`` = source.md):
+    whole-line-redact each suspicious source line, then propagate to every chunk by matching the exact
+    pristine line text — so the payload is gone from BOTH source.md and every chunk before MAP reads
+    it. Chunk ids (filenames) are unchanged — only line contents are neutralized — so
+    content-addressing and anchors stay valid. Pristine copies (``source.md.raw``, ``chunks-raw/``)
+    are kept for audit and idempotent rebuild (each run redacts from pristine, never compounds).
+    """
+    base = Path(module_dir)
+    suspicious = [
+        v
+        for v in _parse_verdicts(base / "source-safety-verdicts.yaml")
+        if v.get("verdict") == "suspicious"
+    ]
+    summary: dict = {
+        "suspicious": len(suspicious),
+        "source_lines_redacted": 0,
+        "chunk_lines_redacted": 0,
+        "unresolved": [],
+    }
+    src = base / "source.md"
+    if not suspicious or not src.exists():
+        return summary
+
+    pristine = _snapshot_and_read_pristine(src, base / _SOURCE_MD_RAW)
+    lines = list(pristine)
+    payloads: set[str] = set()
+    for v in suspicious:
+        ln = v.get("line")
+        if not isinstance(ln, int) or isinstance(ln, bool) or ln < 1 or ln > len(pristine):
+            summary["unresolved"].append({"line": ln, "reason": "line out of range"})
+            continue
+        text = pristine[ln - 1].strip()
+        if text:
+            payloads.add(text)
+        lines[ln - 1] = PLACEHOLDER + _line_ending(pristine[ln - 1])
+        summary["source_lines_redacted"] += 1
+    src.write_text("".join(lines), encoding="utf-8")
+
+    # Propagate to the chunks (what MAP actually reads) by exact pristine-line match.
+    chunks_dir = base / "chunks"
+    if payloads and chunks_dir.is_dir():
+        raw_chunks = base / _CHUNKS_RAW
+        for ch in sorted(chunks_dir.glob("*.md")):
+            clines = _snapshot_and_read_pristine(ch, raw_chunks / ch.name)
+            changed = False
+            for i, cl in enumerate(clines):
+                if cl.strip() and cl.strip() in payloads:
+                    clines[i] = PLACEHOLDER + _line_ending(cl)
+                    summary["chunk_lines_redacted"] += 1
+                    changed = True
+            if changed:
+                ch.write_text("".join(clines), encoding="utf-8")
+    return summary
+
+
+def _real_line(f: dict) -> int | None:
+    """A finding's 1-indexed source line, or ``None`` for a whole-document (line-0 / obfuscated) hit.
+
+    Rejects ``bool`` (``True``/``False`` are ``int`` subclasses that would coerce to 1/0) and any
+    line < 1, so callers can branch on "has a real source line" without repeating the guard."""
+    ln = f.get("line")
+    if isinstance(ln, bool) or not isinstance(ln, int) or ln < 1:
+        return None
+    return ln
+
+
+def _load_scan_findings(path: Path) -> list[dict]:
+    """Load a book module's injection-scan.jsonl (one JSON finding per line); [] if absent."""
+    if not path.exists():
+        return []
+    out: list[dict] = []
+    for _i, line in iter_jsonl_lines(path.read_text(encoding="utf-8")):
+        try:
+            out.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    return out
+
+
+def verify_book_module(module_dir: str | Path) -> dict:
+    """Verify a book module after redaction. Returns ``{"leaks": [...], "untriaged": [...]}``.
+
+    Both lists fail the gate closed (callers exit non-zero on either): "cannot prove the payload is
+    gone" must never read as clean.
+
+    - ``leaks``: a **suspicious** verdict that is not provably neutralized — either its pristine
+      payload text still appears in ``source.md``/a chunk (a redaction FAILURE), or it cannot be
+      checked at all: no pristine snapshot yet (redaction never ran), a line out of range, or a
+      verdict with no real source line (a line-0 obfuscated finding). An unverifiable suspicious
+      verdict is flagged ``unverified`` rather than silently skipped — the reviewer asserted the line
+      is a live payload, so "can't verify removed" is treated as a leak.
+    - ``untriaged``: a chunk-time scan finding with **no** matching verdict — a triage gap that fails
+      closed. A **genuinely-obfuscated** line-0 finding (decoded from base64/rot13/… with no
+      same-family line-level sibling) counts: it cannot be pinned to a source line, so it is the most
+      important to surface, not the least. A line-0 *base-seed duplicate* (``detagged``/``dewrapped``
+      normalization of a payload that IS also found at a real line — same family) does **not** count:
+      triaging/redacting that real line neutralizes it, so requiring a separate line-0 verdict would
+      permanently fail-close every plain injection. Clear a genuine obfuscated finding with a verdict
+      at line 0 (a whole-document acknowledgement).
+    """
+    base = Path(module_dir)
+    findings = _load_scan_findings(base / "injection-scan.jsonl")
+    verdicts = _parse_verdicts(base / "source-safety-verdicts.yaml")
+    verdict_lines = {v.get("line") for v in verdicts}
+    # Families that appear at a real (≥1) line — a line-0 finding of such a family is a base-seed
+    # duplicate of that line-level finding, neutralized when the real line is triaged/redacted, so it
+    # must NOT independently keep the module untriaged (else every plain injection fails closed).
+    line_level_families = {f.get("family") for f in findings if _real_line(f) is not None}
+    untriaged = [
+        {
+            "file": Path(str(f.get("file", ""))).name,
+            "line": f.get("line"),
+            "family": f.get("family"),
+            "vector": f.get("vector"),
+        }
+        for f in findings
+        if f.get("line") not in verdict_lines
+        # keep line-level findings + genuinely-obfuscated-only line-0 findings; drop base-seed dups.
+        and (_real_line(f) is not None or f.get("family") not in line_level_families)
+    ]
+
+    raw = base / _SOURCE_MD_RAW
+    raw_exists = raw.exists()
+    pristine = raw.read_text(encoding="utf-8").splitlines() if raw_exists else []
+    src_text = (
+        (base / "source.md").read_text(encoding="utf-8") if (base / "source.md").exists() else ""
+    )
+    chunk_texts = (
+        {p.name: p.read_text(encoding="utf-8") for p in sorted((base / "chunks").glob("*.md"))}
+        if (base / "chunks").is_dir()
+        else {}
+    )
+    leaks: list[dict] = []
+    for v in verdicts:
+        if v.get("verdict") != "suspicious":
+            continue
+        ln = v.get("line")
+        if not isinstance(ln, int) or isinstance(ln, bool) or ln < 1:
+            # A suspicious verdict with no real source line (e.g. a confirmed line-0 obfuscated
+            # finding) cannot be proven removed by pristine-line matching — fail closed as unverified.
+            leaks.append({"line": ln, "where": "unverifiable — no source line", "unverified": True})
+            continue
+        if not raw_exists or ln > len(pristine):
+            # No pristine snapshot (redaction never ran) or the line is out of range: we cannot prove
+            # the payload is gone. Treat "cannot verify removed" as a leak, not a silent clean.
+            leaks.append(
+                {
+                    "line": ln,
+                    "where": "unverified — redaction not run / line out of range",
+                    "unverified": True,
+                }
+            )
+            continue
+        payload = pristine[ln - 1].strip()
+        if not payload:
+            continue
+        if payload in src_text:
+            leaks.append({"line": ln, "where": "source.md"})
+        for name, ct in chunk_texts.items():
+            if payload in ct:
+                leaks.append({"line": ln, "where": f"chunks/{name}"})
+    return {"leaks": leaks, "untriaged": untriaged}
+
+
+def redact_and_verify_book_module(module_dir: str | Path) -> dict:
+    """Redact a book module's suspicious spans AND verify none survived — the SAFE library entry point.
+
+    The fail-closed postcondition (redact, then confirm no un-neutralized / untriaged payload remains)
+    lived only in the ``--book-module`` CLI branch, so a Python orchestrator that called
+    ``redact_book_module`` directly — the pattern ``build_map_reduce`` already uses for its sibling
+    ``write_book_module`` — silently lost it. This composes the two building blocks and returns
+    ``{**redact_summary, "leaks", "untriaged"}``, so any caller (CLI or Python) fails closed on the
+    same signal: a non-empty ``leaks``, ``untriaged``, or ``unresolved`` means do NOT feed the module
+    to a MAP session. ``redact_book_module`` / ``verify_book_module`` remain the building blocks."""
+    summary = redact_book_module(module_dir)
+    v = verify_book_module(module_dir)
+    return {**summary, "leaks": v["leaks"], "untriaged": v["untriaged"]}
+
+
+def preview_book_module(module_dir: str | Path) -> dict:
+    """Read-only preview of what ``redact_and_verify_book_module`` WOULD do — for ``--dry-run``.
+
+    Counts the ``suspicious`` verdicts that would be neutralized and lists the ``untriaged`` findings
+    that would fail the launch closed, WITHOUT mutating ``source.md`` / the chunks. (No leak check —
+    a leak is a post-redaction property; ``untriaged`` is scan-findings-vs-verdicts, independent of
+    redaction, so it is meaningful pre-run.) This makes ``--dry-run`` a true no-op preview rather than
+    a real, file-mutating redaction of the cache module."""
+    base = Path(module_dir)
+    suspicious = sum(
+        1
+        for v in _parse_verdicts(base / "source-safety-verdicts.yaml")
+        if v.get("verdict") == "suspicious"
+    )
+    return {"suspicious": suspicious, "untriaged": verify_book_module(module_dir)["untriaged"]}
+
+
 def main() -> None:
     if len(sys.argv) < 2:
-        print("Usage: python -m tools.subagent_factory.redact_injection_spans subagents/<slug>")
+        print(
+            "Usage: python -m tools.subagent_factory.redact_injection_spans "
+            "(subagents/<slug> | --book-module <module> | --verify-book-module <module>)"
+        )
         sys.exit(1)
+    # Verify-only mode: report leaks + untriaged for a book module without mutating it.
+    if sys.argv[1] == "--verify-book-module":
+        if len(sys.argv) < 3:
+            print("redact-injection-spans FAIL — --verify-book-module requires a module dir")
+            sys.exit(1)
+        try:
+            vr = verify_book_module(sys.argv[2])
+        except ValueError as e:
+            print(f"redact-injection-spans FAIL — {e}")
+            sys.exit(1)
+        for leak in vr["leaks"]:
+            print(
+                f"  LEAK: suspicious span (source line {leak['line']}) present in {leak['where']}"
+            )
+        for u in vr["untriaged"]:
+            print(f"  UNTRIAGED: {u['file']}:{u['line']} (scan finding with no verdict)")
+        print(f"verify-book-module — {len(vr['leaks'])} leak(s), {len(vr['untriaged'])} untriaged")
+        # Fail closed on EITHER: a leak (payload provably/unverifiably present) OR an untriaged
+        # finding (a scan hit nobody decided on). An untriaged finding that never gates is a safety
+        # net that is computed but not load-bearing — exactly the silent bypass this verify prevents.
+        sys.exit(1 if (vr["leaks"] or vr["untriaged"]) else 0)
+    # Book-module mode (map-reduce path): neutralize source.md + chunks from the module's verdicts.
+    if sys.argv[1] == "--book-module":
+        if len(sys.argv) < 3:
+            print("redact-injection-spans FAIL — --book-module requires a module dir")
+            sys.exit(1)
+        # --dry-run: preview only, no file mutation (a triaged cache module is not rewritten just to
+        # look at what the gate would do). Reports the counts and exits 0 — it never fails the preview.
+        if "--dry-run" in sys.argv[3:]:
+            try:
+                pv = preview_book_module(sys.argv[2])
+            except ValueError as e:
+                print(f"redact-injection-spans FAIL — {e}")
+                sys.exit(1)
+            print(
+                f"redact-book-module DRY-RUN — would neutralize {pv['suspicious']} suspicious "
+                f"span(s); {len(pv['untriaged'])} untriaged finding(s) would fail the launch closed"
+            )
+            sys.exit(0)
+        try:
+            bs = redact_and_verify_book_module(sys.argv[2])  # redact + verify in one safe contract
+        except ValueError as e:
+            print(f"redact-injection-spans FAIL — {e}")
+            sys.exit(1)
+        print(
+            f"redact-book-module — {bs['source_lines_redacted']} source line(s) + "
+            f"{bs['chunk_lines_redacted']} chunk line(s) neutralized "
+            f"({bs['suspicious']} suspicious verdict(s))"
+        )
+        # Fail closed if a suspicious payload survived / could not be verified removed (a bug), OR if
+        # any scan finding was never triaged — map_book.sh gates on this rc, so both must exit non-zero.
+        if bs["leaks"]:
+            for leak in bs["leaks"]:
+                print(
+                    f"  LEAK: suspicious span (source line {leak['line']}) still present in {leak['where']}"
+                )
+            sys.exit(1)
+        if bs["unresolved"]:
+            for u in bs["unresolved"]:
+                print(f"  UNRESOLVED: line {u['line']} — {u['reason']}")
+            sys.exit(1)
+        if bs["untriaged"]:
+            for u in bs["untriaged"]:
+                print(f"  UNTRIAGED: {u['file']}:{u['line']} — scan finding with no verdict")
+            sys.exit(1)
+        return
     try:
         summary = redact_injection_spans(sys.argv[1])
     except ValueError as e:
