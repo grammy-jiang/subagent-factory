@@ -14,6 +14,9 @@ only by directory browse.
   the converter-keyed cache, re-authoring, faithfulness/anchor repair, validate.
 - [dogfood-review.md](dogfood-review.md) — the repeatable practice of reviewing the factory with its
   own generated subagents (area→reviewer map, what's automated).
+- [map-reduce-injection-safety.md](map-reduce-injection-safety.md) — how untrusted book text is
+  scanned for indirect prompt injection on the map-reduce path (chunk-time scan → gate → in-session
+  triage → redact → verify); the cache-level fix for the vacuous-scans gap.
 - [output-quality-eval.md](output-quality-eval.md) — how to evaluate whether a generated subagent
   gives *good advice* (not just whether it validates); the eval-driven multi-source grounding recipe.
 - [subagent-authoring-process-cycle.md](subagent-authoring-process-cycle.md) — the source→release
