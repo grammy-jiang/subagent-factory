@@ -5,8 +5,7 @@ How the factory scans untrusted book text for indirect prompt injection (IPI) on
 cache-level analogue of the classic `sources/markdown/` scan documented in
 [`enhancement-steps/step-1-safety-faithfulness.md`](enhancement-steps/step-1-safety-faithfulness.md).
 
-> Status: implemented on branch `claude/map-reduce-injection-verify`; **not yet on master**
-> (kept off master by decision). Two validation steps remain — see [Status](#status).
+> Status: **merged to master (#91).** See [Status](#status) for the remaining (low-priority) items.
 
 ## The problem it fixes — vacuous scans
 
@@ -176,10 +175,11 @@ at `line 0` — blocked but not line-localized. Kept cheap (single-transform, de
 every line.
 
 ## Status
-Complete end-to-end on branch `claude/map-reduce-injection-verify` (deterministic mechanism +
-in-session auto-triage + schema/validator + the hardening above). Off master by decision — no PR yet.
-Remaining before it would merge:
-1. A real end-to-end map-reduce run on a live book, to exercise the Step-0 auto-triage in an actual
-   MAP session (currently covered only by unit tests).
-2. SEC-1 localization (above), if obfuscated payloads should be resolvable rather than only blocked.
-3. The merge/PR decision itself.
+**Merged to master (#91)** — the full pipeline + the dogfood hardening + SEC-1 localization. The
+injection-safety decision path (real scan → `source-safety-reviewer` triage → redact → verify) was
+demonstrated **live end-to-end** on a synthetic book, with the base64 payload localized to its real
+line and the benign quoted-example preserved. Low-priority remainders:
+1. A full in-session MAP *extraction* run (Steps A–E) that spawns the reviewer from inside `claude -p` —
+   the safety mechanism itself is proven; this only exercises the prompt wiring on a real book (budget).
+2. **SEC-1 residual:** a *layered* single-line payload (rot13∘base64) or a genuinely *cross-line*
+   payload is still caught only at whole-document `line 0` (blocked, not line-localized).
