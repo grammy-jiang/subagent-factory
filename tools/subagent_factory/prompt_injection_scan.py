@@ -288,7 +288,9 @@ def _decode_fixpoint(raw: str, name: str) -> list[dict]:
     # worklist entries: (string, chain-of-transforms-applied-so-far). The chain length is the
     # depth; the base seed has an empty chain (it is the normalized document, no decode applied).
     worklist: list[tuple[str, tuple[str, ...]]] = [(base, ())]
-    reported: set[tuple[str, str]] = set()  # (family, vector) dedupe for findings
+    # (family, vector, decoded-text) dedupe: keying on the decoded text too means a SECOND, distinct
+    # payload of the same family/vector is still reported — keying on (family, vector) alone hid it.
+    reported: set[tuple[str, str, str]] = set()
     out: list[dict] = []
     while worklist and len(seen) < _MAX_DERIVED:
         current, chain = worklist.pop()
@@ -299,7 +301,7 @@ def _decode_fixpoint(raw: str, name: str) -> list[dict]:
         # chain) reports under "detagged" (it is already detag+strip+fold normalized).
         vector = chain[0] if chain else "detagged"
         for fam in _denylist_hits(current):
-            key = (fam, vector)
+            key = (fam, vector, current)
             if key in reported:
                 continue
             reported.add(key)
@@ -331,9 +333,14 @@ def _decode_fixpoint(raw: str, name: str) -> list[dict]:
 
 
 def _scan_css(raw: str, name: str) -> list[dict]:
-    """Presentation-layer hiding: CSS that renders a payload invisible (opacity:0, display:none…)."""
+    """Presentation-layer hiding: CSS that renders a payload invisible (opacity:0, display:none…).
+
+    Matches on the SAME confusable-folded / zero-width-stripped text as ``_scan_lines`` (not raw), so
+    a homoglyph-substituted property name — e.g. Cyrillic ``о`` in ``оpacity:0`` — is folded to ASCII
+    before ``_CSS_HIDDEN`` runs and cannot slip past the presentation-layer detector. Folding is
+    per-character and zero-width stripping keeps newlines, so line numbers stay valid."""
     out: list[dict] = []
-    for i, line in enumerate(raw.splitlines(), 1):
+    for i, line in enumerate(_fold_confusables(_strip_zero_width(raw)).splitlines(), 1):
         if _CSS_HIDDEN.search(line):
             out.append(
                 {
