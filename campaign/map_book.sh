@@ -45,6 +45,14 @@ while [ $# -gt 0 ]; do
     *) echo "unknown arg: $1" >&2; exit 2;;
   esac
 done
+# Normalize BLOCK_ON_INJECTION to a strict 0/1. MAP_BLOCK_ON_INJECTION is free-form env text, and a
+# truthy word like "true"/"yes" would make the numeric `[ "$BLOCK_ON_INJECTION" -eq 1 ]` test ERROR
+# and short-circuit to NOT blocking — silently defeating an explicit fail-closed request. Any of
+# 1/true/yes/on (case-insensitive) ⇒ 1, everything else ⇒ 0.
+case "$(printf '%s' "$BLOCK_ON_INJECTION" | tr '[:upper:]' '[:lower:]')" in
+  1|true|yes|on) BLOCK_ON_INJECTION=1;;
+  *) BLOCK_ON_INJECTION=0;;
+esac
 [ -n "$BOOK" ] || { echo "--book <staged.md> required" >&2; exit 2; }
 [ -f "$BOOK" ] || { echo "book not found: $BOOK" >&2; exit 3; }
 mkdir -p "$LOGS"
@@ -98,7 +106,19 @@ echo "[map] chunks=$(grep -c . "$MODULE/chunks.jsonl")"
 # presence of source-safety-verdicts.yaml is the "triaged" signal that clears the warning/block.
 INJ="$MODULE/injection-scan.jsonl"
 VERDICTS="$MODULE/source-safety-verdicts.yaml"
-if [ -s "$INJ" ]; then
+if [ ! -f "$INJ" ]; then
+  # M3/SEC-7: chunks exist (readiness passed above) but there is NO scan artifact — this book was
+  # never scanned for injection (a module chunked by a pre-scan chunk_source, or a failed/interrupted
+  # chunk step). "Absent" is NOT "scanned, clean"; surface it, and fail closed when blocking rather
+  # than silently launch an unscanned book (which the old `[ -s "$INJ" ]` test did, even under
+  # --block-on-injection).
+  echo "[map] ⚠ IPI: no injection-scan.jsonl in this module — it was never scanned for injection." >&2
+  echo "[map]   Re-chunk to scan it (chunk_source writes the scan), or pass --block-on-injection to refuse." >&2
+  if [ "$BLOCK_ON_INJECTION" -eq 1 ] && [ "$DRYRUN" -eq 0 ]; then
+    echo "[map]   --block-on-injection: refusing to launch an unscanned book." >&2
+    exit 5
+  fi
+elif [ -s "$INJ" ]; then
   # #2: injection-scan.jsonl is a schema-validated artifact (injection-scan-v1). A corrupted or
   # hand-edited scan can't be trusted to reflect the real findings the triage/redaction below keys
   # off — fail closed rather than mis-parse it (dry-run surfaces but proceeds, like the rest).

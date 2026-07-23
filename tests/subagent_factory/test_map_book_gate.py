@@ -6,6 +6,8 @@ base rate makes hard-blocking raw hits flood legit content); --block-on-injectio
 drive the real script over a freshly-chunked module.
 """
 
+import hashlib
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -121,8 +123,6 @@ def test_malformed_scan_fails_closed(tmp_path):
     not (_repo_root() / "campaign" / "map_book.sh").exists(), reason="map_book.sh absent"
 )
 def test_triaged_module_applies_redaction(tmp_path):
-    import hashlib
-
     book = tmp_path / "staged.md"
     book.write_text(_INJECTED, encoding="utf-8")
     cache = tmp_path / "cache"
@@ -142,3 +142,49 @@ def test_triaged_module_applies_redaction(tmp_path):
     assert "Ignore all previous instructions" not in (mod / "source.md").read_text()
     for ch in (mod / "chunks").glob("*.md"):
         assert "Ignore all previous instructions" not in ch.read_text()
+
+
+@pytest.mark.skipif(
+    not (_repo_root() / "campaign" / "map_book.sh").exists(), reason="map_book.sh absent"
+)
+def test_absent_scan_is_not_treated_as_clean(tmp_path):
+    """M3/SEC-7: a module with chunks but NO injection-scan.jsonl was never scanned — absent ≠ clean.
+    The old `[ -s "$INJ" ]` gate skipped it silently even under --block-on-injection. Now it warns
+    (advisory) and fails closed when blocking."""
+    book = tmp_path / "staged.md"
+    book.write_text(_CLEAN, encoding="utf-8")
+    cache = tmp_path / "cache"
+    _chunk(book, cache)
+    mod = cache / hashlib.sha256(book.read_bytes()).hexdigest()
+    (mod / "injection-scan.jsonl").unlink()  # simulate a legacy / failed-scan module
+    r_dry = _run_map(book, cache, "--dry-run")
+    assert "never scanned" in r_dry.stderr and r_dry.returncode == 0  # advisory → proceeds
+    r = _run_map(book, cache, "--block-on-injection")
+    assert r.returncode == 5 and "refusing to launch an unscanned book" in r.stderr
+
+
+@pytest.mark.skipif(
+    not (_repo_root() / "campaign" / "map_book.sh").exists(), reason="map_book.sh absent"
+)
+def test_block_env_truthy_value_fails_closed(tmp_path):
+    """bash#2: MAP_BLOCK_ON_INJECTION=true (a natural way to write a boolean) must fail closed, not
+    error the numeric `[ -eq 1 ]` test and silently proceed."""
+    book = tmp_path / "staged.md"
+    book.write_text(_INJECTED, encoding="utf-8")
+    cache = tmp_path / "cache"
+    _chunk(book, cache)
+    r = subprocess.run(
+        [
+            "bash",
+            str(_repo_root() / "campaign" / "map_book.sh"),
+            "--book",
+            str(book),
+            "--cache",
+            str(cache),
+        ],
+        cwd=_repo_root(),
+        capture_output=True,
+        text=True,
+        env={**os.environ, "MAP_BLOCK_ON_INJECTION": "true"},
+    )
+    assert r.returncode == 5 and "refusing to launch" in r.stderr

@@ -401,11 +401,23 @@ def scan_book_module(module_dir: str | Path) -> list[dict]:
     ``source.md`` (the chunks are overlapping windows of it, so scanning ``source.md`` once covers
     every chunk the MAP session reads). Same advisory finding shape and semantics — a hit means
     *quarantine/escalate*, not *block*. ``file`` is the ``source.md`` path so a downstream redactor
-    can locate the span. Empty list = clean or no ``source.md``.
+    can locate the span. Empty list = scanned clean; a missing ``source.md`` is reported as a
+    ``scan-error`` finding (NOT ``[]``), so "not scanned" fails closed instead of reading as clean.
     """
     src = Path(module_dir) / "source.md"
     if not src.exists():
-        return []
+        # Absent source ≠ clean. Mirror _scan_file's fail-closed on an unreadable file: surface a
+        # scan-error finding so a downstream reader (verify / the gate) treats it as un-scanned.
+        return [
+            {
+                "file": str(src),
+                "line": 0,
+                "family": "scan-error",
+                "vector": "missing-source",
+                "severity": "high",
+                "excerpt": "source.md absent — module was not scanned",
+            }
+        ]
     return _scan_file(src)
 
 

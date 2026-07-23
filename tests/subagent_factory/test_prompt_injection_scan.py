@@ -389,5 +389,8 @@ def test_scan_book_module_clean_source_is_empty(tmp_path):
     assert scan_book_module(mod) == []
 
 
-def test_scan_book_module_absent_source_is_empty(tmp_path):
-    assert scan_book_module(tmp_path) == []  # no source.md → clean-absent, never raises
+def test_scan_book_module_absent_source_is_scan_error(tmp_path):
+    # SEC-7: absent source.md ≠ clean — it means "not scanned", so it fails closed as a scan-error
+    # finding (not []), which the verify/gate then treat as un-scanned rather than silently pass.
+    f = scan_book_module(tmp_path)
+    assert len(f) == 1 and f[0]["family"] == "scan-error" and f[0]["vector"] == "missing-source"
