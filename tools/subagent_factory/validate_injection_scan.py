@@ -11,6 +11,8 @@ from pathlib import Path
 
 import jsonschema
 
+from tools.subagent_factory._common import iter_jsonl_lines
+
 _SCHEMA_PATH = Path(__file__).parent.parent.parent / "schemas" / "injection-scan-v1.schema.json"
 
 
@@ -38,14 +40,10 @@ def validate_injection_scan(scan_path: str | Path) -> list[str]:
     except (OSError, UnicodeDecodeError) as e:
         return [f"cannot read {path}: {e}"]
     errors: list[str] = []
-    # Split on "\n" only (the writer's delimiter), NOT str.splitlines(): splitlines() also breaks on
-    # U+2028/U+2029/U+0085/… which ensure_ascii=False output can carry inside a string value, which
-    # would shatter one well-formed record into "invalid JSON" fragments. The blank guard below
-    # absorbs the trailing empty element.
-    for i, line in enumerate(text.split("\n"), 1):
-        line = line.strip()
-        if not line:
-            continue
+    # iter_jsonl_lines splits on "\n" only (not str.splitlines(), which would shatter a record whose
+    # string value carries U+2028/U+2029) — the SAME reader _load_scan_findings uses, so the
+    # validator and the loader cannot drift on how a corrupted scan line is handled.
+    for i, line in iter_jsonl_lines(text):
         try:
             record = json.loads(line)
         except json.JSONDecodeError as e:

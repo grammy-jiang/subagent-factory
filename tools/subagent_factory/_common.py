@@ -9,11 +9,26 @@ from __future__ import annotations
 
 import os
 import tempfile
+from collections.abc import Iterator
 from pathlib import Path
 
 # Rough char -> token estimate, used by the chunker and the size router. Kept identical so a
 # book's size class and its chunk token estimates agree.
 CHARS_PER_TOKEN = 4
+
+
+def iter_jsonl_lines(text: str) -> Iterator[tuple[int, str]]:
+    """Yield ``(1-indexed line number, stripped non-blank line)`` for a JSONL body.
+
+    Splits on ``"\\n"`` ONLY — NOT ``str.splitlines()``, which also breaks on U+2028/U+2029/U+0085
+    that ``ensure_ascii=False`` output can carry inside a string value, shattering one well-formed
+    record into "invalid JSON" fragments. Blank lines are skipped. Shared by every reader of the
+    injection-scan.jsonl artifact so a corrupted-line policy cannot drift between them (the loader and
+    the validator must agree)."""
+    for i, line in enumerate(text.split("\n"), 1):
+        stripped = line.strip()
+        if stripped:
+            yield i, stripped
 
 
 def atomic_write_text(path: Path, text: str) -> None:

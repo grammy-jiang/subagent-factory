@@ -94,6 +94,14 @@ def test_unicode_line_separator_in_record_not_split(tmp_path):
     assert validate_injection_scan(mod) == []  # one valid record, not fragmented
 
 
+def test_iter_jsonl_lines_shared_contract():
+    """design#5: the one reader both the validator and the redact loader use — splits on '\\n' only
+    (a U+2028 inside a value does NOT start a new record) and skips blank lines."""
+    from tools.subagent_factory._common import iter_jsonl_lines
+
+    assert list(iter_jsonl_lines("a b\nc\n\n")) == [(1, "a b"), (2, "c")]
+
+
 def test_verify_book_module_cli_clean_exit(tmp_path):
     mod = _module(tmp_path, "# B\n\nordinary prose.\n")  # clean → no leaks, no untriaged
     r = subprocess.run(

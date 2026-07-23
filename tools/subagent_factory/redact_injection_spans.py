@@ -37,6 +37,8 @@ from pathlib import Path
 
 import yaml
 
+from tools.subagent_factory._common import iter_jsonl_lines
+
 # Whole-line replacement text. Kept anchorless and whitespace-free so a `.strip()` compare in the
 # validate gate matches regardless of the neutralized line's original indentation / trailing space.
 PLACEHOLDER = (
@@ -97,6 +99,18 @@ def _line_ending(s: str) -> str:
     return ""  # final line without a trailing newline
 
 
+def _snapshot_and_read_pristine(target: Path, pristine: Path) -> list[str]:
+    """Snapshot ``target`` → ``pristine`` ONCE (if not already present), then return the pristine lines
+    with line endings kept. This is the load-bearing idempotence guarantee — redaction ALWAYS rebuilds
+    from the pristine copy, so re-runs never compound and dropping a verdict restores the line.
+    Factored so the three redaction sites (classic source, book-module ``source.md``, book-module
+    chunk) share ONE implementation and cannot drift on the snapshot semantics."""
+    if not pristine.exists():
+        pristine.parent.mkdir(parents=True, exist_ok=True)
+        pristine.write_text(target.read_text(encoding="utf-8"), encoding="utf-8")
+    return pristine.read_text(encoding="utf-8").splitlines(keepends=True)
+
+
 def redact_injection_spans(subagent_dir: str | Path) -> dict:
     """Neutralize every ``suspicious`` span in the canonical Markdown; return a summary.
 
@@ -127,11 +141,7 @@ def redact_injection_spans(subagent_dir: str | Path) -> dict:
     for name in sorted(by_file):
         target = md_dir / name
         raw = raw_dir / name
-        # Snapshot the pristine source ONCE; thereafter always redact from it (idempotent, no compounding).
-        if not raw.exists():
-            raw_dir.mkdir(parents=True, exist_ok=True)
-            raw.write_text(target.read_text(encoding="utf-8"), encoding="utf-8")
-        lines = raw.read_text(encoding="utf-8").splitlines(keepends=True)
+        lines = _snapshot_and_read_pristine(target, raw)  # idempotent: always redact from pristine
         for v in by_file[name]:
             ln = v.get("line")
             if not isinstance(ln, int) or isinstance(ln, bool) or ln < 1 or ln > len(lines):
@@ -197,10 +207,7 @@ def redact_book_module(module_dir: str | Path) -> dict:
     if not suspicious or not src.exists():
         return summary
 
-    raw = base / _SOURCE_MD_RAW
-    if not raw.exists():
-        raw.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
-    pristine = raw.read_text(encoding="utf-8").splitlines(keepends=True)
+    pristine = _snapshot_and_read_pristine(src, base / _SOURCE_MD_RAW)
     lines = list(pristine)
     payloads: set[str] = set()
     for v in suspicious:
@@ -219,12 +226,8 @@ def redact_book_module(module_dir: str | Path) -> dict:
     chunks_dir = base / "chunks"
     if payloads and chunks_dir.is_dir():
         raw_chunks = base / _CHUNKS_RAW
-        raw_chunks.mkdir(exist_ok=True)
         for ch in sorted(chunks_dir.glob("*.md")):
-            praw = raw_chunks / ch.name
-            if not praw.exists():
-                praw.write_text(ch.read_text(encoding="utf-8"), encoding="utf-8")
-            clines = praw.read_text(encoding="utf-8").splitlines(keepends=True)
+            clines = _snapshot_and_read_pristine(ch, raw_chunks / ch.name)
             changed = False
             for i, cl in enumerate(clines):
                 if cl.strip() and cl.strip() in payloads:
@@ -252,10 +255,7 @@ def _load_scan_findings(path: Path) -> list[dict]:
     if not path.exists():
         return []
     out: list[dict] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line:
-            continue
+    for _i, line in iter_jsonl_lines(path.read_text(encoding="utf-8")):
         try:
             out.append(json.loads(line))
         except json.JSONDecodeError:

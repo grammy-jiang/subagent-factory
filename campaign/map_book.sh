@@ -127,8 +127,10 @@ elif [ -s "$INJ" ]; then
     printf '%s\n' "$vmsg" | sed 's/^/[map]   /' >&2
     [ "$DRYRUN" -eq 1 ] || exit 5
   fi
-  if [ -f "$VERDICTS" ]; then
-    # Triaged: APPLY the verdict-driven redaction to source.md + chunks BEFORE the MAP session reads
+  if [ -s "$VERDICTS" ]; then
+    # Triaged (a NON-EMPTY verdicts file — `-s`, not `-f`: a 0-byte/truncated placeholder is not a
+    # real triage and routes to the advisory/block branch below instead of a no-op redaction).
+    # APPLY the verdict-driven redaction to source.md + chunks BEFORE the MAP session reads
     # them (idempotent — rebuilds from the pristine copies each run). Fail closed if redaction errors.
     # Under --dry-run this previews (read-only) instead of mutating the cache module — pass --dry-run
     # through so the tool reports what it WOULD neutralize without rewriting files.
