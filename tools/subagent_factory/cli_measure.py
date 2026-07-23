@@ -329,59 +329,14 @@ def cmd_gen_behaviour_tests(slug, ideator, candidates, validate):
         console.print("[green]coverage validator PASS[/green]")
 
 
-def _load_gate_tests(base):
-    """Raw-load a package's missing-context tests + answerable twins for the ask-gate.
-
-    Reads ``tests/*.yaml`` directly (not the flattened ``load_behaviour_tests``, which drops
-    ``twin_of``): each answerable twin inherits the ``must_ask_for`` of the missing-context test it
-    twins, so the gate sees the SAME required-context with (twin → should answer) and without
-    (missing-context → should ask) the answer present. Returns ``(missing_context, twins)`` as lists
-    of ``{test_id, prompt, must_ask_for}``.
-    """
-    import yaml
-
-    missing_context = []
-    by_id = {}
-    twin_src = []
-    for tf in sorted((base / "tests").glob("*.yaml")):
-        try:
-            data = yaml.safe_load(tf.read_text(encoding="utf-8")) or {}
-        except yaml.YAMLError:
-            continue
-        if not isinstance(data, dict):
-            continue
-        for m in data.get("missing_context_tests") or []:
-            if not isinstance(m, dict) or not m.get("prompt"):
-                continue
-            rec = {
-                "test_id": m.get("test_id"),
-                "prompt": m.get("prompt"),
-                "must_ask_for": m.get("must_ask_for") or [],
-            }
-            missing_context.append(rec)
-            by_id[m.get("test_id")] = rec["must_ask_for"]
-        for g in data.get("golden_tests") or []:
-            if isinstance(g, dict) and g.get("twin_of") and g.get("prompt"):
-                twin_src.append(g)
-    twins = [
-        {
-            "test_id": g.get("test_id"),
-            "prompt": g.get("prompt"),
-            # inherit the twinned missing-context test's slots; fall back to the twin's own if unlinked
-            "must_ask_for": by_id.get(g.get("twin_of"), g.get("must_ask_for") or []),
-        }
-        for g in twin_src
-    ]
-    return missing_context, twins
-
-
 @click.command("ask-gate")
 @click.argument("slug")
 @click.option(
     "--strict",
     is_flag=True,
-    help="Exit 1 if the gate would silently commit on any missing-context test. Opt-in only — this "
-    "is NOT a package-validity gate (Step-13 is measured, not enforced); it never runs in validate.",
+    help="Exit 1 if the gate would silently commit on any missing-context test, OR the test suite is "
+    "unreadable / ambiguous. Opt-in only — NOT a package-validity gate (Step-13 is measured, not "
+    "enforced); it never runs in validate.",
 )
 def cmd_ask_gate(slug, strict):
     """Step 13: run the deterministic Answer/Ask/Abstain gate over SLUG's OWN behaviour tests (no model calls).
@@ -391,13 +346,23 @@ def cmd_ask_gate(slug, strict):
     lexically names the slot). Over-ask diagnostic (packages with answerable twins): each twin
     supplies that context and ideally makes the gate answer; because slot-fill is a lexical
     approximation, a twin that signals sufficiency in prose reads as an over-ask, so this is a
-    diagnostic, not a failure. Report-only by default; --strict fails on a silent commit only.
+    diagnostic, not a failure. Report-only by default; --strict fails on a silent commit or a broken suite.
     """
     from tools.subagent_factory.ask_gate import evaluate_tests
+    from tools.subagent_factory.behaviour_replay import load_gate_tests
 
     base = subagent_path(slug)
-    missing_context, twins = _load_gate_tests(base)
+    missing_context, twins, problems = load_gate_tests(base)
+    # Surface a corrupted / ambiguous suite — never let it silently shrink into a false "clean" or a
+    # false "no opt-in" (a green-but-smaller run is the silent overconfidence this gate exists to catch).
+    for p in problems:
+        console.print(f"  [red]suite problem[/red] {p}")
     if not missing_context and not twins:
+        if problems:  # broken test files, not a genuine no-opt-in → fail loud under --strict
+            console.print("[red]ask-gate: the test suite is unreadable — nothing evaluated.[/red]")
+            if strict:
+                sys.exit(1)
+            return
         console.print(
             f"[yellow]no missing-context tests or twins under[/yellow] {base / 'tests'} — "
             "package does not opt into the ask-gate"
@@ -405,7 +370,8 @@ def cmd_ask_gate(slug, strict):
         return
     r = evaluate_tests(missing_context, twins)
     sc, oa = r["silent_commit"], r["over_ask"]
-    color = "green" if not sc["misses"] else "red"
+    # 0/0 is not a verified pass — don't paint it green (it looks identical to a suite that ran).
+    color = "yellow" if sc["total"] == 0 else ("green" if not sc["misses"] else "red")
     console.print(
         f"ask-gate silent-commit guard [{color}]{sc['asked']}/{sc['total']}[/{color}] "
         f"missing-context tests → ask (ASK-F1 {sc['f1']['f1']})"
@@ -421,7 +387,9 @@ def cmd_ask_gate(slug, strict):
             f"twins; {len(oa['over_asked'])} lexical over-ask — twins whose sufficiency is not "
             "lexically aligned with the declared slots (typical of template-mode tests).[/dim]"
         )
-    if strict and sc["misses"]:
+    # Fail closed under --strict on a silent commit OR an unresolved suite problem — both are the
+    # false-confidence this gate exists to prevent.
+    if strict and (sc["misses"] or problems):
         sys.exit(1)
 
 

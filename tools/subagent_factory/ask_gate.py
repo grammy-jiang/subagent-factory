@@ -335,24 +335,36 @@ def evaluate_tests(missing_context: list[dict], twins: list[dict] | None = None)
     expected action is ``ask``, ASK-F1 collapses to ask-recall)."""
 
     def _act(t: dict) -> str:
+        # `... or ""` (not the get default): a test dict with an explicit ``prompt: None`` must become
+        # an empty turn, not the literal string "None" (a get default only fires on a MISSING key).
         return gate(
             {"must_ask_for": t.get("must_ask_for") or []},
-            [{"role": "user", "content": str(t.get("prompt", ""))}],
+            [{"role": "user", "content": str(t.get("prompt") or "")}],
         )["action"]
 
-    sc_rows = [{"test_id": t.get("test_id"), "action": _act(t)} for t in missing_context]
-    tw_rows = [{"test_id": t.get("test_id"), "action": _act(t)} for t in (twins or [])]
+    sc_actions = [_act(t) for t in missing_context]
+    tw_actions = [_act(t) for t in (twins or [])]
+    sc_rows = [
+        {"test_id": t.get("test_id"), "action": a}
+        for t, a in zip(missing_context, sc_actions, strict=True)
+    ]
+    tw_rows = [
+        {"test_id": t.get("test_id"), "action": a}
+        for t, a in zip(twins or [], tw_actions, strict=True)
+    ]
     return {
         "silent_commit": {
-            "total": len(sc_rows),
-            "asked": sum(1 for r in sc_rows if r["action"] == "ask"),
+            "total": len(sc_actions),
+            "asked": sc_actions.count("ask"),
             "misses": [r for r in sc_rows if r["action"] != "ask"],
             "rows": sc_rows,
-            "f1": ask_f1(["ask"] * len(sc_rows), [str(r["action"]) for r in sc_rows]),
+            # one typed action list feeds both the tally and F1 — no per-call str() coercion that could
+            # drift from the tallies if the action type ever changed.
+            "f1": ask_f1(["ask"] * len(sc_actions), sc_actions),
         },
         "over_ask": {
-            "total": len(tw_rows),
-            "answered": sum(1 for r in tw_rows if r["action"] == "answer"),
+            "total": len(tw_actions),
+            "answered": tw_actions.count("answer"),
             "over_asked": [r for r in tw_rows if r["action"] == "ask"],
             "rows": tw_rows,
         },
