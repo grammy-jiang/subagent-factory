@@ -355,8 +355,54 @@ def _scan_css(raw: str, name: str) -> list[dict]:
     return out
 
 
+def _localize_obfuscation(
+    raw: str, name: str, skip_lines: frozenset[int] = frozenset()
+) -> list[dict]:
+    """Per-line obfuscation scan (SEC-1 localization): apply each decode transform to EACH source line
+    so a single-line obfuscated payload — a base64 blob, a reversed / rot13 line, an inline
+    DOM-fragmented line — is reported at its REAL source line and is therefore **redactable** (a
+    reviewer can point a ``suspicious`` verdict at that line), instead of only at whole-document
+    ``line 0``. This is a **single-transform** (depth-1) pass, deliberately cheaper than the full
+    composing ``_decode_fixpoint`` so it can run on every line: a LAYERED single-line payload
+    (rot13∘base64) is still caught by the whole-document fixpoint (at line 0), just not localized —
+    the documented residual, along with genuinely cross-line payloads. ``skip_lines`` are the lines
+    ``_scan_lines`` already flags plainly, so this adds no redundant finding there."""
+    out: list[dict] = []
+    for i, line in enumerate(raw.splitlines(), 1):
+        if i in skip_lines or not line.strip():
+            continue
+        base = _norm(_strip_html_tags(line))
+        # Candidates: the detagged/normalized line itself (inline DOM fragmentation reveals the payload
+        # with no further decode) + one application of each transform (single layer).
+        candidates: list[tuple[str, str]] = [("detagged", base)]
+        for tname, fn in _TRANSFORMS.items():
+            try:
+                candidates.append((tname, _norm(fn(base))))
+            except (ValueError, UnicodeDecodeError):
+                continue
+        seen: set[tuple[str, str]] = set()  # (family, vector) per line
+        for vector, decoded in candidates:
+            if not decoded:
+                continue
+            for fam in _denylist_hits(decoded):
+                if (fam, vector) in seen:
+                    continue
+                seen.add((fam, vector))
+                out.append(
+                    {
+                        "file": name,
+                        "line": i,
+                        "family": fam,
+                        "vector": vector,
+                        "severity": "high",
+                        "excerpt": f"payload revealed after {vector}",
+                    }
+                )
+    return out
+
+
 def _scan_file(path: Path) -> list[dict]:
-    """All findings for one markdown file: line-level + obfuscation fixpoint + CSS-hidden."""
+    """All findings for one markdown file: line-level + per-line + whole-doc obfuscation + CSS-hidden."""
     try:
         raw = path.read_text(encoding="utf-8", errors="replace")
     except OSError as e:
@@ -374,7 +420,18 @@ def _scan_file(path: Path) -> list[dict]:
             }
         ]
     name = str(path)
-    return [*_scan_lines(raw, name), *_decode_fixpoint(raw, name), *_scan_css(raw, name)]
+    line_findings = _scan_lines(raw, name)
+    plain_lines = frozenset(f["line"] for f in line_findings)
+    return [
+        *line_findings,
+        # SEC-1 localization: single-line obfuscated payloads at their REAL, redactable source line.
+        # This also catches base64 the whole-doc pass misses when a token is newline-adjacent to prose
+        # (the dewrap merges the neighbour into the token), so it is a detection improvement too.
+        *_localize_obfuscation(raw, name, plain_lines),
+        # Whole-doc fixpoint (line 0): the backstop for genuinely cross-line / layered payloads.
+        *_decode_fixpoint(raw, name),
+        *_scan_css(raw, name),
+    ]
 
 
 def prompt_injection_scan(subagent_dir: str | Path) -> list[dict]:
