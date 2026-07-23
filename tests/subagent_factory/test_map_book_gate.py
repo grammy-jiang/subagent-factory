@@ -63,7 +63,8 @@ def test_advisory_warns_but_proceeds(tmp_path):
     cache = tmp_path / "cache"
     _chunk(book, cache)
     r = _run_map(book, cache, "--dry-run")
-    assert "IPI:" in r.stderr and "un-triaged injection" in r.stderr  # surfaced
+    assert "IPI:" in r.stderr and "injection finding" in r.stderr  # surfaced
+    assert "Step 0" in r.stderr  # points at in-session auto-triage
     assert "DRY-RUN" in r.stdout  # advisory → still proceeds
     assert r.returncode == 0
 

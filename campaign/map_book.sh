@@ -110,11 +110,12 @@ if [ -s "$INJ" ]; then
     fi
   else
     n_inj="$(grep -c . "$INJ" 2>/dev/null || echo 0)"
-    echo "[map] ⚠ IPI: $n_inj un-triaged injection finding(s) in this book (see $INJ)." >&2
-    echo "[map]   Triage before distillation — record verdicts in $VERDICTS and re-run" >&2
-    echo "[map]   (map_book.sh then applies the redaction automatically)." >&2
+    echo "[map] ⚠ IPI: $n_inj injection finding(s) in this book (see $INJ)." >&2
+    echo "[map]   The MAP session triages these in Step 0 (source-safety-reviewer → verdicts →" >&2
+    echo "[map]   redaction) before any extraction. Use --block-on-injection to require OUT-OF-BAND" >&2
+    echo "[map]   triage (write $VERDICTS first) instead of trusting the in-session pass." >&2
     if [ "$BLOCK_ON_INJECTION" -eq 1 ] && [ "$DRYRUN" -eq 0 ]; then
-      echo "[map]   --block-on-injection: refusing to launch MAP on un-triaged untrusted content." >&2
+      echo "[map]   --block-on-injection: refusing to launch until $VERDICTS exists (out-of-band triage)." >&2
       exit 5
     fi
   fi
