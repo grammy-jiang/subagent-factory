@@ -134,14 +134,42 @@ exists for the stricter posture (fail closed until a human/out-of-band pass writ
 - `test_validate_injection_scan.py` — real artifact conforms; empty/absent valid; invalid-JSON and
   schema-violation reported.
 - `test_map_book_gate.py` — advisory-warns-but-proceeds, `--block-on-injection` fails closed, clean
-  book is silent, malformed scan fails closed, triaged module applies redaction to source + chunks.
-- `test_redact_injection_spans.py` — `redact_book_module` (source + chunk propagation, idempotence)
-  and `verify_book_module` (leak detection).
+  book is silent, malformed scan fails closed, absent scan ≠ clean, a truthy block env fails closed,
+  a triaged module's `--dry-run` previews without mutating.
+- `test_redact_injection_spans.py` — `redact_book_module` (source + chunk propagation, idempotence),
+  `verify_book_module` (leak detection) and the SEC-1/2/3 bypasses (verify-before-redaction is not
+  falsely clean; an obfuscated-only finding is surfaced as untriaged; the CLI fails closed on
+  untriaged), and `redact_and_verify_book_module` (the safe entry point).
+
+## Hardening from the dogfood security review
+The factory's own `application-security-reviewer` (plus the bash / python / design reviewers) reviewed
+this pipeline and found real bypasses, since fixed on the branch:
+
+- **Verify safety nets are now load-bearing.** `untriaged` findings gate the exit code (a finding the
+  LLM triage missed no longer exits 0); an uncheckable suspicious verdict (no pristine snapshot yet,
+  or a line-0 obfuscated finding) is an `unverified` **leak** rather than a silent pass; a
+  genuinely-obfuscated-only line-0 finding is surfaced as `untriaged` (base-seed duplicates of a plain
+  payload are not, so plain injections don't fail closed forever).
+- **"Not scanned" ≠ "clean."** The gate distinguishes an absent `injection-scan.jsonl` (warn; fail
+  closed under `--block-on-injection`) from a present-but-empty one; `scan_book_module` returns a
+  `scan-error` finding for a missing `source.md`.
+- **Scanner detection.** `_scan_css` normalizes (homoglyph CSS property no longer bypasses); the
+  fixpoint dedupe is content-keyed; the chunk neighbour-overlap is line-aligned so a flagged line
+  can't survive as a truncated fragment.
+- **Robustness.** `MAP_BLOCK_ON_INJECTION=true` fails closed (not an errored numeric test);
+  `validate_injection_scan` reports non-UTF-8 instead of crashing and splits on `\n` only; `--dry-run`
+  previews without mutating the cache; `redact_and_verify_book_module` is the safe library entry point.
+
+**Follow-on (not yet done): SEC-1 localization.** An obfuscated payload is reported at `line: 0`, so it
+currently fails closed (blocked) but is not *resolvable* by line redaction — a reviewer cannot point a
+`suspicious` verdict at the encoded token's real line. Localizing obfuscation findings to their source
+line (per-line re-scan) would make them redactable, and would also give SEC-5 its per-token findings.
 
 ## Status
 Complete end-to-end on branch `claude/map-reduce-injection-verify` (deterministic mechanism +
-in-session auto-triage + schema/validator). Off master by decision — no PR yet. Remaining before it
-would merge:
+in-session auto-triage + schema/validator + the hardening above). Off master by decision — no PR yet.
+Remaining before it would merge:
 1. A real end-to-end map-reduce run on a live book, to exercise the Step-0 auto-triage in an actual
    MAP session (currently covered only by unit tests).
-2. The merge/PR decision itself.
+2. SEC-1 localization (above), if obfuscated payloads should be resolvable rather than only blocked.
+3. The merge/PR decision itself.
