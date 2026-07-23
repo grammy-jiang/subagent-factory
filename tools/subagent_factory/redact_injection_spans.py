@@ -31,6 +31,7 @@ silently skipped. ``sources/markdown-raw/`` is skipped by ``quote_scan`` (its pa
 ``sources/markdown/*.md`` only), so the pristine copy adds no new rights or scan surface.
 """
 
+import json
 import sys
 from pathlib import Path
 
@@ -229,6 +230,71 @@ def redact_book_module(module_dir: str | Path) -> dict:
     return summary
 
 
+def _load_scan_findings(path: Path) -> list[dict]:
+    """Load a book module's injection-scan.jsonl (one JSON finding per line); [] if absent."""
+    if not path.exists():
+        return []
+    out: list[dict] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            out.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    return out
+
+
+def verify_book_module(module_dir: str | Path) -> dict:
+    """Verify a book module after redaction. Returns ``{"leaks": [...], "untriaged": [...]}``.
+
+    - ``leaks``: a **suspicious** verdict whose pristine payload text still appears in ``source.md``
+      or a chunk — a redaction FAILURE, so callers must fail closed (this is a correctness assertion,
+      not a false-positive concern).
+    - ``untriaged``: a chunk-time scan finding (line ≥ 1) with no matching verdict — advisory (the
+      module still needs triage); mirrors the cross-check the classic gate lacked.
+    """
+    base = Path(module_dir)
+    findings = _load_scan_findings(base / "injection-scan.jsonl")
+    verdicts = _parse_verdicts(base / "source-safety-verdicts.yaml")
+    verdict_lines = {v.get("line") for v in verdicts}
+    untriaged = [
+        {"file": Path(str(f.get("file", ""))).name, "line": f.get("line")}
+        for f in findings
+        if isinstance(f.get("line"), int)
+        and f.get("line", 0) >= 1
+        and f.get("line") not in verdict_lines
+    ]
+
+    raw = base / "source.md.raw"
+    pristine = raw.read_text(encoding="utf-8").splitlines() if raw.exists() else []
+    src_text = (
+        (base / "source.md").read_text(encoding="utf-8") if (base / "source.md").exists() else ""
+    )
+    chunk_texts = (
+        {p.name: p.read_text(encoding="utf-8") for p in sorted((base / "chunks").glob("*.md"))}
+        if (base / "chunks").is_dir()
+        else {}
+    )
+    leaks: list[dict] = []
+    for v in verdicts:
+        if v.get("verdict") != "suspicious":
+            continue
+        ln = v.get("line")
+        if not isinstance(ln, int) or ln < 1 or ln > len(pristine):
+            continue  # no recoverable pristine payload (redaction not run) → covered by 'untriaged'
+        payload = pristine[ln - 1].strip()
+        if not payload:
+            continue
+        if payload in src_text:
+            leaks.append({"line": ln, "where": "source.md"})
+        for name, ct in chunk_texts.items():
+            if payload in ct:
+                leaks.append({"line": ln, "where": f"chunks/{name}"})
+    return {"leaks": leaks, "untriaged": untriaged}
+
+
 def main() -> None:
     if len(sys.argv) < 2:
         print(
@@ -251,6 +317,14 @@ def main() -> None:
             f"{bs['chunk_lines_redacted']} chunk line(s) neutralized "
             f"({bs['suspicious']} suspicious verdict(s))"
         )
+        # Fail closed if a suspicious payload survived redaction (a bug) — map_book.sh gates on this rc.
+        verify = verify_book_module(sys.argv[2])
+        if verify["leaks"]:
+            for leak in verify["leaks"]:
+                print(
+                    f"  LEAK: suspicious span (source line {leak['line']}) still present in {leak['where']}"
+                )
+            sys.exit(1)
         if bs["unresolved"]:
             for u in bs["unresolved"]:
                 print(f"  UNRESOLVED: line {u['line']} — {u['reason']}")
