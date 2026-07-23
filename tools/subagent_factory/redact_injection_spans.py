@@ -299,9 +299,27 @@ def main() -> None:
     if len(sys.argv) < 2:
         print(
             "Usage: python -m tools.subagent_factory.redact_injection_spans "
-            "(subagents/<slug> | --book-module <cache/book-extracts/<sha>>)"
+            "(subagents/<slug> | --book-module <module> | --verify-book-module <module>)"
         )
         sys.exit(1)
+    # Verify-only mode: report leaks + untriaged for a book module without mutating it.
+    if sys.argv[1] == "--verify-book-module":
+        if len(sys.argv) < 3:
+            print("redact-injection-spans FAIL — --verify-book-module requires a module dir")
+            sys.exit(1)
+        try:
+            vr = verify_book_module(sys.argv[2])
+        except ValueError as e:
+            print(f"redact-injection-spans FAIL — {e}")
+            sys.exit(1)
+        for leak in vr["leaks"]:
+            print(
+                f"  LEAK: suspicious span (source line {leak['line']}) present in {leak['where']}"
+            )
+        for u in vr["untriaged"]:
+            print(f"  UNTRIAGED: {u['file']}:{u['line']} (scan finding with no verdict)")
+        print(f"verify-book-module — {len(vr['leaks'])} leak(s), {len(vr['untriaged'])} untriaged")
+        sys.exit(1 if vr["leaks"] else 0)
     # Book-module mode (map-reduce path): neutralize source.md + chunks from the module's verdicts.
     if sys.argv[1] == "--book-module":
         if len(sys.argv) < 3:

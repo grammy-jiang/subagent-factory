@@ -99,6 +99,14 @@ echo "[map] chunks=$(grep -c . "$MODULE/chunks.jsonl")"
 INJ="$MODULE/injection-scan.jsonl"
 VERDICTS="$MODULE/source-safety-verdicts.yaml"
 if [ -s "$INJ" ]; then
+  # #2: injection-scan.jsonl is a schema-validated artifact (injection-scan-v1). A corrupted or
+  # hand-edited scan can't be trusted to reflect the real findings the triage/redaction below keys
+  # off — fail closed rather than mis-parse it (dry-run surfaces but proceeds, like the rest).
+  if ! vmsg="$(python3 -m tools.subagent_factory.validate_injection_scan "$MODULE" 2>&1)"; then
+    echo "[map] IPI: injection-scan.jsonl is malformed (fails injection-scan-v1):" >&2
+    printf '%s\n' "$vmsg" | sed 's/^/[map]   /' >&2
+    [ "$DRYRUN" -eq 1 ] || exit 5
+  fi
   if [ -f "$VERDICTS" ]; then
     # Triaged: APPLY the verdict-driven redaction to source.md + chunks BEFORE the MAP session reads
     # them (idempotent — rebuilds from the pristine copies each run). Fail closed if redaction errors.

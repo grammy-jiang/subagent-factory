@@ -98,6 +98,28 @@ def test_clean_book_no_warning(tmp_path):
 @pytest.mark.skipif(
     not (_repo_root() / "campaign" / "map_book.sh").exists(), reason="map_book.sh absent"
 )
+def test_malformed_scan_fails_closed(tmp_path):
+    import hashlib
+
+    book = tmp_path / "staged.md"
+    book.write_text(_INJECTED, encoding="utf-8")
+    cache = tmp_path / "cache"
+    _chunk(book, cache)
+    mod = cache / hashlib.sha256(book.read_bytes()).hexdigest()
+    # corrupt the scan the gate keys off (e.g. a hand-edit truncated a line to non-JSON)
+    (mod / "injection-scan.jsonl").write_text("not json at all\n", encoding="utf-8")
+    # dry-run surfaces the integrity failure but proceeds (advisory), like the rest of the gate
+    r_dry = _run_map(book, cache, "--dry-run")
+    assert "malformed" in r_dry.stderr and "injection-scan-v1" in r_dry.stderr
+    assert r_dry.returncode == 0
+    # a real launch refuses to feed a scan it can't trust to the triage path
+    r = _run_map(book, cache)
+    assert r.returncode == 5
+
+
+@pytest.mark.skipif(
+    not (_repo_root() / "campaign" / "map_book.sh").exists(), reason="map_book.sh absent"
+)
 def test_triaged_module_applies_redaction(tmp_path):
     import hashlib
 
