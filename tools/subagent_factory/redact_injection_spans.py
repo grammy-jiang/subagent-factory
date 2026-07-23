@@ -190,6 +190,14 @@ def redact_book_module(module_dir: str | Path) -> dict:
     it. Chunk ids (filenames) are unchanged — only line contents are neutralized — so
     content-addressing and anchors stay valid. Pristine copies (``source.md.raw``, ``chunks-raw/``)
     are kept for audit and idempotent rebuild (each run redacts from pristine, never compounds).
+
+    Return shape deliberately differs from the classic-path ``redact_injection_spans`` (they share only
+    ``suspicious`` + ``unresolved``): each reports the units it actually rewrites. The classic path
+    redacts a SET of markdown files, so it reports ``files``/``restored`` (which files changed) and a
+    single ``redacted`` count; this path redacts ONE ``source.md`` and fans the same redaction out to
+    the chunks, so it reports ``source_lines_redacted`` and ``chunk_lines_redacted`` separately (a
+    per-file list would be noise — the chunks are derived windows, not independent inputs). They are
+    two entry points for two on-disk layouts, not one interface with two skins — do not unify the keys.
     """
     base = Path(module_dir)
     suspicious = [
@@ -380,87 +388,83 @@ def preview_book_module(module_dir: str | Path) -> dict:
     return {"suspicious": suspicious, "untriaged": verify_book_module(module_dir)["untriaged"]}
 
 
-def main() -> None:
-    if len(sys.argv) < 2:
-        print(
-            "Usage: python -m tools.subagent_factory.redact_injection_spans "
-            "(subagents/<slug> | --book-module <module> | --verify-book-module <module>)"
-        )
-        sys.exit(1)
-    # Verify-only mode: report leaks + untriaged for a book module without mutating it.
-    if sys.argv[1] == "--verify-book-module":
-        if len(sys.argv) < 3:
-            print("redact-injection-spans FAIL — --verify-book-module requires a module dir")
-            sys.exit(1)
-        try:
-            vr = verify_book_module(sys.argv[2])
-        except ValueError as e:
-            print(f"redact-injection-spans FAIL — {e}")
-            sys.exit(1)
-        for leak in vr["leaks"]:
-            print(
-                f"  LEAK: suspicious span (source line {leak['line']}) present in {leak['where']}"
-            )
-        for u in vr["untriaged"]:
-            print(f"  UNTRIAGED: {u['file']}:{u['line']} (scan finding with no verdict)")
-        print(f"verify-book-module — {len(vr['leaks'])} leak(s), {len(vr['untriaged'])} untriaged")
-        # Fail closed on EITHER: a leak (payload provably/unverifiably present) OR an untriaged
-        # finding (a scan hit nobody decided on). An untriaged finding that never gates is a safety
-        # net that is computed but not load-bearing — exactly the silent bypass this verify prevents.
-        sys.exit(1 if (vr["leaks"] or vr["untriaged"]) else 0)
-    # Book-module mode (map-reduce path): neutralize source.md + chunks from the module's verdicts.
-    if sys.argv[1] == "--book-module":
-        if len(sys.argv) < 3:
-            print("redact-injection-spans FAIL — --book-module requires a module dir")
-            sys.exit(1)
-        # --dry-run: preview only, no file mutation (a triaged cache module is not rewritten just to
-        # look at what the gate would do). Reports the counts and exits 0 — it never fails the preview.
-        if "--dry-run" in sys.argv[3:]:
-            try:
-                pv = preview_book_module(sys.argv[2])
-            except ValueError as e:
-                print(f"redact-injection-spans FAIL — {e}")
-                sys.exit(1)
-            print(
-                f"redact-book-module DRY-RUN — would neutralize {pv['suspicious']} suspicious "
-                f"span(s); {len(pv['untriaged'])} untriaged finding(s) would fail the launch closed"
-            )
-            sys.exit(0)
-        try:
-            bs = redact_and_verify_book_module(sys.argv[2])  # redact + verify in one safe contract
-        except ValueError as e:
-            print(f"redact-injection-spans FAIL — {e}")
-            sys.exit(1)
-        print(
-            f"redact-book-module — {bs['source_lines_redacted']} source line(s) + "
-            f"{bs['chunk_lines_redacted']} chunk line(s) neutralized "
-            f"({bs['suspicious']} suspicious verdict(s))"
-        )
-        # Fail closed if a suspicious payload survived / could not be verified removed (a bug), OR if
-        # any scan finding was never triaged — map_book.sh gates on this rc, so both must exit non-zero.
-        if bs["leaks"]:
-            for leak in bs["leaks"]:
-                print(
-                    f"  LEAK: suspicious span (source line {leak['line']}) still present in {leak['where']}"
-                )
-            sys.exit(1)
-        if bs["unresolved"]:
-            for u in bs["unresolved"]:
-                print(f"  UNRESOLVED: line {u['line']} — {u['reason']}")
-            sys.exit(1)
-        if bs["untriaged"]:
-            for u in bs["untriaged"]:
-                print(f"  UNTRIAGED: {u['file']}:{u['line']} — scan finding with no verdict")
-            sys.exit(1)
-        return
+# CLI is three modes (classic package / redact a book module / verify-only). Each mode is a small
+# function that PRINTS its report and RETURNS a process exit code, so main() is a thin dispatcher and
+# the fail-closed exit logic of each mode reads top-to-bottom in one place instead of being interleaved
+# with argv parsing. (Kept as `return <rc>` + `sys.exit(rc)` in main rather than raising SystemExit so
+# each mode is unit-callable and testable without catching SystemExit.)
+def _cli_verify_book_module(module_dir: str) -> int:
+    """--verify-book-module: report leaks + untriaged for a book module WITHOUT mutating it."""
     try:
-        summary = redact_injection_spans(sys.argv[1])
+        vr = verify_book_module(module_dir)
     except ValueError as e:
         print(f"redact-injection-spans FAIL — {e}")
-        sys.exit(1)
+        return 1
+    for leak in vr["leaks"]:
+        print(f"  LEAK: suspicious span (source line {leak['line']}) present in {leak['where']}")
+    for u in vr["untriaged"]:
+        print(f"  UNTRIAGED: {u['file']}:{u['line']} (scan finding with no verdict)")
+    print(f"verify-book-module — {len(vr['leaks'])} leak(s), {len(vr['untriaged'])} untriaged")
+    # Fail closed on EITHER: a leak (payload provably/unverifiably present) OR an untriaged finding (a
+    # scan hit nobody decided on). An untriaged finding that never gates is a safety net that is
+    # computed but not load-bearing — exactly the silent bypass this verify prevents.
+    return 1 if (vr["leaks"] or vr["untriaged"]) else 0
+
+
+def _cli_book_module(module_dir: str, dry_run: bool) -> int:
+    """--book-module: neutralize source.md + chunks from the module's verdicts (map-reduce path)."""
+    # --dry-run: preview only, no file mutation (a triaged cache module is not rewritten just to look
+    # at what the gate would do). Reports the counts and returns 0 — it never fails the preview.
+    if dry_run:
+        try:
+            pv = preview_book_module(module_dir)
+        except ValueError as e:
+            print(f"redact-injection-spans FAIL — {e}")
+            return 1
+        print(
+            f"redact-book-module DRY-RUN — would neutralize {pv['suspicious']} suspicious "
+            f"span(s); {len(pv['untriaged'])} untriaged finding(s) would fail the launch closed"
+        )
+        return 0
+    try:
+        bs = redact_and_verify_book_module(module_dir)  # redact + verify in one safe contract
+    except ValueError as e:
+        print(f"redact-injection-spans FAIL — {e}")
+        return 1
+    print(
+        f"redact-book-module — {bs['source_lines_redacted']} source line(s) + "
+        f"{bs['chunk_lines_redacted']} chunk line(s) neutralized "
+        f"({bs['suspicious']} suspicious verdict(s))"
+    )
+    # Fail closed if a suspicious payload survived / could not be verified removed (a bug), OR if any
+    # scan finding was never triaged — map_book.sh gates on this rc, so both must exit non-zero.
+    if bs["leaks"]:
+        for leak in bs["leaks"]:
+            print(
+                f"  LEAK: suspicious span (source line {leak['line']}) still present in {leak['where']}"
+            )
+        return 1
+    if bs["unresolved"]:
+        for u in bs["unresolved"]:
+            print(f"  UNRESOLVED: line {u['line']} — {u['reason']}")
+        return 1
+    if bs["untriaged"]:
+        for u in bs["untriaged"]:
+            print(f"  UNTRIAGED: {u['file']}:{u['line']} — scan finding with no verdict")
+        return 1
+    return 0
+
+
+def _cli_classic(subagent_dir: str) -> int:
+    """Classic package path: neutralize suspicious spans in a package's sources/markdown/."""
+    try:
+        summary = redact_injection_spans(subagent_dir)
+    except ValueError as e:
+        print(f"redact-injection-spans FAIL — {e}")
+        return 1
     if not summary["suspicious"]:
         print("redact-injection-spans — no suspicious verdicts; nothing to neutralize")
-        return
+        return 0
     print(
         f"redact-injection-spans — neutralized {summary['redacted']}/{summary['suspicious']} "
         f"span(s) across {len(summary['files'])} file(s)"
@@ -471,8 +475,28 @@ def main() -> None:
         print(f"  restored: sources/markdown/{name} (suspicious verdict removed)")
     for u in summary["unresolved"]:
         print(f"  UNRESOLVED: {u['file']}:{u['line']} — {u['reason']}")
-    if summary["unresolved"]:
+    return 1 if summary["unresolved"] else 0
+
+
+def main() -> None:
+    if len(sys.argv) < 2:
+        print(
+            "Usage: python -m tools.subagent_factory.redact_injection_spans "
+            "(subagents/<slug> | --book-module <module> | --verify-book-module <module>)"
+        )
         sys.exit(1)
+    mode = sys.argv[1]
+    if mode == "--verify-book-module":
+        if len(sys.argv) < 3:
+            print("redact-injection-spans FAIL — --verify-book-module requires a module dir")
+            sys.exit(1)
+        sys.exit(_cli_verify_book_module(sys.argv[2]))
+    if mode == "--book-module":
+        if len(sys.argv) < 3:
+            print("redact-injection-spans FAIL — --book-module requires a module dir")
+            sys.exit(1)
+        sys.exit(_cli_book_module(sys.argv[2], "--dry-run" in sys.argv[3:]))
+    sys.exit(_cli_classic(sys.argv[1]))
 
 
 if __name__ == "__main__":
