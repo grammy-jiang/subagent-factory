@@ -28,10 +28,21 @@ def validate_injection_scan(scan_path: str | Path) -> list[str]:
     try:
         with open(_SCHEMA_PATH, encoding="utf-8") as f:
             schema = json.load(f)
-    except (OSError, json.JSONDecodeError) as e:
+    except (OSError, json.JSONDecodeError, UnicodeDecodeError) as e:
         return [f"cannot load injection-scan-v1 schema: {e}"]
+    # Read defensively: this validator exists to guard a HAND-EDITED / corrupted scan, so a non-UTF-8
+    # byte must be reported (UnicodeDecodeError is a ValueError, not OSError) — never an uncaught raise
+    # that kills the CLI with a traceback and breaks the "always return a list[str]" contract.
+    try:
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError) as e:
+        return [f"cannot read {path}: {e}"]
     errors: list[str] = []
-    for i, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+    # Split on "\n" only (the writer's delimiter), NOT str.splitlines(): splitlines() also breaks on
+    # U+2028/U+2029/U+0085/… which ensure_ascii=False output can carry inside a string value, which
+    # would shatter one well-formed record into "invalid JSON" fragments. The blank guard below
+    # absorbs the trailing empty element.
+    for i, line in enumerate(text.split("\n"), 1):
         line = line.strip()
         if not line:
             continue
