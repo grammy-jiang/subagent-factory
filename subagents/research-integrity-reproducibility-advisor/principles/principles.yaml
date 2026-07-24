@@ -1,0 +1,970 @@
+schema_version: principles-v1
+principles:
+- principle_id: P001
+  statement: Address the real barriers to data sharing (organising data presentably,
+    licensing uncertainty, choosing a repository); ensure that for anonymised human-participant
+    data the consent forms cover sharing with other researchers and the participant
+    sheets state how data is stored, preserved, used, and kept confidential; and accept
+    that some data legitimately cannot be fully opened for legal, ethical, privacy,
+    security, or commercial reasons, in which case share partial or obscured datasets.
+  derived_from_claims:
+  - C00240
+  - C00241
+  - C00242
+  - C00243
+  - C00244
+  - C00245
+  - C00246
+  - C00320
+  - C00323
+  - C00324
+  - C00328
+  - C00329
+  - C00330
+  - C00331
+  - C00332
+  - C00333
+  - C00343
+  - C00344
+  - C00345
+  - C00346
+  - C00366
+  - C00367
+  - C00368
+  - C00369
+  - C00370
+  - C00384
+  - C00385
+  - C00403
+  - C00404
+  - C00405
+  - C00409
+  - C00410
+  - C00411
+  - C00412
+  - C00413
+  - C00414
+  - C00618
+  - C00619
+  - C00620
+  confidence: high
+  applies_when:
+  - the research involves sensitive data that cannot be openly shared
+  - the research involves personal data about human participants
+  - published conclusions depend on data or materials that another researcher needs
+    to verify or replicate
+  - direct distribution is costly, unwieldy, or impractical and a repository or collaborative
+    mechanism can be designed
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P002
+  statement: 'Accept the upfront time cost of reproducibility because it is more than
+    repaid: a version-controlled reproducible pipeline makes a reviewer''s late request
+    fast to satisfy and the work easy to reuse; being reproducible does not oblige
+    you to support reuse beyond re-running the published analyses; the primary beneficiaries
+    are usually the research team and your future self; and the required skills (data
+    engineering, RSE, technical writing, project management) are themselves a barrier
+    worth investing in.'
+  derived_from_claims:
+  - C00001
+  - C00002
+  - C00003
+  - C00005
+  - C00006
+  - C00105
+  - C00107
+  - C00108
+  - C00109
+  - C00110
+  - C00114
+  - C00116
+  - C00305
+  - C00306
+  - C00307
+  - C00308
+  - C00309
+  - C00310
+  - C00311
+  - C00312
+  - C00314
+  - C00315
+  - C00316
+  - C00317
+  - C00318
+  - C00319
+  - C00382
+  - C00383
+  - C00615
+  - C00621
+  confidence: high
+  applies_when:
+  - producing or reviewing research analyses intended to be reproduced or built upon
+  - preparing a scientific report of empirical work
+  - data or results depend materially on nonstandard computational transformation
+    or analysis
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: 'Act on a credible conduct concern through a calibrated path: identify
+    the governing standard and evidence, examine bias and consequences, choose an
+    appropriately independent confidential adviser, seek objective clarification only
+    when safe, and use designated officials and required reporting procedures.'
+  derived_from_claims:
+  - C00631
+  - C00633
+  - C00634
+  - C00635
+  - C00636
+  - C00685
+  - C00686
+  - C00744
+  - C00745
+  - C00746
+  - C00751
+  confidence: high
+  applies_when:
+  - a researcher becomes aware of a credible possible violation
+  - the researcher seeks confidential advice before formal reporting
+  - selecting an informal or institutional adviser about a possible violation
+  - a misunderstanding may be clarified without compromising a required process
+  - A university receives an academic-misconduct allegation within its jurisdiction.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: Assign authorship only for substantive research contributions, order
+    authors by contribution, disciplinary convention, or agreement, require each author
+    to review and own the contributed part, and acknowledge other assistance with
+    consent and specificity.
+  derived_from_claims:
+  - C00656
+  - C00657
+  - C00658
+  - C00659
+  - C00660
+  - C00661
+  - C00662
+  - C00718
+  - C00719
+  - C00721
+  - C00732
+  confidence: high
+  applies_when:
+  - beginning or conducting collaborative, interdisciplinary, or multigroup research
+  - determining authorship, order, or acknowledgments for a research output
+  - accepting authorship of multidisciplinary work
+  - no author can independently validate every specialized component
+  - Assigning authorship, ordering authors, or acknowledging assistance and funding
+    on a research output.
+  - Producing a compilation, textbook, handbook, or authored compilation from existing
+    works.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: Manage research software with a Software Management Plan, a living document
+    describing how the software is developed, documented, versioned, licensed, archived,
+    and shared; treat even one-off analysis scripts as software, draft the plan during
+    the planning phase alongside the Data Management Plan, always state the software's
+    purpose (which sets the management level), and update it at major releases.
+  derived_from_claims:
+  - C00415
+  - C00416
+  - C00417
+  - C00418
+  - C00440
+  - C00451
+  - C00616
+  - C00617
+  confidence: high
+  applies_when:
+  - recording, analyzing, storing, retaining, or sharing research data
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: Classify possible misconduct under the applicable definition and evidence
+    threshold, distinguishing fabrication, falsification, and plagiarism from honest
+    error, negligence, and differences of opinion without inferring intent from the
+    disputed act alone.
+  derived_from_claims:
+  - C00628
+  - C00629
+  - C00630
+  - C00632
+  - C00637
+  - C00683
+  - C00697
+  confidence: high
+  applies_when:
+  - evaluating suspected fabrication, falsification, plagiarism, or another alleged
+    standards violation
+  - an institution must classify and respond to conduct below professional standards
+  - an institution investigates a formal misconduct allegation
+  - false publication information is knowingly represented in an application or professional
+    record
+  - Classifying an error caused by interpretation, judgment, research capability,
+    or equipment limitations.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: Choose publication units for coherence, completeness, and significant
+    contribution; do not republish substantially the same findings or fragment a study
+    merely to inflate output, while allowing distinct components that each form a
+    complete and meaningful report.
+  derived_from_claims:
+  - C00004
+  - C00624
+  - C00625
+  - C00626
+  - C00655
+  - C00690
+  confidence: high
+  applies_when:
+  - designing, performing, analyzing, documenting, reviewing, or publishing research
+  - deciding how to divide and submit a body of research
+  - deciding whether a body of work warrants one publication or several
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
+  statement: Never manipulate, select, process, visualize, interpret, or report data
+    so that the apparent support exceeds what the observations warrant; examine design
+    and measurement weaknesses as well as deliberate alteration.
+  derived_from_claims:
+  - C00612
+  - C00613
+  - C00614
+  - C00698
+  - C00708
+  - C00709
+  confidence: high
+  applies_when:
+  - collecting, selecting, processing, visualizing, interpreting, or reporting research
+    data
+  - Designing studies, collecting observations, analyzing data, reporting results,
+    or recording contributions.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P009
+  statement: Investigate data-integrity concerns by distinguishing invented research
+    from manipulation of real research, preserving and inspecting original records,
+    and using specialist reconstruction or replication when credible anomalies cannot
+    be resolved directly.
+  derived_from_claims:
+  - C00627
+  - C00722
+  - C00734
+  - C00735
+  - C00736
+  - C00737
+  confidence: high
+  applies_when:
+  - an error in an article, proposal, laboratory record, report, abstract, thesis,
+    or related record could mislead others
+  - A material error or omission is discovered in work that is in press or public.
+  - Inconsistencies, failed replication, missing records, or insider evidence create
+    a credible concern about empirical work.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
+  statement: Begin human-subject or identifiable-private-data research only after
+    appropriate review, with qualified operators and student supervision, and protect
+    participants through risk minimization, informed consent, freedom from coercion,
+    privacy, and withdrawal rights.
+  derived_from_claims:
+  - C00638
+  - C00639
+  - C00640
+  - C00641
+  - C00729
+  - C00730
+  confidence: high
+  applies_when:
+  - a study involves human participants or covered identifiable human data
+  - vulnerability, consent capacity, local context, or uncompensated risk complicates
+    participation
+  - Designing or conducting research involving people or identifiable private information.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P011
+  statement: Audit citations for bibliographic accuracy, relevance, and actual support,
+    search the literature thoroughly, and read and cite original work where possible
+    rather than relying only on later summaries.
+  derived_from_claims:
+  - C00647
+  - C00648
+  - C00650
+  - C00651
+  - C00711
+  - C00712
+  confidence: high
+  applies_when:
+  - another person's published idea or result informs the present work
+  - establishing novelty, significance, or evidentiary support in a research communication
+  - Using another person's idea, conclusion, datum, formula, table, image, program,
+    or other attributable contribution.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P012
+  statement: Make research sufficiently open for exchange, scrutiny, and authorized
+    follow-on use while withholding only information protected by valid secrecy, confidentiality,
+    or intellectual-property duties.
+  derived_from_claims:
+  - C00649
+  - C00700
+  - C00710
+  - C00725
+  - C00727
+  confidence: high
+  applies_when:
+  - receiving nonpublic material through journal, grant, or comparable peer review
+  - Sharing research processes, data, ideas, theories, results, or completed-project
+    materials.
+  - Conducting peer review or another formal academic evaluation.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
+  statement: Permit a full or secondary publication only when the prior dissemination
+    is eligible, every similar report is disclosed and cross-cited, relevant materials
+    are supplied, and all required editorial and rights-holder consents are obtained.
+  derived_from_claims:
+  - C00652
+  - C00653
+  - C00654
+  - C00741
+  - C00742
+  confidence: high
+  applies_when:
+  - sharing results through seminars, talks, abstracts, posters, preprints, public
+    repositories, or other channels before formal journal review
+  - later journal submission is planned
+  - Developing an oral presentation, abstract, poster, preliminary report, meeting
+    record, internal report, international edition, translation, or expanded study
+    into another publication.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P014
+  statement: Disclose potentially patentable inventions promptly through the applicable
+    institutional process, identify all and only qualifying inventors, and reconcile
+    jurisdiction-specific rules before cross-border sharing or commercialization.
+  derived_from_claims:
+  - C00664
+  - C00666
+  - C00720
+  confidence: high
+  applies_when:
+  - law, sponsorship, or institutional policy creates an invention-disclosure duty
+  - a potentially patentable project spans jurisdictions
+  - Research produces material for which patent protection may be needed.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: 'Detect plagiarism by substantive appropriation, not surface similarity:
+    abridgment, reordering, synonym changes, restructuring, mosaicing, added commentary,
+    or uncited self-reuse do not cure missing attribution.'
+  derived_from_claims:
+  - C00684
+  - C00733
+  confidence: high
+  applies_when:
+  - reusing another author's summaries, definitions, or explanatory language
+  - Borrowed substantive content is presented publicly as the author's own.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
+  statement: Build open hardware to be modular and extensible with documented interfaces
+    so a community can grow around it, be honest with collaborators about the support
+    they can expect, make the project discoverable with a common platform and descriptive
+    metadata, make it citable by archiving versions with a DOI for long-term reproducibility,
+    and remember that without an open licence others cannot legally use it and that
+    hardware licensing is more complex than software because patent law sometimes
+    applies.
+  derived_from_claims:
+  - C00164
+  - C00165
+  - C00166
+  - C00167
+  - C00169
+  - C00247
+  - C00248
+  - C00249
+  - C00250
+  - C00251
+  - C00252
+  - C00253
+  - C00254
+  - C00255
+  - C00256
+  - C00257
+  - C00258
+  - C00259
+  - C00260
+  - C00265
+  - C00266
+  - C00267
+  - C00268
+  - C00269
+  confidence: medium
+  applies_when:
+  - licensing an open source hardware project
+  - developing an open source hardware project
+  - documenting an open source hardware project
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P017
+  statement: Manage outputs with a Data Management Plan, a living document covering
+    roles and responsibilities, data types and sizes and metadata, storage and backup,
+    post-project preservation, reuse and licensing, and costs; ensure at least one
+    other person has access (restricting sensitive data to those who need it), apply
+    a licence when depositing so others know how they may reuse it, and choose a repository
+    that mints a persistent identifier and states its preservation policy.
+  derived_from_claims:
+  - C00018
+  - C00347
+  - C00348
+  - C00349
+  - C00350
+  - C00351
+  - C00394
+  - C00395
+  - C00396
+  - C00398
+  - C00400
+  - C00401
+  - C00402
+  - C00406
+  - C00407
+  - C00408
+  - C00463
+  - C00464
+  - C00465
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: 'Run an open source project with the essential files: a licence file
+    (without which no one can legally use it and it is not open source), a DOI so
+    the code is citeable, a README covering what the project is, its features, install
+    and run instructions, tests, authors, and acknowledgements (write the install
+    steps the first time you do them), and, if you want collaborators, contributing
+    guidelines and a code of conduct (adopting a standard like the Contributor Covenant)
+    kept in the root and linked from the README.'
+  derived_from_claims:
+  - C00049
+  - C00050
+  - C00051
+  - C00052
+  - C00053
+  - C00054
+  - C00055
+  - C00090
+  - C00091
+  - C00092
+  - C00119
+  - C00283
+  - C00284
+  - C00285
+  - C00286
+  - C00287
+  - C00288
+  confidence: high
+  applies_when:
+  - publishing or running an open source software project
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P019
+  statement: 'Use version control, the systematic recording of changes to files over
+    time, because manual versioning (v01, v02) is impractical once many files change
+    and reproducibility requires providing both the code and the data used to produce
+    a figure: version control captures provenance and a version history, hides older
+    versions while keeping them accessible, and lets multiple people''s changes be
+    tracked and combined, making research more transparent and easier to reproduce
+    and build upon for nearly any file type.'
+  derived_from_claims:
+  - C00550
+  - C00551
+  - C00552
+  - C00553
+  - C00554
+  - C00573
+  - C00574
+  - C00575
+  - C00576
+  - C00577
+  - C00578
+  - C00579
+  - C00580
+  - C00581
+  - C00582
+  - C00583
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P020
+  statement: 'Understand usage-restricting licences: Ethical Source and Responsible
+    AI licences curtail the freedom to use software for any purpose, so by the classical
+    FSF and OSI definitions they are not free or open source and their adoption is
+    limited; even an attribution requirement can count as a restriction, compliance
+    is harder and more expensive to demonstrate than for conventional licences, and
+    DRM-style technical enforcement tends to be brittle, invasive, and bypassable.'
+  derived_from_claims:
+  - C00122
+  - C00123
+  - C00145
+  - C00146
+  - C00147
+  - C00148
+  - C00149
+  - C00153
+  - C00154
+  - C00155
+  - C00157
+  - C00158
+  - C00161
+  - C00162
+  - C00163
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: 'Build a layered test suite with both positive tests (something works)
+    and negative tests (something errors when it should): quick smoke tests that reject
+    a broken build, runtime checks embedded in the program to catch edge cases early,
+    and slow system or end-to-end tests that verify outward functionality (and performance,
+    migration, stress, usability, and recovery) which should be run only after lower-level
+    tests pass and prioritised on the most common, important, and breakage-prone paths.'
+  derived_from_claims:
+  - C00035
+  - C00036
+  - C00037
+  - C00038
+  - C00520
+  - C00521
+  - C00522
+  - C00523
+  - C00524
+  - C00531
+  - C00532
+  - C00533
+  - C00534
+  - C00535
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
+  statement: Do not manipulate or analyse data manually in spreadsheet software (including
+    copy-paste), because that produces a non-reproducible workflow; use scripts or
+    a tool like OpenRefine that records the steps, validate the data for consistency,
+    completeness, and correctness before it enters the analysis, and for collaborative
+    collection reuse a standard versioned spreadsheet design with a shared template,
+    per-column entry standards, and one person answering questions.
+  derived_from_claims:
+  - C00419
+  - C00420
+  - C00421
+  - C00422
+  - C00423
+  - C00424
+  - C00425
+  - C00426
+  - C00427
+  - C00428
+  - C00429
+  - C00430
+  - C00431
+  - C00432
+  confidence: high
+  applies_when:
+  - collecting or storing research data in a spreadsheet
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P023
+  statement: Use containers to capture a whole computing environment for reproducibility,
+    because the dependency stack of even a moderate project is huge and a self-contained
+    snapshot is easier than resolving dependencies by hand; containers are lighter
+    than virtual machines and more robust than package managers or Binder since they
+    reproduce the entire system, and are shared by writing a recipe (Dockerfile),
+    building an image, and distributing the image for others to run.
+  derived_from_claims:
+  - C00010
+  - C00016
+  - C00017
+  - C00028
+  - C00029
+  - C00030
+  - C00031
+  - C00032
+  - C00441
+  - C00442
+  - C00443
+  - C00444
+  - C00445
+  confidence: high
+  applies_when:
+  - multiple contributors work on a shared codebase
+  - a project depends on many specific software or tool versions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P024
+  statement: 'Contribute well to another open source project: orient yourself to its
+    roles (author, owner, maintainers, contributors, community members), read its
+    documentation and contributing guidelines, match its style and conventions, break
+    changes into small well-defined chunks, test the changes against an up-to-date
+    version and update the documentation, describe what you changed and why and how
+    in the pull request, and remember that valuable non-code contributions (docs,
+    examples, review, triage) are welcome too.'
+  derived_from_claims:
+  - C00150
+  - C00151
+  - C00152
+  - C00156
+  - C00280
+  - C00281
+  - C00282
+  - C00289
+  - C00290
+  - C00291
+  - C00292
+  - C00293
+  - C00294
+  confidence: high
+  applies_when:
+  - contributing to someone else's open source project
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Choose a data licence deliberately, since it governs what others can
+    do with the data and directly affects its accessibility; Creative Commons licences
+    can serve as data licences in some cases (CC0 relinquishes all rights to the public
+    domain, CC-BY is common), but Creative Commons is general-purpose while Open Data
+    Commons licences are made specifically for data and typically cover only database
+    rights.
+  derived_from_claims:
+  - C00132
+  - C00133
+  - C00134
+  - C00135
+  - C00136
+  - C00137
+  - C00138
+  - C00139
+  - C00140
+  - C00141
+  - C00142
+  - C00143
+  - C00144
+  confidence: medium
+  applies_when:
+  - licensing a dataset for others to reuse
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
+  statement: 'Follow Make authoring conventions: indent recipes with tabs not spaces,
+    combine dependent commands on one line since each line runs in its own subshell,
+    name the first target all and provide a clean target, declare non-file targets
+    as .PHONY, avoid repetition with automatic variables and pattern rules and functions
+    like wildcard and patsubst, define UPPERCASE variables at the top, develop the
+    directory structure and Makefile together, and avoid recursive nested Makefiles
+    that hide the full dependency graph.'
+  derived_from_claims:
+  - C00201
+  - C00202
+  - C00210
+  - C00212
+  - C00213
+  - C00214
+  - C00215
+  - C00216
+  - C00217
+  - C00218
+  - C00219
+  - C00220
+  - C00221
+  confidence: medium
+  applies_when:
+  - writing or reviewing a Makefile
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P027
+  statement: 'Describe data so it can be understood and reused, since data without
+    metadata is useless: write documentation in plain language covering source, strengths,
+    weaknesses, and limitations; share a README per dataset describing methods and
+    data-specific details; provide a data dictionary or codebook (human- and machine-readable)
+    sufficient to interpret the data alone; store data in a logical folder structure
+    with a README; and use recognised discipline-specific community metadata standards
+    so data can be combined across sources.'
+  derived_from_claims:
+  - C00371
+  - C00372
+  - C00373
+  - C00374
+  - C00375
+  - C00376
+  - C00377
+  - C00378
+  - C00379
+  - C00380
+  - C00381
+  confidence: high
+  applies_when:
+  - reusing a dataset produced by others
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P028
+  statement: License the parts of an ML or AI system separately, since a model comprises
+    training data, code, and weights that may each be licensed differently and the
+    model licence governs the model and its derivatives independently of the other
+    components; the chosen licence signals to users how the model should be used,
+    and Creative Commons (which has no source-code terms) can cover data and weights
+    while software licences cover the code.
+  derived_from_claims:
+  - C00160
+  - C00179
+  - C00180
+  - C00181
+  - C00182
+  - C00183
+  - C00184
+  - C00186
+  - C00187
+  - C00190
+  - C00194
+  confidence: medium
+  applies_when:
+  - licensing a machine-learning model or AI system
+  - releasing an ML model and wanting to restrict specific uses
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P029
+  statement: 'Commit well: make each commit an atomic single change, commit no generated
+    files, stage the specific files by name rather than adding everything, and write
+    a meaningful message with a roughly 50-character present-tense imperative summary
+    that explains what you did, why, and what is impacted, describing what the code
+    does rather than the code itself.'
+  derived_from_claims:
+  - C00011
+  - C00015
+  - C00086
+  - C00087
+  - C00088
+  - C00089
+  - C00547
+  - C00557
+  - C00558
+  - C00559
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P030
+  statement: Capture the computational environment (operating system, software, package
+    versions, hardware, configuration) so research can be reproduced, because the
+    same valid code can give different results in different environments (for example
+    1/5 differs between Python 2 and Python 3) and an uncaptured environment harms
+    the researcher, collaborators, and science; publish the entire mobile analysis
+    stack from data up, and record software versions with semantic versioning (MAJOR.MINOR.PATCH).
+  derived_from_claims:
+  - C00008
+  - C00009
+  - C00012
+  - C00013
+  - C00483
+  - C00484
+  - C00485
+  - C00486
+  - C00487
+  - C00488
+  confidence: high
+  applies_when:
+  - the analysis depends on specific software or package versions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Keep the main branch always stable and only merge finished, tested work
+    into it; when a merge conflict occurs (incompatible changes to the same file,
+    which Git marks for manual resolution) fully understand both versions before resolving,
+    and best avoid conflicts altogether by keeping branches clean and single-purpose,
+    touching as few files as possible, and communicating with everyone working on
+    them.
+  derived_from_claims:
+  - C00033
+  - C00034
+  - C00548
+  - C00549
+  - C00555
+  - C00556
+  - C00563
+  - C00564
+  - C00565
+  - C00566
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: Model a data-science project as a tree of dependencies and build it with
+    a tool like Make or Snakemake that rebuilds an output whenever its prerequisites
+    change, because the resulting build file is human- and machine-readable, easy
+    to share and version-control, reduces cognitive load through conventional targets,
+    and lets collaborators or readers recompute your results to increase trust.
+  derived_from_claims:
+  - C00204
+  - C00205
+  - C00206
+  - C00208
+  - C00209
+  - C00211
+  - C00224
+  - C00225
+  - C00226
+  - C00227
+  confidence: high
+  applies_when:
+  - using Make to make a data analysis and manuscript reproducible
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: Provide rich PID metadata (description, keywords, related identifiers,
+    funding references, contributors with ORCID iDs, affiliations with ROR IDs) rather
+    than only the required minimum, because this machine-readable, publicly accessible
+    metadata complements domain-specific metadata and substantially increases discoverability
+    and reusability.
+  derived_from_claims:
+  - C00386
+  - C00387
+  - C00388
+  - C00389
+  - C00390
+  - C00391
+  - C00392
+  - C00393
+  - C00397
+  - C00399
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
+  statement: Unit-test the smallest testable parts in isolation (replacing dependencies
+    with stubs or mocks), because unit tests give confidence when changing code, pinpoint
+    bugs fast, and strongly incentivise modular, reusable code; keep unit tests independent
+    of each other, aim to cover all paths including loop conditions, and whenever
+    you find a defect write a test that exposes it before fixing so it cannot recur.
+  derived_from_claims:
+  - C00527
+  - C00528
+  - C00529
+  - C00530
+  - C00536
+  - C00537
+  - C00538
+  - C00539
+  - C00540
+  - C00541
+  confidence: high
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
