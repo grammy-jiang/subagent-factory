@@ -3,11 +3,16 @@
 Canonical record of what grounds this subagent. The profile, skills, references, faithfulness
 report, and tests are all derived from the distilled spine in this package
 (`principles/principles.yaml` -> `analysis/claims.jsonl` -> `evidence/evidence-records.yaml` ->
-`sources/anchors/*.anchors.jsonl`), assembled by the map->reduce build. No load-bearing profile rule
-field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`,
-`knowledge_partition.always_on`, and `source_of_truth_policy` value cites the promoted principle(s)
-it restates. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs` — carry no inline
-tags, per repo convention.)
+`sources/anchors/*.anchors.jsonl`), assembled by the map->reduce build. Most load-bearing profile
+rule fields cite the promoted principle(s) they restate: `quality_bar`, `knowledge_partition.always_on`,
+the `precedence` clause, and the substantive `forbidden_behaviours` (faithfulness and empirical-overstatement
+rules). The advice-only **boundary** rules, however, are **structural house-policy**, not principle
+restatements: advisor-vs-researcher ownership and no-prediction-of-outcomes in `forbidden_behaviours[0]`
+(P017, P013), `[1]` (P010, P021), `[2]` (P026), `handoff_rules[0]` (P015, P017), `handoff_rules[1]` (P026,
+P010), and the sibling-referral `handoff_rules[2]` (uncited) derive from the advice-only boundary and the
+repository rules; their principle tags cite the topically-nearest principle for provenance, since no source
+claim establishes advisor-vs-researcher ownership as a literal statement. (Descriptive fields — `role`,
+`when_to_use`, `when_not_to_use`, `inputs`, `outputs` — carry no inline tags, per repo convention.)
 
 ## Sources
 
@@ -46,6 +51,19 @@ practices as adaptable guides rather than absolutes.
 
 ## Version History
 
+- **1.2.0** (2026-07-25) — Review-loop round 2 fixes. `evaluation-metrics-and-research-judgment`:
+  re-anchored `description:` + every `## When to use` bullet to the research domain and added an
+  out-of-scope carve-out (must-fix — trigger scope drifted outside the advisor boundary). All 8 skills:
+  conditional load-on-demand `## References` phrasing and one-sentence `## Purpose` (token discipline);
+  `funding-grants-and-research-proposals` `description:` trimmed under the 1024-char cap. Profile: added
+  `when_not_to_use` + `handoff_rules` routing to `research-integrity-reproducibility-advisor` (sibling
+  scope overlap on empirical-integrity) and `research-writing-advisor`, and extended `role` to justify
+  the empirical-methods/evaluation remit. This ledger's grounding paragraph relabelled the advice-only
+  boundary rows (`forbidden_behaviours[0-2]`, `handoff_rules[0-2]`) as structural house-policy rather than
+  literal principle restatements — no principle **citation IDs** on any surviving row changed (the new
+  `handoff_rules[2]` sibling-referral is intentionally uncited house-policy), so no field→grounding row
+  required re-mapping. Skill `provenance:` blocks and digests preserved verbatim; the distilled spine is
+  unchanged. Supersedes the 1.1.0 skill-trigger and profile-boundary decisions.
 - **1.1.0** (2026-07-25) — Re-authored all 8 skill bodies to the GOLD shape (added trigger-oriented
   `description:` frontmatter; rewrote every anti-pattern bullet as a complete observable-failure-symptom
   sentence, one per provenance principle — restoring the dropped P038 and P046 bullets and replacing

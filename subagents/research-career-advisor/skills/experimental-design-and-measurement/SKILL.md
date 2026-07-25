@@ -45,18 +45,7 @@ provenance:
 ## Purpose
 
 This skill guides designing sound empirical studies and knowing when to trust their
-measurements. It checks that reported precision is treated as possibly optimistic until the
-uncertainty process accounts for apparatus tuning and selection effects and is checked by
-independent, holdout, or later measurements; that null-hypothesis testing obtains an
-appropriate null sampling distribution, expresses the observed deviation in standard-error
-units where applicable, and rejects only under a preselected unlikely region; that a
-fully-crossed factorial design is used only for the factor combinations and interactions the
-research claims need, splitting the study when unneeded higher-order interactions would make
-the trial count excessive; that instruments, test apparatus, and self-generated telemetry are
-validated independently before being trusted over the system they measure; and that when
-intended service life exceeds the validation window, accelerated-test extrapolation is
-treated as uncertain, validation is planned explicitly, and reliability is built into the
-design.
+measurements. `## When to use` and `## Procedure` carry the specific checks.
 
 ## When to use
 
@@ -125,9 +114,7 @@ tenure decision for the caller.
 
 ## References
 
-See `../../references/research-career-principles-index.md` for the full principle catalogue
-grouped by skill, and `../../references/research-career-evidence-notes.md` for how these
-principles are grounded and kept faithful to the sources.
+Consult `../../references/research-career-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-career-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 

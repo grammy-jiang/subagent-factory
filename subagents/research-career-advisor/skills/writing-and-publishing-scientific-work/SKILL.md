@@ -48,7 +48,7 @@ provenance:
 
 ## Purpose
 
-This skill guides writing up and publishing research so its significance is discoverable and its claims are sound. It checks that a paper leads with the question, contribution, and change in understanding across an accurate title, a brief results-focused abstract, and an introduction that expands the abstract in the same order; that every premise and logical link is exposed and known weaknesses disclosed rather than claims strengthened beyond the evidence; that reproducible methodological detail is published without sacrificing readability; that demanding local review — with language editing where needed — is obtained before submission; that a result is recast into the broadest genuinely-supported form without hiding scope; that a doctoral dissertation is built as one coherent thesis of substantial advances; and that a small portfolio of high-quality papers is preferred over fragmentation.
+This skill guides writing up and publishing research so its significance is discoverable and its claims are sound. `## When to use` and `## Procedure` carry the specific checks.
 
 ## When to use
 
@@ -94,7 +94,7 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## References
 
-See `../../references/research-career-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/research-career-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.
+Consult `../../references/research-career-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-career-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 

@@ -1,12 +1,16 @@
 ---
 name: evaluation-metrics-and-research-judgment
 description: >-
-  Guides the evaluation of people, work, and metrics, and the cultivation of durable
-  professional judgment. Use when candidate ideas or solutions are being brainstormed and
-  must be preserved without premature judgment; when a metric will drive rewards, status,
-  funding, or selection decisions and must be checked for gameability, adaptation, and
-  time-horizon effects; when people are being ranked, hired, or promoted for scarce roles;
-  or when expert judgment is being carried into a broader, unfamiliar, or changed problem.
+  Guides evaluation and durable judgment inside a research career: research-group
+  brainstorming, lab or publication metrics, screening of research trainees, and expert
+  judgment carried into a new subfield. Use when a research group is generating candidate
+  problems or solutions that must be preserved without premature judgment; when a lab,
+  department, or funder metric — citations, paper counts, an activity tally — will drive
+  research rewards, status, funding, or selection and must be checked for gameability and
+  time-horizon effects; when PhD or postdoc applicants are screened or ranked for a scarce
+  research position or award; or when a researcher's expertise is carried into an unfamiliar
+  subfield. Not for a purely generic corporate-metrics, HR, or hiring question with no
+  research-career dimension.
 kind: skill
 status: ready
 provenance:
@@ -45,39 +49,34 @@ provenance:
 
 ## Purpose
 
-This skill guides evaluating people, work, and metrics, and cultivating durable research
-judgment. It checks that brainstorming proceeds without immediate judgment, preserving every
-candidate and revealing existing solutions only after participants have independently attacked
-the problem; that tacit professional and systems judgment is developed through technically
-grounded practice, varied cases, mixed-experience work, and timely critique that preserves real
-context; that people are prepared for changing future conditions through learning-to-learn,
-durable fundamentals, and problem-formulation rather than only passing isolated tests; that
-every evaluative metric is treated as an intervention — tested for relevance and gameability,
-with participant adaptation and time-horizon effects simulated and outcome quality preferred
-over an inflatable production count; that early selection is aligned with the capabilities
-needed later rather than filtered through only entry-stage traits; that expertise is carried
-into new territory with explicit humility about its hidden assumptions and scope; that local
-work is connected to valuable delivered system behavior rather than proxy activity volume; and
-that ranking people for scarce roles is made explicit, deliberate, and reviewable rather than
-treated as if the score captures the whole person.
+This skill guides the evaluation and durable judgment a research career turns on — how a
+research group generates ideas, how lab and publication metrics are read, how research
+trainees are screened and ranked, and how expertise travels into a new subfield — so each
+judgment stays honest about its assumptions, gameability, and scope.
 
 ## When to use
 
-- Candidate ideas or solutions are being generated and must be preserved and independently
-  attacked before existing solutions are revealed (P001).
-- Professional or systems judgment cannot be reduced to classroom rules and must be built
-  through grounded practice and timely critique (P018).
-- People are being trained or prepared for tools and conditions that will change over their
-  career, not just for today's test (P028).
-- A metric drives rewards, status, funding, or decisions and must be tested for relevance,
-  gameability, and time-horizon effects, favouring delivered outcome quality (P029).
-- People are selected long before the advanced role they are being screened for, so the
-  screen must be checked against later-needed capabilities (P030).
-- Expert judgment is applied to a broader, unfamiliar, or changed problem and its hidden
-  assumptions and scope must be surfaced (P036).
-- Local or specialized work is being justified, and its connection to delivered value for the
-  wider system and stakeholders must be traced (P037).
-- People must be ranked or ordered for scarce roles or limited positions (P038).
+- A research group is generating candidate problems or solutions that must be preserved and
+  independently attacked before an existing or known solution is revealed (P001).
+- A researcher's scientific or systems judgment cannot be reduced to classroom rules and must
+  be built through technically grounded practice, varied cases, and timely critique — e.g.
+  mentoring a trainee or auditing your own read of a result (P018).
+- Research students or staff are being trained or prepared for tools, methods, and conditions
+  that will change across a research career, not just for today's test or technique (P028).
+- A lab, department, or funder metric — citations, paper counts, an h-index, an activity tally
+  — will drive research rewards, status, funding, or selection and must be tested for
+  relevance, gameability, and time-horizon effects, favouring delivered scientific outcome
+  quality (P029).
+- PhD or postdoc applicants (or award candidates) are screened long before the advanced
+  research role they are being selected for, so the screen must be checked against
+  later-needed research capabilities, not only entry-stage traits (P030).
+- A researcher's expertise is applied to a broader, unfamiliar, or changed subfield or problem
+  and its hidden assumptions and scope must be surfaced (P036).
+- Local or specialized research work is being justified, and its connection to delivered
+  scientific value for the wider group and stakeholders must be traced rather than an activity
+  tally (P037).
+- Applicants or researchers must be ranked or ordered for a scarce research position, award,
+  or limited slot (P038).
 
 ## Procedure
 
@@ -155,9 +154,7 @@ decision for the caller.
 
 ## References
 
-See `../../references/research-career-principles-index.md` for the full principle catalogue
-grouped by skill, and `../../references/research-career-evidence-notes.md` for how these
-principles are grounded and kept faithful to the sources.
+Consult `../../references/research-career-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-career-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 
