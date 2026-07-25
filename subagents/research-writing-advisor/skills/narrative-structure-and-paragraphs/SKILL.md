@@ -1,5 +1,17 @@
 ---
 name: narrative-structure-and-paragraphs
+description: >-
+  Guides the story structure of research prose at the paragraph and passage
+  level: choosing deliberately between point-first and point-last paragraph
+  structure, treating the paragraph as a complete short story with a coherent
+  opening and resolution, creating unexpectedness through a framed knowledge
+  gap, and keeping resolutions from introducing new material or asserting
+  importance without substance. Use when a paragraph or passage reads as a
+  flat list and needs a point-first or point-last structure chosen
+  deliberately; when an opening or resolution must create or close a framed
+  knowledge gap without a plot twist or a bare claim of importance; when
+  paragraph boundaries and length are being used to signal a contribution or
+  focus shift; or when a section's narrative arc must fit the larger work.
 kind: skill
 status: ready
 provenance:
@@ -32,7 +44,6 @@ provenance:
   authored_from_digest: b9026a8e2ad1b694b3b970843c322f6f4ed98fb7cc66f528b905c61f30db0e47
 ---
 
-
 # Narrative Structure And Paragraphs
 
 ## Purpose
@@ -48,12 +59,12 @@ This skill guides the story structure of research prose at the paragraph and pas
 
 ## Procedure
 
-1. Choose between point-first (P002).
-2. Do not distract in the resolution (P017).
-3. Create unexpectedness through a framed knowledge gap (P053).
-4. Give a contribution or focus shift a new paragraph, and use paragraph length as a unity diagnostic so multi-stage blocks become visually navigable without splitting one coherent idea arbitrarily (P068).
-5. Make the paragraph the unit of composition, a complete short story with a coherent structure that fits the larger work; treat the grade-school topic-sentence model as a simplified lead/development and recognize a paragraph may use any (P111).
-6. Do not write a weak resolution that only asserts importance (P112).
+1. Decide, for each paragraph, whether it should be point-first (make the point, then develop it — an LD structure) or point-last (build to a conclusion — an OCAR or LDR structure). Let clean topic-sentence-then-development, point-first paragraphs dominate the draft, and use an extended lead when a paragraph runs long. Reserve the more complex point-last structures for critical story points such as openings, resolutions, and transitions, where building to the point earns its cost (P002).
+2. Check the resolution for distraction: it must not carry introduction or textbook material or truisms, and it must not introduce a new idea — instead close the circle back to the opening, with no plot twists. Flag any surprise resolution, since it hurts discoverability and costs citations (P017).
+3. Check that the opening creates unexpectedness through a framed knowledge gap: novelty should sit in the questions and interpretations, not the data alone. The opening should foreground a specific unknown within existing knowledge to engage curiosity, rather than merely showing off facts before readers realize they need them (P053).
+4. When a contribution or focus shift occurs, start a new paragraph there. Use paragraph length itself as a unity diagnostic: a multi-stage block that has grown long should become visually navigable through paragraph breaks, but without splitting one coherent idea arbitrarily (P068).
+5. Treat the paragraph as the unit of composition — a complete short story with a coherent structure that fits into the larger work. Do not force the grade-school topic-sentence model onto every paragraph; treat it as only a simplified case of lead/development, and recognize that a paragraph may use any structure, with its opening and resolution not necessarily confined to the first or a single sentence (P111).
+6. Check that the resolution does more than assert importance: it must synthesize the results into a stated new insight, avoid claiming broad relevance without concrete substance, and let any strong claim stand only because it is constrained rather than oversold (P112).
 
 ## Inputs
 
@@ -66,16 +77,16 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P002: Choose between point-first.
-- Overlooking P017: Do not distract in the resolution.
-- Overlooking P053: Create unexpectedness through a framed knowledge gap.
-- Overlooking P068: Give a contribution or focus shift a new paragraph, and use paragraph length as a unity diagnostic so multi-stage blocks become visually navigable.
-- Overlooking P111: Make the paragraph the unit of composition, a complete short story with a coherent structure that fits the larger work; treat the grade-school.
-- Overlooking P112: Do not write a weak resolution that only asserts importance.
+- Every paragraph in the section uses the same structure (all point-first or all point-last) with no deliberate choice, or a point-last structure is used somewhere other than an opening, resolution, or transition, without an extended lead to justify a long paragraph (P002).
+- The resolution restates introductory or textbook material, ends on a truism, introduces a new idea instead of closing back to the opening, or springs a surprise the reader had no way to anticipate (P017).
+- The opening leads with facts or data before the reader knows why they matter, or locates its claimed novelty in the data rather than in a specific, named unknown that engages curiosity (P053).
+- A contribution or focus shift is buried mid-paragraph instead of starting a new one, or a multi-stage paragraph has grown long and unnavigable without any paragraph break, or a single coherent idea has been split arbitrarily across paragraphs (P068).
+- A paragraph is treated as if it must follow the grade-school topic-sentence template with the point mechanically confined to the first sentence, rather than being read as its own complete, coherently structured short story fitting the larger work (P111).
+- The resolution asserts broad relevance or importance without concrete substance behind it, fails to synthesize the results into a stated new insight, or oversells a claim beyond what it can be constrained to support (P112).
 
 ## References
 
-See `../../references/research-writing-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/research-writing-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.
+Consult `../../references/research-writing-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-writing-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 

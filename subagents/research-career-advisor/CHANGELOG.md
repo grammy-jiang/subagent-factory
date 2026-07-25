@@ -3,6 +3,27 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.1.0] — 2026-07-25
+
+### Changed
+- Re-authored all 8 skill bodies to the GOLD shape: added a trigger-oriented `description:`
+  frontmatter field to each (progressive-disclosure routing signal), rewrote every
+  "Anti-patterns to flag" bullet as a complete, standalone observable-failure-symptom sentence
+  (one per provenance principle — replacing character-truncated substrings), and expanded the
+  bare one-line Procedure steps to carry their concrete criteria. `provenance:` blocks (and
+  `authored_from_digest`) preserved verbatim.
+- `evaluation-metrics-and-research-judgment` and `writing-and-publishing-scientific-work`:
+  restored the anti-pattern bullet for the previously-dropped principle (P038 and P046).
+- `profile.yaml`: weakened `quality_bar[2]` to restore P010's tie-break hedge (established
+  reputation used only when protection factors are comparable — was flattened to "not prestige");
+  shortened the `role` closing to a pointer to remove ~40 words duplicating `forbidden_behaviours`;
+  narrowed `when_to_use[3]` to the strategy slice this advisor owns and added a `when_not_to_use`
+  handoff pointer to `research-writing-advisor` for craft-level writing.
+
+### Added
+- `profile.yaml` `router_description:` (≤320 chars) covering all five `when_to_use` domains plus the
+  core advice-only exclusion, so the exported adapter description no longer under-covers scope.
+
 ## [1.0.0] — 2026-07-25
 
 ### Added

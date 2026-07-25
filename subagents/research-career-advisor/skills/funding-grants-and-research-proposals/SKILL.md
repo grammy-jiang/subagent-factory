@@ -1,5 +1,20 @@
 ---
 name: funding-grants-and-research-proposals
+description: >-
+  Guides winning research funding and arguing for a proposal's importance and feasibility:
+  scoping an early-career grant to achievable projects, crediting related work and stating the
+  proposal's distinct contribution, and judging a project's impact, creativity, and any
+  impossibility claim. Checks that a major long-term idea is treated as exploratory with enough
+  advanced work included to demonstrate results within the award cycle, that related work is
+  searched and credited before a contribution is claimed, that a group bid is joined without
+  losing evidence of individual initiative, that impact is argued from an opened direction,
+  broad follow-on use, or advantage over established methods rather than asserted, that
+  creativity is judged by useful value and meaningful recombination rather than novelty or
+  difficulty alone, and that an impossibility claim is challenged by enumerating and testing its
+  assumptions. Use when drafting or reviewing a grant proposal's scope and horizon, when
+  related-work credit or funder targeting is being decided, when a project's importance or
+  creativity is being argued, or when a reviewer or authority has called a proposed result
+  infeasible or impossible.
 kind: skill
 status: ready
 provenance:
@@ -31,7 +46,7 @@ provenance:
   authored_from_digest: a871329673dd32cc21fcf15dee638af256101c8e56c360b9521b164b31aa0140
 ---
 
-# Funding, Grants, And Research Proposals
+# Funding Grants And Research Proposals
 
 ## Purpose
 
@@ -63,15 +78,15 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P005: Build an early-career grant around important, achievable projects, treating a major long-term idea as exploratory and including enough advanced work.
-- Overlooking P020: Search and credit related work, explain the proposal's distinct contribution, join credible group bids without surrendering needed evidence.
-- Overlooking P031: Assess impact through the work's ability to open a direction, support broad follow-on use, solve an important class of problems, or deliver.
-- Overlooking P044: Judge creativity by useful value and meaningful recombination, not by novelty, execution difficulty, or immediate popularity alone.
-- Overlooking P045: Challenge an impossibility claim by enumerating its assumptions, testing their applicability, and obtaining another perspective when the frame may be.
+- A grant proposal centers entirely on an ambitious long-term idea with no exploratory framing and no near-term achievable component, leaving nothing concrete to show reviewers by the end of the award cycle (P005).
+- Related work is missing or uncredited and the proposal never states what makes its own contribution distinct, or a promising early-career applicant defaults to a subordinate role in a group bid that leaves no visible evidence of individual initiative (P020).
+- A project's importance is asserted with a generic label like "impactful" rather than argued through an opened direction, broad follow-on use, an important problem class solved, or a demonstrated advantage over the established method it would replace (P031).
+- Creativity is credited to a contribution mainly because it is technically difficult, superficially novel, or currently fashionable, with no argument made for its useful value or the meaningful recombination behind it (P044).
+- A reviewer's or authority's claim that a result is impossible is accepted at face value, with its underlying assumptions never enumerated, tested, or checked against an outside perspective (P045).
 
 ## References
 
-See `../../references/research-career-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/research-career-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.
+Consult `../../references/research-career-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-career-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 

@@ -2,6 +2,7 @@
 name: version-control-and-collaboration
 kind: skill
 status: ready
+description: Use when files are versioned manually (report_v01.docx, v02_final.docx) instead of tracked in version control, when commits bundle unrelated changes or stage everything instead of named files, when commit messages are vague rather than meaningful ~50-char imperative summaries, when a shared main branch is unstable or merged with unfinished work, or when a merge conflict must be resolved without first understanding both sides.
 provenance:
   principles:
   - P019
@@ -44,9 +45,9 @@ This skill guides use of version control as the backbone of reproducible, collab
 
 ## Procedure
 
-1. Use version control, the systematic recording of changes to files over time (P019).
-2. Commit well: make each commit an atomic single change, commit no generated files, stage the specific files by name rather than adding everything, and write a meaningful message with a roughly 50-character present-tense imperative (P029).
-3. Keep the main branch always stable and only merge finished, tested work into it; when a merge conflict occurs (P031).
+1. Use version control, the systematic recording of changes to files over time, in place of manual versioning such as v01/v02, since version control captures provenance and version history, hides older versions while keeping them accessible, and lets multiple people's changes be tracked and combined (P019).
+2. Commit well: make each commit an atomic single change, commit no generated files, stage the specific files by name rather than adding everything, and write a meaningful message with a roughly 50-character present-tense imperative summary that explains what you did, why, and what is impacted (P029).
+3. Keep the main branch always stable and only merge finished, tested work into it; when a merge conflict occurs, fully understand both versions before resolving, and prevent conflicts by keeping branches clean and single-purpose (P031).
 
 ## Inputs
 
@@ -59,9 +60,9 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P019: Use version control, the systematic recording of changes to files over time.
-- Overlooking P029: Commit well: make each commit an atomic single change, commit no generated files, stage the specific files by name rather than adding everything.
-- Overlooking P031: Keep the main branch always stable and only merge finished, tested work into it; when a merge conflict occurs.
+- Files named `report_v01.docx`, `report_v02_final.docx` sitting side by side instead of tracked in version control — put them under version control so changes, provenance, and version history are captured instead of hidden in filenames (P019).
+- A commit message reads "fix stuff" or "updates" and bundles five unrelated changes with everything staged via a blanket add — make each commit an atomic single change, stage only the specific files by name, exclude generated files, and write a roughly 50-character present-tense imperative message explaining what was done, why, and what is impacted (P029).
+- The main branch has broken or half-finished work merged into it, or a merge conflict is resolved by picking one side without reading the other — keep main always stable by merging only finished, tested work, and before resolving any conflict fully understand both versions, keeping branches clean, single-purpose, and touching as few files as possible to avoid the conflict in the first place (P031).
 
 ## References
 

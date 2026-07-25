@@ -1,5 +1,15 @@
 ---
 name: literature-and-source-use
+description: >-
+  Use when a field of literature must be mapped, iteratively searched, and
+  organized into a topic-based critical synthesis; when prior work must be
+  engaged, criticized, or reconciled fairly by reading a rival's strongest
+  meaning first; when sources must be paraphrased and cited rather than
+  copied, with quotation reserved for when exact wording is the object of
+  attention; or when legal-rights and academic-ethics standards (copyright,
+  plagiarism) apply to reused material. Routes findings on evidence mapping,
+  synthesis structure, paraphrase integrity, quotation discipline, rights
+  checks, and fair engagement with rival work.
 kind: skill
 status: ready
 provenance:
@@ -38,7 +48,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 071975eeae98d813aa280e92d40195cd80c21fdd26cc390e9318047792134ebc
 ---
-
 
 # Literature And Source Use
 
@@ -80,17 +89,23 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P007: Map candidate literature by paper type, venue, citation relationships, authors, institutions, dates, and meaningful topic groups, while treating.
-- Overlooking P012: Introduce complex evidence with the reason or interpretation readers should draw, and provide complete accurate citations and source lists so they.
-- Overlooking P014: Organize literature by a chronology, theme, or method that reveals progress, achievements, limits, gap, and response; within each unit synthesize.
-- Overlooking P016: Do not closely imitate source prose, figures, or paper design; a citation does not authorize copied wording, so quote a precisely marked permitted.
-- Overlooking P026: Paraphrase by first understanding and citing the attributable idea, then restructuring its grammar and order while preserving technical terms.
-- Overlooking P029: Build the literature review continuously as a topic-organized critical synthesis of contributions, limits, relationships, and open questions.
-- Overlooking P074: Search literature iteratively through complementary paths, using discoveries to refine terminology and criteria, separating broad collection.
+- A highly-cited paper or top search-rank result is treated as automatically authoritative, or the source list is an unstructured pile with no discernible grouping by venue, author, institution, date, or topic (P007).
+- Complex evidence (a statistic, quote, or data point) is dropped into the text with no framing sentence telling the reader what conclusion to draw, or a citation lacks enough detail for the source to be traced (P012).
+- The review is a source-by-source list ("Smith found X; Jones found Y...") with no chronological, thematic, or methodological arc, and no stated progress, gap, or response (P014).
+- A "paraphrase" keeps the source's sentence structure, figure layout, or worked-example sequence with only words swapped, defended on the grounds that it is cited (P016).
+- A paraphrase drops or inflates the original's hedging or qualifiers (e.g., "may reduce" becomes "reduces"), or keeps the source's original grammar and sequence with only synonym substitution (P026).
+- The literature review is assembled in a single late pass rather than grown across drafts, and earlier findings are silently dropped or left dangling when new material is inserted (P029).
+- The literature search is a single pass frozen at the project's start, never rerun as the question sharpens, with collected material and critically evaluated material left indistinguishable (P074).
+- The search relies on one search engine or a convenience sample of papers, with no reference works, review articles, or librarian consultation used to check the search is complete (P078).
+- Earlier work is dismissed or attacked without acknowledging why its original interpretation was reasonable at the time, or a flat contradiction is declared where a conditional reconciliation was available (P086).
+- Directly relevant studies are compared only in prose, never through a structured matrix, so differences in method, bias, or limitations are never surfaced and the new study's extension of the literature stays unstated (P122).
+- The draft is padded with block quotations standing in for the writer's own understanding, or a quotation is used for its content rather than because the exact wording is the point (P138).
+- Reused material is cleared on only one axis (e.g., "it's cited, so it's fine") without separately checking copyright, patent, or publication-agreement permission (P140).
+- A rival's position is characterized from a weakened or partial reading, or disagreement is voiced against a representation of the rival's argument that was never checked against what the rival actually wrote (P156).
 
 ## References
 
-See `../../references/research-writing-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/research-writing-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.
+Consult `../../references/research-writing-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-writing-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 

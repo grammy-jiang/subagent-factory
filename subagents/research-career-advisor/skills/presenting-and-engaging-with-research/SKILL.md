@@ -1,5 +1,14 @@
 ---
 name: presenting-and-engaging-with-research
+description: >-
+  Use when preparing or rehearsing a talk, deciding what belongs on a slide, choosing how to
+  explain a result informally or in a written report, or reading someone else's paper. Checks
+  that a talk's opening establishes the question, context, and importance at a depth fit for the
+  audience before connecting methods and results back to that significance; that an idea is
+  pushed through formal talks, written reports, and timely informal explanation and sharpened by
+  critiquing real presentations; that every slide advances the argument rather than padding it;
+  and that a paper is read in a fast mapping layer followed by a critical layer devoted to
+  challenging assumptions and devising alternatives.
 kind: skill
 status: ready
 provenance:
@@ -34,25 +43,25 @@ provenance:
 
 ## Purpose
 
-This skill guides communicating research and reading others' work. It checks that a talk is built as one rehearsed scientific story whose opening establishes the question, context, and importance at a depth fit for the audience, then connects methods and results to their significance; that important ideas are communicated through formal talks, written reports, and timely informal explanation, and improved by critiquing real presentations and adapting effective techniques; that every slide advances the scientific argument, omitting filler and including technical detail only when the intended audience needs it; and that papers are read in layers — mapping the problem and high-level contribution quickly, then spending most ideation effort challenging assumptions and devising alternatives.
+This skill guides communicating research and reading others' work. It checks that a talk is built as one rehearsed scientific story whose opening establishes the question, context, and importance at a depth fit for the audience, then connects methods and results to their significance; that important ideas are pushed through formal talks, written reports, and timely informal explanation, and sharpened by critiquing real presentations and adapting effective techniques; that every slide advances the scientific argument, omitting filler and admitting technical detail only when the intended audience needs it; and that papers are read in layers — mapping the problem and high-level contribution quickly, then spending most ideation effort challenging assumptions and devising alternatives.
 
 ## When to use
 
-- An oral presentation or talk must be built and rehearsed as one scientific story matched to the audience's needed depth (P002).
-- An idea needs understanding or adoption and must be communicated through talks, reports, and timely informal explanation, improved by critiquing real presentations (P007).
-- Slides or visuals are being chosen and each must advance the argument, with technical detail only where the audience needs it (P027).
-- A paper or literature is being read to assess relevance or generate ideas, in layers that prioritise challenging assumptions and devising alternatives (P039).
+- An oral presentation or talk is being built or rehearsed and its opening, depth, and connection back to significance need checking (P002).
+- An idea needs to reach or persuade an audience and the choice of channel — talk, report, or timely informal explanation — or the quality of delivery is in question (P007).
+- Slides or visuals are being chosen or trimmed and each one's contribution to the argument, or its technical detail level, needs checking (P027).
+- A paper or a body of literature is being read to assess relevance or generate ideas, and the reading strategy needs to separate fast mapping from critical ideation (P039).
 
 ## Procedure
 
-1. Build a research talk as one rehearsed scientific story whose opening establishes the question, context, and importance at a depth appropriate to the audience, then connects methods and results to their significance (P002).
-2. Communicate important ideas through formal talks, written reports, and timely informal explanation; improve by critiquing real presentations and adapting effective techniques (P007).
-3. Use every slide to advance the scientific argument, omit filler, and include technical detail only when it is necessary for the intended audience to understand a novel method or result (P027).
-4. Read for research in layers (P039).
+1. Build the talk as one rehearsed scientific story: open by establishing the question, its context, and its importance at a depth matched to the audience's background, then thread the methods and results back to that same significance so the story closes the loop it opened (P002).
+2. Push an important idea through three channels — a formal talk, a written report, and timely informal explanation given while the idea is still relevant — and sharpen delivery across all three by critiquing real presentations you observe and adapting the techniques that work (P007).
+3. Vet every slide against the argument it is meant to advance: cut any slide that is filler rather than argument, and admit technical detail onto a slide only when the intended audience needs it to understand a specific novel method or result (P027).
+4. Read the paper in two layers: first map the problem and its high-level contribution quickly, without lingering on detail, then commit most of the reading's ideation effort to a second, critical layer that challenges the paper's assumptions and devises alternatives to its approach (P039).
 
 ## Inputs
 
-- The talk, slides, or reading task, the audience and its needed depth, and the argument or research question at stake.
+- The talk, slides, report, or reading task, the audience and its needed depth, and the argument or research question at stake.
 - The reasoning offered for the decision under review: the goal, the plan or practice in place, and any claim of importance, readiness, or soundness made.
 
 ## Output
@@ -61,10 +70,10 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P002: Build a research talk as one rehearsed scientific story whose opening establishes the question, context, and importance at a depth appropriate.
-- Overlooking P007: Communicate important ideas through formal talks, written reports, and timely informal explanation; improve by critiquing real presentations.
-- Overlooking P027: Use every slide to advance the scientific argument, omit filler, and include technical detail only when it is necessary for the intended audience.
-- Overlooking P039: Read for research in layers.
+- A talk opens by diving straight into methods or results with no framing of the question, its context, or its importance, so the audience cannot gauge why the work matters before the technical content arrives, and the closing results are never tied back to that significance (P002).
+- An idea circulates through only one channel — a paper with no talk, or a talk with no timely informal follow-up — and delivery is never checked against real presentations, so the idea fails to reach or persuade the audience it needed (P007).
+- A slide carries technical minutiae the intended audience does not need, or a slide sits in the deck without advancing the argument at all, diluting the story with padding (P027).
+- A paper is read start-to-finish at one uniform pace with no fast initial pass and no dedicated critical pass, so reading time goes to summarizing the paper rather than to challenging its assumptions or devising alternatives (P039).
 
 ## References
 

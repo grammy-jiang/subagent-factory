@@ -1,5 +1,13 @@
 ---
 name: early-career-positioning-and-negotiation
+description: >-
+  Use when establishing an independent research identity inside a collaboration, preparing a
+  job search, scoping projects against a fixed-term appointment, or negotiating and confirming
+  a start-up offer: checks that collaborative work still yields distinctive, recognizable
+  contributions; that an application presents initiative, leadership, collegiality, and a
+  concrete first agenda; that project scope is matched to the appointment clock; and that the
+  offer, professional skills, and outside mentorship are deliberately secured rather than left
+  to chance.
 kind: skill
 status: ready
 provenance:
@@ -31,48 +39,104 @@ provenance:
   authored_from_digest: a8b4b619d4acc24d775455f7fa6c017e23032d69ff3650ddfbeb221bb5894733
 ---
 
-# Early-Career Positioning And Negotiation
+# Early Career Positioning And Negotiation
 
 ## Purpose
 
-This skill guides establishing an independent research identity and securing the terms to sustain it. It checks that collaboration is used without surrendering research identity — contributing distinctive ideas, clarifying authority and credit when incentives overlap, and initiating work the community can recognize as the researcher's own; that job-seeking presents evidence of initiative, intellectual leadership, collegiality, and a concrete first two-to-three-year agenda rather than unfocused breadth or willingness to do anything assigned; that each main project's expected output is aligned to the appointment horizon, pairing long work with shorter results and moving on if timely credited progress cannot be protected; that a result-oriented start-up package is negotiated and confirmed in writing while alternatives still provide leverage; and that the professional skills technical training omits are deliberately learned, with an experienced mentor cultivated outside the direct authority chain.
+This skill guides establishing an independent research identity and securing the terms to
+sustain it. It checks that collaboration is used without surrendering research identity —
+contributing distinctive ideas, clarifying authority and credit when incentives overlap, and
+initiating work the community can recognize as the researcher's own; that job-seeking presents
+evidence of initiative, intellectual leadership, collegiality, and a concrete first two-to-
+three-year agenda rather than unfocused breadth or willingness to do anything assigned; that
+each main project's expected output is aligned to the appointment horizon, pairing long work
+with shorter results and moving on if timely credited progress cannot be protected; that a
+result-oriented start-up package is negotiated and confirmed in writing while alternatives
+still provide leverage; and that the professional skills technical training omits are
+deliberately learned, with an experienced mentor cultivated outside the direct authority chain.
 
 ## When to use
 
-- A collaboration is being formed and research identity, authority, and credit must be protected while distinctive, recognizable work is initiated (P004).
-- A research or faculty job is being sought and evidence of initiative, leadership, collegiality, and a concrete first agenda must be presented (P016).
-- Projects must be scoped to a fixed-term appointment, pairing long work with shorter results, with a move considered if timely credited output is not protected (P019).
-- An offer's start-up package must be negotiated and confirmed in writing while leverage remains, and professional skills and an outside mentor deliberately developed (P026, P042).
+- A collaboration is being formed or is already under way and research identity, authority, and
+  credit must be protected while distinctive, recognizable work is initiated (P004).
+- A research or faculty job is being sought and evidence of initiative, leadership, collegiality,
+  and a concrete first agenda must be assembled and presented (P016).
+- A project is being scoped against a fixed-term appointment and its expected output, timeline,
+  and support needs must be checked against that horizon (P019).
+- An offer has arrived and its start-up package must be negotiated and confirmed in writing while
+  leverage from alternatives still exists (P026).
+- A candidate or early-career researcher is choosing what to learn next or who to seek out for
+  candid career advice (P042).
 
 ## Procedure
 
-1. Use collaboration without surrendering research identity (P004).
-2. Research prospective colleagues and present evidence of initiative, intellectual leadership, collegiality, and a concrete first two-to-three-year agenda rather than unfocused breadth or willingness to do anything assigned (P016).
-3. Align each main project's expected output with the appointment horizon; require a credible publication and support plan, pair long work with shorter results, and move groups if timely progress cannot be protected (P019).
-4. Negotiate a result-oriented start-up package before committing (P026).
-5. Deliberately learn the professional skills that technical training omits, and cultivate an experienced mentor outside the direct authority chain for candid career advice (P042).
+1. Check the collaboration for research-identity risk: confirm the researcher is contributing at
+   least one distinctive idea of their own, that authority and credit are made explicit wherever
+   incentives between collaborators overlap, and that at least one piece of work is being
+   initiated that the community will recognize as the researcher's own rather than as an
+   extension of a senior collaborator's program (P004).
+2. Build the job-search case on four concrete elements rather than breadth: initiative (self-
+   generated project or line of inquiry), intellectual leadership (a problem framed or led, not
+   just executed), collegiality (evidence of working well with others), and a specific first
+   two-to-three-year agenda — and flag an application or pitch that instead signals willingness
+   to do anything assigned or lists broad interests with no committed direction (P016).
+3. Score each main project against the appointment horizon using three concrete checks: does it
+   carry a credible publication and support plan reachable before the horizon closes; is it
+   paired with at least one shorter, faster-landing result so the appointment does not depend on
+   one long-shot outcome; and, if credited progress cannot realistically be protected on this
+   timeline, is moving to a different group or position being seriously considered rather than
+   deferred (P019).
+4. Before accepting an offer, negotiate a result-oriented start-up package: itemize space,
+   equipment, assistance, and workload relief; justify each item by the output it is meant to
+   produce; and get the confirmed terms in writing while a competing offer or other leverage
+   still exists to negotiate with (P026).
+5. Alongside the technical agenda, deliberately schedule time to learn the professional skills
+   that technical training omits (e.g., negotiation, management, funding strategy), and identify
+   and cultivate an experienced mentor who sits outside the researcher's direct authority chain
+   so that career advice can be candid rather than filtered through evaluative interest (P042).
 
 ## Inputs
 
-- The collaboration, application, appointment, or offer at hand, its horizon and constraints, and the candidate's independent research goals.
-- The reasoning offered for the decision under review: the goal, the plan or practice in place, and any claim of importance, readiness, or soundness made.
+- The collaboration, application, appointment, or offer at hand, its horizon and constraints, and
+  the candidate's independent research goals.
+- The reasoning offered for the decision under review: the goal, the plan or practice in place,
+  and any claim of importance, readiness, or soundness made.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first. This skill advises on research-career and empirical practice; it does not run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision for the caller.
+Per finding: name the gap and the principle it engages, give the correction, state the residual
+trade-off or the referral to make, and end with a concrete next step. Order findings
+highest-impact first. This skill advises on research-career and empirical practice; it does not
+run the study, write the paper or grant, or make the hiring, admission, funding, or tenure
+decision for the caller.
 
 ## Anti-patterns to flag
 
-- Overlooking P004: Use collaboration without surrendering research identity.
-- Overlooking P016: Research prospective colleagues and present evidence of initiative, intellectual leadership, collegiality, and a concrete first two-to-three-year.
-- Overlooking P019: Align each main project's expected output with the appointment horizon; require a credible publication and support plan, pair long work with shorter.
-- Overlooking P026: Negotiate a result-oriented start-up package before committing.
-- Overlooking P042: Deliberately learn the professional skills that technical training omits, and cultivate an experienced mentor outside the direct authority chain.
+- A researcher spends a collaboration executing a senior partner's agenda with no distinctive
+  idea, unclear credit, and no piece of work the community will recognize as their own (P004).
+- A job application or interview pitch lists broad interests and a willingness to work on
+  whatever is assigned instead of naming a specific first-two-to-three-year agenda and evidence
+  of initiative and leadership (P016).
+- A main project runs past the appointment horizon with no credible publication or support plan,
+  no shorter paired result to show progress, and no consideration of moving on when timely
+  credited output stalls (P019).
+- An offer is accepted on verbal assurances about space, equipment, or assistance with no written
+  confirmation and no leverage from a competing offer used in the negotiation (P026).
+- A candidate defers all professional-skill development to "later" and has no mentor outside
+  their direct supervisor or department chair to give unfiltered career advice (P042).
 
 ## References
 
-See `../../references/research-career-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/research-career-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.
+See `../../references/research-career-principles-index.md` for the full principle catalogue
+grouped by skill, and `../../references/research-career-evidence-notes.md` for how these
+principles are grounded and kept faithful to the sources.
 
 ## Provenance
 
-Derived from P004, P016, P019, P026, P042, grounded in the four distillation-only sources (*A PhD Is Not Enough* by Peter J. Feibelman, a survival guide for a career in science; *The Art of Doing Science and Engineering* / *You and Your Research* by Richard W. Hamming, on doing high-impact research; a Chinese guide to succeeding in academic research; and *Empirical Methods for Artificial Intelligence* by Paul R. Cohen, on experimental method and measurement). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P004, P016, P019, P026, P042, grounded in the four distillation-only sources (*A
+PhD Is Not Enough* by Peter J. Feibelman, a survival guide for a career in science; *The Art of
+Doing Science and Engineering* / *You and Your Research* by Richard W. Hamming, on doing
+high-impact research; a Chinese guide to succeeding in academic research; and *Empirical Methods
+for Artificial Intelligence* by Paul R. Cohen, on experimental method and measurement). The
+frontmatter `provenance` block lists the exact principle and claim ids, which resolve into
+`principles/principles.yaml` and `analysis/claims.jsonl`.

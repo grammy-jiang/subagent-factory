@@ -3,6 +3,28 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.1.0] — 2026-07-25
+
+### Changed
+- Re-authored all 7 skill bodies to the gold shape: fixed Procedure steps that were truncated
+  mid-clause, added a `description:` frontmatter line to each skill (the Agent-Skills triggering
+  signal), and rewrote each `## Anti-patterns to flag` section as concrete, observable red-flag
+  symptoms rather than restatements of the principles. Frontmatter `provenance` blocks preserved
+  verbatim; no principle statement changed, so the distilled spine and adapter invariants are
+  unaltered.
+- Broadened P027's `applies_when` to match its own general statement (documenting/storing/depositing/
+  sharing a dataset, in addition to reusing others' data) — resolves the SCOPE_BROADENED candidate in
+  `always_on[0]`.
+- Flipped P020 and P026 `operational_mapping.profile_rule` to `true` to match their use in
+  `knowledge_partition.always_on`.
+
+### Added
+- A third worked example exercising `plan` mode (reproducibility + open-release setup for a new
+  data-science project).
+- A `when_to_use` trigger for contributing to an existing open research project (grounded in P024).
+- Faithfulness report coverage for all 7 `knowledge_partition.always_on` skill bullets, with
+  per-rule comparison notes replacing the prior templated note; ledger now records the PASS outcome.
+
 ## [1.0.0] — 2026-07-25
 
 ### Added

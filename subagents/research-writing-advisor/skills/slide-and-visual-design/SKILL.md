@@ -1,5 +1,16 @@
 ---
 name: slide-and-visual-design
+description: >-
+  Guides the design of slides and presentation visuals so a deck reveals
+  images, data, and questions rather than carrying the speaker's words, keeps
+  each slide to one core idea, maximizes the signal-to-noise ratio by removing
+  clutter, uses presentation features only when they aid learning or delivery,
+  clarifies audience, context, purpose, and desired action before designing,
+  and secures legal clearance for every asset while testing the deck on the
+  actual presenting equipment. Use when a deck reads like a script for the
+  speaker, visual clutter or gratuitous effects are hurting comprehension, the
+  audience/purpose/action have not yet been clarified, or asset rights and
+  equipment compatibility have not been checked before the talk.
 kind: skill
 status: ready
 provenance:
@@ -33,7 +44,6 @@ provenance:
   authored_from_digest: 09e56683c4a9494aeabc2a3dc9ae35cc75b28aed10261cf22674ebeaf8b4caa4
 ---
 
-
 # Slide And Visual Design
 
 ## Purpose
@@ -49,13 +59,13 @@ This skill guides the design of slides and presentation visuals. It checks that 
 
 ## Procedure
 
-1. Do not put your spoken words on slides (P009).
-2. Design slides to reveal, not to carry words (P013).
-3. Maximize the signal-to-noise ratio to reduce cognitive strain (P023).
-4. Use presentation features only when they improve learning or delivery, prioritizing legibility, simplicity, and relevance over available effects (P045).
-5. Secure legal rights to all photos, video, music, and fonts (P114).
-6. Before designing, clarify the audience, context, purpose, and desired action, and be able to state plainly what your point is and why it matters to this audience (P141).
-7. Do not use slides as crutches (P144).
+1. Do not put your spoken words on slides: text-and-bullet decks lose the audience because they read ahead of the speaker; instead make each slide's purpose to show what your mouth cannot (photos, video, data), tease curiosity with a question rather than giving the answer, highlight the exact point a chart makes, and show images generously without over-explaining every one (P009).
+2. Design slides to reveal, not to carry, words: set context and then reveal an image full-screen, limit each slide to one core idea (extra slides cost nothing, so split rather than crowd), cut to black once you are done with an image, manage the two parallel cognitive streams of image/data and speech so a heavy slide does not compete with your words, and remember that a single well-chosen reframing of data can sharpen the audience's worldview (P013).
+3. Maximize the signal-to-noise ratio to reduce cognitive strain: remove or minimize any element that can go — grid lines, footers, logos, ambiguous labels — keep the distinctions you do keep as subtle as they can be while staying effective, and let clean data graphics stand alone, because on-screen clutter measurably reduces comprehension (P023).
+4. Use presentation features only when they improve learning or delivery, prioritizing legibility, simplicity, and relevance over whatever effects the software happens to make available (P045).
+5. Secure legal rights to every photo, video, music track, and font you use (or use your own or free/cleared assets), and test the presentation twice before presenting: once on non-expert friends to check comprehension, and once technically on the actual equipment it will run on (P114).
+6. Before designing any slide, clarify the audience, context, purpose, and desired action the talk should produce, and be able to state plainly what your point is and why it matters to this particular audience (P141).
+7. Do not use slides as crutches — a laboriously read text slide carries zero punch — but a single well-built image per step can nudge memory, and teasing the arrival of a slide before revealing it sustains attention (P144).
 
 ## Inputs
 
@@ -68,17 +78,17 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P009: Do not put your spoken words on slides.
-- Overlooking P013: Design slides to reveal, not to carry words.
-- Overlooking P023: Maximize the signal-to-noise ratio to reduce cognitive strain.
-- Overlooking P045: Use presentation features only when they improve learning or delivery, prioritizing legibility, simplicity, and relevance over available effects.
-- Overlooking P114: Secure legal rights to all photos, video, music, and fonts.
-- Overlooking P141: Before designing, clarify the audience, context, purpose, and desired action, and be able to state plainly what your point is and why it matters.
-- Overlooking P144: Do not use slides as crutches.
+- Slide text duplicates, near-verbatim, what the speaker is about to say aloud, so the audience reads ahead and disengages before the point is spoken (P009).
+- A single slide is asked to carry two or more ideas at once, or an image lingers on screen well past the point it was making instead of cutting to black before the next beat (P013).
+- Slides still carry grid lines, footers, logos, or ambiguous axis/legend labels that add no information, so a chart's real point is buried under decoration (P023).
+- Transitions, builds, or animation effects appear because the software offers them, not because they make anything more legible, simpler, or more relevant to the point being made (P045).
+- An asset — a photo, video clip, music track, or font — has no traceable rights clearance, or the deck has been checked only on the author's own laptop and never run on the actual venue equipment before the talk (P114).
+- Slide design starts before the audience, context, purpose, and desired action have been named, so the speaker cannot state plainly what the point is or why it matters to this particular audience (P141).
+- The speaker reads a dense text slide aloud line by line instead of letting a single built image carry the moment, or a slide is fully revealed before its point is introduced, killing the tease (P144).
 
 ## References
 
-See `../../references/research-writing-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/research-writing-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.
+Consult `../../references/research-writing-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-writing-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 

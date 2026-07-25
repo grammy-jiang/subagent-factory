@@ -31,8 +31,32 @@ Spine: 48 promoted principles (P001-P048; 0 high-confidence) over
 partitioned across 8 skills, each principle owned by exactly one skill; the two
 references index and ground them.
 
+## Cross-source conflict check
+
+`multisource_synthesis` is `deferred` (no automated Step-7 synthesis / principle-graph run). A manual
+cross-source conflict pass was made over the four sources, which span different eras and settings
+(Hamming's 1997 Bell-Labs industrial perspective vs. present-day academic-job-market guidance in
+Feibelman and the Chinese success guide; Cohen's empirical-method text is orthogonal). No contradictory
+principles were found: the sources emphasize different facets (importance-and-attackability of problems,
+protection factors in mentoring, communication, funding, empirical soundness) rather than opposing rules.
+The one latent tension — how much to weight institutional prestige — is resolved by P010's own hedge
+(established reputation is a tie-breaker only when protection factors are comparable), which `quality_bar`
+and `knowledge_partition.always_on` both preserve, and by the `precedence` rule that treats purpose-tied
+practices as adaptable guides rather than absolutes.
+
 ## Version History
 
+- **1.1.0** (2026-07-25) — Re-authored all 8 skill bodies to the GOLD shape (added trigger-oriented
+  `description:` frontmatter; rewrote every anti-pattern bullet as a complete observable-failure-symptom
+  sentence, one per provenance principle — restoring the dropped P038 and P046 bullets and replacing
+  truncated substrings; expanded stub Procedure steps), preserving `provenance:` blocks and digests
+  verbatim. Profile: weakened `quality_bar[2]` to restore P010's tie-break hedge (was flattened to "not
+  prestige"), shortened `role` to stop duplicating `forbidden_behaviours`, narrowed `when_to_use[3]` to
+  the strategy slice and added a `when_not_to_use` handoff to `research-writing-advisor`, and added a
+  `router_description` covering all five when-to-use domains. Recorded the manual cross-source conflict
+  check above. No principle citations were changed for any surviving `quality_bar` /
+  `forbidden_behaviours` / `handoff_rules` row, so no field→grounding row required re-mapping.
+  Supersedes the 1.0.0 skill-body and profile-copy decisions; the distilled spine is unchanged.
 - **1.0.0** (2026-07-25) — Initial LLM-authored layer over the pre-built distilled spine: profile
   (role, three modes, quality bar, forbidden behaviours, 8-skill / 2-reference
   knowledge partition), faithfulness report, 8 skills, 2 references, golden +

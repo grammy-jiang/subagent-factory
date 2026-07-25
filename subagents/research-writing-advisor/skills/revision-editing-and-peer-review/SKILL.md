@@ -1,5 +1,18 @@
 ---
 name: revision-editing-and-peer-review
+description: >-
+  Guides revising a draft, giving and receiving critique, and handling peer
+  review: test the message on non-experts and colleagues before and after
+  drafting, beat the curse of knowledge with outside feedback, run a final
+  consistency audit, turn reviews into discrete documented action points,
+  keep criticism specific and collegial, and read and act on an editorial
+  decision promptly. Use when a draft needs testing for intelligibility
+  before or after writing, when reviewer or editor feedback must be
+  triaged into action points and answered point-by-point, when writing a
+  review that needs an explicit evidence-based recommendation and
+  calibrated expectations, when a final consistency, terminology, and
+  formatting audit is due before submission, or when an editorial decision
+  has just arrived and a revision path must be assessed.
 kind: skill
 status: ready
 provenance:
@@ -38,7 +51,6 @@ provenance:
   authored_from_digest: e064a9f95ddcf1e10277f74c7cdb26c2366df0aef7b116d03b68f01ea39ba1b6
 ---
 
-
 # Revision, Editing And Peer Review
 
 ## Purpose
@@ -51,21 +63,22 @@ This skill guides revising a draft, giving and receiving critique, and handling 
 - Reviewer or editor feedback must be triaged into action points and answered in a professional point-by-point response.
 - A review is being written and must give an explicit, evidence-based recommendation with actionable, collegial criticism.
 - A final consistency, terminology, and formatting audit is due before submission.
+- An editorial decision has just arrived and a revision path needs to be identified and acted on.
 
 ## Procedure
 
 1. Test the manuscript's message before drafting by explaining it to a non-expert and presenting methods and results to knowledgeable colleagues who can expose omissions, alternatives, anomalies, and unsupported conclusions (P027).
-2. Run a final consistency audit across components, ordering, attribution, terminology, names, abbreviations, capitalization, spelling, tense, typography, units, precision, visuals, algorithms, references, formatting, and paired (P054).
-3. Beat the curse of knowledge (P066).
-4. Make a review's recommendation explicit and evidence-based, cite specific prior work for novelty objections, identify strengths and actionable fixes, and keep the decision provisional until the written reasoning has been checked (P083).
-5. Turn reviews into discrete action points, decide for each whether to change, justify resistance, or ask the editor to resolve a tradeoff, and document every response in a professional, easily scanned point-by-point letter (P107).
-6. Treat foundational omissions and pervasive consistency errors as triage signals (P123).
-7. Express criticism specifically, politely, and with examples where useful, and expose substantive concerns to authors rather than hiding new objections in confidential comments (P132).
+2. Run a final consistency audit across components, ordering, attribution, terminology, names, abbreviations, capitalization, spelling, tense, typography, units, precision, visuals, algorithms, references, formatting, and paired punctuation (P054).
+3. Beat the curse of knowledge — the bias where you cannot recall what it feels like not to know what you know well: being merely aware of the bias is not enough, so share drafts and beg for ruthless feedback, and recruit help specifically from people new to the topic, who best spot the gaps (P066).
+4. When writing a review, make the recommendation explicit and evidence-based, cite specific prior work for novelty objections, identify strengths and actionable fixes, and keep the decision provisional until the written reasoning has been checked (P083).
+5. Turn reviews received into discrete action points, decide for each whether to change the manuscript, justify resistance, or ask the editor to resolve a tradeoff, and document every response in a professional, easily scanned point-by-point letter (P107).
+6. Treat foundational omissions and pervasive consistency errors as triage signals, but inspect enough to justify the judgment; readable prose remains necessary and cannot compensate for invalid or unoriginal work (P123).
+7. Express criticism specifically, politely, and with examples where useful, and expose substantive concerns directly to the authors rather than hiding new objections in confidential editor-only comments (P132).
 8. Read an editorial decision promptly, identify whether a revision path is open, and when it is, revise and resubmit promptly unless the required changes are genuinely impossible or unacceptable (P135).
-9. Edit from the reader's perspective, consolidate duplication, remove obsolete content, and after every move recheck both locations for definitions, context, intelligibility, and argumentative continuity (P139).
+9. Edit from the reader's perspective, consolidate duplication, remove obsolete content, and after every move recheck both the old and new locations for definitions, context, intelligibility, and argumentative continuity (P139).
 10. After gaining distance from a draft, skim its high-level frame and paraphrase the argument, then ask an outside reader to do the same as a test of organizational intelligibility (P145).
-11. Audit Methods for reproducibility, selective citation, action density, natural prose, reader-oriented sequence, clear references, effective layout, grammatical purpose and consequence, number style, and tense (P149).
-12. Calibrate evaluation to learner experience, treat mechanical early use of principles as normal, credit a well-established problem even without a solution, and give information-gathering work a credible public reader (P171).
+11. Audit the Methods section for reproducibility, selective citation, action density, natural prose, reader-oriented sequence, clear references, effective layout, grammatical purpose and consequence, number style, and tense (P149).
+12. When evaluating someone else's draft or work, calibrate the evaluation to the writer's experience level, treat mechanical early use of principles as normal rather than a defect, credit a well-established problem even when it lacks a solution, and give information-gathering work a credible public reader (P171).
 
 ## Inputs
 
@@ -78,17 +91,22 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P027: Test the manuscript's message before drafting by explaining it to a non-expert and presenting methods and results to knowledgeable colleagues who can.
-- Overlooking P054: Run a final consistency audit across components, ordering, attribution, terminology, names, abbreviations, capitalization, spelling, tense.
-- Overlooking P066: Beat the curse of knowledge.
-- Overlooking P083: Make a review's recommendation explicit and evidence-based, cite specific prior work for novelty objections, identify strengths and actionable fixes.
-- Overlooking P107: Turn reviews into discrete action points, decide for each whether to change, justify resistance, or ask the editor to resolve a tradeoff.
-- Overlooking P123: Treat foundational omissions and pervasive consistency errors as triage signals.
-- Overlooking P132: Express criticism specifically, politely, and with examples where useful, and expose substantive concerns to authors rather than hiding new.
+- Draft reaches drafting's end, or submission, without ever being explained aloud to a non-expert or shown to knowledgeable colleagues, so omissions and unsupported conclusions surface only after the fact (P027).
+- The final consistency audit is skipped or only partly run, so mismatched terminology, inconsistent abbreviations, stray formatting, or unpaired punctuation still riddle the version submitted (P054).
+- The writer relies on self-review alone, treats being merely aware of the curse of knowledge as sufficient, and never recruits a reader new to the topic to spot the gaps (P066).
+- A review recommendation is left implicit or unsupported, a novelty objection is made with no cited prior work, or the decision is treated as final before the written reasoning has been checked (P083).
+- Reviewer comments are addressed silently or piecemeal, with no documented per-point decision, justification for resistance, or point-by-point response letter (P107).
+- A submission with foundational omissions or pervasive consistency errors is judged on prose polish alone, or is rejected or accepted without inspecting enough to justify the call (P123).
+- A substantive objection appears only in confidential comments to the editor, while the author-facing review stays vague, generic, or silent about it (P132).
+- An editorial decision sits unread or unanswered, or a revision is delayed or abandoned even though a revision path is open and the required changes are not genuinely impossible or unacceptable (P135).
+- Content is moved, merged, or deduplicated during editing, but the old and new locations are never rechecked, leaving an orphaned definition, missing context, or a broken argumentative thread (P139).
+- The writer revises immediately after drafting with no distance taken, and no outside reader is ever asked to paraphrase the argument back as a test of organizational intelligibility (P145).
+- The Methods section is proofread for style alone, with no check of reproducibility, selective citation, action density, or reader-oriented sequence (P149).
+- A novice's or exploratory work is evaluated as though produced by an experienced researcher, with no credit given for a well-established problem lacking a solution and no credible public reader assumed for information-gathering work (P171).
 
 ## References
 
-See `../../references/research-writing-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/research-writing-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.
+Consult `../../references/research-writing-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-writing-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 

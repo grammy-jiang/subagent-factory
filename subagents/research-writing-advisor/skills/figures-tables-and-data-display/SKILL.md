@@ -1,5 +1,17 @@
 ---
 name: figures-tables-and-data-display
+description: >-
+  Advises on how quantitative evidence is displayed and read: figures and
+  tables get a number, a skimmable self-standing caption, and nearby
+  introduction and interpretation; graphics use familiar forms unless a
+  richer form reveals more; quantities are framed against an explicit
+  baseline and the right denominator; axes and columns carry units; and
+  every display serves as evidence for a prose claim rather than
+  decoration. Route here when a figure or table needs numbering and
+  captioning, when a graphic form must be chosen to reveal the argument's
+  relationship, when a quantity or statistic needs a baseline or
+  denominator check, or when axis, column, or embedded labels need units
+  or updating after terminology changes.
 kind: skill
 status: ready
 provenance:
@@ -34,7 +46,6 @@ provenance:
   authored_from_digest: b774e8d440af214669c173d40e9fdb28d117e3c310206d5529fdf7bdf8f038c1
 ---
 
-
 # Figures, Tables And Data Display
 
 ## Purpose
@@ -57,7 +68,7 @@ This skill guides how quantitative evidence is displayed and read. It checks tha
 5. Show a result's importance through concrete contrast, magnitude, or pattern; make displays evidence for prose claims, report only key values, and give each legend enough information to stand alone without duplicating it (P103).
 6. Prefer familiar basic graphics unless a more complex field-appropriate form reveals relationships that simpler forms cannot, and let the argument rather than software defaults determine design (P118).
 7. Give each figure and table a number, a skimmable caption that identifies major elements and parameters, and nearby main-text introduction and interpretation; omit visuals the argument never uses (P124).
-8. Present statistics against the right denominator, such as population size, rather than raw totals (P152).
+8. Present statistics against the right denominator, such as population size, rather than raw totals, because individual probability is what matters to the audience (P152).
 
 ## Inputs
 
@@ -70,17 +81,18 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P028: Interpret quantities against an explicit relevant baseline, retain exact values when readers need them, and ensure the framing supports rather.
-- Overlooking P059: Before reporting an indirectly calculated value, provide or cite the necessary theory, assumptions, derivation, and valid baseline, and connect.
-- Overlooking P063: Put units in axes and columns, expand compact labels naturally in prose or captions, explain representative values when scale may be misread.
-- Overlooking P084: Use figures for intrinsically spatial data-structure relationships and language-neutral mathematical notation for broad audiences, while interpreting.
-- Overlooking P103: Show a result's importance through concrete contrast, magnitude, or pattern; make displays evidence for prose claims, report only key values.
-- Overlooking P118: Prefer familiar basic graphics unless a more complex field-appropriate form reveals relationships that simpler forms cannot, and let the argument.
-- Overlooking P124: Give each figure and table a number, a skimmable caption that identifies major elements and parameters, and nearby main-text introduction.
+- A quantity is reported as impressive (a large percentage change, a striking absolute count) with no baseline stated, or with a baseline chosen so the framing inflates the conclusion rather than supporting it fairly (P028).
+- A derived or indirectly calculated value (a rate, an aggregate, a projection) appears with no cited theory, assumption, derivation, or baseline behind it, and the reader cannot trace it back through connected displays to the underlying evidence (P059).
+- An axis, column header, or embedded label carries a bare number or an unexplained compact tag with no unit, or a label still uses terminology that the paper has since renamed elsewhere (P063).
+- A spatial data-structure relationship is described only in prose with no figure, or a figure appears with no accompanying interpretation, or exact code syntax has been paraphrased into natural language where the precise semantics mattered (P084).
+- A figure or table is present in the document but no prose claim ever calls on it as evidence, or its legend cannot be understood without flipping back to the caption or main text, or it dumps every raw value instead of the few that matter (P103).
+- A graphic uses an unusual or elaborate form (a three-dimensional chart, a nonstandard projection) where a familiar bar or line chart would reveal the same relationship, or the chart type is simply whatever the software defaulted to rather than a form chosen for the argument (P118).
+- A figure or table has no number, or its caption cannot be understood standing alone because it omits the axes, parameters, or elements needed to read it, or it sits far from where the text discusses it, or it is included even though the argument never uses it (P124).
+- A statistic is reported as a raw total or count with no denominator given, leaving the reader unable to judge the rate or individual probability the number is meant to convey (P152).
 
 ## References
 
-See `../../references/research-writing-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/research-writing-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.
+Consult `../../references/research-writing-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-writing-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 

@@ -1,5 +1,18 @@
 ---
 name: research-program-and-problem-selection
+description: >-
+  Guides choosing and steering a research program over a career: orient the
+  agenda around consequential, ownable questions and let those questions
+  determine the techniques, decompose a long agenda into complete
+  publishable milestones, and maintain a ranked portfolio of important
+  problems mapped against methods, attackability, and growth. Judges when
+  to begin significant work, persist through expected uncertainty, or
+  abandon a problem that has become a trap, and keeps a manageable
+  multi-project portfolio so one stalled line does not halt output. Use when
+  a research problem, program, or agenda is being chosen, re-scoped, or
+  broken into milestones; when field direction must be audited and a
+  problem portfolio ranked or rebalanced; or when a difficult, uncertain
+  project's begin/persist/abandon status must be judged.
 kind: skill
 status: ready
 provenance:
@@ -37,18 +50,19 @@ provenance:
 
 ## Purpose
 
-This skill guides choosing and steering a body of research over a career. It checks that the program is oriented around consequential questions the researcher can explain and partly own, letting the problems determine the techniques; that a long agenda is decomposed into complete, distinct, publishable milestones, each shown to advance the larger goal, with defensible advances disseminated promptly and never padded with repetitive fragments; that worthy, demanding goals are chosen and revisited so daily choices accumulate toward the intended work, with steady preparation for chance opportunities; that recurring strategic time audits field direction and maintains a portfolio of important problems ranked by credible growth and attackability, moving quickly when a clue changes the ranking; that important problems are mapped against methods and promising empty regions validated through sustained work; that significant work begins without waiting for ideal conditions and persists through expected uncertainty, but is abandoned when evidence shows persistence has become a trap; and that a manageable portfolio of projects keeps output flowing when one stalls.
+This skill guides choosing and steering a body of research over a career. It orients the program around consequential questions the researcher can explain and partly own, letting the problems determine the techniques rather than the reverse; decomposes a long agenda into complete, distinct, publishable milestones disseminated promptly and never padded with repetitive fragments; sets worthy, demanding goals and prepares steadily for chance opportunities; reserves recurring strategic time to audit field direction and rank a portfolio of important problems by credible growth and attackability; maps important problems against methods to find and validate promising empty regions; judges when to begin significant work, persist through expected uncertainty, or abandon a problem once evidence shows persistence has become a trap; and keeps a manageable multi-project portfolio so a block, a field's decline, or a lost publication priority in one project does not halt output.
 
 ## When to use
 
-- A research problem, program, or agenda is being chosen and must centre consequential, ownable questions mapped against methods (P015, P025).
-- A long-term objective must be decomposed into complete, publishable milestones with prompt dissemination of defensible advances (P017).
-- Direction must be audited and a ranked portfolio of important problems maintained, with steady preparation for chance opportunities and worthy long-range goals (P023, P022).
-- A difficult problem is underway and needs a begin-now / persist / abandon judgment, with a manageable multi-project portfolio protecting output (P035, P043).
+- A research problem, program, or agenda is being chosen and must centre consequential, ownable questions that determine the techniques used, not the reverse (P015).
+- Important problems must be mapped against candidate methods to find and validate a promising empty region and build a recognizable research identity (P025).
+- A long-term research objective must be decomposed into complete, publishable milestones, with defensible advances disseminated promptly and without padding (P017).
+- Worthy, demanding long-range goals must be set and revisited, or recurring strategic time is due to audit field direction and rank a portfolio of important problems by growth and attackability (P022, P023).
+- A difficult, uncertain project needs a begin-now / persist / abandon judgment, or a multi-project portfolio must be kept manageable so one stalled line does not halt output (P035, P043).
 
 ## Procedure
 
-1. Orient a scientific program around consequential questions the researcher can explain and partly own; let those problems determine the techniques, learning capabilities central to independence, collaborating for others, and honoring (P015).
+1. Orient a scientific program around consequential questions the researcher can explain and partly own; let those problems determine the techniques, learning capabilities central to independence, collaborating for others, and honoring commitments when changing methods (P015).
 2. Decompose a long research agenda into complete, distinct, publishable milestones, explain how each advances the larger goal, disseminate defensible advances promptly, and never pad the record with repetitive fragments (P017).
 3. Choose worthy, demanding goals, prepare steadily for chance opportunities, and revisit a future plan so daily choices and self-development accumulate toward the intended life (P022).
 4. Reserve recurring strategic time to audit field direction and maintain a portfolio of important problems, ranking them by credible growth and attackability and moving quickly when a clue changes the ranking (P023).
@@ -67,13 +81,13 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P015: Orient a scientific program around consequential questions the researcher can explain and partly own; let those problems determine the techniques.
-- Overlooking P017: Decompose a long research agenda into complete, distinct, publishable milestones, explain how each advances the larger goal, disseminate defensible.
-- Overlooking P022: Choose worthy, demanding goals, prepare steadily for chance opportunities, and revisit a future plan so daily choices and self-development accumulate.
-- Overlooking P023: Reserve recurring strategic time to audit field direction and maintain a portfolio of important problems, ranking them by credible growth.
-- Overlooking P025: Map important problems against methods, compare along both dimensions, and validate promising empty regions through sustained work that builds.
-- Overlooking P035: Begin significant work without waiting for ideal conditions, persist through expected uncertainty, and abandon the problem or attack when evidence.
-- Overlooking P043: Maintain a manageable portfolio of projects so blocks, field decline, or lost publication priority in one do not halt output, while protecting rigor.
+- A chosen problem is significant mainly because it fits a favorite technique rather than because the researcher can explain and partly own why it matters, so the program's technique dictates its questions instead of the reverse (P015).
+- A multi-year agenda has no publishable milestones marked off along the way, so results sit unpublished for years or surface only as thin, repetitive fragments once released (P017).
+- Daily research choices show no link to a worthy, demanding long-range goal, and a chance opportunity is missed because no steady preparation was in place to recognize or use it (P022).
+- No recurring time is set aside to audit field direction, so an outdated ranking of problems persists even after a new clue should have moved a problem up or down the portfolio (P023).
+- A problem is pursued, or a method is chosen, without mapping the two against each other, so a promising empty region worth attacking with a distinctive method goes unnoticed or unvalidated (P025).
+- Work on a significant problem is deferred while waiting for ideal conditions, or a stalled attack is kept running past the point where evidence shows persistence has become a trap (P035).
+- All effort concentrates in a single project, so a block, a field's decline, or a competitor's priority in that one project halts the researcher's entire output (P043).
 
 ## References
 

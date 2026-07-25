@@ -2,6 +2,7 @@
 name: open-source-projects-and-licensing
 kind: skill
 status: ready
+description: Use when checking essential open-source project files (LICENSE, DOI, README, contributing guide, code of conduct), contributing to someone else's project, choosing licences for software/data/ML-AI components, evaluating non-free usage-restricting (Ethical Source/Responsible AI) licences, or keeping research open while withholding validly protected information.
 provenance:
   principles:
   - P018
@@ -48,12 +49,12 @@ This skill guides releasing and contributing to open research software and datas
 
 ## Procedure
 
-1. Run an open source project with the essential files (P018).
-2. Contribute well to another open source project (P024).
-3. Understand usage-restricting licences (P020).
-4. Choose a data licence deliberately (P025).
-5. License the parts of an ML or AI system separately (P028).
-6. Make research sufficiently open for exchange, scrutiny, and authorized follow-on use while withholding only information protected by valid secrecy, confidentiality, or intellectual-property duties (P012).
+1. Confirm the project carries its essential files: a LICENSE file, without which no one can legally reuse the code and the project is not open source; a DOI so the code is citeable; a README covering what the project is, its features, and its install/run instructions, tests, authors, and acknowledgements (write the install steps down the first time you follow them); and, if collaborators are wanted, contributing guidelines and a code of conduct (e.g. a Contributor Covenant), kept in the repository root and linked from the README (P018).
+2. Before contributing to someone else's project, orient to its roles (author, owner, maintainers, contributors, community members), read its documentation and contributing guidelines, match its existing style and conventions, break the change into small well-defined chunks, test the change against an up-to-date version and update the documentation, and describe what changed, why, and how in the pull request — remembering that valuable non-code contributions (docs, examples, review, triage) are welcome too (P024).
+3. Before adopting an Ethical Source or Responsible AI licence, recognize that curtailing the freedom to use software for any purpose (even via an attribution requirement) makes it non-free/non-open by the classical FSF and OSI definitions, limits its adoption, makes compliance harder and more expensive to demonstrate than for conventional licences, and that DRM-style technical enforcement of such restrictions tends to be brittle, invasive, and bypassable (P020).
+4. Choose a data licence deliberately, since it governs what others can do with the data and directly affects its accessibility: Creative Commons licences can serve in some cases (CC0 relinquishes all rights to the public domain, CC-BY is common), but Creative Commons is general-purpose while Open Data Commons licences are made specifically for data and typically cover only database rights (P025).
+5. License the parts of an ML or AI system separately, since a model comprises training data, code, and weights that may each carry a different licence and the model licence governs the model and its derivatives independently of the other components; choose a licence that signals to users how the model should be used, using Creative Commons (which has no source-code terms) for data and weights and a software licence for the code (P028).
+6. Make the research sufficiently open for exchange, scrutiny, and authorized follow-on use, withholding only information that is protected by a valid secrecy, confidentiality, or intellectual-property duty (P012).
 
 ## Inputs
 
@@ -66,12 +67,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P018: Run an open source project with the essential files.
-- Overlooking P024: Contribute well to another open source project.
-- Overlooking P020: Understand usage-restricting licences.
-- Overlooking P025: Choose a data licence deliberately.
-- Overlooking P028: License the parts of an ML or AI system separately.
-- Overlooking P012: Make research sufficiently open for exchange, scrutiny, and authorized follow-on use while withholding only information protected by valid secrecy.
+- Code is pushed to a public repository with no LICENSE file — without one no one can legally reuse it and it is not open source; add a licence file, and add a DOI, README, and (if collaborators are wanted) contributing guidelines and a code of conduct (P018).
+- A pull request lands out of nowhere, ignores the project's contributing guidelines and existing style, bundles many unrelated changes, and gives no explanation of what changed, why, or how — orient to the project's roles and process first, keep the change small and well-tested, update the docs, and write a clear PR description (P024).
+- An Ethical Source or Responsible AI licence is adopted and assumed to be "open source," with compliance policed by DRM-style technical enforcement — usage-restricting terms (even a bare attribution clause) make it non-free by FSF/OSI definitions, harder and costlier to verify compliance, and DRM enforcement tends to be brittle, invasive, and bypassable; name the restriction and its consequences explicitly (P020).
+- A dataset is released with no licence at all, or with a general-purpose Creative Commons licence chosen by default without considering database rights — choose a data licence deliberately (CC0, CC-BY, or an Open Data Commons licence built specifically for data) (P025).
+- An ML/AI release ships one blanket licence covering data, code, and weights together — license each component (data, code, weights) separately, since each may need different terms and the model licence signals intended use independently of the others (P028).
+- A researcher either publishes everything indiscriminately (exposing information under a valid secrecy, confidentiality, or IP duty) or withholds material with no such protection to avoid scrutiny — keep the work open for exchange, scrutiny, and authorized follow-on use, and withhold only what is validly protected (P012).
 
 ## References
 
