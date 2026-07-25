@@ -1,67 +1,66 @@
-# research-writing-advisor — review loop r2
+# Review Loop — research-writing-advisor r2
 
-Review-only pass. Package: `subagents/research-writing-advisor/`. cwd = repo root.
-Lenses: deterministic gates + agent-skills, profile, faithfulness, ai-agent-engineering (parallel, scoped).
+One review pass. REVIEW ONLY. Package version 1.3.0.
 
-## Deterministic gates (Step 1)
+## Deterministic gates
 
 | Gate | Result |
 |------|--------|
-| `validate_generated_package` | **VALIDATION PASSED** (0 FAIL). 9 injection-scan WARNs — all benign frozen writing-textbook prose ("You are now ready to begin building a model…") + reversed/base64 false-normalization on 2 source markdowns; not runtime injection, not must-fix. |
-| `quote_scan` | **PASS** — no potential verbatim quotation. |
-| truncation grep (`…` in skills/adapter) | **clean** — no hits. |
-| adapter invariant-severed-in-parenthetical grep | **clean** — no hits. |
+| `validate_generated_package` | **PASSED** (0 FAIL) |
+| `quote_scan` | PASS — no verbatim quotation |
+| truncation (`…` ellipsis) | clean — 0 hits in skills + adapter |
+| truncation (severed parenthetical) | clean — 0 hits |
 
-No deterministic FAIL → 0 must-fix from gates.
+Injection-scan emitted WARNs (`role-override/body/medium` on `science-research-wri-*.md` "You are now ready to begin building a model...", plus reversed/detagged normalization hits). Benign textbook prose in an untrusted source — per `.claude/rules/untrusted-source-policy.md` a lexical hit **quarantines/triages, not blocks**; validation still PASSED. **Not a must-fix.**
 
-## Consolidated findings (most-severe first, deduped across lenses)
+## LLM reviewer panel (4 lenses, all returned MUST_FIX_COUNT: 0)
 
-### MUST-FIX
+Consolidated, deduped, most-severe first. No must-fix survived any lens.
 
-**1. Adapter frontmatter `description` is truncated mid-list — under-triggers + weakened boundary signal**
-- Where: `.claude/agents/generated/research-writing-advisor.md:3` (YAML `description`) — the field Claude Code's router matches on.
-- Problem: Surfaces only 1 of 5 `when_to_use` items (drafting/revising a paper/section); drops slide/talk review, argument/evidence review, note-taking practice. `when_not_to_use` clause cut off mid-list at `"…the paper, section, slides"` — omits "or talk," the "guides the work, does not perform it" clause, and the two exclusions that matter most for authority creep (no domain-science verdict, no acceptance guarantee). Router under-fires on legitimate talk/slide/note requests and gets a weakened exclusion signal.
-- Fix: Regenerate `description` as a standalone complete summary, not first-item-plus-truncated-list. Cover the full in-scope span (writing, argument, structure, clarity, figures, sources, claims integrity, presentation/talk) + the advice-only "not for: writing the deliverable, guaranteeing acceptance, ruling on domain-science/legal-rights" boundary, within the generator's length budget. Root cause is generation/rendering (single source → `profile.yaml`), so fix in the export path, not by hand-editing the adapter.
+### should-fix
 
-**2. `source_of_truth_policy.canonical_owner` is an orphan field value — contradicts the ledger's own traceability guarantee**
-- Where: `subagents/research-writing-advisor/profile.yaml:96-100` vs `provenance-ledger.md:7-9`.
-- Problem: `canonical_owner` carries zero principle-ID citations, but the ledger asserts "every `…source_of_truth_policy` value cites the promoted principle(s) it restates." Every sibling field (`precedence`, `handoff_rules`, `quality_bar`, `forbidden_behaviours`) does carry `(Pxxx)` cites; this one doesn't → ledger's own stated rule is false for this field (also trips repo `rights-and-quotation-policy` "No orphan field values").
-- Fix: Either (a) add cites to `canonical_owner` reusing IDs already used for the same assertions in `handoff_rules` (author/team → manuscript authority; editors/reviewers → acceptance; counsel/institution → legal-rights/plagiarism), or (b) narrow the ledger's blanket traceability sentence to explicitly exempt `canonical_owner` the same way it already exempts `role`/`when_to_use`/`inputs`/`outputs`.
+1. **Ungrounded "domain-science correctness" boundary — mis-cited to P140**
+   *Where:* `profile.yaml` `forbidden_behaviours[3]` (`(P140)`), plus restatements in `handoff_rules[1]`, `source_of_truth_policy.canonical_owner`, `when_not_to_use[1]` (uncited); `reports/faithfulness-report.yaml` note mislabels P140 as covering domain-science.
+   *Problem:* P140 covers only legal-rights/plagiarism ("copyright, patents, publication agreements, plagiarism standards"), **not** scientific/methodological correctness. Grep of the 4,964-line principles file for "domain-science"/"scientifically correct" = 0 hits; none of the 9 sources is a domain-methodology text. The "domain-science correctness rests with the researcher" boundary is sound **agent-design policy** but has no principle support, yet is presented with the same principle-cited framing as the properly-grounded legal-rights half. *(faithfulness-reviewer; overlaps profile-reviewer note on bundled grounding in `forbidden_behaviours[3]`.)*
+   *Fix:* Drop the domain-science clause from the principle-citation apparatus and state it plainly as advice-only design policy (like the existing `(an advice-only boundary)` tag); split `forbidden_behaviours[3]` into a policy-tagged bullet + a `(P140)` legal/ethics bullet; correct the faithfulness-report note.
 
-### SHOULD-FIX
+2. **Acceptance-authority boundary over-cited to P083/P135**
+   *Where:* `profile.yaml` `forbidden_behaviours[1]` (`(P083, P135)`), restated in `when_not_to_use[2]` and `examples[1]`.
+   *Problem:* P083 is guidance for *writing a peer review*; P135 is the *author's* response to a decision. Neither allocates acceptance authority to editors/reviewers, and "declaring a draft 'publishable'" has no anchor (grep for "editors and reviewers"/"acceptance rests" = 0 hits). Restraint is correct but citation implies stronger grounding than exists. *(faithfulness-reviewer.)*
+   *Fix:* Recite as advisor-scope design policy, or soften citation framing so P083/P135 aren't claimed to establish acceptance-authority allocation.
 
-**3. `role` duplicates `forbidden_behaviours` content — DRY violation, un-cited, drift risk**
-- Where: `profile.yaml:13-16`. "…never writes the paper or talk, never guarantees acceptance, never rules on domain-science correctness or legal-rights" restates `forbidden_behaviours` bullets 1/2/4 nearly verbatim in an un-cited field with no single source of truth.
-- Fix: Compress `role` to a boundary pointer ("invariants below are advisory criteria, not authority to act; see forbidden_behaviours for hard boundaries") and let `forbidden_behaviours` be the one authoritative statement. Also shaves the largest body-size contributor (see #6).
+3. **Per-skill Output section written for `review` mode only**
+   *Where:* all 13 `skills/*/SKILL.md` `## Output` sections.
+   *Problem:* `profile.yaml:47-60` declares 3 modes (`advise`/`review`/`plan`) with distinct output shapes; every skill body hard-codes the `review` findings-list shape, so a skill invoked under `advise`/`plan` carries an output contract mismatched to the mode. *(agent-skills-advisor.)*
+   *Fix:* Make each `## Output` mode-neutral or branch on mode (single recommendation / findings list / ordered plan).
 
-**4. `faithfulness-report.yaml` under-covers the profile's rule surface**
-- Where: `reports/faithfulness-report.yaml` (19 scored locations) vs `profile.yaml` `knowledge_partition.always_on[0-12]`, `when_not_to_use`, `minimum_useful_output`, `outputs.modes`, `source_of_truth_policy.canonical_owner`, `examples[0-1]`.
-- Problem: The report scores only 19 rule locations and omits the 13 `always_on` skill blurbs — the most heavily-cited rule content (6–24 principles each) — and both worked `examples` (the clearest place an over-claim would surface). Direct sampling of the omitted content (~35 principle IDs spot-checked) found no over-claim (all WITHIN_SCOPE), so the package's "no over-claim" conclusion is TRUE but not fully documented by the shipped report.
-- Fix: Extend the report with entries for `always_on[0-12]`, `when_not_to_use`, `minimum_useful_output`, `outputs.modes`, `canonical_owner`, and `examples[0-1]` so it covers "every rule" per the faithfulness contract.
+4. **DRY boilerplate repeated across all 13 skills**
+   *Where:* all 13 `skills/*/SKILL.md` `## Output` disclaimer (~70w) + `## Provenance` bibliography (~90w).
+   *Problem:* Near-verbatim disclaimer + full 9-source bibliography restated in every file; already stated once at profile level (`forbidden_behaviours`, `sources:`). Inflates every triggered body. NOTE: ledger records this (S4) as a re-deferred design decision across 1.2.0→1.3.0. *(agent-skills-advisor; ledger S4.)*
+   *Fix:* Shrink Provenance to `Derived from <IDs>; bibliography in profile.yaml`; collapse disclaimer to one clause. Or convert the ledger deferral to a permanent accepted-design note.
 
-**5. `multisource_synthesis: deferred` is undocumented for a 9-source package**
-- Where: `profile.yaml:7`; no matching note in `provenance-ledger.md`.
-- Problem: 9 sources declared, synthesis `deferred`, no ledger rationale → Phase-8 check 17 ("no unresolved conflict") unverifiable from the record; reviewer can't tell "handled at cluster stage" from "not done."
-- Fix: Add a ledger line stating why synthesis is deferred (e.g. cross-source de-dup done at principle-cluster / reduce stage, not a per-source Phase-7 profile merge).
+5. **Profile body word-count at ~997/1000 — 3 words from FAIL**
+   *Where:* `profile.yaml` whole body (Phase-8 check 14).
+   *Problem:* Ledger self-reports ~997w; any future one-line addition silently trips the >1000w hard-FAIL. *(profile-reviewer.)*
+   *Fix:* Trim 50–100w headroom now (tighten `role` — it restates the 9-source count/domain list already in the ledger; or condense `source_of_truth_policy.precedence`).
 
-**6. `paper-sections-and-organization` skill is the family outlier (~29 steps + 29 anti-patterns, ~1.4× next-largest)**
-- Where: `skills/paper-sections-and-organization/SKILL.md`. Pushes body toward the progressive-disclosure ceiling.
-- Fix: Move least-jointly-needed items (title wording, tool-vs-problem abstract framing, borrowed-method attribution) into the existing `references/research-writing-principles-index.md` entry with an explicit "load this section when reviewing a title/abstract" pointer — don't split the skill (fractures the IMRaD charter).
+6. **`when_to_use[4]` drops the "research" qualifier its siblings carry**
+   *Where:* `profile.yaml` `when_to_use[4]` / adapter line 135 ("preparing a talk or slide deck...").
+   *Problem:* Only trigger without a "research"/"academic" anchor; reads as generic presentation coaching, inviting off-domain routing (business pitch, non-research talk) into a research-anchored agent. *(ai-agent-engineering-reviewer.)*
+   *Fix:* Reword to "preparing a **research** talk or academic/technical slide deck..." in both profile and adapter; optionally add a `when_not_to_use` line excluding general public-speaking/slide coaching.
 
-**7. Skill References footer is identical boilerplate across all 13 skills and never says *when* to open the referenced files (anti-pattern P029)**
-- Where: `skills/*/SKILL.md` References section (byte-identical across the family).
-- Fix: Replace shared boilerplate with a scoped trigger, e.g. "consult principles-index only if a finding's principle needs its full source-grounded statement or might belong to a sibling skill; consult evidence-notes only if the caller disputes a finding's grounding." Single template/generator fix.
+### nice
 
-### NICE
+7. **Voice-choice lens overlap without cross-reference** — `clarity-and-sentence-style` (step 7, P008) and `academic-english-for-non-native-writers` (steps 7-8, P137/P169) both cover active/passive voice with no disambiguating cross-reference (the corpus already uses that pattern for Methods). Add a one-line handoff in each. *(agent-skills-advisor.)*
+8. **`evidence-integrity-and-claims` step 16 (P105)** is an experiment-scoping decision, not a writing one — lens-fit outlier vs siblings; reframe to the writing/reporting angle or drop. *(agent-skills-advisor.)*
+9. **Adapter forbidden/quality-bar cite principle IDs absent from the visible "Operating invariants" block** — highest-priority guardrail references IDs resolvable only via a `Read` detour; prose is self-explanatory so behavioral impact is nil. Fold IDs in or add a one-line resolution pointer. *(ai-agent-engineering-reviewer.)*
+10. **Three skill descriptions (~900-1000+ chars)** near the 1024 hard cap — trim for margin. *(agent-skills-advisor.)*
+11. **`outputs.modes` carry no inline principle IDs** — the one rule-bearing field group without citation (matches `research-career-advisor` convention). Accept explicitly or cite. *(profile-reviewer.)*
+12. **No per-skill worked example** — only 2 profile-level examples; add compact before/after to high-traffic skills (clarity, figures, slides). *(agent-skills-advisor.)*
+13. **Ledger accumulating re-deferred items (M2, S4)** across two rounds — convert to permanent accepted-design notes or scheduled follow-ups. *(profile-reviewer.)*
 
-- **8.** Profile body ~981 words (Phase-8 check 14 WARNING, > 800 advisory budget, **under the 1000-word FAIL ceiling — confirmed by re-running `profile_self_check`, exit 0**). Not a release blocker; #3 above trims it. (Refutes an earlier ~1040w "over ceiling" read — actual tool count is 981w WARNING.)
-- **9.** `faithfulness-report.yaml` note for `forbidden_behaviours[3]` cites "P150/P140" but profile cites only `(P140)`; P150 is unrelated (evidence-integrity list bleed). Report-accuracy slip, not a profile over-claim — correct or drop P150.
-- **10.** `role` (`profile.yaml:8-16`) and `inputs.required` (`:38-41`) are dense single run-on sentences; splitting each into 2-3 would aid scanability. No content change.
-- **11.** `when_to_use` item 5 ("wants a durable writing practice — scheduled sessions… a note-taking system that feeds drafting") reads close to a build/setup request; tool grant (no Write/Edit/Bash) already blocks overreach, but reword to "…wants recommendations for a durable writing practice…" to keep phrasing unambiguously advisory.
-- **12.** Two skills (`paper-sections-and-organization`, `slide-and-visual-design`) use YAML `>` where 11 siblings use `>-`; normalize to `>-`.
-- **13.** No skill embeds a worked before/after example in-body; defensible for a 13-way partition, but the two densest skills would gain actionability from one compact snippet each.
+## Verdict
 
-## Notes
-- Body-size, injection WARNs, and the earlier "over-ceiling" claim were verified against the actual tools, not reviewer word-counts. Only #1 and #2 survive as must-fix; both are single-source-rooted (regenerate adapter / edit profile+ledger), not adapter hand-edits.
+Package validates clean, quote-scan clean, no truncation, tool boundary correct (Read/Grep/Glob only), adapter/profile fidelity verbatim-consistent, no authority creep. All 4 LLM lenses returned zero must-fix. Findings 1–6 are should-fix (grounding-citation accuracy + mode/DRY/word-count/scope hygiene) — worth a fix round but non-blocking. Findings 1 and 2 are highest-value: two restraint boundaries carry principle citations that don't actually ground them (fix = re-label as design policy, not weaken the restraint).
 
-MUST_FIX_COUNT: 2
+MUST_FIX_COUNT: 0
