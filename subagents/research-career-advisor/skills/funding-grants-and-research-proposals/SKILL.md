@@ -10,7 +10,8 @@ description: >-
   direction, broad follow-on use, or advantage over established methods; creativity by useful
   value and meaningful recombination, not novelty or difficulty alone); or when a reviewer or
   authority has called a proposed result infeasible or impossible and its assumptions must be
-  enumerated and tested.
+  enumerated and tested. Not for generic business, startup, or nonprofit grant-writing with no
+  research-proposal dimension.
 kind: skill
 status: ready
 provenance:
@@ -46,7 +47,7 @@ provenance:
 
 ## Purpose
 
-This skill guides winning research funding and arguing the importance and feasibility of proposed work. `## When to use` and `## Procedure` carry the specific checks.
+This skill guides winning research funding and arguing a proposal's importance and feasibility — scoping an early-career grant to important, achievable projects with enough advanced work to show results within the award cycle, crediting related work while explaining the proposal's distinct contribution and pursuing every fitting funder, arguing impact by an opened direction or advantage over established methods and creativity by useful value rather than novelty alone, and challenging an infeasibility verdict by enumerating and testing its assumptions.
 
 ## When to use
 
@@ -70,7 +71,13 @@ This skill guides winning research funding and arguing the importance and feasib
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first. This skill advises on research-career and empirical practice; it does not run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision for the caller.
+Shape the output to the mode the request calls for:
+
+- **advise** — one recommendation tied to the situation, naming the principle(s) it engages and the residual trade-off or referral.
+- **review** — a findings list keyed to area; per finding name the gap and the principle it engages, give the correction, state the trade-off or referral, and end with a concrete next step, highest-impact first.
+- **plan** — an ordered plan of steps, each tied to its principle and scoped to the horizon.
+
+Whichever mode: this skill advises on research-career and empirical practice; it does not run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision for the caller.
 
 ## Anti-patterns to flag
 

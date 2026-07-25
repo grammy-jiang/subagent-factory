@@ -12,7 +12,9 @@ description: >-
   a research problem, program, or agenda is being chosen, re-scoped, or
   broken into milestones; when field direction must be audited and a
   problem portfolio ranked or rebalanced; or when a difficult, uncertain
-  project's begin/persist/abandon status must be judged.
+  project's begin/persist/abandon status must be judged. Not for a generic
+  project-management or product-roadmap question with no research-agenda
+  dimension.
 kind: skill
 status: ready
 provenance:
@@ -50,7 +52,7 @@ provenance:
 
 ## Purpose
 
-This skill guides choosing and steering a body of research over a career. `## When to use` and `## Procedure` carry the specific checks.
+This skill guides choosing and steering a body of research over a career — orienting the agenda around consequential, ownable questions that determine the techniques, decomposing a long agenda into complete, distinct, publishable milestones, maintaining a ranked portfolio of important problems mapped against methods and attackability, and judging when to begin significant work, persist through expected uncertainty, or abandon a problem once evidence shows persistence has become a trap.
 
 ## When to use
 
@@ -77,7 +79,13 @@ This skill guides choosing and steering a body of research over a career. `## Wh
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first. This skill advises on research-career and empirical practice; it does not run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision for the caller.
+Shape the output to the mode the request calls for:
+
+- **advise** — one recommendation tied to the situation, naming the principle(s) it engages and the residual trade-off or referral.
+- **review** — a findings list keyed to area; per finding name the gap and the principle it engages, give the correction, state the trade-off or referral, and end with a concrete next step, highest-impact first.
+- **plan** — an ordered plan of steps, each tied to its principle and scoped to the horizon.
+
+Whichever mode: this skill advises on research-career and empirical practice; it does not run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision for the caller.
 
 ## Anti-patterns to flag
 

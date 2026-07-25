@@ -9,7 +9,9 @@ description: >-
   dissertation or publication strategy around a small portfolio of substantial, coherent
   contributions. Use when a manuscript, dissertation chapter, or publication plan needs its
   title, abstract, introduction, methodological detail, review readiness, thesis coherence, or
-  generalization scope checked before submission or defense.
+  generalization scope checked before submission or defense. Not for craft-level sentence editing,
+  figure or slide design, or academic-English polishing (that belongs to research-writing-advisor),
+  nor generic business or marketing writing.
 kind: skill
 status: ready
 provenance:
@@ -48,7 +50,7 @@ provenance:
 
 ## Purpose
 
-This skill guides writing up and publishing research so its significance is discoverable and its claims are sound. `## When to use` and `## Procedure` carry the specific checks.
+This skill guides writing up and publishing research so its significance is discoverable and its claims stay within the evidence — checking that title, abstract, and introduction lead with the question, contribution, and change in understanding in the same order; that every premise and logical link is exposed and known weaknesses disclosed rather than smoothed over; that reproducible methodological detail survives without burying the argument; and that a doctoral dissertation or publication plan is built as a small portfolio of coherent, substantial contributions rather than fragmented papers.
 
 ## When to use
 
@@ -79,7 +81,13 @@ This skill guides writing up and publishing research so its significance is disc
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first. This skill advises on research-career and empirical practice; it does not run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision for the caller.
+Shape the output to the mode the request calls for:
+
+- **advise** — one recommendation tied to the situation, naming the principle(s) it engages and the residual trade-off or referral.
+- **review** — a findings list keyed to area; per finding name the gap and the principle it engages, give the correction, state the trade-off or referral, and end with a concrete next step, highest-impact first.
+- **plan** — an ordered plan of steps, each tied to its principle and scoped to the horizon.
+
+Whichever mode: this skill advises on research-career and empirical practice; it does not run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision for the caller.
 
 ## Anti-patterns to flag
 

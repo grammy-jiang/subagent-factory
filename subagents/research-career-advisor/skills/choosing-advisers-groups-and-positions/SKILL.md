@@ -5,7 +5,8 @@ description: >-
   laboratory role. Use when weighing an established adviser's reputation against
   actual mentoring quality, when researching a prospective group or preparing for
   an interview, when comparing postdoc offers, or when evaluating an industrial or
-  government laboratory as a step toward a later career.
+  government laboratory as a step toward a later career. Not for a generic hiring, HR,
+  or vendor-selection question with no research-training dimension.
 kind: skill
 status: ready
 provenance:
@@ -42,8 +43,12 @@ provenance:
 
 ## Purpose
 
-This skill guides evaluating where to train or work — an adviser, group, postdoc, or
-laboratory. `## When to use` and `## Procedure` carry the specific checks.
+This skill guides evaluating where to train or work — a graduate adviser, research group,
+postdoc position, or industrial or government lab — by weighing actual mentoring quality
+over reputation, gathering trainee evidence before committing, scoring postdocs on a defined
+field and a path to visible results, and probing how a lab manages priorities, resources,
+and internal mobility, so the choice rests on protected access, guidance, credited output,
+and mobility rather than name recognition.
 
 ## When to use
 
@@ -96,12 +101,13 @@ laboratory. `## When to use` and `## Procedure` carry the specific checks.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction,
-state the residual trade-off or the referral to make, and end with a concrete
-next step. Order findings highest-impact first. This skill advises on
-research-career and empirical practice; it does not run the study, write the
-paper or grant, or make the hiring, admission, funding, or tenure decision for
-the caller.
+Shape the output to the mode the request calls for:
+
+- **advise** — one recommendation tied to the situation, naming the principle(s) it engages and the residual trade-off or referral.
+- **review** — a findings list keyed to area; per finding name the gap and the principle it engages, give the correction, state the trade-off or referral, and end with a concrete next step, highest-impact first.
+- **plan** — an ordered plan of steps, each tied to its principle and scoped to the horizon.
+
+Whichever mode: this skill advises on research-career and empirical practice; it does not run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision for the caller.
 
 ## Anti-patterns to flag
 

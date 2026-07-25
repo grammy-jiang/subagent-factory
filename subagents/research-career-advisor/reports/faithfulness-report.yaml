@@ -15,8 +15,8 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P017/P012/P046; within the source's scope, no strengthening. Advisory criterion, not
-    authority to act.
+  note: Restates P017/P012; within the source's scope, no strengthening. Advisory criterion, not
+    authority to act. (v1.4.0 dropped a non-load-bearing P046 tag — P017/P012 carry the clause.)
 - rule_ref: quality_bar[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -57,21 +57,24 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P017/P013; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+  note: Disclosed structural house-policy (advice-only boundary), not a distilled principle — the false
+    P017/P013 citation was dropped in v1.4.0. No source claim asserted; no over-claim.
 - rule_ref: forbidden_behaviours[1]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P010/P021; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+  note: Disclosed structural house-policy (no-outcome-prediction boundary), not a distilled principle —
+    the false P010/P021 citation was dropped in v1.4.0. No source claim asserted; no over-claim.
 - rule_ref: forbidden_behaviours[2]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P026; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+  note: Disclosed structural house-policy (no-legal/immigration/HR-advice boundary), not a distilled
+    principle — the false P026 citation was dropped in v1.4.0. No source claim asserted; no over-claim.
 - rule_ref: forbidden_behaviours[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -140,16 +143,18 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P015/P017; within the source's scope, no strengthening. Study and writing ownership handed
-    to the researcher/PI.
+  note: Disclosed structural house-policy (ownership/advice-only boundary), not a distilled principle —
+    the false P015/P017 citation was dropped in v1.4.0. Study and writing ownership handed to the
+    researcher/PI; no source claim asserted, no over-claim.
 - rule_ref: handoff_rules[1]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P026/P010; within the source's scope, no strengthening. Committee decisions and legal/financial/immigration
-    questions routed to the owning authority.
+  note: Disclosed structural house-policy (committee/professional-referral boundary), not a distilled
+    principle — the false P026/P010 citation was dropped in v1.4.0. Committee decisions and
+    legal/financial/immigration questions routed to the owning authority; no over-claim.
 - rule_ref: source_of_truth_policy.precedence
   verdict: WITHIN_SCOPE
   distortion:
@@ -158,3 +163,107 @@ findings:
   action: accept_with_note
   note: Restates P015/P004/P036/P014/P040/P047; within the source's scope, no strengthening. Adaptable-guide
     + no-over-claim + empirical-claim-bounded, all source-grounded.
+- rule_ref: handoff_rules[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Structural house-policy (self-disclosed inline), not principle-derived — sibling-advisor referral
+    routing to research-writing-advisor and research-integrity-reproducibility-advisor. No source claim
+    asserted; no over-claim.
+- rule_ref: source_of_truth_policy.canonical_owner
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Descriptive authority statement (structural, advice-only boundary), not a distilled principle;
+    the closing sentence grounds the advisory criteria in the four sources' distilled principles. No
+    strengthening beyond source support.
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Writing/publishing block. Restates P003/P006/P008/P009/P012/P013/P032/P046; independent walk vs
+    principles.yaml found it within scope, no strengthening.
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Presenting/reading block. Restates P002/P007/P027/P039; within scope, no strengthening.
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Advisers/groups/positions block. Restates P010/P011/P021/P024/P033/P034 with P010's tie-break
+    hedge preserved; within scope, no strengthening.
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Early-career positioning block. Restates P004/P016/P019/P026/P042; the "move groups" wording tracks
+    P019 exactly; within scope, no strengthening.
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Program/problem-selection block. Restates P015/P017/P022/P023/P025/P035/P043; within scope, no
+    strengthening (abandon-when-trap hedge preserved).
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Funding/proposals block. Restates P005/P020/P031/P044/P045; within scope, no strengthening.
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Experimental-design/measurement block. Restates P014/P040/P041/P047/P048; uncertainty and accelerated-test
+    hedges preserved; within scope, no strengthening.
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Evaluation/judgment block. Restates P001/P018/P028/P029/P030/P036/P037/P038; within scope, no
+    strengthening.
+- rule_ref: examples[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Thesis-problem worked example. Cites P025/P023/P015/P031/P017/P035/P043; guides the choice, leaves
+    the decision with caller and adviser; within scope, no over-claim.
+- rule_ref: examples[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Empirical-evaluation worked example. Cites P014/P040/P041/P047; leaves the submit/hold decision
+    with the team; within scope, no over-claim.
+- rule_ref: examples[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Failure-recovery worked example. Declines to guarantee an outcome (forbidden-behaviours boundary),
+    then evaluates on P010/P021/P033/P034/P019/P026 evidence; within scope, no over-claim.

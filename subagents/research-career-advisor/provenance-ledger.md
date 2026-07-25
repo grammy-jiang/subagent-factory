@@ -6,13 +6,19 @@ report, and tests are all derived from the distilled spine in this package
 `sources/anchors/*.anchors.jsonl`), assembled by the map->reduce build. Most load-bearing profile
 rule fields cite the promoted principle(s) they restate: `quality_bar`, `knowledge_partition.always_on`,
 the `precedence` clause, and the substantive `forbidden_behaviours` (faithfulness and empirical-overstatement
-rules). The advice-only **boundary** rules, however, are **structural house-policy**, not principle
-restatements: advisor-vs-researcher ownership and no-prediction-of-outcomes in `forbidden_behaviours[0]`
-(P017, P013), `[1]` (P010, P021), `[2]` (P026), `handoff_rules[0]` (P015, P017), `handoff_rules[1]` (P026,
-P010), and the sibling-referral `handoff_rules[2]` (uncited) derive from the advice-only boundary and the
-repository rules; their principle tags cite the topically-nearest principle for provenance, since no source
-claim establishes advisor-vs-researcher ownership as a literal statement. (Descriptive fields — `role`,
-`when_to_use`, `when_not_to_use`, `inputs`, `outputs` — carry no inline tags, per repo convention.)
+rules `[3]`/`[4]`). The advice-only **boundary** rules, however, are **structural house-policy**, not
+principle restatements: advisor-vs-researcher ownership and no-prediction-of-outcomes in
+`forbidden_behaviours[0]`, `[1]`, `[2]`, `handoff_rules[0]`, `[1]`, and the sibling-referral
+`handoff_rules[2]` all carry the inline "(structural house-policy…)" qualifier and **no principle tag** —
+they derive from the advice-only boundary and the repository rules, since no source claim establishes
+advisor-vs-researcher ownership, no-outcome-prediction, or no-legal/immigration-advice as a literal
+statement. (v1.4.0 dropped the topically-nearest principle tags these six boundary rules previously carried:
+the r2 review found them misread as source grounding — a boundary presented as source-derived when it is
+not.) `source_of_truth_policy.canonical_owner`
+is likewise a **descriptive authority statement** (advice-only boundary, structural house-policy): it carries
+no inline principle tag, and its closing sentence grounds the advisory criteria in the four sources' distilled
+principles. (Descriptive fields — `role`, `when_to_use`, `when_not_to_use`, `inputs`, `outputs`, and
+`source_of_truth_policy.canonical_owner` — carry no inline tags, per repo convention.)
 
 ## Sources
 
@@ -51,6 +57,48 @@ practices as adaptable guides rather than absolutes.
 
 ## Version History
 
+- **1.4.0** (2026-07-25) — Review-loop round r2 (consolidated) fixes
+  (`reports/review-loop/research-career-advisor.r2.review.md`). **Sequencing note:** round r2 (PR#97) and
+  round r1 both landed before this pass; round r3 (`r3.review.md`) ran against v1.2.0 and flagged two
+  unresolved MUST-FIX — the false `(P010, P021)` and `(P026)` citations on the hiring/tenure and
+  legal/immigration boundary rules — which the v1.3.0 label-only fix did not close. This release closes
+  them. **Profile:** dropped the false principle citations from `forbidden_behaviours[0]` (was P017/P013),
+  `[1]` (P010/P021), `[2]` (P026), `handoff_rules[0]` (P015/P017), and `[1]` (P026/P010) — none grounded
+  the boundary, and the inline "(structural house-policy…)" qualifier alone suffices per
+  `source_of_truth_policy`; `handoff_rules[0]`/`[1]` gained the same qualifier `[2]` already carried.
+  Scoped the choosing-advisers `always_on[2]` lab-management clause to "an industrial or government
+  laboratory" to track P034's `applies_when` (was SCOPE_BROADENED). Dropped the non-load-bearing P046 tag
+  from `quality_bar[1]` (P017/P012 carry the clause). Strengthened the `role` two-concern bundling
+  justification to name the shared publish/persist decision surface. **Skills (all 8):** replaced the
+  review-only `## Output` sentence with a three-line advise/review/plan mapping to `outputs.modes`, so each
+  SKILL.md is self-sufficient off-adapter; `presenting-and-engaging-with-research` `description:` gained a
+  slide-content-vs-visual-design boundary clause (→ research-writing-advisor). Skill `provenance:` blocks
+  preserved verbatim; only bodies/descriptions changed. **Faithfulness report:** synced the six affected
+  rule notes to the disclosed-house-policy framing. **Tests:** bumped stale `golden-tests.yaml`
+  `profile_version` 1.0.0 → 1.4.0. **Ledger:** the grounding paragraph now records the six boundary rules
+  as carrying no principle tag (the topically-nearest tags were dropped this release). The distilled spine
+  (48 principles) is unchanged. Supersedes the 1.3.0 boundary-citation decisions.
+- **1.3.0** (2026-07-25) — Review-loop round 1 (r1) fixes. **Adapter routing (must-fix):** the adapter
+  renderer (`export_claude_agent.py`) now builds the frontmatter `description` from the profile's
+  purpose-built `router_description` when present, instead of the mechanical `role — Use when — Not for`
+  concatenation that truncated to two triggers + one exclusion and silently dropped the empirical-study/metric
+  soundness domain and both sibling-advisor exclusions; `router_description` was extended to name all five
+  `when_to_use` domains and the two sibling referrals. **Profile:** `forbidden_behaviours[0-2]` now carry an
+  inline "structural house-policy, advice-only boundary" qualifier for self-disclosure (matching
+  `handoff_rules[2]`); `when_not_to_use[4]` distinguishes reviewing a stated test procedure's statistical
+  validity (in scope) from adjudicating whether p-hacking/misconduct occurred (out of scope); `role`'s
+  absolute author-attributed "condition of research survival (Cohen, Hamming)" clause softened to a descriptive
+  register; `always_on[3]` tightened "moving on" → "moving groups" to track P019 exactly. **Skills:** the 7
+  filler `## Purpose` sections (all except `evaluation-metrics-and-research-judgment`) replaced with
+  content-bearing purposes naming the actual checks (pointer sentence dropped); a negative-scope "Not for …"
+  clause added to those 7 `description:` frontmatters; `presenting-and-engaging-with-research` and
+  `early-career-positioning-and-negotiation` descriptions normalized from "Use when …" to "Guides …". Skill
+  `provenance:` blocks preserved verbatim; only bodies/descriptions changed. **Faithfulness report:** added
+  coverage entries for `handoff_rules[2]`, `source_of_truth_policy.canonical_owner`, all 8
+  `knowledge_partition.always_on[i]` blocks, and all 3 `examples[i]` (previously unaudited; independent walk
+  found each within scope). **Ledger:** `canonical_owner` recorded as a descriptive no-tag field. No principle
+  **citation IDs** on any surviving field→grounding row changed and the distilled spine is unchanged.
+  Supersedes the 1.2.0 skill-purpose, profile-boundary, and adapter-description-composition decisions.
 - **1.2.0** (2026-07-25) — Review-loop round 2 fixes. `evaluation-metrics-and-research-judgment`:
   re-anchored `description:` + every `## When to use` bullet to the research domain and added an
   out-of-scope carve-out (must-fix — trigger scope drifted outside the advisor boundary). All 8 skills:
