@@ -76,24 +76,37 @@ This skill guides sentence- and word-level clarity so that meaning survives the 
 
 ## Procedure
 
+Route to the subsection for the fault under review: matching the reader, fixing verbs and voice, sharpening word choice, or shaping emphasis and sentence structure. Order findings highest-impact first.
+
+### Reader and audience
+
 1. Build on the reader's schemas: know which prior knowledge the target audience holds, ground new ideas in familiar ones, redefine any term that does not map to an audience-held schema, and introduce complex material by starting from a simple schema and elaborating it (P001).
 2. Distinguish jargon — a term for a schema the reader lacks or that has a plain-language equivalent — from a necessary technical term; use the terms that work for the audience; control whether a term reads as jargon by its placement (topic assumes known, stress defines, middle reminds); and when unsure, err toward overdefining, because an expert's irritation is slight while a novice's confusion can be permanent (P006).
-3. Prefer the active voice as a matter of course because it is clear, direct, and visual; use the passive deliberately only to make the acted-on entity the subject or to honestly avoid naming the actor, accepting that it weakens story structure; and remember that objectivity comes from how the data are treated, not from writing in the passive (P008).
-4. When a sentence's point is unclear, rewrite it into the active voice and decide which story it tells; read the writing aloud to catch what the eye skips; package each sentence into a compact OCAR arc; achieve clarity and grace by sharpening up rather than dumbing down; and after fixing sentences, cycle back to reconsider the structure (P011).
-5. Translate broad implications into accessible, specific statements naming the action, population, unaffected factor, source of risk, consequence, and preventive response, while preserving technical accuracy and journal register (P020).
-6. Treat many clause-separating commas or chains of descriptions as a reorganization signal: order the subordinate ideas, separate them into distinct sentences, make attachments explicit, and group rationale and procedure into distinct paragraphs when useful (P021).
-7. During revision, diagnose nominalized actions as a possible source of vague verbs, extra phrasing, and hidden actors, then restore specific verbs when the meaning and useful concepts are preserved (P037).
-8. Take simple ideas seriously, because grasping is not understanding and simple is not easy; avoid needless complication; and note that simple ideas compose into complex theories, while a simple change fails only when bolted onto unchanged routines (P038).
-9. Prefer short, familiar wording without sacrificing exact technical meaning; replace broad labels with the measured property; and repeat the same technical term when synonym variation could imply a second concept (P041).
-10. Counter author familiarity by testing every sentence from the reader's perspective for purpose, motivation, necessity, and avoidable complexity (P047).
-11. Keep relative and participial clauses only for compact, unambiguous additions; otherwise create a new finite sentence with a precise demonstrative noun phrase or a repeated subject, ordered by the intended emphasis (P051).
-12. Match emphasis to evidential importance: use attention signals sparingly, avoid unsupported intensifiers, name concrete entities and relationships, and bring the key result forward without repeating settled procedure (P055).
-13. Put the action in the verbs and place them early, avoiding verb and adjective nominalizations and recovering any action a nominalization has pushed out of position, while using a nominalization deliberately only to name a concept the audience's schema already holds, and never accumulating unnecessary heavy constructions (P056).
-14. Design research prose for low-friction evaluation: expose the gap and contribution, maintain a visible logical path, remove dispensable wording, and preserve scientific depth in simple language (P064).
-15. Be concrete: prefer specific, definite language; ground mid-level abstractions in widely understood schemas or the concrete details that explain them; and link each abstract concept to a concrete example, because the middle of the ladder of abstraction is the jargon that narrows the audience (P070).
-16. Beware the curse of knowledge, where knowing too much and writing too little overcondenses ideas so that connections obvious to the author are invisible to the reader; write and fix any unit by identifying who the story is about, the point, and where to make it, taking the space needed for critical ideas even though short beats long as a rule (P077).
-17. Cut redundancies and obvious words that state the well-known or implied, and write with strong nouns and verbs rather than decorating weak words, because no modifier can rescue a weak or inaccurate noun (P096).
-18. Be professional without being pedantic: written English differs from spoken mainly in structure, not vocabulary, so test a big word by whether it would be said to a friend and prefer the plain equivalent, never trying to impress with sophisticated vocabulary, because readers notice awkward language and blame themselves (P115).
+3. Counter author familiarity by testing every sentence from the reader's perspective for purpose, motivation, necessity, and avoidable complexity (P047).
+4. Design research prose for low-friction evaluation: expose the gap and contribution, maintain a visible logical path, remove dispensable wording, and preserve scientific depth in simple language (P064).
+5. Beware the curse of knowledge, where knowing too much and writing too little overcondenses ideas so that connections obvious to the author are invisible to the reader; write and fix any unit by identifying who the story is about, the point, and where to make it, taking the space needed for critical ideas even though short beats long as a rule (P077).
+6. Take simple ideas seriously, because grasping is not understanding and simple is not easy; avoid needless complication; and note that simple ideas compose into complex theories, while a simple change fails only when bolted onto unchanged routines (P038).
+
+### Verbs, voice, and concision
+
+7. Prefer the active voice as a matter of course because it is clear, direct, and visual; use the passive deliberately only to make the acted-on entity the subject or to honestly avoid naming the actor, accepting that it weakens story structure; and remember that objectivity comes from how the data are treated, not from writing in the passive (P008).
+8. When a sentence's point is unclear, rewrite it into the active voice and decide which story it tells; read the writing aloud to catch what the eye skips; package each sentence into a compact OCAR arc; achieve clarity and grace by sharpening up rather than dumbing down; and after fixing sentences, cycle back to reconsider the structure (P011).
+9. During revision, diagnose nominalized actions as a possible source of vague verbs, extra phrasing, and hidden actors, then restore specific verbs when the meaning and useful concepts are preserved (P037).
+10. Put the action in the verbs and place them early, avoiding verb and adjective nominalizations and recovering any action a nominalization has pushed out of position, while using a nominalization deliberately only to name a concept the audience's schema already holds, and never accumulating unnecessary heavy constructions (P056).
+11. Cut redundancies and obvious words that state the well-known or implied, and write with strong nouns and verbs rather than decorating weak words, because no modifier can rescue a weak or inaccurate noun (P096).
+
+### Concrete, precise word choice
+
+12. Translate broad implications into accessible, specific statements naming the action, population, unaffected factor, source of risk, consequence, and preventive response, while preserving technical accuracy and journal register (P020).
+13. Prefer short, familiar wording without sacrificing exact technical meaning; replace broad labels with the measured property; and repeat the same technical term when synonym variation could imply a second concept (P041).
+14. Be concrete: prefer specific, definite language; ground mid-level abstractions in widely understood schemas or the concrete details that explain them; and link each abstract concept to a concrete example, because the middle of the ladder of abstraction is the jargon that narrows the audience (P070).
+15. Be professional without being pedantic: written English differs from spoken mainly in structure, not vocabulary, so test a big word by whether it would be said to a friend and prefer the plain equivalent, never trying to impress with sophisticated vocabulary, because readers notice awkward language and blame themselves (P115).
+
+### Emphasis and sentence structure
+
+16. Treat many clause-separating commas or chains of descriptions as a reorganization signal: order the subordinate ideas, separate them into distinct sentences, make attachments explicit, and group rationale and procedure into distinct paragraphs when useful (P021).
+17. Keep relative and participial clauses only for compact, unambiguous additions; otherwise create a new finite sentence with a precise demonstrative noun phrase or a repeated subject, ordered by the intended emphasis (P051).
+18. Match emphasis to evidential importance: use attention signals sparingly, avoid unsupported intensifiers, name concrete entities and relationships, and bring the key result forward without repeating settled procedure (P055).
 19. Follow familiar conventions when they reduce reader effort and optimize prose for clarity, correctness, directness, and interest, departing only for a communicative benefit that exceeds the distraction (P121).
 20. Make a hard sentence tractable by starting from a concept the reader already knows and placing an unfamiliar term in the low-emphasis middle if the reader knows it, dropping it if they do not, or moving it to the stress position if defining it (P146).
 21. Use an isolated short sentence sparingly to give a pivotal qualification or conclusion extra weight, with its connection to the surrounding prose clearly signaled (P151).
@@ -109,24 +122,35 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
+### Reader and audience
+
 - The draft assumes prior knowledge the audience does not have — it introduces complex material cold, with no foothold in anything the reader already knows, and never redefines a term that fails to map onto their background (P001).
 - A term appears without signaling whether it is necessary jargon or a plain-language stand-in — it surfaces once, undefined, buried mid-sentence, leaving the reader to guess whether it needed defining at all (P006).
+- The draft reads fine to the author but was never tested from a naive reader's stance for purpose, motivation, necessity, or avoidable complexity — no read-as-stranger pass occurred (P047).
+- The prose never surfaces the gap or the contribution, forces the reader to reconstruct the logical path unaided, and keeps padding that adds no evaluative value (P064).
+- A passage compresses a step the author finds obvious into a single clause, skipping the connective tissue a reader without the author's background would need (P077).
+- A simple idea gets buried under needless complication — extra qualifiers, layered caveats — as if simplicity itself were suspect, rather than being trusted to compose cleanly into the larger argument (P038).
+
+### Verbs, voice, and concision
+
 - Passive constructions pile up out of habit ("was found," "is shown") with no acted-on entity foregrounded and no actor deliberately withheld — the sentences read flat and the actor is simply lost, not hidden on purpose (P008).
 - A sentence's point stays unclear on a read-aloud test, yet it survives revision unchanged in voice or structure, and no compact arc pulls its parts together (P011).
-- A broad implication is stated only in general terms — no named action, population, unaffected group, risk source, consequence, or preventive response — leaving the reader unable to act on it (P020).
-- A sentence chains multiple clauses across several commas with the subordination and attachments left implicit, so the reader must reconstruct which clause modifies which (P021).
 - A nominalization ("the analysis of," "an evaluation was performed") hides the actor and the action, and revision neither questions it nor restores the verb it displaced (P037).
-- A simple idea gets buried under needless complication — extra qualifiers, layered caveats — as if simplicity itself were suspect, rather than being trusted to compose cleanly into the larger argument (P038).
+- The main verb is buried late in the sentence behind a heavy nominalized subject, and the action it names is never restored to a verb even where the audience already holds the underlying concept (P056).
+- Redundant phrasing states what is already implied ("past history," "completely eliminate"), and weak nouns or verbs are patched with modifiers instead of being replaced outright (P096).
+
+### Concrete, precise word choice
+
+- A broad implication is stated only in general terms — no named action, population, unaffected group, risk source, consequence, or preventive response — leaving the reader unable to act on it (P020).
 - A short, familiar word is swapped for a longer synonym mid-document, or the same concept is named with rotating synonyms, so the reader must decide whether a new word signals a new concept (P041).
-- The draft reads fine to the author but was never tested from a naive reader's stance for purpose, motivation, necessity, or avoidable complexity — no read-as-stranger pass occurred (P047).
+- An abstraction sits at the jargon-heavy middle of the ladder with no concrete example or familiar schema underneath it, so only readers who already share the author's expertise can parse it (P070).
+- Vocabulary is inflated toward impressiveness — words the writer would not say aloud to a colleague — rather than the plain equivalent, and any resulting awkwardness is blamed on the reader rather than fixed (P115).
+
+### Emphasis and sentence structure
+
+- A sentence chains multiple clauses across several commas with the subordination and attachments left implicit, so the reader must reconstruct which clause modifies which (P021).
 - A relative or participial clause is stretched to carry an unrelated or ambiguous addition instead of being split into its own finite sentence with a clear subject (P051).
 - Every result carries the same intensifier ("very," "clearly," "significantly") regardless of evidential weight, so the reader cannot tell the pivotal finding from the routine one (P055).
-- The main verb is buried late in the sentence behind a heavy nominalized subject, and the action it names is never restored to a verb even where the audience already holds the underlying concept (P056).
-- The prose never surfaces the gap or the contribution, forces the reader to reconstruct the logical path unaided, and keeps padding that adds no evaluative value (P064).
-- An abstraction sits at the jargon-heavy middle of the ladder with no concrete example or familiar schema underneath it, so only readers who already share the author's expertise can parse it (P070).
-- A passage compresses a step the author finds obvious into a single clause, skipping the connective tissue a reader without the author's background would need (P077).
-- Redundant phrasing states what is already implied ("past history," "completely eliminate"), and weak nouns or verbs are patched with modifiers instead of being replaced outright (P096).
-- Vocabulary is inflated toward impressiveness — words the writer would not say aloud to a colleague — rather than the plain equivalent, and any resulting awkwardness is blamed on the reader rather than fixed (P115).
 - A stylistic convention is broken for no communicative gain, or a genuine departure from convention is left unmarked so the reader cannot tell it was deliberate (P121).
 - An unfamiliar term is dropped into a hard sentence's stress position without being defined there, or left in the middle when the reader does not already know it, so the sentence fails on first pass (P146).
 - Every sentence runs roughly the same length, so no isolated short sentence exists to carry a pivotal qualification or conclusion, or an isolated short sentence appears with no signaled connection to what surrounds it (P151).

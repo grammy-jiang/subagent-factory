@@ -77,7 +77,7 @@ This skill guides revising a draft, giving and receiving critique, and handling 
 8. Read an editorial decision promptly, identify whether a revision path is open, and when it is, revise and resubmit promptly unless the required changes are genuinely impossible or unacceptable (P135).
 9. Edit from the reader's perspective, consolidate duplication, remove obsolete content, and after every move recheck both the old and new locations for definitions, context, intelligibility, and argumentative continuity (P139).
 10. After gaining distance from a draft, skim its high-level frame and paraphrase the argument, then ask an outside reader to do the same as a test of organizational intelligibility (P145).
-11. Audit the Methods section for reproducibility, selective citation, action density, natural prose, reader-oriented sequence, clear references, effective layout, grammatical purpose and consequence, number style, and tense (P149).
+11. Audit the Methods section for reproducibility, selective citation, action density, natural prose, reader-oriented sequence, clear references, effective layout, grammatical purpose and consequence, number style, and tense (P149). This is the revision-time audit of an existing Methods draft; for authoring a Methods section complete from the start, use `paper-sections-and-organization` (P050).
 12. When evaluating someone else's draft or work, calibrate the evaluation to the writer's experience level, treat mechanical early use of principles as normal rather than a defect, credit a well-established problem even when it lacks a solution, and give information-gathering work a credible public reader (P171).
 
 ## Inputs

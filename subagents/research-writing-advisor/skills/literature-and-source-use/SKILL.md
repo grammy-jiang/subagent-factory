@@ -1,6 +1,9 @@
 ---
 name: literature-and-source-use
 description: >-
+  Guides finding, mapping, synthesizing, and citing the literature with
+  integrity — critical synthesis, fair engagement with rival work, paraphrase
+  and quotation discipline, and rights and plagiarism checks.
   Use when a field of literature must be mapped, iteratively searched, and
   organized into a topic-based critical synthesis; when prior work must be
   engaged, criticized, or reconciled fairly by reading a rival's strongest
