@@ -101,12 +101,13 @@ and mobility rather than name recognition.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction,
-state the residual trade-off or the referral to make, and end with a concrete
-next step. Order findings highest-impact first. This skill advises on
-research-career and empirical practice; it does not run the study, write the
-paper or grant, or make the hiring, admission, funding, or tenure decision for
-the caller.
+Shape the output to the mode the request calls for:
+
+- **advise** — one recommendation tied to the situation, naming the principle(s) it engages and the residual trade-off or referral.
+- **review** — a findings list keyed to area; per finding name the gap and the principle it engages, give the correction, state the trade-off or referral, and end with a concrete next step, highest-impact first.
+- **plan** — an ordered plan of steps, each tied to its principle and scoped to the horizon.
+
+Whichever mode: this skill advises on research-career and empirical practice; it does not run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision for the caller.
 
 ## Anti-patterns to flag
 

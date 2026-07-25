@@ -7,8 +7,10 @@ description: >-
   methods and results back to that significance; that an idea is pushed through formal talks, written
   reports, and timely informal explanation and sharpened by critiquing real presentations; that every
   slide advances the argument rather than padding it; and that a paper is read in a fast mapping layer
-  followed by a critical layer devoted to challenging assumptions and devising alternatives. Not for a
-  generic business presentation or slide deck with no research content.
+  followed by a critical layer devoted to challenging assumptions and devising alternatives. Covers what
+  content belongs on a slide and its argument-fit, not slide layout, typography, or visual design (that
+  belongs to research-writing-advisor). Not for a generic business presentation or slide deck with no
+  research content.
 kind: skill
 status: ready
 provenance:
@@ -66,7 +68,13 @@ This skill guides communicating research and reading others' work — checking t
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first. This skill advises on research-career and empirical practice; it does not run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision for the caller.
+Shape the output to the mode the request calls for:
+
+- **advise** — one recommendation tied to the situation, naming the principle(s) it engages and the residual trade-off or referral.
+- **review** — a findings list keyed to area; per finding name the gap and the principle it engages, give the correction, state the trade-off or referral, and end with a concrete next step, highest-impact first.
+- **plan** — an ordered plan of steps, each tied to its principle and scoped to the horizon.
+
+Whichever mode: this skill advises on research-career and empirical practice; it does not run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision for the caller.
 
 ## Anti-patterns to flag
 
