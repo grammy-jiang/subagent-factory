@@ -3,6 +3,53 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.3.0] — 2026-07-25
+
+Review-loop round 3 (`reports/review-loop/research-writing-advisor.r1.review.md`). Also closes the
+provenance-ledger gap left by 1.2.1 (M1): that pure adapter re-export was recorded here but never in
+the ledger Version History; the ledger now carries a matching 1.3.0 entry.
+
+### Fixed (must-fix)
+- **Version/provenance mismatch (M1).** `agent_version` was 1.2.1 with no ledger entry; bumped to
+  1.3.0 and documented in `provenance-ledger.md` with the full delta and superseded field→grounding
+  rows.
+- **No internal routing in large skills (M3).** The four large skills
+  (`paper-sections-and-organization`, `research-argument-and-contribution`, `clarity-and-sentence-style`,
+  `evidence-integrity-and-claims`) each used one flat numbered list. Grouped every existing step under
+  task-type `###` subheadings (IMRaD sections; problem/claim/contribution; reader/verbs/word-choice/
+  emphasis; chain/claims/alternatives/conduct) and mirrored the subheadings in `## Anti-patterns`.
+  Reorganization only — no principle added, dropped, or reworded; each skill retains exactly its
+  frontmatter principle set (verified by id-set diff). `authored_from_digest` unchanged (it digests the
+  cited principles/claims, not body order).
+
+### Changed (should-fix)
+- **P080 over-reach narrowed (S1).** `source_of_truth_policy.canonical_owner`, `handoff_rules[0]`, and
+  `precedence` had cited P080 for a broad manuscript/data/argument-substance/submission-timing authority.
+  P080 supports only that the author owns the science and story and is responsible for the final
+  language; those fields now attribute just that to P080 and frame the wider manuscript decision as an
+  advice-only design boundary.
+- **Domain-science owner routed (S2).** Added a third `handoff_rules` line and a `canonical_owner` clause
+  routing domain-science correctness to the researcher and domain experts (flag, don't rule), so
+  `when_not_to_use`, `forbidden_behaviours`, `handoff_rules`, and `canonical_owner` name the same owners.
+- **Methods overlap cross-referenced (S6).** `paper-sections-and-organization` (P050, author-time
+  completeness) and `revision-editing-and-peer-review` (P149, revision-time audit) now cross-reference
+  each other by name.
+- **Skill description openings (S7).** `literature-and-source-use` and `presenting-and-public-speaking`
+  descriptions re-led with a one-clause what-it-does before the trigger list.
+
+### Verified
+- **Body size (S3).** Phase-8 check #14 re-run: ~997 words (WARNING, under the 1000-word FAIL ceiling);
+  all structural checks PASS.
+
+### Deferred
+- **Move-to-references progressive disclosure (M2), DRY footers (S4), dense descriptions (S8).** M2 is
+  re-deferred on the same ground as SF6 (1.2.0): the bodies validate (all < 135 body lines, far under
+  the 500-line limit), the GOLD shape mandates principles cited inline in `## Procedure`, and moving
+  grounded steps into a compact index de-actionalizes them — the new `###` task-type routing (M3)
+  provides the in-body navigation M2 sought. The S4 `## Output`/`## References` footers are
+  intentionally mirrored from `profile.yaml outputs.primary_format` and the shared reference policy
+  (one regenerable source), not independent copies.
+
 ## [1.2.1] — 2026-07-25
 
 ### Fixed

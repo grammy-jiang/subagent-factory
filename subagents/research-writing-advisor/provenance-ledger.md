@@ -46,6 +46,46 @@ cluster time, and each surviving principle is owned by exactly one skill.
 
 ## Version History
 
+- **1.3.0** (2026-07-25) — Review-loop round 3 fixes (report
+  `reports/review-loop/research-writing-advisor.r1.review.md`). Supersedes the undocumented 1.2.1
+  bump (M1): 1.2.1 was a pure adapter re-export recorded only in `CHANGELOG.md`; this entry closes
+  the ledger gap and rolls the review fixes into one MINOR bump. **Faithfulness / should-fix (S1):**
+  narrowed the P080 over-reach that had stretched the author's language-editing responsibility into a
+  broad manuscript/data/submission-authority doctrine across `source_of_truth_policy.canonical_owner`,
+  `handoff_rules[0]`, and `precedence`. Those fields now attribute to P080 only what P080 supports —
+  the author owns the science and story and is responsible for the final language — and frame the
+  wider "decision over the manuscript's substance and what to claim" as an **advice-only design
+  boundary**, not a source-derived claim (matching how `role` frames invariants as advisory).
+  **Routing / should-fix (S2):** domain-science correctness was asserted as an owner in
+  `when_not_to_use`/`forbidden_behaviours` but dropped from the two sections that formalize ownership;
+  added a third `handoff_rules` line and a `canonical_owner` clause routing domain-science correctness
+  to the researcher and domain experts (flag, don't rule), so all boundary statements name the same
+  owners. This owner boundary is an advice-only design invariant (no principle grounds a domain-science
+  authority claim — consistent with `forbidden_behaviours[3]`). **Skills / must-fix (M3):** the four
+  large skills (`paper-sections-and-organization`, `research-argument-and-contribution`,
+  `clarity-and-sentence-style`, `evidence-integrity-and-claims`) had one flat numbered list each with
+  no internal routing; grouped every existing step under task-type `###` subheadings (IMRaD sections;
+  problem/claim/contribution; reader/verbs/word-choice/emphasis; chain/claims/alternatives/conduct) and
+  mirrored the same subheadings in `## Anti-patterns`. **Reorganization only — no principle added,
+  dropped, or reworded:** each skill's Procedure and Anti-patterns still carry exactly its
+  frontmatter principle set (29/19/21/19), verified by id-set diff. **Should-fix (S6):** cross-referenced
+  the authoring-vs-auditing Methods overlap between `paper-sections-and-organization` (P050) and
+  `revision-editing-and-peer-review` (P149). **Should-fix (S7):** re-led the `literature-and-source-use`
+  and `presenting-and-public-speaking` descriptions with a one-clause what-it-does before the trigger
+  list (`figures-tables-and-data-display` already leads with one). **Body-size re-verified (S3):**
+  Phase-8 check #14 re-run against the current profile — ~997 words, **WARNING** (under the 1000-word
+  FAIL ceiling), all structural checks PASS. **CHANGELOG (S5):** `CHANGELOG.md` carries the matching
+  1.3.0 entry; the two are the package's canonical changelog. **Deferred (M2 / S4 / S8):** the
+  agent-skills reviewer's move-to-references progressive-disclosure fix (M2) is re-deferred on the same
+  ground as SF6 in 1.2.0 — the skill bodies validate (all < 135 body lines, far under the 500-line
+  limit), the GOLD shape mandates principles cited inline in `## Procedure`, and moving grounded
+  procedure steps into a compact index de-actionalizes them; the new `###` task-type routing (M3)
+  delivers the in-body navigation M2 sought without that loss. The DRY boilerplate (S4) `## Output` /
+  `## References` footers are **intentionally mirrored** from `profile.yaml outputs.primary_format` and
+  the shared reference policy — one authoritative source, regenerable — not independently maintained
+  copies. **Superseded field→grounding rows:** `canonical_owner` and `handoff_rules[0]` P080 scope
+  narrowed (was over-broad in 1.0.0–1.2.x); `handoff_rules` gains a domain-science line (advice-only,
+  no cite); no principle citations added elsewhere.
 - **1.2.0** (2026-07-25) — Review-loop round 2 fixes. **Must-fix:** (MF1) the exported adapter's
   router `description` truncated mid-list — fixed at the generator level (the S2 deferral from
   1.1.0) by adding an optional `router_description` override to `_compose_description` and

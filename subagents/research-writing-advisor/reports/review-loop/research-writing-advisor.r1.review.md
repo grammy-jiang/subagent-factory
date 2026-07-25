@@ -1,105 +1,98 @@
-# Review — research-writing-advisor (round 1)
+# Review Loop r1 — research-writing-advisor
 
-Package: `subagents/research-writing-advisor/`
-Reviewers: deterministic gates + 4 LLM lenses (agent-skills, profile, faithfulness, ai-agent-engineering).
-Findings deduped across lenses; most-severe first.
+Single fresh review pass over the current package. REVIEW ONLY — no package files edited.
+Reviewers: deterministic gates + 4 LLM lenses (agent-skills, profile, faithfulness, ai-agent-engineering). Deduped, most-severe first.
 
-## Deterministic gates (STEP 1)
+> Note: a prior r1 report existed at this path against an earlier package state; its lead must-fix
+> (skill Procedure/anti-pattern lines severed mid-clause) is **resolved** in the current bodies —
+> the cited lines now render complete sentences, and a severed-clause sweep of all 13 skills is clean.
+> This report supersedes it and reflects the current package.
+
+## Deterministic gates
 
 | Gate | Result |
 |------|--------|
-| `validate_generated_package` | **PASS** (0 FAIL) — WARNs are injection-scan only |
-| `quote_scan` | **PASS** — no verbatim quotation |
-| ellipsis `…` truncation grep | clean |
-| adapter invariant severed-paren grep | clean |
+| `validate_generated_package` | **PASSED** (0 FAIL). Only WARN-triage injection-scan hits — all benign: source text quoting writing instructions ("You are now ready to begin building a model of Introductions by writing…") + normalization-layer reveals on 2 source files. Triage, not block, per `untrusted-source-policy.md`. |
+| `quote_scan` | **PASS** — no verbatim quotation. |
+| ellipsis `…` grep (skills + adapter) | **clean**. |
+| severed-invariant / mid-clause sweep | **clean** (2 grep hits verified grammatically complete). |
 
-Injection-scan WARNs (`english-writing-rese-*`, `science-research-wri-*` "You are now ready to begin…") are **benign** — writing-textbook instructional prose in a frozen distillation-only source; recorded in project memory. Not a finding.
+Deterministic FAIL count: **0**.
 
-No deterministic FAIL → 0 deterministic must-fix.
+## Consolidated findings
 
----
+### MUST-FIX
 
-## MUST-FIX
+**M1 — Version stamp / provenance mismatch: `agent_version: 1.2.1` but ledger has no 1.2.1 entry** *(profile-reviewer; verified)*
+- Where: `profile.yaml:4` (`1.2.1`) vs `provenance-ledger.md:47-49` Version History (newest entry `1.2.0`, 2026-07-25).
+- Problem: Fails Phase 8 #16; violates `generated-artifact-policy.md` rules 4–5 + supersession rule. No record of what changed 1.2.0→1.2.1 or whether the bump was intentional.
+- Fix: (a) add a `1.2.1` Version History entry documenting the delta (fields/principles touched, superseded rows) + current Phase 8 verdict + re-run body-size (#14) word count; or (b) if clerical, revert `profile.yaml:4` to `1.2.0` so the files agree.
 
-### M1 — Procedure/anti-pattern lines truncated mid-clause, dropping operative content
-- **Where:** ≥5 SKILL.md bodies. Confirmed:
-  - `skills/research-argument-and-contribution/SKILL.md:79` — "…label application as tentative rather (P130)."
-  - `skills/paper-sections-and-organization/SKILL.md:84` — "…while using (P050)."
-  - `skills/paper-sections-and-organization/SKILL.md:91` — "…delaying your true central characters when (P094)."
-  - `skills/revision-editing-and-peer-review/SKILL.md:58` — "…formatting, and paired (P054)."
-  - `skills/narrative-structure-and-paragraphs/SKILL.md:51` — "Choose between point-first (P002)." (names only one side of a binary → incoherent instruction).
-  - Same class of over-summarization drops operative content in `presenting-and-public-speaking` (P089 "four essentials" never named, P170 drops every concrete format option), `slide-and-visual-design` (P056 drops equipment-testing), `note-taking-and-thinking` (steps 4/7/8/9).
-- **Severity:** must-fix. Same defect class the truncation gate targets ("silently-truncated skill body"), but severed mid-clause without an ellipsis so the `…` grep missed it. The full principle text renders correctly in the adapter, proving the loss is in the skill summarizer. A step that ends "…while using (P050)" gives the agent nothing to act on.
-- **Fix:** Regenerate Procedure/anti-pattern lines from the full principle statement (same text the adapter renders). Add a generator lint flagging any procedure/anti-pattern line ending in a preposition/conjunction ("rather/when/and/using") immediately before its `(Pxxx)` citation.
+**M2 — No real progressive disclosure: full principle detail inlined in every skill body** *(agent-skills-advisor)*
+- Where: package-wide; worst in `paper-sections-and-organization/SKILL.md` (29 Procedure + ~29 mirrored Anti-pattern items), `evidence-integrity-and-claims` (19+19), `clarity-and-sentence-style` (21+21), `research-argument-and-contribution` (19+19). Bodies ~2,500–3,500+ words.
+- Problem: `## Procedure` restates each principle's full content; `## Anti-patterns` restates nearly the same as negations. Nothing deferred to `references/` for routine use. Contradicts the quality bar ("keep SKILL.md concise and within its context budget") and the progressive-disclosure invariant.
+- Fix: For skills with >~12 principles, keep a short routing table in SKILL.md (principle ID → one-line cue → maps-to) and move the elaborated Procedure/Anti-pattern bullets into a per-skill reference (e.g. `references/paper-sections-checklist.md`) loaded on demand. [P002, P005, P022, P057, P072]
 
----
+**M3 — Large skills use one flat undifferentiated numbered list, no internal routing** *(agent-skills-advisor)*
+- Where: `paper-sections-and-organization/SKILL.md` (steps interleave Introduction/Methods/Results/Discussion/Abstract/Title in arbitrary principle order); same shape in `evidence-integrity-and-claims`, `research-argument-and-contribution`, `clarity-and-sentence-style`.
+- Problem: A caller wanting only the Discussion (or only hedging) must scan the whole list — no subheading/decision routing by task type.
+- Fix: Add subheadings inside `## Procedure` (`### Introduction`, `### Methods`, …) grouping existing numbered steps; mirror in `## Anti-patterns`. Reorganization, not rewrite — drop no content. [P054]
 
-## SHOULD-FIX
+### SHOULD-FIX
 
-### S1 — All 13 skills lack `description:` frontmatter (routing signal)
-- **Where:** every `skills/*/SKILL.md` frontmatter (only `name/kind/status/provenance`).
-- **Note:** NOT universal factory convention — sibling `descriptive-translation-reviewer` has `description:` on all 12 skills (siblings `research-career` / `research-integrity` also omit it). Genuine gap, shared with two same-batch siblings; downgraded from the agent-skills lens's must-fix because the skill body carries "When to use" and these are internal partition skills, not orchestrator-exposed Agent Skills.
-- **Fix:** Add `description:` per skill (≤1024 chars) synthesized from the body's Purpose + "When to use".
+**S1 — P080 citation over-reach: language-editing responsibility stretched into a broad ownership/authority doctrine** *(faithfulness-reviewer)*
+- Where: `source_of_truth_policy.canonical_owner`, `handoff_rules[0]`, `forbidden_behaviours[0]`, `when_not_to_use[0]`, `source_of_truth_policy.precedence` — all cite **P080** for "author/team own the manuscript, the data, the argument's substance, and what to claim and when to submit."
+- Problem: P080's text is narrow — author is responsible for correct English and for the story/science that can't be outsourced to a language editor. "The data," "argument's substance," "when to submit" appear nowhere in P080; no other principle grounds data-ownership or submission-timing authority (corpus grepped). `SCOPE_BROADENED`, repeated across 5 load-bearing fields. (Secondary: P024 cited for "advisor guides, does not author" is a defensible inference but stretched past its literal text.)
+- Fix: (a) narrow the P080-cited sentence to what P080 supports, dropping data/substance/submission; or (b) keep the broader authority statement but mark it an advisor design default, not a source-derived claim — matching how `role` frames invariants as advisory.
 
-### S2 — Adapter frontmatter `description` truncated/malformed
-- **Where:** `.claude/agents/generated/research-writing-advisor.md:3`.
-- **Problem:** Composed from only the first `when_to_use` + first `when_not_to_use` bullet, both cut mid-clause, ending on a dangling unpunctuated list. Drops the "…this advisor guides the work, it does not perform it" disambiguator and omits 3 of 5 use-case classes (presentation, non-native English, note-taking) → router under-invokes.
-- **Fix:** Regenerate the adapter `description` from a complete composite of role + full `when_to_use` set, ending on a complete clause. Generator/template concern (`templates/claude-agent-adapter.md.j2`), not hand-edit.
+**S2 — "Domain experts" named as an owner but never routed to** *(ai-agent-engineering-reviewer)*
+- Where: `when_not_to_use` bullet 2 + `forbidden_behaviours[4]` name domain experts as owning domain-science correctness, but `handoff_rules` and `source_of_truth_policy.canonical_owner` name only author/team + editors/reviewers. Mirrored in adapter.
+- Problem: Incomplete routing contract for the sharpest edge of scope — asserted as co-owner in one place, dropped from the two sections that formalize ownership.
+- Fix: Add a third handoff line routing domain-science correctness to the researcher + domain experts (flag, don't rule), and add that owner to `source_of_truth_policy.canonical_owner`, so all three boundary statements name the same owners.
 
-### S3 — Anti-patterns hard-capped at 7 → largest skills worst-covered
-- **Where:** every skill's "Anti-patterns to flag". Coverage: `paper-sections-and-organization` 7/29 (24%), `clarity-and-sentence-style` 7/21, `research-argument-and-contribution` 7/19, `evidence-integrity-and-claims` 7/19; skills with ≤7 principles get full coverage.
-- **Fix:** Remove the fixed cap; emit one anti-pattern per principle in `provenance.principles`, matching the 1:1 procedure-step pattern.
+**S3 — Body-size (Phase 8 #14) not re-verified for current version** *(profile-reviewer)*
+- Where: last recorded count ~981 w at v1.1.0 (`provenance-ledger.md:79-81`); v1.2.0 added `router_description` + citations; v1.2.1 undocumented.
+- Problem: Only ~19 w under the 1000-w FAIL ceiling before two content additions — unverified risk of now exceeding it.
+- Fix: Re-run #14 (`profile_self_check` / body-size gate) against the current profile; record count + verdict in the next ledger entry before export. (Folds into M1's ledger entry.)
 
-### S4 — Anti-pattern entries mirror their procedure step, no diagnostic value
-- **Where:** e.g. `skills/paper-sections-and-organization/SKILL.md:115-121` — "Overlooking PXXX: `<same clause>`".
-- **Fix:** Rewrite each as an observable failure signature in a draft (e.g. "Introduction opens with 'little is known about X' and never narrows to a question"), distinct from the paired procedure step.
+**S4 — Shared boilerplate duplicated verbatim across all 13 skills (DRY)** *(agent-skills-advisor)*
+- Where: second `## Inputs` bullet + full `## Output` + full `## References` are byte-identical in all 13 SKILL.md.
+- Problem: One output-contract fact repeated 13×; any change needs 13 synced hand-edits; +~100–150 w per body.
+- Fix: Move the shared Output contract + References policy to a shared reference and point to it, or document that the text is intentionally mirrored from `profile.yaml outputs.primary_format` and regenerated from that single source.
 
-### S5 — Profile body near the word-budget FAIL ceiling
-- **Where:** `profile.yaml`. Manual sum of gated fields ≈960w (WARN >800, hard FAIL >1000). Heaviest: `quality_bar` (~154w), `role` (~144w), `when_to_use` (~121w), `forbidden_behaviours` (~104w).
-- **Fix:** Run `python -m tools.subagent_factory.profile_self_check subagents/research-writing-advisor` for the authoritative count; if >800, split/shorten compound `quality_bar` bullets and tighten `role` sentence 3.
+**S5 — CHANGELOG.md requirement unverified** *(profile-reviewer)*
+- Where: `generated-artifact-policy.md` rule 5 requires a CHANGELOG.md entry per bump — distinct from the ledger Version History; out of reviewed scope.
+- Fix: Confirm a CHANGELOG.md entry exists for 1.2.0/1.2.1, or state in the ledger header that Version History is this package's canonical changelog.
 
-### S6 — `forbidden_behaviours` has no fabricated-citation / plagiarism mirror
-- **Where:** `profile.yaml:76-84`. The literature-integrity `quality_bar` bullet (P007/P026/P138/P016/P168) has no negative mirror barring the advisor from producing/endorsing a fabricated citation or copied passage presented as the caller's own.
-- **Fix:** Add a `forbidden_behaviours` bullet grounded in the same IDs.
+**S6 — Methods-reproducibility content overlaps two sibling skills, no cross-reference** *(agent-skills-advisor)*
+- Where: `paper-sections-and-organization` step (P050, author-time completeness) vs `revision-editing-and-peer-review` step (P149, revision-time audit).
+- Fix: Add one clause to each description distinguishing authoring vs auditing Methods, cross-referencing the sibling by name.
 
-### S7 — Provenance ledger doesn't record the Phase-8 self-check verdict
-- **Where:** `provenance-ledger.md`. `profile.yaml:5` asserts `status: ready` but nothing records the self-check PASS/date/test counts that earned it.
-- **Fix:** Append self-check verdict + date + golden/negative-routing test counts to Version History.
+**S7 — Description-opening pattern inconsistent across 13 skills** *(agent-skills-advisor)*
+- Where: `figures-tables-and-data-display`, `literature-and-source-use`, `presenting-and-public-speaking` diverge from the "what-it-does then Use-when" pattern of the other 10.
+- Fix: Re-lead all three with a one-clause "what this skill does" before the trigger list. [P056, P083]
 
-### S8 — Faithfulness over-claim: P080 stretched into a governance/override authority
-- **Where:** `profile.yaml source_of_truth_policy.precedence` — "…author's ownership of the science and the final wording overrides every stylistic invariant (P080)".
-- **Problem:** SCOPE_BROADENED. P080 = "author must submit correct English / owns language, not the science." Nothing supports "final wording overrides every stylistic invariant" — as written an author could invoke it to justify overstating a claim, defeating the evidence-integrity invariant.
-- **Fix:** Narrow to language/wording-correctness + science substance; explicitly carve out that it does NOT override the no-over-claim invariant.
+**S8 — Dense descriptions run 2–3× the frontmatter guideline** *(agent-skills-advisor)*
+- Where: `paper-sections-and-organization` (~150 w), `research-argument-and-contribution` (~150 w) — under the 1024-char cap but restate nearly every constituent principle inline.
+- Fix: Trim to 3–5 representative trigger phrases + a one-sentence summary; move exhaustive per-principle restatement out of frontmatter.
 
-### S9 — Faithfulness over-claim / mis-cite: `forbidden_behaviours[3]` cites P150
-- **Where:** `profile.yaml:76-84` — "Ruling on domain-science correctness… (P150, P140)".
-- **Problem:** P150 = methodology-fitness ("treat every method as good when done well"), says nothing about domain-science authority; only P140 (legal/plagiarism) partly fits. "Domain-science correctness belongs to the researcher" is ungrounded in the cited IDs.
-- **Fix:** Drop/replace P150; or record in the ledger that the domain-science-authority boundary is a factory-standard advice-only design decision, not principle-derived.
+### NICE
 
-### S10 — Faithfulness over-claim: `handoff_rules[0]` cites P022 for claim-authority
-- **Where:** `profile.yaml handoff_rules[0]` — "…the decision of what to claim… (P080, P022)".
-- **Problem:** P022 is structural ("organize the paper around its developed claim"), not about who decides what to claim → SCOPE_BROADENED.
-- **Fix:** Re-ground "decision of what to claim" in a claim-authority principle, or mark as a design decision.
+- **N1** — `outputs.primary_format` cites only (P022, P047) for "never a ghost-written deliverable or promise of acceptance"; those sub-claims are grounded elsewhere (P080/P024/P083/P135). Fix: drop the parenthetical or extend the citation list. *(faithfulness)*
+- **N2** — Examples skew to `review` mode; `advise`/`plan` have no worked example. Optionally add one. *(profile)*
+- **N3** — `revision-editing-and-peer-review` H1 uses a comma (`# Revision, Editing And Peer Review`) unlike the 12 comma-free siblings. *(agent-skills)*
+- **N4** — figures/tables vs slide-visual naming proximity; a poster/infographic could match either. Add a one-clause mutual exclusion. *(agent-skills)*
+- **N5** — "pure code, data analysis, or non-writing project work" boundary is soft for adjacent technical-writing artifacts (README/API docs). Optional sharpening. *(ai-agent)*
 
-### S11 — Faithfulness hedge-drop: `always_on` P135
-- **Where:** `profile.yaml knowledge_partition.always_on` (~lines 156-161) — "…an editorial decision is read and acted on promptly (…P135…)".
-- **Problem:** HEDGING_REMOVED. P135 = "revise and resubmit promptly **unless the required changes are genuinely impossible or unacceptable**", and "identify whether a revision path is open" — both dropped → unconditional "act promptly" could advise complying with unreasonable demands.
-- **Fix:** Restore the condition + exception clause.
+## Solid — no issue found
+- **Tool boundary correct:** adapter `tools: Read, Grep, Glob` only — no Write/Edit/Bash/MCP despite an available `research-pipeline` server.
+- **Advisory framing coherent:** role frames invariants as "advisory criteria, not authority to act"; `outputs.primary_format` bars bare verdicts, ghost-written deliverables, acceptance promises; `may_edit_canonical: false`; forbidden_behaviours override every invariant. Both worked examples enforce the no-deliverable boundary.
 
----
+## Per-lens must-fix tally
+- deterministic gates: 0
+- agent-skills-advisor: 2 (M2, M3)
+- profile-reviewer: 1 (M1)
+- faithfulness-reviewer: 0
+- ai-agent-engineering-reviewer: 0
 
-## NICE
-
-- **N1** `profile.yaml quality_bar` (~L68-69) attributes P159 to narrative-structure openings, but P159 is owned by `paper-sections-and-organization` provenance, not narrative-structure. Correct the citation or mark as cross-skill. (agent-skills #6)
-- **N2** Fuzzy boundary between `research-argument-and-contribution` (P065) and `paper-sections-and-organization` (P159/P003) on "problem → question"; add a one-line cross-reference in each skill's "When to use". (agent-skills #5)
-- **N3** Identical byte-for-byte "Output" boilerplate across all 13 skills; optionally hint each skill's own deliverable shape. (agent-skills #7)
-- **N4** `role` verb list "plan, draft, revise, and present" — "draft" momentarily reads as authoring; disclaimer sentence + forbidden_behaviours resolve it. Optional: "plan, shape, revise, and prepare to present". (ai-agent #2)
-- **N5** Broad multi-domain identity (writing + slides + speaking + note-taking) under one advisor; not authority creep now, but re-verify forbidden_behaviours covers every sub-domain if extended. (ai-agent #3, profile #4)
-- **N6** `forbidden_behaviours[0]` (no ghostwriting) cites P080/P024 loosely — sound advice-only boundary but under-grounded; note as factory-standard design decision. Under-claims (safe direction). (faithfulness #5)
-- **N7** `inputs.required` is one dense catch-all bullet; split for skimmability on a future revision. (profile #5)
-
----
-
-Tool boundary confirmed correct: adapter `tools: Read, Grep, Glob`; `mcp: []`, `caller_supplied: []` — no write/exec/MCP grant despite an available `research-pipeline` server. Advisor/no-deliverable boundary, source-of-truth policy, and escalation owners all coherent.
-
-MUST_FIX_COUNT: 1
+MUST_FIX_COUNT: 3

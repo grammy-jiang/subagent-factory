@@ -1,6 +1,8 @@
 ---
 name: presenting-and-public-speaking
 description: >-
+  Guides preparing and delivering a research talk — building it around one idea,
+  a story-driven throughline, a teasing hook, rehearsal to time, and embodied delivery.
   Use when preparing or reviewing a talk: check that it is built around one idea with a
   signposted, story-driven throughline; that its opening hook or a format innovation (prop,
   interview, debate) teases rather than reveals; that it is rehearsed to fit within about
