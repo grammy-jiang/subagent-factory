@@ -1,6 +1,6 @@
 # Materials Catalog
 
-Every source processed in this repo — **296 items**, keyed by `sha256`.
+Every source processed in this repo — **297 items**, keyed by `sha256`.
 
 > **Generated file.** Refresh: `python -m tools.subagent_factory.materials_catalog build`
 >
@@ -231,6 +231,7 @@ Every source processed in this repo — **296 items**, keyed by `sha256`.
 | `e16b4082` | silva-canedo-chatbot-guidelines | markdown | 15381 | distillation-only | 33 | ux-design-advisor |
 | `867e7bf9` | simonwillison-lethal-trifecta | markdown | 1299 | distillation-only | 9 | mcp-security-advisor |
 | `0bea4daa` | site-reliability-eng-c0cfd161 | markdown | 193509 | distillation-only | 367 | devops-sre-advisor |
+| `dcd4803e` | skill-creator-skill | markdown | 5205 | distillation-only | 29 | agent-skills-advisor |
 | `3a6becc3` | skills | markdown | 660 | distillation-only | 10 | agent-skills-advisor |
 | `0bc9d804` | skills-explained | markdown | 2747 | distillation-only | 11 | agent-skills-advisor |
 | `6c7e6dd8` | Software Architecture in Practice | markdown | - | distillation-only | 234 | software-architecture |
