@@ -23,6 +23,7 @@ from pathlib import Path
 
 SUBAGENTS = "subagents"
 BACKUP_DIR = ".backups"
+ADAPTER_DIR = ".claude/agents/generated"
 
 
 def repo_root() -> Path:
@@ -81,6 +82,32 @@ def is_tracked(path: Path, root: Path) -> bool:
     )
 
 
+def orphan_adapters(root: Path) -> list[str]:
+    """Installed adapters that have no canonical ``subagents/<slug>/profile.yaml``.
+
+    Repo-level, not per-package: ``cli validate <slug>`` is invoked per package, so a package
+    that does not exist is never validated and its leftover adapter stays invisible to every
+    gate while remaining loadable by the runtime. That inverts the repository rule that
+    profile.yaml is canonical and the adapter is derived.
+
+    Found 2026-07-25: 14 adapters had outlived their packages — 8 whose packages existed only on
+    an unmerged local branch (deleting it would have made 8 working agents unreproducible) and 6
+    whose packages were on no ref at all. Nothing in CI could see any of them.
+
+    Checks the working tree, which in CI is the committed state — so CI catches a committed
+    adapter whose package was never committed, and the pre-push hook additionally catches an
+    untracked local one.
+    """
+    adapters = root / ADAPTER_DIR
+    if not adapters.is_dir():
+        return []
+    return sorted(
+        md.stem
+        for md in adapters.glob("*.md")
+        if md.stem != "README" and not (root / SUBAGENTS / md.stem / "profile.yaml").is_file()
+    )
+
+
 def validate_one(slug: str, root: Path) -> int:
     """Run `cli validate <slug>`; restore test-results.md if it got dirtied."""
     pkg = root / SUBAGENTS / slug
@@ -115,6 +142,24 @@ def main(argv: list[str]) -> int:
     args = ap.parse_args(argv)
 
     root = repo_root()
+
+    # Repo-level invariant, checked on EVERY invocation — deliberately before the
+    # "no packages changed" early return below, since an orphan adapter is exactly the case
+    # where no package changed and so nothing else would look.
+    if orphans := orphan_adapters(root):
+        print(
+            f"ADAPTER/PACKAGE MISMATCH: {len(orphans)} installed adapter(s) have no canonical "
+            f"package: {', '.join(orphans)}",
+            file=sys.stderr,
+        )
+        print(
+            "Each .claude/agents/generated/<slug>.md requires subagents/<slug>/profile.yaml "
+            "(profile.yaml is canonical; the adapter is derived). Commit the package, or remove "
+            "the adapter.",
+            file=sys.stderr,
+        )
+        return 1
+
     if args.all:
         slugs = slugs_all(root)
     elif args.range:
