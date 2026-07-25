@@ -3,6 +3,31 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.0] — 2026-07-25
+
+### Changed
+- **Review-loop round 2 fixes** (`reports/review-loop/research-career-advisor.r2.review.md`).
+- `skills/evaluation-metrics-and-research-judgment`: rewrote the `description:` frontmatter and every
+  `## When to use` bullet to anchor each trigger to the research domain (research-group brainstorming,
+  lab/publication metrics, screening PhD/postdoc applicants, expertise carried into a new subfield) and
+  added an out-of-scope carve-out for purely generic corporate-metrics/HR/hiring questions, so the router
+  can no longer fire this skill on a non-research judgment question (must-fix).
+- All 8 skills: adopted the conditional load-on-demand `## References` phrasing (from the funding skill)
+  so each reference load is gated by need, and trimmed each `## Purpose` to one sentence (the enumerated
+  checks live in `## When to use`/`## Procedure`) for token discipline. `provenance:` blocks and
+  `authored_from_digest` preserved verbatim.
+- `skills/funding-grants-and-research-proposals`: shortened the over-long `description:` (was 1194 chars,
+  over the 1024 frontmatter cap) to a single tight paragraph with the concrete trigger phrases.
+- `profile.yaml`: added a `when_not_to_use` bullet routing research-integrity / reproducibility audits
+  (misconduct, p-hacking, replication failure) to `research-integrity-reproducibility-advisor`; added a
+  third `handoff_rules` entry carrying the sibling-advisor referrals (research-writing-advisor for
+  craft-level writing; research-integrity-reproducibility-advisor for integrity/reproducibility); and
+  extended `role` to state why empirical-methods/evaluation review belongs inside the career remit
+  (methodological soundness as research survival, per Cohen/Hamming).
+- `provenance-ledger.md`: relabelled the advice-only **boundary** rows (`forbidden_behaviours[0-2]`,
+  `handoff_rules[0-2]`) as structural house-policy citing the topically-nearest principle for provenance
+  rather than as literal source restatements of advisor-vs-researcher ownership.
+
 ## [1.1.0] — 2026-07-25
 
 ### Changed

@@ -1,20 +1,16 @@
 ---
 name: funding-grants-and-research-proposals
 description: >-
-  Guides winning research funding and arguing for a proposal's importance and feasibility:
-  scoping an early-career grant to achievable projects, crediting related work and stating the
-  proposal's distinct contribution, and judging a project's impact, creativity, and any
-  impossibility claim. Checks that a major long-term idea is treated as exploratory with enough
-  advanced work included to demonstrate results within the award cycle, that related work is
-  searched and credited before a contribution is claimed, that a group bid is joined without
-  losing evidence of individual initiative, that impact is argued from an opened direction,
-  broad follow-on use, or advantage over established methods rather than asserted, that
-  creativity is judged by useful value and meaningful recombination rather than novelty or
-  difficulty alone, and that an impossibility claim is challenged by enumerating and testing its
-  assumptions. Use when drafting or reviewing a grant proposal's scope and horizon, when
-  related-work credit or funder targeting is being decided, when a project's importance or
-  creativity is being argued, or when a reviewer or authority has called a proposed result
-  infeasible or impossible.
+  Guides winning research funding and arguing a proposal's importance and feasibility. Use
+  when drafting or reviewing a grant proposal's scope and horizon — scoping an early-career
+  grant to achievable projects with enough advanced work to show results within the award
+  cycle; when related-work credit, a proposal's distinct contribution, or funder targeting is
+  being decided, including joining a group bid without losing evidence of individual
+  initiative; when a project's importance or creativity is being argued (impact from an opened
+  direction, broad follow-on use, or advantage over established methods; creativity by useful
+  value and meaningful recombination, not novelty or difficulty alone); or when a reviewer or
+  authority has called a proposed result infeasible or impossible and its assumptions must be
+  enumerated and tested.
 kind: skill
 status: ready
 provenance:
@@ -50,7 +46,7 @@ provenance:
 
 ## Purpose
 
-This skill guides winning research funding and arguing the importance and feasibility of proposed work. It checks that an early-career grant is built around important, achievable projects — treating a major long-term idea as exploratory and including enough advanced work to demonstrate results within the award cycle; that related work is searched and credited, the proposal's distinct contribution explained, credible group bids joined without surrendering needed evidence of individual initiative, and every genuinely-fitting funder permitted by the rules applied to; that a project's impact is assessed by whether it opens a direction, supports broad follow-on use, solves an important class of problems, or delivers a material advantage over established methods; that creativity is judged by useful value and meaningful recombination rather than novelty, execution difficulty, or popularity alone; and that an impossibility claim is challenged by enumerating its assumptions, testing their applicability, and obtaining another perspective when the frame may be narrow.
+This skill guides winning research funding and arguing the importance and feasibility of proposed work. `## When to use` and `## Procedure` carry the specific checks.
 
 ## When to use
 

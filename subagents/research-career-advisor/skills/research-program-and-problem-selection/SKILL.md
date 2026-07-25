@@ -50,7 +50,7 @@ provenance:
 
 ## Purpose
 
-This skill guides choosing and steering a body of research over a career. It orients the program around consequential questions the researcher can explain and partly own, letting the problems determine the techniques rather than the reverse; decomposes a long agenda into complete, distinct, publishable milestones disseminated promptly and never padded with repetitive fragments; sets worthy, demanding goals and prepares steadily for chance opportunities; reserves recurring strategic time to audit field direction and rank a portfolio of important problems by credible growth and attackability; maps important problems against methods to find and validate promising empty regions; judges when to begin significant work, persist through expected uncertainty, or abandon a problem once evidence shows persistence has become a trap; and keeps a manageable multi-project portfolio so a block, a field's decline, or a lost publication priority in one project does not halt output.
+This skill guides choosing and steering a body of research over a career. `## When to use` and `## Procedure` carry the specific checks.
 
 ## When to use
 
@@ -91,7 +91,7 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## References
 
-See `../../references/research-career-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/research-career-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.
+Consult `../../references/research-career-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-career-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 

@@ -44,16 +44,7 @@ provenance:
 ## Purpose
 
 This skill guides establishing an independent research identity and securing the terms to
-sustain it. It checks that collaboration is used without surrendering research identity —
-contributing distinctive ideas, clarifying authority and credit when incentives overlap, and
-initiating work the community can recognize as the researcher's own; that job-seeking presents
-evidence of initiative, intellectual leadership, collegiality, and a concrete first two-to-
-three-year agenda rather than unfocused breadth or willingness to do anything assigned; that
-each main project's expected output is aligned to the appointment horizon, pairing long work
-with shorter results and moving on if timely credited progress cannot be protected; that a
-result-oriented start-up package is negotiated and confirmed in writing while alternatives
-still provide leverage; and that the professional skills technical training omits are
-deliberately learned, with an experienced mentor cultivated outside the direct authority chain.
+sustain it. `## When to use` and `## Procedure` carry the specific checks.
 
 ## When to use
 
@@ -127,9 +118,7 @@ decision for the caller.
 
 ## References
 
-See `../../references/research-career-principles-index.md` for the full principle catalogue
-grouped by skill, and `../../references/research-career-evidence-notes.md` for how these
-principles are grounded and kept faithful to the sources.
+Consult `../../references/research-career-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-career-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 

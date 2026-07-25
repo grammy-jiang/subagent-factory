@@ -42,21 +42,8 @@ provenance:
 
 ## Purpose
 
-This skill guides evaluating where to train or work. It checks that an adviser is
-chosen for actually protecting access, guidance, continuity, and independent
-recognition — preferring an established adviser only when other mentoring
-qualities are comparable, never treating reputation as sufficient on its own —
-and that the adviser is judged through trainee evidence: accessibility, real
-guidance, support for beginners, group interaction, and whether members grasp the
-larger scientific purpose. It checks that a prospective group is researched with
-informed questions and a genuine complement between the candidate's goals and the
-group's work is explained; that a postdoc is selected against defined, concrete
-criteria rather than convenience; that a laboratory's management of priorities,
-resources, performance, collaboration, and internal mobility is investigated,
-since it governs both the constraint of and the escape from a poor supervisory
-fit; and that a research-lab publication record is weighed as a route to a later
-academic role only while the work stays scientifically significant and publicly
-visible.
+This skill guides evaluating where to train or work — an adviser, group, postdoc, or
+laboratory. `## When to use` and `## Procedure` carry the specific checks.
 
 ## When to use
 
@@ -144,10 +131,7 @@ the caller.
 
 ## References
 
-See `../../references/research-career-principles-index.md` for the full
-principle catalogue grouped by skill, and
-`../../references/research-career-evidence-notes.md` for how these principles
-are grounded and kept faithful to the sources.
+Consult `../../references/research-career-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-career-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 

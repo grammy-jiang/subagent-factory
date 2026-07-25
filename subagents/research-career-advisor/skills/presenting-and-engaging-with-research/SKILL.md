@@ -43,7 +43,7 @@ provenance:
 
 ## Purpose
 
-This skill guides communicating research and reading others' work. It checks that a talk is built as one rehearsed scientific story whose opening establishes the question, context, and importance at a depth fit for the audience, then connects methods and results to their significance; that important ideas are pushed through formal talks, written reports, and timely informal explanation, and sharpened by critiquing real presentations and adapting effective techniques; that every slide advances the scientific argument, omitting filler and admitting technical detail only when the intended audience needs it; and that papers are read in layers — mapping the problem and high-level contribution quickly, then spending most ideation effort challenging assumptions and devising alternatives.
+This skill guides communicating research and reading others' work. `## When to use` and `## Procedure` carry the specific checks.
 
 ## When to use
 
@@ -77,7 +77,7 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## References
 
-See `../../references/research-career-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/research-career-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.
+Consult `../../references/research-career-principles-index.md` only when a finding's principle needs its full source-grounded statement, or when the issue may belong to a sibling skill and you need to confirm which skill owns it. Consult `../../references/research-career-evidence-notes.md` only when the caller disputes a finding's grounding and you need its source basis.
 
 ## Provenance
 
