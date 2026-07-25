@@ -317,9 +317,15 @@ def _build_template_context(profile: dict) -> dict:
     modes = (profile.get("outputs") or {}).get("modes", [])
     tools = _determine_tools(profile)
 
-    # Build description: role + top triggers + top exclusion (Phase 9 rule), JSON-encoded into a
-    # valid single-line YAML scalar so an embedded quote can't break the adapter frontmatter.
-    description = _yaml_scalar(_compose_description(profile))
+    # Build the routing description. Prefer the profile's purpose-built ``router_description``
+    # when present: the mechanical ``role — Use when — Not for`` composition below truncates to
+    # the first two triggers + first exclusion, which silently drops later ``when_to_use`` domains
+    # and every sibling-advisor exclusion from the string Claude Code actually routes on. A hand-
+    # authored ``router_description`` names the full remit and is authoritative; fall back to the
+    # composed form only when it is absent. JSON-encoded into a valid single-line YAML scalar so an
+    # embedded quote can't break the adapter frontmatter.
+    router = " ".join((profile.get("router_description") or "").split())
+    description = _yaml_scalar(router or _compose_description(profile))
 
     kp = profile.get("knowledge_partition") or {}
     sot = profile.get("source_of_truth_policy") or {}
