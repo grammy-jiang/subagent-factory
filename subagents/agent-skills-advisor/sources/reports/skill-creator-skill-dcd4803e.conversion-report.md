@@ -1,9 +1,9 @@
-# Conversion Report — how-to-create-skills-50982633
+# Conversion Report — skill-creator-skill-dcd4803e
 
-**Source:** source.md
+**Source:** skill-creator-skill.md
 **Status:** ok
 **Converter:** map-reduce (pre-chunked markdown)
-**Generated:** 2026-07-25T09:58:35.981513+00:00
+**Generated:** 2026-07-25T09:58:36.160310+00:00
 
 ---
 
@@ -12,7 +12,7 @@
 | Metric | Value |
 |--------|-------|
 | Pages | — |
-| Words | 4264 |
+| Words | 5205 |
 | Headings | — |
 | Tables | — |
 | Figures | — |

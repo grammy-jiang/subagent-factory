@@ -4,24 +4,28 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P006
-  - P013
-  - P015
-  - P053
-  - P055
-  - P061
-  - P063
+  - P010
+  - P012
+  - P030
+  - P033
+  - P034
+  - P035
+  - P040
+  - P041
+  - P042
+  - P044
+  - P046
+  - P050
+  - P070
+  - P077
   - P078
-  - P090
-  - P092
+  - P089
+  - P094
+  - P096
   - P098
   - P099
-  - P103
-  - P108
-  - P110
-  - P112
-  - P116
-  - P124
+  - P104
+  - P117
   claims:
   - C00069
   - C00076
@@ -29,17 +33,17 @@ provenance:
   - C00103
   - C00104
   - C00105
-  - C00108
   - C00113
   - C00123
   - C00124
   - C00125
   - C00126
   - C00127
-  - C00130
+  - C00132
+  - C00134
   evidence: []
   source_anchors: []
-  authored_from_digest: 3fcedee48b176628921a9598e44de4a8c860a774c51784f196c3d500f17f3abe
+  authored_from_digest: 07e47134255b2ef46562a5d29d5ed02e03d7632ea5ab8e80d0fee2d562caacce
 ---
 
 
@@ -60,24 +64,28 @@ Prove and improve a skill's effect on agent behaviour with evaluation rather tha
 
 Work the practices the situation engages; each restates a promoted principle — apply it and cite the principle id.
 
-- Practice eval-driven development [P006].
-- Debug a skill by adjusting the dimension that fails [P013].
-- Treat skill evaluation as an iterative loop [P015].
-- Evaluate a skill with a baseline comparison [P053].
-- Test each skill against every model it will run [P055].
-- Iterate skills from real-world usage [P061].
-- Isolate each eval run with a clean context so only SKILL.md drives behaviour, using fresh subagent tasks where available or a separate session otherwise [P063].
-- Use blind A/B comparison [P078].
-- Treat agentic evals as end-to-end system tests and audit all confounders [P090].
-- Diagnose every inaccurate analytics-agent answer as one of three failure modes - concept-to-entity ambiguity, data staleness, or retrieval failure - and architect each stack layer to attack a specific one; the largest gains come [P092].
-- Separate infrastructure-reliability gains from capability gains [P098].
-- Understand each evaluation method's trade-offs before relying on it [P099].
-- Treat a wrong analytics answer as a mapping failure [P103].
-- Choose grader types by trade-off [P108].
-- Design a small, varied, realistic test set [P110].
-- Classify a skill as capability uplift or encoded preference before deciding what its evals must prove [P112].
-- Evaluate tool quality with realistic workflow tasks, realistic data, verifiable outcomes [P116].
-- Before deploying, test the skill with a three-class matrix [P124].
+- Build evaluations before writing extensive documentation and develop the Skill test-first [P010].
+- Use an independent, blinded A/B comparison to judge whether one Skill version or a Skill-enabled run is genuinely better than the alternative [P012].
+- Debug a skill by adjusting the dimension that fails [P030].
+- Evaluate a skill with a baseline comparison [P033].
+- Treat skill evaluation as an iterative loop [P034].
+- Test each Skill against every model it will run on and write instructions that work across all target models [P035].
+- Capture each run's total token count and duration immediately when the completion notification arrives [P040].
+- Use specific, objectively verifiable assertions and reusable scripts for programmatic checks; leave subjective qualities such as style or visual design to human review [P041].
+- Before optimizing a Skill description, build about 20 realistic trigger-evaluation queries balanced between should-trigger cases and genuine should-not-trigger near-misses [P042].
+- Maintain regression evals and rerun them when models or surrounding infrastructure change so behavioral regressions are visible before shipping [P044].
+- Isolate each eval run with a clean context so only SKILL.md drives behaviour, using fresh subagent tasks where available or a separate session otherwise [P046].
+- Evaluate and improve the model together with its harness [P050].
+- Diagnose every inaccurate analytics-agent answer as one of three failure modes - concept-to-entity ambiguity, data staleness, or retrieval failure - and architect each stack layer to attack a specific one; the largest gains come [P070].
+- Separate infrastructure-reliability gains from capability gains [P077].
+- Understand each evaluation method's trade-offs before relying on it [P078].
+- Treat a wrong analytics answer as a mapping failure [P089].
+- Choose grader types by trade-off [P094].
+- Design a small, varied, realistic test set [P096].
+- Classify a skill as capability uplift or encoded preference before deciding what its evals must prove [P098].
+- Treat agentic evals as end-to-end system tests and audit all confounders [P099].
+- Evaluate tool quality with realistic workflow tasks, realistic data, verifiable outcomes [P104].
+- Before deploying, test the skill with a three-class matrix [P117].
 
 ## Inputs
 
@@ -90,12 +98,12 @@ A prioritized set of recommendations. Per finding: name the specific skill mecha
 
 ## Anti-patterns to flag
 
-- Overlooking [P006]: Practice eval-driven development.
-- Overlooking [P013]: Debug a skill by adjusting the dimension that fails.
-- Overlooking [P015]: Treat skill evaluation as an iterative loop.
-- Overlooking [P053]: Evaluate a skill with a baseline comparison.
-- Overlooking [P055]: Test each skill against every model it will run.
-- Overlooking [P061]: Iterate skills from real-world usage.
+- Overlooking [P010]: Build evaluations before writing extensive documentation and develop the Skill test-first.
+- Overlooking [P012]: Use an independent, blinded A/B comparison to judge whether one Skill version or a Skill-enabled run is genuinely better.
+- Overlooking [P030]: Debug a skill by adjusting the dimension that fails.
+- Overlooking [P033]: Evaluate a skill with a baseline comparison.
+- Overlooking [P034]: Treat skill evaluation as an iterative loop.
+- Overlooking [P035]: Test each Skill against every model it will run on and write instructions that work across all target models.
 
 ## References
 
@@ -103,4 +111,4 @@ See `../../references/skill-format-and-frontmatter-reference.md`, `../../referen
 
 ## Grounding
 
-Derived from P006, P013, P015, P053, P055, P061, P063, P078, P090, P092, P098, P099, P103, P108, P110, P112, P116, P124, grounded in the fifty-eight ingested distillation-only sources on Agent Skills, subagents, MCP, evaluation, and context engineering across the Claude (Code + API), OpenAI Codex, and GitHub Copilot surfaces and the open Agent Skills standard. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`. Distillation-only: no verbatim source quotation.
+Derived from P010, P012, P030, P033, P034, P035, P040, P041, P042, P044, P046, P050, P070, P077, P078, P089, P094, P096, P098, P099, P104, P117, grounded in the fifty-nine ingested distillation-only sources on Agent Skills, subagents, MCP, evaluation, and context engineering across the Claude (Code + API), OpenAI Codex, and GitHub Copilot surfaces and the open Agent Skills standard. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`. Distillation-only: no verbatim source quotation.

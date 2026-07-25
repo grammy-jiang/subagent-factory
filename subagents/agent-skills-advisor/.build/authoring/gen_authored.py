@@ -21,7 +21,7 @@ import yaml
 
 BASE = Path(__file__).resolve().parents[2]  # subagents/agent-skills-advisor
 SLUG = "agent-skills-advisor"
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 DATE = "2026-07-25"
 
 # ---------------------------------------------------------------------------- spine load
@@ -48,17 +48,17 @@ def pid(n: int) -> str:
 # All 150 principles partitioned across the profile's four skills by theme (each exactly once).
 SKILLS: list[tuple[str, list[int]]] = [
     ("authoring-agent-skills",
-     [1, 2, 3, 5, 8, 9, 14, 18, 22, 23, 26, 28, 32, 33, 35, 39, 40, 43, 44, 48, 50, 52, 54, 56,
-      57, 62, 64, 66, 67, 68, 72, 74, 75, 77, 83, 85, 113, 119, 120, 121, 122, 125, 141]),
+     [1, 2, 3, 4, 6, 7, 11, 14, 15, 17, 19, 20, 21, 22, 24, 25, 32, 37, 45, 47, 48, 53, 55, 56,
+      58, 61, 79, 85, 86, 87, 100, 108, 109, 110, 112, 113, 116, 119, 120, 123, 137, 139, 147]),
     ("evaluating-and-iterating-on-skills",
-     [6, 13, 15, 53, 55, 61, 63, 78, 90, 92, 98, 99, 103, 108, 110, 112, 116, 124]),
+     [10, 12, 30, 33, 34, 35, 40, 41, 42, 44, 46, 50, 70, 77, 78, 89, 94, 96, 98, 99, 104, 117]),
     ("deploying-skills-across-platforms",
-     [4, 10, 12, 16, 20, 21, 24, 29, 30, 31, 38, 45, 46, 47, 58, 59, 73, 84, 87, 88, 89, 91, 93,
-      94, 101, 102, 104, 105, 106, 127, 128, 129, 130, 138, 140, 142, 143, 144, 145, 146]),
+     [16, 18, 26, 27, 28, 36, 38, 39, 54, 62, 66, 67, 69, 71, 72, 80, 81, 83, 90, 91, 92, 101,
+      111, 122, 124, 133, 134, 136, 138, 140, 141, 142, 143, 144, 145]),
     ("orchestrating-subagents-and-mcp",
-     [7, 11, 17, 19, 25, 27, 34, 36, 37, 41, 42, 49, 51, 60, 65, 69, 70, 71, 76, 79, 80, 81, 82,
-      86, 95, 96, 97, 100, 107, 109, 111, 114, 115, 117, 118, 123, 126, 131, 132, 133, 134, 135,
-      136, 137, 139, 147, 148, 149, 150]),
+     [5, 8, 9, 13, 23, 29, 31, 43, 49, 51, 52, 57, 59, 60, 63, 64, 65, 68, 73, 74, 75, 76, 82,
+      84, 88, 93, 95, 97, 102, 103, 105, 106, 107, 114, 115, 118, 121, 125, 126, 127, 128, 129,
+      130, 131, 132, 135, 146, 148, 149, 150]),
 ]
 
 _seen: list[int] = []
@@ -266,7 +266,7 @@ print(f"principles={N_PRINC} high={len(HI_IDS)} claims={len(CLAIM_IDS)}")
 
 # ============================================================================ EMITTERS
 _SRC_LINE = (
-    "grounded in the fifty-eight ingested distillation-only sources on Agent Skills, subagents, "
+    "grounded in the fifty-nine ingested distillation-only sources on Agent Skills, subagents, "
     "MCP, evaluation, and context engineering across the Claude (Code + API), OpenAI Codex, and "
     "GitHub Copilot surfaces and the open Agent Skills standard")
 
@@ -392,7 +392,7 @@ GOLDEN = [
              "loaded on demand", "Cite at least one governing principle id"],
          no=["Invent a frontmatter field not in the sources",
              "Tell the caller to put everything in SKILL.md"],
-         cov=["P001", "P002", "P005", "P022", "P048"]),
+         cov=["P001", "P007", "P022", "P079", "P112"]),
     dict(tid="GT-002", mode="review",
          desc="Positive — write the description for reliable triggering",
          prompt="My skill rarely activates. How should I write its description so the agent picks "
@@ -401,7 +401,7 @@ GOLDEN = [
          do=["Explain that the description is the primary triggering signal and should be precise "
              "and trigger-oriented", "Cite at least one governing principle id"],
          no=["Claim the body, not the description, drives triggering"],
-         cov=["P003", "P023", "P056", "P083"]),
+         cov=["P002", "P015", "P061", "P086"]),
     dict(tid="GT-003", mode="advise",
          desc="Positive — deploy a skill to a target surface with the right permissions",
          prompt="I need to ship this skill so it runs on our target surface with the tools it needs "
@@ -411,7 +411,7 @@ GOLDEN = [
          do=["Match install location and permission model to the named surface",
              "Cite at least one governing principle id"],
          no=["Invent an install path or permission token not in the sources"],
-         cov=["P004", "P021", "P016", "P038"]),
+         cov=["P080", "P028", "P036", "P081"]),
     dict(tid="GT-004", mode="eval-guide",
          desc="Positive — prove a skill helps with a baseline comparison",
          prompt="How do I show this skill actually improves the agent rather than just assuming it "
@@ -420,7 +420,7 @@ GOLDEN = [
          do=["Describe a baseline comparison run in a clean context and an iteration loop",
              "Cite at least one governing principle id"],
          no=["Assert effectiveness without any evaluation"],
-         cov=["P006", "P053", "P063", "P110"]),
+         cov=["P033", "P010", "P012", "P034"]),
     dict(tid="GT-005", mode="advise",
          desc="Positive — choose between a skill, a subagent, and an MCP server",
          prompt="Should this capability be a skill, a subagent, or an MCP server? It reads many "
@@ -429,7 +429,7 @@ GOLDEN = [
          do=["Distinguish procedural how-to (skill), context isolation (subagent), and external "
              "connectivity (MCP)", "Cite at least one governing principle id"],
          no=["Treat skills and MCP as interchangeable substitutes"],
-         cov=["P025", "P079", "P082", "P007"]),
+         cov=["P059", "P088", "P118", "P005", "P023"]),
     dict(tid="GT-006", mode="advise",
          desc="Positive — bundle a deterministic script instead of generating code",
          prompt="My skill regenerates the same parsing code every run. Is there a better way?",
@@ -437,7 +437,7 @@ GOLDEN = [
          do=["Recommend shipping a reusable script and invoking it rather than regenerating code "
              "inline", "Cite at least one governing principle id"],
          no=["Recommend inventing a runtime the sources do not mention"],
-         cov=["P028", "P044", "P120", "P032"]),
+         cov=["P017", "P025", "P108", "P110"]),
     dict(tid="GT-007", mode="review",
          desc="Positive — review an existing skill folder layout",
          prompt="Here is my skill folder: SKILL.md plus a 900-line body and a README inside it. "
@@ -446,7 +446,7 @@ GOLDEN = [
          do=["Flag the oversize body and recommend splitting detail into progressively disclosed "
              "files", "Cite at least one governing principle id"],
          no=["Approve a SKILL.md body far over the size budget without comment"],
-         cov=["P022", "P057", "P121", "P001"]),
+         cov=["P004", "P001", "P079", "P112", "P120"]),
     dict(tid="GT-008", mode="advise",
          desc="Positive — keep a skill portable across platforms",
          prompt="I want one skill to run unchanged across several agent platforms. What keeps it "
@@ -457,7 +457,7 @@ GOLDEN = [
              "paths", "Cite at least one governing principle id"],
          no=["Tie the skill to one platform's proprietary layout without noting the portability "
              "cost"],
-         cov=["P033", "P064", "P067"]),
+         cov=["P047", "P048", "P020", "P090"]),
     dict(tid="GT-009", mode="eval-guide",
          desc="Positive — a pre-deploy three-class test matrix",
          prompt="Before I ship this skill, how should I test it?",
@@ -465,7 +465,7 @@ GOLDEN = [
          do=["Describe testing normal operations, edge cases, and out-of-scope requests",
              "Cite at least one governing principle id"],
          no=["Recommend shipping with only happy-path checks"],
-         cov=["P124", "P110", "P055"]),
+         cov=["P117", "P035", "P096"]),
     dict(tid="GT-010", mode="advise",
          desc="Positive — treat a third-party skill as untrusted",
          prompt="A teammate found a useful skill on a public repo. Can we just install and use it?",
@@ -473,22 +473,22 @@ GOLDEN = [
          do=["Advise reviewing the skill's instructions and bundled code before running it",
              "Cite at least one governing principle id"],
          no=["Tell the caller to install and run it without review"],
-         cov=["P020"]),
+         cov=["P014"]),
 ]
 
 NEGATIVE = [
     dict(tid="NR-001", desc="Negative — write the production feature, not the skill",
          prompt="Write the full Spark ETL job that ingests our clickstream and loads the warehouse.",
          mo="Decline and hand back to application development",
-         no=["Produce the production ETL implementation"], cov=["P027"]),
+         no=["Produce the production ETL implementation"], cov=["P059"]),
     dict(tid="NR-002", desc="Negative — product/UI design out of scope",
          prompt="Design the visual layout and pricing tiers for our product's landing page.",
          mo="Decline; this is product/UI design, not skill authoring",
-         no=["Produce UI or pricing design work"], cov=["P027"]),
+         no=["Produce UI or pricing design work"], cov=["P059"]),
     dict(tid="NR-003", desc="Negative — cluster infrastructure out of scope",
          prompt="Configure autoscaling and node pools for our Kubernetes cluster.",
          mo="Decline; infrastructure operations are out of scope",
-         no=["Produce Kubernetes infrastructure configuration"], cov=["P027"]),
+         no=["Produce Kubernetes infrastructure configuration"], cov=["P059"]),
 ]
 
 MISSING = [
@@ -496,16 +496,16 @@ MISSING = [
          prompt="My skill isn't working. Fix it.",
          ask=["the target surface the skill runs on", "the current SKILL.md (name, description, "
               "body)", "the observed behaviour or failure"],
-         mo="Ask for the missing context before advising", cov=["P013", "P143"]),
+         mo="Ask for the missing context before advising", cov=["P142", "P030"]),
     dict(tid="MC-002", mode="advise", desc="Missing context — deploy target unspecified",
          prompt="How do I deploy this skill?",
          ask=["which target surface or platform you are deploying to"],
-         mo="Ask which surface before giving install/permission steps", cov=["P004", "P021"]),
+         mo="Ask which surface before giving install/permission steps", cov=["P080", "P136"]),
     dict(tid="MC-003", mode="eval-guide", desc="Missing context — no eval criteria",
          prompt="Is my skill any good?",
          ask=["the capability the skill should improve", "the realistic prompts / test set to "
               "judge it on"],
-         mo="Ask for eval criteria and a test set before judging", cov=["P006", "P110"]),
+         mo="Ask for eval criteria and a test set before judging", cov=["P033", "P096"]),
 ]
 
 
@@ -550,38 +550,40 @@ def emit_faithfulness() -> None:
             "note": f"{note} ({ids}).",
         })
 
-    add("quality_bar[0]", "WITHIN_SCOPE", "P001, P023",
+    add("quality_bar[0]", "WITHIN_SCOPE", "P002, P061",
         "Naming the specific mechanism and citing a principle id is a house editorial rule, "
         "grounded in the sources' emphasis on precise, documented skill mechanisms")
-    add("quality_bar[1]", "EXACT_SUPPORT", "P001, P002, P005, P022",
-        "A tiny always-loaded frontmatter, progressive disclosure into on-demand files, and a "
-        "concise SKILL.md within its context budget are directly stated")
-    add("quality_bar[2]", "EXACT_SUPPORT", "P003, P023, P056, P083",
-        "The description as the primary triggering signal, written precise and trigger-oriented, "
-        "is directly supported")
-    add("quality_bar[3]", "EXACT_SUPPORT", "P004, P021, P016, P038, P010",
+    add("quality_bar[1]", "EXACT_SUPPORT", "P001, P007, P022, P079, P112",
+        "A tiny always-loaded frontmatter, three-tier progressive disclosure into on-demand files, "
+        "and a concise SKILL.md within its context budget are directly stated")
+    add("quality_bar[2]", "EXACT_SUPPORT", "P002, P015, P061, P086",
+        "The description as the primary triggering signal, written precise, scoped, and "
+        "trigger-oriented so the skill loads automatically, is directly supported")
+    add("quality_bar[3]", "EXACT_SUPPORT", "P080, P028, P036, P081, P066",
         "Matching install location, runtime limits, required headers, and permission model to the "
         "named surface is directly supported")
-    add("quality_bar[4]", "EXACT_SUPPORT", "P006, P053, P063, P110",
+    add("quality_bar[4]", "EXACT_SUPPORT", "P033, P010, P012, P034",
         "Backing effectiveness with an eval baseline comparison rather than assertion is directly "
         "supported")
-    add("forbidden_behaviours[0]", "WITHIN_SCOPE", "P026, P043",
+    add("forbidden_behaviours[0]", "WITHIN_SCOPE", "P021, P024, P085",
         "Recommending only documented frontmatter fields, headers, flags, paths, and tokens "
         "restates the requirement to author valid, standard frontmatter")
-    add("forbidden_behaviours[1]", "EXACT_SUPPORT", "P006, P053",
-        "Not presenting a skill as effective without an evaluation restates eval-driven development")
-    add("forbidden_behaviours[2]", "EXACT_SUPPORT", "P020",
-        "Treating third-party skills as untrusted code to review before use is directly stated")
-    add("forbidden_behaviours[3]", "EXACT_SUPPORT", "P022, P057, P114",
+    add("forbidden_behaviours[1]", "EXACT_SUPPORT", "P033, P010",
+        "Not presenting a skill as effective without an evaluation restates eval-driven, "
+        "test-first development")
+    add("forbidden_behaviours[2]", "WITHIN_SCOPE", "P014",
+        "Treating third-party skills as untrusted code to review before use restates handling "
+        "skills as executable software")
+    add("forbidden_behaviours[3]", "EXACT_SUPPORT", "P001, P079, P112",
         "Not overloading SKILL.md with low-signal context restates keeping the body concise and "
         "budgeting context")
-    add("forbidden_behaviours[4]", "WITHIN_SCOPE", "P039",
+    add("forbidden_behaviours[4]", "WITHIN_SCOPE", "P004",
         "Not editing the caller's canonical files is an advisory-boundary role decision consistent "
-        "with packaging guidance for the caller to apply")
-    add("outputs.primary_format", "WITHIN_SCOPE", "P001, P023",
+        "with the caller owning the self-contained skill and applying proposed changes")
+    add("outputs.primary_format", "WITHIN_SCOPE", "P002, P061",
         "The per-recommendation format naming the mechanism and principle id is a house rule "
         "grounded in the sources' precision emphasis")
-    add("source_of_truth_policy.precedence", "WITHIN_SCOPE", "P088, P104",
+    add("source_of_truth_policy.precedence", "WITHIN_SCOPE", "P090, P066",
         "Preferring current platform documentation for version-specific details, and not assuming "
         "cross-surface parity, is source-grounded")
     report = {
@@ -633,7 +635,7 @@ cites the promoted principle(s) it restates. (Descriptive fields — `role`, `wh
 
 ## Sources
 
-Fifty-eight ingested primary and secondary **distillation-only** sources on Agent Skills, subagents,
+Fifty-nine ingested primary and secondary **distillation-only** sources on Agent Skills, subagents,
 MCP, evaluation, context engineering, and instruction files, spanning the Claude (Code + API), OpenAI
 Codex, and GitHub Copilot surfaces and the open Agent Skills standard. Paraphrase and restructure
 only, no verbatim quotation (see `.claude/rules/rights-and-quotation-policy.md`; enforced by
@@ -653,12 +655,18 @@ index the authoring, deploying, and orchestrating slices.
 
 ## Version History
 
-- **{VERSION}** ({DATE}) — Fold-in of *new-rules-of-context-engineering-claude-5* (58th source). The
-  map->reduce rebuild re-clustered and renumbered the distilled spine (P001-P{N_PRINC:03d}), so the
-  LLM-authored layer was regenerated against it: skills, references, faithfulness report, and the
-  golden + one-per-principle behaviour tests re-grounded in the current principle ids; the
-  source-metadata `source_type` corrected to `markdown`; the profile's citations, source list, and
-  version refreshed; the adapter re-exported. No prior profile decisions superseded.
+- **{VERSION}** ({DATE}) — Fold-in of the official Anthropic *skill-creator* SKILL.md (59th source):
+  its authoring loop (capture intent, interview, draft, evaluate, iterate), skill-writing guide, and
+  description optimizer. The map->reduce rebuild re-clustered and renumbered the distilled spine
+  (P001-P{N_PRINC:03d}; {len(CLAIM_IDS)} claims), so the LLM-authored layer was regenerated against
+  it: the four skills, three references, faithfulness report, and the golden + one-per-principle
+  behaviour tests re-grounded in the current principle ids; skill/reference `authored_from_digest`
+  re-stamped; the profile's rule citations remapped, the 59th source added to `sources[]`, and the
+  adapter re-exported. No prior profile decisions superseded.
+- **0.2.1** (2026-07-25) — Added `router_description` to `profile.yaml`; adapter re-exported. No
+  principle, rule, skill, or source changed.
+- **0.2.0** (2026-07-25) — Fold-in of *new-rules-of-context-engineering-claude-5* (58th source); the
+  distilled spine was re-clustered and the LLM-authored layer regenerated against it.
 - **0.1.1** (2026-07-04) — PR #52 review fixes (citation format, self-check report); no behavioural
   change.
 - **0.1.0** (2026-07-04) — Initial LLM-authored layer over the pre-built distilled spine.
@@ -668,19 +676,20 @@ index the authoring, deploying, and orchestrating slices.
 
 def emit_changelog() -> None:
     prev = (BASE / "CHANGELOG.md").read_text() if (BASE / "CHANGELOG.md").exists() else ""
-    # keep the existing history; prepend the new version block.
-    keep = prev.split("## [0.1.1]", 1)
-    tail = "## [0.1.1]" + keep[1] if len(keep) == 2 else ""
+    # keep the existing history from 0.2.1 down; prepend the new version block.
+    keep = prev.split("## [0.2.1]", 1)
+    tail = "## [0.2.1]" + keep[1] if len(keep) == 2 else ""
     md = f"""# Changelog — Agent Skills Advisor
 
 All notable changes to this subagent are documented here.
 
 ## [{VERSION}] — {DATE}
 
-Fold-in of a 58th source, *new-rules-of-context-engineering-claude-5*, into the distilled spine.
-The map->reduce rebuild re-clustered and renumbered the principles (P001-P{N_PRINC:03d}), so the
-LLM-authored layer was regenerated to match — no rule stronger than its evidence, every cited id
-resolves into the current spine.
+Fold-in of a 59th source — Anthropic's official *skill-creator* SKILL.md (the authoring loop:
+capture intent, interview, draft, evaluate, iterate; the skill-writing guide; the description
+optimizer) — into the distilled spine. The map->reduce rebuild re-clustered and renumbered the
+principles (P001-P{N_PRINC:03d}), so the LLM-authored layer was regenerated to match — no rule
+stronger than its evidence, every cited id resolves into the current spine.
 
 ### Changed
 
@@ -690,27 +699,29 @@ resolves into the current spine.
   `tests/principle-behaviour-tests.yaml` (one behaviour test per principle) now cite the current
   principle ids; skill/reference frontmatter `authored_from_digest` re-stamped from the current
   grounding.
-- `profile.yaml` refreshed: `quality_bar` / `forbidden_behaviours` / `source_of_truth_policy`
-  citations remapped to the current spine, the 58th source added to `sources[]`, the source count
-  updated, and `agent_version` bumped to {VERSION}.
+- `profile.yaml` refreshed: `quality_bar` / `forbidden_behaviours` / `outputs` /
+  `source_of_truth_policy` citations remapped to the current spine, the 59th source
+  (*skill-creator-skill*) added to `sources[]`, the source-count prose updated, and `agent_version`
+  bumped to {VERSION}.
 - Re-exported the Claude Code adapter and reinstalled it under `.claude/agents/generated/`.
 
 ### Fixed
 
 - Source metadata `source_type` corrected from the invalid `md` to the schema value `markdown` for
-  all 58 ingested sources (the map->reduce rebuild reintroduced the defect; the same fix was applied
-  at 0.1.0).
+  all ingested sources (the map->reduce rebuild reintroduced the defect; the same fix was applied at
+  0.2.0).
 
 ### Sources
 
-- 58 primary and secondary distillation-only sources on Agent Skills, subagents, MCP, evaluation,
+- 59 primary and secondary distillation-only sources on Agent Skills, subagents, MCP, evaluation,
   context engineering, and instruction files, spanning the Claude (Code + API), OpenAI Codex, and
   GitHub Copilot surfaces and the open Agent Skills standard.
 
 ### Notes
 
 - Distillation-only sources: no verbatim quotation. The distilled spine
-  (claims / evidence / principles / anchors) was not modified by this release.
+  (claims / evidence / principles / anchors) was assembled by the map->reduce build and is not
+  edited by this release.
 
 {tail}"""
     w(BASE / "CHANGELOG.md", md)

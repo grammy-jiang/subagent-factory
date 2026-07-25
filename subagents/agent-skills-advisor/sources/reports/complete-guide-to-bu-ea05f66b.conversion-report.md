@@ -3,7 +3,7 @@
 **Source:** source.md
 **Status:** ok
 **Converter:** map-reduce (pre-chunked markdown)
-**Generated:** 2026-07-25T02:00:23.013075+00:00
+**Generated:** 2026-07-25T09:58:36.066582+00:00
 
 ---
 

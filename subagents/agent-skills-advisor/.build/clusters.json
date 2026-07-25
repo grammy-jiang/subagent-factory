@@ -85,6 +85,14 @@
    {
     "idx": 436,
     "statement": "Write skills so they compose with other active capabilities and remain portable across intended Claude surfaces unless a dependency explicitly limits them."
+   },
+   {
+    "idx": 933,
+    "statement": "The description is the primary mechanism that decides whether Claude invokes a skill, so write it to state both what the skill does and the specific contexts for when to use it, keep all 'when to use' information there rather than in the body, and make it deliberately 'pushy' about triggering contexts to counter Claude's tendency to under-trigger."
+   },
+   {
+    "idx": 935,
+    "statement": "Keep the SKILL.md body under about 500 lines; when it grows, split into a hierarchy with explicit pointers to what to read next, reference bundled files with guidance on when to read them, give reference files over ~300 lines a table of contents, and organize multi-domain skills as one reference file per variant."
    }
   ]
  },
@@ -628,6 +636,10 @@
    {
     "idx": 758,
     "statement": "In the Markdown body (which has no format restrictions), provide step-by-step instructions, input/output examples, and common edge cases."
+   },
+   {
+    "idx": 937,
+    "statement": "Write instructions in the imperative and explain WHY each one matters instead of relying on heavy-handed all-caps MUSTs; use theory of mind, keep the skill general rather than tailored to specific examples, and pin any required output format with an exact template plus worked input/output examples."
    }
   ]
  },
@@ -645,6 +657,10 @@
    {
     "idx": 779,
     "statement": "Scope each skill as one coherent unit of work that composes with others; avoid scoping so narrowly that many skills must co-load with conflicting instructions, or so broadly that the skill cannot be activated precisely."
+   },
+   {
+    "idx": 936,
+    "statement": "A skill must never contain malware, exploit code, or security-compromising or misleading content, must not be designed to facilitate unauthorized access or data exfiltration, and its contents must not surprise the user relative to its stated intent; benign roleplay skills are acceptable."
    }
   ]
  },
@@ -826,6 +842,10 @@
    {
     "idx": 803,
     "statement": "For holistic comparison of two skill versions, use blind LLM comparison — present both outputs without revealing which version produced which — as a complement to assertion grading."
+   },
+   {
+    "idx": 947,
+    "statement": "For a rigorous judgment of whether a new skill version is actually better, run a blind A/B comparison -- give both outputs to an independent agent without revealing which is which, then analyze why the winner won."
    }
   ]
  },
@@ -843,6 +863,10 @@
    {
     "idx": 807,
     "statement": "Always include human review of outputs alongside automated grading, recording specific, actionable per-test feedback (empty feedback means the output passed), because assertions only check what you thought to test."
+   },
+   {
+    "idx": 929,
+    "statement": "Set up test cases for skills whose outputs are objectively verifiable (file transforms, data extraction, code generation, fixed workflows); for subjective-output skills (writing style, art) treat test cases as optional and let the user decide."
    }
   ]
  },
@@ -1695,6 +1719,10 @@
    {
     "idx": 853,
     "statement": "Load skill content in three progressive-disclosure tiers — catalog metadata at session start, the full SKILL.md body only on activation, and bundled resources only when the instructions reference them — to keep base context small while specialized knowledge stays available on demand."
+   },
+   {
+    "idx": 934,
+    "statement": "Exploit the three-level progressive-disclosure model -- ~100-word metadata always in context, the SKILL.md body loaded on trigger, and bundled resources (scripts/references/assets) loaded only as needed -- to keep context lean while allowing unbounded depth."
    }
   ]
  },
@@ -1959,6 +1987,10 @@
    {
     "idx": 350,
     "statement": "Retrieve a Skill-generated file through the Files API: extract its file ID from the code-execution tool result and download it, checking both the Python and bash result block types because either code-execution path may have produced the file."
+   },
+   {
+    "idx": 954,
+    "statement": "Package the finished skill with package_skill.py and present the resulting .skill file to the user, performing the present step only when the present_files tool is available."
    }
   ]
  },
@@ -2224,6 +2256,23 @@
   ]
  },
  {
+  "group": 199,
+  "members": [
+   {
+    "idx": 363,
+    "statement": "Choose the skill-creation path by situation: use Record & Replay to draft from a demonstration when the workflow is easier to show than describe, otherwise use the $skill-creator or author SKILL.md manually."
+   },
+   {
+    "idx": 927,
+    "statement": "Treat skill creation as an iterative draft -> test -> evaluate -> rewrite loop; figure out where the user already is in that loop and jump in to progress them, and only expand the test set for a larger-scale run once the small-scale loop is satisfying."
+   },
+   {
+    "idx": 928,
+    "statement": "Before drafting, capture and confirm the user's intent -- when the conversation already holds the workflow, extract the tools, step sequence, corrections, and I/O formats from history first -- and pin down what the skill enables, when it should trigger, its output format, and whether it needs test cases."
+   }
+  ]
+ },
+ {
   "group": 201,
   "members": [
    {
@@ -2481,6 +2530,10 @@
    {
     "idx": 794,
     "statement": "Run every test case both with the skill and against a baseline (no skill, or the previous version) so results can be compared rather than judged in isolation."
+   },
+   {
+    "idx": 939,
+    "statement": "Run the evaluate sequence as one continuous flow (never via /skill-test or another testing skill), spawning each test case's with-skill and baseline runs in the same turn; choose the baseline by context -- no skill at all for a new skill, a snapshot of the old skill for an improvement."
    }
   ]
  },
@@ -3192,6 +3245,45 @@
   ]
  },
  {
+  "group": 417,
+  "members": [
+   {
+    "idx": 791,
+    "statement": "Design a small, varied, realistic test set: begin with 2-3 cases, vary phrasing/detail/formality, include at least one edge or boundary case, and ground every prompt in realistic context (file paths, column names) rather than vague instructions."
+   },
+   {
+    "idx": 930,
+    "statement": "Interview for edge cases, input/output formats, example files, success criteria, and dependencies -- and do any available MCP or subagent research -- before writing test prompts."
+   }
+  ]
+ },
+ {
+  "group": 418,
+  "members": [
+   {
+    "idx": 798,
+    "statement": "Capture per-run token count and duration and treat output quality against time/token cost as an explicit trade-off; in Claude Code, save total_tokens and duration_ms from the completion notification immediately because they are not persisted elsewhere."
+   },
+   {
+    "idx": 941,
+    "statement": "Capture each run's total_tokens and duration_ms to timing.json the moment the task-completion notification arrives, because that is the only opportunity -- the data is not persisted anywhere else."
+   }
+  ]
+ },
+ {
+  "group": 419,
+  "members": [
+   {
+    "idx": 799,
+    "statement": "Write assertions that are verifiable, specific, or countable and avoid vague or brittle ones (e.g. exact-phrase matches); leave subjective qualities like style and visual design to human review instead of forcing them into pass/fail checks."
+   },
+   {
+    "idx": 940,
+    "statement": "While runs are in progress, draft objectively-verifiable, descriptively-named assertions (judge subjective skills qualitatively instead of forcing assertions), and check any programmatically-verifiable assertion with a written, reusable script rather than by eye."
+   }
+  ]
+ },
+ {
   "group": 426,
   "members": [
    {
@@ -3201,6 +3293,10 @@
    {
     "idx": 873,
     "statement": "Exempt skill content from context compaction and pruning, because silently losing durable skill instructions mid-session degrades performance with no visible error."
+   },
+   {
+    "idx": 945,
+    "statement": "Improve by generalizing from the handful of iteration examples to the skill's many future uses: strip instructions that are not earning their place (read the run transcripts, not just the final outputs), avoid overfitted fixes and constrictive MUSTs, treat all-caps ALWAYS/NEVER and rigid structure as a yellow flag to reframe with explained reasoning, and bundle any helper script that multiple runs independently reinvent under scripts/."
    }
   ]
  },
@@ -3231,6 +3327,19 @@
   ]
  },
  {
+  "group": 432,
+  "members": [
+   {
+    "idx": 820,
+    "statement": "Build a labeled eval set of realistic user prompts (about 20 queries, roughly balanced 8-10 should-trigger and 8-10 should-not-trigger) before attempting to improve a description."
+   },
+   {
+    "idx": 948,
+    "statement": "When optimizing a description, build about 20 realistic, concrete, detailed trigger eval queries split between should-trigger and should-not-trigger cases, and make the negatives genuine near-misses (shared keywords, different actual need) rather than obviously irrelevant queries that test nothing."
+   }
+  ]
+ },
+ {
   "group": 433,
   "members": [
    {
@@ -3240,6 +3349,10 @@
    {
     "idx": 827,
     "statement": "Revise by failure direction: broaden scope or add usefulness context when should-trigger queries miss, and add specificity or clarify boundaries with adjacent skills when should-not-trigger queries false-fire — without copying keywords from the failed queries."
+   },
+   {
+    "idx": 951,
+    "statement": "Design eval queries around how triggering actually works: Claude consults a skill only for tasks it cannot easily handle itself, so simple one-step queries may fail to trigger even a well-matched skill while complex, multi-step, or specialized queries trigger reliably -- make eval queries substantive enough to genuinely benefit from a skill."
    }
   ]
  },
@@ -3253,6 +3366,10 @@
    {
     "idx": 883,
     "statement": "Name every skill using only lowercase letters, numbers, and hyphens, match the SKILL.md 'name' to its parent directory name, keep it under 64 characters, and never add slashes, colons, dots, or namespace prefixes — invalid names make the skill silently fail to load."
+   },
+   {
+    "idx": 953,
+    "statement": "When updating an existing skill rather than creating one, preserve its original name and directory and edit a copy in a writeable location, since the installed path may be read-only."
    }
   ]
  },
@@ -3266,6 +3383,10 @@
    {
     "idx": 862,
     "statement": "Validate skill metadata leniently: warn but still load on cosmetic issues (name/directory mismatch, name over 64 characters), but skip and log the skill when the description is missing/empty or the YAML is completely unparseable."
+   },
+   {
+    "idx": 932,
+    "statement": "A SKILL.md must carry a name and a description in its YAML frontmatter plus markdown instructions; a compatibility field for tools/dependencies is optional and rarely needed."
    }
   ]
  },
