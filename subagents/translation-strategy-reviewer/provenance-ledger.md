@@ -37,6 +37,8 @@ the two references index and ground them.
 
 ## Version History
 
+- **1.0.2** (2026-07-25) — Restated the `router_description` out-of-scope clause by capability instead of naming sibling packages: generated subagents are independent of one another and the orchestrating session does the routing, so a routing string says what this agent does not cover rather than asserting which other package owns it. Also added that `router_description` in the first place (same day), for the routing-truncation reason above. Boundary content unchanged; adapter re-exported. Supersedes only same-day wording, not any principle or rule.
+
 - **1.0.0** (2026-07-13) — Initial LLM-authored layer over the pre-built distilled spine: profile
   (role, three modes, quality bar, forbidden behaviours, 12-skill / 2-reference
   knowledge partition), faithfulness report, 12 skills, 2 references, golden +

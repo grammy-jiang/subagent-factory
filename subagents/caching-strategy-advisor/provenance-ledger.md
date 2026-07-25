@@ -67,3 +67,7 @@ now a promoted principle (P013); it remains recorded here so the rule is not an 
 - **0.5.x** — Earlier map→reduce baseline over the same source with a 10-principle (`P001–P010`)
   spine. Its per-version bookkeeping was not preserved across the rebuild that produced the
   current 38-principle spine.
+
+## Version History
+
+- **0.6.1** (2026-07-25) — Added `router_description` to `profile.yaml`. The adapter frontmatter `description` is the string the runtime routes on; without this field the exporter composed it from the role plus only the first two `when_to_use` triggers and the first `when_not_to_use` exclusion, dropping the remaining domains from the routing signal. The authored description states the full remit and the advice-only boundary; adapter re-exported. No principle, rule, skill, or source changed — no prior profile decision is superseded.

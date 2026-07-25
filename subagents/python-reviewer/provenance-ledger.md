@@ -90,6 +90,8 @@ Ten skill stubs and two reference stubs are scaffolded under `skills/` and
 
 ## Version History
 
+- **0.3.2** (2026-07-25) — Added `router_description` to `profile.yaml`. The adapter frontmatter `description` is the string the runtime routes on; without this field the exporter composed it from the role plus only the first two `when_to_use` triggers and the first `when_not_to_use` exclusion, dropping the remaining domains from the routing signal. The authored description states the full remit and the advice-only boundary; adapter re-exported. No principle, rule, skill, or source changed — no prior profile decision is superseded.
+
 | Version | Date | Changes | Sources involved |
 |---------|------|---------|-----------------|
 | 0.1.0 | 2026-06-20 | Initial multi-source generation (Tier 2). | luciano-ramalho-flue-ca307a52, python-distilled-pea-1baf485f |
