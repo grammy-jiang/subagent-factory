@@ -14,6 +14,11 @@ def _valid_profile() -> dict:
         "status": "draft",
         "role": "An expert reviewer who evaluates designs for complexity and guides "
         "structural improvements grounded in named principles.",
+        # A valid profile authors its own routing string: with 3 triggers and 2 exclusions the
+        # composed fallback would drop one of each (check 19).
+        "router_description": "Reviews module interfaces for depth, diagnoses information "
+        "leaking between modules, and compares design alternatives. Not for bug fixes or "
+        "technology selection.",
         "when_to_use": [
             "A module interface is submitted for a depth review before merging.",
             "A team needs a diagnosis of where information is leaking between modules.",
@@ -327,16 +332,62 @@ def test_body_size_fail_includes_breakdown(tmp_path):
 
 def test_check_registry_numbers_are_contiguous_and_unique():
     # The check ordinal now lives in exactly one place — the _CHECKS registry.
-    # Guard the equivalence with the prior hard-coded numbering: 1..18, no gaps,
+    # Guard the equivalence with the prior hard-coded numbering: 1..19, no gaps,
     # no duplicates, run in ascending order.
     nums = [num for num, _ in _CHECKS]
-    assert nums == list(range(1, 19))
+    assert nums == list(range(1, 20))
     assert len(nums) == len(set(nums))
+
+
+def test_router_description_present_passes(tmp_path):
+    pkg = _write_package(tmp_path)
+    assert _finding(profile_self_check(pkg), 19)["level"] == "PASS"
+
+
+def test_missing_router_description_warns_when_composition_truncates(tmp_path):
+    # 3 triggers + 2 exclusions: the composed fallback keeps only 2 and 1, so the
+    # dropped scope never reaches the string the runtime routes on.
+    p = _valid_profile()
+    del p["router_description"]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)
+    assert finding["level"] == "WARNING"
+    assert "1 of 3 triggers" in finding["message"]
+    assert "1 of 2 exclusions" in finding["message"]
+
+
+def test_missing_router_description_passes_when_composition_is_lossless(tmp_path):
+    # 2 triggers + 1 exclusion all survive the composition, so there is nothing to warn about.
+    p = _valid_profile()
+    del p["router_description"]
+    p["when_to_use"] = p["when_to_use"][:2]
+    p["when_not_to_use"] = p["when_not_to_use"][:1]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)
+    assert finding["level"] == "PASS"
+    assert "lossless" in finding["message"]
+
+
+def test_missing_router_description_warns_on_dropped_sibling_handoff(tmp_path):
+    # A sibling hand-off must reach the router even when trigger/exclusion counts are lossless.
+    p = _valid_profile()
+    del p["router_description"]
+    p["when_to_use"] = p["when_to_use"][:2]
+    p["when_not_to_use"] = ["Craft-level writing belongs to research-writing-advisor."]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)
+    assert finding["level"] == "WARNING"
+    assert "research-writing-advisor" in finding["message"]
+
+
+def test_blank_router_description_is_treated_as_absent(tmp_path):
+    p = _valid_profile()
+    p["router_description"] = "   \n  "
+    assert (
+        _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)["level"] == "WARNING"
+    )
 
 
 def test_valid_profile_emits_one_finding_per_check(tmp_path):
     # Each registered check emits exactly its own numbered finding for a valid
-    # profile, so the findings set matches the registry numbers 1..18.
+    # profile, so the findings set matches the registry numbers 1..19.
     pkg = _write_package(tmp_path)
     result = profile_self_check(pkg)
     emitted = sorted(f["num"] for f in result["findings"])
