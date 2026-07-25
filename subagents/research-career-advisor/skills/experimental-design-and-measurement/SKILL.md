@@ -8,7 +8,9 @@ description: >-
   apparatus tuning and selection effects, that significance testing uses a valid sampling
   distribution and a preselected rejection region, that factorial designs carry only the
   interactions the claims require, and that instruments and reliability projections are
-  validated independently rather than trusted by default.
+  validated independently rather than trusted by default. Not for generic software QA or
+  business analytics with no empirical-study-soundness dimension; adjudicating suspected
+  p-hacking or misconduct belongs to research-integrity-reproducibility-advisor.
 kind: skill
 status: ready
 provenance:
@@ -44,8 +46,13 @@ provenance:
 
 ## Purpose
 
-This skill guides designing sound empirical studies and knowing when to trust their
-measurements. `## When to use` and `## Procedure` carry the specific checks.
+This skill guides designing sound empirical studies and judging whether their measurements
+can be trusted — checking that reported precision is treated as possibly optimistic until the
+uncertainty process accounts for apparatus tuning and selection effects and is verified by an
+independent check; that null-hypothesis tests use an appropriate sampling distribution and a
+preselected rejection region; that factorial designs carry only the factor combinations and
+interactions the claims require; and that instruments, telemetry, and accelerated-test
+reliability projections are validated independently rather than trusted by default.
 
 ## When to use
 

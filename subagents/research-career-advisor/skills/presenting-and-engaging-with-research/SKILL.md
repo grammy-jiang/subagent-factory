@@ -1,14 +1,14 @@
 ---
 name: presenting-and-engaging-with-research
 description: >-
-  Use when preparing or rehearsing a talk, deciding what belongs on a slide, choosing how to
-  explain a result informally or in a written report, or reading someone else's paper. Checks
-  that a talk's opening establishes the question, context, and importance at a depth fit for the
-  audience before connecting methods and results back to that significance; that an idea is
-  pushed through formal talks, written reports, and timely informal explanation and sharpened by
-  critiquing real presentations; that every slide advances the argument rather than padding it;
-  and that a paper is read in a fast mapping layer followed by a critical layer devoted to
-  challenging assumptions and devising alternatives.
+  Guides preparing and rehearsing a talk, deciding what belongs on a slide, explaining a result
+  informally or in a written report, and reading someone else's paper. Checks that a talk's opening
+  establishes the question, context, and importance at a depth fit for the audience before connecting
+  methods and results back to that significance; that an idea is pushed through formal talks, written
+  reports, and timely informal explanation and sharpened by critiquing real presentations; that every
+  slide advances the argument rather than padding it; and that a paper is read in a fast mapping layer
+  followed by a critical layer devoted to challenging assumptions and devising alternatives. Not for a
+  generic business presentation or slide deck with no research content.
 kind: skill
 status: ready
 provenance:
@@ -43,7 +43,7 @@ provenance:
 
 ## Purpose
 
-This skill guides communicating research and reading others' work. `## When to use` and `## Procedure` carry the specific checks.
+This skill guides communicating research and reading others' work — checking that a talk is one rehearsed scientific story that opens on the question, context, and importance at a depth fit for the audience before threading methods and results back to that significance; that important ideas travel through formal talks, written reports, and timely informal explanation, sharpened by critiquing real presentations; that every slide advances the argument rather than padding it; and that a paper is read in a fast mapping layer followed by a critical layer that challenges assumptions and devises alternatives.
 
 ## When to use
 

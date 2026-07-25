@@ -3,6 +3,33 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.3.0] — 2026-07-25
+
+### Changed
+- **Review-loop round 1 fixes** (`reports/review-loop/research-career-advisor.r1.review.md`).
+- **Adapter renderer (must-fix #1):** `tools/subagent_factory/export_claude_agent.py` now builds the
+  frontmatter `description` from the profile's `router_description` when present, falling back to the
+  mechanical composition only when it is absent. The old composition truncated to two `when_to_use`
+  triggers + one `when_not_to_use` exclusion, silently dropping the empirical-study/metric soundness
+  domain and both sibling-advisor exclusions from the string Claude Code routes on.
+- `profile.yaml`: extended `router_description` to name all five `when_to_use` domains and the two
+  sibling-advisor referrals; added an inline "structural house-policy, advice-only boundary" qualifier
+  to `forbidden_behaviours[0-2]` (should-fix #2); tightened `when_not_to_use[4]` to separate reviewing a
+  test procedure's statistical validity (in scope) from adjudicating p-hacking/misconduct (out of scope,
+  should-fix #4); softened `role`'s absolute "condition of research survival (Cohen, Hamming)" clause to
+  a descriptive register (#10); tightened `always_on[3]` "moving on" → "moving groups" to track P019 (#11).
+- Skills (7 of 8, all except `evaluation-metrics-and-research-judgment`): replaced the filler `## Purpose`
+  sentence + "carries the specific checks" pointer with a content-bearing purpose (should-fix #5); added a
+  negative-scope "Not for …" clause to the `description:` frontmatter (should-fix #6); normalized the
+  `presenting-…` and `early-career-…` descriptions from "Use when …" to "Guides …" (#8). `provenance:`
+  blocks preserved verbatim; only bodies/descriptions changed.
+- `reports/faithfulness-report.yaml`: added `WITHIN_SCOPE` coverage entries for `handoff_rules[2]`,
+  `source_of_truth_policy.canonical_owner`, all 8 `always_on[i]` blocks, and all 3 `examples[i]`
+  (should-fix #3 — the densest citation surface was previously unaudited).
+- `provenance-ledger.md`: recorded `canonical_owner` as a descriptive no-tag field (#12) and added the
+  1.3.0 Version History entry. No principle citation IDs on any surviving row changed; the distilled spine
+  is unchanged.
+
 ## [1.2.0] — 2026-07-25
 
 ### Changed

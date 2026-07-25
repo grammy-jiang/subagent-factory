@@ -12,7 +12,9 @@ description: >-
   a research problem, program, or agenda is being chosen, re-scoped, or
   broken into milestones; when field direction must be audited and a
   problem portfolio ranked or rebalanced; or when a difficult, uncertain
-  project's begin/persist/abandon status must be judged.
+  project's begin/persist/abandon status must be judged. Not for a generic
+  project-management or product-roadmap question with no research-agenda
+  dimension.
 kind: skill
 status: ready
 provenance:
@@ -50,7 +52,7 @@ provenance:
 
 ## Purpose
 
-This skill guides choosing and steering a body of research over a career. `## When to use` and `## Procedure` carry the specific checks.
+This skill guides choosing and steering a body of research over a career — orienting the agenda around consequential, ownable questions that determine the techniques, decomposing a long agenda into complete, distinct, publishable milestones, maintaining a ranked portfolio of important problems mapped against methods and attackability, and judging when to begin significant work, persist through expected uncertainty, or abandon a problem once evidence shows persistence has become a trap.
 
 ## When to use
 

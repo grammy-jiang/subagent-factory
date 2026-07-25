@@ -5,7 +5,8 @@ description: >-
   laboratory role. Use when weighing an established adviser's reputation against
   actual mentoring quality, when researching a prospective group or preparing for
   an interview, when comparing postdoc offers, or when evaluating an industrial or
-  government laboratory as a step toward a later career.
+  government laboratory as a step toward a later career. Not for a generic hiring, HR,
+  or vendor-selection question with no research-training dimension.
 kind: skill
 status: ready
 provenance:
@@ -42,8 +43,12 @@ provenance:
 
 ## Purpose
 
-This skill guides evaluating where to train or work — an adviser, group, postdoc, or
-laboratory. `## When to use` and `## Procedure` carry the specific checks.
+This skill guides evaluating where to train or work — a graduate adviser, research group,
+postdoc position, or industrial or government lab — by weighing actual mentoring quality
+over reputation, gathering trainee evidence before committing, scoring postdocs on a defined
+field and a path to visible results, and probing how a lab manages priorities, resources,
+and internal mobility, so the choice rests on protected access, guidance, credited output,
+and mobility rather than name recognition.
 
 ## When to use
 

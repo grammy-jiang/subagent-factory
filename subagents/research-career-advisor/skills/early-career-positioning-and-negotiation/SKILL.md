@@ -1,13 +1,14 @@
 ---
 name: early-career-positioning-and-negotiation
 description: >-
-  Use when establishing an independent research identity inside a collaboration, preparing a
-  job search, scoping projects against a fixed-term appointment, or negotiating and confirming
+  Guides establishing an independent research identity inside a collaboration, preparing a
+  job search, scoping projects against a fixed-term appointment, and negotiating and confirming
   a start-up offer: checks that collaborative work still yields distinctive, recognizable
   contributions; that an application presents initiative, leadership, collegiality, and a
   concrete first agenda; that project scope is matched to the appointment clock; and that the
   offer, professional skills, and outside mentorship are deliberately secured rather than left
-  to chance.
+  to chance. Not for a generic corporate job search, salary negotiation, or HR matter with no
+  research-career dimension.
 kind: skill
 status: ready
 provenance:
@@ -44,7 +45,13 @@ provenance:
 ## Purpose
 
 This skill guides establishing an independent research identity and securing the terms to
-sustain it. `## When to use` and `## Procedure` carry the specific checks.
+sustain it — checking that collaborative work still yields distinctive, recognizable
+contributions and clarified credit; that a job application shows initiative, intellectual
+leadership, collegiality, and a concrete first two-to-three-year agenda rather than
+unfocused breadth; that each project's scope is matched to the appointment horizon, pairing
+long work with shorter credited results; and that the start-up package, the professional
+skills technical training omits, and a mentor outside the direct authority chain are
+deliberately secured while leverage remains.
 
 ## When to use
 

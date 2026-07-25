@@ -10,7 +10,8 @@ description: >-
   direction, broad follow-on use, or advantage over established methods; creativity by useful
   value and meaningful recombination, not novelty or difficulty alone); or when a reviewer or
   authority has called a proposed result infeasible or impossible and its assumptions must be
-  enumerated and tested.
+  enumerated and tested. Not for generic business, startup, or nonprofit grant-writing with no
+  research-proposal dimension.
 kind: skill
 status: ready
 provenance:
@@ -46,7 +47,7 @@ provenance:
 
 ## Purpose
 
-This skill guides winning research funding and arguing the importance and feasibility of proposed work. `## When to use` and `## Procedure` carry the specific checks.
+This skill guides winning research funding and arguing a proposal's importance and feasibility — scoping an early-career grant to important, achievable projects with enough advanced work to show results within the award cycle, crediting related work while explaining the proposal's distinct contribution and pursuing every fitting funder, arguing impact by an opened direction or advantage over established methods and creativity by useful value rather than novelty alone, and challenging an infeasibility verdict by enumerating and testing its assumptions.
 
 ## When to use
 
